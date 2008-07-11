@@ -1,0 +1,32 @@
+Cryptopus
+
+= WARNING =
+
+Please remember that putting all your 
+passwords together in database and make
+this database accessible over the internet
+might be a relevant security thread and risk. 
+As well at the end the security on these 
+passwords will only lie in the security of your 
+SSL-secured connection (never use an unencrypted
+connection!), as well (and this is the main
+point) in the security of your main password.
+So be wise while using it, choose a good 
+password. And cryptopus won't make your 
+passwords more secure! It gives you only the 
+possibility to manage them in a nice way, 
+store them in a safe manner and share them with 
+other peoples you'd like to.
+
+= Requirements =
+
+* MySQL
+* LDAP as a UserDirectory
+* Memcache
+
+= Installation Notes =
+
+== Memcached ==
+
+* http://wiki.rubyonrails.org/rails/pages/MemCached
+

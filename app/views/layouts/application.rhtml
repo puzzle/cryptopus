@@ -1,0 +1,56 @@
+<%
+# $Id$
+
+# Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+        <title>Cryptopus</title>
+        <%= stylesheet_link_tag 'cryptopus' %>
+        <%= stylesheet_link_tag 'main_navigation' %>
+</head>
+    <body>
+    <div id="wrap">
+    	<div id="header">
+        	<%= image_tag("cryptopus_top.png") %>
+		</div>
+    
+        <div id="main">
+        	<div id="messages">
+    			<% unless flash[:notice].blank? %>
+        			<div id="notification"><%= flash[:notice] %></div>
+    			<% end %>
+    			<% unless flash[:error].blank? %>
+        			<div id="error"><%=image_tag("status_unknown.png") + " " +  flash[:error] %></div>
+    			<% end %>
+			</div>            
+			<%= render :partial => 'layouts/navigation' %>
+			<div id="content">            
+        		<%= yield  %>
+				<p class="clearer"/>
+			</div>
+			<div id="footer">
+				<p>Cryptopus 2008</p>	
+			</div>
+        </div>
+	</div>
+    </body>
+</html>

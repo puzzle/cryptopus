@@ -1,0 +1,38 @@
+<%
+# $Id$
+
+# Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-%>
+
+<% form_tag :action => 'selfrecrypt' do %>
+	<fieldset>
+	<legend>New password?!</legend>
+		<p>Your LDAP Password has changed until you last logged in.<br/>
+		Please enter your old LDAP Passwort to decrypt your Private_key.</p>
+    	<label for="uncrypterror_oldpassword"><%= password_field_tag :oldpassword, params[:oldpassword] %>Your old LDAP Password</label><br/>
+    	<label for="uncrypterror_newpassword"><%= password_field_tag :newpassword, params[:newpassword] %>Your LDAP Password</label>
+		<label for="submit"><%= submit_tag "Recrypt" %></label>
+	</fieldset>
+<% end %>
+<% form_tag :action => 'registerrequest' do %>
+	<fieldset>
+	<legend>Forgot your password?!</legend>
+		<p>If you forgot your password, you can send a recrypt request to the root, but after that you have to wait until he has recrypted your passwords.</p>
+    	<label for="uncrypterror_newpassword"><%= password_field_tag :newpassword, params[:newpassword] %>Your LDAP Password</label>
+    	<label for="submit"></label><%= submit_tag "Send request" %></label>
+	</fieldset>
+<%end%>
+<br>

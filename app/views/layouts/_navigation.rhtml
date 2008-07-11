@@ -1,0 +1,47 @@
+<%
+# $Id$
+
+# Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-%>
+
+<div id="navcontainer">
+<ul>
+<% if session[:uid] %>
+	<li>
+      <%= link_to image_tag("exit.png") + " Logout", :controller => 'login', :action => 'logout' %>
+    </li>
+	<%= render_menu %>
+    <% if session[:uid] == "0" %>
+	  </ul>
+	  <h2>Root:</h2>
+	  <ul>
+      <li id="active">
+        <%= link_to image_tag("configure.png") + " LDAP settings", :controller => 'ldapsettings', :action => 'edit' %>
+      </li>
+      <li>
+        <%= link_to image_tag("flag.png") + " Recrypt requests", :controller => 'recryptrequests', :action => 'list' %>
+      </li>
+      <li>
+        <%= link_to image_tag("edit_user.png") + " Change password", :controller => 'login', :action => 'pwdchange' %>
+      </li>
+    <% end %>
+ <% else %>
+ 	<li>
+ 		<%= link_to image_tag("previous.png") + ' Login', :action => 'login' %>
+	</li>
+<% end %>
+  </ul>
+</div>

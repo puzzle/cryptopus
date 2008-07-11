@@ -1,0 +1,40 @@
+<%
+# $Id$
+
+# Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-%>
+
+<h1>Your teams</h1>
+  <table>
+    <tr>
+      <th>Team</th>
+      <th>Description</th>
+      <th colspan="3">Actions</th>
+    </tr>
+    <% @team_list.each do |team_id, data| %>
+      <tr class="<%= cycle( 'odd', 'even' ) %>">
+        <td><%= link_to image_tag( "kontact_contacts.png" ) + " " + %Q{#{data[:team].name}}, :controller => "groups", :action => 'list', :team_id => team_id %></td>
+        <td><%= data[:team].description %></td>
+        <% if data[:admin] == true %>
+		  <td><%= link_to image_tag( "edit.png" ), :action => 'edit', :id => team_id %></td>
+          <td><%= link_to image_tag( "remove.png" ), { :action => 'destroy', :id => team_id }, :confirm => 'Are you sure?', :method => :post %></td>
+		<% else %>
+		  <td></td>
+		  <td></td>
+		<% end %>
+      </tr>
+    <% end %>
+  </table>

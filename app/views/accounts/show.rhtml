@@ -1,0 +1,45 @@
+<% 
+# $Id$
+
+# Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-%>
+
+<h1>Account: <%= @account.accountname %></h1>
+<div>
+  <p><strong>Username:</strong> <%= @account.username %></p>
+  <p><strong>Password:</strong> <%= @account.password %></p>
+  <p><strong>Description:</strong> <%= @account.description %></p>
+  <br/><br/>
+    <strong>Attachments:</strong>
+    <table>
+        <tr>
+            <th>File</th>
+            <th>Actions</th>
+            <th>Description</th>
+        </tr>
+        <% for item in @items %>
+            <tr>
+                <td><b><%= item.filename %></b><br/>
+                    <%= image_tag("encrypted.png") %></td>
+                <td><%= link_to image_tag( "viewmag.png" ) + ' Show', :action => 'send_attachment', :id => item.id, :disposition => 'inline' %><br />
+                    <%= link_to image_tag( "kget.png" ) + ' Download', :action => 'send_attachment', :id => item.id, :disposition => 'attachment' %><br />
+                    <%= link_to image_tag( "remove.png" ) + ' Destroy', { :action => 'destroy_attachment', :id => item.id }, :confirm => 'Are you sure?', :method => :post %></td>
+                <td valign="top"><%= item.description %></td>
+            </tr>
+        <% end %>
+    </table>
+    <br>
+</div>
