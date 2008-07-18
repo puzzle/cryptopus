@@ -15,8 +15,7 @@ possibility to manage them in a nice way, store them in a safe manner and share
 them with other people you'd like to.
 
 = Requirements =
-
-* MySQL
+ 
 * LDAP as a UserDirectory
 * Memcache
 
