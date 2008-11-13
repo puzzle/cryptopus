@@ -15,7 +15,7 @@ development:
   adapter: mysql
   #socket: /var/lib/mysql/mysql.sock
   database: cryptopus_development
-  username: root
+  username: cryptopus
   password: yourpass
   host: localhost
 

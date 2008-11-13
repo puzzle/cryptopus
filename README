@@ -25,3 +25,7 @@ them with other people you'd like to.
 
 * http://wiki.rubyonrails.org/rails/pages/MemCached
 
+== Database ==
+
+mysql> create database cryptopus_production;
+mysql> grant all on cryptopus_production.* to 'cryptopus'@'localhost' identified by 'mypass'
