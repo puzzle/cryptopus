@@ -20,9 +20,9 @@
 <%= error_messages_for 'account' %>
 
 <!--[form:account]-->
-<label for="account_accountname"><%= text_field 'account', 'accountname'  %>Account</label>
-<label for="account_username"><%= text_field :username, params[:username]  %>Username</label>
-<label for="account_password"><%= password_field :password, params[:password]  %>Password</label>
-<label for="account_description"><%= text_area 'account', 'description', options = { :cols => 35 }  %>Description</label>
+<label for="account_accountname"><%= text_field 'account', 'accountname' %>Account</label>
+<label for="account_username"><%= text_field 'account', 'username' %>Username</label>
+<label for="account_password"><%= password_field 'account', 'password' %>Password</label>
+<label for="account_description"><%= text_area 'account', 'description', options = { :cols => 35 } %>Description</label>
 <!--[eoform:account]-->
 
