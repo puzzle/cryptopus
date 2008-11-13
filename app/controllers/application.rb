@@ -88,7 +88,7 @@ protected
   end
 
   def prepare_menu
-    if File.exist?("#{RAILS_ROOT}/app/views/#{controller_name}/_#{action_name}_menu.rhtml")  
+    if File.exist?("#{RAILS_ROOT}/app/views/#{controller_name}/_#{action_name}_menu.html.erb")  
       @menu_to_render = "#{controller_name}/#{action_name}_menu"
     else
       @menu_to_render = nil
