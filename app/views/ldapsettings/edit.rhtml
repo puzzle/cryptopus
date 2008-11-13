@@ -18,7 +18,7 @@
 -%>
 
 <h1>Edit LDAP settings</h1>
-<% form_tag :action => 'update', :id => @ldapsetting do %>
+<% form_tag :action => 'edit', :id => @ldapsetting do %>
 	<fieldset>
   		<%= render :partial => 'form' %>
   		<label for="submit"><%= submit_tag 'Save' %></label>
