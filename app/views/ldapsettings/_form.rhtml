@@ -20,9 +20,9 @@
 <%= error_messages_for 'ldapsetting' %>
 
 <!--[form:ldapsetting]-->
-<label for="ldapsetting_basename"><%= text_field 'ldapsetting', 'basename', "size" => 50  %>Basename</label>
+<label for="ldapsetting_basename"><%= text_field 'ldapsetting', 'basename' %>Basename</label>
 <label for="ldapsetting_hostname"><%= text_field 'ldapsetting', 'hostname'  %>Hostname</label>
-<label for="ldapsetting_portnumber"><%= text_field 'ldapsetting', 'portnumber'  %>Portnumber</label>
+<label for="ldapsetting_portnumber"><%= text_field 'ldapsetting', 'portnumber'  %>Port</label>
 <label for="ldapsetting_encryption"><%= select("ldapsetting", "encryption", { 'none' => "none", 'SSL/TLS' => "simple_tls" }) %>Encryption</label>
 <!--[eoform:ldapsetting]-->
 
