@@ -50,8 +50,7 @@ class AccountsController < ApplicationController
       end
       
       @account = Account.find(:first, :conditions => ["id = ?", session[:active_account_id]] )
-      @account.username = CryptUtils.decrypt_blob( @account.username, get_team_password )
-      @account.password = CryptUtils.decrypt_blob( @account.password, get_team_password )
+      decrypt_account
       @items = Item.find( :all, :conditions => ["account_id = ?", session[:active_account_id]] )
 
     rescue StandardError => message
@@ -88,17 +87,12 @@ class AccountsController < ApplicationController
 
   def new
     if request.get?    
-      @account = Account.new
     else
       begin
-        params[:username] = "none" if params[:username] == "" or params[:username].nil?
-        params[:password] = "none" if params[:password] == "" or params[:password].nil?
         @account = Account.new( params[:account] )
+	crypt_account
         @account.created_on = Time.now
-        @account.updated_on = Time.now
         @account.group_id = session[:active_group_id]
-        @account.username = CryptUtils.encrypt_blob( params[:username], get_team_password )
-        @account.password = CryptUtils.encrypt_blob( params[:password], get_team_password )
         @account.save
       
       rescue StandardError => message
@@ -115,9 +109,8 @@ class AccountsController < ApplicationController
     if request.get?
       begin
         @account = Account.find(:first, :conditions => [ "id=?", params[:id] ] )
-        params[:username] = CryptUtils.decrypt_blob( @account.username, get_team_password )
-        params[:password] = CryptUtils.decrypt_blob( @account.password, get_team_password )
-        @groups = Group.find( :all, :conditions => [ "team_id=?", session[:active_team_id] ] )
+        decrypt_account
+	@groups = Group.find( :all, :conditions => [ "team_id=?", session[:active_team_id] ] )
       
       rescue StandardError => message
         flash[:error] = message
@@ -125,12 +118,8 @@ class AccountsController < ApplicationController
       end
     else      
       begin
-        params[:username] = "none" if params[:username] == "" or params[:username].nil?
-        params[:password] = "none" if params[:password] == "" or params[:password].nil?
         @account = Account.find(:first, :conditions => [ "id=?", params[:id] ] )
-        @account.updated_on = Time.now
-        @account.username = CryptUtils.encrypt_blob( params[:username], get_team_password )
-        @account.password = CryptUtils.encrypt_blob( params[:password], get_team_password )
+        crypt_account
         @account.update_attributes( quote(params[:account]) )
   
       rescue StandardError => message
@@ -187,8 +176,21 @@ class AccountsController < ApplicationController
   end
 
   def destroy
-    Account.find(:first, :conditions => ["group_id = ?", params[:id] ]).destroy
+    Account.find( params[:id] ).destroy
     redirect_to :action => 'list'
   end
-  
+
+  def crypt_account
+    @account.username = "none" if @account.username == "" or @account.username.nil?
+    @account.password = "none" if @account.password == "" or @account.password.nil?
+    @account.username = CryptUtils.encrypt_blob @account.username, get_team_password
+    @account.password = CryptUtils.encrypt_blob @account.password, get_team_password
+    @account.updated_on = Time.now
+  end
+
+  def decrypt_account
+    @account.username = CryptUtils.decrypt_blob( @account.username, get_team_password )
+    @account.password = CryptUtils.decrypt_blob( @account.password, get_team_password )
+  end
+
 end
