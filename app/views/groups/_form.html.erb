@@ -17,11 +17,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<%= error_messages_for 'group' %>
-
 <!--[form:group]-->
-<label for="group_name"><%= text_field 'group', 'name'  %>Groupname</label>
-<label for="group_description"><%= text_area 'group', 'description', options = {:cols => 35}  %>Description</label>
+<% form_for([@team, @group]) do |f| %>
+  <%= f.error_messages %>
 
+  <%= f.text_field :name %>
+  <%= f.label :name %><br/>
+
+  <%= f.text_area :description, options = {:cols => 35} %>
+  <%= f.label :description %>
+
+  <%= f.submit @submit_button_text %>
+<% end %>
 <!--[eoform:group]-->
 

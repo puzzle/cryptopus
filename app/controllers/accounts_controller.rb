@@ -18,167 +18,9 @@
 require 'ldap_tools'
 
 class AccountsController < ApplicationController
-  def index
-    redirect_to :action => 'list'
-  end
+  before_filter :load_parents
 
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
-  def list
-    unless params[:group_id].nil? 
-      session[:active_group_id] = params[:group_id]
-    end
-    if session[:active_group_id].nil?
-      redirect_to :controller => 'groups', :action => 'list'
-      return
-    end
-    @accounts = Account.find(:all, :conditions => ["group_id = ?", session[:active_group_id]])
-    @group_name = Group.find(:first , :conditions => ["id = ?", session[:active_group_id]]).name
-    @team_name = Team.find(:first , :conditions => ["id = ?", session[:active_team_id]]).name
-  end
-
-  def show
-    begin
-      unless params[:id].nil?
-        session[:active_account_id] = params[:id];
-      end
-      if session[:active_account_id].nil?
-        redirect_to :action => 'list'
-        return
-      end
-      
-      @account = Account.find(:first, :conditions => ["id = ?", session[:active_account_id]] )
-      decrypt_account
-      @items = Item.find( :all, :conditions => ["account_id = ?", session[:active_account_id]] )
-
-    rescue StandardError => message
-      flash[:error] = message
-      redirect_to :action => 'list'
- 
-    end
-  end
-  
-  def move
-    begin
-      @account = Account.find(:first, :conditions => ["id = ?", session[:active_account_id] ] )
-      @groups = Group.find(:all, :conditions => [ "team_id=?", session[:active_team_id] ] )
-    
-    rescue StandardError => message
-      flash[:error] = message
-      render :action => 'list'
-    end
-  end
-  
-  def change_group
-    begin
-      changed_account = Account.find(:first, :conditions => ["id = ?", session[:active_account_id] ] )
-      changed_account.group_id = params[:new_group][:new_group_id]
-      changed_account.save
-      flash[:notice] = "Account was successfully moved"
-      redirect_to :action => 'list'
-      
-    rescue StandardError => message
-      flash[:error] = message
-      redirect_to :action => 'list'
-    end
-  end
-
-  def new
-    if request.get?    
-    else
-      begin
-        @account = Account.new( params[:account] )
-	crypt_account
-        @account.created_on = Time.now
-        @account.group_id = session[:active_group_id]
-        @account.save
-      
-      rescue StandardError => message
-        flash[:error] = message
-        render :action => 'new'
-        return
-      end
-      flash[:notice] = 'Account was successfully created.'
-      redirect_to :action => 'list'
-    end
-  end
-
-  def edit
-    if request.get?
-      begin
-        @account = Account.find(:first, :conditions => [ "id=?", params[:id] ] )
-        decrypt_account
-	@groups = Group.find( :all, :conditions => [ "team_id=?", session[:active_team_id] ] )
-      
-      rescue StandardError => message
-        flash[:error] = message
-        render :action => 'list'
-      end
-    else      
-      begin
-        @account = Account.find(:first, :conditions => [ "id=?", params[:id] ] )
-        crypt_account
-        @account.update_attributes( quote(params[:account]) )
-  
-      rescue StandardError => message
-        flash[:error] = message
-        render :action => 'edit'
-        return
-        
-      end
-      flash[:notice] = 'Account was successfully updated.'
-      redirect_to :action => 'show', :id => @account
-    end
-  end
-  
-  def post_attachment
-    begin
-      @item = Item.new
-      @item.account_id = session[:active_account_id]
-      @item.description = params[:description]
-      @item.filename = params[:file].original_filename
-      @item.content_type = params[:file].content_type
-      @item.file = CryptUtils.encrypt_blob( params[:file].read, get_team_password )
-      @item.created_on = Time.now
-      @item.updated_on = Time.now
-      @item.save
-      
-    rescue StandardError => message
-      flash[:error] = message      
-    end
-    redirect_to :action => 'show'
-  end
-  
-  def send_attachment
-    begin
-      @item = Item.find(:first, :conditions => ["id = ?", params[:id] ] )
-      file = CryptUtils.decrypt_blob( @item.file, get_team_password )
-      send_data file, :filename => @item.filename , :type => @item.content_type, :disposition => params[:disposition]
-    
-    rescue StandardError => message
-      flash[:notice] = message
-      redirect_to :action => 'show'
-      
-    end
-  end
-  
-  def destroy_attachment
-    begin
-      Item.find(:first, :conditions => ["id = ?", params[:id] ]).destroy
-      
-    rescue StandardError => message
-      flash[:notice] = message
-    
-    end
-    redirect_to :action => 'show'
-  end
-
-  def destroy
-    Account.find( params[:id] ).destroy
-    redirect_to :action => 'list'
-  end
+private
 
   def crypt_account
     @account.username = "none" if @account.username == "" or @account.username.nil?
@@ -189,8 +31,101 @@ class AccountsController < ApplicationController
   end
 
   def decrypt_account
-    @account.username = CryptUtils.decrypt_blob( @account.username, get_team_password )
-    @account.password = CryptUtils.decrypt_blob( @account.password, get_team_password )
+    @account.username = CryptUtils.decrypt_blob @account.username, get_team_password
+    @account.password = CryptUtils.decrypt_blob @account.password, get_team_password
+  end
+
+  def load_parents
+    @team = Team.find( params[:team_id] )
+    @group = @team.groups.find( params[:group_id] )
+  end
+
+public
+
+  # GET /teams/1/groups/1/accounts
+  def index
+    @accounts = @group.accounts.find( :all )
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
+
+  # GET /teams/1/groups/1/accounts/1
+  def show
+    @account = @group.accounts.find( params[:id] )
+    @items = @account.items.find( :all )
+    
+    decrypt_account
+
+    respond_to do |format|
+      format.html # show.html.erb
+    end
+  end
+
+  # GET /teams/1/groups/1/accounts/new
+  def new
+    @account = @group.accounts.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+    end
+  end
+
+  # POST /teams/1/groups/1/accounts
+  def create
+    @account = @group.accounts.new( params[:account] )
+    @account.created_on = Time.now
+
+    crypt_account
+    
+    respond_to do |format|
+      if @account.save
+        flash[:notice] = 'Account was successfully created.'
+        format.html { redirect_to team_group_accounts_url(@team, @group) }
+      else
+        format.html { render :action => 'new' }
+      end
+    end 
+  end
+
+  # GET /teams/1/groups/1/accounts/1/edit
+  def edit
+    @account = @group.accounts.find( params[:id] )
+    @groups = @team.groups.find( :all )
+    
+    decrypt_account
+  
+    respond_to do |format|
+      format.html # edit.html.erb
+    end
+  end
+
+  # PUT /teams/1/groups/1/accounts/1
+  def update
+    @account = @group.accounts.find( params[:id] )
+    @account.attributes = params[:account]
+        
+    crypt_account
+        
+    respond_to do |format|
+      if @account.save
+        flash[:notice] = 'Account was successfully updated.'
+        format.html { redirect_to team_group_accounts_url(@team, @group) }
+      else
+        format.html { render :action => 'edit' }
+      end
+    end
+  end
+  
+  # DELETE /teams/1/groups/1/accounts/1
+  def destroy
+    @account = @group.accounts.find( params[:id] )
+    @account.destroy
+
+    respond_to do |format|
+      format.html { redirect_to team_group_accounts_url(@team, @group) }
+    end
   end
 
 end

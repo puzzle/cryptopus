@@ -18,28 +18,29 @@
 -%>
 
 <h1>Account: <%= @account.accountname %></h1>
+
 <div>
   <p><strong>Username:</strong> <%= @account.username %></p>
   <p><strong>Password:</strong> <%= @account.password %></p>
   <p><strong>Description:</strong> <%= @account.description %></p>
   <br/><br/>
-    <strong>Attachments:</strong>
-    <table>
-        <tr>
-            <th>File</th>
-            <th>Actions</th>
-            <th>Description</th>
-        </tr>
-        <% for item in @items %>
-            <tr>
-                <td><b><%= item.filename %></b><br/>
-                    <%= image_tag("encrypted.png") %></td>
-                <td><%= link_to image_tag( "viewmag.png" ) + ' Show', :action => 'send_attachment', :id => item.id, :disposition => 'inline' %><br />
-                    <%= link_to image_tag( "kget.png" ) + ' Download', :action => 'send_attachment', :id => item.id, :disposition => 'attachment' %><br />
-                    <%= link_to image_tag( "remove.png" ) + ' Destroy', { :action => 'destroy_attachment', :id => item.id }, :confirm => 'Are you sure?', :method => :post %></td>
-                <td valign="top"><%= item.description %></td>
-            </tr>
-        <% end %>
-    </table>
-    <br>
+
+  <strong>Attachments:</strong>
+  <table>
+    <tr>
+      <th>File</th>
+      <th>Actions</th>
+      <th>Description</th>
+    </tr>
+    
+    <% for item in @items %>
+      <tr>
+        <td><b><%= item.filename %></b><br/>
+          <%= image_tag("encrypted.png") %></td>
+        <td><%= link_to image_tag( "kget.png" ) + ' Download', [@team, @group, @account, item] %><br />
+            <%= link_to image_tag( "remove.png" ) + ' Destroy', [@team, @group, @account, item], :confirm => 'Are you sure?', :method => :delete %></td>
+        <td valign="top"><%= item.description %></td>
+      </tr>
+    <% end %>
+  </table>
 </div>

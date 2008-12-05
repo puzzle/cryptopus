@@ -30,7 +30,7 @@ module ApplicationHelper
     end
   end
   
-  def get_back_to_list_button(target_controller=nil, target_action="list")
+  def get_back_to_list_button(target_controller=nil, target_action="index")
     unless target_controller.nil?
       link_to(image_tag("previous.png") + " Back", :controller => target_controller, :action => target_action)
     else      

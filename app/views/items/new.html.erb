@@ -1,4 +1,4 @@
-<%
+<% 
 # $Id$
 
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
@@ -17,11 +17,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<h1>Add new Team Member</h1>
-<% form_tag :action => 'add_user' do %>
-	<fieldset>
-	    <label for="account_username"><%= select_tag :username, options_for_select(@user_list) %>Username</label>
-    	<label for"submit"><%= submit_tag "Add" %></label>
-	</fieldset>
-<% end %>
+<h1>Add new attachment to account <br>"<%= @account.accountname %>"</h1>
 
+<% form_for [@team, @group, @account, @item], :html => { :multipart => true } do |f| %>
+	
+  <%= f.file_field :file %>
+  <%= f.label 'File to upload' %><br />
+
+  <%= f.text_area :description, options = {:cols => 37} %>
+  <%= f.label :description %><br />
+
+  <%= f.submit "Upload file" %>
+
+<% end %>

@@ -1,4 +1,4 @@
-<% 
+<%
 # $Id$
 
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
@@ -17,11 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<h1>Add new attachment to account <br>"<%= Account.find( session[:active_account_id] ).accountname %>"</h1>
-<% form_tag( {:action => "attachment" }, :multipart => true) do %>
-	<fieldset>
-    	<label for="file"><%= file_field_tag :file %>File to Upload</label>
-	    <label for="description"><%= text_area :description, params[:desription], options = {:cols => 37} %>Description</label>
-    	<label for="submit"><%= submit_tag "Add" %></submit>
-	</fieldset>
-<% end %>
+<h1>Add new Team Member</h1>
+<% @submit_button_text = "Add" %>
+<%= render :partial => 'form' %>

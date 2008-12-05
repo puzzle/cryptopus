@@ -18,9 +18,5 @@
 -%>
 
 <h1>Editing group</h1>
-<% form_tag :action => 'edit', :id => @group do %>
-	<fieldset>
-  		<%= render :partial => 'form' %>
-  		<label for"submit"><%= submit_tag 'Edit' %></label>
-	</fieldset>
-<% end %>
+<% @submit_button_text = "Edit" %>
+<%= render :partial => 'form' %>

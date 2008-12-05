@@ -17,13 +17,28 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<%= error_messages_for 'team' %>
-
 <!--[form:team]-->
-<label for="team_name"><%= text_field 'team', 'name'  %>Name</label>
-<label for="team_private"><%= check_box 'team', 'private'  %><%= tooltip "Private", { :tooltip => 'Admins don\'t have access to this team' }, :class => 'mytooltip' %></label>
-<label for="team_visible"><%= check_box 'team', 'visible'  %>Visible to non-members</label>
-<label for="team_rootenc"><%= check_box 'team', 'noroot'  %><%= tooltip "No Root Encryption", { :tooltip => 'NOT EVEN ROOT CAN RESTORE YOUR DATA IF YOU LOSE YOUR PASSWORD' }, :class => 'mytooltip' %></label>
-<label for="team_description"><%= text_area 'team', 'description', options = {:cols => 35}  %>Description</label>
+
+<% form_for( @team ) do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.text_field :name %>
+  <%= f.label :name %><br/>
+
+  <%= f.check_box :private %>
+  <%= tooltip "Private", { :tooltip => 'Admins don\'t have access to this team' }, :class => 'mytooltip' %><br/>
+
+  <%= f.check_box :visible %>
+  <%= tooltip "Visible", { :tooltip => 'Visible to non-members' }, :class => 'mytooltip' %><br/>
+
+  <%= f.check_box :noroot %>
+  <%= tooltip "No Root", { :tooltip => 'NOT EVEN ROOT CAN RESTORE YOUR DATA IF YOU LOSE
+    YOUR PASSWORD' }, :class => 'mytooltip' %><br/>
+
+  <%= f.text_area :description %>
+  <%= f.label :description %><br/>
+
+  <%= f.submit @submit_button_text %>
+<% end %>
 <!--[eoform:team]-->
 

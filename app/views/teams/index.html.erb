@@ -1,4 +1,4 @@
-<% 
+<%
 # $Id$
 
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
@@ -17,29 +17,29 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<!--[form:account]-->
-<% form_for([@team, @group, @account]) do |f| %>
-  <%= f.error_messages %>
+<h1>You are member of the following teams:</h1>
+<table>
+  <tr>
+    <th>Team</th>
+    <th>Description</th>
+    <th colspan="3">Actions</th>
+  </tr>
 
-  <%= f.text_field :accountname %>
-  <%= f.label :account %><br/>
+  <% @team_list.each do |team_id, data| %>
+    <tr class="<%= cycle( 'odd', 'even' ) %>">
+    <td><%= link_to image_tag( "kontact_contacts.png" ) + " " + %Q{#{data[:team].name}}, team_groups_path( data[:team] ) %></td>
+    <td><%= data[:team].description %></td>
 
-  <%= f.text_field :username %>
-  <%= f.label :username %><br/>
+    <% if data[:admin] == true %>
+      <td><%= link_to image_tag( "edit.png" ), edit_team_path( data[:team] ) %></td>
+      <td><%= link_to image_tag( "remove.png" ), data[:team], :confirm => 'Are you sure?', :method => :delete %></td>
+    
+    <% else %>
+      <td></td>
+      <td></td>
 
-  <%= f.password_field :password %>
-  <%= f.label :password %><br/>
-
-  <%= f.text_area :description, options = {:cols => 35} %>
-  <%= f.label :description %>
-
-  <% unless @groups.nil? or @groups.empty? %>
-
-    <%= f.collection_select(:group_id, @groups, :id, :name) %>
-    <%= f.label "Move account to other group" %></br>
+    <% end %>
+    </tr>
 
   <% end %>
-
-  <%= f.submit @submit_button_text %>
-<% end %>
-<!--[eoform:account]-->
+</table>

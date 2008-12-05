@@ -23,8 +23,9 @@ class ApplicationController < ActionController::Base
   session :session_key => '_cryptopus_session_id'
   
   before_filter :validate, :except => [:login, :authenticate, :logout]
-  before_filter :validate_team_access
   before_filter :prepare_menu
+
+  filter_parameter_logging :password, :private_key
 
 protected
 
@@ -49,16 +50,11 @@ protected
     
   end
   
-  def validate_team_access
-    if session[:active_team_id]
-    end
-  end
-  
   def get_team_password
     user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
-    team_member = Teammember.find( :first, :conditions => ["user_id = ? and team_id = ?", user.id, session[:active_team_id]] )
-    raise "You have no access to this Group" if team_member.nil?
-    team_password = CryptUtils.decrypt_team_password( team_member.password, session[:private_key] )
+    teammember = @team.teammembers.find( :first, :conditions => ["user_id = ?", user.id] )
+    raise "You have no access to this Group" if teammember.nil?
+    team_password = CryptUtils.decrypt_team_password( teammember.password, session[:private_key] )
     raise "Failed to decrypt the group password" if team_password.nil?
     return team_password
   end

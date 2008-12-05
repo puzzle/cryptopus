@@ -1,4 +1,4 @@
-<% 
+<%
 # $Id$
 
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
@@ -17,11 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<h1>Move Account</h1>
-  <% form_tag :action => 'change_group' do %>
-	<fieldset>
-    	<label for="account_group_id"><%= collection_select(:new_group, :new_group_id, @groups, :id, :name)%>Select the new group:</label>
-		<label for"submit"><%= submit_tag "Move" %></label>
-	</fieldset>
-<% end %>
+<!--[form:username]-->
+<% form_tag :action => 'create' do %>
+  <%= error_messages_for 'teammembers' %>
 
+  <%= select_tag :username , options_for_select(@user_list) %>
+  <%= label_tag :Username %><br/>
+
+  <%= submit_tag @submit_button_text %>
+<% end %>
+<!--[eoform:username]-->

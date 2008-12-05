@@ -38,7 +38,7 @@ class LdapsettingsController < ApplicationController
         
       rescue StandardError => message
         flash[:error] = message
-        redirect_to :controller => 'groups', :action => 'list'
+        redirect_to :controller => 'teams', :action => 'list'
         return
       end
     else
@@ -51,7 +51,7 @@ class LdapsettingsController < ApplicationController
         return
       end
       flash[:notice] = 'Your LDAD settings were successfully updated.'
-      redirect_to :controller => 'groups', :action => 'list'
+      redirect_to :controller => 'teams', :action => 'list'
     end
   end
   

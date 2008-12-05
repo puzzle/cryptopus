@@ -24,7 +24,7 @@ class TeamsController < ApplicationController
 private
 
   def validate_change_rights
-   unless am_i_team_member( params[:id] )
+    unless am_i_team_member( params[:id] )
       redirect_to :controller => 'login', :action => 'noaccess', :message => "You are not member of this team"
       return
     end
@@ -36,42 +36,48 @@ private
   
 public
 
+  # GET /teams
   def index
-    redirect_to :action => 'list'
-  end
-  
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
-  def list
-     #@group_pages, @groups = paginate :groups, :per_page => 10
-     if session[:uid].nil?
-        flash[:error] = 'Enter a correct username and password or check the LDAP Settings'
-        redirect_to :controller => 'login', :action => 'login'
-        return
-     else
-        user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
-        team_members = Teammember.find( :all, :conditions => ["user_id=?", user.id] )
-        @team_list = Hash.new
-        team_members.each do |team_member|
-          @team_list[team_member.team_id] = Hash.new
-          @team_list[team_member.team_id][:team] = Team.find(:first, :conditions => ["id = ?", team_member.team_id ] )
-          @team_list[team_member.team_id][:admin] = team_member.team_admin
-        end
-     end
-  end
-
-  def new
-    if request.get?
-      @team = Team.new    
+    if session[:uid].nil?
+      flash[:error] = 'Enter a correct username and password or check the LDAP Settings'
+      redirect_to :controller => 'login', :action => 'login'
+      return
     else
-      @team = Team.new( params[:team] )
-      @team.created_on = Time.now
-      @team.updated_on = Time.now
+
+      user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
+      team_members = Teammember.find( :all, :conditions => ["user_id=?", user.id] )
+      @team_list = Hash.new
+      team_members.each do |team_member|
+        @team_list[team_member.team_id] = Hash.new
+        @team_list[team_member.team_id][:team] = Team.find(:first, :conditions => ["id = ?", team_member.team_id ] )
+        @team_list[team_member.team_id][:admin] = team_member.team_admin
+      end
+
+      respond_to do |format|
+        format.html # index.html.erb
+      end
+    end
+  end
+
+  # GET /teams/new
+  def new
+    @team = Team.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+    end
+  end
+
+  # POST /teams
+  def create
+    @team = Team.new( params[:team] )
+    @team.created_on = Time.now
+    @team.updated_on = Time.now
+
+    respond_to do |format|
       if @team.save
         team_password = CryptUtils.new_team_password
-        
+      
         root = User.find( :first, :conditions => ["uid = ?" , "0"] )
         team_member_root = Teammember.new
         team_member_root.team_id = @team.id
@@ -79,42 +85,52 @@ public
         team_member_root.password = CryptUtils.encrypt_team_password( team_password, root.public_key )
         team_member_root.team_admin = true
         team_member_root.save
-        
+      
         user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
         team_member_user = Teammember.new
         team_member_user.team_id = @team.id
         team_member_user.user_id = user.id
         team_member_user.password = CryptUtils.encrypt_team_password( team_password, user.public_key )
+        team_member_user.team_admin = true
         team_member_user.save
-        
-        flash[:notice] = 'Team was successfully created.'
-        redirect_to :action => 'list'
+      
+        flash[:notice] = 'Successfully created a new team.'
+        format.html { redirect_to(teams_url) }
+
+      else
+        format.html { render :action => "new" }
       end
     end
   end
 
+  # GET /teams/1/edit
   def edit
-    if request.get?
-      @team = Team.find(:first, :conditions => ["id = ?", params[:id]] )
-    else
-      @team = Team.find(:first, :conditions => ["id = ?", params[:id]] )
-      @team.updated_on = Time.now
+    @team = Team.find( params[:id] )
+  end
+
+  # PUT /teams/1
+  def update
+    @team = Team.find( params[:id] )
+    @team.updated_on = Time.now
+
+    respond_to do |format|
       if @team.update_attributes( params[:team] )
         flash[:notice] = 'Team was successfully updated.'
-        redirect_to :action => 'show', :id => @team
+        format.html { redirect_to(teams_url) }
       else
-        flash[:error] = "An error occured while updating"
+        format.html { render :action => "edit" }
       end
     end
   end
 
+  # DELETE /teams/1
   def destroy
-    if (Team.find(:first, :conditions => ["id = ?", params[:id]] ).destroy==1)
-      flash[:notice] = "Team have been deleted..."
-    else
-      flash[:error] = "An error occured while trying to delete the entry"
+    @team = Team.find( params[:id] )
+    @team.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(teams_url) }
     end
-    redirect_to :action => 'list'
   end
   
 end

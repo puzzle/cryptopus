@@ -80,7 +80,7 @@ public
             redirect_to :controller => 'recryptrequests', :action => 'uncrypterror'
             return
           end
-          redirect_to :controller => 'teams'
+          redirect_to teams_path
           return
           
         # If the user does not exists in the database, 

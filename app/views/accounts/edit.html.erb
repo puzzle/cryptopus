@@ -18,9 +18,5 @@
 -%>
 
 <h1>Editing account</h1>
-<% form_tag :action => 'edit', :id => @account do %>
-	<fieldset>
-    	<%= render :partial => 'form' %>
-    	<label for"submit"></label><%= submit_tag 'Save' %></label>
-	</fieldset>
-<% end %>
+<% @submit_button_text = "Update" %>
+<%= render :partial => 'form' %>

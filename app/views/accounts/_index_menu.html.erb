@@ -1,0 +1,7 @@
+  <li><%= link_to image_tag( "kontact_contacts.png" ) + " Teams ", teams_path %></li>
+  <li><%= link_to image_tag( "folder_open.png" ) + " Groups", team_groups_path(@team) %></li>
+</ul>
+
+<h2>Action</h2>
+<ul>
+  <li><%= link_to image_tag("add.png") + " Create Account", new_team_group_account_path(@team, @group) %></li>
