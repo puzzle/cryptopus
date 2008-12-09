@@ -22,7 +22,6 @@ require 'ldap_tools'
 class LoginController < ApplicationController
 private
   def init_root_session
-    reset_session
     session[:username] = "root"
     @password = params[:password]
     session[:uid] = "0"
@@ -57,7 +56,6 @@ public
       else
         # Validate User LDAP Login
         if LdapTools.ldap_login(params[:username], params[:password])
-          reset_session
           session[:username] = params[:username]
           @password = params[:password]
           session[:uid] = String.new( LdapTools.get_uid_by_username( params[:username] ) )
@@ -80,7 +78,11 @@ public
             redirect_to :controller => 'recryptrequests', :action => 'uncrypterror'
             return
           end
-          redirect_to teams_path
+          if session[:jumpto].nil? or session[:jumpto].empty?
+            redirect_to teams_path
+          else
+            redirect_to session[:jumpto]
+          end
           return
           
         # If the user does not exists in the database, 

@@ -36,6 +36,8 @@ protected
     end
 
     unless session[:uid]
+      reset_session
+      session[:jumpto] = request.parameters
       redirect_to :controller => 'login', :action => 'login'
       return
     end
