@@ -16,5 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Group < ActiveRecord::Base
+  belongs_to :team
   has_many :accounts, :dependent => :destroy
 end

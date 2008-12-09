@@ -1,3 +1,4 @@
+<%
 # $Id$
 
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
@@ -14,11 +15,24 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# -%>
 
-require_dependency "search"
+<h1>Search results </h1>
 
-class Account < ActiveRecord::Base
-  belongs_to :group
-  has_many :items, :dependent => :destroy
-  searches_on :accountname, :description
-end
+<table>
+
+  <% for account in @accounts %>
+    <% group = account.group %>
+    <% team = group.team %>
+
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= link_to image_tag( "encrypted_small.png" ) + " " + account.accountname, [team, group, account] %></td>
+      <td><%= account.description %></td>
+      <td><%= link_to image_tag("edit.png"), [:edit, team, group, account] %></td>
+      <td><%= link_to image_tag("remove.png"), [team, group, account], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+
+  <% end %>
+
+</table>
+

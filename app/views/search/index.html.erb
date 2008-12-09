@@ -1,3 +1,4 @@
+<% 
 # $Id$
 
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
@@ -14,11 +15,16 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-%>
 
-require_dependency "search"
+<h1>New search</h1>
+<% form_tag :action => 'create' do %>
+  <p>
+    <%= text_field_tag :search_string, params[:search_string] %>
+    <%= label_tag 'Search string in accounts' %>
+  </p>
 
-class Account < ActiveRecord::Base
-  belongs_to :group
-  has_many :items, :dependent => :destroy
-  searches_on :accountname, :description
-end
+  <p>
+    <%= submit_tag 'Search' %>
+  </p>
+<% end %>

@@ -15,10 +15,31 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require_dependency "search"
+class SearchController < ApplicationController
 
-class Account < ActiveRecord::Base
-  belongs_to :group
-  has_many :items, :dependent => :destroy
-  searches_on :accountname, :description
+  # GET /search
+  def index
+
+    respond_to do |format|
+      format.html # new.html.erb
+    end
+  end
+
+  # POST /search
+  def create
+    user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
+
+    @accounts = Account.search params[:search_string]
+
+    for account in @accounts do
+      unless account.group.team.teammembers.find_by_user_id(user.id)
+        @accounts.delete account
+      end
+    end
+
+    respond_to do |format|
+      format.html # new.html.erb
+    end
+  end
+
 end
