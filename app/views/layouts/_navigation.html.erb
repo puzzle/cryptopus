@@ -21,6 +21,7 @@
 <ul>
 <% if session[:uid] %>
 	<li>
+      <span id='countdown' >120</span>
       <%= link_to image_tag("exit.png") + " Logout", :controller => 'login', :action => 'logout' %>
       <%= link_to image_tag("viewmag.png") + " Search", :controller => 'search' %>
     </li>
