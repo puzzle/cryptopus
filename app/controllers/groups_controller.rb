@@ -30,8 +30,8 @@ public
   def index
     @groups = @team.groups.find( :all )
     
-    root = User.find( :first, :conditions => ["uid = ?" , "0"] )
-    @teammembers = @team.teammembers.find( :all, :conditions => ["not user_id = ?" , root.id] )
+    @teammembers = @team.teammembers.find_all_by_admin( false )
+    @admins = @team.teammembers.find_all_by_admin( true )
 
     respond_to do |format|
       format.html # index.html.erb

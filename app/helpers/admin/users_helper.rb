@@ -1,5 +1,5 @@
 # $Id$
-
+#
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -15,6 +15,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-class User < ActiveRecord::Base
-  has_many :teammembers, :dependent => :destroy
+module Admin::UsersHelper
+
+  def get_user_cn(user)
+    LdapTools.get_ldap_info( user.uid.to_s, "cn" )
+  end
+
 end

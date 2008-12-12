@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 4) do
+ActiveRecord::Schema.define(:version => 5) do
 
   create_table "accounts", :force => true do |t|
     t.string   "accountname", :limit => 40, :default => "", :null => false
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 4) do
     t.datetime "created_on",                    :null => false
     t.datetime "updated_on",                    :null => false
     t.boolean  "team_admin", :default => false, :null => false
+    t.boolean  "admin",      :default => false, :null => false
   end
 
   create_table "teams", :force => true do |t|

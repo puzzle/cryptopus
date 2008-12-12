@@ -21,6 +21,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     
     admin.resources :ldapsettings
+    admin.resources :users
 
   end
 

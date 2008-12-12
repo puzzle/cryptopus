@@ -39,6 +39,9 @@
       <li>
         <%= link_to image_tag("edit_user.png") + " Change password", :controller => 'login', :action => 'pwdchange' %>
       </li>
+      <li>
+        <%= link_to image_tag("kontact_contacts.png") + " Users", admin_users_path %>
+      </li>
     <% end %>
  <% else %>
  	<li>

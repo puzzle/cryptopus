@@ -54,6 +54,17 @@
 
     </tr>
   <% end %>
+</table>
+
+<h2>Admins</h2>
+
+<table>
+  <% for admin in @admins %>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><i><%= get_member_cn(admin) %></i></td>
+      <td><%= image_tag("penguin.png") %></td>
+    </tr>
+  <% end %>
 
 </table>
 

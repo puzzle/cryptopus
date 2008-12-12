@@ -18,6 +18,8 @@
 class Admin::AdminController < ApplicationController
   before_filter :check_for_admin
 
+protected
+
   def check_for_admin
     user = User.find_by_uid( session[:uid] )
 

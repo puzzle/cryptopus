@@ -100,6 +100,7 @@ public
           if session[:uid] == "0"
             crypted_password = CryptUtils.one_way_crypt( params[:password] )
             user.password = crypted_password
+            user.admin = true
           end
           user.save
           redirect_to :action => 'newuser'

@@ -83,7 +83,7 @@ public
         team_member_root.team_id = @team.id
         team_member_root.user_id = root.id
         team_member_root.password = CryptUtils.encrypt_team_password( team_password, root.public_key )
-        team_member_root.team_admin = true
+        team_member_root.admin = true
         team_member_root.save
       
         user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )

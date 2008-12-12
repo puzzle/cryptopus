@@ -16,7 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module GroupsHelper
-  def get_member_cn(team_member)
-    LdapTools.get_ldap_info( User.find( team_member.user_id ).uid.to_s, "cn" )
+  def get_member_cn(teammember)
+    return "Root" if teammember.user.uid == 0
+    return LdapTools.get_ldap_info( teammember.user.uid.to_s, "cn" )
   end
 end

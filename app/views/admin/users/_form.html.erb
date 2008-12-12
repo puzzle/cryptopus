@@ -1,5 +1,6 @@
+<%
 # $Id$
-
+#
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -14,7 +15,15 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-%>
 
-class User < ActiveRecord::Base
-  has_many :teammembers, :dependent => :destroy
-end
+<!--[form:user]-->
+<% form_for([:admin, @user]) do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.check_box :admin %>
+  <%= f.label :admin %>
+
+  <%= f.submit @submit_button_text %>
+<% end %>
+<!--[eoform:user]-->

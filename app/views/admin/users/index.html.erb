@@ -1,5 +1,5 @@
+<%
 # $Id$
-
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -14,7 +14,30 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-%>
 
-class User < ActiveRecord::Base
-  has_many :teammembers, :dependent => :destroy
-end
+<h1>List of all Cryptopus users:</h1>
+
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Ldap UID</th>
+    <th>Admin</th>
+    <th>Action</th>
+  </tr>
+
+  <% for user in @users  %>
+    <tr class="<%= cycle( 'odd', 'even' ) %>">
+      <td><%= link_to get_user_cn(user), edit_admin_user_path(user) %></td>
+      <td><%= user.uid.to_s %></td>
+      <% if user.admin == true %>
+        <td><%= image_tag("flag.png") %></td>
+      <% else %>
+        <td></td>
+      <% end %>
+      <td><%= link_to image_tag( "remove.png" ), [:admin, user], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+
+</table>
+
