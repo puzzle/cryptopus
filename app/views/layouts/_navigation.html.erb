@@ -31,7 +31,7 @@
 	  <h2>Root:</h2>
 	  <ul>
       <li id="active">
-        <%= link_to image_tag("configure.png") + " LDAP settings", ldapsettings_path %>
+        <%= link_to image_tag("configure.png") + " LDAP settings", admin_ldapsettings_path %>
       </li>
       <li>
         <%= link_to image_tag("flag.png") + " Recrypt requests", :controller => 'recryptrequests', :action => 'list' %>

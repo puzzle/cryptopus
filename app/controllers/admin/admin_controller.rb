@@ -1,5 +1,5 @@
 # $Id$
-
+#
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -15,30 +15,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-class LdapsettingsController < ApplicationController
+class Admin::AdminController < ApplicationController
+  before_filter :check_for_admin
 
-  # GET /ldapsettings
-  def index
-    @ldapsetting = Ldapsetting.find(:first)
-    if @ldapsetting.nil?
-      flash[:notice] = "This are example settings. Please overwrite them with your settings."
-      @ldapsetting = Ldapsetting.new
-      @ldapsetting.save
-    end
-  end        
+  def check_for_admin
+    user = User.find_by_uid( session[:uid] )
 
-  # PUT /ldapsettings/1
-  def update
-    @ldapsetting = Ldapsetting.find(:first)
-        
-    respond_to do |format|
-      if @ldapsetting.update_attributes( params[:ldapsetting] )
-        flash[:notice] = 'Your LDAD settings were successfully updated.'
-        format.html { redirect_to teams_path }
-      else
-        format.html { redirect_to ldapsettings_path }
-      end
+    unless session[:uid] == "0" or user.admin == true
+      render :inline => "No Access"
     end
   end
-  
+
 end

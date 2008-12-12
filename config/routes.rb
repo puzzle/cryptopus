@@ -1,8 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'login', :action => 'login'
 
+  # Normal application paths for all users
   map.resources :search
-  map.resources :ldapsettings
   map.resources :teams do |team|
 
     team.resources :teammembers
@@ -14,6 +14,14 @@ ActionController::Routing::Routes.draw do |map|
 
       end
     end
+  end
+
+  # Admin section paths for root and users
+  # with the administrator flag
+  map.namespace :admin do |admin|
+    
+    admin.resources :ldapsettings
+
   end
 
   map.connect ':controller/:action/:id'

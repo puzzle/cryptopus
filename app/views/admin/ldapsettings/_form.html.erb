@@ -18,7 +18,7 @@
 -%>
 
 <!--[form:ldapsetting]-->
-<% form_for( @ldapsetting ) do |f| %>
+<% form_for( [:admin, @ldapsetting] ) do |f| %>
   <%= f.error_messages %>
 
   <%= f.text_field :basename %>
