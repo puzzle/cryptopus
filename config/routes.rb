@@ -2,6 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'login', :action => 'login'
 
   map.resources :search
+  map.resources :ldapsettings
   map.resources :teams do |team|
 
     team.resources :teammembers

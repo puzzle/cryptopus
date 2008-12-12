@@ -16,42 +16,28 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class LdapsettingsController < ApplicationController
+
+  # GET /ldapsettings
   def index
-    list
-    render :action => 'list'
-  end
+    @ldapsetting = Ldapsetting.find(:first)
+    if @ldapsetting.nil?
+      flash[:notice] = "This are example settings. Please overwrite them with your settings."
+      @ldapsetting = Ldapsetting.new
+      @ldapsetting.save
+    end
+  end        
 
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :update ],
-         :redirect_to => { :action => :edit }
-
-
-  def edit
-    if request.get?
-      begin
-        @ldapsetting = Ldapsetting.find(:first)
-        if @ldapsetting.nil?
-          flash[:notice] = "This are example settings. Please overwrite them with your settings."
-          @ldapsetting = Ldapsetting.new
-          @ldapsetting.save
-        end
+  # PUT /ldapsettings/1
+  def update
+    @ldapsetting = Ldapsetting.find(:first)
         
-      rescue StandardError => message
-        flash[:error] = message
-        redirect_to :controller => 'teams', :action => 'list'
-        return
+    respond_to do |format|
+      if @ldapsetting.update_attributes( params[:ldapsetting] )
+        flash[:notice] = 'Your LDAD settings were successfully updated.'
+        format.html { redirect_to teams_path }
+      else
+        format.html { redirect_to ldapsettings_path }
       end
-    else
-      begin
-        @ldapsetting = Ldapsetting.find(:first)
-        @ldapsetting.update_attributes(params[:ldapsetting])
-        
-      rescue StandardError => message
-        flash[:error] = message
-        return
-      end
-      flash[:notice] = 'Your LDAD settings were successfully updated.'
-      redirect_to :controller => 'teams', :action => 'list'
     end
   end
   

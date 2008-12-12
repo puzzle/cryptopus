@@ -17,12 +17,23 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<%= error_messages_for 'ldapsetting' %>
-
 <!--[form:ldapsetting]-->
-<label for="ldapsetting_basename"><%= text_field 'ldapsetting', 'basename' %>Basename</label>
-<label for="ldapsetting_hostname"><%= text_field 'ldapsetting', 'hostname'  %>Hostname</label>
-<label for="ldapsetting_portnumber"><%= text_field 'ldapsetting', 'portnumber'  %>Port</label>
-<label for="ldapsetting_encryption"><%= select("ldapsetting", "encryption", { 'none' => "none", 'SSL/TLS' => "simple_tls" }) %>Encryption</label>
+<% form_for( @ldapsetting ) do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.text_field :basename %>
+  <%= f.label :basename %><br/>
+
+  <%= f.text_field :hostname %>
+  <%= f.label :hostname %><br/>
+
+  <%= f.text_field :portnumber %>
+  <%= f.label :portnumber %><br/>
+
+  <%= f.select("encryption", { 'none' => "none", 'SSL/TLS' => "simple_tls" }) %>
+  <%= f.label :encryption %><br/>
+
+  <%= f.submit @submit_button_text %>
+<% end %>
 <!--[eoform:ldapsetting]-->
 
