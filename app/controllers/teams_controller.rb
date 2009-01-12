@@ -43,15 +43,9 @@ public
       redirect_to :controller => 'login', :action => 'login'
       return
     else
-
-      user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
-      team_members = Teammember.find( :all, :conditions => ["user_id=?", user.id] )
-      @team_list = Hash.new
-      team_members.each do |team_member|
-        @team_list[team_member.team_id] = Hash.new
-        @team_list[team_member.team_id][:team] = Team.find(:first, :conditions => ["id = ?", team_member.team_id ] )
-        @team_list[team_member.team_id][:admin] = team_member.team_admin
-      end
+      
+      @user = User.find_by_uid( session[:uid] )
+      @teams = @user.teams( :all ) 
 
       respond_to do |format|
         format.html # index.html.erb
