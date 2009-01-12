@@ -17,11 +17,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 <% form_tag({:action => 'authenticate'}, :id => 'loginform') do %>
-	<fieldset>
-	<legend>Log in</legend>
-		<p>Please enter your username and password to access cryptopus</p>
-    	<label for="username"><%= text_field_tag :username, params[:username] %>username:</label>
-		<label for="password"><%= password_field_tag :password, params[:password] %>password:</label>   
-		<label for="submit"><%= submit_tag "Login" %></label>
-	</fieldset>
+  <fieldset>
+    <legend>Log in</legend>
+    <p>Please enter your username and password to access cryptopus</p>
+    
+    <label for="username">Username:</label>
+    <%= text_field_tag :username, params[:username] %>
+
+    <label for="password">Password:</label>   
+    <%= password_field_tag :password, params[:password] %>
+
+    <label for="submit"/>
+    <%= submit_tag "Login" %>
+  </fieldset>
 <% end %>
