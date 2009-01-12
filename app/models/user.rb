@@ -17,4 +17,5 @@
 
 class User < ActiveRecord::Base
   has_many :teammembers, :dependent => :destroy
+  has_many :teams, :through => :teammembers, :order => :name
 end
