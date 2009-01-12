@@ -221,3 +221,8 @@ div.progressBar div.background {
     color: green;
     border-bottom: 1px dotted green
 }
+
+#countdownWrapper {
+    color: red;
+    position:fixed; top:2%; right:2%;
+}
