@@ -75,13 +75,10 @@ li {
 }
 
 #content input,#content textarea,#content select {
-	border:1px solid #999999;
 	background:#CCCCCC;
 	font-size: 0.8em;
 	overflow: auto;
 	margin: 2px 20px 2px 2px;
-	float:right;
-	clear:right;
 }
 
 #content legend {
@@ -89,15 +86,10 @@ li {
 	font-size:1.2em;
 }
 
-#content input:focus,#content input:hover {
-	border:1px solid #333333;
+#content label, input, textarea {
+	display: block;  	
 }
 
-#content label {
-	display:block;
-	height:2em;
-	padding:10px 10px 0;
-}
 
 #content fieldset {
 	padding:10px;

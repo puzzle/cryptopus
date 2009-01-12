@@ -21,22 +21,22 @@
 <% form_for([@team, @group, @account]) do |f| %>
   <%= f.error_messages %>
 
+  <%= f.label :account %>
   <%= f.text_field :accountname %>
-  <%= f.label :account %><br/>
 
+  <%= f.label :username %>
   <%= f.text_field :username %>
-  <%= f.label :username %><br/>
 
+  <%= f.label :password %>
   <%= f.password_field :password %>
-  <%= f.label :password %><br/>
 
-  <%= f.text_area :description, options = {:cols => 35} %>
   <%= f.label :description %>
+  <%= f.text_area :description, options = {:cols => 35} %>
 
   <% unless @groups.nil? or @groups.empty? %>
 
+    <%= f.label "Move account to other group" %>
     <%= f.collection_select(:group_id, @groups, :id, :name) %>
-    <%= f.label "Move account to other group" %></br>
 
   <% end %>
 

@@ -21,11 +21,11 @@
 <% form_for([@team, @group]) do |f| %>
   <%= f.error_messages %>
 
+  <%= f.label :name %>
   <%= f.text_field :name %>
-  <%= f.label :name %><br/>
 
-  <%= f.text_area :description, options = {:cols => 35} %>
   <%= f.label :description %>
+  <%= f.text_area :description, options = {:cols => 35} %>
 
   <%= f.submit @submit_button_text %>
 <% end %>

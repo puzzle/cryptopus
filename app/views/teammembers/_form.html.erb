@@ -21,8 +21,8 @@
 <% form_tag :action => 'create' do %>
   <%= error_messages_for 'teammembers' %>
 
+  <%= label_tag :Username %>
   <%= select_tag :username , options_for_select(@user_list) %>
-  <%= label_tag :Username %><br/>
 
   <%= submit_tag @submit_button_text %>
 <% end %>
