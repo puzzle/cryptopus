@@ -17,5 +17,5 @@
 
 class Group < ActiveRecord::Base
   belongs_to :team
-  has_many :accounts, :dependent => :destroy
+  has_many :accounts, :dependent => :destroy, :order => :accountname
 end
