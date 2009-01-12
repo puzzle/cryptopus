@@ -35,9 +35,17 @@
 <body>
   <div id="wrap">
 
+    
     <div id="header">
       <%= image_tag("cryptopus_top.png") %>
     </div>
+
+  
+    <% if session[:uid] %>
+      <div id="countdownWrapper">
+        Autologoff: <span id='countdown' >000</span>
+      </div>
+    <% end %>
     
     <div id="main">
 
