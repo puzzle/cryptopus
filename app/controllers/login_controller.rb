@@ -128,7 +128,7 @@ public
     if request.get?
       if session[:uid] != "0"
         flash[:error] = "You are not root!"
-        redirect_to :controller => 'teams', :action => 'list'
+        redirect_to teams_path
       end
     else
       if session[:uid] == "0"
@@ -149,7 +149,7 @@ public
       else
         flash[:error] = "You are not root!"
       end
-      redirect_to :controller => 'teams', :action => 'list'
+      redirect_to teams_path
     end    
   end
   
