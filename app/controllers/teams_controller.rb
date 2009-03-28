@@ -33,6 +33,59 @@ private
       return
     end
   end
+
+  def add_user_to_team( user, admin )
+    team_member = user.teammembers.new
+    team_member.team_id = @team.id
+    team_member.password = CryptUtils.encrypt_team_password( @team_password, user.public_key )
+    if admin == true
+      team_member.admin = true
+    else
+      team_member.team_admin = true
+    end
+    team_member.save
+  end
+
+  def add_root_to_team
+    root = User.find_by_uid( "0" )
+
+    # Check if the root is already in the Team
+    teammember_root = @team.teammembers.find_by_user_id( root.id )
+    return unless teammember_root.nil?
+
+    add_user_to_team( root, true )
+  end
+
+  def add_admins_to_team
+    admins = User.find_all_by_admin( true )
+    for admin in admins do
+      # Exclude root
+      next if admin.uid == 0
+
+      # Check it the Admin is already in the Team
+      already_in_team = false
+      teammembers_admin = @team.teammembers.find_all_by_user_id( admin.id )
+      for teammember_admin in teammembers_admin do
+        already_in_team = true if teammember_admin.admin == true
+      end
+      next if already_in_team == true
+
+      add_user_to_team( admin, true )
+    end
+  end
+
+  def remove_root_from_team
+    root = User.find_by_uid( "0" )
+    teammember_root = @team.teammembers.find_by_user_id( root.id )
+    teammember_root.destroy unless teammember_root.nil?
+  end
+
+  def remove_admins_from_team
+    admins = @team.teammembers.find_all_by_admin( true )
+    for admin in admins do
+      admin.destroy unless admin.user.uid == 0
+    end
+  end
   
 public
 
@@ -45,7 +98,7 @@ public
     else
       
       @user = User.find_by_uid( session[:uid] )
-      @teams = @user.teams( :all ) 
+      @teams = @user.teams( :all ).uniq
 
       respond_to do |format|
         format.html # index.html.erb
@@ -70,24 +123,15 @@ public
 
     respond_to do |format|
       if @team.save
-        team_password = CryptUtils.new_team_password
-      
-        root = User.find( :first, :conditions => ["uid = ?" , "0"] )
-        team_member_root = Teammember.new
-        team_member_root.team_id = @team.id
-        team_member_root.user_id = root.id
-        team_member_root.password = CryptUtils.encrypt_team_password( team_password, root.public_key )
-        team_member_root.admin = true
-        team_member_root.save
-      
-        user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
-        team_member_user = Teammember.new
-        team_member_user.team_id = @team.id
-        team_member_user.user_id = user.id
-        team_member_user.password = CryptUtils.encrypt_team_password( team_password, user.public_key )
-        team_member_user.team_admin = true
-        team_member_user.save
-      
+        @team_password = CryptUtils.new_team_password
+        
+        user = User.find_by_uid( session[:uid] )
+        add_user_to_team( user, false )
+
+        add_root_to_team if @team.noroot == false
+        
+        add_admins_to_team if @team.private == false
+     
         flash[:notice] = 'Successfully created a new team.'
         format.html { redirect_to(teams_url) }
 
@@ -109,6 +153,21 @@ public
 
     respond_to do |format|
       if @team.update_attributes( params[:team] )
+
+        @team_password = get_team_password
+
+        if @team.private == true
+          remove_admins_from_team
+        else
+          add_admins_to_team
+        end
+
+        if @team.noroot == true
+          remove_root_from_team
+        else
+          add_root_to_team
+        end
+
         flash[:notice] = 'Team was successfully updated.'
         format.html { redirect_to(teams_url) }
       else
