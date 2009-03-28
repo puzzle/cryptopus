@@ -46,8 +46,8 @@ public
       @teammember.password = CryptUtils.encrypt_team_password( get_team_password, user.public_key)
       @teammember.save
         
-    rescue StandardError => message
-      flash[:error] = message
+    rescue StandardError => e
+      flash[:error] = e.message
     end
 
     respond_to do |format|  
