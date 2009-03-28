@@ -40,14 +40,11 @@ h1. Installation Notes
 # @cd cryptopus@
 # @cp config/database.yml-dist config/database.yml@
 # edit file @database.yml@
-# set up database
-* @mysql> create database cryptopus_production;@
-* <code>mysql> grant all on cryptopus_production.* to 'cryptopus'@'localhost' identified by 'mypass'</code>
+# set up database: @mysql> create database cryptopus_production;@
+# <code>mysql> grant all on cryptopus_production.* to 'cryptopus'@'localhost' identified by 'mypass'</code>
 # initialize database: @rake db:migrate@
 # start server: @scripts/server@
 
 h1. Contact Information
 
 Cryptopus was made by the guys at Puzzle ITC. Please go to "http://www.puzzle.ch/":http://www.puzzle.ch/ in order to get in touch with us.
-
-2009-03-28
