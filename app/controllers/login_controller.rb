@@ -81,7 +81,9 @@ public
           if session[:jumpto].nil? or session[:jumpto].empty?
             redirect_to teams_path
           else
-            redirect_to session[:jumpto]
+            jump_to = session[:jumpto]
+            session[:jumpto] = nil
+            redirect_to jump_to
           end
           return
           
