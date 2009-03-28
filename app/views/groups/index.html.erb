@@ -56,6 +56,10 @@
   <% end %>
 </table>
 
+<ul>
+	<li><%= link_to image_tag("add_user.png") + " Add member", new_team_teammember_path(@team) %></li>
+</ul>
+
 <h2>Admins</h2>
 
 <table>
@@ -68,6 +72,3 @@
 
 </table>
 
-<ul>
-	<li><%= link_to image_tag("add_user.png") + " Add member", new_team_teammember_path(@team) %></li>
-</ul>
