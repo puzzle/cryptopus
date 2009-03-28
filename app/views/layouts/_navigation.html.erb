@@ -25,9 +25,9 @@
       <%= link_to image_tag("viewmag.png") + " Search", :controller => 'search' %>
     </li>
 	<%= render_menu %>
-    <% if session[:uid] == "0" %>
+    <% if User.find_by_uid( session[:uid] ).admin == true %>
 	  </ul>
-	  <h2>Root:</h2>
+	  <h2>Admin Menu:</h2>
 	  <ul>
       <li id="active">
         <%= link_to image_tag("configure.png") + " LDAP settings", admin_ldapsettings_path %>
