@@ -1,0 +1,53 @@
+h1. Welcome to Cryptopus
+
+Cryptopus is a ruby on rails web application for storing and sharing passwords and other sensitive data. All data is stored encrypted in a database, safe from third party access.
+
+Copyright (C) 2009 Andreas Zuber, Simon Josi, Marcel Härry, Martin Gafner and Markus Tschannen
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License along with this program.  If not, see "http://www.gnu.org/licenses/":http://www.gnu.org/licenses/.
+
+h1. Features
+
+* Store usernames, passwords and further descriptions
+* Attach files
+* Data will be encrypted, including the attachments
+* There is no shared master password
+* Users can form groups
+* Passwords can be shared within groups
+* LDAP authentication
+* Autologout
+
+h1. %{color:red}Warning!%
+
+%{color:red}Please remember that putting all your passwords together in a database and making this database accessible over the internet might be a relevant security threat. The passwords and keys are only as safe as the host that is running cryptopus and the SSL-secured connections (never use an unencrypted connection!), as well (and this is the most important point) as the strength of your main password.%
+
+%{color:red}So calculate the risk this setup might pose and choose a good password. Cryptopus won’t make your passwords more secure! It simply gives you the possibility to manage them in a nice way, store them in a safe manner and share them with other people if you wish to do so.%
+
+%{color:red}Under no circumstances can we ever be held liable for password theft, lost passwords or any other inconvenience caused by using cryptopus. Please read this paragraph three more times, it’s important!%
+
+h1. Requirements
+ 
+* LDAP as a user directory
+* Rails 2.3.2
+
+h1. Installation Notes
+
+# download : @git clone git://github.com/puzzle/cryptopus.git@
+# @cd cryptopus@
+# @cp config/database.yml-dist config/database.yml@
+# edit file @database.yml@
+# set up database
+* @mysql> create database cryptopus_production;@
+* @mysql> grant all on cryptopus_production.* to 'cryptopus'@'localhost' identified by 'mypass'@
+# initialize database: @rake db:migrate@
+# start server: @scripts/server@
+
+h1. Contact Information
+
+Cryptopus was made by the guys at Puzzle ITC. Please go to "http://www.puzzle.ch/":http://www.puzzle.ch/ in order to get in touch with us.
+
+2009-03-28
