@@ -7,7 +7,7 @@
 HTTPS_HOST = 'http://localhost:8080/'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.2.2' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -57,7 +57,7 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_test_session',
+    :key => '_test_session',
     :secret      => 'c7b70e637f082ea9f091fea2728c5850fdb6a33f683a9513a10693eb9a0eb4ef6a6b08a2657e7b31c3b512db8bfaaa367e91600dfd1d6f9ece2667c5d8d84a58'
   }
 
