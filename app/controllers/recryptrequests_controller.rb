@@ -17,112 +17,83 @@
 
 class RecryptrequestsController < ApplicationController
 
-  def index
-    redirect_to :action => 'list'
-  end
+private
 
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
-  def list
-    if session[:uid] != "0"
-      flash[:error] = "You failed to hack Cryptopus dude!"
-      redirect_to :controller => 'groups', :action => 'list'
-      return
-    end
-    @recryptrequests = Recryptrequest.find(:all)
-  end
-  
-  def uncrypterror
-  end
-
-  def registerrequest
-    if not LdapTools.ldap_login(LdapTools.get_ldap_info( session[:uid], "uid"), params[:newpassword] )
+  def self_recrypt( old_password, new_password )
+    if not LdapTools.ldap_login( LdapTools.get_ldap_info( session[:uid], "uid" ), new_password )
       flash[:error] = "Your password was wrong"
-      redirect_to :action => 'uncrypterror'
+      redirect_to new_recryptrequest_path
       return
     end
   
-    user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
-    if Recryptrequest.find( :first, :conditions => ["user_id = ?" , user.id] ).nil?
+    @user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
+    private_key = CryptUtils.decrypt_private_key( @user.private_key, old_password )
+    @user.private_key = CryptUtils.encrypt_private_key( private_key, new_password )
+    @user.save
+    
+    flash[:notice] = "You have successfully recrypted the password"
+    redirect_to :controller => 'login', :action => 'logout'
+  end
+
+public
+
+  # GET /recryptrequests/
+  def index
+    @user = User.find_by_uid( session[:uid] )
+    @recryptrequest = Recryptrequest.find_by_user_id(@user.id)
+
+    if @recryptrequest.nil?
+      redirect_to new_recryptrequest_path
+      return
+    end
+
+    redirect_to recryptrequest_path(@recryptrequest)
+  end
+
+  # GET /recryptrequests/new
+  def new
+    @user = User.find_by_uid( session[:uid] )
+  end
+
+  # POST /recryptrequests
+  def create
+    if params[:recrypt_request].nil? 
+      self_recrypt params[:old_password], params[:new_password]
+      return
+    end
+
+    if not LdapTools.ldap_login(LdapTools.get_ldap_info( session[:uid], "uid"), params[:password] )
+      flash[:error] = "Your password was wrong 2"
+      redirect_to new_recryptrequest_path
+      return
+    end
+  
+    @user = User.find_by_uid( session[:uid] )
+
+    if @user.recryptrequests.find(:all).empty?
       keypair = CryptUtils.new_keypair
-      user.public_key = CryptUtils.get_public_key_from_keypair( keypair )
-      user.private_key = CryptUtils.encrypt_private_key( CryptUtils.get_private_key_from_keypair( keypair ), params[:newpassword] )
-      user.save
-      @recryptrequest = Recryptrequest.new
-      @recryptrequest.user_id = user.id
+      @user.public_key = CryptUtils.get_public_key_from_keypair( keypair )
+      private_key = CryptUtils.get_private_key_from_keypair( keypair )
+      @user.private_key = CryptUtils.encrypt_private_key( private_key, params[:password] )
+      @user.save
+      @recryptrequest = @user.recryptrequests.new
       @recryptrequest.save
     end
     
+    @user.teammembers.each do |teammember|
+      teammember.locked = true
+      teammember.save
+    end
+
     flash[:notice] = "Wait until the root has recrypted your group passwords"
     redirect_to :controller => 'login', :action => 'logout'
-  end
-  
-  def selfrecrypt
-    if not LdapTools.ldap_login( LdapTools.get_ldap_info( session[:uid], "uid" ), params[:newpassword] )
-      flash[:error] = "Your NEW password was wrong"
-      redirect_to :action => 'uncrypterror'
-      return
-    end
-  
-    begin
-      user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
-      private_key = CryptUtils.decrypt_private_key( user.private_key, params[:oldpassword] )
-
-    rescue StandardError => e
-      flash[:error] = "Your OLD password was wrong!"
-      redirect_to :action => 'uncrypterror'
-      return
-
-    end
-
-    begin
-      user.private_key = CryptUtils.encrypt_private_key( private_key, params[:newpassword] )
-      user.save
-      flash[:notice] = "You have successfully recrypted the password"
-    
-    rescue StandardError => e
-      flash[:error] = e.message
-      redirect_to :action => 'uncrypterror'
-      return
-      
-    end
-    redirect_to :controller => 'login', :action => 'logout'
+   
   end
 
-  def recrypt
-    if session[:uid] != "0"
-      flash[:error] = "You failed to hack Cryptopus dude!"
-      redirect_to :controller => 'groups', :action => 'list'
-      return
-    end
-    
-    begin
-      @user = User.find( params[:user_id] )
-      @root = User.find_by_uid( "0" )
-      @team_members = Teammember.find( :all, :conditions => ["user_id = ?" , params[:user_id]] )
-      for team_member_user in @team_members
-        team_member_root = Teammember.find( :first, :conditions => ["user_id = ? and team_id = ?" , @root.id, team_member_user.team_id] )
-	if team_member_root.nil?
-          team_member_user.team.name += "[LOCKED]"
-	else
-          team_password = CryptUtils.decrypt_team_password( team_member_root.password, session[:private_key] )
-          team_member_user.password = CryptUtils.encrypt_team_password( team_password, @user.public_key )
-          team_member_user.save
-	end
-      end
-      @recryptrequest = Recryptrequest.find( :first, :conditions => ["user_id = ?" , params[:user_id]] )
-      @recryptrequest.destroy
-      
-    rescue StandardError => e
-      flash[:error] = e.message
-      
-    else
-      flash[:notice] = "successfully recrypted the password for " + LdapTools.get_ldap_info( @user.uid.to_s, "cn" )
-
-    end
-    redirect_to :action => 'list'
+  # GET /recryptrequests/1
+  def show
+    @user = User.find_by_uid( session[:uid] )
+    @recryptrequest = Recryptrequest.find_by_user_id(@user.id)
   end
 
 end

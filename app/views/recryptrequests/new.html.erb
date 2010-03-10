@@ -1,0 +1,60 @@
+<%
+# $Id$
+
+# Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-%>
+
+<% form_tag :action => 'create' do %>
+
+  <p>
+    Your LDAP Password has changed until you last logged in.<br/>
+    Please enter your old LDAP Passwort to decrypt your Private_key.</p>
+  </p>
+  
+  <p>
+    <label for="old_password">
+      <%= password_field_tag :old_password, params[:old_password] %>
+      Your old LDAP Password
+    </label>
+    <br/>
+    <label for="new_password">
+      <%= password_field_tag :new_password, params[:new_password] %>
+      Your new LDAP Password
+    </label>
+  </p>
+
+  <p>
+    If you forgot your password, you can send a recrypt request to the root and/or admins.<br/>
+    After that you have to wait until they have recrypted your passwords.
+  </p>
+
+  <p>
+    <label for="recrypt_request">
+      <%= check_box_tag :recrypt_request %>
+      Send a recrypt request?
+    </label>
+    <label for=password">
+      <%= password_field_tag :password, params[:password] %>
+      Your new LDAP Password
+    </label>
+  </p>
+
+  <label for="send">
+    <%= submit_tag "Send" %>
+  </label>
+
+<% end %>
+

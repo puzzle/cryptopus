@@ -49,7 +49,9 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   create_table "recryptrequests", :force => true do |t|
-    t.integer "user_id", :default => 0, :null => false
+    t.integer "user_id",       :default => 0,    :null => false
+    t.boolean "adminrequired", :default => true, :null => false
+    t.boolean "rootrequired",  :default => true, :null => false
   end
 
   create_table "teammembers", :force => true do |t|
@@ -60,6 +62,7 @@ ActiveRecord::Schema.define(:version => 6) do
     t.datetime "updated_on",                    :null => false
     t.boolean  "team_admin", :default => false, :null => false
     t.boolean  "admin",      :default => false, :null => false
+    t.boolean  "locked",     :default => false, :null => false
   end
 
   create_table "teams", :force => true do |t|

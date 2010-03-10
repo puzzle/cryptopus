@@ -17,12 +17,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<h1>Re-encryption requests</h1>
-<table>
-<% for recryptrequest in @recryptrequests %>
-  <tr>
-    <td><%= LdapTools.get_ldap_info( User.find( recryptrequest.user_id ).uid.to_s, "cn" ) %></td>
-    <td><%= link_to 'Recrypt', :action => 'recrypt', :user_id => recryptrequest.user_id.to_s %></td>
-  </tr>
-<% end %>
-</table> 
+<p id="recoveryrequestbox">A request to recrypt your group passwords was sendt to the root. Wait until he recrypted your passwords.</p>

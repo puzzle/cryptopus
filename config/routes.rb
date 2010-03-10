@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Normal application paths for all users
   map.resources :search
+  map.resources :recryptrequests
   map.resources :teams do |team|
 
     team.resources :teammembers
@@ -22,6 +23,7 @@ ActionController::Routing::Routes.draw do |map|
     
     admin.resources :ldapsettings
     admin.resources :users
+    admin.resources :recryptrequests
 
   end
 

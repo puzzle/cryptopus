@@ -75,7 +75,7 @@ public
           begin
             session[:private_key] = CryptUtils.decrypt_private_key( user.private_key, @password )
           rescue
-            redirect_to :controller => 'recryptrequests', :action => 'uncrypterror'
+            redirect_to recryptrequests_path
             return
           end
           if session[:jumpto].nil? or session[:jumpto].empty?
