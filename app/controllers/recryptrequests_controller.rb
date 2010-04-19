@@ -61,19 +61,31 @@ class RecryptrequestsController < ApplicationController
   
   def selfrecrypt
     if not LdapTools.ldap_login( LdapTools.get_ldap_info( session[:uid], "uid" ), params[:newpassword] )
-      flash[:error] = "Your password was wrong"
+      flash[:error] = "Your NEW password was wrong"
       redirect_to :action => 'uncrypterror'
       return
     end
   
     begin
       user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
-      user.private_key = CryptUtils.encrypt_private_key( CryptUtils.decrypt_private_key( user.private_key, params[:oldpassword] ), params[:newpassword] )
+      private_key = CryptUtils.decrypt_private_key( user.private_key, params[:oldpassword] )
+
+    rescue StandardError => e
+      flash[:error] = "Your OLD password was wrong!"
+      redirect_to :action => 'uncrypterror'
+      return
+
+    end
+
+    begin
+      user.private_key = CryptUtils.encrypt_private_key( private_key, params[:newpassword] )
       user.save
       flash[:notice] = "You have successfully recrypted the password"
     
-    rescue StandardError => message
-      flash[:error] = message
+    rescue StandardError => e
+      flash[:error] = e.message
+      redirect_to :action => 'uncrypterror'
+      return
       
     end
     redirect_to :controller => 'login', :action => 'logout'
@@ -87,22 +99,27 @@ class RecryptrequestsController < ApplicationController
     end
     
     begin
-      @user = User.find(:first, :conditions => ["group_id = ?", params[:user_id]] )
+      @user = User.find( params[:user_id] )
+      @root = User.find_by_uid( "0" )
       @team_members = Teammember.find( :all, :conditions => ["user_id = ?" , params[:user_id]] )
       for team_member_user in @team_members
-        team_member_root = Teammember.find( :first, :conditions => ["user_uid = ? and group_id = ?" , session[:uid], team_member_user.team_id] )
-        team_password = CryptUtils.decrypt_team_password( team_member_root.password, session[:private_key] )
-        team_member_user.password = CryptUtils.encrypt_team_password( team_password, @user.public_key )
-        team_member_user.save
+        team_member_root = Teammember.find( :first, :conditions => ["user_id = ? and team_id = ?" , @root.id, team_member_user.team_id] )
+	if team_member_root.nil?
+          team_member_user.team.name += "[LOCKED]"
+	else
+          team_password = CryptUtils.decrypt_team_password( team_member_root.password, session[:private_key] )
+          team_member_user.password = CryptUtils.encrypt_team_password( team_password, @user.public_key )
+          team_member_user.save
+	end
       end
       @recryptrequest = Recryptrequest.find( :first, :conditions => ["user_id = ?" , params[:user_id]] )
       @recryptrequest.destroy
       
-    rescue StandardError => message
-      flash[:error] = message
+    rescue StandardError => e
+      flash[:error] = e.message
       
     else
-      flash[:notice] = "successfully recrypted the password for " + LdapTools.get_ldap_info( @user.uid, "cn" )
+      flash[:notice] = "successfully recrypted the password for " + LdapTools.get_ldap_info( @user.uid.to_s, "cn" )
 
     end
     redirect_to :action => 'list'
