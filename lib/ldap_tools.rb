@@ -75,8 +75,7 @@ class LdapTools
         end
       end
     end
-    raise "Attribute " + attribute + " for uid " + uid + " not found"
-    return nil
+    return "No <#{attribute} for uid #{uid}>"
   end
   
   def LdapTools.connect
