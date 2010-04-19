@@ -53,10 +53,10 @@
         <% unless flash[:notice].blank? %>
           <div id="notification"><%= flash[:notice] %></div>
         <% end %>
-    		<% unless flash[:error].blank? %>
-        	<div id="error"><%=image_tag("status_unknown.png") + " " +  flash[:error] %></div>
-    		<% end %>
-			</div>
+    	<% unless flash[:error].blank? %>
+          <div id="error"><%=image_tag("status_unknown.png") + " " +  flash[:error] %></div>
+    	<% end %>
+      </div>
 
       <%= render :partial => 'layouts/navigation' %>
 
