@@ -27,13 +27,13 @@ class SearchController < ApplicationController
 
   # POST /search
   def create
-    user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
+    user = User.find_by_uid(session[:uid])
 
-    @accounts = Account.search params[:search_string]
+    accounts_all = Account.search params[:search_string]
 
-    for account in @accounts do
-      unless account.group.team.teammembers.find_by_user_id(user.id)
-        @accounts.delete account
+    if accounts_all
+      @accounts = accounts_all.reject do |account|
+	account.group.team.teammembers.find_by_user_id(user.id).nil?
       end
     end
 
