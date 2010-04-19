@@ -44,7 +44,7 @@
 
   <% for teammember in @teammembers %>
     <tr class="<%= cycle('odd', 'even') %>">
-      <td><%= get_member_cn(teammember) %></td>
+      <td><%= get_member_name(teammember) %></td>
 
       <% if teammember.team_admin %>    
         <td><%= image_tag("folder_home.png") %></td>
@@ -65,7 +65,7 @@
 <table>
   <% for admin in @admins %>
     <tr class="<%= cycle('odd', 'even') %>">
-      <td><i><%= get_member_cn(admin) %></i></td>
+      <td><i><%= get_member_name(admin) %></i></td>
       <td><%= image_tag("penguin.png") %></td>
     </tr>
   <% end %>
