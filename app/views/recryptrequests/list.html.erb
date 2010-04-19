@@ -21,7 +21,7 @@
 <table>
 <% for recryptrequest in @recryptrequests %>
   <tr>
-    <td><%= LdapTools.getLdapInfo( User.find( recryptrequest.user_id ).uid.to_s, "cn" ) %></td>
+    <td><%= LdapTools.get_ldap_info( User.find( recryptrequest.user_id ).uid.to_s, "cn" ) %></td>
     <td><%= link_to 'Recrypt', :action => 'recrypt', :user_id => recryptrequest.user_id.to_s %></td>
   </tr>
 <% end %>
