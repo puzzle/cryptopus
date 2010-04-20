@@ -36,7 +36,9 @@
   <div id="hidden_password" style="display:none">
     <%= @account.password %>
   </div>
-
+  <br/>
+  
+  <p><strong>Last change was <%= time_ago_in_words @account.updated_on %> ago</p>
   <br/>
 
   <strong>Attachments:</strong>
