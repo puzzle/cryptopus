@@ -20,10 +20,24 @@
 <h1>Account: <%= @account.accountname %></h1>
 
 <div>
-  <p><strong>Username:</strong> <%= @account.username %></p>
-  <p><strong>Password:</strong> <%= @account.password %></p>
   <p><strong>Description:</strong> <%= @account.description %></p>
-  <br/><br/>
+  <br/>
+
+  <p>
+    <strong><a href="#" onclick="Effect.toggle('hidden_username', 'appear')" >Username</a></strong> <%= clippy(@account.username) %>
+  </p>
+  <div id="hidden_username" style="display:none">
+    <%= @account.username %>
+  </div>
+
+  <p>
+    <strong><a href="#" onclick="Effect.toggle('hidden_password', 'appear')" >Password</a></strong> <%= clippy(@account.password) %>
+  </p>
+  <div id="hidden_password" style="display:none">
+    <%= @account.password %>
+  </div>
+
+  <br/>
 
   <strong>Attachments:</strong>
   <table>
