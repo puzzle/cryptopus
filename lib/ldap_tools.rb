@@ -89,6 +89,9 @@ class LdapTools
       :host => @@ldap_settings.hostname,
       :port => @@ldap_settings.portnumber,
       :encryption => :simple_tls
+    unless @@ldap_settings.bind_dn.nil? or @@ldap_settings.bind_dn == ""
+      @@ldap.auth @@ldap_settings.bind_dn, @@ldapsettings.bind_password
+    end
   end
   
 end

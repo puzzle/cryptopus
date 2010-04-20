@@ -30,6 +30,12 @@
   <%= f.label :portnumber %>
   <%= f.text_field :portnumber %>
 
+  <%= f.label 'Bind DN' %>
+  <%= f.text_field :bind_dn %>
+
+  <%= f.label 'Bind Password' %>
+  <%= f.text_field :bind_password %>
+
   <%= f.label :encryption %>
   <%= f.select("encryption", { 'none' => "none", 'SSL/TLS' => "simple_tls" }) %>
 
