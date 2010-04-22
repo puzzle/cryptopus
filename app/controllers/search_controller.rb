@@ -29,11 +29,31 @@ class SearchController < ApplicationController
   def create
     user = User.find_by_uid(session[:uid])
 
-    accounts_all = Account.search params[:search_string]
+    teams_all = Team.search params[:search_string]
+    if teams_all
+      @teams = teams_all.reject do |team|
+        team.teammembers.find_by_user_id(user.id).nil?
+      end
+    end
 
+    groups_all = Group.search params[:search_string]
+    if groups_all
+      @groups = groups_all.reject do |group|
+        group.team.teammembers.find_by_user_id(user.id).nil?
+      end
+    end
+
+    accounts_all = Account.search params[:search_string]
     if accounts_all
       @accounts = accounts_all.reject do |account|
-	account.group.team.teammembers.find_by_user_id(user.id).nil?
+        account.group.team.teammembers.find_by_user_id(user.id).nil?
+      end
+    end
+
+    items_all = Item.search params[:search_string]
+    if items_all
+      @items = items_all.reject do |item|
+        item.account.group.team.teammembers.find_by_user_id(user.id).nil?
       end
     end
 

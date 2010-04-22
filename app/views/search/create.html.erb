@@ -21,17 +21,38 @@
 
 <table>
 
+  <% for team in @teams %>  
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= link_to image_tag( "kontact_contacts.png" ) + " " + team.name, [team, :groups] %></td>
+      <td><%= team.description %></td>
+    </tr>
+  <% end %>
+
+  <% for group in @groups %>
+    <% team = group.team %>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= link_to image_tag( "folder_open.png" ) + " " + group.name, [team, group, :accounts] %></td>
+      <td><%= group.description %></td>
+    </tr>
+  <% end %>
+
   <% for account in @accounts %>
     <% group = account.group %>
     <% team = group.team %>
-
     <tr class="<%= cycle('odd', 'even') %>">
       <td><%= link_to image_tag( "encrypted_small.png" ) + " " + account.accountname, [team, group, account] %></td>
       <td><%= account.description %></td>
-      <td><%= link_to image_tag("edit.png"), [:edit, team, group, account] %></td>
-      <td><%= link_to image_tag("remove.png"), [team, group, account], :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
+  <% end %>
 
+  <% for item in @items %>
+    <% account = item.account %>
+    <% group = account.group %>
+    <% team = group.team %>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= link_to image_tag( "encrypted_small.png" ) + " " + item.filename, [team, group, account] %></td>
+      <td><%= item.description %></td>
+    </tr>
   <% end %>
 
 </table>
