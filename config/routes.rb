@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'login', :action => 'login'
 
   # Normal application paths for all users
-  map.resources :search
+  map.resources :searches
   map.resources :recryptrequests
   map.resources :teams do |team|
 

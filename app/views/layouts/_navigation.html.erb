@@ -22,7 +22,7 @@
 <% if session[:uid] %>
 	<li>
       <%= link_to image_tag("exit.png") + " Logout", logout_login_path %>
-      <%= link_to image_tag("viewmag.png") + " Search", :controller => 'search' %>
+      <%= link_to image_tag("viewmag.png") + " Search", searches_path %>
     </li>
 	<%= render_menu %>
     <% if User.find_by_uid( session[:uid] ).admin == true %>
