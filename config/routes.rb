@@ -27,6 +27,16 @@ ActionController::Routing::Routes.draw do |map|
 
   end
 
+  # Route to support legacy login controller
+  # TODO: Fix login controller and remove this
+  map.resources :login, :collection => {
+    'pwdchange' => :any,
+    'login' => :any,
+    'logout' => :any,
+    'noaccess' => :any,
+    'authenticate' => :any
+  }
+
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end

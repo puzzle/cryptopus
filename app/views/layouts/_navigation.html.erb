@@ -21,7 +21,7 @@
 <ul>
 <% if session[:uid] %>
 	<li>
-      <%= link_to image_tag("exit.png") + " Logout", :controller => 'login', :action => 'logout' %>
+      <%= link_to image_tag("exit.png") + " Logout", logout_login_path %>
       <%= link_to image_tag("viewmag.png") + " Search", :controller => 'search' %>
     </li>
 	<%= render_menu %>
@@ -33,10 +33,10 @@
         <%= link_to image_tag("configure.png") + " LDAP settings", admin_ldapsettings_path %>
       </li>
       <li>
-        <%= link_to image_tag("flag.png") + " Recrypt requests", :controller => 'recryptrequests', :action => 'list' %>
+        <%= link_to image_tag("flag.png") + " Recrypt requests", admin_recryptrequests_path %>
       </li>
       <li>
-        <%= link_to image_tag("edit_user.png") + " Change password", :controller => 'login', :action => 'pwdchange' %>
+        <%= link_to image_tag("edit_user.png") + " Change password", pwdchange_login_path %>
       </li>
       <li>
         <%= link_to image_tag("kontact_contacts.png") + " Users", admin_users_path %>
@@ -44,7 +44,7 @@
     <% end %>
  <% else %>
  	<li>
- 		<%= link_to image_tag("previous.png") + ' Login', :action => 'login' %>
+ 		<%= link_to image_tag("previous.png") + ' Login', login_login_path %>
 	</li>
 <% end %>
   </ul>
