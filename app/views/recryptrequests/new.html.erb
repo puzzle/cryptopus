@@ -23,6 +23,12 @@
     Your LDAP Password has changed until you last logged in.<br/>
     Please enter your old LDAP Passwort to decrypt your Private_key.</p>
   </p>
+
+  <% if @user.last_login_at %>
+    <p>
+      Your last login was <%= time_ago_in_words @user.last_login_at %> ago.
+    </p>
+  <% end %>
   
   <p>
     <label for="old_password">

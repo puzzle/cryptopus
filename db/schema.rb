@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 7) do
+ActiveRecord::Schema.define(:version => 8) do
 
   create_table "accounts", :force => true do |t|
     t.string   "accountname", :limit => 40, :default => "", :null => false
@@ -76,11 +76,12 @@ ActiveRecord::Schema.define(:version => 7) do
   end
 
   create_table "users", :force => true do |t|
-    t.text    "public_key",                     :null => false
-    t.binary  "private_key",                    :null => false
-    t.binary  "password"
-    t.boolean "admin",       :default => false, :null => false
-    t.integer "uid",                            :null => false
+    t.text     "public_key",                       :null => false
+    t.binary   "private_key",                      :null => false
+    t.binary   "password"
+    t.boolean  "admin",         :default => false, :null => false
+    t.integer  "uid",                              :null => false
+    t.datetime "last_login_at"
   end
 
 end

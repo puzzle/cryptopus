@@ -78,6 +78,8 @@ public
             redirect_to recryptrequests_path
             return
           end
+          user.last_login_at = Time.now
+          user.save
           if session[:jumpto].nil? or session[:jumpto].empty?
             redirect_to teams_path
           else
@@ -104,6 +106,7 @@ public
             user.password = crypted_password
             user.admin = true
           end
+          user.last_login_at = Time.now
           user.save
           redirect_to :action => 'newuser'
           return
