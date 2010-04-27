@@ -36,11 +36,13 @@
         <%= link_to image_tag("flag.png") + " Recrypt requests", admin_recryptrequests_path %>
       </li>
       <li>
-        <%= link_to image_tag("edit_user.png") + " Change password", pwdchange_login_path %>
-      </li>
-      <li>
         <%= link_to image_tag("kontact_contacts.png") + " Users", admin_users_path %>
       </li>
+      <% if session[:uid] == '0' %>
+        <li>
+          <%= link_to image_tag("edit_user.png") + " Change password", pwdchange_login_path %>
+        </li>
+      <% end %>
     <% end %>
  <% else %>
  	<li>
