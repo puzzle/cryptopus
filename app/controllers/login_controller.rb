@@ -119,7 +119,12 @@ public
   end
   
   def logout
+    # This is ugly, i'm sure there is a better way
+    keep_notice = flash[:notice]
+    keep_error  = flash[:error]
     reset_session
+    flash[:notice] = keep_notice
+    flash[:error]  = keep_error
   end
   
   def noaccess

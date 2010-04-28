@@ -62,8 +62,8 @@ public
       return
     end
 
-    if not LdapTools.ldap_login(LdapTools.get_ldap_info( session[:uid], "uid"), params[:password] )
-      flash[:error] = "Your password was wrong 2"
+    if not LdapTools.ldap_login(LdapTools.get_ldap_info( session[:uid], "uid"), params[:new_password] )
+      flash[:error] = "Your password was wrong"
       redirect_to new_recryptrequest_path
       return
     end
@@ -74,7 +74,7 @@ public
       keypair = CryptUtils.new_keypair
       @user.public_key = CryptUtils.get_public_key_from_keypair( keypair )
       private_key = CryptUtils.get_private_key_from_keypair( keypair )
-      @user.private_key = CryptUtils.encrypt_private_key( private_key, params[:password] )
+      @user.private_key = CryptUtils.encrypt_private_key( private_key, params[:new_password] )
       @user.save
       @recryptrequest = @user.recryptrequests.new
       @recryptrequest.save
@@ -85,7 +85,7 @@ public
       teammember.save
     end
 
-    flash[:notice] = "Wait until the root has recrypted your group passwords"
+    flash[:notice] = "Wait until root has recrypted your team passwords"
     redirect_to :controller => 'login', :action => 'logout'
    
   end

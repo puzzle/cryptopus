@@ -21,42 +21,39 @@
 
   <p>
     Your LDAP Password has changed until you last logged in.<br/>
-    Please enter your old LDAP Passwort to decrypt your Private_key.</p>
-  </p>
+    Please enter your old LDAP Passwort to decrypt your Private_key.
+  </p><br/>
+
 
   <% if @user.last_login_at %>
     <p>
       Your last login was <%= time_ago_in_words @user.last_login_at %> ago.
-    </p>
+    </p><br/>
   <% end %>
   
   <p>
-    <label for="old_password">
-      <%= password_field_tag :old_password, params[:old_password] %>
-      Your old LDAP Password
+    <label for="new_password">
+      Your <strong>new</strong> LDAP Password
+      <%= password_field_tag :new_password, params[:new_password] %>
     </label>
     <br/>
-    <label for="new_password">
-      <%= password_field_tag :new_password, params[:new_password] %>
-      Your new LDAP Password
+    <label for="old_password">
+      Your <strong>old</strong> LDAP Password:
+      <%= password_field_tag :old_password, params[:old_password] %>
     </label>
-  </p>
+  </p><br/>
 
   <p>
-    If you forgot your password, you can send a recrypt request to the root and/or admins.<br/>
+    If you forgot your old password, you can send a recrypt request to the root and/or admins.
     After that you have to wait until they have recrypted your passwords.
-  </p>
+  </p><br/>
 
   <p>
     <label for="recrypt_request">
-      <%= check_box_tag :recrypt_request %>
-      Send a recrypt request?
+      Forgot your old password?
+      <%= check_box_tag :recrypt_request %> 
     </label>
-    <label for=password">
-      <%= password_field_tag :password, params[:password] %>
-      Your new LDAP Password
-    </label>
-  </p>
+  </p><br/>
 
   <label for="send">
     <%= submit_tag "Send" %>
