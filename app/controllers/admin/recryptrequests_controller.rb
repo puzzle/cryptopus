@@ -49,12 +49,15 @@ class Admin::RecryptrequestsController < Admin::AdminController
         teammember_user.save
       end
 
-      username = LdapTools.get_ldap_info( @user.uid, "cn" )
+      username = LdapTools.get_ldap_info( @user.uid.to_s, "cn" )
       
       if is_not_root
         @recryptrequest.adminrequired = false
         @recryptrequest.save
         flash[:notice] = "successfully recrypted some passwords for " + username
+      else
+        @recryptrequest.adminrequired = false
+        @recryptrequest.rootrequired = false
       end
       
       unless @recryptrequest.adminrequired and @recryptrequest.rootrequired
@@ -67,7 +70,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
 
     end
 
-    redirect_to recryptrequests_path
+    redirect_to admin_recryptrequests_path
 
   end
 

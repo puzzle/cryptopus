@@ -20,14 +20,18 @@ class Admin::UsersController < Admin::AdminController
 private
 
   def empower_user(user)
-    teams = Team.find_all_by_private( false )
-    teams.each do |team|
-      
+    teams = Team.find( :all )
+    for team in teams do
+
       # Decrypt the team password with the private key from the
       # logged in user. He has to be root or admin to get
       # admin rights to another user
       active_user = User.find_by_uid( session[:uid] )
-      active_teammember = team.teammembers.find_by_user_id( active_user.id )
+ 
+      # skip teams we do not encrypt for admins
+      next if team.private or team.noroot
+  
+      active_teammember = team.teammembers.find_by_user_id( active_user.id.to_s )
       team_password = CryptUtils.decrypt_team_password( active_teammember.password, session[:private_key] )
 
       # Create the new teammember per team and mark it as an
@@ -43,7 +47,7 @@ private
 
   def disempower_admin(user)
     teammembers = user.teammembers.find_all_by_admin( true )
-    teammembers.each do |teammember|
+    for teammember in teammembers do
       teammember.destroy
     end
   end

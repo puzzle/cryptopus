@@ -77,14 +77,20 @@ public
       @user.private_key = CryptUtils.encrypt_private_key( private_key, params[:new_password] )
       @user.save
       @recryptrequest = @user.recryptrequests.new
-      @recryptrequest.save
+      @recryptrequest.rootrequired = false
+      @recryptrequest.adminrequired = true
     end
     
     @user.teammembers.each do |teammember|
       teammember.locked = true
       teammember.save
-    end
 
+      if teammember.team.private
+	@recryptrequest.rootrequired = true
+      end
+    end
+	
+    @recryptrequest.save
     flash[:notice] = "Wait until root has recrypted your team passwords"
     redirect_to :controller => 'login', :action => 'logout'
    
