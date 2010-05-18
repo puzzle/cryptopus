@@ -1,5 +1,3 @@
-# $Id$
-
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -21,6 +19,9 @@ require 'digest/sha1'
 include OpenSSL
 
 class CryptUtils
+  @@magic = 'Salted__'
+  @@salt_length = 8
+  @@cypher = 'aes-256-cbc'
 
   def CryptUtils.one_way_crypt( password )
     return Digest::SHA1.hexdigest( password )
@@ -62,31 +63,36 @@ class CryptUtils
   end
   
   def CryptUtils.new_team_password
-    cipher = OpenSSL::Cipher::Cipher.new( "aes-256-cbc" )
+    cipher = OpenSSL::Cipher::Cipher.new( @@cypher )
     team_password = cipher.random_key()
     return team_password
   end
   
   def CryptUtils.encrypt_private_key( private_key, password )
-    cipher = OpenSSL::Cipher::Cipher.new( "aes-256-cbc" )
+    cipher = OpenSSL::Cipher::Cipher.new( @@cypher )
     cipher.encrypt
-    cipher.key = password.unpack( 'a2'*32 ).map{|x| x.hex}.pack( 'c'*32 )
-    encrypted_private_key = cipher.update( private_key )
-    encrypted_private_key << cipher.final()
-    return encrypted_private_key
+    salt = OpenSSL::Random::pseudo_bytes @@salt_length
+    cipher.pkcs5_keyivgen password, salt, 1000
+    private_key_part = cipher.update( private_key ) + cipher.final
+
+    return @@magic + salt + private_key_part
   end
   
   def CryptUtils.decrypt_private_key( private_key, password )
-    cipher = OpenSSL::Cipher::Cipher.new( "aes-256-cbc" )
+    cipher = OpenSSL::Cipher::Cipher.new( @@cypher )
     cipher.decrypt
-    cipher.key = password.unpack( 'a2'*32 ).map{|x| x.hex}.pack( 'c'*32 )
-    decrypted_private_key = cipher.update( private_key )
-    decrypted_private_key << cipher.final()
-    return decrypted_private_key
+    unless private_key.slice( 0, @@magic.size ) == @@magic
+      raise "magic does not match"
+    end
+    salt = private_key.slice( @@magic.size, @@salt_length)
+    private_key_part = private_key.slice( (@@magic.size + @@salt_length)..-1)
+    cipher.pkcs5_keyivgen password, salt, 1000
+
+    return cipher.update( private_key_part ) + cipher.final
   end
-  
+
   def CryptUtils.encrypt_blob( blob, team_password )
-    cipher = OpenSSL::Cipher::Cipher.new( "aes-256-cbc" )
+    cipher = OpenSSL::Cipher::Cipher.new( @@cypher )
     cipher.encrypt
     cipher.key = team_password
     crypted_blob = cipher.update( blob )
@@ -95,7 +101,7 @@ class CryptUtils
   end
   
   def CryptUtils.decrypt_blob( blob, team_password )
-    cipher = OpenSSL::Cipher::Cipher.new( "aes-256-cbc" )
+    cipher = OpenSSL::Cipher::Cipher.new( @@cypher )
     cipher.decrypt
     cipher.key = team_password
     decrypted_blob = cipher.update( blob )

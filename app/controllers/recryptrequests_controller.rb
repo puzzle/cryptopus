@@ -27,7 +27,11 @@ private
     end
   
     @user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
-    private_key = CryptUtils.decrypt_private_key( @user.private_key, old_password )
+    begin
+      private_key = CryptUtils.decrypt_private_key( @user.private_key, old_password )
+    rescue
+      private_key = CryptUtilsLegacy.decrypt_private_key( @user.private_key, old_password )
+    end
     @user.private_key = CryptUtils.encrypt_private_key( private_key, new_password )
     @user.save
     

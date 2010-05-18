@@ -17,6 +17,7 @@
 
 require 'net/ldap'
 require 'crypt_utils'
+require 'crypt_utils_legacy'
 require 'ldap_tools'
 
 class LoginController < ApplicationController
@@ -75,8 +76,15 @@ public
           begin
             session[:private_key] = CryptUtils.decrypt_private_key( user.private_key, @password )
           rescue
-            redirect_to recryptrequests_path
-            return
+            begin
+              # This tries to decrypt with legacy crypt methods and migrates to the current method
+              session[:private_key] = CryptUtilsLegacy.decrypt_private_key( user.private_key, @password )
+              user.private_key = CryptUtils.encrypt_private_key( session[:private_key], @password )
+              user.save
+            rescue
+              redirect_to recryptrequests_path
+              return
+            end
           end
           user.last_login_at = Time.now
           user.save
