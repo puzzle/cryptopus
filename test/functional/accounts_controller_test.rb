@@ -4,7 +4,7 @@ require 'accounts_controller'
 # Re-raise errors caught by the controller.
 class AccountsController; def rescue_action(e) raise e end; end
 
-class AccountsControllerTest < Test::Unit::TestCase
+class AccountsControllerTest < ActiveSupport::TestCase
   fixtures :accounts
 
   def setup

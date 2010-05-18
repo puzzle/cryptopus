@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class LdapsettingTest < Test::Unit::TestCase
+class LdapsettingTest < ActiveSupport::TestCase
   fixtures :ldapsettings
 
   # Replace this with your real tests.

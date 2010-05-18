@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class RecryptrequestTest < Test::Unit::TestCase
+class RecryptrequestTest < ActiveSupport::TestCase
   fixtures :recryptrequests
 
   # Replace this with your real tests.

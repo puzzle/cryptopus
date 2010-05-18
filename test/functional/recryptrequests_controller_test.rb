@@ -4,7 +4,7 @@ require 'recryptrequests_controller'
 # Re-raise errors caught by the controller.
 class RecryptrequestsController; def rescue_action(e) raise e end; end
 
-class RecryptrequestsControllerTest < Test::Unit::TestCase
+class RecryptrequestsControllerTest < ActiveSupport::TestCase
   fixtures :recryptrequests
 
   def setup

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class GrouppasswordTest < Test::Unit::TestCase
+class GrouppasswordTest < ActiveSupport::TestCase
   fixtures :grouppasswords
 
   # Replace this with your real tests.

@@ -1,5 +1,8 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-one:
+
+first:
   id: 1
-two:
+one:
   id: 2
+two:
+  id: 3
