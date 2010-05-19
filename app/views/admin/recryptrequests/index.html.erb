@@ -39,7 +39,7 @@
       <% else %>
         <td>No</td>
       <% end %>
-      <td><%= link_to image_tag( "remove.png" ), [:admin, recryptrequest], :method => :delete %></td>
+      <td><%= link_to "recrypt", [:admin, recryptrequest], :method => :delete %></td>
     </tr>
   <% end %>
 
