@@ -30,7 +30,13 @@ private
     begin
       private_key = CryptUtils.decrypt_private_key( @user.private_key, old_password )
     rescue
-      private_key = CryptUtilsLegacy.decrypt_private_key( @user.private_key, old_password )
+      begin
+        private_key = CryptUtilsLegacy.decrypt_private_key( @user.private_key, old_password )
+      rescue
+        flash[:error] = "Your password was wrong"
+        redirect_to new_recryptrequest_path
+        return
+      end
     end
     @user.private_key = CryptUtils.encrypt_private_key( private_key, new_password )
     @user.save
