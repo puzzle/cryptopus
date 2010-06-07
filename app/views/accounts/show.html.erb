@@ -24,14 +24,14 @@
   <br/>
 
   <p>
-    <strong><a href="#" onclick="Effect.toggle('hidden_username', 'appear')" >Username</a></strong> <%= clippy(@account.username) %>
+    <strong><a href="#" onclick="Effect.toggle('hidden_username', 'appear')" >Username</a></strong> <%= clippy(CGI.escape(@account.username)) %>
   </p>
   <div id="hidden_username" style="display:none">
     <%= @account.username %>
   </div>
 
   <p>
-    <strong><a href="#" onclick="Effect.toggle('hidden_password', 'appear')" >Password</a></strong> <%= clippy(@account.password) %>
+    <strong><a href="#" onclick="Effect.toggle('hidden_password', 'appear')" >Password</a></strong> <%= clippy(CGI.escape(@account.password)) %>
   </p>
   <div id="hidden_password" style="display:none">
     <%= @account.password %>
