@@ -29,10 +29,14 @@ public
   # GET /teams/1/teammembers/new
   def new
     @users = User.find(:all, :conditions => ["uid != 0"])
+    @users.reject! do |user| 
+      Teammember.find(:first, :conditions => ["team_id = ? AND user_id = ? AND admin = false", @team.id, user.id])
+    end  
     @user_list = @users.collect {|user| \
       [LdapTools.get_ldap_info( user.uid.to_s, "givenname" ) + " " + \
       LdapTools.get_ldap_info( user.uid.to_s, "sn" ), \
       LdapTools.get_ldap_info( user.uid.to_s, "uid" )]}
+    @user_list.sort!
   end
 
   # POST /teams/1/teammembers
