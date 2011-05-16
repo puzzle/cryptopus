@@ -26,8 +26,9 @@
   </tr>
 
   <% @teams.each do |team| %>
+    <% teammember = team.teammembers.find_by_user_id_and_admin( @user.id, false ) %>
+    <% next if teammember.nil? %>
     <tr class="<%= cycle( 'odd', 'even' ) %>">
-    <% teammember = team.teammembers.find_by_user_id( @user.id ) %>
     <% unless teammember.locked %>
       <td><%= link_to image_tag( "kontact_contacts.png" ) + " " + %Q{#{team.name}}, team_groups_path( team ) %></td>
     <% else %>
