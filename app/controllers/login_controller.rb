@@ -119,7 +119,7 @@ public
           end
           user.last_login_at = Time.now
           user.save
-          redirect_to :action => 'newuser'
+          render :action => 'newuser'
           return
         end
          
