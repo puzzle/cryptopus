@@ -131,11 +131,16 @@ public
   
   def logout
     # This is ugly, i'm sure there is a better way
+    jump_to = session[:jumpto]
     keep_notice = flash[:notice]
     keep_error  = flash[:error]
     reset_session
     flash[:notice] = keep_notice
     flash[:error]  = keep_error
+    if jump_to
+      redirect_to jump_to
+      return
+    end
   end
   
   def noaccess

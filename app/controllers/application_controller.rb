@@ -36,10 +36,14 @@ protected
     end
 
     unless session[:uid]
-      reset_session
       session[:jumpto] = request.parameters
       redirect_to :controller => 'login', :action => 'login'
       return
+    end
+
+    # remember the URL before loging out or recrypt
+    unless params[:controller] == "recryptrequests"
+      session[:jumpto] = request.parameters
     end
 
     user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
