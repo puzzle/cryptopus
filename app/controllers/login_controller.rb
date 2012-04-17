@@ -34,6 +34,9 @@ public
     if User.find( :first, :conditions => ["uid = ?", "0"] ).nil?
       flash[:notice] = 'Welcome to Cryptopus, First you have to create a new Root account. Please enter "root" as username and enter a new password'
     end
+    if session[:uid]
+      redirect_to teams_path
+    end
   end 
     
   def authenticate
