@@ -21,11 +21,21 @@ require 'crypt_utils_legacy'
 require 'ldap_tools'
 
 class LoginController < ApplicationController
+
 private
+
   def init_root_session
     session[:username] = "root"
     @password = params[:password]
     session[:uid] = "0"
+  end
+
+  def malformed_credentials?
+    return true if params[:username].nil?
+    return true if params[:password].nil?
+    return true if params[:username] == ""
+    return true if params[:password] == ""
+    return false
   end
   
 public
@@ -41,11 +51,12 @@ public
     
   def authenticate
     access_granted = false
-    
-    if (params[:username] != "") \
-    && (params[:password] != "") \
-    && (params[:username] != nil) \
-    && (params[:password] != nil)
+   
+    if malformed_credentials?
+      flash[:error] = 'Enter a correct username and password or check the LDAP Settings'
+      render :action => 'login'
+      return
+    end 
       
       # Validate Root Login
       if params[:username] == "root"
@@ -122,9 +133,6 @@ public
         end
          
       end
-    end
-    flash[:error] = 'Enter a correct username and password or check the LDAP Settings'
-    render :action => 'login'
   end
   
   def logout
