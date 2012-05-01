@@ -19,4 +19,19 @@ class User < ActiveRecord::Base
   has_many :teammembers, :dependent => :destroy
   has_many :recryptrequests, :dependent => :destroy
   has_many :teams, :through => :teammembers, :order => :name
+
+  # Updates Information about the user
+  def update_info
+    update_info_from_ldap if auth == 'ldap'
+    last_login_at = Time.now
+    save
+  end
+
+  # Updates Information about the user from LDAP
+  def update_info_from_ldap
+    username  = LdapTools.get_ldap_info( uid.to_s, "uid" )
+    givenname = LdapTools.get_ldap_info( uid.to_s, "givenname" )
+    surname   = LdapTools.get_ldap_info( uid.to_s, "sn" )
+  end
+
 end

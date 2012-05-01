@@ -89,8 +89,7 @@ public
               return
             end
           end
-          user.last_login_at = Time.now
-          user.save
+          user.update_info
           if session[:jumpto].nil? or session[:jumpto].empty?
             redirect_to teams_path
           else
@@ -117,8 +116,7 @@ public
             user.password = crypted_password
             user.admin = true
           end
-          user.last_login_at = Time.now
-          user.save
+          user.update_info
           render :action => 'newuser'
           return
         end
