@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 8) do
+ActiveRecord::Schema.define(:version => 9) do
 
   create_table "accounts", :force => true do |t|
     t.string   "accountname", :limit => 40, :default => "", :null => false
@@ -82,6 +82,9 @@ ActiveRecord::Schema.define(:version => 8) do
     t.boolean  "admin",         :default => false, :null => false
     t.integer  "uid",                              :null => false
     t.datetime "last_login_at"
+    t.string   "username",      :default => "",    :null => false
+    t.string   "givenname",     :default => "",    :null => false
+    t.string   "surname",       :default => "",    :null => false
   end
 
 end
