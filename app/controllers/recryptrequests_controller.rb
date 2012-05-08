@@ -20,7 +20,8 @@ class RecryptrequestsController < ApplicationController
 private
 
   def self_recrypt( old_password, new_password )
-    if not LdapTools.ldap_login( LdapTools.get_ldap_info( session[:uid], "uid" ), new_password )
+    user = User.find_by_uid session[:uid]
+    if not LdapTools.ldap_login( user.username, new_password )
       flash[:error] = "Your password was wrong"
       redirect_to new_recryptrequest_path
       return

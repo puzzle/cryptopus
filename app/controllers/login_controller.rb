@@ -24,115 +24,69 @@ class LoginController < ApplicationController
 
 private
 
-  def init_root_session
-    session[:username] = "root"
-    @password = params[:password]
-    session[:uid] = "0"
+  def create_session(user, password)
+    session[:username] = user.username
+    # @@@TODO remove this if replaced in other methods
+    session[:uid] = user.uid
+    begin
+      session[:private_key] = CryptUtils.decrypt_private_key( user.private_key, password )
+    rescue
+      begin
+        # This tries to decrypt with legacy crypt methods and migrates to the current method
+        session[:private_key] = CryptUtilsLegacy.decrypt_private_key( user.private_key, password )
+        user.private_key = CryptUtils.encrypt_private_key( session[:private_key], password )
+        user.save
+      rescue
+        raise Exceptions::DecryptFailed
+      end
+    end
   end
 
-  def malformed_credentials?
-    return true if params[:username].nil?
-    return true if params[:password].nil?
-    return true if params[:username] == ""
-    return true if params[:password] == ""
-    return false
-  end
-  
 public
 
   def login
-    if User.find( :first, :conditions => ["uid = ?", "0"] ).nil?
+    unless User.find_by_uid(0)
       flash[:notice] = 'Welcome to Cryptopus, First you have to create a new Root account. Please enter "root" as username and enter a new password'
     end
-    if session[:uid]
+    if session[:username]
       redirect_to teams_path
     end
   end 
     
   def authenticate
-    access_granted = false
-   
-    if malformed_credentials?
-      flash[:error] = 'Enter a correct username and password or check the LDAP Settings'
+    begin
+      begin
+        User.authenticate params[:username], params[:password]
+      rescue Exceptions::UserDoesNotExist
+        if params[:username] == 'root'
+          User.create_root params[:password]
+        else
+          User.create_from_external_auth params[:username], params[:password]
+        end  
+      end
+    rescue Exceptions::UserCreationFailed, Exceptions::AuthenticationFailed
+      flash[:error] = 'Authentication failed! Enter a correct username and password.'
       render :action => 'login'
       return
-    end 
-      
-      # Validate Root Login
-      if params[:username] == "root"
-        crypted_password = CryptUtils.one_way_crypt( params[:password] )
-        root = User.find( :first, :conditions => ["uid = ?", "0"] )
-        
-        #if root is nil, we don't have yet a root user
-        if (root.nil?)||(root.password==crypted_password)
-          init_root_session
-          access_granted = true
-        end
-      else
-        # Validate User LDAP Login
-        if LdapTools.ldap_login(params[:username], params[:password])
-          session[:username] = params[:username]
-          @password = params[:password]
-          session[:uid] = String.new( LdapTools.get_uid_by_username( params[:username] ) )
-          if session[:uid] == nil
-            flash[:error] = 'Could not find the UID for the user'
-            render :action => 'login'
-            return
-          end
-          access_granted = true
-        end
-      end
-      
-      if access_granted
-        # check if the user is in the database
-        user = User.find( :first, :conditions => ["uid = ?", session[:uid]] )
-        unless user.nil?
-          begin
-            session[:private_key] = CryptUtils.decrypt_private_key( user.private_key, @password )
-          rescue
-            begin
-              # This tries to decrypt with legacy crypt methods and migrates to the current method
-              session[:private_key] = CryptUtilsLegacy.decrypt_private_key( user.private_key, @password )
-              user.private_key = CryptUtils.encrypt_private_key( session[:private_key], @password )
-              user.save
-            rescue
-              redirect_to recryptrequests_path
-              return
-            end
-          end
-          user.update_info
-          if session[:jumpto].nil? or session[:jumpto].empty?
-            redirect_to teams_path
-          else
-            jump_to = session[:jumpto]
-            session[:jumpto] = nil
-            redirect_to jump_to
-          end
-          return
-          
-        # If the user does not exists in the database, 
-        # we create him and a new keypair for him.
-        else
-          keypair = CryptUtils.new_keypair
-          session[:private_key] = CryptUtils.get_private_key_from_keypair( keypair )
-          session[:public_key] = CryptUtils.get_public_key_from_keypair( keypair )
-          encrypted_private_key = CryptUtils.encrypt_private_key( session[:private_key], @password )
-          user = User.new
-          user.uid = session[:uid]
-          user.public_key = session[:public_key]
-          user.private_key = encrypted_private_key
-          # Set the password for the user "root" 
-          if session[:uid] == "0"
-            crypted_password = CryptUtils.one_way_crypt( params[:password] )
-            user.password = crypted_password
-            user.admin = true
-          end
-          user.update_info
-          render :action => 'newuser'
-          return
-        end
-         
-      end
+    end
+    
+    begin
+      @user = User.find_by_username params[:username]
+      @user.update_info
+      create_session(@user, params[:password])
+    rescue Exceptions::DecryptFailed
+      redirect_to recryptrequests_path
+      return
+    end
+    
+    if session[:jumpto].nil? or session[:jumpto].empty?
+      redirect_to teams_path
+    else
+      jump_to = session[:jumpto]
+      session[:jumpto] = nil
+      redirect_to jump_to
+    end
+    return
   end
   
   def logout
