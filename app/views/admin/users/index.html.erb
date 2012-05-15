@@ -28,7 +28,7 @@
 
   <% for user in @users  %>
     <tr class="<%= cycle( 'odd', 'even' ) %>">
-      <td><%= link_to get_user_cn(user), edit_admin_user_path(user) %></td>
+      <td><%= link_to user.full_name, edit_admin_user_path(user) %></td>
       <td><%= user.uid.to_s %></td>
       <% if user.admin == true %>
         <td><%= image_tag("flag.png") %></td>

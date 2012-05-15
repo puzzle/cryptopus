@@ -28,7 +28,7 @@
     
   <% for recryptrequest in @recryptrequests %>
     <tr>
-      <td><%= LdapTools.get_ldap_info( User.find( recryptrequest.user_id ).uid.to_s, "cn" ) %></td>
+      <td><%= recryptrequest.user.full_name %></td>
       <% if recryptrequest.adminrequired == true %>
         <td>Yes</td>
       <% else %>

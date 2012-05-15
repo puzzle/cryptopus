@@ -16,10 +16,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module GroupsHelper
-  def get_member_name(teammember)
-    return "Root" if teammember.user.uid == 0
-    givenname = LdapTools.get_ldap_info( teammember.user.uid.to_s, "givenname" )
-    surname =  LdapTools.get_ldap_info( teammember.user.uid.to_s, "sn" )
-    return givenname + " " + surname
-  end
 end

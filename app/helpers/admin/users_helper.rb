@@ -16,9 +16,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module Admin::UsersHelper
-
-  def get_user_cn(user)
-    LdapTools.get_ldap_info( user.uid.to_s, "cn" )
-  end
-
 end
