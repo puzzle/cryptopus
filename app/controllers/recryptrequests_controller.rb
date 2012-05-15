@@ -71,43 +71,59 @@ public
 
   # POST /recryptrequests
   def create
+    # If the user knows his old password we can
+    # still decrypt the private key
     if params[:recrypt_request].nil? 
       self_recrypt params[:old_password], params[:new_password]
       return
     end
 
-    if not LdapTools.ldap_login(LdapTools.get_ldap_info( session[:uid], "uid"), params[:new_password] )
+    # If not we have to create a new keypair and send
+    # a request to root to decrypt the teampasswords
+    # for us
+    begin
+      User.authenticate( session[:username], params[:new_password] )
+      @user = User.find_by_username( session[:username] )
+
+      # Check if that was already done
+      if @user.recryptrequests.find(:all).empty?
+        
+        # create the new keypair
+        keypair = CryptUtils.new_keypair
+        @user.public_key = CryptUtils.get_public_key_from_keypair( keypair )
+        private_key = CryptUtils.get_private_key_from_keypair( keypair )
+        @user.private_key = CryptUtils.encrypt_private_key( private_key, params[:new_password] )
+        @user.save
+
+        # send the recryptrequest to root
+        @recryptrequest = @user.recryptrequests.new
+        @recryptrequest.rootrequired = false
+        @recryptrequest.adminrequired = true
+      end
+    
+      # lock all teams for this user and check
+      # if an admin could do the job or if root
+      # is required
+      @user.teammembers.each do |teammember|
+        teammember.locked = true
+        teammember.save
+        if teammember.team.private
+	        @recryptrequest.rootrequired = true
+        end
+      end
+	
+      @recryptrequest.save
+      flash[:notice] = "Wait until root has recrypted your team passwords"
+      redirect_to :controller => 'login', :action => 'logout'
+      return
+
+    rescue Exceptions::AuthenticationFailed
       flash[:error] = "Your password was wrong"
       redirect_to new_recryptrequest_path
       return
-    end
-  
-    @user = User.find_by_uid( session[:uid] )
 
-    if @user.recryptrequests.find(:all).empty?
-      keypair = CryptUtils.new_keypair
-      @user.public_key = CryptUtils.get_public_key_from_keypair( keypair )
-      private_key = CryptUtils.get_private_key_from_keypair( keypair )
-      @user.private_key = CryptUtils.encrypt_private_key( private_key, params[:new_password] )
-      @user.save
-      @recryptrequest = @user.recryptrequests.new
-      @recryptrequest.rootrequired = false
-      @recryptrequest.adminrequired = true
     end
-    
-    @user.teammembers.each do |teammember|
-      teammember.locked = true
-      teammember.save
-
-      if teammember.team.private
-	@recryptrequest.rootrequired = true
-      end
-    end
-	
-    @recryptrequest.save
-    flash[:notice] = "Wait until root has recrypted your team passwords"
-    redirect_to :controller => 'login', :action => 'logout'
-   
+ 
   end
 
   # GET /recryptrequests/1
