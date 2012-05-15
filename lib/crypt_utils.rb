@@ -79,16 +79,28 @@ class CryptUtils
   end
   
   def CryptUtils.decrypt_private_key( private_key, password )
-    cipher = OpenSSL::Cipher::Cipher.new( @@cypher )
-    cipher.decrypt
-    unless private_key.slice( 0, @@magic.size ) == @@magic
-      raise "magic does not match"
+    begin 
+      cipher = OpenSSL::Cipher::Cipher.new( @@cypher )
+      cipher.decrypt
+      unless private_key.slice( 0, @@magic.size ) == @@magic
+        raise "magic does not match"
+      end
+      salt = private_key.slice( @@magic.size, @@salt_length)
+      private_key_part = private_key.slice( (@@magic.size + @@salt_length)..-1)
+      cipher.pkcs5_keyivgen password, salt, 1000
+      return cipher.update( private_key_part ) + cipher.final
+    rescue
+      raise Exceptions::DecryptFailed
     end
-    salt = private_key.slice( @@magic.size, @@salt_length)
-    private_key_part = private_key.slice( (@@magic.size + @@salt_length)..-1)
-    cipher.pkcs5_keyivgen password, salt, 1000
+    return nil
+  end
 
-    return cipher.update( private_key_part ) + cipher.final
+  def CryptUtils.validate_keypair( private_key, public_key )
+    test_data = 'Test Data'
+    encrypted_test_data = CryptUtils.encrypt_team_password( test_data, public_key )
+    unless test_data == CryptUtils.decrypt_team_password( encrypted_test_data, private_key )
+      raise Exceptions::DecryptFailed
+    end
   end
 
   def CryptUtils.encrypt_blob( blob, team_password )

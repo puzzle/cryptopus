@@ -40,10 +40,7 @@ private
         raise Exceptions::DecryptFailed
       end
     end
-    # validate private key
-    test_data = 'Test Data'
-    encrypted_test_data = CryptUtils.encrypt_team_password( test_data, user.public_key )
-    raise Exceptions::DecryptFailed unless test_data == CryptUtils.decrypt_team_password( encrypted_test_data, session[:private_key] )
+    CryptUtils.validate_keypair( session[:private_key], user.public_key )
   end
 
 public

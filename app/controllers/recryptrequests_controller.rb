@@ -20,30 +20,33 @@ class RecryptrequestsController < ApplicationController
 private
 
   def self_recrypt( old_password, new_password )
-    user = User.find_by_uid session[:uid]
-    if not LdapTools.ldap_login( user.username, new_password )
-      flash[:error] = "Your password was wrong"
+    begin
+      # Check if the new password is ok
+      User.authenticate( session[:username], new_password )
+
+      # decrypt the private key with the old password
+      # and encrypt it with the new one
+      @user = User.find_by_username session[:username]
+      private_key = CryptUtils.decrypt_private_key( @user.private_key, old_password )
+      CryptUtils.validate_keypair( private_key, @user.public_key )
+      @user.private_key = CryptUtils.encrypt_private_key( private_key, new_password )
+      @user.save
+    
+      flash[:notice] = "You have successfully recrypted the password"
+      redirect_to :controller => 'login', :action => 'logout'
+      return
+
+    rescue Exceptions::AuthenticationFailed
+      flash[:error] = "Your NEW password was wrong"
       redirect_to new_recryptrequest_path
       return
+
+    rescue Exceptions::DecryptFailed
+      flash[:error] = "Your OLD password was wrong"
+      redirect_to new_recryptrequest_path
+      return
+
     end
-  
-    @user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
-    begin
-      private_key = CryptUtils.decrypt_private_key( @user.private_key, old_password )
-    rescue
-      begin
-        private_key = CryptUtilsLegacy.decrypt_private_key( @user.private_key, old_password )
-      rescue
-        flash[:error] = "Your password was wrong"
-        redirect_to new_recryptrequest_path
-        return
-      end
-    end
-    @user.private_key = CryptUtils.encrypt_private_key( private_key, new_password )
-    @user.save
-    
-    flash[:notice] = "You have successfully recrypted the password"
-    redirect_to :controller => 'login', :action => 'logout'
   end
 
 public
