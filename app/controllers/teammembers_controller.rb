@@ -32,18 +32,14 @@ public
     @users.reject! do |user| 
       Teammember.find(:first, :conditions => ["team_id = ? AND user_id = ? AND admin = false", @team.id, user.id])
     end  
-    @user_list = @users.collect {|user| \
-      [LdapTools.get_ldap_info( user.uid.to_s, "givenname" ) + " " + \
-      LdapTools.get_ldap_info( user.uid.to_s, "sn" ), \
-      LdapTools.get_ldap_info( user.uid.to_s, "uid" )]}
+    @user_list = @users.collect {|user| [ user.full_name, user.username ]}
     @user_list.sort!
   end
 
   # POST /teams/1/teammembers
   def create
     begin
-      user_uid = LdapTools.get_uid_by_username( params[:username] )
-      user = User.find( :first, :conditions => ["uid = ?", user_uid] )
+      user = User.find_by_username params[:username]
       raise "User is not in the database" if user.nil?
       raise "User is already in that Team" \
         if @team.teammembers.find( :first, :conditions => ["user_id = ?", user.id] )

@@ -93,4 +93,8 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def full_name
+    return self.givenname + ' ' + self.surname
+  end
+
 end
