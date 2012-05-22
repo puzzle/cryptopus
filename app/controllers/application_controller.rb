@@ -19,9 +19,6 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  # Pick a unique cookie name to distinguish our session data from others'
-  session :key => '_cryptopus_session_id'
-  
   before_filter :validate, :except => [:login, :authenticate, :logout]
   before_filter :prepare_menu
 
