@@ -8,6 +8,9 @@
 label {
 	font-weight: bold; 
 	font-size: 1em;
+	display: block;
+	margin-top: $padding;
+	&:first-child { margin-top: 0;}
 }
 
 fieldset {

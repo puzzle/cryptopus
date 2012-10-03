@@ -28,7 +28,6 @@
   <%= stylesheet_link_tag "application", :media => "all" %>
   <% if session[:uid] %>
     <%= javascript_include_tag :application %>
-    <%= stylesheet_link_tag "application", :media => "all" %>
   <% end %>
 </head>
     
@@ -37,6 +36,7 @@
 
     <header id="masthead" class="site-header" role="banner">
       <%= link_to image_tag("cryptopus_top.png"), teams_path %>
+      <%= render :partial => 'layouts/option' %>
     </header><!-- end #masthead .site-header -->
       
     <% if session[:uid] %>
@@ -52,6 +52,15 @@
     <div id="main">
 
       <div id="content" class="site-content" role="main">
+
+        <div class="tab-content">
+          <div class="tab-pane active" id="home">... 1</div>
+          <div class="tab-pane" id="profile">... 2</div>
+          <div class="tab-pane" id="messages">... 3</div>
+          <div class="tab-pane" id="settings">... 4</div>
+        </div>
+        <hr />
+        
         <%= yield  %>
       </div><!-- end #content .site-content -->
 
@@ -72,6 +81,9 @@
 
 
   </div>
+  <%= javascript_include_tag "jquery" %> 
+  <%= javascript_include_tag "bootstrap_tabs.min" %>
+
 </body>
 
 </html>

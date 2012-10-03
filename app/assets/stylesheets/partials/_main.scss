@@ -20,7 +20,7 @@ body {
   @include background-image(radial-gradient($whiteDark, $grayLighter));
 }
 
-header, footer { 
+header, footer, #main > aside { 
   padding: $padding*0.5 0;
   @include responsive(ipad) {
     padding: $padding*0.5 $padding;
@@ -33,7 +33,8 @@ header, footer {
   padding: $padding;
 }
 
-
-#site-navigation {
-  margin: $padding*0.5 0;
-} 
+#main > aside {
+  background: $brown;
+  padding: $padding;
+  color: white;
+}
