@@ -34,7 +34,7 @@
   <p>
     <label for="new_password">
       Your <strong>new</strong> LDAP Password
-      <%= password_field_tag :new_password, params[:new_password] %>
+      <%= password_field_tag :new_password, params[:new_password], :autofocus => true %>
     </label>
     <br/>
     <label for="old_password">

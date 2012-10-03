@@ -22,7 +22,7 @@
 	<legend>New password?!</legend>
 		<p>Your LDAP Password has changed until you last logged in.<br/>
 		Please enter your old LDAP Passwort to decrypt your Private_key.</p>
-    	<label for="uncrypterror_oldpassword"><%= password_field_tag :oldpassword, params[:oldpassword] %>Your old LDAP Password</label><br/>
+    	<label for="uncrypterror_oldpassword"><%= password_field_tag :oldpassword, params[:oldpassword], :autofocus => true %>Your old LDAP Password</label><br/>
     	<label for="uncrypterror_newpassword"><%= password_field_tag :newpassword, params[:newpassword] %>Your LDAP Password</label>
 		<label for="submit"><%= submit_tag "Recrypt" %></label>
 	</fieldset>
