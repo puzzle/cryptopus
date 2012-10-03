@@ -1,8 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '2.3.11'
+gem 'rails', '3.2.8'
 
 gem 'net-ldap'
 gem 'mysql'
+gem 'sqlite3'
+gem 'pry'
+gem 'pry-stack_explorer'
+gem 'sextant'
+gem 'dynamic_form'
 
-gem 'rake', '0.8.7'
+gem 'rake', '0.9.2.2'

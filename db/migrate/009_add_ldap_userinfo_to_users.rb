@@ -1,9 +1,9 @@
 class AddLdapUserinfoToUsers < ActiveRecord::Migration
 
   def self.up
-    add_column "users", "username", :string, :null => false
-    add_column "users", "givenname", :string, :null => false
-    add_column "users", "surname", :string, :null => false
+    add_column "users", "username", :string
+    add_column "users", "givenname", :string
+    add_column "users", "surname", :string
 
     User.reset_column_information
     User.find(:all).each do |user|

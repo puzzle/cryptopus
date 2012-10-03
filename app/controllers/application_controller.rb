@@ -22,12 +22,11 @@ class ApplicationController < ActionController::Base
   before_filter :validate, :except => [:login, :authenticate, :logout]
   before_filter :prepare_menu
 
-  filter_parameter_logging :password, :private_key
 
 protected
 
   def validate
-    if HTTPS_HOST && RAILS_ENV == 'production' && ! request.ssl?
+    if HTTPS_HOST && Rails.env == 'production' && ! request.ssl?
       redirect_to HTTPS_HOST + '/login/login'
       return
     end
@@ -87,7 +86,7 @@ protected
   end
 
   def prepare_menu
-    if File.exist?("#{RAILS_ROOT}/app/views/#{controller_name}/_#{action_name}_menu.html.erb")  
+    if File.exist?("#{Rails.root}/app/views/#{controller_name}/_#{action_name}_menu.html.erb")  
       @menu_to_render = "#{controller_name}/#{action_name}_menu"
     else
       @menu_to_render = nil

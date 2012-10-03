@@ -18,7 +18,7 @@
 -%>
 
 <h1>Change password</h1>
-<% form_tag :action => 'pwdchange' do %>
+<%= form_tag :action => 'pwdchange' do %>
 	<fieldset>
     	<label for="pwdchange_oldpassword"><%= password_field_tag :oldpassword, params[:oldpassword]  %>Old password</label>
     	<label for="pwdchange_newpassword1"><%= password_field_tag :newpassword1, params[:newpassword1]  %>New password</label>
