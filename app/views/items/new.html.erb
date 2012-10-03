@@ -24,7 +24,7 @@
   <%= f.file_field :file %>
   <%= f.label 'File to upload' %><br />
 
-  <%= f.text_area :description, options = {:cols => 37} %>
+  <%= f.text_area :description, options = {:cols => 37}, :autofocus => true %>
   <%= f.label :description %><br />
 
   <%= f.submit "Upload file" %>

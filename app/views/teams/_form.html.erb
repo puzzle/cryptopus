@@ -23,7 +23,7 @@
   <%= f.error_messages %>
 
   <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, :autofocus => true %>
 
   <%= tooltip "Private", { :tooltip => 'Admins don\'t have access to this team' }, :class => 'mytooltip' %>
   <%= f.check_box :private %>
