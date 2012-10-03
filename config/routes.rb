@@ -16,14 +16,12 @@ Cryptopus::Application.routes.draw do
     resources :recryptrequests
   end
 
-  resources :login do
-    collection do
-      match :pwdchange
-      match :login
-      match :logout
-      match :noaccess
-      match :authenticate
-    end
+  resource :login do
+    get :login
+    get :pwdchange
+    get :logout
+    get :noaccess
+    get :authenticate
   end
   match '/:controller(/:action(/:id))'
 

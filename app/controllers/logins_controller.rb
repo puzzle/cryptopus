@@ -20,7 +20,7 @@ require 'crypt_utils'
 require 'crypt_utils_legacy'
 require 'ldap_tools'
 
-class LoginController < ApplicationController
+class LoginsController < ApplicationController
 
 private
 
