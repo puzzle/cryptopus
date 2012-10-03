@@ -25,9 +25,10 @@
   <link rel="shortcut icon" href="/favicon.png" type="image/png" />
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Cryptopus</title>
-
+  <%= stylesheet_link_tag "application", :media => "all" %>
   <% if session[:uid] %>
     <%= javascript_include_tag :application %>
+    <%= stylesheet_link_tag "application", :media => "all" %>
   <% end %>
 </head>
     

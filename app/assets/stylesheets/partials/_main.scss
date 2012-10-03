@@ -10,3 +10,12 @@
 @import "main/header";
 @import "main/menus";
 @import "main/footer";
+
+html {
+  height: 100%;
+} 
+
+body {
+  height: 100%;
+  @include background-image(radial-gradient($whiteDark, $grayLighter));
+}
