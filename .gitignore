@@ -5,3 +5,4 @@ db/schema.rb
 Gemfile.lock
 tmp
 log
+.sass-cache
