@@ -24,7 +24,8 @@ protected
     user = User.find_by_uid( session[:uid] )
 
     unless session[:uid] == "0" or user.admin == true
-      render :inline => "No Access"
+      flash[:error] = "No Access"
+      redirect_to teams_path
     end
   end
 

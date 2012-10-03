@@ -33,7 +33,7 @@ protected
 
     unless session[:uid]
       session[:jumpto] = request.parameters
-      redirect_to :controller => 'login', :action => 'login'
+      redirect_to login_login_path
       return
     end
 
