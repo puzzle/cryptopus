@@ -62,19 +62,6 @@ protected
     return team_password
   end
   
-  def is_user_team_admin( team_id, user_id )
-    team_member = Teammember.find( :first, :conditions => ["team_id=? and user_id=?", team_id, user_id] )
-    if team_member
-     return true if team_member.team_admin
-    end
-    return false
-  end
-  
-  def am_i_team_admin( team_id )
-    user = User.find( :first, :conditions => ["uid = ?" , session[:uid]] )
-    return is_user_team_admin( team_id, user.id )
-  end
-  
   def is_user_team_member( team_id, user_id )
     team_member = Teammember.find( :first, :conditions => ["team_id=? and user_id=?", team_id, user_id] )
     return true if team_member

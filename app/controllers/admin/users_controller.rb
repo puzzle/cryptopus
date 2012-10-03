@@ -39,7 +39,6 @@ private
       teammember = team.teammembers.new
       teammember.password = CryptUtils.encrypt_team_password( team_password, user.public_key )
       teammember.admin = true
-      teammember.team_admin = false
       teammember.user_id = user.id
       teammember.save
     end
