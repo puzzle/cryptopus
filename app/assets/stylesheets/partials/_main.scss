@@ -19,3 +19,21 @@ body {
   height: 100%;
   @include background-image(radial-gradient($whiteDark, $grayLighter));
 }
+
+header, footer { 
+  padding: $padding*0.5 0;
+  @include responsive(ipad) {
+    padding: $padding*0.5 $padding;
+  } 
+}
+
+#content {
+  @include single-box-shadow($grayLighter);
+  background: $whiteDark;
+  padding: $padding;
+}
+
+
+#site-navigation {
+  margin: $padding*0.5 0;
+} 

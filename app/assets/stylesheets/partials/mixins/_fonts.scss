@@ -9,8 +9,19 @@
 	font-files(
 		'Exo-DemiBold-webfont.woff', woff,
 		'Exo-DemiBold-webfont.ttf', truetype,
-		'Exo-DemiBold-webfont.svg#FontAwesome', svg),
+		'Exo-DemiBold-webfont.svg#Exo', svg),
 	'Exo-DemiBold-webfont.eot',
+	normal,
+	normal
+);
+
+@include font-face (
+	'OpenSans',
+	font-files(
+		'OpenSans-Regular-webfont.woff', woff,
+		'OpenSans-Regular-webfont.ttf', truetype,
+		'OpenSans-Regular-webfont.svg#OpenSans', svg),
+	'OpenSans-Regular-webfont.eot',
 	normal,
 	normal
 );
@@ -19,10 +30,10 @@
 // Font mixins
 // ------------------
 @mixin ff-text {
-	font-family: $sans_family; // Global font
+	font-family: 'OpenSans', $sans_family; // Global font
 }
 @mixin ff-heading {
-	font-family: $serif_family; // Heading font
+	font-family: 'Exo', $serif_family; // Heading font
 }
 @mixin ff-decorative{
 	font-family: $cursive;
