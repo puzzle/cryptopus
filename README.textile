@@ -31,19 +31,28 @@ Under no circumstances can we ever be held liable for password theft, lost passw
 
 h1. Requirements
 
-* LDAP as a user directory
-* Rails 2.3.2
+* Ruby 1.8.7-p370
+* rvm
+* bundle
+* mysql-server
+* optional: LDAP as a user directory
 
 h1. Installation Notes
 
 # download: @git clone git://github.com/puzzle/cryptopus.git@
 # @cd cryptopus@
+# Install RVM (see https://rvm.io/rvm/install)
+# rvm install ruby-1.8.7
+# rvm use ruby-1.8.7-p370
+# rvm gemset create cryptopus
+# bundle
 # @cp config/database.yml-dist config/database.yml@
 # edit file @database.yml@
 # set up database: @mysql> create database cryptopus_production;@
 # <code>mysql> grant all on cryptopus_production.* to 'cryptopus'@'localhost' identified by 'mypass'</code>
 # initialize database: @rake db:migrate@
 # start server: @scripts/server@
+# log into app with user root, first used password will be set automatically as password for this user
 
 h1. Contact Information
 
