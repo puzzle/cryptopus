@@ -5,15 +5,16 @@
 // Font awesome
 // ------------------
 @include font-face (
-	'FontAwesome',
+	'Exo',
 	font-files(
-		'fontawesome-webfont.woff', woff,
-		'fontawesome-webfont.ttf', truetype,
-		'fontawesome-webfont.svg#FontAwesome', svg),
-	'fontawesome-webfont.eot',
+		'Exo-DemiBold-webfont.woff', woff,
+		'Exo-DemiBold-webfont.ttf', truetype,
+		'Exo-DemiBold-webfont.svg#FontAwesome', svg),
+	'Exo-DemiBold-webfont.eot',
 	normal,
 	normal
 );
+
 
 // Font mixins
 // ------------------
