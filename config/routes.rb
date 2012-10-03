@@ -21,10 +21,10 @@ Cryptopus::Application.routes.draw do
     get :pwdchange
     get :logout
     get :noaccess
-    get :authenticate
+    post :authenticate
   end
   match '/:controller(/:action(/:id))'
 
-  root to: 'login#login'
+  root to: 'logins#login'
 end
 
