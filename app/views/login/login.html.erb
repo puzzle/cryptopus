@@ -22,7 +22,7 @@
     <p>Please enter your username and password to access cryptopus</p>
     
     <label for="username">Username:</label>
-    <%= text_field_tag :username, params[:username] :autofocus => true %>
+    <%= text_field_tag :username, params[:username], :autofocus => true  %>
 
     <label for="password">Password:</label>   
     <%= password_field_tag :password, params[:password] %>
