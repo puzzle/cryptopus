@@ -19,7 +19,7 @@
 
 <h1>Add new attachment to account <br>"<%= @account.accountname %>"</h1>
 
-<% form_for [@team, @group, @account, @item], :html => { :multipart => true } do |f| %>
+<%= form_for [@team, @group, @account, @item], :html => { :multipart => true } do |f| %>
 	
   <%= f.file_field :file %>
   <%= f.label 'File to upload' %><br />

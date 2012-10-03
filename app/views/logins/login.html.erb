@@ -1,4 +1,4 @@
-<%
+<% 
 # $Id$
 
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
@@ -16,18 +16,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
+<%= form_tag({:action => 'authenticate'}, :id => 'loginform') do %>
+  <fieldset>
+    <legend>Log in</legend>
+    <p>Please enter your username and password to access cryptopus</p>
+    
+    <label for="username">Username:</label>
+    <%= text_field_tag :username, params[:username], :autofocus => true  %>
 
-<!--[form:group]-->
-<%= form_for([@team, @group]) do |f| %>
-  <%= f.error_messages %>
+    <label for="password">Password:</label>   
+    <%= password_field_tag :password, params[:password] %>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-
-  <%= f.label :description %>
-  <%= f.text_area :description, options = {:cols => 35} %>
-
-  <%= f.submit @submit_button_text %>
+    <label for="submit"/>
+    <%= submit_tag "Login" %>
+  </fieldset>
 <% end %>
-<!--[eoform:group]-->
-

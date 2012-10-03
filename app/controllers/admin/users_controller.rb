@@ -20,7 +20,7 @@ class Admin::UsersController < Admin::AdminController
 private
 
   def empower_user(user)
-    teams = Team.find( :all )
+    teams = Team.all
     for team in teams do
 
       # Decrypt the team password with the private key from the

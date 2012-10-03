@@ -1,4 +1,4 @@
-<%
+<% 
 # $Id$
 
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
@@ -17,17 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<!--[form:group]-->
-<%= form_for([@team, @group]) do |f| %>
-  <%= f.error_messages %>
-
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-
-  <%= f.label :description %>
-  <%= f.text_area :description, options = {:cols => 35} %>
-
-  <%= f.submit @submit_button_text %>
+<h1>Change password</h1>
+<%= form_tag :action => 'pwdchange' do %>
+	<fieldset>
+    	<label for="pwdchange_oldpassword"><%= password_field_tag :oldpassword, params[:oldpassword]  %>Old password</label>
+    	<label for="pwdchange_newpassword1"><%= password_field_tag :newpassword1, params[:newpassword1]  %>New password</label>
+    	<label for="pwdchange_newpassword2"><%= password_field_tag :newpassword2, params[:newpassword2]  %>New password (retype)</label>
+    	<label for"submit"><%= submit_tag "Change" %></label>
+	</fieldset>
 <% end %>
-<!--[eoform:group]-->
 

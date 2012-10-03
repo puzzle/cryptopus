@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<% form_tag :action => 'selfrecrypt' do %>
+<%= form_tag :action => 'selfrecrypt' do %>
 	<fieldset>
 	<legend>New password?!</legend>
 		<p>Your LDAP Password has changed until you last logged in.<br/>
@@ -27,7 +27,7 @@
 		<label for="submit"><%= submit_tag "Recrypt" %></label>
 	</fieldset>
 <% end %>
-<% form_tag :action => 'registerrequest' do %>
+<%= form_tag :action => 'registerrequest' do %>
 	<fieldset>
 	<legend>Forgot your password?!</legend>
 		<p>If you forgot your password, you can send a recrypt request to the root, but after that you have to wait until he has recrypted your passwords.</p>
