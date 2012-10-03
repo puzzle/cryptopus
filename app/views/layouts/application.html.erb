@@ -25,54 +25,52 @@
   <link rel="shortcut icon" href="/favicon.png" type="image/png" />
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Cryptopus</title>
-  <%= stylesheet_link_tag 'cryptopus' %>
-  <%= stylesheet_link_tag 'main_navigation' %>
+  <%= stylesheet_link_tag 'style' %>
   <% if session[:uid] %>
     <%= javascript_include_tag :application %>
   <% end %>
 </head>
     
 <body>
-  <div id="wrap">
+  <div id="page" class="hfeed container">
 
-    
-    <div id="header">
+    <header id="masthead" class="site-header" role="banner">
       <%= image_tag("cryptopus_top.png") %>
-    </div>
-
-  
+    </header><!-- end #masthead .site-header -->
+      
     <% if session[:uid] %>
       <div id="countdownWrapper">
         Autologoff: <span id='countdown' >000</span>
       </div>
     <% end %>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+      <%= render :partial => 'layouts/navigation' %>
+    </nav><!-- end #site-navigation .main-navigation -->
     
     <div id="main">
 
-      <div id="messages">
+      <div id="content" class="site-content" role="main">
+        <%= yield  %>
+      </div><!-- end #content .site-content -->
+
+      <aside id="sidebar" class="widget-area" role="complementary">
         <% unless flash[:notice].blank? %>
           <div id="notification"><%= flash[:notice] %></div>
         <% end %>
-    	<% unless flash[:error].blank? %>
+      <% unless flash[:error].blank? %>
           <div id="error"><%=image_tag("status_unknown.png") + " " +  flash[:error] %></div>
-    	<% end %>
-      </div>
+      <% end %>
+      </aside><!-- end #sidebar .widget-area -->
 
-      <%= render :partial => 'layouts/navigation' %>
+    </div><!-- end #main -->
 
-      <div id="content">            
-        <%= yield  %>
-			  <p class="clearer"/>
-			</div>
+    <footer id="colophon" class="site-footer" role="contentinfo">
+      <%= link_to 'Cryptopus 2012', 'https://github.com/puzzle/cryptopus' %>
+    </footer><!-- end #colophon .site-footer -->
 
-      <div id="footer">
-        <p>
-          <%= link_to 'Cryptopus 2012', 'https://github.com/puzzle/cryptopus' %>
-        </p>
-			</div>
 
-    </div>
-	</div>
+  </div>
 </body>
 
 </html>
