@@ -20,7 +20,7 @@
 <h1>New search</h1>
 <% form_tag :action => 'create' do %>
   <p>
-    <%= text_field_tag :search_string, params[:search_string] %>
+    <%= text_field_tag :search_string,  params[:search_string], :autofocus => true %>
     <%= label_tag 'Search string in accounts' %>
   </p>
 
