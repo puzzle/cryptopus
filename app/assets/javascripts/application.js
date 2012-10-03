@@ -1,6 +1,7 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 //= require prototype
+//= require effects
 
 var auto_logoff_time = 10800;
 var remaining_seconds = auto_logoff_time+1;
