@@ -1,0 +1,44 @@
+// Fixed grid
+// Based on blueprint css framework
+// See mixins/simple-responsive-grid.scss for more informations
+// =================================================================================
+
+.container {
+	@include container;
+}
+
+.row {
+	@extend .clearfix;
+	[class*="column"] {
+		@include columnBase;
+	}
+}
+
+// Generate classes for the grid
+@for $n from 1 through $totalColumns {
+	.row {
+		.col#{$n} {
+			@include column($n);
+		}
+	}
+}
+
+// Prefix classes
+//
+// @for $n from 1 to $totalColumns {
+//	.row {
+//		.prefix#{$n} {
+//			@include prepend($n);
+//		}
+//	}
+//}
+
+// Suffix classes
+//
+// @for $n from 1 to $totalColumns {
+//	.row {
+//		.suffix#{$n} {
+//			@include append($n);
+//		}
+//	}
+// }
