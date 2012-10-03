@@ -45,13 +45,7 @@
   <% for teammember in @teammembers %>
     <tr class="<%= cycle('odd', 'even') %>">
       <td><%= teammember.user.full_name %></td>
-
-      <% if teammember.team_admin %>    
-        <td><%= image_tag("folder_home.png") %></td>
-      <% else %>
-        <td><%= link_to image_tag("delete_user.png"), [@team, teammember], :confirm => 'Are you sure?', :method => :delete %></td>
-      <% end %>
-
+      <td><%= link_to image_tag("delete_user.png"), [@team, teammember], :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>

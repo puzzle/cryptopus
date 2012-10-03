@@ -35,16 +35,8 @@
       <td><%= image_tag( "kontact_contacts.png" ) + " " + %Q{#{team.name}} + " [LOCKED]" %></td>
     <% end %>
     <td><%= team.description %></td>
-
-    <% if teammember.team_admin == true %>
-      <td><%= link_to image_tag( "edit.png" ), edit_team_path( team ) %></td>
-      <td><%= link_to image_tag( "remove.png" ), team, :confirm => 'Are you sure?', :method => :delete %></td>
-    
-    <% else %>
-      <td></td>
-      <td></td>
-
-    <% end %>
+    <td><%= link_to image_tag( "edit.png" ), edit_team_path( team ) %></td>
+    <td><%= link_to image_tag( "remove.png" ), team, :confirm => 'Are you sure?', :method => :delete %></td> 
     </tr>
 
   <% end %>
