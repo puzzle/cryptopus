@@ -20,10 +20,7 @@
 <div id="navcontainer">
 <ul>
 <% if session[:uid] %>
-	<li>
-      <%= link_to image_tag("exit.png") + " Logout", logout_login_path %>
-      <%= link_to image_tag("viewmag.png") + " Search", searches_path %>
-    </li>
+
 	<%= render_menu %>
     <% if User.find_by_uid( session[:uid] ).admin == true or session[:uid] == "0" %>
 	  </ul>
@@ -51,3 +48,13 @@
 <% end %>
   </ul>
 </div>
+
+test:
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+  <li><a href="#profile" data-toggle="tab">Profile</a></li>
+  <li><a href="#messages" data-toggle="tab">Messages</a></li>
+  <li><a href="#settings" data-toggle="tab">Settings</a></li>
+</ul>
+ 

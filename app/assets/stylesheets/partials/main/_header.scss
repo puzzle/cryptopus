@@ -7,4 +7,9 @@
  */
 .site-header {
 	display: block;
+  @include clearfix;
+}
+
+#option {
+  float: right;
 }
