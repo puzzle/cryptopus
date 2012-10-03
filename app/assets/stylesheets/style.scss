@@ -40,83 +40,83 @@ Author URI:		http://tokokoo.com
 */
 
 @import "compass";
-// @import "partials/variable";
-// @import "partials/mixins";
+@import "partials/variable";
+@import "partials/mixins";
 
 // /* =============================================================================
 // - Reset Stylesheet
 // Simpler version of Normalize.css + Eric Meyer Reset
 // ============================================================================= */
-// @import "partials/reset";
+@import "partials/reset";
 
 // /* =============================================================================
 // - Base
 // Baseline, selection & links
 // ============================================================================= */
-// @import "partials/base";
+@import "partials/base";
 
 // /* =============================================================================
 // - Basic Responsive Grid
 // Grid basic
 // ============================================================================= */
-// @import "partials/grid";
+@import "partials/grid";
 
 // /* =============================================================================
 // - Typography
 // Headings, text element, lists, code, and more
-// ============================================================================= */
-// @import "partials/typography";
+// ============================================================================= */ 
+@import "partials/typography";
 
 // /* =============================================================================
 // - Font Awesome
 // Font icons - http://fortawesome.github.com/Font-Awesome
 // ============================================================================= */
-// @import "partials/font-awesome";
+@import "partials/font-awesome";
 
 // /* =============================================================================
 // - Form
 // Base styles for various input types and form layouts
 // ============================================================================= */
-// @import "partials/forms";
+@import "partials/forms";
 
 // /* =============================================================================
 // - Table
 // Base styles for all tables
 // ============================================================================= */
-// @import "partials/table";
+@import "partials/table";
 
 // /* =============================================================================
 // - Images
 // Basic and global styles for images, caption, & gallery
 // ============================================================================= */
-// @import "partials/images";
+@import "partials/images";
 
 // /* =============================================================================
 // - Main
 // Global and main styles
 // ============================================================================= */
-// @import "partials/main";
+@import "partials/main";
 
 // /* =============================================================================
 // - Utilities
 // List of helper classes (eg clearfix, alignment, etc)
 // ============================================================================= */
-// @import "partials/utilities";
+@import "partials/utilities";
 
 // /* =============================================================================
 // - Plugins
 // Available plugins (eg slider, tooltip, lightbox)
 // ============================================================================= */
-// @import "partials/plugins";
+@import "partials/plugins";
 
 // /* =============================================================================
 // - Media Queries
 // Styles for responsive layouts
 // ============================================================================= */
-// @import "partials/media-queries";
+@import "partials/media-queries";
 
 // /* =============================================================================
 // - Conditional IE class
 // Style for IE only
 // ============================================================================= */
-// @import "partials/ie";
+@import "partials/ie";
