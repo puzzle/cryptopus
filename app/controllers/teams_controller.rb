@@ -28,10 +28,6 @@ private
       redirect_to :controller => 'login', :action => 'noaccess', :message => "You are not member of this team"
       return
     end
-    unless am_i_team_admin( params[:id] )
-      redirect_to :controller => 'login', :action => 'noaccess', :message => "You are not administrator of this team"
-      return
-    end
   end
 
   def add_user_to_team( user, admin )
@@ -40,8 +36,6 @@ private
     team_member.password = CryptUtils.encrypt_team_password( @team_password, user.public_key )
     if admin == true
       team_member.admin = true
-    else
-      team_member.team_admin = true
     end
     team_member.save
   end
