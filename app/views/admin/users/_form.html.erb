@@ -18,7 +18,7 @@
 -%>
 
 <!--[form:user]-->
-<% form_for([:admin, @user]) do |f| %>
+<%= form_for([:admin, @user]) do |f| %>
   <%= f.error_messages %>
 
   <%= f.label :admin %>

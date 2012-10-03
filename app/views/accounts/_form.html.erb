@@ -18,7 +18,7 @@
 -%>
 
 <!--[form:account]-->
-<% form_for([@team, @group, @account]) do |f| %>
+<%= form_for([@team, @group, @account]) do |f| %>
   <%= f.error_messages %>
 
   <%= f.label :account %>
