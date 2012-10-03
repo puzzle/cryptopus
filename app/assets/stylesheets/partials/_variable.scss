@@ -1,0 +1,79 @@
+// Variable
+// Setup your global variable
+// =================================================================================
+
+// Grid & baseline setup
+// ------------------
+$base-font-size					: 16px;
+$base-line-height				: 24px;
+
+$grid-background-baseline-color	: rgba(black, .05);
+$grid-background-column-color	: rgba(red, .1);
+$grid-background-total-columns	: 24;
+$grid-background-column-width	: 20px;
+$grid-background-gutter-width	: 20px; 
+
+// Global Palettes
+// ------------------
+
+$brown          : rgba(77, 63, 46, 1);
+
+$black				  : rgba(26, 21, 15, 1);
+$blackLight			: lighten($black, 0.2);
+$blackLighter		: lighten($black, 0.4);
+
+$grayDarker			: darken($brown, 0.2);
+$grayDark			  : $brown;
+
+$gray				    : rgba(165, 180, 170, 1) !default;
+$grayLight			: rgba(165, 180, 170, 1) !default;
+$grayLighter		: lighten($grayLight, 0.2);
+
+$white				  : #fff !default;
+$whiteDark			: rgba(254, 254, 246, 1) !default;
+$whiteDarker		: rgba(248, 247, 241, 1) !default;
+
+$blue       :   rgba(50, 165, 180, 1);
+$blueDark   :   rgba(36, 115, 125, 1);
+$yellow     :   rgba(255, 250, 180, 1);
+$green      :   rgba(155, 180, 50, 1);
+$red        :   rgba(170, 50, 30, 1);
+
+
+// Layout Palettes
+// -------------------------
+$backgroundColor	: $white !default;
+$borderColor		: $grayLighter !default;
+$fontColor			: $blackLighter !default;
+$altColor			: $gray !default;
+
+// Link Palettes
+// -------------------------
+$linkColor			: $blue !default;
+$linkHover			: $blueDark !default;
+$linkVisited		: lighten($linkHover, 5%) !default;
+$linkFocus			: $linkHover !default;
+$linkActive			: lighten(adjust-hue($linkColor, 75deg), 10%) !default;
+
+
+// ================================================================================
+// Font Stack
+// http://unitinteractive.com/blog/2008/06/26/better-css-font-stacks/
+// https://github.com/lloydk/font-stack
+// ================================================================================
+ 
+// Serif font-stacks
+// -------------------------
+$serif_family			: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif !default;
+
+// Sans-Serif font-stacks
+// -------------------------
+$sans_family				: Arial, "Helvetica Neue", Helvetica, sans-serif !default;
+
+// Monospace font-stacks
+// -------------------------
+$consolas			: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace !default;
+
+// Cursive font-stacks
+// -------------------------
+$cursive			: "Bradley Hand ITC", "Apple Chancery", "URW Chancery L", cursive !default;

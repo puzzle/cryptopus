@@ -11,3 +11,8 @@ gem 'sextant'
 gem 'dynamic_form'
 
 gem 'rake', '0.9.2.2'
+
+group :assets do
+  gem 'sass-rails'
+  gem 'compass-rails'
+end
