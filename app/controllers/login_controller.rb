@@ -27,7 +27,7 @@ private
   def create_session(user, password)
     session[:username] = user.username
     # @@@TODO remove this if replaced in other methods
-    session[:uid] = user.uid
+    session[:uid] = user.uid.to_s
     begin
       session[:private_key] = CryptUtils.decrypt_private_key( user.private_key, password )
     rescue
