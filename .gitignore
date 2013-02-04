@@ -1,8 +1,6 @@
 log/*.log
 db/*.sqlite3
 config/database.yml
-db/schema.rb
-Gemfile.lock
 tmp
 log
 .sass-cache
