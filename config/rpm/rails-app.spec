@@ -1,8 +1,8 @@
 ### application settings
 # add your specific settings here
 
-%define app_name     APP_NAME
-%define app_version  1.0
+%define app_name     cryptopus
+%define app_version  0.1
 %define ruby_version 1.9.3
 
 ### optional libs
@@ -57,9 +57,7 @@ BuildRequires:  opt-ruby-%{ruby_version}-rubygem-bundler
 BuildRequires:  libxml2-devel
 BuildRequires:  libxslt-devel
 BuildRequires:  sqlite-devel
-%if %{use_mysql}
 BuildRequires:	mysql-devel
-%endif
 %if %{use_pgsql}
 BuildRequires:	postgresql-devel
 %endif
