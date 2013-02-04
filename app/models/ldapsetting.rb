@@ -16,4 +16,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Ldapsetting < ActiveRecord::Base
+  attr_accessible :basename, :hostname, :portnumber, :bind_dn, :bind_password, :encryption
 end

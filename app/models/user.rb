@@ -39,8 +39,8 @@ class User < ActiveRecord::Base
     user.surname = ''
     user.auth = 'db'
     user.password = CryptUtils.one_way_crypt( password )
-    user.update_info
     user.create_keypair password
+    user.update_info
   end
 
   def self.create_from_external_auth( username, password )
@@ -56,8 +56,8 @@ class User < ActiveRecord::Base
       user.username = username
       user.auth = 'ldap'
       user.uid = LdapTools.get_uid_by_username( username )
-      user.update_info
       user.create_keypair password
+      user.update_info
     rescue
       raise Exceptions::UserCreationFailed
     end

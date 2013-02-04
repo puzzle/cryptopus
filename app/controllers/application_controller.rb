@@ -26,11 +26,6 @@ class ApplicationController < ActionController::Base
 protected
 
   def validate
-    if HTTPS_HOST && Rails.env == 'production' && ! request.ssl?
-      redirect_to HTTPS_HOST + '/login/login'
-      return
-    end
-
     unless session[:uid]
       session[:jumpto] = request.parameters
       redirect_to login_login_path
