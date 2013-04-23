@@ -1,42 +1,39 @@
-# PostgreSQL. Versions 8.2 and up are supported.
+# MySQL (default setup).  Versions 4.1 and 5.0 are recommended.
 #
-base: &generic
-  adapter: <%= ENV['RAILS_DB_ADAPTER'] || 'sqlite3' %>
-  pool: 5
-  timeout: 5000
-  encoding: utf8
-<% %w(host port username password).each do |option| %>
-  <% value = ENV["RAILS_DB_#{option.upcase}"] %>
-  <%= "#{option}: #{value}" if value.present? %>
-<% end %>
-
-
+# Install the MySQL driver:
+#   gem install mysql
+# On MacOS X:
+#   gem install mysql -- --include=/usr/local/lib
+# On Windows:
+#   gem install mysql
+#       Choose the win32 build.
+#       Install MySQL and put its /bin directory on your path.
+#
+# And be sure to use new-style password hashing:
+#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 development:
-  <<: *generic
-  database: <%= ENV['RAILS_DB_NAME'] || "#{Rails.root}/db/development.sqlite3" %>
+  adapter: sqlite3
+  #socket: /var/lib/mysql/mysql.sock
+  database: cryptopus_development
+  username: cryptopus
+  password: yourpass
+  host: localhost
 
-  # Connect on a TCP socket. Omitted by default since the client uses a
-  # domain socket that doesn't need configuration. Windows does not have
-  # domain sockets, so uncomment these lines.
-  #host: localhost
-  #port: 5432
-
-  # Schema search path. The server defaults to $user,public
-  #schema_search_path: myapp,sharedapp,public
-
-  # Minimum log levels, in increasing order:
-  #   debug5, debug4, debug3, debug2, debug1,
-  #   log, notice, warning, error, fatal, and panic
-  # The server defaults to notice.
-  #min_messages: warning
-
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
+# Warning: The database defined as 'test' will be erased and
+# re-generated from your development database when you run 'rake'.
 # Do not set this db to the same as development or production.
 test:
-  <<: *generic
-  database: <%= ENV['RAILS_DB_NAME'] || "#{Rails.root}/db/test.sqlite3" %>
+  adapter: sqlite3
+  #socket: /var/lib/mysql/mysql.sock
+  database: cryptopus_test
+  username: cryptopus
+  password: yourpass
+  host: localhost
 
 production:
-  <<: *generic
-  database: <%= ENV['RAILS_DB_NAME'] || "#{Rails.root}/db/production.sqlite3" %>
+  adapter: mysql2
+  #socket: /var/lib/mysql/mysql.sock
+  database: cryptopus_production
+  username: cryptopus
+  password: yourpass
+  host: localhost
