@@ -4,3 +4,5 @@ tmp
 log
 .sass-cache
 public/assets
+
+.project
