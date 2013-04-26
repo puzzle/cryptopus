@@ -1,5 +1,7 @@
 log/*.log
 db/*.sqlite3
+cryptopus_development
+cryptopus_test
 tmp
 log
 .sass-cache
