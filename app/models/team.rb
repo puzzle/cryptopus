@@ -21,4 +21,6 @@ class Team < ActiveRecord::Base
   has_many :groups, :dependent => :destroy, :order => :name
   has_many :teammembers, :dependent => :destroy
   searches_on :name, :description
+
+  attr_accessible :name, :private, :noroot, :description
 end
