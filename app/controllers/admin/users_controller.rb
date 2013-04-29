@@ -26,7 +26,7 @@ private
       # Decrypt the team password with the private key from the
       # logged in user. He has to be root or admin to get
       # admin rights to another user
-      active_user = User.find_by_uid( session[:uid] )
+      active_user = User.find_by_id( session[:uid] )
  
       # skip teams we do not encrypt for admins
       next if team.private or team.noroot
@@ -55,7 +55,7 @@ public
 
   # GET /admin/users
   def index
-    @users = User.find( :all, :conditions => ["uid != 0"] )
+    @users = User.find( :all, :conditions => ["uid != 0 or uid is null"] )
 
     respond_to do |format|
       format.html # index.html.erb
@@ -115,7 +115,7 @@ public
     
     respond_to do |format|
       if @user.save
-        flash[:notice] = 'Successfully created #{@user.username}.'
+        flash[:notice] = "Successfully created a new user."
         format.html { redirect_to(admin_users_url) }
       else
         format.html { render :action => "new" }

@@ -26,7 +26,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
   def destroy
     @recryptrequest = Recryptrequest.find( params[:id] )
     @user = @recryptrequest.user
-    @admin = User.find_by_uid( session[:uid] )
+    @admin = User.find_by_id( session[:uid] )
     
     # Check if the user that tries to recrypt the passwords is root
     # or just an admin.

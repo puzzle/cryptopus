@@ -27,7 +27,7 @@ private
   def create_session(user, password)
     session[:username] = user.username
     # @@@TODO remove this if replaced in other methods
-    session[:uid] = user.uid.to_s
+    session[:uid] = user.id.to_s
     begin
       session[:private_key] = CryptUtils.decrypt_private_key( user.private_key, password )
     rescue
@@ -46,7 +46,7 @@ private
 public
 
   def login
-    unless User.find_by_uid(0)
+    unless User.find_by_id(0)
       flash[:notice] = 'Welcome to Cryptopus, First you have to create a new Root account. Please enter "root" as username and enter a new password'
     end
     if session[:username]

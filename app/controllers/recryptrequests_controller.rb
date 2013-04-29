@@ -53,7 +53,7 @@ public
 
   # GET /recryptrequests/
   def index
-    @user = User.find_by_uid( session[:uid] )
+    @user = User.find_by_id( session[:uid] )
     @recryptrequest = Recryptrequest.find_by_user_id(@user.id)
 
     if @recryptrequest.nil?
@@ -66,7 +66,7 @@ public
 
   # GET /recryptrequests/new
   def new
-    @user = User.find_by_uid( session[:uid] )
+    @user = User.find_by_id( session[:uid] )
   end
 
   # POST /recryptrequests
@@ -128,7 +128,7 @@ public
 
   # GET /recryptrequests/1
   def show
-    @user = User.find_by_uid( session[:uid] )
+    @user = User.find_by_id( session[:uid] )
     @recryptrequest = Recryptrequest.find_by_user_id(@user.id)
   end
 

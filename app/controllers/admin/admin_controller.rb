@@ -21,7 +21,7 @@ class Admin::AdminController < ApplicationController
 protected
 
   def check_for_admin
-    user = User.find_by_uid( session[:uid] )
+    user = User.find_by_id( session[:uid] )
 
     unless session[:uid] == "0" or user.admin == true
       flash[:error] = "No Access"

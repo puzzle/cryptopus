@@ -22,7 +22,7 @@
 <% if session[:uid] %>
 
 	<%= render_menu %>
-    <% if User.find_by_uid( session[:uid] ).admin == true or session[:uid] == "0" %>
+    <% if User.find_by_id( session[:uid] ).admin == true or session[:uid] == "0" %>
 	  </ul>
 	  <h2>Admin Menu:</h2>
 	  <ul>
