@@ -95,5 +95,32 @@ public
       format.html { redirect_to admin_users_path }
     end
   end
+  
+    # GET /admin/users/new
+  def new
+    @user = User.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+    end
+  end
+
+  # POST /admin/users
+  def create
+    @user = User.new( params[:user] )
+    
+    @user.auth = 'db'
+    @user.password = CryptUtils.one_way_crypt( @user.password )
+    @user.create_keypair @user.password
+    
+    respond_to do |format|
+      if @user.save
+        flash[:notice] = 'Successfully created #{@user.username}.'
+        format.html { redirect_to(admin_users_url) }
+      else
+        format.html { render :action => "new" }
+      end
+    end
+  end
 
 end

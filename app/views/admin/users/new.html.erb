@@ -1,6 +1,6 @@
-<%
+<% 
 # $Id$
-#
+
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -17,22 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<!--[form:user]-->
-<%= form_for([:admin, @user]) do |f| %>
-  <%= f.error_messages %>
-  
-  <%= f.label :username %>
-  <%= f.text_field :username, :autofocus => true %>
-
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-
-  <%= f.label :givenname %>
-  <%= f.text_field :givenname %>
-
-  <%= f.label :surname %>
-  <%= f.text_field :surname %>
-
-  <%= f.submit @submit_button_text %>
-<% end %>
-<!--[eoform:user]-->
+<h1>New user</h1>
+<% @submit_button_text = "Create" %>
+<%= render :partial => 'form' %>
