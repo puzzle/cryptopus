@@ -40,20 +40,62 @@ h1. Requirements
 
 h1. Installation Notes
 
-# download: @git clone git://github.com/puzzle/cryptopus.git@
-# @cd cryptopus@
-# Install RVM (see https://rvm.io/rvm/install)
-# rvm install 1.9.3
-# rvm use 1.9.3
-# rvm gemset create cryptopus
-# bundle
-# @cp config/database.yml-dist config/database.yml@
-# edit file @database.yml@
-# set up database: @mysql> create database cryptopus_production;@
-# <code>mysql> grant all on cryptopus_production.* to 'cryptopus'@'localhost' identified by 'mypass'</code>
-# initialize database: @rake db:migrate@
-# start server: @scripts/server@
-# log into app with user root, first used password will be set automatically as password for this user
+h2. Download
+
+@git clone git://github.com/puzzle/cryptopus.git@
+
+h2. Ruby
+
+Install RVM (see https://rvm.io/rvm/install)
+@rvm install 1.9.3@
+@rvm use 1.9.3@
+@rvm gemset create cryptopus@
+@cd cryptopus@
+@bundle@
+
+h2. Database
+
+set up database: @mysql> create database cryptopus_production;@
+<code>mysql> grant all on cryptopus_production.* to 'cryptopus'@'localhost' identified by 'mypass'</code>
+
+The database.yml file reads ist settings from the environment variables. For development create a config file like this
+which you can source "cryptopus.env" @source cryptopus.env@.
+
+bc. alias rails='bundle exec rails'
+export PATH=/opt/ruby-1.9.3/bin:$PATH
+export RAILS_ENV=production
+export RAILS_DB_NAME='cryptopus_production'
+export RAILS_DB_USERNAME='cryptopus'
+export RAILS_DB_PASSWORD='mypass'
+export RAILS_DB_ADAPTER='mysql2'
+export RAILS_DB_HOST='dbserver.example.com'
+export RAILS_DB_PORT='3306'
+
+To deploy in production, you can set the variables for apache in your vhost:
+
+bc. SetEnv RAILS_ENV production
+SetEnv RAILS_DB_NAME 'cryptopus_production'
+SetEnv RAILS_DB_USERNAME 'cryptopus'
+SetEnv RAILS_DB_PASSWORD 'mypass'
+SetEnv RAILS_DB_ADAPTER 'mysql2'
+SetEnv RAILS_DB_HOST 'dbserver.example.com'
+SetEnv RAILS_DB_PORT '3306'
+
+initialize database: @rake db:migrate@
+start server: @scripts/server@
+log into app with user root, first used password will be set automatically as password for this user
+
+h2. Mock + RPM + Puppet
+
+If you have a mock buildserver you can build an RPM of cryptopus with the script in the config/rpm directory
+
+@BUILD_NUMBER=1 config/rpm/build_rpm.sh@
+
+You can integrate this in Jenkins if you want. This RPM can then be deployed with the Puppet Manifests found here:
+
+@http://puppet-modules.git.puzzle.ch/?p=module-rubyapps.git@
+
+This Puppet class automaticaly deploys the vhost configuration including environment variables needed for the database. 
 
 h1. Contact Information
 
