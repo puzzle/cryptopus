@@ -110,8 +110,8 @@ public
     @user = User.new( params[:user] )
     
     @user.auth = 'db'
-    @user.password = CryptUtils.one_way_crypt( @user.password )
     @user.create_keypair @user.password
+    @user.password = CryptUtils.one_way_crypt( @user.password )
     
     respond_to do |format|
       if @user.save
