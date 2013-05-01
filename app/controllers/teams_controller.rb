@@ -69,7 +69,7 @@ private
   end
 
   def remove_root_from_team
-    root = User.find_by_id( "0" )
+    root = User.find_by_uid( "0" )
     teammember_root = @team.teammembers.find_by_user_id( root.id )
     teammember_root.destroy unless teammember_root.nil?
   end
@@ -77,7 +77,7 @@ private
   def remove_admins_from_team
     admins = @team.teammembers.find_all_by_admin( true )
     for admin in admins do
-      admin.destroy unless admin.user.uid == 0
+      admin.destroy unless admin.user.root?
     end
   end
   
@@ -91,7 +91,7 @@ public
       return
     else
       
-      @user = User.find_by_id( session[:user_id] )
+      @user = User.find( session[:user_id] )
       @teams = @user.teams( :all ).uniq
 
       respond_to do |format|
@@ -119,7 +119,7 @@ public
       if @team.save
         @team_password = CryptUtils.new_team_password
         
-        user = User.find_by_id( session[:user_id] )
+        user = User.find( session[:user_id] )
         add_user_to_team( user, false )
 
         add_root_to_team if @team.noroot == false

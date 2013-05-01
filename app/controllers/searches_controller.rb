@@ -27,7 +27,7 @@ class SearchesController < ApplicationController
 
   # POST /search
   def create
-    user = User.find_by_id(session[:user_id])
+    user = User.find(session[:user_id])
 
     teams_all = Team.search params[:search_string]
     if teams_all

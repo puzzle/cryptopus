@@ -26,7 +26,6 @@ private
 
   def create_session(user, password)
     session[:username] = user.username
-    # @@@TODO remove this if replaced in other methods
     session[:user_id] = user.id.to_s
     begin
       session[:private_key] = CryptUtils.decrypt_private_key( user.private_key, password )
@@ -113,19 +112,20 @@ public
   
   def pwdchange
     if request.get?
-      if session[:user_id] != "0"
+      unless User.find( session[:user_id] ).root?
         flash[:error] = "You are not root!"
         redirect_to teams_path
       end
     else
-      if session[:user_id] == "0"
-        root = User.find( :first, :conditions => ["uid = ?", "0"] )
+      user = User.find( session[:user_id] )
+      
+      if user.root?
         crypted_password = CryptUtils.one_way_crypt( params[:oldpassword] )
-        if root.password == crypted_password
+        if user.password == crypted_password
           if params[:newpassword1] == params[:newpassword2]
-            root.password = CryptUtils.one_way_crypt( params[:newpassword1] )
-            root.private_key = CryptUtils.encrypt_private_key( session[:private_key], params[:newpassword1] )
-            root.save
+            user.password = CryptUtils.one_way_crypt( params[:newpassword1] )
+            user.private_key = CryptUtils.encrypt_private_key( session[:private_key], params[:newpassword1] )
+            user.save
             flash[:notice] = "You successfully set the new root password"
           else
             flash[:error] = "New passwords not equal"

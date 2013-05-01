@@ -98,5 +98,9 @@ class User < ActiveRecord::Base
   def full_name
     return self.givenname + ' ' + self.surname
   end
+  
+  def root?
+    self.uid == 0
+  end
 
 end

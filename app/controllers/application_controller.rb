@@ -37,7 +37,7 @@ protected
       session[:jumpto] = request.parameters
     end
 
-    user = User.find( :first, :conditions => ["id = ?" , session[:user_id]] )
+    user = User.find( session[:user_id] )
     
     if Recryptrequest.find(:first, :conditions => ["user_id = ?" , user.id])
       flash[:notice] = "Wait until root has recrypted your team passwords"
@@ -48,7 +48,7 @@ protected
   end
   
   def get_team_password
-    user = User.find( :first, :conditions => ["id = ?" , session[:user_id]] )
+    user = User.find(session[:user_id] )
     teammember = @team.teammembers.find( :first, :conditions => ["user_id = ?", user.id] )
     raise "You have no access to this Group" if teammember.nil?
     team_password = CryptUtils.decrypt_team_password( teammember.password, session[:private_key] )
@@ -63,7 +63,7 @@ protected
   end
   
   def am_i_team_member( team_id )
-    user = User.find( :first, :conditions => ["id = ?" , session[:user_id]] )
+    user = User.find( session[:user_id] )
     return is_user_team_member( team_id, user.id )
   end
 
