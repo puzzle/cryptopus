@@ -21,4 +21,6 @@ class Account < ActiveRecord::Base
   belongs_to :group
   has_many :items, :dependent => :destroy
   searches_on :accountname, :description
+  
+  attr_accessible :accountname, :username, :password, :description
 end
