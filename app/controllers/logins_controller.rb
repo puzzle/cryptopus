@@ -27,7 +27,7 @@ private
   def create_session(user, password)
     session[:username] = user.username
     # @@@TODO remove this if replaced in other methods
-    session[:uid] = user.id.to_s
+    session[:user_id] = user.id.to_s
     begin
       session[:private_key] = CryptUtils.decrypt_private_key( user.private_key, password )
     rescue
@@ -46,7 +46,7 @@ private
 public
 
   def login
-    unless User.find_by_id(0)
+    unless User.find_by_uid(0)
       flash[:notice] = 'Welcome to Cryptopus, First you have to create a new Root account. Please enter "root" as username and enter a new password'
     end
     if session[:username]
@@ -113,12 +113,12 @@ public
   
   def pwdchange
     if request.get?
-      if session[:uid] != "0"
+      if session[:user_id] != "0"
         flash[:error] = "You are not root!"
         redirect_to teams_path
       end
     else
-      if session[:uid] == "0"
+      if session[:user_id] == "0"
         root = User.find( :first, :conditions => ["uid = ?", "0"] )
         crypted_password = CryptUtils.one_way_crypt( params[:oldpassword] )
         if root.password == crypted_password

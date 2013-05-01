@@ -26,7 +26,7 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Cryptopus</title>
   <%= stylesheet_link_tag "application", :media => "all" %>
-  <% if session[:uid] %>
+  <% if session[:user_id] %>
     <%= javascript_include_tag :application %>
   <% end %>
 </head>
@@ -39,7 +39,7 @@
       <%= render :partial => 'layouts/option' %>
     </header><!-- end #masthead .site-header -->
       
-    <% if session[:uid] %>
+    <% if session[:user_id] %>
       <div id="countdownWrapper">
         Autologoff: <span id='countdown' >000</span>
       </div>

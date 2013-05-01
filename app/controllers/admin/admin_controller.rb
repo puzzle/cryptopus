@@ -21,9 +21,9 @@ class Admin::AdminController < ApplicationController
 protected
 
   def check_for_admin
-    user = User.find_by_id( session[:uid] )
+    user = User.find_by_id( session[:user_id] )
 
-    unless session[:uid] == "0" or user.admin == true
+    unless session[:user_id] == "0" or user.admin == true
       flash[:error] = "No Access"
       redirect_to teams_path
     end

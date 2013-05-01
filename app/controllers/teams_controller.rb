@@ -85,13 +85,13 @@ public
 
   # GET /teams
   def index
-    if session[:uid].nil?
+    if session[:user_id].nil?
       flash[:error] = 'Enter a correct username and password or check the LDAP Settings'
       redirect_to :controller => 'login', :action => 'login'
       return
     else
       
-      @user = User.find_by_id( session[:uid] )
+      @user = User.find_by_id( session[:user_id] )
       @teams = @user.teams( :all ).uniq
 
       respond_to do |format|
@@ -119,7 +119,7 @@ public
       if @team.save
         @team_password = CryptUtils.new_team_password
         
-        user = User.find_by_id( session[:uid] )
+        user = User.find_by_id( session[:user_id] )
         add_user_to_team( user, false )
 
         add_root_to_team if @team.noroot == false

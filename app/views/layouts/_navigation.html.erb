@@ -19,10 +19,10 @@
 
 <div id="navcontainer">
 <ul>
-<% if session[:uid] %>
+<% if session[:user_id] %>
 
 	<%= render_menu %>
-    <% if User.find_by_id( session[:uid] ).admin == true or session[:uid] == "0" %>
+    <% if User.find_by_id( session[:user_id] ).admin == true or session[:user_id] == "0" %>
 	  </ul>
 	  <h2>Admin Menu:</h2>
 	  <ul>
@@ -35,7 +35,7 @@
       <li>
         <%= link_to image_tag("kontact_contacts.png") + " Users", admin_users_path %>
       </li>
-      <% if session[:uid] == '0' %>
+      <% if session[:user_id] == '0' %>
         <li>
           <%= link_to image_tag("edit_user.png") + " Change password", pwdchange_login_path %>
         </li>

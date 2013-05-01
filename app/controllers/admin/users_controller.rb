@@ -26,7 +26,7 @@ private
       # Decrypt the team password with the private key from the
       # logged in user. He has to be root or admin to get
       # admin rights to another user
-      active_user = User.find_by_id( session[:uid] )
+      active_user = User.find_by_id( session[:user_id] )
  
       # skip teams we do not encrypt for admins
       next if team.private or team.noroot
