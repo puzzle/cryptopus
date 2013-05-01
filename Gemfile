@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
 
-gem 'activerecord-mysql2-adapter'
+gem 'mysql2'
 gem 'sqlite3'
 gem 'net-ldap'
 gem 'pry'
