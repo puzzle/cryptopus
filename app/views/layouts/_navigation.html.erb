@@ -18,14 +18,12 @@
 -%>
 
 <div id="navcontainer">
-<ul>
 <% if session[:user_id] %>
-
-	<%= render_menu %>
     <% if User.find( session[:user_id] ).admin? or User.find( session[:user_id] ).root? %>
-	  </ul>
-	  <h2>Admin Menu:</h2>
-	  <ul>
+	  <ul class="nav nav-pills">
+	  <li>
+        <%= link_to image_tag("folder_home.png") + " Teams", teams_path %>
+      </li>
       <li id="active">
         <%= link_to image_tag("configure.png") + " LDAP settings", admin_ldapsettings_path %>
       </li>
@@ -40,21 +38,9 @@
           <%= link_to image_tag("edit_user.png") + " Change password", pwdchange_login_path %>
         </li>
       <% end %>
+      </ul>
     <% end %>
- <% else %>
- 	<li>
- 		<%= link_to image_tag("previous.png") + ' Login', login_login_path %>
-	</li>
+    <%= render_menu %>
 <% end %>
   </ul>
 </div>
-
-test:
-
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-  <li><a href="#profile" data-toggle="tab">Profile</a></li>
-  <li><a href="#messages" data-toggle="tab">Messages</a></li>
-  <li><a href="#settings" data-toggle="tab">Settings</a></li>
-</ul>
- 

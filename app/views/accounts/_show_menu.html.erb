@@ -1,7 +1,8 @@
+<ul class="nav nav-pills">
   <li><%= get_back_to_list_button %></li>
 </ul>
 
-<h2>Action</h2>
-<ul>
+<ul class="nav nav-pills">
   <li><%= link_to image_tag( "edit.png" ) + " Edit", [:edit, @team, @group, @account] %><li>
   <li><%= link_to image_tag("add.png") + ' Add attachment', new_team_group_account_item_path(@team, @group, @account) %></li>
+</ul>
