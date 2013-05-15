@@ -21,22 +21,12 @@
 <% if session[:user_id] %>
     <% if User.find( session[:user_id] ).admin? or User.find( session[:user_id] ).root? %>
 	  <ul class="nav nav-pills">
-	  <li>
-        <%= link_to image_tag("folder_home.png") + " Teams", teams_path %>
-      </li>
-      <li id="active">
-        <%= link_to image_tag("configure.png") + " LDAP settings", admin_ldapsettings_path %>
-      </li>
-      <li>
-        <%= link_to image_tag("flag.png") + " Recrypt requests", admin_recryptrequests_path %>
-      </li>
-      <li>
-        <%= link_to image_tag("kontact_contacts.png") + " Users", admin_users_path %>
-      </li>
+	    <%= nav_link "folder_home.png", 'Teams', teams_path %>
+	    <%= nav_link "configure.png", 'LDAP settings', admin_ldapsettings_path %>
+	    <%= nav_link "flag.png", 'Recrypt requests', admin_recryptrequests_path %>
+	    <%= nav_link "kontact_contacts.png", 'Users', admin_users_path %>
       <% if User.find( session[:user_id] ).root? %>
-        <li>
-          <%= link_to image_tag("edit_user.png") + " Change password", pwdchange_login_path %>
-        </li>
+	    <%= nav_link "edit_user.png", 'Change password', pwdchange_login_path %>
       <% end %>
       </ul>
     <% end %>

@@ -38,4 +38,12 @@ module ApplicationHelper
     end  
   end
   
+  def nav_link(image, text, path)
+    class_name = current_page?(path) ? 'active' : ''
+
+    content_tag(:li, :class => class_name) do
+      link_to(image_tag(image) + " " + text, path)
+    end
+  end
+  
 end
