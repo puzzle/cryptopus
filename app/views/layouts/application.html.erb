@@ -38,12 +38,6 @@
       <%= link_to image_tag("cryptopus_top.png"), teams_path %>
       <%= render :partial => 'layouts/option' %>
     </header><!-- end #masthead .site-header -->
-      
-    <% if session[:user_id] %>
-      <div id="countdownWrapper">
-        Autologoff: <span id='countdown' >000</span>
-      </div>
-    <% end %>
 
     <nav id="site-navigation" class="main-navigation" role="navigation">
       <%= render :partial => 'layouts/navigation' %>
