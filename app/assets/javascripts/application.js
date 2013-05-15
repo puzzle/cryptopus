@@ -2,6 +2,8 @@
 // This file is automatically included by javascript_include_tag :defaults
 // require prototype
 // require effects
+//= require jquery
+//= require jquery_ujs
 
 var auto_logoff_time = 10800;
 var remaining_seconds = auto_logoff_time+1;
