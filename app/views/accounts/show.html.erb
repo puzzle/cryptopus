@@ -17,44 +17,44 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<h1>Account: <%= @account.accountname %></h1>
+<h1><%=t '.title', :account_name => @account.accountname %></h1>
 
 <div>
-  <p><strong>Description:</strong> <%= @account.description %></p>
+  <p><strong><%=t :description %></strong> <%= @account.description %></p>
   <br/>
 
   <p>
-    <strong><a href="#" onclick="Effect.toggle('hidden_username', 'appear')" >Username</a></strong> <%= clippy(CGI.escape(@account.username)).html_safe %>
+    <strong><a href="#" onclick="Effect.toggle('hidden_username', 'appear')" ><%=t :username %></a></strong> <%= clippy(CGI.escape(@account.username)).html_safe %>
   </p>
   <div id="hidden_username" style="display:none">
     <%= @account.username %>
   </div>
 
   <p>
-    <strong><a href="#" onclick="Effect.toggle('hidden_password', 'appear')" >Password</a></strong> <%= clippy(CGI.escape(@account.password)).html_safe %>
+    <strong><a href="#" onclick="Effect.toggle('hidden_password', 'appear')" ><%=t :password %></a></strong> <%= clippy(CGI.escape(@account.password)).html_safe %>
   </p>
   <div id="hidden_password" style="display:none">
     <%= @account.password %>
   </div>
   <br/>
   
-  <p><strong>Last change was <%= time_ago_in_words @account.updated_on %> ago</p>
+  <p><strong><%=t '.last_change', :time_ago => (time_ago_in_words @account.updated_on) %></p>
   <br/>
 
-  <strong>Attachments:</strong>
+  <strong><%=t '.attachments' %></strong>
   <table>
     <tr>
-      <th>File</th>
-      <th>Actions</th>
-      <th>Description</th>
+      <th><%=t '.file' %></th>
+      <th><%=t :actions %></th>
+      <th><%=t :description %></th>
     </tr>
     
     <% for item in @items %>
       <tr>
         <td><b><%= item.filename %></b><br/>
           <%= image_tag("encrypted.png") %></td>
-        <td><%= link_to image_tag( "kget.png" ) + ' Download', [@team, @group, @account, item] %><br />
-            <%= link_to image_tag( "remove.png" ) + ' Destroy', [@team, @group, @account, item], :confirm => 'Are you sure?', :method => :delete %></td>
+        <td><%= link_to image_tag( "kget.png" ) + " " + t(:download), [@team, @group, @account, item] %><br />
+            <%= link_to image_tag( "remove.png" ) + " " + t(:delete), [@team, @group, @account, item], :confirm => t(:confirmation), :method => :delete %></td>
         <td valign="top"><%= item.description %></td>
       </tr>
     <% end %>

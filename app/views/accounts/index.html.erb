@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
   
-<h1>Accounts in group <%= @group.name %> for team <%= @team.name %></h1>
+<h1><%=t '.title', :group_name => @group.name, :team_name => @team.name %></h1>
 
 <table>
 
@@ -26,7 +26,7 @@
       <td><%= link_to image_tag( "encrypted_small.png" ) + " " + account.accountname, [@team, @group, account] %></td>
       <td><%= account.description %></td>
       <td><%= link_to image_tag("edit.png"), [:edit, @team, @group, account] %></td>
-      <td><%= link_to image_tag("remove.png"), [@team, @group, account], :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to image_tag("remove.png"), [@team, @group, account], :confirm => t(:confirmation), :method => :delete %></td>
     </tr>
   <% end %>
 

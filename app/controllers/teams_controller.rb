@@ -86,7 +86,7 @@ public
   # GET /teams
   def index
     if session[:user_id].nil?
-      flash[:error] = 'Enter a correct username and password or check the LDAP Settings'
+      flash[:error] = t('flashes.teams.wrong_user_password')
       redirect_to :controller => 'login', :action => 'login'
       return
     else
@@ -126,7 +126,7 @@ public
         
         add_admins_to_team if @team.private == false
      
-        flash[:notice] = 'Successfully created a new team.'
+        flash[:notice] = t('flashes.teams.created')
         format.html { redirect_to(teams_url) }
 
       else
@@ -162,7 +162,7 @@ public
           add_root_to_team
         end
 
-        flash[:notice] = 'Team was successfully updated.'
+        flash[:notice] = t('flashes.teams.updated')
         format.html { redirect_to(teams_url) }
       else
         format.html { render :action => "edit" }

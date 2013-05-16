@@ -81,7 +81,7 @@ public
     
     respond_to do |format|
       if @account.save
-        flash[:notice] = 'Account was successfully created.'
+        flash[:notice] = t('flashes.accounts.created')
         format.html { redirect_to team_group_accounts_url(@team, @group) }
       else
         format.html { render :action => 'new' }
@@ -110,7 +110,7 @@ public
         
     respond_to do |format|
       if @account.save
-        flash[:notice] = 'Account was successfully updated.'
+        flash[:notice] = t('flashes.accounts.updated')
         format.html { redirect_to team_group_accounts_url(@team, @group) }
       else
         format.html { render :action => 'edit' }

@@ -1,5 +1,185 @@
-# Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  confirmation: "Are you sure?"
+  show: "Show"
+  edit: "Edit"
+  update: "Update"
+  create: "Create"
+  delete: "Delete"
+  add: "Add"
+  description: "Description"
+  username: "Username"
+  password: "Password"
+  actions: "Actions"
+  download: "Download"
+  yes: "Yes"
+  no: "No"
+  forgot_password: "Forgot your password?"
+  logout: "Logout"
+  auto_logout: "auto-logout in"
+  ldap_settings: "LDAP Settings"
+  recrypt_requests: "Recrypt requests"
+  users: "Users"
+  change_password: "Change password"
+  last_login: "Your last login was %{time_ago} ago."
+  
+  accounts:
+    index:
+      move: "Move account to other group"
+      title: "Accounts in group %{group_name} for team %{team_name}"
+    index_menu:
+      create: "Create Account"
+      group: "Groups"
+    show_menu:
+      add_attachment: "Add attachment"
+    edit:
+      title: "Editing account"
+    edit_menu:
+      
+    show:
+      title: "Account: %{account_name}"
+      last_change: "Last change was %{time_ago} ago"
+      attachments: "Attachments"
+      file: "File"
+    new:
+      title: "New Account"
+    
+  admin:
+    ldapsettings:
+      index:
+        title: "Edit LDAP settings"
+    recryptrequests:
+      index:
+        title: "Re-encryption requests"
+        user: "User"
+        admin_required: "Admin required"
+        root_required: "Root required"
+      request:
+        request_sent: "A request to recrypt your group passwords was sent to the root. Wait until she recrypted your passwords."
+      uncrypterror:
+        new_password: "New password?!"
+        ldap_password_changed: "Your LDAP Password has changed since your last login."
+        ldap_enter_old_password: "Please enter your old LDAP Passwort to decrypt your Private_key."
+        ldap_old_password: "Your old LDAP Password"
+        ldap_new_password: "Your new LDAP Password"
+        ldap_password: "Your LDAP Password"
+        forgot_password_recrypt: "If you forgot your password, you can send a recrypt request to the root, but after that you have to wait until she has recrypted your passwords."
+        recrypt: "Recrypt"
+        send: "Send request"
+    users:
+      index_menu:
+        create: "Create new user"
+      edit:
+        title: "Editing user"
+      index:
+        title: "List of all Cryptopus users"
+        username: "Username"
+        name: "Name"
+        ldap_uid: "LDAP UID"
+        admin: "Admin"
+        action: "Action"
+      new:
+        title: "New user"
+  
+  groups:
+    index_menu:
+      create: "Create group"
+    edit:
+      title: "Editing group"
+    index:
+      title: "Groups for team %{team_name}"
+      group: "Group"
+      members: "Members"
+      add_member: "Add member"
+      admins: "Admins"
+    new:
+      title: "New group"
+      
+  items:
+    new:
+      title: "Add new attachment to account"
+      upload: "File to upload"
+      upload_file: "Upload file"
+  
+  logins:
+    login:
+      title: "Log in"
+      description: "Please enter your username and password to access cryptopus"
+      submit: "Login"
+    logout:
+      title: "Logout"
+      message: "Bye"
+      hint: "Please clear your browser cache."
+    newuser:
+      title: "Welcome to Cryptopus"
+      description: "We created a new keypair for you. Enjoy Cryptopus."
+    noaccess:
+      title: "Access denied"
+    pwdchange:
+      title: "Change password"
+      old: "Old password"
+      new: "New password"
+      new_retype: "New password (retype)"
+      submit: "Change"
+      
+  teammembers:
+    new:
+      title: "Add a new team member"
+    
+  teams:
+    title: "Teams"
+    form:
+      private: "Private"
+      private_hint: "Admins don't have access to this team"
+      no_root: "No Root"
+      no_root_hint: "NOT EVEN ROOT CAN RESTORE YOUR DATA IF YOU LOOSE YOUR PASSWORD!"
+    index_menu:
+      create: "Create new team"
+    index:
+      title: "You are member of the following teams:"
+      team: "Team"
+    new:
+      title: "Create a new team"
+    
+  flashes:
+    admin:
+      admin:
+        no_access: "Access denied"
+      ldapsettings:
+        example: "These are example settings. Please overwrite them with your settings."
+        ldap: "Your LDAD settings were successfully updated."
+      recryptrequests:
+        some: "Successfully recrypted some passwords for %{user_name}"
+        all: "Successfully recrypted all passwords for %{user_name}"
+      users:
+        created: "Successfully created a new user."
+    accounts:
+      created: "Account was successfully created."
+      updated: "Account was successfully updated."
+    application:
+      wait: "Wait until root has recrypted your team passwords."
+    groups:
+      created: "Successfully created a new group."
+      updated: "Group was successfully updated."
+    items:
+      uploaded: "File was successfully uploaded."
+    logins:
+      welcome: "Welcome to Cryptopus, first you have to create a new Root account. Please enter \"root\" as username and enter a new password"
+      auth_failed: "Authentication failed! Enter a correct username and password."
+      only_local: "Only local users are allowed to change their password."
+      new_password_set: "You successfully set the new password"
+      new_passwords_not_equal: "New passwords not equal"
+      wrong_password: "Wrong password"
+      not_local: "You are not a local user!"
+    recryptrequests:
+      recrypted: "You have successfully recrypted the password"
+      new_password_wrong: "Your NEW password was wrong"
+      old_password_wrong: "Your OLD password was wrong"
+      wait: "Wait until root has recrypted your team passwords"
+      wrong_password: "Your password was wrong"
+    teams:
+      wrong_user_password: "Enter a correct username and password or check the LDAP Settings"
+      created: "Successfully created a new team."
+      updated: "Team was successfully updated."
+      

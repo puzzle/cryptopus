@@ -40,7 +40,7 @@ protected
     user = User.find( session[:user_id] )
     
     if Recryptrequest.find(:first, :conditions => ["user_id = ?" , user.id])
-      flash[:notice] = "Wait until root has recrypted your team passwords"
+      flash[:notice] = t('flashes.application.wait')
       redirect_to :controller => 'login', :action => 'logout'
       return
     end

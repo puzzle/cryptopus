@@ -20,14 +20,14 @@
 <div id="navcontainer">
 <% if session[:user_id] %>
 	  <ul class="nav nav-pills">
-	    <%= nav_link "folder_home.png", 'Teams', teams_path %>
+	    <%= nav_link "folder_home.png", t('teams.title'), teams_path %>
         <% if User.find( session[:user_id] ).admin? or User.find( session[:user_id] ).root? %>
-	        <%= nav_link "configure.png", 'LDAP settings', admin_ldapsettings_path %>
-	        <%= nav_link "flag.png", 'Recrypt requests', admin_recryptrequests_path %>
-	        <%= nav_link "kontact_contacts.png", 'Users', admin_users_path %>
+	        <%= nav_link "configure.png", t(:ldap_settings), admin_ldapsettings_path %>
+	        <%= nav_link "flag.png", t(:recrypt_requests), admin_recryptrequests_path %>
+	        <%= nav_link "kontact_contacts.png", t(:users), admin_users_path %>
         <% end %>
         <% if User.find( session[:user_id] ).auth_db? %>
-	        <%= nav_link "edit_user.png", 'Change password', pwdchange_login_path %>
+	        <%= nav_link "edit_user.png", t(:change_password), pwdchange_login_path %>
         <% end %>
       </ul>
     <%= render_menu %>

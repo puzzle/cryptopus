@@ -25,10 +25,10 @@
   <%= f.label :name %>
   <%= f.text_field :name, :autofocus => true %>
 
-  <%= tooltip "Private", { :tooltip => 'Admins don\'t have access to this team' }, :class => 'mytooltip' %>
+  <%= tooltip t('.private'), :options => { :tooltip => t('.private_hint') }, :class => 'mytooltip' %>
   <%= f.check_box :private %>
 
-  <%= tooltip "No Root", { :tooltip => 'NOT EVEN ROOT CAN RESTORE YOUR DATA IF YOU LOOSE YOUR PASSWORD!' }, :class => 'mytooltip' %>
+  <%= tooltip t('.no_root'), :options => { :tooltip => t('.no_root_hint') }, :class => 'mytooltip' %>
   <%= f.check_box :noroot %>
 
   <%= f.label :description %>

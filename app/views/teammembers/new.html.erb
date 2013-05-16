@@ -17,6 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<h1>Add new Team Member</h1>
-<% @submit_button_text = "Add" %>
+<h1><%=t '.title'%></h1>
+<% @submit_button_text = t(:add) %>
 <%= render :partial => 'form' %>

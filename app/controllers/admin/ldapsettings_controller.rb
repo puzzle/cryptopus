@@ -21,7 +21,7 @@ class Admin::LdapsettingsController < Admin::AdminController
   def index
     @ldapsetting = Ldapsetting.find(:first)
     if @ldapsetting.nil?
-      flash[:notice] = "This are example settings. Please overwrite them with your settings."
+      flash[:notice] = t('flashes.admin.ldapsettings.example')
       @ldapsetting = Ldapsetting.new
       @ldapsetting.save
     end
@@ -33,7 +33,7 @@ class Admin::LdapsettingsController < Admin::AdminController
         
     respond_to do |format|
       if @ldapsetting.update_attributes( params[:ldapsetting] )
-        flash[:notice] = 'Your LDAD settings were successfully updated.'
+        flash[:notice] = t('flashes.admin.ldapsettings.ldap')
         format.html { redirect_to teams_path }
       else
         format.html { redirect_to admin_ldapsettings_path }

@@ -16,15 +16,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<h1>List of all Cryptopus users:</h1>
+<h1><%=t '.title' %></h1>
 
 <table>
   <tr>
-    <th>Username</th>
-    <th>Name</th>
-    <th>Ldap UID</th>
-    <th>Admin</th>
-    <th>Action</th>
+    <th><%=t '.username' %></th>
+    <th><%=t '.name' %></th>
+    <th><%=t '.ldap_uid' %></th>
+    <th><%=t '.admin' %></th>
+    <th><%=t '.action' %></th>
   </tr>
 
   <% for user in @users  %>
@@ -37,7 +37,7 @@
       <% else %>
         <td></td>
       <% end %>
-      <td><%= link_to image_tag( "remove.png" ), [:admin, user], :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to image_tag( "remove.png" ), [:admin, user], :confirm => t(:confirmation), :method => :delete %></td>
     </tr>
   <% end %>
 

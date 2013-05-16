@@ -19,20 +19,20 @@
 
 <%= form_tag :action => 'selfrecrypt' do %>
 	<fieldset>
-	<legend>New password?!</legend>
-		<p>Your LDAP Password has changed until you last logged in.<br/>
-		Please enter your old LDAP Passwort to decrypt your Private_key.</p>
-    	<label for="uncrypterror_oldpassword"><%= password_field_tag :oldpassword, params[:oldpassword], :autofocus => true %>Your old LDAP Password</label><br/>
-    	<label for="uncrypterror_newpassword"><%= password_field_tag :newpassword, params[:newpassword] %>Your LDAP Password</label>
-		<label for="submit"><%= submit_tag "Recrypt" %></label>
+	<legend><%=t '.new_password' %></legend>
+		<p><%=t '.ldap_password_changed' %><br/>
+		<%=t '.ldap_enter_old_password' %></p>
+    	<label for="uncrypterror_oldpassword"><%= password_field_tag :oldpassword, params[:oldpassword], :autofocus => true %><%=t '.ldap_old_password' %></label><br/>
+    	<label for="uncrypterror_newpassword"><%= password_field_tag :newpassword, params[:newpassword] %><%=t '.ldap_password' %></label>
+		<label for="submit"><%= submit_tag t('.recrypt') %></label>
 	</fieldset>
 <% end %>
 <%= form_tag :action => 'registerrequest' do %>
 	<fieldset>
-	<legend>Forgot your password?!</legend>
-		<p>If you forgot your password, you can send a recrypt request to the root, but after that you have to wait until he has recrypted your passwords.</p>
-    	<label for="uncrypterror_newpassword"><%= password_field_tag :newpassword, params[:newpassword] %>Your LDAP Password</label>
-    	<label for="submit"></label><%= submit_tag "Send request" %></label>
+	<legend><%=t :forgot_password %></legend>
+		<p><%=t '.forgot_password_recrypt' %></p>
+    	<label for="uncrypterror_newpassword"><%= password_field_tag :newpassword, params[:newpassword] %><%=t '.ldap_password' %></label>
+    	<label for="submit"></label><%= submit_tag t('.send') %></label>
 	</fieldset>
 <%end%>
 <br>

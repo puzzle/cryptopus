@@ -18,16 +18,16 @@
 -%>
 <%= form_tag({:action => 'authenticate'}, :id => 'loginform') do %>
   <fieldset>
-    <legend>Log in</legend>
-    <p>Please enter your username and password to access cryptopus</p>
+    <legend><%=t '.title' %></legend>
+    <p><%=t '.description' %></p>
     
-    <label for="username">Username:</label>
+    <label for="username"><%=t :username %>:</label>
     <%= text_field_tag :username, params[:username], :autofocus => true  %>
 
-    <label for="password">Password:</label>   
+    <label for="password"><%=t :password %>:</label>   
     <%= password_field_tag :password, params[:password] %>
 
     <label for="submit"/>
-    <%= submit_tag "Login" %>
+    <%= submit_tag t('.submit') %>
   </fieldset>
 <% end %>

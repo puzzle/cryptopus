@@ -24,7 +24,7 @@ protected
     user = User.find( session[:user_id] )
 
     unless user.root? or user.admin?
-      flash[:error] = "No Access"
+      flash[:error] = t('flashes.admin.admin.no_access')
       redirect_to teams_path
     end
   end

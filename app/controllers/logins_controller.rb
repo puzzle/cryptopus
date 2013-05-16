@@ -46,7 +46,7 @@ public
 
   def login
     unless User.find_by_uid(0)
-      flash[:notice] = 'Welcome to Cryptopus, First you have to create a new Root account. Please enter "root" as username and enter a new password'
+      flash[:notice] = t('flashes.logins.welcome')
     end
     if session[:username]
       redirect_to teams_path
@@ -65,7 +65,7 @@ public
         end  
       end
     rescue Exceptions::UserCreationFailed, Exceptions::AuthenticationFailed
-      flash[:error] = 'Authentication failed! Enter a correct username and password.'
+      flash[:error] = t('flashes.logins.auth_failed')
       render :action => 'login'
       return
     end
@@ -113,7 +113,7 @@ public
   def pwdchange
     if request.get?
       unless User.find( session[:user_id] ).auth_db?
-        flash[:error] = "Only local users are allowed to change their password."
+        flash[:error] = t('flashes.logins.only_local')
         redirect_to teams_path
       end
     else
@@ -126,15 +126,15 @@ public
             user.password = CryptUtils.one_way_crypt( params[:newpassword1] )
             user.private_key = CryptUtils.encrypt_private_key( session[:private_key], params[:newpassword1] )
             user.save
-            flash[:notice] = "You successfully set the new password"
+            flash[:notice] = t('flashes.logins.new_password_set')
           else
-            flash[:error] = "New passwords not equal"
+            flash[:error] = t('flashes.logins.new_passwords.not_equal')
           end
         else
-          flash[:error] = "Wrong Password"
+          flash[:error] = t('flashes.logins.wrong_password')
         end
       else
-        flash[:error] = "You are not a local user!"
+        flash[:error] = t('flashes.logins.not_local')
       end
       redirect_to teams_path
     end    

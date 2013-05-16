@@ -35,7 +35,7 @@
 
   <% unless @groups.nil? or @groups.empty? %>
 
-    <%= f.label "Move account to other group" %>
+    <%= f.label t(:accounts_move) %>
     <%= f.collection_select(:group_id, @groups, :id, :name) %>
 
   <% end %>

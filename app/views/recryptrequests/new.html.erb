@@ -20,43 +20,42 @@
 <%= form_tag :action => 'create' do %>
 
   <p>
-    Your LDAP Password has changed since your last login.<br/>
-    Please enter your old LDAP Passwort to decrypt your Private_key.
+    <%=t 'admin.recryptrequests.uncrypterror.ldap_password_changed'%><br/>
+    <%=t 'admin.recryptrequests.uncrypterror.ldap_enter_old_password'%>
   </p><br/>
 
 
   <% if @user.last_login_at %>
     <p>
-      Your last login was <%= time_ago_in_words @user.last_login_at %> ago.
+      <%=t :last_login, :time_ago => (time_ago_in_words @user.last_login_at)%>
     </p><br/>
   <% end %>
   
   <p>
     <label for="new_password">
-      Your <strong>new</strong> LDAP Password
+      <%=t 'admin.recryptrequests.uncrypterror.ldap_new_password'%>
       <%= password_field_tag :new_password, params[:new_password], :autofocus => true %>
     </label>
     <br/>
     <label for="old_password">
-      Your <strong>old</strong> LDAP Password:
+      <%=t 'admin.recryptrequests.uncrypterror.ldap_old_password'%>
       <%= password_field_tag :old_password, params[:old_password] %>
     </label>
   </p><br/>
 
   <p>
-    If you forgot your old password, you can send a recrypt request to the root and/or admins.
-    After that you have to wait until they have recrypted your passwords.
+  	<%=t 'admin.recryptrequests.uncrypterror.forgot_password_recrypt'%>
   </p><br/>
 
   <p>
     <label for="recrypt_request">
-      Forgot your old password?
+      <%=t :forgot_password %>
       <%= check_box_tag :recrypt_request %> 
     </label>
   </p><br/>
 
   <label for="send">
-    <%= submit_tag "Send" %>
+    <%= submit_tag t('admin.recryptrequests.uncrypterror.send') %>
   </label>
 
 <% end %>

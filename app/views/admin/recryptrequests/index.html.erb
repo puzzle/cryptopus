@@ -17,13 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<h1>Re-encryption requests</h1>
+<h1><%=t '.title' %></h1>
 <table>
   <tr>
-    <th>User</th>
-    <th>Admin required</th>
-    <th>Root required</th>
-    <th>Actions</th>
+    <th><%=t '.user' %></th>
+    <th><%=t '.admin_required' %></th>
+    <th><%=t '.root_required' %></th>
+    <th><%=t :actions %></th>
   </tr>
     
   <% for recryptrequest in @recryptrequests %>
@@ -35,9 +35,9 @@
         <td>No</td>
       <% end %>
       <% if recryptrequest.rootrequired == true %>
-        <td>Yes</td>
+        <td><%=t :yes %></td>
       <% else %>
-        <td>No</td>
+        <td><%=t :no %></td>
       <% end %>
       <td><%= link_to "recrypt", [:admin, recryptrequest], :method => :delete %></td>
     </tr>

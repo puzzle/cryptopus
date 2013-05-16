@@ -51,7 +51,7 @@ public
       
     respond_to do |format|
       if @item.save
-        flash[:notice] = 'File was successfully uploadet.'
+        flash[:notice] = t('flashes.items.uploaded')
       end
       format.html { redirect_to team_group_account_url(@team, @group, @account) }
     end

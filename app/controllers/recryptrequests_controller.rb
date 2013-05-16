@@ -32,17 +32,17 @@ private
       @user.private_key = CryptUtils.encrypt_private_key( private_key, new_password )
       @user.save
     
-      flash[:notice] = "You have successfully recrypted the password"
+      flash[:notice] = t('flashes.recryptrequests.recrypted')
       redirect_to :controller => 'login', :action => 'logout'
       return
 
     rescue Exceptions::AuthenticationFailed
-      flash[:error] = "Your NEW password was wrong"
+      flash[:error] = t('flashes.recryptrequests.new_password_wrong')
       redirect_to new_recryptrequest_path
       return
 
     rescue Exceptions::DecryptFailed
-      flash[:error] = "Your OLD password was wrong"
+      flash[:error] = t('flashes.recryptrequests.old_password_wrong')
       redirect_to new_recryptrequest_path
       return
 
@@ -113,12 +113,12 @@ public
       end
 	
       @recryptrequest.save
-      flash[:notice] = "Wait until root has recrypted your team passwords"
+      flash[:notice] = t('flashes.recryptrequests.wait')
       redirect_to :controller => 'login', :action => 'logout'
       return
 
     rescue Exceptions::AuthenticationFailed
-      flash[:error] = "Your password was wrong"
+      flash[:error] = t('flashes.recryptrequests.wrong_password')
       redirect_to new_recryptrequest_path
       return
 

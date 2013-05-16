@@ -20,10 +20,10 @@
 <h1>Change password</h1>
 <%= form_tag :action => 'pwdchange' do %>
 	<fieldset>
-    	<label for="pwdchange_oldpassword"><%= password_field_tag :oldpassword, params[:oldpassword], :autofocus => true  %>Old password</label>
-    	<label for="pwdchange_newpassword1"><%= password_field_tag :newpassword1, params[:newpassword1]  %>New password</label>
-    	<label for="pwdchange_newpassword2"><%= password_field_tag :newpassword2, params[:newpassword2]  %>New password (retype)</label>
-    	<label for"submit"><%= submit_tag "Change" %></label>
+    	<label for="pwdchange_oldpassword"><%= password_field_tag :oldpassword, params[:oldpassword], :autofocus => true  %><%=t '.old' %></label>
+    	<label for="pwdchange_newpassword1"><%= password_field_tag :newpassword1, params[:newpassword1]  %><%=t '.new' %></label>
+    	<label for="pwdchange_newpassword2"><%= password_field_tag :newpassword2, params[:newpassword2]  %><%=t '.new_retype' %></label>
+    	<label for"submit"><%= submit_tag t('.submit') %></label>
 	</fieldset>
 <% end %>
 

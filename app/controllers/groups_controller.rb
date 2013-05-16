@@ -64,7 +64,7 @@ public
 
     respond_to do |format|
       if @group.save
-        flash[:notice] = 'Successfully created a new group.'
+        flash[:notice] = t('flashes.groups.created')
         format.html { redirect_to team_groups_url(@team) }
       else
         format.html { render :action => 'new' }
@@ -88,7 +88,7 @@ public
 
     respond_to do |format|
       if @group.update_attributes( params[:group] )
-        flash[:notice] = 'Group was successfully updated.'
+        flash[:notice] = t('flashes.groups.updated')
         format.html { redirect_to team_groups_url(@team) }
       else
         format.html { render :action => 'edit' }

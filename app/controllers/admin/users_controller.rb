@@ -115,7 +115,7 @@ public
     
     respond_to do |format|
       if @user.save
-        flash[:notice] = "Successfully created a new user."
+        flash[:notice] = t('flashes.admin.users.created')
         format.html { redirect_to(admin_users_url) }
       else
         format.html { render :action => "new" }

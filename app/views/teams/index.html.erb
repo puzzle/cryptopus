@@ -17,12 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<h1>You are member of the following teams:</h1>
+<h1><%=t '.title' %></h1>
 <table>
   <tr>
-    <th>Team</th>
-    <th>Description</th>
-    <th colspan="3">Actions</th>
+    <th><%=t '.team' %></th>
+    <th><%=t :description %></th>
+    <th colspan="3"><%=t :actions %></th>
   </tr>
 
   <% @teams.each do |team| %>
@@ -36,7 +36,7 @@
     <% end %>
     <td><%= team.description %></td>
     <td><%= link_to image_tag( "edit.png" ), edit_team_path( team ) %></td>
-    <td><%= link_to image_tag( "remove.png" ), team, :confirm => 'Are you sure?', :method => :delete %></td> 
+    <td><%= link_to image_tag( "remove.png" ), team, :confirm => t(:confirmation), :method => :delete %></td> 
     </tr>
 
   <% end %>
