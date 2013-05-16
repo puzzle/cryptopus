@@ -19,6 +19,7 @@ Cryptopus::Application.routes.draw do
   resource :login do
     get :login
     get :pwdchange
+    post :pwdchange
     get :logout
     get :noaccess
     post :authenticate

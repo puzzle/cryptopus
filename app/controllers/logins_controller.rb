@@ -112,21 +112,21 @@ public
   
   def pwdchange
     if request.get?
-      unless User.find( session[:user_id] ).root?
-        flash[:error] = "You are not root!"
+      unless User.find( session[:user_id] ).auth_db?
+        flash[:error] = "Only local users are allowed to change their password."
         redirect_to teams_path
       end
     else
       user = User.find( session[:user_id] )
       
-      if user.root?
+      if user.auth_db?
         crypted_password = CryptUtils.one_way_crypt( params[:oldpassword] )
         if user.password == crypted_password
           if params[:newpassword1] == params[:newpassword2]
             user.password = CryptUtils.one_way_crypt( params[:newpassword1] )
             user.private_key = CryptUtils.encrypt_private_key( session[:private_key], params[:newpassword1] )
             user.save
-            flash[:notice] = "You successfully set the new root password"
+            flash[:notice] = "You successfully set the new password"
           else
             flash[:error] = "New passwords not equal"
           end
@@ -134,7 +134,7 @@ public
           flash[:error] = "Wrong Password"
         end
       else
-        flash[:error] = "You are not root!"
+        flash[:error] = "You are not a local user!"
       end
       redirect_to teams_path
     end    

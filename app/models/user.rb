@@ -102,5 +102,9 @@ class User < ActiveRecord::Base
   def root?
     self.uid == 0
   end
+  
+  def auth_db?
+    self.auth == 'db'
+  end
 
 end
