@@ -1,0 +1,184 @@
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+fr:
+  confirmation: "Etes-vous sûr?"
+  show: "Montrer"
+  edit: "Modifier"
+  update: "Mettre à jour"
+  create: "Créer"
+  delete: "Supprimer"
+  add: "Ajouter"
+  description: "Description"
+  username: "Nom d'utilisateur"
+  password: "Mot de passe"
+  actions: "Actions"
+  download: "Télécharger"
+  yes: "Oui"
+  no: "Non"
+  forgot_password: "Mot de passe oublié?"
+  logout: "Déconnexion"
+  auto_logout: "Déconnexion automatique en"
+  ldap_settings: "Paramètres de LDAP"
+  recrypt_requests: "Recrypt Anfragen"
+  users: "Utilisateur"
+  change_password: "Changer le mot de passe"
+  last_login: "Votre dernière connexion était il ya %{time_ago}."
+  
+  accounts:
+    index:
+      move: "Déplacer compte à un autre groupe"
+      title: "Comptes du groupe %{group_name} de l'équipe %{team_name}"
+    index_menu:
+      create: "Créer compte"
+      group: "Groupes"
+    show_menu:
+      add_attachment: "Ajouter un attachement"
+    edit:
+      title: "Modifier le compte"
+      
+    show:
+      title: "Compte: %{account_name}"
+      last_change: "Dernière mise à jour il ya %{time_ago}"
+      attachments: "Attachements"
+      file: "Fichier"
+    new:
+      title: "Nouveau compte"
+    
+  admin:
+    ldapsettings:
+      index:
+        title: "Modifier les paramètres de LDAP"
+    recryptrequests:
+      index:
+        title: "Demandes de re crypt"
+        user: "Utilisateur"
+        admin_required: "Admin requis"
+        root_required: "Root requis"
+      request:
+        request_sent: "Une demande de re crypt vos mots de passe de groupe a été envoyée à Root. S'il vous plaît attendre jusqu'à ce qu'elle re crypté vos nouveaux mots de passe."
+      uncrypterror:
+        new_password: "Nouveau mot de passe?!"
+        ldap_password_changed: "Votre mot de passe de LDAP a changé depuis votre dernière connexion."
+        ldap_enter_old_password: "S'il vous plaît entrez votre ancien mot de passe pour déchiffrer votre clé privée."
+        ldap_old_password: "Votre ancien mot de passe de LDAP"
+        ldap_new_password: "Votre nouveau mot de passe de LDAP"
+        ldap_password: "Votre mot de passe de LDAP"
+        forgot_password_recrypt: "Si vous avez oublié votre mot de passe, vous pouvez envoyer une demande re crypt à Root. Vous devez attendre jusqu'à ce qu'elle ait re crypté vos mots de passe."
+        recrypt: "Re crypter"
+        send: "Envoyer la demande"
+    users:
+      index_menu:
+        create: "Créer utilisateur"
+      edit:
+        title: "Modifier l'utilisatuer"
+      index:
+        title: "La Liste de toutes les utilisateurs"
+        username: "Nom d'utilisateur"
+        name: "Nom"
+        ldap_uid: "LDAP UID"
+        admin: "Admin"
+        action: "Action"
+      new:
+        title: "Nouvel utilisateur"
+  
+  groups:
+    index_menu:
+      create: "Créer groupe"
+    edit:
+      title: "Modifier le groupe"
+    index:
+      title: "Groupes de l'équipe %{team_name}"
+      group: "Groupe"
+      members: "Membres"
+      add_member: "Ajouter un membre"
+      admins: "Admins"
+    new:
+      title: "Nouveau groupe"
+      
+  items:
+    new:
+      title: "Ajouter un attachement au compte"
+      upload: "Fichier de téléchargement"
+      upload_file: "Télécharge le fichier"
+  
+  logins:
+    login:
+      title: "Identifiez-vous"
+      description: "S'il vous plaît entrer un nom d'utilisateur valide et mot de passe."
+      submit: "S'identifier"
+    logout:
+      title: "Déconnexion"
+      message: "Au revoir"
+      hint: "S'il vous plaît vider le cache de votre navigateur."
+    newuser:
+      title: "Bienvenue à Cryptopus"
+      description: "Nous avons créé une nouvelle paire de clés pour vous. Amusez-vous avec Cryptopus."
+    noaccess:
+      title: "Accès refusé"
+    pwdchange:
+      title: "Changer le mot de passe"
+      old: "Ancien mot de passe"
+      new: "Nouveau mot de passe"
+      new_retype: "Nouveau mot de passe (retaper)"
+      submit: "Change"
+      
+  teammembers:
+    new:
+      title: "Ajouter un nouveau membre de l'équipe"
+    
+  teams:
+    title: "Équipe"
+    form:
+      private: "Privé"
+      private_hint: "Administrateurs n'ont pas accès à cette équipe."
+      no_root: "Kein Root"
+      no_root_hint: "MEME PAS ROOT POUVEZ RESTAURER VOS DONNÉES SI VOUS PERDEZ VOTRE MOT DE PASSE!"
+    index_menu:
+      create: "Créer équipe"
+    index:
+      title: "Vous êtes membre des équipes suivantes:"
+      team: "Équipe"
+    new:
+      title: "Créer une nouvelle équipe"
+    
+  flashes:
+    admin:
+      admin:
+        no_access: "Accès refusé"
+      ldapsettings:
+        example: "Ce sont des exemples de paramètres. S'il vous plaît écraser avec vos paramètres."
+        ldap: "Vos paramètres de LDAP ont été modifiés avec succès."
+      recryptrequests:
+        some: "Certains mots de passe ont été re crypté pour %{user_name}."
+        all: "Tous les mots de passe ont été re crypté pour %{user_name}."
+      users:
+        created: "Utilisateur créé avec succès."
+    accounts:
+      created: "Compte créé avec succès."
+      updated: "Compte modifiée avec succès."
+    application:
+      wait: "S'il vous plaît attendre jusqu'à ce que Root a de nouveau cryptées vos nouveaux mots de passe."
+    groups:
+      created: "Groupe créé avec succès."
+      updated: "Groupe modifiée avec succès"
+    items:
+      uploaded: "Fichier téléchargé avec succès."
+    logins:
+      welcome: "Bienvenue à Cryptopus, vous devez d'abord créer un nouveau compte Root. S'il vous plaît entrer \"root\" comme nom d'utilisateur et entrez un nouveau mot de passe."
+      auth_failed: "L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe."
+      only_local: "Only local users are allowed to change their password."
+      new_password_set: "Vous mis à jour avec succès le nouveau mot de passe."
+      new_passwords_not_equal: "Nouveaux mots de passe n'est pas égal."
+      wrong_password: "Mot de passe incorrect."
+      not_local: "Vous n'êtes pas un utilisateur local!"
+    recryptrequests:
+      recrypted: "Vous avez réussi re crypté le mot de passe."
+      new_password_wrong: "Votre nouveau mot de passe était incorrect"
+      old_password_wrong: "Votre ancien mot de passe était incorrect"
+      wait: "S'il vous plaît attendez que Racine a recrypted vos mots de passe de l'équipe."
+      wrong_password: "Votre mot de passe était incorrect"
+    teams:
+      wrong_user_password: "Saisissez un nom d'utilisateur et mot de passe ou vérifier les paramètres LDAP."
+      created: "Créé avec succès une nouvelle équipe."
+      updated: "L'équipe a été mise à jour avec succès."
+      
