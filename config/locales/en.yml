@@ -24,6 +24,10 @@ en:
   change_password: "Change password"
   last_login: "Your last login was %{time_ago} ago."
   
+  i18n:
+    language:
+      name: 'English'
+  
   accounts:
     index:
       move: "Move account to other group"

@@ -49,7 +49,9 @@ protected
   end
   
   def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
+    user_locale = session[:user_id] ? User.find( session[:user_id] ).preferred_locale : I18n.default_locale
+    # use the locale parameter if provided or else the user locale
+    I18n.locale = params[:locale] || user_locale
   end
   
   def get_team_password
@@ -79,4 +81,5 @@ protected
       @menu_to_render = nil
     end
   end
+
 end

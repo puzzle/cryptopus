@@ -23,6 +23,7 @@ Cryptopus::Application.routes.draw do
     get :logout
     get :noaccess
     post :authenticate
+    post :changelocale
   end
   match '/:controller(/:action(/:id))'
 

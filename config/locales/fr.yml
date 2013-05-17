@@ -24,6 +24,10 @@ fr:
   change_password: "Changer le mot de passe"
   last_login: "Votre dernière connexion était il ya %{time_ago}."
   
+  i18n:
+    language:
+      name: 'Français'
+  
   accounts:
     index:
       move: "Déplacer compte à un autre groupe"
