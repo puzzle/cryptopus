@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 12) do
+ActiveRecord::Schema.define(:version => 13) do
 
   create_table "accounts", :force => true do |t|
     t.string   "accountname", :limit => 40, :default => "", :null => false
@@ -77,16 +77,17 @@ ActiveRecord::Schema.define(:version => 12) do
   end
 
   create_table "users", :force => true do |t|
-    t.text     "public_key",                       :null => false
-    t.binary   "private_key",                      :null => false
+    t.text     "public_key",                          :null => false
+    t.binary   "private_key",                         :null => false
     t.binary   "password"
-    t.boolean  "admin",         :default => false, :null => false
+    t.boolean  "admin",            :default => false, :null => false
     t.integer  "uid"
     t.datetime "last_login_at"
     t.string   "username"
     t.string   "givenname"
     t.string   "surname"
-    t.string   "auth",          :default => "db",  :null => false
+    t.string   "auth",             :default => "db",  :null => false
+    t.string   "preferred_locale", :default => "en",  :null => false
   end
 
 end
