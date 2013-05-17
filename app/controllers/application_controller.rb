@@ -21,6 +21,7 @@
 class ApplicationController < ActionController::Base
   before_filter :validate, :except => [:login, :authenticate, :logout]
   before_filter :prepare_menu
+  before_filter :set_locale
 
 
 protected
@@ -45,6 +46,10 @@ protected
       return
     end
     
+  end
+  
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
   end
   
   def get_team_password
