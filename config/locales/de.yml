@@ -1,0 +1,184 @@
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+de:
+  confirmation: "Sind Sie sicher?"
+  show: "Anzeigen"
+  edit: "Editieren"
+  update: "Updaten"
+  create: "Erstellen"
+  delete: "Löschen"
+  add: "Hinzufügen"
+  description: "Beschreibung"
+  username: "Benutzername"
+  password: "Passwort"
+  actions: "Aktionen"
+  download: "Herunterladen"
+  yes: "Ja"
+  no: "Nein"
+  forgot_password: "Passwort vergessen?"
+  logout: "Abmelden"
+  auto_logout: "automatisches Abmelden in"
+  ldap_settings: "LDAP Einstellungen"
+  recrypt_requests: "Recrypt Anfragen"
+  users: "Benutzer"
+  change_password: "Passwort wechseln"
+  last_login: "Ihr letztes Login war vor %{time_ago}."
+  
+  accounts:
+    index:
+      move: "Account zu einer anderen Gruppe verschieben"
+      title: "Accounts der Gruppe %{group_name} des Teams %{team_name}"
+    index_menu:
+      create: "Account erstellen"
+      group: "Gruppen"
+    show_menu:
+      add_attachment: "Anhang hinzufügen"
+    edit:
+      title: "Account editieren"
+      
+    show:
+      title: "Account: %{account_name}"
+      last_change: "Letzte Änderung vor %{time_ago}"
+      attachments: "Anhänge"
+      file: "Datei"
+    new:
+      title: "Neuer Account"
+    
+  admin:
+    ldapsettings:
+      index:
+        title: "LDAP Einstellungen bearbeiten"
+    recryptrequests:
+      index:
+        title: "Re-encryption Anfragen"
+        user: "Benutzer"
+        admin_required: "Admin benötigt"
+        root_required: "Root benötigt"
+      request:
+        request_sent: "Es wurde eine Recrypt Anfrage an den Root gesendet. Bitte warten Sie, bis sie oder er Ihre Passwörter neu verschlüsselt hat."
+      uncrypterror:
+        new_password: "Neues Passwort?!"
+        ldap_password_changed: "Ihr LDAP Passwort hat sich seit Ihrem letzten Login geändert."
+        ldap_enter_old_password: "Bitte geben Sie Ihr altes LDAP Passwort ein um Ihren privaten Schlüssel zu entschlüsseln."
+        ldap_old_password: "Ihr altes LDAP Passwort"
+        ldap_new_password: "Ihr neues LDAP Passwort"
+        ldap_password: "Ihr LDAP Passwort"
+        forgot_password_recrypt: "Falls Sie Ihr Passwort vergessen haben, können Sie eine Recrypt Anfrage an den Root senden. Danach müssen Sie warten, bis sie oder er die Anfrage abgearbeitet hat."
+        recrypt: "Recrypt"
+        send: "Anfrage senden"
+    users:
+      index_menu:
+        create: "Benutzer erstellen"
+      edit:
+        title: "Benutzer bearbeiten"
+      index:
+        title: "Liste aller Cryptopus Benutzer"
+        username: "Benutzername"
+        name: "Name"
+        ldap_uid: "LDAP UID"
+        admin: "Admin"
+        action: "Aktion"
+      new:
+        title: "Neuer Benutzer"
+  
+  groups:
+    index_menu:
+      create: "Gruppe erstellen"
+    edit:
+      title: "Gruppe bearbeiten"
+    index:
+      title: "Gruppen des Teams %{team_name}"
+      group: "Gruppe"
+      members: "Mitglieder"
+      add_member: "Mitglied hinzufügen"
+      admins: "Admins"
+    new:
+      title: "Gruppe erstellen"
+      
+  items:
+    new:
+      title: "Anhang zum Account hinzufügen"
+      upload: "Datei für das Hochladen"
+      upload_file: "Datei hochladen"
+  
+  logins:
+    login:
+      title: "Anmelden"
+      description: "Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein um Cryptopus zu verwenden."
+      submit: "Anmelden"
+    logout:
+      title: "Abmelden"
+      message: "Aufwiedersehen"
+      hint: "Bitte löschen Sie den Cache Ihres Browsers."
+    newuser:
+      title: "Willkommen bei Cryptopus"
+      description: "Wir haben für Sie ein neues Schlüsselpaar erstellt. Viel Vergnügen mit Cryptopus."
+    noaccess:
+      title: "Zugriff verweigert"
+    pwdchange:
+      title: "Passwort wechseln"
+      old: "Altes Passwort"
+      new: "Neues Passwort"
+      new_retype: "Neues Passwort (wiederholen)"
+      submit: "Ändern"
+      
+  teammembers:
+    new:
+      title: "Ein neues Teammitglied hinzufügen"
+    
+  teams:
+    title: "Teams"
+    form:
+      private: "Privat"
+      private_hint: "Admins haben keinen Zugriff zu diesem Team"
+      no_root: "Kein Root"
+      no_root_hint: "NICHT EINMAL ROOT KANN IHRE DATEN WIEDERHERSTELLEN WENN SIE IHR PASSWORT VERGESSEN!"
+    index_menu:
+      create: "Team erstellen"
+    index:
+      title: "Sie sind Mitglied der folgenden Teams:"
+      team: "Team"
+    new:
+      title: "Neues Team erstellen"
+    
+  flashes:
+    admin:
+      admin:
+        no_access: "Zugriff verweigert"
+      ldapsettings:
+        example: "Dies sind Beispieleinstellungen. Bitte überschreiben Sie sie mit Ihren Einstellungen."
+        ldap: "Ihre LDAP Einstellungen wurden erfolgreich angepasst."
+      recryptrequests:
+        some: "Einige Passwörter wurden erfolgreich wiederverschlüsselt für %{user_name}."
+        all: "Alle Passwörter wurden erfolgreich wiederverschlüsselt für %{user_name}."
+      users:
+        created: "Der neue Benutzer wurde erfolgreich erstellt."
+    accounts:
+      created: "Der neue Account wurde erfolgreich erstellt."
+      updated: "Der Account wurde erfolgreich bearbeitet."
+    application:
+      wait: "Bitte warten Sie, bis der Root Ihre Team Passwörter neu verschlüsselt hat."
+    groups:
+      created: "Die neue Gruppe wurde erfolgreich erstellt."
+      updated: "Die Gruppe wurde erfolgreich bearbeitet."
+    items:
+      uploaded: "Die Datei wurde erfolgreich hochgeladen."
+    logins:
+      welcome: "Willkommen bei Cryptopus. Zuerst müssen Sie einen Root Account erstellen. Bitte verwenden Sie \"root\" als Benutzername und wählen Sie ein sicheres Passwort."
+      auth_failed: "Authentifikation fehlgeschlagen! Geben Sie einen gültigen Benutzernamen und ein korrektes Passwort ein."
+      only_local: "Nur lokale Benutzer dürfen ihr Passwort ändern."
+      new_password_set: "Das neue Passwort wurde erfolgreich gesetzt."
+      new_passwords_not_equal: "Die neuen Passwörter sind nicht gleich."
+      wrong_password: "Falsches Passwort."
+      not_local: "Sie sind kein lokaler Benutzer!"
+    recryptrequests:
+      recrypted: "Ihr Passwort wurde erfolgreich neu verschlüsselt."
+      new_password_wrong: "Ihr neues Passwort war falsch"
+      old_password_wrong: "Ihr altes Passwort war falsch"
+      wait: "Bitte warten Sie, bis Root Ihre Team Passwörter neu verschlüsselt hat."
+      wrong_password: "Das Passwort war falsch."
+    teams:
+      wrong_user_password: "Geben Sie einen gültigen Benutzernamen und ein korrektes Passwort ein oder prüfen Sie Ihre LDAP Einstellungen."
+      created: "Das Team wurde erfolgreich erstellt."
+      updated: "Das Team wurde erfolgreich angepasst."
+      

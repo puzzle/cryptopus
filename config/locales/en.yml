@@ -35,7 +35,6 @@ en:
       add_attachment: "Add attachment"
     edit:
       title: "Editing account"
-    edit_menu:
       
     show:
       title: "Account: %{account_name}"
