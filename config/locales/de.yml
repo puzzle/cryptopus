@@ -186,3 +186,27 @@ de:
       created: "Das Team wurde erfolgreich erstellt."
       updated: "Das Team wurde erfolgreich angepasst."
       
+  helpers:
+    label:
+      user:
+        username: "Benutzername"
+        password: "Passwort"
+        admin: "Admin"
+        givenname: "Vorname"
+        surname: "Nachname"
+        submit: "Erstellen"
+      account:
+        account: "Account"
+        username: "Benutzername"
+        password: "Passwort"
+        description: "Beschreibung"
+      team:
+        name: "Name"
+        description: "Beschreibung"
+      group:
+        name: "Name"
+        description: "Beschreibung"
+      ldapsetting:
+        portnumber: "Port"
+        bind_password: "Bind Passwort"
+        encryption: "Verschlüsselung"

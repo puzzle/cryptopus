@@ -185,4 +185,27 @@ fr:
       wrong_user_password: "Saisissez un nom d'utilisateur et mot de passe ou vérifier les paramètres LDAP."
       created: "Créé avec succès une nouvelle équipe."
       updated: "L'équipe a été mise à jour avec succès."
-      
+
+  helpers:
+    label:
+      user:
+        username: "Nom d'utilisateur"
+        password: "Mot de passe"
+        admin: "Admin"
+        givenname: "Prénom"
+        surname: "Nom de famille"
+      account:
+        account: "Compte"
+        username: "Nom d'utilisateur"
+        password: "Mot de passe"
+        description: "Description"
+      team:
+        name: "Nom"
+        description: "Description"
+      group:
+        name: "Nom"
+        description: "Description"
+      ldapsetting:
+        portnumber: "Port"
+        bind_password: "Mot de passe de Bind"
+        encryption: "Chiffrement"
