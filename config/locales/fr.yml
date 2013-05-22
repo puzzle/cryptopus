@@ -75,6 +75,7 @@ fr:
         create: "Créer utilisateur"
       edit:
         title: "Modifier l'utilisatuer"
+        reset_password: "Réinitialiser mot de passe"
       index:
         title: "La Liste de toutes les utilisateurs"
         username: "Nom d'utilisateur"
@@ -155,6 +156,9 @@ fr:
       recryptrequests:
         some: "Certains mots de passe ont été re crypté pour %{user_name}."
         all: "Tous les mots de passe ont été re crypté pour %{user_name}."
+        resetpassword:
+          success: "Mot de passe réinitialisé avec succès"
+          required: "Le mot de passe ne peut pas être vide"
       users:
         created: "Utilisateur créé avec succès."
     accounts:

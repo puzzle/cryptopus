@@ -75,6 +75,7 @@ de:
         create: "Benutzer erstellen"
       edit:
         title: "Benutzer bearbeiten"
+        reset_password: "Passwort zurücksetzen"
       index:
         title: "Liste aller Cryptopus Benutzer"
         username: "Benutzername"
@@ -155,6 +156,9 @@ de:
       recryptrequests:
         some: "Einige Passwörter wurden erfolgreich wiederverschlüsselt für %{user_name}."
         all: "Alle Passwörter wurden erfolgreich wiederverschlüsselt für %{user_name}."
+        resetpassword:
+          success: "Das Passwort wurde erfolgreich gesetzt"
+          required: "Das Passwort darf nicht leer sein"
       users:
         created: "Der neue Benutzer wurde erfolgreich erstellt."
     accounts:

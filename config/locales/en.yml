@@ -75,6 +75,7 @@ en:
         create: "Create new user"
       edit:
         title: "Editing user"
+        reset_password: "Reset password"
       index:
         title: "List of all Cryptopus users"
         username: "Username"
@@ -155,6 +156,9 @@ en:
       recryptrequests:
         some: "Successfully recrypted some passwords for %{user_name}"
         all: "Successfully recrypted all passwords for %{user_name}"
+        resetpassword:
+          success: "Successfully reset password"
+          required: "The password must not be blank"
       users:
         created: "Successfully created a new user."
     accounts:

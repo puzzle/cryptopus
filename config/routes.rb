@@ -13,7 +13,11 @@ Cryptopus::Application.routes.draw do
   namespace :admin do
     resources :ldapsettings
     resources :users
-    resources :recryptrequests
+    resources :recryptrequests do
+      collection do
+        post :resetpassword
+      end
+    end
   end
 
   resource :login do
