@@ -108,10 +108,11 @@ public
   # POST /admin/users
   def create
     @user = User.new( params[:user] )
+    password = params[:user][:password]
     
     @user.auth = 'db'
-    @user.create_keypair @user.password
-    @user.password = CryptUtils.one_way_crypt( @user.password )
+    @user.create_keypair password
+    @user.password = CryptUtils.one_way_crypt( password )
     
     respond_to do |format|
       if @user.save

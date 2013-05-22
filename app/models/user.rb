@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   has_many :recryptrequests, :dependent => :destroy
   has_many :teams, :through => :teammembers, :order => :name
   
-  attr_accessible :username, :givenname, :surname, :password, :admin
+  attr_accessible :username, :givenname, :surname, :admin
 
   def self.authenticate( username, password )
     user = self.find_by_username username

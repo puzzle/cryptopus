@@ -24,8 +24,10 @@
   <%= f.label :username %>
   <%= f.text_field :username, :autofocus => true %>
 
-  <%= f.label :password %>
-  <%= f.password_field :password %>
+  <% if @user.new_record? %>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  <% end %>
   
   <%= f.label :admin %>
   <%= f.check_box :admin %>
