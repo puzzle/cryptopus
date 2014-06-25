@@ -2,6 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 //= require jquery
 //= require jquery_ujs
+//= require zeroclipboard
 
 var auto_logoff_time = 300;
 var remaining_seconds = auto_logoff_time+1;
