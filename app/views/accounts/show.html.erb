@@ -24,14 +24,13 @@
   <br/>
 
   <p>
-    <strong><a href="#" onclick="Effect.toggle('hidden_username', 'appear')" ><%=t :username %></a></strong> <%= clippy(CGI.escape(@account.username)).html_safe %>
+    <strong><a href="#" onclick="$('#hidden_username').toggle()" ><%=t :username %></a></strong> <%= clippy(CGI.escape(@account.username)).html_safe %>
   </p>
   <div id="hidden_username" style="display:none">
     <%= @account.username %>
   </div>
-
   <p>
-    <strong><a href="#" onclick="Effect.toggle('hidden_password', 'appear')" ><%=t :password %></a></strong> <%= clippy(CGI.escape(@account.password)).html_safe %>
+    <strong><a href="#" onclick="$('#hidden_password').toggle()" ><%=t :password %></a></strong> <%= clippy(CGI.escape(@account.password)).html_safe %>
   </p>
   <div id="hidden_password" style="display:none">
     <%= @account.password %>
