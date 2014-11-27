@@ -39,6 +39,17 @@ header, footer, #main > aside {
   // color: white;
 }
 
+#countdownWrapper {
+  display: inline-block;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 0.5em 1em;
+  @include border-top-left-radius(3px);
+  z-index: 999;
+}
+
 // Modules:
 @import "search";
 @import "result";

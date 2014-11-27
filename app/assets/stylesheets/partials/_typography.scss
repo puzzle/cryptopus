@@ -54,7 +54,7 @@ strong {
 }
 
 small { 
-	font-size: 85%; 
+	@include adjust-font-size-to(11px); 
 }
 
 cite {

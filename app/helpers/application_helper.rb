@@ -40,9 +40,13 @@ module ApplicationHelper
   
   def nav_link(image, text, path)
     class_name = current_page?(path) ? 'active' : ''
+    icon = raw('<svg class="icon-'+image+' sm"><use xlink:href="#icon-'+image+'"></use></svg>')
 
     content_tag(:li, :class => class_name) do
-      link_to(image_tag(image) + " " + text, path)
+      # link_to(image_tag(image) + " " + text, path)
+      link_to(path) do
+        icon+' '+text
+      end
     end
   end
   

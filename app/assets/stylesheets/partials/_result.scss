@@ -10,7 +10,7 @@
   background: white;
 
   & + li {
-    border-top: 1px solid $grayLight; 
+    margin-top: 1px; 
   }
 }
 .result-description {

@@ -6,15 +6,26 @@
  * Menu style
  */
 .main-navigation {
-	margin: $padding*0.5 0 0;
   ul {
 		@include reset-list;
 	}
 }
 
 nav { 
-  @include border-radius(3px);
+  @include border-bottom-radius(3px);
   background: $gray; 
-  padding: $padding*0.25 $padding*0.25; 
-
+  @include adjust-font-size-to(14px);
+  padding: $padding*0.15 $padding*0.25; 
 } 
+.nav-pills > li {
+
+  &.logout {
+    float: right;
+  }
+
+  [class^="icon-"], 
+  [class*=" icon-"] {
+    float: left;
+    margin: -2px 6px 0 -4px;
+  }
+}
