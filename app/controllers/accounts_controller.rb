@@ -25,14 +25,14 @@ private
   def crypt_account
     @account.username = "none" if @account.username == "" or @account.username.nil?
     @account.password = "none" if @account.password == "" or @account.password.nil?
-    @account.username = CryptUtils.encrypt_blob @account.username, get_team_password
-    @account.password = CryptUtils.encrypt_blob @account.password, get_team_password
+    @account.username = CryptUtils.encrypt_blob @account.username, get_team_password(@team)
+    @account.password = CryptUtils.encrypt_blob @account.password, get_team_password(@team)
     @account.updated_on = Time.now
   end
 
   def decrypt_account
-    @account.username = CryptUtils.decrypt_blob @account.username, get_team_password
-    @account.password = CryptUtils.decrypt_blob @account.password, get_team_password
+    @account.username = CryptUtils.decrypt_blob @account.username, get_team_password(@team)
+    @account.password = CryptUtils.decrypt_blob @account.password, get_team_password(@team)
   end
 
   def load_parents

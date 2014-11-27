@@ -31,6 +31,7 @@ Cryptopus::Application.routes.draw do
   match '/:controller(/:action(/:id))'
 
   get 'search' => 'search#index'
+  get 'search/account' => 'search#account'
 
   root to: 'search#index'
 end
