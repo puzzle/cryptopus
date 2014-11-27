@@ -1,0 +1,36 @@
+
+.search {
+  text-align: center;
+}
+input.search-input {
+  width: 60%;
+  margin: 4em auto;
+  padding: 1em;
+}
+
+.result-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.result-list li {
+  @include clearfix;
+  display: block;
+  padding: 1em 1.5em 0;
+  background: white;
+
+  & + li {
+    border-top: 1px solid $grayLight; 
+  }
+}
+.result-title {
+  float: left;
+  width: 55%;
+}
+.result-action {
+  float: right;
+  width: 40%;
+}
+.result-description {
+  clear: both;
+}

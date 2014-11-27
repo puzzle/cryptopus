@@ -17,14 +17,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<h1>New search</h1>
-<%= form_tag :action => 'create' do %>
-  <p>
-    <%= text_field_tag :search_string,  params[:search_string], :autofocus => true %>
-    <%= label_tag 'Search string in accounts' %>
-  </p>
-
-  <p>
-    <%= submit_tag 'Search' %>
-  </p>
+<%= form_tag({:action => 'create'},{:class=> 'search'}) do %>  
+  <h1>Hi! Want a password?</h1>
+  <%= text_field_tag :search_string,  params[:search_string], :autofocus => true, :class => 'search-input' %>
 <% end %>
+
+<ul class="search-result result-list">
+  <li>
+    <h2 class="result-title">
+      <a href="">Lorem ipsum</a>
+    </h2>
+    <div class="result-action">
+      <span class="result-user">Username <button>copy</button></span>
+      <span class="result-pass">**** <button>copy</button></span>
+    </div>
+    <p class="result-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est voluptatibus facere dolores molestias.</p>
+  </li>
+</ul>

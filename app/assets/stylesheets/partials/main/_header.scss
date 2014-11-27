@@ -8,8 +8,14 @@
 .site-header {
 	display: block;
   @include clearfix;
+  text-align: center;
+}
+.site-header-logo {
+  
 }
 
 #option {
-  float: right;
+  position: absolute;
+  top: 100px;
+  right: 0;
 }

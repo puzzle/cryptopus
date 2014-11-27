@@ -32,13 +32,13 @@ ActiveRecord::Schema.define(:version => 13) do
   end
 
   create_table "items", :force => true do |t|
-    t.integer  "account_id",   :default => 0, :null => false
+    t.integer  "account_id",   :default => 0,  :null => false
     t.text     "description"
     t.binary   "file"
-    t.datetime "created_on",                  :null => false
-    t.datetime "updated_on",                  :null => false
-    t.text     "filename",                    :null => false
-    t.text     "content_type",                :null => false
+    t.datetime "created_on",                   :null => false
+    t.datetime "updated_on",                   :null => false
+    t.text     "filename",     :default => "", :null => false
+    t.text     "content_type", :default => "", :null => false
   end
 
   create_table "ldapsettings", :force => true do |t|
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(:version => 13) do
 
   create_table "teammembers", :force => true do |t|
     t.integer  "team_id",    :default => 0,     :null => false
-    t.binary   "password",                      :null => false
+    t.binary   "password",   :default => "",    :null => false
     t.integer  "user_id",    :default => 0,     :null => false
     t.datetime "created_on",                    :null => false
     t.datetime "updated_on",                    :null => false
@@ -83,9 +83,9 @@ ActiveRecord::Schema.define(:version => 13) do
     t.boolean  "admin",            :default => false, :null => false
     t.integer  "uid"
     t.datetime "last_login_at"
-    t.string   "username",                            :null => false
-    t.string   "givenname",                           :null => false
-    t.string   "surname",                             :null => false
+    t.string   "username"
+    t.string   "givenname"
+    t.string   "surname"
     t.string   "auth",             :default => "db",  :null => false
     t.string   "preferred_locale", :default => "en",  :null => false
   end

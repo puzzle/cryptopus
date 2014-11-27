@@ -28,13 +28,16 @@ header, footer, #main > aside {
 }
 
 #content {
-  @include single-box-shadow($grayLighter);
-  background: $whiteDark;
+  // @include single-box-shadow($grayLighter);
+  // background: $whiteDark;
   padding: $padding;
 }
 
 #main > aside {
-  background: $brown;
+  // background: $brown;
   padding: $padding;
-  color: white;
+  // color: white;
 }
+
+// Modules:
+@import "search";
