@@ -40,33 +40,20 @@ $(document).ready(function(){
 // Password hidden
 
 $(document).ready(function(){
-  function selectText(element) {
-      var doc = document;
-      var text = doc.getElementById(element);    
-
-      if (doc.body.createTextRange) { // ms
-          var range = doc.body.createTextRange();
-          range.moveToElementText(text);
-          range.select();
-      } else if (window.getSelection) { // moz, opera, webkit
-          var selection = window.getSelection();            
-          var range = doc.createRange();
-          range.selectNodeContents(text);
-          selection.removeAllRanges();
-          selection.addRange(range);
-      }
-  }
 
   $( ".select-click" ).on( "click", function(e) {
-    if (event.target.tagName === 'INPUT') {
-      return event.target.select();
+    if (e.target.tagName === 'INPUT') {
+      return e.target.select();
     }
   });
 
   $( ".result-password .password-link" ).on( "click", function(e) {
       e.preventDefault();
+      var passInput = $(this).next(".password-hidden");
       $(this).hide();
-      $(this).next(".password-hidden").show();
-      selectText(this.id);
+      passInput.show()
+      setTimeout(function(){
+         passInput.select();
+      }, 80);
   });
 });
