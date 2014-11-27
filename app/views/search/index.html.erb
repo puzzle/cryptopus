@@ -17,11 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 
-<%= form_tag({:action => 'create'},{:class=> 'search'}) do %>  
+<div class='search'>
   <h1>Hi Pierre! Want to recover a password?</h1>
+  <h1>Hi! Want a password?</h1>
   <%= text_field_tag :search_string,  params[:search_string], :autofocus => true, :class => 'search-input' %>
-<% end %>
 
+</div>
 <ul class="search-result result-list">
   <li>
     <div class="result-description">
@@ -69,3 +70,7 @@
     </div>
   </li>
 </ul>
+
+<script>
+  var search = new Cryptopus.Search($('.search-input'), '');
+</script>
