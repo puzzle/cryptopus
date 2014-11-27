@@ -10,7 +10,6 @@ gem 'pry-stack_explorer'
 gem 'sextant'
 gem 'dynamic_form'
 
-gem 'therubyracer'
 gem 'uglifier'
 gem 'sass-rails'
 gem 'compass-rails'
