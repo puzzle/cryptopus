@@ -16,3 +16,7 @@ gem 'sass-rails'
 gem 'compass-rails'
 gem 'jquery-rails'
 gem 'zeroclipboard-rails'
+
+group :development, :test do
+  gem 'rspec-rails'
+end
