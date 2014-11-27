@@ -71,6 +71,7 @@
   </li>
 </ul>
 
+<%= javascript_include_tag "search" %> 
 <script>
-  var search = new Cryptopus.Search($('.search-input'), '');
+  new Cryptopus.Search($('.search-input'), $('.result-list'));
 </script>
