@@ -1,5 +1,4 @@
 Cryptopus::Application.routes.draw do
-  resources :searches
   resources :recryptrequests
   resources :teams do
     resources :teammembers
@@ -31,6 +30,8 @@ Cryptopus::Application.routes.draw do
   end
   match '/:controller(/:action(/:id))'
 
-  root to: 'logins#login'
+  get 'search' => 'search#index'
+
+  root to: 'search#index'
 end
 
