@@ -17,12 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
 <% if session[:user_id] %>
-<nav id="option">
-<ul>
-  <li>
+  <li id="option">
     <%= link_to image_tag("exit.png") + " " + t(:logout), logout_login_path %>
+    <small id="countdownWrapper"><%=t :auto_logout %> <span id='countdown'></span></small>
   </li>
-  <div id="countdownWrapper"><small><%=t :auto_logout %> <span id='countdown'></small></span></div>
-</ul>
-</nav>
 <% end %>

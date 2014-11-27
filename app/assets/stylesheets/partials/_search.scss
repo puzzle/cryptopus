@@ -23,14 +23,11 @@ input.search-input {
     border-top: 1px solid $grayLight; 
   }
 }
-.result-title {
+.result-description {
   float: left;
-  width: 55%;
+  width: 60%;
 }
 .result-action {
   float: right;
   width: 40%;
-}
-.result-description {
-  clear: both;
 }

@@ -29,8 +29,9 @@
         <% if User.find( session[:user_id] ).auth_db? %>
 	        <%= nav_link "edit_user.png", t(:change_password), pwdchange_login_path %>
         <% end %>
-      </ul>
-    <%= render_menu %>
+      <%= render_menu %>
+      <li><%= render :partial => 'layouts/option' %></li>
+    </ul>
 <% end %>
   </ul>
 </div>
