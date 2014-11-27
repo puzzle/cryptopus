@@ -29,17 +29,18 @@ var Cryptopus = Cryptopus || function() {};
   };
 
   Search.prototype.updateResultArea = function(data) {
-    content = '';
-    //if (Array.isArray(data)) {
-      //data.forEach(function(entry) {
-        //alert('haha');
-      //});
-    //}
-    this.result_area.replaceWith(content);
+    var that = this;
+    content = 'results: ';
+    if (Array.isArray(data)) {
+      data.forEach(function(result) {
+        content += that.addResult(result);
+      });
+    }
+    this.result_area.text(content);
   };
 
-  Search.prototype.printResult = function(result) {
-    
+  Search.prototype.addResult = function(result) {
+    return result.accountname;
   };
 
   exports.Search = Search;
