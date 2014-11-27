@@ -28,16 +28,16 @@ $blackLighter		: lighten($black, 0.4);
 $grayDarker			: darken($brown, 0.2);
 $grayDark			  : $brown;
 
-$gray				    : rgba(165, 180, 170, 1) !default;
-$grayLight			: rgba(165, 180, 170, 1) !default;
+$gray				    : #C0C4C1;
+$grayLight			: lighten($gray, 0.2);
 $grayLighter		: lighten($grayLight, 0.2);
 
 $white				  : #fff !default;
 $whiteDark			: rgba(254, 254, 246, 1) !default;
 $whiteDarker		: rgba(248, 247, 241, 1) !default;
 
-$blue       :   rgba(50, 165, 180, 1);
-$blueDark   :   rgba(36, 115, 125, 1);
+$blue       :   #3A8BDB;
+$blueDark   :   darken($blue, 0.2);
 $yellow     :   rgba(255, 250, 180, 1);
 $green      :   rgba(155, 180, 50, 1);
 $red        :   rgba(170, 50, 30, 1);

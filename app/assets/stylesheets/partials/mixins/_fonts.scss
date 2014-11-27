@@ -5,17 +5,6 @@
 // Font awesome
 // ------------------
 @include font-face (
-	'Exo',
-	font-files(
-		'Exo-DemiBold-webfont.woff', woff,
-		'Exo-DemiBold-webfont.ttf', truetype,
-		'Exo-DemiBold-webfont.svg#Exo', svg),
-	'Exo-DemiBold-webfont.eot',
-	normal,
-	normal
-);
-
-@include font-face (
 	'OpenSans',
 	font-files(
 		'OpenSans-Regular-webfont.woff', woff,
@@ -33,7 +22,7 @@
 	font-family: 'OpenSans', $sans_family; // Global font
 }
 @mixin ff-heading {
-	font-family: 'Exo', $serif_family; // Heading font
+	font-family: 'OpenSans', $sans_family; // Global font
 }
 @mixin ff-decorative{
 	font-family: $cursive;

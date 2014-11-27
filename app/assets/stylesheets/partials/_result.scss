@@ -1,0 +1,57 @@
+.result-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.result-list li {
+  @include clearfix;
+  display: block;
+  padding: 1em 1.5em 0;
+  background: white;
+
+  & + li {
+    border-top: 1px solid $grayLight; 
+  }
+}
+.result-description {
+  float: left;
+  width: 60%;
+}
+.result-action {
+  float: right;
+  width: 35%;
+}
+
+.result-username,
+.result-password {
+  position: relative;
+
+  & > [class^="icon-"], 
+  & > [class*=" icon-"] {
+    position: absolute;
+    top: 10px;
+    left: 6px;
+    pointer-events: none;
+  }
+
+  input {
+    padding: 10px 10px 10px 28px;
+    border-color: #E6E6E6;
+  }
+  .clip_button {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .password-link {
+    display: block;
+    padding: 6px 10px 6px 28px;
+    font-size: 14px;
+    border: 1px solid #E6E6E6;
+    background: #f5f5f5;
+    @include border-radius(3px);
+  }
+}
+.result-password {
+  margin-top: 0.5em;
+}

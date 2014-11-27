@@ -1,6 +1,16 @@
-[class^="icon-"], [class*=" icon-"] {
+[class^="icon-"], 
+[class*=" icon-"] {
+  height: 24px;
+  width: 24px;
+  display: inline-block;
+  fill: currentColor;
+
+  &.lg {
     height: 32px;
     width: 32px;
-    display: inline-block;
-    fill: currentColor;
+  }
+  &.sm {
+    height: 18px;
+    width: 18px;
+  }
 }

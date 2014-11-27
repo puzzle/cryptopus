@@ -18,7 +18,7 @@
 -%>
 
 <%= form_tag({:action => 'create'},{:class=> 'search'}) do %>  
-  <h1>Hi! Want a password?</h1>
+  <h1>Hi Pierre! Want to recover a password?</h1>
   <%= text_field_tag :search_string,  params[:search_string], :autofocus => true, :class => 'search-input' %>
 <% end %>
 
@@ -31,14 +31,40 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est voluptatibus facere dolores molestias.</p>
     </div>
     <div class="result-action">
-      <div class="username">
-        <input type="text" value="Username"> <button>copy</button>
+      <div class="result-username select-click">
+        <svg class="icon-person sm"><use xlink:href="#icon-person"></use></svg>
+        <input type="text" readonly="readonly" value="Username" class="input-full">
+        <button class="clip_button" id="username_clip_button" data-clipboard-text="username" title="Click to copy"><svg class="icon-clippy"><svg class="icon-clippy"><use xlink:href="#icon-clippy"></use></svg></button>
       </div>
       
-      <div class="password">
-        <a href="#" class="passwordLink"><svg class="icon-eye"><use xlink:href="#icon-eye"></use></svg> show password</a>
-        <span class="hiddenPassword hide">password</span>
-        <button>copy</button>
+      <div class="result-password select-click">
+        <svg class="icon-key sm" alt="Password"><use xlink:href="#icon-key"></use></svg>
+        <a href="#" class="password-link">Show password</a>
+        <input type="text" readonly="readonly" class="password-hidden hide input-full" value="password">
+        <button class="clip_button" id="password_clip_button" data-clipboard-text="pass" title="Click to copy"><svg class="icon-clippy"><use xlink:href="#icon-clippy"></use></svg></button>
+      </div>
+    </div>
+  </li>
+
+  <li>
+    <div class="result-description">
+      <h2 class="result-title">
+        <a href="">Lorem ipsum</a>
+      </h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est voluptatibus facere dolores molestias.</p>
+    </div>
+    <div class="result-action">
+      <div class="result-username select-click">
+        <svg class="icon-person sm"><use xlink:href="#icon-person"></use></svg>
+        <input type="text" readonly="readonly" value="Username" class="input-full">
+        <button class="clip_button" id="username_clip_button" data-clipboard-text="username" title="Click to copy"><svg class="icon-clippy"><svg class="icon-clippy"><use xlink:href="#icon-clippy"></use></svg></button>
+      </div>
+      
+      <div class="result-password select-click">
+        <svg class="icon-key sm" alt="Password"><use xlink:href="#icon-key"></use></svg>
+        <a href="#" class="password-link">Show password</a>
+        <input type="text" readonly="readonly" class="password-hidden hide input-full" value="password">
+        <button class="clip_button" id="password_clip_button" data-clipboard-text="pass" title="Click to copy"><svg class="icon-clippy"><use xlink:href="#icon-clippy"></use></svg></button>
       </div>
     </div>
   </li>

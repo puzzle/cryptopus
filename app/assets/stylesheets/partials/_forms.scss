@@ -217,9 +217,6 @@ input[type="week"] {
 	padding: 6px 4px;
 	text-align: left;
 	font-size: 0.85em;
-	// Leaving out Helvetica Neue, to not throw off size="..."
-	// on inputs. Arial is more reliable, on Windows and OS X.
-	font-family: Arial, "Liberation Sans", FreeSans, sans-serif;
 	vertical-align: top;
 	// IE7
 	*padding-top: 2px;

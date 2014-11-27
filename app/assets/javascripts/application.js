@@ -57,14 +57,16 @@ $(document).ready(function(){
       }
   }
 
-  $( ".username" ).on( "click", function() {
-      selectText(this.id);
+  $( ".select-click" ).on( "click", function(e) {
+    if (event.target.tagName === 'INPUT') {
+      return event.target.select();
+    }
   });
 
-  $( ".password" ).on( "click", function(e) {
+  $( ".result-password .password-link" ).on( "click", function(e) {
       e.preventDefault();
-      $(this).find(".passwordLink").hide();
-      $(this).find(".hiddenPassword").show();
+      $(this).hide();
+      $(this).next(".password-hidden").show();
       selectText(this.id);
   });
 });
