@@ -25,40 +25,23 @@ class SearchController < ApplicationController
     end
   end
 
-  # POST /search
-  def create
-    user = User.find(session[:user_id])
+  def account
+    term = params[:search_string]
 
-    teams_all = Team.search params[:search_string]
-    if teams_all
-      @teams = teams_all.reject do |team|
-        team.teammembers.find_by_user_id(user.id).nil?
-      end
-    end
+    accounts = Account.where("accountname like ?", "%#{term}%").joins(:group)
 
-    groups_all = Group.search params[:search_string]
-    if groups_all
-      @groups = groups_all.reject do |group|
-        group.team.teammembers.find_by_user_id(user.id).nil?
-      end
-    end
+    decrypt_accounts(accounts)
 
-    accounts_all = Account.search params[:search_string]
-    if accounts_all
-      @accounts = accounts_all.reject do |account|
-        account.group.team.teammembers.find_by_user_id(user.id).nil?
-      end
-    end
+    render json: accounts
+  end
 
-    items_all = Item.search params[:search_string]
-    if items_all
-      @items = items_all.reject do |item|
-        item.account.group.team.teammembers.find_by_user_id(user.id).nil?
-      end
-    end
+private
 
-    respond_to do |format|
-      format.html # new.html.erb
+  def decrypt_accounts(accounts)
+    accounts.each do |a|
+      team = a.group.team
+      a.username = CryptUtils.decrypt_blob a.username, get_team_password(team)
+      a.password = CryptUtils.decrypt_blob a.password, get_team_password(team)
     end
   end
 

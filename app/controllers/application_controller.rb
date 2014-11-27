@@ -55,9 +55,9 @@ protected
     I18n.locale = params[:locale] || user_locale
   end
   
-  def get_team_password
+  def get_team_password(team)
     user = User.find(session[:user_id] )
-    teammember = @team.teammembers.find( :first, :conditions => ["user_id = ?", user.id] )
+    teammember = team.teammembers.find( :first, :conditions => ["user_id = ?", user.id] )
     raise "You have no access to this Group" if teammember.nil?
     team_password = CryptUtils.decrypt_team_password( teammember.password, session[:private_key] )
     raise "Failed to decrypt the group password" if team_password.nil?

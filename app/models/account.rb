@@ -15,12 +15,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#require_dependency "search"
-
 class Account < ActiveRecord::Base
   belongs_to :group
   has_many :items, :dependent => :destroy
-#  searches_on :accountname, :description
   
   attr_accessible :accountname, :username, :password, :description
+
+  def as_json(options = { })
+    h = super(options)
+    h[:group] = group.name
+    h[:team] = group.team.name
+    h
+  end
+
 end
