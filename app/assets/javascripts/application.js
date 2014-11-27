@@ -49,11 +49,19 @@ $(document).ready(function(){
 
   $( ".result-password .password-link" ).on( "click", function(e) {
       e.preventDefault();
-      var passInput = $(this).next(".password-hidden");
-      $(this).hide();
-      passInput.show()
+      
+      var passLink = $(this),
+          passInput = passLink.next(".password-hidden");
+      
+      passLink.hide();
+      passInput.show();
       setTimeout(function(){
          passInput.select();
       }, 80);
+
+      setTimeout(function(){
+          passLink.show();
+          passInput.hide();
+      }, 5000);
   });
 });
