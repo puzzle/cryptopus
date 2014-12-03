@@ -58,7 +58,7 @@ h2. Database
 set up database: @mysql> create database cryptopus_production;@
 <code>mysql> grant all on cryptopus_production.* to 'cryptopus'@'localhost' identified by 'mypass'</code>
 
-The database.yml file reads ist settings from the environment variables. For development create a config file like this
+The database.yml file reads its settings from the environment variables. For development create a config file like this
 which you can source "cryptopus.env" @source cryptopus.env@.
 
 bc. alias rails='bundle exec rails'
