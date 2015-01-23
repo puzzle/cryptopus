@@ -1,8 +1,8 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
 //= require jquery
 //= require jquery_ujs
 //= require zeroclipboard
+//= require handlebars.runtime
+//= require_tree ./templates
 
 var auto_logoff_time = 300;
 var remaining_seconds = auto_logoff_time+1;
@@ -45,23 +45,5 @@ $(document).ready(function(){
     if (e.target.tagName === 'INPUT') {
       return e.target.select();
     }
-  });
-
-  $( ".result-password .password-link" ).on( "click", function(e) {
-      e.preventDefault();
-      
-      var passLink = $(this),
-          passInput = passLink.next(".password-hidden");
-      
-      passLink.hide();
-      passInput.show();
-      setTimeout(function(){
-         passInput.select();
-      }, 80);
-
-      setTimeout(function(){
-          passLink.show();
-          passInput.hide();
-      }, 5000);
   });
 });

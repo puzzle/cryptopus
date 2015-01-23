@@ -29,18 +29,27 @@ var Cryptopus = Cryptopus || function() {};
   };
 
   Search.prototype.updateResultArea = function(data) {
-    var that = this;
-    content = 'results: ';
-    if (Array.isArray(data)) {
-      data.forEach(function(result) {
-        content += that.addResult(result);
-      });
-    }
-    this.result_area.text(content);
+    content = HandlebarsTemplates['search/result_entry'](data);
+    this.result_area.html(content);
+    this.registerActions();
   };
 
-  Search.prototype.addResult = function(result) {
-    return result.accountname;
+  Search.prototype.registerActions = function() {
+    var that = this;
+    $('.result-password .password-link').click(function(e) {
+      var passLink = that.result_area.find('.password-link'),
+          passInput = passLink.next('.password-hidden');
+      passLink.hide();
+      passInput.show();
+      setTimeout(function(){
+         passInput.select();
+      }, 80);
+
+      setTimeout(function(){
+          passLink.show();
+          passInput.hide();
+      }, 5000);
+    });
   };
 
   exports.Search = Search;

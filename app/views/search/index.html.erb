@@ -1,73 +1,9 @@
-<% 
-# $Id$
-
-# Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation; either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
--%>
-
 <div class='search'>
   <h1>Hi Pierre! Want to recover a password?</h1>
   <%= text_field_tag :search_string,  params[:search_string], :autofocus => true, :class => 'search-input' %>
 
 </div>
 <ul class="search-result result-list">
-  <li>
-    <div class="result-description">
-      <h2 class="result-title">
-        <a href="">Lorem ipsum</a>
-      </h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est voluptatibus facere dolores molestias.</p>
-    </div>
-    <div class="result-action">
-      <div class="result-username select-click">
-        <svg class="icon-person sm"><use xlink:href="#icon-person"></use></svg>
-        <input type="text" readonly="readonly" value="Username" class="input-full">
-        <button class="clip_button" id="username_clip_button" data-clipboard-text="username" title="Click to copy"><svg class="icon-clippy"><svg class="icon-clippy"><use xlink:href="#icon-clippy"></use></svg></button>
-      </div>
-      
-      <div class="result-password select-click">
-        <svg class="icon-key sm" alt="Password"><use xlink:href="#icon-key"></use></svg>
-        <a href="#" class="password-link">Show password</a>
-        <input type="text" readonly="readonly" class="password-hidden hide input-full" value="password">
-        <button class="clip_button" id="password_clip_button" data-clipboard-text="pass" title="Click to copy"><svg class="icon-clippy"><use xlink:href="#icon-clippy"></use></svg></button>
-      </div>
-    </div>
-  </li>
-
-  <li>
-    <div class="result-description">
-      <h2 class="result-title">
-        <a href="">Lorem ipsum</a>
-      </h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est voluptatibus facere dolores molestias.</p>
-    </div>
-    <div class="result-action">
-      <div class="result-username select-click">
-        <svg class="icon-person sm"><use xlink:href="#icon-person"></use></svg>
-        <input type="text" readonly="readonly" value="Username" class="input-full">
-        <button class="clip_button" id="username_clip_button" data-clipboard-text="username" title="Click to copy"><svg class="icon-clippy"><svg class="icon-clippy"><use xlink:href="#icon-clippy"></use></svg></button>
-      </div>
-      
-      <div class="result-password select-click">
-        <svg class="icon-key sm" alt="Password"><use xlink:href="#icon-key"></use></svg>
-        <a href="#" class="password-link">Show password</a>
-        <input type="text" readonly="readonly" class="password-hidden hide input-full" value="password">
-        <button class="clip_button" id="password_clip_button" data-clipboard-text="pass" title="Click to copy"><svg class="icon-clippy"><use xlink:href="#icon-clippy"></use></svg></button>
-      </div>
-    </div>
-  </li>
 </ul>
 
 <%= javascript_include_tag "search" %> 
