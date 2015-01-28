@@ -44,4 +44,13 @@ describe CryptUtils do
     end
   end
 
+  describe "blob data" do
+    it "should encrypt and decrypt blob data" do
+      blob_data = Base64.decode64("test")
+      blob_data_encrypted = CryptUtils.encrypt_blob( blob_data, @team_password)
+      result = CryptUtils.decrypt_blob( blob_data_encrypted, @team_password )
+      expect( result ).to eq( blob_data )
+    end
+  end
+
 end
