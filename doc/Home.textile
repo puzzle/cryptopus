@@ -1,0 +1,37 @@
+h1. Yes, It's Open Source
+
+Cryptopus is licensed under the "GNU AFFERO GENERAL PUBLIC LICENSE v3":http://www.opensource.org/licenses/agpl-v3.html
+
+h1. Short Sales Pitch
+
+Cryptopus doesn't wash your dishes nor does it walk your dog. But even better:
+
+* It lets you store usernames, passwords and further descriptions.
+* You can even attach files.
+* All your data will be encrypted, including the attachments
+* There is no shared master password.
+* Flock together with other users.
+* Assign data to those groups.
+* Cryptopus features LDAP authentication
+* and autologout for your safety!
+
+h1. Some Screenshots
+
+Catch a glimpse of Cryptopus with "these screenshots":http://sourceforge.net/project/screenshots.php?group_id=218570 on SourceForge.net.
+
+h1. A Few Words of Warning
+
+Please remember that putting all your passwords together in a database and making this database accessible over the internet might be a relevant security threat. The passwords and keys are only as safe as the host that is running cryptopus and the SSL-secured connections (never use an unencrypted connection!), as well (and this is the most important point) as the strength of your main password.
+
+So calculate the risk this setup might pose and choose a good password. Cryptopus won't make your passwords more secure! It simply gives you the possibility to manage them in a nice way, store them in a safe manner and share them with other people if you wish to do so.
+
+Under no circumstances can we ever be held liable for password theft, lost passwords or any other inconvenience caused by using cryptopus. Please read this paragraph three more times, it's important!
+
+h1. Get in Touch
+
+Cryptopus was developed by the open source enthusiasts at "Puzzle ITC":http://www.puzzle.ch/ This doesn't mean you can't engage in further enhancing the software. Please get in touch with us.
+
+You may also follow and contact us on Identi.ca or Twitter:
+
+* "http://identi.ca/puzzleitc":http://identi.ca/puzzleitc
+* "http://twitter.com/puzzleitc":http://twitter.com/puzzleitc
