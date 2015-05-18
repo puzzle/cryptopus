@@ -17,7 +17,8 @@ gem 'jquery-rails'
 gem 'zeroclipboard-rails'
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'minitest'
+  gem "rails-erd"
 end
 
 group :assets do
