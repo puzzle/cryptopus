@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
   has_many :teammembers, :dependent => :destroy
   has_many :recryptrequests, :dependent => :destroy
   has_many :teams, :through => :teammembers, :order => :name
-  
-  attr_accessible :username, :givenname, :surname, :admin
+
+  attr_accessible :username, :givenname, :surname, :admin, :password
 
   def self.authenticate( username, password )
     user = self.find_by_username username
@@ -98,11 +98,11 @@ class User < ActiveRecord::Base
   def full_name
     return self.givenname + ' ' + self.surname
   end
-  
+
   def root?
     self.uid == 0
   end
-  
+
   def auth_db?
     self.auth == 'db'
   end
