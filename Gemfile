@@ -19,6 +19,7 @@ gem 'zeroclipboard-rails'
 group :development, :test do
   gem 'minitest'
   gem "rails-erd"
+  gem 'seed-fu'
 end
 
 group :assets do
