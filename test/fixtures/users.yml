@@ -1,0 +1,19 @@
+
+<% root_crypto = UserFixtureCrypt.new('password') %>
+root:
+  uid: 0
+  username: root
+  givenname: Root
+  auth: db
+  password: <%= root_crypto.password %>
+  public_key: <%= "!!binary \"#{Base64.strict_encode64(root_crypto.public_key)}\"" %>
+  private_key: <%= "!!binary \"#{Base64.strict_encode64(root_crypto.private_key)}\"" %>
+
+<% bob_crypto = UserFixtureCrypt.new('password') %>
+bob:
+  username: bob
+  givenname: Bob
+  auth: db
+  password: <%= bob_crypto.password %>
+  public_key: <%= "!!binary \"#{Base64.strict_encode64(bob_crypto.public_key)}\"" %>
+  private_key: <%= "!!binary \"#{Base64.strict_encode64(bob_crypto.private_key)}\"" %>
