@@ -61,9 +61,12 @@ GEM
       i18n (>= 0.4.0)
       mime-types (>= 1.16)
       treetop (>= 1.4.8)
+    metaclass (0.0.4)
     method_source (0.8.1)
     mime-types (1.20.1)
     minitest (2.5.1)
+    mocha (1.1.0)
+      metaclass (~> 0.0.1)
     multi_json (1.5.0)
     mysql2 (0.3.11)
     net-ldap (0.3.1)
@@ -141,6 +144,7 @@ DEPENDENCIES
   handlebars_assets
   jquery-rails
   minitest
+  mocha
   mysql2
   net-ldap
   pry

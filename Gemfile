@@ -21,6 +21,10 @@ group :development, :test do
   gem "rails-erd"
 end
 
+group :test do
+  gem 'mocha'
+end
+
 group :assets do
     gem 'handlebars_assets'
 end

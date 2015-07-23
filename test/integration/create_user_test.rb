@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'pry';
 class CreateUserTest < ActionDispatch::IntegrationTest
   test 'root creates new user' do
     login_as('root', 'password')

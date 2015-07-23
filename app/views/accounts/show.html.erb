@@ -1,4 +1,4 @@
-<% 
+<%
 # $Id$
 
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
@@ -45,8 +45,8 @@
     <%= @account.password %>
   </div>
   <br/>
-  
-  <p><strong><%=t '.last_change', :time_ago => (time_ago_in_words @account.updated_on) %></p>
+
+  <p><strong><%=t '.last_change', :time_ago => (time_ago_in_words @account.updated_on) %></strong></p>
   <br/>
 
   <strong><%=t '.attachments' %></strong>
@@ -56,7 +56,7 @@
       <th><%=t :actions %></th>
       <th><%=t :description %></th>
     </tr>
-    
+
     <% for item in @items %>
       <tr>
         <td><b><%= item.filename %></b><br/>
