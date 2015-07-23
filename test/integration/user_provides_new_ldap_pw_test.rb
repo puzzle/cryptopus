@@ -6,7 +6,7 @@ class CreateUserTest < ActionDispatch::IntegrationTest
 include AccountTeamSetup
   test 'Bob provides new ldap password and remember his old password' do
     #Prepare for Test
-    setup_team_acc('bob', 'Testteam', 'no description', false, false, 'Testgroup', 'no description', 'Testacc', 'no description', 'account_username', 'account_password')
+    setup_team_acc('bob', 'password', 'Testteam', 'no description', false, false, 'Testgroup', 'no description', 'Testacc', 'no description', 'account_username', 'account_password')
     user_bob = User.find_by_username('bob')
     user_bob.update_attributes(auth: 'ldap')
 
@@ -39,7 +39,7 @@ include AccountTeamSetup
 
   test "Bob provides new ldap password and doesn't remember his old password" do
     #Prepare for Test
-    setup_team_acc('bob', 'Testteam', 'no description', false, false, 'Testgroup', 'no description', 'Testacc', 'no description', 'account_username', 'account_password')
+    setup_team_acc('bob', 'password','Testteam', 'no description', false, false, 'Testgroup', 'no description', 'Testacc', 'no description', 'account_username', 'account_password')
     user_bob = User.find_by_username('bob')
     user_bob.update_attributes(auth: 'ldap')
 

@@ -4,6 +4,7 @@ root:
   uid: 0
   username: root
   givenname: Root
+  surname: test
   auth: db
   password: <%= root_crypto.password %>
   public_key: <%= "!!binary \"#{Base64.strict_encode64(root_crypto.public_key)}\"" %>
@@ -13,6 +14,7 @@ root:
 bob:
   username: bob
   givenname: Bob
+  surname: test
   auth: db
   password: <%= bob_crypto.password %>
   public_key: <%= "!!binary \"#{Base64.strict_encode64(bob_crypto.public_key)}\"" %>

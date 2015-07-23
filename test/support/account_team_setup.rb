@@ -1,6 +1,6 @@
 module AccountTeamSetup
-  def setup_team_acc(username, teamname, team_description, private_team, noroot_team, groupname, group_description, accountname, account_description, account_username, account_password)
-    login_as('bob', 'password')
+  def setup_team_acc(username, user_password,teamname, team_description, private_team, noroot_team, groupname, group_description, accountname, account_description, account_username, account_password)
+    login_as(username, user_password)
     #New Team
     post "/teams", team: {name: teamname, description: team_description, private: private_team, noroot: noroot_team}
     #New Group
