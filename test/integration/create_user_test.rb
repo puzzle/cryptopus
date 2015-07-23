@@ -2,7 +2,7 @@ require 'test_helper'
 require 'pry';
 class CreateUserTest < ActionDispatch::IntegrationTest
   test 'root creates new user' do
-    login_as('root')
+    login_as('root', 'password')
     post "/admin/users", user: {
                                   username: "fgerber",
                                   password: "password",
@@ -15,7 +15,7 @@ class CreateUserTest < ActionDispatch::IntegrationTest
 
 =begin
   test 'cannot create second user bob' do
-    login_as('root')
+    login_as('root', 'password')
     post "/admin/users", user: {
                                   username: "bob",
                                   password: "password",
@@ -27,7 +27,7 @@ class CreateUserTest < ActionDispatch::IntegrationTest
 =end
 
   test 'bob cannot create new user' do
-    login_as('bob')
+    login_as('bob', 'password')
     post "/admin/users", user: {
                                   username: "rsiegfried",
                                   password: "password",

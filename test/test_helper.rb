@@ -9,7 +9,7 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
-    def login_as(username)
-      post_via_redirect "/login/authenticate", username: username, password: 'password'
+    def login_as(username, password)
+      post_via_redirect "/login/authenticate", username: username, password: password
     end
 end
