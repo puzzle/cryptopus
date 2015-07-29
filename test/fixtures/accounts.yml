@@ -1,0 +1,5 @@
+account1:
+  accountname: account1
+  group: group1
+  username: <%= "!!binary \"#{FixturesHelper.read_account_username('team1', 'account1')}\"" %>
+  password: <%= "!!binary \"#{FixturesHelper.read_account_password('team1', 'account1')}\"" %>

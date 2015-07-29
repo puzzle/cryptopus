@@ -1,0 +1,7 @@
+team1:
+  name: team1
+  description: root, public
+  visible: true
+  private: false
+  noroot: false
+
