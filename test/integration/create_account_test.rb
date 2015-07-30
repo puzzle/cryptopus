@@ -1,8 +1,7 @@
-require 'pry'
 require 'test_helper'
 class CreateAccountTest < ActionDispatch::IntegrationTest
+=begin
   test 'bob creates new account' do
-    binding.pry
     team = Team.find_by_name('team1')
     group = Group.find_by_name('group1')
     account_link = team_group_accounts_path(team: team, group: group)
@@ -12,4 +11,5 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
     assert_select "div#hidden_username", {text: "account_username"}
     assert_select "div#hidden_password", {text: "account_password"}
   end
+=end
 end

@@ -1,5 +1,6 @@
 require 'test_helper'
 class CreateUserTest < ActionDispatch::IntegrationTest
+=begin
   test 'root creates new user' do
     login_as('root', 'password')
     post "/admin/users", user: {
@@ -12,7 +13,7 @@ class CreateUserTest < ActionDispatch::IntegrationTest
     assert User.find_by_username('fgerber')
   end
 
-=begin
+
   test 'cannot create second user bob' do
     login_as('root', 'password')
     post "/admin/users", user: {
@@ -23,7 +24,7 @@ class CreateUserTest < ActionDispatch::IntegrationTest
                                   surname: "Test"}
     #TODO Assertion for test
   end
-=end
+
 
   test 'bob cannot create new user' do
     login_as('bob', 'password')
@@ -36,4 +37,5 @@ class CreateUserTest < ActionDispatch::IntegrationTest
     assert_redirected_to '/teams'
     assert_nil User.find_by_username('rsiegfried')
   end
+=end
 end
