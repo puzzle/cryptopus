@@ -17,4 +17,11 @@ class ActiveSupport::TestCase
     def logout
       get '/login/logout'
     end
+
+    def get_account_path
+      team = teams(:team1)
+      group = groups(:group1)
+      account = accounts(:account1)
+      team_group_account_path(team_id: team.id, group_id: group.id, id: account.id)
+    end
 end
