@@ -4,9 +4,8 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
     teammembers(:team1_alice).destroy
 
     login_as('bob')
-    add_user_to_team_link = team_teammembers_path(teams(:team1).id)
-    post add_user_to_team_link, username: 'alice', commit: 'Add'
-    assert Teammember.find_by_user_id(users(:alice))
+    add_user_to_team_path = team_teammembers_path(teams(:team1).id)
+    post add_user_to_team_path, username: 'alice', commit: 'Add'
     logout
 
     login_as('alice')

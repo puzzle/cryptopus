@@ -14,7 +14,7 @@ class ActiveSupport::TestCase
       post_via_redirect "/login/authenticate", username: username, password: password
     end
 
-    def logout()
+    def logout
       get '/login/logout'
     end
 end
