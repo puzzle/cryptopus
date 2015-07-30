@@ -19,4 +19,17 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
     assert_select "div#hidden_password", {text: 'alice33'}
   end
 
+  test 'alice reads account data' do
+    login_as('alice')
+    team = Team.find_by_name('team1')
+    group = Group.find_by_name('group1')
+    account = Account.find_by_accountname('account1')
+
+    assert account
+
+    get team_group_account_path(team_id: team.id, group_id: group.id, id: account.id)
+
+    assert_select "div#hidden_username", {text: 'test'}
+    assert_select "div#hidden_password", {text: 'password'}
+  end
 end

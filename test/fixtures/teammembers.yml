@@ -9,3 +9,9 @@ team1_root:
   user: root
   admin: true
   password: <%= "!!binary \"#{FixturesHelper.read_team_password('root', 'team1')}\"" %>
+
+team1_alice:
+  team: team1
+  user: alice
+  admin: false
+  password: <%= "!!binary \"#{FixturesHelper.read_team_password('alice', 'team1')}\"" %>
