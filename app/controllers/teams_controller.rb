@@ -18,9 +18,9 @@
 require 'crypt_utils'
 
 class TeamsController < ApplicationController
-  
+
   before_filter :validate_change_rights, :only => [:edit, :update, :destroy]
-  
+
 private
 
   def validate_change_rights
@@ -80,7 +80,7 @@ private
       admin.destroy unless admin.user.root?
     end
   end
-  
+
 public
 
   # GET /teams
@@ -90,7 +90,7 @@ public
       redirect_to :controller => 'login', :action => 'login'
       return
     else
-      
+
       @user = User.find( session[:user_id] )
       @teams = @user.teams( :all ).uniq
 
@@ -118,14 +118,14 @@ public
     respond_to do |format|
       if @team.save
         @team_password = CryptUtils.new_team_password
-        
+
         user = User.find( session[:user_id] )
         add_user_to_team( user, false )
 
         add_root_to_team if @team.noroot == false
-        
+
         add_admins_to_team if @team.private == false
-     
+
         flash[:notice] = t('flashes.teams.created')
         format.html { redirect_to(teams_url) }
 
@@ -148,7 +148,7 @@ public
     respond_to do |format|
       if @team.update_attributes( params[:team] )
 
-        @team_password = get_team_password
+        @team_password = get_team_password(@team)
 
         if @team.private == true
           remove_admins_from_team
@@ -179,5 +179,5 @@ public
       format.html { redirect_to(teams_url) }
     end
   end
-  
+
 end

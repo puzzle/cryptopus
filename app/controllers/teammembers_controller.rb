@@ -29,9 +29,9 @@ public
   # GET /teams/1/teammembers/new
   def new
     @users = User.find(:all, :conditions => ["uid != 0 OR uid is null"])
-    @users.reject! do |user| 
+    @users.reject! do |user|
       Teammember.find(:first, :conditions => ["team_id = ? AND user_id = ? AND admin = ?", @team.id, user.id, false])
-    end  
+    end
     @user_list = @users.collect {|user| [ user.full_name, user.username ]}
     @user_list.sort!
   end
@@ -46,18 +46,18 @@ public
       @teammember = Teammember.new
       @teammember.team_id = @team.id
       @teammember.user_id = user.id
-      @teammember.password = CryptUtils.encrypt_team_password( get_team_password, user.public_key)
+      @teammember.password = CryptUtils.encrypt_team_password( get_team_password(@team), user.public_key)
       @teammember.save
-        
+
     rescue StandardError => e
       flash[:error] = e.message
     end
 
-    respond_to do |format|  
+    respond_to do |format|
       format.html { redirect_to team_groups_url(@team) }
     end
   end
-  
+
   # DELETE /teams/1/teammembers/1
   def destroy
     @teammember = @team.teammembers.find( params[:id] )
