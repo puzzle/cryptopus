@@ -1,5 +1,5 @@
 require 'test_helper'
-class CreateAccountTest < ActionDispatch::IntegrationTest
+class AddUserToTeamTest < ActionDispatch::IntegrationTest
   test 'bob adds alice to team' do
     teammembers(:team1_alice).destroy
 
