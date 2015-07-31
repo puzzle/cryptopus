@@ -1,4 +1,3 @@
-require 'pry'
 require 'test_helper'
 require 'test/unit'
 require 'mocha/test_unit'
