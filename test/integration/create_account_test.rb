@@ -1,6 +1,6 @@
 require 'test_helper'
 class CreateAccountTest < ActionDispatch::IntegrationTest
-
+  include IntegrationTest::DefaultHelper
   test 'bob creates new account' do
     login_as('bob')
 
