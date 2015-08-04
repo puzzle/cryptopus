@@ -16,6 +16,7 @@ module IntegrationTest
       post account_path, account: {accountname: 'accountname', description: 'account_description', username: 'account_username', password: 'account_password'}
 
       logout
+      account = Account.find_by_accountname('accountname')
     end
 
     def create_team_group_account_noroot(username, user_password = 'password')
