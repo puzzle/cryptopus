@@ -1,7 +1,7 @@
 team1_bob:
   team: team1
   user: bob
-  admin: true
+  admin: false
   password: <%= "!!binary \"#{FixturesHelper.read_team_password('bob', 'team1')}\"" %>
 
 team1_root:

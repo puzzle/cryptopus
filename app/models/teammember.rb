@@ -18,4 +18,14 @@
 class Teammember < ActiveRecord::Base
   belongs_to :team
   belongs_to :user
+  before_destroy :protect_if_last_teammember
+
+  private
+  def protect_if_last_teammember
+    if team.teammembers.count == 1
+      errors.add(:base, 'Cannot remove last teammember')
+      false
+    end
+  end
+
 end
