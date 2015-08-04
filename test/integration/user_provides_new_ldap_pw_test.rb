@@ -23,7 +23,7 @@ include IntegrationTest::DefaultHelper
 
     #Test if Bob can see his account (should not)
     error = assert_raises(RuntimeError) { get account_path }
-    assert_includes(error.message, "Failed")
+    assert_includes error.message, "Failed"
 
     #Recrypt
     post recryptrequests_path, new_password: 'newPassword', old_password: 'password'
@@ -53,7 +53,7 @@ include IntegrationTest::DefaultHelper
 
     #Test if user could see his account (should not)
     error = assert_raises(RuntimeError) { get account_path }
-    assert_includes(error.message, "Failed")
+    assert_includes error.message, "Failed"
 
     #Recrypt
     post recryptrequests_path, recrypt_request: true, new_password: 'newPassword'
