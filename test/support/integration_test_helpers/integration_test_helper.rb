@@ -1,6 +1,5 @@
 module IntegrationTest
   module DefaultHelper
-    LdapTools.stubs(:ldap_login).returns(false)
     def login_as(username, password = 'password')
       post_via_redirect "/login/authenticate", username: username, password: password
     end
