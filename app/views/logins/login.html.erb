@@ -1,4 +1,4 @@
-<% 
+<%
 # $Id$
 
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
@@ -16,18 +16,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
+<%= javascript_include_tag 'http://code.jquery.com/jquery-1.11.1.min.js'%>
 <%= form_tag({:action => 'authenticate'}, :id => 'loginform') do %>
   <fieldset>
     <legend><%=t '.title' %></legend>
     <p><%=t '.description' %></p>
-    
+
     <label for="username"><%=t :username %>:</label>
-    <%= text_field_tag :username, params[:username], :autofocus => true  %>
+    <%= text_field_tag :username, params[:username], :id => 'username' %>
 
-    <label for="password"><%=t :password %>:</label>   
-    <%= password_field_tag :password, params[:password] %>
+    <label for="password"><%=t :password %>:</label>
+    <%= password_field_tag :password, params[:password], :id => 'password' %>
 
-    <label for="submit"/>
+    <label for="submit" />
     <%= submit_tag t('.submit') %>
   </fieldset>
 <% end %>
+<%= javascript_include_tag 'login'%>
+
+
