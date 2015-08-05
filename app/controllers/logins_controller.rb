@@ -51,8 +51,8 @@ public
     if session[:username]
       redirect_to teams_path
     end
-  end 
-    
+  end
+
   def authenticate
     begin
       begin
@@ -62,14 +62,14 @@ public
           User.create_root params[:password]
         else
           User.create_from_external_auth params[:username], params[:password]
-        end  
+        end
       end
     rescue Exceptions::UserCreationFailed, Exceptions::AuthenticationFailed
       flash[:error] = t('flashes.logins.auth_failed')
       render :action => 'login'
       return
     end
-    
+
     begin
       @user = User.find_by_username params[:username]
       @user.update_info
@@ -78,7 +78,7 @@ public
       redirect_to recryptrequests_path
       return
     end
-    
+
     if session[:jumpto].nil? or session[:jumpto].empty?
       redirect_to teams_path
     else
@@ -88,7 +88,7 @@ public
     end
     return
   end
-  
+
   def logout
     # This is ugly, i'm sure there is a better way
     jump_to = session[:jumpto]
@@ -99,17 +99,19 @@ public
     flash[:error]  = keep_error
     if jump_to
       redirect_to jump_to
-      return
+    else
+      redirect_to login_login_path
     end
+    return
   end
-  
+
   def noaccess
     @message = "sorry"
     if params[:message]
       @message = params[:message]
     end
   end
-  
+
   def pwdchange
     if request.get?
       unless User.find( session[:user_id] ).auth_db?
@@ -118,7 +120,7 @@ public
       end
     else
       user = User.find( session[:user_id] )
-      
+
       if user.auth_db?
         crypted_password = CryptUtils.one_way_crypt( params[:oldpassword] )
         if user.password == crypted_password
@@ -137,17 +139,17 @@ public
         flash[:error] = t('flashes.logins.not_local')
       end
       redirect_to teams_path
-    end    
+    end
   end
-    
+
   # POST /login/changelocale
   def changelocale
     locale = params[:locale]
     user = User.find( session[:user_id] )
     user.preferred_locale = locale
     user.save
-    
+
     redirect_to :back
   end
-  
+
 end
