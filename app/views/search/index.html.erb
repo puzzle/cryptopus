@@ -1,12 +1,12 @@
 <div class='search'>
-  <h1>Hi Pierre! Want to recover a password?</h1>
-  <%= text_field_tag :search_string,  params[:search_string], :autofocus => true, :class => 'search-input' %>
+  <h1>Hi <%= session[:username] %>! Want to recover a password?</h1>
+  <%= text_field_tag :search_string,  params[:search_string], :autocomplete => 'off', :autofocus => true, :class => 'search-input' %>
 
 </div>
 <ul class="search-result result-list">
 </ul>
 
-<%= javascript_include_tag "search" %> 
+<%= javascript_include_tag "search" %>
 <script>
   new Cryptopus.Search($('.search-input'), $('.result-list'));
 </script>

@@ -9,23 +9,29 @@ var Cryptopus = Cryptopus || function() {};
   };
 
   Search.prototype.attachEvent = function() {
+    var term = "";
     var that = this;
     var input_field = this.input_field;
     input_field.keyup(function(event) {
       event.preventDefault();
-      if (event.keyCode == 13) {
+      if (input_field.val() != term) {
         term = input_field.val();
         that.doSearch(term);
       }
+      term = input_field.val()
     });
   };
 
   Search.prototype.doSearch = function(term) {
     var that = this;
+    if (this.input_field.val().length < 3){
+      that.updateResultArea('');
+    }else{
     $.get('/search/account.json', {search_string: term})
       .done( function(data) {
         that.updateResultArea(data);
       });
+    }
   };
 
   Search.prototype.updateResultArea = function(data) {
