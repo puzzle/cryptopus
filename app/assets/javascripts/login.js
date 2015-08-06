@@ -6,6 +6,7 @@ $(document).ready(function() {
 
   if (stored_username != null && stored_username != ""){
     user_input.val(stored_username);
+    password_input.val('')
     password_input.focus();
   } else {
     user_input.focus();
