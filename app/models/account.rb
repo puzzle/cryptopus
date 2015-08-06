@@ -18,13 +18,15 @@
 class Account < ActiveRecord::Base
   belongs_to :group
   has_many :items, :dependent => :destroy
-  
+
   attr_accessible :accountname, :username, :password, :description
 
   def as_json(options = { })
     h = super(options)
     h[:group] = group.name
     h[:team] = group.team.name
+    h[:team_id] = group.team.id
+    h.delete('description')
     h
   end
 
