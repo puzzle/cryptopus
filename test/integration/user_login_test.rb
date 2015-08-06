@@ -6,6 +6,11 @@ include IntegrationTest::DefaultHelper
     assert_equal teams_path, request.fullpath
   end
 
+  test 'bob logs in with spaces in username' do
+    login_as('   bob   ')
+    assert_equal teams_path, request.fullpath
+  end
+
   test 'bob logs in with wrong password' do
     login_as('bob', 'wrong_password')
     assert_includes flash[:error], 'Authentication failed'

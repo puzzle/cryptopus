@@ -56,12 +56,14 @@ public
   def authenticate
     begin
       begin
-        User.authenticate params[:username], params[:password]
+        username = params[:username].strip
+        password = params[:password]
+        User.authenticate username, password
       rescue Exceptions::UserDoesNotExist
-        if params[:username] == 'root'
-          User.create_root params[:password]
+        if username == 'root'
+          User.create_root password
         else
-          User.create_from_external_auth params[:username], params[:password]
+          User.create_from_external_auth username, password
         end
       end
     rescue Exceptions::UserCreationFailed, Exceptions::AuthenticationFailed
@@ -71,9 +73,9 @@ public
     end
 
     begin
-      @user = User.find_by_username params[:username]
+      @user = User.find_by_username username
       @user.update_info
-      create_session(@user, params[:password])
+      create_session(@user, password)
     rescue Exceptions::DecryptFailed
       redirect_to recryptrequests_path
       return
