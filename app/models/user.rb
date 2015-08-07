@@ -16,6 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class User < ActiveRecord::Base
+  validates :username, uniqueness: true
+
   has_many :teammembers, :dependent => :destroy
   has_many :recryptrequests, :dependent => :destroy
   has_many :teams, :through => :teammembers, :order => :name

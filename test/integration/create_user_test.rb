@@ -41,7 +41,6 @@ include IntegrationTest::DefaultHelper
     assert_nil User.find_by_username('rsiegfried')
   end
 
-=begin
     test 'cannot create second user bob' do
       login_as('root')
       post admin_users_path, user: {
@@ -50,7 +49,7 @@ include IntegrationTest::DefaultHelper
                                     admin: 0,
                                     givenname: "Bob",
                                     surname: "Test"}
-      #TODO Assertion for test
+      assert_equal request.fullpath, admin_users_path
+      assert_include response.body, 'Username has already been taken'
     end
-=end
 end
