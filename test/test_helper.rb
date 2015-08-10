@@ -17,6 +17,12 @@ class ActiveSupport::TestCase
     LdapTools.stubs(:connect)
     LdapTools.stubs(:get_ldap_info)
   end
+
+  #@TODO ------RMOVE AFTER RAILS v4 UPGRADE------
+  def assert_not(object, message = nil)
+        message ||= "Expected #{mu_pp(object)} to be nil or false"
+        assert !object, message
+      end
   # Add more helper methods to be used by all tests here...
 
 end
