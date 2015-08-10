@@ -17,6 +17,6 @@ class TeammemberTest < ActiveSupport::TestCase
     team1_bob = teammembers(:team1_bob)
     team1_bob.destroy
     assert team1_bob.destroyed?
-    assert team1_bob.errors.blank?
+    assert team1_bob.errors.empty?
   end
 end
