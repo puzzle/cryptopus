@@ -8,7 +8,7 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
 
     login_as('bob')
     items_path = team_group_account_items_path team, group, account
-    file_path = 'test/fixtures/files/teams/team1/account1/test_file.txt'
+    file_path = 'test/fixtures/files/test_file.txt'
     post items_path, item: {file: fixture_file_upload(file_path, 'text/plain')}
     logout
 
@@ -16,7 +16,7 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
     file = account.items.first
     item_path = team_group_account_item_path team, group, account, file
     get item_path
-    assert_equal 'test', response.body
+    assert_equal 'certificate', response.body
     assert_equal 'text/plain', response.header['Content-Type']
     assert_include response.header['Content-Disposition'], 'test_file.txt'
     delete item_path
