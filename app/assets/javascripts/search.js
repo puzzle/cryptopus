@@ -18,7 +18,7 @@ var Cryptopus = Cryptopus || function() {};
         term = input_field.val();
         that.doSearch(term);
       }
-      term = input_field.val()
+      term = input_field.val();
     });
   };
 
@@ -41,9 +41,11 @@ var Cryptopus = Cryptopus || function() {};
   };
 
   Search.prototype.registerActions = function() {
+    new ZeroClipboard( $('.clip_button') );
     var that = this;
     $('.result-password .password-link').click(function(e) {
-      var passLink = that.result_area.find('.password-link'),
+      e.preventDefault();
+      var passLink = $(e.target),
           passInput = passLink.next('.password-hidden');
       passLink.hide();
       passInput.show();
