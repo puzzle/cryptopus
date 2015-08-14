@@ -18,6 +18,9 @@
 class GroupsController < ApplicationController
   before_filter :load_team
 
+  def group_params
+    params.require(:group).permit(:name, :description)
+  end
 private
 
   def load_team
@@ -29,7 +32,7 @@ public
   # GET /teams/1/groups
   def index
     @groups = @team.groups.find( :all )
-    
+
     @teammembers = @team.teammembers.find_all_by_admin( false )
     @admins = @team.teammembers.find_all_by_admin( true )
 
@@ -105,5 +108,5 @@ public
       format.html { redirect_to team_groups_url(@team) }
     end
   end
-  
+
 end

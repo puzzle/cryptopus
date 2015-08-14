@@ -14,24 +14,23 @@ Cryptopus::Application.routes.draw do
     resources :users
     resources :recryptrequests do
       collection do
-        post :resetpassword
+        post 'resetpassword'
       end
     end
   end
 
   resource :login do
-    get :login
-    get :pwdchange
-    post :pwdchange
-    get :logout
-    get :noaccess
-    post :authenticate
-    post :changelocale
+    get 'login'
+    get 'pwdchange'
+    post 'pwdchange'
+    get 'logout'
+    get 'noaccess'
+    post 'authenticate'
+    post 'changelocale'
   end
-  match '/:controller(/:action(/:id))'
 
-  get 'search' => 'search#index'
-  get 'search/account' => 'search#account'
+  get 'search', to: 'search#index'
+  get 'search/account', to: 'search#account'
 
   root to: 'search#index'
 end

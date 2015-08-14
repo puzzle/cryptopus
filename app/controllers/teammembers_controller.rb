@@ -30,7 +30,7 @@ public
   def new
     @users = User.find(:all, :conditions => ["uid != 0 OR uid is null"])
     @users.reject! do |user|
-      Teammember.find(:first, :conditions => ["team_id = ? AND user_id = ? AND admin = ?", @team.id, user.id, false])
+      Teammember.first(:conditions => ["team_id = ? AND user_id = ? AND admin = ?", @team.id, user.id, false])
     end
     @user_list = @users.collect {|user| [ user.full_name, user.username ]}
     @user_list.sort!

@@ -21,6 +21,11 @@ class TeamsController < ApplicationController
 
   before_filter :validate_change_rights, :only => [:edit, :update, :destroy]
 
+  def team_params
+    params.require(:team).permit(:name, :private, :noroot, :description)
+  end
+
+
 private
 
   def validate_change_rights

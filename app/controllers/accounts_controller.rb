@@ -20,6 +20,10 @@ require 'ldap_tools'
 class AccountsController < ApplicationController
   before_filter :load_parents
 
+  def account_params
+    params.require(:account).permit(:accountname, :username, :password, :description)
+  end
+
 private
 
   def crypt_account
@@ -55,7 +59,7 @@ public
   def show
     @account = @group.accounts.find( params[:id] )
     @items = @account.items.find( :all )
-    
+
     decrypt_account
 
     respond_to do |format|
@@ -78,7 +82,7 @@ public
     @account.created_on = Time.now
 
     crypt_account
-    
+
     respond_to do |format|
       if @account.save
         flash[:notice] = t('flashes.accounts.created')
@@ -86,16 +90,16 @@ public
       else
         format.html { render :action => 'new' }
       end
-    end 
+    end
   end
 
   # GET /teams/1/groups/1/accounts/1/edit
   def edit
     @account = @group.accounts.find( params[:id] )
     @groups = @team.groups.find( :all )
-    
+
     decrypt_account
-  
+
     respond_to do |format|
       format.html # edit.html.erb
     end
@@ -105,9 +109,9 @@ public
   def update
     @account = @group.accounts.find( params[:id] )
     @account.attributes = params[:account]
-        
+
     crypt_account
-        
+
     respond_to do |format|
       if @account.save
         flash[:notice] = t('flashes.accounts.updated')
@@ -117,7 +121,7 @@ public
       end
     end
   end
-  
+
   # DELETE /teams/1/groups/1/accounts/1
   def destroy
     @account = @group.accounts.find( params[:id] )
