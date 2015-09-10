@@ -15,6 +15,8 @@ gem 'sass-rails'
 gem 'compass-rails'
 gem 'jquery-rails'
 gem 'zeroclipboard-rails'
+gem 'protected_attributes'
+gem 'handlebars_assets'
 
 group :development, :test do
   gem 'minitest'
@@ -23,8 +25,4 @@ end
 
 group :test do
   gem 'mocha'
-end
-
-group :assets do
-    gem 'handlebars_assets'
 end

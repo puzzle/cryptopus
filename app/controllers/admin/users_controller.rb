@@ -19,7 +19,7 @@ class Admin::UsersController < Admin::AdminController
   def user_params
     params.require(:user).permit(:username, :givenname, :surname, :admin, :password, :auth)
   end
-  
+
 private
 
   def empower_user(user)

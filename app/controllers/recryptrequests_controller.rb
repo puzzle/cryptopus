@@ -31,9 +31,9 @@ private
       CryptUtils.validate_keypair( private_key, @user.public_key )
       @user.private_key = CryptUtils.encrypt_private_key( private_key, new_password )
       @user.save
-    
+
       flash[:notice] = t('flashes.recryptrequests.recrypted')
-      redirect_to :controller => 'login', :action => 'logout'
+      redirect_to logout_login_path
       return
 
     rescue Exceptions::AuthenticationFailed
@@ -73,7 +73,7 @@ public
   def create
     # If the user knows his old password we can
     # still decrypt the private key
-    if params[:recrypt_request].nil? 
+    if params[:recrypt_request].nil?
       self_recrypt params[:old_password], params[:new_password]
       return
     end
@@ -86,8 +86,8 @@ public
       @user = User.find_by_username( session[:username] )
 
       # Check if that was already done
-      if @user.recryptrequests.find(:all).empty?
-        
+      if @user.recryptrequests.load.empty?
+
         # create the new keypair
         keypair = CryptUtils.new_keypair
         @user.public_key = CryptUtils.get_public_key_from_keypair( keypair )
@@ -100,7 +100,7 @@ public
         @recryptrequest.rootrequired = false
         @recryptrequest.adminrequired = true
       end
-    
+
       # lock all teams for this user and check
       # if an admin could do the job or if root
       # is required
@@ -111,10 +111,10 @@ public
 	        @recryptrequest.rootrequired = true
         end
       end
-	
+
       @recryptrequest.save
       flash[:notice] = t('flashes.recryptrequests.wait')
-      redirect_to :controller => 'login', :action => 'logout'
+      redirect_to logout_login_path
       return
 
     rescue Exceptions::AuthenticationFailed
@@ -123,7 +123,7 @@ public
       return
 
     end
- 
+
   end
 
   # GET /recryptrequests/1

@@ -77,6 +77,8 @@ GEM
     mysql2 (0.3.19)
     net-ldap (0.11)
     polyglot (0.3.5)
+    protected_attributes (1.0.2)
+      activemodel (>= 4.0.0.beta, < 5.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -118,7 +120,7 @@ GEM
     sextant (0.2.4)
       rails (>= 3.2)
     slop (3.6.0)
-    sprockets (2.12.4)
+    sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -543,6 +545,7 @@ DEPENDENCIES
   mocha
   mysql2
   net-ldap
+  protected_attributes
   pry
   pry-stack_explorer
   rails (= 4.0.0.rc1)

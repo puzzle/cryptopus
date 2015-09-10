@@ -21,4 +21,5 @@ class Group < ActiveRecord::Base
   belongs_to :team
   has_many :accounts, -> {order :accountname}, :dependent => :destroy
 
+  attr_accessible :name, :description
 end

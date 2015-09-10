@@ -21,18 +21,18 @@ class LdapTools
 
   def LdapTools.ldap_login( username, password )
     return nil if Ldapsetting.exists?( :first ) == nil
-    
-    ldap_settings = Ldapsetting.find( :first )
+
+    ldap_settings = Ldapsetting.first
     ldap = Net::LDAP.new \
       :host => ldap_settings.hostname,
       :port => ldap_settings.portnumber,
       :encryption => :simple_tls
-      
+
     result = ldap.bind_as \
       :base => ldap_settings.basename,
       :filter => "uid=#{username}",
       :password => password
-      
+
      if result
       user_dn = result.first.dn
       ldap = Net::LDAP.new \
@@ -43,14 +43,14 @@ class LdapTools
           :username => user_dn,
           :password => password
         }
-        
+
       if ldap.bind
         return true
       end
     end
     return false
   end
-  
+
   def LdapTools.get_uid_by_username( username )
     LdapTools.connect
     filter = Net::LDAP::Filter.eq( "uid", username )
@@ -64,7 +64,7 @@ class LdapTools
     raise "UID of the user not found"
     return nil
   end
-  
+
   def LdapTools.get_ldap_info( uid, attribute )
     LdapTools.connect
     filter = Net::LDAP::Filter.eq( "uidnumber", uid )
@@ -77,13 +77,13 @@ class LdapTools
     end
     return "No <#{attribute} for uid #{uid}>"
   end
-  
+
   def LdapTools.connect
     if Ldapsetting.exists?( :first ) == nil
       return nil
     end
-    
-    @@ldap_settings = Ldapsetting.find( :first )
+
+    @@ldap_settings = Ldapsetting.first
     @@ldap = Net::LDAP.new \
       :base => @@ldap_settings.basename,
       :host => @@ldap_settings.hostname,
@@ -93,5 +93,5 @@ class LdapTools
       @@ldap.auth @@ldap_settings.bind_dn, @@ldapsettings.bind_password
     end
   end
-  
+
 end

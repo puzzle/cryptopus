@@ -18,7 +18,7 @@
 class Admin::RecryptrequestsController < Admin::AdminController
 
   private
-  
+
     def recrypt_passwords(user, admin, is_not_root)
           # Recrypt all the passwords
       user.teammembers.each do |teammember_user|
@@ -34,12 +34,12 @@ class Admin::RecryptrequestsController < Admin::AdminController
         teammember_user.save
       end
     end
-    
+
   public
 
   # GET /admin/recryptrequests
   def index
-    @recryptrequests = Recryptrequest.find(:all)
+    @recryptrequests = Recryptrequest.all
   end
 
   # DELETE /admin/recryptrequest/1
@@ -47,13 +47,13 @@ class Admin::RecryptrequestsController < Admin::AdminController
     @recryptrequest = Recryptrequest.find( params[:id] )
     @user = @recryptrequest.user
     @admin = User.find( session[:user_id] )
-    
+
     # Check if the user that tries to recrypt the passwords is root
     # or just an admin.
     is_not_root = !@admin.root?
-    
+
     begin
-      
+
       recrypt_passwords( @recryptrequest.user, @admin, is_not_root )
 
       if is_not_root
@@ -64,12 +64,12 @@ class Admin::RecryptrequestsController < Admin::AdminController
         @recryptrequest.adminrequired = false
         @recryptrequest.rootrequired = false
       end
-      
+
       unless @recryptrequest.adminrequired and @recryptrequest.rootrequired
         @recryptrequest.destroy
         flash[:notice] = t('flashes.admin.recryptrequests.all', :user_name => @user.username)
       end
-      
+
     rescue StandardError => e
       flash[:error] = e.message
 
@@ -78,38 +78,38 @@ class Admin::RecryptrequestsController < Admin::AdminController
     redirect_to admin_recryptrequests_path
 
   end
-  
+
   # POST /admin/recryptrequests/resetpassword
   def resetpassword
     @user = User.find( params[:user_id] )
     @admin = User.find( session[:user_id] )
-    
+
     if @user.auth_db?
       unless params[:new_password].blank?
         @user.password = CryptUtils.one_way_crypt( params[:new_password] )
-        
+
         # create the new keypair
         keypair = CryptUtils.new_keypair
         @user.public_key = CryptUtils.get_public_key_from_keypair( keypair )
         private_key = CryptUtils.get_private_key_from_keypair( keypair )
         @user.private_key = CryptUtils.encrypt_private_key( private_key, params[:new_password] )
         @user.save
-        
+
         # lock all team memberships
         @user.teammembers.each do |teammember|
           teammember.locked = true
         end
-        
+
         is_not_root = !@admin.root?
-        
+
         recrypt_passwords( @user, @admin, is_not_root )
-        
+
         flash[:notice] = t('flashes.admin.recryptrequests.resetpassword.success')
       else
         flash[:notice] = t('flashes.admin.recryptrequests.resetpassword.required')
       end
     end
-    
+
     redirect_to :back
   end
 

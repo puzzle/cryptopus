@@ -1,4 +1,3 @@
-require 'pry'
 require 'test_helper'
 class LdapUserLoginTest < ActionDispatch::IntegrationTest
 include IntegrationTest::DefaultHelper

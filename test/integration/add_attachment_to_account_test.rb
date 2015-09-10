@@ -18,7 +18,7 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
     get item_path
     assert_equal 'certificate', response.body
     assert_equal 'text/plain', response.header['Content-Type']
-    assert_include response.header['Content-Disposition'], 'test_file.txt'
+    assert_includes response.header['Content-Disposition'], 'test_file.txt'
     delete item_path
     logout
 

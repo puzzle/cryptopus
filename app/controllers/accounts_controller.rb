@@ -48,7 +48,7 @@ public
 
   # GET /teams/1/groups/1/accounts
   def index
-    @accounts = @group.accounts.find( :all )
+    @accounts = @group.accounts.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -58,7 +58,7 @@ public
   # GET /teams/1/groups/1/accounts/1
   def show
     @account = @group.accounts.find( params[:id] )
-    @items = @account.items.find( :all )
+    @items = @account.items.load
 
     decrypt_account
 
@@ -96,7 +96,7 @@ public
   # GET /teams/1/groups/1/accounts/1/edit
   def edit
     @account = @group.accounts.find( params[:id] )
-    @groups = @team.groups.find( :all )
+    @groups = @team.groups.all
 
     decrypt_account
 

@@ -22,6 +22,9 @@ class User < ActiveRecord::Base
   has_many :recryptrequests, :dependent => :destroy
   has_many :teams, -> {order :name}, :through => :teammembers
 
+  attr_protected :admin
+  attr_accessible :name, :username, :password, :admin, :givenname, :surname, :auth
+
   def self.authenticate( username, password )
     user = self.find_by_username username
     raise Exceptions::UserDoesNotExist if user.nil?

@@ -50,6 +50,6 @@ include IntegrationTest::DefaultHelper
                                     givenname: "Bob",
                                     surname: "Test"}
       assert_equal request.fullpath, admin_users_path
-      assert_include response.body, 'Username has already been taken'
+      assert_includes response.body, 'Username has already been taken'
     end
 end

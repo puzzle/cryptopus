@@ -19,7 +19,8 @@
 <% if session[:user_id] %>
   <% user_locale = User.find( session[:user_id] ).preferred_locale %>
   <div id="locale-selection" class="alignright">
-  <%= form_tag(url_for(:controller => 'login', :action => 'changelocale')) do %>
+
+  <%= form_tag(changelocale_login_path) do %>
     <select name="locale" onchange="this.form.submit()">
       <%= options_for_select(I18n.available_locales.map{ |locale| [I18n.name_for_locale(locale), locale] }, user_locale) %>
     </select>

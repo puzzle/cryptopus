@@ -31,11 +31,11 @@ class CryptUtils
     keypair = PKey::RSA.new( 2048 )
     return keypair
   end
-  
+
   def CryptUtils.get_private_key_from_keypair( keypair )
     return keypair.to_s()
   end
-  
+
   def CryptUtils.get_public_key_from_keypair( keypair )
     return keypair.public_key.to_s()
   end
@@ -45,29 +45,28 @@ class CryptUtils
       keypair = PKey::RSA.new( private_key )
       decrypted_team_password = keypair.private_decrypt( team_password )
       return decrypted_team_password
-      
     rescue
       return nil
     end
   end
-  
+
   def CryptUtils.encrypt_team_password( team_password, public_key )
     begin
       keypair = PKey::RSA.new( public_key )
       encrypted_team_password = keypair.public_encrypt( team_password )
       return encrypted_team_password
-      
+
     rescue
       return nil
     end
   end
-  
+
   def CryptUtils.new_team_password
     cipher = OpenSSL::Cipher::Cipher.new( @@cypher )
     team_password = cipher.random_key()
     return team_password
   end
-  
+
   def CryptUtils.encrypt_private_key( private_key, password )
     cipher = OpenSSL::Cipher::Cipher.new( @@cypher )
     cipher.encrypt
@@ -77,9 +76,9 @@ class CryptUtils
 
     return @@magic + salt + private_key_part
   end
-  
+
   def CryptUtils.decrypt_private_key( private_key, password )
-    begin 
+    begin
       cipher = OpenSSL::Cipher::Cipher.new( @@cypher )
       cipher.decrypt
       unless private_key.slice( 0, @@magic.size ) == @@magic
@@ -111,7 +110,7 @@ class CryptUtils
     crypted_blob << cipher.final()
     return crypted_blob
   end
-  
+
   def CryptUtils.decrypt_blob( blob, team_password )
     cipher = OpenSSL::Cipher::Cipher.new( @@cypher )
     cipher.decrypt
@@ -120,5 +119,5 @@ class CryptUtils
     decrypted_blob << cipher.final()
     return decrypted_blob
   end
-  
+
 end

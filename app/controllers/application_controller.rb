@@ -17,7 +17,6 @@
 
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
   before_filter :validate, :except => [:login, :authenticate, :logout]
   before_filter :prepare_menu
@@ -39,9 +38,9 @@ protected
       session[:jumpto] = request.parameters
     end
 
-    user = User.find( session[:user_id] )
 
-    if Recryptrequest.first(:conditions => ["user_id = ?" , user.id])
+    user = User.find( session[:user_id] )
+    if Recryptrequest.where(["user_id = ?", user.id]).first
       flash[:notice] = t('flashes.application.wait')
       redirect_to :controller => 'login', :action => 'logout'
       return
@@ -57,7 +56,7 @@ protected
 
   def get_team_password(team)
     user = User.find(session[:user_id] )
-    teammember = team.teammembers.find( :first, :conditions => ["user_id = ?", user.id] )
+    teammember = team.teammembers(:conditions => ["user_id = ?", user.id] ).first
     raise "You have no access to this Group" if teammember.nil?
     team_password = CryptUtils.decrypt_team_password( teammember.password, session[:private_key] )
     raise "Failed to decrypt the group password" if team_password.nil?

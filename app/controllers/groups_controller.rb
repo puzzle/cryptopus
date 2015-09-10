@@ -31,7 +31,7 @@ public
 
   # GET /teams/1/groups
   def index
-    @groups = @team.groups.find( :all )
+    @groups = @team.groups.all
 
     @teammembers = @team.teammembers.find_all_by_admin( false )
     @admins = @team.teammembers.find_all_by_admin( true )
