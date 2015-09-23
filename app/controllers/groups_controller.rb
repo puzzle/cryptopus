@@ -61,7 +61,7 @@ public
 
   # POST /teams/1/groups
   def create
-    @group = @team.groups.new( params[:group] )
+    @group = @team.groups.new( group_params )
     @group.created_on = Time.now
     @group.updated_on = Time.now
 
@@ -109,4 +109,7 @@ public
     end
   end
 
+  def group_params
+    params.require(:group).permit(:name, :description)
+  end
 end

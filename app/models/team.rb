@@ -18,7 +18,4 @@
 class Team < ActiveRecord::Base
   has_many :groups, -> {order :name}, :dependent => :destroy
   has_many :teammembers, :dependent => :delete_all
-
-  attr_accessible :name, :description, :private, :noroot
-
 end

@@ -110,7 +110,7 @@ public
 
   # POST /admin/users
   def create
-    @user = User.new( params[:user] )
+    @user = User.new( user_params )
     password = params[:user][:password]
 
     @user.auth = 'db'
@@ -127,4 +127,7 @@ public
     end
   end
 
+  def user_params
+    params.require(:user).permit(:name, :username, :password, :admin, :givenname, :surname, :auth)
+  end
 end

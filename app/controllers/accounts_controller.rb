@@ -78,7 +78,7 @@ public
 
   # POST /teams/1/groups/1/accounts
   def create
-    @account = @group.accounts.new( params[:account] )
+    @account = @group.accounts.new( account_params )
     @account.created_on = Time.now
 
     crypt_account
@@ -130,6 +130,10 @@ public
     respond_to do |format|
       format.html { redirect_to team_group_accounts_url(@team, @group) }
     end
+  end
+
+  def account_params
+    params.require(:account).permit(:accountname, :username, :password, :description)
   end
 
 end

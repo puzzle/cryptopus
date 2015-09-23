@@ -116,7 +116,7 @@ public
 
   # POST /teams
   def create
-    @team = Team.new( params[:team] )
+    @team = Team.new( team_params )
     @team.created_on = Time.now
     @team.updated_on = Time.now
 
@@ -183,6 +183,10 @@ public
     respond_to do |format|
       format.html { redirect_to(teams_url) }
     end
+  end
+
+  def team_params
+    params.require(:team).permit(:name, :description, :private, :noroot)
   end
 
 end
