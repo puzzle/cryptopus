@@ -15,12 +15,12 @@ gem 'sass-rails'
 gem 'compass-rails'
 gem 'jquery-rails'
 gem 'zeroclipboard-rails'
-gem 'protected_attributes'
 gem 'handlebars_assets'
 
 group :development, :test do
   gem 'minitest'
-  gem "rails-erd"
+  gem 'rails-erd'
+  gem 'test-unit'
 end
 
 group :test do
