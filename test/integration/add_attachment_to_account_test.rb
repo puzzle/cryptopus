@@ -1,5 +1,5 @@
 require 'test_helper'
-class CreateAccountTest < ActionDispatch::IntegrationTest
+class AddAttachmentToAccountTest < ActionDispatch::IntegrationTest
   include IntegrationTest::DefaultHelper
   test 'add and remove attachment to account1' do
     team = teams(:team1)
