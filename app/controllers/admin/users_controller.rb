@@ -48,7 +48,7 @@ private
   end
 
   def disempower_admin(user)
-    teammembers = user.teammembers.find_all_by_admin( true )
+    teammembers = user.teammembers.where(admin: true)
     for teammember in teammembers do
       teammember.destroy
     end
@@ -58,7 +58,8 @@ public
 
   # GET /admin/users
   def index
-    @users = User.find( :all, :conditions => ["uid != 0 or uid is null"] )
+    @users = User.where("uid != 0 or uid is null").all
+    #User.find( :all, :conditions => ["uid != 0 or uid is null"] )
 
     respond_to do |format|
       format.html # index.html.erb

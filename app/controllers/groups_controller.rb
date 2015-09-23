@@ -33,8 +33,8 @@ public
   def index
     @groups = @team.groups.all
 
-    @teammembers = @team.teammembers.find_all_by_admin( false )
-    @admins = @team.teammembers.find_all_by_admin( true )
+    @teammembers = @team.teammembers.where(admin: false)
+    @admins = @team.teammembers.where(admin: true)
 
     respond_to do |format|
       format.html # index.html.erb

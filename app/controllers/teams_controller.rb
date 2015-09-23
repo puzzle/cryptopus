@@ -80,7 +80,7 @@ private
   end
 
   def remove_admins_from_team
-    admins = @team.teammembers.find_all_by_admin( true )
+    admins = @team.teammembers.where(admin: true)
     for admin in admins do
       admin.destroy unless admin.user.root?
     end

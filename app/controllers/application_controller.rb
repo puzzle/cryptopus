@@ -40,7 +40,7 @@ protected
 
 
     user = User.find( session[:user_id] )
-    if Recryptrequest.where(["user_id = ?", user.id]).first
+    if Recryptrequest.where("user_id = ?", user.id).first
       flash[:notice] = t('flashes.application.wait')
       redirect_to :controller => 'login', :action => 'logout'
       return
@@ -56,7 +56,7 @@ protected
 
   def get_team_password(team)
     user = User.find(session[:user_id] )
-    teammember = team.teammembers(:conditions => ["user_id = ?", user.id] ).first
+    teammember = team.teammembers.where("user_id = ?", user.id).first
     raise "You have no access to this Group" if teammember.nil?
     team_password = CryptUtils.decrypt_team_password( teammember.password, session[:private_key] )
     raise "Failed to decrypt the group password" if team_password.nil?
@@ -64,7 +64,7 @@ protected
   end
 
   def is_user_team_member( team_id, user_id )
-    team_member = Teammember.find( :first, :conditions => ["team_id=? and user_id=?", team_id, user_id] )
+    team_member = Teammember.where("team_id=? and user_id=?", team_id, user_id ).first
     return true if team_member
     return false
   end

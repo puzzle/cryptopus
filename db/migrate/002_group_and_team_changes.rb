@@ -39,7 +39,7 @@ class GroupAndTeamChanges < ActiveRecord::Migration
       group.save
 
       # Accounts are now linked to their groups and not directly to the team
-      Account.find(:all, :conditions => ["group_id = ?", team.id]).each do |account|
+      Account.where("group_id = ?", team.id).all.each do |account|
         account.group_id = group.id
         account.save
       end
@@ -50,8 +50,8 @@ class GroupAndTeamChanges < ActiveRecord::Migration
   def self.down
 
     # link accounts back to the team table
-    Group.find(:all).each do |group|
-      Account.find(:all, :conditions => ["group_id = ?", group.id]).each do |account|
+    Group.all.each do |group|
+      Account.where("group_id = ?", group.id).all.each do |account|
         account.group_id = group.team_id
         account.save
       end
@@ -63,7 +63,7 @@ class GroupAndTeamChanges < ActiveRecord::Migration
 
     # Change the name from teams to groups
     add_column "teams",  "user_id", :integer, :default => 0, :null => false
-    Teammember.find(:all, :conditions => ["team_admin = ?", true]).each do |teammember|
+    Teammember.where("team_admin = ?", true).all.each do |teammember|
         team = Team.find(teammember.team_id)
         team.user_id = teammember.user_id
         team.save
