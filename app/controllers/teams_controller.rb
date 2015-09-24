@@ -21,13 +21,11 @@ class TeamsController < ApplicationController
 
   before_filter :validate_change_rights, :only => [:edit, :update, :destroy]
 
+private
   def team_params
     params.require(:team).permit(:name, :private, :noroot, :description)
   end
-
-
-private
-
+  
   def validate_change_rights
     unless am_i_team_member( params[:id] )
       redirect_to :controller => 'login', :action => 'noaccess', :message => "You are not member of this team"

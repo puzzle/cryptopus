@@ -20,11 +20,11 @@ require 'ldap_tools'
 class AccountsController < ApplicationController
   before_filter :load_parents
 
+private
+
   def account_params
     params.require(:account).permit(:accountname, :username, :password, :description)
   end
-
-private
 
   def crypt_account
     @account.username = "none" if @account.username == "" or @account.username.nil?

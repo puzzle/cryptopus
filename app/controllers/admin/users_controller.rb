@@ -16,11 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Admin::UsersController < Admin::AdminController
+private
   def user_params
     params.require(:user).permit(:username, :givenname, :surname, :admin, :password, :auth)
   end
-
-private
 
   def empower_user(user)
     teams = Team.all

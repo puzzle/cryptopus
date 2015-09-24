@@ -17,11 +17,11 @@
 
 class GroupsController < ApplicationController
   before_filter :load_team
+private
 
   def group_params
     params.require(:group).permit(:name, :description)
   end
-private
 
   def load_team
     @team = Team.find( params[:team_id] )
