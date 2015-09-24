@@ -9,85 +9,85 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 13) do
+ActiveRecord::Schema.define(version: 13) do
 
-  create_table "accounts", :force => true do |t|
-    t.string   "accountname", :limit => 40, :default => "", :null => false
-    t.integer  "group_id",                  :default => 0,  :null => false
+  create_table "accounts", force: :cascade do |t|
+    t.string   "accountname", limit: 40, default: "", null: false
+    t.integer  "group_id",               default: 0,  null: false
     t.text     "description"
     t.binary   "username"
     t.binary   "password"
-    t.datetime "created_on",                                :null => false
-    t.datetime "updated_on",                                :null => false
+    t.datetime "created_on",                          null: false
+    t.datetime "updated_on",                          null: false
   end
 
-  create_table "groups", :force => true do |t|
-    t.string   "name",        :limit => 40, :default => "", :null => false
+  create_table "groups", force: :cascade do |t|
+    t.string   "name",        limit: 40, default: "", null: false
     t.text     "description"
-    t.datetime "created_on",                                :null => false
-    t.datetime "updated_on",                                :null => false
-    t.integer  "team_id",                   :default => 0,  :null => false
+    t.datetime "created_on",                          null: false
+    t.datetime "updated_on",                          null: false
+    t.integer  "team_id",                default: 0,  null: false
   end
 
-  create_table "items", :force => true do |t|
-    t.integer  "account_id",   :default => 0,  :null => false
+  create_table "items", force: :cascade do |t|
+    t.integer  "account_id",   default: 0,  null: false
     t.text     "description"
     t.binary   "file"
-    t.datetime "created_on",                   :null => false
-    t.datetime "updated_on",                   :null => false
-    t.text     "filename",     :default => "", :null => false
-    t.text     "content_type", :default => "", :null => false
+    t.datetime "created_on",                null: false
+    t.datetime "updated_on",                null: false
+    t.text     "filename",     default: "", null: false
+    t.text     "content_type", default: "", null: false
   end
 
-  create_table "ldapsettings", :force => true do |t|
-    t.string "basename",      :limit => 200, :default => "ou=users,dc=yourdomain,dc=com", :null => false
-    t.string "hostname",      :limit => 50,  :default => "yourdomain.com",                :null => false
-    t.string "portnumber",    :limit => 10,  :default => "636",                           :null => false
-    t.string "encryption",    :limit => 30,  :default => "simple_tls",                    :null => false
-    t.string "bind_dn"
-    t.string "bind_password"
+  create_table "ldapsettings", force: :cascade do |t|
+    t.string "basename",      limit: 200, default: "ou=users,dc=yourdomain,dc=com", null: false
+    t.string "hostname",      limit: 50,  default: "yourdomain.com",                null: false
+    t.string "portnumber",    limit: 10,  default: "636",                           null: false
+    t.string "encryption",    limit: 30,  default: "simple_tls",                    null: false
+    t.string "bind_dn",       limit: 255
+    t.string "bind_password", limit: 255
   end
 
-  create_table "recryptrequests", :force => true do |t|
-    t.integer "user_id",       :default => 0,    :null => false
-    t.boolean "adminrequired", :default => true, :null => false
-    t.boolean "rootrequired",  :default => true, :null => false
+  create_table "recryptrequests", force: :cascade do |t|
+    t.integer "user_id",       default: 0,    null: false
+    t.boolean "adminrequired", default: true, null: false
+    t.boolean "rootrequired",  default: true, null: false
   end
 
-  create_table "teammembers", :force => true do |t|
-    t.integer  "team_id",    :default => 0,     :null => false
-    t.binary   "password",   :default => "",    :null => false
-    t.integer  "user_id",    :default => 0,     :null => false
-    t.datetime "created_on",                    :null => false
-    t.datetime "updated_on",                    :null => false
-    t.boolean  "admin",      :default => false, :null => false
-    t.boolean  "locked",     :default => false, :null => false
+  create_table "teammembers", force: :cascade do |t|
+    t.integer  "team_id",    default: 0,     null: false
+    t.binary   "password",   default: "",    null: false
+    t.integer  "user_id",    default: 0,     null: false
+    t.datetime "created_on",                 null: false
+    t.datetime "updated_on",                 null: false
+    t.boolean  "admin",      default: false, null: false
+    t.boolean  "locked",     default: false, null: false
   end
 
-  create_table "teams", :force => true do |t|
-    t.string   "name",        :limit => 40, :default => "",    :null => false
+  create_table "teams", force: :cascade do |t|
+    t.string   "name",        limit: 40, default: "",    null: false
     t.text     "description"
-    t.datetime "created_on",                                   :null => false
-    t.datetime "updated_on",                                   :null => false
-    t.boolean  "visible",                   :default => true,  :null => false
-    t.boolean  "private",                   :default => false, :null => false
-    t.boolean  "noroot",                    :default => false, :null => false
+    t.datetime "created_on",                             null: false
+    t.datetime "updated_on",                             null: false
+    t.boolean  "visible",                default: true,  null: false
+    t.boolean  "private",                default: false, null: false
+    t.boolean  "noroot",                 default: false, null: false
   end
 
-  create_table "users", :force => true do |t|
-    t.text     "public_key",                          :null => false
-    t.binary   "private_key",                         :null => false
+  create_table "users", force: :cascade do |t|
+    t.text     "public_key",                                   null: false
+    t.binary   "private_key",                                  null: false
     t.binary   "password"
-    t.boolean  "admin",            :default => false, :null => false
+    t.boolean  "admin",                        default: false, null: false
     t.integer  "uid"
     t.datetime "last_login_at"
-    t.string   "username"
-    t.string   "givenname"
-    t.string   "surname"
-    t.string   "auth",             :default => "db",  :null => false
-    t.string   "preferred_locale", :default => "en",  :null => false
+    t.string   "username",         limit: 255
+    t.string   "givenname",        limit: 255
+    t.string   "surname",          limit: 255
+    t.string   "auth",             limit: 255, default: "db",  null: false
+    t.string   "preferred_locale", limit: 255, default: "en",  null: false
   end
 
 end

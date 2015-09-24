@@ -10,7 +10,7 @@ class FixAutoUidBug < ActiveRecord::Migration
       user_table[user.id][:password]    = user.password
       user_table[user.id][:admin]       = user.admin
     end
- 
+
     drop_table "users"
     create_table "users", :force => true do |t|
       t.column "public_key",  :text,                       :null => false
@@ -20,7 +20,7 @@ class FixAutoUidBug < ActiveRecord::Migration
       t.column "uid",         :integer,                    :null => false
     end
     User.reset_column_information
-    
+
     user_table.each do |uid, data|
       new_user = User.new
       new_user.uid         = uid
@@ -30,19 +30,19 @@ class FixAutoUidBug < ActiveRecord::Migration
       new_user.admin       = data[:admin]
       new_user.save
     end
-    
+
     Recryptrequest.find(:all).each do |recryptrequest|
-      user = User.find( :first, :conditions => ["uid = ?", recryptrequest.user_id] )
+      user = User.where("uid = ?", recryptrequest.user_id).first
       recryptrequest.user_id = user.id
       recryptrequest.save
     end
-    
+
     Teammember.find(:all).each do |teammember|
-      user = User.find( :first, :conditions => ["uid = ?", teammember.user_id] )
+      user = User.where("uid = ?", teammember.user_id).first
       teammember.user_id = user.id
       teammember.save
     end
-    
+
   end
 
   def self.down
@@ -51,13 +51,13 @@ class FixAutoUidBug < ActiveRecord::Migration
       teammember.user_id = user.uid
       teammember.save
     end
-    
+
     Recryptrequest.find(:all).each do |recryptrequest|
       user = User.find(recryptrequest.user_id)
       recryptrequest.user_id = user.uid
       recryptrequest.save
     end
-    
+
     remove_column "users", "id"
     rename_column "users", "uid", "id"
   end

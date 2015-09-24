@@ -17,8 +17,11 @@
 
 class GroupsController < ApplicationController
   before_filter :load_team
-
 private
+
+  def group_params
+    params.require(:group).permit(:name, :description)
+  end
 
   def load_team
     @team = Team.find( params[:team_id] )
@@ -28,10 +31,10 @@ public
 
   # GET /teams/1/groups
   def index
-    @groups = @team.groups.find( :all )
-    
-    @teammembers = @team.teammembers.find_all_by_admin( false )
-    @admins = @team.teammembers.find_all_by_admin( true )
+    @groups = @team.groups.all
+
+    @teammembers = @team.teammembers.where(admin: false)
+    @admins = @team.teammembers.where(admin: true)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -58,7 +61,7 @@ public
 
   # POST /teams/1/groups
   def create
-    @group = @team.groups.new( params[:group] )
+    @group = @team.groups.new( group_params )
     @group.created_on = Time.now
     @group.updated_on = Time.now
 
@@ -105,5 +108,8 @@ public
       format.html { redirect_to team_groups_url(@team) }
     end
   end
-  
+
+  def group_params
+    params.require(:group).permit(:name, :description)
+  end
 end

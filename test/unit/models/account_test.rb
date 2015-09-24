@@ -2,6 +2,8 @@ require 'test_helper'
 class AccountTest <  ActiveSupport::TestCase
   test 'account to json' do
     account = accounts(:account1)
+    account['username'] = 'username'
+    account['password'] = 'pasword'
     account_json = account.to_json
 
 

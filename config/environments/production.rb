@@ -9,7 +9,7 @@ Cryptopus::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_files = false
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -46,18 +46,7 @@ Cryptopus::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( 
-    cryptopus.css 
-    main_navigation.css 
-    bootstrap_tabs.min.js
-    application.js
-    controls.js
-    rails.js
-    jquery.js
-    effects.js
-    dragdrop.js
-    prototype.js
-  )
+  # config.assets.precompile += %w( search.js )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
@@ -75,4 +64,7 @@ Cryptopus::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+
+  config.eager_load = true
 end

@@ -19,8 +19,5 @@
 
 class Group < ActiveRecord::Base
   belongs_to :team
-  has_many :accounts, :dependent => :destroy, :order => :accountname
-#  searches_on :name, :description
-
-  attr_accessible :name, :description
+  has_many :accounts, -> {order :accountname}, :dependent => :destroy
 end

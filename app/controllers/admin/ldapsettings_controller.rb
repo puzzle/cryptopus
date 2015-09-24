@@ -19,18 +19,18 @@ class Admin::LdapsettingsController < Admin::AdminController
 
   # GET /ldapsettings
   def index
-    @ldapsetting = Ldapsetting.find(:first)
+    @ldapsetting = Ldapsetting.first
     if @ldapsetting.nil?
       flash[:notice] = t('flashes.admin.ldapsettings.example')
       @ldapsetting = Ldapsetting.new
       @ldapsetting.save
     end
-  end        
+  end
 
   # PUT /ldapsettings/1
   def update
-    @ldapsetting = Ldapsetting.find(:first)
-        
+    @ldapsetting = Ldapsetting.first
+
     respond_to do |format|
       if @ldapsetting.update_attributes( params[:ldapsetting] )
         flash[:notice] = t('flashes.admin.ldapsettings.ldap')
@@ -40,5 +40,5 @@ class Admin::LdapsettingsController < Admin::AdminController
       end
     end
   end
-  
+
 end

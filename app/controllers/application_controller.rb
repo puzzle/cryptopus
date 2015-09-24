@@ -17,7 +17,6 @@
 
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
   before_filter :validate, :except => [:login, :authenticate, :logout]
   before_filter :prepare_menu
@@ -39,44 +38,44 @@ protected
       session[:jumpto] = request.parameters
     end
 
+
     user = User.find( session[:user_id] )
-    
-    if Recryptrequest.find(:first, :conditions => ["user_id = ?" , user.id])
+    if Recryptrequest.where("user_id = ?", user.id).first
       flash[:notice] = t('flashes.application.wait')
       redirect_to :controller => 'login', :action => 'logout'
       return
     end
-    
+
   end
-  
+
   def set_locale
     user_locale = session[:user_id] ? User.find( session[:user_id] ).preferred_locale : I18n.default_locale
     # use the locale parameter if provided or else the user locale
     I18n.locale = params[:locale] || user_locale
   end
-  
+
   def get_team_password(team)
     user = User.find(session[:user_id] )
-    teammember = team.teammembers.find( :first, :conditions => ["user_id = ?", user.id] )
+    teammember = team.teammembers.where("user_id = ?", user.id).first
     raise "You have no access to this Group" if teammember.nil?
     team_password = CryptUtils.decrypt_team_password( teammember.password, session[:private_key] )
     raise "Failed to decrypt the group password" if team_password.nil?
     return team_password
   end
-  
+
   def is_user_team_member( team_id, user_id )
-    team_member = Teammember.find( :first, :conditions => ["team_id=? and user_id=?", team_id, user_id] )
+    team_member = Teammember.where("team_id=? and user_id=?", team_id, user_id ).first
     return true if team_member
     return false
   end
-  
+
   def am_i_team_member( team_id )
     user = User.find( session[:user_id] )
     return is_user_team_member( team_id, user.id )
   end
 
   def prepare_menu
-    if File.exist?("#{Rails.root}/app/views/#{controller_path}/_#{action_name}_menu.html.erb")  
+    if File.exist?("#{Rails.root}/app/views/#{controller_path}/_#{action_name}_menu.html.erb")
       @menu_to_render = "#{controller_path}/#{action_name}_menu"
     else
       @menu_to_render = nil

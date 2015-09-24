@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '4.2'
 
 gem 'mysql2'
 gem 'sqlite3'
@@ -15,16 +15,14 @@ gem 'sass-rails'
 gem 'compass-rails'
 gem 'jquery-rails'
 gem 'zeroclipboard-rails'
+gem 'handlebars_assets'
 
 group :development, :test do
   gem 'minitest'
-  gem "rails-erd"
+  gem 'rails-erd'
+  gem 'test-unit'
 end
 
 group :test do
   gem 'mocha'
-end
-
-group :assets do
-    gem 'handlebars_assets'
 end

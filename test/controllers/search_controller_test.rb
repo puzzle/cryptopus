@@ -1,7 +1,6 @@
 require 'test_helper'
 require 'test/unit'
 require 'mocha/test_unit'
-require 'pry'
 
 class SearchControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper

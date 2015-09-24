@@ -22,7 +22,10 @@ class TeamsController < ApplicationController
   before_filter :validate_change_rights, :only => [:edit, :update, :destroy]
 
 private
-
+  def team_params
+    params.require(:team).permit(:name, :private, :noroot, :description)
+  end
+  
   def validate_change_rights
     unless am_i_team_member( params[:id] )
       redirect_to :controller => 'login', :action => 'noaccess', :message => "You are not member of this team"
@@ -51,14 +54,14 @@ private
   end
 
   def add_admins_to_team
-    admins = User.find_all_by_admin( true )
+    admins = User.where(admin:  true ).load
     for admin in admins do
       # Exclude root
       next if admin.uid == 0
 
       # Check it the Admin is already in the Team
       already_in_team = false
-      teammembers_admin = @team.teammembers.find_all_by_user_id( admin.id )
+      teammembers_admin = @team.teammembers.where(user_id: admin.id ).load
       for teammember_admin in teammembers_admin do
         already_in_team = true if teammember_admin.admin == true
       end
@@ -75,7 +78,7 @@ private
   end
 
   def remove_admins_from_team
-    admins = @team.teammembers.find_all_by_admin( true )
+    admins = @team.teammembers.where(admin: true)
     for admin in admins do
       admin.destroy unless admin.user.root?
     end
@@ -111,7 +114,7 @@ public
 
   # POST /teams
   def create
-    @team = Team.new( params[:team] )
+    @team = Team.new( team_params )
     @team.created_on = Time.now
     @team.updated_on = Time.now
 
@@ -178,6 +181,10 @@ public
     respond_to do |format|
       format.html { redirect_to(teams_url) }
     end
+  end
+
+  def team_params
+    params.require(:team).permit(:name, :description, :private, :noroot)
   end
 
 end

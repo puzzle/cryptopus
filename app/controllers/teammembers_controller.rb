@@ -28,9 +28,9 @@ public
 
   # GET /teams/1/teammembers/new
   def new
-    @users = User.find(:all, :conditions => ["uid != 0 OR uid is null"])
+    @users = User.where("uid != 0 OR uid is null").all
     @users.reject! do |user|
-      Teammember.find(:first, :conditions => ["team_id = ? AND user_id = ? AND admin = ?", @team.id, user.id, false])
+      Teammember.first(:conditions => ["team_id = ? AND user_id = ? AND admin = ?", @team.id, user.id, false])
     end
     @user_list = @users.collect {|user| [ user.full_name, user.username ]}
     @user_list.sort!
@@ -42,7 +42,7 @@ public
       user = User.find_by_username params[:username]
       raise "User is not in the database" if user.nil?
       raise "User is already in that Team" \
-        if @team.teammembers.find( :first, :conditions => ["user_id = ?", user.id] )
+        if @team.teammembers.where("user_id = ?", user.id).first
       @teammember = Teammember.new
       @teammember.team_id = @team.id
       @teammember.user_id = user.id

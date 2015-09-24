@@ -22,6 +22,10 @@ class AccountsController < ApplicationController
 
 private
 
+  def account_params
+    params.require(:account).permit(:accountname, :username, :password, :description)
+  end
+
   def crypt_account
     @account.username = "none" if @account.username == "" or @account.username.nil?
     @account.password = "none" if @account.password == "" or @account.password.nil?
@@ -44,7 +48,7 @@ public
 
   # GET /teams/1/groups/1/accounts
   def index
-    @accounts = @group.accounts.find( :all )
+    @accounts = @group.accounts.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -54,8 +58,8 @@ public
   # GET /teams/1/groups/1/accounts/1
   def show
     @account = @group.accounts.find( params[:id] )
-    @items = @account.items.find( :all )
-    
+    @items = @account.items.load
+
     decrypt_account
 
     respond_to do |format|
@@ -74,11 +78,11 @@ public
 
   # POST /teams/1/groups/1/accounts
   def create
-    @account = @group.accounts.new( params[:account] )
+    @account = @group.accounts.new( account_params )
     @account.created_on = Time.now
 
     crypt_account
-    
+
     respond_to do |format|
       if @account.save
         flash[:notice] = t('flashes.accounts.created')
@@ -86,16 +90,16 @@ public
       else
         format.html { render :action => 'new' }
       end
-    end 
+    end
   end
 
   # GET /teams/1/groups/1/accounts/1/edit
   def edit
     @account = @group.accounts.find( params[:id] )
-    @groups = @team.groups.find( :all )
-    
+    @groups = @team.groups.all
+
     decrypt_account
-  
+
     respond_to do |format|
       format.html # edit.html.erb
     end
@@ -105,9 +109,9 @@ public
   def update
     @account = @group.accounts.find( params[:id] )
     @account.attributes = params[:account]
-        
+
     crypt_account
-        
+
     respond_to do |format|
       if @account.save
         flash[:notice] = t('flashes.accounts.updated')
@@ -117,7 +121,7 @@ public
       end
     end
   end
-  
+
   # DELETE /teams/1/groups/1/accounts/1
   def destroy
     @account = @group.accounts.find( params[:id] )
@@ -126,6 +130,10 @@ public
     respond_to do |format|
       format.html { redirect_to team_group_accounts_url(@team, @group) }
     end
+  end
+
+  def account_params
+    params.require(:account).permit(:accountname, :username, :password, :description)
   end
 
 end

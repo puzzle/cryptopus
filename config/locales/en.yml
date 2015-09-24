@@ -23,11 +23,11 @@ en:
   users: "Users"
   change_password: "Change password"
   last_login: "Your last login was %{time_ago} ago."
-  
+
   i18n:
     language:
       name: 'English'
-  
+
   accounts:
     index:
       move: "Move account to other group"
@@ -39,7 +39,7 @@ en:
       add_attachment: "Add attachment"
     edit:
       title: "Editing account"
-      
+
     show:
       title: "Account: %{account_name}"
       last_change: "Last change was %{time_ago} ago"
@@ -47,7 +47,7 @@ en:
       file: "File"
     new:
       title: "New Account"
-    
+
   admin:
     ldapsettings:
       index:
@@ -85,7 +85,7 @@ en:
         action: "Action"
       new:
         title: "New user"
-  
+
   groups:
     index_menu:
       create: "Create group"
@@ -99,13 +99,13 @@ en:
       admins: "Admins"
     new:
       title: "New group"
-      
+
   items:
     new:
       title: "Add new attachment to account"
       upload: "File to upload"
       upload_file: "Upload file"
-  
+
   logins:
     login:
       title: "Log in"
@@ -126,11 +126,11 @@ en:
       new: "New password"
       new_retype: "New password (retype)"
       submit: "Change"
-      
+
   teammembers:
     new:
       title: "Add a new team member"
-    
+
   teams:
     title: "Teams"
     form:
@@ -145,7 +145,7 @@ en:
       team: "Team"
     new:
       title: "Create a new team"
-    
+
   flashes:
     admin:
       admin:
@@ -189,4 +189,3 @@ en:
       wrong_user_password: "Enter a correct username and password or check the LDAP Settings"
       created: "Successfully created a new team."
       updated: "Team was successfully updated."
-      

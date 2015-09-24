@@ -16,8 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Admin::UsersController < Admin::AdminController
-
 private
+  def user_params
+    params.require(:user).permit(:username, :givenname, :surname, :admin, :password, :auth)
+  end
 
   def empower_user(user)
     teams = Team.all
@@ -27,10 +29,10 @@ private
       # logged in user. He has to be root or admin to get
       # admin rights to another user
       active_user = User.find( session[:user_id] )
- 
+
       # skip teams we do not encrypt for admins
       next if team.private or team.noroot
-  
+
       active_teammember = team.teammembers.find_by_user_id( active_user.id.to_s )
       team_password = CryptUtils.decrypt_team_password( active_teammember.password, session[:private_key] )
 
@@ -45,7 +47,7 @@ private
   end
 
   def disempower_admin(user)
-    teammembers = user.teammembers.find_all_by_admin( true )
+    teammembers = user.teammembers.where(admin: true)
     for teammember in teammembers do
       teammember.destroy
     end
@@ -55,7 +57,8 @@ public
 
   # GET /admin/users
   def index
-    @users = User.find( :all, :conditions => ["uid != 0 or uid is null"] )
+    @users = User.where("uid != 0 or uid is null").all
+    #User.find( :all, :conditions => ["uid != 0 or uid is null"] )
 
     respond_to do |format|
       format.html # index.html.erb
@@ -72,7 +75,7 @@ public
     @user = User.find( params[:id] )
     was_admin = @user.admin
     @user.update_attributes( params[:user] )
-    
+
     if @user.admin == true and not was_admin
       empower_user( @user )
     end
@@ -95,7 +98,7 @@ public
       format.html { redirect_to admin_users_path }
     end
   end
-  
+
     # GET /admin/users/new
   def new
     @user = User.new
@@ -107,13 +110,13 @@ public
 
   # POST /admin/users
   def create
-    @user = User.new( params[:user] )
+    @user = User.new( user_params )
     password = params[:user][:password]
-    
+
     @user.auth = 'db'
     @user.create_keypair password
     @user.password = CryptUtils.one_way_crypt( password )
-    
+
     respond_to do |format|
       if @user.save
         flash[:notice] = t('flashes.admin.users.created')
@@ -124,4 +127,7 @@ public
     end
   end
 
+  def user_params
+    params.require(:user).permit(:name, :username, :password, :admin, :givenname, :surname, :auth)
+  end
 end

@@ -4,4 +4,10 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Cryptopus::Application.config.secret_token = 'bd3dcb477da4c9b7430e14b575ebf9e936d34b6db840c9fb3bc5e11fd788eb97defcb59bd35c6d9b6b63991568cb133000864246142d42fbf40ec5101486c0e5'
+Cryptopus::Application.config.secret_token = 'cb9438a76f50e97603412fcd2f061b3577ce3d7c91a5d8812c83bdaa6ec09f5187b9c7fbb18d07fec3f63d80de87e16325a10246461169dd55b777151a1baa7e'
+
+Cryptopus::Application.config.secret_key_base = if Rails.env.development? or Rails.env.test?
+  ('a' * 30)
+else
+  ENV['SECRET_TOKEN']
+end

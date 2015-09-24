@@ -1,5 +1,5 @@
 require 'test_helper'
-class CreateAccountTest < ActionDispatch::IntegrationTest
+class AddAttachmentToAccountTest < ActionDispatch::IntegrationTest
   include IntegrationTest::DefaultHelper
   test 'add and remove attachment to account1' do
     team = teams(:team1)
@@ -18,7 +18,7 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
     get item_path
     assert_equal 'certificate', response.body
     assert_equal 'text/plain', response.header['Content-Type']
-    assert_include response.header['Content-Disposition'], 'test_file.txt'
+    assert_includes response.header['Content-Disposition'], 'test_file.txt'
     delete item_path
     logout
 
