@@ -33,4 +33,6 @@ Cryptopus::Application.configure do
   Rails.application.configure do
     config.active_support.test_order = :sorted
   end
+
+  config.eager_load = false
 end
