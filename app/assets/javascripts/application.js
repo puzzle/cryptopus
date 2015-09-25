@@ -2,7 +2,7 @@
 //= require jquery_ujs
 //= require zeroclipboard
 //= require handlebars.runtime
-//= require_tree ./templates
+
 
 var auto_logoff_time = 300;
 var remaining_seconds = auto_logoff_time+1;
@@ -14,7 +14,7 @@ function auto_logoff() {
   }
 
   remaining_seconds -= 1;
-  $('#countdown').html(humanize(remaining_seconds)); 
+  $('#countdown').html(humanize(remaining_seconds));
   setTimeout("auto_logoff()",1000);
 }
 
