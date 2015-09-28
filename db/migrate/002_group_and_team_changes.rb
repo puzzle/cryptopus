@@ -11,7 +11,7 @@ class GroupAndTeamChanges < ActiveRecord::Migration
     rename_column "teams",  "groupname", "name"
     add_column    "teams",  "visible",   :boolean, :default => true, :null => false
     add_column    "teams",  "private",   :boolean, :default => false, :null => false
-    Team.find(:all).each do |team|
+    Team.all.each do |team|
       teammember = Teammember.first(:conditions => ["user_id = ? and team_id = ?", team.user_id, team.id])
       teammember.team_admin = true
       teammember.save
@@ -31,7 +31,7 @@ class GroupAndTeamChanges < ActiveRecord::Migration
     end
 
     # create a default group for every team with accounts
-    Team.find(:all).each do |team|
+    Team.all.each do |team|
       group = Group.new()
       group.name = "Default"
       group.description = "Default group, created for migration"

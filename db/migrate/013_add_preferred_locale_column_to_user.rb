@@ -5,7 +5,7 @@ class AddPreferredLocaleColumnToUser < ActiveRecord::Migration
 
     User.reset_column_information
     
-    User.find(:all).each do |user|
+    User.all.each do |user|
       user.preferred_locale = 'en'
       user.save
     end

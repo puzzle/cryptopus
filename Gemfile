@@ -21,6 +21,7 @@ group :development, :test do
   gem 'minitest'
   gem 'rails-erd'
   gem 'test-unit'
+  gem 'therubyracer'
 end
 
 group :test do

@@ -4,7 +4,7 @@ class AddAuthColumnToUser < ActiveRecord::Migration
     add_column "users", "auth", :string, :default => 'db', :null => false
 
     User.reset_column_information
-    User.find(:all).each do |user|
+    User.all.each do |user|
       if user.uid == 0
         user.auth = 'db'
       else

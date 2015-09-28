@@ -6,7 +6,7 @@ class AddLdapUserinfoToUsers < ActiveRecord::Migration
     add_column "users", "surname", :string
 
     User.reset_column_information
-    User.find(:all).each do |user|
+    User.all.each do |user|
       if user.uid == 0
         user.username  = 'root'
         user.givenname = 'root'

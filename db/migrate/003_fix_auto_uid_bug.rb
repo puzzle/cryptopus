@@ -3,7 +3,7 @@ class FixAutoUidBug < ActiveRecord::Migration
     # We cannot use the id as the uid, because this is autoincrement
     # Create the User table new tu ensure that autoincrement is on
     user_table = Hash.new
-    User.find(:all).each do |user|
+    User.all.each do |user|
       user_table[user.id] = Hash.new
       user_table[user.id][:public_key]  = user.public_key
       user_table[user.id][:private_key] = user.private_key
@@ -31,13 +31,13 @@ class FixAutoUidBug < ActiveRecord::Migration
       new_user.save
     end
 
-    Recryptrequest.find(:all).each do |recryptrequest|
+    Recryptrequest.all.each do |recryptrequest|
       user = User.where("uid = ?", recryptrequest.user_id).first
       recryptrequest.user_id = user.id
       recryptrequest.save
     end
 
-    Teammember.find(:all).each do |teammember|
+    Teammember.all.each do |teammember|
       user = User.where("uid = ?", teammember.user_id).first
       teammember.user_id = user.id
       teammember.save
@@ -46,13 +46,13 @@ class FixAutoUidBug < ActiveRecord::Migration
   end
 
   def self.down
-    Teammember.find(:all).each do |teammember|
+    Teammember.all.each do |teammember|
       user = User.find(teammember.user_id)
       teammember.user_id = user.uid
       teammember.save
     end
 
-    Recryptrequest.find(:all).each do |recryptrequest|
+    Recryptrequest.all.each do |recryptrequest|
       user = User.find(recryptrequest.user_id)
       recryptrequest.user_id = user.uid
       recryptrequest.save

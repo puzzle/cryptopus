@@ -3,7 +3,7 @@ class AddNoRootFlagToTeams < ActiveRecord::Migration
     add_column "teams", "noroot", :boolean, :default => 0, :null => false
     
     Team.reset_column_information
-    Team.find(:all).each do |team|
+    Team.all.each do |team|
       team.noroot = false
       team.save
     end
