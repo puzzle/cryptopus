@@ -74,7 +74,7 @@ public
   def update
     @user = User.find( params[:id] )
     was_admin = @user.admin
-    @user.update_attributes( params[:user] )
+    @user.update_attributes( user_params )
 
     if @user.admin == true and not was_admin
       empower_user( @user )
