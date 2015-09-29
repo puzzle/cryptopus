@@ -33,12 +33,6 @@ protected
       return
     end
 
-    # remember the URL before loging out or recrypt
-    unless params[:controller] == "recryptrequests"
-      session[:jumpto] = request.parameters
-    end
-
-
     user = User.find( session[:user_id] )
     if Recryptrequest.where("user_id = ?", user.id).first
       flash[:notice] = t('flashes.application.wait')

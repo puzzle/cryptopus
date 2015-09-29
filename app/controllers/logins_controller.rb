@@ -82,7 +82,7 @@ public
     end
 
     if session[:jumpto].nil? or session[:jumpto].empty?
-      redirect_to teams_path
+      redirect_to search_path
     else
       jump_to = session[:jumpto]
       session[:jumpto] = nil
@@ -92,18 +92,8 @@ public
   end
 
   def logout
-    # This is ugly, i'm sure there is a better way
-    jump_to = session[:jumpto]
-    keep_notice = flash[:notice]
-    keep_error  = flash[:error]
     reset_session
-    flash[:notice] = keep_notice
-    flash[:error]  = keep_error
-    if jump_to
-      redirect_to jump_to
-    else
-      redirect_to login_login_path
-    end
+    redirect_to login_login_path
     return
   end
 

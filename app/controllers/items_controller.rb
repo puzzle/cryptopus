@@ -54,7 +54,6 @@ public
       end
       format.html { redirect_to team_group_account_url(@team, @group, @account) }
     end
-    session[:jumpto][:item].delete(:file)
   end
 
   # POST /teams/1/groups/1/accounts/1/items/1
