@@ -17,23 +17,11 @@
 
 class TeammembersController < ApplicationController
   before_filter :load_team
-
-private
-
-  def load_team
-    @team = Team.find( params[:team_id] )
-  end
-
-public
+  helper_method :teammember_canditates
 
   # GET /teams/1/teammembers/new
   def new
-    @users = User.where("uid != 0 OR uid is null").all
-    @users.reject! do |user|
-      Teammember.first(:conditions => ["team_id = ? AND user_id = ? AND admin = ?", @team.id, user.id, false])
-    end
-    @user_list = @users.collect {|user| [ user.full_name, user.username ]}
-    @user_list.sort!
+
   end
 
   # POST /teams/1/teammembers
@@ -60,12 +48,23 @@ public
 
   # DELETE /teams/1/teammembers/1
   def destroy
-    @teammember = @team.teammembers.find( params[:id] )
-    @teammember.destroy
+      @teammember = @team.teammembers.find( params[:id] )
+      @teammember.destroy
 
-    respond_to do |format|
-      format.html { redirect_to team_groups_url(@team) }
-    end
+      respond_to do |format|
+        format.html { redirect_to team_groups_url(@team) }
+      end
   end
 
+  private
+
+    def load_team
+      @team = Team.find( params[:team_id] )
+    end
+
+    def teammember_canditates
+      users = @team.teammember_candidates
+      user_list = users.collect {|user| [ user.full_name, user.username ]}
+      user_list.sort!
+    end
 end

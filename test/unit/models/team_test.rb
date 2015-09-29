@@ -13,4 +13,15 @@ class TeamTest <  ActiveSupport::TestCase
     assert Teammember.where(team_id: team1.id).empty?
     #TODO check items also removed
   end
+  test "returns teammember candidates" do
+    teammembers(:team1_bob).destroy
+
+    team = teams(:team1)
+    candidates = team.teammember_candidates
+
+    refute_includes candidates, users(:root)
+    refute_includes candidates, users(:admin)
+    refute_includes candidates, users(:alice)
+    assert_includes candidates, users(:bob)
+  end
 end
