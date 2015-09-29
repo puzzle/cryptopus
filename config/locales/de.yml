@@ -23,11 +23,11 @@ de:
   users: "Benutzer"
   change_password: "Passwort wechseln"
   last_login: "Ihr letztes Login war vor %{time_ago}."
-  
+
   i18n:
     language:
       name: 'Deutsch'
-  
+
   accounts:
     index:
       move: "Account zu einer anderen Gruppe verschieben"
@@ -39,7 +39,7 @@ de:
       add_attachment: "Anhang hinzufügen"
     edit:
       title: "Account editieren"
-      
+
     show:
       title: "Account: %{account_name}"
       last_change: "Letzte Änderung vor %{time_ago}"
@@ -47,7 +47,7 @@ de:
       file: "Datei"
     new:
       title: "Neuer Account"
-    
+
   admin:
     ldapsettings:
       index:
@@ -85,7 +85,7 @@ de:
         action: "Aktion"
       new:
         title: "Neuer Benutzer"
-  
+
   groups:
     index_menu:
       create: "Gruppe erstellen"
@@ -99,13 +99,13 @@ de:
       admins: "Admins"
     new:
       title: "Gruppe erstellen"
-      
+
   items:
     new:
       title: "Anhang zum Account hinzufügen"
       upload: "Datei für das Hochladen"
       upload_file: "Datei hochladen"
-  
+
   logins:
     login:
       title: "Anmelden"
@@ -126,11 +126,11 @@ de:
       new: "Neues Passwort"
       new_retype: "Neues Passwort (wiederholen)"
       submit: "Ändern"
-      
+
   teammembers:
     new:
       title: "Ein neues Teammitglied hinzufügen"
-    
+
   teams:
     title: "Teams"
     form:
@@ -145,7 +145,7 @@ de:
       team: "Team"
     new:
       title: "Neues Team erstellen"
-    
+
   flashes:
     admin:
       admin:
@@ -189,7 +189,9 @@ de:
       wrong_user_password: "Geben Sie einen gültigen Benutzernamen und ein korrektes Passwort ein oder prüfen Sie Ihre LDAP Einstellungen."
       created: "Das Team wurde erfolgreich erstellt."
       updated: "Das Team wurde erfolgreich angepasst."
-      
+    teammembers:
+      could_not_remove_last_teammember: "Der letzte Benutzer eines Teams kann nicht entfernt werden"
+
   helpers:
     label:
       user:

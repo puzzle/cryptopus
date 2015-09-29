@@ -23,11 +23,11 @@ fr:
   users: "Utilisateur"
   change_password: "Changer le mot de passe"
   last_login: "Votre dernière connexion était il ya %{time_ago}."
-  
+
   i18n:
     language:
       name: 'Français'
-  
+
   accounts:
     index:
       move: "Déplacer compte à un autre groupe"
@@ -39,7 +39,7 @@ fr:
       add_attachment: "Ajouter un attachement"
     edit:
       title: "Modifier le compte"
-      
+
     show:
       title: "Compte: %{account_name}"
       last_change: "Dernière mise à jour il ya %{time_ago}"
@@ -47,7 +47,7 @@ fr:
       file: "Fichier"
     new:
       title: "Nouveau compte"
-    
+
   admin:
     ldapsettings:
       index:
@@ -85,7 +85,7 @@ fr:
         action: "Action"
       new:
         title: "Nouvel utilisateur"
-  
+
   groups:
     index_menu:
       create: "Créer groupe"
@@ -99,13 +99,13 @@ fr:
       admins: "Admins"
     new:
       title: "Nouveau groupe"
-      
+
   items:
     new:
       title: "Ajouter un attachement au compte"
       upload: "Fichier de téléchargement"
       upload_file: "Télécharge le fichier"
-  
+
   logins:
     login:
       title: "Identifiez-vous"
@@ -126,11 +126,11 @@ fr:
       new: "Nouveau mot de passe"
       new_retype: "Nouveau mot de passe (retaper)"
       submit: "Change"
-      
+
   teammembers:
     new:
       title: "Ajouter un nouveau membre de l'équipe"
-    
+
   teams:
     title: "Équipe"
     form:
@@ -145,7 +145,7 @@ fr:
       team: "Équipe"
     new:
       title: "Créer une nouvelle équipe"
-    
+
   flashes:
     admin:
       admin:
@@ -189,6 +189,8 @@ fr:
       wrong_user_password: "Saisissez un nom d'utilisateur et mot de passe ou vérifier les paramètres LDAP."
       created: "Créé avec succès une nouvelle équipe."
       updated: "L'équipe a été mise à jour avec succès."
+    teammembers:
+      could_not_remove_last_teammember: "Der letzte Benutzer eines Teams kann nicht entfernt werden"
 
   helpers:
     label:

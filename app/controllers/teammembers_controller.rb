@@ -48,12 +48,15 @@ class TeammembersController < ApplicationController
 
   # DELETE /teams/1/teammembers/1
   def destroy
+    if @team.teammembers.count == 1
+      flash[:error] = t('flashes.teammembers.could_not_remove_last_teammember')
+    else
       @teammember = @team.teammembers.find( params[:id] )
       @teammember.destroy
-
-      respond_to do |format|
-        format.html { redirect_to team_groups_url(@team) }
-      end
+    end
+    respond_to do |format|
+      format.html { redirect_to team_groups_url(@team) }
+    end
   end
 
   private

@@ -129,7 +129,7 @@ en:
 
   teammembers:
     new:
-      title: "Add a new team member"
+      title: "Add a new teammember"
 
   teams:
     title: "Teams"
@@ -189,3 +189,5 @@ en:
       wrong_user_password: "Enter a correct username and password or check the LDAP Settings"
       created: "Successfully created a new team."
       updated: "Team was successfully updated."
+    teammembers:
+      could_not_remove_last_teammember: "Could not remove last teammember"
