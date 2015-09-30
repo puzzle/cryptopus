@@ -5,11 +5,8 @@ gem 'rails', '4.2'
 gem 'mysql2'
 gem 'sqlite3'
 gem 'net-ldap'
-gem 'pry'
-gem 'pry-stack_explorer'
-gem 'sextant'
-gem 'dynamic_form'
 
+gem 'dynamic_form'
 gem 'uglifier'
 gem 'sass-rails'
 gem 'compass-rails'
@@ -22,6 +19,12 @@ group :development, :test do
   gem 'rails-erd'
   gem 'test-unit'
   gem 'therubyracer'
+end
+
+group :development do
+  gem 'sextant'
+  gem 'pry'
+  gem 'pry-stack_explorer'
 end
 
 group :test do
