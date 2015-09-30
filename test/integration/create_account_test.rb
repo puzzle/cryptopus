@@ -31,4 +31,20 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
     assert_select "div#hidden_username", {text: 'test'}
     assert_select "div#hidden_password", {text: 'password'}
   end
+
+  test 'move account from one group to another' do
+    login_as ('bob')
+
+    account1 = accounts(:account1)
+    group_path = team_groups_path(teams(:team1))
+    post_via_redirect group_path, group: {name: 'Test', description: 'group_description'}
+
+    group2_id = Group.find_by_name('Test').id
+    account_path = team_group_account_path(account1.group.team,
+                                                account1.group,
+                                                account1)
+    patch account_path, account: {group_id: group2_id}
+    account1.reload
+    assert_equal account1.group_id, group2_id
+  end
 end
