@@ -1,13 +1,13 @@
 @charset "utf-8";
 /*
 Theme Name:		Pondasee
-Theme URI:  	
+Theme URI:
 Version: 		0.1
 Author: 		Satrya
 Author URI:		http://tokokoo.com
 */
 
-/* 
+/*
    Table of Contents
    =============================================================================
 	- Reset Stylesheet
@@ -38,11 +38,11 @@ Author URI:		http://tokokoo.com
 		Style for IE only
    =============================================================================
 */
-
+@import "bootstrap-sprockets";
+@import "bootstrap";
 @import "compass";
 @import "partials/variable";
 @import "partials/mixins";
-
 
 // /* =============================================================================
 // - Reset Stylesheet
@@ -65,7 +65,7 @@ Author URI:		http://tokokoo.com
 // /* =============================================================================
 // - Typography
 // Headings, text element, lists, code, and more
-// ============================================================================= */ 
+// ============================================================================= */
 @import "partials/typography";
 
 // /* =============================================================================

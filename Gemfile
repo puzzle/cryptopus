@@ -13,6 +13,7 @@ gem 'compass-rails'
 gem 'jquery-rails'
 gem 'zeroclipboard-rails'
 gem 'handlebars_assets'
+gem 'bootstrap-sass', '~> 3.2.0'
 
 group :development, :test do
   gem 'minitest'

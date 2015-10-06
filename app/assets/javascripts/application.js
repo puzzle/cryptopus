@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
 //= require zeroclipboard
 //= require handlebars.runtime
 //= require_tree ./templates

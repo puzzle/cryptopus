@@ -11,21 +11,36 @@
 	}
 }
 
-nav { 
+nav {
   @include border-bottom-radius(3px);
-  background: $gray; 
+  background: $gray;
   @include adjust-font-size-to(14px);
-  padding: $padding*0.15 $padding*0.25; 
-} 
+  padding: $padding*0.15 $padding*0.25;
+}
 .nav-pills > li {
 
   &.logout {
     float: right;
   }
 
-  [class^="icon-"], 
+  [class^="icon-"],
   [class*=" icon-"] {
     float: left;
     margin: -2px 6px 0 -4px;
   }
+}
+
+.nav-tabs .open .dropdown-toggle, .nav-pills .open .dropdown-toggle, .nav > li.dropdown.open.active > a:hover{
+  color: #0d59a6;
+  background-color: #eeeeee;
+}
+
+.dropdown-menu > li > a{
+  color: #0d59a6;
+  border-radius: 5px;
+  padding: 8px;
+}
+.dropdown-menu > li > a:hover{
+  color: #0d59a6;
+  background-color: #eeeeee;
 }
