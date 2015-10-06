@@ -25,6 +25,9 @@ class LoginsController < ApplicationController
 private
 
   def create_session(user, password)
+    jumpto = session[:jumpto]
+    reset_session
+    session[:jumpto] = jumpto
     session[:username] = user.username
     session[:user_id] = user.id.to_s
     begin
