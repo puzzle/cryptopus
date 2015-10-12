@@ -19,10 +19,12 @@ fr:
   logout: "Déconnexion"
   auto_logout: "Déconnexion automatique en"
   ldap_settings: "Paramètres de LDAP"
-  recrypt_requests: "Recrypt Anfragen"
+  recrypt_requests: "Demandes de re crypt"
   users: "Utilisateur"
   change_password: "Changer le mot de passe"
   last_login: "Votre dernière connexion était il ya %{time_ago}."
+  group: "Groupe"
+  team: "Équipe"
 
   i18n:
     language:
@@ -136,7 +138,7 @@ fr:
     form:
       private: "Privé"
       private_hint: "Administrateurs n'ont pas accès à cette équipe."
-      no_root: "Kein Root"
+      no_root: "Aucun Root"
       no_root_hint: "MEME PAS ROOT POUVEZ RESTAURER VOS DONNÉES SI VOUS PERDEZ VOTRE MOT DE PASSE!"
     index_menu:
       create: "Créer équipe"
@@ -190,7 +192,7 @@ fr:
       created: "Créé avec succès une nouvelle équipe."
       updated: "L'équipe a été mise à jour avec succès."
     teammembers:
-      could_not_remove_last_teammember: "Der letzte Benutzer eines Teams kann nicht entfernt werden"
+      could_not_remove_last_teammember: "Il n’est pas possible de supprimer le dernier utilisateur de l'équipe"
 
   helpers:
     label:

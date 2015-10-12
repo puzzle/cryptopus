@@ -23,6 +23,8 @@ en:
   users: "Users"
   change_password: "Change password"
   last_login: "Your last login was %{time_ago} ago."
+  group: "Group"
+  team: "Team"
 
   i18n:
     language:
