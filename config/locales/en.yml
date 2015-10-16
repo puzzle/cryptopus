@@ -150,7 +150,7 @@ en:
 
   flashes:
     wizard:
-      fill_password_fields: "Please fill all fields"
+      fill_password_fields: "Please provide an initial password for the root user"
       paswords_do_not_match: "Passwords do not match"
     admin:
       admin:
