@@ -149,6 +149,9 @@ fr:
       title: "Créer une nouvelle équipe"
 
   flashes:
+    wizard:
+      fill_password_fields: "S'il vous plaît remplir tous les champs"
+      paswords_do_not_match: "Les mots de passe ne correspondent pas"
     admin:
       admin:
         no_access: "Accès refusé"

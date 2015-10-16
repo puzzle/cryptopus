@@ -56,9 +56,7 @@ de:
         title: "LDAP Einstellungen bearbeiten"
     recryptrequests:
       index:
-        title: "Re-encryption Anfragen"
-        user: "Benutzer"
-        admin_required: "Admin benötigt"
+        title: "Re-encryp'please fill all fields'Admin benötigt"
         root_required: "Root benötigt"
       request:
         request_sent: "Es wurde eine Recrypt Anfrage an den Root gesendet. Bitte warten Sie, bis sie oder er Ihre Passwörter neu verschlüsselt hat."
@@ -149,6 +147,9 @@ de:
       title: "Neues Team erstellen"
 
   flashes:
+    wizard:
+      fill_password_fields: "Bitte füllen Sie alle Felder aus"
+      paswords_do_not_match: "Die Passwörter stimmen nicht überein"
     admin:
       admin:
         no_access: "Zugriff verweigert"

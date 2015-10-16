@@ -29,6 +29,11 @@ Cryptopus::Application.routes.draw do
     post 'changelocale'
   end
 
+
+
+  get 'wizard', to: 'wizard#index'
+  post 'wizard/apply'
+
   get 'search', to: 'search#index'
   get 'search/account', to: 'search#account'
 
