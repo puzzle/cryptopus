@@ -21,36 +21,7 @@ require 'crypt_utils_legacy'
 require 'ldap_tools'
 
 class LoginsController < ApplicationController
-
-private
-
-  def create_session(user, password)
-    jumpto = session[:jumpto]
-    reset_session
-    session[:jumpto] = jumpto
-    session[:username] = user.username
-    session[:user_id] = user.id.to_s
-    begin
-      session[:private_key] = CryptUtils.decrypt_private_key( user.private_key, password )
-    rescue
-      begin
-        # This tries to decrypt with legacy crypt methods and migrates to the current method
-        session[:private_key] = CryptUtilsLegacy.decrypt_private_key( user.private_key, password )
-        user.private_key = CryptUtils.encrypt_private_key( session[:private_key], password )
-        user.save
-      rescue
-        raise Exceptions::DecryptFailed
-      end
-    end
-    CryptUtils.validate_keypair( session[:private_key], user.public_key )
-  end
-
-public
-
   def login
-    unless User.find_by_uid(0)
-      flash[:notice] = t('flashes.logins.welcome')
-    end
     if session[:username]
       redirect_to teams_path
     end
@@ -63,11 +34,7 @@ public
         password = params[:password]
         User.authenticate username, password
       rescue Exceptions::UserDoesNotExist
-        if username == 'root'
-          User.create_root password
-        else
           User.create_from_external_auth username, password
-        end
       end
     rescue Exceptions::UserCreationFailed, Exceptions::AuthenticationFailed
       flash[:error] = t('flashes.logins.auth_failed')
@@ -147,4 +114,25 @@ public
     redirect_to :back
   end
 
+  private
+    def create_session(user, password)
+      jumpto = session[:jumpto]
+      reset_session
+      session[:jumpto] = jumpto
+      session[:username] = user.username
+      session[:user_id] = user.id.to_s
+      begin
+        session[:private_key] = CryptUtils.decrypt_private_key( user.private_key, password )
+      rescue
+        begin
+          # This tries to decrypt with legacy crypt methods and migrates to the current method
+          session[:private_key] = CryptUtilsLegacy.decrypt_private_key( user.private_key, password )
+          user.private_key = CryptUtils.encrypt_private_key( session[:private_key], password )
+          user.save
+        rescue
+          raise Exceptions::DecryptFailed
+        end
+      end
+      CryptUtils.validate_keypair( session[:private_key], user.public_key )
+    end
 end

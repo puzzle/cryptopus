@@ -18,13 +18,15 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
+  before_filter :redirect_to_wizard_if_new_setup
   before_filter :validate, :except => [:login, :authenticate, :logout]
   before_filter :prepare_menu
   before_filter :set_locale
   before_filter :set_cache_headers
 
+
   # includes a security token
-  protect_from_forgery with: :exception
+  # protect_from_forgery with: :exception
 
 
 protected
@@ -85,8 +87,12 @@ protected
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
-  rescue_from ActionController::InvalidAuthenticityToken do |exception|
-    logout
+  def redirect_to_wizard_if_new_setup
+    redirect_to wizard_path if User.all.count <= 0
+    flash[:notice] = t('flashes.logins.welcome')
   end
+  #rescue_from ActionController::InvalidAuthenticityToken do |exception|
+  #  logout
+  #end
 
 end

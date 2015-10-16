@@ -177,7 +177,7 @@ en:
     items:
       uploaded: "File was successfully uploaded."
     logins:
-      welcome: "Welcome to Cryptopus, first you have to create a new Root account. Please enter \"root\" as username and enter a new password"
+      welcome: "Welcome to Cryptopus, first you have to create a new Root account. Please enter a new password"
       auth_failed: "Authentication failed! Enter a correct username and password."
       only_local: "Only local users are allowed to change their password."
       new_password_set: "You successfully set the new password"
