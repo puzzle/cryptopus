@@ -5,8 +5,8 @@
         <a href="/teams/{{team_id}}/groups/{{group_id}}/accounts/{{id}}">{{accountname}}</a>
       </h1>
       <p>
-        Group: <a href="/teams/{{team_id}}/groups/{{group_id}}/accounts">{{group}}</a><br>
-        Team: <a href="/teams/{{team_id}}/groups">{{team}}</a>
+        <%= I18n.t('group') %>: <a href="/teams/{{team_id}}/groups/{{group_id}}/accounts">{{group}}</a><br>
+        <%= I18n.t('team') %>: <a href="/teams/{{team_id}}/groups">{{team}}</a>
       </p>
     </div>
     <div class="result-action">
