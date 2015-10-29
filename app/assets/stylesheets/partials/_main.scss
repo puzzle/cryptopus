@@ -13,18 +13,18 @@
 
 html {
   height: 100%;
-} 
+}
 
 body {
   height: 100%;
   @include background-image(radial-gradient($whiteDark, $grayLighter));
 }
 
-header, footer, #main > aside { 
+header, footer, #main > aside {
   padding: $padding*0.5 0;
   @include responsive(ipad) {
     padding: $padding*0.5 $padding;
-  } 
+  }
 }
 
 #content {
@@ -39,6 +39,7 @@ header, footer, #main > aside {
   // color: white;
 }
 
+
 #countdownWrapper {
   display: inline-block;
   position: fixed;
@@ -48,6 +49,16 @@ header, footer, #main > aside {
   padding: 0.5em 1em;
   @include border-top-left-radius(3px);
   z-index: 999;
+}
+
+.field_with_errors input{
+	border: 2px solid red;
+}
+
+.field_with_errors input:focus{
+	border: 2px solid red;
+  box-shadow: 0px 1px 1px rgba(255, 0, 0, 0.075) inset, 0px 0px 8px rgba(255, 50, 50, 0.6);
+
 }
 
 // Modules:
