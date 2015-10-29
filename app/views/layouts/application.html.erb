@@ -30,16 +30,16 @@
     <%= javascript_include_tag :application %>
   <% end %>
 </head>
-    
+
 <body>
   <%= render :partial => 'layouts/icons' %>
-  
+
   <div id="page" class="hfeed container">
 
     <nav id="site-navigation" class="main-navigation" role="navigation">
       <%= render :partial => 'layouts/navigation' %>
     </nav><!-- end #site-navigation .main-navigation -->
-    
+
     <header id="masthead" class="site-header" role="banner">
       <%= link_to image_tag("logo_cryptopus.svg"), '/', {:class => "site-header-logo"} %>
     </header><!-- end #masthead .site-header -->
@@ -48,27 +48,25 @@
 
       <div id="content" class="site-content" role="main">
         <%= yield  %>
-      </div><!-- end #content .site-content -->
-
-      <aside id="sidebar" class="widget-area" role="complementary">
-        <% unless flash[:notice].blank? %>
-          <div id="notification"><%= flash[:notice] %></div>
+        <aside id="sidebar" class="widget-area" role="complementary">
+          <% unless flash[:notice].blank? %>
+            <div id="notification" class="alert alert-info"><%= flash[:notice] %></div>
+          <% end %>
+        <% unless flash[:error].blank? %>
+            <div id="error" class="alert alert-danger"><%= flash[:error] %></div>
         <% end %>
-      <% unless flash[:error].blank? %>
-          <div id="error"><%=image_tag("status_unknown.png") + " " +  flash[:error] %></div>
-      <% end %>
-      </aside><!-- end #sidebar .widget-area -->
-
+        </aside><!-- end #sidebar .widget-area -->
+      </div><!-- end #content .site-content -->
     </div><!-- end #main -->
 
     <footer id="colophon" class="site-footer" role="contentinfo">
-      <%= link_to 'Cryptopus 2013', 'https://github.com/puzzle/cryptopus', {:class => "alignleft"} %>
+      <%= link_to 'Cryptopus 2015', 'https://github.com/puzzle/cryptopus', {:class => "alignleft"} %>
       <%= render :partial => 'layouts/locale' %>
     </footer><!-- end #colophon .site-footer -->
 
 
   </div>
-  <%= javascript_include_tag "jquery" %> 
+  <%= javascript_include_tag "jquery" %>
   <%= javascript_include_tag "bootstrap_tabs.min" %>
 
 </body>
