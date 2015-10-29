@@ -88,9 +88,13 @@ protected
   end
 
   def redirect_to_wizard_if_new_setup
-    redirect_to wizard_path if User.all.count <= 0
-    flash[:notice] = t('flashes.logins.welcome')
+    if User.all.count <= 0
+      redirect_to wizard_path
+      flash[:notice] = t('flashes.logins.welcome')
+    end
   end
+
+
   #rescue_from ActionController::InvalidAuthenticityToken do |exception|
   #  logout
   #end
