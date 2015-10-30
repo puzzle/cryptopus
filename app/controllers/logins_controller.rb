@@ -28,14 +28,11 @@ class LoginsController < ApplicationController
   end
 
   def authenticate
+    username = params[:username].strip
+    password = params[:password]
+
     begin
-      begin
-        username = params[:username].strip
-        password = params[:password]
-        User.authenticate username, password
-      rescue Exceptions::UserDoesNotExist
-          User.create_from_external_auth username, password
-      end
+      check_userdata(username, password)
     rescue Exceptions::UserCreationFailed, Exceptions::AuthenticationFailed
       flash[:error] = t('flashes.logins.auth_failed')
       render :action => 'login'
@@ -43,22 +40,12 @@ class LoginsController < ApplicationController
     end
 
     begin
-      @user = User.find_by_username username
-      @user.update_info
-      create_session(@user, password)
+      create_session(username, password)
     rescue Exceptions::DecryptFailed
       redirect_to recryptrequests_path
       return
     end
-
-    if session[:jumpto].nil? or session[:jumpto].empty?
-      redirect_to search_path
-    else
-      jump_to = session[:jumpto]
-      session[:jumpto] = nil
-      redirect_to jump_to
-    end
-    return
+    redirect
   end
 
   def logout
@@ -75,30 +62,12 @@ class LoginsController < ApplicationController
   end
 
   def pwdchange
+    user = User.find( session[:user_id] )
     if request.get?
-      unless User.find( session[:user_id] ).auth_db?
-        flash[:error] = t('flashes.logins.only_local')
-        redirect_to teams_path
-      end
+      isDBUser(user, true)
     else
-      user = User.find( session[:user_id] )
-
-      if user.auth_db?
-        crypted_password = CryptUtils.one_way_crypt( params[:oldpassword] )
-        if user.password == crypted_password
-          if params[:newpassword1] == params[:newpassword2]
-            user.password = CryptUtils.one_way_crypt( params[:newpassword1] )
-            user.private_key = CryptUtils.encrypt_private_key( session[:private_key], params[:newpassword1] )
-            user.save
-            flash[:notice] = t('flashes.logins.new_password_set')
-          else
-            flash[:error] = t('flashes.logins.new_passwords.not_equal')
-          end
-        else
-          flash[:error] = t('flashes.logins.wrong_password')
-        end
-      else
-        flash[:error] = t('flashes.logins.not_local')
+      if isDBUser(user, false) && areValidPasswords(user)
+        changePassword(user)
       end
       redirect_to teams_path
     end
@@ -115,24 +84,81 @@ class LoginsController < ApplicationController
   end
 
   private
-    def create_session(user, password)
-      jumpto = session[:jumpto]
-      reset_session
-      session[:jumpto] = jumpto
-      session[:username] = user.username
-      session[:user_id] = user.id.to_s
-      begin
-        session[:private_key] = CryptUtils.decrypt_private_key( user.private_key, password )
-      rescue
-        begin
-          # This tries to decrypt with legacy crypt methods and migrates to the current method
-          session[:private_key] = CryptUtilsLegacy.decrypt_private_key( user.private_key, password )
-          user.private_key = CryptUtils.encrypt_private_key( session[:private_key], password )
-          user.save
-        rescue
-          raise Exceptions::DecryptFailed
-        end
-      end
-      CryptUtils.validate_keypair( session[:private_key], user.public_key )
+  def create_session(username, password)
+    user = User.find_by_username username
+    user.update_info
+
+    set_session_attributes(user, password) rescue decrypt_with_legacy(user)
+
+    CryptUtils.validate_keypair( session[:private_key], user.public_key )
+  end
+
+  def changePassword(user)
+    user.password = CryptUtils.one_way_crypt( params[:newpassword1] )
+    user.private_key = CryptUtils.encrypt_private_key( session[:private_key], params[:newpassword1] )
+    user.save
+    flash[:notice] = t('flashes.logins.new_password_set')
+  end
+
+  def isDBUser(user, redirect)
+    unless user.auth_db?
+      flash[:error] = t('flashes.logins.not_local')
+      redirect_to teams_path if redirect
+      return false
     end
+    return true
+  end
+
+  def areValidPasswords(user)
+    crypted_password = CryptUtils.one_way_crypt( params[:oldpassword] )
+
+    if user.password != crypted_password
+      flash[:error] = t('flashes.logins.wrong_password')
+      return false
+    end
+
+    if params[:newpassword1] != params[:newpassword2]
+      flash[:error] = t('flashes.logins.new_passwords.not_equal')
+      return false
+    end
+    return true
+  end
+
+  def redirect
+    if session[:jumpto].nil? or session[:jumpto].empty?
+      redirect_to search_path
+    else
+      jump_to = session[:jumpto]
+      session[:jumpto] = nil
+      redirect_to jump_to
+    end
+  end
+
+  def check_userdata(username, password)
+      if(User.find_by_username(username).nil?) #TODO && check if ldap is activated
+        User.create_from_external_auth username, password
+      else
+        User.authenticate username, password
+      end
+  end
+
+  def set_session_attributes(user, password)
+    jumpto = session[:jumpto]
+    reset_session
+    session[:jumpto] = jumpto
+    session[:username] = user.username
+    session[:user_id] = user.id.to_s
+    session[:private_key] = CryptUtils.decrypt_private_key( user.private_key, password )
+  end
+
+  def decrypt_with_legacy(user)
+    begin
+      # This tries to decrypt with legacy crypt methods and migrates to the current method
+      session[:private_key] = CryptUtilsLegacy.decrypt_private_key( user.private_key, password )
+      user.private_key = CryptUtils.encrypt_private_key( session[:private_key], password )
+      user.save
+    rescue
+      raise Exceptions::DecryptFailed
+    end
+  end
 end
