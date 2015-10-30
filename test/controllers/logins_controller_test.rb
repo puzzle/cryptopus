@@ -22,6 +22,11 @@ class LoginsControllerTest < ActionController::TestCase
     assert_redirected_to login_login_path
   end
 
+  test 'cannot login with unknown username' do
+    post :authenticate, password: 'wrong_password', username: 'unknown_username'
+    assert_match /Authentication failed/, flash[:error]
+  end
+
   test 'change password' do
     login_as(:bob)
     post :pwdchange, oldpassword: 'password', newpassword1: 'test', newpassword2: 'test'
@@ -67,9 +72,4 @@ class LoginsControllerTest < ActionController::TestCase
       User.authenticate(username, password)
     }
   end
-=begin
-  test 'cannot login with unknown username' do
-    #TODO test
-  end
-=end
 end

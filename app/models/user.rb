@@ -25,7 +25,6 @@ class User < ActiveRecord::Base
 
   def self.authenticate( username, password )
     user = self.find_by_username username
-    raise Exceptions::UserDoesNotExist if user.nil?
     authenticated = case user.auth
       when 'db'   then user.authenticate_against_db   password
       when 'ldap' then user.authenticate_against_ldap password

@@ -135,11 +135,13 @@ class LoginsController < ApplicationController
   end
 
   def check_userdata(username, password)
-      if(User.find_by_username(username).nil?) #TODO && check if ldap is activated
-        User.create_from_external_auth username, password
-      else
-        User.authenticate username, password
-      end
+    if(User.find_by_username(username).nil? && true) #TODO && check if ldap is activated
+      User.create_from_external_auth username, password
+    elsif(User.find_by_username(username).nil?)
+      raise Exceptions::AuthenticationFailed
+    else
+      User.authenticate username, password
+    end
   end
 
   def set_session_attributes(user, password)
