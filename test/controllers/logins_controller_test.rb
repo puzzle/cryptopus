@@ -4,6 +4,7 @@ require 'mocha/test_unit'
 
 class LoginsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
+
   test 'cannot login with wrong password' do
     post :authenticate, password: 'wrong_password', username: 'bob'
     assert_match /Authentication failed/, flash[:error]
@@ -19,6 +20,49 @@ class LoginsControllerTest < ActionController::TestCase
     login_as(:bob)
     get :logout
     assert_redirected_to login_login_path
+  end
+
+  test 'change password' do
+    login_as(:bob)
+    post :pwdchange, oldpassword: 'password', newpassword1: 'test', newpassword2: 'test'
+    assert_match /new password/, flash[:notice]
+
+    get :logout
+    login_as(:bob, 'test')
+  end
+
+  test 'change password, error if oldpassword not match' do
+    login_as(:bob)
+    post :pwdchange, oldpassword: 'wrong_password', newpassword1: 'test', newpassword2: 'test'
+    assert_match /Wrong password/, flash[:error]
+
+    get :logout
+    assert_raises(Exceptions::DecryptFailed){
+      login_as(:bob, 'test')
+    }
+  end
+
+  test 'change password, error if new passwords not match' do
+    login_as(:bob)
+    post :pwdchange, oldpassword: 'password', newpassword1: 'test', newpassword2: 'wrong_password'
+    assert_match /equal/, flash[:error]
+
+    get :logout
+    assert_raises(Exceptions::DecryptFailed){
+      login_as(:bob, 'test')
+    }
+  end
+
+  test 'change password, error if ldap user' do
+    users(:bob).update_attribute(:auth, 'ldap')
+    login_as(:bob)
+    post :pwdchange, oldpassword: 'password', newpassword1: 'test', newpassword2: 'test'
+    assert_match /not a local user/, flash[:error]
+
+    get :logout
+    assert_raises(Exceptions::DecryptFailed){
+      login_as(:bob, 'test')
+    }
   end
 
 =begin
