@@ -87,6 +87,8 @@ en:
         action: "Action"
       new:
         title: "New user"
+      destroy:
+        own_user: "You can't delete your-self"
 
   groups:
     index_menu:
