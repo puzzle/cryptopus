@@ -21,56 +21,51 @@ require 'crypt_utils_legacy'
 require 'ldap_tools'
 
 class LoginsController < ApplicationController
+
+  before_filter :redirect_if_ldap_user, only: [:show_update_password, :update_password]
+  before_filter :redirect_if_logged_in, only: [:login]
+
   def login
-    if session[:username]
-      redirect_to teams_path
-    end
   end
 
   def authenticate
     username = params[:username].strip
     password = params[:password]
 
-    begin
-      check_userdata(username, password)
-    rescue Exceptions::UserCreationFailed, Exceptions::AuthenticationFailed
+    user = User.authenticate(username, password)
+
+    if user
+      begin
+        create_session(user, password)
+      rescue Exceptions::DecryptFailed
+        redirect_to recryptrequests_path 
+        return
+      end
+      redirect_after_sucessful_login
+    else
       flash[:error] = t('flashes.logins.auth_failed')
       render :action => 'login'
-      return
     end
-
-    begin
-      create_session(username, password)
-    rescue Exceptions::DecryptFailed
-      redirect_to recryptrequests_path
-      return
-    end
-    redirect
   end
 
   def logout
     reset_session
     redirect_to login_login_path
-    return
   end
 
-  def noaccess
-    @message = "sorry"
-    if params[:message]
-      @message = params[:message]
-    end
+  def show_update_password
   end
 
-  def pwdchange
-    user = User.find( session[:user_id] )
-    if request.get?
-      isDBUser(user, true)
-    else
-      if isDBUser(user, false) && areValidPasswords(user)
-        changePassword(user)
-      end
-      redirect_to teams_path
-    end
+  # TODO update and fix tests
+  def update_password
+    current_password = params[:password]
+    new_password = params[:newpassword1]
+    # TODO password match ?
+    # TODO old password valid ?
+    current_user.update_password(current_password, new_password)
+    flash[:notice] = t('flashes.logins.new_password_set')
+    redirect_to teams_path
+    # TODO render show_update_password if update fails
   end
 
   # POST /login/changelocale
@@ -84,63 +79,21 @@ class LoginsController < ApplicationController
   end
 
   private
-  def create_session(username, password)
-    user = User.find_by_username username
+  def create_session(user, password)
     user.update_info
 
-    set_session_attributes(user, password) rescue decrypt_with_legacy(user)
+    set_session_attributes(user, password) #rescue decrypt_with_legacy(user)
 
     CryptUtils.validate_keypair( session[:private_key], user.public_key )
   end
 
-  def changePassword(user)
-    user.password = CryptUtils.one_way_crypt( params[:newpassword1] )
-    user.private_key = CryptUtils.encrypt_private_key( session[:private_key], params[:newpassword1] )
-    user.save
-    flash[:notice] = t('flashes.logins.new_password_set')
-  end
-
-  def isDBUser(user, redirect)
-    unless user.auth_db?
-      flash[:error] = t('flashes.logins.not_local')
-      redirect_to teams_path if redirect
-      return false
-    end
-    return true
-  end
-
-  def areValidPasswords(user)
-    crypted_password = CryptUtils.one_way_crypt( params[:oldpassword] )
-
-    if user.password != crypted_password
-      flash[:error] = t('flashes.logins.wrong_password')
-      return false
-    end
-
-    if params[:newpassword1] != params[:newpassword2]
-      flash[:error] = t('flashes.logins.new_passwords.not_equal')
-      return false
-    end
-    return true
-  end
-
-  def redirect
-    if session[:jumpto].nil? or session[:jumpto].empty?
+  def redirect_after_sucessful_login
+    if session[:jumpto].blank?
       redirect_to search_path
     else
       jump_to = session[:jumpto]
       session[:jumpto] = nil
       redirect_to jump_to
-    end
-  end
-
-  def check_userdata(username, password)
-    if(User.find_by_username(username).nil? && true) #TODO && check if ldap is activated
-      User.create_from_external_auth username, password
-    elsif(User.find_by_username(username).nil?)
-      raise Exceptions::AuthenticationFailed
-    else
-      User.authenticate username, password
     end
   end
 
@@ -150,9 +103,10 @@ class LoginsController < ApplicationController
     session[:jumpto] = jumpto
     session[:username] = user.username
     session[:user_id] = user.id.to_s
-    session[:private_key] = CryptUtils.decrypt_private_key( user.private_key, password )
+    session[:private_key] = CryptUtils.decrypt_private_key(user.private_key, password)
   end
 
+  # TODO still needed ? if yes, move to user model and test it
   def decrypt_with_legacy(user)
     begin
       # This tries to decrypt with legacy crypt methods and migrates to the current method
@@ -162,5 +116,13 @@ class LoginsController < ApplicationController
     rescue
       raise Exceptions::DecryptFailed
     end
+  end
+
+  def redirect_if_ldap_user
+    redirect_to search_path if current_user.auth_ldap? 
+  end
+
+  def redirect_if_logged_in
+    redirect_to search_path if current_user
   end
 end

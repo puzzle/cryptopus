@@ -1,6 +1,6 @@
 class WizardController < ApplicationController
   before_filter :redirect_if_already_set_up
-  skip_before_filter :validate, :redirect_to_wizard_if_new_setup
+  skip_before_filter :authorize, :redirect_to_wizard_if_new_setup
 
   def index
     respond_to do |format|
@@ -13,7 +13,7 @@ class WizardController < ApplicationController
     password_repeat = params[:password_repeat]
     if !password.blank?
       if password == password_repeat
-        User.create_root password
+        User.create_root(password)
         create_session_and_redirect(password)
         return
       else

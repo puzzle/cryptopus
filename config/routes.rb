@@ -21,8 +21,8 @@ Cryptopus::Application.routes.draw do
 
   resource :login do
     get 'login'
-    get 'pwdchange'
-    post 'pwdchange'
+    get 'show_update_password'
+    post 'update_password'
     get 'logout'
     get 'noaccess'
     post 'authenticate'

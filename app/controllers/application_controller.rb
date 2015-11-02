@@ -19,38 +19,44 @@
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
   before_filter :redirect_to_wizard_if_new_setup
-  before_filter :validate, :except => [:login, :authenticate, :logout]
+  before_filter :authorize, :except => [:login, :authenticate, :logout]
   before_filter :prepare_menu
   before_filter :set_locale
   before_filter :set_cache_headers
 
+  helper_method :current_user
 
   # includes a security token
   # protect_from_forgery with: :exception
 
+  private
 
-protected
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
 
-  def validate
-    unless session[:user_id]
+  def authorize
+    if current_user.nil?
       session[:jumpto] = request.parameters
       redirect_to login_login_path
-      return
+    else
+      redirect_if_pending_recryptrequest
     end
+  end
 
-    user = User.find( session[:user_id] )
-    if Recryptrequest.where("user_id = ?", user.id).first
+  def redirect_if_pending_recryptrequest
+    if current_user.recryptrequests.first
       flash[:notice] = t('flashes.application.wait')
-      redirect_to :controller => 'login', :action => 'logout'
-      return
+      redirect_to login_logout_path
     end
-
   end
 
   def set_locale
-    user_locale = session[:user_id] ? User.find( session[:user_id] ).preferred_locale : I18n.default_locale
-    # use the locale parameter if provided or else the user locale
-    I18n.locale = params[:locale] || user_locale
+    if params[:locale]
+      I18n.locale = params[:locale]
+    else
+      current_user ? current_user.preferred_locale : I18n.default_locale
+    end
   end
 
   def get_team_password(team)

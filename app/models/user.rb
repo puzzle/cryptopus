@@ -19,57 +19,68 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: true
   validates :username, presence: true
 
-  has_many :teammembers, :dependent => :destroy
-  has_many :recryptrequests, :dependent => :destroy
-  has_many :teams, -> {order :name}, :through => :teammembers
+  has_many :teammembers, dependent: :destroy
+  has_many :recryptrequests, dependent: :destroy
+  has_many :teams, -> {order :name}, through: :teammembers
 
-  def self.authenticate( username, password )
-    user = self.find_by_username username
-    authenticated = case user.auth
-      when 'db'   then user.authenticate_against_db   password
-      when 'ldap' then user.authenticate_against_ldap password
-      else raise Exceptions::UnknownAuthenticationMethod
+  class << self
+    # TODO create ldap user on first login
+    def authenticate(username, password)
+      user = self.find_by_username(username)
+      return unless user
+      if user.auth_ldap?
+        user.authenticate_ldap(password)
+      else
+        user.authenticate_db(password)
+      end
     end
-    raise Exceptions::AuthenticationFailed unless authenticated
+
+    def create_root(password)
+      user = User.new(
+        uid: 0,
+        username: 'root',
+        givenname: 'root',
+        surname: '',
+        auth: 'db',
+        password: CryptUtils.one_way_crypt(password),
+      )
+      user.create_keypair(password)
+      user.save
+    end
+
+    def create_from_ldap(username, password)
+      # TODO simplify and refactor
+      raise Exceptions::AuthenticationFailed unless LdapTools.ldap_login(username, password)
+      begin
+        user = self.new
+        user.username = username
+        user.auth = 'ldap'
+        user.uid = LdapTools.get_uid_by_username( username )
+        user.create_keypair password
+        user.update_info
+      rescue
+        raise Exceptions::UserCreationFailed
+      end
+
+    end
   end
 
-  def self.create_root( password )
-    user = self.new
-    user.uid = 0
-    user.username = 'root'
-    user.givenname = 'root'
-    user.surname = ''
-    user.auth = 'db'
-    user.password = CryptUtils.one_way_crypt( password )
-    user.create_keypair password
-    user.update_info
+  def authenticate_db(password)
+    if self.password == CryptUtils.one_way_crypt(password)
+      self
+    end
   end
 
-  def self.create_from_external_auth( username, password )
-    # @@@ TODO check for external auth methods
-    # At the moment we just support LDAP
-    User.create_from_ldap( username, password )
-  end
-
-  def self.create_from_ldap( username, password )
-    raise Exceptions::AuthenticationFailed unless LdapTools.ldap_login(username, password)
-    begin
-      user = self.new
-      user.username = username
-      user.auth = 'ldap'
-      user.uid = LdapTools.get_uid_by_username( username )
-      user.create_keypair password
-      user.update_info
-    rescue
-      raise Exceptions::UserCreationFailed
+  def authenticate_ldap(password)
+    if LdapTools.ldap_login(username, password)
+      self
     end
   end
 
   # Updates Information about the user
   def update_info
-    self.update_info_from_ldap if self.auth == 'ldap'
-    self.last_login_at = Time.now
-    self.save
+    update_info_from_ldap if auth_ldap?
+    update_attribute(:last_login_at, Time.now) # TODO needed what for ? remove ?
   end
 
   # Updates Information about the user from LDAP
@@ -78,33 +89,37 @@ class User < ActiveRecord::Base
     self.surname   = LdapTools.get_ldap_info( uid.to_s, "sn" )
   end
 
-  def authenticate_against_db( par_password )
-    crypted_password = CryptUtils.one_way_crypt( par_password )
-    return self.password == crypted_password
-  end
-
-  def authenticate_against_ldap( par_password )
-    return LdapTools.ldap_login(username, par_password)
-  end
-
-  def create_keypair( par_password )
+  def create_keypair(password)
     keypair = CryptUtils.new_keypair
-    uncrypted_private_key = CryptUtils.get_private_key_from_keypair( keypair )
-    self.public_key = CryptUtils.get_public_key_from_keypair( keypair )
-    self.private_key = CryptUtils.encrypt_private_key( uncrypted_private_key, par_password )
-    self.save
+    uncrypted_private_key = CryptUtils.get_private_key_from_keypair(keypair)
+    self.public_key = CryptUtils.get_public_key_from_keypair(keypair)
+    self.private_key = CryptUtils.encrypt_private_key( uncrypted_private_key, password )
   end
 
   def full_name
-    return self.givenname + ' ' + self.surname
+    "#{givenname} #{surname}"
   end
 
   def root?
-    self.uid == 0
+    uid == 0
   end
 
   def auth_db?
-    self.auth == 'db'
+    auth == 'db'
+  end
+
+  def auth_ldap?
+    auth == 'ldap'
+  end
+
+  def update_password(old, new)
+    return if auth_ldap?
+    if authenticate_db(old)
+      self.password = CryptUtils.one_way_crypt(new)
+      pk = CryptUtils.decrypt_private_key(self.private_key, old)
+      self.private_key = CryptUtils.encrypt_private_key(pk, new)
+      save
+    end 
   end
 
 end

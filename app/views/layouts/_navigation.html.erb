@@ -35,7 +35,7 @@
 				</li>
         <% end %>
         <% if User.find( session[:user_id] ).auth_db? %>
-	        <%= nav_link "key", t(:change_password), pwdchange_login_path %>
+	        <%= nav_link "key", t(:change_password), show_update_password_login_path %>
         <% end %>
       <%= render_menu %>
       <li><%= render :partial => 'layouts/option' %></li>
