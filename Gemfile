@@ -14,6 +14,7 @@ gem 'jquery-rails'
 gem 'zeroclipboard-rails'
 gem 'handlebars_assets'
 gem 'bootstrap-sass', '~> 3.2.0'
+gem 'i18n', '0.6.11'
 
 group :development, :test do
   gem 'minitest'
