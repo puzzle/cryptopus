@@ -31,4 +31,11 @@ include IntegrationTest::DefaultHelper
     login_as('bob')
     assert_equal account1_path, request.fullpath
   end
+
+  test 'should reset session after login' do
+    get login_login_path
+    old_session = session.id
+    login_as('bob')
+    assert_not old_session, session.id
+  end
 end
