@@ -11,16 +11,14 @@ class WizardController < ApplicationController
   def apply
     password = params[:password]
     password_repeat = params[:password_repeat]
-    if !password.blank?
-      if password == password_repeat
-        User.create_root(password)
-        create_session_and_redirect(password)
-        return
-      else
-        flash[:error] = t('flashes.wizard.paswords_do_not_match')
-      end
-    else
+    if password.blank?
       flash[:error] = t('flashes.wizard.fill_password_fields')
+    elsif password == password_repeat
+      User.create_root password
+      create_session_and_redirect(password)
+      return
+    else
+      flash[:error] = t('flashes.wizard.paswords_do_not_match')
     end
     render 'index'
   end

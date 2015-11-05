@@ -3,6 +3,7 @@ require 'test/unit'
 require 'mocha/test_unit'
 
 class WizardControllerTest < ActionController::TestCase
+  include ControllerTest::DefaultHelper
 
   test 'display error if password fields empty' do
     User.delete_all
@@ -20,10 +21,19 @@ class WizardControllerTest < ActionController::TestCase
     User.delete_all
     post :apply, password: 'password', password_repeat: 'password'
     assert_redirected_to admin_users_path
-    assert_not_nil User.find_by_username('root')
+    assert User.find_by_uid(0)
   end
 
   test 'cannot access wizard if already set up' do
+    post :apply, password: 'password', password_repeat: 'password'
+    assert_redirected_to login_login_path
+
+    get :index
+    assert_redirected_to login_login_path
+  end
+
+  test 'logged in user cannot access wizard if already set up' do
+    login_as('bob')
     post :apply, password: 'password', password_repeat: 'password'
     assert_redirected_to login_login_path
 
