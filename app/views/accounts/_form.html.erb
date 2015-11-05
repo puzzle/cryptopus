@@ -1,4 +1,4 @@
-<% 
+<%
 # $Id$
 
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
@@ -29,13 +29,20 @@
 
   <%= f.label :password %>
   <%= f.password_field :password %>
-
-  <%= f.label :description %>
+  <br><br>
+  <div class="wrapper">
+    <div id="description">
+      <%= f.label :description %>
+    </div>
+    <span id="unencrypted">
+      <%= I18n.t('unencrypted_description_field') %>
+    </span>
+  </div>
   <%= f.text_area :description, options = {:cols => 35} %>
 
   <% unless @groups.nil? or @groups.empty? %>
 
-    <%= f.label t(:accounts_move) %>
+    <%= f.label I18n.t('accounts_move') %>
     <%= f.collection_select(:group_id, @groups, :id, :name) %>
 
   <% end %>
