@@ -15,11 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'net/ldap'
-require 'crypt_utils'
-require 'crypt_utils_legacy'
-require 'ldap_tools'
-
 class LoginsController < ApplicationController
 
   before_filter :redirect_if_ldap_user, only: [:show_update_password, :update_password]
@@ -54,18 +49,17 @@ class LoginsController < ApplicationController
   end
 
   def show_update_password
+    render :show_update_password
   end
 
-  # TODO update and fix tests
   def update_password
-    current_password = params[:password]
-    new_password = params[:newpassword1]
-    # TODO password match ?
-    # TODO old password valid ?
-    current_user.update_password(current_password, new_password)
-    flash[:notice] = t('flashes.logins.new_password_set')
-    redirect_to teams_path
-    # TODO render show_update_password if update fails
+    if password_params_valid?
+      current_user.update_password(params[:old_password], params[:new_password1])
+      flash[:notice] = t('flashes.logins.new_password_set')
+      redirect_to teams_path
+    else
+      render :show_update_password
+    end
   end
 
   # POST /login/changelocale
@@ -112,5 +106,19 @@ class LoginsController < ApplicationController
 
   def redirect_if_logged_in
     redirect_to search_path if current_user
+  end
+
+  def password_params_valid?
+    old_password = CryptUtils.one_way_crypt(params[:old_password])
+    unless old_password == current_user.password
+      flash[:error] = t('flashes.logins.wrong_password')
+      return false
+    end
+
+    if params[:new_password1] != params[:new_password2]
+      flash[:error] = t('flashes.logins.new_passwords.not_equal')
+      return false
+    end
+    true
   end
 end
