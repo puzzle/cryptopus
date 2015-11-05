@@ -38,7 +38,7 @@ class LoginsController < ApplicationController
       begin
         create_session(user, password)
       rescue Exceptions::DecryptFailed
-        redirect_to recryptrequests_path 
+        redirect_to recryptrequests_path
         return
       end
       redirect_after_sucessful_login
@@ -82,7 +82,7 @@ class LoginsController < ApplicationController
   def create_session(user, password)
     user.update_info
 
-    set_session_attributes(user, password) #rescue decrypt_with_legacy(user)
+    set_session_attributes(user, password)
 
     CryptUtils.validate_keypair( session[:private_key], user.public_key )
   end
@@ -103,23 +103,11 @@ class LoginsController < ApplicationController
     session[:jumpto] = jumpto
     session[:username] = user.username
     session[:user_id] = user.id.to_s
-    session[:private_key] = CryptUtils.decrypt_private_key(user.private_key, password)
-  end
-
-  # TODO still needed ? if yes, move to user model and test it
-  def decrypt_with_legacy(user)
-    begin
-      # This tries to decrypt with legacy crypt methods and migrates to the current method
-      session[:private_key] = CryptUtilsLegacy.decrypt_private_key( user.private_key, password )
-      user.private_key = CryptUtils.encrypt_private_key( session[:private_key], password )
-      user.save
-    rescue
-      raise Exceptions::DecryptFailed
-    end
+    session[:private_key] = user.decrypt_private_key(password)
   end
 
   def redirect_if_ldap_user
-    redirect_to search_path if current_user.auth_ldap? 
+    redirect_to search_path if current_user.auth_ldap?
   end
 
   def redirect_if_logged_in

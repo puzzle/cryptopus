@@ -37,19 +37,26 @@ class UserTest < ActiveSupport::TestCase
 
   test 'updates bobs user password' do
     bob = users(:bob)
-    private_key = decrypt_private_key(bob, 'password')
+    decrypted_private_key = bob.decrypt_private_key('password')
     bob.update_password('password', 'new')
 
     assert_nil User.authenticate('bob', 'password')
     assert_equal bob, User.authenticate('bob', 'new')
-    assert_equal private_key, decrypt_private_key(bob, 'new')
+    assert_equal decrypted_private_key, bob.decrypt_private_key('new')
   end
+
+  test 'update private key if legacy private key' do
+    bob = users(:bob)
+    decrypted_private_key = bob.decrypt_private_key('password')
+    bob.update_attribute(:private_key, legacy_encrypt_private_key(decrypted_private_key, 'password'))
+
+    assert_equal decrypted_private_key, bob.decrypt_private_key('password')
+    assert_not bob.legacy_private_key?
+  end
+
+  #TODO can not update password if ldap user
+  #TODO does not update password if old password invalid
 
   #test 'creates ldap user on first login' do
   #end
-
-  private
-  def decrypt_private_key(user, password)
-    CryptUtils.decrypt_private_key(user.private_key, password)
-  end
 end
