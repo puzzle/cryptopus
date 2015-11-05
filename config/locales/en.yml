@@ -23,6 +23,7 @@ en:
   users: "Users"
   change_password: "Change password"
   last_login: "Your last login was %{time_ago} ago."
+  unencrypted_description_field: "This description field is not encrypted!"
   group: "Group"
   team: "Team"
 
@@ -87,6 +88,8 @@ en:
         action: "Action"
       new:
         title: "New user"
+      destroy:
+        own_user: "You can't delete your-self"
 
   groups:
     index_menu:

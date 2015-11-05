@@ -92,7 +92,11 @@ public
   # DELETE /admin/users/1
   def destroy
     @user = User.find( params[:id] )
-    @user.destroy
+    unless @user == current_user
+      @user.destroy
+    else
+      flash[:error] = t('admin.users.destroy.own_user')
+    end
 
     respond_to do |format|
       format.html { redirect_to admin_users_path }

@@ -23,6 +23,7 @@ de:
   users: "Benutzer"
   change_password: "Passwort wechseln"
   last_login: "Ihr letztes Login war vor %{time_ago}."
+  unencrypted_description_field: "Dieses Beschreibungsfeld ist nicht verschlüsselt!"
   group: "Gruppe"
   team: "Team"
 
