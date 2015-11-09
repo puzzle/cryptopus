@@ -35,7 +35,7 @@
       <%= f.label :description %>
     </div>
     <span id="unencrypted">
-      <%= I18n.t('unencrypted_description_field') %>
+      (<%= I18n.t('unencrypted_field_caption') %>)
     </span>
   </div>
   <%= f.text_area :description, options = {:cols => 35} %>

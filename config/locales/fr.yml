@@ -23,7 +23,7 @@ fr:
   users: "Utilisateur"
   change_password: "Changer le mot de passe"
   last_login: "Votre dernière connexion était il ya %{time_ago}."
-  unencrypted_description_field: "Le champ de description ne sont pas cryptées"
+  unencrypted_field_caption: ne pas crypté
   group: "Groupe"
   team: "Équipe"
 
