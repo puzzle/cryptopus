@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 13) do
+ActiveRecord::Schema.define(version: 20151109133642) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "accountname", limit: 40, default: "", null: false
@@ -41,19 +41,16 @@ ActiveRecord::Schema.define(version: 13) do
     t.text     "content_type", default: "", null: false
   end
 
-  create_table "ldapsettings", force: :cascade do |t|
-    t.string "basename",      limit: 200, default: "ou=users,dc=yourdomain,dc=com", null: false
-    t.string "hostname",      limit: 50,  default: "yourdomain.com",                null: false
-    t.string "portnumber",    limit: 10,  default: "636",                           null: false
-    t.string "encryption",    limit: 30,  default: "simple_tls",                    null: false
-    t.string "bind_dn"
-    t.string "bind_password"
-  end
-
   create_table "recryptrequests", force: :cascade do |t|
     t.integer "user_id",       default: 0,    null: false
     t.boolean "adminrequired", default: true, null: false
     t.boolean "rootrequired",  default: true, null: false
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string "key",   null: false
+    t.string "value"
+    t.string "type",  null: false
   end
 
   create_table "teammembers", force: :cascade do |t|
