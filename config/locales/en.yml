@@ -52,9 +52,9 @@ en:
       title: "New Account"
 
   admin:
-    ldapsettings:
+    settings:
       index:
-        title: "Edit LDAP settings"
+        title: "Edit Settings"
     recryptrequests:
       index:
         title: "Re-encryption requests"
@@ -158,9 +158,9 @@ en:
     admin:
       admin:
         no_access: "Access denied"
-      ldapsettings:
+      settings:
         example: "These are example settings. Please overwrite them with your settings."
-        ldap: "Your LDAD settings were successfully updated."
+        successfully_updated: "Your settings were successfully updated."
       recryptrequests:
         some: "Successfully recrypted some passwords for %{user_name}"
         all: "Successfully recrypted all passwords for %{user_name}"

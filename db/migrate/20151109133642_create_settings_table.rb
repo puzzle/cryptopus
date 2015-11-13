@@ -5,14 +5,8 @@ class CreateSettingsTable < ActiveRecord::Migration
       t.column "value", :string
       t.column "type",  :string, null:  false
     end
-
-    ldapsettings = Ldapsetting.first
-    Setting::Text.create!(key: "ldap_basename", value: ldapsettings.basename)
-    Setting::Text.create!(key: "ldap_hostname", value: ldapsettings.hostname)
-    Setting::Number.create!(key: "ldap_portnumber", value: ldapsettings.portnumber)
-    Setting::Text.create!(key: "ldap_encryption", value: ldapsettings.encryption)
-    Setting::Text.create!(key: "ldap_bind_dn", value: ldapsettings.bind_dn)
-    Setting::TrueFalse.create!(key: "ldap_enable", value: true)
+    values = ldap_values
+    create_ldap_settings(values)
 
     drop_table :ldapsettings
   end
@@ -27,14 +21,53 @@ class CreateSettingsTable < ActiveRecord::Migration
       t.column "bind_password", :string
     end
 
-    Ldapsetting.create!(basename:      Setting.find_by(key: 'ldap_basename'),
-                        hostname:      Setting.find_by(key: 'ldap_hostname'),
-                        portnumber:    Setting.find_by(key: 'ldap_portnumber'),
-                        encryption:    Setting.find_by(key: 'ldap_encryption'),
-                        bind_dn:       Setting.find_by(key: 'ldap_bind_dn'),
-                        bind_password: Setting.find_by(key: 'ldap_bind_password'))
+    Ldapsetting.create!(basename:      Setting.find_by(key: 'ldap_basename').value,
+                        hostname:      Setting.find_by(key: 'ldap_hostname').value,
+                        portnumber:    Setting.find_by(key: 'ldap_portnumber').value,
+                        encryption:    Setting.find_by(key: 'ldap_encryption').value,
+                        bind_dn:       Setting.find_by(key: 'ldap_bind_dn').value,
+                        bind_password: Setting.find_by(key: 'ldap_bind_password').value)
 
     drop_table :settings
+  end
+private
+  def create_ldap_settings(values)
+    Setting::Text.create!(key: "ldap_basename", value: values[:basename])
+    Setting::Text.create!(key: "ldap_hostname", value: values[:hostname])
+    Setting::Number.create!(key: "ldap_portnumber", value: values[:portnumber])
+    Setting::Text.create!(key: "ldap_encryption", value: values[:encryption])
+    Setting::Text.create!(key: "ldap_bind_dn", value: values[:bind_dn])
+    Setting::Text.create!(key: "ldap_bind_password", value: values[:bind_password])
+    Setting::TrueFalse.create!(key: "ldap_enable", value: values[:enable])
+  end
+
+  def ldap_values
+    ldapsettings = Ldapsetting.first
+    ldapsettings ? ldap_values_ldap_settings(ldapsettings) : ldap_values_default
+  end
+
+  def ldap_values_ldap_settings(ldapsettings)
+    values = {}
+    values[:basename] = ldapsettings.basename
+    values[:hostname] = ldapsettings.hostname
+    values[:portnumber] = ldapsettings.portnumber
+    values[:encryption] = ldapsettings.encryption
+    values[:bind_dn] = ldapsettings.bind_dn
+    values[:bind_password] = ldapsettings.bind_password
+    values[:enable] = ldapsettings.encryption
+    values
+  end
+
+  def ldap_values_default
+    values = {}
+    values[:basename] = 'ou=users,dc=yourdomain,dc=com'
+    values[:hostname] = 'yourdomain.com'
+    values[:portnumber] = '636'
+    values[:encryption] = 'simple_tls'
+    values[:bind_dn] = ''
+    values[:bind_password] = ''
+    values[:enable] = 't'
+    values
   end
 
   class Ldapsetting < ActiveRecord::Base

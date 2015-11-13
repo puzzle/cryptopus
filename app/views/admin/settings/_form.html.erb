@@ -16,30 +16,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
-
-<!--[form:ldapsetting]-->
-<%= form_for( [:admin, @ldapsetting] ) do |f| %>
-  <%= f.error_messages %>
-
-  <%= f.label :basename %>
-  <%= f.text_field :basename %>
-
-  <%= f.label :hostname %>
-  <%= f.text_field :hostname %>
-
-  <%= f.label :portnumber %>
-  <%= f.text_field :portnumber %>
-
-  <%= f.label 'Bind DN' %>
-  <%= f.text_field :bind_dn %>
-
-  <%= f.label :bind_password %>
-  <%= f.text_field :bind_password %>
-
-  <%= f.label :encryption %>
-  <%= f.select("encryption", { 'none' => "none", 'SSL/TLS' => "simple_tls" }) %>
-
-  <%= f.submit @submit_button_text %>
+<%= form_tag :update_all_admin_settings do %>
+  <% @settings.each do |setting| %>
+      <%= input_field_setting(setting) %>
+  <% end %>
+  <br></br>
+  <%= submit_tag "submit" %>
 <% end %>
-<!--[eoform:ldapsetting]-->
-

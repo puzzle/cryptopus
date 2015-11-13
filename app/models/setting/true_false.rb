@@ -1,4 +1,5 @@
 class Setting::TrueFalse < Setting
-
-  #TODO getter
+  def value
+    read_attribute(:value) == 't'
+  end
 end

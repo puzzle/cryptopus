@@ -52,9 +52,9 @@ fr:
       title: "Nouveau compte"
 
   admin:
-    ldapsettings:
+    settings:
       index:
-        title: "Modifier les paramètres de LDAP"
+        title: "Modifier les paramètres"
     recryptrequests:
       index:
         title: "Demandes de re crypt"
@@ -156,9 +156,9 @@ fr:
     admin:
       admin:
         no_access: "Accès refusé"
-      ldapsettings:
+      settings:
         example: "Ce sont des exemples de paramètres. S'il vous plaît écraser avec vos paramètres."
-        ldap: "Vos paramètres de LDAP ont été modifiés avec succès."
+        successfully_updated: "Vos paramètres ont été modifiés avec succès."
       recryptrequests:
         some: "Certains mots de passe ont été re crypté pour %{user_name}."
         all: "Tous les mots de passe ont été re crypté pour %{user_name}."

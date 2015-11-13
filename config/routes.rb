@@ -10,7 +10,10 @@ Cryptopus::Application.routes.draw do
   end
 
   namespace :admin do
-    resources :ldapsettings
+    resource :settings do
+      post 'update_all'
+      get 'index'
+    end
     resources :users
     resources :recryptrequests do
       collection do

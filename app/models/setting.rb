@@ -16,4 +16,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Setting < ActiveRecord::Base
+  def self.find_ldap(key)
+    self.find_by(key: 'ldap_' + key)
+  end
+
+  def self.find_key(key)
+    self.find_by(key: key)
+  end
 end

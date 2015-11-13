@@ -52,9 +52,9 @@ de:
       title: "Neuer Account"
 
   admin:
-    ldapsettings:
+    settings:
       index:
-        title: "LDAP Einstellungen bearbeiten"
+        title: "Einstellungen bearbeiten"
     recryptrequests:
       index:
         title: "Re-encryp'please fill all fields'Admin benötigt"
@@ -154,9 +154,9 @@ de:
     admin:
       admin:
         no_access: "Zugriff verweigert"
-      ldapsettings:
+      settings:
         example: "Dies sind Beispieleinstellungen. Bitte überschreiben Sie sie mit Ihren Einstellungen."
-        ldap: "Ihre LDAP Einstellungen wurden erfolgreich angepasst."
+        successfully_updated: "Ihre Einstellungen wurden erfolgreich angepasst."
       recryptrequests:
         some: "Einige Passwörter wurden erfolgreich wiederverschlüsselt für %{user_name}."
         all: "Alle Passwörter wurden erfolgreich wiederverschlüsselt für %{user_name}."
