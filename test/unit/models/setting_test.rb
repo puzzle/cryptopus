@@ -1,8 +1,8 @@
 require 'test_helper'
 class SettingTest <  ActiveSupport::TestCase
-  test 'return bollean @setting.value' do
-    setting = Setting.find_by(key: 'ldap_enable')
-    setting.value = 't'
-    assert setting.value
+  test 'returns boolean' do
+    setting = Setting::TrueFalse.create(key: 'bla', value: 'f')
+    setting.value = true
+    assert setting.value.is_a?(TrueClass)
   end
 end

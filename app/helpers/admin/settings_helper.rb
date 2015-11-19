@@ -12,8 +12,8 @@ module Admin::SettingsHelper
   end
 
   def input_field_setting_true_false(setting)
-    html_tags = hidden_field_tag(key_param(setting), 'f')
-    html_tags << check_box_tag(key_param(setting), 't', setting.value)
+    content = hidden_field_tag(key_param(setting), 'f')
+    content << check_box_tag(key_param(setting), 't', setting.value)
   end
 
   def input_field_setting_number(setting)

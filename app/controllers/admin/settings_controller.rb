@@ -17,7 +17,7 @@ class Admin::SettingsController < Admin::AdminController
 private
   def update_attributes(setting_params)
     setting_params.each do |setting|
-      Setting.find_key(setting[0]).update_attributes(value: setting[1])
+      Setting.value(setting[0]).update_attributes(value: setting[1])
     end
   end
 end
