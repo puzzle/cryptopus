@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151109133642) do
+ActiveRecord::Schema.define(version: 20151119133600) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "accountname", limit: 40, default: "", null: false
@@ -54,13 +54,13 @@ ActiveRecord::Schema.define(version: 20151109133642) do
   end
 
   create_table "teammembers", force: :cascade do |t|
-    t.integer  "team_id",    default: 0,                                                                                               null: false
-    t.binary   "password",   default: "x'782737383237333733383332333733333337333333383333333233333337333333323333333733323337323727'", null: false
-    t.integer  "user_id",    default: 0,                                                                                               null: false
-    t.datetime "created_on",                                                                                                           null: false
-    t.datetime "updated_on",                                                                                                           null: false
-    t.boolean  "admin",      default: false,                                                                                           null: false
-    t.boolean  "locked",     default: false,                                                                                           null: false
+    t.integer  "team_id",    default: 0,     null: false
+    t.binary   "password",   default: "",    null: false
+    t.integer  "user_id",    default: 0,     null: false
+    t.datetime "created_on",                 null: false
+    t.datetime "updated_on",                 null: false
+    t.boolean  "admin",      default: false, null: false
+    t.boolean  "locked",     default: false, null: false
   end
 
   create_table "teams", force: :cascade do |t|
@@ -74,17 +74,20 @@ ActiveRecord::Schema.define(version: 20151109133642) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.text     "public_key",                       null: false
-    t.binary   "private_key",                      null: false
+    t.text     "public_key",                                               null: false
+    t.binary   "private_key",                                              null: false
     t.binary   "password"
-    t.boolean  "admin",            default: false, null: false
+    t.boolean  "admin",                                    default: false, null: false
     t.integer  "uid"
     t.datetime "last_login_at"
-    t.string   "username"
-    t.string   "givenname"
-    t.string   "surname"
-    t.string   "auth",             default: "db",  null: false
-    t.string   "preferred_locale", default: "en",  null: false
+    t.string   "username",                     limit: 255
+    t.string   "givenname",                    limit: 255
+    t.string   "surname",                      limit: 255
+    t.string   "auth",                         limit: 255, default: "db",  null: false
+    t.string   "preferred_locale",                         default: "en",  null: false
+    t.boolean  "locked"
+    t.datetime "last_failed_login_attempt_at"
+    t.integer  "login_attempts",                           default: 0,     null: false
   end
 
 end
