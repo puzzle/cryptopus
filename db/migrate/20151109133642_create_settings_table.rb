@@ -1,9 +1,9 @@
 class CreateSettingsTable < ActiveRecord::Migration
   def up
     create_table "settings" do |t|
-      t.column "key",   :string, null:  false
+      t.column "key",   :string, null: false
       t.column "value", :string
-      t.column "type",  :string, null:  false
+      t.column "type",  :string, null: false
     end
     values = ldap_values
     create_ldap_settings(values)
@@ -42,19 +42,19 @@ private
   end
 
   def ldap_values
-    ldapsettings = Ldapsetting.first
-    ldapsettings ? ldap_values_ldap_settings(ldapsettings) : ldap_values_default
+    ldapsetting = Ldapsetting.first
+    ldapsetting ? ldap_values_ldap_setting(ldapsetting) : ldap_values_default
   end
 
-  def ldap_values_ldap_settings(ldapsettings)
+  def ldap_values_ldap_setting(ldapsetting)
     values = {}
-    values[:basename] = ldapsettings.basename
-    values[:hostname] = ldapsettings.hostname
-    values[:portnumber] = ldapsettings.portnumber
-    values[:encryption] = ldapsettings.encryption
-    values[:bind_dn] = ldapsettings.bind_dn
-    values[:bind_password] = ldapsettings.bind_password
-    values[:enable] = ldapsettings.encryption
+    values[:basename] = ldapsetting.basename
+    values[:hostname] = ldapsetting.hostname
+    values[:portnumber] = ldapsetting.portnumber
+    values[:encryption] = ldapsetting.encryption
+    values[:bind_dn] = ldapsetting.bind_dn
+    values[:bind_password] = ldapsetting.bind_password
+    values[:enable] = true
     values
   end
 
@@ -66,7 +66,7 @@ private
     values[:encryption] = 'simple_tls'
     values[:bind_dn] = ''
     values[:bind_password] = ''
-    values[:enable] = 't'
+    values[:enable] = false
     values
   end
 
