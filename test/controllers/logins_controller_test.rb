@@ -67,6 +67,17 @@ class LoginsControllerTest < ActionController::TestCase
     assert_redirected_to search_path
   end
 
+  test 'changes current users locale' do
+    bob = users(:bob)
+    bob.update_attribute(:preferred_locale, 'fr')
+    login_as(:bob)
+    # set http referer for redirect to back
+    @request.env['HTTP_REFERER'] = 'http://test.com/'
+    post :changelocale, locale: 'de'
+    assert_equal 'de', bob.reload.preferred_locale
+    assert_redirected_to 'http://test.com/'
+  end
+
   def assert_invalid_login(username, password)
     assert_nil User.authenticate(username, password)
   end
