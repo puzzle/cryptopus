@@ -64,7 +64,7 @@ class LoginsController < ApplicationController
 
   # POST /login/changelocale
   def changelocale
-    locale = params[:locale]
+    locale = params[:new_locale]
     if locale.present?
       current_user.update_attribute(:preferred_locale, locale)
     end

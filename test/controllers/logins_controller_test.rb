@@ -73,7 +73,7 @@ class LoginsControllerTest < ActionController::TestCase
     login_as(:bob)
     # set http referer for redirect to back
     @request.env['HTTP_REFERER'] = 'http://test.com/'
-    post :changelocale, locale: 'de'
+    post :changelocale, new_locale: 'de'
     assert_equal 'de', bob.reload.preferred_locale
     assert_redirected_to 'http://test.com/'
   end
