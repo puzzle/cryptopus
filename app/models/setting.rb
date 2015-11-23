@@ -17,9 +17,12 @@
 
 class Setting < ActiveRecord::Base
 class << self
-  def value(prefix = '', key)
+  def value(prefix, key)
     key = "#{prefix}_#{key}" if prefix.present?
-    find_by(key: key)
+    setting = find_by(key: key)
+    if setting
+      setting.value
+    end
   end
 end
 end
