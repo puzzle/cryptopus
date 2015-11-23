@@ -52,11 +52,13 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    if params[:locale]
-      I18n.locale = params[:locale]
-    else
-      current_user ? current_user.preferred_locale : I18n.default_locale
+    locale = I18n.default_locale
+    if current_user
+      locale = current_user.preferred_locale
+    elsif params[:locale]
+      locale = params[:locale]
     end
+    I18n.locale = locale
   end
 
   def get_team_password(team)
@@ -98,6 +100,10 @@ class ApplicationController < ActionController::Base
       redirect_to wizard_path
       flash[:notice] = t('flashes.logins.welcome')
     end
+  end
+
+  def default_url_options(options = {})
+    { locale: I18n.locale }.merge options
   end
 
 

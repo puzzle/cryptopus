@@ -64,10 +64,10 @@ class LoginsController < ApplicationController
 
   # POST /login/changelocale
   def changelocale
-    locale = params[:locale]
-    user = User.find( session[:user_id] )
-    user.preferred_locale = locale
-    user.save
+    locale = params[:new_locale]
+    if locale.present?
+      current_user.update_attribute(:preferred_locale, locale)
+    end
 
     redirect_to :back
   end

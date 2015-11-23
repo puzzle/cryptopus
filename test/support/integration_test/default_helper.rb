@@ -1,7 +1,7 @@
 module IntegrationTest
   module DefaultHelper
     def login_as(username, password = 'password')
-      post_via_redirect "/login/authenticate", username: username, password: password
+      post_via_redirect "/en/login/authenticate", username: username, password: password
     end
 
     def logout
