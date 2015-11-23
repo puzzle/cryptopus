@@ -20,19 +20,12 @@ class UserTest < ActiveSupport::TestCase
   test 'does not create user root if it already exists' do
   end
 
-  test 'returns user bob if authentication valid' do
-    user = User.authenticate('bob', 'password')
-    assert_equal users(:bob), user
+  test 'returns true bob authentication valid' do
+    assert users(:bob).authenticate('password')
   end
 
-  test 'returns nil if invalid password' do
-    user = User.authenticate('bob', 'wrong')
-    assert_nil user
-  end
-
-  test 'returns nil if invalid user' do
-    user = User.authenticate('fred', 'password')
-    assert_nil user
+  test 'returns false if invalid password' do
+    assert_not users(:bob).authenticate('wrong')
   end
 
   test 'updates bobs user password' do
@@ -40,8 +33,8 @@ class UserTest < ActiveSupport::TestCase
     decrypted_private_key = bob.decrypt_private_key('password')
     bob.update_password('password', 'new')
 
-    assert_nil User.authenticate('bob', 'password')
-    assert_equal bob, User.authenticate('bob', 'new')
+    assert_not users(:bob).authenticate('password')
+    assert users(:bob).authenticate('new')
     assert_equal decrypted_private_key, bob.decrypt_private_key('new')
   end
 
@@ -54,9 +47,24 @@ class UserTest < ActiveSupport::TestCase
     assert_not bob.legacy_private_key?
   end
 
-  #TODO can not update password if ldap user
-  #TODO does not update password if old password invalid
+  test 'first invalid login attempt' do
+    time = Time.now
+    attempts = users(:bob).failed_login_attempts
+    users(:bob).update_attribute(:last_failed_login_attempt_at, nil)
 
-  #test 'creates ldap user on first login' do
-  #end
+    users(:bob).authenticate('wrong password')
+
+    assert_equal(attempts + 1, users(:bob).failed_login_attempts)
+    assert(time <= users(:bob).last_failed_login_attempt_at.to_time)
+  end
+
+  test 'clear failed login attempts' do
+    users(:bob).update_attribute(:failed_login_attempts, 3)
+
+    users(:bob).authenticate('password')
+
+    assert_equal(users(:bob).failed_login_attempts, 0)
+  end
+
+  #TODO test locked until user
 end

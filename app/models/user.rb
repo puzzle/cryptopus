@@ -16,6 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class User < ActiveRecord::Base
+  include Authenticate
+
   validates :username, uniqueness: true
   validates :username, presence: true
 
@@ -23,17 +25,11 @@ class User < ActiveRecord::Base
   has_many :recryptrequests, dependent: :destroy
   has_many :teams, -> {order :name}, through: :teammembers
 
+  scope :locked, -> { where(locked: true)}
+  scope :unlocked, -> { where(locked: false)}
+
   class << self
     # TODO create ldap user on first login
-    def authenticate(username, password)
-      user = self.find_by_username(username)
-      return unless user
-      if user.auth_ldap?
-        user.authenticate_ldap(password)
-      else
-        user.authenticate_db(password)
-      end
-    end
 
     def create_root(password)
       user = User.new(
@@ -65,18 +61,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def authenticate_db(password)
-    if self.password == CryptUtils.one_way_crypt(password)
-      self
-    end
+  #unlock user
+  def unlock
+    update_attribute(:locked, false)
   end
-
-  def authenticate_ldap(password)
-    if LdapTools.ldap_login(username, password)
-      self
-    end
-  end
-
   # Updates Information about the user
   def update_info
     update_info_from_ldap if auth_ldap?
@@ -104,14 +92,6 @@ class User < ActiveRecord::Base
     uid == 0
   end
 
-  def auth_db?
-    auth == 'db'
-  end
-
-  def auth_ldap?
-    auth == 'ldap'
-  end
-
   def update_password(old, new)
     return if auth_ldap?
     if authenticate_db(old)
@@ -128,10 +108,6 @@ class User < ActiveRecord::Base
     update_attribute(:private_key, newly_encrypted_private_key)
   end
 
-  def legacy_private_key?
-    /^Salted/ !~ private_key
-  end
-
   def decrypt_private_key(password)
     begin
       migrate_legacy_private_key(password) if legacy_private_key?
@@ -139,5 +115,9 @@ class User < ActiveRecord::Base
     rescue
       raise Exceptions::DecryptFailed
     end
+  end
+
+  def legacy_private_key?
+    /^Salted/ !~ private_key
   end
 end

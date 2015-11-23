@@ -27,19 +27,34 @@
     <th><%=t '.action' %></th>
   </tr>
 
-  <% for user in @users  %>
-    <tr class="<%= cycle( 'odd', 'even' ) %>">
-      <td><%= link_to user.username, edit_admin_user_path(user) %></td>
-      <td><%= user.full_name %></td>
-      <td><%= user.uid.to_s %></td>
-      <% if user.admin == true %>
-        <td><%= image_tag("flag.png") %></td>
-      <% else %>
-        <td></td>
-      <% end %>
-      <td><%= link_to image_tag( "remove.png" ), [:admin, user], :confirm => t(:confirmation), :method => :delete %></td>
-    </tr>
+  <% for user in @users.unlocked  %>
+      <tr class="<%= cycle( 'odd', 'even' ) %>">
+        <td><%= link_to user.username, edit_admin_user_path(user) %></td>
+        <td><%= user.full_name %></td>
+        <td><%= user.uid.to_s %></td>
+        <% if user.admin == true %>
+          <td><%= image_tag("flag.png") %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <td><%= link_to image_tag( "remove.png" ), [:admin, user], confirm: t(:confirmation), method: :delete %></td>
+      </tr>
   <% end %>
-
 </table>
 
+<h2><%=t '.locked' %></h2>
+
+<table>
+  <tr>
+      <th><%=t '.username' %></th>
+      <th><%=t '.name' %></th>
+      <th><%=t '.action' %></th>
+  </tr>
+  <% for user in @users.locked  %>
+      <tr class="<%= cycle( 'odd', 'even' ) %>">
+        <td><%= link_to user.username, edit_admin_user_path(user) %></td>
+        <td><%= user.full_name %></td>
+        <td><%= link_to button_tag("unlock"), admin_user_unlock_path(user.id), method: :post%></td>
+      </tr>
+  <% end %>
+</table>

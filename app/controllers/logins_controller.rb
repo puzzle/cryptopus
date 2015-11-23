@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class LoginsController < ApplicationController
-
+  include User::Authenticate
   before_filter :redirect_if_ldap_user, only: [:show_update_password, :update_password]
   before_filter :redirect_if_logged_in, only: [:login]
 
@@ -27,20 +27,15 @@ class LoginsController < ApplicationController
     username = params[:username].strip
     password = params[:password]
 
-    user = User.authenticate(username, password)
+    user = User.find_by(username: username)
 
-    if user
-      begin
-        create_session(user, password)
-      rescue Exceptions::DecryptFailed
-        redirect_to recryptrequests_path
-        return
-      end
-      redirect_after_sucessful_login
-    else
+    unless user
       flash[:error] = t('flashes.logins.auth_failed')
       render :action => 'login'
+      return
     end
+
+    authenticate_user(user, password)
   end
 
   def logout
@@ -73,6 +68,31 @@ class LoginsController < ApplicationController
   end
 
   private
+  def user_locked?(user)
+    if user.locked?
+      flash[:error] = t('flashes.logins.locked')
+      render :action => 'login'
+      true
+    end
+  end
+
+  def authenticate_user(user, password)
+    return if user_locked?(user)
+
+    if user.authenticate(password)
+      begin
+        create_session(user, password)
+      rescue Exceptions::DecryptFailed
+        redirect_to recryptrequests_path
+        return
+      end
+      redirect_after_sucessful_login
+    else
+      flash[:error] = t('flashes.logins.auth_failed')
+      render :action => 'login'
+    end
+  end
+
   def create_session(user, password)
     user.update_info
 

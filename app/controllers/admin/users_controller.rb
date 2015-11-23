@@ -16,45 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Admin::UsersController < Admin::AdminController
-private
-  def user_params
-    params.require(:user).permit(:username, :givenname, :surname, :admin, :password, :auth)
-  end
-
-  def empower_user(user)
-    teams = Team.all
-    for team in teams do
-
-      # Decrypt the team password with the private key from the
-      # logged in user. He has to be root or admin to get
-      # admin rights to another user
-      active_user = User.find( session[:user_id] )
-
-      # skip teams we do not encrypt for admins
-      next if team.private or team.noroot
-
-      active_teammember = team.teammembers.find_by_user_id( active_user.id.to_s )
-      team_password = CryptUtils.decrypt_team_password( active_teammember.password, session[:private_key] )
-
-      # Create the new teammember per team and mark it as an
-      # admin account
-      teammember = team.teammembers.new
-      teammember.password = CryptUtils.encrypt_team_password( team_password, user.public_key )
-      teammember.admin = true
-      teammember.user_id = user.id
-      teammember.save
-    end
-  end
-
-  def disempower_admin(user)
-    teammembers = user.teammembers.where(admin: true)
-    for teammember in teammembers do
-      teammember.destroy
-    end
-  end
-
-public
-
   # GET /admin/users
   def index
     @users = User.where("uid != 0 or uid is null").all
@@ -131,7 +92,53 @@ public
     end
   end
 
+  def unlock
+    @user = User.find( params[:user_id] )
+    @user.unlock
+
+    respond_to do |format|
+      format.html { redirect_to admin_users_path }
+    end
+  end
+
   def user_params
     params.require(:user).permit(:name, :username, :password, :admin, :givenname, :surname, :auth)
+  end
+
+private
+  def user_params
+    params.require(:user).permit(:username, :givenname, :surname, :admin, :password, :auth)
+  end
+
+  def empower_user(user)
+    teams = Team.all
+    for team in teams do
+
+      # Decrypt the team password with the private key from the
+      # logged in user. He has to be root or admin to get
+      # admin rights to another user
+      active_user = User.find( session[:user_id] )
+
+      # skip teams we do not encrypt for admins
+      next if team.private or team.noroot
+
+      active_teammember = team.teammembers.find_by_user_id( active_user.id.to_s )
+      team_password = CryptUtils.decrypt_team_password( active_teammember.password, session[:private_key] )
+
+      # Create the new teammember per team and mark it as an
+      # admin account
+      teammember = team.teammembers.new
+      teammember.password = CryptUtils.encrypt_team_password( team_password, user.public_key )
+      teammember.admin = true
+      teammember.user_id = user.id
+      teammember.save
+    end
+  end
+
+  def disempower_admin(user)
+    teammembers = user.teammembers.where(admin: true)
+    for teammember in teammembers do
+      teammember.destroy
+    end
   end
 end

@@ -85,9 +85,10 @@ ActiveRecord::Schema.define(version: 20151119133600) do
     t.string   "surname",                      limit: 255
     t.string   "auth",                         limit: 255, default: "db",  null: false
     t.string   "preferred_locale",                         default: "en",  null: false
-    t.boolean  "locked"
-    t.datetime "last_failed_login_attempt_at"
     t.integer  "login_attempts",                           default: 0,     null: false
+    t.boolean  "locked",                                   default: false
+    t.datetime "last_failed_login_attempt_at"
+    t.integer  "failed_login_attempts",                    default: 0,     null: false
   end
 
 end

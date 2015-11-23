@@ -187,6 +187,7 @@ en:
       new_passwords_not_equal: "New passwords not equal"
       wrong_password: "Wrong password"
       not_local: "You are not a local user!"
+      locked: "User is currently locked. please try to login again a bit later or contact the administrator if your user has been locked permanently"
     recryptrequests:
       recrypted: "You have successfully recrypted the password"
       new_password_wrong: "Your NEW password was wrong"

@@ -16,17 +16,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class RecryptrequestsController < ApplicationController
-
+include User::Authenticate
 private
 
   def self_recrypt( old_password, new_password )
     begin
+      @user = User.find_by(username: session[:username])
       # Check if the new password is ok
-      User.authenticate( session[:username], new_password )
+      @user.authenticate(new_password )
 
       # decrypt the private key with the old password
       # and encrypt it with the new one
-      @user = User.find_by_username session[:username]
       private_key = CryptUtils.decrypt_private_key( @user.private_key, old_password )
       CryptUtils.validate_keypair( private_key, @user.public_key )
       @user.private_key = CryptUtils.encrypt_private_key( private_key, new_password )
@@ -82,8 +82,9 @@ public
     # a request to root to decrypt the teampasswords
     # for us
     begin
-      User.authenticate( session[:username], params[:new_password] )
       @user = User.find_by_username( session[:username] )
+
+      @user.authenticate( params[:new_password] )
 
       # Check if that was already done
       if @user.recryptrequests.load.empty?
