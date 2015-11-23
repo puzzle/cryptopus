@@ -32,7 +32,7 @@ class LoginsControllerTest < ActionController::TestCase
     post :update_password, old_password: 'password', new_password1: 'test', new_password2: 'test'
     assert_match /new password/, flash[:notice]
 
-    User.authenticate('bob', 'test')
+    users(:bob).authenticate('test')
   end
 
   test 'update password, error if oldpassword not match' do
@@ -40,7 +40,7 @@ class LoginsControllerTest < ActionController::TestCase
     post :update_password, old_password: 'wrong_password', new_password1: 'test', new_password2: 'test'
     assert_match /Wrong password/, flash[:error]
 
-    assert_invalid_login('bob', 'test')
+    assert_not(users(:bob).authenticate('test'))
   end
 
   test 'update password, error if new passwords not match' do
@@ -48,7 +48,7 @@ class LoginsControllerTest < ActionController::TestCase
     post :update_password, old_password: 'password', new_password1: 'test', new_password2: 'wrong_password'
     assert_match /equal/, flash[:error]
 
-    assert_invalid_login('bob', 'test')
+    assert_not(users(:bob).authenticate('test'))
   end
 
   test 'redirects if ldap user tries to access update password' do
@@ -57,7 +57,7 @@ class LoginsControllerTest < ActionController::TestCase
     post :update_password, old_password: 'password', new_password1: 'test', new_password2: 'test'
     assert_redirected_to search_path
 
-    assert_invalid_login('bob', 'test')
+    assert_not(users(:bob).authenticate('test'))
   end
 
   test 'redirects if ldap user tries to access show update password site' do
@@ -65,20 +65,5 @@ class LoginsControllerTest < ActionController::TestCase
     login_as(:bob)
     get :show_update_password
     assert_redirected_to search_path
-  end
-
-  test 'changes current users locale' do
-    bob = users(:bob)
-    bob.update_attribute(:preferred_locale, 'fr')
-    login_as(:bob)
-    # set http referer for redirect to back
-    @request.env['HTTP_REFERER'] = 'http://test.com/'
-    post :changelocale, new_locale: 'de'
-    assert_equal 'de', bob.reload.preferred_locale
-    assert_redirected_to 'http://test.com/'
-  end
-
-  def assert_invalid_login(username, password)
-    assert_nil User.authenticate(username, password)
   end
 end
