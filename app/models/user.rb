@@ -29,8 +29,6 @@ class User < ActiveRecord::Base
   scope :unlocked, -> { where(locked: false)}
 
   class << self
-    # TODO create ldap user on first login
-
     def create_root(password)
       user = User.new(
         uid: 0,
@@ -41,7 +39,7 @@ class User < ActiveRecord::Base
         password: CryptUtils.one_way_crypt(password),
       )
       user.create_keypair(password)
-      user.save
+      user.save!
     end
 
     def create_from_ldap(username, password)
@@ -59,12 +57,6 @@ class User < ActiveRecord::Base
       end
 
     end
-  end
-
-  #unlock user
-  def unlock
-    update_attribute(:locked, false)
-    update_attribute(:failed_login_attempts, 0)
   end
   
   # Updates Information about the user

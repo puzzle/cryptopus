@@ -2,12 +2,12 @@ module User::Authenticate
 
   LOCK_TIME_FAILED_LOGIN_ATTEMPT = [0, 0, 0, 3, 5, 10, 15]
   def locked?
-    read_attribute(:locked) || temporarly_locked?
+    locked || temporarly_locked?
   end
 
   def authenticate(password)
     return if locked?
-    if self.auth_ldap?
+    if auth_ldap?
       authenticated = authenticate_ldap(password)
     else
       authenticated = authenticate_db(password)
@@ -29,38 +29,42 @@ module User::Authenticate
     auth == 'ldap'
   end
 
+  def unlock
+    update_attribute(:locked, false)
+    update_attribute(:failed_login_attempts, 0)
+  end
+
 
   private
     def temporarly_locked?
-      last_failed_attempt = self.last_failed_login_attempt_at
-      if last_failed_attempt
-        failed_attempts = self.failed_login_attempts
-        locked_until = last_failed_attempt.to_time + LOCK_TIME_FAILED_LOGIN_ATTEMPT[failed_attempts].seconds
-        locked_until > Time.now
-      end
+      locked_until > Time.now if last_failed_login_attempt_at
+    end
+    
+    def locked_until
+      last_failed_login_attempt_at +
+        LOCK_TIME_FAILED_LOGIN_ATTEMPT[failed_login_attempts].seconds
     end
 
-    def authenticate_db(password)
-      self.password == CryptUtils.one_way_crypt(password)
+    def authenticate_db(plaintext_password)
+      password == CryptUtils.one_way_crypt(plaintext_password)
     end
 
-    def authenticate_ldap(password)
-      LdapTools.ldap_login(username, password)
+    def authenticate_ldap(plaintext_password)
+      LdapTools.ldap_login(username, plaintext_password)
     end
 
     def update_failed_login_attempts
-      attempts = self.failed_login_attempts + 1
+      attempts = failed_login_attempts + 1
 
       if attempts >= LOCK_TIME_FAILED_LOGIN_ATTEMPT.length
-        self.update_attribute(:locked, true)
-        return
+        update_attribute(:locked, true)
+      else
+        update_attribute(:failed_login_attempts, attempts)
+        update_attribute(:last_failed_login_attempt_at, Time.now)
       end
-
-      self.update_attribute(:failed_login_attempts, attempts)
-      self.update_attribute(:last_failed_login_attempt_at, Time.now)
     end
 
     def reset_failed_login_attempts
-      self.update_attribute(:failed_login_attempts, 0) if self.failed_login_attempts > 0
+      update_attribute(:failed_login_attempts, 0) if failed_login_attempts > 0
     end
 end
