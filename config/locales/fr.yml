@@ -86,6 +86,8 @@ fr:
         ldap_uid: "LDAP UID"
         admin: "Admin"
         action: "Action"
+        locked: "Bloqué utilisateurs"
+        unlock: "déverrouillage"
       new:
         title: "Nouvel utilisateur"
 

@@ -84,6 +84,8 @@ de:
         ldap_uid: "LDAP UID"
         admin: "Admin"
         action: "Aktion"
+        locked: "Gesperrte Benutzer"
+        unlock: "Entsperren"
       new:
         title: "Neuer Benutzer"
 

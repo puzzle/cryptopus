@@ -15,7 +15,11 @@ Cryptopus::Application.routes.draw do
         post 'update_all'
         get 'index'
       end
-      resources :users
+      resources :users do
+        member do
+          get 'unlock'
+        end
+      end
       resources :recryptrequests do
         collection do
           post 'resetpassword'

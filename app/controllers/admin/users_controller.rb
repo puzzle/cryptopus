@@ -93,7 +93,7 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def unlock
-    @user = User.find( params[:user_id] )
+    @user = User.find( params[:id] )
     @user.unlock
 
     respond_to do |format|

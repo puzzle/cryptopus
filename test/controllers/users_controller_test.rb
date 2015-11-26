@@ -26,7 +26,30 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     delete :destroy, id: alice.id
 
-    # TODO check alice was deleted
+    assert_not User.find_by(username: 'alice')
+  end
 
+  test 'unlock user as admin' do
+    bob = users(:bob)
+    bob.update_attribute(:locked, true)
+    bob.update_attribute(:failed_login_attempts, 5)
+
+    login_as(:root)
+    get :unlock, id: bob.id
+
+    assert_not bob.reload.locked
+    assert_equal 0, bob.failed_login_attempts
+  end
+
+  test 'could not unlock user as normal user' do
+    bob = users(:bob)
+    bob.update_attribute(:locked, true)
+    bob.update_attribute(:failed_login_attempts, 5)
+
+    login_as(:alice)
+    get :unlock, id: bob.id
+
+    assert bob.reload.locked
+    assert_equal 5, bob.failed_login_attempts
   end
 end

@@ -86,6 +86,8 @@ en:
         ldap_uid: "LDAP UID"
         admin: "Admin"
         action: "Action"
+        locked: "Locked users"
+        unlock: "Unlock"
       new:
         title: "New user"
       destroy:
