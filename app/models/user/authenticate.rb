@@ -2,7 +2,6 @@ module User::Authenticate
 
   LOCK_TIME_FAILED_LOGIN_ATTEMPT = [0, 0, 0, 3, 5, 10, 15]
   def locked?
-    #TODO unit tests
     read_attribute(:locked) || temporarly_locked?
   end
 
@@ -13,7 +12,6 @@ module User::Authenticate
     else
       authenticated = authenticate_db(password)
     end
-
     if authenticated
       reset_failed_login_attempts
       true
@@ -33,19 +31,13 @@ module User::Authenticate
 
 
   private
-    def locked_until
+    def temporarly_locked?
       last_failed_attempt = self.last_failed_login_attempt_at
       if last_failed_attempt
         failed_attempts = self.failed_login_attempts
-        #TODO Seconds in hash, kürzerer hashname
-        last_failed_attempt.to_time + LOCK_TIME_FAILED_LOGIN_ATTEMPT[failed_attempts]
-      else
-        Time.now
+        locked_until = last_failed_attempt.to_time + LOCK_TIME_FAILED_LOGIN_ATTEMPT[failed_attempts].seconds
+        locked_until > Time.now
       end
-    end
-
-    def temporarly_locked?
-      locked_until > Time.now
     end
 
     def authenticate_db(password)
