@@ -147,10 +147,12 @@ class UserTest < ActiveSupport::TestCase
 
   test 'unlock user' do
     users(:bob).update_attribute(:locked, true)
+    users(:bob).update_attribute(:failed_login_attempts, 3)
 
     users(:bob).unlock
 
     assert_equal users(:bob).locked, false
+    assert_equal 0, users(:bob).failed_login_attempts
   end
 
   test 'user locked if locked' do
@@ -161,7 +163,7 @@ class UserTest < ActiveSupport::TestCase
     assert locked
   end
 
-  test 'user not locked not locked' do
+  test 'user not locked, if not locked' do
     users(:bob).update_attribute(:locked, false)
 
     locked = users(:bob).locked?

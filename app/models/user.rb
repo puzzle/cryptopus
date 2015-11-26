@@ -64,7 +64,9 @@ class User < ActiveRecord::Base
   #unlock user
   def unlock
     update_attribute(:locked, false)
+    update_attribute(:failed_login_attempts, 0)
   end
+  
   # Updates Information about the user
   def update_info
     update_info_from_ldap if auth_ldap?
