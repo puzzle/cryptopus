@@ -202,3 +202,10 @@ en:
       updated: "Team was successfully updated."
     teammembers:
       could_not_remove_last_teammember: "Could not remove last teammember"
+
+#Validation Errors
+  activerecord:
+    errors:
+      template:
+        body: ''
+        header: ''

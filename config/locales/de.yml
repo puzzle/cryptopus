@@ -222,3 +222,19 @@ de:
         portnumber: "Port"
         bind_password: "Bind Passwort"
         encryption: "Verschlüsselung"
+
+#Validation Errors
+  activerecord:
+    attributes:
+      user:
+        username: 'Benutzername'
+    errors:
+      template:
+        body: ''
+        header: ''
+      models:
+        user:
+          attributes:
+            username:
+              blank: 'kann nicht leer sein'
+              taken: 'ist bereits vergeben'

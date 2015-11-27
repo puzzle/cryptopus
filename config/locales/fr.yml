@@ -223,3 +223,19 @@ fr:
         portnumber: "Port"
         bind_password: "Mot de passe de Bind"
         encryption: "Chiffrement"
+
+#Validation Errors
+  activerecord:
+    attributes:
+      user:
+        username: "Nom d'utilisateur"
+    errors:
+      template:
+        body: ''
+        header: ''
+      models:
+        user:
+          attributes:
+            username:
+              blank: 'ne peut pas être vide'
+              taken: 'est déjà pris'
