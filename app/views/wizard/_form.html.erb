@@ -1,13 +1,13 @@
 <%= form_tag({:action => 'apply'}, :id => 'wizardform') do %>
   <fieldset>
     <label for="username" ><%=t :username %>:</label>
-    <%= text_field :username, params[:username], :id => 'username', autocomplete: :off, disabled: true, value: "root" %>
+    <%= text_field :username, params[:username], id: 'username', autocomplete: :off, disabled: true, value: "root" %>
 
     <label for="password"><%=t :password %>:</label>
-    <%= password_field_tag :password, params[:password], autocomplete: :off, :id => 'password' %>
+    <%= password_field_tag :password, params[:password], autocomplete: :off, id: 'password', autofocus: true %>
 
     <label for="password"><%=t :password_repeat %>:</label>
-    <%= password_field_tag :password_repeat, params[:password_repeat], :id => 'password_repeat' %>
+    <%= password_field_tag :password_repeat, params[:password_repeat], id: 'password_repeat' %>
 
     <label for="submit" />
     <%= submit_tag "submit" %>
