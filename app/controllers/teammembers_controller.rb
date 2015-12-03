@@ -67,7 +67,7 @@ class TeammembersController < ApplicationController
 
     def teammember_canditates
       users = @team.teammember_candidates
-      user_list = users.collect {|user| [ user.full_name, user.username ]}
+      user_list = users.collect {|user| [ user.username ]}
       user_list.sort!
     end
 end
