@@ -129,8 +129,7 @@ class LoginsController < ApplicationController
   end
 
   def password_params_valid?
-    old_password = CryptUtils.one_way_crypt(params[:old_password])
-    unless old_password == current_user.password
+    unless current_user.authenticate(params[:old_password])
       flash[:error] = t('flashes.logins.wrong_password')
       return false
     end
