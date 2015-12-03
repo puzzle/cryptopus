@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
 
     end
   end
-  
+
   # Updates Information about the user
   def update_info
     update_info_from_ldap if auth_ldap?
@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    "#{givenname} #{surname}"
+    givenname.blank? ? username : "#{givenname} #{surname}"
   end
 
   def root?
