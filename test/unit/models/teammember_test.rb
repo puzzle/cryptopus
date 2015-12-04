@@ -4,6 +4,7 @@ class TeammemberTest < ActiveSupport::TestCase
     team = teams(:team1)
     teammembers(:team1_root).delete
     teammembers(:team1_alice).delete
+    teammembers(:team1_admin).delete
 
     # remove last teammember
     team1_bob = teammembers(:team1_bob)

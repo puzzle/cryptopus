@@ -197,6 +197,8 @@ fr:
       wrong_user_password: "Saisissez un nom d'utilisateur et mot de passe ou vérifier les paramètres LDAP."
       created: "Créé avec succès une nouvelle équipe."
       updated: "L'équipe a été mise à jour avec succès."
+      deleted: "L'équipe a été supprimé."
+      cannot_delete: "Vous pouvez seulement supprimer une équipe si vous etes le dernier membre ou un admin. Contactez un admin."
     teammembers:
       could_not_remove_last_teammember: "Il n’est pas possible de supprimer le dernier utilisateur de l'équipe"
 

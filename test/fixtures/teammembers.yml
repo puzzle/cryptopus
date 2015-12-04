@@ -15,3 +15,9 @@ team1_alice:
   user: alice
   admin: false
   password: <%= "!!binary \"#{FixturesHelper.read_team_password('alice', 'team1')}\"" %>
+
+team1_admin:
+    team: team1
+    user: admin
+    admin: false
+    password: <%= "!!binary \"#{FixturesHelper.read_team_password('admin', 'team1')}\"" %>

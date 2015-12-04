@@ -26,4 +26,8 @@ class Team < ActiveRecord::Base
                           pluck(:id)
     User.where('id NOT IN(?)', excluded_user_ids)
   end
+
+  def last_teammember?
+    teammembers.count == 1
+  end
 end

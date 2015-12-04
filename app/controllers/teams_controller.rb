@@ -111,7 +111,12 @@ class TeamsController < ApplicationController
   # DELETE /teams/1
   def destroy
     @team = Team.find( params[:id] )
-    @team.destroy
+    if(current_user.admin? || current_user.root? || @team.last_teammember?)
+       @team.destroy
+       flash[:notice] = t('flashes.teams.deleted')
+    else
+      flash[:error] = t('flashes.teams.cannot_delete')
+    end
 
     respond_to do |format|
       format.html { redirect_to(teams_url) }
