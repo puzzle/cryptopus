@@ -165,4 +165,10 @@ class UserTest < ActiveSupport::TestCase
 
     assert users(:bob).locked?
   end
+
+  test 'get accounts' do
+    accounts = users(:bob).accounts
+    assert_equal 1, accounts.count
+    assert_equal 'account1', accounts.first.accountname
+  end
 end

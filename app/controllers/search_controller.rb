@@ -28,7 +28,7 @@ class SearchController < ApplicationController
   def account
     term = params[:search_string]
 
-    accounts = Account.where("accountname like ?", "%#{term}%").joins(:group)
+    accounts = current_user.accounts.where("accountname like ?", "%#{term}%")
 
     decrypt_accounts(accounts)
 

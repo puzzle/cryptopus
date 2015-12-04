@@ -114,4 +114,10 @@ class User < ActiveRecord::Base
   def legacy_private_key?
     /^Salted/ !~ private_key
   end
+
+  def accounts
+    Account.joins(:group).
+    joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
+    where(teammembers: {user_id: id })
+  end
 end

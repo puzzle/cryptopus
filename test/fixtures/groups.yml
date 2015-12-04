@@ -1,3 +1,7 @@
 group1:
   name: group1
   team: team1
+
+group2:
+  name: group2
+  team: team2
