@@ -35,6 +35,6 @@ class TeamsControllerTest < ActionController::TestCase
     login_as(:bob)
 
     delete :destroy, id: teams(:team1).id
-    assert_match /cannot delete/, flash[:error]
+    assert_match /cannot be deleted/, flash[:error]
   end
 end
