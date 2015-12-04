@@ -26,8 +26,10 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Cryptopus</title>
   <%= stylesheet_link_tag "application", :media => "all" %>
-  <% if session[:user_id] %>
-    <%= javascript_include_tag :application %>
+  <%= javascript_include_tag :application %>
+
+  <% if current_user %>
+    <%= javascript_include_tag :auto_logoff %>
   <% end %>
 </head>
 
