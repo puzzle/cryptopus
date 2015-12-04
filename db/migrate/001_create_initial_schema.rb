@@ -13,7 +13,7 @@ class CreateInitialSchema < ActiveRecord::Migration
 
   create_table "grouppasswords", :force => true do |t|
     t.column "group_id",   :integer,   :default => 0,  :null => false
-    t.column "password",   :binary,    :default => "", :null => false
+    t.column "password",   :binary,    :null => false
     t.column "user_id",    :integer,   :default => 0,  :null => false
     t.column "created_on", :timestamp,                 :null => false
     t.column "updated_on", :timestamp,                 :null => false
@@ -33,8 +33,8 @@ class CreateInitialSchema < ActiveRecord::Migration
     t.column "file",         :binary
     t.column "created_on",   :timestamp,                 :null => false
     t.column "updated_on",   :timestamp,                 :null => false
-    t.column "filename",     :text,      :default => "", :null => false
-    t.column "content_type", :text,      :default => "", :null => false
+    t.column "filename",     :text,      :null => false
+    t.column "content_type", :text,      :null => false
   end
 
   create_table "ldapsettings", :force => true do |t|
@@ -49,8 +49,8 @@ class CreateInitialSchema < ActiveRecord::Migration
   end
 
   create_table "users", :force => true do |t|
-    t.column "public_key",  :text,   :default => "", :null => false
-    t.column "private_key", :binary, :default => "", :null => false
+    t.column "public_key",  :text,   :null => false
+    t.column "private_key", :binary, :null => false
     t.column "password",    :binary
   end
   end
