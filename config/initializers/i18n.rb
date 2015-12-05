@@ -8,6 +8,10 @@ module I18n
     locale.to_s
   end
 
+  def self.available_locales
+    ['en', 'de', 'fr']
+  end
+
 end
 
 # E.g.:

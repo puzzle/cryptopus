@@ -26,6 +26,8 @@ group :development do
   gem 'sextant'
   gem 'pry'
   gem 'pry-stack_explorer'
+  gem 'seed-fu'
+  gem 'faker'
 end
 
 group :test do
