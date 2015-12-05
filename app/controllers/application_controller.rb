@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   # includes a security token
-  # protect_from_forgery with: :exception
+  #protect_from_forgery with: :exception
 
   private
 
@@ -105,10 +105,4 @@ class ApplicationController < ActionController::Base
   def default_url_options(options = {})
     { locale: I18n.locale }.merge options
   end
-
-
-  #rescue_from ActionController::InvalidAuthenticityToken do |exception|
-  #  logout
-  #end
-
 end
