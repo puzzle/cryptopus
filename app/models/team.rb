@@ -16,8 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Team < ActiveRecord::Base
-  has_many :groups, -> {order :name}, :dependent => :destroy
-  has_many :teammembers, :dependent => :delete_all
+  has_many :groups, -> {order :name}, dependent: :destroy
+  has_many :teammembers, dependent: :delete_all
 
   def teammember_candidates
     excluded_user_ids = User.joins('LEFT JOIN teammembers ON users.id = teammembers.user_id').
@@ -27,7 +27,14 @@ class Team < ActiveRecord::Base
     User.where('id NOT IN(?)', excluded_user_ids)
   end
 
-  def last_teammember?
-    teammembers.count == 1
+  def last_teammember?(user_id)
+    teammembers.count == 1 && teammembers.first.user_id == user_id
   end
+
+  def add_user(user)
+  end
+
+  def remove_user(user_id)
+  end
+
 end

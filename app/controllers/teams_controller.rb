@@ -19,22 +19,14 @@ require 'crypt_utils'
 
 class TeamsController < ApplicationController
 
-  before_filter :validate_change_rights, :only => [:edit, :update, :destroy]
+  before_filter :validate_change_rights, :only => [:edit, :update]
 
   # GET /teams
   def index
-    if session[:user_id].nil?
-      flash[:error] = t('flashes.teams.wrong_user_password')
-      redirect_to :controller => 'login', :action => 'login'
-      return
-    else
+    @teams = current_user.teams
 
-      @user = User.find( session[:user_id] )
-      @teams = @user.teams( :all ).uniq
-
-      respond_to do |format|
-        format.html # index.html.erb
-      end
+    respond_to do |format|
+      format.html # index.html.erb
     end
   end
 
@@ -111,16 +103,14 @@ class TeamsController < ApplicationController
   # DELETE /teams/1
   def destroy
     @team = Team.find( params[:id] )
-    if(current_user.admin? || current_user.root? || @team.last_teammember?)
+    if (current_user.admin? || current_user.root? || @team.last_teammember?(current_user.id))
        @team.destroy
        flash[:notice] = t('flashes.teams.deleted')
     else
       flash[:error] = t('flashes.teams.cannot_delete')
     end
 
-    respond_to do |format|
-      format.html { redirect_to(teams_url) }
-    end
+    redirect_to(teams_path)
   end
 
   private
