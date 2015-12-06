@@ -28,13 +28,47 @@ class Team < ActiveRecord::Base
   end
 
   def last_teammember?(user_id)
-    teammembers.count == 1 && teammembers.first.user_id == user_id
+    teammembers.count == 1 && teammember?(user_id)
   end
 
-  def add_user(user)
+  def teammember?(user_id)
+    teammember(user_id).present?
   end
 
-  def remove_user(user_id)
+  def teammember(user_id)
+    teammembers.where(user_id: user_id).first
+  end
+
+  def add_user(user, plaintext_team_password = nil)
+    return add_first_user(user) unless teammembers.present?
+    raise 'user is already team member' if teammember?(user.id)
+    create_teammember(user, plaintext_team_password)
+  end
+
+  def remove_user(user)
+    raise 'user is not a team member' unless teammember?(user.id)
+    teammember(user.id).destroy!
+  end
+
+  def decrypt_team_password(user, plaintext_private_key)
+    crypted_team_password = teammember(user.id).password
+    CryptUtils.
+      decrypt_team_password(crypted_team_password, plaintext_private_key)
+  end
+
+  private
+  def add_first_user(user)
+    plaintext_team_password = CryptUtils.new_team_password
+    create_teammember(user, plaintext_team_password)
+  end
+
+  def create_teammember(user, plaintext_team_password)
+    crypted_team_password = CryptUtils.
+      encrypt_team_password(plaintext_team_password, user.public_key)
+
+    teammembers.create!(password: crypted_team_password, 
+                       user: user, 
+                       admin: user.admin?) 
   end
 
 end
