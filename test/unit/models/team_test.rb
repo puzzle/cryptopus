@@ -37,17 +37,6 @@ class TeamTest <  ActiveSupport::TestCase
     assert_match /user is already team member/, exception.message
   end
 
-  test "adds first user to team" do
-    team = Team.create(name: 'foo')
-    plaintext_private_key = decrypt_private_key(alice)
-
-    team.add_user(alice)
-
-    assert_equal 1, team.teammembers.count
-    teammember = team.teammembers.first
-    assert_equal alice, teammember.user
-  end
-
   test "adds user to team" do
     team = teams(:team1)
     plaintext_team_password = team.
@@ -82,6 +71,82 @@ class TeamTest <  ActiveSupport::TestCase
     end
 
     assert_match /user is not a team member/, exception.message
+  end
+
+  test 'create new team adds creator, root and admins' do
+    params = {}
+    params[:name] = 'foo'
+    params[:description] = 'foo foo'
+    params[:private] = false
+    params[:noroot] = false
+
+    team = Team.create(bob, params)
+
+    assert_equal 3, team.teammembers.count
+    user_ids = team.teammembers.pluck(:user_id)
+    assert_includes user_ids, bob.id
+    assert_includes user_ids, users(:root).id
+    assert_includes user_ids, users(:admin).id
+    assert_not team.private?
+    assert_not team.noroot?
+    assert_equal 'foo', team.name
+    assert_equal 'foo foo', team.description
+  end
+
+  test 'create new team adds creator and admins' do
+    params = {}
+    params[:name] = 'foo'
+    params[:description] = 'foo foo'
+    params[:private] = false
+    params[:noroot] = true
+
+    team = Team.create(bob, params)
+
+    assert_equal 2, team.teammembers.count
+    user_ids = team.teammembers.pluck(:user_id)
+    assert_includes user_ids, bob.id
+    assert_includes user_ids, users(:admin).id
+    assert_not team.private?
+    assert team.noroot?
+    assert_equal 'foo', team.name
+    assert_equal 'foo foo', team.description
+  end
+
+  test 'create new team adds creator and root' do
+    params = {}
+    params[:name] = 'foo'
+    params[:description] = 'foo foo'
+    params[:private] = true
+    params[:noroot] = false
+
+    team = Team.create(bob, params)
+
+    assert_equal 2, team.teammembers.count
+    user_ids = team.teammembers.pluck(:user_id)
+    assert_includes user_ids, bob.id
+    assert_includes user_ids, users(:root).id
+    assert team.private?
+    assert_not team.noroot?
+    assert_equal 'foo', team.name
+    assert_equal 'foo foo', team.description
+  end
+
+  test 'create new team adds creator only' do
+    params = {}
+    params[:name] = 'foo'
+    params[:description] = 'foo foo'
+    params[:private] = true
+    params[:noroot] = true
+
+    team = Team.create(bob, params)
+
+    assert_equal 1, team.teammembers.count
+    user_ids = team.teammembers.pluck(:user_id)
+    assert_includes user_ids, bob.id
+    assert team.private?
+    assert team.noroot?
+    assert_equal 'foo', team.name
+    assert_equal 'foo foo', team.description
   end
 
   private

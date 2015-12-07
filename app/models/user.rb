@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   scope :locked, -> { where(locked: true)}
   scope :unlocked, -> { where(locked: false)}
 
+  scope :admins, -> { where(admin: true) }
+
   class << self
     def create_root(password)
       user = User.new(
@@ -56,6 +58,10 @@ class User < ActiveRecord::Base
         raise Exceptions::UserCreationFailed
       end
 
+    end
+
+    def root
+      find_by(uid: 0)
     end
   end
 
