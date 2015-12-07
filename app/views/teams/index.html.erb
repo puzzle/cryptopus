@@ -26,18 +26,11 @@
   </tr>
 
   <% @teams.each do |team| %>
-    <% teammember = team.teammembers.find_by_user_id_and_admin( @user.id, false ) %>
-    <% next if teammember.nil? %>
     <tr class="<%= cycle( 'odd', 'even' ) %>">
-    <% unless teammember.locked %>
-      <td><%= link_to image_tag( "kontact_contacts.png" ) + " " + %Q{#{team.name}}, team_groups_path( team ) %></td>
-    <% else %>
-      <td><%= image_tag( "kontact_contacts.png" ) + " " + %Q{#{team.name}} + " [LOCKED]" %></td>
-    <% end %>
+    <td><%= link_to image_tag( "kontact_contacts.png" ) + " #{team.name}", team_groups_path( team ) %></td>
     <td><%= team.description %></td>
     <td><%= link_to image_tag( "edit.png" ), edit_team_path( team ) %></td>
-    <td><%= link_to image_tag( "remove.png" ), team, data: {confirm: :confirmation}, :method => :delete %></td> 
+    <td><%= link_to image_tag( "remove.png" ), team, data: {confirm: :confirmation}, :method => :delete %></td>
     </tr>
-
   <% end %>
 </table>
