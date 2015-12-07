@@ -28,7 +28,7 @@ class SearchController < ApplicationController
   def account
     term = params[:search_string]
 
-    accounts = current_user.accounts.where("accountname like ?", "%#{term}%")
+    accounts = current_user.search_accounts(term)
 
     decrypt_accounts(accounts)
 
