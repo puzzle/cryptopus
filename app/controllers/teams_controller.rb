@@ -41,24 +41,10 @@ class TeamsController < ApplicationController
 
   # POST /teams
   def create
-    @team = Team.new( team_params )
-    @team.created_on = Time.now
-    @team.updated_on = Time.now
-
     respond_to do |format|
-      if @team.save
-        @team_password = CryptUtils.new_team_password
-
-        user = User.find( session[:user_id] )
-        add_user_to_team( user, false )
-
-        add_root_to_team if @team.noroot == false
-
-        add_admins_to_team if @team.private == false
-
+      if Team.create(current_user, team_params)
         flash[:notice] = t('flashes.teams.created')
         format.html { redirect_to(teams_url) }
-
       else
         format.html { render :action => "new" }
       end

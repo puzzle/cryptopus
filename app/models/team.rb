@@ -19,6 +19,9 @@ class Team < ActiveRecord::Base
   has_many :groups, -> {order :name}, dependent: :destroy
   has_many :teammembers, dependent: :delete_all
 
+  # TODO add validations
+  #validates :name, presence: true
+
   class << self
     def create(creator, params)
       team = super(params)

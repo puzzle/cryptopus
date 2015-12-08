@@ -70,4 +70,24 @@ class TeamsControllerTest < ActionController::TestCase
     assert_match /cannot be deleted/, flash[:error]
   end
 
+  test "user creates new team" do
+    login_as(:bob)
+
+    team_params = {name: 'foo', private: false, noroot: false, description: 'foo foo' }
+
+    post :create, team: team_params
+
+    assert_redirected_to teams_path
+
+    team = Team.find_by(name: 'foo')
+    assert_equal 3, team.teammembers.count
+    user_ids = team.teammembers.pluck(:user_id)
+    assert_includes user_ids, users(:bob).id
+    assert_includes user_ids, users(:admin).id
+    assert_includes user_ids, users(:root).id
+    assert_not team.private?
+    assert_not team.noroot?
+    assert_equal 'foo foo', team.description
+  end
+
 end
