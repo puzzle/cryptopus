@@ -8,12 +8,14 @@ gem 'net-ldap'
 
 gem 'dynamic_form'
 gem 'uglifier'
-gem 'sass-rails'
+#gem 'sass-rails'
 gem 'compass-rails'
 gem 'jquery-rails'
 gem 'zeroclipboard-rails'
 gem 'handlebars_assets'
-gem 'bootstrap-sass', '~> 3.2.0'
+#gem 'bootstrap-sass', '~> 3.2.0'
+gem 'twitter-bootstrap-rails'
+gem 'less-rails'
 
 group :development, :test do
   gem 'minitest'

@@ -1,21 +1,3 @@
-<%
-# $Id$
-
-# Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation; either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
--%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -40,11 +22,7 @@
 
     <nav id="site-navigation" class="main-navigation" role="navigation">
       <%= render :partial => 'layouts/navigation' %>
-    </nav><!-- end #site-navigation .main-navigation -->
-
-    <header id="masthead" class="site-header" role="banner">
-      <%= link_to image_tag("logo_cryptopus.svg"), '/', {:class => "site-header-logo"} %>
-    </header><!-- end #masthead .site-header -->
+    </nav>
 
     <div id="main">
 
@@ -57,14 +35,14 @@
         <% unless flash[:error].blank? %>
             <div id="error" class="alert alert-danger"><%= flash[:error] %></div>
         <% end %>
-        </aside><!-- end #sidebar .widget-area -->
-      </div><!-- end #content .site-content -->
-    </div><!-- end #main -->
+        </aside>
+      </div>
+    </div>
 
     <footer id="colophon" class="site-footer" role="contentinfo">
       <%= link_to 'Cryptopus 2015', 'https://github.com/puzzle/cryptopus', {:class => "alignleft"} %>
       <%= render :partial => 'layouts/locale' %>
-    </footer><!-- end #colophon .site-footer -->
+    </footer>
 
 
   </div>
