@@ -79,7 +79,7 @@ class LdapTools
   end
 
   def connect
-    unless Setting.value(:ldap, :enable).value
+    unless Setting.value(:ldap, :enable)
       return nil
     end
 
