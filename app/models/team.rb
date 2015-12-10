@@ -19,6 +19,24 @@ class Team < ActiveRecord::Base
   has_many :groups, -> {order :name}, dependent: :destroy
   has_many :teammembers, dependent: :delete_all
 
+  # TODO add validations
+  #validates :name, presence: true
+
+  class << self
+    def create(creator, params)
+      team = super(params)
+      plaintext_team_password = CryptUtils.new_team_password 
+      team.add_user(creator, plaintext_team_password)
+      unless team.private?
+        User.admins.each do |a|
+          team.add_user(a, plaintext_team_password)
+        end
+      end
+      team.add_user(User.root, plaintext_team_password) unless team.noroot?
+      team
+    end
+  end
+
   def teammember_candidates
     excluded_user_ids = User.joins('LEFT JOIN teammembers ON users.id = teammembers.user_id').
                           where('users.uid = 0 OR users.admin = ? OR teammembers.team_id = ?', true, id).
@@ -39,8 +57,7 @@ class Team < ActiveRecord::Base
     teammembers.where(user_id: user_id).first
   end
 
-  def add_user(user, plaintext_team_password = nil)
-    return add_first_user(user) unless teammembers.present?
+  def add_user(user, plaintext_team_password)
     raise 'user is already team member' if teammember?(user.id)
     create_teammember(user, plaintext_team_password)
   end
@@ -57,11 +74,6 @@ class Team < ActiveRecord::Base
   end
 
   private
-  def add_first_user(user)
-    plaintext_team_password = CryptUtils.new_team_password
-    create_teammember(user, plaintext_team_password)
-  end
-
   def create_teammember(user, plaintext_team_password)
     crypted_team_password = CryptUtils.
       encrypt_team_password(plaintext_team_password, user.public_key)
