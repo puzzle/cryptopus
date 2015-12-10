@@ -12,9 +12,11 @@ class TeamGroupsAccountsSeeder
 
     team = Team.find_by(name: name)
 
+    plaintext_team_pw = CryptUtils.new_team_password 
+
     members.each do |m|
       u = user(m)
-      add_member(team, u)
+      add_member(team, u, plaintext_team_pw)
       add_member(team, root) unless team.noroot
     end
 
@@ -43,9 +45,9 @@ class TeamGroupsAccountsSeeder
     User.find_by(uid: 0)
   end
 
-  def add_member(team, user)
+  # provide team password for first member only
+  def add_member(team, user, plaintext_team_pw = nil)
     return if team.teammember?(user.id)
-    plaintext_team_pw = nil
     if team.teammembers.present?
       member = team.teammembers.first.user
       plaintext_private_key = member.decrypt_private_key('password')
