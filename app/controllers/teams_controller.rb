@@ -18,8 +18,8 @@
 require 'crypt_utils'
 
 class TeamsController < ApplicationController
-
-  before_filter :validate_change_rights, :only => [:edit, :update]
+  before_filter :redirect_if_not_teammember_or_admin, only: [:edit, :update, :destroy]
+  before_filter :redirect_if_not_allowed_to_delete_team, only: [:destroy]
 
   # GET /teams
   def index
@@ -67,12 +67,10 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
-    @team = Team.find( params[:id] )
   end
 
   # PUT /teams/1
   def update
-    @team = Team.find( params[:id] )
     @team.updated_on = Time.now
 
     respond_to do |format|
@@ -102,15 +100,9 @@ class TeamsController < ApplicationController
 
   # DELETE /teams/1
   def destroy
-    @team = Team.find( params[:id] )
-    if (current_user.admin? || current_user.root? || @team.last_teammember?(current_user.id))
-       @team.destroy
-       flash[:notice] = t('flashes.teams.deleted')
-    else
-      flash[:error] = t('flashes.teams.cannot_delete')
-    end
-
-    redirect_to(teams_path)
+    @team.destroy
+    flash[:notice] = t('flashes.teams.deleted')
+    redirect_to teams_path
   end
 
   private
@@ -118,9 +110,11 @@ class TeamsController < ApplicationController
       params.require(:team).permit(:name, :private, :noroot, :description)
     end
 
-    def validate_change_rights
-      unless am_i_team_member( params[:id] )
-        redirect_to :controller => 'login', :action => 'noaccess', :message => "You are not member of this team"
+    def redirect_if_not_teammember_or_admin
+      @team = Team.find( params[:id] )
+      unless @team.teammember?( current_user.id ) || current_user.admin? || current_user.root?
+        flash[:error] = "You are not member of this team"
+        redirect_to teams_path
         return
       end
     end
@@ -173,6 +167,14 @@ class TeamsController < ApplicationController
       admins = @team.teammembers.where(admin: true)
       for admin in admins do
         admin.destroy unless admin.user.root?
+      end
+    end
+
+    def redirect_if_not_allowed_to_delete_team
+      unless current_user.admin? || current_user.root?
+        flash[:error] = t('flashes.teams.cannot_delete')
+        redirect_to teams_path
+        return
       end
     end
 end
