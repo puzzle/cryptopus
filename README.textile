@@ -75,10 +75,10 @@ h2. Docker
 You can easily test Cryptopus with Docker:
 
 1. "Install Docker":https://docs.docker.com/engine/installation/ubuntulinux/
-2. Build Docker image: docker build -t cryptopus .
-3. Run Docker container: <notextile>docker run -it --rm --name cryptopus -p 3000:3000 cryptopus</notextile>
-4. Execute rake: docker exec cryptopus rake db:setup
-5. Visit localhost:3000 in your browser
+2. Build Docker image: @docker build -t cryptopus .@
+3. Run Docker container: @docker run -it --rm --name cryptopus -p 3000:3000 cryptopus@
+4. Execute rake: @docker exec cryptopus rake db:setup@
+5. Visit "localhost:3000":http://localhost:3000 in your browser
 
 h2. Mock + RPM + Puppet
 
