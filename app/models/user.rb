@@ -31,6 +31,18 @@ class User < ActiveRecord::Base
   scope :admins, -> { where(admin: true) }
 
   class << self
+
+    def find_user(username, password)
+      user = find_by(username: username)
+
+      return user if user
+
+      if Setting.value(:ldap, :enable)
+        return nil unless LdapTools.ldap_login(username, password)
+        User.create_from_ldap(username, password)
+      end
+    end
+
     def create_root(password)
       user = User.new(
         uid: 0,
@@ -45,8 +57,6 @@ class User < ActiveRecord::Base
     end
 
     def create_from_ldap(username, password)
-      # TODO simplify and refactor
-      raise Exceptions::AuthenticationFailed unless LdapTools.ldap_login(username, password)
       begin
         user = self.new
         user.username = username
@@ -57,7 +67,7 @@ class User < ActiveRecord::Base
       rescue
         raise Exceptions::UserCreationFailed
       end
-
+      user
     end
 
     def root

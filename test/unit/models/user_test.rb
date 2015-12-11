@@ -1,4 +1,6 @@
 require 'test_helper'
+require 'mocha/test_unit'
+
 class UserTest < ActiveSupport::TestCase
 
   test 'cannot create second user bob' do
@@ -170,5 +172,47 @@ class UserTest < ActiveSupport::TestCase
     accounts = users(:bob).accounts
     assert_equal 1, accounts.count
     assert_equal 'account1', accounts.first.accountname
+  end
+
+  test 'create user from ldap' do
+    username = 'bob'
+    LdapTools.expects(:get_uid_by_username).returns(42)
+    LdapTools.expects(:get_ldap_info).with('42', 'givenname').returns("bob")
+    LdapTools.expects(:get_ldap_info).with('42', 'sn').returns("test")
+
+    user = User.create_from_ldap(username, 'password')
+
+    assert_equal username, user.username
+    assert_equal 42, user.uid
+    assert_equal 'bob', user.givenname
+    assert_equal 'test', user.surname
+    assert_equal 'ldap', user.auth
+  end
+
+  test 'returns user if exists in db' do
+    user = User.find_user('bob', 'password')
+    assert user.present?
+    assert_equal 'bob', user.username
+  end
+
+  test 'does not return user if user not exists in db and ldap' do
+    username = 'not_existing_user'
+    Setting.find_by(key: 'ldap_enable').update_attributes(value: true)
+
+    LdapTools.expects(:ldap_login).with(username, 'password').returns(false)
+    User.expects(:create_from_ldap).with(username, 'password')
+
+    user = User.find_user(username, 'password')
+
+    assert_not user.present?
+  end
+
+  test 'does not return user if user not exists in db and ldap disabled' do
+    username = 'not_existing_user'
+    Setting.find_by(key: 'ldap_enable').update_attributes(value: false)
+    LdapTools.expects(:ldap_login).never
+
+    user = User.find_user(username, 'password')
+    assert_not user.present?
   end
 end
