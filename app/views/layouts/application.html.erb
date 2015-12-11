@@ -1,52 +1,29 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <title>Cryptopus</title>
 
-<head>
-  <link rel="shortcut icon" href="/favicon.png" type="image/png" />
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Cryptopus</title>
-  <%= stylesheet_link_tag :application, :media => "all" %>
-  <%= javascript_include_tag :application %>
+    <%= stylesheet_link_tag :application, :media => "all" %>
 
-  <% if current_user %>
-    <%= javascript_include_tag :auto_logoff %>
-  <% end %>
-</head>
+    <%= javascript_include_tag :application %>
+  </head>
 
-<body>
-  <%= render :partial => 'layouts/icons' %>
+  <body>
 
-  <div id="page" class="hfeed container">
+    <%= render partial: 'layouts/navigation' %>
 
-    <nav id="site-navigation" class="main-navigation" role="navigation">
-      <%= render :partial => 'layouts/navigation' %>
-    </nav>
-
-    <div id="main">
-
-      <div id="content" class="site-content" role="main">
-        <%= yield  %>
-        <aside id="sidebar" class="widget-area" role="complementary">
-          <% unless flash[:notice].blank? %>
-            <div id="notification" class="alert alert-info"><%= flash[:notice] %></div>
-          <% end %>
-        <% unless flash[:error].blank? %>
-            <div id="error" class="alert alert-danger"><%= flash[:error] %></div>
-        <% end %>
-        </aside>
-      </div>
+    <div class="container main" role="main">
+      <%= yield  %>
     </div>
 
-    <footer id="colophon" class="site-footer" role="contentinfo">
-      <%= link_to 'Cryptopus 2015', 'https://github.com/puzzle/cryptopus', {:class => "alignleft"} %>
-      <%= render :partial => 'layouts/locale' %>
-    </footer>
+    <% if current_user %>
+      <%= javascript_include_tag :auto_logoff %>
+    <% end %>
 
-
-  </div>
-
-</body>
-
+  </body>
 </html>

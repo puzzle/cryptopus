@@ -2,13 +2,10 @@
   <%= form_tag(action: 'authenticate') do %>
     <fieldset>
       <%= image_tag("logo_cryptopus.svg", class: 'logo') %>
-      <p><%=t '.description' %></p>
 
       <div class="form-group">
         <%= text_field_tag :username, params[:username], id: 'username', placeholder: t(:username), class: 'form-control' %>
-      </div>
 
-      <div class="form-group">
         <%= password_field_tag :password, nil, id: 'password', placeholder: t(:password), class: 'form-control' %>
       </div>
 

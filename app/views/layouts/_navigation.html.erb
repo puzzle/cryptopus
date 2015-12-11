@@ -1,44 +1,34 @@
-<%
-# $Id$
+<% if current_user %>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <%= link_to('Cryptopus', search_path, class: 'navbar-brand') %>
+      </div>
 
-# Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation; either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
--%>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <%= nav_link t('teams.title'), teams_path %>
+            <% if current_user.admin? || current_user.root? %>
+            <li class="dropdown">
+              <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown", role="button">
+               Admin
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= nav_link t(:ldap_settings), admin_settings_path %></li>
+                <li><%= nav_link t(:recrypt_requests), admin_recryptrequests_path %></li>
+                <li><%= nav_link t(:users), admin_users_path %></li>
+              </ul>
+            </li>
+            <% end %>
+            <% if current_user.auth_db? %>
+              <%= nav_link t(:change_password), show_update_password_login_path %>
+            <% end %>
+        </ul>
 
-<div id="navcontainer">
-<% if session[:user_id] %>
-	  <ul class="nav nav-pills">
-	    <%= nav_link "organization", t('teams.title'), teams_path %>
-        <% if User.find( session[:user_id] ).admin? or User.find( session[:user_id] ).root? %>
-				<li class="dropdown">
-					<a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
-						Admin
-						<b class="caret"></b>
-					</a>
-					<ul class="dropdown-menu">
-						<li><%= nav_link "tools", t(:ldap_settings), admin_settings_path %></li>
-		        <li><%= nav_link "lock", t(:recrypt_requests), admin_recryptrequests_path %></li>
-		        <li><%= nav_link "person", t(:users), admin_users_path %></li>
-					</ul>
-				</li>
-        <% end %>
-        <% if User.find( session[:user_id] ).auth_db? %>
-	        <%= nav_link "key", t(:change_password), show_update_password_login_path %>
-        <% end %>
-      <%= render_menu %>
-      <li><%= render :partial => 'layouts/option' %></li>
-    </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <%= nav_link('Logout', logout_login_path) %>
+      </div>
+    </div>
+  </nav>
 <% end %>
-</div>

@@ -1,19 +1,29 @@
-.login-form {
-  max-width: 330px;
-  padding: 25px;
-  margin: 0 auto;
-  margin-top: 40px;
-  padding: 20px;
-  background-color: #f7f7f7;
-  text-align: center;
-  border-color: black;
-  border-width: 1px;
-  border-radius: 10px 10px 0 0;
+.main {
+  margin-top: 50px;
 }
 
-.login-form .logo {
-  width: 30%;
-  padding: 5px;
+/* form */
+.login-form {
+  height: 350px;
+  margin-top: -30px;
+  padding: 10px;
+  background-image: url("form_bg.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+}
+
+.login-form .form-group {
+  padding-bottom: 10px;
+}
+
+.login-form input {
+  margin-bottom: 10px;
+}
+
+.login-form fieldset {
+  max-width: 250px;
+  margin: auto;
 }
 
 .login-form .btn {
