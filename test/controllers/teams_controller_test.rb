@@ -1,6 +1,4 @@
 require 'test_helper'
-require 'test/unit'
-require 'mocha/test_unit'
 
 class TeamsControllerTest < ActionController::TestCase
 

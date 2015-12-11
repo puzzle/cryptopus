@@ -1,6 +1,5 @@
 require 'test_helper'
 require 'test/unit'
-require 'mocha/test_unit'
 
 class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
 include IntegrationTest::AccountTeamSetupHelper

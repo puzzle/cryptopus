@@ -38,13 +38,13 @@ class User < ActiveRecord::Base
       return user if user
 
       if Setting.value(:ldap, :enable)
-        return nil unless LdapTools.ldap_login(username, password)
-        User.create_from_ldap(username, password)
+        return unless LdapTools.ldap_login(username, password)
+        create_from_ldap(username, password)
       end
     end
 
     def create_root(password)
-      user = User.new(
+      user = new(
         uid: 0,
         username: 'root',
         givenname: 'root',
@@ -56,6 +56,11 @@ class User < ActiveRecord::Base
       user.save!
     end
 
+    def root
+      find_by(uid: 0)
+    end
+
+    private
     def create_from_ldap(username, password)
       begin
         user = self.new
@@ -68,10 +73,6 @@ class User < ActiveRecord::Base
         raise Exceptions::UserCreationFailed
       end
       user
-    end
-
-    def root
-      find_by(uid: 0)
     end
   end
 

@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'mocha/test_unit'
 
 class UserTest < ActiveSupport::TestCase
 
@@ -180,7 +179,7 @@ class UserTest < ActiveSupport::TestCase
     LdapTools.expects(:get_ldap_info).with('42', 'givenname').returns("bob")
     LdapTools.expects(:get_ldap_info).with('42', 'sn').returns("test")
 
-    user = User.create_from_ldap(username, 'password')
+    user = User.send(:create_from_ldap, username, 'password')
 
     assert_equal username, user.username
     assert_equal 42, user.uid
@@ -196,23 +195,35 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'does not return user if user not exists in db and ldap' do
-    username = 'not_existing_user'
-    Setting.find_by(key: 'ldap_enable').update_attributes(value: true)
+    enable_ldap_auth
 
-    LdapTools.expects(:ldap_login).with(username, 'password').returns(false)
-    User.expects(:create_from_ldap).with(username, 'password')
+    LdapTools.expects(:ldap_login).with('nobody', 'password').returns(false)
+    User.expects(:create_from_ldap).never
 
-    user = User.find_user(username, 'password')
+    user = User.find_user('nobody', 'password')
 
     assert_not user.present?
   end
 
   test 'does not return user if user not exists in db and ldap disabled' do
-    username = 'not_existing_user'
-    Setting.find_by(key: 'ldap_enable').update_attributes(value: false)
     LdapTools.expects(:ldap_login).never
 
-    user = User.find_user(username, 'password')
+    user = User.find_user('nobody', 'password')
     assert_not user.present?
   end
+
+  #test 'imports and creates user from ldap' do
+    #enable_ldap_auth
+    #LdapTools.expects(:ldap_login).with('alan', 'password').returns(true)
+    #User.expects(:create_from_ldap).never
+
+    #user = User.find_user('nobody', 'password')
+    #assert_not user.present?
+  #end
+
+  private
+  def enable_ldap_auth
+    Setting.find_by(key: 'ldap_enable').update_attributes(value: true)
+  end
+
 end
