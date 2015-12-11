@@ -70,6 +70,16 @@ initialize database and loading database dev seeds: @rake db:setup@
 start server: @rails s@
 log into app with user "root" and password "password"
 
+h2. Docker
+
+You can easily test Cryptopus with Docker:
+
+1. Install Docker: https://docs.docker.com/engine/installation/ubuntulinux/
+2. Build Docker image: docker build -t cryptopus .
+3. Run Docker container: docker run -it --rm --name cryptopus -p 3000:3000 cryptopus
+4. Execute rake: docker exec cryptopus rake db:setup
+5. Visit localhost:3000 in your browser
+
 h2. Mock + RPM + Puppet
 
 If you have a mock buildserver you can build an RPM of cryptopus with the script in the config/rpm directory
