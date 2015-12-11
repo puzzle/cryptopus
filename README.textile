@@ -74,7 +74,7 @@ h2. Docker
 
 You can easily test Cryptopus with Docker:
 
-1. Install Docker: https://docs.docker.com/engine/installation/ubuntulinux/
+1. "Install Docker":https://docs.docker.com/engine/installation/ubuntulinux/
 2. Build Docker image: docker build -t cryptopus .
 3. Run Docker container: <notextile>docker run -it --rm --name cryptopus -p 3000:3000 cryptopus</notextile>
 4. Execute rake: docker exec cryptopus rake db:setup
