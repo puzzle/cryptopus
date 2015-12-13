@@ -1,43 +1,32 @@
-<%
-# $Id$
-#
-# Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation; either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
--%>
-
-<!--[form:user]-->
-<%= form_for([:admin, @user]) do |f| %>
+<%= form_for([:admin, @user],html:{ role: 'form'}) do |f| %>
   <%= f.error_messages %>
   
-  <%= f.label :username %>
-  <%= f.text_field :username, :autofocus => true %>
+  <div class="form-group">
+    <%= f.label :username %>
+    <%= f.text_field :username, autofocus: true %>
+  </div>
 
   <% if @user.new_record? %>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
   <% end %>
   
-  <%= f.label :admin %>
-  <%= f.check_box :admin %>
+  <div class="form-group">
+    <%= f.label :admin %>
+    <%= f.check_box :admin %>
+  </div>
 
-  <%= f.label :givenname %>
-  <%= f.text_field :givenname %>
+  <div class="form-group">
+    <%= f.label :givenname %>
+    <%= f.text_field :givenname %>
+  </div>
 
-  <%= f.label :surname %>
-  <%= f.text_field :surname %>
+  <div class="form-group">
+    <%= f.label :surname %>
+    <%= f.text_field :surname %>
+  </div>
 
-  <%= f.submit @submit_button_text %>
+  <%= f.submit @submit_button_text, class: 'btn' %>
 <% end %>
-<!--[eoform:user]-->

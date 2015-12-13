@@ -1,74 +1,29 @@
-<%
-# $Id$
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
 
-# Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation; either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
--%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <title>Cryptopus</title>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <%= stylesheet_link_tag :application, :media => "all" %>
 
-<head>
-  <link rel="shortcut icon" href="/favicon.png" type="image/png" />
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Cryptopus</title>
-  <%= stylesheet_link_tag :application, :media => "all" %>
-  <%= javascript_include_tag :application %>
+    <%= javascript_include_tag :application %>
+  </head>
 
-  <% if current_user %>
-    <%= javascript_include_tag :auto_logoff %>
-  <% end %>
-</head>
+  <body>
 
-<body>
-  <%= render :partial => 'layouts/icons' %>
+    <%= render partial: 'layouts/navigation' %>
 
-  <div id="page" class="hfeed container">
+    <div class="container main" role="main">
+      <%= yield  %>
+    </div>
 
-    <nav id="site-navigation" class="main-navigation" role="navigation">
-      <%= render :partial => 'layouts/navigation' %>
-    </nav><!-- end #site-navigation .main-navigation -->
+    <% if current_user %>
+      <%= javascript_include_tag :auto_logoff %>
+    <% end %>
 
-    <header id="masthead" class="site-header" role="banner">
-      <%= link_to image_tag("logo_cryptopus.svg"), '/', {:class => "site-header-logo"} %>
-    </header><!-- end #masthead .site-header -->
-
-    <div id="main">
-
-      <div id="content" class="site-content" role="main">
-        <%= yield  %>
-        <aside id="sidebar" class="widget-area" role="complementary">
-          <% unless flash[:notice].blank? %>
-            <div id="notification" class="alert alert-info"><%= flash[:notice] %></div>
-          <% end %>
-        <% unless flash[:error].blank? %>
-            <div id="error" class="alert alert-danger"><%= flash[:error] %></div>
-        <% end %>
-        </aside><!-- end #sidebar .widget-area -->
-      </div><!-- end #content .site-content -->
-    </div><!-- end #main -->
-
-    <footer id="colophon" class="site-footer" role="contentinfo">
-      <%= link_to 'Cryptopus 2015', 'https://github.com/puzzle/cryptopus', {:class => "alignleft"} %>
-      <%= render :partial => 'layouts/locale' %>
-    </footer><!-- end #colophon .site-footer -->
-
-
-  </div>
-
-</body>
-
+  </body>
 </html>

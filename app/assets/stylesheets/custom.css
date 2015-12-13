@@ -1,0 +1,66 @@
+.main {
+  margin-top: 50px;
+}
+
+.container {
+  width: 800px;
+  text-align: center;
+}
+
+.container h1 {
+  font-size: 1.5em;
+}
+
+.container h2 {
+  font-size: 1.1em;
+}
+
+.container .table {
+  text-align: left;
+  margin-top: 60px;
+}
+
+.container form:not(.login) {
+  margin: auto;
+  width: 70%;
+  text-align: left;
+}
+
+/* login form */
+.login-form {
+  height: 350px;
+  padding: 10px;
+  background-image: url("form_bg.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+}
+
+.login-form .form-group {
+  padding-bottom: 10px;
+}
+
+.login-form input {
+  margin-bottom: 10px;
+}
+
+.login-form fieldset {
+  max-width: 250px;
+  margin: auto;
+}
+
+.login-form .btn {
+  width: 80%;
+}
+
+/* search and results */
+
+.search {
+  text-align: center;
+}
+
+input.search-input {
+  width: 60%;
+  margin: 4em auto;
+  padding: 1em;
+}
