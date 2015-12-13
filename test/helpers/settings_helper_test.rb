@@ -1,5 +1,6 @@
 require 'test_helper'
 class SettingsHelperTest < ActionView::TestCase
+  include ApplicationHelper
   include Admin::SettingsHelper
   test 'create label and input for text' do
     setting = Setting.find_by(key: 'ldap_basename')
