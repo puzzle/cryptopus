@@ -1,52 +1,34 @@
-<%
-# $Id$
-
-# Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation; either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
--%>
-
-<!--[form:account]-->
-<%= form_for([@team, @group, @account]) do |f| %>
+<%= form_for([@team, @group, @account], role: 'form') do |f| %>
   <%= f.error_messages %>
 
-  <%= f.label :account %>
-  <%= f.text_field :accountname, :autofocus => true  %>
+  <div class="form-group">
+    <%= f.label :account %>
+    <%= f.text_field :accountname, autofocus: true, class: 'form-control' %>
+  </div>
 
-  <%= f.label :username %>
-  <%= f.text_field :username %>
+  <div class="form-group">
+    <%= f.label :username %>
+    <%= f.text_field :username, class: 'form-control' %>
+  </div>
 
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-  <br><br>
-  <div class="wrapper">
-    <div id="description">
-      <%= f.label :description %>
-    </div>
+  <div class="form-group">
+    <%= f.label :password %>
+    <%= f.password_field :password, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description %>
     <span id="unencrypted">
       (<%= I18n.t('unencrypted_field_caption') %>)
     </span>
+    <%= f.text_area :description, class: 'form-control' %>
   </div>
-  <%= f.text_area :description, options = {:cols => 35} %>
 
-  <% unless @groups.nil? or @groups.empty? %>
+  <% if @groups && @groups.count > 1 %>
 
     <%= f.label I18n.t('accounts_move') %>
     <%= f.collection_select(:group_id, @groups, :id, :name) %>
 
   <% end %>
 
-  <%= f.submit @submit_button_text %>
+  <%= f.submit @submit_button_text, class: 'btn btn-primary' %>
 <% end %>
-<!--[eoform:account]-->

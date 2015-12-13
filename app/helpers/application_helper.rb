@@ -45,5 +45,10 @@ module ApplicationHelper
       link_to(name, path)
     end
   end
+
+  private
+  def default_field_options
+    {class: 'form-control'}
+  end
   
 end

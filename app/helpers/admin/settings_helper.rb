@@ -8,20 +8,20 @@ module Admin::SettingsHelper
     else
       content << input_field_setting_default(setting)
     end
-    content.html_safe
+    content_tag(:div, content.html_safe, class: 'form-group').html_safe
   end
 
   def input_field_setting_true_false(setting)
     content = hidden_field_tag(key_param(setting), 'f')
-    content << check_box_tag(key_param(setting), 't', setting.value)
+    content << check_box_tag(key_param(setting), 't', setting.value, default_field_options)
   end
 
   def input_field_setting_number(setting)
-    number_field_tag(key_param(setting), setting.value)
+    number_field_tag(key_param(setting), setting.value, default_field_options)
   end
 
   def input_field_setting_default(setting)
-    text_field_tag(key_param(setting), setting.value)
+    text_field_tag(key_param(setting), setting.value, default_field_options)
   end
 
 private
