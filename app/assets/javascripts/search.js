@@ -46,16 +46,17 @@ var Cryptopus = Cryptopus || function() {};
     $('.result-password .password-link').click(function(e) {
       e.preventDefault();
       var passLink = $(e.target),
-          passInput = passLink.next('.password-hidden');
+        passInput = passLink.next('.password-hidden');
+        
       passLink.hide();
-      passInput.show();
+      passInput.removeClass('hide');
       setTimeout(function(){
          passInput.select();
       }, 80);
 
       setTimeout(function(){
           passLink.show();
-          passInput.hide();
+          passInput.addClass('hide');
       }, 5000);
     });
   };
