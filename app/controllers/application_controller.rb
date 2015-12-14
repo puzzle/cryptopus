@@ -19,7 +19,7 @@
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
   before_filter :redirect_to_wizard_if_new_setup
-  before_filter :authorize, :except => [:login, :authenticate, :logout]
+  before_filter :authorize, :except => [:login, :authenticate, :logout, :wizard]
   before_filter :prepare_menu
   before_filter :set_locale
   before_filter :set_cache_headers
@@ -74,11 +74,6 @@ class ApplicationController < ActionController::Base
     team_member = Teammember.where("team_id=? and user_id=?", team_id, user_id ).first
     return true if team_member
     return false
-  end
-
-  def am_i_team_member( team_id )
-    user = User.find( session[:user_id] )
-    return is_user_team_member( team_id, user.id )
   end
 
   def prepare_menu

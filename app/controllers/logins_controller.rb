@@ -27,15 +27,14 @@ class LoginsController < ApplicationController
     username = params[:username].strip
     password = params[:password]
 
-    user = User.find_by(username: username)
-
-    unless user
+    user = User.find_user(username, password)
+    
+    if user
+      authenticate_user(user, password)
+    else
       flash[:error] = t('flashes.logins.auth_failed')
       render :action => 'login'
-      return
     end
-
-    authenticate_user(user, password)
   end
 
   def logout

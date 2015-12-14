@@ -20,7 +20,7 @@ require 'net/ldap'
 class LdapTools
  class << self
   def ldap_login( username, password )
-    return nil unless Setting.value(:ldap, :enable)
+    return unless Setting.value(:ldap, :enable)
 
 #TODO
     ldap = Net::LDAP.new \
