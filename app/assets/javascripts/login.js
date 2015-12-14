@@ -13,7 +13,7 @@ $(document).ready(function() {
   }
 });
 
-$('#loginform').submit(function createLocalStorageEntry() {
+$('.login').submit(function createLocalStorageEntry() {
   var input_username = user_input.val();
   localStorage.setItem('username', input_username);
 });
