@@ -189,7 +189,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'returns user if exists in db' do
-    user = User.find_user('bob', 'password')
+    user = User.find_or_import_from_ldap('bob', 'password')
     assert user.present?
     assert_equal 'bob', user.username
   end
@@ -200,7 +200,7 @@ class UserTest < ActiveSupport::TestCase
     LdapTools.expects(:ldap_login).with('nobody', 'password').returns(false)
     User.expects(:create_from_ldap).never
 
-    user = User.find_user('nobody', 'password')
+    user = User.find_or_import_from_ldap('nobody', 'password')
 
     assert_not user.present?
   end
@@ -208,22 +208,21 @@ class UserTest < ActiveSupport::TestCase
   test 'does not return user if user not exists in db and ldap disabled' do
     LdapTools.expects(:ldap_login).never
 
-    user = User.find_user('nobody', 'password')
+    user = User.find_or_import_from_ldap('nobody', 'password')
     assert_not user.present?
   end
 
-  #test 'imports and creates user from ldap' do
-    #enable_ldap_auth
-    #LdapTools.expects(:ldap_login).with('alan', 'password').returns(true)
-    #User.expects(:create_from_ldap).never
+  test 'imports and creates user from ldap' do
+    enable_ldap_auth
+    LdapTools.expects(:ldap_login).with('nobody', 'password').returns(true)
+    User.expects(:create_from_ldap).once
 
-    #user = User.find_user('nobody', 'password')
-    #assert_not user.present?
-  #end
+    user = User.find_or_import_from_ldap('nobody', 'password')
+    assert_not user.present?
+  end
 
   private
   def enable_ldap_auth
     Setting.find_by(key: 'ldap_enable').update_attributes(value: true)
   end
-
 end

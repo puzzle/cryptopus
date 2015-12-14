@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
 
   class << self
 
-    def find_user(username, password)
+    def find_or_import_from_ldap(username, password)
       user = find_by(username: username)
 
       return user if user
@@ -62,17 +62,15 @@ class User < ActiveRecord::Base
 
     private
     def create_from_ldap(username, password)
-      begin
-        user = self.new
-        user.username = username
-        user.auth = 'ldap'
-        user.uid = LdapTools.get_uid_by_username( username )
-        user.create_keypair password
-        user.update_info
-      rescue
-        raise Exceptions::UserCreationFailed
-      end
+      user = self.new
+      user.username = username
+      user.auth = 'ldap'
+      user.uid = LdapTools.get_uid_by_username( username )
+      user.create_keypair password
+      user.update_info
       user
+    rescue
+      raise Exceptions::UserCreationFailed
     end
   end
 

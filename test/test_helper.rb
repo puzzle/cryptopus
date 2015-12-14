@@ -1,7 +1,7 @@
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require "minitest/autorun"
-require 'mocha/test_unit'
+require 'mocha/mini_test'
 Dir[Rails.root.join('test/support/**/*.rb')].sort.each { |f| require f }
 
 class ActiveSupport::TestCase

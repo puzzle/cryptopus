@@ -27,8 +27,8 @@ class LoginsController < ApplicationController
     username = params[:username].strip
     password = params[:password]
 
-    user = User.find_user(username, password)
-    
+    user = User.find_or_import_from_ldap(username, password)
+
     if user
       authenticate_user(user, password)
     else
