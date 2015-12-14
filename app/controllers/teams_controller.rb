@@ -20,6 +20,7 @@ require 'crypt_utils'
 class TeamsController < ApplicationController
   before_filter :redirect_if_not_teammember_or_admin, only: [:edit, :update, :destroy]
   before_filter :redirect_if_not_allowed_to_delete_team, only: [:destroy]
+  helper_method :can_delete_team?
 
   # GET /teams
   def index
@@ -157,10 +158,14 @@ class TeamsController < ApplicationController
     end
 
     def redirect_if_not_allowed_to_delete_team
-      unless current_user.admin? || current_user.root?
+      unless can_delete_team?(@team)
         flash[:error] = t('flashes.teams.cannot_delete')
         redirect_to teams_path
         return
       end
+    end
+
+    def can_delete_team?(team)
+      current_user.admin? || current_user.root?
     end
 end
