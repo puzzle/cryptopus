@@ -34,7 +34,7 @@ class TeamsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to teams_path
-    assert_match /cannot be deleted/, flash[:error]
+    assert_match /Only admin or root/, flash[:error]
   end
 
   test "user cannot delete team" do
