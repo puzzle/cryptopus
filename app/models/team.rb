@@ -24,6 +24,7 @@ class Team < ActiveRecord::Base
 
   class << self
     def create(creator, params)
+      raise 'root cannot create private team' if creator.root? && params[:noroot]
       team = super(params)
       plaintext_team_password = CryptUtils.new_team_password 
       team.add_user(creator, plaintext_team_password)

@@ -149,6 +149,20 @@ class TeamTest <  ActiveSupport::TestCase
     assert_equal 'foo foo', team.description
   end
 
+  test 'root cannot create noroot team' do
+    params = {}
+    params[:name] = 'foo'
+    params[:description] = 'foo foo'
+    params[:private] = false
+    params[:noroot] = true
+
+    exception = assert_raises do
+      team = Team.create(users(:root), params)
+    end
+
+    assert_match /root cannot create private team/, exception.message
+  end
+
   private
   def alice
     users(:alice)
