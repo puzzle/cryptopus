@@ -1,18 +1,6 @@
 require 'test_helper'
 class LdapUserLoginTest < ActionDispatch::IntegrationTest
 include IntegrationTest::DefaultHelper
-  #test 'create new user if first ldap login' do
-    ## Mock
-    #LdapTools.stubs(:ldap_login).returns(true)
-    #LdapTools.stubs(:get_uid_by_username).returns(42)
-    #LdapTools.stubs(:connect)
-    #LdapTools.stubs(:get_ldap_info)
-
-    #login_as('ldap_user')
-    #assert request.fullpath, teams_path
-    #assert User.find_by_username('ldap_user')
-  #end
-
   test 'login as ldap user' do
     #Prepare for Test
     user_bob = users(:bob)

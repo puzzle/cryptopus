@@ -16,4 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module Admin::UsersHelper
+  def delete_button(user)
+    if user != current_user
+      link_to image_tag( "remove.png" ), [:admin, user], data: {confirm: t(:confirmation)}, method: :delete
+    end
+  end
 end
