@@ -201,7 +201,7 @@ en:
       created: "Successfully created a new team."
       updated: "Team was successfully updated."
       deleted: "Team was successfully deleted"
-      cannot_delete: "Team cannot be deleted if you are not admin or last teammember! Please contact an Admin"
+      cannot_delete: "Only admin or root may delete teams"
     teammembers:
       could_not_remove_last_teammember: "Could not remove last teammember"
 

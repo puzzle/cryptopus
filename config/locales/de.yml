@@ -196,7 +196,7 @@ de:
       created: "Das Team wurde erfolgreich erstellt."
       updated: "Das Team wurde erfolgreich angepasst."
       deleted: "Das Team wurde erfolgreich gelöscht"
-      cannot_delete: "Das Team kann nicht gelöscht werden wenn sie nicht admin oder das letzte Teammitglied sind! Bitte kontaktieren sie einen admin"
+      cannot_delete: "Nur admins und root können das Team löschen"
     teammembers:
       could_not_remove_last_teammember: "Der letzte Benutzer eines Teams kann nicht entfernt werden"
 
