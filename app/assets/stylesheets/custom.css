@@ -26,6 +26,11 @@
   text-align: left;
 }
 
+.alert {
+  margin: 60px auto;
+  width: 500px;
+}
+
 /* login form */
 .login-form {
   height: 350px;

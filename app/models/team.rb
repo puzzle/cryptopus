@@ -33,7 +33,9 @@ class Team < ActiveRecord::Base
           team.add_user(a, plaintext_team_password)
         end
       end
-      team.add_user(User.root, plaintext_team_password) unless team.noroot?
+      unless team.noroot? || creator.root?
+        team.add_user(User.root, plaintext_team_password) 
+      end
       team
     end
   end
