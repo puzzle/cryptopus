@@ -30,7 +30,7 @@ class Team < ActiveRecord::Base
       team.add_user(creator, plaintext_team_password)
       unless team.private?
         User.admins.each do |a|
-          team.add_user(a, plaintext_team_password)
+          team.add_user(a, plaintext_team_password) unless a == creator
         end
       end
       unless team.noroot? || creator.root?
