@@ -13,12 +13,14 @@
     <% end %>
   </div>
 
-  <div class="checkbox">
-    <%= f.label :noroot do %>
-      <%= f.check_box :noroot %>
-      <%= t('.noroot') %>
-    <% end %>
-  </div>
+  <% unless current_user.root? %>
+    <div class="checkbox">
+      <%= f.label :noroot do %>
+        <%= f.check_box :noroot %>
+        <%= t('.noroot') %>
+      <% end %>
+    </div>
+  <% end %>
 
   <div class="form-group">
     <%= f.label :description %>

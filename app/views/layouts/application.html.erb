@@ -8,7 +8,7 @@
 
     <title>Cryptopus</title>
 
-    <%= stylesheet_link_tag :application, :media => "all" %>
+    <%= stylesheet_link_tag :application, media: "all" %>
 
     <%= javascript_include_tag :application %>
   </head>
@@ -16,6 +16,7 @@
   <body>
 
     <%= render partial: 'layouts/navigation' %>
+    <%= render partial: 'layouts/flashes' %>
 
     <div class="container main" role="main">
       <%= yield  %>

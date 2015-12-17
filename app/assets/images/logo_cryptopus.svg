@@ -36,13 +36,13 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1916"
-     inkscape:window-height="1161"
+     inkscape:window-height="1041"
      id="namedview3886"
      showgrid="false"
      inkscape:zoom="4.4616155"
-     inkscape:cx="23.046135"
+     inkscape:cx="24.278872"
      inkscape:cy="77.890205"
-     inkscape:window-x="3840"
+     inkscape:window-x="0"
      inkscape:window-y="18"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg3875" />
@@ -59,11 +59,11 @@
       <stop
          id="stop5296"
          offset="0"
-         style="stop-color:#ffeb40;stop-opacity:1" />
+         style="stop-color:#ff6540;stop-opacity:1" />
       <stop
          id="stop5294"
          offset="1"
-         style="stop-color:#ff6600;stop-opacity:1;" />
+         style="stop-color:#ffcc00;stop-opacity:1" />
     </linearGradient>
     <filter
        style="color-interpolation-filters:sRGB;"
@@ -185,7 +185,7 @@
        y="133.2495"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;font-family:'Nimbus Sans L';-inkscape-font-specification:'Nimbus Sans L'">Cryptopus</tspan></text>
   <path
-     style="fill:#ff6600;fill-rule:evenodd;stroke:none;stroke-width:1"
+     style="fill:#ffcc00;fill-rule:evenodd;stroke:none;stroke-width:1"
      d="M 59.016727,16.788249 C 45.022782,16.788148 32.745975,28.734977 29,45.998168 l 6.235485,0 C 39.346959,32.650715 48.686143,30.178565 59.016727,30.158777 69.345106,30.181971 78.6813,32.653562 82.79189,45.998168 l 6.20811,0 C 85.257359,28.750284 72.998251,16.807374 59.016727,16.788249 Z"
      id="path4292-2-8"
      inkscape:connector-curvature="0"
