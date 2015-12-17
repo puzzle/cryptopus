@@ -190,7 +190,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'returns user if exists in db' do
     user = User.find_or_import_from_ldap('bob', 'password')
-    assert user.present?
+    assert user
     assert_equal 'bob', user.username
   end
 
@@ -202,14 +202,14 @@ class UserTest < ActiveSupport::TestCase
 
     user = User.find_or_import_from_ldap('nobody', 'password')
 
-    assert_not user.present?
+    assert_nil user
   end
 
   test 'does not return user if user not exists in db and ldap disabled' do
     LdapTools.expects(:ldap_login).never
 
     user = User.find_or_import_from_ldap('nobody', 'password')
-    assert_not user.present?
+    assert_nil user
   end
 
   test 'imports and creates user from ldap' do
@@ -218,7 +218,8 @@ class UserTest < ActiveSupport::TestCase
     User.expects(:create_from_ldap).once
 
     user = User.find_or_import_from_ldap('nobody', 'password')
-    assert_not user.present?
+
+    assert_nil user
   end
 
   private
