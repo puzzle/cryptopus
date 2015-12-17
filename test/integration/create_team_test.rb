@@ -85,22 +85,4 @@ include IntegrationTest::AccountTeamSetupHelper
     # Admin can not access team / account
     cannot_access_account(account_path, 'admin')
   end
-
-  test 'bob has no delete button for teams' do
-    login_as('bob')
-    get teams_path
-    assert_select "a[href='/en/teams/#{Team.find_by(name: 'team1').id}']", false, "Delete button should not exist"
-  end
-
-  test 'admin has delete button for teams' do
-    login_as('admin')
-    get teams_path
-    assert_select "a[href='/en/teams/#{Team.find_by(name: 'team1').id}']"
-  end
-
-  test 'root has delete button for teams' do
-    login_as('root')
-    get teams_path
-    assert_select "a[href='/en/teams/#{Team.find_by(name: 'team1').id}']"
-  end
 end
