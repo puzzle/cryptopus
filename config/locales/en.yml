@@ -127,7 +127,7 @@ en:
       description: "We created a new keypair for you. Enjoy Cryptopus."
     noaccess:
       title: "Access denied"
-    pwdchange:
+    show_update_password:
       title: "Change password"
       old: "Old password"
       new: "New password"

@@ -123,7 +123,7 @@ de:
       description: "Wir haben für Sie ein neues Schlüsselpaar erstellt. Viel Vergnügen mit Cryptopus."
     noaccess:
       title: "Zugriff verweigert"
-    pwdchange:
+    show_update_password:
       title: "Passwort wechseln"
       old: "Altes Passwort"
       new: "Neues Passwort"
