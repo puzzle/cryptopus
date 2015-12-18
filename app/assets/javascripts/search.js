@@ -4,6 +4,14 @@ $(document).on("click", ".form-control", function (e) {
     e.target.select();
 });
 
+function checkIfFunctioningBrowser(){
+  var ie10andbelow = navigator.userAgent.indexOf('MSIE') != -1 || /MSIE 10/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent);
+  if(ie10andbelow){
+    $('.clip_button').remove();
+  }else{
+    new ZeroClipboard( $('.clip_button') );
+  }
+}
 
 (function(exports, $) {
 
@@ -46,7 +54,7 @@ $(document).on("click", ".form-control", function (e) {
   };
 
   Search.prototype.registerActions = function() {
-    new ZeroClipboard( $('.clip_button') );
+    checkIfFunctioningBrowser();
     var that = this;
     $('.result-password .password-link').click(function(e) {
       e.preventDefault();
