@@ -1,5 +1,10 @@
 var Cryptopus = Cryptopus || function() {};
 
+$(document).on("click", ".form-control", function (e) {
+    e.target.select();
+});
+
+
 (function(exports, $) {
 
   function Search(input_field, result_area) {
@@ -47,7 +52,7 @@ var Cryptopus = Cryptopus || function() {};
       e.preventDefault();
       var passLink = $(e.target),
         passInput = passLink.next('.password-hidden');
-        
+
       passLink.hide();
       passInput.removeClass('hide');
       setTimeout(function(){

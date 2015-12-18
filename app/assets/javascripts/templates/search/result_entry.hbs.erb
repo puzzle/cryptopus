@@ -1,18 +1,20 @@
 {{#each .}}
-  <li>
+  <li class="result">
     <div class="result-description">
       <h1 class="result-title">
-        <a href="/teams/{{team_id}}/groups/{{group_id}}/accounts/{{id}}">{{accountname}}</a>
-      </h1>
-      <p>
-        <%= I18n.t('group') %>: <a href="/teams/{{team_id}}/groups/{{group_id}}/accounts">{{group}}</a><br>
-        <%= I18n.t('team') %>: <a href="/teams/{{team_id}}/groups">{{team}}</a>
-      </p>
+        <a href="/teams/{{team_id}}/groups/{{group_id}}/accounts/{{id}}">{{accountname}}</a><br>
+      </h1
+      <br>
+      <span>
+        <a href="/teams/{{team_id}}/groups">{{team}}</a>
+        >
+        <a href="/teams/{{team_id}}/groups/{{group_id}}/accounts">{{group}}</a>
+      </span>
     </div>
-    <div class="result-action">
+    <br>
+    <div class="result-action form-group">
       <div class="result-username select-click">
-        <svg class="icon-person sm"><use xlink:href="#icon-person"></use></svg>
-        <input id="username_{{id}}" type="text" readonly="readonly" value="{{username}}" class="input-full">
+        <input id="username_{{id}}" type="text" value="{{username}}" class="form-control" readonly>
         <button class="clip_button" data-clipboard-target="username_{{id}}" title="Click to copy">
           <svg class="icon-clippy">
             <use xlink:href="#icon-clippy"></use>
@@ -21,9 +23,8 @@
       </div>
 
       <div class="result-password select-click">
-        <svg class="icon-key sm" alt="Password"><use xlink:href="#icon-key"></use></svg>
         <a href="#" class="password-link">Show password</a>
-        <input id="password_{{id}}"type="text" readonly="readonly" class="password-hidden hide input-full" value="{{password}}">
+        <input id="password_{{id}}"type="text" class="password-hidden hide form-control" value="{{password}}" readonly>
         <button class="clip_button" data-clipboard-target="password_{{id}}" title="Click to copy">
           <svg class="icon-clippy">
             <use xlink:href="#icon-clippy"></use>

@@ -1,6 +1,6 @@
-<div class='search'>
+<div class='form-group search'>
   <h1>Hi<%= username %>! Want to recover a password?</h1>
-  <%= text_field_tag :search_string,  params[:search_string], :autocomplete => 'off', :autofocus => true, :class => 'search-input' %>
+  <%= text_field_tag :search_string,  params[:search_string], autocomplete: 'off', autofocus: true, class: 'form-control search-input' %>
 
 </div>
 <ul class="search-result result-list">
