@@ -88,7 +88,7 @@ class LdapTools
       host: Setting.value(:ldap, :hostname),
       port: Setting.value(:ldap, :portnumber),
       encryption: :simple_tls
-    unless Setting.value(:ldap, :bind_dn).empty?
+    unless Setting.value(:ldap, :bind_dn).nil?
       @@ldap.auth Setting.value(:ldap, :bind_dn), Setting.value(:ldap, :bind_password)
     end
   end
