@@ -16,9 +16,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Teammember < ActiveRecord::Base
+
   belongs_to :team
   belongs_to :user
   before_destroy :protect_if_last_teammember
+
+  scope :admins, -> { joins(:user).where(users: { admin: true}) }
+  scope :non_admins, -> { joins(:user).where(users: { admin: false}) }
 
   private
   def protect_if_last_teammember
