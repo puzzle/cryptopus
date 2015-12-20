@@ -1,3 +1,12 @@
+html {
+  position: relative;
+  min-height: 100%
+}
+
+body {
+  margin-bottom: 60px;
+}
+
 .main {
   margin-top: 120px;
 }
@@ -144,4 +153,15 @@ input.search-input {
   width: 30px;
   display: inline;
   fill: currentColor;
+}
+
+/*Footer*/
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 60px;
+  line-height: 60px;
+  background-color: #F5F5F5;
+  width: 100%;
 }

@@ -15,14 +15,15 @@
 
   <body>
     <%= render partial: 'layouts/icons' %>
-    <%= render partial: 'layouts/navigation' %>
-    <%= render partial: 'layouts/flashes' %>
 
     <div class="container main" role="main">
+      <%= render partial: 'layouts/navigation' %>
+      <%= render partial: 'layouts/flashes' %>
       <%= yield  %>
     </div>
 
     <% if current_user %>
+      <%= render partial: 'layouts/footer' %>
       <%= javascript_include_tag :auto_logoff %>
     <% end %>
 
