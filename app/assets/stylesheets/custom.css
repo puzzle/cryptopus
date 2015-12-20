@@ -1,5 +1,5 @@
 .main {
-  margin-top: 50px;
+  margin-top: 120px;
 }
 
 .container {
@@ -26,8 +26,11 @@
 }
 
 .alert {
-  margin: 60px auto;
+  margin-top: -60px;
   width: 500px;
+  position: fixed;
+  left: 50%;
+  margin-left: -250px;
 }
 
 /* login form */
