@@ -79,19 +79,19 @@ class TeamsControllerTest < ActionController::TestCase
   test 'bob has no delete button for teams' do
     login_as(:bob)
     get :index
-    assert_select "a[href='/en/teams/#{Team.find_by(name: 'team1').id}']", false, "Delete button should not exist"
+    assert_select "a[href='/en/teams/#{teams(:team1).id}']", false, "Delete button should not exist"
   end
 
   test 'admin has delete button for teams' do
     login_as(:admin)
     get :index
-    assert_select "a[href='/en/teams/#{Team.find_by(name: 'team1').id}']"
+    assert_select "a[href='/en/teams/#{teams(:team1).id}']"
   end
 
   test 'root has delete button for teams' do
     login_as(:root)
     get :index
-    assert_select "a[href='/en/teams/#{Team.find_by(name: 'team1').id}']"
+    assert_select "a[href='/en/teams/#{teams(:team1).id}']"
   end
 
   test "user creates new team" do
