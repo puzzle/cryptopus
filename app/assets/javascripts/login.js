@@ -19,5 +19,5 @@ $('.login').submit(function createLocalStorageEntry() {
 });
 
 user_input.click(function() {
-  user_input.val('');
+  user_input.select();
 });
