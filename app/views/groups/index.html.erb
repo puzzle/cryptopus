@@ -9,26 +9,26 @@
     <th><%=t :description %></th>
     <th colspan="3"><%=t :actions %></th>
   </tr>
-  
+
   <% for group in @groups %>
     <tr class="<%= cycle('odd', 'even') %>">
       <td><%= link_to image_tag( "folder_open.png" ) + " " + %Q{#{group.name}}, team_group_accounts_path(@team, group) %></td>
       <td><%= group.description %></td>
       <td><%= link_to image_tag("edit.png"), [:edit, @team, group] %></td>
-      <td><%= link_to image_tag("remove.png"), [@team, group], confirm: t(:confirmation), method: :delete %></td>
+      <td><%= link_to_destroy [@team, group], group %></td>
     </tr>
   <% end %>
 
 </table>
 
 <h2><%=t '.members' %></h2>
-  
+
 <table>
 
   <% @teammembers.each do |teammember| %>
     <tr class="<%= cycle('odd', 'even') %>">
-      <td><%= teammember.user.full_name %></td>
-      <td><%= link_to image_tag("delete_user.png"), [@team, teammember], confirm: t(:confirmation), method: :delete %></td>
+      <td><%= teammember.user.label %></td>
+      <td><%= link_to_destroy [@team, teammember], teammember %></td>
     </tr>
   <% end %>
 </table>
@@ -42,7 +42,7 @@
 <table>
   <% @admins.each do |admin| %>
     <tr class="<%= cycle('odd', 'even') %>">
-      <td><i><%= admin.user.full_name %></i></td>
+      <td><i><%= admin.user.label %></i></td>
       <td><%= image_tag("penguin.png") %></td>
     </tr>
   <% end %>

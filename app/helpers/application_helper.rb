@@ -17,27 +17,27 @@
 
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  
+
   def tooltip(content, options = {}, html_options = {}, *parameters_for_method_reference)
     html_options[:title] = options[:tooltip]
     html_options[:class] = html_options[:class] || 'tooltip'
     content_tag("span", content, html_options)
   end
-  
-  def render_menu 
+
+  def render_menu
     unless @menu_to_render.nil?
       render(:partial => @menu_to_render)
     end
   end
-  
+
   def get_back_to_list_button(target_controller=nil, target_action="index")
     unless target_controller.nil?
       link_to(image_tag("previous.png") + " Back", :controller => target_controller, :action => target_action)
-    else      
+    else
       link_to(image_tag("previous.png") + " Back", :action => target_action)
-    end  
+    end
   end
-  
+
   def nav_link(name, path)
     class_name = current_page?(path) ? 'active' : ''
 
@@ -46,9 +46,20 @@ module ApplicationHelper
     end
   end
 
+  def link_to_destroy(path, entry)
+    entry_label = entry.label
+    entry_class = entry.class.name.downcase
+    label_key = "#{entry_class.pluralize}.confirm.delete"
+
+    confirm = t(label_key, entry_class: entry_class, entry_label: entry_label, default: t("confirm.delete"))
+    link_to image_tag("remove.png"),
+            path, data:{confirm: confirm},
+            method: :delete
+  end
+
   private
   def default_field_options
     {class: 'form-control'}
   end
-  
+
 end

@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -%>
-<h1><%=t '.title', :account_name => @account.accountname %></h1>
+<h1><%=t '.title', account_name: @account.accountname %></h1>
 
 <div>
   <p><strong><%=t :description %></strong> <%= @account.description %></p>
@@ -46,7 +46,7 @@
   </div>
   <br/>
 
-  <p><strong><%=t '.last_change', :time_ago => (time_ago_in_words @account.updated_on) %></strong></p>
+  <p><strong><%=t '.last_change', time_ago: (time_ago_in_words @account.updated_on) %></strong></p>
   <br/>
 
   <strong><%=t '.attachments' %></strong>
@@ -62,7 +62,7 @@
         <td><b><%= item.filename %></b><br/>
           <%= image_tag("encrypted.png") %></td>
         <td><%= link_to image_tag( "kget.png" ) + " " + t(:download), [@team, @group, @account, item] %><br />
-            <%= link_to image_tag( "remove.png" ) + " " + t(:delete), [@team, @group, @account, item], :confirm => t(:confirmation), :method => :delete %></td>
+            <%= link_to_destroy [@team, @group, @account, item], item %></td>
         <td valign="top"><%= item.description %></td>
       </tr>
     <% end %>

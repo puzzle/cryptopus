@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Teammember < ActiveRecord::Base
-
+  delegate :label, to: :user
   belongs_to :team
   belongs_to :user
   before_destroy :protect_if_last_teammember

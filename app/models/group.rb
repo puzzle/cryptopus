@@ -20,4 +20,8 @@
 class Group < ActiveRecord::Base
   belongs_to :team
   has_many :accounts, -> {order :accountname}, dependent: :destroy
+
+  def label
+    name
+  end
 end

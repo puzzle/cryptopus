@@ -12,7 +12,7 @@
   <% for user in @users.unlocked  %>
       <tr class="<%= cycle( 'odd', 'even' ) %>">
         <td><%= link_to user.username, edit_admin_user_path(user) %></td>
-        <td><%= user.full_name %></td>
+        <td><%= user.label %></td>
         <td><%= user.uid.to_s %></td>
         <td>
           <% if user.admin == true %>
@@ -21,7 +21,7 @@
         </td>
         <td>
           <% if user != current_user %>
-            <%= link_to image_tag( "remove.png" ), [:admin, user], data: {confirm: t(:confirmation)}, method: :delete %>
+            <%= link_to_destroy [:admin, user], user %>
           <% end %>
         </td>
       </tr>
@@ -39,7 +39,7 @@
   <% for user in @users.locked  %>
       <tr class="<%= cycle( 'odd', 'even' ) %>">
         <td><%= link_to user.username, edit_admin_user_path(user) %></td>
-        <td><%= user.full_name %></td>
+        <td><%= user.label %></td>
         <td><%= link_to image_tag("unlock.png"),  unlock_admin_user_path(user.id), title: t('.unlock')%></td>
       </tr>
   <% end %>

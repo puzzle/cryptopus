@@ -16,7 +16,7 @@
     <td><%= link_to image_tag( "edit.png" ), edit_team_path( team ) %></td>
     <td>
       <% if can_delete_team?(team) %>
-        <%= link_to image_tag( "remove.png" ), team, data: {confirm: :confirmation}, :method => :delete %>
+        <%= link_to_destroy [team], team %>
       <% end %>
     </td>
     </tr>

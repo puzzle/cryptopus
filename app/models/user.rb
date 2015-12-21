@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
     self.private_key = CryptUtils.encrypt_private_key( uncrypted_private_key, password )
   end
 
-  def full_name
+  def label
     givenname.blank? ? username : "#{givenname} #{surname}"
   end
 

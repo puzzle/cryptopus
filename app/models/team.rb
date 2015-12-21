@@ -26,7 +26,7 @@ class Team < ActiveRecord::Base
     def create(creator, params)
       raise 'root cannot create private team' if creator.root? && params[:noroot]
       team = super(params)
-      plaintext_team_password = CryptUtils.new_team_password 
+      plaintext_team_password = CryptUtils.new_team_password
       team.add_user(creator, plaintext_team_password)
       unless team.private?
         User.admins.each do |a|
@@ -34,10 +34,14 @@ class Team < ActiveRecord::Base
         end
       end
       unless team.noroot? || creator.root?
-        team.add_user(User.root, plaintext_team_password) 
+        team.add_user(User.root, plaintext_team_password)
       end
       team
     end
+  end
+
+  def label
+    name
   end
 
   def teammember_candidates
@@ -81,9 +85,9 @@ class Team < ActiveRecord::Base
     crypted_team_password = CryptUtils.
       encrypt_team_password(plaintext_team_password, user.public_key)
 
-    teammembers.create!(password: crypted_team_password, 
-                       user: user, 
-                       admin: user.admin?) 
+    teammembers.create!(password: crypted_team_password,
+                       user: user,
+                       admin: user.admin?)
   end
 
 end

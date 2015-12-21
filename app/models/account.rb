@@ -30,4 +30,8 @@ class Account < ActiveRecord::Base
     h
   end
 
+  def label
+    accountname
+  end
+
 end

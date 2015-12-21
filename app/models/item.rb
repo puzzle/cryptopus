@@ -17,4 +17,8 @@
 
 class Item < ActiveRecord::Base
   belongs_to :account
+
+  def label
+    filename
+  end
 end

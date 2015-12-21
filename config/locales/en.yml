@@ -137,6 +137,8 @@ en:
   teammembers:
     new:
       title: "Add a new teammember"
+    confirm:
+      delete: "Remove %{entry_label} from team ?"
 
   teams:
     title: "Teams"
@@ -204,6 +206,9 @@ en:
       cannot_delete: "Only admin or root may delete teams"
     teammembers:
       could_not_remove_last_teammember: "Could not remove last teammember"
+
+  confirm:
+    delete: "Delete %{entry_class} %{entry_label} ?"
 
 #Validation Errors
   activerecord:

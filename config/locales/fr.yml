@@ -135,6 +135,8 @@ fr:
   teammembers:
     new:
       title: "Ajouter un nouveau membre de l'équipe"
+    confirm:
+      delete: "Supprimer %{entry_label} de cette équipe ?"
 
   teams:
     title: "Équipe"
@@ -225,6 +227,9 @@ fr:
         portnumber: "Port"
         bind_password: "Mot de passe de Bind"
         encryption: "Chiffrement"
+
+  confirm:
+    delete: "Supprimez %{entry_class} %{entry_label} ?"
 
 #Validation Errors
   activerecord:
