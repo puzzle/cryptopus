@@ -28,7 +28,7 @@
     
   <% for recryptrequest in @recryptrequests %>
     <tr>
-      <td><%= recryptrequest.user.full_name %></td>
+      <td><%= recryptrequest.user.label %></td>
       <% if recryptrequest.adminrequired == true %>
         <td>Yes</td>
       <% else %>
