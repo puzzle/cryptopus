@@ -1,6 +1,6 @@
 class AddLdapUserinfoToUsers < ActiveRecord::Migration
 
-  def self.up
+  def up
     add_column "users", "username", :string
     add_column "users", "givenname", :string
     add_column "users", "surname", :string
@@ -12,22 +12,23 @@ class AddLdapUserinfoToUsers < ActiveRecord::Migration
         user.givenname = 'root'
         user.surname   = ''
       else
-        user.username  = LdapTools.get_ldap_info( user.uid.to_s, "uid" )
-        user.givenname = LdapTools.get_ldap_info( user.uid.to_s, "givenname" )
-        user.surname   = LdapTools.get_ldap_info( user.uid.to_s, "sn" )
+        user.username  = get_ldap_info( user.uid.to_s, "uid" )
+        user.givenname = get_ldap_info( user.uid.to_s, "givenname" )
+        user.surname   = get_ldap_info( user.uid.to_s, "sn" )
       end
       user.save
     end
   end
 
-  def self.down
+  def down
     remove_column "users", "username"
     remove_column "users", "givenname"
     remove_column "users", "surname"
   end
 
-  def LdapTools.get_ldap_info( uid, attribute )
-    LdapTools.connect
+private
+  def get_ldap_info( uid, attribute )
+    ldap_legacy_connect
     filter = Net::LDAP::Filter.eq( "uidnumber", uid )
     @@ldap.search( base: @@ldap_settings.basename, filter: filter, attributes: [attribute] ) do | entry |
       entry.each do |attr, values|
@@ -39,7 +40,7 @@ class AddLdapUserinfoToUsers < ActiveRecord::Migration
     return "No <#{attribute} for uid #{uid}>"
   end
 
-  def LdapTools.connect
+  def ldap_legacy_connect
     if Ldapsetting.first.blank?
       return nil
     end
