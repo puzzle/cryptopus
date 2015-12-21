@@ -165,3 +165,7 @@ input.search-input {
   background-color: #F5F5F5;
   width: 100%;
 }
+
+.footer form {
+  padding-right: 50px;
+}
