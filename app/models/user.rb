@@ -30,6 +30,8 @@ class User < ActiveRecord::Base
 
   scope :admins, -> { where(admin: true) }
 
+  default_scope { order('username') }
+
   class << self
 
     def find_or_import_from_ldap(username, password)
