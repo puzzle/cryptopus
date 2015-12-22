@@ -5,6 +5,7 @@ gem 'rails', '4.2.2'
 gem 'mysql2'
 gem 'sqlite3'
 gem 'net-ldap'
+gem 'figaro'
 
 gem 'dynamic_form'
 gem 'uglifier'
