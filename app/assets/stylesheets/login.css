@@ -1,0 +1,26 @@
+.login-form {
+  height: 350px;
+  padding: 10px;
+  text-align: center;
+  border: 3px solid #EBE6E2;
+  width: 320px;
+  margin: auto;
+  border-radius: 5px;
+}
+
+.login-form .form-group {
+  padding-bottom: 10px;
+}
+
+.login-form input {
+  margin-bottom: 10px;
+}
+
+.login-form fieldset {
+  max-width: 250px;
+  margin: auto;
+}
+
+.login-form .btn {
+  width: 80%;
+}
