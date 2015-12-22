@@ -44,7 +44,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
 
   # DELETE /admin/recryptrequest/1
   def destroy
-    @recryptrequest = Recryptrequest.find( params[:id] )
+    @recryptrequest = Recryptrequest.find_by(id: params[:id] )
     @user = @recryptrequest.user
     @admin = User.find( session[:user_id] )
 
