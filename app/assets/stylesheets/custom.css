@@ -5,11 +5,6 @@ html {
 
 body {
   margin-bottom: 50px;
-  background-color: #F7F6F2;
-}
-
-input[type=text], input[type=password], input[type=number]{
-  background-color: #EBE6E2;
 }
 
 .main {
