@@ -1,10 +1,11 @@
 .table-striped > tbody > tr:nth-child(1){
-  background-color: #4790A8;
+  background-color: #3E8F82;
   color: white;
 }
 
 .even{
   color: #333!important;
+  background-color: transparent!important;
 }
 
 .odd{
