@@ -3,7 +3,7 @@ class FixAutoUidBug < ActiveRecord::Migration
     # We cannot use the id as the uid, because this is autoincrement
     # Create the User table new tu ensure that autoincrement is on
     user_table = Hash.new
-    User.all.each do |user|
+    User.unscoped.all.each do |user|
       user_table[user.id] = Hash.new
       user_table[user.id][:public_key]  = user.public_key
       user_table[user.id][:private_key] = user.private_key
