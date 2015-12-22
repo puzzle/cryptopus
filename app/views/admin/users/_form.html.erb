@@ -1,32 +1,32 @@
 <%= form_for([:admin, @user],html:{ role: 'form'}) do |f| %>
   <%= f.error_messages %>
-  
+
   <div class="form-group">
     <%= f.label :username %>
-    <%= f.text_field :username, autofocus: true %>
+    <%= f.text_field :username, autofocus: true, class: 'form-control' %>
   </div>
 
   <% if @user.new_record? %>
     <div class="form-group">
       <%= f.label :password %>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, class: 'form-control' %>
     </div>
   <% end %>
-  
-  <div class="form-group">
-    <%= f.label :admin %>
-    <%= f.check_box :admin %>
-  </div>
 
   <div class="form-group">
     <%= f.label :givenname %>
-    <%= f.text_field :givenname %>
+    <%= f.text_field :givenname, class: 'form-control' %>
   </div>
 
   <div class="form-group">
     <%= f.label :surname %>
-    <%= f.text_field :surname %>
+    <%= f.text_field :surname, class: 'form-control' %>
   </div>
 
-  <%= f.submit @submit_button_text, class: 'btn' %>
+  <div class="form-group">
+    <%= f.label :admin %>
+    <%= f.check_box :admin, class: 'form-control' %>
+  </div>
+
+  <%= f.submit @submit_button_text, class: 'btn btn-primary' %>
 <% end %>

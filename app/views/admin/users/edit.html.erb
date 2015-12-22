@@ -5,8 +5,11 @@
 <% if @user.auth_db? && !@user.new_record? %>
 <br/>
   <%= form_tag(resetpassword_admin_recryptrequests_path(:user_id => @user.id)) do %>
-    <%= label_tag t('.reset_password') %>
-    <%= password_field_tag :new_password %>
-    <%= submit_tag t('.reset_password') %>
+    <br>
+    <div class="form-group">
+      <%= label_tag t('.reset_password') %>
+      <%= password_field_tag :new_password, nil, class: 'form-control' %>
+    </div>
+      <%= submit_tag t('.reset_password'), class: 'btn btn-primary' %>
   <% end %>
 <% end %>
