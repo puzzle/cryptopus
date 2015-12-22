@@ -30,6 +30,7 @@ group :development do
   gem 'pry-stack_explorer'
   gem 'seed-fu'
   gem 'faker'
+  gem 'brakeman', require: false
 end
 
 group :test do
