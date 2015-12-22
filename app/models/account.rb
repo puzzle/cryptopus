@@ -25,8 +25,8 @@ class Account < ActiveRecord::Base
     h[:team] = group.team.name
     h[:team_id] = group.team.id
     h.delete('description')
-    h.delete('created_on')
-    h.delete('updated_on')
+    h.delete('created_at')
+    h.delete('updated_at')
     h
   end
 

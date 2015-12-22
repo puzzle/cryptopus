@@ -62,8 +62,6 @@ public
   # POST /teams/1/groups
   def create
     @group = @team.groups.new( group_params )
-    @group.created_on = Time.now
-    @group.updated_on = Time.now
 
     respond_to do |format|
       if @group.save
@@ -87,7 +85,6 @@ public
   # PUT /teams/1/groups/1
   def update
     @group = @team.groups.find( params[:id] )
-    @group.updated_on = Time.now
 
     respond_to do |format|
       if @group.update_attributes( params[:group] )

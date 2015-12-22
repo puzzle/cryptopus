@@ -13,7 +13,7 @@ class AccountTest <  ActiveSupport::TestCase
     }
 
     assert_not account_json.include? 'description'
-    assert_not account_json.include? 'updated_on'
-    assert_not account_json.include? 'created_on'
+    assert_not account_json.include? 'updated_at'
+    assert_not account_json.include? 'created_at'
   end
 end

@@ -45,8 +45,6 @@ public
     @item.filename = datafile.original_filename
     @item.content_type = datafile.content_type
     @item.file = CryptUtils.encrypt_blob( datafile.read, get_team_password(@team) )
-    @item.created_on = Time.now
-    @item.updated_on = Time.now
 
     respond_to do |format|
       if @item.save

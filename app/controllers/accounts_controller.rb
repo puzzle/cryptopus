@@ -54,7 +54,6 @@ class AccountsController < ApplicationController
   # POST /teams/1/groups/1/accounts
   def create
     @account = @group.accounts.new( account_params )
-    @account.created_on = Time.now
 
     crypt_account
 
@@ -118,7 +117,6 @@ class AccountsController < ApplicationController
       @account.password = "none" if @account.password == "" or @account.password.nil?
       @account.username = CryptUtils.encrypt_blob @account.username, get_team_password(@team)
       @account.password = CryptUtils.encrypt_blob @account.password, get_team_password(@team)
-      @account.updated_on = Time.now
     end
 
     def decrypt_account

@@ -58,8 +58,6 @@ class TeamsController < ApplicationController
 
   # PUT /teams/1
   def update
-    @team.updated_on = Time.now
-
     respond_to do |format|
       if @team.update_attributes( team_params )
 
