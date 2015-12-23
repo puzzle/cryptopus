@@ -152,6 +152,9 @@ fr:
       team: "Équipe"
     new:
       title: "Créer une nouvelle équipe"
+    description:
+      private: "Administrateurs auront pas accès à votre équipe."
+      no_root: "Le root ne sera pas avoir accès à votre équipe."
 
   flashes:
     wizard:

@@ -59,6 +59,18 @@ body {
   vertical-align:middle;
 }
 
+.info_icon{
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  display: inline;
+  margin-left: 5px;
+}
+
+.info_icon:hover{
+  cursor: help;
+}
+
 /*Footer*/
 
 .footer {
@@ -81,4 +93,16 @@ body {
   position: absolute;
   left: 210px;
   top: 0;
+}
+
+
+
+/*Team*/
+
+.description{
+  background-color: #eee;
+  display: none;
+  position: absolute;
+  padding: 2px;
+  margin-left: 40px;
 }

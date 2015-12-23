@@ -154,6 +154,9 @@ en:
       team: "Team"
     new:
       title: "Create a new team"
+    description:
+      private: "Admins will not have access to your team."
+      no_root: "Root will not have access to your team."
 
   flashes:
     wizard:
