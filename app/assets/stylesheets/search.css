@@ -13,14 +13,14 @@ input.search-input {
   margin: 0;
   padding: 0;
   list-style: none;
-  background-color: #D9D9D9;
-  box-shadow: 1px 2px 5px #D9D9D9;
+  background-color: #EEE;
+  box-shadow: 1px 2px 5px #DDD;
 }
 .result-list li {
   @include clearfix;
   display: block;
   padding: 1em;
-  background: #F8F7F3;
+  background: #F9F9F9;
   margin-top: 1px;
   min-height: 10em;
 }
@@ -62,7 +62,7 @@ input.search-input {
     cursor:text;
 }
 
-.clip_button {
+.clip_button_search{
   position: absolute;
   top: 0;
   right: 0;

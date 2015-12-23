@@ -7,9 +7,9 @@ $(document).on("click", ".form-control", function (e) {
 function checkIfFunctioningBrowser(){
   var ie10andbelow = navigator.userAgent.indexOf('MSIE') != -1 || /MSIE 10/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent);
   if(ie10andbelow){
-    $('.clip_button').remove();
+    $('.clip_button_search').remove();
   }else{
-    new ZeroClipboard( $('.clip_button') );
+    new ZeroClipboard( $('.clip_button_search') );
   }
 }
 

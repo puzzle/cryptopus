@@ -13,12 +13,10 @@
     <tr class="<%= cycle( 'odd', 'even' ) %>">
     <td><%= link_to image_tag( "kontact_contacts.png" ) + " #{team.name}", team_groups_path( team ) %></td>
     <td><%= team.description %></td>
-    <td><%= link_to image_tag( "edit.png" ), edit_team_path( team ) %></td>
-    <td>
+    <td class='action_icon'><%= link_to image_tag( "edit.png" ), edit_team_path( team ) %></td>
       <% if can_delete_team?(team) %>
-        <%= link_to_destroy [team], team %>
+        <td class='action_icon'><%= link_to_destroy [team], team %></td>
       <% end %>
-    </td>
     </tr>
   <% end %>
 </table>

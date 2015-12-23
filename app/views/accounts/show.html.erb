@@ -22,24 +22,24 @@
   <p><strong><%=t :description %></strong> <%= @account.description %></p>
   <br/>
 
-  <p>
-    <strong><a href="#" onclick="$('#hidden_username').toggle()" ><%=t :username %></a></strong>
-    <button class='clip_button' id='username_clip_button' data-clipboard-text="<%= @account.username %>" title='Click to copy'><%= image_tag( "kget.png" ) %></button>
-    <script type="text/javascript">
-      var client = new ZeroClipboard( $('#username_clip_button') );
-    </script>
-  </p>
-  <div id="hidden_username" style="display:none">
-    <%= @account.username %>
-  </div>
+    <div class="result-username select-click">
+      <input id="username" type="text" value="<%= @account.username %>" class="form-control" readonly>
+      <button class="clip_button_account" data-clipboard-target="username" title="Click to copy">
+        <svg class="icon-clippy">
+          <use xlink:href="#icon-clippy"></use>
+        </svg>
+      </button>
+    </div>
 
-  <p>
-    <strong><a href="#" onclick="$('#hidden_password').toggle()" ><%=t :password %></a></strong>
-    <button class='clip_button' id='password_clip_button' data-clipboard-text="<%= @account.password %>" title='Click to copy'><%= image_tag( "kget.png" ) %></button>
-    <script type="text/javascript">
-      var client = new ZeroClipboard( $('#password_clip_button') );
-    </script>
-  </p>
+    <div class="result-password select-click">
+      <a href="#" class="password-link">Show password</a>
+      <input id="password" type="text" class="password-hidden hide form-control" value="<%= @account.password %>" readonly>
+      <button class="clip_button_account" data-clipboard-target="password" title="Click to copy">
+        <svg class="icon-clippy">
+          <use xlink:href="#icon-clippy"></use>
+        </svg>
+      </button>
+    </div>
 
   <div id="hidden_password" style="display:none">
     <%= @account.password %>
@@ -47,24 +47,28 @@
   <br/>
 
   <p><strong><%=t '.last_change', time_ago: (time_ago_in_words @account.updated_at) %></strong></p>
-  <br/>
+  <br/><br/>
 
-  <strong><%=t '.attachments' %></strong>
-  <table>
+  <h1><%=t '.attachments' %></h1>
+
+  <%= link_to 'New', new_team_group_account_item_path(@account.group.team.id, @account.group.id, @account.id), class: 'btn btn-primary pull-right' %>
+
+  <table class='table table-striped'>
     <tr>
-      <th><%=t '.file' %></th>
-      <th><%=t :actions %></th>
+      <th style='width: 200px;'><%=t '.file' %></th>
       <th><%=t :description %></th>
+      <th><%=t :actions %></th>
     </tr>
 
     <% for item in @items %>
-      <tr>
+      <tr class="<%= cycle( 'odd', 'even' ) %>">
         <td><b><%= item.filename %></b><br/>
-          <%= image_tag("encrypted.png") %></td>
-        <td><%= link_to image_tag( "kget.png" ) + " " + t(:download), [@team, @group, @account, item] %><br />
-            <%= link_to_destroy [@team, @group, @account, item], item %></td>
+          <%= link_to image_tag("encrypted.png"), [@team, @group, @account, item] %></td>
         <td valign="top"><%= item.description %></td>
+        <td class='action_icon'><%= link_to_destroy [@team, @group, @account, item], item %></td>
       </tr>
     <% end %>
   </table>
 </div>
+
+<%= javascript_include_tag :account %>

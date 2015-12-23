@@ -52,6 +52,13 @@ body {
   fill: currentColor;
 }
 
+.action_icon{
+  width: 20px;
+  height: 50px;
+  text-align: center;
+  vertical-align:middle;
+}
+
 /*Footer*/
 
 .footer {
@@ -59,11 +66,19 @@ body {
   bottom: 0;
   height: 50px;
   line-height: 50px;
-  background-color: #EBE6E2;
+  background-color: #F9F9F9;
   width: 100%;
   border-top: 1px solid #CBC6C2;
 }
 
 .footer form {
   padding-right: 50px;
+}
+
+/*Account*/
+
+.clip_button_account{
+  position: absolute;
+  left: 210px;
+  top: 0;
 }
