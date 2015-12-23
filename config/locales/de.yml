@@ -140,9 +140,7 @@ de:
     title: "Teams"
     form:
       private: "Privat"
-      private_hint: "Admins haben keinen Zugriff zu diesem Team"
       no_root: "Kein Root"
-      no_root_hint: "NICHT EINMAL ROOT KANN IHRE DATEN WIEDERHERSTELLEN WENN SIE IHR PASSWORT VERGESSEN!"
     index_menu:
       create: "Team erstellen"
     index:
@@ -151,8 +149,8 @@ de:
     new:
       title: "Neues Team erstellen"
     description:
-      private: "Admins werden keinen Zugriff auf dein Team haben."
-      no_root: "Der Root wird keinen Zugriff auf dein Team haben."
+      private: Admins haben keinen Zugriff wenn angewählt
+      no_root: Root hat keinen Zugriff wenn angewählt
 
   flashes:
     wizard:
