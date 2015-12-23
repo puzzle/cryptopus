@@ -231,7 +231,7 @@ de:
         encryption: "Verschlüsselung"
 
   confirm:
-    delete: "%{entry_class.capitalize} %{entry_label} löschen?"
+    delete: "%{entry_class} %{entry_label} löschen?"
 
 #Validation Errors
   activerecord:
