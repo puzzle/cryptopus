@@ -61,20 +61,6 @@ class TeamsController < ApplicationController
     respond_to do |format|
       if @team.update_attributes( team_params )
 
-        @team_password = get_team_password(@team)
-
-        if @team.private == true
-          remove_admins_from_team
-        else
-          add_admins_to_team
-        end
-
-        if @team.noroot == true
-          remove_root_from_team
-        else
-          add_root_to_team
-        end
-
         flash[:notice] = t('flashes.teams.updated')
         format.html { redirect_to(teams_url) }
       else
@@ -104,7 +90,7 @@ class TeamsController < ApplicationController
       end
     end
 
-    def add_user_to_team( user, admin )
+    def add_user_to_team(user, admin)
       team_member = user.teammembers.new
       team_member.team_id = @team.id
       team_member.password = CryptUtils.encrypt_team_password( @team_password, user.public_key )
@@ -112,47 +98,6 @@ class TeamsController < ApplicationController
         team_member.admin = true
       end
       team_member.save
-    end
-
-    def add_root_to_team
-      root = User.find_by_uid( "0" )
-
-      # Check if the root is already in the Team
-      teammember_root = @team.teammembers.find_by_user_id( root.id )
-      return unless teammember_root.nil?
-
-      add_user_to_team( root, true )
-    end
-
-    def add_admins_to_team
-      admins = User.where(admin:  true ).load
-      for admin in admins do
-        # Exclude root
-        next if admin.uid == 0
-
-        # Check it the Admin is already in the Team
-        already_in_team = false
-        teammembers_admin = @team.teammembers.where(user_id: admin.id ).load
-        for teammember_admin in teammembers_admin do
-          already_in_team = true if teammember_admin.admin == true
-        end
-        next if already_in_team == true
-
-        add_user_to_team( admin, true )
-      end
-    end
-
-    def remove_root_from_team
-      root = User.find_by_uid( "0" )
-      teammember_root = @team.teammembers.find_by_user_id( root.id )
-      teammember_root.destroy unless teammember_root.nil?
-    end
-
-    def remove_admins_from_team
-      admins = @team.teammembers.where(admin: true)
-      for admin in admins do
-        admin.destroy unless admin.user.root?
-      end
     end
 
     def redirect_if_not_allowed_to_delete_team
