@@ -1,4 +1,4 @@
-class RailsDefaultRailsStamp < ActiveRecord::Migration
+class RailsDefaultTimeStamps < ActiveRecord::Migration
   def change
     rename_column :teams, :created_on, :created_at
     rename_column :teams, :updated_on, :updated_at
