@@ -30,8 +30,8 @@ include IntegrationTest::DefaultHelper
 
     #Test if Bob can see his account
     get account_path
-    assert_select "div#hidden_username", {text: "test"}
-    assert_select "div#hidden_password", {text: "password"}
+    assert_select "input#username", {value: "test"}
+    assert_select "input#password", {value: "password"}
   end
 
   test "Bob provides new ldap password and doesn't remember his old password" do
@@ -65,7 +65,7 @@ include IntegrationTest::DefaultHelper
 
     #Test if user could see his account(he should see now)
     get account_path
-    assert_select "div#hidden_username", {text: "test"}
-    assert_select "div#hidden_password", {text: "password"}
+    assert_select "input#username", {value: "test"}
+    assert_select "input#password", {value: "password"}
   end
 end

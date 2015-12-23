@@ -15,8 +15,8 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
 
     get team_group_account_path(team_id: team.id, group_id: group.id, id: account.id)
 
-    assert_select "div#hidden_username", {text: 'bob@test'}
-    assert_select "div#hidden_password", {text: 'alice33'}
+    assert_select "input#username", {value: "bob@test"}
+    assert_select "input#password", {value: "alice33"}
   end
 
   test 'alice reads account data' do
@@ -28,7 +28,7 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
 
     get team_group_account_path(team_id: team.id, group_id: group.id, id: account.id)
 
-    assert_select "div#hidden_username", {text: 'test'}
-    assert_select "div#hidden_password", {text: 'password'}
+    assert_select "input#username", {value: "test"}
+    assert_select "input#password", {value: "password"}
   end
 end
