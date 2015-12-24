@@ -113,4 +113,38 @@ class TeamsControllerTest < ActionController::TestCase
     assert_not team.noroot?
     assert_equal 'foo foo', team.description
   end
+
+  test "private or noroot cannot be enabled on existing team" do
+    login_as(:alice)
+    team = teams(:team1)
+
+    assert_not team.private?
+    assert_not team.noroot?
+
+    update_params = { noroot: true, private: true }
+
+    put :update, id: team, team: update_params
+
+    team.reload
+
+    assert_not team.private?
+    assert_not team.noroot?
+  end
+
+  test "private or noroot cannot be disabled on existing team" do
+    login_as(:alice)
+
+    team_params = {name: 'foo', private: true, noroot: true}
+    team = Team.create(users(:alice), team_params) 
+
+    update_params = { noroot: false, private: false }
+
+    put :update, id: team, team: update_params
+
+    team.reload
+
+    assert team.private?
+    assert team.noroot?
+  end
+
 end

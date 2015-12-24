@@ -62,17 +62,6 @@ class TeamTest <  ActiveSupport::TestCase
     end
   end
 
-  test "does not remove user from team if not team member" do
-    team = teams(:team1)
-    team.remove_user(alice)
-
-    exception = assert_raises do
-      team.remove_user(alice)
-    end
-
-    assert_match /user is not a team member/, exception.message
-  end
-
   test 'create new team adds creator, root and admins' do
     params = {}
     params[:name] = 'foo'
@@ -161,6 +150,16 @@ class TeamTest <  ActiveSupport::TestCase
     end
 
     assert_match /root cannot create private team/, exception.message
+  end
+
+  test 'root cannot be removed from team' do
+    team = teams(:team1)
+
+    e = assert_raises do
+      team.remove_user(users(:root))
+    end
+
+    assert_equal 'root cannot be removed from team', e.message
   end
 
   private

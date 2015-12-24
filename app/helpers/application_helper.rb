@@ -57,6 +57,15 @@ module ApplicationHelper
             method: :delete
   end
 
+  def labeled_check_box(f, attr, enabled = true)
+    options = {}
+    options[:disabled] = 'disabled' unless enabled
+    label_tag(attr) do
+      concat f.check_box(attr, options)
+      concat t(".#{attr.to_s}")
+    end
+  end
+
   private
   def default_field_options
     {class: 'form-control'}

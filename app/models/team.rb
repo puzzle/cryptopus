@@ -40,6 +40,12 @@ class Team < ActiveRecord::Base
     end
   end
 
+  def update_attributes(attributes)
+    attributes.delete('private')
+    attributes.delete('noroot')
+    super(attributes)
+  end
+
   def label
     name
   end
@@ -70,7 +76,7 @@ class Team < ActiveRecord::Base
   end
 
   def remove_user(user)
-    raise 'user is not a team member' unless teammember?(user.id)
+    raise 'root cannot be removed from team' if user.root?
     teammember(user.id).destroy!
   end
 

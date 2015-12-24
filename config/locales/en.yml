@@ -144,9 +144,7 @@ en:
     title: "Teams"
     form:
       private: "Private"
-      private_hint: "Admins don't have access to this team"
       no_root: "No Root"
-      no_root_hint: "NOT EVEN ROOT CAN RESTORE YOUR DATA IF YOU LOOSE YOUR PASSWORD!"
     index_menu:
       create: "Create new team"
     index:
@@ -155,8 +153,8 @@ en:
     new:
       title: "Create a new team"
     description:
-      private: "Admins will not have access to your team."
-      no_root: "Root will not have access to your team."
+      private: admins have no access if checked
+      no_root: root has no access if checked
 
   flashes:
     wizard:
