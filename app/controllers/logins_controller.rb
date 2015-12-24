@@ -20,6 +20,8 @@ class LoginsController < ApplicationController
   before_filter :redirect_if_ldap_user, only: [:show_update_password, :update_password]
   before_filter :redirect_if_logged_in, only: [:login]
 
+  skip_before_filter :verify_authenticity_token, only: [:authenticate] 
+
   def login
   end
 
