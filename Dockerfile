@@ -1,1 +1,0 @@
-FROM rails:onbuild
