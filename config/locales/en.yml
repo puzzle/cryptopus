@@ -50,6 +50,9 @@ en:
       file: "File"
     new:
       title: "New Account"
+  search:
+    index:
+      no_results_found: no results found
 
   admin:
     settings:

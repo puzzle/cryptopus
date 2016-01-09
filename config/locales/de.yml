@@ -31,6 +31,10 @@ de:
     language:
       name: 'Deutsch'
 
+  search:
+    index:
+      no_results_found: keine Resultate gefunden
+
   accounts:
     index:
       move: "Account zu einer anderen Gruppe verschieben"

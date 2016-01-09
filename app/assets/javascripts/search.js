@@ -36,14 +36,18 @@ function checkIfFunctioningBrowser(){
   };
 
   Search.prototype.doSearch = function(term) {
+    $('.result-info').hide();
     var that = this;
-    if (this.input_field.val().length < 3){
+    if (this.input_field.val().length > 2) {
       that.updateResultArea('');
-    }else{
-    $.get('/search/account.json', {search_string: term})
-      .done( function(data) {
-        that.updateResultArea(data);
-      });
+      $.get('/search/account.json', {search_string: term})
+        .done( function(data) {
+          if (data.length > 0) {
+            that.updateResultArea(data);
+          } else {
+            $('.result-info').show();
+          }
+        });
     }
   };
 

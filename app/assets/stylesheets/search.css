@@ -9,6 +9,11 @@ input.search-input {
   height: 3.5em;
 }
 
+.result-info {
+  text-align: center;
+  background: white;
+}
+
 .result-list {
   margin: 0;
   padding: 0;
