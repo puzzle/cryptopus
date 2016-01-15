@@ -21,31 +21,10 @@
 
 </table>
 
-<h2><%=t '.members' %></h2>
-
-<table>
-
-  <% @teammembers.each do |teammember| %>
-    <tr class="<%= cycle('odd', 'even') %>">
-      <td><%= teammember.user.label %></td>
-      <td><%= link_to_destroy [@team, teammember], teammember %></td>
-    </tr>
-  <% end %>
-</table>
+<%= render :partial => 'teammembers/index' %>
 
 <ul>
 	<li><%= link_to image_tag("add_user.png") + " " + t('.add_member'), new_team_teammember_path(@team) %></li>
 </ul>
 
-<h2><%=t '.admins' %></h2>
-
-<table>
-  <% @admins.each do |admin| %>
-    <tr class="<%= cycle('odd', 'even') %>">
-      <td><i><%= admin.user.label %></i></td>
-      <td><%= image_tag("penguin.png") %></td>
-    </tr>
-  <% end %>
-
-</table>
 

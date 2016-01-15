@@ -90,16 +90,6 @@ class TeamsController < ApplicationController
       end
     end
 
-    def add_user_to_team(user, admin)
-      team_member = user.teammembers.new
-      team_member.team_id = @team.id
-      team_member.password = CryptUtils.encrypt_team_password( @team_password, user.public_key )
-      if admin == true
-        team_member.admin = true
-      end
-      team_member.save
-    end
-
     def redirect_if_not_allowed_to_delete_team
       unless can_delete_team?(@team)
         flash[:error] = t('flashes.teams.cannot_delete')

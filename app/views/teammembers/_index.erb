@@ -1,0 +1,9 @@
+<h2><%=t '.members' %></h2>
+<table>
+  <% teammember_list.each do |teammember| %>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= teammember.user.label %></td>
+      <td><%= action_icon(teammember) %></td>
+    </tr>
+  <% end %>
+</table>

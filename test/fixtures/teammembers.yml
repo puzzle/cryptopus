@@ -1,23 +1,19 @@
 team1_bob:
   team: team1
   user: bob
-  admin: false
   password: <%= "!!binary \"#{FixturesHelper.read_team_password('bob', 'team1')}\"" %>
 
 team1_root:
   team: team1
   user: root
-  admin: true
   password: <%= "!!binary \"#{FixturesHelper.read_team_password('root', 'team1')}\"" %>
 
 team1_alice:
   team: team1
   user: alice
-  admin: false
   password: <%= "!!binary \"#{FixturesHelper.read_team_password('alice', 'team1')}\"" %>
 
 team1_admin:
     team: team1
     user: admin
-    admin: false
     password: <%= "!!binary \"#{FixturesHelper.read_team_password('admin', 'team1')}\"" %>

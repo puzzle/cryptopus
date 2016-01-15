@@ -1,19 +1,19 @@
-# $Id$
-
-# Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation; either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 module TeammembersHelper
+  def teammember_list
+    teammembers = @teammembers + @admins
+
+    return teammembers if @team.noroot
+
+    root = @teammembers.find_by(user_id: 1)
+    teammembers.delete(root)
+    teammembers.push(root)
+  end
+
+  def action_icon(teammember)
+    if teammember.user.admin? || teammember.user.root?
+      image_tag("penguin.png")
+    else
+      link_to_destroy [@team, teammember], teammember
+    end
+  end
 end

@@ -92,8 +92,7 @@ class Team < ActiveRecord::Base
       encrypt_team_password(plaintext_team_password, user.public_key)
 
     teammembers.create!(password: crypted_team_password,
-                       user: user,
-                       admin: user.admin?)
+                       user: user)
   end
 
 end

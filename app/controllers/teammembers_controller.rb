@@ -17,7 +17,7 @@
 
 class TeammembersController < ApplicationController
   before_filter :load_team
-  helper_method :teammember_canditates
+  helper_method :teammember_canditates, :can_destroy_teammember?
 
   # GET /teams/1/teammembers/new
   def new
@@ -48,26 +48,33 @@ class TeammembersController < ApplicationController
 
   # DELETE /teams/1/teammembers/1
   def destroy
+    @teammember = @team.teammembers.find( params[:id] )
+
     if @team.teammembers.count == 1
       flash[:error] = t('flashes.teammembers.could_not_remove_last_teammember')
+    elsif not can_destroy_teammember?(@teammember)
+      flash[:error] = 'test'
     else
-      @teammember = @team.teammembers.find( params[:id] )
       @teammember.destroy
     end
+
     respond_to do |format|
       format.html { redirect_to team_groups_url(@team) }
     end
   end
 
   private
+    def can_destroy_teammember?(teammember)
+      return false if teammember.user.root?
+      @team.private? || !(teammember.user.admin?)
+    end
 
     def load_team
       @team = Team.find( params[:team_id] )
     end
 
     def teammember_canditates
-      users = @team.teammember_candidates
-      user_list = users.collect {|user| [ user.username ]}
-      user_list.sort!
+      users = @team.teammember_candidates.order(:username)
+      users.pluck(:username)
     end
 end
