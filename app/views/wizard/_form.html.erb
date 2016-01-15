@@ -1,15 +1,18 @@
-<%= form_tag({:action => 'apply'}, :id => 'wizardform') do %>
-  <fieldset>
-    <label for="username" ><%=t :username %>:</label>
-    <%= text_field :username, params[:username], id: 'username', autocomplete: :off, disabled: true, value: "root" %>
+<%= form_tag({action: 'apply'}, id: 'wizardform') do %>
+    <div class="form-group">
+      <%= label_tag :username, t(:username) %>
+      <%= text_field_tag :username, params[:username], id: 'username', autocomplete: :off, disabled: true, value: "root", class: 'form-control' %>
+    </div>
 
-    <label for="password"><%=t :password %>:</label>
-    <%= password_field_tag :password, params[:password], autocomplete: :off, id: 'password', autofocus: true %>
+    <div class="form-group">
+      <%= label_tag :password, t(:password) %>
+      <%= password_field_tag :password, params[:password], autocomplete: :off, id: 'password', autofocus: true, class: 'form-control' %>
+    </div>
 
-    <label for="password"><%=t :password_repeat %>:</label>
-    <%= password_field_tag :password_repeat, params[:password_repeat], id: 'password_repeat' %>
+    <div class="form-group">
+      <%= label_tag :password, t(:password_repeat) %>
+      <%= password_field_tag :password_repeat, params[:password_repeat], id: 'password_repeat', class: 'form-control' %>
+    </div>
 
-    <label for="submit" />
-    <%= submit_tag "submit" %>
-  </fieldset>
+    <%= submit_tag "submit", class: 'btn btn-primary'%>
 <% end %>

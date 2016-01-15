@@ -10,12 +10,12 @@ body {
 }
 
 .navbar{
-  margin-left: calc(100vw - 100.7%);
+  margin-left: calc(100vw - 101%);
   margin-right: 0;
 }
 
 .navbar-header{
-    padding-left: 0.7%
+    padding-left: 1%
 }
 
 .main {
