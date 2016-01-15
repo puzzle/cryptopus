@@ -76,6 +76,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  def as_json(options = { })
+    h = {}
+    h[:id] = id
+    h[:label] = label
+    h
+  end
+
   # Updates Information about the user
   def update_info
     update_info_from_ldap if auth_ldap?
