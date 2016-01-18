@@ -18,16 +18,6 @@
 class ItemsController < ApplicationController
   before_filter :load_parents
 
-private
-
-  def load_parents
-    @team = Team.find( params[:team_id] )
-    @group = @team.groups.find( params[:group_id] )
-    @account = @group.accounts.find( params[:account_id] )
-  end
-
-public
-
   # GET /teams/1/groups/1/accounts/new
   def new
     @item = @account.items.new
@@ -40,16 +30,14 @@ public
   # POST /teams/1/groups/1/accounts/1/items
   def create
     datafile = params[:item][:file]
-    @item = @account.items.new
-    @item.description = params[:item][:description]
-    @item.filename = datafile.original_filename
-    @item.content_type = datafile.content_type
-    @item.file = CryptUtils.encrypt_blob( datafile.read, get_team_password(@team) )
+
+    if datafile.size > 10000000 #10MB
+      flash[:error] = t('flashes.items.uploaded_size_to_high')
+    else
+      create_item(datafile)
+    end
 
     respond_to do |format|
-      if @item.save
-        flash[:notice] = t('flashes.items.uploaded')
-      end
       format.html { redirect_to team_group_account_url(@team, @group, @account) }
     end
   end
@@ -72,4 +60,22 @@ public
     end
   end
 
+  private
+
+  def load_parents
+    @team = Team.find( params[:team_id] )
+    @group = @team.groups.find( params[:group_id] )
+    @account = @group.accounts.find( params[:account_id] )
+  end
+
+  def create_item(datafile)
+    @item = @account.items.new
+    @item.description = params[:item][:description]
+    @item.filename = datafile.original_filename
+    @item.content_type = datafile.content_type
+    @item.file = CryptUtils.encrypt_blob( datafile.read, get_team_password(@team) )
+    if @item.save
+      flash[:notice] = t('flashes.items.uploaded')
+    end
+  end
 end
