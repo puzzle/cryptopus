@@ -17,7 +17,7 @@
 
 class TeammembersController < ApplicationController
   before_filter :load_team
-  helper_method :teammember_canditates, :can_destroy_teammember?
+  helper_method :teammember_candidates
 
   # GET /teams/1/teammembers/new
   def new
@@ -53,7 +53,7 @@ class TeammembersController < ApplicationController
     if @team.teammembers.count == 1
       flash[:error] = t('flashes.teammembers.could_not_remove_last_teammember')
     elsif not can_destroy_teammember?(@teammember)
-      flash[:error] = 'test'
+      flash[:error] = t('flashes.teammembers.could_not_remove_admin_from_private_team')
     else
       @teammember.destroy
     end
@@ -64,6 +64,7 @@ class TeammembersController < ApplicationController
   end
 
   private
+
     def can_destroy_teammember?(teammember)
       return false if teammember.user.root?
       @team.private? || !(teammember.user.admin?)
@@ -73,7 +74,7 @@ class TeammembersController < ApplicationController
       @team = Team.find( params[:team_id] )
     end
 
-    def teammember_canditates
+    def teammember_candidates
       users = @team.teammember_candidates.order(:username)
       users.pluck(:username)
     end

@@ -21,8 +21,7 @@ class Teammember < ActiveRecord::Base
   belongs_to :user
   before_destroy :protect_if_last_teammember
 
-  scope :admins, -> { joins(:user).where(users: { admin: true}) }
-  scope :non_admins, -> { joins(:user).where(users: { admin: false}) }
+  scope :without_root, -> { joins(:user).where('users.uid != 0 OR users.uid is null') }
 
   private
   def protect_if_last_teammember
