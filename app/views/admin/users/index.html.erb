@@ -21,7 +21,7 @@
             <%= image_tag("flag.png") %>
           <% end %>
         </td>
-        <td>
+        <td class='action_icon'>
           <% if user != current_user %>
             <%= link_to_destroy [:admin, user], user %>
           <% end %>
