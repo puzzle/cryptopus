@@ -139,6 +139,8 @@ de:
       title: "Ein neues Teammitglied hinzufügen"
     confirm:
       delete: "%{entry_label} von diesem team entfernen ?"
+    show: "Mitglieder anzeigen"
+    hide: "Mitglieder verstecken"
 
   teams:
     title: "Teams"

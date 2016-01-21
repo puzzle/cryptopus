@@ -142,6 +142,8 @@ en:
       title: "Add a new teammember"
     confirm:
       delete: "Remove %{entry_label} from team ?"
+    show: "Show members"
+    hide: "Hide members"
 
   teams:
     title: "Teams"

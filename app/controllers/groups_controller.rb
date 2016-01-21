@@ -33,7 +33,8 @@ public
   def index
     @groups = @team.groups
 
-    @teammembers = @team.teammembers.without_root
+    teammembers = @team.teammembers.without_root
+    @teammembers = teammembers.sort_by { |tm| tm.label.downcase}
 
     respond_to do |format|
       format.html # index.html.erb

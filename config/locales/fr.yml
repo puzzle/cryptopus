@@ -137,6 +137,8 @@ fr:
       title: "Ajouter un nouveau membre de l'équipe"
     confirm:
       delete: "Supprimer %{entry_label} de cette équipe ?"
+    show: "Voir les membres"
+    hide: "Membres masquer"
 
   teams:
     title: "Équipe"

@@ -1,7 +1,23 @@
-<h2><%=t '.members' %></h2>
-<ul>
-  <% @teammembers.each do |teammember| %>
-    <%= teammember_entry(teammember) %>
-  <% end %>
-  <%= teammember_root_entry %>
-</ul>
+<script type="text/javascript">
+  window.I18n = <%= current_translations.to_json.html_safe %>
+</script>
+
+<div class="add_member">
+  <input id="search_member" placeholder="add member" type="text">
+  <a href="#"><%= image_tag("add.png"); %></a>
+</div>
+
+<h1 class="members"><%=t '.members' %></h1>
+<div class="columns">
+  <ol>
+    <% @teammembers.each do |teammember| %>
+      <%= teammember_entry(teammember) %>
+    <% end %>
+    <%= teammember_root_entry %>
+  </ol>
+  <br/>
+</div>
+
+<a href="#" class="show_members"><%= t('teammembers.show') %></a>
+
+<%= javascript_include_tag :teammember %>

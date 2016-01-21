@@ -9,15 +9,15 @@ module TeammembersHelper
 
   def teammember_icon(teammember)
     if teammember.user.admin? || teammember.user.root?
-      image_tag("add_user.png")
-    else
       image_tag("penguin.png")
+    else
+      image_tag("add_user.png")
     end
   end
 
   def delete_icon(teammember)
     if can_destroy_teammember?(teammember)
-      link_to_destroy [@team, teammember], teammember
+        link_to_destroy [@team, teammember], teammember
     end
   end
 
