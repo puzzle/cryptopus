@@ -1,9 +1,5 @@
 var Cryptopus = Cryptopus || function() {};
 
-$(document).on("click", ".form-control", function (e) {
-    e.target.select();
-});
-
 function checkIfFunctioningBrowser(){
   var ie10andbelow = navigator.userAgent.indexOf('MSIE') != -1 || /MSIE 10/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent);
   if(ie10andbelow){
@@ -22,6 +18,8 @@ function checkIfFunctioningBrowser(){
   };
 
   Search.prototype.attachEvent = function() {
+    registerFieldActions();
+
     var term = "";
     var that = this;
     var input_field = this.input_field;
@@ -77,6 +75,12 @@ function checkIfFunctioningBrowser(){
       }, 5000);
     });
   };
+
+  function registerFieldActions(){
+    $(document).on("click", ".form-control", function (e) {
+      e.target.select();
+    });
+  }
 
   exports.Search = Search;
 
