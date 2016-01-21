@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'crypt_utils'
-
 class TeamsController < ApplicationController
   before_filter :redirect_if_not_teammember_or_admin, except: [:index, :new, :create]
   before_filter :redirect_if_not_allowed_to_delete_team, only: [:destroy]
@@ -60,7 +58,6 @@ class TeamsController < ApplicationController
   def update
     respond_to do |format|
       if @team.update_attributes( team_params )
-
         flash[:notice] = t('flashes.teams.updated')
         format.html { redirect_to(teams_url) }
       else
@@ -88,19 +85,15 @@ class TeamsController < ApplicationController
 
     def redirect_if_not_teammember_or_admin
       @team = Team.find( params[:id] )
-      unless @team.teammember?( current_user.id ) || current_user.admin? || current_user.root?
-        flash[:error] = "You are not member of this team"
-        redirect_to teams_path
-        return
-      end
+      return if @team.teammember?( current_user.id ) || current_user.admin? || current_user.root?
+      flash[:error] = "You are not member of this team"
+      redirect_to teams_path
     end
 
     def redirect_if_not_allowed_to_delete_team
-      unless can_delete_team?(@team)
-        flash[:error] = t('flashes.teams.cannot_delete')
-        redirect_to teams_path
-        return
-      end
+      return if can_delete_team?(@team)
+      flash[:error] = t('flashes.teams.cannot_delete')
+      redirect_to teams_path
     end
 
     def can_delete_team?(team)
