@@ -14,6 +14,7 @@ function toggle_members(){
   $('.members').slideToggle().promise().done(function(){
     if($('.columns').is(':visible')){
       $('.show_members').text(I18n.teammembers.hide);
+      $('html, body').animate({scrollTop:$(document).height()}, 'slow');
     }else{
       $('.show_members').text(I18n.teammembers.show);
     }

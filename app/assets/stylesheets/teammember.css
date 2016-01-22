@@ -2,6 +2,7 @@
     width: 100%;
     display: none;
     padding: 10px;
+    border-bottom: 1px solid grey;
 }
 .columns li {
     width: 32%;
@@ -13,7 +14,6 @@
 
 .columns li a img {
   float: right;
-  /*margin-right: 30%;*/
 }
 
 .columns li img{
@@ -26,5 +26,4 @@
 
 .add_member{
   float: right;
-  margin-right: 5%;
 }
