@@ -17,7 +17,7 @@
         <td><%= user.label %></td>
         <td><%= user.uid.to_s %></td>
         <td>
-          <% if user.admin == true %>
+          <% if user.admin %>
             <%= image_tag("flag.png") %>
           <% end %>
         </td>
