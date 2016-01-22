@@ -194,6 +194,7 @@ fr:
       new_passwords_not_equal: "Nouveaux mots de passe n'est pas égal."
       wrong_password: "Mot de passe incorrect."
       not_local: "Vous n'êtes pas un utilisateur local!"
+      locked: "Votre compte est actuellement verouillé. Essayez de vous connecter à nouveau dans un instant, ou contactez l'administrateur si le verrouillage persiste"
     recryptrequests:
       recrypted: "Vous avez réussi re crypté le mot de passe."
       new_password_wrong: "Votre nouveau mot de passe était incorrect"

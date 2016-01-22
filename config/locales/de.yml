@@ -194,6 +194,7 @@ de:
       new_passwords_not_equal: "Die neuen Passwörter sind nicht gleich."
       wrong_password: "Falsches Passwort."
       not_local: "Sie sind kein lokaler Benutzer!"
+      locked: "Der Benutzer ist momentan gesperrt. Bitte versuchen Sie es später nocheinmal oder kontaktiern Sie den Administrator."
     recryptrequests:
       recrypted: "Ihr Passwort wurde erfolgreich neu verschlüsselt."
       new_password_wrong: "Ihr neues Passwort war falsch"
