@@ -71,4 +71,40 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert bob.reload.locked
     assert_equal 5, bob.failed_login_attempts
   end
+
+  test 'root cant be deleted' do
+
+  end
+
+  test 'Admin can create new user' do
+
+  end
+
+  test 'root can create new user' do
+
+  end
+
+  test 'admin can reset user-password' do
+
+  end
+
+  test 'root can reset user-password' do
+
+  end
+
+  test 'root-password cant be reset' do
+
+  end
+
+  test 'admin can edit user-profile' do
+
+  end
+
+  test 'root can edit user-profile' do
+
+  end
+
+  test 'root-profile cant be edited' do
+    
+  end
 end
