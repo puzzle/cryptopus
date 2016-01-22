@@ -174,8 +174,14 @@ fr:
         resetpassword:
           success: "Mot de passe réinitialisé avec succès"
           required: "Le mot de passe ne peut pas être vide"
+          not_root: "Impossible de réinitialiser le mot de passe de root"
       users:
         created: "Utilisateur créé avec succès."
+        destroy:
+          own_user: "Actuel de l'utilisateur ne peut pas être supprimé"
+          root: "Root ne peut pas être supprimé"
+        update:
+          root: "Root ne peuvent pas être mis à jour"
     accounts:
       created: "Compte créé avec succès."
       updated: "Compte modifiée avec succès."

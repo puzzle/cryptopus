@@ -93,8 +93,6 @@ en:
         unlock: "Unlock"
       new:
         title: "New user"
-      destroy:
-        own_user: "You can't delete your-self"
 
   groups:
     index_menu:
@@ -177,8 +175,14 @@ en:
         resetpassword:
           success: "Successfully reset password"
           required: "The password must not be blank"
+          not_root: "Could not reset roots password"
       users:
         created: "Successfully created a new user."
+        destroy:
+          own_user: "You can't delete your-self"
+          root: "Root cannot be deleted"
+        update:
+          root: "Root cannot be updated"
     accounts:
       created: "Account was successfully created."
       updated: "Account was successfully updated."
