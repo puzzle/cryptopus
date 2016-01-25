@@ -82,42 +82,6 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_equal 5, bob.failed_login_attempts
   end
 
-<<<<<<< HEAD
-  test 'root cant be deleted' do
-
-  end
-
-  test 'Admin can create new user' do
-
-  end
-
-  test 'root can create new user' do
-
-  end
-
-  test 'admin can reset user-password' do
-
-  end
-
-  test 'root can reset user-password' do
-
-  end
-
-  test 'root-password cant be reset' do
-
-  end
-
-  test 'admin can edit user-profile' do
-
-  end
-
-  test 'root can edit user-profile' do
-
-  end
-
-  test 'root-profile cant be edited' do
-    
-=======
   test 'admin updates user-profile' do
     alice = users(:alice)
     update_params = { username: 'new_username', givenname: 'new_givenname' }
@@ -184,6 +148,5 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     assert_not admin.admin?
     assert_not admin.teammembers.find_by(team_id: teams(:team1))
->>>>>>> 091e8e6436c4802a5a2834ee0d57b344b5ede94e
   end
 end
