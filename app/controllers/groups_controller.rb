@@ -17,20 +17,12 @@
 
 class GroupsController < ApplicationController
   before_filter :load_team
-private
-
-  def group_params
-    params.require(:group).permit(:name, :description)
-  end
-
-  def load_team
-    @team = Team.find( params[:team_id] )
-  end
-
-public
 
   # GET /teams/1/groups
   def index
+    add_breadcrumb I18n.t('teams.title'), :teams_path
+    add_breadcrumb @team.label
+
     @groups = @team.groups
 
     teammembers = @team.teammembers.without_root
@@ -108,5 +100,15 @@ public
 
   def group_params
     params.require(:group).permit(:name, :description)
+  end
+
+private
+
+  def group_params
+    params.require(:group).permit(:name, :description)
+  end
+
+  def load_team
+    @team = Team.find( params[:team_id] )
   end
 end

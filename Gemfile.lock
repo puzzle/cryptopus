@@ -51,6 +51,7 @@ GEM
       sass (~> 3.0)
       slim (>= 1.3.6, < 4.0)
       terminal-table (~> 1.4)
+    breadcrumbs_on_rails (2.3.1)
     builder (3.2.2)
     choice (0.2.0)
     chunky_png (1.3.5)
@@ -230,6 +231,7 @@ PLATFORMS
 
 DEPENDENCIES
   brakeman
+  breadcrumbs_on_rails
   compass-rails
   dynamic_form
   faker
@@ -253,3 +255,6 @@ DEPENDENCIES
   twitter-bootstrap-rails
   uglifier
   zeroclipboard-rails
+
+BUNDLED WITH
+   1.11.2

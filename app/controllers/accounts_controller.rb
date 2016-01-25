@@ -20,9 +20,12 @@ require 'ldap_tools'
 class AccountsController < ApplicationController
   before_filter :load_parents
 
-
   # GET /teams/1/groups/1/accounts
   def index
+    add_breadcrumb I18n.t('teams.title'), :teams_path
+    add_breadcrumb @team.label, :team_groups_path
+    add_breadcrumb @group.label
+
     @accounts = @group.accounts.all
 
     respond_to do |format|
@@ -34,6 +37,11 @@ class AccountsController < ApplicationController
   def show
     @account = @group.accounts.find( params[:id] )
     @items = @account.items.load
+
+    add_breadcrumb I18n.t('teams.title'), :teams_path
+    add_breadcrumb @team.label, :team_groups_path
+    add_breadcrumb @group.label, :team_group_accounts_path
+    add_breadcrumb @account.label
 
     decrypt_account
 

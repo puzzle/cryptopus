@@ -16,6 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Admin::UsersController < Admin::AdminController
+
+  before_filter :redirect_if_root, only: [:edit, :update, :destroy]
+
   # GET /admin/users
   def index
     @users = User.where("uid != 0 or uid is null")
@@ -25,28 +28,11 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  # GET /admin/users/1/edit
-  def edit
-    @user = User.find( params[:id] )
-    if @user.root?
-      flash[:error] = t('flashes.admin.users.update.root')
-      respond_to do |format|
-        format.html { redirect_to admin_users_path }
-      end
-    end
-  end
-
   # PUT /admin/users/1
   def update
-    @user = User.find( params[:id] )
-
-    if @user.root?
-      flash[:error] = t('flashes.admin.users.update.root')
-    else
-      was_admin = @user.admin
-      @user.update_attributes( user_params )
-      update_attribute_admin(was_admin)
-    end
+    was_admin = user.admin
+    user.update_attributes( user_params )
+    update_attribute_admin(was_admin)
 
     respond_to do |format|
       format.html { redirect_to admin_users_path }
@@ -55,14 +41,10 @@ class Admin::UsersController < Admin::AdminController
 
   # DELETE /admin/users/1
   def destroy
-    @user = User.find( params[:id] )
-
-    if @user == current_user
+    if user == current_user
       flash[:error] = t('flashes.admin.users.destroy.own_user')
-    elsif @user.root?
-      flash[:error] = t('flashes.admin.users.destroy.root')
     else
-      @user.destroy
+      user.destroy
     end
 
     respond_to do |format|
@@ -87,7 +69,6 @@ class Admin::UsersController < Admin::AdminController
     @user.auth = 'db'
     @user.create_keypair password
     @user.password = CryptUtils.one_way_crypt( password )
-
     respond_to do |format|
       if @user.save
         flash[:notice] = t('flashes.admin.users.created')
@@ -99,8 +80,7 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def unlock
-    @user = User.find( params[:id] )
-    @user.unlock
+    user.unlock
 
     respond_to do |format|
       format.html { redirect_to admin_users_path }
@@ -112,6 +92,24 @@ class Admin::UsersController < Admin::AdminController
   end
 
 private
+  def redirect_if_root
+    return if not user.root?
+
+    if params[:action] == 'destroy'
+      flash[:error] = t('flashes.admin.users.destroy.root')
+    else
+      flash[:error] = t('flashes.admin.users.update.root')
+    end
+
+    respond_to do |format|
+      format.html { redirect_to admin_users_path }
+    end
+  end
+
+  def user
+    @user ||= User.find(params[:id])
+  end
+
   def user_params
     params.require(:user).permit(:username, :givenname, :surname, :admin, :password, :auth)
   end
@@ -119,23 +117,17 @@ private
   def empower_user(user)
     teams = Team.where("private = ? OR noroot = ?", false, false)
 
-    for team in teams do
-      active_user = User.find( session[:user_id] )
-
-      active_teammember = team.teammembers.find_by_user_id( active_user.id.to_s )
+    teams.each do |t|
+      active_teammember = t.teammembers.find_by_user_id( current_user.id.to_s )
       team_password = CryptUtils.decrypt_team_password( active_teammember.password, session[:private_key] )
-
-      teammember = team.teammembers.new
-      teammember.password = CryptUtils.encrypt_team_password( team_password, user.public_key )
-      teammember.user_id = user.id
-      teammember.save
+      t.add_user(user, team_password)
     end
   end
 
   def disempower_admin(user)
-    teammembers = user.teammembers.joins(:team).where("teams.private == ?", false)
-    for teammember in teammembers do
-      teammember.destroy
+    teammembers = user.teammembers.joins(:team).where(teams:{private: false})
+    teammembers.each do |tm|
+      tm.destroy
     end
   end
 
