@@ -18,31 +18,34 @@
 class Admin::UsersController < Admin::AdminController
   # GET /admin/users
   def index
-    @users = User.where("uid != 0 or uid is null").all
-    #User.find( :all, :conditions => ["uid != 0 or uid is null"] )
+    @users = User.where("uid != 0 or uid is null")
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
     end
   end
 
   # GET /admin/users/1/edit
   def edit
     @user = User.find( params[:id] )
+    if @user.root?
+      flash[:error] = t('flashes.admin.users.update.root')
+      respond_to do |format|
+        format.html { redirect_to admin_users_path }
+      end
+    end
   end
 
   # PUT /admin/users/1
   def update
     @user = User.find( params[:id] )
-    was_admin = @user.admin
-    @user.update_attributes( user_params )
 
-    if @user.admin == true and not was_admin
-      empower_user( @user )
-    end
-
-    if @user.admin == false and was_admin
-      disempower_admin( @user )
+    if @user.root?
+      flash[:error] = t('flashes.admin.users.update.root')
+    else
+      was_admin = @user.admin
+      @user.update_attributes( user_params )
+      update_attribute_admin(was_admin)
     end
 
     respond_to do |format|
@@ -53,10 +56,13 @@ class Admin::UsersController < Admin::AdminController
   # DELETE /admin/users/1
   def destroy
     @user = User.find( params[:id] )
-    unless @user == current_user
-      @user.destroy
+
+    if @user == current_user
+      flash[:error] = t('flashes.admin.users.destroy.own_user')
+    elsif @user.root?
+      flash[:error] = t('flashes.admin.users.destroy.root')
     else
-      flash[:error] = t('admin.users.destroy.own_user')
+      @user.destroy
     end
 
     respond_to do |format|
@@ -85,9 +91,9 @@ class Admin::UsersController < Admin::AdminController
     respond_to do |format|
       if @user.save
         flash[:notice] = t('flashes.admin.users.created')
-        format.html { redirect_to(admin_users_url) }
+        format.html { redirect_to admin_users_url }
       else
-        format.html { render :action => "new" }
+        format.html { render action: 'new' }
       end
     end
   end
@@ -111,22 +117,14 @@ private
   end
 
   def empower_user(user)
-    teams = Team.all
+    teams = Team.where("private = ? OR noroot = ?", false, false)
+
     for team in teams do
-
-      # Decrypt the team password with the private key from the
-      # logged in user. He has to be root or admin to get
-      # admin rights to another user
       active_user = User.find( session[:user_id] )
-
-      # skip teams we do not encrypt for admins
-      next if team.private or team.noroot
 
       active_teammember = team.teammembers.find_by_user_id( active_user.id.to_s )
       team_password = CryptUtils.decrypt_team_password( active_teammember.password, session[:private_key] )
 
-      # Create the new teammember per team and mark it as an
-      # admin account
       teammember = team.teammembers.new
       teammember.password = CryptUtils.encrypt_team_password( team_password, user.public_key )
       teammember.user_id = user.id
@@ -135,9 +133,19 @@ private
   end
 
   def disempower_admin(user)
-    teammembers = user.teammembers.where(admin: true)
+    teammembers = user.teammembers.joins(:team).where("teams.private == ?", false)
     for teammember in teammembers do
       teammember.destroy
+    end
+  end
+
+  def update_attribute_admin(was_admin)
+    if @user.admin and !was_admin
+      empower_user( @user )
+    end
+
+    if !@user.admin and was_admin
+      disempower_admin( @user )
     end
   end
 end

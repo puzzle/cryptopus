@@ -68,9 +68,12 @@ input.search-input {
 }
 
 .clip_button_search{
+  border: 1px solid #C9C9C9;
   position: absolute;
   top: 0;
   right: 0;
+  height: 35px;
+  width: 50px;
 }
 
 .result-password {

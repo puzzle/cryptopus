@@ -1,4 +1,4 @@
-<% 
+<%
 # $Id$
 
 # Copyright (c) 2007 Puzzle ITC GmbH. All rights reserved.
@@ -25,16 +25,16 @@
     <th><%=t '.root_required' %></th>
     <th><%=t :actions %></th>
   </tr>
-    
+
   <% for recryptrequest in @recryptrequests %>
     <tr>
       <td><%= recryptrequest.user.label %></td>
-      <% if recryptrequest.adminrequired == true %>
-        <td>Yes</td>
+      <% if recryptrequest.adminrequired %>
+        <td><%=t :yes %></td>
       <% else %>
-        <td>No</td>
+        <td><%=t :no %></td>
       <% end %>
-      <% if recryptrequest.rootrequired == true %>
+      <% if recryptrequest.rootrequired %>
         <td><%=t :yes %></td>
       <% else %>
         <td><%=t :no %></td>

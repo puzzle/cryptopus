@@ -8,7 +8,7 @@
 
   <div class="checkbox">
     <%= labeled_check_box(f, :private, @team.new_record?) %>
-    <%= image_tag('info.png', class: 'info_icon private_info') %>
+    <%= image_tag('info.svg', class: 'info_icon private_info') %>
     <p class="description private">
       <%= t('teams.description.private') %>
     </p>
@@ -17,7 +17,7 @@
   <% unless current_user.root? %>
     <div class="checkbox">
       <%= labeled_check_box(f, :noroot, @team.new_record?) %>
-      <%= image_tag('info.png', class: 'info_icon no_root_info') %>
+      <%= image_tag('info.svg', class: 'info_icon no_root_info') %>
 
       <p class="description no_root">
         <%= t('teams.description.no_root') %>

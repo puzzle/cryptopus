@@ -93,8 +93,6 @@ en:
         unlock: "Unlock"
       new:
         title: "New user"
-      destroy:
-        own_user: "You can't delete your-self"
 
   groups:
     index_menu:
@@ -142,6 +140,8 @@ en:
       title: "Add a new teammember"
     confirm:
       delete: "Remove %{entry_label} from team ?"
+    show: "Show members"
+    hide: "Hide members"
 
   teams:
     title: "Teams"
@@ -175,8 +175,14 @@ en:
         resetpassword:
           success: "Successfully reset password"
           required: "The password must not be blank"
+          not_root: "Could not reset roots password"
       users:
         created: "Successfully created a new user."
+        destroy:
+          own_user: "You can't delete your-self"
+          root: "Root cannot be deleted"
+        update:
+          root: "Root cannot be updated"
     accounts:
       created: "Account was successfully created."
       updated: "Account was successfully updated."
@@ -195,7 +201,7 @@ en:
       new_passwords_not_equal: "New passwords not equal"
       wrong_password: "Wrong password"
       not_local: "You are not a local user!"
-      locked: "User is currently locked. please try to login again a bit later or contact the administrator if your user has been locked permanently"
+      locked: "User is currently locked. Please try to login again a bit later or contact the administrator if your user has been locked permanently"
     recryptrequests:
       recrypted: "You have successfully recrypted the password"
       new_password_wrong: "Your NEW password was wrong"
@@ -208,8 +214,10 @@ en:
       updated: "Team was successfully updated."
       deleted: "Team was successfully deleted"
       cannot_delete: "Only admin or root may delete teams"
+      no_member: "You are not member of this team"
     teammembers:
       could_not_remove_last_teammember: "Could not remove last teammember"
+      could_not_remove_admin_from_private_team: "Could not remove admin from private team"
 
   confirm:
     delete: "Delete %{entry_class} %{entry_label} ?"

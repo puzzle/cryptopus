@@ -14,10 +14,9 @@
     <tr class="<%= cycle('odd', 'even') %>">
       <td><%= link_to image_tag( "encrypted_small.png" ) + " " + account.accountname, [@team, @group, account] %></td>
       <td><%= account.description %></td>
-      <td class='action_icon'><%= link_to image_tag("edit.png"), [:edit, @team, @group, account] %></td>
+      <td class='action_icon'><%= link_to image_tag("edit.svg"), [:edit, @team, @group, account] %></td>
       <td class='action_icon'><%= link_to_destroy [@team, @group, account], account %></td>
     </tr>
   <% end %>
 
 </table>
-

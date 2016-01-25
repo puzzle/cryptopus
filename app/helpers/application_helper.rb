@@ -30,13 +30,7 @@ module ApplicationHelper
     end
   end
 
-  def get_back_to_list_button(target_controller=nil, target_action="index")
-    unless target_controller.nil?
-      link_to(image_tag("previous.png") + " Back", :controller => target_controller, :action => target_action)
-    else
-      link_to(image_tag("previous.png") + " Back", :action => target_action)
-    end
-  end
+
 
   def nav_link(name, path)
     class_name = current_page?(path) ? 'active' : ''
@@ -52,7 +46,7 @@ module ApplicationHelper
     label_key = "#{entry_class.pluralize}.confirm.delete"
 
     confirm = t(label_key, entry_class: entry_class, entry_label: entry_label, default: t("confirm.delete"))
-    link_to image_tag("remove.png"),
+    link_to image_tag("remove.svg"),
             path, data:{confirm: confirm},
             method: :delete
   end
@@ -64,6 +58,11 @@ module ApplicationHelper
       concat f.check_box(attr, options)
       concat t(".#{attr.to_s}")
     end
+  end
+
+  def current_translations
+    @translations ||= I18n.backend.send(:translations)
+    @translations[I18n.locale].with_indifferent_access
   end
 
   private

@@ -31,10 +31,10 @@ public
 
   # GET /teams/1/groups
   def index
-    @groups = @team.groups.all
+    @groups = @team.groups
 
-    @teammembers = @team.teammembers.non_admins
-    @admins = @team.teammembers.admins
+    teammembers = @team.teammembers.without_root
+    @teammembers = teammembers.sort_by { |tm| tm.label.downcase}
 
     respond_to do |format|
       format.html # index.html.erb

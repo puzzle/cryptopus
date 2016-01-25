@@ -139,6 +139,8 @@ de:
       title: "Ein neues Teammitglied hinzufügen"
     confirm:
       delete: "%{entry_label} von diesem team entfernen ?"
+    show: "Mitglieder anzeigen"
+    hide: "Mitglieder verstecken"
 
   teams:
     title: "Teams"
@@ -172,8 +174,14 @@ de:
         resetpassword:
           success: "Das Passwort wurde erfolgreich gesetzt"
           required: "Das Passwort darf nicht leer sein"
+          not_root: "Das root Passwort kann nicht zurückgesetzt werden"
       users:
         created: "Der neue Benutzer wurde erfolgreich erstellt."
+        destroy:
+          own_user: "Eigener Benutzer kann nicht gelöscht werden"
+          root: "Root kann nicht gelöscht werden"
+        update:
+          root: "Root kann nicht aktualisiert werden"
     accounts:
       created: "Der neue Account wurde erfolgreich erstellt."
       updated: "Der Account wurde erfolgreich bearbeitet."
@@ -192,6 +200,7 @@ de:
       new_passwords_not_equal: "Die neuen Passwörter sind nicht gleich."
       wrong_password: "Falsches Passwort."
       not_local: "Sie sind kein lokaler Benutzer!"
+      locked: "Der Benutzer ist momentan gesperrt. Bitte versuchen Sie es später nocheinmal oder kontaktiern Sie den Administrator."
     recryptrequests:
       recrypted: "Ihr Passwort wurde erfolgreich neu verschlüsselt."
       new_password_wrong: "Ihr neues Passwort war falsch"
@@ -204,8 +213,10 @@ de:
       updated: "Das Team wurde erfolgreich angepasst."
       deleted: "Das Team wurde erfolgreich gelöscht"
       cannot_delete: "Nur admins und root können das Team löschen"
+      no_member: "Sie sind nicht Mitglied dieses Team"
     teammembers:
       could_not_remove_last_teammember: "Der letzte Benutzer eines Teams kann nicht entfernt werden"
+      could_not_remove_admin_from_private_team: "Admins können nicht aus einem privaten Team gelöscht werden"
 
   helpers:
     label:

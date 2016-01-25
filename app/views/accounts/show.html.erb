@@ -46,8 +46,9 @@
 
     <% for item in @items %>
       <tr class="<%= cycle( 'odd', 'even' ) %>">
-        <td><b><%= item.filename %></b><br/>
-          <%= link_to image_tag("encrypted.png"), [@team, @group, @account, item] %></td>
+        <td>
+          <%= link_to image_tag("encrypted.svg") + item.filename, [@team, @group, @account, item] %>
+        </td>
         <td valign="top"><%= item.description %></td>
         <td class='action_icon'><%= link_to_destroy [@team, @group, @account, item], item %></td>
       </tr>

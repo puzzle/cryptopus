@@ -12,9 +12,9 @@
 
   <% for group in @groups %>
     <tr class="<%= cycle('odd', 'even') %>">
-      <td><%= link_to image_tag( "folder_open.png" ) + " " + %Q{#{group.name}}, team_group_accounts_path(@team, group) %></td>
+      <td><%= link_to image_tag( "folder_open.svg" ) + " " + %Q{#{group.name}}, team_group_accounts_path(@team, group) %></td>
       <td><%= group.description %></td>
-      <td class='action_icon'><%= link_to image_tag("edit.png"), [:edit, @team, group] %></td>
+      <td class='action_icon'><%= link_to image_tag("edit.svg"), [:edit, @team, group] %></td>
       <td class='action_icon'><%= link_to_destroy [@team, group], group %></td>
     </tr>
   <% end %>
@@ -22,9 +22,3 @@
 </table>
 
 <%= render :partial => 'teammembers/index' %>
-
-<ul>
-	<li><%= link_to image_tag("add_user.png") + " " + t('.add_member'), new_team_teammember_path(@team) %></li>
-</ul>
-
-

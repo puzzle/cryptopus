@@ -45,4 +45,12 @@ Cryptopus::Application.routes.draw do
 
     root to: 'search#index'
   end
+
+  scope '/api', module: 'api' do
+    resources :teams, except: [:new, :edit]  do
+      member do
+        get 'teammember_candidates'
+      end
+    end
+  end
 end
