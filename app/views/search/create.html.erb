@@ -40,7 +40,7 @@
     <% group = account.group %>
     <% team = group.team %>
     <tr class="<%= cycle('odd', 'even') %>">
-      <td><%= link_to image_tag( "encrypted_small.png" ) + " " + account.accountname, [team, group, account] %></td>
+      <td><%= link_to image_tag( "encrypted_small.svg" ) + " " + account.accountname, [team, group, account] %></td>
       <td><%= account.description %></td>
     </tr>
   <% end %>
@@ -50,7 +50,7 @@
     <% group = account.group %>
     <% team = group.team %>
     <tr class="<%= cycle('odd', 'even') %>">
-      <td><%= link_to image_tag( "encrypted_small.png" ) + " " + item.filename, [team, group, account] %></td>
+      <td><%= link_to image_tag( "encrypted_small.svg" ) + " " + item.filename, [team, group, account] %></td>
       <td><%= item.description %></td>
     </tr>
   <% end %>

@@ -1,3 +1,7 @@
+img{
+  vertical-align: bottom!important;
+}
+
 html {
   position: relative;
   min-height: 100%;
