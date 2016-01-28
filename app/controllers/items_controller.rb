@@ -47,7 +47,7 @@ class ItemsController < ApplicationController
     @item = @account.items.find( params[:id] )
     file = CryptUtils.decrypt_blob( @item.file, get_team_password(@team) )
 
-    send_data file, :filename => @item.filename , :type => @item.content_type, :disposition => 'attachment'
+    send_data file, filename: @item.filename , type: @item.content_type, disposition: 'attachment'
   end
 
   # DELETE /teams/1/groups/1/accounts/1/items/1

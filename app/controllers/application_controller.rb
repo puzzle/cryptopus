@@ -19,7 +19,7 @@
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
   before_filter :redirect_to_wizard_if_new_setup
-  before_filter :authorize, :except => [:login, :authenticate, :logout, :wizard]
+  before_filter :authorize, except: [:login, :authenticate, :logout, :wizard]
   before_filter :prepare_menu
   before_filter :set_locale
   before_filter :set_cache_headers

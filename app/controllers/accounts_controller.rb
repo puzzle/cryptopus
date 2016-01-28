@@ -70,7 +70,7 @@ class AccountsController < ApplicationController
         flash[:notice] = t('flashes.accounts.created')
         format.html { redirect_to team_group_accounts_url(@team, @group) }
       else
-        format.html { render :action => 'new' }
+        format.html { render action: 'new' }
       end
     end
   end
@@ -99,7 +99,7 @@ class AccountsController < ApplicationController
         flash[:notice] = t('flashes.accounts.updated')
         format.html { redirect_to team_group_accounts_url(@team, @group) }
       else
-        format.html { render :action => 'edit' }
+        format.html { render action: 'edit' }
       end
     end
   end

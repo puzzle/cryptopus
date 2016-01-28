@@ -60,7 +60,7 @@ class GroupsController < ApplicationController
         flash[:notice] = t('flashes.groups.created')
         format.html { redirect_to team_groups_url(@team) }
       else
-        format.html { render :action => 'new' }
+        format.html { render action: 'new' }
       end
     end
   end
@@ -83,7 +83,7 @@ class GroupsController < ApplicationController
         flash[:notice] = t('flashes.groups.updated')
         format.html { redirect_to team_groups_url(@team) }
       else
-        format.html { render :action => 'edit' }
+        format.html { render action: 'edit' }
       end
     end
   end

@@ -20,7 +20,7 @@ class LoginsController < ApplicationController
   before_filter :redirect_if_ldap_user, only: [:show_update_password, :update_password]
   before_filter :redirect_if_logged_in, only: [:login]
 
-  skip_before_filter :verify_authenticity_token, only: [:authenticate] 
+  skip_before_filter :verify_authenticity_token, only: [:authenticate]
 
   def login
   end
@@ -35,7 +35,7 @@ class LoginsController < ApplicationController
       authenticate_user(user, password)
     else
       flash[:error] = t('flashes.logins.auth_failed')
-      render :action => 'login'
+      render action: 'login'
     end
   end
 
@@ -72,7 +72,7 @@ class LoginsController < ApplicationController
   def user_locked?(user)
     if user.locked?
       flash[:error] = t('flashes.logins.locked')
-      render :action => 'login'
+      render action: 'login'
       true
     end
   end
@@ -90,7 +90,7 @@ class LoginsController < ApplicationController
       redirect_after_sucessful_login
     else
       flash[:error] = t('flashes.logins.auth_failed')
-      render :action => 'login'
+      render action: 'login'
     end
   end
 
