@@ -11,7 +11,7 @@
 
   <% @teams.each do |team| %>
     <tr class="<%= cycle( 'odd', 'even' ) %>">
-    <td><%= link_to image_tag( "kontact_contacts.svg" ) + " #{team.name}", team_groups_path( team ) %></td>
+    <td><%= link_to image_tag( "members.svg" ) + " #{team.name}", team_groups_path( team ) %></td>
     <td><%= team.description %></td>
     <td class='action_icon'><%= link_to image_tag( "edit.svg" ), edit_team_path( team ) %></td>
       <% if can_delete_team?(team) %>

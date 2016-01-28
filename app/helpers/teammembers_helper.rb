@@ -11,7 +11,7 @@ module TeammembersHelper
     if teammember.user.admin? || teammember.user.root?
       image_tag("flag.svg")
     else
-      image_tag("add_user.png")
+      image_tag("user.svg")
     end
   end
 
@@ -24,7 +24,7 @@ module TeammembersHelper
   def teammember_root_entry
     return if @team.noroot
     content_tag(:li) do
-      image_tag("penguin.png") +
+      image_tag("penguin.svg") +
       'Root'
     end
   end

@@ -13,47 +13,16 @@ body {
   margin-bottom: 50px;
 }
 
-.navbar{
-  margin-left: calc(100vw - 101%);
-  margin-right: 0;
-}
-
-.navbar-header{
-    padding-left: 1%
-}
-
 .main {
   margin-top: 120px;
 }
 
-.container {
-  width: 800px;
-}
-
-.container h1 {
-  font-size: 1.5em;
-}
-
-.container h2 {
-  font-size: 1.1em;
-}
-
-.container .table {
-  text-align: left;
-  margin-top: 60px;
-}
-
-.container form:not(.login) {
-  margin: auto;
-  width: 70%;
-  text-align: left;
-}
-
 .alert {
-  margin-top: -60px;
   width: 500px;
-  position: fixed;
+  position: absolute;
+  display: block;
   left: 50%;
+  top: 80px;
   margin-left: -250px;
 }
 
@@ -108,8 +77,6 @@ body {
   left: 210px;
   top: 0;
 }
-
-
 
 /*Team*/
 

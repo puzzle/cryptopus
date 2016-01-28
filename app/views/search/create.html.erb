@@ -23,7 +23,7 @@
 
   <% for team in @teams %>
     <tr class="<%= cycle('odd', 'even') %>">
-      <td><%= link_to image_tag( "kontact_contacts.svg" ) + " " + team.name, [team, :groups] %></td>
+      <td><%= link_to image_tag( "members.svg" ) + " " + team.name, [team, :groups] %></td>
       <td><%= team.description %></td>
     </tr>
   <% end %>
