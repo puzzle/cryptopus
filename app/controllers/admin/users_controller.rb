@@ -30,7 +30,7 @@ class Admin::UsersController < Admin::AdminController
 
   # PUT /admin/users/1
   def update
-    was_admin = user.admin
+    was_admin = user.admin?
     user.update_attributes( user_params )
     update_attribute_admin(was_admin)
 
@@ -63,12 +63,10 @@ class Admin::UsersController < Admin::AdminController
 
   # POST /admin/users
   def create
-    @user = User.new( user_params )
     password = params[:user][:password]
 
-    @user.auth = 'db'
-    @user.create_keypair password
-    @user.password = CryptUtils.one_way_crypt( password )
+    @user = User.create_db_user(password, user_params)
+
     respond_to do |format|
       if @user.save
         flash[:notice] = t('flashes.admin.users.created')
@@ -132,11 +130,11 @@ private
   end
 
   def update_attribute_admin(was_admin)
-    if @user.admin and !was_admin
+    if @user.admin? and !was_admin
       empower_user( @user )
     end
 
-    if !@user.admin and was_admin
+    if !@user.admin? and was_admin
       disempower_admin( @user )
     end
   end

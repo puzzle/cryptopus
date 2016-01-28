@@ -34,6 +34,14 @@ class User < ActiveRecord::Base
 
   class << self
 
+    def create_db_user(password, user_params)
+      user = self.new( user_params )
+      user.auth = 'db'
+      user.create_keypair password
+      user.password = CryptUtils.one_way_crypt( password )
+      user
+    end
+
     def find_or_import_from_ldap(username, password)
       user = find_by(username: username)
 
