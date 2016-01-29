@@ -54,6 +54,7 @@ class Account < ActiveRecord::Base
   private
   def decrypt_attr(attr, team_password)
     crypted_value = send(attr)
+    return unless crypted_value.present?
     CryptUtils.decrypt_blob(crypted_value, team_password)
   end
 
