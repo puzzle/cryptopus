@@ -13,7 +13,7 @@ module IntegrationTest
       #New Account
       group = team.groups.find_by_name('Default')
       account_path = team_group_accounts_path(team_id: team.id, group_id: group.id)
-      post account_path, account: {accountname: 'puzzle', description: 'account_description', username: 'account_username', password: 'account_password'}
+      post account_path, account: {accountname: 'puzzle', description: 'account_description', cleartext_username: 'account_username', cleartext_password: 'account_password'}
 
       logout
       group.accounts.find_by_accountname('puzzle')
@@ -44,7 +44,7 @@ module IntegrationTest
     end
 
     def create_account(group, groupname, accountname)
-      Account.create(group_id: group.id,accountname: accountname, description: 'account_description', username: 'account_username', password: 'account_password')
+      Account.create(group_id: group.id,accountname: accountname, description: 'account_description', cleartext_username: 'account_username', cleartext_password: 'account_password')
     end
   end
 end

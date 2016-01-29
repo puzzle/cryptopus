@@ -35,7 +35,7 @@ class AccountsController < ApplicationController
 
   # GET /teams/1/groups/1/accounts/1
   def show
-    @account = @group.accounts.find( params[:id] )
+    @account = Account.find(params[:id])
     @items = @account.items.load
 
     add_breadcrumb I18n.t('teams.title'), :teams_path
@@ -43,7 +43,7 @@ class AccountsController < ApplicationController
     add_breadcrumb @group.label, :team_group_accounts_path
     add_breadcrumb @account.label
 
-    decrypt_account
+    @account.decrypt(get_team_password(@team))
 
     respond_to do |format|
       format.html # show.html.erb
@@ -63,7 +63,7 @@ class AccountsController < ApplicationController
   def create
     @account = @group.accounts.new( account_params )
 
-    crypt_account
+    @account.encrypt(get_team_password(@team))
 
     respond_to do |format|
       if @account.save
@@ -80,7 +80,7 @@ class AccountsController < ApplicationController
     @account = @group.accounts.find( params[:id] )
     @groups = @team.groups.all
 
-    decrypt_account
+    @account.decrypt(get_team_password(@team))
 
     respond_to do |format|
       format.html # edit.html.erb
@@ -92,7 +92,7 @@ class AccountsController < ApplicationController
     @account = @group.accounts.find( params[:id] )
     @account.attributes = account_params
 
-    crypt_account
+    @account.encrypt(get_team_password(@team))
 
     respond_to do |format|
       if @account.save
@@ -117,19 +117,7 @@ class AccountsController < ApplicationController
   private
 
     def account_params
-      params.require(:account).permit(:accountname, :username, :password, :description, :group_id)
-    end
-
-    def crypt_account
-      @account.username = "none" if @account.username == "" or @account.username.nil?
-      @account.password = "none" if @account.password == "" or @account.password.nil?
-      @account.username = CryptUtils.encrypt_blob @account.username, get_team_password(@team)
-      @account.password = CryptUtils.encrypt_blob @account.password, get_team_password(@team)
-    end
-
-    def decrypt_account
-      @account.username = CryptUtils.decrypt_blob @account.username, get_team_password(@team)
-      @account.password = CryptUtils.decrypt_blob @account.password, get_team_password(@team)
+      params.require(:account).permit(:accountname, :cleartext_username, :cleartext_password, :description, :group_id)
     end
 
     def load_parents
