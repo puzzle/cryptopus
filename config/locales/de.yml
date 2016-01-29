@@ -192,6 +192,7 @@ de:
       updated: "Die Gruppe wurde erfolgreich bearbeitet."
     items:
       uploaded: "Die Datei wurde erfolgreich hochgeladen."
+      uploaded_size_to_high: "Die Datei ist zu gross zum hochladen. (Max. 10MB)"
     logins:
       welcome: "Willkommen bei Cryptopus. Zuerst müssen Sie einen Root Account erstellen. Bitte verwenden Sie \"root\" als Benutzername und wählen Sie ein sicheres Passwort."
       auth_failed: "Authentifikation fehlgeschlagen! Geben Sie einen gültigen Benutzernamen und ein korrektes Passwort ein."

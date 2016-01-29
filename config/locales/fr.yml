@@ -192,6 +192,7 @@ fr:
       updated: "Groupe modifiée avec succès"
     items:
       uploaded: "Fichier téléchargé avec succès."
+      uploaded_size_to_high: "Fichier est trop volumineux pour tèlècharger. (max. 10MB)"
     logins:
       welcome: "Bienvenue à Cryptopus, vous devez d'abord créer un nouveau compte Root. S'il vous plaît entrer \"root\" comme nom d'utilisateur et entrez un nouveau mot de passe."
       auth_failed: "L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe."
