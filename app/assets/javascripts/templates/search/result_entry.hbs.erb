@@ -14,7 +14,7 @@
     <br>
     <div class="result-action form-group">
       <div class="result-username select-click">
-        <input id="username_{{id}}" type="text" value="{{username}}" class="form-control" readonly>
+        <input id="username_{{id}}" type="text" value="{{cleartext_username}}" class="form-control" readonly>
         <button class="btn clip_button_search" data-clipboard-target="username_{{id}}" title="Click to copy">
           <svg class="icon-clippy">
             <use xlink:href="#icon-clippy"></use>
@@ -24,7 +24,7 @@
 
       <div class="result-password select-click">
         <a href="#" class="password-link">Show password</a>
-        <input id="password_{{id}}"type="text" class="password-hidden hide form-control" value="{{password}}" readonly>
+        <input id="password_{{id}}"type="text" class="password-hidden hide form-control" value="{{cleartext_password}}" readonly>
         <button class="btn clip_button_search" data-clipboard-target="password_{{id}}" title="Click to copy">
           <svg class="icon-clippy">
             <use xlink:href="#icon-clippy"></use>

@@ -16,4 +16,5 @@ class AccountsControllerTest < ActionController::TestCase
 
     assert_equal account1.group_id, group2.id
   end
+
 end

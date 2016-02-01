@@ -40,8 +40,7 @@ private
   def decrypt_accounts(accounts)
     accounts.each do |a|
       team = a.group.team
-      a.username = CryptUtils.decrypt_blob a.username, get_team_password(team)
-      a.password = CryptUtils.decrypt_blob a.password, get_team_password(team)
+      a.decrypt(get_team_password(team))
     end
   end
 

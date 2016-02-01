@@ -18,8 +18,8 @@ module IntegrationTest
     def can_access_account(account_path, username, user_password = 'password', account_username = 'account_username', account_password = 'account_password')
       login_as(username, user_password)
       get account_path
-      assert_select ("input#username"), {value: account_username}
-      assert_select ("input#password"), {value: account_password}
+      assert_select ("input#cleartext_username"), {value: account_username}
+      assert_select ("input#cleartext_password"), {value: account_password}
       logout
     end
 

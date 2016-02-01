@@ -7,8 +7,8 @@
   <br/>
 
     <div class="result-username select-click">
-      <input id="username" type="text" value="<%= @account.username %>" class="form-control" readonly>
-      <button class="clip_button_account" data-clipboard-target="username" title="Click to copy">
+      <input id="cleartext_username" type="text" value="<%= @account.cleartext_username %>" class="form-control" readonly>
+      <button class="clip_button_account" data-clipboard-target="cleartext_username" title="Click to copy">
         <svg class="icon-clippy">
           <use xlink:href="#icon-clippy"></use>
         </svg>
@@ -17,8 +17,8 @@
 
     <div class="result-password select-click">
       <a href="#" class="password-link">Show password</a>
-      <input id="password" type="text" class="password-hidden hide form-control" value="<%= @account.password %>" readonly>
-      <button class="clip_button_account" data-clipboard-target="password" title="Click to copy">
+      <input id="cleartext_password" type="text" class="password-hidden hide form-control" value="<%= @account.cleartext_password %>" readonly>
+      <button class="clip_button_account" data-clipboard-target="cleartext_password" title="Click to copy">
         <svg class="icon-clippy">
           <use xlink:href="#icon-clippy"></use>
         </svg>
@@ -26,7 +26,7 @@
     </div>
 
   <div id="hidden_password" style="display:none">
-    <%= @account.password %>
+    <%= @account.cleartext_password %>
   </div>
   <br/>
 
