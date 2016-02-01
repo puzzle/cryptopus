@@ -1,5 +1,9 @@
 <% if flash[:notice] %>
-  <div class="alert alert-info"><%= flash[:notice] %></div>
+  <div class="alert alert-info"><%= flash[:notice] %>
+    <a class="close" title="close" aria-label="close" data-dismiss="alert" href="#">x</a>
+  </div>
 <% elsif flash[:error] %>
-  <div class="alert alert-danger"><%= flash[:error] %></div>
+  <div class="alert alert-danger"><%= flash[:error] %>
+    <a class="close" title="close" aria-label="close" data-dismiss="alert" href="#">x</a>
+  </div>
 <% end %>
