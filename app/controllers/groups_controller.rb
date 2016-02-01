@@ -20,7 +20,7 @@ class GroupsController < ApplicationController
 
   # GET /teams/1/groups
   def index
-    add_breadcrumb I18n.t('teams.title'), :teams_path
+    groups_breadcrumbs
     add_breadcrumb @team.label
 
     @groups = @team.groups
@@ -69,6 +69,10 @@ class GroupsController < ApplicationController
   def edit
     @group = @team.groups.find( params[:id] )
 
+    groups_breadcrumbs
+    add_breadcrumb @team.label, :team_groups_path
+    add_breadcrumb @group.label
+
     respond_to do |format|
       format.html # edit.html.erb
     end
@@ -111,4 +115,9 @@ private
   def load_team
     @team = Team.find( params[:team_id] )
   end
+
+  def groups_breadcrumbs
+    add_breadcrumb I18n.t('teams.title'), :teams_path
+  end
+
 end

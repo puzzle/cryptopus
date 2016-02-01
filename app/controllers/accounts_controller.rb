@@ -22,8 +22,7 @@ class AccountsController < ApplicationController
 
   # GET /teams/1/groups/1/accounts
   def index
-    add_breadcrumb I18n.t('teams.title'), :teams_path
-    add_breadcrumb @team.label, :team_groups_path
+    accounts_breadcrumbs
     add_breadcrumb @group.label
 
     @accounts = @group.accounts.all
@@ -38,8 +37,7 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:id])
     @items = @account.items.load
 
-    add_breadcrumb I18n.t('teams.title'), :teams_path
-    add_breadcrumb @team.label, :team_groups_path
+    accounts_breadcrumbs
     add_breadcrumb @group.label, :team_group_accounts_path
     add_breadcrumb @account.label
 
@@ -79,6 +77,10 @@ class AccountsController < ApplicationController
   def edit
     @account = @group.accounts.find( params[:id] )
     @groups = @team.groups.all
+
+    accounts_breadcrumbs
+    add_breadcrumb @group.label, :team_group_accounts_path
+    add_breadcrumb @account.label
 
     @account.decrypt(get_team_password(@team))
 
@@ -125,5 +127,9 @@ class AccountsController < ApplicationController
       @group = @team.groups.find( params[:group_id] )
     end
 
+    def accounts_breadcrumbs
+      add_breadcrumb I18n.t('teams.title'), :teams_path
+      add_breadcrumb @team.label, :team_groups_path
+    end
 
 end

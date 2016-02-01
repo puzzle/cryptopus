@@ -52,6 +52,8 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
+    add_breadcrumb I18n.t('teams.title'), :teams_path
+    add_breadcrumb @team.label
   end
 
   # PUT /teams/1
