@@ -17,4 +17,27 @@ class AccountsControllerTest < ActionController::TestCase
     assert_equal account1.group_id, group2.id
   end
 
+  test 'show breadcrumb path 1 if user is on index of accounts' do
+    login_as (:bob)
+
+    group1 = groups(:group1)
+    team1 = teams(:team1)
+
+    get :index, group_id: group1, team_id: team1
+    assert_select '.breadcrumbs', text: 'Teams > team1 > group1'
+    assert_select '.breadcrumbs', contains: '<a>Teams</a> > <a>team1</a> > group1'
+  end
+
+  test 'show breadcrump path 2 if user is on edit of accounts' do
+    login_as (:bob)
+
+    group1 = groups(:group1)
+    team1 = teams(:team1)
+    account1 = accounts(:account1)
+
+    get :edit, id: account1, group_id: group1, team_id: team1
+    assert_select '.breadcrumbs', text: 'Teams > team1 > group1 > account1'
+    assert_select '.breadcrumbs', contains: '<a>Teams</a> > <a>team1</a> > <a>group1</a> > account1'
+  end
+
 end
