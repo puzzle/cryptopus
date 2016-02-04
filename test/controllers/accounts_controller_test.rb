@@ -25,7 +25,9 @@ class AccountsControllerTest < ActionController::TestCase
 
     get :index, group_id: group1, team_id: team1
     assert_select '.breadcrumbs', text: 'Teams > team1 > group1'
-    assert_select '.breadcrumbs', contains: '<a>Teams</a> > <a>team1</a> > group1'
+    assert_select '.breadcrumbs a', count: 2
+    assert_select '.breadcrumbs a', text: 'Teams'
+    assert_select '.breadcrumbs a', text: 'team1'
   end
 
   test 'show breadcrump path 2 if user is on edit of accounts' do
@@ -37,7 +39,10 @@ class AccountsControllerTest < ActionController::TestCase
 
     get :edit, id: account1, group_id: group1, team_id: team1
     assert_select '.breadcrumbs', text: 'Teams > team1 > group1 > account1'
-    assert_select '.breadcrumbs', contains: '<a>Teams</a> > <a>team1</a> > <a>group1</a> > account1'
+    assert_select '.breadcrumbs a', count: 3
+    assert_select '.breadcrumbs a', text: 'Teams'
+    assert_select '.breadcrumbs a', text: 'team1'
+    assert_select '.breadcrumbs a', text: 'group1'
   end
 
 end
