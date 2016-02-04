@@ -28,6 +28,7 @@ class AccountsControllerTest < ActionController::TestCase
     assert_select '.breadcrumbs a', count: 2
     assert_select '.breadcrumbs a', text: 'Teams'
     assert_select '.breadcrumbs a', text: 'team1'
+    assert_select '.breadcrumbs a', text: 'group1', count: 0
   end
 
   test 'show breadcrump path 2 if user is on edit of accounts' do
@@ -43,6 +44,7 @@ class AccountsControllerTest < ActionController::TestCase
     assert_select '.breadcrumbs a', text: 'Teams'
     assert_select '.breadcrumbs a', text: 'team1'
     assert_select '.breadcrumbs a', text: 'group1'
+    assert_select '.breadcrumbs a', text: 'account1', count: 0
   end
 
 end
