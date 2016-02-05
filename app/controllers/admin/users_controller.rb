@@ -18,6 +18,7 @@
 class Admin::UsersController < Admin::AdminController
 
   before_filter :redirect_if_root, only: [:edit, :update, :destroy]
+  before_filter :redirect_if_ldap_user, only: [:edit, :update]
 
   # GET /admin/users
   def index
@@ -90,6 +91,15 @@ class Admin::UsersController < Admin::AdminController
   end
 
 private
+  def redirect_if_ldap_user
+    return if not user.auth == 'ldap'
+
+    flash[:error] = t('flashes.admin.users.update.ldap')
+
+    respond_to do |format|
+      format.html { redirect_to admin_users_path }
+    end
+  end
   def redirect_if_root
     return if not user.root?
 

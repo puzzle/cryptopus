@@ -182,6 +182,7 @@ de:
           root: "Root kann nicht gelöscht werden"
         update:
           root: "Root kann nicht aktualisiert werden"
+          ldap: "Ldap User kann nicht aktualisiert werden"
     accounts:
       created: "Der neue Account wurde erfolgreich erstellt."
       updated: "Der Account wurde erfolgreich bearbeitet."
