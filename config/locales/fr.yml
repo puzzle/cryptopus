@@ -182,6 +182,7 @@ fr:
           root: "Root ne peut pas être supprimé"
         update:
           root: "Root ne peuvent pas être mis à jour"
+          ldap: "Ldap utilisateur ne peuvent pas être mis à jour"
     accounts:
       created: "Compte créé avec succès."
       updated: "Compte modifiée avec succès."

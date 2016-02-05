@@ -8,41 +8,51 @@
     <th><%=t '.name' %></th>
     <th><%=t '.ldap_uid' %></th>
     <th><%=t '.admin' %></th>
-    <th><%=t '.action' %></th>
+    <th colspan="3"><%=t :actions %></th>
   </tr>
 
   <% for user in @users.unlocked  %>
       <tr class="<%= cycle( 'odd', 'even' ) %>">
-        <td><%= link_to user.username, edit_admin_user_path(user) %></td>
+        <td><%= user.username %></td>
         <td><%= user.label %></td>
         <td><%= user.uid.to_s %></td>
-        <td>
+        <td class='action_icon'>
           <% if user.admin %>
             <%= image_tag("flag.svg") %>
           <% end %>
         </td>
+
+        <td class='action_icon'>
+          <% if user.auth != 'ldap' %>
+              <%= link_to image_tag("edit.svg"), edit_admin_user_path(user) %>
+          <% end %>
+        </td>
+
         <td class='action_icon'>
           <% if user != current_user %>
-            <%= link_to_destroy [:admin, user], user %>
+              <%= link_to_destroy [:admin, user], user %>
           <% end %>
         </td>
       </tr>
   <% end %>
 </table>
 
-<h2><%=t '.locked' %></h2>
-
-<table class='table table-striped'>
-  <tr>
-      <th><%=t '.username' %></th>
-      <th><%=t '.name' %></th>
-      <th><%=t '.action' %></th>
-  </tr>
-  <% for user in @users.locked  %>
-      <tr class="<%= cycle( 'odd', 'even' ) %>">
-        <td><%= link_to user.username, edit_admin_user_path(user) %></td>
-        <td><%= user.label %></td>
-        <td><%= link_to image_tag("unlock.svg"),  unlock_admin_user_path(user.id), title: t('.unlock')%></td>
-      </tr>
-  <% end %>
-</table>
+<% if User.all.locked.count != 0 %>
+  <h1><%=t '.locked' %></h1>
+  <table class='table table-striped'>
+    <tr>
+        <th style='width: 150px;'><%=t '.username' %></th>
+        <th><%=t '.name' %></th>
+        <th><%=t '.action' %></th>
+    </tr>
+    <% for user in User.all.locked  %>
+        <tr class="<%= cycle( 'odd', 'even' ) %>">
+          <td><%= link_to user.username, edit_admin_user_path(user) %></td>
+          <td><%= user.label %></td>
+          <td class='action_icon'>
+            <%= link_to image_tag("unlock.svg"),  unlock_admin_user_path(user.id), title: t('.unlock')%>
+          </td>
+        </tr>
+    <% end %>
+  </table>
+<% end %>

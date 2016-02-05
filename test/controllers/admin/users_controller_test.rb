@@ -27,7 +27,6 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   test 'bob cannot delete another user' do
-    bob = users(:bob)
     alice = users(:alice)
     login_as(:bob)
 
@@ -49,7 +48,6 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   test 'root can delete another user' do
-    root = users(:root)
     alice = users(:alice)
     login_as(:root)
 
@@ -119,6 +117,21 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     assert_not_equal 'new_username', root.username
     assert_match /Root cannot be updated/, flash[:error]
+  end
+
+  test 'cannot update ldap-user-profile' do
+    bob = users(:bob)
+    bob.update_attribute(:auth, 'ldap')
+
+    update_params = { username: 'new_username'}
+
+    login_as(:admin)
+    post :update, id: bob, user: update_params
+
+    bob.reload
+
+    assert_not_equal 'new_username', bob.username
+    assert_match /Ldap user cannot be updated/, flash[:error]
   end
 
   test 'root empowers user to admin' do
