@@ -21,7 +21,7 @@ class GroupsController < ApplicationController
   # GET /teams/1/groups
   def index
     groups_breadcrumbs
-    add_breadcrumb @team.label
+
 
     @groups = @team.groups
 
@@ -70,8 +70,7 @@ class GroupsController < ApplicationController
     @group = @team.groups.find( params[:id] )
 
     groups_breadcrumbs
-    add_breadcrumb @team.label, :team_groups_path
-    add_breadcrumb @group.label
+
 
     respond_to do |format|
       format.html # edit.html.erb
@@ -118,6 +117,13 @@ private
 
   def groups_breadcrumbs
     add_breadcrumb I18n.t('teams.title'), :teams_path
+
+    add_breadcrumb @team.label if action_name == 'index'
+
+    if action_name == 'edit'
+      add_breadcrumb @team.label, :team_groups_path
+      add_breadcrumb @group.label
+    end
   end
 
 end

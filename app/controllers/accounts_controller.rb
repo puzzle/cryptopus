@@ -23,7 +23,6 @@ class AccountsController < ApplicationController
   # GET /teams/1/groups/1/accounts
   def index
     accounts_breadcrumbs
-    add_breadcrumb @group.label
 
     @accounts = @group.accounts.all
 
@@ -38,8 +37,6 @@ class AccountsController < ApplicationController
     @items = @account.items.load
 
     accounts_breadcrumbs
-    add_breadcrumb @group.label, :team_group_accounts_path
-    add_breadcrumb @account.label
 
     @account.decrypt(get_team_password(@team))
 
@@ -79,8 +76,6 @@ class AccountsController < ApplicationController
     @groups = @team.groups.all
 
     accounts_breadcrumbs
-    add_breadcrumb @group.label, :team_group_accounts_path
-    add_breadcrumb @account.label
 
     @account.decrypt(get_team_password(@team))
 
@@ -130,6 +125,13 @@ class AccountsController < ApplicationController
     def accounts_breadcrumbs
       add_breadcrumb I18n.t('teams.title'), :teams_path
       add_breadcrumb @team.label, :team_groups_path
+
+      add_breadcrumb @group.label if action_name == 'index'
+
+      if action_name == 'show' or action_name == 'edit'
+        add_breadcrumb @group.label, :team_group_accounts_path
+        add_breadcrumb @account.label
+      end
     end
 
 end
