@@ -31,7 +31,9 @@
       </div>
     </div>
   </nav>
-  <div class="breadcrumbs">
-    <%= render_breadcrumbs separator: ' > '%>
-  </div>
+    <div class="bread-container">
+      <div class="breadcrumb">
+          <%= render_breadcrumbs separator: '', tag: :li%>
+      </div>
+    </div>
 <% end %>

@@ -32,9 +32,20 @@
 
 /*breadcrumbs*/
 
-.breadcrumbs {
-  position: absolute;
-  display: block;
-  top: 55px;
-  margin-left: 5px;
+.bread-container {
+  left: 0;
+  right: 0;
+  display: inline-block;
+  position: fixed;
+  top: 50px;
+  margin-left: calc(100vw - 100.7%);
+  margin-right: 0;
+  background-color: #f5f5f5;
+}
+
+.breadcrumb {
+  width: 800px;
+  margin: auto;
+  padding-left: 23px;
+  padding-right: 23px;
 }
