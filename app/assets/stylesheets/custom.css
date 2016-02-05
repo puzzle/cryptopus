@@ -14,16 +14,12 @@ body {
 }
 
 .main {
-  margin-top: 120px;
+  margin-top: 100px;
 }
 
 .alert {
   width: 500px;
-  position: absolute;
-  display: block;
-  left: 50%;
-  top: 80px;
-  margin-left: -250px;
+  margin: auto;
 }
 
 /*Icons*/
