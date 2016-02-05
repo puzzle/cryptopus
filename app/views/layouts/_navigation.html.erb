@@ -31,9 +31,11 @@
       </div>
     </div>
   </nav>
+  <% unless @breadcrumbs.nil? %>
     <div class="bread-container">
       <div class="breadcrumb">
           <%= render_breadcrumbs separator: '', tag: :li%>
       </div>
     </div>
+    <% end %>
 <% end %>
