@@ -14,6 +14,7 @@ class Teammember < ActiveRecord::Base
   scope :without_root, -> { joins(:user).where('users.uid != 0 OR users.uid is null') }
 
   private
+
   def protect_if_last_teammember
     if team.teammembers.count == 1
       errors.add(:base, 'Cannot remove last teammember')

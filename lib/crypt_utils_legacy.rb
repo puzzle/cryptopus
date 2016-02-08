@@ -12,12 +12,11 @@ include OpenSSL
 
 class CryptUtilsLegacy
 
-  def CryptUtilsLegacy.decrypt_private_key( private_key, password )
-      cipher = OpenSSL::Cipher::Cipher.new( 'aes-256-cbc' )
-      cipher.decrypt
-      cipher.key = password.unpack( 'a2'*32 ).map{|x| x.hex}.pack( 'c'*32 )
-      decrypted_private_key = cipher.update( private_key )
-      decrypted_private_key << cipher.final()
+  def self.decrypt_private_key(private_key, password)
+    cipher = OpenSSL::Cipher::Cipher.new('aes-256-cbc')
+    cipher.decrypt
+    cipher.key = password.unpack('a2' * 32).map { |x| x.hex }.pack('c' * 32)
+    decrypted_private_key = cipher.update(private_key)
+    decrypted_private_key << cipher.final
   end
 end
-

@@ -9,7 +9,6 @@ class SearchController < ApplicationController
 
   # GET /search
   def index
-
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -25,7 +24,7 @@ class SearchController < ApplicationController
     render json: accounts
   end
 
-private
+  private
 
   def decrypt_accounts(accounts)
     accounts.each do |a|

@@ -13,10 +13,10 @@ class User < ActiveRecord::Base
 
   has_many :teammembers, dependent: :destroy
   has_many :recryptrequests, dependent: :destroy
-  has_many :teams, -> {order :name}, through: :teammembers
+  has_many :teams, -> { order :name }, through: :teammembers
 
-  scope :locked, -> { where(locked: true)}
-  scope :unlocked, -> { where(locked: false)}
+  scope :locked, -> { where(locked: true) }
+  scope :unlocked, -> { where(locked: false) }
 
   scope :admins, -> { where(admin: true) }
 
@@ -25,10 +25,10 @@ class User < ActiveRecord::Base
   class << self
 
     def create_db_user(password, user_params)
-      user = self.new( user_params )
+      user = new(user_params)
       user.auth = 'db'
       user.create_keypair password
-      user.password = CryptUtils.one_way_crypt( password )
+      user.password = CryptUtils.one_way_crypt(password)
       user
     end
 
@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
         givenname: 'root',
         surname: '',
         auth: 'db',
-        password: CryptUtils.one_way_crypt(password),
+        password: CryptUtils.one_way_crypt(password)
       )
       user.create_keypair(password)
       user.save!
@@ -61,11 +61,12 @@ class User < ActiveRecord::Base
     end
 
     private
+
     def create_from_ldap(username, password)
-      user = self.new
+      user = new
       user.username = username
       user.auth = 'ldap'
-      user.uid = LdapTools.get_uid_by_username( username )
+      user.uid = LdapTools.get_uid_by_username(username)
       user.create_keypair password
       user.update_info
       user
@@ -74,7 +75,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def as_json(options = { })
+  def as_json(_options = {})
     h = {}
     h[:id] = id
     h[:label] = label
@@ -84,20 +85,20 @@ class User < ActiveRecord::Base
   # Updates Information about the user
   def update_info
     update_info_from_ldap if auth_ldap?
-    update_attribute(:last_login_at, Time.now) # TODO needed what for ? remove ?
+    update_attribute(:last_login_at, Time.now) # TODO: needed what for ? remove ?
   end
 
   # Updates Information about the user from LDAP
   def update_info_from_ldap
-    self.givenname = LdapTools.get_ldap_info( uid.to_s, "givenname" )
-    self.surname   = LdapTools.get_ldap_info( uid.to_s, "sn" )
+    self.givenname = LdapTools.get_ldap_info(uid.to_s, 'givenname')
+    self.surname   = LdapTools.get_ldap_info(uid.to_s, 'sn')
   end
 
   def create_keypair(password)
     keypair = CryptUtils.new_keypair
     uncrypted_private_key = CryptUtils.get_private_key_from_keypair(keypair)
     self.public_key = CryptUtils.get_public_key_from_keypair(keypair)
-    self.private_key = CryptUtils.encrypt_private_key( uncrypted_private_key, password )
+    self.private_key = CryptUtils.encrypt_private_key(uncrypted_private_key, password)
   end
 
   def label
@@ -112,25 +113,23 @@ class User < ActiveRecord::Base
     return if auth_ldap?
     if authenticate_db(old)
       self.password = CryptUtils.one_way_crypt(new)
-      pk = CryptUtils.decrypt_private_key(self.private_key, old)
+      pk = CryptUtils.decrypt_private_key(private_key, old)
       self.private_key = CryptUtils.encrypt_private_key(pk, new)
       save
     end
   end
 
   def migrate_legacy_private_key(password)
-    decrypted_legacy_private_key = CryptUtilsLegacy.decrypt_private_key( private_key, password )
-    newly_encrypted_private_key = CryptUtils.encrypt_private_key( decrypted_legacy_private_key, password )
+    decrypted_legacy_private_key = CryptUtilsLegacy.decrypt_private_key(private_key, password)
+    newly_encrypted_private_key = CryptUtils.encrypt_private_key(decrypted_legacy_private_key, password)
     update_attribute(:private_key, newly_encrypted_private_key)
   end
 
   def decrypt_private_key(password)
-    begin
-      migrate_legacy_private_key(password) if legacy_private_key?
-      CryptUtils.decrypt_private_key(private_key, password)
-    rescue
-      raise Exceptions::DecryptFailed
-    end
+    migrate_legacy_private_key(password) if legacy_private_key?
+    CryptUtils.decrypt_private_key(private_key, password)
+  rescue
+    raise Exceptions::DecryptFailed
   end
 
   def legacy_private_key?
@@ -139,12 +138,12 @@ class User < ActiveRecord::Base
 
   def accounts
     Account.joins(:group).
-    joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
-    where(teammembers: {user_id: id })
+      joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
+      where(teammembers: { user_id: id })
   end
 
   def search_accounts(term)
-    accounts.where("accountname like ?", "%#{term}%")
+    accounts.where('accountname like ?', "%#{term}%")
   end
 
 end

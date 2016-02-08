@@ -8,12 +8,12 @@
 class Account < ActiveRecord::Base
 
   belongs_to :group
-  has_many :items, :dependent => :destroy
+  has_many :items, dependent: :destroy
 
   attr_accessor :cleartext_password, :cleartext_username
 
-  def as_json(options = { })
-    h =super(options)
+  def as_json(options = {})
+    h = super(options)
     h[:group] = group.name
     h[:team] = group.team.name
     h[:team_id] = group.team.id
@@ -42,6 +42,7 @@ class Account < ActiveRecord::Base
   end
 
   private
+
   def decrypt_attr(attr, team_password)
     crypted_value = send(attr)
     return unless crypted_value.present?

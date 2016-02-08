@@ -37,7 +37,7 @@ class WizardController < ApplicationController
     user = User.find_by_username('root')
     request.session[:user_id] = user.id
     request.session[:username] = user.username
-    session[:private_key] = CryptUtils.decrypt_private_key( user.private_key, password )
+    session[:private_key] = CryptUtils.decrypt_private_key(user.private_key, password)
     redirect_to admin_users_path
   end
 

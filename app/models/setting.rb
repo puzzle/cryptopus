@@ -6,13 +6,13 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Setting < ActiveRecord::Base
-class << self
-  def value(prefix, key)
-    key = "#{prefix}_#{key}" if prefix.present?
-    setting = find_by(key: key)
-    if setting
-      setting.value
+  class << self
+    def value(prefix, key)
+      key = "#{prefix}_#{key}" if prefix.present?
+      setting = find_by(key: key)
+      if setting
+        setting.value
+      end
     end
   end
-end
 end

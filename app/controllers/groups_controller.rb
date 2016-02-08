@@ -16,7 +16,7 @@ class GroupsController < ApplicationController
     @groups = @team.groups
 
     teammembers = @team.teammembers.without_root
-    @teammembers = teammembers.sort_by { |tm| tm.label.downcase}
+    @teammembers = teammembers.sort_by { |tm| tm.label.downcase }
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,7 +25,7 @@ class GroupsController < ApplicationController
 
   # GET /teams/1/groups/1
   def show
-    @group = @team.groups.find( params[:id] )
+    @group = @team.groups.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -43,7 +43,7 @@ class GroupsController < ApplicationController
 
   # POST /teams/1/groups
   def create
-    @group = @team.groups.new( group_params )
+    @group = @team.groups.new(group_params)
 
     respond_to do |format|
       if @group.save
@@ -57,7 +57,7 @@ class GroupsController < ApplicationController
 
   # GET /teams/1/groups/1/edit
   def edit
-    @group = @team.groups.find( params[:id] )
+    @group = @team.groups.find(params[:id])
 
     groups_breadcrumbs
 
@@ -69,10 +69,10 @@ class GroupsController < ApplicationController
 
   # PUT /teams/1/groups/1
   def update
-    @group = @team.groups.find( params[:id] )
+    @group = @team.groups.find(params[:id])
 
     respond_to do |format|
-      if @group.update_attributes( params[:group] )
+      if @group.update_attributes(params[:group])
         flash[:notice] = t('flashes.groups.updated')
         format.html { redirect_to team_groups_url(@team) }
       else
@@ -83,7 +83,7 @@ class GroupsController < ApplicationController
 
   # DELETE /teams/1/groups/1
   def destroy
-    @group = @team.groups.find( params[:id] )
+    @group = @team.groups.find(params[:id])
     @group.destroy
 
     respond_to do |format|
@@ -95,14 +95,14 @@ class GroupsController < ApplicationController
     params.require(:group).permit(:name, :description)
   end
 
-private
+  private
 
   def group_params
     params.require(:group).permit(:name, :description)
   end
 
   def load_team
-    @team = Team.find( params[:team_id] )
+    @team = Team.find(params[:team_id])
   end
 
   def groups_breadcrumbs

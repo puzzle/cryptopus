@@ -16,28 +16,28 @@ module TeammembersHelper
 
   def teammember_icon(teammember)
     if teammember.user.admin? || teammember.user.root?
-      image_tag("flag.svg")
+      image_tag('flag.svg')
     else
-      image_tag("user.svg")
+      image_tag('user.svg')
     end
   end
 
   def delete_icon(teammember)
     if can_destroy_teammember?(teammember)
-        link_to_destroy [@team, teammember], teammember
+      link_to_destroy [@team, teammember], teammember
     end
   end
 
   def teammember_root_entry
     return if @team.noroot
     content_tag(:li) do
-      image_tag("penguin.svg") +
+      image_tag('penguin.svg') +
       'Root'
     end
   end
 
   def can_destroy_teammember?(teammember)
     return false if teammember.user.root?
-    @team.private? || !(teammember.user.admin?)
+    @team.private? || !teammember.user.admin?
   end
 end

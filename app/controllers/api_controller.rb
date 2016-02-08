@@ -8,6 +8,7 @@
 class ApiController < ApplicationController
 
   protected
+
   def render_json(entries = nil)
     render status: response_status, json: [messages, entries]
   end
@@ -21,9 +22,10 @@ class ApiController < ApplicationController
   end
 
   private
+
   def messages
     @messages ||=
-      {errors: [], info: []}
+      { errors: [], info: [] }
   end
 
   def response_status

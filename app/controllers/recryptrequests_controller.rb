@@ -6,44 +6,42 @@
 #  https://github.com/puzzle/cryptopus.
 
 class RecryptrequestsController < ApplicationController
-include User::Authenticate
-private
+  include User::Authenticate
 
-  def self_recrypt( old_password, new_password )
-    begin
-      @user = User.find_by(username: session[:username])
-      # Check if the new password is ok
-      @user.authenticate(new_password )
+  private
 
-      # decrypt the private key with the old password
-      # and encrypt it with the new one
-      private_key = CryptUtils.decrypt_private_key( @user.private_key, old_password )
-      CryptUtils.validate_keypair( private_key, @user.public_key )
-      @user.private_key = CryptUtils.encrypt_private_key( private_key, new_password )
-      @user.save
+  def self_recrypt(old_password, new_password)
+    @user = User.find_by(username: session[:username])
+    # Check if the new password is ok
+    @user.authenticate(new_password)
 
-      flash[:notice] = t('flashes.recryptrequests.recrypted')
-      redirect_to logout_login_path
-      return
+    # decrypt the private key with the old password
+    # and encrypt it with the new one
+    private_key = CryptUtils.decrypt_private_key(@user.private_key, old_password)
+    CryptUtils.validate_keypair(private_key, @user.public_key)
+    @user.private_key = CryptUtils.encrypt_private_key(private_key, new_password)
+    @user.save
 
-    rescue Exceptions::AuthenticationFailed
-      flash[:error] = t('flashes.recryptrequests.new_password_wrong')
-      redirect_to new_recryptrequest_path
-      return
+    flash[:notice] = t('flashes.recryptrequests.recrypted')
+    redirect_to logout_login_path
+    return
 
-    rescue Exceptions::DecryptFailed
-      flash[:error] = t('flashes.recryptrequests.old_password_wrong')
-      redirect_to new_recryptrequest_path
-      return
+  rescue Exceptions::AuthenticationFailed
+    flash[:error] = t('flashes.recryptrequests.new_password_wrong')
+    redirect_to new_recryptrequest_path
+    return
 
-    end
+  rescue Exceptions::DecryptFailed
+    flash[:error] = t('flashes.recryptrequests.old_password_wrong')
+    redirect_to new_recryptrequest_path
+    return
   end
 
-public
+  public
 
   # GET /recryptrequests/
   def index
-    @user = User.find( session[:user_id] )
+    @user = User.find(session[:user_id])
     @recryptrequest = Recryptrequest.find_by_user_id(@user.id)
 
     if @recryptrequest.nil?
@@ -56,7 +54,7 @@ public
 
   # GET /recryptrequests/new
   def new
-    @user = User.find( session[:user_id] )
+    @user = User.find(session[:user_id])
   end
 
   # POST /recryptrequests
@@ -72,18 +70,18 @@ public
     # a request to root to decrypt the teampasswords
     # for us
     begin
-      @user = User.find_by_username( session[:username] )
+      @user = User.find_by_username(session[:username])
 
-      @user.authenticate( params[:new_password] )
+      @user.authenticate(params[:new_password])
 
       # Check if that was already done
       if @user.recryptrequests.load.empty?
 
         # create the new keypair
         keypair = CryptUtils.new_keypair
-        @user.public_key = CryptUtils.get_public_key_from_keypair( keypair )
-        private_key = CryptUtils.get_private_key_from_keypair( keypair )
-        @user.private_key = CryptUtils.encrypt_private_key( private_key, params[:new_password] )
+        @user.public_key = CryptUtils.get_public_key_from_keypair(keypair)
+        private_key = CryptUtils.get_private_key_from_keypair(keypair)
+        @user.private_key = CryptUtils.encrypt_private_key(private_key, params[:new_password])
         @user.save
 
         # send the recryptrequest to root
@@ -99,7 +97,7 @@ public
         teammember.locked = true
         teammember.save
         if teammember.team.private
-	        @recryptrequest.rootrequired = true
+          @recryptrequest.rootrequired = true
         end
       end
 
@@ -114,12 +112,11 @@ public
       return
 
     end
-
   end
 
   # GET /recryptrequests/1
   def show
-    @user = User.find( session[:user_id] )
+    @user = User.find(session[:user_id])
     @recryptrequest = Recryptrequest.find_by_user_id(@user.id)
   end
 

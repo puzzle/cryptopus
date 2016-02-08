@@ -46,7 +46,7 @@ class AccountsController < ApplicationController
 
   # POST /teams/1/groups/1/accounts
   def create
-    @account = @group.accounts.new( account_params )
+    @account = @group.accounts.new(account_params)
 
     @account.encrypt(get_team_password(@team))
 
@@ -62,7 +62,7 @@ class AccountsController < ApplicationController
 
   # GET /teams/1/groups/1/accounts/1/edit
   def edit
-    @account = @group.accounts.find( params[:id] )
+    @account = @group.accounts.find(params[:id])
     @groups = @team.groups.all
 
     accounts_breadcrumbs
@@ -76,7 +76,7 @@ class AccountsController < ApplicationController
 
   # PUT /teams/1/groups/1/accounts/1
   def update
-    @account = @group.accounts.find( params[:id] )
+    @account = @group.accounts.find(params[:id])
     @account.attributes = account_params
 
     @account.encrypt(get_team_password(@team))
@@ -93,7 +93,7 @@ class AccountsController < ApplicationController
 
   # DELETE /teams/1/groups/1/accounts/1
   def destroy
-    @account = @group.accounts.find( params[:id] )
+    @account = @group.accounts.find(params[:id])
     @account.destroy
 
     respond_to do |format|
@@ -103,25 +103,25 @@ class AccountsController < ApplicationController
 
   private
 
-    def account_params
-      params.require(:account).permit(:accountname, :cleartext_username, :cleartext_password, :description, :group_id)
+  def account_params
+    params.require(:account).permit(:accountname, :cleartext_username, :cleartext_password, :description, :group_id)
+  end
+
+  def load_parents
+    @team = Team.find(params[:team_id])
+    @group = @team.groups.find(params[:group_id])
+  end
+
+  def accounts_breadcrumbs
+    add_breadcrumb I18n.t('teams.title'), :teams_path
+    add_breadcrumb @team.label, :team_groups_path
+
+    add_breadcrumb @group.label if action_name == 'index'
+
+    if action_name == 'show' || action_name == 'edit'
+      add_breadcrumb @group.label, :team_group_accounts_path
+      add_breadcrumb @account.label
     end
-
-    def load_parents
-      @team = Team.find( params[:team_id] )
-      @group = @team.groups.find( params[:group_id] )
-    end
-
-    def accounts_breadcrumbs
-      add_breadcrumb I18n.t('teams.title'), :teams_path
-      add_breadcrumb @team.label, :team_groups_path
-
-      add_breadcrumb @group.label if action_name == 'index'
-
-      if action_name == 'show' or action_name == 'edit'
-        add_breadcrumb @group.label, :team_group_accounts_path
-        add_breadcrumb @account.label
-      end
-    end
+  end
 
 end

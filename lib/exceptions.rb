@@ -12,4 +12,3 @@ module Exceptions
   class DecryptFailed < StandardError; end
   class UnknownAuthenticationMethod < StandardError; end
 end
-

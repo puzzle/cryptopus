@@ -59,6 +59,7 @@ class LoginsController < ApplicationController
   end
 
   private
+
   def user_locked?(user)
     if user.locked?
       flash[:error] = t('flashes.logins.locked')
@@ -89,7 +90,7 @@ class LoginsController < ApplicationController
 
     set_session_attributes(user, password)
 
-    CryptUtils.validate_keypair( session[:private_key], user.public_key )
+    CryptUtils.validate_keypair(session[:private_key], user.public_key)
   end
 
   def redirect_after_sucessful_login

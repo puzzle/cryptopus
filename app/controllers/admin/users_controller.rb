@@ -12,7 +12,7 @@ class Admin::UsersController < Admin::AdminController
 
   # GET /admin/users
   def index
-    @users = User.where("uid != 0 or uid is null")
+    @users = User.where('uid != 0 or uid is null')
 
     respond_to do |format|
       format.html
@@ -22,7 +22,7 @@ class Admin::UsersController < Admin::AdminController
   # PUT /admin/users/1
   def update
     was_admin = user.admin?
-    user.update_attributes( user_params )
+    user.update_attributes(user_params)
     update_attribute_admin(was_admin)
 
     respond_to do |format|
@@ -43,7 +43,7 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-    # GET /admin/users/new
+  # GET /admin/users/new
   def new
     @user = User.new
 
@@ -80,9 +80,10 @@ class Admin::UsersController < Admin::AdminController
     params.require(:user).permit(:name, :username, :password, :admin, :givenname, :surname, :auth)
   end
 
-private
+  private
+
   def redirect_if_ldap_user
-    return if not user.auth == 'ldap'
+    return unless user.auth == 'ldap'
 
     flash[:error] = t('flashes.admin.users.update.ldap')
 
@@ -90,13 +91,14 @@ private
       format.html { redirect_to admin_users_path }
     end
   end
-  def redirect_if_root
-    return if not user.root?
 
-    if params[:action] == 'destroy'
-      flash[:error] = t('flashes.admin.users.destroy.root')
-    else
-      flash[:error] = t('flashes.admin.users.update.root')
+  def redirect_if_root
+    return unless user.root?
+
+    flash[:error] = if params[:action] == 'destroy'
+                      t('flashes.admin.users.destroy.root')
+                    else
+                      t('flashes.admin.users.update.root')
     end
 
     respond_to do |format|
@@ -113,29 +115,29 @@ private
   end
 
   def empower_user(user)
-    teams = Team.where("private = ? OR noroot = ?", false, false)
+    teams = Team.where('private = ? OR noroot = ?', false, false)
 
     teams.each do |t|
-      active_teammember = t.teammembers.find_by_user_id( current_user.id.to_s )
-      team_password = CryptUtils.decrypt_team_password( active_teammember.password, session[:private_key] )
+      active_teammember = t.teammembers.find_by_user_id(current_user.id.to_s)
+      team_password = CryptUtils.decrypt_team_password(active_teammember.password, session[:private_key])
       t.add_user(user, team_password)
     end
   end
 
   def disempower_admin(user)
-    teammembers = user.teammembers.joins(:team).where(teams:{private: false})
+    teammembers = user.teammembers.joins(:team).where(teams: { private: false })
     teammembers.each do |tm|
       tm.destroy
     end
   end
 
   def update_attribute_admin(was_admin)
-    if @user.admin? and !was_admin
-      empower_user( @user )
+    if @user.admin? && !was_admin
+      empower_user(@user)
     end
 
-    if !@user.admin? and was_admin
-      disempower_admin( @user )
+    if !@user.admin? && was_admin
+      disempower_admin(@user)
     end
   end
 end

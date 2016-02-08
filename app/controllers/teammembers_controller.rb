@@ -11,20 +11,19 @@ class TeammembersController < ApplicationController
 
   # GET /teams/1/teammembers/new
   def new
-
   end
 
   # POST /teams/1/teammembers
   def create
     begin
       user = User.find_by_username params[:username]
-      raise "User is not in the database" if user.nil?
-      raise "User is already in that Team" \
-        if @team.teammembers.where("user_id = ?", user.id).first
+      raise 'User is not in the database' if user.nil?
+      raise 'User is already in that Team' \
+        if @team.teammembers.where('user_id = ?', user.id).first
       @teammember = Teammember.new
       @teammember.team_id = @team.id
       @teammember.user_id = user.id
-      @teammember.password = CryptUtils.encrypt_team_password( get_team_password(@team), user.public_key)
+      @teammember.password = CryptUtils.encrypt_team_password(get_team_password(@team), user.public_key)
       @teammember.save
 
     rescue StandardError => e
@@ -38,11 +37,11 @@ class TeammembersController < ApplicationController
 
   # DELETE /teams/1/teammembers/1
   def destroy
-    @teammember = @team.teammembers.find( params[:id] )
+    @teammember = @team.teammembers.find(params[:id])
 
     if @team.teammembers.count == 1
       flash[:error] = t('flashes.teammembers.could_not_remove_last_teammember')
-    elsif not can_destroy_teammember?(@teammember)
+    elsif !can_destroy_teammember?(@teammember)
       flash[:error] = t('flashes.teammembers.could_not_remove_admin_from_private_team')
     else
       @teammember.destroy
@@ -55,17 +54,17 @@ class TeammembersController < ApplicationController
 
   private
 
-    def can_destroy_teammember?(teammember)
-      return false if teammember.user.root?
-      @team.private? || !(teammember.user.admin?)
-    end
+  def can_destroy_teammember?(teammember)
+    return false if teammember.user.root?
+    @team.private? || !teammember.user.admin?
+  end
 
-    def load_team
-      @team = Team.find( params[:team_id] )
-    end
+  def load_team
+    @team = Team.find(params[:team_id])
+  end
 
-    def teammember_candidates
-      users = @team.teammember_candidates.order(:username)
-      users.pluck(:username)
-    end
+  def teammember_candidates
+    users = @team.teammember_candidates.order(:username)
+    users.pluck(:username)
+  end
 end

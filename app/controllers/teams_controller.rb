@@ -35,7 +35,7 @@ class TeamsController < ApplicationController
         flash[:notice] = t('flashes.teams.created')
         format.html { redirect_to(teams_url) }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
       end
     end
   end
@@ -49,11 +49,11 @@ class TeamsController < ApplicationController
   # PUT /teams/1
   def update
     respond_to do |format|
-      if @team.update_attributes( team_params )
+      if @team.update_attributes(team_params)
         flash[:notice] = t('flashes.teams.updated')
         format.html { redirect_to(teams_url) }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
       end
     end
   end
@@ -71,24 +71,25 @@ class TeamsController < ApplicationController
   end
 
   private
-    def team_params
-      params.require(:team).permit(:name, :private, :noroot, :description)
-    end
 
-    def redirect_if_not_teammember_or_admin
-      @team = Team.find( params[:id] )
-      return if @team.teammember?( current_user.id ) || current_user.admin? || current_user.root?
-      flash[:error] = "You are not member of this team"
-      redirect_to teams_path
-    end
+  def team_params
+    params.require(:team).permit(:name, :private, :noroot, :description)
+  end
 
-    def redirect_if_not_allowed_to_delete_team
-      return if can_delete_team?(@team)
-      flash[:error] = t('flashes.teams.cannot_delete')
-      redirect_to teams_path
-    end
+  def redirect_if_not_teammember_or_admin
+    @team = Team.find(params[:id])
+    return if @team.teammember?(current_user.id) || current_user.admin? || current_user.root?
+    flash[:error] = 'You are not member of this team'
+    redirect_to teams_path
+  end
 
-    def can_delete_team?(team)
-      current_user.admin? || current_user.root?
-    end
+  def redirect_if_not_allowed_to_delete_team
+    return if can_delete_team?(@team)
+    flash[:error] = t('flashes.teams.cannot_delete')
+    redirect_to teams_path
+  end
+
+  def can_delete_team?(_team)
+    current_user.admin? || current_user.root?
+  end
 end

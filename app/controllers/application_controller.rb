@@ -50,18 +50,18 @@ class ApplicationController < ActionController::Base
   end
 
   def get_team_password(team)
-    user = User.find(session[:user_id] )
-    teammember = team.teammembers.where("user_id = ?", user.id).first
-    raise "You have no access to this Group" if teammember.nil?
-    team_password = CryptUtils.decrypt_team_password( teammember.password, session[:private_key] )
-    raise "Failed to decrypt the group password" if team_password.nil?
-    return team_password
+    user = User.find(session[:user_id])
+    teammember = team.teammembers.where('user_id = ?', user.id).first
+    raise 'You have no access to this Group' if teammember.nil?
+    team_password = CryptUtils.decrypt_team_password(teammember.password, session[:private_key])
+    raise 'Failed to decrypt the group password' if team_password.nil?
+    team_password
   end
 
-  def is_user_team_member( team_id, user_id )
-    team_member = Teammember.where("team_id=? and user_id=?", team_id, user_id ).first
+  def is_user_team_member(team_id, user_id)
+    team_member = Teammember.where('team_id=? and user_id=?', team_id, user_id).first
     return true if team_member
-    return false
+    false
   end
 
   def prepare_menu
@@ -73,9 +73,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_cache_headers
-    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+    response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
   end
 
   def redirect_to_wizard_if_new_setup

@@ -13,6 +13,7 @@ class Api::TeamsController < ApiController
   end
 
   private
+
   def team
     @team ||= Team.find(params[:id])
   end

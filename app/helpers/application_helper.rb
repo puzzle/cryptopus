@@ -7,15 +7,15 @@
 
 module ApplicationHelper
 
-  def tooltip(content, options = {}, html_options = {}, *parameters_for_method_reference)
+  def tooltip(content, options = {}, html_options = {}, *_parameters_for_method_reference)
     html_options[:title] = options[:tooltip]
     html_options[:class] = html_options[:class] || 'tooltip'
-    content_tag("span", content, html_options)
+    content_tag('span', content, html_options)
   end
 
   def render_menu
     unless @menu_to_render.nil?
-      render(:partial => @menu_to_render)
+      render(partial: @menu_to_render)
     end
   end
 
@@ -34,10 +34,10 @@ module ApplicationHelper
     entry_class = entry.class.name.downcase
     label_key = "#{entry_class.pluralize}.confirm.delete"
 
-    confirm = t(label_key, entry_class: entry_class, entry_label: entry_label, default: t("confirm.delete"))
-    link_to image_tag("remove.svg"),
-            path, data:{confirm: confirm},
-            method: :delete
+    confirm = t(label_key, entry_class: entry_class, entry_label: entry_label, default: t('confirm.delete'))
+    link_to image_tag('remove.svg'),
+            path, data: { confirm: confirm },
+                  method: :delete
   end
 
   def labeled_check_box(f, attr, enabled = true)
@@ -45,7 +45,7 @@ module ApplicationHelper
     options[:disabled] = 'disabled' unless enabled
     label_tag(attr) do
       concat f.check_box(attr, options)
-      concat t(".#{attr.to_s}")
+      concat t(".#{attr}")
     end
   end
 
@@ -55,8 +55,9 @@ module ApplicationHelper
   end
 
   private
+
   def default_field_options
-    {class: 'form-control'}
+    { class: 'form-control' }
   end
 
 end

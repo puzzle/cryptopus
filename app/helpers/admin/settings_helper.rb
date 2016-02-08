@@ -10,10 +10,10 @@ module Admin::SettingsHelper
     content = ''
     content << label_tag(setting.key)
 
-    if respond_to?(input_field_formatter(setting))
-      content << send(input_field_formatter(setting), setting)
-    else
-      content << input_field_setting_default(setting)
+    content << if respond_to?(input_field_formatter(setting))
+                 send(input_field_formatter(setting), setting)
+               else
+                 input_field_setting_default(setting)
     end
     content_tag(:div, content.html_safe, class: 'form-group').html_safe
   end
@@ -31,7 +31,8 @@ module Admin::SettingsHelper
     text_field_tag(key_param(setting), setting.value, default_field_options)
   end
 
-private
+  private
+
   def input_field_formatter(setting)
     str = ''
     str << 'input_field_setting_'

@@ -21,7 +21,7 @@ class ItemsController < ApplicationController
   def create
     datafile = params[:item][:file]
 
-    if datafile.size > 10000000 #10MB
+    if datafile.size > 10_000_000 # 10MB
       flash[:error] = t('flashes.items.uploaded_size_to_high')
     else
       create_item(datafile)
@@ -34,15 +34,15 @@ class ItemsController < ApplicationController
 
   # POST /teams/1/groups/1/accounts/1/items/1
   def show
-    @item = @account.items.find( params[:id] )
-    file = CryptUtils.decrypt_blob( @item.file, get_team_password(@team) )
+    @item = @account.items.find(params[:id])
+    file = CryptUtils.decrypt_blob(@item.file, get_team_password(@team))
 
-    send_data file, filename: @item.filename , type: @item.content_type, disposition: 'attachment'
+    send_data file, filename: @item.filename, type: @item.content_type, disposition: 'attachment'
   end
 
   # DELETE /teams/1/groups/1/accounts/1/items/1
   def destroy
-    @item = @account.items.find( params[:id] )
+    @item = @account.items.find(params[:id])
     @item.destroy
 
     respond_to do |format|
@@ -53,9 +53,9 @@ class ItemsController < ApplicationController
   private
 
   def load_parents
-    @team = Team.find( params[:team_id] )
-    @group = @team.groups.find( params[:group_id] )
-    @account = @group.accounts.find( params[:account_id] )
+    @team = Team.find(params[:team_id])
+    @group = @team.groups.find(params[:group_id])
+    @account = @group.accounts.find(params[:account_id])
   end
 
   def create_item(datafile)
@@ -63,7 +63,7 @@ class ItemsController < ApplicationController
     @item.description = params[:item][:description]
     @item.filename = datafile.original_filename
     @item.content_type = datafile.content_type
-    @item.file = CryptUtils.encrypt_blob( datafile.read, get_team_password(@team) )
+    @item.file = CryptUtils.encrypt_blob(datafile.read, get_team_password(@team))
     if @item.save
       flash[:notice] = t('flashes.items.uploaded')
     end
