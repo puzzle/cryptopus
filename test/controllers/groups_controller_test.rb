@@ -16,10 +16,10 @@ class GroupsControllerTest < ActionController::TestCase
     team1 = teams(:team1)
 
     get :index, team_id: team1
-    assert_select '.breadcrumbs', text: 'Teams > team1'
-    assert_select '.breadcrumbs a', count: 1
-    assert_select '.breadcrumbs a', text: 'Teams'
-    assert_select '.breadcrumbs a', text: 'team1', count: 0
+    assert_select '.breadcrumb', text: 'Teamsteam1'
+    assert_select '.breadcrumb a', count: 1
+    assert_select '.breadcrumb a', text: 'Teams'
+    assert_select '.breadcrumb a', text: 'team1', count: 0
 
   end
 
@@ -30,11 +30,11 @@ class GroupsControllerTest < ActionController::TestCase
     group1 = groups(:group1)
 
     get :edit, id: group1, team_id: team1
-    assert_select '.breadcrumbs', text: 'Teams > team1 > group1'
-    assert_select '.breadcrumbs a', count: 2
-    assert_select '.breadcrumbs a', text: 'Teams'
-    assert_select '.breadcrumbs a', text: 'team1'
-    assert_select '.breadcrumbs a', text: 'group1', count: 0
+    assert_select '.breadcrumb', text: 'Teamsteam1group1'
+    assert_select '.breadcrumb a', count: 2
+    assert_select '.breadcrumb a', text: 'Teams'
+    assert_select '.breadcrumb a', text: 'team1'
+    assert_select '.breadcrumb a', text: 'group1', count: 0
     end
 
 end
