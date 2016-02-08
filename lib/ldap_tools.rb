@@ -37,7 +37,7 @@ class LdapTools
        if ldap.bind
          return true
        end
-    end
+     end
      false
    end
 

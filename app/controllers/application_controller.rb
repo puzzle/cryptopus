@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
     team_password
   end
 
-  def is_user_team_member(team_id, user_id)
+  def user_team_member?(team_id, user_id)
     team_member = Teammember.where('team_id=? and user_id=?', team_id, user_id).first
     return true if team_member
     false

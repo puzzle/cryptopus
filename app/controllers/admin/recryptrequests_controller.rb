@@ -74,7 +74,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
       @admin = User.find(session[:user_id])
 
       if @user.auth_db?
-        unless params[:new_password].blank?
+        if !params[:new_password].blank?
           @user.password = CryptUtils.one_way_crypt(params[:new_password])
 
           # create the new keypair

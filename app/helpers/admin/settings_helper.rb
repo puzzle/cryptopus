@@ -14,7 +14,7 @@ module Admin::SettingsHelper
                  send(input_field_formatter(setting), setting)
                else
                  input_field_setting_default(setting)
-    end
+               end
     content_tag(:div, content.html_safe, class: 'form-group').html_safe
   end
 

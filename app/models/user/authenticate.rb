@@ -18,7 +18,7 @@ module User::Authenticate
                       authenticate_ldap(password)
                     else
                       authenticate_db(password)
-    end
+                    end
     if authenticated
       reset_failed_login_attempts
       true

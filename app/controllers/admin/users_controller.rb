@@ -99,7 +99,7 @@ class Admin::UsersController < Admin::AdminController
                       t('flashes.admin.users.destroy.root')
                     else
                       t('flashes.admin.users.update.root')
-    end
+                    end
 
     respond_to do |format|
       format.html { redirect_to admin_users_path }
