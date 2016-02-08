@@ -5,11 +5,18 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
+
+require 'simplecov'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require "minitest/autorun"
 require 'mocha/mini_test'
 Dir[Rails.root.join('test/support/**/*.rb')].sort.each { |f| require f }
+
+SimpleCov.start 'rails' do
+  add_filter 'lib/ldap_tools.rb'
+  puts 'See coverage/index.html'
+end
 
 class ActiveSupport::TestCase
   setup :stub_ldap_tools
@@ -33,5 +40,4 @@ class ActiveSupport::TestCase
     encrypted_private_key << cipher.final()
     encrypted_private_key
   end
-
 end
