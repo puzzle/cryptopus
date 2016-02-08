@@ -27,7 +27,6 @@ input.search-input {
   box-shadow: 1px 2px 5px #DDD;
 }
 .result-list li {
-  @include clearfix;
   display: block;
   padding: 1em;
   background: #F9F9F9;
