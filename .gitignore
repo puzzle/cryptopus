@@ -6,6 +6,7 @@ tmp
 log
 .sass-cache
 public/assets
+coverage
 
 .project
 
