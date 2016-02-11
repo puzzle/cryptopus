@@ -13,6 +13,7 @@
     <%= stylesheet_link_tag :application, media: "all" %>
 
     <%= javascript_include_tag :application %>
+    <%= javascript_include_tag :auto_logoff if current_user %>
   </head>
 
   <body>
@@ -24,10 +25,7 @@
       <%= yield  %>
     </div>
 
-    <% if current_user %>
-      <%= render partial: 'layouts/footer' %>
-      <%= javascript_include_tag :auto_logoff %>
-    <% end %>
+    <%= render partial: 'layouts/footer' if current_user %>
 
   </body>
 </html>

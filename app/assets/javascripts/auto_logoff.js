@@ -3,8 +3,8 @@
 //  See the COPYING file at the top-level directory or at
 //  https://github.com/puzzle/cryptopus.
 
-var auto_logoff_time = 300;
-var remaining_seconds = auto_logoff_time+1;
+var AUTO_LOGOFF_TIME = 300;
+var remaining_seconds = AUTO_LOGOFF_TIME;
 
 function auto_logoff() {
   if (remaining_seconds <= 1) {
@@ -30,3 +30,7 @@ $(document).ready(function(){
   auto_logoff();
 });
 
+
+$(document).on('page:load', function() {
+  remaining_seconds = AUTO_LOGOFF_TIME;
+});
