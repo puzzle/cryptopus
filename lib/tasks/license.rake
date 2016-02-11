@@ -40,10 +40,10 @@ class Licenser
 
   def preamble_text
     @preamble_text ||= <<-END.strip
-Copyright (c) 2008-#{Time.now.year}, Puzzle ITC GmbH. This file is part of
-Cryptopus and licensed under the Affero General Public License version 3 or later.
+Copyright (c) 2008-#{Time.now.year}, #{@copyright_holder}. This file is part of
+#{@project_name} and licensed under the Affero General Public License version 3 or later.
 See the COPYING file at the top-level directory or at
-https://github.com/puzzle/cryptopus.
+#{@copyright_source}.
 END
   end
 
@@ -142,9 +142,9 @@ end
 
 namespace :license do
   task :config do
-    @licenser = Licenser.new('hitobito',
-                             'Jungwacht Blauring Schweiz',
-                             'https://github.com/hitobito/hitobito')
+    @licenser = Licenser.new('Cryptopus',
+                             'Puzzle ITC GmbH',
+                             'https://github.com/puzzle/cryptopus')
   end
 
   desc 'Insert the license preamble in all source files'
