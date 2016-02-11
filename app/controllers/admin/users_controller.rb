@@ -77,13 +77,13 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def user_params
-    params.require(:user).permit(:name, :username, :password, :admin, :givenname, :surname, :auth)
+    params.require(:user).permit(:name, :username, :password, :admin, :givenname, :surname)
   end
 
   private
 
   def redirect_if_ldap_user
-    return unless user.auth == 'ldap'
+    return unless user.auth_ldap?
 
     flash[:error] = t('flashes.admin.users.update.ldap')
 
@@ -111,7 +111,7 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def user_params
-    params.require(:user).permit(:username, :givenname, :surname, :admin, :password, :auth)
+    params.require(:user).permit(:username, :givenname, :surname, :admin, :password)
   end
 
   def empower_user(user)
