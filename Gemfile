@@ -18,6 +18,7 @@ gem 'handlebars_assets'
 # gem 'bootstrap-sass', '~> 3.2.0'
 gem 'twitter-bootstrap-rails'
 gem 'less-rails'
+gem 'turbolinks'
 
 group :development, :test do
   gem 'minitest'

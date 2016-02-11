@@ -3,6 +3,11 @@
 //  See the COPYING file at the top-level directory or at
 //  https://github.com/puzzle/cryptopus.
 
+html.turbolinks-progress-bar::before {
+  background-color: rgba(50, 50, 50, 0.7) !important;
+  height: 2px !important;
+}
+
 img{
   vertical-align: bottom!important;
 }

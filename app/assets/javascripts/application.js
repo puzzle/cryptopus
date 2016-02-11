@@ -10,6 +10,9 @@
 //= require handlebars.runtime
 //= require search
 //= require_tree ./templates
+//= require turbolinks
+
+Turbolinks.enableProgressBar();
 
 // Password hidden
 $(document).ready(function(){
