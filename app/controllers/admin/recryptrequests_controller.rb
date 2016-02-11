@@ -73,7 +73,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
       @user = User.find(params[:user_id])
       @admin = User.find(session[:user_id])
 
-      if @user.auth_db?
+      if @user.auth_db? && !@user.root?
         if !params[:new_password].blank?
           @user.password = CryptUtils.one_way_crypt(params[:new_password])
 
