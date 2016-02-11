@@ -5,7 +5,6 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-
 require 'simplecov'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -15,7 +14,7 @@ Dir[Rails.root.join('test/support/**/*.rb')].sort.each { |f| require f }
 
 SimpleCov.start 'rails' do
   add_filter 'lib/ldap_tools.rb'
-  puts 'See coverage/index.html'
+  coverage_dir 'test/coverage'
 end
 
 class ActiveSupport::TestCase
