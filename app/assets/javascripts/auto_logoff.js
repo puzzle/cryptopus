@@ -7,6 +7,8 @@ var AUTO_LOGOFF_TIME = 300;
 var remaining_seconds = AUTO_LOGOFF_TIME;
 
 function auto_logoff() {
+  if(document.URL.indexOf("/login/login") > -1){return}
+
   if (remaining_seconds <= 1) {
     window.location="/login/logout";
     return;
