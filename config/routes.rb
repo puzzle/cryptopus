@@ -25,6 +25,7 @@ Cryptopus::Application.routes.draw do
       resources :users do
         member do
           get 'unlock'
+          post 'update_admin'
         end
       end
       resources :recryptrequests do

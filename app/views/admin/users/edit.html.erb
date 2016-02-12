@@ -2,6 +2,17 @@
 <% @submit_button_text = t(:update) %>
 <%= render :partial => 'form' %>
 
+<%= form_tag(update_admin_admin_user_path(@user), method: :post) do %>
+<br/>
+  <div class='form-group'>
+    <% if @user.admin? %>
+    <%= submit_tag t('.remove_admin'), class: 'btn btn-primary' %>
+    <% else %>
+    <%= submit_tag t('.create_admin'), class: 'btn btn-primary' %>
+    <% end  %>
+  </div>
+<% end %>
+
 <% if @user.auth_db? && !@user.new_record? %>
 <br/>
   <%= form_tag(resetpassword_admin_recryptrequests_path(:user_id => @user.id)) do %>

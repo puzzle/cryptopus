@@ -30,6 +30,20 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
+ # POST /admin/users/1
+  def update_admin
+    if user.admin?
+      user.update(:admin => false)
+    else
+      user.update(:admin => true)
+    end
+
+    respond_to do |format|
+      format.html { redirect_to admin_users_path }
+    end
+  end
+
+
   # DELETE /admin/users/1
   def destroy
     if user == current_user

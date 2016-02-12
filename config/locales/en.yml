@@ -87,6 +87,8 @@ en:
       edit:
         title: "Editing user"
         reset_password: "Reset password"
+        create_admin: "Give admin-rights"
+        remove_admin: "Take admin-rights"
       index:
         title: "List of all Cryptopus users"
         username: "Username"

@@ -86,6 +86,8 @@ de:
       edit:
         title: "Benutzer bearbeiten"
         reset_password: "Passwort zurücksetzen"
+        create_admin: "Admin-Rechte geben"
+        remove_admin: "Admin-Rechte nehmen"
       index:
         title: "Liste aller Cryptopus Benutzer"
         username: "Benutzername"

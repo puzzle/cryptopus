@@ -84,6 +84,8 @@ fr:
       edit:
         title: "Modifier l'utilisatuer"
         reset_password: "Réinitialiser mot de passe"
+        create_admin: "surajouter les droits d' administrateur"
+        remove_admin: "enlever les droits d' administrateur"
       index:
         title: "La Liste de toutes les utilisateurs"
         username: "Nom d'utilisateur"
