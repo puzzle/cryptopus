@@ -21,7 +21,7 @@ include IntegrationTest::DefaultHelper
   test 'bob logs in with wrong password' do
     login_as('bob', 'wrong_password')
     assert_includes flash[:error], 'Authentication failed'
-    assert_equal authenticate_login_path, request.fullpath
+    assert_equal login_login_path, request.fullpath
   end
 
   test 'bob logs out manuel' do

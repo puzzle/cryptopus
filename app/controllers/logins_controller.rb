@@ -25,7 +25,7 @@ class LoginsController < ApplicationController
       authenticate_user(user, password)
     else
       flash[:error] = t('flashes.logins.auth_failed')
-      render action: 'login'
+      redirect_to login_login_path
     end
   end
 
@@ -63,7 +63,7 @@ class LoginsController < ApplicationController
   def user_locked?(user)
     if user.locked?
       flash[:error] = t('flashes.logins.locked')
-      render action: 'login'
+      redirect_to login_login_path
       true
     end
   end
@@ -81,7 +81,7 @@ class LoginsController < ApplicationController
       redirect_after_sucessful_login
     else
       flash[:error] = t('flashes.logins.auth_failed')
-      render action: 'login'
+      redirect_to login_login_path
     end
   end
 
