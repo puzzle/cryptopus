@@ -8,6 +8,7 @@
 class Team < ActiveRecord::Base
   has_many :groups, -> { order :name }, dependent: :destroy
   has_many :teammembers, dependent: :delete_all
+  has_many :members, through: :teammembers, source: :user
 
   # TODO: add validations
   # validates :name, presence: true
@@ -40,7 +41,7 @@ class Team < ActiveRecord::Base
     name
   end
 
-  def teammember_candidates
+  def member_candidates
     excluded_user_ids = User.joins('LEFT JOIN teammembers ON users.id = teammembers.user_id').
                         where('users.uid = 0 OR users.admin = ? OR teammembers.team_id = ?', true, id).
                         distinct.

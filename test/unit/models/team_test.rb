@@ -24,7 +24,7 @@ class TeamTest <  ActiveSupport::TestCase
     teammembers(:team1_bob).destroy
 
     team = teams(:team1)
-    candidates = team.teammember_candidates
+    candidates = team.member_candidates
 
     refute_includes candidates, users(:root)
     refute_includes candidates, users(:admin)

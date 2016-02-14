@@ -7,7 +7,6 @@
 
 class TeammembersController < ApplicationController
   before_filter :load_team
-  helper_method :teammember_candidates
 
   # GET /teams/1/teammembers/new
   def new
@@ -63,8 +62,4 @@ class TeammembersController < ApplicationController
     @team = Team.find(params[:team_id])
   end
 
-  def teammember_candidates
-    users = @team.teammember_candidates.order(:username)
-    users.pluck(:username)
-  end
 end
