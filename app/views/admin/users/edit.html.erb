@@ -6,9 +6,9 @@
 <br/>
   <div class='form-group'>
     <% if @user.admin? %>
-    <%= submit_tag t('.remove_admin'), class: 'btn btn-primary' %>
+    <%= submit_tag t('.remove_admin'), class: 'btn btn-primary', title: t('.admin_hint') %>
     <% else %>
-    <%= submit_tag t('.create_admin'), class: 'btn btn-primary' %>
+    <%= submit_tag t('.create_admin'), class: 'btn btn-primary', title: t('.admin_hint') %>
     <% end  %>
   </div>
 <% end %>
