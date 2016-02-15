@@ -65,11 +65,6 @@ class TeamsController < ApplicationController
     redirect_to teams_path
   end
 
-  # GET /teams/1/teammember_candidates
-  def teammember_candidates
-    render :json, @team.teammember_candidates
-  end
-
   private
 
   def team_params

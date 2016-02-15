@@ -56,8 +56,10 @@ Cryptopus::Application.routes.draw do
 
   scope '/api', module: 'api' do
     resources :teams, except: [:new, :edit]  do
-      member do
-        get 'teammember_candidates'
+      resources :members, expect: [:new, :edit], module: 'team' do
+        collection do
+          get :candidates
+        end
       end
     end
   end
