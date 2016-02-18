@@ -159,6 +159,19 @@ class TeamTest <  ActiveSupport::TestCase
     assert_match /root cannot create private team/, exception.message
   end
 
+  test 'does not create team if name is empty' do
+    params = {}
+    params[:name] = ''
+    params[:description] = 'foo foo'
+    params[:private] = false
+    params[:noroot] = false
+
+    team = Team.create(bob, params)
+
+    assert_not team.valid?
+    assert_match /Name/, team.errors.full_messages.first
+  end
+
   test 'root cannot be removed from team' do
     team = teams(:team1)
 

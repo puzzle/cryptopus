@@ -10,6 +10,8 @@ class Account < ActiveRecord::Base
   belongs_to :group
   has_many :items, dependent: :destroy
 
+  validates :accountname, presence: true
+
   attr_accessor :cleartext_password, :cleartext_username
 
   def as_json(options = {})

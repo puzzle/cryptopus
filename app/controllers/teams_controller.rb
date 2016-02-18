@@ -31,10 +31,12 @@ class TeamsController < ApplicationController
   # POST /teams
   def create
     respond_to do |format|
-      if Team.create(current_user, team_params)
+      team = Team.create(current_user, team_params)
+      if team.valid?
         flash[:notice] = t('flashes.teams.created')
         format.html { redirect_to(teams_url) }
       else
+        @team = team
         format.html { render action: 'new' }
       end
     end

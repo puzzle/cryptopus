@@ -11,12 +11,13 @@ class Team < ActiveRecord::Base
   has_many :members, through: :teammembers, source: :user
 
   # TODO: add validations
-  # validates :name, presence: true
+  validates :name, presence: true
 
   class << self
     def create(creator, params)
       raise 'root cannot create private team' if creator.root? && params[:noroot]
       team = super(params)
+      return team unless team.valid?
       plaintext_team_password = CryptUtils.new_team_password
       team.add_user(creator, plaintext_team_password)
       unless team.private?
