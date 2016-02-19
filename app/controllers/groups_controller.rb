@@ -72,7 +72,7 @@ class GroupsController < ApplicationController
     @group = @team.groups.find(params[:id])
 
     respond_to do |format|
-      if @group.update_attributes(params[:group])
+      if @group.update_attributes(group_params)
         flash[:notice] = t('flashes.groups.updated')
         format.html { redirect_to team_groups_url(@team) }
       else

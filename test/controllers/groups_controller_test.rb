@@ -12,7 +12,6 @@ class GroupsControllerTest < ActionController::TestCase
 
   test 'show breadcrumb path 1 if user is on index of groups' do
     login_as (:bob)
-# require 'pry';binding.pry
     team1 = teams(:team1)
 
     get :index, team_id: team1
@@ -20,7 +19,6 @@ class GroupsControllerTest < ActionController::TestCase
     assert_select '.breadcrumb a', count: 1
     assert_select '.breadcrumb a', text: 'Teams'
     assert_select '.breadcrumb a', text: 'team1', count: 0
-
   end
 
   test 'show breadcrump path 2 if user is on edit of groups' do
@@ -35,6 +33,19 @@ class GroupsControllerTest < ActionController::TestCase
     assert_select '.breadcrumb a', text: 'Teams'
     assert_select '.breadcrumb a', text: 'team1'
     assert_select '.breadcrumb a', text: 'group1', count: 0
-    end
+  end
 
+  test 'update group name and description' do
+    login_as(:alice)
+    group = groups(:group1)
+    team = teams(:team1)
+
+    update_params = { name: 'new_name', description: 'new_description' }
+    put :update, team_id: team, id: group, group: update_params
+
+    group.reload
+
+    assert_equal 'new_name', group.name
+    assert_equal 'new_description', group.description
+  end
 end
