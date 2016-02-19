@@ -21,9 +21,7 @@ class Admin::UsersController < Admin::AdminController
 
   # PUT /admin/users/1
   def update
-    was_admin = user.admin?
     user.update_attributes(user_params)
-    update_attribute_admin(was_admin)
 
     respond_to do |format|
       format.html { redirect_to admin_users_path }
@@ -32,11 +30,10 @@ class Admin::UsersController < Admin::AdminController
 
  # POST /admin/users/1
   def update_admin
-    if user.admin?
-      user.update(:admin => false)
-    else
-      user.update(:admin => true)
-    end
+    user.update(admin: !user.admin?)
+    user.admin? ? empower_user(@user) : disempower_admin(@user)
+    user.admin? ? flash_tag = t('flashes.admin.users.empowerd') : flash_tag = t('flashes.admin.users.disempowerd')
+      flash[:notice] = flash_tag
 
     respond_to do |format|
       format.html { redirect_to admin_users_path }
@@ -90,9 +87,6 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  def user_params
-    params.require(:user).permit(:name, :username, :password, :admin, :givenname, :surname)
-  end
 
   private
 
@@ -125,7 +119,7 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def user_params
-    params.require(:user).permit(:username, :givenname, :surname, :admin, :password)
+    params.require(:user).permit(:username, :givenname, :surname, :password)
   end
 
   def empower_user(user)
@@ -145,13 +139,4 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  def update_attribute_admin(was_admin)
-    if @user.admin? && !was_admin
-      empower_user(@user)
-    end
-
-    if !@user.admin? && was_admin
-      disempower_admin(@user)
-    end
-  end
 end

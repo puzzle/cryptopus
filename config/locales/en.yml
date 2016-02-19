@@ -186,6 +186,8 @@ en:
           not_root: "Could not reset roots password"
       users:
         created: "Successfully created a new user."
+        empowerd: "User now has Admin-Rights"
+        disempowerd: "User lost his Admin-Rights"
         destroy:
           own_user: "You can't delete your-self"
           root: "Root cannot be deleted"

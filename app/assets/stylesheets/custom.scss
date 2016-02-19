@@ -93,3 +93,59 @@ body {
   padding: 2px;
   margin-left: 40px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.toggle-button {
+  background-color: white;
+  border-radius: 20px;
+  border: 2px solid #D0D0D0;
+  height: 20px;
+  cursor: pointer;
+  width: 40px;
+  position: relative;
+  display: inline-block;
+}
+
+.toggle-button button {
+  cursor: pointer;
+  outline: 0;
+  display:block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  float: left;
+  margin: -1px 0 0 -3px;
+  border: 2px solid #D0D0D0;
+  transition: left 0.3s;
+}
+
+.toggle-button-selected {
+  background-color: white;
+  border: 2px solid #D0D0D0;
+}
+
+.toggle-button-selected button {
+  left: 26px;
+  top: 0;
+  margin: -1px 0 0 -3px;
+  border: 2px solid black;
+  width: 20px;
+  height: 20px;
+    background-color: black;
+}

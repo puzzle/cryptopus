@@ -16,11 +16,17 @@
         <td><%= user.username %></td>
         <td><%= user.label %></td>
         <td><%= user.uid.to_s %></td>
-        <td class='action_icon'>
-          <% if user.admin %>
-            <%= image_tag("flag.svg") %>
+        <!-- On/Off Switch zum geben/nehmen von Admin-Rechten  -->
+        <td>
+          <% if user.admin? %>
+            <div class="toggle-button toggle-button-selected">
+          <% else %>
+            <div class="toggle-button">
           <% end %>
+            <button></button>
+          </div>
         </td>
+
 
         <td class='action_icon'>
           <% if user.auth != 'ldap' %>
@@ -56,3 +62,15 @@
     <% end %>
   </table>
 <% end %>
+
+
+<script>
+
+
+$(document).on('click', '.toggle-button', function() {
+  
+  $(this).toggleClass('toggle-button-selected');
+
+});
+
+</script>

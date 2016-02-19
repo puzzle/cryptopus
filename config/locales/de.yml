@@ -185,6 +185,8 @@ de:
           not_root: "Das root Passwort kann nicht zurückgesetzt werden"
       users:
         created: "Der neue Benutzer wurde erfolgreich erstellt."
+        empowerd: "Der Benutzer hat nun Admin-Rechte."
+        disempowerd: "Dem Benutzer wurden die Admin-Rechte entzogen."
         destroy:
           own_user: "Eigener Benutzer kann nicht gelöscht werden"
           root: "Root kann nicht gelöscht werden"

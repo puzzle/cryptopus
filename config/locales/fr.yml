@@ -185,6 +185,8 @@ fr:
           not_root: "Impossible de réinitialiser le mot de passe de root"
       users:
         created: "Utilisateur créé avec succès."
+        empowerd: "L'usutilisateur a reçu les droits d administrateur"
+        disempowerd: "L'utilisateur a perdu les droits d'administrateur"
         destroy:
           own_user: "Actuel de l'utilisateur ne peut pas être supprimé"
           root: "Root ne peut pas être supprimé"

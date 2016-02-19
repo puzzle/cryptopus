@@ -5,6 +5,7 @@
 <%= form_tag(update_admin_admin_user_path(@user), method: :post) do %>
 <br/>
   <div class='form-group'>
+    <br>
     <% if @user.admin? %>
     <%= submit_tag t('.remove_admin'), class: 'btn btn-primary', title: t('.admin_hint') %>
     <% else %>

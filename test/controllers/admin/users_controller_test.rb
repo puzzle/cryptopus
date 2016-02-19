@@ -147,7 +147,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     update_params = { admin: true }
 
     login_as(:root)
-    post :update, id: bob, user: update_params
+    post :update_admin, id: bob, user: update_params
 
     bob.reload
 
@@ -162,7 +162,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     update_params = { admin: false }
 
     login_as(:root)
-    post :update, id: admin, user: update_params
+    post :update_admin, id: admin, user: update_params
 
     admin.reload
 
