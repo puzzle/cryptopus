@@ -9,7 +9,7 @@ app = window.App ||= {}
 class app.TeamMemberHandler
   constructor: () ->
     
-  toggle_members: ->
+  toggle_members = ->
     $('.columns').slideToggle()
     $('.members').slideToggle().promise().done ->
       if $('.columns').is(':visible')
@@ -19,12 +19,11 @@ class app.TeamMemberHandler
         $('.show_members').text(I18n.teammembers.show)
    
    bind: ->
-    self = this
     $(document).on 'click', '.show_members', ->
-      self.toggle_members()
+      toggle_members()
 
     $(document).on 'focus', '#search_member', ->
       if $('.members').is(':hidden')
-        self.toggle_members()
+        toggle_members()
 
 new app.TeamMemberHandler().bind()

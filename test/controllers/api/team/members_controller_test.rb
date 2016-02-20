@@ -11,16 +11,33 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
-  #test 'returns teammember candidates for new team' do
-    #login_as(:admin)
-    #team = Team.create(users(:admin), {name: 'foo'})
+  test 'returns team member candidates for new team' do
+    login_as(:admin)
+    team = Team.create(users(:admin), {name: 'foo'})
 
-    #get :candidates, team_id: team
+    get :candidates, team_id: team
 
-    #candidates = JSON.parse(response.body)[1]
+    candidates = JSON.parse(response.body)[1]
 
-    #assert_equal 2, candidates.size
-    #assert candidates.any? {|c| c['label'] == 'Alice test' }
-    #assert candidates.any? {|c| c['label'] == 'Bob test' }
-  #end
+    assert_equal 2, candidates.size
+    assert candidates.any? {|c| c['label'] == 'Alice test' }
+    assert candidates.any? {|c| c['label'] == 'Bob test' }
+  end
+
+  test 'returns team members for given team' do
+    login_as(:admin)
+
+    team = teams(:team1)
+    teammembers(:team1_bob).destroy!
+
+    get :index, team_id: team
+
+    members = JSON.parse(response.body)[1]
+
+    assert_equal 3, members.size
+    assert members.any? {|c| c['label'] == 'Root test' }
+    assert members.any? {|c| c['label'] == 'Alice test' }
+    assert members.any? {|c| c['label'] == 'Admin test' }
+  end
+
 end

@@ -32,6 +32,17 @@ class TeamTest <  ActiveSupport::TestCase
     assert_includes candidates, users(:bob)
   end
 
+  test 'root is never included in member candidates' do
+    team = Team.create(users(:admin), name: 'foo', noroot: true)
+
+    candidates = team.member_candidates
+
+    refute_includes candidates, users(:root)
+    refute_includes candidates, users(:admin)
+    assert_includes candidates, users(:bob)
+    assert_includes candidates, users(:alice)
+  end
+
   test "does not add user if already teammember" do
     team = teams(:team1)
     plaintext_private_key = decrypt_private_key(alice)
