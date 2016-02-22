@@ -12,7 +12,6 @@ class GroupsController < ApplicationController
   def index
     groups_breadcrumbs
 
-
     @groups = @team.groups
 
     teammembers = @team.teammembers.without_root
@@ -61,7 +60,6 @@ class GroupsController < ApplicationController
 
     groups_breadcrumbs
 
-
     respond_to do |format|
       format.html # edit.html.erb
     end
@@ -101,7 +99,7 @@ class GroupsController < ApplicationController
   end
 
   def groups_breadcrumbs
-    add_breadcrumb I18n.t('teams.title'), :teams_path
+    add_breadcrumb t('teams.title'), :teams_path
 
     add_breadcrumb @team.label if action_name == 'index'
 

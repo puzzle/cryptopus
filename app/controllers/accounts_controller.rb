@@ -113,7 +113,7 @@ class AccountsController < ApplicationController
   end
 
   def accounts_breadcrumbs
-    add_breadcrumb I18n.t('teams.title'), :teams_path
+    add_breadcrumb t('teams.title'), :teams_path
     add_breadcrumb @team.label, :team_groups_path
 
     add_breadcrumb @group.label if action_name == 'index'
