@@ -48,4 +48,14 @@ class GroupsControllerTest < ActionController::TestCase
     assert_equal 'new_name', group.name
     assert_equal 'new_description', group.description
   end
+
+  test "Teammember delete group" do
+    login_as(:bob)
+
+    assert_difference('Group.count', -1) do
+      delete :destroy, id: groups(:group1), team_id: teams(:team1)
+    end
+
+    assert_redirected_to team_groups_path
+  end
 end
