@@ -142,7 +142,7 @@ class TeamsControllerTest < ActionController::TestCase
     login_as(:alice)
 
     team_params = {name: 'foo', private: true, noroot: true}
-    team = Team.create(users(:alice), team_params) 
+    team = Team.create(users(:alice), team_params)
 
     update_params = { noroot: false, private: false }
 
@@ -154,4 +154,16 @@ class TeamsControllerTest < ActionController::TestCase
     assert team.noroot?
   end
 
+  test 'show breadcrump path 2 if user is on edit of team' do
+    login_as (:bob)
+
+    team1 = teams(:team1)
+
+    get :edit, id: team1
+
+    assert_select '.breadcrumb', text: 'Teamsteam1'
+    assert_select '.breadcrumb a', count: 1
+    assert_select '.breadcrumb a', text: 'Teams'
+    assert_select '.breadcrumb a', text: 'team1', count: 0
+  end
 end
