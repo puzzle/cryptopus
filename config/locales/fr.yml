@@ -256,6 +256,7 @@ fr:
 
   confirm:
     delete: "Supprimez %{entry_class} %{entry_label} ?"
+    changeAdmin: "donner/enlever les droits de l'administrateur?"
 
 #Validation Errors
   activerecord:

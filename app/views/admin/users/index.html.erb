@@ -1,7 +1,8 @@
 <h1><%=t '.title' %></h1>
 
 <%= link_to 'New', new_admin_user_path, class: 'btn btn-primary pull-right' %>
-
+<div class="test2">
+</div>
 <table class='table table-striped'>
   <tr>
     <th><%=t '.username' %></th>
@@ -16,15 +17,9 @@
         <td><%= user.username %></td>
         <td><%= user.label %></td>
         <td><%= user.uid.to_s %></td>
-        <!-- On/Off Switch zum geben/nehmen von Admin-Rechten  -->
+
         <td>
-          <% if user.admin? %>
-            <div class="toggle-button toggle-button-selected">
-          <% else %>
-            <div class="toggle-button">
-          <% end %>
-            <button></button>
-          </div>
+          <%= change_admin_attribute(user) %>
         </td>
 
 
@@ -63,14 +58,4 @@
   </table>
 <% end %>
 
-
-<script>
-
-
-$(document).on('click', '.toggle-button', function() {
-
-  $(this).toggleClass('toggle-button-selected');
-
-});
-
-</script>
+<%= javascript_include_tag :update_admin %>

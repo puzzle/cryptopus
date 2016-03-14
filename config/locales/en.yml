@@ -233,6 +233,7 @@ en:
 
   confirm:
     delete: "Delete %{entry_class} %{entry_label} ?"
+    changeAdmin: "give/remove Admin-Rights?"
 
 #Validation Errors
   activerecord:

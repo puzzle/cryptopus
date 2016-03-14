@@ -10,6 +10,8 @@ class Admin::UsersController < Admin::AdminController
   before_filter :redirect_if_root, only: [:edit, :update, :destroy]
   before_filter :redirect_if_ldap_user, only: [:edit, :update]
 
+  helper_method :update_admin
+
   # GET /admin/users
   def index
     @users = User.where('uid != 0 or uid is null')
@@ -30,13 +32,17 @@ class Admin::UsersController < Admin::AdminController
 
  # POST /admin/users/1
   def update_admin
-    user.update(admin: !user.admin?)
-    user.admin? ? empower_user(@user) : disempower_admin(@user)
-    user.admin? ? flash_tag = t('flashes.admin.users.empowerd') : flash_tag = t('flashes.admin.users.disempowerd')
+    if user == current_user
+      flash[:error] = 'test'
+    else
+      user.update(admin: !user.admin?)
+      user.admin? ? empower_user(@user) : disempower_admin(@user)
+      user.admin? ? flash_tag = t('flashes.admin.users.empowerd') : flash_tag = t('flashes.admin.users.disempowerd')
       flash[:notice] = flash_tag
 
-    respond_to do |format|
-      format.html { redirect_to admin_users_path }
+      respond_to do |format|
+        format.js { render partial: 'layouts/flashes' }
+      end
     end
   end
 

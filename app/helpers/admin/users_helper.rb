@@ -6,5 +6,16 @@
 #  https://github.com/puzzle/cryptopus.
 
 module Admin::UsersHelper
+# Not finished
+
+  def change_admin_attribute(user)
+    class_name = 'toggle-button'
+    class_name += ' toggle-button-selected' if user.admin?
+    flash_tag = t('confirm.change_admin')
+
+    content_tag(:div, class: class_name, id: user.id) do
+      content_tag(:button)
+    end
+  end
 
 end
