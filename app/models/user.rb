@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   validates :username, uniqueness: true
   validates :username, presence: true
+  
 
   has_many :teammembers, dependent: :destroy
   has_many :recryptrequests, dependent: :destroy
@@ -29,8 +30,10 @@ class User < ActiveRecord::Base
       user.auth = 'db'
       user.create_keypair password
       user.password = CryptUtils.one_way_crypt(password)
-      user
+      user   
     end
+
+
 
     def find_or_import_from_ldap(username, password)
       user = find_by(username: username)

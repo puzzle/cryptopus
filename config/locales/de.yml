@@ -270,6 +270,18 @@ de:
         body: ''
         header: ''
       models:
+        items:
+          attributes:
+            filename:
+              taken: 'Filename ist bereits vergeben'
+        account:
+          attributes:
+            accountname:
+              taken: 'ist bereits vergeben'
+        group:
+          attributes:
+            name:
+              taken: 'ist bereits vergeben'
         user:
           attributes:
             username:
@@ -302,7 +314,7 @@ de:
         other: mehr als %{count} Jahre
       x_days:
         one: ein Tag
-        other: "%{count} Tage"
+        other: "%{count} Tagen"
       x_minutes:
         one: eine Minute
         other: "%{count} Minuten"
