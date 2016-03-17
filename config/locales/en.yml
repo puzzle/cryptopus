@@ -113,6 +113,7 @@ en:
       members: "Members"
       add_member: "Add member"
       admins: "Admins"
+      already_exist: "This group already exist in this team"
     new:
       title: "New group"
 
@@ -240,3 +241,8 @@ en:
       template:
         body: ''
         header: ''
+      models:
+        items:
+          attributes:
+            filename:
+              taken: 'Filename is already taken'

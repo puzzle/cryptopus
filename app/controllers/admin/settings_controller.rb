@@ -27,4 +27,10 @@ class Admin::SettingsController < Admin::AdminController
       Setting.find_by(key: setting[0]).update_attributes(value: setting[1])
     end
   end
+
+  def valid_params?(setting_params)
+    setting_params.each do |setting|
+      
+    end
+  end
 end

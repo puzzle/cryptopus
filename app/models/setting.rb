@@ -5,7 +5,12 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
+
 class Setting < ActiveRecord::Base
+
+validates :key, presence: true
+
+
   class << self
     def value(prefix, key)
       key = "#{prefix}_#{key}" if prefix.present?
@@ -15,4 +20,4 @@ class Setting < ActiveRecord::Base
       end
     end
   end
-end
+ end

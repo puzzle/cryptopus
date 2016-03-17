@@ -7,6 +7,26 @@
 
 require 'test_helper'
 class AccountTest <  ActiveSupport::TestCase
+
+test 'cannot create second account in same group' do
+    params = {}
+    params[:accountname] = 'account1'
+    params[:group_id] = groups(:group1).id
+
+    account = Account.new(params)
+    assert_not account.valid?
+    assert_equal [:accountname], account.errors.keys
+end
+
+test 'create second account' do
+    params = {}
+    params[:accountname] = 'account1'
+    params[:group_id] = groups(:group2).id
+
+    account = Account.new(params)
+  assert account.valid?
+end
+
   test 'account to json' do
     account = accounts(:account1)
     team = teams(:team1)

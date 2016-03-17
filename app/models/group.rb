@@ -10,8 +10,9 @@
 class Group < ActiveRecord::Base
   belongs_to :team
   has_many :accounts, -> { order :accountname }, dependent: :destroy
-
+ 
   validates :name, presence: true
+  validates :name, uniqueness: { scope: :team }
 
   def label
     name

@@ -267,6 +267,18 @@ fr:
         body: ''
         header: ''
       models:
+        items:
+          attributes:
+            filename:
+              taken: 'Filename est déjà pris'
+        account:
+          attributes:
+            accountname:
+              taken: 'est déjà pris'
+        group:
+          attributes:
+            name:
+              taken: 'est déjà pris'
         user:
           attributes:
             username:
