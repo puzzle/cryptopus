@@ -1,8 +1,6 @@
 <h1><%=t '.title' %></h1>
 
 <%= link_to 'New', new_admin_user_path, class: 'btn btn-primary pull-right' %>
-<div class="test2">
-</div>
 <table class='table table-striped'>
   <tr>
     <th><%=t '.username' %></th>
@@ -19,9 +17,10 @@
         <td><%= user.uid.to_s %></td>
 
         <td>
-          <%= change_admin_attribute(user) %>
+          <% if user != current_user %>
+            <%= change_admin_attribute(user) %>
+          <% end %>
         </td>
-
 
         <td class='action_icon'>
           <% if user.auth != 'ldap' %>
@@ -59,3 +58,7 @@
 <% end %>
 
 <%= javascript_include_tag :update_admin %>
+
+<script type="text/javascript">
+  window.I18n = <%= current_translations.to_json.html_safe %>
+</script>

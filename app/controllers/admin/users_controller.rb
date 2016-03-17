@@ -32,17 +32,13 @@ class Admin::UsersController < Admin::AdminController
 
  # POST /admin/users/1
   def update_admin
-    if user == current_user
-      flash[:error] = 'test'
-    else
-      user.update(admin: !user.admin?)
-      user.admin? ? empower_user(@user) : disempower_admin(@user)
-      user.admin? ? flash_tag = t('flashes.admin.users.empowerd') : flash_tag = t('flashes.admin.users.disempowerd')
-      flash[:notice] = flash_tag
+    return if user == current_user
 
-      respond_to do |format|
-        format.js { render partial: 'layouts/flashes' }
-      end
+    user.update(admin: !user.admin?)
+    user.admin? ? empower_user(@user) : disempower_admin(@user)
+
+    respond_to do |format|
+      format.html
     end
   end
 
