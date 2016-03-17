@@ -8,10 +8,10 @@
 require 'test_helper'
 class AddAttachmentToAccountTest < ActionDispatch::IntegrationTest
   include IntegrationTest::DefaultHelper
-  test 'add and remove attachment to account2' do
+  test 'add and remove attachment to account1' do
     team = teams(:team1)
     group = groups(:group1)
-    account = accounts(:account2)
+    account = accounts(:account1)
 
     login_as('bob')
     items_path = team_group_account_items_path team, group, account
@@ -20,7 +20,7 @@ class AddAttachmentToAccountTest < ActionDispatch::IntegrationTest
     logout
 
     login_as('alice')
-    file = account.items.first
+    file = account.items.find_by(filename: 'test_file.txt')
     item_path = team_group_account_item_path team, group, account, file
     get item_path
     assert_equal 'certificate', response.body

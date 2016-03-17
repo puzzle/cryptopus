@@ -14,7 +14,7 @@ class SearchControllerTest < ActionController::TestCase
     xhr :get, :account, {'search_string' => 'acc'}
     result_json = JSON.parse(response.body).first
 
-    account = accounts(:account2)
+    account = accounts(:account1)
     group = account.group
     team = group.team
 

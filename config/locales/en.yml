@@ -239,3 +239,9 @@ en:
       template:
         body: ''
         header: ''
+      models:
+        item:
+          attributes:
+            filename:
+              blank: 'Filename does not exist'
+              taken: 'Filename is already taken'

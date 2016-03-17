@@ -285,6 +285,11 @@ de:
             username:
               blank: 'kann nicht leer sein'
               taken: 'ist bereits vergeben'
+        item:
+          attributes:
+            filename:
+              blank: 'Filename kann nicht leer sein'
+              taken: 'Filename ist bereits vergeben'
 
   datetime:
     distance_in_words:

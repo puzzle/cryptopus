@@ -283,6 +283,11 @@ fr:
             username:
               blank: 'ne peut pas être vide'
               taken: 'est déjà pris'
+        item:
+          attributes:
+            filename:
+              blank: 'Filename ne peut pas être vide'
+              taken: 'Filename est déjà pris'
 
 
   datetime:
