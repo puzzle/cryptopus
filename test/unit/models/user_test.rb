@@ -176,8 +176,8 @@ class UserTest < ActiveSupport::TestCase
 
   test 'only returns accounts where bob is member' do
     accounts = users(:bob).accounts
-    assert_equal 1, accounts.count
-    assert_equal 'account1', accounts.first.accountname
+    assert_equal 2, accounts.count
+    assert_equal 'account2', accounts.first.accountname
   end
 
   test 'create user from ldap' do

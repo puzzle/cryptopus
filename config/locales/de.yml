@@ -270,6 +270,16 @@ de:
         body: ''
         header: ''
       models:
+        account:
+          attributes:
+            accountname:
+              blank: 'kann nicht leer sein'
+              taken: 'ist bereits vergeben'
+        group:
+          attributes:
+            name:
+              blank: 'kann nicht leer sein'
+              taken: 'ist bereits vergeben'
         user:
           attributes:
             username:

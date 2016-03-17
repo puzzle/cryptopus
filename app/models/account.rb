@@ -11,6 +11,7 @@ class Account < ActiveRecord::Base
   has_many :items, dependent: :destroy
 
   validates :accountname, presence: true
+  validates :accountname, uniqueness: { scope: :group }
 
   attr_accessor :cleartext_password, :cleartext_username
 

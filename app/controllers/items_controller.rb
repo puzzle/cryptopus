@@ -64,8 +64,11 @@ class ItemsController < ApplicationController
     @item.filename = datafile.original_filename
     @item.content_type = datafile.content_type
     @item.file = CryptUtils.encrypt_blob(datafile.read, get_team_password(@team))
-    if @item.save
+    if not @item.valid?
+      flash[:notice] = 'testitest'
+    elsif @item.save
       flash[:notice] = t('flashes.items.uploaded')
+      
     end
   end
 end
