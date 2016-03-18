@@ -9,13 +9,13 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
-  test 'cannot create user without name' do
+  test 'does not create user without name' do
     user = User.new(username: '')
     assert_not user.valid?
     assert_equal [:username], user.errors.keys
   end
 
-  test 'cannot create second user bob' do
+  test 'does not create second user bob' do
     user = User.new(username: 'bob')
     assert_not user.valid?
     assert_equal [:username], user.errors.keys

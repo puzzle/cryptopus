@@ -23,5 +23,4 @@ class Teammember < ActiveRecord::Base
       false
     end
   end
-
 end

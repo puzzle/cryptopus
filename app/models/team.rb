@@ -10,7 +10,6 @@ class Team < ActiveRecord::Base
   has_many :teammembers, dependent: :delete_all
   has_many :members, through: :teammembers, source: :user
 
-  # TODO: add validations
   validates :name, presence: true
 
   class << self

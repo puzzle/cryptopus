@@ -205,7 +205,7 @@ de:
       uploaded: "Die Datei wurde erfolgreich hochgeladen."
       uploaded_size_to_high: "Die Datei ist zu gross zum hochladen. (Max. 10MB)"
       uploaded_filename_is_empty: "Die Datei muss benannt sein"
-      uploaded_no_file: "Es wurde keine Datei ausgewählt"
+      uploaded_file_inexistent: "Datei ist inexistent"
     logins:
       welcome: "Willkommen bei Cryptopus. Zuerst müssen Sie einen Root Account erstellen. Bitte verwenden Sie \"root\" als Benutzername und wählen Sie ein sicheres Passwort."
       auth_failed: "Authentifikation fehlgeschlagen! Geben Sie einen gültigen Benutzernamen und ein korrektes Passwort ein."

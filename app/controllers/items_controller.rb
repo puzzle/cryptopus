@@ -18,9 +18,9 @@ class ItemsController < ApplicationController
   end
 
   # POST /teams/1/groups/1/accounts/1/items
-  def create
+  def create 
     datafile = params[:item][:file]
-    datafile.nil? ? flash[:error] = t('flashes.items.uploaded_no_file') : create_item(datafile)
+    datafile.nil? ? flash[:error] = t('flashes.items.uploaded_file_inexistent') : create_item(datafile)
 
     respond_to do |format|
       format.html { redirect_to team_group_account_url(@team, @group, @account) }

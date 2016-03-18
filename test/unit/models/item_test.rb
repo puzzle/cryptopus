@@ -10,7 +10,7 @@
 require 'test_helper'
 class ItemTest < ActiveSupport::TestCase
 
-	test 'cannot upload same file twice in same account' do 
+	test 'does not upload same file twice in same account' do 
 		params = {}
 	    params[:account_id] = accounts(:account1).id
 	    params[:filename] = items(:item1).filename
