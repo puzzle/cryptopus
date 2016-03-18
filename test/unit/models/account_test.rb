@@ -96,7 +96,7 @@ class AccountTest <  ActiveSupport::TestCase
     assert_equal 'foo', account.cleartext_password
   end
 
-test 'does not create account if name is empty' do
+  test 'does not create account if name is empty' do
     params = {}
     params[:accountname] = ''
     params[:username] = 'foo'
