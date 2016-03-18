@@ -8,6 +8,14 @@
 require 'test_helper'
 class AccountTest <  ActiveSupport::TestCase
 
+
+  test 'cannot create account without name' do
+    account = Account.new(accountname: '')
+    assert_not account.valid?
+    assert_equal [:accountname], account.errors.keys
+  end
+
+
 test 'cannot create second account in same group' do
     params = {}
     params[:accountname] = 'account1'

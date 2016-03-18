@@ -9,6 +9,12 @@ require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
 
+test 'cannot create group without name' do
+    group = Group.new(name: '')
+    assert_not group.valid?
+    assert_equal [:name], group.errors.keys
+end
+
 test 'cannot create second group in same team' do
     params = {}
     params[:name] = 'group1'

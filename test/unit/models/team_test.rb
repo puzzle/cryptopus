@@ -7,6 +7,13 @@
 
 require 'test_helper'
 class TeamTest <  ActiveSupport::TestCase
+
+  test 'cannot create team without name' do
+    team = Team.new(name: '')
+    assert_not team.valid?
+    assert_equal [:name], team.errors.keys
+  end
+
   test 'removes all assoziated groups, accounts, teammembers if team is destroyed' do
     team1 = teams(:team1)
     account1 = accounts(:account1)

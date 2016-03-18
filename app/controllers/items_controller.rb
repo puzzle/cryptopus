@@ -20,12 +20,7 @@ class ItemsController < ApplicationController
   # POST /teams/1/groups/1/accounts/1/items
   def create
     datafile = params[:item][:file]
-
-    if datafile.size > 10_000_000 # 10MB
-      flash[:error] = t('flashes.items.uploaded_size_to_high')
-    else
-      create_item(datafile)
-    end
+    datafile.nil? ? flash[:error] = t('flashes.items.uploaded_no_file') : create_item(datafile)
 
     respond_to do |format|
       format.html { redirect_to team_group_account_url(@team, @group, @account) }
@@ -63,12 +58,19 @@ class ItemsController < ApplicationController
     @item.description = params[:item][:description]
     @item.filename = datafile.original_filename
     @item.content_type = datafile.content_type
-    @item.file = CryptUtils.encrypt_blob(datafile.read, get_team_password(@team))
-    if not @item.valid?
-      flash[:notice] = t('activerecord.errors.models.item.attributes.filename.taken')
-    elsif @item.save
-      flash[:notice] = t('flashes.items.uploaded')
-      
+
+    if valid_item?(@item, datafile)
+      @item.file = CryptUtils.encrypt_blob(datafile.read, get_team_password(@team))
+      flash[:notice] = t('flashes.items.uploaded') if @item.save
     end
   end
+
+
+  def valid_item?(item, datafile)
+    flash[:error] = t('flashes.items.uploaded_filename_is_empty') if item.filename.blank?
+    flash[:notice] = t('activerecord.errors.models.item.attributes.filename.taken') unless item.valid?
+    flash[:error] = t('flashes.items.uploaded_size_to_high') if datafile.size > 10_000_000 # 10MB
+
+    flash[:error].blank? && flash[:notice].blank?
+  end 
 end
