@@ -140,4 +140,27 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_not_equal 'new_username', bob.username
     assert_match /Ldap user cannot be updated/, flash[:error]
   end
+
+  test 'admin empowers user' do
+    teammembers(:team1_bob).destroy
+    bob = users(:bob)
+
+    login_as(:admin)
+    xhr :post, :update_admin, id: bob
+
+    bob.reload
+    assert bob.admin?
+    assert bob.teammembers.find_by(team_id: teams(:team1))
+  end
+
+  test 'root disempowers admin' do
+    admin = users(:admin)
+
+    login_as(:root)
+    xhr :post, :update_admin, id: admin
+
+    admin.reload
+    assert_not admin.admin?
+    assert_not admin.teammembers.find_by(team_id: teams(:team1))
+  end
 end
