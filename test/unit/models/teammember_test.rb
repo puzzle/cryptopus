@@ -8,8 +8,7 @@
 require 'test_helper'
 class TeammemberTest < ActiveSupport::TestCase
 
-
-  test 'cannot add second user in same team' do
+  test 'does not add second user in same team' do
     params = {}
     params[:user_id] = users(:bob).id
     params[:team_id] = teams(:team1).id
@@ -30,9 +29,6 @@ class TeammemberTest < ActiveSupport::TestCase
     assert teammember.valid?
     assert teammember2.valid?
   end
-
-
-
 
   test 'cannot remove last teammember' do
     team = teams(:team1)

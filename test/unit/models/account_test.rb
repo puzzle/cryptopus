@@ -8,22 +8,22 @@
 require 'test_helper'
 class AccountTest <  ActiveSupport::TestCase
 
-test 'cannot create second account in same group' do
+  test 'does not create second account in same group' do
     params = {}
     params[:accountname] = 'account1'
     params[:group_id] = groups(:group1).id
     account = Account.new(params)
     assert_not account.valid?
     assert_equal [:accountname], account.errors.keys
-end
+  end
 
-test 'create second account' do
+  test 'create second account' do
     params = {}
     params[:accountname] = 'account1'
     params[:group_id] = groups(:group2).id
     account = Account.new(params)
     assert account.valid?
-end
+  end
 
   test 'account to json' do
     account = accounts(:account1)
@@ -96,7 +96,7 @@ end
     assert_equal 'foo', account.cleartext_password
   end
 
-test 'does not create account if name is empty' do
+  test 'does not create account if name is empty' do
     params = {}
     params[:accountname] = ''
     params[:username] = 'foo'
