@@ -38,7 +38,7 @@ class Admin::UsersController < Admin::AdminController
     user.admin? ? empower_user(@user) : disempower_admin(@user)
 
     respond_to do |format|
-      format.html
+      format.html { render nothing: true}
     end
   end
 
@@ -128,7 +128,7 @@ class Admin::UsersController < Admin::AdminController
     teams = Team.where('private = ? OR noroot = ?', false, false)
 
     teams.each do |t|
-      active_teammember = t.teammembers.find_by_user_id(current_user.id.to_s)
+      active_teammember = t.teammembers.find_by_user_id(current_user.id)
       team_password = CryptUtils.decrypt_team_password(active_teammember.password, session[:private_key])
       t.add_user(user, team_password)
     end
