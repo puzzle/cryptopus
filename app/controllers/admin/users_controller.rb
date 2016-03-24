@@ -34,7 +34,7 @@ class Admin::UsersController < Admin::AdminController
   def update_admin
     return if user == current_user
 
-    user[:admin] = !user.admin?
+    user.update(admin: !user.admin?)
     user.admin? ? empower_user(@user) : disempower_admin(@user)
 
     respond_to do |format|
