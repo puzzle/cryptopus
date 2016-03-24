@@ -181,7 +181,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'only returns accounts where bob is member' do
-    accounts = users(:bob).accounts
+    accounts = users(:alice).accounts
     assert_equal 1, accounts.count
     assert_equal 'account1', accounts.first.accountname
   end

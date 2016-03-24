@@ -14,5 +14,5 @@ team2:
   name: team2
   description: root, public
   visible: true
-  private: false
-  noroot: false
+  private: true
+  noroot: true

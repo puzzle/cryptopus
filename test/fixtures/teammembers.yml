@@ -22,3 +22,8 @@ team1_admin:
     team: team1
     user: admin
     password: <%= "!!binary \"#{FixturesHelper.read_team_password('admin', 'team1')}\"" %>
+
+team2_bob:
+    team: team2
+    user: bob
+    password: <%= "!!binary \"#{FixturesHelper.read_team_password('bob', 'team2')}\"" %>

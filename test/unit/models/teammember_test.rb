@@ -10,7 +10,7 @@ class TeammemberTest < ActiveSupport::TestCase
 
   test 'does not add second user in same team' do
     params = {}
-    params[:user_id] = users(:bob).id
+    params[:user_id] = users(:alice).id
     params[:team_id] = teams(:team1).id
     teammember = Teammember.new(params)
     assert_not teammember.valid?
@@ -18,7 +18,7 @@ class TeammemberTest < ActiveSupport::TestCase
 
   test 'can add second user' do
     params = {}
-    params[:user_id] = users(:bob).id
+    params[:user_id] = users(:admin).id
     params[:team_id] = teams(:team2).id
 
     params2 = {}
