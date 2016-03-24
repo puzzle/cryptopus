@@ -17,7 +17,7 @@ class AccountsController < ApplicationController
     @accounts = @group.accounts.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # index.html.haml
     end
   end
 
@@ -31,7 +31,7 @@ class AccountsController < ApplicationController
     @account.decrypt(get_team_password(@team))
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # show.html.haml
     end
   end
 
@@ -40,7 +40,7 @@ class AccountsController < ApplicationController
     @account = @group.accounts.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html # new.html.haml
     end
   end
 
@@ -70,7 +70,7 @@ class AccountsController < ApplicationController
     @account.decrypt(get_team_password(@team))
 
     respond_to do |format|
-      format.html # edit.html.erb
+      format.html # edit.html.haml
     end
   end
 

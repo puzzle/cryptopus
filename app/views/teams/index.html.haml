@@ -1,0 +1,14 @@
+%h1= t '.title'
+= link_to 'New', new_team_path, class: 'btn btn-primary pull-right'
+%table.table.table-striped
+  %tr
+    %th{:style => "width: 150px;"}= t '.team'
+    %th= t :description
+    %th{:colspan => "3"}= t :actions
+  - @teams.each do |team|
+    %tr{:class => "#{cycle( 'odd', 'even' )}"}
+      %td= link_to image_tag( "members.svg" ) + " #{team.name}", team_groups_path( team )
+      %td= team.description
+      %td.action_icon= link_to image_tag( "edit.svg" ), edit_team_path( team )
+      - if can_delete_team?(team)
+        %td.action_icon= link_to_destroy [team], team

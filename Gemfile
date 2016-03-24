@@ -7,6 +7,7 @@ gem 'sqlite3'
 gem 'net-ldap'
 gem 'figaro'
 
+gem 'haml'
 gem 'breadcrumbs_on_rails'
 gem 'dynamic_form'
 gem 'uglifier'

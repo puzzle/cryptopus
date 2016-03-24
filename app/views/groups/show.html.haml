@@ -1,0 +1,6 @@
+- for column in Group.content_columns
+  %p
+    %b
+      = column.human_name
+      \:
+    = h @group.send(column.name)

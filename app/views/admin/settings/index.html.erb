@@ -1,9 +1,0 @@
-<h1><%=t('.title') %></h1>
-<% @submit_button_text = t(:update) %>
-<%= form_tag :update_all_admin_settings, role: 'form' do %>
-  <% @settings.each do |setting| %>
-    <%= input_field_setting(setting) %>
-  <% end %>
-  <br/>
-  <%= submit_tag "submit", class: 'btn btn-primary' %>
-<% end %>

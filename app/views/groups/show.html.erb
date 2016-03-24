@@ -1,5 +1,0 @@
-<% for column in Group.content_columns %>
-<p>
-  <b><%= column.human_name %>:</b> <%=h @group.send(column.name) %>
-</p>
-<% end %>

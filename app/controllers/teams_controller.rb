@@ -15,7 +15,7 @@ class TeamsController < ApplicationController
     @teams = current_user.teams
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # index.html.haml
     end
   end
 
@@ -24,7 +24,7 @@ class TeamsController < ApplicationController
     @team = Team.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html # new.html.haml
     end
   end
 

@@ -266,6 +266,7 @@ DEPENDENCIES
   dynamic_form
   faker
   figaro
+  haml
   handlebars_assets
   jquery-rails
   less-rails

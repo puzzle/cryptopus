@@ -1,0 +1,19 @@
+%h1= t '.title'
+%table.table.table-striped
+  %tr
+    %th= t '.user'
+    %th= t '.admin_required'
+    %th= t '.root_required'
+    %th= t :actions
+  - for recryptrequest in @recryptrequests
+    %tr
+      %td= recryptrequest.user.label
+      - if recryptrequest.adminrequired
+        %td= t :yes
+      - else
+        %td= t :no
+      - if recryptrequest.rootrequired
+        %td= t :yes
+      - else
+        %td= t :no
+      %td= link_to "recrypt", [:admin, recryptrequest], :method => :delete

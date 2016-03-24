@@ -1,0 +1,12 @@
+%h1
+  = t '.title'
+  ( #{@account.accountname} )
+= form_for [@team, @group, @account, @item], :html => { :multipart => true } do |f|
+  .form-group
+    = f.label t('.upload')
+    = f.file_field :file
+  .form-group
+    = f.label :description
+    %br/
+    = f.text_area :description, class: 'form-control'
+  = f.submit t('.upload_file'), class: 'btn btn-primary'

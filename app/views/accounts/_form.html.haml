@@ -1,0 +1,20 @@
+= form_for([@team, @group, @account], role: 'form') do |f|
+  = f.error_messages
+  .form-group
+    = f.label :account
+    = f.text_field :accountname, autocomplete: :off, autofocus: true, class: 'form-control'
+  .form-group
+    = f.label :username
+    = f.text_field :cleartext_username, autocomplete: :off, class: 'form-control'
+  .form-group
+    = f.label :password
+    = f.password_field :cleartext_password, autocomplete: :off, class: 'form-control'
+  .form-group
+    = f.label :description
+    %span#unencrypted
+      (#{I18n.t('unencrypted_field_caption')})
+    = f.text_area :description, class: 'form-control'
+  - if @groups && @groups.count > 1
+    = f.label I18n.t('accounts_move')
+    = f.collection_select(:group_id, @groups, :id, :name)
+  = f.submit @submit_button_text, class: 'btn btn-primary'

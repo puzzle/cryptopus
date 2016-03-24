@@ -18,7 +18,7 @@ class GroupsController < ApplicationController
     @teammembers = teammembers.sort_by { |tm| tm.label.downcase }
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # index.html.haml
     end
   end
 
@@ -27,7 +27,7 @@ class GroupsController < ApplicationController
     @group = @team.groups.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # show.html.haml
     end
   end
 
@@ -36,7 +36,7 @@ class GroupsController < ApplicationController
     @group = @team.groups.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html # new.html.haml
     end
   end
 
@@ -61,7 +61,7 @@ class GroupsController < ApplicationController
     groups_breadcrumbs
 
     respond_to do |format|
-      format.html # edit.html.erb
+      format.html # edit.html.haml
     end
   end
 
