@@ -10,7 +10,7 @@ require 'test_helper'
 class SearchControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
   test "should get account" do
-    login_as(:bob)
+    login_as(:alice)
     xhr :get, :account, {'search_string' => 'acc'}
     result_json = JSON.parse(response.body).first
 
