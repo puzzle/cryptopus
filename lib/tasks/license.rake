@@ -11,7 +11,8 @@ class Licenser
     yml:  '#  ',
     css: '//  ',
     js: '//  ',
-    rake: '#  '
+    rake: '#  ',
+    haml: '-#  '
   }
 
   EXCLUDES = %w(
