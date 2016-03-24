@@ -7,23 +7,23 @@
 %li.result
   .result-description
     %h1.result-title
-      %a{:href => "/teams/{{team_id}}/groups/{{group_id}}/accounts/{{id}}"} {{accountname}}
+      %a{href: "/teams/{{team_id}}/groups/{{group_id}}/accounts/{{id}}"} {{accountname}}
       %br/
     %span
-      %a{:href => "/teams/{{team_id}}/groups"} {{team}}
+      %a{href: "/teams/{{team_id}}/groups"} {{team}}
       \&gt;
-      %a{:href => "/teams/{{team_id}}/groups/{{group_id}}/accounts"} {{group}}
+      %a{href: "/teams/{{team_id}}/groups/{{group_id}}/accounts"} {{group}}
   %br/
   .result-action.form-group
     .result-username.select-click
-      %input.form-control{:id => "username_{{id}}", :readonly => "readonly", :type => "text", :value => "{{cleartext_username}}"}/
-      %button.btn.clip_button_search{"data-clipboard-target" => "username_{{id}}", :title => "Click to copy"}
+      %input.form-control{id: "username_{{id}}", readonly: "readonly", type: "text", value: "{{cleartext_username}}"}/
+      %button.btn.clip_button_search{"data-clipboard-target" => "username_{{id}}", title: "Click to copy"}
         %svg.icon-clippy
           %use{"xlink:href" => "#icon-clippy"}
     .result-password.select-click
-      %a.password-link{:href => "#"} Show password
-      %input.password-hidden.hide.form-control{:id => "password_{{id}}", :readonly => "readonly", :type => "text", :value => "{{cleartext_password}}"}/
-      %button.btn.clip_button_search{"data-clipboard-target" => "password_{{id}}", :title => "Click to copy"}
+      %a.password-link{href: "#"} Show password
+      %input.password-hidden.hide.form-control{id: "password_{{id}}", readonly: "readonly", type: "text", value: "{{cleartext_password}}"}/
+      %button.btn.clip_button_search{"data-clipboard-target" => "password_{{id}}", title: "Click to copy"}
         %svg.icon-clippy
           %use{"xlink:href" => "#icon-clippy"}
 {{/each}}
