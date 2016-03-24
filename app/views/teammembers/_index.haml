@@ -1,12 +1,12 @@
 :javascript
   window.I18n = #{current_translations.to_json.html_safe}
 .add_member
-  %input#search_member{:placeholder => "add member", :type => "text"}/
-  %a{:href => "#"}= image_tag("add.svg");
+  %input#search_member{placeholder: "add member", type: "text"}/
+  %a{href: "#"}= image_tag("add.svg");
 %h1.members= t '.members'
 .columns
   %ol
     - @teammembers.each do |teammember|
       = teammember_entry(teammember)
     = teammember_root_entry
-%a.show_members{:href => "#"}= t('teammembers.show')
+%a.show_members{href: "#"}= t('teammembers.show')

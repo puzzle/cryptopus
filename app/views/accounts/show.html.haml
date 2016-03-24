@@ -6,17 +6,17 @@
     = @account.description
   %br/
   .result-username.select-click
-    %input#cleartext_username.form-control{:readonly => "readonly", :type => "text", :value => "#{@account.cleartext_username}"}/
-    %button.clip_button_account{"data-clipboard-target" => "cleartext_username", :title => "Click to copy"}
+    %input#cleartext_username.form-control{readonly: "readonly", type: "text", value: "#{@account.cleartext_username}"}/
+    %button.clip_button_account{"data-clipboard-target" => "cleartext_username", title: "Click to copy"}
       %svg.icon-clippy
         %use{"xlink:href" => "#icon-clippy"}
   .result-password.select-click
-    %a.password-link{:href => "#"} Show password
-    %input#cleartext_password.password-hidden.hide.form-control{:readonly => "readonly", :type => "text", :value => "#{@account.cleartext_password}"}/
-    %button.clip_button_account{"data-clipboard-target" => "cleartext_password", :title => "Click to copy"}
+    %a.password-link{href: "#"} Show password
+    %input#cleartext_password.password-hidden.hide.form-control{readonly: "readonly", type: "text", value: "#{@account.cleartext_password}"}/
+    %button.clip_button_account{"data-clipboard-target" => "cleartext_password", title: "Click to copy"}
       %svg.icon-clippy
         %use{"xlink:href" => "#icon-clippy"}
-  #hidden_password{:style => "display:none"}
+  #hidden_password{style: "display:none"}
     = @account.cleartext_password
   %br/
   %p
@@ -27,13 +27,13 @@
   = link_to 'New', new_team_group_account_item_path(@account.group.team.id, @account.group.id, @account.id), class: 'btn btn-primary pull-right'
   %table.table.table-striped
     %tr
-      %th{:style => "width: 200px;"}= t '.file'
+      %th{style: "width: 200px;"}= t '.file'
       %th= t :description
       %th= t :actions
     - for item in @items
-      %tr{:class => "#{cycle( 'odd', 'even' )}"}
+      %tr{class: "#{cycle( 'odd', 'even' )}"}
         %td
           = link_to image_tag("file.svg") + item.filename, [@team, @group, @account, item]
-        %td{:valign => "top"}= item.description
+        %td{valign: "top"}= item.description
         %td.action_icon= link_to_destroy [@team, @group, @account, item], item
 = javascript_include_tag :account

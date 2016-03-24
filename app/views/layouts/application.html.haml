@@ -1,11 +1,11 @@
 !!!
-%html{:lang => "en"}
+%html{lang: "en"}
   %head
-    %meta{:content => "text/html; charset=US-ASCII", "http-equiv" => "Content-Type"}/
-    %meta{:charset => "utf-8"}/
-    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
-    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
-    %link{:href => "/favicon.png", :rel => "shortcut icon", :type => "image/png"}/
+    %meta{content: "text/html; charset=US-ASCII", "http-equiv" => "Content-Type"}/
+    %meta{charset: "utf-8"}/
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
+    %link{href: "/favicon.png", rel: "shortcut icon", type: "image/png"}/
     = csrf_meta_tags
     %title Cryptopus
     = stylesheet_link_tag :application, media: "all"
@@ -13,7 +13,7 @@
     = javascript_include_tag :auto_logoff if current_user
   %body
     = render partial: 'layouts/icons'
-    .container.main{:role => "main"}
+    .container.main{role: "main"}
       = render partial: 'layouts/navigation'
       = render partial: 'layouts/flashes'
       = yield

@@ -1,9 +1,9 @@
 %h1= t '.title'
 - @submit_button_text = t(:update)
-= render :partial => 'form'
+= render partial: 'form'
 - if @user.auth_db? && !@user.new_record?
   %br/
-  = form_tag(resetpassword_admin_recryptrequests_path(:user_id => @user.id)) do
+  = form_tag(resetpassword_admin_recryptrequests_path(user_id: @user.id)) do
     %br/
     .form-group
       = label_tag t('.reset_password')

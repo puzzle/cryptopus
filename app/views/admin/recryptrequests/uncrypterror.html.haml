@@ -1,25 +1,25 @@
-= form_tag :action => 'selfrecrypt' do
+= form_tag action: 'selfrecrypt' do
   %fieldset
     %legend= t '.new_password'
     %p
       = t '.ldap_password_changed'
       %br/
       = t '.ldap_enter_old_password'
-    %label{:for => "uncrypterror_oldpassword"}
-      = password_field_tag :oldpassword, params[:oldpassword], :autofocus => true
+    %label{for: "uncrypterror_oldpassword"}
+      = password_field_tag :oldpassword, params[:oldpassword], autofocus: true
       = t '.ldap_old_password'
     %br/
-    %label{:for => "uncrypterror_newpassword"}
+    %label{for: "uncrypterror_newpassword"}
       = password_field_tag :newpassword, params[:newpassword]
       = t '.ldap_password'
-    %label{:for => "submit"}= submit_tag t('.recrypt')
-= form_tag :action => 'registerrequest' do
+    %label{for: "submit"}= submit_tag t('.recrypt')
+= form_tag action: 'registerrequest' do
   %fieldset
     %legend= t :forgot_password
     %p= t '.forgot_password_recrypt'
-    %label{:for => "uncrypterror_newpassword"}
+    %label{for: "uncrypterror_newpassword"}
       = password_field_tag :newpassword, params[:newpassword]
       = t '.ldap_password'
-    %label{:for => "submit"}
+    %label{for: "submit"}
     = submit_tag t('.send')
 %br/
