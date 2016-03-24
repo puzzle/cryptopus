@@ -21,6 +21,7 @@ class Api::Team::MembersController < ApiController
   end
 
   private
+
   def team
     @team ||= ::Team.find(params[:team_id])
   end

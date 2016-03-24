@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
   end
 
   # POST /teams/1/groups/1/accounts/1/items
-  def create 
+  def create
     datafile = params[:item][:file]
     datafile.nil? ? flash[:error] = t('flashes.items.uploaded_file_inexistent') : create_item(datafile)
 
@@ -72,5 +72,5 @@ class ItemsController < ApplicationController
     flash[:error] = t('flashes.items.uploaded_size_to_high') if datafile.size > 10_000_000 # 10MB
 
     flash[:error].blank? && flash[:notice].blank?
-  end 
+  end
 end

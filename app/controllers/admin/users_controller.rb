@@ -30,15 +30,15 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
- # POST /admin/users/1
+  # POST /admin/users/1
   def update_admin
     return if user == current_user
 
-    user.update(admin: !user.admin?)
+    user[:admin] = !user.admin?
     user.admin? ? empower_user(@user) : disempower_admin(@user)
 
     respond_to do |format|
-      format.html { render nothing: true}
+      format.html { render nothing: true }
     end
   end
 

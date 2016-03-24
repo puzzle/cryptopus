@@ -6,7 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 module Admin::UsersHelper
-# Not finished
+  # Not finished
 
   def change_admin_attribute(user)
     class_name = 'toggle-button'

@@ -7,7 +7,7 @@
 
 class Item < ActiveRecord::Base
   belongs_to :account
-  validates :filename, uniqueness: { scope: :account}
+  validates :filename, uniqueness: { scope: :account }
   validates :filename, presence: true
 
 

@@ -11,10 +11,10 @@ class Teammember < ActiveRecord::Base
   belongs_to :user
   before_destroy :protect_if_last_teammember
 
-  validates :user_id, uniqueness: { scope: :team}
+  validates :user_id, uniqueness: { scope: :team }
 
   scope :without_root, -> { joins(:user).where('users.uid != 0 OR users.uid is null') }
-  
+
   private
 
   def protect_if_last_teammember
