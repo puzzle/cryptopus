@@ -10,7 +10,7 @@ class Admin::UsersController < Admin::AdminController
   before_filter :redirect_if_root, only: [:edit, :update, :destroy]
   before_filter :redirect_if_ldap_user, only: [:edit, :update]
 
-  helper_method :update_admin
+  helper_method :toggle_admin
 
   # GET /admin/users
   def index
@@ -30,8 +30,8 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  # POST /admin/users/1
-  def update_admin
+ # POST /admin/users/1
+  def toggle_admin
     return if user == current_user
 
     user.update(admin: !user.admin?)

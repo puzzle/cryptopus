@@ -146,7 +146,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     bob = users(:bob)
 
     login_as(:admin)
-    xhr :post, :update_admin, id: bob
+    xhr :post, :toggle_admin, id: bob
 
     bob.reload
     assert bob.admin?
@@ -157,7 +157,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     admin = users(:admin)
 
     login_as(:root)
-    xhr :post, :update_admin, id: admin
+    xhr :post, :toggle_admin, id: admin
 
     admin.reload
     assert_not admin.admin?

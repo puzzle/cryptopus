@@ -53,7 +53,7 @@ Cryptopus::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( login.js auto_logoff.js account.js info_button.js update_admin.js.coffee)
+  config.assets.precompile += %w( login.js auto_logoff.js account.js info_button.js toggle_admin.js.coffee)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
