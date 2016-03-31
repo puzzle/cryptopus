@@ -15,7 +15,45 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
     request.env["HTTP_REFERER"] = 'where_i_came_from'
   end
 
-  test 'could not reset roots password' do
+  test 'error message if recrypt_team_password raises error' do
+    CryptUtils.expects(:decrypt_team_password).raises('test')
+
+    login_as(:admin)
+    bob = users(:bob)
+
+    post :resetpassword, new_password: 'test', user_id: bob.id
+
+    assert_match /test/, flash[:error]
+  end
+
+  test 'reset bobs password' do
+    login_as(:admin)
+    bob = users(:bob)
+    crypted_password = CryptUtils.one_way_crypt('test')
+
+    post :resetpassword, new_password: 'test', user_id: bob.id
+
+    bob.reload
+
+    assert_equal crypted_password, bob.password
+    assert_redirected_to 'where_i_came_from'
+  end
+
+  test 'does not reset password if blank password' do
+    login_as(:admin)
+    bob = users(:bob)
+    bob_password = bob.password
+
+    post :resetpassword, user_id: bob.id
+
+    bob.reload
+
+    assert_equal bob_password, bob.password
+    assert_redirected_to 'where_i_came_from'
+    assert_match /The password must not be blank/, flash[:notice]
+  end
+
+  test 'does not reset roots password' do
     login_as(:admin)
     root = users(:root)
     root_password = root.password
@@ -25,5 +63,36 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
 
     assert_equal root_password, root.password
     assert_redirected_to 'where_i_came_from'
+  end
+
+  test 'does not reset ldap users password' do
+    login_as(:admin)
+    bob = users(:bob)
+    bob.update_attribute(:auth, 'ldap')
+    bob_password = bob.password
+
+    post :resetpassword, new_password: 'test', user_id: bob.id
+
+    bob.reload
+
+    assert_equal bob_password, bob.password
+    assert_redirected_to 'where_i_came_from'
+  end
+
+  test 'normal user could not reset password' do
+    login_as(:bob)
+    alice = users(:alice)
+    alice_password = alice.password
+
+    post :resetpassword, new_password: 'test', user_id: alice.id
+
+    alice.reload
+
+    assert_equal alice_password, alice.password
+  end
+
+  test 'show recryptrequests' do
+    login_as(:admin)
+    get :index
   end
 end
