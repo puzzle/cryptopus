@@ -3,7 +3,7 @@
 title Fixtures
 
 
-
+package "team" {
 object team1
 object team2
 
@@ -18,19 +18,19 @@ team2 : visible = true
 team2 : private = true
 team2 : noroot = true
 
+}
 
 
-
-
+package "group" {
 object Group1
 object Group2
 
 Group1 *-- team1
 Group2 *-- team2
 
+}
 
-
-
+package "account" {
 object account1
 object account2
 
@@ -42,10 +42,10 @@ account1 : password = password
 
 account2 : accountname = test2
 account2 : password = password
+}
 
 
-
-
+package "item" {
 object item1
 
 item1 *-- account1
@@ -53,17 +53,18 @@ item1 *-- account1
 item1 : filename= item1
 item1 : content_type = text
 
+}
 
-
-
+package "teammember" {
 object team1_bob
 object team2_bob
 object team1_root
 object team1_alice
 object team1_admin
 
+}
 
-
+package "user" {
 object user_root
 object user_bob
 object user_alice
@@ -85,21 +86,21 @@ user_admin : password = password
 
 
 
-team1_bob *--- user_bob
-team1_bob *--- team1
+team1_bob *-- user_bob
+team1_bob *-up- team1
 team2_bob *--- user_bob
-team2_bob *--- team2
+team2_bob *-up- team2
 
 team1_root *--- user_root
-team1_root *--- team1
+team1_root *-up- team1
 
 team1_alice *--- user_alice
-team1_alice *--- team1
+team1_alice *-up- team1
 
 team1_admin *--- user_admin
-team1_admin *--- team1
+team1_admin *-up- team1
 
-
+}
 
 
 @enduml
