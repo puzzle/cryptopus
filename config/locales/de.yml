@@ -97,9 +97,6 @@ de:
         unlock: "Entsperren"
       new:
         title: "Neuer Benutzer"
-      confirm:
-        empower: "Möchten Sie diesem User Admin-Rechte geben?"
-        disempower: "Möchten Sie diesem User die Admin-Rechte entziehen?"
 
   groups:
     index_menu:
