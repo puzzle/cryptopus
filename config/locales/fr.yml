@@ -95,9 +95,6 @@ fr:
         unlock: "déverrouillage"
       new:
         title: "Nouvel utilisateur"
-      confirm:
-        empower: "Voulez-vous donnez à cet utilisateur les droits d'administration?"
-        disempower: "Voulez-vous échapper à cet utilisateur les droits d'administration?"
 
   groups:
     index_menu:
