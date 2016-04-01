@@ -30,10 +30,10 @@ module IntegrationTest
       logout
     end
 
-    def cannot_access_account(account_path, username, user_password = 'password')
-      login_as(username)
+    def cannot_access_account(account_path, username, user_password = 'password', error_message = 'no access')
+      login_as(username, user_password)
       error = assert_raises(RuntimeError) { get account_path }
-      assert_includes error.message, "no access"
+      assert_includes error.message, error_message
       logout
     end
   end

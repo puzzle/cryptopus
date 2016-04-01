@@ -46,8 +46,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
   private
 
   def recrypt_passwords(user, admin)
-    user.teammembers.each do |tm|
-      next if tm.team.private
+    user.teammembers.non_private_teams.each do |tm|
       recrypt_team_password(tm, admin)
     end
     yield if block_given?
