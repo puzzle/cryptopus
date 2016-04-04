@@ -8,10 +8,10 @@
 #= require twitter/bootstrap
 #= require zeroclipboard
 #= require handlebars.runtime
+#= require search
 #= require_tree ./modules
 #= require_tree ./templates
 #= require turbolinks
-
 # scope for global functions
 app = window.App ||= {}
 
