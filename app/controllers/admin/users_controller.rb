@@ -125,8 +125,7 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def empower_user(user)
-    teams = Team.where('private = ? OR noroot = ?', false, false)
-
+    teams = Team.where(private: false)
     teams.each do |t|
       active_teammember = t.teammembers.find_by_user_id(current_user.id)
       team_password = CryptUtils.decrypt_team_password(active_teammember.password, session[:private_key])

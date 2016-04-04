@@ -8,7 +8,6 @@
 #= require twitter/bootstrap
 #= require zeroclipboard
 #= require handlebars.runtime
-#= require search
 #= require_tree ./modules
 #= require_tree ./templates
 #= require turbolinks
@@ -19,6 +18,6 @@ app = window.App ||= {}
 Turbolinks.enableProgressBar()
 
 # Password hidden
-$ ->
-  $( ".select-click" ).on "click", (e) ->
-    e.target.select()
+# $ ->
+#   $( ".select-click" ).on 'click', (e) ->
+#     e.target.select()

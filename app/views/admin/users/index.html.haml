@@ -39,6 +39,4 @@
         %td= user.label
         %td.action_icon
           = link_to image_tag("unlock.svg"),  unlock_admin_user_path(user.id), title: t('.unlock')
-= javascript_include_tag :toggle_admin
-:javascript
   window.I18n = #{current_translations.to_json.html_safe}
