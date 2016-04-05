@@ -12,7 +12,8 @@ class Licenser
     css: '//  ',
     js: '//  ',
     rake: '#  ',
-    haml: '-#  '
+    haml: '-#  ',
+    coffee: '# '
   }
 
   EXCLUDES = %w(
