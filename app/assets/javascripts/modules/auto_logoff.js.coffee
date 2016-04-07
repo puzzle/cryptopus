@@ -8,10 +8,8 @@ app = window.App ||= {}
 class app.Auto_logoffHandler
   constructor: () ->
 
-  AUTO_LOGOFF_TIME = 300
-  remaining_seconds = AUTO_LOGOFF_TIME
 
-  auto_logoff = ->
+  auto_logoff = (remaining_seconds) ->
     if document.URL.indexOf('/login/login') > -1
       return
     if remaining_seconds <= 1
@@ -19,7 +17,7 @@ class app.Auto_logoffHandler
       return
     remaining_seconds -= 1
     $('#countdown').html humanize(remaining_seconds)
-    setTimeout 'auto_logoff()', 1000
+    setTimeout ( -> auto_logoff(remaining_seconds)), 1000
     return
 
   # Make seconds human readable.
@@ -31,13 +29,16 @@ class app.Auto_logoffHandler
       seconds + 's'
 
   bind: ->
-    $('.login').submit ->
-      auto_logoff()
+    AUTO_LOGOFF_TIME = 300
+    remaining_seconds = AUTO_LOGOFF_TIME
+
+    $('.login').on 'submit', ->
+      auto_logoff(remaining_seconds)
       return
 
-    $(document).on 'page:load', ->
+    $(document).on 'page:change', ->
       remaining_seconds = AUTO_LOGOFF_TIME
-      return
+      auto_logoff(remaining_seconds)
 
 
 new app.Auto_logoffHandler().bind()
