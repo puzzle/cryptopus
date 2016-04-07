@@ -33,7 +33,7 @@ class app.AccountHandler
     ), 5000
 
   bind: ->
-    $(document).ready ->
+    $(document).on 'ready', ->
       checkIfFunctioningBrowser()
     $(document).on 'click', '.result-password .password-link', (e) ->
       showPassword(e)
