@@ -33,9 +33,8 @@ class Admin::UsersController < Admin::AdminController
  # POST /admin/users/1
   def toggle_admin
     return if user == current_user
-
     user.update(admin: !user.admin?)
-    user.admin? ? empower_user(@user) : disempower_admin(@user)
+    user.admin? ? user.empower(current_user, session[:private_key]) : user.disempower
 
     respond_to do |format|
       format.html { render nothing: true }
@@ -122,23 +121,6 @@ class Admin::UsersController < Admin::AdminController
 
   def user_params
     params.require(:user).permit(:username, :givenname, :surname, :password)
-  end
-
-  def empower_user(user)
-    teams = Team.where('private = ? OR noroot = ?', false, false)
-
-    teams.each do |t|
-      active_teammember = t.teammembers.find_by_user_id(current_user.id)
-      team_password = CryptUtils.decrypt_team_password(active_teammember.password, session[:private_key])
-      t.add_user(user, team_password)
-    end
-  end
-
-  def disempower_admin(user)
-    teammembers = user.teammembers.joins(:team).where(teams: { private: false })
-    teammembers.each do |tm|
-      tm.destroy
-    end
   end
 
 end

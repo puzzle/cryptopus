@@ -82,6 +82,23 @@ class User < ActiveRecord::Base
     h
   end
 
+  def empower(current_user, private_key)
+    teams = Team.where('private = ? OR noroot = ?', false, false)
+
+    teams.each do |t|
+      active_teammember = t.teammembers.find_by user_id: current_user.id
+      team_password = CryptUtils.decrypt_team_password(active_teammember.password, private_key)
+      t.add_user(self, team_password)
+      end
+  end
+
+  def disempower
+    teammembers = self.teammembers.joins(:team).where(teams: { private: false })
+    teammembers.each do |tm|
+      tm.destroy
+    end
+  end
+
   # Updates Information about the user
   def update_info
     update_info_from_ldap if auth_ldap?
