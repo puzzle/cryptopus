@@ -291,6 +291,3 @@ DEPENDENCIES
   twitter-bootstrap-rails
   uglifier
   zeroclipboard-rails
-
-BUNDLED WITH
-   1.11.2

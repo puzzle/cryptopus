@@ -63,7 +63,7 @@ include IntegrationTest::DefaultHelper
 
     #Recrypt
     post recryptrequests_path, recrypt_request: true, new_password: 'newPassword'
-    login_as('root')
+    login_as('admin')
     bobs_user_id = users(:bob).id
     recrypt_id = Recryptrequest.find_by_user_id(bobs_user_id).id
     post admin_recryptrequest_path(recrypt_id), _method: 'delete'

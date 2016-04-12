@@ -98,9 +98,6 @@ en:
         unlock: "Unlock"
       new:
         title: "New user"
-      confirm:
-        empower: "Would you like to empower this user?"
-        disempower: "Would you like to disempower this user?"
 
   groups:
     index_menu:

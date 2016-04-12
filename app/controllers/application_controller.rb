@@ -52,9 +52,9 @@ class ApplicationController < ActionController::Base
   def get_team_password(team)
     user = User.find(session[:user_id])
     teammember = team.teammembers.where('user_id = ?', user.id).first
-    raise 'You have no access to this Group' if teammember.nil?
+    raise 'You have no access to this team' if teammember.nil?
     team_password = CryptUtils.decrypt_team_password(teammember.password, session[:private_key])
-    raise 'Failed to decrypt the group password' if team_password.nil?
+    raise 'Failed to decrypt the team password' if team_password.nil?
     team_password
   end
 

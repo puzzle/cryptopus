@@ -12,13 +12,12 @@
 #= require_tree ./modules
 #= require_tree ./templates
 #= require turbolinks
-
 # scope for global functions
 app = window.App ||= {}
 
 Turbolinks.enableProgressBar()
 
 # Password hidden
-$ ->
-  $( ".select-click" ).on "click", (e) ->
-    e.target.select()
+# $ ->
+#   $( ".select-click" ).on 'click', (e) ->
+#     e.target.select()
