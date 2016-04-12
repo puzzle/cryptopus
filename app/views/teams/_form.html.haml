@@ -13,12 +13,6 @@
     = image_tag('info.svg', class: 'info_icon private_info')
     %p.description.private
       = t('teams.description.private')
-  - unless current_user.root?
-    .checkbox
-      = labeled_check_box(f, :noroot, @team.new_record?)
-      = image_tag('info.svg', class: 'info_icon no_root_info')
-      %p.description.no_root
-        = t('teams.description.no_root')
   .form-group
     = f.label :description
     = f.text_area :description, class: 'form-control'

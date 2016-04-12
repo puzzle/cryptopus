@@ -150,8 +150,6 @@ fr:
     form:
       private: "Privé"
       private_hint: "Administrateurs n'ont pas accès à cette équipe."
-      no_root: "Aucun Root"
-      no_root_hint: "MEME PAS ROOT POUVEZ RESTAURER VOS DONNÉES SI VOUS PERDEZ VOTRE MOT DE PASSE!"
     index_menu:
       create: "Créer équipe"
     index:
@@ -161,7 +159,6 @@ fr:
       title: "Créer une nouvelle équipe"
     description:
       private: "Administrateurs auront pas accès à votre équipe."
-      no_root: "Le root ne sera pas avoir accès à votre équipe."
 
   flashes:
     wizard:

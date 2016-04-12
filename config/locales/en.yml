@@ -152,7 +152,6 @@ en:
     title: "Teams"
     form:
       private: "Private"
-      no_root: "No Root"
     index_menu:
       create: "Create new team"
     index:
@@ -162,7 +161,6 @@ en:
       title: "Create a new team"
     description:
       private: admins have no access if checked
-      no_root: root has no access if checked
 
   flashes:
     wizard:
