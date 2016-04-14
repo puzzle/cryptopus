@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160115090424) do
+ActiveRecord::Schema.define(version: 20160414083029) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "accountname", limit: 40, default: "", null: false
@@ -54,12 +54,11 @@ ActiveRecord::Schema.define(version: 20160115090424) do
   end
 
   create_table "teammembers", force: :cascade do |t|
-    t.integer  "team_id",    default: 0,     null: false
-    t.binary   "password",                   null: false
-    t.integer  "user_id",    default: 0,     null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "locked",     default: false, null: false
+    t.integer  "team_id",    default: 0, null: false
+    t.binary   "password",               null: false
+    t.integer  "user_id",    default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "teams", force: :cascade do |t|

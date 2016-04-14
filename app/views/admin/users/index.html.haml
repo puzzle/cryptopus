@@ -26,17 +26,18 @@
       %td.action_icon
         - if user != current_user
           = link_to_destroy [:admin, user], user
-- if User.all.locked.count != 0
+- if User.locked.count != 0
   %h1= t '.locked'
   %table.table.table-striped
     %tr
       %th{style: "width: 150px;"}= t '.username'
       %th= t '.name'
       %th= t '.action'
-    - @users.locked.each do |user|
+    - User.locked.each do |user|
       %tr{class: "#{cycle( 'odd', 'even' )}"}
         %td= link_to user.username, edit_admin_user_path(user)
         %td= user.label
         %td.action_icon
           = link_to image_tag("unlock.svg"),  unlock_admin_user_path(user.id), title: t('.unlock')
+:javascript
   window.I18n = #{current_translations.to_json.html_safe}
