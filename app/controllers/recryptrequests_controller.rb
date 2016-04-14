@@ -94,7 +94,6 @@ class RecryptrequestsController < ApplicationController
       # if an admin could do the job or if root
       # is required
       @user.teammembers.each do |teammember|
-        teammember.locked = true
         teammember.save
         if teammember.team.private
           @recryptrequest.rootrequired = true
