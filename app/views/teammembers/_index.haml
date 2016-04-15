@@ -9,9 +9,5 @@
   %input#search_member{placeholder: "add member", type: "text"}/
   %a{href: "#"}= image_tag("add.svg");
 %h1.members= t '.members'
-.columns
-  %ol
-    - @teammembers.each do |teammember|
-      = teammember_entry(teammember)
-    = teammember_root_entry
+.columns.members
 %a.show_members{href: "#"}= t('teammembers.show')

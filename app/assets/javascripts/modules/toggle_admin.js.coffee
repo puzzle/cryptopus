@@ -12,15 +12,15 @@ class app.ToggleAdminHandler
     $.ajax({
       type: "POST",
       url: url
-    });
+    })
 
 
   bind: ->
     $(document).on 'click', '.toggle-button', ->
-      user_id = $(this).attr('id');
-      url = '/admin/users/' + user_id + '/toggle_admin';
+      user_id = $(this).attr('id')
+      url = '/admin/users/' + user_id + '/toggle_admin'
       toggle(url)
-      $(this).toggleClass('toggle-button-selected');
+      $(this).toggleClass('toggle-button-selected')
 
 
 
