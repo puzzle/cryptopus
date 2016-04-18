@@ -163,4 +163,15 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_not admin.admin?
     assert_not admin.teammembers.find_by(team_id: teams(:team1))
   end
+
+  test 'admin cannot disempower own user' do
+    admin = users(:admin)
+
+    login_as(:admin)
+    xhr :post, :toggle_admin, id: admin
+
+    admin.reload
+    assert admin.admin?
+    assert admin.teammembers.find_by(team_id: teams(:team1))
+  end
 end
