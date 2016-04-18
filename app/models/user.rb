@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def as_json(options)
+  def as_json(options = {})
     h = {}
     h[:id] = id
     h[:label] = label
