@@ -32,9 +32,7 @@ class Admin::UsersController < Admin::AdminController
 
  # POST /admin/users/1
   def toggle_admin
-    return if user == current_user
-    user.update(admin: !user.admin?)
-    user.admin? ? user.empower(current_user, session[:private_key]) : user.disempower
+  user.power_admin(user, current_user, session[:private_key])
 
     respond_to do |format|
       format.html { render nothing: true }

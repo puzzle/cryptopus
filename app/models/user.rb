@@ -75,11 +75,19 @@ class User < ActiveRecord::Base
     end
   end
 
-  def as_json(_options = {})
+  def as_json(options = {})
     h = {}
     h[:id] = id
     h[:label] = label
+    h[:admin] = admin
     h
+  end
+
+  def power_admin(user,current_user, private_key)
+    return if user == current_user
+    user.update(admin: !user.admin?)
+    user.admin? ? user.empower(current_user, private_key) : user.disempower
+
   end
 
   def empower(current_user, private_key)
