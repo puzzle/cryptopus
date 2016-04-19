@@ -243,8 +243,50 @@ class UserTest < ActiveSupport::TestCase
     assert_equal users(:alice).id, as_json[:id]
   end
 
+  test 'admin cannot disempower himself' do
+    admin = users(:admin)
+    private_key = decrypt_private_key(admin)
+
+    assert_raise RuntimeError do
+      admin.toggle_admin(admin, private_key)
+    end
+
+    admin.reload
+    assert admin.admin?
+  end
+
+  test 'user cannot empower/disempower someone else' do
+    bob = users(:bob)
+    alice = users(:alice)
+    private_key = decrypt_private_key(alice)
+
+    assert_raise RuntimeError do
+      bob.toggle_admin(alice, private_key)
+    end
+
+    bob.reload
+    assert_not bob.admin?
+  end
+
+  test 'bob cannot empower himself' do
+    bob = users(:bob)
+    private_key = decrypt_private_key(bob)
+
+    assert_raise RuntimeError do
+      bob.toggle_admin(bob, private_key)
+    end
+
+    bob.reload
+    assert_not bob.admin?
+  end
+
   private
   def enable_ldap_auth
     Setting.find_by(key: 'ldap_enable').update_attributes(value: true)
   end
+
+  def decrypt_private_key(user)
+    user.decrypt_private_key('password')
+  end
+
 end

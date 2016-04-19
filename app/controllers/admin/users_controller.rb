@@ -32,7 +32,7 @@ class Admin::UsersController < Admin::AdminController
 
  # POST /admin/users/1
   def toggle_admin
-  user.power_admin(user, current_user, session[:private_key])
+    user.toggle_admin(current_user, session[:private_key])
 
     respond_to do |format|
       format.html { render nothing: true }

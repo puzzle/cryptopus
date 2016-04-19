@@ -60,6 +60,7 @@ class User < ActiveRecord::Base
       find_by(uid: 0)
     end
 
+
     private
 
     def create_from_ldap(username, password)
@@ -83,40 +84,21 @@ class User < ActiveRecord::Base
     h
   end
 
-  def power_admin(user,current_user, private_key)
-    return if user == current_user
-    user.update(admin: !user.admin?)
-    user.admin? ? user.empower(current_user, private_key) : user.disempower
-
-  end
-
-  def empower(current_user, private_key)
-    teams = Team.where('private = ? OR noroot = ?', false, false)
-
-    teams.each do |t|
-      active_teammember = t.teammembers.find_by user_id: current_user.id
-      team_password = CryptUtils.decrypt_team_password(active_teammember.password, private_key)
-      t.add_user(self, team_password)
-      end
-  end
-
-  def disempower
-    teammembers = self.teammembers.joins(:team).where(teams: { private: false })
-    teammembers.each do |tm|
-      tm.destroy
-    end
-  end
-
   # Updates Information about the user
   def update_info
     update_info_from_ldap if auth_ldap?
     update_attribute(:last_login_at, Time.now) # TODO: needed what for ? remove ?
   end
 
-  # Updates Information about the user from LDAP
-  def update_info_from_ldap
-    self.givenname = LdapTools.get_ldap_info(uid.to_s, 'givenname')
-    self.surname   = LdapTools.get_ldap_info(uid.to_s, 'sn')
+
+
+  def toggle_admin(actor, private_key)
+    if self == actor || !actor.admin?
+      raise 'not allowed action'
+    end
+
+    update(admin: !admin?)
+    admin? ? empower(actor, private_key) : disempower
   end
 
   def create_keypair(password)
@@ -157,10 +139,6 @@ class User < ActiveRecord::Base
     raise Exceptions::DecryptFailed
   end
 
-  def legacy_private_key?
-    /^Salted/ !~ private_key
-  end
-
   def accounts
     Account.joins(:group).
       joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
@@ -169,6 +147,35 @@ class User < ActiveRecord::Base
 
   def search_accounts(term)
     accounts.where('accountname like ?', "%#{term}%")
+  end
+
+  def legacy_private_key?
+    /^Salted/ !~ private_key
+  end
+
+  private
+
+  def empower(actor, private_key)
+    teams = Team.where('private = ? OR noroot = ?', false, false)
+
+    teams.each do |t|
+      active_teammember = t.teammembers.find_by user_id: actor.id
+      team_password = CryptUtils.decrypt_team_password(active_teammember.password, private_key)
+      t.add_user(self, team_password)
+    end
+  end
+
+  def disempower
+    teammembers = self.teammembers.joins(:team).where(teams: { private: false })
+    teammembers.each do |tm|
+      tm.destroy
+    end
+  end
+
+  # Updates Information about the user from LDAP
+  def update_info_from_ldap
+    self.givenname = LdapTools.get_ldap_info(uid.to_s, 'givenname')
+    self.surname   = LdapTools.get_ldap_info(uid.to_s, 'sn')
   end
 
 end
