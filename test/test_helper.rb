@@ -23,6 +23,10 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  def decrypt_private_key(user)
+    user.decrypt_private_key('password')
+  end
+
   #Disable LDAP connection
   def stub_ldap_tools
     LdapTools.stubs(:ldap_login)

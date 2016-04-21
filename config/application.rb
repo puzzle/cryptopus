@@ -62,5 +62,10 @@ module Cryptopus
     # Filter password out form log files
     config.filter_parameters << :password
 
+    config.generators do |g|
+      g.test_framework      :minitest, fixture_replacement: :fabrication
+      g.fixture_replacement :fabrication, dir: "test/fabricators"
+    end
+
   end
 end

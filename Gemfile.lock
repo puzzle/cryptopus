@@ -86,6 +86,7 @@ GEM
     dynamic_form (1.1.4)
     erubis (2.7.0)
     execjs (2.6.0)
+    fabrication (2.15.0)
     faker (1.6.1)
       i18n (~> 0.5)
     fastercsv (1.5.5)
@@ -264,6 +265,7 @@ DEPENDENCIES
   breadcrumbs_on_rails
   compass-rails
   dynamic_form
+  fabrication
   faker
   figaro
   haml

@@ -256,6 +256,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'user cannot empower/disempower someone else' do
+    
+    root = users(:root)
     bob = users(:bob)
     alice = users(:alice)
     private_key = decrypt_private_key(alice)
@@ -283,10 +285,6 @@ class UserTest < ActiveSupport::TestCase
   private
   def enable_ldap_auth
     Setting.find_by(key: 'ldap_enable').update_attributes(value: true)
-  end
-
-  def decrypt_private_key(user)
-    user.decrypt_private_key('password')
   end
 
 end

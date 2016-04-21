@@ -28,6 +28,7 @@ group :development, :test do
   gem 'therubyracer'
   gem 'rubocop'
   gem 'rubocop-checkstyle_formatter'
+  gem 'faker'
 end
 
 group :development do
@@ -35,11 +36,11 @@ group :development do
   gem 'pry'
   gem 'pry-stack_explorer'
   gem 'seed-fu'
-  gem 'faker'
   gem 'brakeman', require: false
 end
 
 group :test do
+  gem 'fabrication'
   gem 'simplecov', require: false, group: :test
   gem 'mocha'
 end
