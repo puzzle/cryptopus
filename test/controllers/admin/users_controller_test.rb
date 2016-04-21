@@ -153,4 +153,18 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert bob.teammembers.find_by(team_id: teams(:team1))
   end
 
+  test 'admin disempowers user' do
+    teammembers(:team1_bob).destroy
+    bob = users(:bob)
+
+    login_as(:admin)
+    xhr :post, :toggle_admin, id: bob
+    bob.reload
+    xhr :post, :toggle_admin, id: bob
+    bob.reload
+
+    assert_not bob.admin?
+    assert_not bob.teammembers.find_by(team_id: teams(:team1))
+  end
+
 end

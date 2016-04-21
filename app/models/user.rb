@@ -156,7 +156,7 @@ class User < ActiveRecord::Base
   private
 
   def empower(actor, private_key)
-    teams = Team.where('private = ? OR noroot = ?', false, false)
+    teams = Team.where(teams: { private: false, noroot: false})
 
     teams.each do |t|
       active_teammember = t.teammembers.find_by user_id: actor.id
@@ -166,10 +166,7 @@ class User < ActiveRecord::Base
   end
 
   def disempower
-    teammembers = self.teammembers.joins(:team).where(teams: { private: false })
-    teammembers.each do |tm|
-      tm.destroy
-    end
+    teammembers.joins(:team).where(teams: { private: false }).destroy_all
   end
 
   # Updates Information about the user from LDAP
