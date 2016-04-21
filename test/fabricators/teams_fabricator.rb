@@ -10,14 +10,19 @@ Fabricator(:non_private_team, from: :team) do |t|
   t.description { Faker::Hacker.say_something_smart }
   t.visible true
   t.private false
-  after_save do |m|
-    #generate password, add user, and add accounts after save
-    m.team_password = CryptUtils.new_team_password
-    m.add_user(Fabricate(:user), team_password)
+  after_save do |team|
+    #generate password, add user, add group, and add account after save
+    team_password = CryptUtils.new_team_password
+    team.add_user(Fabricate(:user), team_password)
+    group = Fabricate(:group)
+    group.save
+    account = Account.new()
+    account.accountname = Faker::Team.creature
+    account.cleartext_username = Faker::Internet.user_name
+    account.cleartext_password = Faker::Internet.password
+    account.encrypt(team_password)
+    account.save!
   end
-  t.group { [Fabricate(:group)] }
-  
-
 end
 
 Fabricator(:private_team, from: :non_private_team) do |t|
