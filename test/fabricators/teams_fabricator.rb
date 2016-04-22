@@ -11,20 +11,14 @@ Fabricator(:non_private_team, from: :team) do |t|
   t.visible true
   t.private false
   after_save do |team|
-    #generate password, add user, add group, and add account after save
     team_password = CryptUtils.new_team_password
     team.add_user(Fabricate(:user), team_password)
-    group = Fabricate(:group)
-    group.save
-    account = Account.new()
-    account.accountname = Faker::Team.creature
-    account.cleartext_username = Faker::Internet.user_name
-    account.cleartext_password = Faker::Internet.password
-    account.encrypt(team_password)
-    account.save!
+    group = Fabricate(:group, team: team)
+    Fabricate(:account, group: group, team_password: team_password)
   end
 end
 
 Fabricator(:private_team, from: :non_private_team) do |t|
   t.private true
+  # TODO: add admin users
 end

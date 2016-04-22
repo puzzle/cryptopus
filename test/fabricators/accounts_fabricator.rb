@@ -6,7 +6,11 @@
 #  https://github.com/puzzle/cryptopus.
 
 Fabricator(:account) do
+  transient :team_password
   accountname { Faker::Team.creature }
-  username { Faker::Internet.user_name }
-  password { Faker::Internet.password}
+  cleartext_username { Faker::Internet.user_name }
+  cleartext_password { Faker::Internet.password }
+  before_save do |account, attrs|
+    account.encrypt(attrs[:team_password])
+  end
 end

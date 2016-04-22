@@ -7,5 +7,4 @@
 
 Fabricator(:group) do
   name { Faker::App.name }
-  accounts { [Fabricate(:account)] }
 end
