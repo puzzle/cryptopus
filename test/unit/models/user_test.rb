@@ -253,10 +253,10 @@ class UserTest < ActiveSupport::TestCase
 
     admin.reload
     assert admin.admin?
+    assert_not admin.teammembers.find_by(team_id: teams(:team2))
   end
 
   test 'user cannot empower/disempower someone else' do
-    
     root = users(:root)
     bob = users(:bob)
     alice = users(:alice)
@@ -268,6 +268,7 @@ class UserTest < ActiveSupport::TestCase
 
     bob.reload
     assert_not bob.admin?
+    assert bob.teammembers.find_by(team_id: teams(:team2))
   end
 
   test 'bob cannot empower himself' do
@@ -280,6 +281,7 @@ class UserTest < ActiveSupport::TestCase
 
     bob.reload
     assert_not bob.admin?
+    assert bob.teammembers.find_by(team_id: teams(:team1))
   end
 
   private
