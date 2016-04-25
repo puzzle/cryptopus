@@ -56,6 +56,7 @@ GEM
     builder (3.2.2)
     choice (0.2.0)
     chunky_png (1.3.5)
+    clipboard (1.1.0)
     coderay (1.1.0)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -254,8 +255,6 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicode-display_width (0.3.1)
-    zeroclipboard-rails (0.1.1)
-      railties (>= 3.1)
 
 PLATFORMS
   ruby
@@ -263,6 +262,7 @@ PLATFORMS
 DEPENDENCIES
   brakeman
   breadcrumbs_on_rails
+  clipboard
   compass-rails
   dynamic_form
   fabrication
@@ -292,4 +292,3 @@ DEPENDENCIES
   turbolinks
   twitter-bootstrap-rails
   uglifier
-  zeroclipboard-rails

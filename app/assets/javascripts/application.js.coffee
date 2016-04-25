@@ -6,12 +6,13 @@
 #= require jquery
 #= require jquery_ujs
 #= require twitter/bootstrap
-#= require zeroclipboard
 #= require handlebars.runtime
 #= require search
 #= require_tree ./modules
 #= require_tree ./templates
 #= require turbolinks
+#= require clipboard.js
+#= require clipboard.min.js
 # scope for global functions
 app = window.App ||= {}
 

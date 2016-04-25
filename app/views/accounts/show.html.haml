@@ -12,13 +12,13 @@
   %br/
   .result-username.select-click
     %input#cleartext_username.form-control{readonly: "readonly", type: "text", value: "#{@account.cleartext_username}"}/
-    %button.clip_button_account{"data-clipboard-target" => "cleartext_username", title: "Click to copy"}
+    %button.clip_button_account{"data-clipboard-target" => "#cleartext_username", title: "Click to copy" }
       %svg.icon-clippy
         %use{"xlink:href" => "#icon-clippy"}
   .result-password.select-click
     %a.password-link{href: "#"} Show password
     %input#cleartext_password.password-hidden.hide.form-control{readonly: "readonly", type: "text", value: "#{@account.cleartext_password}"}/
-    %button.clip_button_account{"data-clipboard-target" => "cleartext_password", title: "Click to copy"}
+    %button.clip_button_account{"data-clipboard-target" => "#cleartext_password", title: "Click to copy"}
       %svg.icon-clippy
         %use{"xlink:href" => "#icon-clippy"}
   #hidden_password{style: "display:none"}

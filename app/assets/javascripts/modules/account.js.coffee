@@ -12,27 +12,25 @@ class app.AccountHandler
     ie10andbelow = navigator.userAgent.indexOf('MSIE') != -1 or /MSIE 10/i.test(navigator.userAgent) or /rv:11.0/i.test(navigator.userAgent)
     if(ie10andbelow)
       $('.clip_button_account').remove()
-    else
-      new ZeroClipboard( $('.clip_button_account') )
+
 
   showPassword = (e) ->
     passLink = $(e.target)
     passInput = passLink.next('.password-hidden')
     passLink.hide()
     passInput.removeClass('hide')
-
-    setTimeout (->
-      passInput.select()
-      return
-    ), 80
-
     setTimeout (->
       passLink.show()
       passInput.addClass 'hide'
       return
     ), 5000
 
+  copyContent = ->
+    new Clipboard('.clip_button_account')
+
   bind: ->
+    $(document).on 'page:change', ->
+      copyContent()
     $(document).on 'ready', ->
       checkIfFunctioningBrowser()
     $(document).on 'click', '.result-password .password-link', (e) ->
