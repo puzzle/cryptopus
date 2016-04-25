@@ -244,6 +244,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'admin cannot disempower himself' do
+    team = Fabricate(:non_private_team)
     admin = users(:admin)
     private_key = decrypt_private_key(admin)
 
@@ -253,10 +254,11 @@ class UserTest < ActiveSupport::TestCase
 
     admin.reload
     assert admin.admin?
-    assert_not admin.teammembers.find_by(team_id: teams(:team2))
+    assert admin.teammembers.find_by(team.id)
   end
 
   test 'user cannot empower/disempower someone else' do
+    team = Fabricate(:private_team)
     root = users(:root)
     bob = users(:bob)
     alice = users(:alice)
@@ -268,10 +270,11 @@ class UserTest < ActiveSupport::TestCase
 
     bob.reload
     assert_not bob.admin?
-    assert bob.teammembers.find_by(team_id: teams(:team2))
+    assert bob.teammembers.find_by(team.id)
   end
 
   test 'bob cannot empower himself' do
+    team = Fabricate(:private_team)
     bob = users(:bob)
     private_key = decrypt_private_key(bob)
 
@@ -281,7 +284,7 @@ class UserTest < ActiveSupport::TestCase
 
     bob.reload
     assert_not bob.admin?
-    assert bob.teammembers.find_by(team_id: teams(:team1))
+    assert bob.teammembers.find_by(team.id)
   end
 
   private
