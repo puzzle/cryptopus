@@ -13,6 +13,7 @@ Fabricator(:non_private_team, from: :team) do |t|
   after_save do |team|
     team_password = CryptUtils.new_team_password
     team.add_user(Fabricate(:user), team_password)
+    team.add_user(Fabricate(:admin), team_password)
     group = Fabricate(:group, team: team)
     Fabricate(:account, group: group, team_password: team_password)
   end
@@ -24,7 +25,6 @@ Fabricator(:private_team, from: :non_private_team) do |t|
   after_save do |team|
     team_password = CryptUtils.new_team_password
     team.add_user(Fabricate(:user), team_password)
-    team.add_user(Fabricate(:admin), team_password)
     group = Fabricate(:group, team: team)
     Fabricate(:account, group: group, team_password: team_password)
   end
