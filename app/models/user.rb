@@ -156,7 +156,7 @@ class User < ActiveRecord::Base
   private
 
   def empower(actor, private_key)
-    teams = Team.where(teams: { private: false, noroot: false})
+    teams = Team.where(teams: { private: false })
 
     teams.each do |t|
       active_teammember = t.teammembers.find_by user_id: actor.id
