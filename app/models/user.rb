@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
 
   def toggle_admin(actor, private_key)
     if self == actor || !actor.admin?
-      raise 'not allowed action'
+      raise "Empower or disempower current user is not allowed"
     end
 
     update(admin: !admin?)

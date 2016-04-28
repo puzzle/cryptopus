@@ -277,9 +277,10 @@ class UserTest < ActiveSupport::TestCase
     bob = users(:bob)
     private_key = decrypt_private_key(bob)
 
-    assert_raise RuntimeError do
+    exception = assert_raises(Exception) {
       bob.toggle_admin(bob, private_key)
-    end
+     }
+    assert_equal "Empower or disempower current user is not allowed", exception.message
 
     bob.reload
     assert_not bob.admin?
