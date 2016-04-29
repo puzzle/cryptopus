@@ -17,6 +17,8 @@ class RootAsAdminTest < ActiveSupport::TestCase
 
   test 'adds admins to all root only teams' do
     root = users(:root)
+    root.update_attributes(admin: false)
+
     admin = users(:admin)
     admin_private_key = CryptUtils.decrypt_private_key(admin.private_key, 'password')
 
@@ -35,12 +37,15 @@ class RootAsAdminTest < ActiveSupport::TestCase
 
     non_private_team = Fabricate(:non_private_team)
 
+    #Execute maintenance task
     task.execute
 
     assert non_private_team.teammember?(users(:root))
     assert teams(:team1).teammember?(bob)
     assert_not teams(:team2).teammember?(admin)
     assert_not teams(:team2).teammember?(users(:root))
+
+    assert User.root.admin
   end
 
   private
