@@ -13,7 +13,6 @@ class Teammember < ActiveRecord::Base
 
   validates :user_id, uniqueness: { scope: :team }
 
-  scope :without_root, -> { joins(:user).where('users.uid != 0 OR users.uid is null') }
   scope :non_private_teams,  -> { joins(:team).where('teams.private' => false) }
 
   private

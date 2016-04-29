@@ -65,9 +65,8 @@ fr:
         title: "Demandes de re crypt"
         user: "Utilisateur"
         admin_required: "Admin requis"
-        root_required: "Root requis"
       request:
-        request_sent: "Une demande de re crypt vos mots de passe de groupe a été envoyée à Root. S'il vous plaît attendre jusqu'à ce qu'elle re crypté vos nouveaux mots de passe."
+        request_sent: "Une demande de re crypt vos mots de passe de groupe a été envoyée. S'il vous plaît attendre jusqu'à ce qu'elle re crypté vos nouveaux mots de passe."
       uncrypterror:
         new_password: "Nouveau mot de passe?!"
         ldap_password_changed: "Votre mot de passe de LDAP a changé depuis votre dernière connexion."
@@ -75,7 +74,7 @@ fr:
         ldap_old_password: "Votre ancien mot de passe de LDAP"
         ldap_new_password: "Votre nouveau mot de passe de LDAP"
         ldap_password: "Votre mot de passe de LDAP"
-        forgot_password_recrypt: "Si vous avez oublié votre mot de passe, vous pouvez envoyer une demande re crypt à Root. Vous devez attendre jusqu'à ce qu'elle ait re crypté vos mots de passe."
+        forgot_password_recrypt: "Si vous avez oublié votre mot de passe, vous pouvez envoyer une demande re crypt. Vous devez attendre jusqu'à ce qu'elle ait re crypté vos mots de passe."
         recrypt: "Re crypter"
         send: "Envoyer la demande"
     users:
@@ -176,7 +175,6 @@ fr:
         resetpassword:
           success: "Mot de passe réinitialisé avec succès"
           required: "Le mot de passe ne peut pas être vide"
-          not_root: "Impossible de réinitialiser le mot de passe de root"
       users:
         created: "Utilisateur créé avec succès."
         empowerd: "L'usutilisateur a reçu les droits d administrateur"
@@ -191,7 +189,7 @@ fr:
       created: "Compte créé avec succès."
       updated: "Compte modifiée avec succès."
     application:
-      wait: "S'il vous plaît attendre jusqu'à ce que Root a de nouveau cryptées vos nouveaux mots de passe."
+      wait: "S'il vous plaît attendre jusqu'à ce vos mots de passe a ètè nouveau cryptées."
     groups:
       created: "Groupe créé avec succès."
       updated: "Groupe modifiée avec succès"
@@ -201,7 +199,7 @@ fr:
       uploaded_filename_is_empty: "Le fichier n'a pas été nommé"
       uploaded_file_inexistent: "Fichier est inexistant"
     logins:
-      welcome: "Bienvenue à Cryptopus, vous devez d'abord créer un nouveau compte Root. S'il vous plaît entrer \"root\" comme nom d'utilisateur et entrez un nouveau mot de passe."
+      welcome: "Bienvenue à Cryptopus, vous devez d'abord créer un nouveau compte. S'il vous plaît entrez un nouveau mot de passe."
       auth_failed: "L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe."
       only_local: "Only local users are allowed to change their password."
       new_password_set: "Vous mis à jour avec succès le nouveau mot de passe."
@@ -220,7 +218,7 @@ fr:
       created: "Créé avec succès une nouvelle équipe."
       updated: "L'équipe a été mise à jour avec succès."
       deleted: "L'équipe a été supprimé."
-      cannot_delete: "Vous pouvez seulement supprimer une équipe si vous etes un root ou un admin."
+      cannot_delete: "Vous pouvez seulement supprimer une équipe si vous etes un admin."
       no_member: "Vous n'êtes pas membre de cette équipe"
     teammembers:
       could_not_remove_last_teammember: "Il n’est pas possible de supprimer le dernier utilisateur de l'équipe"

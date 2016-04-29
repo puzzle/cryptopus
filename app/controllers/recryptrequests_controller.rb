@@ -67,7 +67,7 @@ class RecryptrequestsController < ApplicationController
     end
 
     # If not we have to create a new keypair and send
-    # a request to root to decrypt the teampasswords
+    # a request to decrypt the teampasswords
     # for us
     begin
       @user = User.find_by_username(session[:username])
@@ -86,7 +86,6 @@ class RecryptrequestsController < ApplicationController
 
         # send the recryptrequest to root
         @recryptrequest = @user.recryptrequests.new
-        @recryptrequest.rootrequired = false
         @recryptrequest.adminrequired = true
       end
 
@@ -95,9 +94,6 @@ class RecryptrequestsController < ApplicationController
       # is required
       @user.teammembers.each do |teammember|
         teammember.save
-        if teammember.team.private
-          @recryptrequest.rootrequired = true
-        end
       end
 
       @recryptrequest.save

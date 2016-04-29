@@ -11,16 +11,6 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
-  test 'admin cannot delete root' do
-    root = users(:root)
-    login_as(:admin)
-    delete :destroy, id: root
-
-    assert root.reload.persisted?
-
-    assert_match /Root cannot be deleted/, flash[:error]
-  end
-
   test 'logged-in admin user cannot delete own user' do
     bob = users(:bob)
     bob.update_attribute(:admin, true)
@@ -54,21 +44,12 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_not User.find_by(username: 'alice')
   end
 
-  test 'root can delete another user' do
-    alice = users(:alice)
-    login_as(:root)
-
-    delete :destroy, id: alice.id
-
-    assert_not User.find_by(username: 'alice')
-  end
-
   test 'unlock user as admin' do
     bob = users(:bob)
     bob.update_attribute(:locked, true)
     bob.update_attribute(:failed_login_attempts, 5)
 
-    login_as(:root)
+    login_as(:admin)
     get :unlock, id: bob.id
 
     assert_not bob.reload.locked
@@ -98,32 +79,6 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
     assert_equal alice.username, 'new_username'
     assert_equal alice.givenname, 'new_givenname'
-  end
-
-  test 'root updates user-profile' do
-    bob = users(:bob)
-    update_params = { username: 'new_username', givenname: 'new_givenname' }
-
-    login_as(:root)
-    post :update, id: bob, user: update_params
-
-    bob.reload
-
-    assert_equal bob.username, 'new_username'
-    assert_equal bob.givenname, 'new_givenname'
-  end
-
-  test 'cannot update root-profile' do
-    root = users(:root)
-    update_params = { username: 'new_username'}
-
-    login_as(:admin)
-    post :update, id: root, user: update_params
-
-    root.reload
-
-    assert_not_equal 'new_username', root.username
-    assert_match /Root cannot be updated/, flash[:error]
   end
 
   test 'cannot update ldap-user-profile' do

@@ -35,7 +35,6 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
     members = JSON.parse(response.body)[1]
 
     assert_equal 3, members.size
-    assert members.any? {|c| c['label'] == 'Root test' }
     assert members.any? {|c| c['label'] == 'Alice test' }
     assert members.any? {|c| c['label'] == 'Admin test' }
   end

@@ -22,17 +22,6 @@ class TeamsControllerTest < ActionController::TestCase
     assert_match /deleted/, flash[:notice]
   end
 
-  test "root can delete team if in team" do
-    login_as(:root)
-
-    assert_difference('Team.count', -1) do
-      delete :destroy, id: teams(:team1).id
-    end
-
-    assert_redirected_to teams_path
-    assert_match /deleted/, flash[:notice]
-  end
-
   test "normal teammember cannot delete team" do
     login_as(:bob)
 
@@ -41,7 +30,7 @@ class TeamsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to teams_path
-    assert_match /Only admin or root/, flash[:error]
+    assert_match /Only admin/, flash[:error]
   end
 
   test "normal user cannot delete team if not in team" do
@@ -70,19 +59,6 @@ class TeamsControllerTest < ActionController::TestCase
     assert_match /deleted/, flash[:notice]
   end
 
-  test "Root can delete team if not in team" do
-    login_as(:root)
-
-    teammembers(:team1_root).delete
-
-    assert_difference('Team.count', -1) do
-      delete :destroy, id: teams(:team1).id
-    end
-
-    assert_redirected_to teams_path
-    assert_match /deleted/, flash[:notice]
-  end
-
   test 'bob has no delete button for teams' do
     login_as(:bob)
     get :index
@@ -95,16 +71,10 @@ class TeamsControllerTest < ActionController::TestCase
     assert_select "a[href='/en/teams/#{teams(:team1).id}']"
   end
 
-  test 'root has delete button for teams' do
-    login_as(:root)
-    get :index
-    assert_select "a[href='/en/teams/#{teams(:team1).id}']"
-  end
-
   test "user creates new team" do
     login_as(:bob)
 
-    team_params = {name: 'foo', private: false, noroot: false, description: 'foo foo' }
+    team_params = {name: 'foo', private: false, description: 'foo foo' }
 
     post :create, team: team_params
 
@@ -115,43 +85,38 @@ class TeamsControllerTest < ActionController::TestCase
     user_ids = team.teammembers.pluck(:user_id)
     assert_includes user_ids, users(:bob).id
     assert_includes user_ids, users(:admin).id
-    assert_includes user_ids, users(:root).id
     assert_not team.private?
-    assert_not team.noroot?
     assert_equal 'foo foo', team.description
   end
 
-  test "private or noroot cannot be enabled on existing team" do
+  test "private cannot be enabled on existing team" do
     login_as(:alice)
     team = teams(:team1)
 
     assert_not team.private?
-    assert_not team.noroot?
 
-    update_params = { noroot: true, private: true }
+    update_params = { private: true }
 
     put :update, id: team, team: update_params
 
     team.reload
 
     assert_not team.private?
-    assert_not team.noroot?
   end
 
-  test "private or noroot cannot be disabled on existing team" do
+  test "private cannot be disabled on existing team" do
     login_as(:alice)
 
-    team_params = {name: 'foo', private: true, noroot: true}
+    team_params = {name: 'foo', private: true}
     team = Team.create(users(:alice), team_params)
 
-    update_params = { noroot: false, private: false }
+    update_params = { private: false }
 
     put :update, id: team, team: update_params
 
     team.reload
 
     assert team.private?
-    assert team.noroot?
   end
 
   test 'show breadcrump path 2 if user is on edit of team' do

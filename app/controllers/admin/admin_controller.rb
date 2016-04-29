@@ -13,7 +13,7 @@ class Admin::AdminController < ApplicationController
   def check_for_admin
     user = User.find(session[:user_id])
 
-    unless user.root? || user.admin?
+    unless user.admin?
       flash[:error] = t('flashes.admin.admin.no_access')
       redirect_to teams_path
     end

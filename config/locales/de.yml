@@ -67,9 +67,8 @@ de:
     recryptrequests:
       index:
         title: "Re-encryp'please fill all fields'Admin benötigt"
-        root_required: "Root benötigt"
       request:
-        request_sent: "Es wurde eine Recrypt Anfrage an den Root gesendet. Bitte warten Sie, bis sie oder er Ihre Passwörter neu verschlüsselt hat."
+        request_sent: "Es wurde eine Recrypt Anfrage gesendet. Bitte warten Sie, bis sie oder er Ihre Passwörter neu verschlüsselt hat."
       uncrypterror:
         new_password: "Neues Passwort?!"
         ldap_password_changed: "Ihr LDAP Passwort hat sich seit Ihrem letzten Login geändert."
@@ -77,7 +76,7 @@ de:
         ldap_old_password: "Ihr altes LDAP Passwort"
         ldap_new_password: "Ihr neues LDAP Passwort"
         ldap_password: "Ihr LDAP Passwort"
-        forgot_password_recrypt: "Falls Sie Ihr Passwort vergessen haben, können Sie eine Recrypt Anfrage an den Root senden. Danach müssen Sie warten, bis sie oder er die Anfrage abgearbeitet hat."
+        forgot_password_recrypt: "Falls Sie Ihr Passwort vergessen haben, können Sie eine Recrypt Anfrage senden. Danach müssen Sie warten, bis sie oder er die Anfrage abgearbeitet hat."
         recrypt: "Recrypt"
         send: "Anfrage senden"
     users:
@@ -177,7 +176,6 @@ de:
         resetpassword:
           success: "Das Passwort wurde erfolgreich gesetzt"
           required: "Das Passwort darf nicht leer sein"
-          not_root: "Das root Passwort kann nicht zurückgesetzt werden"
       users:
         created: "Der neue Benutzer wurde erfolgreich erstellt."
         empowerd: "Der Benutzer hat nun Admin-Rechte."
@@ -192,7 +190,7 @@ de:
       created: "Der neue Account wurde erfolgreich erstellt."
       updated: "Der Account wurde erfolgreich bearbeitet."
     application:
-      wait: "Bitte warten Sie, bis der Root Ihre Team Passwörter neu verschlüsselt hat."
+      wait: "Bitte warten Sie, bis  Ihre Team Passwörter neu verschlüsselt wurden."
     groups:
       created: "Die neue Gruppe wurde erfolgreich erstellt."
       updated: "Die Gruppe wurde erfolgreich bearbeitet."
@@ -202,7 +200,7 @@ de:
       uploaded_filename_is_empty: "Die Datei muss benannt sein"
       uploaded_file_inexistent: "Datei ist inexistent"
     logins:
-      welcome: "Willkommen bei Cryptopus. Zuerst müssen Sie einen Root Account erstellen. Bitte verwenden Sie \"root\" als Benutzername und wählen Sie ein sicheres Passwort."
+      welcome: "Willkommen bei Cryptopus. Zuerst müssen Sie einen Account erstellen. Bitte wählen Sie ein sicheres Passwort."
       auth_failed: "Authentifikation fehlgeschlagen! Geben Sie einen gültigen Benutzernamen und ein korrektes Passwort ein."
       only_local: "Nur lokale Benutzer dürfen ihr Passwort ändern."
       new_password_set: "Das neue Passwort wurde erfolgreich gesetzt."
@@ -214,14 +212,14 @@ de:
       recrypted: "Ihr Passwort wurde erfolgreich neu verschlüsselt."
       new_password_wrong: "Ihr neues Passwort war falsch"
       old_password_wrong: "Ihr altes Passwort war falsch"
-      wait: "Bitte warten Sie, bis Root Ihre Team Passwörter neu verschlüsselt hat."
+      wait: "Bitte warten Sie, bis Ihre Team Passwörter neu verschlüsselt wurden."
       wrong_password: "Das Passwort war falsch."
     teams:
       wrong_user_password: "Geben Sie einen gültigen Benutzernamen und ein korrektes Passwort ein oder prüfen Sie Ihre LDAP Einstellungen."
       created: "Das Team wurde erfolgreich erstellt."
       updated: "Das Team wurde erfolgreich angepasst."
       deleted: "Das Team wurde erfolgreich gelöscht"
-      cannot_delete: "Nur admins und root können das Team löschen"
+      cannot_delete: "Nur admins können das Team löschen"
       no_member: "Sie sind nicht Mitglied dieses Team"
     teammembers:
       could_not_remove_last_teammember: "Der letzte Benutzer eines Teams kann nicht entfernt werden"

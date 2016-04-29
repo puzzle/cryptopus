@@ -14,7 +14,6 @@ class Team < ActiveRecord::Base
 
   class << self
     def create(creator, params)
-      raise 'root cannot create private team' if creator.root? && params[:noroot]
       team = super(params)
       return team unless team.valid?
       plaintext_team_password = CryptUtils.new_team_password
@@ -24,16 +23,12 @@ class Team < ActiveRecord::Base
           team.add_user(a, plaintext_team_password) unless a == creator
         end
       end
-      unless team.noroot? || creator.root?
-        team.add_user(User.root, plaintext_team_password)
-      end
       team
     end
   end
 
   def update_attributes(attributes)
     attributes.delete('private')
-    attributes.delete('noroot')
     super(attributes)
   end
 
@@ -67,7 +62,7 @@ class Team < ActiveRecord::Base
   end
 
   def remove_user(user)
-    raise 'root cannot be removed from team' if user.root?
+    
     teammember(user.id).destroy!
   end
 

@@ -11,7 +11,7 @@
       .navbar-collapse.collapse
         %ul.nav.navbar-nav
           = nav_link t('teams.title'), teams_path
-          - if current_user.admin? || current_user.root?
+          - if current_user.admin?
             %li.dropdown
               <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown", role="button">
               Admin

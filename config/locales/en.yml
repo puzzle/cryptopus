@@ -68,9 +68,8 @@ en:
         title: "Re-encryption requests"
         user: "User"
         admin_required: "Admin required"
-        root_required: "Root required"
       request:
-        request_sent: "A request to recrypt your group passwords was sent to the root. Wait until she recrypted your passwords."
+        request_sent: "A request to recrypt your group passwords was sent. Wait until she recrypted your passwords."
       uncrypterror:
         new_password: "New password?!"
         ldap_password_changed: "Your LDAP Password has changed since your last login."
@@ -78,7 +77,7 @@ en:
         ldap_old_password: "Your old LDAP Password"
         ldap_new_password: "Your new LDAP Password"
         ldap_password: "Your LDAP Password"
-        forgot_password_recrypt: "If you forgot your password, you can send a recrypt request to the root, but after that you have to wait until she has recrypted your passwords."
+        forgot_password_recrypt: "If you forgot your password, you can send a recrypt request, but after that you have to wait until she has recrypted your passwords."
         recrypt: "Recrypt"
         send: "Send request"
     users:
@@ -164,7 +163,7 @@ en:
 
   flashes:
     wizard:
-      fill_password_fields: "Please provide an initial password for the root user"
+      fill_password_fields: "Please provide an initial password"
       paswords_do_not_match: "Passwords do not match"
     admin:
       admin:
@@ -178,7 +177,6 @@ en:
         resetpassword:
           success: "Successfully reset password"
           required: "The password must not be blank"
-          not_root: "Could not reset roots password"
       users:
         created: "Successfully created a new user."
         destroy:
@@ -191,7 +189,7 @@ en:
       created: "Account was successfully created."
       updated: "Account was successfully updated."
     application:
-      wait: "Wait until root has recrypted your team passwords."
+      wait: "Wait for the recryption of your team passwords."
     groups:
       created: "Successfully created a new group."
       updated: "Group was successfully updated."
@@ -201,7 +199,7 @@ en:
       uploaded_filename_is_empty: "The file has to be named"
       uploaded_file_inexistent: "File is inexistent"
     logins:
-      welcome: "Welcome to Cryptopus, first you have to create a new Root account. Please enter a new password"
+      welcome: "Welcome to Cryptopus, first you have to create a new account. Please enter a new password"
       auth_failed: "Authentication failed! Enter a correct username and password."
       only_local: "Only local users are allowed to change their password."
       new_password_set: "You successfully set the new password"
@@ -213,14 +211,14 @@ en:
       recrypted: "You have successfully recrypted the password"
       new_password_wrong: "Your NEW password was wrong"
       old_password_wrong: "Your OLD password was wrong"
-      wait: "Wait until root has recrypted your team passwords"
+      wait: "Wait for the recryption of your team passwords"
       wrong_password: "Your password was wrong"
     teams:
       wrong_user_password: "Enter a correct username and password or check the LDAP Settings"
       created: "Successfully created a new team."
       updated: "Team was successfully updated."
       deleted: "Team was successfully deleted"
-      cannot_delete: "Only admin or root may delete teams"
+      cannot_delete: "Only admin may delete teams"
       no_member: "You are not member of this team"
     teammembers:
       could_not_remove_last_teammember: "Could not remove last teammember"

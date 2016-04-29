@@ -31,7 +31,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
     @user = User.find(params[:user_id])
     @admin = User.find(session[:user_id])
 
-    return redirect_to :back if @user.auth_ldap? || @user.root? || blank_password?
+    return redirect_to :back if @user.auth_ldap? || blank_password?
 
     @user.password = CryptUtils.one_way_crypt(params[:new_password])
     create_keypair

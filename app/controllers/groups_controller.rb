@@ -14,7 +14,7 @@ class GroupsController < ApplicationController
 
     @groups = @team.groups
 
-    teammembers = @team.teammembers.without_root
+    teammembers = @team.teammembers
     @teammembers = teammembers.sort_by { |tm| tm.label.downcase }
 
     respond_to do |format|

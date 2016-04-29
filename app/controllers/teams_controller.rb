@@ -70,12 +70,12 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name, :private, :noroot, :description)
+    params.require(:team).permit(:name, :private, :description)
   end
 
   def redirect_if_not_teammember_or_admin
     @team = Team.find(params[:id])
-    return if @team.teammember?(current_user.id) || current_user.admin? || current_user.root?
+    return if @team.teammember?(current_user.id) || current_user.admin?
     flash[:error] = 'You are not member of this team'
     redirect_to teams_path
   end
@@ -87,6 +87,6 @@ class TeamsController < ApplicationController
   end
 
   def can_delete_team?(_team)
-    current_user.admin? || current_user.root?
+    current_user.admin?
   end
 end

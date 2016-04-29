@@ -7,7 +7,6 @@
 
 class Admin::UsersController < Admin::AdminController
 
-  before_filter :redirect_if_root, only: [:edit, :update, :destroy]
   before_filter :redirect_if_ldap_user, only: [:edit, :update]
 
   helper_method :toggle_admin
@@ -93,20 +92,6 @@ class Admin::UsersController < Admin::AdminController
     return unless user.auth_ldap?
 
     flash[:error] = t('flashes.admin.users.update.ldap')
-
-    respond_to do |format|
-      format.html { redirect_to admin_users_path }
-    end
-  end
-
-  def redirect_if_root
-    return unless user.root?
-
-    flash[:error] = if params[:action] == 'destroy'
-                      t('flashes.admin.users.destroy.root')
-                    else
-                      t('flashes.admin.users.update.root')
-                    end
 
     respond_to do |format|
       format.html { redirect_to admin_users_path }

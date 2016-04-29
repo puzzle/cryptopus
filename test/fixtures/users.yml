@@ -8,6 +8,7 @@ root:
   username: root
   givenname: Root
   surname: test
+  admin: true
   auth: db
   password: '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8'
   public_key: <%= "!!binary \"#{FixturesHelper.read_public_key('root')}\"" %>

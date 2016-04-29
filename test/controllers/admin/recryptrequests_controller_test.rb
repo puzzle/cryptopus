@@ -53,18 +53,6 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
     assert_match /The password must not be blank/, flash[:notice]
   end
 
-  test 'does not reset roots password' do
-    login_as(:admin)
-    root = users(:root)
-    root_password = root.password
-    post :resetpassword, new_password: 'test', user_id: root.id
-
-    root.reload
-
-    assert_equal root_password, root.password
-    assert_redirected_to 'where_i_came_from'
-  end
-
   test 'does not reset ldap users password' do
     login_as(:admin)
     bob = users(:bob)

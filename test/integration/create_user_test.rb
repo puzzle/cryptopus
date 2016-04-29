@@ -8,19 +8,6 @@
 require 'test_helper'
 class CreateUserTest < ActionDispatch::IntegrationTest
 include IntegrationTest::DefaultHelper
-  test 'root creates new user' do
-    login_as('root')
-    post admin_users_path, user: {
-                                  username: "fritz",
-                                  password: "password",
-                                  admin: 0,
-                                  givenname: "Fritz",
-                                  surname: "Gerber"}
-    assert_redirected_to admin_users_path
-    assert User.find_by_username('fritz')
-    logout
-    login_as('fritz')
-  end
 
   test 'admin creates new user' do
     login_as('admin')
@@ -49,7 +36,7 @@ include IntegrationTest::DefaultHelper
   end
 
     test 'cannot create second user bob' do
-      login_as('root')
+      login_as('admin')
       post admin_users_path, user: {
                                     username: "bob",
                                     password: "password",

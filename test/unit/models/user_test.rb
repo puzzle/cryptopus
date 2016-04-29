@@ -21,23 +21,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal [:username], user.errors.keys
   end
 
-  test 'creates user root' do
-    User.delete_all
-    User.create_root('pw')
-
-    root = User.find_by_uid(0)
-    assert_equal 'root', root.username
-    assert_equal 'root', root.givenname
-    assert_equal '', root.surname
-    assert root.auth_db?
-  end
-
-  test 'does not create user root if it already exists' do
-    assert_raises(ActiveRecord::RecordInvalid) do
-      User.create_root('pw')
-    end
-  end
-
   test 'authenticates bob' do
     assert users(:bob).authenticate('password')
   end

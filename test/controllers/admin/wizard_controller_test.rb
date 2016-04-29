@@ -13,7 +13,7 @@ class WizardControllerTest < ActionController::TestCase
   test 'display error if password fields empty' do
     User.delete_all
     post :apply, password: '', password_repeat: 'password'
-    assert_match /Please provide an initial password for the root user/, flash[:error]
+    assert_match /Please provide an initial password/, flash[:error]
   end
 
   test 'display error if passwords do not match' do

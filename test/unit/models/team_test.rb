@@ -35,7 +35,7 @@ class TeamTest <  ActiveSupport::TestCase
   end
 
   test 'root is never included in member candidates' do
-    team = Team.create(users(:admin), name: 'foo', noroot: true)
+    team = Team.create(users(:admin), name: 'foo')
 
     candidates = team.member_candidates
 
@@ -82,60 +82,35 @@ class TeamTest <  ActiveSupport::TestCase
     end
   end
 
-  test 'create new team adds creator, root and admins' do
+  test 'create new team adds creator and admins' do
     params = {}
     params[:name] = 'foo'
     params[:description] = 'foo foo'
     params[:private] = false
-    params[:noroot] = false
 
     team = Team.create(bob, params)
 
     assert_equal 3, team.teammembers.count
     user_ids = team.teammembers.pluck(:user_id)
     assert_includes user_ids, bob.id
-    assert_includes user_ids, users(:root).id
     assert_includes user_ids, users(:admin).id
     assert_not team.private?
-    assert_not team.noroot?
     assert_equal 'foo', team.name
     assert_equal 'foo foo', team.description
   end
 
-  test 'create new team adds creator and admins' do
-    params = {}
-    params[:name] = 'foo'
-    params[:description] = 'foo foo'
-    params[:private] = false
-    params[:noroot] = true
-
-    team = Team.create(bob, params)
-
-    assert_equal 2, team.teammembers.count
-    user_ids = team.teammembers.pluck(:user_id)
-    assert_includes user_ids, bob.id
-    assert_includes user_ids, users(:admin).id
-    assert_not team.private?
-    assert team.noroot?
-    assert_equal 'foo', team.name
-    assert_equal 'foo foo', team.description
-  end
-
-  test 'create new team adds creator and root' do
+  test 'create new team adds creator' do
     params = {}
     params[:name] = 'foo'
     params[:description] = 'foo foo'
     params[:private] = true
-    params[:noroot] = false
 
     team = Team.create(bob, params)
 
-    assert_equal 2, team.teammembers.count
+    assert_equal 1, team.teammembers.count
     user_ids = team.teammembers.pluck(:user_id)
     assert_includes user_ids, bob.id
-    assert_includes user_ids, users(:root).id
     assert team.private?
-    assert_not team.noroot?
     assert_equal 'foo', team.name
     assert_equal 'foo foo', team.description
   end
@@ -145,7 +120,6 @@ class TeamTest <  ActiveSupport::TestCase
     params[:name] = 'foo'
     params[:description] = 'foo foo'
     params[:private] = true
-    params[:noroot] = true
 
     team = Team.create(bob, params)
 
@@ -153,23 +127,8 @@ class TeamTest <  ActiveSupport::TestCase
     user_ids = team.teammembers.pluck(:user_id)
     assert_includes user_ids, bob.id
     assert team.private?
-    assert team.noroot?
     assert_equal 'foo', team.name
     assert_equal 'foo foo', team.description
-  end
-
-  test 'root cannot create noroot team' do
-    params = {}
-    params[:name] = 'foo'
-    params[:description] = 'foo foo'
-    params[:private] = false
-    params[:noroot] = true
-
-    exception = assert_raises do
-      team = Team.create(users(:root), params)
-    end
-
-    assert_match /root cannot create private team/, exception.message
   end
 
   test 'does not create team if name is empty' do
@@ -177,22 +136,11 @@ class TeamTest <  ActiveSupport::TestCase
     params[:name] = ''
     params[:description] = 'foo foo'
     params[:private] = false
-    params[:noroot] = false
 
     team = Team.create(bob, params)
 
     assert_not team.valid?
     assert_match /Name/, team.errors.full_messages.first
-  end
-
-  test 'root cannot be removed from team' do
-    team = teams(:team1)
-
-    e = assert_raises do
-      team.remove_user(users(:root))
-    end
-
-    assert_equal 'root cannot be removed from team', e.message
   end
 
   private

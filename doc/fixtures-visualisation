@@ -8,15 +8,13 @@ object team1
 object team2
 
 
-team1 : description = root, public
+team1 : description = public
 team1 : visible = true
 team1 : private = false
-team1 : noroot = false
 
-team2 : description = root, public
+team2 : description = public
 team2 : visible = true
 team2 : private = true
-team2 : noroot = true
 
 }
 
@@ -65,14 +63,10 @@ object team1_admin
 }
 
 package "user" {
-object user_root
 object user_bob
 object user_alice
 object user_admin
 
-
-user_root : username = root
-user_root : password = password
 
 user_bob : username = bob
 user_bob : password = password
@@ -90,9 +84,6 @@ team1_bob *-- user_bob
 team1_bob *-up- team1
 team2_bob *--- user_bob
 team2_bob *-up- team2
-
-team1_root *--- user_root
-team1_root *-up- team1
 
 team1_alice *--- user_alice
 team1_alice *-up- team1

@@ -54,7 +54,6 @@ class TeammembersController < ApplicationController
   private
 
   def can_destroy_teammember?(teammember)
-    return false if teammember.user.root?
     @team.private? || !teammember.user.admin?
   end
 

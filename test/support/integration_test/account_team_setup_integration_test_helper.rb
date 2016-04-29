@@ -7,11 +7,11 @@
 
 module IntegrationTest
   module AccountTeamSetupHelper
-    def create_team_group_account(username, user_password = 'password', noroot = false, private = false)
+    def create_team_group_account(username, user_password = 'password', private = false)
       login_as(username.to_s, user_password)
 
       #New Team
-      post teams_path, team: {name: 'Web', description: 'team_description', private: private, noroot: noroot}
+      post teams_path, team: {name: 'Web', description: 'team_description', private: private}
 
       #New Group
       team = Team.find_by_name('Web')
@@ -26,20 +26,12 @@ module IntegrationTest
       group.accounts.find_by_accountname('puzzle')
     end
 
-    def create_team_group_account_noroot(username, user_password = 'password')
+    def create_team_group_account_private(username, user_password = 'password')
       create_team_group_account(username, user_password, true)
     end
 
-    def create_team_group_account_private(username, user_password = 'password')
-      create_team_group_account(username, user_password, false, true)
-    end
-
-    def create_team_group_account_private_noroot(username, user_password = 'password')
-      create_team_group_account(username, user_password, true, true)
-    end
-
-    def create_team(user, teamname, private_team, noroot_team)
-      team = Team.create(name: teamname, description: 'team_description', private: private_team, noroot: noroot_team)
+    def create_team(user, teamname, private_team)
+      team = Team.create(name: teamname, description: 'team_description', private: private_team)
       team_password = cipher.random_key()
       crypted_team_password = CryptUtils.encrypt_blob user.public_key, team_password
       Teammember.attr_accessible :team_id, :password

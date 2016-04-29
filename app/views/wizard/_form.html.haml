@@ -6,7 +6,7 @@
 = form_tag({action: 'apply'}, id: 'wizardform') do
   .form-group
     = label_tag :username, t(:username)
-    = text_field_tag :username, params[:username], id: 'username', autocomplete: :off, disabled: true, value: "root", class: 'form-control'
+    = text_field_tag :username, params[:username], id: 'username', autocomplete: :off, disabled: true, class: 'form-control'
   .form-group
     = label_tag :password, t(:password)
     = password_field_tag :password, params[:password], autocomplete: :off, id: 'password', autofocus: true, class: 'form-control'
