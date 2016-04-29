@@ -57,6 +57,10 @@ fr:
       title: "Nouveau compte"
 
   admin:
+    maintenance_tasks:
+      index:
+        title: "Les tâches de maintenance"
+        maintenance_task: "Tâche de maintenance"
     settings:
       index:
         title: "Modifier les paramètres"
@@ -185,6 +189,10 @@ fr:
         update:
           root: "Root ne peuvent pas être mis à jour"
           ldap: "Ldap utilisateur ne peuvent pas être mis à jour"
+      maintenance_tasks:
+        succeed: "La tâche a été exécutée avec succès.."
+        failed: "La tâche a échoué. Consultez les journaux pour plus d'informations."
+        
     accounts:
       created: "Compte créé avec succès."
       updated: "Compte modifiée avec succès."

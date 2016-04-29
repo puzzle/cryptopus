@@ -61,6 +61,10 @@ de:
       title: "Neuer Account"
 
   admin:
+    maintenance_tasks:
+      index:
+        title: "Wartungsaufgaben"
+        maintenance_task: "Wartungsaufgabe"
     settings:
       index:
         title: "Einstellungen bearbeiten"
@@ -186,6 +190,10 @@ de:
         update:
           root: "Root kann nicht aktualisiert werden"
           ldap: "Ldap User kann nicht aktualisiert werden"
+      maintenance_tasks:
+        succeed: "Wartungsaufgabe wurde erfolgreich durchgeführt"
+        failed: "Wartungsaufgabe ist gescheitert. Siehe Logs für mehr Details."
+
     accounts:
       created: "Der neue Account wurde erfolgreich erstellt."
       updated: "Der Account wurde erfolgreich bearbeitet."

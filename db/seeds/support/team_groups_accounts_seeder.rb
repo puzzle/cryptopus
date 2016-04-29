@@ -7,24 +7,23 @@
 
 class TeamGroupsAccountsSeeder
 
-  def seed_team(name, members, admin = false, noroot = false)
+  def seed_team(name, members, admin = false)
     name = name.to_s.capitalize
     Team.seed_once(:name) do |t|
       t.name = name
       t.description = Faker::Lorem.paragraph
       t.groups = [Group.create(name: Faker::Lorem.word.capitalize)]
       t.private = !admin
-      t.noroot = noroot
     end
 
     team = Team.find_by(name: name)
 
-    plaintext_team_pw = CryptUtils.new_team_password 
+    plaintext_team_pw = CryptUtils.new_team_password
 
     members.each do |m|
       u = user(m)
       add_member(team, u, plaintext_team_pw)
-      add_member(team, root) unless team.noroot
+      add_member(team, root)
     end
 
     seed_accounts(team)

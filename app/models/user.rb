@@ -159,6 +159,7 @@ class User < ActiveRecord::Base
     teams = Team.where(teams: { private: false })
 
     teams.each do |t|
+      next if t.teammember?(self)
       active_teammember = t.teammembers.find_by user_id: actor.id
       team_password = CryptUtils.decrypt_team_password(active_teammember.password, private_key)
       t.add_user(self, team_password)

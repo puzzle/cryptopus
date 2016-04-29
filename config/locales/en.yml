@@ -60,6 +60,10 @@ en:
       no_results_found: no results found
 
   admin:
+    maintenance_tasks:
+      index:
+        title: "Maintenance tasks"
+        maintenance_task: "Maintenance tasks"
     settings:
       index:
         title: "Edit Settings"
@@ -185,6 +189,10 @@ en:
         update:
           root: "Root cannot be updated"
           ldap: "Ldap user cannot be updated"
+      maintenance_tasks:
+        succeed: "Task was executed successfully."
+        failed: "Task failed. See logs for more information."
+
     accounts:
       created: "Account was successfully created."
       updated: "Account was successfully updated."

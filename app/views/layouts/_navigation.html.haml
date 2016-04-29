@@ -20,6 +20,7 @@
                 %li= nav_link t(:ldap_settings), admin_settings_path
                 %li= nav_link t(:recrypt_requests), admin_recryptrequests_path
                 %li= nav_link t(:users), admin_users_path
+                %li= nav_link t(:maintenance_tasks), admin_maintenance_tasks_path
           - if current_user.auth_db?
             = nav_link t(:change_password), show_update_password_login_path
         %ul.nav.navbar-nav.navbar-right

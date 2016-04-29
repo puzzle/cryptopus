@@ -21,15 +21,15 @@ end
 
 [:finance].each do |n|
   users = [:kate, :alice]
-  seeder.seed_team(n, users, false, true)
+  seeder.seed_team(n, users, false)
 end
 
 [:org, :government].each do |n|
   users = [:kate, :bruce, :emily]
-  seeder.seed_team(n, users, true, true)
+  seeder.seed_team(n, users, true)
 end
 
 [:'alice private'].each do |n|
   users = [:alice]
-  seeder.seed_team(n, users, false, false)
+  seeder.seed_team(n, users, false)
 end

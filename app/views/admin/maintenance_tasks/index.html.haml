@@ -1,0 +1,28 @@
+%h1= t '.title'
+
+%table.table.table-striped
+  %tr
+    %th{style: "width: 150px;"}= t '.maintenance_task'
+    %th= t :description
+    %th{colspan: "3"}= t :actions
+  - @maintenance_tasks.each_with_index do |task, id|
+    %tr{class: "#{cycle('odd', 'even')}"}
+      %td= task.label
+      %td= task.description
+      %td= link_to 'run', admin_maintenance_tasks_prepare_path(id)
+
+%br
+
+%h1= 'Logs'
+%table.table.table-striped
+  %tr
+    %th= t :executed_at
+    %th= t :status
+    %th= t :output
+    %th= t :executer
+  - @maintenance_logs.each do |ml|
+    %tr{class: "#{cycle('odd', 'even')}"}
+      %td= ml.created_at.to_time
+      %td= ml.status
+      %td= ml.output
+      %td= User.find_by(id: ml.executer_id).label
