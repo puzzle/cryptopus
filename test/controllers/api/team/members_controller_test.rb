@@ -17,7 +17,7 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
 
     get :candidates, team_id: team
 
-    candidates = JSON.parse(response.body)[1]
+    candidates = JSON.parse(response.body)['data']
 
     assert_equal 2, candidates.size
     assert candidates.any? {|c| c['label'] == 'Alice test' }
@@ -32,7 +32,7 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
 
     get :index, team_id: team
 
-    members = JSON.parse(response.body)[1]
+    members = JSON.parse(response.body)['data']
 
     assert_equal 3, members.size
     assert members.any? {|c| c['label'] == 'Alice test' }

@@ -9,8 +9,8 @@ class ApiController < ApplicationController
 
   protected
 
-  def render_json(entries = nil)
-    render status: response_status, json: [messages, entries]
+  def render_json(data = nil)
+    render status: response_status, json: {messages: messages, data: data}
   end
 
   def add_error(msg)

@@ -6,7 +6,7 @@
 # scope for global functions
 app = window.App ||= {}
 
-class app.TeamMemberHandler
+class app.TeamMembers
   constructor: () ->
     
   toggle_members = ->
@@ -22,7 +22,7 @@ class app.TeamMemberHandler
      team_id = $('input#team_id').val()
      url = '/api/teams/' + team_id + '/members'
      $.get(url).done (data) ->
-       render_members(data[1])
+       render_members(data['data'])
 
   #no_admins_when_private_team(members) = ->
    
@@ -34,9 +34,7 @@ class app.TeamMemberHandler
   bind: ->
     $(document).on 'click', '.show_members', ->
       toggle_members()
+      load_members()
 
-    #$(document).on 'focus', '#search_member', ->
-      #if $('.members').is(':hidden')
-        #toggle_members()
 
-new app.TeamMemberHandler().bind()
+new app.TeamMembers().bind()
