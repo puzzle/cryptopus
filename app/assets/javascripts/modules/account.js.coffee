@@ -5,7 +5,7 @@
 
 app = window.App ||= {}
 
-class app.AccountHandler
+class app.Account
   constructor: () ->
 
   showPassword = (e) ->
@@ -50,4 +50,4 @@ class app.AccountHandler
     $(document).on 'click', '.clip_button_account', (e)->
       showMessage(e)
 
-new app.AccountHandler().bind()
+new app.Account().bind()

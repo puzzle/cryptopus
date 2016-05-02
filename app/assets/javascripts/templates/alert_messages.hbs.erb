@@ -1,0 +1,9 @@
+{{#each .}}
+  <div class='alert alert-info' id='alert_js' role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class='flash_message' id='alert_message'> {{this}} </p>
+  </div>
+{{/each}}
+

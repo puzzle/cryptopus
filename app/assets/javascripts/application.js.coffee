@@ -17,7 +17,7 @@
 app = window.App ||= {}
 
 Turbolinks.enableProgressBar()
-
+@flash_messages = []
 # Password hidden
 # $ ->
 #   $( ".select-click" ).on 'click', (e) ->

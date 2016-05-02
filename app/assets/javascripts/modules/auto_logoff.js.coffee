@@ -5,7 +5,7 @@
 
 app = window.App ||= {}
 
-class app.Auto_logoffHandler
+class app.Auto_logoff
   constructor: () ->
 
 
@@ -41,4 +41,4 @@ class app.Auto_logoffHandler
       auto_logoff(remaining_seconds)
 
 
-new app.Auto_logoffHandler().bind()
+new app.Auto_logoff().bind()

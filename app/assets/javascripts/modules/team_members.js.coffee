@@ -8,7 +8,7 @@ app = window.App ||= {}
 
 class app.TeamMembers
   constructor: () ->
-    
+
   toggle_members = ->
     $('.members').slideToggle().promise().done ->
       if $('.columns').is(':visible')
@@ -25,7 +25,7 @@ class app.TeamMembers
        render_members(data['data'])
 
   #no_admins_when_private_team(members) = ->
-   
+
   render_members = (members) ->
     members_container = $('.columns')
     content = HandlebarsTemplates['team_member_entry'](members)
@@ -36,5 +36,5 @@ class app.TeamMembers
       toggle_members()
       load_members()
 
-
 new app.TeamMembers().bind()
+
