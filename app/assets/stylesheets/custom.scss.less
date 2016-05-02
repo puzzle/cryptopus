@@ -70,6 +70,7 @@ body {
   background-color: #F9F9F9;
   width: 100%;
   border-top: 1px solid #CBC6C2;
+  z-index: 9999;
 }
 
 .footer form {
@@ -81,9 +82,19 @@ body {
 .clip_button_account{
   position: absolute;
   left: 210px;
-  top: 0;
+  top: -2px;
 }
 
+.copied{
+  border-radius: 3px;
+  color: white;
+  background-color: #555;
+  display: none;
+  position: absolute;
+  padding: 4px;
+  margin-left: 268px;
+  margin-top: -28px;
+}
 /*Team*/
 
 .description{
@@ -93,19 +104,6 @@ body {
   padding: 2px;
   margin-left: 40px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .toggle-button {
   background-color: white;

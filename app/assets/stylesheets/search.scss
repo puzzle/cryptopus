@@ -58,6 +58,8 @@ input.search-input {
   background: #C9C9C9;
   border-radius: 3px;
   color: black;
+  z-index: 3;
+  position: relative;
 }
 
 .password-link, .result-username input, .result-password input{
@@ -65,6 +67,7 @@ input.search-input {
   width: 205px;
   font-size: 14px;
   border: 1px solid #C9C9C9;
+  display: block;
 }
 
 .result-username input:hover, .result-password input:hover{
@@ -79,7 +82,16 @@ input.search-input {
   height: 35px;
   width: 50px;
 }
+.result-password, .password-link{
+  margin-top: 1em;
+}
 
 .result-password {
-  margin-top: 0.5em;
+  top: -48px;
+  position: relative;
+}
+
+password-hidden{
+  display: block;
+  z-index: 3;
 }

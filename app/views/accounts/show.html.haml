@@ -2,7 +2,6 @@
 -#  Cryptopus and licensed under the Affero General Public License version 3 or later.
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
-
 = link_to 'Edit', edit_team_group_account_path(@account.group.team.id, @account.group.id, @account.id), class: 'btn btn-primary pull-right'
 %h1= t '.title', account_name: @account.accountname
 %div
@@ -15,12 +14,16 @@
     %button.clip_button_account{"data-clipboard-target" => "#cleartext_username", title: "Click to copy" }
       %svg.icon-clippy
         %use{"xlink:href" => "#icon-clippy"}
+    %p.copied.username
+      = 'Username copied!'
+  %a.password-link{href: "#"} Show password
   .result-password.select-click
-    %a.password-link{href: "#"} Show password
-    %input#cleartext_password.password-hidden.hide.form-control{readonly: "readonly", type: "text", value: "#{@account.cleartext_password}"}/
+    %input#cleartext_password.password-hidden.form-control{readonly: "readonly", type: "text", value: "#{@account.cleartext_password}"}/
     %button.clip_button_account{"data-clipboard-target" => "#cleartext_password", title: "Click to copy"}
       %svg.icon-clippy
         %use{"xlink:href" => "#icon-clippy"}
+    %p.copied.password
+      = 'Password copied!'
   #hidden_password{style: "display:none"}
     = @account.cleartext_password
   %br/
