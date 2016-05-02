@@ -263,7 +263,7 @@ class UserTest < ActiveSupport::TestCase
     exception = assert_raises(Exception) do
       bob.toggle_admin(bob, private_key)
     end
-    assert_equal "Empower or disempower current user is not allowed", exception.message
+    assert_equal 'user is not allowed to empower/disempower this user', exception.message
 
     bob.reload
     assert_not bob.admin?
