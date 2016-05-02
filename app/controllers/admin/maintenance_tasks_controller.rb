@@ -28,7 +28,6 @@ class Admin::MaintenanceTasksController < Admin::AdminController
 
     if task.execute
       flash[:notice] = t('flashes.admin.maintenance_tasks.succeed')
-      task.success_log_entry('successful')
     else
       flash[:error] = t('flashes.admin.maintenance_tasks.failed')
     end

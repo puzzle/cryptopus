@@ -35,7 +35,7 @@ class MaintenanceTaskTest < ActiveSupport::TestCase
   test 'create new success log' do
     admin = users(:admin)
     mt = MaintenanceTask.new(admin)
-    mt.success_log_entry('test')
+    mt.send(:success_log_entry, 'test')
 
     assert_equal 'test', Log.first.output
     assert_equal admin.id, Log.first.executer_id
@@ -58,7 +58,7 @@ class MaintenanceTaskTest < ActiveSupport::TestCase
       Team.all.destroy_all
     end
 
-    assert_equal 0, Team.all.count
+    assert_equal 0, Team.count
   end
 
   test 'list all maintenance tasks' do
