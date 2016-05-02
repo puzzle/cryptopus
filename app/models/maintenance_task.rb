@@ -44,10 +44,6 @@ class MaintenanceTask
     false
   end
 
-  def success_log_entry(message)
-    create_log_entry(message, 'success')
-  end
-
   protected
 
   def current_user_private_key
@@ -56,6 +52,10 @@ class MaintenanceTask
 
   def failed_log_entry(exception)
     create_log_entry(exception.message, 'failed')
+  end
+
+  def success_log_entry(message)
+    create_log_entry(message, 'success')
   end
 
   def create_log_entry(message, status)
