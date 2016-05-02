@@ -5,7 +5,7 @@
 
 app = window.App ||= {}
 
-class app.ToggleAdminHandler
+class app.ToggleAdmin
   constructor: () ->
 
   toggle = (url) ->
@@ -14,6 +14,9 @@ class app.ToggleAdminHandler
       url: url
     })
 
+  show_flash_message =  ->
+    message = 'Admin toggled'
+    app.FlashMessage.add_message(message)
 
   bind: ->
     $(document).on 'click', '.toggle-button', ->
@@ -21,7 +24,6 @@ class app.ToggleAdminHandler
       url = '/admin/users/' + user_id + '/toggle_admin'
       toggle(url)
       $(this).toggleClass('toggle-button-selected')
+      show_flash_message()
 
-
-
-new app.ToggleAdminHandler().bind()
+new app.ToggleAdmin().bind()

@@ -5,7 +5,7 @@
 
 app = window.App ||= {}
 
-class app.InfoButtonHandler
+class app.InfoButton
   constructor: () ->
 
   infoTimeout = ->
@@ -21,4 +21,4 @@ class app.InfoButtonHandler
     $(document).on 'click', '.private_info', ->
       infoTimeout()
 
-new app.InfoButtonHandler().bind()
+new app.InfoButton().bind()

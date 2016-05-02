@@ -5,7 +5,7 @@
 
 app = window.App ||= {}
 
-class app.LoginHandler
+class app.Login
   constructor: () ->
 
   setFocus = ->
@@ -40,4 +40,4 @@ class app.LoginHandler
     $(document).on 'click', '#username', ->
       selectUsername()
 
-new app.LoginHandler().bind()
+new app.Login().bind()

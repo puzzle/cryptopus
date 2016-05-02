@@ -6,9 +6,9 @@
 # scope for global functions
 app = window.App ||= {}
 
-class app.TeamMemberHandler
+class app.TeamMember
   constructor: () ->
-    
+
   toggle_members = ->
     $('.members').slideToggle().promise().done ->
       if $('.columns').is(':visible')
@@ -25,7 +25,7 @@ class app.TeamMemberHandler
        render_members(data[1])
 
   #no_admins_when_private_team(members) = ->
-   
+
   render_members = (members) ->
     members_container = $('.columns')
     content = HandlebarsTemplates['team_member_entry'](members)
@@ -39,4 +39,4 @@ class app.TeamMemberHandler
       #if $('.members').is(':hidden')
         #toggle_members()
 
-new app.TeamMemberHandler().bind()
+new app.TeamMember().bind()

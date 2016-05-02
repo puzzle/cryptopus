@@ -5,7 +5,7 @@
 
 app = window.App ||= {}
 
-class app.AccountHandler
+class app.Account
   constructor: () ->
 
   checkIfFunctioningBrowser = ->
@@ -36,4 +36,4 @@ class app.AccountHandler
     $(document).on 'click', '.result-password .password-link', (e) ->
       showPassword(e)
 
-new app.AccountHandler().bind()
+new app.Account().bind()
