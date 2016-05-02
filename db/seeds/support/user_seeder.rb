@@ -13,6 +13,7 @@ class UserSeeder
       u.username = 'root'
       u.givenname = 'root'
       u.auth = 'db'
+      u.admin = true
       u.password = CryptUtils.one_way_crypt('password')
       create_keypair(u)
     end
