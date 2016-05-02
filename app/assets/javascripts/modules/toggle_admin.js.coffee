@@ -16,7 +16,7 @@ class app.ToggleAdmin
 
   show_flash_message =  ->
     message = 'Admin toggled'
-    app.FlashMessage.add_message(message)
+    app.flash.add(message)
 
   bind: ->
     $(document).on 'click', '.toggle-button', ->

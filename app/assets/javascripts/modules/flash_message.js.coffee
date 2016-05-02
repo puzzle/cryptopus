@@ -6,34 +6,22 @@
 app = window.App ||= {}
 
 class app.FlashMessage
-  @flash_messages = []
-
   constructor: () ->
+    @flash_messages = []
 
-  show_flash_message = ->
-    for messages in @flash_messages
-      $('#alert_js').style.display = 'block'
-      $('#alert_message').innerHTML = message
-      setTimeout (->
-        document.getElementById('alert_js').style.display = 'none'
-        return
-      ), 10000
-      return
+  render_messages: ->
+    template = HandlebarsTemplates['alert_messages']
 
-  render_messages = ->
-    content = HandlebarsTemplates['alert_messages']('test')
-    $('.message_container').html(content)
+    compiled_html = template(@flash_messages)
+    $('.message_container').html(compiled_html)
 
-  hide_alert_block = ->
-    document.getElementById('alert_js').style.display = 'none'
-    return
-
-  @add_message: (message) ->
+  add: (message) ->
     @flash_messages.push message
-    render_messages()
+    @render_messages()
 
   bind: ->
-    $(document).on 'click', '.close', ->
-      hide_alert_block()
+    $(document).ajaxComplete ->
+      app.flash.flash_messages = []
 
-new app.FlashMessage().bind()
+app.flash = new app.FlashMessage()
+app.flash.bind()
