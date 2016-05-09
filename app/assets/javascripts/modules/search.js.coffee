@@ -15,7 +15,6 @@ class app.Search
   updateResultArea = (data) ->
     content = HandlebarsTemplates['search/result_entry'](data)
     $('.result-list').html(content)
-    #registerActions()
 
   doSearch = ->
     input_field = $('.search-input')
@@ -37,8 +36,18 @@ class app.Search
     passLink = $(e.target)
     passInput = passLink.next('.password-hidden')
     passLink.hide()
-    passInput.removeClass('hide');
+    passInput.removeClass('hide')
+    timeOut(passInput, result_password, passLink)
 
+
+  showMessage = (e) ->
+    $(e.target).next('.copied').fadeIn('fast')
+    setTimeout (->
+      $(e.target).next('.copied').fadeOut('fast')
+      return
+    ), 2000
+
+  timeOut = (passInput, result_password, passLink)->
     setTimeout (->
       passInput.select()
       return
@@ -52,12 +61,6 @@ class app.Search
       return
     ), 5000
 
-  showMessage = (e) ->
-    $(e.target).next('.copied').fadeIn('fast')
-    setTimeout (->
-      $(e.target).next('.copied').fadeOut('fast')
-      return
-    ), 2000
 
   bind: ->
     $(document).on 'page:load', ready
