@@ -53,7 +53,7 @@ input.search-input {
   position: relative;
 }
 
-.password-link {
+.password-link, .password-show {
   display: block;
   background: #C9C9C9;
   border-radius: 3px;
@@ -62,7 +62,7 @@ input.search-input {
   position: relative;
 }
 
-.password-link, .result-username input, .result-password input{
+.password-link, .password-show, .result-username input, .result-password input{
   padding: 6px 10px;
   width: 205px;
   font-size: 14px;
@@ -82,7 +82,7 @@ input.search-input {
   height: 35px;
   width: 50px;
 }
-.result-password, .password-link{
+.result-password, .password-link, .password-show{
   margin-top: 1em;
 }
 
