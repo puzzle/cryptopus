@@ -1,0 +1,464 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "sweb-sweb-postgresql-ephemeral",
+        "creationTimestamp": null
+    },
+    "objects": [
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "rails",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "rails"
+                },
+                "annotations": {
+                    "description": "FrontEndRails"
+                }
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "ruby-22-centos7",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "rails"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp"
+                }
+            },
+            "spec": {
+                "dockerImageRepository": "openshift/ruby-22-centos7"
+            },
+            "status": {
+                "dockerImageRepository": ""
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "rails",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "rails"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate",
+                    "recreateParams": {
+                        "pre": {
+                            "failurePolicy": "Abort",
+                            "execNewPod": {
+                                "command": [
+                                    "/usr/bin/bash",
+                                    "-c",
+                                    "bundle exec rake db:migrate"
+                                ],
+                                "containerName": "rails"
+                            }
+                        }
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "rails"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "rails:latest"
+                            }
+                        }
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "app": "rails",
+                    "deploymentconfig": "rails"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "rails",
+                            "deploymentconfig": "rails"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "rails",
+                                "image": "rails",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "SECRET_KEY_BASE",
+                                        "value": "${SECRET_KEY_BASE}"
+                                    },
+                                    {
+                                        "name": "RAILS_ENV",
+                                        "value": "production"
+                                    },
+                                    {
+                                        "name": "RAILS_SERVE_STATIC_FILES",
+                                        "value": "1"
+                                    },
+                                    {
+                                        "name": "RAILS_DB_NAME",
+                                        "value": "${POSTGRESQL_DATABASE}"
+                                    },
+                                    {
+                                        "name": "RAILS_DB_HOST",
+                                        "value": "${POSTGRESQL_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "RAILS_DB_USERNAME",
+                                        "value": "${POSTGRESQL_USER}"
+                                    },
+                                    {
+                                        "name": "RAILS_DB_PASSWORD",
+                                        "value": "${POSTGRESQL_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "RAILS_DB_ADAPTER",
+                                        "value": "postgresql"
+                                    },
+                                    {
+                                        "name": "RAILS_HOST_NAME",
+                                        "value": "${RAILS_HOST_NAME}"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "Always"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "postgresql",
+                "creationTimestamp": null,
+                "labels": {
+                    "template": "postgresql-ephemeral-template"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate",
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "containerNames": [
+                                "postgresql"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "namespace": "openshift",
+                                "name": "postgresql:latest"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "name": "postgresql"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "postgresql"
+                        }
+                    },
+                    "spec": {
+                        "volumes": [
+                            {
+                                "name": "postgresql-data",
+                                "emptyDir": {}
+                            }
+                        ],
+                        "containers": [
+                            {
+                                "name": "postgresql",
+                                "image": "registry.access.redhat.com/rhscl/postgresql-94-rhel7:latest",
+                                "ports": [
+                                    {
+                                        "containerPort": 5432,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "POSTGRESQL_USER",
+                                        "value": "${POSTGRESQL_USER}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_PASSWORD",
+                                        "value": "${POSTGRESQL_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_DATABASE",
+                                        "value": "${POSTGRESQL_DATABASE}"
+                                    }
+                                ],
+                                "resources": {},
+                                "volumeMounts": [
+                                    {
+                                        "name": "postgresql-data",
+                                        "mountPath": "/var/lib/pgsql/data"
+                                    }
+                                ],
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent",
+                                "securityContext": {
+                                    "capabilities": {},
+                                    "privileged": false
+                                }
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "rails",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "rails"
+                },
+                "annotations": {
+                    "openshift.io/host.generated": "true"
+                }
+            },
+            "spec": {
+                "host": "${APPLICATION_DOMAIN}",
+                "to": {
+                    "kind": "Service",
+                    "name": "rails"
+                },
+                "port": {
+                    "targetPort": 8080
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "postgresql",
+                "creationTimestamp": null,
+                "labels": {
+                    "template": "postgresql-ephemeral-template"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "postgresql",
+                        "protocol": "TCP",
+                        "port": 5432,
+                        "targetPort": 5432
+                    }
+                ],
+                "selector": {
+                    "name": "postgresql"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "rails",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "rails"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "8080-tcp",
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app": "rails",
+                    "deploymentconfig": "rails"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "rails",
+                "creationTimestamp": null,
+                "labels": {
+                    "application": "rails",
+                    "template": "jws-tomcat8-http-artifact"
+                }
+            },
+            "spec": {
+                "triggers": [
+                    {
+                        "type": "Generic",
+                        "generic": {
+                            "secret": "${GIT_TRIGGER_GEN}"
+                        }
+                    },
+                    {
+                        "type": "ImageChange",
+                        "imageChange": {}
+                    }
+                ],
+                "source": {
+                    "type": ""
+                },
+                "strategy": {
+                    "type": "Custom",
+                    "customStrategy": {
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "namespace": "custom-builder",
+                            "name": "http-artifact-docker-builder:latest"
+                        },
+                        "env": [
+                            {
+                                "name": "DOCKER_CONTEXT_URL",
+                                "value": "${DOCKER_CONTEXT_URL}"
+                            }
+                        ],
+                        "exposeDockerSocket": true,
+                        "secrets": [
+                            {
+                                "secretSource": {
+                                    "name": "jenkins-secret"
+                                },
+                                "mountPath": "/etc/secret-volume"
+                            }
+                        ]
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "rails:latest"
+                    }
+                }
+            }
+        }
+    ],
+    "parameters": [
+        {
+            "name": "APPLICATION_DOMAIN",
+            "description": "The exposed hostname that will route to the rails service, if left blank a value will be defaulted."
+        },
+        {
+            "name": "DOCKER_CONTEXT_URL",
+            "description": "Contains the url to the docker context",
+            "value": "https://jenkins.puzzle.ch/view/sweb/job/sweb-deploy/lastSuccessfulBuild/artifact/docker-context.tar.gz"
+        },
+        {
+            "name": "RAILS_HOST_NAME",
+            "description": "The Rails 5 host name param, must be set to the public route",
+            "value": "example.com"
+        },
+        {
+            "name": "GIT_TRIGGER_GEN",
+            "description": "Generic Trigger",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{16}"
+        },
+        {
+            "name": "SECRET_KEY_BASE",
+            "description": "Secret Key",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{128}"
+        },
+        {
+            "name": "POSTGRESQL_USER",
+            "description": "Database user name",
+            "value": "swebuser"
+        },
+        {
+            "name": "POSTGRESQL_PASSWORD",
+            "description": "Database user password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{16}"
+        },
+        {
+            "name": "POSTGRESQL_DATABASE",
+            "description": "Database name",
+            "value": "socialweb_production"
+        },
+        {
+            "name": "POSTGRESQL_SERVICE_HOST",
+            "description": "Postgresql Service Host",
+            "value": "postgresql.sweb-sweb-dev.svc.cluster.local"
+        }
+    ]
+}
