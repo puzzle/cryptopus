@@ -10,7 +10,7 @@ class app.AutoLogoff
   remaining_seconds = AUTO_LOGOFF_TIME
 
   constructor: () ->
-    setInterval(( -> logoff_timer()), 1000)
+    setInterval(( -> logoff_timer()), 60)
 
   logoff_timer = () ->
     if document.URL.indexOf('/login/login') > -1
@@ -34,7 +34,5 @@ class app.AutoLogoff
   bind: ->
     $(document).on 'page:change', ->
       reset_timer()
-
-    $(document).ready(reset_timer())
 
 new app.AutoLogoff().bind()
