@@ -7,7 +7,6 @@
 #= require jquery_ujs
 #= require twitter/bootstrap
 #= require handlebars.runtime
-#= require search
 #= require_tree ./modules
 #= require_tree ./templates
 #= require turbolinks
