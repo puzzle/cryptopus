@@ -2,7 +2,7 @@
     "kind": "Template",
     "apiVersion": "v1",
     "metadata": {
-        "name": "sweb-sweb-postgresql-ephemeral",
+        "name": "cryptopus-mysql-persistent",
         "creationTimestamp": null
     },
     "objects": [
@@ -185,12 +185,12 @@
                         "type": "ImageChange",
                         "imageChangeParams": {
                             "containerNames": [
-                                "postgresql"
+                                "mysql"
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "namespace": "openshift",
-                                "name": "postgresql:latest"
+                                "name": "mysql:latest"
                             }
                         }
                     },
@@ -200,25 +200,25 @@
                 ],
                 "replicas": 1,
                 "selector": {
-                    "name": "postgresql"
+                    "name": "mysql"
                 },
                 "template": {
                     "metadata": {
                         "creationTimestamp": null,
                         "labels": {
-                            "name": "postgresql"
+                            "name": "mysql"
                         }
                     },
                     "spec": {
                         "volumes": [
                             {
-                                "name": "postgresql-data",
+                                "name": "mysql-data",
                                 "emptyDir": {}
                             }
                         ],
                         "containers": [
                             {
-                                "name": "postgresql",
+                                "name": "mysql",
                                 "image": "registry.access.redhat.com/rhscl/postgresql-94-rhel7:latest",
                                 "ports": [
                                     {
