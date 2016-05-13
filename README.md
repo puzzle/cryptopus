@@ -5,8 +5,7 @@ Cryptopus is a ruby on rails web application for storing and sharing
 passwords and other sensitive data. All data is stored encrypted in a
 database, safe from third party access.
 
-Copyright © 2009 Andreas Zuber, Simon Josi, Marcel Härry, Martin Gafner
-and Markus Tschannen
+Copyright (c) 2008-2016, Puzzle ITC GmbH.
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the GNU Affero General Public License as published by
@@ -67,37 +66,22 @@ Requirements
 Setup Development Environment
 =============================
 
-Install System Requirements
----------------------------
-
-on Ubuntu execute the following command to install system requirements:
+on Ubuntu execute the following command to install system requirements:  
 
 `sudo apt-get install sqlite3 mysql-client libmysqlclient-dev`
 
-Source
-------
+In Terminal:  
+Install RVM (see https://rvm.io/rvm/install)  
 
-In Terminal:\
-`git clone git://github.com/puzzle/cryptopus.git`
-
-Ruby
-----
-
-Install RVM (see https://rvm.io/rvm/install)
-
-`rvm install 2.2.1`\
-`rvm use 2.2.1`\
-`rvm gemset create cryptopus`\
-`cd cryptopus`\
-`bundle`
-
-Database Setup
---------------
-
-recomended database for development: sqlite3
-
-initialize database and loading database dev seeds: `rake db:migrate`\
-start server: `rails s`\
+`git clone git://github.com/puzzle/cryptopus.git`  
+`rvm install 2.2.1`  
+`rvm use 2.2.1`  
+`rvm gemset create cryptopus`  
+`cd cryptopus`  
+`bundle`  
+`rake db:create` #create database(sqlite3)  
+`rake db:setup:all` #initialize database and loading database dev seeds   
+`rails s` #start server  
 log into app with user “root” and password “password”
 
 Docker
@@ -106,11 +90,11 @@ Docker
 You can easily test Cryptopus with Docker:
 
 ​1. [Install
-Docker](https://docs.docker.com/engine/installation/ubuntulinux/)\
-2. Build Docker image: `docker build -t cryptopus .`\
+Docker](https://docs.docker.com/engine/installation/ubuntulinux/)
+2. Build Docker image: `docker build -t cryptopus .`
 3. Run Docker container:
-`docker run -it --rm --name cryptopus -p 3000:3000 cryptopus`\
-4. Execute rake: `docker exec cryptopus rake db:migrate`\
+`docker run -it --rm --name cryptopus -p 3000:3000 cryptopus`
+4. Execute rake: `docker exec cryptopus rake db:migrate`
 5. Visit [localhost:3000](http://localhost:3000) in your browser
 
 Mock + RPM + Puppet
@@ -128,6 +112,14 @@ deployed with the Puppet Manifests found here:
 
 This Puppet class automaticaly deploys the vhost configuration including
 environment variables needed for the database.
+
+License
+=======
+
+This file is part of Cryptopus
+and licensed under the Affero General Public License version 3 or later.
+See the COPYING file at the top-level directory or at
+https://github.com/puzzle/cryptopus.
 
 Contact Information
 ===================
