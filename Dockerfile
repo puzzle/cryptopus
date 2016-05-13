@@ -26,7 +26,7 @@ ADD config/docker/bin $STI_SCRIPTS_PATH
 ADD . /tmp/src
 ADD config/docker/httpd /etc/httpd
 ADD config/docker/lib /usr/local/lib
-RUN echo 'ServerName localhost' >> delete_all
+RUN echo 'ServerName localhost' >> config/docker/httpd/conf/httpd.conf
 
 # disable digest_module
 RUN sed -i "s/LoadModule auth_digest_module/#LoadModule auth_digest_module/" /etc/httpd/conf.modules.d/00-base.conf
