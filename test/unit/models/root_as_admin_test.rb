@@ -16,7 +16,6 @@ class RootAsAdminTest < ActiveSupport::TestCase
   end
 
   test 'adds admins to all root only teams' do
-    require "pry";binding.pry
     root = users(:root)
     root.update_attributes(admin: false)
 
@@ -24,7 +23,6 @@ class RootAsAdminTest < ActiveSupport::TestCase
     admin_private_key = CryptUtils.decrypt_private_key(admin.private_key, 'password')
 
     team_password = teams(:team1).decrypt_team_password(admin, admin_private_key)
-    #teams(:team1).add_user(root, team_password)
 
     bob = users(:bob)
     bob.update_attributes(admin: true)
