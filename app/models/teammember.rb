@@ -10,6 +10,7 @@ class Teammember < ActiveRecord::Base
   belongs_to :team
   belongs_to :user
   before_destroy :protect_if_last_teammember
+  before_destroy :protect_if_admin_in_non_private_team
 
   validates :user_id, uniqueness: { scope: :team }
 
@@ -23,4 +24,12 @@ class Teammember < ActiveRecord::Base
       false
     end
   end
+
+  def protect_if_admin_in_non_private_team
+    if !team.private? && user.admin?
+      errors.add(:base, 'Admin user cannot be removed from non private team')
+      false
+    end
+  end
+
 end
