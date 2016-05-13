@@ -12,7 +12,7 @@ LABEL io.k8s.description="Platform for building and running Rails Application wi
 
 # Install Apache httpd24
 RUN yum update -y && \
-    INSTALL_PKGS="httpd httpd-devel apr-devel apr-util-devel ImageMagick-c++ ImageMagick-c++-devel transifex-client sqlite3" && \
+    INSTALL_PKGS="httpd httpd-devel apr-devel apr-util-devel sqlite3" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     yum clean all -y
 
