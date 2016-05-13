@@ -31,16 +31,22 @@ class TeammemberTest < ActiveSupport::TestCase
   end
 
   test 'cannot remove last teammember' do
-    team = teams(:team1)
-    teammembers(:team1_root).delete
-    teammembers(:team1_alice).delete
-    teammembers(:team1_admin).delete
+    team = teams(:team2)
+    team2_bob = teammembers(:team2_bob)
 
-    # remove last teammember
-    team1_bob = teammembers(:team1_bob)
-    team1_bob.destroy
-    assert team1_bob.persisted?
-    assert_match /Cannot remove last teammember/, team1_bob.errors[:base].first
+    team2_bob.destroy
+
+    assert team2_bob.persisted?
+    assert_match /Cannot remove last teammember/, team2_bob.errors[:base].first
+  end
+
+  test 'admin user cannot be removed from non private team' do
+    team1_admin = teammembers(:team1_admin)
+
+    team1_admin.destroy
+
+    assert team1_admin.persisted?
+    assert_match /Admin user cannot be removed from non private team/, team1_admin.errors[:base].first
   end
 
   test 'remove teammember' do
