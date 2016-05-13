@@ -76,12 +76,11 @@ Install RVM (see https://rvm.io/rvm/install)
 `git clone git://github.com/puzzle/cryptopus.git`  
 `rvm install 2.2.1`  
 `rvm use 2.2.1`  
-`rvm gemset create cryptopus`  
 `cd cryptopus`  
 `bundle`  
-`rake db:create` #create database(sqlite3)  
-`rake db:setup:all` #initialize database and loading database dev seeds   
-`rails s` #start server  
+`rake db:create #create database(sqlite3)`  
+`rake db:setup:all #initialize database and loading database dev seeds`   
+`rails s #start server`  
 log into app with user “root” and password “password”
 
 Docker
@@ -89,13 +88,12 @@ Docker
 
 You can easily test Cryptopus with Docker:
 
-​1. [Install
-Docker](https://docs.docker.com/engine/installation/ubuntulinux/)
-2. Build Docker image: `docker build -t cryptopus .`
-3. Run Docker container:
-`docker run -it --rm --name cryptopus -p 3000:3000 cryptopus`
-4. Execute rake: `docker exec cryptopus rake db:migrate`
-5. Visit [localhost:3000](http://localhost:3000) in your browser
+1. ​[Install Docker](https://docs.docker.com/engine/installation/ubuntulinux/)        
+2. Build Docker image: `docker build -t cryptopus`  
+3. Run Docker container:   
+`docker run -it --rm --name cryptopus -p 3000:3000 cryptopus`  
+4. Execute rake: `docker exec cryptopus rake db:migrate`    
+5. Visit [localhost:3000](http://localhost:3000) in your browser  
 
 Mock + RPM + Puppet
 -------------------
