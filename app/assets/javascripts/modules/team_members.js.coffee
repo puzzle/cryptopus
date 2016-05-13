@@ -19,15 +19,20 @@ class app.TeamMembers
         $('.show_members').text(I18n.teammembers.show)
 
   load_members = ->
-     team_id = $('input#team_id').val()
-     url = '/api/teams/' + team_id + '/members'
-     $.get(url).done (data) ->
-       render_members(data['data'])
+    team_id = $('input#team_id').val()
+    url = '/api/teams/' + team_id + '/members'
+    $.get(url).done (data) ->
+      render_members(data['data'])
+
+  delete_member = (e) ->
+    alert(e)
 
   #no_admins_when_private_team(members) = ->
 
   render_members = (members) ->
     members_container = $('.columns')
+    $(members).each ->
+      console.log(@)
     content = HandlebarsTemplates['team_member_entry'](members)
     members_container.html(content)
 
@@ -35,6 +40,8 @@ class app.TeamMembers
     $(document).on 'click', '.show_members', ->
       toggle_members()
       load_members()
+    $(document).on 'click', '.members li', (e) ->
+      delete_member(e)
 
 new app.TeamMembers().bind()
 
