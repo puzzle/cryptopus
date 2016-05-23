@@ -40,14 +40,6 @@ RUN chgrp -R 0 ./ && \
 RUN chmod -R a+rwX /opt/app-root/httpd/pid && \
     chmod +x $STI_SCRIPTS_PATH/run-httpd.sh
 
-ENV BUNDLE_GEMFILE=$APP_HOME/Gemfile \
-    BUNDLE_JOBS=2 \
-    BUNDLE_PATH=/bundle
-
-RUN bundle install
-
-ADD . $APP_HOME
-
 USER 1001
 
 RUN $STI_SCRIPTS_PATH/assemble
