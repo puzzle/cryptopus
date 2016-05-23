@@ -39,5 +39,9 @@
         %td= user.label
         %td.action_icon
           = link_to image_tag("unlock.svg"),  unlock_admin_user_path(user.id), title: t('.unlock')
+
+- if @soloteams != nil
+  = render partial: 'index_teams'
+
 :javascript
   window.I18n = #{current_translations.to_json.html_safe}

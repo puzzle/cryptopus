@@ -13,6 +13,12 @@ class Admin::UsersController < Admin::AdminController
 
   # GET /admin/users
   def index
+    # defining @soloteams for further use in destroy action
+    if flash[:user_to_delete].present?
+      user_to_delete = User.find(flash[:user_to_delete])
+      @soloteams = teams_to_delete(user_to_delete)
+    end
+
     @users = User.where('uid != 0 or uid is null')
 
     respond_to do |format|
@@ -41,21 +47,32 @@ class Admin::UsersController < Admin::AdminController
 
   # DELETE /admin/users/1
   def destroy
+    flash[:user_to_delete] = user.id unless teams_to_delete(user).empty?
     if user == current_user
       flash[:error] = t('flashes.admin.users.destroy.own_user')
-    else
+    elsif flash[:user_to_delete].nil?
       user.destroy
     end
 
     respond_to do |format|
-      format.html { redirect_to admin_users_path }
+      format.html {
+        redirect_to admin_users_path
+      }
     end
+  end
+
+  # DELETE /admin/users/1
+  def destroy_empty_teams
+    teams = teams_to_delete(user)
+    teams.each do |t|
+    #  t.destroy
+    end
+    #destroy()
   end
 
   # GET /admin/users/new
   def new
     @user = User.new
-
     respond_to do |format|
       format.html # new.html.haml
     end
@@ -106,4 +123,11 @@ class Admin::UsersController < Admin::AdminController
     params.require(:user).permit(:username, :givenname, :surname, :password)
   end
 
+  def teams_to_delete(user)
+    teamlist = []
+    user.teams.collect do |t|
+      teamlist.push(t) if t.last_teammember?(user.id)
+    end
+    teamlist
+  end
 end
