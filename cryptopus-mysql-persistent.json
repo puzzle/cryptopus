@@ -2,7 +2,7 @@
     "kind": "Template",
     "apiVersion": "v1",
     "metadata": {
-        "name": "cryptopus-mysql-ephemeral",
+        "name": "cryptopus-mysql-persistent",
         "creationTimestamp": null
     },
     "objects": [
@@ -168,7 +168,9 @@
                         "volumes": [
                             {
                                 "name": "mysql-data",
-                                "emptyDir": {}
+                                "persistentVolumeClaim": {
+                                    "claimName": "mysqlpvc"
+                                }
                             }
                         ],
                         "containers": [
@@ -214,6 +216,28 @@
                         "terminationGracePeriodSeconds": 30,
                         "dnsPolicy": "ClusterFirst",
                         "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "PersistentVolumeClaim",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "mysqlpvc",
+                "creationTimestamp": null,
+                "labels": {
+                    "template": "mysql-persistent-template"
+                }
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "512Mi"
                     }
                 }
             },
