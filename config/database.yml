@@ -43,5 +43,12 @@ test:
   database: <%= ENV['RAILS_DB_NAME'] || "#{Rails.root}/db/test.sqlite3" %>
 
 production:
-  <<: *generic
-  database: <%= ENV['RAILS_DB_NAME'] || "#{Rails.root}/db/production.sqlite3" %>
+  database: <%= ENV['RAILS_DB_NAME'] || "cryptopus_production" %>
+  adapter: <%= ENV['RAILS_DB_ADAPTER'] || 'mysql' %>
+  host: <%= ENV['RAILS_DB_HOST'] || '127.0.0.1' %>
+  port: <%= ENV['RAILS_DB_PORT'] || 3306 %>
+  username: <%= ENV['RAILS_DB_USERNAME'] || 'cryptopus' %>
+  password: <%= ENV['RAILS_DB_PASSWORD'] || 'cryptopus' %>
+  pool: 5
+  timeout: 5000
+  encoding: utf8
