@@ -1,0 +1,484 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "cryptopus-mysql-ephemeral",
+        "creationTimestamp": null
+    },
+    "objects": [
+        {
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "rails",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "rails"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp"
+                }
+            },
+            "spec": {
+                "triggers": [
+                    {
+                        "type": "GitHub",
+                        "github": {
+                            "secret": "jf-KXnt76u-XKeWSVKfj"
+                        }
+                    },
+                    {
+                        "type": "Generic",
+                        "generic": {
+                            "secret": "q3ui-TTCUuxJ8wdXClYD"
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "type": "ImageChange",
+                        "imageChange": {}
+                    }
+                ],
+                "source": {
+                    "type": "Git",
+                    "git": {
+                        "uri": "https://github.com/puzzle/cryptopus.git",
+                        "ref": "openshift"
+                    }
+                },
+                "strategy": {
+                    "type": "Docker",
+                    "dockerStrategy": {
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "ruby-22-centos7:latest"
+                        }
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "rails:latest"
+                    }
+                },
+                "resources": {}
+            },
+            "status": {
+                "lastVersion": 0
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "rails",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "rails"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp",
+                    "openshift.io/image.dockerRepositoryCheck": "2016-05-26T10:48:17Z"
+                }
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "name": "latest",
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "172.30.15.22:5000/cryptopus/rails:latest"
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "dockerImageRepository": ""
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "ruby-22-centos7",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "rails"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp",
+                    "openshift.io/image.dockerRepositoryCheck": "2016-05-26T10:48:17Z"
+                }
+            },
+            "spec": {
+                "dockerImageRepository": "openshift/ruby-22-centos7"
+            },
+            "status": {
+                "dockerImageRepository": ""
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "mysql",
+                "creationTimestamp": null,
+                "labels": {
+                    "template": "mysql-ephemeral-template"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate",
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "mysql"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "namespace": "openshift",
+                                "name": "mysql:latest"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "name": "mysql"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "mysql"
+                        }
+                    },
+                    "spec": {
+                        "volumes": [
+                            {
+                                "name": "mysql-data",
+                                "emptyDir": {}
+                            }
+                        ],
+                        "containers": [
+                            {
+                                "name": "mysql",
+                                "image": "registry.access.redhat.com/openshift3/mysql-55-rhel7:latest",
+                                "ports": [
+                                    {
+                                        "containerPort": 3306,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "MYSQL_USER",
+                                        "value": "cryptopus"
+                                    },
+                                    {
+                                        "name": "MYSQL_PASSWORD",
+                                        "value": "cryptopus"
+                                    },
+                                    {
+                                        "name": "MYSQL_DATABASE",
+                                        "value": "cryptopus_production"
+                                    }
+                                ],
+                                "resources": {},
+                                "volumeMounts": [
+                                    {
+                                        "name": "mysql-data",
+                                        "mountPath": "/var/lib/mysql/data"
+                                    }
+                                ],
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent",
+                                "securityContext": {
+                                    "capabilities": {},
+                                    "privileged": false
+                                }
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "rails",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "rails"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate",
+                    "recreateParams": {
+                        "pre": {
+                            "failurePolicy": "Abort",
+                            "execNewPod": {
+                                "command": [
+                                    "/usr/bin/bash",
+                                    "-c",
+                                    "bundle exec rake db:migrate"
+                                ],
+                                "containerName": "rails"
+                            }
+                        }
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "rails"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "rails:latest"
+                            }
+                        }
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "app": "rails",
+                    "deploymentconfig": "rails"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "rails",
+                            "deploymentconfig": "rails"
+                        },
+                        "annotations": {
+                            "openshift.io/generated-by": "OpenShiftNewApp"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "rails",
+                                "image": "172.30.15.22:5000/cryptopus/rails@sha256:08400b2f40cae6412c1af6d4e399d6684c6718492869f9889969ee824cc76105",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "SECRET_KEY_BASE",
+                                        "value": "${SECRET_KEY_BASE}"
+                                    },
+                                    {
+                                        "name": "_ENV",
+                                        "value": "production"
+                                    },
+                                    {
+                                        "name": "_SERVE_STATIC_FILES",
+                                        "value": "1"
+                                    },
+                                    {
+                                        "name": "_DB_NAME",
+                                        "value": "${MYSQL_DATABASE}"
+                                    },
+                                    {
+                                        "name": "RAILS_DB_HOST",
+                                        "value": "${MYSQL_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "RAILS_DB_USERNAME",
+                                        "value": "${MYSQL_USER}"
+                                    },
+                                    {
+                                        "name": "RAILS_DB_PASSWORD",
+                                        "value": "${MYSQL_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "RAILS_DB_ADAPTER",
+                                        "value": "mysql2"
+                                    },
+                                    {
+                                        "name": "RAILS_HOST_NAME",
+                                        "value": "${RAILS_HOST_NAME}"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "Always"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "rails",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "rails"
+                }
+            },
+            "spec": {
+                "host": "cryptopus.ose3-test.puzzle.ch",
+                "to": {
+                    "kind": "Service",
+                    "name": "rails"
+                },
+                "port": {
+                    "targetPort": "8080"
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "mysql",
+                "creationTimestamp": null,
+                "labels": {
+                    "template": "mysql-ephemeral-template"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "mysql",
+                        "protocol": "TCP",
+                        "port": 3306,
+                        "targetPort": 3306
+                    }
+                ],
+                "selector": {
+                    "name": "mysql"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "rails",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "rails"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "8080-tcp",
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app": "rails",
+                    "deploymentconfig": "rails"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        }
+    ],
+    "parameters": [
+        {
+            "name": "APPLICATION_DOMAIN",
+            "description": "The exposed hostname that will route to the rails service, if left blank a value will be defaulted."
+        },
+        {
+            "name": "SOURCE_REPOSITORY_URL",
+            "description": "The URL of the repository with your application source code",
+            "value": "https://github.com/puzzle/cryptopus.git#openshift",
+            "required": true
+        },
+        {
+            "name": "RAILS_HOST_NAME",
+            "description": "The Rails 5 host name param, must be set to the public route",
+            "value": "cryptopus.ose3-test.puzzle.ch"
+        },
+        {
+            "name": "GIT_TRIGGER_GEN",
+            "description": "Generic Trigger",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{16}"
+        },
+        {
+            "name": "SECRET_KEY_BASE",
+            "description": "Secret Key",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{128}"
+        },
+        {
+            "name": "MYSQL_USER",
+            "description": "Database user name",
+            "value": "cryptopus"
+        },
+        {
+            "name": "MYSQL_PASSWORD",
+            "description": "Database user password",
+            "value": "cryptopus"
+        },
+        {
+            "name": "MYSQL_DATABASE",
+            "description": "Database name",
+            "value": "cryptopus_production"
+        },
+        {
+            "name": "MYSQL_SERVICE_HOST",
+            "description": "Mysql Service Host",
+            "value": "mysql.cryptopus.svc.cluster.local"
+        }
+    ]
+}
