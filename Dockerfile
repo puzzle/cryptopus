@@ -48,5 +48,3 @@ ENV APACHE_RUN_USER 1001
 ENV APACHE_PID_FILE /opt/app-root/httpd.pid
 
 CMD $STI_SCRIPTS_PATH/run-httpd.sh
-
-#
