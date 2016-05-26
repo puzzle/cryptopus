@@ -122,14 +122,26 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_not bob.teammembers.find_by(team_id: teams(:team1))
   end
 
-  test 'deleting a user shows teams with him as last teammember' do
-    bob = users(:bob)
+  test 'deleting a user who is last member from a team will not deleted' do
+    soloteam = Fabricate(:private_team)
+    soloteam_member_id = soloteam.teammembers.first.user_id
 
     login_as(:admin)
-    delete :destroy, id: bob
+    delete :destroy, id: soloteam_member_id
 
-    puts teams.instance_variable_get(:@teams)
-    assert User.find_by(username: 'bob')
+    assert User.find_by(id: soloteam_member_id)
+  end
+
+  test 'admin can delete user and all teams where he is last teammember' do
+    soloteam = Fabricate(:private_team)
+    soloteam_member_id = soloteam.teammembers.first.user_id
+
+    login_as(:admin)
+
+    delete :destroy_with_soloteams, id: soloteam_member_id
+
+    assert_not User.find_by(id: soloteam_member_id)
+    assert_not Team.find_by(id: soloteam.id)
   end
 
 end

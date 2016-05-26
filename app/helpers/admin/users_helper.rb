@@ -17,4 +17,15 @@ module Admin::UsersHelper
     end
   end
 
+  def link_to_destroy_soloteams_and_user
+    user = User.find_by id: flash[:user_to_delete]
+    path = destroy_with_soloteams_admin_user_path(user.id)
+    confirm = t('confirm.deleteWithTeams', username: user.username)
+
+    link_to 'Delete teams',
+            path, :class => "btn btn-primary pull-right",
+            data: { confirm: confirm},
+            method: :delete
+  end
+
 end

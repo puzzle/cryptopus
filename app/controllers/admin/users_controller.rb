@@ -61,13 +61,11 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  # DELETE /admin/users/1
-  def destroy_empty_teams
+  # DELETE /admin/users/1/destroy_soloteams
+  def destroy_with_soloteams
     teams = teams_to_delete(user)
-    teams.each do |t|
-    #  t.destroy
-    end
-    #destroy()
+    teams.each do |t| t.destroy end
+    destroy()
   end
 
   # GET /admin/users/new
@@ -124,10 +122,6 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def teams_to_delete(user)
-    teamlist = []
-    user.teams.collect do |t|
-      teamlist.push(t) if t.last_teammember?(user.id)
-    end
-    teamlist
+    user.teams.collect { |t| t if t.last_teammember?(user.id)}.compact
   end
 end

@@ -21,7 +21,10 @@ Fabricator(:non_private_team, from: :team) do |t|
   end
 end
 
-Fabricator(:private_team, from: :non_private_team) do |t|
+Fabricator(:private_team, from: :team) do |t|
+  t.name { Faker::App.name }
+  t.description { Faker::Hacker.say_something_smart }
+  t.visible true
   t.private true
   after_save do |team|
     team_password = CryptUtils.new_team_password

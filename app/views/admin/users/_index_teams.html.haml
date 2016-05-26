@@ -3,12 +3,15 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 
-%table.table.table-striped
-  %tr
-    %th{style: "width: 150px;"}= t '.teams'
+%div{:id => "teamscreen"}
 
-  - @soloteams.each do |t|
+  %table.table.table-striped
     %tr
-      %th= t.name
+      %th= t '.title'
 
-= link_to 'hallo', destroy_empty_teams_admin_user_path(flash[:user_to_delete]), data: { confirm: 'confirm' }, method: :delete
+    - @soloteams.each do |t|
+      %tr
+        %td= t.name
+
+  = link_to_destroy_soloteams_and_user()
+  %button#soloteams-cancel.btn.btn-primary.pull-right Cancel

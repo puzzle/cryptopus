@@ -32,7 +32,7 @@ Cryptopus::Application.routes.draw do
         member do
           get 'unlock'
           post 'toggle_admin'
-          delete 'destroy_empty_teams'
+          delete 'destroy_with_soloteams'
         end
       end
       resources :recryptrequests do

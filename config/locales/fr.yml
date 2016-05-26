@@ -96,6 +96,8 @@ fr:
         action: "Action"
         locked: "Bloqué utilisateurs"
         unlock: "déverrouillage"
+      index_teams:
+        title: "Equipes où l’utilisateur à supprimer est le dernier"
       new:
         title: "Nouvel utilisateur"
 
@@ -192,7 +194,7 @@ fr:
       maintenance_tasks:
         succeed: "La tâche a été exécutée avec succès.."
         failed: "La tâche a échoué. Consultez les journaux pour plus d'informations."
-        
+
     accounts:
       created: "Compte créé avec succès."
       updated: "Compte modifiée avec succès."
@@ -259,6 +261,7 @@ fr:
   confirm:
     delete: "Supprimez %{entry_class} %{entry_label} ?"
     changeAdmin: "donner/enlever les droits de l'administrateur?"
+    deleteWithTeams: "Supprimer toutes les équipe où %{username} est le dernier."
 
 #Validation Errors
   activerecord:

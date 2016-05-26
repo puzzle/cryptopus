@@ -99,6 +99,8 @@ en:
         action: "Action"
         locked: "Locked users"
         unlock: "Unlock"
+      index_teams:
+        title: "Teams where user to delete is the last teammember"
       new:
         title: "New user"
 
@@ -235,6 +237,7 @@ en:
   confirm:
     delete: "Delete %{entry_class} %{entry_label} ?"
     changeAdmin: "give/remove Admin-Rights?"
+    deleteWithTeams: "Delete all teams where %{username} is the last teammember"
 
 #Validation Errors
   activerecord:
