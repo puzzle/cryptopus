@@ -45,7 +45,7 @@
                     "type": "Git",
                     "git": {
                         "uri": "https://github.com/puzzle/cryptopus.git",
-                        "ref": "openshift"
+                        "ref": "master"
                     }
                 },
                 "strategy": {
@@ -464,7 +464,7 @@
         {
             "name": "SOURCE_REPOSITORY_URL",
             "description": "The URL of the repository with your application source code",
-            "value": "https://github.com/puzzle/cryptopus.git#openshift",
+            "value": "https://github.com/puzzle/cryptopus.git",
             "required": true
         },
         {
