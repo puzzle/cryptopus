@@ -10,7 +10,7 @@ class app.AutoLogoff
   remaining_seconds = AUTO_LOGOFF_TIME
 
   constructor: () ->
-    setInterval(( -> logoff_timer()), 60)
+    setInterval(( -> logoff_timer()), 1000)
 
   logoff_timer = () ->
     if document.URL.indexOf('/login/login') > -1
