@@ -24,13 +24,13 @@
                     {
                         "type": "GitHub",
                         "github": {
-                            "secret": "jf-KXnt76u-XKeWSVKfj"
+                            "secret": "place-secret"
                         }
                     },
                     {
                         "type": "Generic",
                         "generic": {
-                            "secret": "q3ui-TTCUuxJ8wdXClYD"
+                            "secret": "place-secret"
                         }
                     },
                     {
