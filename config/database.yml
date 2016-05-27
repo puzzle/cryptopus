@@ -45,10 +45,10 @@ test:
 production:
   database: <%= ENV['RAILS_DB_NAME'] || "cryptopus_production" %>
   adapter: <%= ENV['RAILS_DB_ADAPTER'] || 'mysql2' %>
-  host: <%= ENV['RAILS_DB_HOST'] || '10.1.0.6' %>
+  host: <%= ENV['RAILS_DB_HOST'] || '127.0.0.1' %>
   port: <%= ENV['RAILS_DB_PORT'] || 3306 %>
-  username: <%= ENV['RAILS_DB_USERNAME'] || 'cryptopus' %>
-  password: <%= ENV['RAILS_DB_PASSWORD'] || 'cryptopus' %>
+  username: <%= ENV['RAILS_DB_USERNAME'] %>
+  password: <%= ENV['RAILS_DB_PASSWORD'] %>
   pool: 5
   timeout: 5000
   encoding: utf8
