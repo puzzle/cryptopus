@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
         givenname: 'root',
         surname: '',
         auth: 'db',
+        admin: true,
         password: CryptUtils.one_way_crypt(password)
       )
       user.create_keypair(password)
