@@ -1,33 +1,34 @@
-# How To Install the SWEB on OpenShift V3
+# How To Install the Cryptopus on OpenShift V3
 
 checkout further docs on OpenShift @ Puzzle: https://twiki.puzzle.ch/bin/view/Puzzle/OpenShiftV3UserGuide
 
 # Create new Project
 ```
-oc new-project sweb-sweb-dev
+oc new-project cryptopus-dev
 ```
 
 # Create App, inkl. Database no persistent storage
 ```
-oc new-app -f sweb-sweb-postgresql-ephemeral.json
-
-oc new-app -f sweb-sweb-postgresql-ephemeral.json -pPOSTGRESQL_SERVICE_HOST=postgresql.sweb-sweb-dev.svc.cluster.local
+oc new-app -f cryptopus-mysql-ephemeral.json
 
 ```
 
 # Create App, inkl. Database with persistent storage
 ```
-oc new-app -f sweb-sweb-postgresql-persistent.json
-
-oc new-app -f sweb-sweb-postgresql-persistent.json -pPOSTGRESQL_SERVICE_HOST=postgresql.sweb-sweb-dev.svc.cluster.local
+oc new-app -f cryptopus-mysql-persistent.json
 
 ```
 
-Warning: please inform /mid to clear the pv so the pv is available for further use
+Warning: After creating an App from a template, you have to run the following command:
+
+```
+oc import-image ruby-22-centos7
+
+```
 
 
 # export the openShift V3 Project:
 ```
-oc export bc,is,dc,route,service --as-template=sweb-sweb-postgresql-ephemeral -o json > sweb-sweb-postgresql-ephemeral.json
+oc export bc,is,dc,route,service --as-template=cryptopus-mysql-ephemeral -o json > cryptopus-mysql-ephemeral.json
 ```
 
