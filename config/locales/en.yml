@@ -99,7 +99,7 @@ en:
         action: "Action"
         locked: "Locked users"
         unlock: "Unlock"
-      index_soloteams:
+      soloteams:
         message: "The following Teams will be deleted because the user is the last member of this team."
         title: "Teams"
       new:

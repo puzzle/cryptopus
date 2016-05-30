@@ -8,7 +8,7 @@ class app.User
 
 
   bind: ->
-    $(document).on 'click', '#soloteams-button', ->
+    $(document).on 'click', '#soloteams_cancel_button', ->
       hideSoloteams()
 
 new app.User().bind()

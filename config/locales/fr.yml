@@ -96,7 +96,7 @@ fr:
         action: "Action"
         locked: "Bloqué utilisateurs"
         unlock: "déverrouillage"
-      index_soloteams:
+      soloteams:
         message: "L'équipe suivante sera supprimée, car l'utilisateur est son dernier membre."
         title: "Équipe"
       new:
