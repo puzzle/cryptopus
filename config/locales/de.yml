@@ -98,8 +98,9 @@ de:
         action: "Aktion"
         locked: "Gesperrte Benutzer"
         unlock: "Entsperren"
-      index_teams:
-        title: "Teams in welchen der zu löschende User der letzte Team Member ist"
+      index_soloteams:
+        message: "Folgende Teams in denen der zu löschende User der letzte Member ist müssen gelöscht werden."
+        title: "Teams"
       new:
         title: "Neuer Benutzer"
 
@@ -263,7 +264,7 @@ de:
   confirm:
     delete: "%{entry_class} %{entry_label} löschen?"
     change_admin: "Admin-Rechte geben/entziehen?"
-    deleteWithTeams: "Lösche alle Teams in den %{username} der letze Team Member ist"
+    deleteWithTeams: "Lösche alle Teams in denen %{username} der letze Team Member ist"
 
 
 #Validation Errors

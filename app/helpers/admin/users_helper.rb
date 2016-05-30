@@ -23,7 +23,7 @@ module Admin::UsersHelper
     confirm = t('confirm.deleteWithTeams', username: user.username)
 
     link_to 'Delete teams',
-            path, :class => "btn btn-primary pull-right",
+            path, :class => "btn btn-primary pull-right", :id => "soloteams-button" ,
             data: { confirm: confirm},
             method: :delete
   end

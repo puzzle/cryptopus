@@ -6,22 +6,32 @@
   z-index:5;
   width:100%;
   height:100%;
+
 }
 
 #teamscreen{
   width:600px;
-  max-height: 500px;
-  overflow: auto;
-  margin:15% auto;
-  padding: 0 10px 40px 10px;
+  height: 500px;
+  margin: 10% auto;
+  padding: 10px 10px 40px 10px;
   background: white;
   position:relative;
   z-index:10;
-  border:5px
-  solid #cccccc;
+  border:5px solid #cccccc;
   border-radius:10px;
 }
 
-#soloteams-cancel{
-  margin-right: 5px;
+#teamscreen-content{
+  max-height: 94%;
+  overflow: auto;
+  padding: 15px;
+}
+
+#teamscreen-buttons{
+  margin-top: 10px;
+  border-top: 1px solid #cccccc;;
+}
+
+#soloteams-button{
+  margin: 15px 0 0 5px;;
 }
