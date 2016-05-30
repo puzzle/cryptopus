@@ -64,8 +64,8 @@ class Admin::UsersController < Admin::AdminController
   # DELETE /admin/users/1/destroy_soloteams
   def destroy_with_soloteams
     teams = teams_to_delete(user)
-    teams.destroy_all
-    destroy
+    teams.each do |t| t.destroy end
+    destroy()
   end
 
   # GET /admin/users/new
