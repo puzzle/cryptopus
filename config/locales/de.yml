@@ -98,7 +98,7 @@ de:
         action: "Aktion"
         locked: "Gesperrte Benutzer"
         unlock: "Entsperren"
-      index_soloteams:
+      soloteams:
         message: "Folgende Teams in denen der zu löschende User der letzte Member ist müssen gelöscht werden."
         title: "Teams"
       new:

@@ -122,7 +122,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_not bob.teammembers.find_by(team_id: teams(:team1))
   end
 
-  test 'deleting a user who is last member from a team will not be deleted<' do
+  test 'deleting a user who is last member from a team will not be deleted' do
     soloteam = Fabricate(:private_team)
     soloteam_member_id = soloteam.teammembers.first.user_id
 
@@ -130,7 +130,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     delete :destroy, id: soloteam_member_id
     get :index
 
-    assert_select 'body div.container div#soloteams div.teamscreen-table table tr td', text: soloteam.name
+    assert_select 'body div.container div#soloteams div.teamscreen_table table tr td', text: soloteam.name
     assert User.find_by(id: soloteam_member_id)
   end
 

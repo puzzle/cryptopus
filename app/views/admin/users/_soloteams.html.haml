@@ -3,11 +3,11 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 
-%div{:id => "teamscreen"}
-  %div{:id => "teamscreen-content"}
-    %div{:class => "alert alert-info"}
+%div{id: "teamscreen"}
+  %div{id: "teamscreen_content"}
+    %div{class: "alert alert-info"}
       %p= t '.message'
-    %div{:class => "teamscreen-table"}
+    %div{class: "teamscreen_table"}
 
       %table.table.table-striped
         %tr
@@ -16,6 +16,6 @@
         - @soloteams.each do |t|
           %tr
             %td= t.name
-  %div{:id => "teamscreen-buttons"}
+  %div{id: "teamscreen_buttons"}
   = link_to_destroy_soloteams_and_user()
-  %button#soloteams-button.btn.btn-primary.pull-right Cancel
+  %button#soloteams_cancel_button.btn.btn-primary.pull-right Cancel
