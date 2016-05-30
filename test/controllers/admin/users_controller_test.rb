@@ -130,7 +130,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     delete :destroy, id: soloteam_member_id
     get :index
 
-    assert_select 'body div.container div#soloteams div.teamscreen-table table tr td', text: soloteam.name
+    assert_select 'body div.container div#soloteams div.teamscreen_table table tr td', text: soloteam.name
     assert User.find_by(id: soloteam_member_id)
   end
 
