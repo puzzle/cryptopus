@@ -13,9 +13,8 @@
         %tr
           %th= t '.title'
 
-        - @soloteams.each do |t|
-          %tr
-            %td= t.name
+        %tr.team_row
+          %td= 'hallo'
+
   %div{id: "teamscreen_buttons"}
-  = link_to_destroy_soloteams_and_user()
   %button#soloteams_cancel_button.btn.btn-primary.pull-right Cancel

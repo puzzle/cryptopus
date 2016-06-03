@@ -6,7 +6,7 @@
   z-index:5;
   width:100%;
   height:100%;
-
+  display: none;
 }
 
 #teamscreen{
@@ -34,4 +34,8 @@
 
 #soloteams_cancel_button{
   margin: 15px 0 0 5px;;
+}
+
+#team_table .unprotected_delete_link{
+  display: none;
 }

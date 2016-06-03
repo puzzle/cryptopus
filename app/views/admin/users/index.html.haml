@@ -5,7 +5,7 @@
 
 %h1= t '.title'
 = link_to 'New', new_admin_user_path, class: 'btn btn-primary pull-right'
-%table.table.table-striped
+%table.table.table-striped#team_table
   %tr
     %th= t '.username'
     %th= t '.name'
@@ -25,7 +25,13 @@
           = link_to image_tag("edit.svg"), edit_admin_user_path(user)
       %td.action_icon
         - if user != current_user
-          = link_to_destroy [:admin, user], user
+          = link_to_destroy [:admin, user], user,
+            class: 'delete_link',
+            data: { last_teammember_teams_link: last_teammember_teams_path(user_id: user.id)}
+          = link_to_destroy [:admin, user], user,
+            class: 'unprotected_delete_link',
+            no_confirm: true
+
 - if User.locked.count != 0
   %h1= t '.locked'
   %table.table.table-striped
@@ -40,9 +46,8 @@
         %td.action_icon
           = link_to image_tag("unlock.svg"),  unlock_admin_user_path(user.id), title: t('.unlock')
 
-- if @soloteams != nil
-  %div{:id => "soloteams"}
-    = render partial: 'soloteams'
+%div{:id => "soloteams"}
+  = render partial: 'soloteams'
 
 
 

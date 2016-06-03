@@ -29,15 +29,22 @@ module ApplicationHelper
     end
   end
 
-  def link_to_destroy(path, entry)
+  def link_to_destroy(path, entry, options={})
     entry_label = entry.label
     entry_class = entry.class.name.downcase
     label_key = "#{entry_class.pluralize}.confirm.delete"
 
-    confirm = t(label_key, entry_class: entry_class, entry_label: entry_label, default: t('confirm.delete'))
+    options[:data] ||= {}
+
+    unless options[:no_confirm]
+      confirm = t(label_key, entry_class: entry_class, entry_label: entry_label, default: t('confirm.delete'))
+      options[:data][:confirm] = confirm
+    end
+    
+    options[:data][:method] = :delete
+
     link_to image_tag('remove.svg'),
-            path, data: { confirm: confirm },
-                  method: :delete
+        path, options
   end
 
   def labeled_check_box(f, attr, enabled = true)
