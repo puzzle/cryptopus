@@ -28,11 +28,11 @@ Cryptopus::Application.routes.draw do
         post 'update_all'
         get 'index'
       end
+
       resources :users do
         member do
           get 'unlock'
           post 'toggle_admin'
-          delete 'destroy_with_soloteams'
         end
       end
       resources :recryptrequests do
@@ -62,6 +62,11 @@ Cryptopus::Application.routes.draw do
   end
 
   scope '/api', module: 'api' do
+    scope '/teams', module: 'teams'do
+      delete :last_teammember_teams, to: '/api/teams#destroy_last_teammember_teams'
+      get :last_teammember_teams
+
+    end
     resources :teams, except: [:new, :edit]  do
       resources :members, except: [:new, :edit], module: 'team' do
         collection do

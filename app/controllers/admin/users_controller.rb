@@ -47,10 +47,9 @@ class Admin::UsersController < Admin::AdminController
 
   # DELETE /admin/users/1
   def destroy
-    flash[:user_to_delete] = user.id unless teams_to_delete(user).empty?
     if user == current_user
       flash[:error] = t('flashes.admin.users.destroy.own_user')
-    elsif flash[:user_to_delete].nil?
+    else
       user.destroy
     end
 
@@ -59,13 +58,6 @@ class Admin::UsersController < Admin::AdminController
         redirect_to admin_users_path
       }
     end
-  end
-
-  # DELETE /admin/users/1/destroy_soloteams
-  def destroy_with_soloteams
-    teams = teams_to_delete(user)
-    teams.each do |t| t.destroy end
-    destroy()
   end
 
   # GET /admin/users/new
@@ -119,9 +111,5 @@ class Admin::UsersController < Admin::AdminController
 
   def user_params
     params.require(:user).permit(:username, :givenname, :surname, :password)
-  end
-
-  def teams_to_delete(user)
-    user.teams.collect { |t| t if t.last_teammember?(user.id)}.compact
   end
 end

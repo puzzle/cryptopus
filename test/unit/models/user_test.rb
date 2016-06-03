@@ -270,6 +270,15 @@ class UserTest < ActiveSupport::TestCase
     assert_not private_team.teammember?(bob.id)
   end
 
+  test 'do not destroy user if he is last teammember in any team' do
+    soloteam = Fabricate(:private_team)
+    user = User.find(soloteam.teammembers.first.user_id)
+    assert_raises(Exception) do
+      user.destroy!
+    end
+    assert User.find(user.id)
+  end
+
   private
   def enable_ldap_auth
     Setting.find_by(key: 'ldap_enable').update_attributes(value: true)

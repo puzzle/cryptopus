@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
 
   default_scope { order('username') }
 
+  before_destroy :protect_if_last_teammember
+
   class << self
 
     def create_db_user(password, user_params)
@@ -75,6 +77,15 @@ class User < ActiveRecord::Base
     rescue
       raise Exceptions::UserCreationFailed
     end
+  end
+
+  def last_teammember_in_any_team?
+    self.last_teammember_teams.any?
+  end
+
+  def last_teammember_teams
+    Team.where(id: Teammember.group('team_id').having('count(*) = 1').select('team_id')).joins(:members)
+      .where('users.id = ?', self.id)
   end
 
   def as_json(options = {})
@@ -175,6 +186,10 @@ class User < ActiveRecord::Base
   def update_info_from_ldap
     self.givenname = LdapTools.get_ldap_info(uid.to_s, 'givenname')
     self.surname   = LdapTools.get_ldap_info(uid.to_s, 'sn')
+  end
+
+  def protect_if_last_teammember
+    !self.last_teammember_in_any_team?
   end
 
 end

@@ -6,5 +6,26 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::TeamsController < ApiController
+  before_filter :check_for_admin
 
+  def last_teammember_teams
+    user = User.find(params['user_id'])
+    teams = user.last_teammember_teams
+    render_json teams
+  end
+
+  def destroy_last_teammember_teams
+    user = User.find(params['user_id'])
+    user.last_teammember_teams.destroy_all
+    render_json ''
+  end
+
+  protected
+
+  def check_for_admin
+    unless User.find(session[:user_id]).admin?
+      add_error t('flashes.admin.admin.no_access')
+      render_json and return
+    end
+  end
 end
