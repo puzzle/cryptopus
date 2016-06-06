@@ -36,6 +36,10 @@ en:
     language:
       name: 'English'
 
+  search:
+    index:
+      no_results_found: no results found
+
   accounts:
     index:
       move: "Move account to other group"
@@ -55,18 +59,17 @@ en:
       file: "File"
     new:
       title: "New Account"
-  search:
-    index:
-      no_results_found: no results found
 
   admin:
     maintenance_tasks:
       index:
         title: "Maintenance tasks"
         maintenance_task: "Maintenance tasks"
+        run: "execute"
     settings:
       index:
         title: "Edit Settings"
+        save: "Save changes"
     recryptrequests:
       index:
         title: "Re-encryption requests"

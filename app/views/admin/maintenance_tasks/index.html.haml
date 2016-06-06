@@ -14,7 +14,7 @@
     %tr{class: "#{cycle('odd', 'even')}"}
       %td= task.label
       %td= task.description
-      %td= link_to 'run', admin_maintenance_tasks_prepare_path(id)
+      %td= link_to t('admin.maintenance_tasks.index.run'), admin_maintenance_tasks_prepare_path(id)
 
 %br
 

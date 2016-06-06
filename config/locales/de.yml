@@ -38,7 +38,7 @@ de:
 
   search:
     index:
-      no_results_found: keine Resultate gefunden
+      no_results_found: "keine Resultate gefunden"
 
   accounts:
     index:
@@ -65,12 +65,17 @@ de:
       index:
         title: "Wartungsaufgaben"
         maintenance_task: "Wartungsaufgabe"
+        run: "Ausführen"
     settings:
       index:
         title: "Einstellungen bearbeiten"
+        save: "Änderungen speichern"
     recryptrequests:
       index:
-        title: "Re-encryp'please fill all fields'Admin benötigt"
+        title: "Entschlüsselungs Anfragen"
+        user: "Benutzer"
+        admin_required: "Admin erforderlich"
+        recrypt: "Entschlüsseln"
       request:
         request_sent: "Es wurde eine Recrypt Anfrage gesendet. Bitte warten Sie, bis sie oder er Ihre Passwörter neu verschlüsselt hat."
       uncrypterror:

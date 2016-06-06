@@ -36,6 +36,10 @@ fr:
     language:
       name: 'Français'
 
+  search:
+    index:
+      no_results_found: "Aucun résultat trouvé"
+      
   accounts:
     index:
       move: "Déplacer compte à un autre groupe"
@@ -61,14 +65,17 @@ fr:
       index:
         title: "Les tâches de maintenance"
         maintenance_task: "Tâche de maintenance"
+        run: "effectuer"
     settings:
       index:
         title: "Modifier les paramètres"
+        save: "Sauvegarder les modifications"
     recryptrequests:
       index:
         title: "Demandes de re crypt"
         user: "Utilisateur"
         admin_required: "Admin requis"
+        recrypt: "re crypt"
       request:
         request_sent: "Une demande de re crypt vos mots de passe de groupe a été envoyée. S'il vous plaît attendre jusqu'à ce qu'elle re crypté vos nouveaux mots de passe."
       uncrypterror:
