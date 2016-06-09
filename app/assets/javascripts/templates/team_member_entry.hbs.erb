@@ -2,6 +2,15 @@
   {{#each .}}
     <li data-value='{"user_id": {{user_id}} }'>
       {{label}}
+      {{#if admin}}
+        <img src="/assets/penguin.svg" id="penguin" alt="Remove"/>
+      {{/if}}
+
+      {{#if deletable}}
+        <a href="#">
+          <img src="/assets/remove.svg" id="remove_member" alt="Remove"/>
+        </a>
+      {{/if}}
     </li>
   {{/each}}
 </ol>

@@ -29,20 +29,20 @@ class TeamTest <  ActiveSupport::TestCase
     candidates = team.member_candidates
 
     refute_includes candidates, users(:root)
-    refute_includes candidates, users(:admin)
     refute_includes candidates, users(:alice)
+    refute_includes candidates, users(:admin)
     assert_includes candidates, users(:bob)
   end
 
   test 'root is never included in member candidates' do
-    team = Team.create(users(:admin), name: 'foo')
+    team = Fabricate(:private_team)
 
     candidates = team.member_candidates
 
     refute_includes candidates, users(:root)
-    refute_includes candidates, users(:admin)
-    assert_includes candidates, users(:bob)
     assert_includes candidates, users(:alice)
+    assert_includes candidates, users(:admin)
+    assert_includes candidates, users(:bob)
   end
 
   test "does not add user if already teammember" do

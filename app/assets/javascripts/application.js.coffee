@@ -5,6 +5,7 @@
 #
 #= require jquery
 #= require jquery_ujs
+#= require jquery-ui
 #= require twitter/bootstrap
 #= require handlebars.runtime
 #= require_tree ./modules
@@ -12,6 +13,8 @@
 #= require turbolinks
 #= require clipboard.js
 #= require clipboard.min.js
+
+
 # scope for global functions
 app = window.App ||= {}
 

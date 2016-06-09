@@ -38,7 +38,7 @@ class Team < ActiveRecord::Base
 
   def member_candidates
     excluded_user_ids = User.joins('LEFT JOIN teammembers ON users.id = teammembers.user_id').
-                        where('users.uid = 0 OR users.admin = ? OR teammembers.team_id = ?', true, id).
+                        where('users.uid = 0 OR teammembers.team_id = ?', id).
                         distinct.
                         pluck(:id)
     User.where('id NOT IN(?)', excluded_user_ids)
@@ -62,7 +62,7 @@ class Team < ActiveRecord::Base
   end
 
   def remove_user(user)
-    
+
     teammember(user.id).destroy!
   end
 

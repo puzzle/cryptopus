@@ -218,14 +218,6 @@ class UserTest < ActiveSupport::TestCase
     assert_nil user
   end
 
-  test 'exports only users id and label as json' do
-    as_json = users(:alice).as_json
-
-    assert_equal 3, as_json.size
-    assert_equal 'Alice test', as_json[:label]
-    assert_equal users(:alice).id, as_json[:id]
-  end
-
   test 'admin cannot disempower himself' do
     non_private_team = Fabricate(:non_private_team)
     admin = users(:admin)

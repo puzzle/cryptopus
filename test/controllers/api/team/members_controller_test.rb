@@ -15,9 +15,9 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
     login_as(:admin)
     team = Team.create(users(:admin), {name: 'foo'})
 
-    get :candidates, team_id: team
+    xhr :get, :candidates, team_id: team
 
-    candidates = JSON.parse(response.body)['data']
+    candidates = JSON.parse(response.body)['users']
 
     assert_equal 2, candidates.size
     assert candidates.any? {|c| c['label'] == 'Alice test' }
@@ -30,13 +30,37 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
     team = teams(:team1)
     teammembers(:team1_bob).destroy!
 
-    get :index, team_id: team
+    xhr :get, :index, team_id: team
 
-    members = JSON.parse(response.body)['data']
+    members = JSON.parse(response.body)['teammembers']
 
     assert_equal 3, members.size
     assert members.any? {|c| c['label'] == 'Alice test' }
     assert members.any? {|c| c['label'] == 'Admin test' }
   end
 
+  test 'creates new teammember for given team' do
+    login_as(:admin)
+    team = teams(:team1)
+    user = Fabricate(:user)
+
+    xhr :post, :create, team_id: team, user_id: user
+
+    assert team.teammember?(user), 'User should be added to team'
+  end
+
+  test 'does not remove admin from non private team' do
+    login_as(:alice)
+
+    assert_raise do
+      xhr :delete, :destroy, team_id: teams(:team1), id: users(:admin)
+    end
+  end
+
+  test 'remove teammember from team' do
+    login_as(:alice)
+    assert_difference('Teammember.count', -1) do
+      xhr :delete, :destroy, team_id: teams(:team1), id: users(:bob)
+    end
+  end
 end

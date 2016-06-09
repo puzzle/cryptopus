@@ -8,16 +8,30 @@
 class Api::Team::MembersController < ApiController
 
   def index
-    members = team.members
-    render_json members
+    members = team.teammembers
+    render json: members
   end
 
   def candidates
     candidates = team.member_candidates
-    render_json candidates
+    render json: candidates
   end
 
   def create
+    team = Team.find(params[:team_id])
+    user = User.find(params[:user_id])
+    private_key = session[:private_key]
+    team_password = team.teammember(current_user).password
+    decrypted_team_password = CryptUtils.decrypt_team_password(team_password, private_key)
+
+    team.add_user(user, decrypted_team_password)
+
+    render json: ''
+  end
+
+  def destroy
+    team.teammembers.find_by(user_id: params[:id]).destroy!
+    render json: ''
   end
 
   private

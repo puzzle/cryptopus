@@ -15,8 +15,8 @@ class AddUserToTeamTest < ActionDispatch::IntegrationTest
     cannot_access_account(account_path, 'alice')
 
     login_as('bob')
-    add_user_to_team_path = team_teammembers_path(teams(:team1).id)
-    post add_user_to_team_path, username: 'alice', commit: 'Add'
+    path = team_members_path(team_id: teams(:team1))
+    xhr :post, path, user_id: users(:alice).id
     logout
 
     can_access_account(account_path, 'alice', 'password','test', 'password')
