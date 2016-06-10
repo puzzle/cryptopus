@@ -8,7 +8,7 @@
 class Api::Team::MembersController < ApiController
 
   def index
-    members = team.teammembers
+    members = team.teammembers.username_sorted
     render json: members
   end
 

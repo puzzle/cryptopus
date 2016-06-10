@@ -14,6 +14,7 @@ class Teammember < ActiveRecord::Base
 
   validates :user_id, uniqueness: { scope: :team }
 
+  scope :username_sorted, -> { joins(:user).order('users.username') }
   scope :non_private_teams,  -> { joins(:team).where('teams.private' => false) }
 
   private

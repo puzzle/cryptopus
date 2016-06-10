@@ -17,3 +17,5 @@
       %td.action_icon= link_to image_tag( "edit.svg" ), edit_team_path( team )
       - if can_delete_team?(team)
         %td.action_icon= link_to_destroy [team], team
+      - else
+        %td
