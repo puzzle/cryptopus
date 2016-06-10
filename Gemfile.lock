@@ -266,7 +266,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers (>= 0.10.0.rc5)
+  active_model_serializers (= 0.10.0)
   brakeman
   breadcrumbs_on_rails
   clipboard
@@ -302,4 +302,4 @@ DEPENDENCIES
   uglifier
 
 BUNDLED WITH
-   1.11.2
+   1.12.5

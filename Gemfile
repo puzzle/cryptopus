@@ -20,7 +20,8 @@ gem 'twitter-bootstrap-rails'
 gem 'less-rails'
 gem 'turbolinks'
 gem 'jquery-ui-rails'
-gem 'active_model_serializers', '>= 0.10.0.rc5'
+gem 'active_model_serializers', '0.10.0'
+
 
 group :development, :test do
   gem 'minitest'
