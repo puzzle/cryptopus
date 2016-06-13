@@ -62,10 +62,10 @@ class app.TeamMembers
 
   delete_member = (e) ->
     parent_li = $(e.target).parents('li')
-    uesr_id = parent_li.data().value.user_id
+    user_id = parent_li.data().value.user_id
     team_id = $('input#team_id').val()
 
-    url = '/api/teams/' + team_id + '/members/' + uesr_id
+    url = '/api/teams/' + team_id + '/members/' + user_id
     $.ajax({
       url: url,
       type: 'DELETE',
