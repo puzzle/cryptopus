@@ -22,8 +22,6 @@ Cryptopus::Application.routes.draw do
       get '/maintenance_tasks/:id/prepare', to: 'maintenance_tasks#prepare', as: 'maintenance_tasks_prepare'
       post '/maintenance_tasks/:id/execute', to: 'maintenance_tasks#execute', as: 'maintenance_tasks_execute'
 
-      resources :logs, only: [:index, :show]
-
       resource :settings do
         post 'update_all'
         get 'index'

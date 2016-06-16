@@ -131,4 +131,15 @@ class TeamsControllerTest < ActionController::TestCase
     assert_select '.breadcrumb a', text: 'Teams'
     assert_select '.breadcrumb a', text: 'team1', count: 0
   end
+
+  test 'should redirect if pending recryptrequest' do
+    Recryptrequest.create(user_id: users(:bob).id).save
+
+    login_as(:bob)
+
+    get :index
+
+    assert_redirected_to logout_login_path
+    assert_match /recryption of your team passwords/, flash[:notice]
+  end
 end

@@ -71,4 +71,13 @@ class LoginsControllerTest < ActionController::TestCase
     get :show_update_password
     assert_redirected_to search_path
   end
+
+  test 'should redirect to wizard if new setup' do
+    Teammember.all
+    User.delete_all
+
+    get :login
+
+    assert_redirected_to wizard_path
+  end
 end

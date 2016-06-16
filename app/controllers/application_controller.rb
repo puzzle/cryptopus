@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   def redirect_if_pending_recryptrequest
     if current_user.recryptrequests.first
       flash[:notice] = t('flashes.application.wait')
-      redirect_to login_logout_path
+      redirect_to logout_login_path
     end
   end
 
@@ -56,12 +56,6 @@ class ApplicationController < ActionController::Base
       locale = params[:locale]
     end
     I18n.locale = locale
-  end
-
-  def user_team_member?(team_id, user_id)
-    team_member = Teammember.where('team_id=? and user_id=?', team_id, user_id).first
-    return true if team_member
-    false
   end
 
   def prepare_menu
