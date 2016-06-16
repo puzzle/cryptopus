@@ -15,6 +15,20 @@ class RootAsAdminTest < ActiveSupport::TestCase
     assert_match /Only admin/, Log.first.output
   end
 
+  test 'does not toggle admin on root if root is already admin' do
+    root = users(:root)
+    params = {}
+    params['root_password'] = 'password'
+
+    task = MaintenanceTask.initialize_task(0, users(:admin), params)
+
+    task.execute
+
+    root.reload
+
+    assert root.admin?, 'Root should be admin'
+  end
+
   test 'adds admins to all root only teams' do
     root = users(:root)
     root.update_attributes(admin: false)
