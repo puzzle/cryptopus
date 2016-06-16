@@ -20,8 +20,8 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
     candidates = JSON.parse(response.body)['users']
 
     assert_equal 2, candidates.size
-    assert candidates.any? {|c| c['label'] == 'Alice test' }
-    assert candidates.any? {|c| c['label'] == 'Bob test' }
+    assert candidates.any? {|c| c['label'] == 'Alice test' }, 'Alice should be candidate'
+    assert candidates.any? {|c| c['label'] == 'Bob test' }, 'Bob should be candidate'
   end
 
   test 'returns team members for given team' do
@@ -35,8 +35,8 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
     members = JSON.parse(response.body)['teammembers']
 
     assert_equal 3, members.size
-    assert members.any? {|c| c['label'] == 'Alice test' }
-    assert members.any? {|c| c['label'] == 'Admin test' }
+    assert members.any? {|c| c['label'] == 'Alice test' }, 'Alice should be in team'
+    assert members.any? {|c| c['label'] == 'Admin test' },  'Admin should be in team'
   end
 
   test 'creates new teammember for given team' do

@@ -8,7 +8,7 @@
 class Api::Team::MembersController < ApiController
 
   def index
-    members = team.teammembers.username_sorted
+    members = team.teammembers.list
     render json: members
   end
 
@@ -18,13 +18,11 @@ class Api::Team::MembersController < ApiController
   end
 
   def create
-    team = Team.find(params[:team_id])
-    user = User.find(params[:user_id])
-    private_key = session[:private_key]
-    team_password = team.teammember(current_user).password
-    decrypted_team_password = CryptUtils.decrypt_team_password(team_password, private_key)
+    new_member = User.find(params[:user_id])
 
-    team.add_user(user, decrypted_team_password)
+    decrypted_team_password = team.decrypt_team_password(current_user, session[:private_key])
+
+    team.add_user(new_member, decrypted_team_password)
 
     render json: ''
   end

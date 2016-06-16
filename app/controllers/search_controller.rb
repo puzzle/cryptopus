@@ -29,7 +29,7 @@ class SearchController < ApplicationController
   def decrypt_accounts(accounts)
     accounts.each do |a|
       team = a.group.team
-      a.decrypt(get_team_password(team))
+      a.decrypt(plaintext_team_password(team))
     end
   end
 

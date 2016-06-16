@@ -39,6 +39,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def plaintext_team_password(team)
+    private_key = session[:private_key]
+    teammember = team.teammember(current_user)
+    raise 'You have no access to this team' if teammember.nil?
+    decrypted_team_password = CryptUtils.decrypt_team_password(teammember.password, private_key)
+    raise 'Failed to decrypt the team password' if decrypted_team_password.nil?
+    decrypted_team_password
+  end
+
   def set_locale
     locale = I18n.default_locale
     if current_user
@@ -47,15 +56,6 @@ class ApplicationController < ActionController::Base
       locale = params[:locale]
     end
     I18n.locale = locale
-  end
-
-  def get_team_password(team)
-    user = User.find(session[:user_id])
-    teammember = team.teammembers.where('user_id = ?', user.id).first
-    raise 'You have no access to this team' if teammember.nil?
-    team_password = CryptUtils.decrypt_team_password(teammember.password, session[:private_key])
-    raise 'Failed to decrypt the team password' if team_password.nil?
-    team_password
   end
 
   def user_team_member?(team_id, user_id)

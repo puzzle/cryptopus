@@ -28,7 +28,7 @@ class AccountsController < ApplicationController
 
     accounts_breadcrumbs
 
-    @account.decrypt(get_team_password(@team))
+    @account.decrypt(plaintext_team_password(@team))
 
     respond_to do |format|
       format.html # show.html.haml
@@ -48,7 +48,7 @@ class AccountsController < ApplicationController
   def create
     @account = @group.accounts.new(account_params)
 
-    @account.encrypt(get_team_password(@team))
+    @account.encrypt(plaintext_team_password(@team))
 
     respond_to do |format|
       if @account.save
@@ -67,7 +67,7 @@ class AccountsController < ApplicationController
 
     accounts_breadcrumbs
 
-    @account.decrypt(get_team_password(@team))
+    @account.decrypt(plaintext_team_password(@team))
 
     respond_to do |format|
       format.html # edit.html.haml
@@ -79,7 +79,7 @@ class AccountsController < ApplicationController
     @account = @group.accounts.find(params[:id])
     @account.attributes = account_params
 
-    @account.encrypt(get_team_password(@team))
+    @account.encrypt(plaintext_team_password(@team))
 
     respond_to do |format|
       if @account.save
