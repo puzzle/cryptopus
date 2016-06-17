@@ -16,7 +16,7 @@
                     "app": "rails"
                 },
                 "annotations": {
-                    "openshift.io/generated-by": "OpenShiftNewApp"
+                    "openshift.io/generated-by": "Puzzle ITC"
                 }
             },
             "spec": {
@@ -79,7 +79,7 @@
                     "app": "rails"
                 },
                 "annotations": {
-                    "openshift.io/generated-by": "OpenShiftNewApp",
+                    "openshift.io/generated-by": "Puzzle ITC",
                     "openshift.io/image.dockerRepositoryCheck": "2016-05-26T10:48:17Z"
                 }
             },
@@ -108,7 +108,7 @@
                     "app": "rails"
                 },
                 "annotations": {
-                    "openshift.io/generated-by": "OpenShiftNewApp",
+                    "openshift.io/generated-by": "Puzzle ITC",
                     "openshift.io/image.dockerRepositoryCheck": "2016-05-26T10:48:17Z"
                 }
             },
@@ -126,7 +126,7 @@
                 "name": "mysql",
                 "creationTimestamp": null,
                 "labels": {
-                    "template": "mysql-ephemeral-template"
+                    "template": "mysql-persistent-template"
                 }
             },
             "spec": {
@@ -237,7 +237,7 @@
                 ],
                 "resources": {
                     "requests": {
-                        "storage": "512Mi"
+                        "storage": "1Gi"
                     }
                 }
             },
@@ -253,7 +253,7 @@
                     "app": "rails"
                 },
                 "annotations": {
-                    "openshift.io/generated-by": "OpenShiftNewApp"
+                    "openshift.io/generated-by": "Puzzle ITC"
                 }
             },
             "spec": {
@@ -305,7 +305,7 @@
                             "deploymentconfig": "rails"
                         },
                         "annotations": {
-                            "openshift.io/generated-by": "OpenShiftNewApp"
+                            "openshift.io/generated-by": "Puzzle ITC"
                         }
                     },
                     "spec": {
@@ -387,8 +387,9 @@
                     "kind": "Service",
                     "name": "rails"
                 },
-                "port": {
-                    "targetPort": "8080"
+                "tls": {
+                  "termination": "edge",
+                  "insecureEdgeTerminationPolicy": "Redirect"
                 }
             },
             "status": {}
@@ -400,7 +401,7 @@
                 "name": "mysql",
                 "creationTimestamp": null,
                 "labels": {
-                    "template": "mysql-ephemeral-template"
+                    "template": "mysql-persistent-template"
                 }
             },
             "spec": {
@@ -432,7 +433,7 @@
                     "app": "rails"
                 },
                 "annotations": {
-                    "openshift.io/generated-by": "OpenShiftNewApp"
+                    "openshift.io/generated-by": "Puzzle ITC"
                 }
             },
             "spec": {
