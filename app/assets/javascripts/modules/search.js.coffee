@@ -23,8 +23,8 @@ class app.Search
     if input_field.val().length > 2
       updateResultArea ''
       $.get('/search/account.json', search_string: term).done (data) ->
-        if data.length > 0
-          updateResultArea(data)
+        if data.accounts.length > 0
+          updateResultArea(data.accounts)
         else
           $('.result-info').show()
 
