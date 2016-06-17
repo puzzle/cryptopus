@@ -2,6 +2,7 @@ app = window.App ||= {}
 
 class app.User
   constructor: () ->
+    bind.call()
 
   hideSoloteams: ->
     @soloteams.hide()
@@ -26,7 +27,7 @@ class app.User
     this.showSoloteams()
 
 
-  bind: ->
+  bind = ->
     @team_table = $('#soloteams #team_table')
     @soloteams = $('#soloteams')
     that = this
@@ -37,7 +38,7 @@ class app.User
 
     $(document).on 'click', '#team_table .delete_link', (e) ->
       e.preventDefault()
-      
+
       element = $(this)
 
       teammemberLink = $(element).data('last-teammember-teams-link')
@@ -46,5 +47,4 @@ class app.User
       that.onDeleteUser(teammemberLink, destroyLink)
       false
 
-$(document).ready ->
-  new app.User().bind()
+    new User

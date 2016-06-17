@@ -10,6 +10,7 @@ class app.AutoLogoff
   remaining_seconds = AUTO_LOGOFF_TIME
 
   constructor: () ->
+    bind.call()
     setInterval(( -> logoff_timer()), 1000)
 
   logoff_timer = () ->
@@ -31,8 +32,8 @@ class app.AutoLogoff
   reset_timer = () ->
     remaining_seconds = AUTO_LOGOFF_TIME
 
-  bind: ->
+  bind = ->
     $(document).on 'page:change', ->
       reset_timer()
 
-new app.AutoLogoff().bind()
+  new AutoLogoff

@@ -7,6 +7,7 @@ app = window.App ||= {}
 
 class app.Account
   constructor: () ->
+    bind.call()
 
   showPassword = (e) ->
     passLink = $(e.target)
@@ -42,7 +43,7 @@ class app.Account
   ready = ->
     copyContent()
 
-  bind: ->
+  bind = ->
     $(document).on 'page:load', ready
     $(document).ready(ready)
     $(document).on 'click', '.password-link', (e) ->
@@ -50,4 +51,4 @@ class app.Account
     $(document).on 'click', '.clip_button_account', (e)->
       showMessage(e)
 
-new app.Account().bind()
+  new Account

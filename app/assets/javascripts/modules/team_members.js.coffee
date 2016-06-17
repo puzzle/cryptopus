@@ -8,6 +8,7 @@ app = window.App ||= {}
 
 class app.TeamMembers
   constructor: () ->
+    bind.call()
 
   toggle_members = ->
     if $('.columns').is(':visible')
@@ -80,7 +81,7 @@ class app.TeamMembers
     content = HandlebarsTemplates['team_member_entry'](members)
     members_container.html(content)
 
-  bind: ->
+  bind = ->
     $(document).on 'click', '#search_member', (e) ->
       show_members()
       load_candidates()
@@ -92,5 +93,5 @@ class app.TeamMembers
     $(document).on 'click', '.members li #remove_member', (e) ->
       delete_member(e)
 
-new app.TeamMembers().bind()
+  new TeamMembers
 

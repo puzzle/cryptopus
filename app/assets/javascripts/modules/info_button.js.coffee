@@ -7,6 +7,7 @@ app = window.App ||= {}
 
 class app.InfoButton
   constructor: () ->
+    bind.call()
 
   infoTimeout = ->
     $('.private').css 'display', 'inline'
@@ -17,8 +18,8 @@ class app.InfoButton
     return
 
 
-  bind: ->
+  bind = ->
     $(document).on 'click', '.private_info', ->
       infoTimeout()
 
-new app.InfoButton().bind()
+  new InfoButton

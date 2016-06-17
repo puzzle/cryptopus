@@ -7,6 +7,7 @@ app = window.App ||= {}
 
 class app.FlashMessage
   constructor: () ->
+    bind.call()
     @flash_messages = []
 
   render_messages: ->
@@ -19,9 +20,9 @@ class app.FlashMessage
     @flash_messages.push message
     @render_messages()
 
-  bind: ->
+  bind = ->
     $(document).ajaxComplete ->
       app.flash.flash_messages = []
 
-app.flash = new app.FlashMessage()
-app.flash.bind()
+  app.flash = new FlashMessage
+

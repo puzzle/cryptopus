@@ -8,6 +8,7 @@ app = window.App ||= {}
 class app.Search
 
   constructor: () ->
+    bind.call()
 
   ready = ->
     new Clipboard('.clip_button_search')
@@ -62,7 +63,7 @@ class app.Search
     ), 5000
 
 
-  bind: ->
+  bind = ->
     $(document).on 'page:load', ready
     $(document).ready(ready)
 
@@ -74,5 +75,4 @@ class app.Search
     $(document).on 'click', '.clip_button_search', (e) ->
       showMessage(e)
 
-
-new app.Search().bind()
+  new Search

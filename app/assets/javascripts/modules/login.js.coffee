@@ -7,6 +7,7 @@ app = window.App ||= {}
 
 class app.Login
   constructor: () ->
+    bind.call()
 
   setFocus = ->
 
@@ -30,7 +31,7 @@ class app.Login
     localStorage.setItem 'username', $('#username').val()
     return
 
-  bind: ->
+  bind = ->
     $(document).on 'page:change', ->
       setFocus()
 
@@ -40,4 +41,4 @@ class app.Login
     $(document).on 'click', '#username', ->
       selectUsername()
 
-new app.Login().bind()
+  new Login
