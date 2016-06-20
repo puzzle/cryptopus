@@ -74,7 +74,7 @@ class app.TeamMembers
         load_members()
         load_candidates()
         app.flash.add('user removed')
-    });
+    })
 
   render_members = (members) ->
     members_container = $('.columns')
