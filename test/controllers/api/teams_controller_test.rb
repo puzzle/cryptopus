@@ -18,7 +18,7 @@ class Api::TeamsControllerTest < ActionController::TestCase
 
     delete :destroy_last_teammember_teams, user_id: user.id
 
-    assert_not user.last_teammember_teams.any?
+    assert user.last_teammember_teams.empty?, 'there should be no more last teammember teams for given user'
   end
 
   test 'returns last teammember teams' do
@@ -46,7 +46,7 @@ class Api::TeamsControllerTest < ActionController::TestCase
     error_message = JSON.parse(response.body)['messages']['errors'][0]
 
     assert_equal 'Access denied', error_message
-    assert user.last_teammember_teams.any?
+    assert user.last_teammember_teams.present?
   end
 
 

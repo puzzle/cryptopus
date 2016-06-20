@@ -5,8 +5,6 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-# require_dependency "search"
-
 class Group < ActiveRecord::Base
   belongs_to :team
   has_many :accounts, -> { order :accountname }, dependent: :destroy
