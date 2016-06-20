@@ -10,15 +10,17 @@ class app.FlashMessage
     bind.call()
     @flash_messages = []
 
-  render_messages: ->
+  add: (message) ->
+    debugger
+    @flash_messages.push message
+    render_messages()
+
+  render_messages = ->
+    debugger
     template = HandlebarsTemplates['alert_messages']
 
-    compiled_html = template(@flash_messages)
+    compiled_html = template(app.flash.flash_messages)
     $('.message_container').html(compiled_html)
-
-  add: (message) ->
-    @flash_messages.push message
-    @render_messages()
 
   bind = ->
     $(document).ajaxComplete ->
