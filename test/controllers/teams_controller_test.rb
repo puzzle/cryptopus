@@ -142,4 +142,11 @@ class TeamsControllerTest < ActionController::TestCase
     assert_redirected_to logout_login_path
     assert_match /recryption of your team passwords/, flash[:notice]
   end
+
+  test 'redirects to login path if user has pending recryptrequests' do
+    Recryptrequest.create(user_id: users(:bob).id)
+    login_as(:bob)
+    get :index
+    assert_match /Wait for the recryption/, flash[:notice]
+  end
 end

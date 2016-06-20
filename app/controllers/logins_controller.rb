@@ -30,7 +30,10 @@ class LoginsController < ApplicationController
   end
 
   def logout
+    flash_notice = flash[:notice]
     reset_session
+    flash[:notice] = flash_notice
+
     redirect_to login_login_path
   end
 
