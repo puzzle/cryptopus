@@ -11,12 +11,10 @@ class app.FlashMessage
     @flash_messages = []
 
   add: (message) ->
-    debugger
     @flash_messages.push message
     render_messages()
 
   render_messages = ->
-    debugger
     template = HandlebarsTemplates['alert_messages']
 
     compiled_html = template(app.flash.flash_messages)
