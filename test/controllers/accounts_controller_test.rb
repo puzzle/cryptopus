@@ -54,4 +54,16 @@ class AccountsControllerTest < ActionController::TestCase
     assert_select '.breadcrumb a', text: 'account1', count: 0
   end
 
+  test 'Error message if you attempt to look into a team youre not member of' do
+    team2 = teams(:team2)
+    group2 = groups(:group2)
+
+    login_as(:alice)
+
+    get :index, team_id: team2, group_id: group2
+
+    assert_match /You are not member of this team/, flash[:error]
+    assert_redirected_to teams_path
+  end
+
 end

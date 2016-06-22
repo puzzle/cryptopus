@@ -6,6 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class GroupsController < ApplicationController
+  before_filter :redirect_if_not_teammember_or_admin, except: [:new, :create]
   before_filter :load_team
 
   # GET /teams/1/groups
@@ -97,6 +98,13 @@ class GroupsController < ApplicationController
 
   def load_team
     @team = Team.find(params[:team_id])
+  end
+
+  def redirect_if_not_teammember_or_admin
+    team = load_team
+    return if team.teammember?(current_user.id)
+    flash[:error] = t('flashes.teams.no_member')
+    redirect_to teams_path
   end
 
   def groups_breadcrumbs

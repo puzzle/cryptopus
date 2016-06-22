@@ -58,4 +58,15 @@ class GroupsControllerTest < ActionController::TestCase
 
     assert_redirected_to team_groups_path
   end
+
+  test 'Error message if you attempt to look into a team youre not member of' do
+    team2 = teams(:team2)
+
+    login_as(:alice)
+
+    get :index, team_id: team2
+
+    assert_match /You are not member of this team/, flash[:error]
+    assert_redirected_to teams_path
+  end
 end
