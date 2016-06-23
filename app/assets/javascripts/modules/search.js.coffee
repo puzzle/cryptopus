@@ -41,12 +41,36 @@ class app.Search
     timeOut(passInput, result_password, passLink)
 
 
+#  showMessage = (e) ->
+#    if $(e.target).hasClass('btn clip_button_search')
+#      $(e.target).next('.copied').fadeIn('fast')
+#      setTimeout (->
+#        $(e.target).next('.copied').fadeOut('fast')
+#        return
+#      ), 2000
+#    else
+#      par = $(e.target).parent()
+#      showMessage(par)
+
   showMessage = (e) ->
-    $(e.target).next('.copied').fadeIn('fast')
+    button = e.target.closest('.clip_button_search')
+    par = $(button).parent()
+    if $(par).hasClass('result-password select-click')
+        message = '<p class="copied" >Password copied! </p>'
+        div = '.result-password'
+    else
+        message = '<p class="copied" >Username copied! </p>'
+        div = '.result-username'
+    $(message).appendTo div
+    par.find($('.copied')).fadeIn('fast')
     setTimeout (->
-      $(e.target).next('.copied').fadeOut('fast')
+      $(div).find($('.copied')).remove()
       return
     ), 2000
+
+
+
+
 
   timeOut = (passInput, result_password, passLink)->
     setTimeout (->
@@ -70,8 +94,9 @@ class app.Search
     $(document).on 'keyup', '.search-input', ->
       doSearch()
 
-    $(document).on 'click', '.password-show', (e)->
+    $(document).on 'click', '.password-show', (e) ->
       registerActions(e)
+
     $(document).on 'click', '.clip_button_search', (e) ->
       showMessage(e)
 
