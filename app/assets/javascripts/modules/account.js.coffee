@@ -32,13 +32,21 @@ class app.Account
   copyContent = ->
     new Clipboard('.clip_button_account')
 
-  showMessage = (e) ->
-      $(e.target).next('.copied').fadeIn('fast')
-      setTimeout (->
-        $(e.target).next('.copied').fadeOut('fast')
-        return
-      ), 2000
+  @showMessage: (e, name) ->
+    par = $(e.target.closest(name)).parent()
+    if $(par).hasClass('result-password select-click')
+        message = '<p class="copied" >Password copied! </p>'
+        div = '.result-password'
+    else
+        message = '<p class="copied" >Username copied! </p>'
+        div = '.result-username'
+    $(message).appendTo div
+    par.find($('.copied')).fadeIn('fast')
+    setTimeout (->
+      $(div).find($('.copied')).fadeOut('fast')
+      $(div).find($('.copied')).remove()
       return
+    ), 2000
 
   ready = ->
     copyContent()
@@ -49,6 +57,7 @@ class app.Account
     $(document).on 'click', '.password-link', (e) ->
       showPassword(e)
     $(document).on 'click', '.clip_button_account', (e)->
-      showMessage(e)
+      app.Account.showMessage(e, '.clip_button_account')
+
 
   new Account
