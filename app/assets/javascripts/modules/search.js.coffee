@@ -40,18 +40,6 @@ class app.Search
     passInput.removeClass('hide')
     timeOut(passInput, result_password, passLink)
 
-
-#  showMessage = (e) ->
-#    if $(e.target).hasClass('btn clip_button_search')
-#      $(e.target).next('.copied').fadeIn('fast')
-#      setTimeout (->
-#        $(e.target).next('.copied').fadeOut('fast')
-#        return
-#      ), 2000
-#    else
-#      par = $(e.target).parent()
-#      showMessage(par)
-
   showMessage = (e) ->
     button = e.target.closest('.clip_button_search')
     par = $(button).parent()
@@ -67,10 +55,7 @@ class app.Search
       $(div).find($('.copied')).remove()
       return
     ), 2000
-
-
-
-
+    
 
   timeOut = (passInput, result_password, passLink)->
     setTimeout (->
