@@ -8,7 +8,7 @@
 require 'ldap_tools'
 
 class AccountsController < ApplicationController
-  before_filter :redirect_if_not_teammember_or_admin, except: [:new, :create]
+  before_filter :redirect_if_not_teammember_or_admin
   before_filter :load_parents
 
   # GET /teams/1/groups/1/accounts
@@ -111,6 +111,10 @@ class AccountsController < ApplicationController
   def load_parents
     @team = Team.find(params[:team_id])
     @group = @team.groups.find(params[:group_id])
+  end
+
+  def group
+    @group ||= ...
   end
 
   def redirect_if_not_teammember_or_admin
