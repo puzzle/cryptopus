@@ -41,8 +41,7 @@ class app.Search
     timeOut(passInput, result_password, passLink)
 
   showMessage = (e) ->
-    button = e.target.closest('.clip_button_search')
-    par = $(button).parent()
+    par = $(e.target.closest('.clip_button_search')).parent()
     if $(par).hasClass('result-password select-click')
         message = '<p class="copied" >Password copied! </p>'
         div = '.result-password'
@@ -52,10 +51,10 @@ class app.Search
     $(message).appendTo div
     par.find($('.copied')).fadeIn('fast')
     setTimeout (->
+      $(div).find($('.copied')).fadeOut('fast')
       $(div).find($('.copied')).remove()
       return
     ), 2000
-    
 
   timeOut = (passInput, result_password, passLink)->
     setTimeout (->
