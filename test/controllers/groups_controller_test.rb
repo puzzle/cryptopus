@@ -59,7 +59,7 @@ class GroupsControllerTest < ActionController::TestCase
     assert_redirected_to team_groups_path
   end
 
-  test 'Error message if you attempt to look into a team youre not member of' do
+  test 'redirect if not teammember' do
     team2 = teams(:team2)
 
     login_as(:alice)

@@ -7,7 +7,7 @@
 
 class GroupsController < ApplicationController
   before_filter :redirect_if_not_teammember_or_admin
-  before_filter :load_team
+  before_filter :team
 
   # GET /teams/1/groups
   def index
@@ -101,7 +101,6 @@ class GroupsController < ApplicationController
   end
 
   def redirect_if_not_teammember_or_admin
-    team = load_team
     return if team.teammember?(current_user.id)
     flash[:error] = t('flashes.teams.no_member')
     redirect_to teams_path

@@ -9,7 +9,7 @@ require 'ldap_tools'
 
 class AccountsController < ApplicationController
   before_filter :redirect_if_not_teammember_or_admin
-  before_filter :load_parents
+  before_filter :team, :group
 
   # GET /teams/1/groups/1/accounts
   def index
@@ -108,18 +108,16 @@ class AccountsController < ApplicationController
     params.require(:account).permit(:accountname, :cleartext_username, :cleartext_password, :description, :group_id)
   end
 
-  def load_parents
-    @team = Team.find(params[:team_id])
-    @group = @team.groups.find(params[:group_id])
+  def team
+    @team ||= Team.find(params[:team_id])
   end
 
   def group
-    @group ||= ...
+    @group ||= @team.groups.find(params[:group_id])
   end
 
   def redirect_if_not_teammember_or_admin
-    load_parents
-    return if @team.teammember?(current_user.id)
+    return if team.teammember?(current_user.id)
     flash[:error] = t('flashes.teams.no_member')
     redirect_to teams_path
   end
