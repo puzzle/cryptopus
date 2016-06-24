@@ -18,7 +18,7 @@ class LoginsControllerTest < ActionController::TestCase
   test 'redirects to recryptrequests page if private key cannot be decrypted' do
       users(:bob).update(private_key: "wrong private_key")
       post :authenticate, password: 'password', username: 'bob'
-      assert_redirected_to recryptrequests_path
+      assert_redirected_to recryptrequests_new_ldap_password_path
   end
 
   test 'login logout' do

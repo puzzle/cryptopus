@@ -39,7 +39,7 @@ fr:
   search:
     index:
       no_results_found: "Aucun résultat trouvé"
-      
+
   accounts:
     index:
       move: "Déplacer compte à un autre groupe"
@@ -227,8 +227,6 @@ fr:
       locked: "Votre compte est actuellement verouillé. Essayez de vous connecter à nouveau dans un instant, ou contactez l'administrateur si le verrouillage persiste"
     recryptrequests:
       recrypted: "Vous avez réussi re crypté le mot de passe."
-      new_password_wrong: "Votre nouveau mot de passe était incorrect"
-      old_password_wrong: "Votre ancien mot de passe était incorrect"
       wait: "S'il vous plaît attendez que Racine a recrypted vos mots de passe de l'équipe."
       wrong_password: "Votre mot de passe était incorrect"
     teams:
@@ -292,6 +290,8 @@ fr:
               blank: 'ne peut pas être vide'
               taken: 'est déjà pris'
         user:
+          new_password_invalid: "Votre nouveau mot de passe était incorrect"
+          old_password_invalid: "Votre ancien mot de passe était incorrect"
           attributes:
             username:
               blank: 'ne peut pas être vide'
