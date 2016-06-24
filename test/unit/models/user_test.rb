@@ -271,6 +271,24 @@ class UserTest < ActiveSupport::TestCase
     assert User.find(user.id)
   end
 
+  test 'new error on user if wrong old password at private_key recryption' do
+    user = users(:bob)
+    user.update_attribute(:auth, 'ldap')
+
+    LdapTools.stubs(:ldap_login).returns(true)
+
+    assert_not user.recrypt_private_key!('new_password', 'wrong_old_password')
+
+    assert_match /Your OLD password was wrong/, user.errors.messages[:base][0]
+  end
+
+  test 'new error on user if wrong new password at private_key recryption' do
+    user = users(:bob)
+    assert_not user.recrypt_private_key!('worong_new_password', 'password')
+
+    assert_match /Your NEW password was wrong/, user.errors.messages[:base][0]
+  end
+
   private
   def enable_ldap_auth
     Setting.find_by(key: 'ldap_enable').update_attributes(value: true)

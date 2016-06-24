@@ -21,18 +21,14 @@ include IntegrationTest::DefaultHelper
     LdapTools.stubs(:get_ldap_info).with(User.find_by_username('bob').uid, 'givenname').returns('Bob')
     LdapTools.stubs(:get_ldap_info).with(User.find_by_username('bob').uid, 'sn').returns('test')
 
-    #Login
-    login_as('bob', 'newPassword')
-
-    #Get path to Account
     account_path = get_account_path
 
-    #Test if Bob can see his account (should not)
-    error = assert_raises(RuntimeError) { get account_path }
-    assert_includes error.message, "Failed"
+    login_as('bob')
 
     #Recrypt
-    post recryptrequests_path, new_password: 'newPassword', old_password: 'password'
+    post recryptrequests_recrypt_path, new_password: 'newPassword', old_password: 'password'
+    logout
+
     login_as('bob', 'newPassword')
 
     #Test if Bob can see his account
@@ -51,28 +47,64 @@ include IntegrationTest::DefaultHelper
     LdapTools.stubs(:get_ldap_info).with(User.find_by_username('bob').uid.to_s, 'givenname').returns('Bob')
     LdapTools.stubs(:get_ldap_info).with(User.find_by_username('bob').uid.to_s, 'sn').returns('test')
 
-    #Login
-    login_as('bob', 'newPassword')
-
-    #Get link to Account
     account_path = get_account_path
 
-    #Test if user could see his account (should not)
-    error = assert_raises(RuntimeError) { get account_path }
-    assert_includes error.message, "Failed"
+    login_as('bob')
 
     #Recrypt
-    post recryptrequests_path, recrypt_request: true, new_password: 'newPassword'
+    post recryptrequests_recrypt_path, forgot_password: true, new_password: 'newPassword'
+
     login_as('admin')
     bobs_user_id = users(:bob).id
     recrypt_id = Recryptrequest.find_by_user_id(bobs_user_id).id
     post admin_recryptrequest_path(recrypt_id), _method: 'delete'
-    logout
-    login_as('bob', 'newPassword')
 
     #Test if user could see his account(he should see now)
+    login_as('bob', 'newPassword')
     get account_path
     assert_select "input#cleartext_username", {value: "test"}
     assert_select "input#cleartext_password", {value: "password"}
+  end
+
+  test 'Bob provides new ldap password and entered wrong old password' do
+    #Prepare for Test
+    user_bob = users(:bob)
+    user_bob.update_attribute(:auth, 'ldap')
+
+    #Mock
+    LdapTools.stubs(:ldap_login).returns(true)
+    LdapTools.stubs(:get_ldap_info).with(User.find_by_username('bob').uid, 'givenname').returns('Bob')
+    LdapTools.stubs(:get_ldap_info).with(User.find_by_username('bob').uid, 'sn').returns('test')
+
+    login_as('bob')
+
+    #Recrypt
+    post recryptrequests_recrypt_path, new_password: 'newPassword', old_password: 'wrong_password'
+
+    #Test if user got error messages
+    assert_match /Your OLD password was wrong/, flash[:error]
+  end
+
+  test 'Bob provides new ldap password and entered wrong new password' do
+    #Prepare for Test
+    user_bob = users(:bob)
+    user_bob.update_attribute(:auth, 'ldap')
+
+    #Mock
+    LdapTools.stubs(:ldap_login).returns(true)
+    LdapTools.stubs(:get_ldap_info).with(User.find_by_username('bob').uid, 'givenname').returns('Bob')
+    LdapTools.stubs(:get_ldap_info).with(User.find_by_username('bob').uid, 'sn').returns('test')
+
+    #Test if Bob can see his account (should not)
+    # cannot_access_account(get_account_path, 'bob')
+
+    login_as('bob')
+
+    #Recrypt
+    LdapTools.stubs(:ldap_login).returns(false)
+    post recryptrequests_recrypt_path, new_password: 'wrong_password'
+
+    #Test if user got error messages
+    assert_match /Your NEW password was wrong/, flash[:error]
   end
 end

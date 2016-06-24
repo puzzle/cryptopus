@@ -19,6 +19,6 @@ class ResetDbUserPasswordTest < ActionDispatch::IntegrationTest
 
     can_access_account(account_path1, 'bob', 'test','test', 'password')
     # TODO fix recryptrequest bug
-     #cannot_access_account(account_path2, 'bob', 'test', 'Failed to decrypt')
+    cannot_access_account(account_path2, 'bob', 'test')
   end
 end

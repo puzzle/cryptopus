@@ -30,16 +30,14 @@ module IntegrationTest
       logout
     end
 
-    def cannot_access_account(account_path, username, user_password = 'password', error_message = 'no access')
+    def cannot_access_account(account_path, username, user_password = 'password')
       login_as(username, user_password)
       get account_path
+
+
       assert_match /You are not member of this team/, flash[:error]
       assert_redirected_to teams_path
-      #if error
-      #else
-      #  error = assert_raises(RuntimeError) { get account_path }
-      #  assert_includes error.message, error_message
-      #end
+
       logout
     end
   end
