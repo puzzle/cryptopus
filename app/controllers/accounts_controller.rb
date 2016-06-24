@@ -8,7 +8,6 @@
 require 'ldap_tools'
 
 class AccountsController < ApplicationController
-  before_filter :redirect_if_not_teammember_or_admin
   before_filter :team, :group
 
   # GET /teams/1/groups/1/accounts
@@ -114,12 +113,6 @@ class AccountsController < ApplicationController
 
   def group
     @group ||= @team.groups.find(params[:group_id])
-  end
-
-  def redirect_if_not_teammember_or_admin
-    return if team.teammember?(current_user.id)
-    flash[:error] = t('flashes.teams.no_member')
-    redirect_to teams_path
   end
 
   def accounts_breadcrumbs

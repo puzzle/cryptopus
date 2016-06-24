@@ -8,6 +8,7 @@
 class ApplicationController < ActionController::Base
   before_filter :redirect_to_wizard_if_new_setup
   before_filter :authorize, except: [:login, :authenticate, :logout, :wizard]
+  before_filter :redirect_if_not_teammember
   before_filter :prepare_menu
   before_filter :set_locale
   before_filter :set_cache_headers
@@ -37,6 +38,15 @@ class ApplicationController < ActionController::Base
       flash[:notice] = t('flashes.application.wait')
       redirect_to logout_login_path
     end
+  end
+
+  def redirect_if_not_teammember
+    team_id = params[:team_id]
+    return if team_id.nil?
+    team = Team.find(team_id)
+    return if team.teammember?(current_user.id)
+    flash[:error] = t('flashes.teams.no_member')
+    redirect_to teams_path
   end
 
   def plaintext_team_password(team)
