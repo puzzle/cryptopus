@@ -7,7 +7,11 @@
 
 Cryptopus::Application.routes.draw do
   scope "(:locale)", locale: /en|de|fr/ do
-    resources :recryptrequests
+    namespace :recryptrequests do
+      get 'new_ldap_password'
+      post 'recrypt'
+    end
+
     resources :teams do
       resources :teammembers
       resources :groups do

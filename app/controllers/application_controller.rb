@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_filter :redirect_to_wizard_if_new_setup
   before_filter :authorize, except: [:login, :authenticate, :logout, :wizard]
   before_filter :redirect_if_not_teammember
+  before_filter :redirect_if_no_private_key, except: :logout
   before_filter :prepare_menu
   before_filter :set_locale
   before_filter :set_cache_headers
@@ -19,6 +20,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
 
   private
+
+  #redirect if its not possible to decrypt user's private key
+  def redirect_if_no_private_key
+    if current_user && session[:private_key].nil?
+      redirect_to recryptrequests_new_ldap_password_path
+    end
+  end
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]

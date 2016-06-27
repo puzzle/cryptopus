@@ -300,6 +300,3 @@ DEPENDENCIES
   turbolinks
   twitter-bootstrap-rails
   uglifier
-
-BUNDLED WITH
-   1.12.5

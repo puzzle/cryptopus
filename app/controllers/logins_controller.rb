@@ -78,7 +78,7 @@ class LoginsController < ApplicationController
       begin
         create_session(user, password)
       rescue Exceptions::DecryptFailed
-        redirect_to recryptrequests_path
+        redirect_to recryptrequests_new_ldap_password_path
         return
       end
       redirect_after_sucessful_login

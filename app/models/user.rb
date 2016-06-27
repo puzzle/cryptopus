@@ -94,8 +94,6 @@ class User < ActiveRecord::Base
     update_attribute(:last_login_at, Time.now) # TODO: needed what for ? remove ?
   end
 
-
-
   def toggle_admin(actor, private_key)
     if self == actor || !actor.admin?
       raise 'user is not allowed to empower/disempower this user'
@@ -110,6 +108,25 @@ class User < ActiveRecord::Base
     uncrypted_private_key = CryptUtils.get_private_key_from_keypair(keypair)
     self.public_key = CryptUtils.get_public_key_from_keypair(keypair)
     self.private_key = CryptUtils.encrypt_private_key(uncrypted_private_key, password)
+  end
+
+  def recrypt_private_key!(new_password, old_password)
+    unless authenticate(new_password)
+      errors.add(:base,
+        I18n.t('activerecord.errors.models.user.new_password_invalid'))
+      return false
+    end
+
+    begin
+      plaintext_private_key = CryptUtils.decrypt_private_key(private_key, old_password)
+      CryptUtils.validate_keypair(plaintext_private_key, public_key)
+      self.private_key = CryptUtils.encrypt_private_key(plaintext_private_key, new_password)
+    rescue Exceptions::DecryptFailed
+      errors.add(:base,
+        I18n.t('activerecord.errors.models.user.old_password_invalid'))
+      return false
+    end
+    save!
   end
 
   def label
