@@ -30,7 +30,7 @@ class app.Account
     ), 5000
 
   copyContent = ->
-    new Clipboard('.clip_button_account')
+    new Clipboard('.clip_button')
 
   @showMessage: (e, name) ->
     parent = $(e.target.closest(name)).parent()
@@ -56,8 +56,11 @@ class app.Account
     $(document).ready(ready)
     $(document).on 'click', '.password-link', (e) ->
       showPassword(e)
-    $(document).on 'click', '.clip_button_account', (e)->
-      app.Account.showMessage(e, '.clip_button_account')
 
+    $(document).on 'click', '.clip_button', (e) ->
+      app.Account.showMessage(e, '.clip_button')
+
+    $(document).on 'click', '.result-username input', (e) ->
+      $(this).select()
 
   new Account

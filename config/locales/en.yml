@@ -38,7 +38,8 @@ en:
 
   search:
     index:
-      no_results_found: no results found
+      hi_user: "Hi %{username}! Want to recover a password?"
+      no_results_found: "no results found"
 
   accounts:
     index:
@@ -57,6 +58,7 @@ en:
       last_change: "Last change was %{time_ago} ago"
       attachments: "Attachments"
       file: "File"
+      show_password: "Show password"
     new:
       title: "New Account"
 
@@ -84,7 +86,9 @@ en:
         ldap_old_password: "Your old LDAP Password"
         ldap_new_password: "Your new LDAP Password"
         ldap_password: "Your LDAP Password"
-        forgot_password_recrypt: "If you forgot your password, you can send a recrypt request, but after that you have to wait until she has recrypted your passwords."
+        forgot_password_recrypt: |
+          When you forgot your old password, just the teams which aren't private will be decrypted.
+          After the request was send you have to wait until an admin decrypts your passwords.
         recrypt: "Recrypt"
         send: "Send request"
     users:
@@ -223,8 +227,6 @@ en:
       locked: "User is currently locked. Please try to login again a bit later or contact the administrator if your user has been locked permanently"
     recryptrequests:
       recrypted: "You have successfully recrypted the password"
-      new_password_wrong: "Your NEW password was wrong"
-      old_password_wrong: "Your OLD password was wrong"
       wait: "Wait for the recryption of your team passwords"
       wrong_password: "Your password was wrong"
     teams:
@@ -250,6 +252,9 @@ en:
         body: ''
         header: ''
       models:
+        user:
+          new_password_invalid: "Your NEW password was wrong"
+          old_password_invalid: "Your OLD password was wrong"
         item:
           attributes:
             filename:

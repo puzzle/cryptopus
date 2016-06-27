@@ -38,6 +38,7 @@ de:
 
   search:
     index:
+      hi_user: "Hi %{username}! Du suchst ein Passwort?"
       no_results_found: "keine Resultate gefunden"
 
   accounts:
@@ -57,6 +58,7 @@ de:
       last_change: "Letzte Änderung vor %{time_ago}"
       attachments: "Anhänge"
       file: "Datei"
+      show_password: "Passwort anzeigen"
     new:
       title: "Neuer Account"
 
@@ -85,7 +87,9 @@ de:
         ldap_old_password: "Ihr altes LDAP Passwort"
         ldap_new_password: "Ihr neues LDAP Passwort"
         ldap_password: "Ihr LDAP Passwort"
-        forgot_password_recrypt: "Falls Sie Ihr Passwort vergessen haben, können Sie eine Recrypt Anfrage senden. Danach müssen Sie warten, bis sie oder er die Anfrage abgearbeitet hat."
+        forgot_password_recrypt: |
+          Falls Sie Ihr Passwort vergessen haben, werden nur Teams entschlüsselt welche nicht privat sind.
+          Nachdem das Formular abgesendet wurde, müssen Sie warten, bis ein Admin die Anfrage abgearbeitet hat.
         recrypt: "Recrypt"
         send: "Anfrage senden"
     users:
@@ -226,8 +230,6 @@ de:
       locked: "Der Benutzer ist momentan gesperrt. Bitte versuchen Sie es später nocheinmal oder kontaktiern Sie den Administrator."
     recryptrequests:
       recrypted: "Ihr Passwort wurde erfolgreich neu verschlüsselt."
-      new_password_wrong: "Ihr neues Passwort war falsch"
-      old_password_wrong: "Ihr altes Passwort war falsch"
       wait: "Bitte warten Sie, bis Ihre Team Passwörter neu verschlüsselt wurden."
       wrong_password: "Das Passwort war falsch."
     teams:
@@ -293,6 +295,8 @@ de:
               blank: 'kann nicht leer sein'
               taken: 'ist bereits vergeben'
         user:
+          new_password_invalid: "Ihr neues Passwort war falsch"
+          old_password_invalid: "Ihr altes Passwort war falsch"
           attributes:
             username:
               blank: 'kann nicht leer sein'
