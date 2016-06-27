@@ -11,7 +11,7 @@ class app.Search
     bind.call()
 
   ready = ->
-    new Clipboard('.clip_button_search')
+    new Clipboard('.clip_button')
 
   updateResultArea = (data) ->
     content = HandlebarsTemplates['search/result_entry'](data)
@@ -65,7 +65,7 @@ class app.Search
     $(document).on 'click', '.password-show', (e) ->
       registerActions(e)
 
-    $(document).on 'click', '.clip_button_search', (e) ->
-      app.Account.showMessage(e, '.clip_button_search')
+    $(document).on 'click', '.clip_button', (e) ->
+      app.Account.showMessage(e, '.clip_button')
 
   new Search
