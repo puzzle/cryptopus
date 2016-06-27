@@ -84,6 +84,6 @@ Content
 -------
 
 * log in
-* navigate to teams/groups/accounts
-* hit the Delete Button and click "OK" at the confirm message
+* navigate with clicks on "Teams"/on a team/on a group/ to accounts
+* hit the Delete Button for the account you want to delete and click "OK" at the confirm message
 * check if the account got deleted
