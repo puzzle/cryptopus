@@ -81,7 +81,7 @@ class TeamsController < ApplicationController
   end
 
   def redirect_if_not_allowed_to_delete_team
-    return if can_delete_team?(@team)
+    return if can_delete_team?(team)
     flash[:error] = t('flashes.teams.cannot_delete')
     redirect_to teams_path
   end
