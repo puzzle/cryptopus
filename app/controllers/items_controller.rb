@@ -23,14 +23,14 @@ class ItemsController < ApplicationController
     datafile.nil? ? flash[:error] = t('flashes.items.uploaded_file_inexistent') : create_item(datafile)
 
     respond_to do |format|
-      format.html { redirect_to team_group_account_url(@team, @group, @account) }
+      format.html { redirect_to team_group_account_url(team, @group, @account) }
     end
   end
 
   # POST /teams/1/groups/1/accounts/1/items/1
   def show
     @item = @account.items.find(params[:id])
-    file = CryptUtils.decrypt_blob(@item.file, plaintext_team_password(@team))
+    file = CryptUtils.decrypt_blob(@item.file, plaintext_team_password(team))
 
     send_data file, filename: @item.filename, type: @item.content_type, disposition: 'attachment'
   end
@@ -41,7 +41,7 @@ class ItemsController < ApplicationController
     @item.destroy
 
     respond_to do |format|
-      format.html { redirect_to team_group_account_url(@team, @group, @account) }
+      format.html { redirect_to team_group_account_url(team, @group, @account) }
     end
   end
 
@@ -60,7 +60,7 @@ class ItemsController < ApplicationController
     @item.content_type = datafile.content_type
 
     if valid_item?(@item, datafile)
-      @item.file = CryptUtils.encrypt_blob(datafile.read, plaintext_team_password(@team))
+      @item.file = CryptUtils.encrypt_blob(datafile.read, plaintext_team_password(team))
       flash[:notice] = t('flashes.items.uploaded') if @item.save
     end
   end
