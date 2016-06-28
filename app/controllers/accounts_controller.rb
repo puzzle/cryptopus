@@ -8,7 +8,8 @@
 require 'ldap_tools'
 
 class AccountsController < ApplicationController
-  before_filter :team, :group
+  before_filter :group
+  helper_method :team
 
   # GET /teams/1/groups/1/accounts
   def index

@@ -6,7 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class GroupsController < ApplicationController
-  before_filter :team
+  helper_method :team
 
   # GET /teams/1/groups
   def index
@@ -105,5 +105,5 @@ class GroupsController < ApplicationController
       add_breadcrumb @group.label
     end
   end
-
+  
 end

@@ -3,7 +3,7 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 
-= form_for([@team, @group, @account], role: 'form') do |f|
+= form_for([team, @group, @account], role: 'form') do |f|
   = f.error_messages
   .form-group
     = f.label :account

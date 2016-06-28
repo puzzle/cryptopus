@@ -7,6 +7,7 @@
 
 class ItemsController < ApplicationController
   before_filter :load_parents
+  helper_method :team
 
   # GET /teams/1/groups/1/accounts/new
   def new
@@ -48,8 +49,8 @@ class ItemsController < ApplicationController
   private
 
   def load_parents
-    @team = Team.find(params[:team_id])
-    @group = @team.groups.find(params[:group_id])
+
+    @group = team.groups.find(params[:group_id])
     @account = @group.accounts.find(params[:account_id])
   end
 

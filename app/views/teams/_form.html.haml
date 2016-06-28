@@ -3,13 +3,13 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 
-= form_for(@team, role: 'form') do |f|
+= form_for(team, role: 'form') do |f|
   = f.error_messages
   .form-group
     = f.label :name
     = f.text_field :name, autofocus: true, class: 'form-control'
   .checkbox
-    = labeled_check_box(f, :private, @team.new_record?)
+    = labeled_check_box(f, :private, team.new_record?)
     = image_tag('info.svg', class: 'info_icon private_info')
     %p.description.private
       = t('teams.description.private')

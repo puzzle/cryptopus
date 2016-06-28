@@ -8,7 +8,7 @@
 class TeamsController < ApplicationController
   before_filter :redirect_if_not_teammember_or_admin, except: [:index, :new, :create]
   before_filter :redirect_if_not_allowed_to_delete_team, only: [:destroy]
-  helper_method :can_delete_team?
+  helper_method :can_delete_team?, :team
 
   # GET /teams
   def index
