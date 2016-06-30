@@ -107,4 +107,27 @@ include IntegrationTest::DefaultHelper
     #Test if user got error messages
     assert_match /Your NEW password was wrong/, flash[:error]
   end
+
+  test 'Bob provides new ldap password over recryptrequest and entered wrong new password' do
+    #Prepare for Test
+    user_bob = users(:bob)
+    user_bob.update_attribute(:auth, 'ldap')
+
+    #Mock
+    LdapTools.stubs(:ldap_login).returns(true)
+    LdapTools.stubs(:get_ldap_info).with(User.find_by_username('bob').uid, 'givenname').returns('Bob')
+    LdapTools.stubs(:get_ldap_info).with(User.find_by_username('bob').uid, 'sn').returns('test')
+
+    #Test if Bob can see his account (should not)
+    # cannot_access_account(get_account_path, 'bob')
+
+    login_as('bob')
+
+    #Recrypt
+    LdapTools.stubs(:ldap_login).returns(false)
+    post recryptrequests_recrypt_path, forgot_password: true, new_password: 'wrong_password'
+
+    #Test if user got error messages
+    assert_match /Your NEW password was wrong/, flash[:error]
+  end
 end
