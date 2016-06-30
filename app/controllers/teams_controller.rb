@@ -74,8 +74,7 @@ class TeamsController < ApplicationController
   end
 
   def redirect_if_not_teammember_or_admin
-    @team = Team.find(params[:id])
-    return if @team.teammember?(current_user.id) || current_user.admin?
+    return if team.teammember?(current_user.id) || current_user.admin?
     flash[:error] = 'You are not member of this team'
     redirect_to teams_path
   end
