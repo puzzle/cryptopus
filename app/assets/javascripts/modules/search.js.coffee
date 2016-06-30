@@ -29,7 +29,7 @@ class app.Search
         else
           $('.result-info').show()
 
-  registerActions = (e) ->
+  showPassword = (e) ->
     e.preventDefault()
     result_password = $(e.target).next('.result-password')
     result_password.css 'top', '0px'
@@ -63,9 +63,9 @@ class app.Search
       doSearch()
 
     $(document).on 'click', '.password-show', (e) ->
-      registerActions(e)
+      showPassword(e)
 
     $(document).on 'click', '.clip_button', (e) ->
-      app.Account.showMessage(e, '.clip_button')
+      app.Helper.showCopyMessage(e, '.clip_button')
 
   new Search

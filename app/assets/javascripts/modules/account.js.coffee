@@ -32,22 +32,6 @@ class app.Account
   copyContent = ->
     new Clipboard('.clip_button')
 
-  @showMessage: (e, name) ->
-    parent = $(e.target.closest(name)).parent()
-    if $(parent).hasClass('result-password select-click')
-        message = '<p class="copied" >Password copied! </p>'
-        div = '.result-password'
-    else
-        message = '<p class="copied" >Username copied! </p>'
-        div = '.result-username'
-    $(message).appendTo div
-    parent.find($('.copied')).fadeIn('fast')
-    setTimeout (->
-      $(div).find($('.copied')).fadeOut('fast')
-      $(div).find($('.copied')).remove()
-      return
-    ), 2000
-
   ready = ->
     copyContent()
 
@@ -58,7 +42,7 @@ class app.Account
       showPassword(e)
 
     $(document).on 'click', '.clip_button', (e) ->
-      app.Account.showMessage(e, '.clip_button')
+      app.Helper.showCopyMessage(e, '.clip_button')
 
     $(document).on 'click', '.result-username input', (e) ->
       $(this).select()
