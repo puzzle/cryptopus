@@ -88,4 +88,8 @@ class TeamsController < ApplicationController
   def can_delete_team?(_team)
     current_user.admin?
   end
+
+  def team
+    @team ||= Team.find(params[:id])
+  end
 end
