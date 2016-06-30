@@ -8,7 +8,8 @@
 require 'ldap_tools'
 
 class AccountsController < ApplicationController
-  before_filter :team, :group
+  before_filter :group
+  helper_method :team
 
   # GET /teams/1/groups/1/accounts
   def index
@@ -28,7 +29,7 @@ class AccountsController < ApplicationController
 
     accounts_breadcrumbs
 
-    @account.decrypt(plaintext_team_password(@team))
+    @account.decrypt(plaintext_team_password(team))
 
     respond_to do |format|
       format.html # show.html.haml
@@ -48,12 +49,12 @@ class AccountsController < ApplicationController
   def create
     @account = @group.accounts.new(account_params)
 
-    @account.encrypt(plaintext_team_password(@team))
+    @account.encrypt(plaintext_team_password(team))
 
     respond_to do |format|
       if @account.save
         flash[:notice] = t('flashes.accounts.created')
-        format.html { redirect_to team_group_accounts_url(@team, @group) }
+        format.html { redirect_to team_group_accounts_url(team, @group) }
       else
         format.html { render action: 'new' }
       end
@@ -63,11 +64,11 @@ class AccountsController < ApplicationController
   # GET /teams/1/groups/1/accounts/1/edit
   def edit
     @account = @group.accounts.find(params[:id])
-    @groups = @team.groups.all
+    @groups = team.groups.all
 
     accounts_breadcrumbs
 
-    @account.decrypt(plaintext_team_password(@team))
+    @account.decrypt(plaintext_team_password(team))
 
     respond_to do |format|
       format.html # edit.html.haml
@@ -79,12 +80,12 @@ class AccountsController < ApplicationController
     @account = @group.accounts.find(params[:id])
     @account.attributes = account_params
 
-    @account.encrypt(plaintext_team_password(@team))
+    @account.encrypt(plaintext_team_password(team))
 
     respond_to do |format|
       if @account.save
         flash[:notice] = t('flashes.accounts.updated')
-        format.html { redirect_to team_group_accounts_url(@team, @group) }
+        format.html { redirect_to team_group_accounts_url(team, @group) }
       else
         format.html { render action: 'edit' }
       end
@@ -97,7 +98,7 @@ class AccountsController < ApplicationController
     @account.destroy
 
     respond_to do |format|
-      format.html { redirect_to team_group_accounts_url(@team, @group) }
+      format.html { redirect_to team_group_accounts_url(team, @group) }
     end
   end
 
@@ -107,17 +108,13 @@ class AccountsController < ApplicationController
     params.require(:account).permit(:accountname, :cleartext_username, :cleartext_password, :description, :group_id)
   end
 
-  def team
-    @team ||= Team.find(params[:team_id])
-  end
-
   def group
-    @group ||= @team.groups.find(params[:group_id])
+    @group ||= team.groups.find(params[:group_id])
   end
 
   def accounts_breadcrumbs
     add_breadcrumb t('teams.title'), :teams_path
-    add_breadcrumb @team.label, :team_groups_path
+    add_breadcrumb team.label, :team_groups_path
 
     add_breadcrumb @group.label if action_name == 'index'
 

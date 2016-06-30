@@ -8,7 +8,7 @@
 class TeamsController < ApplicationController
   before_filter :redirect_if_not_teammember_or_admin, except: [:index, :new, :create]
   before_filter :redirect_if_not_allowed_to_delete_team, only: [:destroy]
-  helper_method :can_delete_team?
+  helper_method :can_delete_team?, :team
 
   # GET /teams
   def index
@@ -21,7 +21,7 @@ class TeamsController < ApplicationController
 
   # GET /teams/new
   def new
-    @team = Team.new
+    team = Team.new
 
     respond_to do |format|
       format.html # new.html.haml
@@ -36,7 +36,7 @@ class TeamsController < ApplicationController
         flash[:notice] = t('flashes.teams.created')
         format.html { redirect_to(teams_url) }
       else
-        @team = team
+        team = team
         format.html { render action: 'new' }
       end
     end
@@ -45,13 +45,13 @@ class TeamsController < ApplicationController
   # GET /teams/1/edit
   def edit
     add_breadcrumb t('teams.title'), :teams_path
-    add_breadcrumb @team.label
+    add_breadcrumb team.label
   end
 
   # PUT /teams/1
   def update
     respond_to do |format|
-      if @team.update_attributes(team_params)
+      if team.update_attributes(team_params)
         flash[:notice] = t('flashes.teams.updated')
         format.html { redirect_to(teams_url) }
       else
@@ -62,7 +62,7 @@ class TeamsController < ApplicationController
 
   # DELETE /teams/1
   def destroy
-    @team.destroy
+    team.destroy
     flash[:notice] = t('flashes.teams.deleted')
     redirect_to teams_path
   end
@@ -81,7 +81,7 @@ class TeamsController < ApplicationController
   end
 
   def redirect_if_not_allowed_to_delete_team
-    return if can_delete_team?(@team)
+    return if can_delete_team?(team)
     flash[:error] = t('flashes.teams.cannot_delete')
     redirect_to teams_path
   end

@@ -6,7 +6,7 @@
 %h1
   = t '.title'
   ( #{@account.accountname} )
-= form_for [@team, @group, @account, @item], html: { multipart: true } do |f|
+= form_for [team, @group, @account, @item], html: { multipart: true } do |f|
   .form-group
     = f.label t('.upload')
     = f.file_field :file

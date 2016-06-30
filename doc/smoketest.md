@@ -1,89 +1,58 @@
 Smoketests for Cryptopus
 ========================
 
-
-Nr.1: Recover a password
-========================
-
-Actor
------
-Any User
-
-Description
------------
-
-user comes to cryptopus to view self-saved account data
-
-Content
--------
-
-* log in
-* navigate with clicks on "Teams"/on a team/on a group to accounts
-* click on an account to view username an password information.
-
-
-Nr.2: Create a new account
+Nr.1: Create a new account
 ==========================
 
-Actor
------
+Content
+-------
 
-Any User
+1. log in
+2. navigate with clicks on "Teams" and create a non-private-team with "create Team"
+3. go into the created team and create a group with "create Group"
+4. go into the created group and click "New Account"
+5. Fill out the textboxs with random content and hit "Create"
+6. search and inspect your new account
+
+Nr.2: Recover a password
+========================
 
 Content
 -------
 
-* log in
-* navigate with clicks on "Teams"/on a team/on a group to accounts
-* click "New Account"
-* Fill out the textboxs with random content and hit "Create"
-* search and inspect your new account
-
+1. log in
+2. navigate to your created account
+3. click on an account to view username an password information.
 
 Nr.3: Edit an account
 =====================
 
-Actor
------
-
-Any User
-
 Content
 -------
 
-* log in
-* navigate with clicks on "Teams"/on a team/on a group to accounts
-* select an account and hit "Edit"
-* make changes and hit "Update"
+1. log in
+2. navigate to your created account
+3. select an account and hit "Edit"
+4. make changes and hit "Update"
 
 Nr.4: Change Password
 =====================
 
-Actor
------
+Content
+-------
 
-Any User
+1. log in
+2. hit "Change password" and fill out the entries
+3. hit "Change" and log out
+4. try to log in with your new password
+
+Nr.5: add user to your team
+===========================
 
 Content
 -------
 
-* log in
-* hit "Change password" and fill out the entries
-* hit "Change" and log out
-* try to log in with your new password
-
-Nr.5: Delete Account
-====================
-
-Actor
------
-
-Any User
-
-Content
--------
-
-* log in
-* navigate with clicks on "Teams"/on a team/on a group/ to accounts
-* hit the Delete Button for the account you want to delete and click "OK" at the confirm message
-* check if the account got deleted
+1. log in
+2. navigate with clicks to Teams and chose your created team
+3. fill the "add user" textbox with an other username and submit
+4. check the userlist of your team for a membership of the added user
