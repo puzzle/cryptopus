@@ -21,7 +21,7 @@ class TeamsController < ApplicationController
 
   # GET /teams/new
   def new
-    team = Team.new
+    @team = Team.new
 
     respond_to do |format|
       format.html # new.html.haml
