@@ -66,6 +66,6 @@ class app.Search
       showPassword(e)
 
     $(document).on 'click', '.clip_button', (e) ->
-      app.Helper.showCopyMessage(e, '.clip_button')
+      app.AccountHelper.showCopyMessage(e, '.clip_button')
 
   new Search

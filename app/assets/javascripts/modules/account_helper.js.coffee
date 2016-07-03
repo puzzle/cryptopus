@@ -1,6 +1,6 @@
 app = window.App ||= {}
 
-class app.Helper
+class app.AccountHelper
 
     @showCopyMessage: (e, name) ->
       parent = $(e.target.closest(name)).parent()
@@ -17,6 +17,3 @@ class app.Helper
         $(div).find($('.copied')).remove()
         return
       ), 2000
-
-
-  new Helper

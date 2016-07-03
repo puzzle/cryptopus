@@ -6,13 +6,12 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery-ui
+#= require clipboard.js
 #= require twitter/bootstrap
 #= require handlebars.runtime
+#= require turbolinks
 #= require_tree ./modules
 #= require_tree ./templates
-#= require turbolinks
-#= require clipboard.js
-#= require clipboard.min.js
 
 
 # scope for global functions

@@ -42,7 +42,7 @@ class app.Account
       showPassword(e)
 
     $(document).on 'click', '.clip_button', (e) ->
-      app.Helper.showCopyMessage(e, '.clip_button')
+      app.AccountHelper.showCopyMessage(e, '.clip_button')
 
     $(document).on 'click', '.result-username input', (e) ->
       $(this).select()
