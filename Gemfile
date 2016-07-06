@@ -21,6 +21,8 @@ gem 'less-rails'
 gem 'turbolinks'
 gem 'jquery-ui-rails'
 gem 'active_model_serializers', '0.10.0'
+gem 'capybara'
+gem 'capybara-webkit'
 
 
 group :development, :test do
