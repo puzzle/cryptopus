@@ -90,8 +90,7 @@ class app.TeamMembers
       toggle_members()
       load_members()
 
-    $(document).on 'click', '.members li #remove_member', (e) ->
+    $(document).on 'click', '.members li .remove_member', (e) ->
       delete_member(e)
 
   new TeamMembers
-
