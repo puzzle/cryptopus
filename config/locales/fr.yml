@@ -89,6 +89,7 @@ fr:
         ldap_password: "Votre mot de passe de LDAP"
         forgot_password_recrypt: |
           Si vous avez oublié votre mot de passe, seulement celles équipes sont décryptées qui ne sont pas privées.
+          Tout les équipes sur laquelles personnes n'a accès sont supprimées.
           Après l'envoi du formulaire, vous devez attendre jusqu'à ce qu'un administrateur a traité la demande.
         recrypt: "Re crypter"
         send: "Envoyer la demande"

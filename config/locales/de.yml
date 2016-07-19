@@ -89,6 +89,7 @@ de:
         ldap_password: "Ihr LDAP Passwort"
         forgot_password_recrypt: |
           Falls Sie Ihr Passwort vergessen haben, werden nur Teams entschlüsselt welche nicht privat sind.
+          Sollten dadurch private Teams entstehen, auf die niemand Zugriff hat, werden diese gelöscht.
           Nachdem das Formular abgesendet wurde, müssen Sie warten, bis ein Admin die Anfrage abgearbeitet hat.
         recrypt: "Recrypt"
         send: "Anfrage senden"
