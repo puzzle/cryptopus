@@ -18,6 +18,7 @@ class ResetDbUserPasswordTest < ActionDispatch::IntegrationTest
     logout
 
     can_access_account(account_path1, 'bob', 'test','test', 'password')
+    assert_not Team.find_by(id: teams(:team2))
     # TODO Story #18476
   end
 end

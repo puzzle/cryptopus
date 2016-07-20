@@ -98,6 +98,7 @@ en:
       edit:
         title: "Editing user"
         reset_password: "Reset password"
+        warning: "*Resetting the password of an user lets him lose all his private Teams he's the only Member of."
       index:
         title: "List of all Cryptopus users"
         username: "Username"

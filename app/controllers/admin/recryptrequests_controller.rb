@@ -46,12 +46,12 @@ class Admin::RecryptrequestsController < Admin::AdminController
   private
 
   def recrypt_passwords(user, admin)
+    user.last_teammember_teams.destroy_all
+    
     user.teammembers.non_private_teams.each do |tm|
-      user.last_teammember_teams.each do |td|
-        td.destroy
-      end
       recrypt_team_password(tm, admin)
     end
+
     yield if block_given?
   rescue StandardError => e
     flash[:error] = e.message

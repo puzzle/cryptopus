@@ -99,6 +99,8 @@ de:
       edit:
         title: "Benutzer bearbeiten"
         reset_password: "Passwort zurücksetzen"
+        warning: "*Das Zurücksetzen des Passworts eines Benutzers führt zum Verlust seiner Private Teams,
+         in denen er der einzige Member ist."
       index:
         title: "Liste aller Cryptopus Benutzer"
         username: "Benutzername"
