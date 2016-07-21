@@ -325,15 +325,15 @@
                                         "value": "${SECRET_KEY_BASE}"
                                     },
                                     {
-                                        "name": "_ENV",
+                                        "name": "RAILS_ENV",
                                         "value": "production"
                                     },
                                     {
-                                        "name": "_SERVE_STATIC_FILES",
+                                        "name": "RAILS_SERVE_STATIC_FILES",
                                         "value": "1"
                                     },
                                     {
-                                        "name": "_DB_NAME",
+                                        "name": "RAILS_DB_NAME",
                                         "value": "${MYSQL_DATABASE}"
                                     },
                                     {
