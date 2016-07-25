@@ -9,12 +9,12 @@ class Api::Team::MembersController < ApiController
 
   def index
     members = team.teammembers.list
-    render json: members
+    render_json members
   end
 
   def candidates
     candidates = team.member_candidates
-    render json: candidates
+    render_json candidates
   end
 
   def create
@@ -24,12 +24,12 @@ class Api::Team::MembersController < ApiController
 
     team.add_user(new_member, decrypted_team_password)
 
-    render json: ''
+    render_json ''
   end
 
   def destroy
     team.teammembers.find_by(user_id: params[:id]).destroy!
-    render json: ''
+    render_json ''
   end
 
   private

@@ -7,12 +7,12 @@
 
 class ApiController < ApplicationController
 
-  protected
-
   def render_json(data = nil)
-    render status: response_status, json: {messages: messages, data: data}
+    data = ActiveModelSerializers::SerializableResource.new(data).as_json
+    render status: response_status, json: {data: data, messages: messages}
   end
 
+  protected
   def add_error(msg)
     messages[:errors] << msg
   end
@@ -35,5 +35,4 @@ class ApiController < ApplicationController
   def success_or_error
     messages[:errors].present? ? :internal_server_error : nil
   end
-
 end
