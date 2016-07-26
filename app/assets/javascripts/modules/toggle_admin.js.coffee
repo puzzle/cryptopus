@@ -15,16 +15,11 @@ class app.ToggleAdmin
       url: url
     })
 
-  show_flash_message =  ->
-    message = 'Admin toggled'
-    app.flash.add(message)
-
   bind = ->
     $(document).on 'click', '.toggle-button', ->
       user_id = $(this).attr('id')
       url = '/api/admin/users/' + user_id + '/toggle_admin'
       toggle(url)
       $(this).toggleClass('toggle-button-selected')
-      show_flash_message()
 
   new ToggleAdmin
