@@ -35,16 +35,6 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
- # POST /admin/users/1
-  def toggle_admin
-    user.toggle_admin(current_user, session[:private_key])
-
-    respond_to do |format|
-      format.html { render nothing: true }
-    end
-  end
-
-
   # DELETE /admin/users/1
   def destroy
     if user == current_user

@@ -23,12 +23,15 @@ class Api::Team::MembersController < ApiController
     decrypted_team_password = team.decrypt_team_password(current_user, session[:private_key])
 
     team.add_user(new_member, decrypted_team_password)
-
+    
+    add_info(t('flashes.api.members.added', username: new_member.username))
     render_json ''
   end
 
   def destroy
     team.teammembers.find_by(user_id: params[:id]).destroy!
+    username = User.find(params[:id]).username
+    add_info(t('flashes.api.members.removed', username: username))
     render_json ''
   end
 

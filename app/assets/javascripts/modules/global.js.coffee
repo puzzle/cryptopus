@@ -11,6 +11,7 @@ class app.Global
     bind.call()
     
   show_messages = (messages) ->
+    return if messages.errors.length == 0 && messages.info.length == 0
     compiled_html = HandlebarsTemplates['alert_messages'](messages)
     $('.message_container').html(compiled_html)
 

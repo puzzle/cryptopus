@@ -11,7 +11,7 @@ class app.ToggleAdmin
 
   toggle = (url) ->
     $.ajax({
-      type: "POST",
+      type: "PATCH",
       url: url
     })
 
@@ -22,7 +22,7 @@ class app.ToggleAdmin
   bind = ->
     $(document).on 'click', '.toggle-button', ->
       user_id = $(this).attr('id')
-      url = '/admin/users/' + user_id + '/toggle_admin'
+      url = '/api/admin/users/' + user_id + '/toggle_admin'
       toggle(url)
       $(this).toggleClass('toggle-button-selected')
       show_flash_message()

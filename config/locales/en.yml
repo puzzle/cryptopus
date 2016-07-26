@@ -178,6 +178,15 @@ en:
       private: admins have no access if checked
 
   flashes:
+    api:
+      admin:
+        users:
+          toggle:
+            empowered: "%{username} is now an admin"
+            disempowered: "%{username} is no more admin"
+      members:
+        removed: "%{username} was successfully removed from team"
+        added: "%{username} was successfully added to team" 
     wizard:
       fill_password_fields: "Please provide an initial password"
       paswords_do_not_match: "Passwords do not match"
