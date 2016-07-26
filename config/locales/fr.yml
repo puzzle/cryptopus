@@ -180,6 +180,15 @@ fr:
       private: "Administrateurs auront pas accès à votre équipe."
 
   flashes:
+    api:
+      admin:
+        users:
+          toggle:      
+            empowerd: "L'usutilisateur a reçu les droits d administrateur"
+            disempowerd: "L'utilisateur a perdu les droits d'administrateur"
+    members:
+      added: "%{username} a été enlevé avec succès à l'équipe" 
+      removed: "%{username} a été ajouté avec succès à l'équipe"
     wizard:
       fill_password_fields: "S'il vous plaît remplir tous les champs"
       paswords_do_not_match: "Les mots de passe ne correspondent pas"
@@ -197,8 +206,6 @@ fr:
           required: "Le mot de passe ne peut pas être vide"
       users:
         created: "Utilisateur créé avec succès."
-        empowerd: "L'usutilisateur a reçu les droits d administrateur"
-        disempowerd: "L'utilisateur a perdu les droits d'administrateur"
         destroy:
           own_user: "Actuel de l'utilisateur ne peut pas être supprimé"
           root: "Root ne peut pas être supprimé"

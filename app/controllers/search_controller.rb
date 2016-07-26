@@ -20,7 +20,6 @@ class SearchController < ApplicationController
     accounts = current_user.search_accounts(term)
 
     decrypt_accounts(accounts)
-
     render json: accounts
   end
 

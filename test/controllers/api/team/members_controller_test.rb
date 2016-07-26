@@ -17,7 +17,7 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
 
     xhr :get, :candidates, team_id: team
 
-    candidates = JSON.parse(response.body)['users']
+    candidates = JSON.parse(response.body)['data']['users']
 
     assert_equal 2, candidates.size
     assert candidates.any? {|c| c['label'] == 'Alice test' }, 'Alice should be candidate'
@@ -32,7 +32,7 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
 
     xhr :get, :index, team_id: team
 
-    members = JSON.parse(response.body)['teammembers']
+    members = JSON.parse(response.body)['data']['teammembers']
 
     assert_equal 3, members.size
     assert members.any? {|c| c['label'] == 'Alice test' }, 'Alice should be in team'

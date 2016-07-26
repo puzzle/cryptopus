@@ -34,7 +34,6 @@ Cryptopus::Application.routes.draw do
       resources :users do
         member do
           get 'unlock'
-          post 'toggle_admin'
         end
       end
       resources :recryptrequests do
@@ -64,6 +63,11 @@ Cryptopus::Application.routes.draw do
   end
 
   scope '/api', module: 'api' do
+    scope '/admin', module: 'admin' do
+      resources :users, only: [] do
+        patch :toggle_admin, to: '/api/admin/users#toggle_admin'
+      end
+    end
     scope '/teams', module: 'teams'do
       delete :last_teammember_teams, to: '/api/teams#destroy_last_teammember_teams'
       get :last_teammember_teams

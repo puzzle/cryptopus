@@ -180,6 +180,15 @@ de:
       private: Admins haben keinen Zugriff wenn angewählt
 
   flashes:
+    api:
+      admin:
+        users:
+          toggle:
+            empowered: "%{username} hat nun Admin-Rechte"
+            disempowered: "Dem Benutzer %{username} wurden die Admin-Rechte entzogen"      
+      members:
+        added: "%{username} wurde erfolgreich hinzugefügt" 
+        removed: "%{username} wurde erfolgreich entfernt"
     wizard:
       fill_password_fields: "Bitte füllen Sie alle Felder aus"
       paswords_do_not_match: "Die Passwörter stimmen nicht überein"
@@ -197,8 +206,6 @@ de:
           required: "Das Passwort darf nicht leer sein"
       users:
         created: "Der neue Benutzer wurde erfolgreich erstellt."
-        empowerd: "Der Benutzer hat nun Admin-Rechte."
-        disempowerd: "Dem Benutzer wurden die Admin-Rechte entzogen."
         destroy:
           own_user: "Eigener Benutzer kann nicht gelöscht werden"
           root: "Root kann nicht gelöscht werden"

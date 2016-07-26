@@ -31,7 +31,7 @@ class app.TeamMembers
     team_id = $('input#team_id').val()
     url = '/api/teams/' + team_id + '/members/candidates'
     $.get(url).done (data) ->
-      render_candidates(data['users'])
+      render_candidates(data['data']['users'])
 
   render_candidates = (users) ->
     availableUsers = []
@@ -59,7 +59,7 @@ class app.TeamMembers
     team_id = $('input#team_id').val()
     url = '/api/teams/' + team_id + '/members'
     $.get(url).done (data) ->
-      render_members(data['teammembers'])
+      render_members(data['data']['teammembers'])
 
   delete_member = (e) ->
     parent_li = $(e.target).parents('li')
