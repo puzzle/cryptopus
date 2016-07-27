@@ -22,5 +22,5 @@ class app.Global
   bind = ->
       $(document).ajaxComplete (xhr, data) ->
         messages = get_messages(data)
-        show_messages(messages)
+        show_messages(messages) if messages != null
   new Global
