@@ -3,7 +3,7 @@ app = window.App ||= {}
 class app.AccountHelper
 
     @showCopyMessage: (e, name) ->
-      parent = $(e.target.closest(name)).parent()
+      parent = $($(e.target).parents(name).first()).parent().first()
       if $(parent).hasClass('result-password select-click')
           message = '<p class="copied" >Password copied! </p>'
           div = '.result-password'
