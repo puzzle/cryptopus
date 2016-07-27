@@ -355,6 +355,14 @@
                                     {
                                         "name": "RAILS_HOST_NAME",
                                         "value": "${RAILS_HOST_NAME}"
+                                    },
+                                    {
+                                      "name": "RAILS_AIRBRAKE_HOST",
+                                      "name": "Edit me"
+                                    },
+                                    {
+                                      "name": "RAILS_AIRBRAKE_API_KEY",
+                                      "value": "Edit me"
                                     }
                                 ],
                                 "resources": {},
