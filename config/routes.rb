@@ -57,12 +57,15 @@ Cryptopus::Application.routes.draw do
     post 'wizard/apply'
 
     get 'search', to: 'search#index'
-    get 'search/account', to: 'search#account'
 
     root to: 'search#index'
   end
 
   scope '/api', module: 'api' do
+    scope '/search', module: 'search' do
+      get :accounts, to: '/api/search#accounts'
+    end
+    
     scope '/admin', module: 'admin' do
       resources :users, only: [] do
         patch :toggle_admin, to: '/api/admin/users#toggle_admin'

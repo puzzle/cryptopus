@@ -13,23 +13,5 @@ class SearchController < ApplicationController
       format.html # new.html.haml
     end
   end
-
-  def account
-    term = params[:search_string]
-
-    accounts = current_user.search_accounts(term)
-
-    decrypt_accounts(accounts)
-    render json: accounts
-  end
-
-  private
-
-  def decrypt_accounts(accounts)
-    accounts.each do |a|
-      team = a.group.team
-      a.decrypt(plaintext_team_password(team))
-    end
-  end
-
 end
+    

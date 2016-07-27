@@ -7,13 +7,13 @@
 
 require 'test_helper'
 
-class SearchControllerTest < ActionController::TestCase
+class Api::SearchControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
   test "should get account" do
     login_as(:alice)
-    xhr :get, :account, {'search_string' => 'acc'}
+    xhr :get, :accounts, {'q' => 'acc'}
 
-    result_json = JSON.parse(response.body)['accounts'][0]
+    result_json = JSON.parse(response.body)['data']['accounts'][0]
 
     account = accounts(:account1)
     group = account.group
