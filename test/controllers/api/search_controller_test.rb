@@ -11,7 +11,7 @@ class Api::SearchControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
   test "should get account" do
     login_as(:alice)
-    xhr :get, :accounts, {'q' => 'acc'}
+    xhr :get, :index, {'q' => 'acc'}
 
     result_json = JSON.parse(response.body)['data']['accounts'][0]
 

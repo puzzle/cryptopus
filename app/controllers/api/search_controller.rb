@@ -7,7 +7,7 @@
 
 class Api::SearchController <  ApiController
 
-  def accounts
+  def index
     term = params[:q]
 
     accounts = current_user.search_accounts(term)
