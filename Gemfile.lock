@@ -40,6 +40,9 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    airbrake (4.3.8)
+      builder
+      multi_json
     arel (6.0.3)
     ast (2.2.0)
     binding_of_caller (0.7.2)
@@ -271,6 +274,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (= 0.10.0)
+  airbrake (< 5.0)
   brakeman
   breadcrumbs_on_rails
   clipboard
@@ -304,3 +308,6 @@ DEPENDENCIES
   turbolinks
   twitter-bootstrap-rails
   uglifier
+
+BUNDLED WITH
+   1.12.5
