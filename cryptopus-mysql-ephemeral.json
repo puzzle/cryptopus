@@ -439,6 +439,54 @@
             "status": {
                 "loadBalancer": {}
             }
+        },
+        {
+            "kind": "Endpoints",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "glusterfs-cluster",
+                "creationTimestamp": null
+            },
+            "subsets": [
+                {
+                    "addresses": [
+                        {
+                            "ip": "10.2.111.221"
+                        },
+                        {
+                            "ip": "10.2.111.222"
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "port": 1,
+                            "protocol": "TCP"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "glusterfs-cluster",
+                "creationTimestamp": null
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 1,
+                        "targetPort": 1
+                    }
+                ],
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
         }
     ],
     "parameters": [
