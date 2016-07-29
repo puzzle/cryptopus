@@ -9,47 +9,62 @@ class app.User
   constructor: () ->
     bind.call()
 
-  hideSoloteams: ->
-    @soloteams.hide()
+  hideLastTeammemberTeams = ->
+    $(@last_teammember_teams).hide()
 
-  showSoloteams: ->
-    @soloteams.show()
+  showLastTeammemberTeams = ->
+    $(@last_teammember_teams).show()
 
-  onDeleteUser: (lastTeammemberTeamsLink, destroyLink) ->
+  onDeleteUser = (lastTeammemberTeamsLink, username) ->
       $.ajax({
         url: lastTeammemberTeamsLink,
         success: (response) =>
-          this.onLastTeammemberDataLoaded(response, destroyLink)
+          onLastTeammemberDataLoaded(response, username)
       })
 
-  onLastTeammemberDataLoaded: (response, destroyLink) ->
-    if response.data.length == 0 #No last teammember teams for user
-      destroyLink.click()
+  onLastTeammemberDataLoaded = (response, username) ->
+    showLastTeammemberTeams()
+    teams = response.data
+    console.log teams.length
+    if teams.teams.length == 0 #No last teammember teams for user
+      showWarningMessage(username)
     else
-      this.renderTeamsTable(response.data)
+      renderLastTeammemberTeams(teams)
 
-  renderTeamsTable: (teams) ->
-    this.showSoloteams()
+  renderLastTeammemberTeams = (teams) ->
+    template = HandlebarsTemplates['last_teammember_teams']
+    compiled_html = template(teams)
+    $('#last_teammember_teams_table').html(compiled_html)
 
+  showWarningMessage = (username) ->
+    debugger
+    $('#delete_user_button').prop('disabled', false)
+
+  deleteLastTeammemberTeam = (team_id) ->
+    url = '/api/teams/' + team_id
+    $.ajax({
+      url: url,
+      type: 'DELETE'
+    })
 
   bind = ->
-    @team_table = $('#soloteams #team_table')
-    @soloteams = $('#soloteams')
-    that = this
+    @last_teammember_teams = '#last_teammember_teams'
 
-    $(document).on 'click', '#soloteams_cancel_button', =>
-      this.hideSoloteams()
+    $(document).on 'click', '#last_teammember_teams_cancel_button', =>
+      hideLastTeammemberTeams()
 
 
-    $(document).on 'click', '#team_table .delete_link', (e) ->
-      e.preventDefault()
-
+    $(document).on 'click', '#team_table .delete_user_link', (e) ->
       element = $(this)
+      teammemberLink = element.data('last-teammember-teams-link')
+      username = element.data('username')
+      onDeleteUser(teammemberLink, username)
 
-      teammemberLink = $(element).data('last-teammember-teams-link')
-      destroyLink = $(element).next()
+   $(document).on 'click', '#delete_last_teammember_team_link', (e) ->
+      team_id_element = $(this).closest('tr').find('#last_teammember_team_id')
+      team_id = parseInt(team_id_element.text())
+      debugger
+      deleteLastTeammemberTeam(team_id)
 
-      that.onDeleteUser(teammemberLink, destroyLink)
-      false
 
-    new User
+  new User

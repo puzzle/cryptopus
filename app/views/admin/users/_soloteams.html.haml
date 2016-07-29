@@ -7,14 +7,12 @@
   %div{id: "teamscreen_content"}
     %div{class: "alert alert-info"}
       %p= t '.message'
-    %div{class: "teamscreen_table"}
+    %div{id: "last_teammember_teams_table"}
 
-      %table.table.table-striped
-        %tr
-          %th= t '.title'
+    %div{class: "delete_user_warning_message"}
+      %p{class: "message"}halllo
 
-        %tr.team_row
-          %td= 'hallo'
 
   %div{id: "teamscreen_buttons"}
-  %button#soloteams_cancel_button.btn.btn-primary.pull-right Cancel
+    %button#last_teammember_teams_cancel_button.btn.btn-primary.pull-right Cancel
+    %button#delete_user_button.btn.btn-primary.pull-right.disabled t '.delete_user'
