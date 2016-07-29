@@ -9,14 +9,15 @@ class Api::TeamsController < ApiController
   before_filter :check_for_admin
 
   def last_teammember_teams
+    
     user = User.find(params['user_id'])
     teams = user.last_teammember_teams
     render_json teams
   end
 
-  def destroy_last_teammember_teams
-    user = User.find(params['user_id'])
-    user.last_teammember_teams.destroy_all
+  def destroy 
+    team = Team.find(params['id'])
+    team.destroy
     render_json ''
   end
 
