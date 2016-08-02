@@ -79,7 +79,7 @@ Install RVM (see https://rvm.io/rvm/install)
 `cd cryptopus`  
 `bundle`  
 `rake db:create #create database(sqlite3)`  
-`rake db:setup:all #initialize database and loading database dev seeds`   
+`rake db:setup #initialize database and loading database dev seeds`   
 `rails s #start server`  
 log into app with user “root” and password “password”
 
