@@ -9,12 +9,12 @@ class Api::TeamsController < ApiController
   before_filter :check_for_admin
 
   def last_teammember_teams
-    teams = current_user.last_teammember_teams
+    teams = user.last_teammember_teams
     render_json teams
   end
 
   def destroy_last_teammember_teams
-    current_user.last_teammember_teams.destroy_all
+    user.last_teammember_teams.destroy_all
     render_json ''
   end
 
@@ -25,5 +25,11 @@ class Api::TeamsController < ApiController
       add_error t('flashes.admin.admin.no_access')
       render_json and return
     end
+  end
+
+  private
+
+  def user
+    @user ||= User.find(params['user_id'])
   end
 end

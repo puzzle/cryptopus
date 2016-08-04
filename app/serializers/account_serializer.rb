@@ -7,6 +7,14 @@
 
 class AccountSerializer < ApplicationSerializer
   attributes :id, :accountname, :group_id, :group, :team, :team_id, :cleartext_password, :cleartext_username
+  
+  def cleartext_password
+    object.cleartext_password
+  end
+  
+  def cleartext_username
+    object.cleartext_username
+  end
 
   def group
     object.group.name

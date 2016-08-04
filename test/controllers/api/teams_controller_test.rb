@@ -14,7 +14,7 @@ class Api::TeamsControllerTest < ActionController::TestCase
   test 'delete all teams where user is last teammember' do
     login_as(:admin)
     soloteam = Fabricate(:private_team)
-    user = User.find(soloteam.teammembers.first.user_id)
+    user = soloteam.teammembers.first.user
 
     delete :destroy_last_teammember_teams, user_id: user.id
 
@@ -25,9 +25,9 @@ class Api::TeamsControllerTest < ActionController::TestCase
     login_as(:admin)
 
     soloteam = Fabricate(:private_team)
-    user = User.find(soloteam.teammembers.first.user_id)
+    user = soloteam.teammembers.first.user
 
-    response = get :last_teammember_teams, user_id: user.id
+    get :last_teammember_teams, user_id: user.id
     team = JSON.parse(response.body)['data'][0]
 
 
@@ -39,7 +39,7 @@ class Api::TeamsControllerTest < ActionController::TestCase
   test 'cannot delete teams if not admin' do
     login_as(:bob)
     soloteam = Fabricate(:private_team)
-    user = User.find(soloteam.teammembers.first.user_id)
+    user = soloteam.teammembers.first.user
 
     response = delete :destroy_last_teammember_teams, user_id: user.id
 
