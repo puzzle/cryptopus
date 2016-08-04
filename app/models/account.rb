@@ -15,21 +15,6 @@ class Account < ActiveRecord::Base
 
   attr_accessor :cleartext_password, :cleartext_username
 
-  def as_json(options = {})
-    h = super(options)
-    h[:group] = group.name
-    h[:team] = group.team.name
-    h[:team_id] = group.team.id
-    h[:cleartext_password] = cleartext_password
-    h[:cleartext_username] = cleartext_username
-    h.delete('description')
-    h.delete('created_at')
-    h.delete('updated_at')
-    h.delete('username')
-    h.delete('password')
-    h
-  end
-
   def label
     accountname
   end
