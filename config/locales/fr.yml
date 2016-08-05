@@ -31,6 +31,7 @@ fr:
   unencrypted_field_caption: ne pas crypté
   group: "Groupe"
   team: "Équipe"
+  move: "Mouvior"
 
   i18n:
     language:
@@ -183,11 +184,11 @@ fr:
     api:
       admin:
         users:
-          toggle:      
+          toggle:
             empowerd: "L'usutilisateur a reçu les droits d administrateur"
             disempowerd: "L'utilisateur a perdu les droits d'administrateur"
     members:
-      added: "%{username} a été enlevé avec succès à l'équipe" 
+      added: "%{username} a été enlevé avec succès à l'équipe"
       removed: "%{username} a été ajouté avec succès à l'équipe"
     wizard:
       fill_password_fields: "S'il vous plaît remplir tous les champs"

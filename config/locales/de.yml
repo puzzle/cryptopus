@@ -31,6 +31,7 @@ de:
   unencrypted_field_caption: nicht verschlüsselt
   group: "Gruppe"
   team: "Team"
+  move: "Bewegen"
 
   i18n:
     language:
@@ -185,9 +186,9 @@ de:
         users:
           toggle:
             empowered: "%{username} hat nun Admin-Rechte"
-            disempowered: "Dem Benutzer %{username} wurden die Admin-Rechte entzogen"      
+            disempowered: "Dem Benutzer %{username} wurden die Admin-Rechte entzogen"
       members:
-        added: "%{username} wurde erfolgreich hinzugefügt" 
+        added: "%{username} wurde erfolgreich hinzugefügt"
         removed: "%{username} wurde erfolgreich entfernt"
     wizard:
       fill_password_fields: "Bitte füllen Sie alle Felder aus"

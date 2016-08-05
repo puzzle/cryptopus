@@ -71,8 +71,10 @@ Cryptopus::Application.routes.draw do
     scope '/teams', module: 'teams'do
       delete :last_teammember_teams, to: '/api/teams#destroy_last_teammember_teams'
       get :last_teammember_teams
+      get :index
     end
     resources :teams, only: []  do
+      resources :groups, only: ['index'], module: 'team'
       resources :members, except: [:new, :edit], module: 'team' do
         collection do
           get :candidates

@@ -31,6 +31,7 @@ en:
   unencrypted_field_caption: not encrypted
   group: "Group"
   team: "Team"
+  move: "Move"
 
   i18n:
     language:
@@ -187,7 +188,7 @@ en:
             disempowered: "%{username} is no more admin"
       members:
         removed: "%{username} was successfully removed from team"
-        added: "%{username} was successfully added to team" 
+        added: "%{username} was successfully added to team"
     wizard:
       fill_password_fields: "Please provide an initial password"
       paswords_do_not_match: "Passwords do not match"
