@@ -327,7 +327,7 @@ de:
         other: etwa %{count} Monate
       about_x_years:
         one: etwa ein Jahr
-        other: etwa %{count} Jahre
+        other: etwa %{count} Jahren
       almost_x_years:
         one: fast ein Jahr
         other: fast %{count} Jahre
