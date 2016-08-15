@@ -10,13 +10,41 @@ require 'test_helper'
 class AccountsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
+  test 'Alice want to move an account to a team shes not member of' do
+    login_as (:alice)
+
+    account1 = accounts(:account1)
+    group1 = groups(:group1)
+    group2 = groups(:group2)
+    team1 = teams(:team1)
+    
+    assert_raise NoMethodError do
+      patch :update, id: account1, group_id: group1, team_id: team1, account: {group_id: group2.id}
+    end
+  end
+
+  test 'move account from one group to a group from another team' do
+    login_as (:bob)
+
+    account1 = accounts(:account1)
+    group1 = groups(:group1)
+    group2 = groups(:group2)
+    team1 = teams(:team1)
+
+    patch :update, id: account1, group_id: group1, team_id: team1, account: {group_id: group2.id}
+    account1.reload
+
+    assert_equal account1.group_id, group2.id
+  end
+
   test 'move account from one group to another' do
     login_as (:bob)
 
     account1 = accounts(:account1)
     group1 = groups(:group1)
     team1 = teams(:team1)
-    group2 = team1.groups.new(id: '12', name: 'Test', description: 'group_description')
+    group2 = team1.groups.new(id: 12, name: 'Test', description: 'group_description')
+    group2.save
 
     patch :update, id: account1, group_id: group1, team_id: team1, account: {group_id: group2}
     account1.reload

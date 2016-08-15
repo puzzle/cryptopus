@@ -19,14 +19,11 @@
     %span#unencrypted
       (#{I18n.t('unencrypted_field_caption')})
     = f.text_area :description, class: 'form-control'
-
-  = f.label :move
-  %br/
-  = f.label :team
-  .move_team
-  = f.label :group
-  .move_group    
-  - if @groups && @groups.count > 1
-    = f.label I18n.t('accounts_move')
-    = f.collection_select(:group_id, @groups, :id, :name)
+  .form-group
+    = f.label :move
+    %br/
+    = f.label :team
+    .move_team
+    = f.label :group_id
+    .move_group
   = f.submit @submit_button_text, class: 'btn btn-primary'

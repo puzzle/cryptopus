@@ -21,20 +21,15 @@ attr_accessor :user_id
 
 
   def move
-    move_account unless same_team?
+    move_account_to_team unless same_team?
     account.group_id = group.id
-    account.save
+    decrypt_new_team_password
   end
 
   private
 
-  def move_account
-    old_password = decrypt_old_team_password
-    new_password = decrypt_new_team_password
-
-    account.decrypt(old_password)
+  def move_account_to_team
     account.group.team.id = group.team.id
-    account.encrypt(new_password)
   end
 
   def move_items
@@ -49,11 +44,6 @@ attr_accessor :user_id
 
   def same_team?
     return account.group.team == group.team
-  end
-
-  def decrypt_old_team_password
-    old_teammember = account.group.team.teammember(user_id)
-    CryptUtils.decrypt_team_password(old_teammember.password, private_key)
   end
 
   def decrypt_new_team_password

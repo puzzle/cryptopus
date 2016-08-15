@@ -10,27 +10,32 @@ class app.AccountMove
     bind.call()
 
   load_teams = ->
-    url = '/api/teams/index'
-    $.get(url).done (data) ->
-      render_teams(data['data'])
+    team_url = '/api/teams/index'
+    $.get(team_url).done (teams) ->
+      render_teams(teams['data'])
 
   render_teams = (teams) ->
     teams_container = $('.move_team')
-    content = HandlebarsTemplates['account_edit_dropdown'](teams)
-    teams_container.html(content)
+    if teams_container.length > 0
+      content = HandlebarsTemplates['account_edit_dropdown'](teams)
+      teams_container.html(content)
 
 
   load_groups = ->
-    url = '/api/teams/groups/index'
-    $.get(url).done (data) ->
-      render_groups(data['data'])
+    selected = $(".move_list").val()
+    url = "/api/teams/#{selected}/groups"
+    $.get(url).done (groups) ->
+      render_groups(groups['data'])
 
-  render_groups = (teams) ->
-    groups_container = $('.move_team')
-    content = HandlebarsTemplates['account_edit_dropdown'](groups)
+  render_groups = (groups) ->
+    groups_container = $('.move_group')
+    content = HandlebarsTemplates['account_edit_dropdown'](groups, 'group_list')
     groups_container.html(content)
 
   bind = ->
-    $(document).on 'page:load', load_teams()
+    $(document).on 'page:load', load_teams
+    $(document).ready(load_teams)
+    $(document).on 'change', '.move_team select', (e) ->
+      load_groups()
 
   new AccountMove

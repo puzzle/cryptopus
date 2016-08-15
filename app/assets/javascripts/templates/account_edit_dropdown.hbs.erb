@@ -1,7 +1,6 @@
-
-<select>
+<select class="move_list form-control" name="account[group_id]">
+  <option></option>
 {{#each .}}
-  <!-- <option vlaue={{entity.id}}>{{entity.name}}</option> -->
-  hallo
+  <option value="{{id}}"> {{name}} </option>
 {{/each}}
 </select>

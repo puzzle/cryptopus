@@ -78,9 +78,10 @@ class AccountsController < ApplicationController
   # PUT /teams/1/groups/1/accounts/1
   def update
     @account = @group.accounts.find(params[:id])
-    @account.attributes = account_params
-
-    @account.encrypt(plaintext_team_password(team))
+    
+    @account.attributes = account_params.except(:group_id)
+    team_password = !account_params["group_id"].empty? ? account_move : plaintext_team_password(team)
+    @account.encrypt(team_password)
 
     respond_to do |format|
       if @account.save
@@ -122,6 +123,11 @@ class AccountsController < ApplicationController
       add_breadcrumb @group.label, :team_group_accounts_path
       add_breadcrumb @account.label
     end
+  end
+
+  def account_move
+    account_handler = AccountHandler.new(@account, Group.find(account_params[:group_id]), session[:private_key], current_user.id)
+    account_handler.move 
   end
 
 end
