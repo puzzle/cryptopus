@@ -8,21 +8,46 @@
 require 'test_helper'
 class AccountHandlerTest < ActiveSupport::TestCase
 
-  test 'Move returns new team password' do
+   
+  test 'Move account from one group to a group from another team' do
+
+     account = accounts(:account2)
+     bob = users(:bob)
+     private_key = decrypt_private_key(bob)
+     new_group = groups(:group1)
+     account.cleartext_password = ""
+     
+     account_handler = AccountHandler.new(account, new_group, private_key, bob.id)
+     account_handler.move
+
+     assert_equal account.group_id, new_group.id
+   end
+  
+  test 'Move account with items to new team' do
+     account = accounts(:account1)
+     bob = users(:bob)
+     private_key = decrypt_private_key(bob)
+     new_group = groups(:group2)
+     account.cleartext_password = ""
+     
+     account_handler = AccountHandler.new(account, new_group, private_key, bob.id)
+     account_handler.move
+
+     assert_equal Item.all.first.account.group.team, teams(:team2)
+     assert_equal Item.all.second.account.group.team, teams(:team2)
+   end
+
+  test 'Alice want to move an account to a team shes not member of' do
+    alice = users(:alice)
+    private_key = decrypt_private_key(alice)
     account = accounts(:account1)
-    bob = users(:bob)
-    team2 = teams(:team2)
-    private_key = decrypt_private_key(bob)
-
-
-    new_group = Fabricate(:group, team: team2)
-    account_handler = AccountHandler.new(account, new_group, private_key, bob.id)
-    new_team_password = account_handler.move
-
-    team_password = team2.decrypt_team_password(bob, private_key)
-
-    assert_equal new_group, account.group
-    assert_equal team_password, new_team_password
+    new_group = groups(:group2)
+    
+    assert_raise NoMethodError do
+     account_handler = AccountHandler.new(account, new_group, private_key, alice.id)
+     account_handler.move
+    end
   end
+
 
 end
