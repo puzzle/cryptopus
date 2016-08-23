@@ -16,11 +16,15 @@ class AccountHandlerTest < ActiveSupport::TestCase
      private_key = decrypt_private_key(bob)
      new_group = groups(:group1)
      account.cleartext_password = ""
-     
+     new_team_password = new_group.team.teammember(bob.id).password
+     cleartext_team_password = CryptUtils.decrypt_team_password(new_team_password, private_key)
+
      account_handler = AccountHandler.new(account, new_group, private_key, bob.id)
      account_handler.move
-
+     
+     decrypt_password = CryptUtils.decrypt_blob(account.password, cleartext_team_password)
      assert_equal account.group_id, new_group.id
+     ssert_equal  decrypt_password, account.cleartext_password
    end
   
   test 'Move account with items to new team' do
@@ -33,8 +37,8 @@ class AccountHandlerTest < ActiveSupport::TestCase
      account_handler = AccountHandler.new(account, new_group, private_key, bob.id)
      account_handler.move
 
-     assert_equal Item.all.first.account.group.team, teams(:team2)
-     assert_equal Item.all.second.account.group.team, teams(:team2)
+     assert_equal account.items.first.account.group.team, teams(:team2)
+     assert_equal account.items.second.account.group.team, teams(:team2)
    end
 
   test 'Alice want to move an account to a team shes not member of' do

@@ -32,15 +32,14 @@ attr_accessor :user_id
   private
 
   def move_account_to_team
-    old_password = decrypt_old_team_password
-    
     move_items
-    account.cleartext_password = CryptUtils.decrypt_blob(account.password, old_password) if account.cleartext_password.empty?
-    account.group.team.id = group.team.id
+    account.cleartext_password = if account.cleartext_password.empty?
+      CryptUtils.decrypt_blob(account.password, old_password)
+    end     
+    account.group.team = group.team
   end
 
   def move_items
-    old_password = decrypt_old_team_password
     new_password = decrypt_new_team_password
     account.items.each do |i|
       file = CryptUtils.decrypt_blob(i.file, old_password)
@@ -50,7 +49,7 @@ attr_accessor :user_id
   end
 
   def same_team?
-    return account.group.team == group.team
+    account.group.team == group.team
   end
 
   def decrypt_new_team_password
@@ -61,6 +60,10 @@ attr_accessor :user_id
   def decrypt_old_team_password
    old_teammember = account.group.team.teammember(user_id)
    CryptUtils.decrypt_team_password(old_teammember.password, private_key)
+  end
+
+  def old_password
+    @old_password ||= decrypt_old_team_password
   end
  
 end

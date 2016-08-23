@@ -80,7 +80,7 @@ class AccountsController < ApplicationController
     @account = @group.accounts.find(params[:id])
     
     @account.attributes = account_params.except(:group_id)
-    !account_params["group_id"].empty? ? account_move : @account.encrypt(plaintext_team_password(team))
+    account_params["group_id"].present? ? account_move : @account.encrypt(plaintext_team_password(team))
 
     respond_to do |format|
       if @account.save
