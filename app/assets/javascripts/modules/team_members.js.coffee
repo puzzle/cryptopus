@@ -22,7 +22,6 @@ class app.TeamMembers
     $('.members').show().promise()
     load_members()
     $('.show_members').text(I18n.teammembers.hide)
-    $('html, body').animate { scrollTop:$(document).height() }, 'slow'
 
 
   load_candidates = ->

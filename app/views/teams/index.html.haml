@@ -13,7 +13,7 @@
   - @teams.each do |team|
     %tr{class: "#{cycle( 'odd', 'even' )}"}
       %td= link_to image_tag( "members.svg" ) + " #{team.name}", team_groups_path( team )
-      %td= team.description
+      %td= simple_format team.description
       %td.action_icon= link_to image_tag( "edit.svg" ), edit_team_path( team )
       - if can_delete_team?(team)
         %td.action_icon= link_to_destroy [team], team

@@ -13,6 +13,6 @@
   - @accounts.each do |account|
     %tr{class: "#{cycle('odd', 'even')}"}
       %td= link_to image_tag( "encrypted_small.svg" ) + " " + account.accountname, [team, @group, account]
-      %td= account.description
+      %td= simple_format account.description
       %td.action_icon= link_to image_tag("edit.svg"), [:edit, team, @group, account]
       %td.action_icon= link_to_destroy [team, @group, account], account
