@@ -32,6 +32,11 @@ class FixturesHelper
       read_file(filepath)
     end
 
+    def read_item_file(team, account, item)
+      filepath = "teams/#{team}/#{account}/#{item}/file.crypt"
+      read_file(filepath)
+    end
+
     private
     def read_file(filepath)
       path = "#{Rails.root}/test/fixtures/files/#{filepath}"

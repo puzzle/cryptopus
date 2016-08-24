@@ -21,6 +21,10 @@ class ApiController < ApplicationController
     messages[:info] << msg
   end
 
+  def team
+    @team ||= ::Team.find(params[:team_id])
+  end
+
   private
 
   def messages

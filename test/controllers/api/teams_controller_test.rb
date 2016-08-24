@@ -61,4 +61,15 @@ class Api::TeamsControllerTest < ActionController::TestCase
 
     assert_equal 'Access denied', error_message
   end
+
+  test 'listing all teams' do
+      login_as(:bob)
+
+      xhr :get, :index
+
+      team1 = JSON.parse(response.body)['data'][0]['name']
+      team2 = JSON.parse(response.body)['data'][1]['name']
+      assert_equal team1, 'team1'
+      assert_equal team2, 'team2'
+  end
 end
