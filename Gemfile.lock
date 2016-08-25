@@ -40,7 +40,6 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    addressable (2.4.0)
     arel (6.0.3)
     ast (2.2.0)
     binding_of_caller (0.7.2)
@@ -59,16 +58,6 @@ GEM
       terminal-table (~> 1.4)
     breadcrumbs_on_rails (2.3.1)
     builder (3.2.2)
-    capybara (2.7.1)
-      addressable
-      mime-types (>= 1.16)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (~> 2.0)
-    capybara-webkit (1.11.1)
-      capybara (>= 2.3.0, < 2.8.0)
-      json
     choice (0.2.0)
     chunky_png (1.3.5)
     clipboard (1.1.0)
@@ -272,8 +261,6 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicode-display_width (0.3.1)
-    xpath (2.0.0)
-      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -282,8 +269,6 @@ DEPENDENCIES
   active_model_serializers (= 0.10.0)
   brakeman
   breadcrumbs_on_rails
-  capybara
-  capybara-webkit
   clipboard
   compass-rails
   dynamic_form
