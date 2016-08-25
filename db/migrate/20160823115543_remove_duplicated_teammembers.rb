@@ -1,9 +1,13 @@
 class RemoveDuplicatedTeammembers < ActiveRecord::Migration
   def up
+    seen = Set.new
     Teammember.all.each do |tm| 
-      if Teammember.where(user_id: tm.user_id, team_id: tm.team_id).count > 1
+      key = [tm.user_id, tm.team_id]
+      if seen.include?(key)
         tm.destroy
-      end
+      else 
+        seen.add(key)
+      end      
     end
   end
 
