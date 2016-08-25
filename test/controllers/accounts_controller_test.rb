@@ -16,7 +16,8 @@ class AccountsControllerTest < ActionController::TestCase
     account1 = accounts(:account1)
     group1 = groups(:group1)
     team1 = teams(:team1)
-    group2 = team1.groups.new(id: '12', name: 'Test', description: 'group_description')
+    group2 = team1.groups.new(id: 12, name: 'Test', description: 'group_description')
+    group2.save
 
     patch :update, id: account1, group_id: group1, team_id: team1, account: {group_id: group2}
     account1.reload
@@ -62,7 +63,7 @@ class AccountsControllerTest < ActionController::TestCase
 
     get :index, team_id: team2, group_id: group2
 
-    assert_match /You are not member of this team/, flash[:error]
+    assert_match /You are not member of this team/ , flash[:error]
     assert_redirected_to teams_path
   end
 

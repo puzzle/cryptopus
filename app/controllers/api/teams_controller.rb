@@ -6,7 +6,12 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::TeamsController < ApiController
-  before_filter :check_for_admin
+  before_filter :admin_only, except: :index
+
+  def index
+    teams = current_user.teams
+    render_json teams
+  end
 
   def last_teammember_teams
     teams = user.last_teammember_teams
@@ -20,7 +25,7 @@ class Api::TeamsController < ApiController
 
   protected
 
-  def check_for_admin
+  def admin_only
     unless current_user.admin?
       add_error t('flashes.admin.admin.no_access')
       render_json and return

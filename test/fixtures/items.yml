@@ -14,3 +14,9 @@ item1:
   account: account1
   filename: item1
   content_type: text
+  file: <%= "!!binary \"#{FixturesHelper.read_item_file('team1', 'account1', 'item1')}\"" %>
+item2:
+  account: account1
+  filename: item2
+  content_type: text
+  file: <%= "!!binary \"#{FixturesHelper.read_item_file('team1', 'account1', 'item2')}\"" %>
