@@ -4,7 +4,7 @@ class RemoveDuplicatedTeammembers < ActiveRecord::Migration
     Teammember.all.each do |tm| 
       key = [tm.user_id, tm.team_id]
       if seen.include?(key)
-        tm.destroy
+        tm.delete
       else 
         seen.add(key)
       end      
