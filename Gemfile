@@ -20,7 +20,6 @@ gem 'jquery-ui-rails'
 gem 'less-rails'
 gem 'sass-rails'
 gem 'turbolinks'
-
 gem 'twitter-bootstrap-rails'
 gem 'uglifier'
 
