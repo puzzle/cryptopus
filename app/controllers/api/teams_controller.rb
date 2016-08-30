@@ -14,6 +14,7 @@ class Api::TeamsController < ApiController
   end
 
   def last_teammember_teams
+    
     user = User.find(params['user_id'])
     teams = user.last_teammember_teams
     render_json teams
