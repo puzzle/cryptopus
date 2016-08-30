@@ -3,9 +3,13 @@
 //  See the COPYING file at the top-level directory or at
 //  https://github.com/puzzle/cryptopus.
 
+.navbar-inverse{
+  width:100vw !important;
+  overflow-x:hidden !important;
+}
 
 .container {
-  width: 800px;
+  width: 900px;
 }
 
 .container h1 {
@@ -35,8 +39,6 @@
   display: inline-block;
   position: fixed;
   top: 50px;
-  margin-left: calc(100vw - 100.7%);
-  margin-right: 0;
   background-color: #f5f5f5;
   z-index: 999;
 }
