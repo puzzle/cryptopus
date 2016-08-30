@@ -17,6 +17,7 @@ class Admin::MaintenanceTasksController < Admin::AdminController
   def prepare
     task = MaintenanceTask::TASKS[params[:id].to_i]
     @maintenance_task = MaintenanceTask.constantize_class(task)
+    flash[:notice] = @maintenance_task.hint
   end
 
   # POST /admin/maintenance_tasks/1/execute

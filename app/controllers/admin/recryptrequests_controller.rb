@@ -18,7 +18,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
     @user = @recryptrequest.user
     @admin = User.find(session[:user_id])
 
-    recrypt_passwords(@recryptrequest.user, @admin) do
+    recrypt_passwords(@recryptrequest.user, @admin, session[:private_key]) do
       @recryptrequest.destroy
       flash[:notice] = t('flashes.admin.recryptrequests.all', user_name: @user.username)
     end
@@ -34,9 +34,10 @@ class Admin::RecryptrequestsController < Admin::AdminController
     return redirect_to :back if @user.auth_ldap? || blank_password?
 
     @user.password = CryptUtils.one_way_crypt(params[:new_password])
-    create_keypair
+    @user.create_keypair params[:new_password]
+    @user.save
 
-    recrypt_passwords(@user, @admin) do
+    recrypt_passwords(@user, @admin, session[:private_key]) do
       flash[:notice] = t('flashes.admin.recryptrequests.resetpassword.success')
     end
 
@@ -45,33 +46,17 @@ class Admin::RecryptrequestsController < Admin::AdminController
 
   private
 
-  def recrypt_passwords(user, admin)
+  def recrypt_passwords(user, admin, private_key)
     user.last_teammember_teams.destroy_all
-    
+    user.teammembers.private_teams.destroy_all
+
     user.teammembers.non_private_teams.each do |tm|
-      recrypt_team_password(tm, admin)
+      tm.recrypt_team_password(user, admin, private_key)
     end
 
     yield if block_given?
   rescue StandardError => e
     flash[:error] = e.message
-  end
-
-  def recrypt_team_password(tm, admin)
-    teammember_admin = admin.teammembers.find_by_team_id(tm.team_id)
-    team_password = CryptUtils.decrypt_team_password(teammember_admin.
-      password, session[:private_key])
-
-    tm.password = CryptUtils.encrypt_team_password(team_password, @user.public_key)
-    tm.save
-  end
-
-  def create_keypair
-    keypair = CryptUtils.new_keypair
-    @user.public_key = CryptUtils.get_public_key_from_keypair(keypair)
-    private_key = CryptUtils.get_private_key_from_keypair(keypair)
-    @user.private_key = CryptUtils.encrypt_private_key(private_key, params[:new_password])
-    @user.save
   end
 
   def blank_password?

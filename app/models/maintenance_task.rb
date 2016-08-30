@@ -6,12 +6,13 @@
 #  https://github.com/puzzle/cryptopus.
 
 class MaintenanceTask
-  class_attribute :label, :description, :task_params
+  class_attribute :label, :description, :hint, :task_params
   PARAM_TYPE_PASSWORD = 'password'.freeze
+  PARAM_TYPE_CHECKBOX = 'check_box'.freeze
   PARAM_TYPE_NUMBER = 'number'.freeze
   PARAM_TYPE_TEXT = 'text'.freeze
 
-  TASKS = ['RootAsAdmin'].freeze
+  TASKS = ['RootAsAdmin', 'NewRootPassword'].freeze
   class << self
     def list
       TASKS.collect do |t|

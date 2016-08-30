@@ -7,7 +7,7 @@
 
 class MaintenanceTasks::RootAsAdmin < MaintenanceTask
   self.label = 'Set root as admin'
-  self.description = ''
+  self.description = 'Sets the root as an admin and the root role will be removed.'
   self.task_params = [{ label: :root_password, type: PARAM_TYPE_PASSWORD }]
 
   def execute
