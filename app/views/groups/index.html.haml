@@ -3,7 +3,10 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 
-%h1= t '.title', team_name: team.name
+%h1
+  = t '.title', team_name: team.name
+  - if team.private?
+    =image_tag( "encrypted_small.svg" ) 
 = hidden_field_tag :team_id, team.id
 = link_to t('groups.new.title'), new_team_group_path, class: 'btn btn-primary pull-right'
 %table.table.table-striped
