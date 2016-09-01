@@ -9,16 +9,15 @@ class app.AccountMove
   constructor: () ->
     bind.call()
 
-  load_teams = ->
-    team_url = '/api/teams/index'
-    $.get(team_url).done (teams) ->
-      render_teams(teams['data'])
-
-  render_teams = (teams) ->
+     
+  render_teams = ->
     teams_container = $('.move_team')
+    team_url = '/api/teams/index'
+    team_list = []
     if teams_container.length > 0
-      content = HandlebarsTemplates['account_edit_dropdown'](teams)
-      teams_container.html(content)
+      $.get(team_url).done (teams) ->
+        content = HandlebarsTemplates['account_edit_dropdown'](teams['data'])
+        teams_container.html(content)
 
 
   load_groups = ->
@@ -33,8 +32,8 @@ class app.AccountMove
     groups_container.html(content)
 
   bind = ->
-    $(document).on 'page:load', load_teams
-    $(document).ready(load_teams)
+    $(document).on 'page:load', render_teams
+    $(document).ready(render_teams)
     $(document).on 'change', '.move_team select', (e) ->
       load_groups()
 
