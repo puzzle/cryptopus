@@ -110,9 +110,10 @@ fr:
         action: "Action"
         locked: "Bloqué utilisateurs"
         unlock: "déverrouillage"
-      soloteams:
+      last_teammember_teams:
         message: "L'équipe suivante sera supprimée, car l'utilisateur est son dernier membre."
-        title: "Équipe"
+        delete_user: "Êtes-vous sûr de vouloir supprimer cet utilisateur?"
+        destroy: "supprimer l'utilisateur"
       new:
         title: "Nouvel utilisateur"
 

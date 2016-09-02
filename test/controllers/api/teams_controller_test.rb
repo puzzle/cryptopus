@@ -11,14 +11,15 @@ class Api::TeamsControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
-  test 'delete all teams where user is last teammember' do
+  test 'delete team where user is last teammember' do
     login_as(:admin)
     soloteam = Fabricate(:private_team)
     user = soloteam.teammembers.first.user
 
-    delete :destroy_last_teammember_teams, user_id: user.id
+    delete :destroy, id: soloteam.id
 
     assert user.last_teammember_teams.empty?, 'there should be no more last teammember teams for given user'
+    assert_not Teammember.find_by(team_id: soloteam.id)
   end
 
   test 'returns last teammember teams' do
@@ -36,12 +37,17 @@ class Api::TeamsControllerTest < ActionController::TestCase
     assert_equal soloteam.description, team['description']
   end
 
-  test 'cannot delete teams if not admin' do
+  test 'deletes last teammember team and teammember' do
+    login_as(:admin)
+    
+  end
+
+  test 'cannot delete team if not admin' do
     login_as(:bob)
     soloteam = Fabricate(:private_team)
     user = soloteam.teammembers.first.user
 
-    response = delete :destroy_last_teammember_teams, user_id: user.id
+    response = delete :destroy, id: soloteam.id
 
     error_message = JSON.parse(response.body)['messages']['errors'][0]
 

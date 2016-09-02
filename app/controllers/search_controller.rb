@@ -8,10 +8,5 @@
 class SearchController < ApplicationController
 
   # GET /search
-  def index
-    respond_to do |format|
-      format.html # new.html.haml
-    end
-  end
+
 end
-    

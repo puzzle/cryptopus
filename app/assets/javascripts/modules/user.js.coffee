@@ -6,50 +6,84 @@
 app = window.App ||= {}
 
 class app.User
+  self = undefined
   constructor: () ->
+    self = this
     bind.call()
 
-  hideSoloteams: ->
-    @soloteams.hide()
+  hideLastTeammemberTeams = ->
+    $(@last_teammember_teams).hide()
+    $('.alert-info.last-teammembers').hide()
+    $('.alert-danger.delete-user').hide()
 
-  showSoloteams: ->
-    @soloteams.show()
+  showLastTeammemberTeams = ->
+    $(@last_teammember_teams).show()
 
-  onDeleteUser: (lastTeammemberTeamsLink, destroyLink) ->
+  onDeleteUser = (lastTeammemberTeamsLink) ->
       $.ajax({
         url: lastTeammemberTeamsLink,
         success: (response) =>
-          this.onLastTeammemberDataLoaded(response, destroyLink)
+          onLastTeammemberDataLoaded(response)
       })
 
-  onLastTeammemberDataLoaded: (response, destroyLink) ->
-    if response.data.length == 0 #No last teammember teams for user
-      destroyLink.click()
+  onLastTeammemberDataLoaded = (response) ->
+    showLastTeammemberTeams()
+    teams = response.data
+    if 'teams' of teams #No last teammember teams for user
+      showWarningMessage()
     else
-      this.renderTeamsTable(response.data)
+      renderLastTeammemberTeams(teams)
 
-  renderTeamsTable: (teams) ->
-    this.showSoloteams()
+  renderLastTeammemberTeams = (teams) ->
+    template = HandlebarsTemplates['last_teammember_teams']
+    compiled_html = template(teams)
+    $('#last_teammember_teams_table').html(compiled_html)
+    $('.alert-info.last-teammembers').show()
+    $('#delete_user_button').prop('disabled', true)
+
+  showWarningMessage = () ->
+    $('#delete_user_button').prop('disabled', false)
+    $('.alert-danger.delete-user').show()
+    $('.alert-info.last-teammembers').hide()
+    $('#last_teammember_teams_table').html('')
+
+  deleteLastTeammemberTeam = (team_id) ->
+    url = '/api/teams/' + team_id
+    $.ajax({
+      url: url,
+      type: 'DELETE',
+      success: ->
+        onDeleteUser(self.teammemberLink)
+    })
+
+  deleteUser = () ->
+    url = '/admin/users/' + self.user_id
+    $.ajax({
+      url: url,
+      type: 'DELETE'
+    })
 
 
   bind = ->
-    @team_table = $('#soloteams #team_table')
-    @soloteams = $('#soloteams')
-    that = this
+    @last_teammember_teams = '#last_teammember_teams'
 
-    $(document).on 'click', '#soloteams_cancel_button', =>
-      this.hideSoloteams()
+    $(document).on 'click', '#last_teammember_teams_cancel_button', =>
+      hideLastTeammemberTeams()
 
 
-    $(document).on 'click', '#team_table .delete_link', (e) ->
-      e.preventDefault()
-
+    $(document).on 'click', '#team_table .delete_user_link', (e) ->
       element = $(this)
+      self.teammemberLink = element.data('last-teammember-teams-link')
+      self.user_id = element.data('user-id')
+      onDeleteUser(self.teammemberLink)
 
-      teammemberLink = $(element).data('last-teammember-teams-link')
-      destroyLink = $(element).next()
+   $(document).on 'click', '#delete_last_teammember_team_link', (e) ->
+      team_id_element = $(this).closest('tr').find('#last_teammember_team_id')
+      team_id = parseInt(team_id_element.text())
+      deleteLastTeammemberTeam(team_id)
 
-      that.onDeleteUser(teammemberLink, destroyLink)
-      false
+   $(document).on 'click', '#delete_user_button', ->
+     deleteUser()
+     window.location.replace(window.location.pathname)
 
-    new User
+  new User
