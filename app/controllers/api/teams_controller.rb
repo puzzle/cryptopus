@@ -17,9 +17,9 @@ class Api::TeamsController < ApiController
     teams = user.last_teammember_teams
     render_json teams
   end
-
-  def destroy_last_teammember_teams
-    user.last_teammember_teams.destroy_all
+  
+  def destroy
+    Team.find(params['id']).destroy
     render_json ''
   end
 

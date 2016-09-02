@@ -111,9 +111,10 @@ de:
         action: "Aktion"
         locked: "Gesperrte Benutzer"
         unlock: "Entsperren"
-      soloteams:
+      last_teammember_teams:
         message: "Folgende Teams in denen der zu löschende User der letzte Member ist müssen gelöscht werden."
-        title: "Teams"
+        delete_user: "Sind Sie sicher, dass Sie diesen Benutzer löschen möchten?"
+        destroy: "Benutzer löschen"
       new:
         title: "Neuer Benutzer"
 
