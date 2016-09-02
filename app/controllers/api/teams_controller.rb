@@ -14,14 +14,12 @@ class Api::TeamsController < ApiController
   end
 
   def last_teammember_teams
-    
-    user = User.find(params['user_id'])
     teams = user.last_teammember_teams
     render_json teams
   end
-
-  def destroy_last_teammember_teams
-    user.last_teammember_teams.destroy_all
+  
+  def destroy
+    Team.find(params['id']).destroy
     render_json ''
   end
 

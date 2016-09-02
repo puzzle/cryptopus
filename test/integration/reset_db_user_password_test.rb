@@ -17,6 +17,6 @@ class ResetDbUserPasswordTest < ActionDispatch::IntegrationTest
     logout
   
     can_access_account(account_path1, 'bob', 'test','test', 'password')
-    assert_not Team.exists?(last_teammember_team), 'last teammember team should be removed'
+    assert_not Team.exists?(last_teammember_team.id), 'last teammember team should be removed'
   end
 end

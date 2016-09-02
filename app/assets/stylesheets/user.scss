@@ -11,9 +11,8 @@
 
 #teamscreen{
   width:600px;
-  height: 500px;
   margin: 10% auto;
-  padding: 10px 10px 40px 10px;
+  padding: 10px 10px 70px 10px;
   background: white;
   position:relative;
   z-index:10;
@@ -22,9 +21,8 @@
 }
 
 #teamscreen_content{
-  max-height: 94%;
+  max-height: 400px;
   overflow: auto;
-  padding: 15px;
 }
 
 #teamscreen_buttons{

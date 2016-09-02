@@ -4,15 +4,15 @@
 -#  https://github.com/puzzle/cryptopus.
 
 %div{id: "teamscreen"}
+  %div{class: "alert alert-info last-teammembers", hidden: :true}
+    %p= I18n.t('admin.users.last_teammember_teams.message')
+  %div{class: "alert alert-danger delete-user", hidden: :true}
+    %p= I18n.t('admin.users.last_teammember_teams.delete_user')
+  
   %div{id: "teamscreen_content"}
-    %div{class: "alert alert-info"}
-      %p= t '.message'
     %div{id: "last_teammember_teams_table"}
-
-    %div{class: "delete_user_warning_message"}
-      %p{class: "message"}halllo
-
 
   %div{id: "teamscreen_buttons"}
     %button#last_teammember_teams_cancel_button.btn.btn-primary.pull-right Cancel
-    %button#delete_user_button.btn.btn-primary.pull-right.disabled t '.delete_user'
+    %button#delete_user_button.btn.btn-primary.pull-right{disabled: "disabled"}
+      = I18n.t('admin.users.last_teammember_teams.destroy')

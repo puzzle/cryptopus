@@ -9,14 +9,14 @@ https://github.com/puzzle/cryptopus.
 
 <table class='table table-stripped'>
   <tr>
-    <th>title</th>
+    <th>Teams</th>
     <th></th>
     <th></th>
   </tr>
   {{#each .}}
     <tr class='team_row'>
       <td>{{name}}</td>
-      <td style='visibility:hidden' id='last_teammember_team_id'>{{id}}</td>
+      <td><div style='visibility:hidden' id='last_teammember_team_id'>{{id}}</div></td>
       <td class='action_icon'>
         <a data-last-team-id={{id}} id='delete_last_teammember_team_link' href='#'>
           <img src='/assets/remove.svg' alt='Remove'>
