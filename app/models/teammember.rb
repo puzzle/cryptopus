@@ -15,17 +15,17 @@ class Teammember < ActiveRecord::Base
   validates :user_id, uniqueness: { scope: :team }
 
   scope :list, -> { joins(:user).order('users.username') }
-  scope :non_private_teams,  -> { joins(:team).where('teams.private' => false) }
-  scope :private_teams,  -> { joins(:team).where('teams.private' => true) }
+  scope :non_private_teams, -> { joins(:team).where('teams.private' => false) }
+  scope :private_teams, -> { joins(:team).where('teams.private' => true) }
 
-  
+
   def recrypt_team_password(user, admin, private_key)
-    teammember_admin = admin.teammembers.find_by_team_id(self.team_id)
+    teammember_admin = admin.teammembers.find_by_team_id(team_id)
     team_password = CryptUtils.decrypt_team_password(teammember_admin.
       password, private_key)
 
     self.password = CryptUtils.encrypt_team_password(team_password, user.public_key)
-    self.save
+    save
   end
 
   private

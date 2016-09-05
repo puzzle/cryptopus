@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Api::SearchController <  ApiController
+class Api::SearchController < ApiController
 
   def index
     term = params[:q]

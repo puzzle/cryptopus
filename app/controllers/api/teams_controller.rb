@@ -17,7 +17,7 @@ class Api::TeamsController < ApiController
     teams = user.last_teammember_teams
     render_json teams
   end
-  
+
   def destroy
     Team.find(params['id']).destroy
     render_json ''
@@ -28,7 +28,7 @@ class Api::TeamsController < ApiController
   def admin_only
     unless current_user.admin?
       add_error t('flashes.admin.admin.no_access')
-      render_json and return
+      render_json && return
     end
   end
 

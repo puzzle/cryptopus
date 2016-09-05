@@ -49,7 +49,6 @@ class ItemsController < ApplicationController
   private
 
   def load_parents
-
     @group = team.groups.find(params[:group_id])
     @account = @group.accounts.find(params[:account_id])
   end

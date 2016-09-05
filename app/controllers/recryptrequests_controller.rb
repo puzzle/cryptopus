@@ -12,7 +12,7 @@ class RecryptrequestsController < ApplicationController
   def new_ldap_password
   end
 
-  #POST /recryptrequests/recrypt
+  # POST /recryptrequests/recrypt
   def recrypt
     unless current_user.authenticate(params[:new_password])
       flash[:error] = t('activerecord.errors.models.user.new_password_invalid')

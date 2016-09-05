@@ -62,7 +62,6 @@ class Team < ActiveRecord::Base
   end
 
   def remove_user(user)
-
     teammember(user.id).destroy!
   end
 
