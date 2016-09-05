@@ -24,7 +24,9 @@ gem 'twitter-bootstrap-rails'
 gem 'uglifier'
 
 group :development, :test do
-  gem 'minitest'
+  gem 'capybara-webkit'
+  gem 'minitest-rails-capybara'
+  gem 'minitest-rails'
   gem 'rails-erd'
   gem 'test-unit'
   gem 'therubyracer'
