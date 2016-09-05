@@ -27,6 +27,12 @@ class LoginsControllerTest < ActionController::TestCase
     assert_redirected_to login_login_path
   end
 
+  test 'login logout and save jumpto if set' do
+    login_as(:admin)
+    get :logout, jumpto: admin_users_path
+    assert_redirected_to admin_users_path
+  end
+
   test 'cannot login with unknown username' do
     post :authenticate, password: 'wrong_password', username: 'unknown_username'
     assert_match /Authentication failed/, flash[:error]
