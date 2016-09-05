@@ -13,8 +13,4 @@
     .form-group
       = label_tag t('.reset_password')
       = password_field_tag :new_password, nil, class: 'form-control'
-    = submit_tag t('.reset_password'), class: 'btn btn-primary'
-
-%br/
-.alert.alert-warning#edit_warning
-  =simple_format t 'admin.users.edit.warning'
+    = submit_tag t('.reset_password'), class: 'btn btn-primary', data: { confirm: t('admin.users.edit.warning') }

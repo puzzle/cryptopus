@@ -100,7 +100,7 @@ fr:
       edit:
         title: "Modifier l'utilisatuer"
         reset_password: "Réinitialiser mot de passe"
-        warning: "*Reinitialiser le mot de passe d'un utilisateur provoquera la supprimer de toutes l' équipes sans autres membres"
+        warning: "Reinitialiser le mot de passe d'un utilisateur provoquera la supprimer de toutes l' équipes sans autres membres"
       index:
         title: "La Liste de toutes les utilisateurs"
         username: "Nom d'utilisateur"
