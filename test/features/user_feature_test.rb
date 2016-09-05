@@ -7,10 +7,16 @@
 
 require 'test_helper'
 class UserFeatureTest < Capybara::Rails::TestCase
+  include FeatureTest::FeatureHelper
+  include Capybara::DSL
 
- test 'render hbl to show all teams where user is last teammember' do
+  test 'render hbs to show all teams where user is last teammember' do
+    login_as_user(:admin)
+    visit('/admin/users')
+    page.all('.delete_user_link')[1].click
 
- end
-
-
+    page.must_have_content('Before you can delete this user you have to delete the following teams, because the user is the last member.') 
+    page.must_have_selector('#last_teammember_teams_table')
+    page.must_have_content('team2')
+  end
 end

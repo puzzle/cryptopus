@@ -131,6 +131,8 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     less (2.6.0)
       commonjs (~> 0.2.7)
     less-rails (2.7.0)
@@ -315,6 +317,7 @@ DEPENDENCIES
   handlebars_assets
   jquery-rails
   jquery-ui-rails
+  launchy
   less-rails
   minitest-rails
   minitest-rails-capybara
