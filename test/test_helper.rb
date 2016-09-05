@@ -10,11 +10,18 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require "minitest/autorun"
 require 'mocha/mini_test'
+require "minitest/rails/capybara"
+
 Dir[Rails.root.join('test/support/**/*.rb')].sort.each { |f| require f }
 
 SimpleCov.start 'rails' do
   add_filter 'lib/ldap_tools.rb'
   coverage_dir 'test/coverage'
+end
+
+Capybara::Webkit.configure do |config|
+  config.debug = false
+  config.allow_unknown_urls
 end
 
 class ActiveSupport::TestCase
