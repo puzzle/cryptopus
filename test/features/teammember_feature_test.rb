@@ -4,17 +4,22 @@
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
+
+require 'capybara'
 require 'test_helper'
 class TeammemberFeatureTest < Capybara::Rails::TestCase
-
- test 'render hbl to show all teammembers' do
-
- end
-
- test 'shows new added member' do
-
-
- end
-
-
+  include FeatureTest::FeatureHelper
+  include Capybara::DSL
+  
+  test 'render hbs to show all teammembers' do
+    login_as_user(:admin)
+    team1 = teams(:team1)
+    visit("/teams/#{team1.id}/groups")
+    first('.show_members').click
+    
+    page.must_have_content('Admin test')
+    page.must_have_content('Alice test')
+    page.must_have_content('Bob test')
+    page.must_have_content('Root test')
+  end
 end

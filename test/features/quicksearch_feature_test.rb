@@ -8,25 +8,21 @@
 require 'capybara/rails'
 require 'test_helper'
 class QuickSearchFeatureTest < Capybara::Rails::TestCase
-
   include FeatureTest::FeatureHelper
   include Capybara::DSL
 
-
   test 'search with not available keyword does not show any results' do
-   login_as_user(:bob)
-   fill_in 'search_string', with: 'lkj'
-   assert_not(page.has_css?('li.result'))
-   logout
-  end
-
-  test 'after copy a username or password with the clipboad it shows a message' do
-   
+    login_as_user(:bob)
+    fill_in 'search_string', with: 'lkj'
+    assert_not(page.has_css?('li.result'))
+    logout
   end
 
   test 'show password after clicking on password field' do
-
+    login_as_user(:bob)
+    fill_in 'search_string', with: 'account1'
+    page.must_have_selector('.password-show', visible: true)
+    first('.password-show').click
+    page.must_have_selector('.password-show', visible: false)
   end
-
-
 end

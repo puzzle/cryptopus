@@ -20,16 +20,4 @@ class AjaxHookTest < Capybara::Rails::TestCase
     page.must_have_content 'admin is no more admin'
     logout
   end
-
-  test 'show add teammember message' do
-    login_as_user('bob')
-    team2 = teams(:team2)
-    alice = users(:alice)
-
-    visit "/teams/#{team2.id}/groups"
-
-    #url = "/api/teams/#{team2.id}/members"
-    #page.execute_script("$.ajax({ url: #{url}, type: 'POST'})")
-    logout
-  end
 end
