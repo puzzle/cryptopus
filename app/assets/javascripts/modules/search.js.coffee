@@ -6,29 +6,44 @@
 app = window.App ||= {}
 
 class app.Search
-
+  self = undefined
   constructor: () ->
+    self = this
     bind.call()
 
   ready = ->
     new Clipboard('.clip_button')
 
-  updateResultArea = (data) ->
-    content = HandlebarsTemplates['search/result_entry'](data)
+  searchTeams = (term) ->
+    return $.get('/api/search/teams', q: term).then (data) ->
+      teams = data.data.teams
+      HandlebarsTemplates['search/team_result_entry'](teams)
+
+  searchGroups = (term) ->
+    return $.get('/api/search/groups', q: term).then (data) ->
+      groups = data.data.groups
+      HandlebarsTemplates['search/group_result_entry'](groups)
+
+  searchAccounts = (term) ->
+    return $.get('/api/search/accounts', q: term).then (data) ->
+      accounts = data.data.accounts
+      HandlebarsTemplates['search/account_result_entry'](accounts)
+
+  updateResultArea = (content) ->
     $('.result-list').html(content)
 
   doSearch = ->
     input_field = $('.search-input')
     $('.result-info').hide()
     term = input_field.val()
-    if input_field.val().length > 2
-      updateResultArea ''
-      $.get('/api/search', q: term).done (data) ->
-        accounts = data.data.accounts
-        if accounts.length > 0
-          updateResultArea(accounts)
-        else
-          $('.result-info').show()
+    if input_field.val().length <= 2
+      updateResultArea('')
+    else
+      $.when(searchAccounts(term), searchGroups(term), searchTeams(term)).then (accounts, groups, teams) ->
+          content = accounts + groups + teams
+          updateResultArea(content)
+          debugger
+          $('.result-info').show() if content.replace(/\s/g, '') == ''
 
   showPassword = (e) ->
     e.preventDefault()
@@ -54,7 +69,6 @@ class app.Search
       passInput.addClass 'hide'
       return
     ), 5000
-
 
   bind = ->
     $(document).on 'page:load', ready
