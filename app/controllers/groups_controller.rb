@@ -105,5 +105,5 @@ class GroupsController < ApplicationController
       add_breadcrumb @group.label
     end
   end
-  
+
 end

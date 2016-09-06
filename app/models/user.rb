@@ -80,12 +80,12 @@ class User < ActiveRecord::Base
   end
 
   def last_teammember_in_any_team?
-    self.last_teammember_teams.any?
+    last_teammember_teams.any?
   end
 
   def last_teammember_teams
     Team.where(id: Teammember.group('team_id').having('count(*) = 1').select('team_id')).joins(:members)
-      .where('users.id = ?', self.id)
+        .where('users.id = ?', id)
   end
 
   # Updates Information about the user
@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
   def recrypt_private_key!(new_password, old_password)
     unless authenticate(new_password)
       errors.add(:base,
-        I18n.t('activerecord.errors.models.user.new_password_invalid'))
+                 I18n.t('activerecord.errors.models.user.new_password_invalid'))
       return false
     end
 
@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
       self.private_key = CryptUtils.encrypt_private_key(plaintext_private_key, new_password)
     rescue Exceptions::DecryptFailed
       errors.add(:base,
-        I18n.t('activerecord.errors.models.user.old_password_invalid'))
+                 I18n.t('activerecord.errors.models.user.old_password_invalid'))
       return false
     end
     save!
@@ -198,7 +198,7 @@ class User < ActiveRecord::Base
   end
 
   def protect_if_last_teammember
-    !self.last_teammember_in_any_team?
+    !last_teammember_in_any_team?
   end
 
 end

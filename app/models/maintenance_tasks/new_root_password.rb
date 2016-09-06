@@ -17,7 +17,7 @@ class MaintenanceTasks::NewRootPassword < MaintenanceTask
       raise 'Only admins can run this Task' unless @current_user.admin?
 
       check_passwords
-      reset_password 
+      reset_password
     end
   end
 
@@ -32,11 +32,11 @@ class MaintenanceTasks::NewRootPassword < MaintenanceTask
     root.save
     recrypt_passwords(root, admin, @param_values[:private_key])
   end
-  
+
   def check_passwords
     raise 'Passwords do not match' unless new_root_password == @param_values['retype_password']
   end
-  
+
   def recrypt_passwords(root, admin, private_key)
     root.last_teammember_teams.destroy_all
     root.teammembers.private_teams.destroy_all

@@ -7,10 +7,10 @@
 
 class AccountHandler
 
-attr_accessor :account
-attr_accessor :group
-attr_accessor :private_key
-attr_accessor :user_id
+  attr_accessor :account
+  attr_accessor :group
+  attr_accessor :private_key
+  attr_accessor :user_id
 
   def initialize(account, group, private_key, user_id)
     @account = account
@@ -24,7 +24,7 @@ attr_accessor :user_id
     move_account_to_team unless same_team?
 
     account.group_id = group.id
-    
+
     account.encrypt(decrypt_new_team_password)
     account.save
   end
@@ -35,7 +35,7 @@ attr_accessor :user_id
     move_items
     if account.cleartext_password.empty?
       account.cleartext_password = CryptUtils.decrypt_blob(account.password, old_team_password)
-    end     
+    end
     account.group.team = group.team
   end
 
@@ -58,12 +58,12 @@ attr_accessor :user_id
   end
 
   def decrypt_old_team_password
-   old_teammember = account.group.team.teammember(user_id)
-   CryptUtils.decrypt_team_password(old_teammember.password, private_key)
+    old_teammember = account.group.team.teammember(user_id)
+    CryptUtils.decrypt_team_password(old_teammember.password, private_key)
   end
 
   def old_team_password
     @old_team_password ||= decrypt_old_team_password
   end
- 
+
 end

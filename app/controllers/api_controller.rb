@@ -9,10 +9,11 @@ class ApiController < ApplicationController
 
   def render_json(data = nil)
     data = ActiveModelSerializers::SerializableResource.new(data).as_json
-    render status: response_status, json: {data: data, messages: messages}
+    render status: response_status, json: { data: data, messages: messages }
   end
 
   protected
+
   def add_error(msg)
     messages[:errors] << msg
   end

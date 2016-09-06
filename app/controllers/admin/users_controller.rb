@@ -44,9 +44,9 @@ class Admin::UsersController < Admin::AdminController
     end
 
     respond_to do |format|
-      format.html {
+      format.html do
         redirect_to admin_users_path
-      }
+      end
     end
   end
 

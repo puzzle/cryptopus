@@ -34,7 +34,7 @@ class LoginsController < ApplicationController
     reset_session
     flash[:notice] = flash_notice
 
-    redirect_to login_login_path
+    redirect_to params[:jumpto] || login_login_path
   end
 
   def show_update_password

@@ -78,9 +78,9 @@ class AccountsController < ApplicationController
   # PUT /teams/1/groups/1/accounts/1
   def update
     @account = @group.accounts.find(params[:id])
-    
+
     @account.attributes = account_params.except(:group_id)
-    account_params["group_id"].present? ? account_move : @account.encrypt(plaintext_team_password(team))
+    account_params['group_id'].present? ? account_move : @account.encrypt(plaintext_team_password(team))
 
     respond_to do |format|
       if @account.save
@@ -126,7 +126,7 @@ class AccountsController < ApplicationController
 
   def account_move
     account_handler = AccountHandler.new(@account, Group.find(account_params[:group_id]), session[:private_key], current_user.id)
-    account_handler.move 
+    account_handler.move
   end
 
 end

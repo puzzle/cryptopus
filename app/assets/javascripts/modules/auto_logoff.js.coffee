@@ -17,7 +17,7 @@ class app.AutoLogoff
     if document.URL.indexOf('/login/login') > -1
       return
     if remaining_seconds <= 1
-      window.location = '/login/logout'
+      window.location = '/login/logout?jumpto=' + window.location.pathname
       return
     remaining_seconds -= 1
     $('#countdown').html humanize(remaining_seconds)
@@ -33,7 +33,7 @@ class app.AutoLogoff
     remaining_seconds = AUTO_LOGOFF_TIME
 
   bind = ->
-    $(document).on 'page:change', ->
+    $(document).on 'page:change mousemove keypress', ->
       reset_timer()
 
   new AutoLogoff
