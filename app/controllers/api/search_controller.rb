@@ -7,13 +7,24 @@
 
 class Api::SearchController < ApiController
 
-  def index
+  def accounts
     term = params[:q]
 
     accounts = current_user.search_accounts(term)
 
     decrypt_accounts(accounts)
     render_json accounts
+  end
+
+
+  def groups
+    term = params[:q]
+    render_json current_user.search_groups(term)
+  end
+
+  def teams
+    term = params[:q]
+    render_json current_user.search_teams(term)
   end
 
   private

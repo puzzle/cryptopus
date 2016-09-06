@@ -166,6 +166,24 @@ class User < ActiveRecord::Base
       where(teammembers: { user_id: id })
   end
 
+  def groups
+    Group.joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
+      where(teammembers: { user_id: id })
+  end
+
+  def teams
+    Team.joins('INNER JOIN teammembers ON teams.id = teammembers.team_id')
+      .where(teammembers: {user_id: id})
+  end
+
+  def search_teams(term)
+    teams.where('name like ?', "%#{term}%")
+  end
+
+  def search_groups(term)
+    groups.where('name like ?', "%#{term}%")
+  end
+  
   def search_accounts(term)
     accounts.where('accountname like ?', "%#{term}%")
   end

@@ -7,6 +7,11 @@
   text-align: center;
 }
 
+.result-type-icon, .result-title-small{
+  display: inline; 
+  padding-top: 0.5em;
+}
+
 input.search-input {
   width: 60%;
   margin: 4em auto;
@@ -32,6 +37,10 @@ input.search-input {
   background: #F9F9F9;
   margin-top: 1px;
   min-height: 10em;
+}
+
+.result-list .result-small{
+  min-height: 5em !important;
 }
 
 .result-description span{
@@ -81,9 +90,4 @@ input.search-input {
 .result-password {
   top: -48px;
   position: relative;
-}
-
-password-hidden{
-  display: block;
-  z-index: 3;
 }
