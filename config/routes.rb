@@ -63,7 +63,11 @@ Cryptopus::Application.routes.draw do
   end
 
   scope '/api', module: 'api' do
-    resources :search, only: ['index']
+    scope '/search', module: 'search' do
+      get :accounts
+      get :groups
+      get :teams
+    end
     scope '/admin', module: 'admin' do
       resources :users, only: [] do
         patch :toggle_admin, to: '/api/admin/users#toggle_admin'
