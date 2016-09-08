@@ -15,3 +15,4 @@
     %br/
     = f.text_area :description, class: 'form-control'
   = f.submit t('.upload_file'), class: 'btn btn-primary'
+  =link_to "Cancel", team_group_account_path(team_id: params[:team_id], group_id: params[:group_id], id: params[:account_id] ), {:class=>"btn btn-primary"}

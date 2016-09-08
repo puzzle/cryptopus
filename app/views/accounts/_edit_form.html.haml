@@ -26,4 +26,5 @@
     .move_team
     = f.label :group_id
     .move_group
-  = f.submit @submit_button_text, class: 'btn btn-primary'
+      = f.submit @submit_button_text, class: 'btn btn-primary'
+      =link_to "Cancel", team_group_accounts_path(team_id: params[:team_id], id: params[:group_id] ), {:class=>"btn btn-primary"}
