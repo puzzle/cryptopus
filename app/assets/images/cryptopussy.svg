@@ -8,8 +8,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="118px"
-   height="155px"
+   width="128px"
+   height="170px"
    viewBox="0 0 118 155"
    version="1.1"
    id="svg3875"
@@ -54,90 +54,34 @@
      id="desc3879">Created with Sketch.</desc>
   <defs
      id="defs3881">
-    <filter
-       style="color-interpolation-filters:sRGB;"
-       inkscape:label="Invert"
-       id="filter4701">
-      <feColorMatrix
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.21 -0.72 -0.07 2 0 "
-         result="color2"
-         id="feColorMatrix4703" />
-    </filter>
-    <filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Invert"
-       id="filter4701-9">
-      <feColorMatrix
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.21 -0.72 -0.07 2 0 "
-         result="color2"
-         id="feColorMatrix4703-7" />
-    </filter>
-    <filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Invert"
-       id="filter4701-9-2">
-      <feColorMatrix
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.21 -0.72 -0.07 2 0 "
-         result="color2"
-         id="feColorMatrix4703-7-4" />
-    </filter>
-    <filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Invert"
-       id="filter4701-9-2-3">
-      <feColorMatrix
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.21 -0.72 -0.07 2 0 "
-         result="color2"
-         id="feColorMatrix4703-7-4-6" />
-    </filter>
-    <filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Invert"
-       id="filter4701-9-2-3-4">
-      <feColorMatrix
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.21 -0.72 -0.07 2 0 "
-         result="color2"
-         id="feColorMatrix4703-7-4-6-6" />
-    </filter>
-    <filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Invert"
-       id="filter4701-9-2-3-4-8">
-      <feColorMatrix
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.21 -0.72 -0.07 2 0 "
-         result="color2"
-         id="feColorMatrix4703-7-4-6-6-8" />
-    </filter>
+
     <filter
        style="color-interpolation-filters:sRGB"
        inkscape:label="Invert"
        id="filter4701-9-2-3-4-8-7">
       <feColorMatrix
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.21 -0.72 -0.07 2 0 "
+         values="1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 -0.72 -0.07 2 0 "
          result="color2"
          id="feColorMatrix4703-7-4-6-6-8-6" />
     </filter>
-    <filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Invert"
-       id="filter4701-9-2-3-4-0">
-      <feColorMatrix
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.21 -0.72 -0.07 2 0 "
-         result="color2"
-         id="feColorMatrix4703-7-4-6-6-0" />
-    </filter>
-    <filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Invert"
-       id="filter4701-9-2-3-4-0-5">
-      <feColorMatrix
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.21 -0.72 -0.07 2 0 "
-         result="color2"
-         id="feColorMatrix4703-7-4-6-6-0-2" />
-    </filter>
+
+
   </defs>
+  
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="7.6150975"
+     y="133.2495"
+     id="text5302"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan5304"
+       x="7.6150975"
+       y="133.2495"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21px;font-family:'sans-serif';-inkscape-font-specification:'Verdana'">Cryptopus</tspan></text>
   <path
-     style="display:inline;fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;filter:url(#filter4701-9-2-3-4-8-7)"
+     style="display:inline;fill:#FBDB0C;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;filter:url(#filter4701-9-2-3-4-8-7)"
      inkscape:connector-curvature="0"
      sketch:type="MSShapeGroup"
      id="logo_cryptopus-1-2-8"
