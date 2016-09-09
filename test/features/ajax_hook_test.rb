@@ -11,7 +11,7 @@ class AjaxHookTest < Capybara::Rails::TestCase
   include FeatureTest::FeatureHelper
   include Capybara::DSL
 
-  test 'show toggle-admin messag' do
+  test 'show toggle-admin message' do
     login_as_user('root')
     visit '/admin/users' 
 
