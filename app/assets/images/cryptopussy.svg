@@ -54,18 +54,6 @@
      id="desc3879">Created with Sketch.</desc>
   <defs
      id="defs3881">
-
-    <filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Invert"
-       id="filter4701-9-2-3-4-8-7">
-      <feColorMatrix
-         values="1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 -0.72 -0.07 2 0 "
-         result="color2"
-         id="feColorMatrix4703-7-4-6-6-8-6" />
-    </filter>
-
-
   </defs>
   
   <text
@@ -81,7 +69,7 @@
        y="133.2495"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21px;font-family:'sans-serif';-inkscape-font-specification:'Verdana'">Cryptopus</tspan></text>
   <path
-     style="display:inline;fill:#FFCA28;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;filter:url(#filter4701-9-2-3-4-8-7)"
+     style="display:inline;fill:#063852;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1"
      inkscape:connector-curvature="0"
      sketch:type="MSShapeGroup"
      id="logo_cryptopus-1-2-8"
