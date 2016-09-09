@@ -100,7 +100,7 @@ fr:
       edit:
         title: "Modifier l'utilisatuer"
         reset_password: "Réinitialiser mot de passe"
-        warning: "Reinitialiser le mot de passe d'un utilisateur provoquera la supprimer de toutes l' équipes sans autres membres"
+        warning: "Avec la réinitialisation du mot de passe l’utilisateur perd l’access a tout ses teams privées et tout les teams ou il est le seul membre seront supprimées"
       index:
         title: "La Liste de toutes les utilisateurs"
         username: "Nom d'utilisateur"
