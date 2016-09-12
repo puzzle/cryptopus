@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   # includes a security token
-  protect_from_forgery with: :null_session
+  protect_from_forgery with: :exception
 
   private
 
