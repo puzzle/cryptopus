@@ -38,6 +38,9 @@ class app.Login
     $(document).on 'submit', '.login', ->
       setLocalUsername()
 
+    $(document).on 'click', '.logout', ->
+      Turbolinks.pagesCached(0)
+
     $(document).on 'click', '#username', ->
       selectUsername()
 
