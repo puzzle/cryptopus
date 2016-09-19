@@ -22,6 +22,7 @@
                 %li= nav_link t(:maintenance_tasks), admin_maintenance_tasks_path
           - if current_user.auth_db?
             = nav_link t(:change_password), show_update_password_login_path
+          = nav_link image_tag("magnifying-glass.svg", class: "search-icon") + t('search.title'), search_path
         %ul.nav.navbar-nav.navbar-right.logout
           = nav_link('Logout', logout_login_path)
   - unless @breadcrumbs.nil?

@@ -5,6 +5,6 @@
 
 .form-group.search
   %h1= t('.hi_user', username: username)
-  = text_field_tag :search_string,  params[:search_string], autocomplete: 'off', autofocus: true, class: 'form-control search-input'
+  = text_field_tag :search_string,  params[:search_string], placeholder: t('.type_to_search'), autocomplete: 'off', autofocus: true, class: 'form-control search-input'
 .result-info{style: "display: none;"}= t('.no_results_found')
 %ul.search-result.result-list

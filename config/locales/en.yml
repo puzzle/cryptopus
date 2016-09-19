@@ -38,9 +38,11 @@ en:
       name: 'English'
 
   search:
+    title: "Search"
     index:
       hi_user: "Hi %{username}! Want to recover a password?"
       no_results_found: "no results found"
+      type_to_search: "Type to search..."
 
   accounts:
     index:

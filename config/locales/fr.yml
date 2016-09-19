@@ -38,9 +38,11 @@ fr:
       name: 'Français'
 
   search:
+    title: "Recherche"
     index:
       hi_user: "Salut %{username}! Vous cherchez un mot de passe?"
       no_results_found: "Aucun résultat trouvé"
+      type_to_search: "Appuyez pour rechercher..."
 
   accounts:
     index:
