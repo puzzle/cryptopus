@@ -6,6 +6,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 fr:
+  fallback: "ATTENTION! Ça c’est l’environment Fallback de Cryptopus. Ne créez pas des nouvelles données parce qu’elles ne seront pas sauvées!"
   confirmation: "Etes-vous sûr?"
   show: "Montrer"
   edit: "Modifier"
