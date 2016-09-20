@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823115543) do
+ActiveRecord::Schema.define(version: 20160920112329) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "accountname", limit: 40, default: "", null: false
@@ -51,9 +51,7 @@ ActiveRecord::Schema.define(version: 20160823115543) do
   end
 
   create_table "recryptrequests", force: :cascade do |t|
-    t.integer "user_id",       default: 0,    null: false
-    t.boolean "adminrequired", default: true, null: false
-    t.boolean "rootrequired",  default: true, null: false
+    t.integer "user_id", default: 0, null: false
   end
 
   create_table "settings", force: :cascade do |t|
