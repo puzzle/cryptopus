@@ -19,7 +19,7 @@ class Api::TeamsController < ApiController
   end
 
   def destroy
-    Team.find(params['id']).destroy
+    team.destroy
     render_json ''
   end
 
@@ -36,5 +36,9 @@ class Api::TeamsController < ApiController
 
   def user
     @user ||= User.find(params['user_id'])
+  end
+
+  def team
+    @team ||= Team.find(params['id'])
   end
 end

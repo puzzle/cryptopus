@@ -11,7 +11,11 @@ class Api::TeamsControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
+  # TODO why is this tested here ? doesn't concern the teams controller, does it ? move to user model test
   test 'delete team where user is last teammember' do
+
+    # TODO assert pre conditions
+
     login_as(:admin)
     soloteam = Fabricate(:private_team)
     user = soloteam.teammembers.first.user
@@ -37,6 +41,7 @@ class Api::TeamsControllerTest < ActionController::TestCase
     assert_equal soloteam.description, team['description']
   end
 
+  # TODO encomplete test case ?!
   test 'deletes last teammember team and teammember' do
     login_as(:admin)
     

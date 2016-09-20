@@ -69,11 +69,12 @@ Cryptopus::Application.routes.draw do
         patch :toggle_admin, to: '/api/admin/users#toggle_admin'
       end
     end
-    scope '/teams', module: 'teams'do
-      get :last_teammember_teams
-      get :index
-    end
-    resources :teams, only: [:destroy]  do
+
+    # INFO don't mix scopes and resources in routes
+    resources :teams, only: [:destroy, :index]  do
+      collection do
+        get :last_teammember_teams
+      end
       resources :groups, only: ['index'], module: 'team'
       resources :members, except: [:new, :edit], module: 'team' do
         collection do
