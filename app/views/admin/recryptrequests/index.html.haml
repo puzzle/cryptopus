@@ -7,13 +7,8 @@
 %table.table.table-striped
   %tr
     %th= t '.user'
-    %th= t '.admin_required'
-    %th= t :actions
+    %th{colspan: "3"}= t :actions
   - for recryptrequest in @recryptrequests
     %tr
       %td= recryptrequest.user.label
-      - if recryptrequest.adminrequired
-        %td= t :yes
-      - else
-        %td= t :no
-      %td= link_to t('.recrypt'), [:admin, recryptrequest], method: :delete
+      %td.action_icon= link_to t('.recrypt'), [:admin, recryptrequest], method: :delete
