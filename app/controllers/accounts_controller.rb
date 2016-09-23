@@ -24,7 +24,7 @@ class AccountsController < ApplicationController
 
   # GET /teams/1/groups/1/accounts/1
   def show
-    @account = Account.find(params[:id])
+    @account = Account.find_by(id: params[:id])
     @items = @account.items.load
 
     accounts_breadcrumbs
