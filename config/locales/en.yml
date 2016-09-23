@@ -222,6 +222,7 @@ en:
     accounts:
       created: "Account was successfully created."
       updated: "Account was successfully updated."
+      moved: "Account was successfully moved"
     application:
       wait: "Wait for the recryption of your team passwords."
     groups:

@@ -223,6 +223,7 @@ fr:
     accounts:
       created: "Compte créé avec succès."
       updated: "Compte modifiée avec succès."
+      moved: "Le team a été déplacé avec succès."
     application:
       wait: "S'il vous plaît attendre jusqu'à ce vos mots de passe a ètè nouveau cryptées."
     groups:

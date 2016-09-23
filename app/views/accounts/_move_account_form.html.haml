@@ -1,0 +1,13 @@
+%div{id: "movescreen"}
+  %div{id: 'account_move_form'}
+    = form_for [team, @group, @account], url: team_group_account_move_path(team, @group, @account), html: {method: :put} do |f|
+      .form-group
+      %h1= 'Move Account'
+      %br/
+      = f.label :team
+      .move_team
+      = f.label :group_id
+      .move_group
+      %div{id: 'movescreen_buttons'}
+        = f.submit 'Move Account', class: 'btn btn-primary'
+        =link_to "Cancel", team_group_account_path(team_id: params[:team_id], group_id: params[:group_id], id: params[:id] ), {:class=>"btn btn-primary"}

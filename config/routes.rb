@@ -16,6 +16,7 @@ Cryptopus::Application.routes.draw do
       resources :teammembers
       resources :groups do
         resources :accounts do
+          put 'move', to: 'accounts#move'
           resources :items
         end
       end

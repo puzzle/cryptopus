@@ -78,9 +78,9 @@ class AccountsController < ApplicationController
   # PUT /teams/1/groups/1/accounts/1
   def update
     @account = @group.accounts.find(params[:id])
+    @account.attributes = account_params
 
-    @account.attributes = account_params.except(:group_id)
-    account_params['group_id'].present? ? account_move : @account.encrypt(plaintext_team_password(team))
+    @account.encrypt(plaintext_team_password(team))
 
     respond_to do |format|
       if @account.save
@@ -91,7 +91,7 @@ class AccountsController < ApplicationController
       end
     end
   end
-
+  
   # DELETE /teams/1/groups/1/accounts/1
   def destroy
     @account = @group.accounts.find(params[:id])
@@ -102,6 +102,19 @@ class AccountsController < ApplicationController
     end
   end
 
+  def move
+    @account = @group.accounts.find(params[:account_id])
+    account_move
+    respond_to do |format|
+      if @account.save
+        flash[:notice] = t('flashes.accounts.moved')
+        format.html { redirect_to team_group_accounts_url(team, @group) }
+      else
+        format.html { render action: 'edit' }
+      end
+    end
+  end
+  
   private
 
   def account_params
@@ -125,8 +138,8 @@ class AccountsController < ApplicationController
   end
 
   def account_move
-    account_handler = AccountHandler.new(@account, Group.find(account_params[:group_id]), session[:private_key], current_user.id)
-    account_handler.move
+    account_handler = AccountHandler.new(@account)
+    account_handler.move(Group.find(account_params[:group_id]), session[:private_key], current_user.id)
   end
 
 end

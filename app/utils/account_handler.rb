@@ -7,25 +7,23 @@
 
 class AccountHandler
 
-  attr_accessor :account
-  attr_accessor :group
-  attr_accessor :private_key
-  attr_accessor :user_id
+  attr_accessor :account, :new_group, :private_key, :user_id
 
-  def initialize(account, group, private_key, user_id)
+  def initialize(account)
     @account = account
-    @group = group
-    @private_key = private_key
-    @user_id = user_id
   end
 
 
-  def move
+  def move(new_group, private_key, user_id)
+    @new_group = new_group
+    @private_key = private_key
+    @user_id = user_id
+
     move_account_to_team unless same_team?
 
-    account.group_id = group.id
+    account.group_id = new_group.id
 
-    account.encrypt(decrypt_new_team_password)
+    account.encrypt(decrypt_team_password(new_group.team))
     account.save
   end
 
@@ -33,14 +31,13 @@ class AccountHandler
 
   def move_account_to_team
     move_items
-    if account.cleartext_password.empty?
-      account.cleartext_password = CryptUtils.decrypt_blob(account.password, old_team_password)
-    end
-    account.group.team = group.team
+    account.cleartext_password = CryptUtils.decrypt_blob(account.password, old_team_password)
+    account.cleartext_username = CryptUtils.decrypt_blob(account.username, old_team_password)
+    account.group.team = new_team
   end
 
   def move_items
-    new_team_password = decrypt_new_team_password
+    new_team_password = decrypt_team_password(new_team)
     account.items.each do |i|
       file = CryptUtils.decrypt_blob(i.file, old_team_password)
       i.file = CryptUtils.encrypt_blob(file, new_team_password)
@@ -49,21 +46,24 @@ class AccountHandler
   end
 
   def same_team?
-    account.group.team == group.team
+    old_team == new_team
   end
 
-  def decrypt_new_team_password
-    new_teammember = group.team.teammember(user_id)
-    CryptUtils.decrypt_team_password(new_teammember.password, private_key)
-  end
-
-  def decrypt_old_team_password
-    old_teammember = account.group.team.teammember(user_id)
-    CryptUtils.decrypt_team_password(old_teammember.password, private_key)
+  def decrypt_team_password(team)
+    teammember = team.teammember(user_id)
+    CryptUtils.decrypt_team_password(teammember.password, private_key)
   end
 
   def old_team_password
-    @old_team_password ||= decrypt_old_team_password
+    @old_team_password ||= decrypt_team_password(old_team)
+  end
+
+  def new_team
+    @new_team ||= new_group.team
+  end
+
+  def old_team
+    @old_team ||= account.group.team
   end
 
 end

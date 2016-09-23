@@ -9,6 +9,9 @@ class app.AccountMove
   constructor: () ->
     bind.call()
 
+  renderMoveAccountForm = ->
+    $(@account_move).show()
+    render_teams()
      
   render_teams = ->
     teams_container = $('.move_team')
@@ -18,7 +21,6 @@ class app.AccountMove
       $.get(team_url).done (teams) ->
         content = HandlebarsTemplates['account_edit_dropdown'](teams['data'])
         teams_container.html(content)
-
 
   load_groups = ->
     selected = $(".move_list").val()
@@ -32,9 +34,11 @@ class app.AccountMove
     groups_container.html(content)
 
   bind = ->
+    @account_move = '#move_account_form'
     $(document).on 'page:load', render_teams
-    $(document).ready(render_teams)
     $(document).on 'change', '.move_team select', (e) ->
       load_groups()
+    $(document).on 'click', '#move_account_button', ->
+      renderMoveAccountForm()
 
   new AccountMove
