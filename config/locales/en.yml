@@ -6,6 +6,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  fallback: "!WARNING! This is the Fallback Cryptopus! Do not write any new data it will not persist"
   confirmation: "Are you sure?"
   show: "Show"
   edit: "Edit"

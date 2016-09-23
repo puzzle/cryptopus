@@ -7,6 +7,7 @@
 
 class ApplicationController < ActionController::Base
   before_filter :redirect_to_wizard_if_new_setup
+  before_filter :message_if_fallback
   before_filter :authorize, except: [:login, :authenticate, :logout, :wizard]
   before_filter :redirect_if_not_teammember
   before_filter :redirect_if_no_private_key, except: :logout
@@ -26,6 +27,10 @@ class ApplicationController < ActionController::Base
     if current_user && session[:private_key].nil?
       redirect_to recryptrequests_new_ldap_password_path
     end
+  end
+
+  def message_if_fallback
+    flash[:error] = t('fallback') if ENV['CRYPTOPUS_FALLBACK'] == 'true'
   end
 
   def current_user
