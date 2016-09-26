@@ -15,8 +15,8 @@ class Teammember < ActiveRecord::Base
   validates :user_id, uniqueness: { scope: :team }
 
   scope :list, -> { joins(:user).order('users.username') }
-  scope :non_private_teams, -> { joins(:team).where('teams.private' => false) }
-  scope :private_teams, -> { joins(:team).where('teams.private' => true) }
+  scope :in_non_private_teams, -> { joins(:team).where('teams.private' => false) }
+  scope :in_private_teams, -> { joins(:team).where('teams.private' => true) }
 
 
   def recrypt_team_password(user, admin, private_key)

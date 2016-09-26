@@ -39,9 +39,9 @@ class MaintenanceTasks::NewRootPassword < MaintenanceTask
 
   def recrypt_passwords(root, admin, private_key)
     root.last_teammember_teams.destroy_all
-    root.teammembers.private_teams.destroy_all
+    root.teammembers.in_private_teams.destroy_all
 
-    root.teammembers.non_private_teams.each do |tm|
+    root.teammembers.in_non_private_teams.each do |tm|
       tm.recrypt_team_password(root, admin, private_key)
     end
   end
