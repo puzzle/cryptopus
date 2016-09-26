@@ -10,7 +10,7 @@ class UserFeatureTest < Capybara::Rails::TestCase
   include FeatureTest::FeatureHelper
   include Capybara::DSL
 
-  test 'render hbs to show all teams where user is last teammember' do
+  test 'lists teams where user is last teammember' do
     login_as_user(:admin)
     visit('/admin/users')
     page.all('.delete_user_link')[1].click

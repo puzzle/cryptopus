@@ -18,6 +18,5 @@ class AjaxHookTest < Capybara::Rails::TestCase
     page.must_have_selector('.toggle-button')
     first('.toggle-button').click
     page.must_have_content 'admin is no more admin'
-    logout
   end
 end

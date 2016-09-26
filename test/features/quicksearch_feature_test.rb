@@ -15,7 +15,6 @@ class QuickSearchFeatureTest < Capybara::Rails::TestCase
     login_as_user(:bob)
     fill_in 'search_string', with: 'lkj'
     assert_not(page.has_css?('li.result'))
-    logout
   end
 
   test 'show password after clicking on password field' do
