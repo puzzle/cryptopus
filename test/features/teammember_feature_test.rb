@@ -11,7 +11,7 @@ class TeammemberFeatureTest < Capybara::Rails::TestCase
   include FeatureTest::FeatureHelper
   include Capybara::DSL
   
-  test 'render hbs to show all teammembers' do
+  test 'lists teammembers' do
     login_as_user(:admin)
     team1 = teams(:team1)
     visit("/teams/#{team1.id}/groups")
