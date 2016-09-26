@@ -11,15 +11,14 @@ class Api::TeamsControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
-  test 'delete team where user is last teammember' do
+  test 'destroy team' do
     login_as(:admin)
-    soloteam = Fabricate(:private_team)
-    user = soloteam.teammembers.first.user
-
-    delete :destroy, id: soloteam.id
-
-    assert user.last_teammember_teams.empty?, 'there should be no more last teammember teams for given user'
-    assert_not Teammember.find_by(team_id: soloteam.id)
+    team = Fabricate(:private_team)
+    
+    assert_difference('Team.count', -1) do
+      delete :destroy, id: team.id
+    end
+    assert_not Teammember.where(team_id: team.id).present?, 'teammembers should be removed'
   end
 
   test 'returns last teammember teams' do
@@ -35,11 +34,6 @@ class Api::TeamsControllerTest < ActionController::TestCase
     assert_equal soloteam.id, team['id']
     assert_equal soloteam.name, team['name']
     assert_equal soloteam.description, team['description']
-  end
-
-  test 'deletes last teammember team and teammember' do
-    login_as(:admin)
-    
   end
 
   test 'cannot delete team if not admin' do
