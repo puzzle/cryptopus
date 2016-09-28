@@ -3,11 +3,14 @@
 require 'rake'
 require 'rake/testtask'
 require File.expand_path('../config/application', __FILE__)
-require 'rubocop/rake_task'
 
 Rails.application.load_tasks
 Rake::Task["test"].clear
-RuboCop::RakeTask.new
+
+unless Rails.env.production?
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
+end
 
 Rake::TestTask.new(:test) do |t|
   t.libs << ['lib', 'test']
