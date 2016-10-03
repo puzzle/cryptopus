@@ -18,6 +18,7 @@ class app.AutoLogoff
       return
     if remaining_seconds <= 1
       window.location = '/login/logout?jumpto=' + window.location.pathname
+      Turbolinks.pagesCached(0)
       return
     remaining_seconds -= 1
     $('#countdown').html humanize(remaining_seconds)
