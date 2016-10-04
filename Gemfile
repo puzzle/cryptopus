@@ -22,6 +22,7 @@ gem 'sass-rails'
 gem 'turbolinks'
 gem 'twitter-bootstrap-rails'
 gem 'uglifier'
+gem 'therubyracer'
 
 group :development, :test do
   gem 'launchy'
@@ -30,7 +31,6 @@ group :development, :test do
   gem 'minitest-rails'
   gem 'rails-erd'
   gem 'test-unit'
-  gem 'therubyracer'
   gem 'rubocop'
   gem 'rubocop-checkstyle_formatter'
   gem 'faker'
