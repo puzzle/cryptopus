@@ -6,8 +6,14 @@
       %br/
       = f.label :team
       .move_team
+        <input type="hidden" class="team_value" name="team_value" value="#{params[:team_id]}"/>
+        <select class="move_list_team form-control" name="account[group_id]">
+        </select>
       = f.label :group_id
       .move_group
+        <input type="hidden" class="group_value" name="group_value" value="#{params[:group_id]}"/>
+        <select class="move_list_group form-control" name="account[group_id]">
+        </select>
       %div{id: 'movescreen_buttons'}
         = f.submit 'Move Account', class: 'btn btn-primary'
         =link_to "Cancel", team_group_account_path(team_id: params[:team_id], group_id: params[:group_id], id: params[:id] ), {:class=>"btn btn-primary"}
