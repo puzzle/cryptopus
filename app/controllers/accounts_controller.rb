@@ -81,7 +81,6 @@ class AccountsController < ApplicationController
     @account.attributes = account_params
 
     @account.encrypt(plaintext_team_password(team))
-
     respond_to do |format|
       if @account.save
         flash[:notice] = t('flashes.accounts.updated')
@@ -91,7 +90,7 @@ class AccountsController < ApplicationController
       end
     end
   end
-  
+
   # DELETE /teams/1/groups/1/accounts/1
   def destroy
     @account = @group.accounts.find(params[:id])
@@ -114,7 +113,7 @@ class AccountsController < ApplicationController
       end
     end
   end
-  
+
   private
 
   def account_params
@@ -138,8 +137,8 @@ class AccountsController < ApplicationController
   end
 
   def account_move
-    account_handler = AccountHandler.new(@account)
-    account_handler.move(Group.find(account_params[:group_id]), session[:private_key], current_user.id)
+    acct_handler = AccountHandler.new(@account)
+    acct_handler.move(Group.find(account_params[:group_id]), session[:private_key], current_user.id)
   end
 
 end

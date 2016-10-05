@@ -43,8 +43,7 @@ module ApplicationHelper
 
     options[:data][:method] = :delete
 
-    link_to image_tag('remove.svg'),
-            path, options
+    link_to image_tag('remove.svg'), path, options
   end
 
   def labeled_check_box(f, attr, enabled = true)

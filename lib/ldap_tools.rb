@@ -52,7 +52,6 @@ class LdapTools
        end
      end
      raise 'UID of the user not found'
-     nil
    end
 
    def get_ldap_info(uid, attribute)
@@ -69,9 +68,7 @@ class LdapTools
    end
 
    def connect
-     unless Setting.value(:ldap, :enable)
-       return nil
-     end
+     return nil unless Setting.value(:ldap, :enable)
 
      @@ldap = Net::LDAP.new \
        base: Setting.value(:ldap, :basename),

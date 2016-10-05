@@ -84,8 +84,8 @@ class User < ActiveRecord::Base
   end
 
   def last_teammember_teams
-    Team.where(id: Teammember.group('team_id').having('count(*) = 1').select('team_id')).joins(:members)
-        .where('users.id = ?', id)
+    Team.where(id: Teammember.group('team_id').having('count(*) = 1').select('team_id'))
+      .joins(:members).where('users.id = ?', id)
   end
 
   # Updates Information about the user
@@ -122,8 +122,7 @@ class User < ActiveRecord::Base
       CryptUtils.validate_keypair(plaintext_private_key, public_key)
       self.private_key = CryptUtils.encrypt_private_key(plaintext_private_key, new_password)
     rescue Exceptions::DecryptFailed
-      errors.add(:base,
-                 I18n.t('activerecord.errors.models.user.old_password_invalid'))
+      errors.add(:base, I18n.t('activerecord.errors.models.user.old_password_invalid'))
       return false
     end
     save!

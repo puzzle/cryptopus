@@ -14,11 +14,7 @@ module User::Authenticate
 
   def authenticate(password)
     return if locked?
-    authenticated = if auth_ldap?
-                      authenticate_ldap(password)
-                    else
-                      authenticate_db(password)
-                    end
+    authenticated = auth_ldap? ? authenticate_ldap(password) : authenticate_db(password)
     if authenticated
       reset_failed_login_attempts
       true

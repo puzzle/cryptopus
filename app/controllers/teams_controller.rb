@@ -36,7 +36,6 @@ class TeamsController < ApplicationController
         flash[:notice] = t('flashes.teams.created')
         format.html { redirect_to(teams_url) }
       else
-        team = team
         format.html { render action: 'new' }
       end
     end

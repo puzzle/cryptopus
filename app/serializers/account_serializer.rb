@@ -6,7 +6,8 @@
 #  https://github.com/puzzle/cryptopus.
 
 class AccountSerializer < ApplicationSerializer
-  attributes :id, :accountname, :group_id, :group, :team, :team_id, :cleartext_password, :cleartext_username
+  attributes :id, :accountname, :group_id, :group, :team, :team_id,
+             :cleartext_password, :cleartext_username
 
   def cleartext_password
     object.cleartext_password
