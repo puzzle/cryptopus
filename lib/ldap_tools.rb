@@ -9,6 +9,7 @@ require 'net/ldap'
 
 class LdapTools
   class << self
+   # rubocop:disable MethodLength
    def ldap_login(username, password)
      return unless Setting.value(:ldap, :enable)
 
@@ -68,7 +69,7 @@ class LdapTools
    end
 
    def connect
-     return nil unless Setting.value(:ldap, :enable)
+     return unless Setting.value(:ldap, :enable)
 
      @@ldap = Net::LDAP.new \
        base: Setting.value(:ldap, :basename),

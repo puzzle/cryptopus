@@ -15,6 +15,7 @@ class WizardController < ApplicationController
     end
   end
 
+  # rubocop:disable MethodLength
   def apply
     password = params[:password]
     password_repeat = params[:password_repeat]

@@ -21,8 +21,12 @@ class ItemsController < ApplicationController
   # POST /teams/1/groups/1/accounts/1/items
   def create
     file = params[:item][:file]
-    file.nil? ? flash[:error] = t('flashes.items.uploaded_file_inexistent') : create_item(file)
 
+    if file.nil?
+      flash[:error] = t('flashes.items.uploaded_file_inexistent')
+    else
+      create_item(file)
+    end
     respond_to do |format|
       format.html { redirect_to team_group_account_url(team, @group, @account) }
     end
