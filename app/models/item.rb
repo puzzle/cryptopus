@@ -9,6 +9,7 @@ class Item < ActiveRecord::Base
   belongs_to :account
   validates :filename, uniqueness: { scope: :account }
   validates :filename, presence: true
+  validates :description, length: { maximum: 300}
 
 
   def label

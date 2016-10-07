@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920112329) do
+ActiveRecord::Schema.define(version: 20161007130154) do
 
   create_table "accounts", force: :cascade do |t|
-    t.string   "accountname", limit: 40, default: "", null: false
+    t.string   "accountname", limit: 70, default: "", null: false
     t.integer  "group_id",               default: 0,  null: false
     t.text     "description"
     t.binary   "username"

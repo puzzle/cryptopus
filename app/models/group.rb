@@ -11,6 +11,8 @@ class Group < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :team }
+  validates :name, length: { maximum: 70}
+  validates :description, length: { maximum: 300}
 
 
   def label

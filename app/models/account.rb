@@ -12,6 +12,8 @@ class Account < ActiveRecord::Base
 
   validates :accountname, presence: true
   validates :accountname, uniqueness: { scope: :group }
+  validates :accountname, length: { maximum: 70}
+  validates :description, length: { maximum: 300}
 
   attr_accessor :cleartext_password, :cleartext_username
 
