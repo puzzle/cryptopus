@@ -140,7 +140,7 @@ class AccountsController < ApplicationController
     account_handler = AccountHandler.new(@account)
     account_handler.move(Group.find(account_params[:group_id]),
                          session[:private_key],
-                         current_user.id)
+                         current_user)
   end
 
 end

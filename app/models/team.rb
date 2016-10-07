@@ -67,8 +67,7 @@ class Team < ActiveRecord::Base
 
   def decrypt_team_password(user, plaintext_private_key)
     crypted_team_password = teammember(user.id).password
-    CryptUtils.
-      decrypt_team_password(crypted_team_password, plaintext_private_key)
+    CryptUtils.decrypt_team_password(crypted_team_password, plaintext_private_key)
   end
 
   private

@@ -14,4 +14,13 @@ class Item < ActiveRecord::Base
   def label
     filename
   end
+
+  def decrypt_file(file, team_password)
+    CryptUtils.decrypt_blob(file, team_password)
+  end
+
+  def encrypt_file(file, team_password)
+     CryptUtils.encrypt_blob(file, team_password)
+  end
+
 end
