@@ -7,6 +7,7 @@ AllCops:
     - lib/tasks/**/*
     - test/**/*
     - tmp/**/*
+    - test/**/*
 
 Metrics/AbcSize:
   Max: 20
