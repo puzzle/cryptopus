@@ -143,6 +143,16 @@ class TeamTest <  ActiveSupport::TestCase
     assert_match /Name/, team.errors.full_messages.first
   end
 
+  test 'create team with invalid team name' do
+    params = {}
+    params[:name] = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no'
+    params[:description] = 'foo foo'
+    params[:private] = false
+
+    team = Team.create(bob, params)
+    assert_equal false, team.valid?
+  end
+
   private
   def alice
     users(:alice)
