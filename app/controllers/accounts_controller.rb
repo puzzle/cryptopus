@@ -137,10 +137,8 @@ class AccountsController < ApplicationController
   end
 
   def account_move
-    account_handler = AccountHandler.new(@account)
-    account_handler.move(Group.find(account_params[:group_id]),
-                         session[:private_key],
-                         current_user)
+    account_handler = AccountHandlerMove.new(@account, session[:private_key], current_user)
+    account_handler.move(Group.find(account_params[:group_id]))
   end
 
 end

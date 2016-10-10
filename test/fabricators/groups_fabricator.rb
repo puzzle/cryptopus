@@ -7,4 +7,5 @@
 
 Fabricator(:group) do
   name { Faker::App.name }
+  team_id {1}
 end
