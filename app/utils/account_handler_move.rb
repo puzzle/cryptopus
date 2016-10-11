@@ -32,8 +32,8 @@ class AccountHandlerMove < AccountHandler
   def move_items(old_team_password)
     new_team_password = new_team.decrypt_team_password(user, private_key)
     account.items.each do |i|
-      decrypted_file = i.decrypt_file(i.file, old_team_password)
-      i.file = i.encrypt_file(decrypted_file, new_team_password)
+      i.decrypt(old_team_password)
+      i.file = i.encrypt(new_team_password)
       i.save
     end
   end

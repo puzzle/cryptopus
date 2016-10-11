@@ -37,8 +37,8 @@ class AccountHandlerMoveTest < ActiveSupport::TestCase
      assert_equal items(:item2).account, account
      assert_equal items(:item2).account.group.team, teams(:team2)
 
-     decrypt_file_item1 = items(:item1).decrypt_file(items(:item1).file, new_team_password)
-     decrypt_file_item2 = items(:item2).decrypt_file(items(:item2).file, new_team_password)
+     decrypt_file_item1 = items(:item1).decrypt(new_team_password)
+     decrypt_file_item2 = items(:item2).decrypt(new_team_password)
      
      assert_equal "Das ist ein test File", decrypt_file_item1
      assert_equal "Das ist ein test File", decrypt_file_item2
