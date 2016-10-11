@@ -7,7 +7,7 @@
 
 module User::Authenticate
 
-  LOCK_TIME_FAILED_LOGIN_ATTEMPT = [0, 0, 0, 3, 5, 10, 15].freeze
+  LOCK_TIME_FAILED_LOGIN_ATTEMPT = [0, 0, 0, 3, 5, 20, 30, 60, 120, 240].freeze
   def locked?
     locked || temporarly_locked?
   end
