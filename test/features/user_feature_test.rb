@@ -14,7 +14,7 @@ class UserFeatureTest < Capybara::Rails::TestCase
     login_as_user(:admin)
     visit('/admin/users')
 
-    sleep 2 # wait 2s to avoid undetermined failing
+    sleep 3 # wait to avoid undetermined failing
 
     page.all('.delete_user_link')[1].click
 
