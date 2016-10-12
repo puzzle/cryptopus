@@ -36,8 +36,6 @@ class RootAsAdminTest < ActiveSupport::TestCase
     admin = users(:admin)
     admin_private_key = CryptUtils.decrypt_private_key(admin.private_key, 'password')
 
-    team_password = teams(:team1).decrypt_team_password(admin, admin_private_key)
-
     bob = users(:bob)
     bob.update_attributes(admin: true)
     teammembers(:team1_admin).destroy
@@ -64,6 +62,6 @@ class RootAsAdminTest < ActiveSupport::TestCase
   private
 
   def disempower_root
-    users(:root).send(:disempower)
+    users(:root).teammembers.joins(:team).where(teams: { private: false }).destroy_all
   end
 end

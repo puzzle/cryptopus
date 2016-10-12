@@ -189,6 +189,7 @@ class User < ActiveRecord::Base
   end
 
   def disempower
+    raise "root can not be disempowered" if self.username == "root"
     teammembers.joins(:team).where(teams: { private: false }).destroy_all
   end
 

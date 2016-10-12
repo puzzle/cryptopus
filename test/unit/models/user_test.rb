@@ -322,6 +322,17 @@ class UserTest < ActiveSupport::TestCase
     assert_match /Your NEW password was wrong/, user.errors.messages[:base][0]
   end
 
+
+  test 'root can not be disempowered' do 
+    root = users(:root)
+    root.update_attributes(admin: true)
+
+    assert_raise "root can not be disempowered" do 
+      root.send(:disempower)
+    end 
+  end
+
+
   private
   def enable_ldap_auth
     Setting.find_by(key: 'ldap_enable').update_attributes(value: true)
