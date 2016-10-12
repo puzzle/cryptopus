@@ -30,7 +30,7 @@ class MaintenanceTasks::RootAsAdmin < MaintenanceTask
 
   def empower_admins_in_root_teams
     root = User.root
-    roots_plaintext_private_key = User.decrypt_private_key(root_password)
+    roots_plaintext_private_key = root.decrypt_private_key(root_password)
     root.teams.each do |t|
       add_admins_to_team(roots_plaintext_private_key, t)
     end
