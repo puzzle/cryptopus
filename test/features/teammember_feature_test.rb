@@ -16,7 +16,6 @@ class TeammemberFeatureTest < Capybara::Rails::TestCase
     team1 = teams(:team1)
     visit("/teams/#{team1.id}/groups")
 
-    page.must_have_selector('.show_members')
     first('.show_members').click
     
     page.must_have_content('Admin test')

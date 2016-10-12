@@ -12,12 +12,16 @@ require "minitest/autorun"
 require 'mocha/mini_test'
 require "minitest/rails/capybara"
 
+ActiveRecord::Migration.maintain_test_schema!
+
 Dir[Rails.root.join('test/support/**/*.rb')].sort.each { |f| require f }
 
 SimpleCov.start 'rails' do
   add_filter 'lib/ldap_tools.rb'
   coverage_dir 'test/coverage'
 end
+
+Capybara.default_max_wait_time = 5
 
 Capybara::Webkit.configure do |config|
   config.debug = false

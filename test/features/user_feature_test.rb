@@ -14,9 +14,7 @@ class UserFeatureTest < Capybara::Rails::TestCase
     login_as_user(:admin)
     visit('/admin/users')
 
-    sleep 3 # wait to avoid undetermined failing
-
-    page.all('.delete_user_link')[1].click
+    find(:xpath, './/a[@data-user-id="902541635"]').click
 
     page.must_have_content('Before you can delete this user you have to delete the following teams, because the user is the last member.') 
     page.must_have_selector('#last_teammember_teams_table')
