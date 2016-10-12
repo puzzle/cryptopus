@@ -6,17 +6,16 @@
 #  https://github.com/puzzle/cryptopus.
 
 desc 'Runs the taks for a commit build'
-task ci: ['rubocop',
+task ci: ['log:clear',
           'db:migrate',
           'test',
           'test:features']
 
 namespace :ci do
   desc 'Runs the tasks for the nightly build'
-  task nightly: ['rubocop',
-                 'db:migrate',
-                 'rake',
-                 'rake test:features',
+  task nightly: ['db:migrate',
+                 'test',
+                 'test:features',
                  'brakeman']
 
 end
