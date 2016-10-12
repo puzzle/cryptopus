@@ -13,6 +13,9 @@ class UserFeatureTest < Capybara::Rails::TestCase
   test 'lists teams where user is last teammember' do
     login_as_user(:admin)
     visit('/admin/users')
+
+    sleep 2 # wait 2s to avoid undetermined failing
+
     page.all('.delete_user_link')[1].click
 
     page.must_have_content('Before you can delete this user you have to delete the following teams, because the user is the last member.') 
