@@ -5,25 +5,26 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class AccountHandlerMove < AccountHandler
+class AccountMoveHandler < AccountHandler
 
   attr_accessor :new_group
 
   def move(new_group)
     @new_group = new_group
+    ActiveRecord::Base.transaction do
+      move_account_to_new_team unless move_team?
 
-    move_account_to_new_team unless move_team?
+      account.group_id = new_group.id
 
-    account.group_id = new_group.id
-
-    account.encrypt(new_team.decrypt_team_password(user, private_key))
-    account.save
+      account.encrypt(new_team.decrypt_team_password(user, private_key))
+      account.save!
+    end
   end
 
   private
 
   def move_account_to_new_team
-    raise "user is not member of new team" unless user.teams.exists?(new_group.team.id)
+    raise "user is not member of new team" unless new_team.teammember?(user.id)
     old_team_password = old_team.decrypt_team_password(user, private_key)
     move_items(old_team_password)
     account.decrypt(old_team_password)
@@ -34,7 +35,7 @@ class AccountHandlerMove < AccountHandler
     account.items.each do |i|
       i.decrypt(old_team_password)
       i.file = i.encrypt(new_team_password)
-      i.save
+      i.save!
     end
   end
 
