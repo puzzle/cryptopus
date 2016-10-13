@@ -7,12 +7,9 @@
 
 desc "Run brakeman"
 task :brakeman do
-  FileUtils.rm_f('brakeman-output.tabs')
   begin
     Timeout.timeout(300) do
-      sh %w(brakeman -o brakeman-output.tabs
-                     -q
-                     --no-progress).join(' ')
+      sh %w(brakeman).join(' ')
     end
   rescue Timeout::Error => e
     puts "\nBrakeman took too long. Aborting."
