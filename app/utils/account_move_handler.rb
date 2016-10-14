@@ -12,7 +12,7 @@ class AccountMoveHandler < AccountHandler
   def move(new_group)
     @new_group = new_group
     ActiveRecord::Base.transaction do
-      move_account_to_new_team unless move_team?
+      move_account_to_new_team unless same_team?
 
       account.group_id = new_group.id
 
@@ -39,7 +39,7 @@ class AccountMoveHandler < AccountHandler
     end
   end
 
-  def move_team?
+  def same_team?
     old_team == new_team
   end
 
