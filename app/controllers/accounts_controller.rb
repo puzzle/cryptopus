@@ -101,6 +101,7 @@ class AccountsController < ApplicationController
     end
   end
 
+  # PUT /teams/1/groups/1/accounts/1/move
   def move
     @account = @group.accounts.find(params[:account_id])
     account_move
@@ -137,8 +138,8 @@ class AccountsController < ApplicationController
   end
 
   def account_move
-    account_handler = AccountMoveHandler.new(@account, session[:private_key], current_user)
-    account_handler.move(Group.find(account_params[:group_id]))
+    account_move_handler = AccountMoveHandler.new(@account, session[:private_key], current_user)
+    account_move_handler.move(Group.find(account_params[:group_id]))
   end
 
 end
