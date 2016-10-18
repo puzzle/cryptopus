@@ -31,7 +31,6 @@ class Api::TeamsControllerTest < ActionController::TestCase
     team = JSON.parse(response.body)['data']['teams'][0]
 
 
-    require 'pry'; binding.pry
     assert_equal soloteam.id, team['id']
     assert_equal soloteam.name, team['name']
     assert_equal soloteam.description, team['description']
