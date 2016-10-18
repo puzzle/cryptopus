@@ -4,5 +4,5 @@
 # https://github.com/puzzle/cryptopus.
 
 class TeamSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :description
 end

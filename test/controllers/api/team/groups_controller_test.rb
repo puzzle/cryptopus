@@ -16,7 +16,7 @@ class Api::Team::GroupsControllerTest < ActionController::TestCase
     team = teams(:team1)
 
     xhr :get, :index, team_id: team
-    groups = JSON.parse(response.body)['data'][0]['name']
+    groups = JSON.parse(response.body)['data']['groups'][0]['name']
 
     assert_equal groups, 'group1'
   end
