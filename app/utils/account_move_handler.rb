@@ -16,7 +16,6 @@ class AccountMoveHandler < AccountHandler
 
       account.group_id = new_group.id
 
-      account.encrypt(new_team.decrypt_team_password(user, private_key))
       account.save!
     end
   end
@@ -28,6 +27,7 @@ class AccountMoveHandler < AccountHandler
     old_team_password = old_team.decrypt_team_password(user, private_key)
     move_items(old_team_password)
     account.decrypt(old_team_password)
+    account.encrypt(new_team.decrypt_team_password(user, private_key))
   end
 
   def move_items(old_team_password)
