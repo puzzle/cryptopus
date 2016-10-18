@@ -28,9 +28,10 @@ class Api::TeamsControllerTest < ActionController::TestCase
     user = soloteam.teammembers.first.user
 
     get :last_teammember_teams, user_id: user.id
-    team = JSON.parse(response.body)['data'][0]
+    team = JSON.parse(response.body)['data']['teams'][0]
 
 
+    require 'pry'; binding.pry
     assert_equal soloteam.id, team['id']
     assert_equal soloteam.name, team['name']
     assert_equal soloteam.description, team['description']
@@ -67,8 +68,8 @@ class Api::TeamsControllerTest < ActionController::TestCase
 
       xhr :get, :index
 
-      team1 = JSON.parse(response.body)['data'][0]['name']
-      team2 = JSON.parse(response.body)['data'][1]['name']
+      team1 = JSON.parse(response.body)['data']['teams'][1]['name']
+      team2 = JSON.parse(response.body)['data']['teams'][0]['name']
       assert_equal team1, 'team1'
       assert_equal team2, 'team2'
   end
