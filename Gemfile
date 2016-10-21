@@ -23,6 +23,7 @@ gem 'turbolinks'
 gem 'twitter-bootstrap-rails'
 gem 'uglifier'
 gem 'therubyracer'
+gem 'seed-fu'
 
 group :development, :test do
   gem 'launchy'
@@ -40,7 +41,6 @@ group :development do
   gem 'sextant'
   gem 'pry'
   gem 'pry-stack_explorer'
-  gem 'seed-fu'
   gem 'brakeman', require: false
 end
 
