@@ -23,6 +23,8 @@ gem 'turbolinks'
 gem 'twitter-bootstrap-rails'
 gem 'uglifier'
 gem 'therubyracer'
+gem 'seed-fu'
+gem 'faker'
 
 group :development, :test do
   gem 'launchy'
@@ -33,14 +35,12 @@ group :development, :test do
   gem 'test-unit'
   gem 'rubocop'
   gem 'rubocop-checkstyle_formatter'
-  gem 'faker'
 end
 
 group :development do
   gem 'sextant'
   gem 'pry'
   gem 'pry-stack_explorer'
-  gem 'seed-fu'
   gem 'brakeman', require: false
 end
 
