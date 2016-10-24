@@ -48,103 +48,26 @@ class UserTest < ActiveSupport::TestCase
     assert_not bob.legacy_private_key?
   end
 
-  test 'first invalid login attempt' do
-    time = Time.now
-    users(:bob).update_attribute(:failed_login_attempts, 0)
-    users(:bob).update_attribute(:last_failed_login_attempt_at, nil)
+  test 'invalid login attempts' do
+    User::Authenticate::LOCK_TIME_FAILED_LOGIN_ATTEMPT.each_with_index do |timer, attempt|
+      return if attempt == 9
+      time = Time.now
 
-    users(:bob).authenticate('wrong password')
+      users(:bob).update_attribute(:failed_login_attempts, attempt)
+      users(:bob).update_attribute(:last_failed_login_attempt_at, time - timer.seconds)
 
-    assert_equal 1, users(:bob).failed_login_attempts
-    assert time <= users(:bob).last_failed_login_attempt_at
+      users(:bob).authenticate('wrong password')
+
+      assert_equal attempt + 1, users(:bob).failed_login_attempts
+      assert time <= users(:bob).last_failed_login_attempt_at
+    end
   end
 
-  test 'second invalid login attempt' do
-    time = Time.now
-    users(:bob).update_attribute(:failed_login_attempts, 1)
-    users(:bob).update_attribute(:last_failed_login_attempt_at, Time.now - 5.seconds)
-
-    users(:bob).authenticate('wrong password')
-
-    assert_equal 2, users(:bob).failed_login_attempts
-    assert time <= users(:bob).last_failed_login_attempt_at
-  end
-
-  test 'third invalid login attempt' do
-    time = Time.now
-    users(:bob).update_attribute(:failed_login_attempts, 2)
-    users(:bob).update_attribute(:last_failed_login_attempt_at, Time.now - 5.seconds)
-
-    users(:bob).authenticate('wrong password')
-
-    assert_equal 3, users(:bob).failed_login_attempts
-    assert time <= users(:bob).last_failed_login_attempt_at
-  end
-
-  test 'fourth invalid login attempt' do
-    time = Time.now
-    users(:bob).update_attribute(:failed_login_attempts, 3)
-    users(:bob).update_attribute(:last_failed_login_attempt_at, Time.now - 5.seconds)
-
-    users(:bob).authenticate('wrong password')
-
-    assert_equal 4, users(:bob).failed_login_attempts
-    assert time <= users(:bob).last_failed_login_attempt_at
-  end
-
-  test 'fifth invalid login attempt' do
-    time = Time.now
-    users(:bob).update_attribute(:failed_login_attempts, 4)
-    users(:bob).update_attribute(:last_failed_login_attempt_at, Time.now - 5.seconds)
-
-    users(:bob).authenticate('wrong password')
-
-    assert_equal 5, users(:bob).failed_login_attempts
-    assert time <= users(:bob).last_failed_login_attempt_at
-  end
-
-  test 'sixth invalid login attempt, lock user' do
-    time = Time.now
-    users(:bob).update_attribute(:failed_login_attempts, 5)
-    users(:bob).update_attribute(:last_failed_login_attempt_at, Time.now - 20.seconds)
-
-    users(:bob).authenticate('wrong password')
-
-    assert_equal 6, users(:bob).failed_login_attempts
-    assert time <= users(:bob).last_failed_login_attempt_at
-  end
-
-  test 'seventh invalid login attempt, lock user' do
-    time = Time.now
-    users(:bob).update_attribute(:failed_login_attempts, 6)
-    users(:bob).update_attribute(:last_failed_login_attempt_at, Time.now - 30.seconds)
-
-    users(:bob).authenticate('wrong password')
-
-    assert_equal 7, users(:bob).failed_login_attempts
-    assert time <= users(:bob).last_failed_login_attempt_at
-  end
-
-  test 'eighth invalid login attempt, lock user' do
-    time = Time.now
-    users(:bob).update_attribute(:failed_login_attempts, 7)
-    users(:bob).update_attribute(:last_failed_login_attempt_at, Time.now - 60.seconds)
-
-    users(:bob).authenticate('wrong password')
-
-    assert_equal 8, users(:bob).failed_login_attempts
-    assert time <= users(:bob).last_failed_login_attempt_at
-  end
-
-  test 'ninth invalid login attempt, lock user' do
-    time = Time.now
+  test 'valid login attempt while user is temporarly locked' do
     users(:bob).update_attribute(:failed_login_attempts, 8)
-    users(:bob).update_attribute(:last_failed_login_attempt_at, Time.now - 120.seconds)
+    users(:bob).update_attribute(:last_failed_login_attempt_at, Time.now - 5.seconds)
 
-    users(:bob).authenticate('wrong password')
-
-    assert_equal 9, users(:bob).failed_login_attempts
-    assert time <= users(:bob).last_failed_login_attempt_at
+    assert_nil users(:bob).authenticate('password')
   end
 
   test 'tenth invalid login attempt, lock user' do
@@ -323,13 +246,13 @@ class UserTest < ActiveSupport::TestCase
   end
 
 
-  test 'root can not be disempowered' do 
+  test 'root can not be disempowered' do
     root = users(:root)
     root.update_attributes(admin: true)
 
-    assert_raise "root can not be disempowered" do 
+    assert_raise "root can not be disempowered" do
       root.send(:disempower)
-    end 
+    end
   end
 
 
