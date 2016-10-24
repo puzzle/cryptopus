@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   validates :username, uniqueness: true
   validates :username, presence: true
-  validates :username, length: { maximum: 20 } 
+  validates :username, length: { maximum: 20 }
 
   has_many :teammembers, dependent: :destroy
   has_many :recryptrequests, dependent: :destroy
@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
 
   def last_teammember_teams
     Team.where(id: Teammember.group('team_id').having('count(*) = 1').select('team_id'))
-      .joins(:members).where('users.id = ?', id)
+        .joins(:members).where('users.id = ?', id)
   end
 
   # Updates Information about the user
@@ -189,7 +189,7 @@ class User < ActiveRecord::Base
   end
 
   def disempower
-    raise "root can not be disempowered" if self.username == "root"
+    raise 'root can not be disempowered' if username == 'root'
     teammembers.joins(:team).where(teams: { private: false }).destroy_all
   end
 

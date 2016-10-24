@@ -11,8 +11,8 @@ class Team < ActiveRecord::Base
   has_many :members, through: :teammembers, source: :user
 
   validates :name, presence: true
-  validates :name, length: { maximum: 40}
-  validates :description, length: { maximum: 300}
+  validates :name, length: { maximum: 40 }
+  validates :description, length: { maximum: 300 }
 
   class << self
     def create(creator, params)
