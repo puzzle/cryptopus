@@ -186,7 +186,7 @@ class User < ActiveRecord::Base
   end
   
   def search_accounts(term)
-    accounts.where('accountname like ?', "%#{term}%")
+    accounts.includes(group: [team: [:teammembers]]).where('accountname like ?', "%#{term}%")
   end
 
   def legacy_private_key?
