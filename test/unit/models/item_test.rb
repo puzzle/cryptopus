@@ -23,4 +23,14 @@ class ItemTest < ActiveSupport::TestCase
 		item = Item.new(params)
 		assert item.valid?
 	end
+
+  test 'decrypts item' do
+    bob = users(:bob)
+    bobs_private_key = bob.decrypt_private_key('password')
+    account = accounts(:account1)
+    team = account.group.team
+    cleartext_team_password = team.decrypt_team_password(bob, bobs_private_key)
+    item = account.items.first
+    assert_equal "Das ist ein test File", item.decrypt(cleartext_team_password) 
+  end
 end
