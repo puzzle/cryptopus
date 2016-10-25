@@ -34,7 +34,10 @@ class app.AutoLogoff
     remaining_seconds = AUTO_LOGOFF_TIME
 
   bind = ->
-    $(document).on 'page:change mousemove keypress', ->
+    $(document).ajaxComplete ->
+      reset_timer()
+
+    $(document).on 'page:change', ->
       reset_timer()
 
   new AutoLogoff
