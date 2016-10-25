@@ -16,7 +16,6 @@ class Api::SearchController < ApiController
     render_json accounts
   end
 
-
   def groups
     term = params[:q]
     render_json current_user.search_groups(term)

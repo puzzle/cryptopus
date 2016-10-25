@@ -14,35 +14,25 @@ class app.Search
   ready = ->
     new Clipboard('.clip_button')
 
-  searchTeams = (term) ->
-    return $.get('/api/search/teams', q: term).then (data) ->
-      teams = data.data.teams
-      HandlebarsTemplates['search/team_result_entry'](teams)
+  search = (term, search_type) ->
+    return $.get('/api/search/'+search_type, q: term).then (data) ->
+      objects = data.data[search_type]
+      HandlebarsTemplates['search/'+search_type+'_result_entries'](objects)
 
-  searchGroups = (term) ->
-    return $.get('/api/search/groups', q: term).then (data) ->
-      groups = data.data.groups
-      HandlebarsTemplates['search/group_result_entry'](groups)
-
-  searchAccounts = (term) ->
-    return $.get('/api/search/accounts', q: term).then (data) ->
-      accounts = data.data.accounts
-      HandlebarsTemplates['search/account_result_entry'](accounts)
-
-  updateResultArea = (content) ->
-    $('.result-list').html(content)
+  updateResultArea = (content, search_type) ->
+    $('.result-list.'+search_type).html(content)
 
   doSearch = ->
+    search_type = $('li.tab.active').attr('id')
     input_field = $('.search-input')
     $('.result-info').hide()
     term = input_field.val()
     if input_field.val().length <= 2
-      updateResultArea('')
+      updateResultArea('', search_type)
     else
-      $.when(searchAccounts(term), searchGroups(term), searchTeams(term)).then (accounts, groups, teams) ->
-          content = accounts + groups + teams
-          updateResultArea(content)
+      $.when(search(term, search_type)).then (content) ->
           debugger
+          updateResultArea(content, search_type)
           $('.result-info').show() if content.replace(/\s/g, '') == ''
 
   showPassword = (e) ->
@@ -73,6 +63,9 @@ class app.Search
   bind = ->
     $(document).on 'page:load', ready
     $(document).ready(ready)
+
+    $(document).on 'click', 'li.tab', ->
+      doSearch()
 
     $(document).on 'keyup', '.search-input', ->
       doSearch()
