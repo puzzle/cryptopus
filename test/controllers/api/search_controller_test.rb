@@ -9,9 +9,9 @@ require 'test_helper'
 
 class Api::SearchControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
-  test "should get account" do
+  test "should get account for search term" do
     login_as(:alice)
-    xhr :get, :index, {'q' => 'acc'}
+    xhr :get, :accounts, {'q' => 'acc'}
 
     result_json = JSON.parse(response.body)['data']['accounts'][0]
 
@@ -29,5 +29,31 @@ class Api::SearchControllerTest < ActionController::TestCase
 
     assert_equal team.name, result_json['team']
     assert_equal team.id, result_json['team_id']
+  end
+
+  
+  test "should get group for search term" do
+    login_as(:alice)
+    xhr :get, :groups, {'q' => 'group'}
+
+    result_json = JSON.parse(response.body)['data']['groups'][0]
+
+    group = groups(:group1)
+
+    assert_equal group.name, result_json['name']
+    assert_equal group.id, result_json['id']
+  end
+
+  
+  test "should get team for search term" do
+    login_as(:alice)
+    xhr :get, :teams, {'q' => 'team'}
+
+    result_json = JSON.parse(response.body)['data']['teams'][0]
+    
+    team = teams(:team1)
+
+    assert_equal team.name, result_json['name']
+    assert_equal team.id, result_json['id']
   end
 end
