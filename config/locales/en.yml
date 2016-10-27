@@ -46,6 +46,7 @@ en:
       type_to_search: "Type to search..."
 
   accounts:
+    title: "Accounts"
     index:
       move: "Move account to other group"
       title: "Accounts in group %{group_name} for team %{team_name}"
@@ -121,6 +122,7 @@ en:
         title: "New user"
 
   groups:
+    title: "Groups"
     index_menu:
       create: "Create group"
     edit:

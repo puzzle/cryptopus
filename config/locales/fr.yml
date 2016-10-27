@@ -46,6 +46,7 @@ fr:
       type_to_search: "Appuyez pour rechercher..."
 
   accounts:
+    title: "Comptes" 
     index:
       move: "Déplacer compte à un autre groupe"
       title: "Comptes du groupe %{group_name} de l'équipe %{team_name}"
@@ -121,6 +122,7 @@ fr:
         title: "Nouvel utilisateur"
 
   groups:
+    title: "Groupes"
     index_menu:
       create: "Créer groupe"
     edit:
@@ -170,7 +172,7 @@ fr:
     hide: "Membres masquer"
 
   teams:
-    title: "Équipe"
+    title: "Équipes"
     form:
       private: "Privé"
       private_hint: "Administrateurs n'ont pas accès à cette équipe."
