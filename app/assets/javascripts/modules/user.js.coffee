@@ -28,7 +28,7 @@ class app.User
 
   onLastTeammemberDataLoaded = (response) ->
     showLastTeammemberTeams()
-    teams = response.data
+    teams = response.data.teams
     if 'teams' of teams #No last teammember teams for user
       showWarningMessage()
     else
