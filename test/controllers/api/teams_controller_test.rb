@@ -67,8 +67,8 @@ class Api::TeamsControllerTest < ActionController::TestCase
 
       xhr :get, :index
 
-      team1 = JSON.parse(response.body)['data']['teams'][1]['name']
-      team2 = JSON.parse(response.body)['data']['teams'][0]['name']
+      team1 = JSON.parse(response.body)['data']['teams'][0]['name']
+      team2 = JSON.parse(response.body)['data']['teams'][1]['name']
       assert_equal team1, 'team1'
       assert_equal team2, 'team2'
   end

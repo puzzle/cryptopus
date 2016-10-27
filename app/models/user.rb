@@ -172,11 +172,6 @@ class User < ActiveRecord::Base
       where(teammembers: { user_id: id })
   end
 
-  def teams
-    Team.joins('INNER JOIN teammembers ON teams.id = teammembers.team_id')
-      .where(teammembers: {user_id: id})
-  end
-
   def search_teams(term)
     teams.where('name like ?', "%#{term}%")
   end
