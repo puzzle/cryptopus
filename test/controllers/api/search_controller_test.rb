@@ -9,7 +9,7 @@ require 'test_helper'
 
 class Api::SearchControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
-  test "should get account for search term" do
+  test "should get account for matching accountname" do
     login_as(:alice)
     xhr :get, :accounts, {'q' => 'acc'}
 
@@ -31,6 +31,27 @@ class Api::SearchControllerTest < ActionController::TestCase
     assert_equal team.id, result_json['team_id']
   end
 
+  test "should get account for matching description" do
+    login_as(:alice)
+    xhr :get, :accounts, {'q' => 'des'}
+
+    result_json = JSON.parse(response.body)['data']['accounts'][0]
+
+    account = accounts(:account1)
+    group = account.group
+    team = group.team
+
+    assert_equal account.accountname, result_json['accountname']
+    assert_equal account.id, result_json['id']
+    assert_equal 'test', result_json['cleartext_username']
+    assert_equal 'password', result_json['cleartext_password']
+
+    assert_equal group.name, result_json['group']
+    assert_equal group.id, result_json['group_id']
+
+    assert_equal team.name, result_json['team']
+    assert_equal team.id, result_json['team_id']
+  end
   
   test "should get group for search term" do
     login_as(:alice)
