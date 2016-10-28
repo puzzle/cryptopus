@@ -13,10 +13,15 @@ class AccountMoveHandler < AccountHandler
     @new_group = new_group
     ActiveRecord::Base.transaction do
       move_account_to_new_team unless same_team?
-
+  
       account.group_id = new_group.id
-
-      account.save!
+      
+      if account.valid?
+        account.save!
+        true
+      else
+        raise ActiveRecord::Rollback
+      end
     end
   end
 

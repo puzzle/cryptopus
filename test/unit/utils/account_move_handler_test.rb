@@ -8,6 +8,18 @@
 require 'test_helper'
 class AccountMoveHandlerTest < ActiveSupport::TestCase
 
+  test 'Move account to a group where accountname already exist' do 
+    account = accounts(:account1)
+    bob = users(:bob)
+    private_key = decrypt_private_key(bob)
+    new_group = groups(:group2)
+    team_password = new_group.team.teammembers.find_by(user_id: bob.id).password
+    Fabricate(:account, group: new_group, team_password: team_password, accountname: 'account1')
+    
+    account_handler = AccountMoveHandler.new(account, private_key, bob)
+    
+    assert_equal nil, account_handler.move(new_group)
+  end
 
   test 'Move account to a group from another team' do
     account = accounts(:account2)
