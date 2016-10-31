@@ -24,7 +24,7 @@ class AccountsController < ApplicationController
 
   # GET /teams/1/groups/1/accounts/1
   def show
-    @account = Account.find_by(id: params[:id])
+    @account = Account.find(params[:id])
     @items = @account.items.load
 
     accounts_breadcrumbs
@@ -103,14 +103,16 @@ class AccountsController < ApplicationController
 
   # PUT /teams/1/groups/1/accounts/1/move
   def move
-    @account = @group.accounts.find(params[:account_id])
-    account_move
+    @account = Account.find(params[:account_id])
     respond_to do |format|
-      if @account.save
+      target_group = Group.find(account_params[:group_id])
+      if account_move_handler.move(target_group)
         flash[:notice] = t('flashes.accounts.moved')
         format.html { redirect_to team_group_accounts_url(team, @group) }
       else
-        format.html { render action: 'edit' }
+        @items = @account.items.load
+        flash[:error] = @account.errors.full_messages.join
+        format.html { render action: 'show' }
       end
     end
   end
@@ -137,9 +139,7 @@ class AccountsController < ApplicationController
     end
   end
 
-  def account_move
-    account_move_handler = AccountMoveHandler.new(@account, session[:private_key], current_user)
-    account_move_handler.move(Group.find(account_params[:group_id]))
+  def account_move_handler
+    AccountMoveHandler.new(@account, session[:private_key], current_user)
   end
-
 end
