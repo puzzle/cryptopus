@@ -7,7 +7,6 @@ app = window.App ||= {}
 
 class app.Search
   constructor: () ->
-    self = this
     bind.call()
 
   ready = ->
