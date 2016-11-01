@@ -6,7 +6,6 @@
 app = window.App ||= {}
 
 class app.Search
-  self = undefined
   constructor: () ->
     self = this
     bind.call()
@@ -31,7 +30,6 @@ class app.Search
       updateResultArea('', search_type)
     else
       $.when(search(term, search_type)).then (content) ->
-          debugger
           updateResultArea(content, search_type)
           $('.result-info').show() if content.replace(/\s/g, '') == ''
 
