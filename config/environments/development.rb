@@ -37,4 +37,8 @@ Cryptopus::Application.configure do
   config.assets.debug = true
 
   config.eager_load = false
+  Bullet.enable = true
+  Bullet.alert = true
+  Bullet.bullet_logger = true
+  Bullet.rails_logger = true
 end

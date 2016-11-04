@@ -35,6 +35,7 @@ group :development, :test do
   gem 'test-unit'
   gem 'rubocop'
   gem 'rubocop-checkstyle_formatter'
+  gem 'bullet'
 end
 
 group :development do
