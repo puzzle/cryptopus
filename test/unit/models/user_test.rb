@@ -48,18 +48,26 @@ class UserTest < ActiveSupport::TestCase
     assert_not bob.legacy_private_key?
   end
 
-  test 'invalid login attempts' do
-    User::Authenticate::LOCK_TIME_FAILED_LOGIN_ATTEMPT.each_with_index do |timer, attempt|
-      return if attempt == 9
-      time = Time.now
+  test 'increasing of failed login attempts and it\'s defined delays' do
+    bob = users(:bob)
 
-      users(:bob).update_attribute(:failed_login_attempts, attempt)
-      users(:bob).update_attribute(:last_failed_login_attempt_at, time - timer.seconds)
+    locktimes = User::Authenticate::LOCK_TIME_FAILED_LOGIN_ATTEMPT
+    assert_equal 10, locktimes.count
+    locktimes.each_with_index do |timer, i|
+      attempt = i + 1
 
-      users(:bob).authenticate('wrong password')
+      bob.update_attribute(:failed_login_attempts, attempt)
+      last_failed_login_time = Time.now - (locktimes[attempt].seconds)
+      bob.update_attribute(:last_failed_login_attempt_at, last_failed_login_time)
 
-      assert_equal attempt + 1, users(:bob).failed_login_attempts
-      assert time <= users(:bob).last_failed_login_attempt_at
+      assert_not bob.reload.send(:temporarly_locked?), 'bob shouldnt be locked temporarly'
+
+      bob.authenticate('wrong password')
+
+      return if attempt == locktimes.count - 1
+
+      assert_equal attempt + 1, bob.failed_login_attempts
+      assert last_failed_login_time < bob.reload.last_failed_login_attempt_at
     end
   end
 
@@ -70,7 +78,7 @@ class UserTest < ActiveSupport::TestCase
     assert_nil users(:bob).authenticate('password')
   end
 
-  test 'tenth invalid login attempt, lock user' do
+  test 'tenth invalid login attempt locks user' do
     last_failed_attempt = Time.now - 240.seconds
     users(:bob).update_attribute(:failed_login_attempts, 9)
     users(:bob).update_attribute(:last_failed_login_attempt_at, last_failed_attempt)
