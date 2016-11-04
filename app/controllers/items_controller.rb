@@ -58,14 +58,14 @@ class ItemsController < ApplicationController
   end
 
   def create_item(datafile)
-    @item = @account.items.new
-    @item.description = params[:item][:description]
-    @item.filename = datafile.original_filename
-    @item.content_type = datafile.content_type
-
-    if valid_item?(@item, datafile)
-      @item.encrypt_new_item(datafile.read, plaintext_team_password(team))
-      flash[:notice] = t('flashes.items.uploaded') if @item.save
+    item = @account.items.new
+    item.description = params[:item][:description]
+    item.filename = datafile.original_filename
+    item.content_type = datafile.content_type
+    item.cleartext_file = datafile.read
+    if valid_item?(item, datafile)
+      item.encrypt(plaintext_team_password(team))
+      flash[:notice] = t('flashes.items.uploaded') if item.save!
     end
   end
 

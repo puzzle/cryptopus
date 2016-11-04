@@ -33,4 +33,20 @@ class ItemTest < ActiveSupport::TestCase
     item = account.items.first
     assert_equal "Das ist ein test File", item.decrypt(cleartext_team_password) 
   end
+
+  test 'encrypt item' do 
+    bob = users(:bob)
+    bobs_private_key = bob.decrypt_private_key('password')
+    account = accounts(:account1)
+    team = account.group.team
+    cleartext_team_password = team.decrypt_team_password(bob, bobs_private_key)
+    item = Item.new(account_id: account.id, cleartext_file: "Das ist ein test File", filename: "test", content_type: "text")
+    item.encrypt(cleartext_team_password)
+    item.save!
+    item = Item.find(item.id)
+
+    assert_nil item.cleartext_file
+    item.decrypt(cleartext_team_password)
+    assert_equal "Das ist ein test File", item.cleartext_file
+  end
 end

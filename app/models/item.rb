@@ -25,11 +25,6 @@ class Item < ActiveRecord::Base
     encrypt_file(team_password)
   end
 
-  def encrypt_new_item(file, team_password)
-    @cleartext_file = file
-    encrypt_file(team_password)
-  end
-
   private
 
   def decrypt_attr(attr, team_password)
