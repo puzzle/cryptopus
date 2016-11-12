@@ -17,6 +17,7 @@ module User::Authenticate
     authenticated = auth_ldap? ? authenticate_ldap(password) : authenticate_db(password)
     if authenticated
       reset_failed_login_attempts
+      update_legacy_password(password) if legacy_password?
       true
     else
       update_failed_login_attempts
@@ -40,6 +41,11 @@ module User::Authenticate
 
   private
 
+  def update_legacy_password(plaintext_password)
+    salt = SecureRandom.hex
+    update_attribute(:password, "sha512$#{salt}$" + Digest::SHA512.hexdigest(salt+plaintext_password))
+  end
+
   def temporarly_locked?
     locked_until > Time.now if last_failed_login_attempt_at
   end
@@ -50,7 +56,9 @@ module User::Authenticate
   end
 
   def authenticate_db(plaintext_password)
-    password == CryptUtils.one_way_crypt(plaintext_password)
+    return password == CryptUtils.one_way_crypt(plaintext_password) if legacy_password?
+    salt = password.split('$')[1]
+    password.split('$')[2] == Digest::SHA512.hexdigest(salt+plaintext_password)
   end
 
   def authenticate_ldap(plaintext_password)

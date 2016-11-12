@@ -167,6 +167,10 @@ class User < ActiveRecord::Base
       where(teammembers: { user_id: id })
   end
 
+  def legacy_password?
+    password.match('sha512').nil?
+  end
+
   def groups
     Group.joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
       where(teammembers: { user_id: id })
