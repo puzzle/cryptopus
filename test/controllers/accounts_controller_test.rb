@@ -9,7 +9,7 @@ require 'test_helper'
 
 class AccountsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
-
+    
   test 'move account from one group to another' do
     login_as (:bob)
 
@@ -66,5 +66,16 @@ class AccountsControllerTest < ActionController::TestCase
     assert_match /You are not member of this team/ , flash[:error]
     assert_redirected_to teams_path
   end
+  test 'can create account without username and password' do
+    login_as(:bob)
 
+    params = { 'accountname'=>'test',
+               'cleartext_username'=>'', 
+               'cleartext_password'=>'test',
+               'description'=>'test' }
+
+    post :create, team_id: teams(:team1), group_id: groups(:group1), account: params
+  
+    assert_equal '', Account.find_by(accountname: 'test').username
+  end
 end

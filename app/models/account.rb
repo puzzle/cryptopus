@@ -40,7 +40,7 @@ class Account < ActiveRecord::Base
   end
 
   def encrypt_username(team_password)
-    return unless cleartext_username.present?
+    return self.username = '' unless cleartext_username.present?
     crypted_value = CryptUtils.encrypt_blob(cleartext_username, team_password)
     self.username = crypted_value
   end
