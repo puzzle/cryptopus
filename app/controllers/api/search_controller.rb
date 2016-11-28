@@ -12,7 +12,6 @@ class Api::SearchController < ApiController
 
     accounts = current_user.search_accounts(term)
 
-    decrypt_accounts(accounts)
     render_json accounts
   end
 
@@ -24,15 +23,6 @@ class Api::SearchController < ApiController
   def teams
     term = params[:q]
     render_json current_user.search_teams(term)
-  end
-
-  private
-
-  def decrypt_accounts(accounts)
-    accounts.each do |a|
-      team = a.group.team
-      a.decrypt(plaintext_team_password(team))
-    end
   end
 
 end

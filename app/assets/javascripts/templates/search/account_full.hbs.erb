@@ -1,0 +1,39 @@
+{{! Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+Cryptopus and licensed under the Affero General Public License version 3 or later.
+See the COPYING file at the top-level directory or at
+https://github.com/puzzle/cryptopus. }}
+
+<li class="result">
+  <div class="result-description">
+    <h1 class="result-title">
+      <a href="/teams/{{team_id}}/groups/{{group_id}}/accounts/{{id}}">{{accountname}}</a><br>
+    </h1
+    <br>
+    <span>
+      <a href="/teams/{{team_id}}/groups">{{team}}</a>
+      >
+      <a href="/teams/{{team_id}}/groups/{{group_id}}/accounts">{{group}}</a>
+    </span>
+  </div>
+  <br>
+  <div class="result-action">
+    <div class="result-username select-click">
+      <input id="username_{{id}}" type="text" value="{{cleartext_username}}" class="form-control" readonly>
+      <button class="btn clip_button" data-clipboard-target="#username_{{id}}" title="Click to copy">
+        <svg class="icon-clippy">
+          <use xlink:href="#icon-clippy"></use>
+        </svg>
+      </button>
+    </div>
+
+    <a href="#" class="password-show">Show password</a>
+    <div class="result-password select-click">
+      <input id="password_{{id}}"type="text" class="password-hidden form-control" value="{{cleartext_password}}" readonly>
+      <button class="btn clip_button" data-clipboard-target="#password_{{id}}" title="Click to copy">
+        <svg class="icon-clippy">
+          <use xlink:href="#icon-clippy"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+</li>

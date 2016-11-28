@@ -79,7 +79,9 @@ Cryptopus::Application.routes.draw do
       collection do
         get :last_teammember_teams
       end
-      resources :groups, only: ['index'], module: 'team'
+      resources :groups, only: ['index'], module: 'team' do
+        resources :accounts, only: ['show'], module: 'group'
+      end
       resources :members, except: [:new, :edit], module: 'team' do
         collection do
           get :candidates

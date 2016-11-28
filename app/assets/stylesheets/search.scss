@@ -12,12 +12,22 @@
   padding-top: 0.5em;
 }
 
+
+.account-link{
+  color: #333;
+}
+
+.account-entry{
+  cursor: pointer;
+}
+
 input.search-input {
   width: 60%;
   margin: 4em auto;
   padding: 1em;
   height: 3.5em;
 }
+
 
 .result-info {
   text-align: center;
@@ -39,8 +49,12 @@ input.search-input {
   min-height: 10em;
 }
 
+.result-small:hover{
+  background-color: #FCFCFC;
+}
+
 .result-list .result-small{
-  min-height: 5em !important;
+  min-height: 3.4em !important;
 }
 
 .result-description span{
@@ -51,10 +65,12 @@ input.search-input {
 .result-description {
   float: left;
   width: 60%;
+  pointer-events: none;
 }
 .result-action {
   float: right;
   width: 35%;
+  height: 80px;
 }
 
 .result-username,
