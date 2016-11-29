@@ -20,6 +20,7 @@ class ItemTest < ActiveSupport::TestCase
 		params = {}
 		params[:account_id] = accounts(:account2).id
 		params[:filename] = items(:item1).filename
+    params[:file] = items(:item1).file
 		item = Item.new(params)
 		assert item.valid?
 	end

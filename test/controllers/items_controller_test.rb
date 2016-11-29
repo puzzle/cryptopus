@@ -20,17 +20,14 @@ class ItemsControllerTest < ActionController::TestCase
 		assert_difference('Item.count', 0) do
 	      post :create, team_id: teams(:team1), group_id: groups(:group1), account_id: account1, item: item_params
 	    end
-
-	   	assert_match /The file has to be named/, flash[:error]
 	end
 
 	test 'does not upload nothing'  do
 	    login_as(:bob)
 		item_params = {}
 	    
-	  	assert_difference('Item.count', 0) do
+	  	assert_raise ActionController::ParameterMissing do
 	      post :create, team_id: teams(:team1), group_id: groups(:group1), account_id: accounts(:account1), item: item_params
 	    end
-	    assert_match /File is inexistent/, flash[:error]
 	end
 end

@@ -20,15 +20,15 @@ class ItemsController < ApplicationController
 
   # POST /teams/1/groups/1/accounts/1/items
   def create
-    file = params[:item][:file]
-
-    if file.nil?
-      flash[:error] = t('flashes.items.uploaded_file_inexistent')
-    else
-      create_item(file)
-    end
     respond_to do |format|
-      format.html { redirect_to team_group_account_url(team, @group, @account) }
+      item = Item.create(@account, item_params, plaintext_team_password(team))
+      if item.valid?
+        flash[:notice] = t('flashes.items.uploaded')
+        format.html { redirect_to team_group_account_url(team, @group, @account) }
+      else
+        @item = item
+        format.html { render action: 'new'}
+      end
     end
   end
 
@@ -52,29 +52,13 @@ class ItemsController < ApplicationController
 
   private
 
+  def item_params
+    params.require(:item).permit(:description, :file)
+  end
+
   def load_parents
     @group = team.groups.find(params[:group_id])
     @account = @group.accounts.find(params[:account_id])
   end
 
-  def create_item(datafile)
-    item = @account.items.new
-    item.description = params[:item][:description]
-    item.filename = datafile.original_filename
-    item.content_type = datafile.content_type
-    item.cleartext_file = datafile.read
-    if valid_item?(item, datafile)
-      item.encrypt(plaintext_team_password(team))
-      flash[:notice] = t('flashes.items.uploaded') if item.save!
-    end
-  end
-
-
-  def valid_item?(item, datafile)
-    flash[:error] = t('flashes.items.uploaded_filename_is_empty') if item.filename.blank?
-    flash[:notice] = t('activerecord.errors.models.item.attributes.filename.taken') unless item.valid?
-    flash[:error] = t('flashes.items.uploaded_size_to_high') if datafile.size > 10_000_000 # 10MB
-
-    flash[:error].blank? && flash[:notice].blank?
-  end
 end

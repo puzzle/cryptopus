@@ -7,6 +7,7 @@
   = t '.title'
   ( #{@account.accountname} )
 = form_for [team, @group, @account, @item], html: { multipart: true } do |f|
+  = f.error_messages
   .form-group
     = f.label t('.upload')
     = f.file_field :file
