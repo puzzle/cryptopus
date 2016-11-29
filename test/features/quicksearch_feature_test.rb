@@ -20,6 +20,8 @@ class QuickSearchFeatureTest < Capybara::Rails::TestCase
   test 'show password after clicking on password field' do
     login_as_user(:bob)
     fill_in 'search_string', with: 'account1'
+    page.must_have_selector('.account-entry')
+    first('.account-entry').click
     page.must_have_selector('.password-show', visible: true)
     first('.password-show').click
     page.must_have_selector('.password-show', visible: false)
