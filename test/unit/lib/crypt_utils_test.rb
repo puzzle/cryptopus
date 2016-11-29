@@ -57,7 +57,7 @@ describe CryptUtils do
       blob_data = Base64.decode64("test")
       blob_data_encrypted = CryptUtils.encrypt_blob( blob_data, @team_password)
       result = CryptUtils.decrypt_blob( blob_data_encrypted, @team_password )
-      assert_equal result, blob_data
+      assert_equal result, blob_data.force_encoding('UTF-8')
     end
   end
 

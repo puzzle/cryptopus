@@ -57,9 +57,22 @@ class app.Search
       return
     ), 5000
 
+  foldOutAccount = (e) ->
+    li = $(e.target)
+    div = $(e.target).parent()
+    $.get(li.data('account-path')).then (data) ->
+      account = data.data['account']
+      content = HandlebarsTemplates['search/account_full'](account)
+      div.html(content)
+      debugger
+      div.find('.result-description')[0].style.pointerEvents = 'auto'
+
   bind = ->
     $(document).on 'page:load', ready
     $(document).ready(ready)
+
+    $(document).on 'click', '.account-entry', (e) ->
+      foldOutAccount(e)
 
     $(document).on 'click', 'li.tab', ->
       doSearch()

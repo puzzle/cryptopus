@@ -186,7 +186,7 @@ class User < ActiveRecord::Base
   
   def search_accounts(term)
     accounts
-      .includes(group: [team: [:teammembers]])
+      .includes(group: [:team])
       .where('accountname like ? or accounts.description like ?', "%#{term}%", "%#{term}%")
   end
 

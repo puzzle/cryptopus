@@ -105,7 +105,6 @@ class CryptUtils
     cipher.key = team_password
     decrypted_blob = cipher.update(blob)
     decrypted_blob << cipher.final
-    decrypted_blob
+    decrypted_blob.force_encoding('UTF-8')
   end
-
 end
