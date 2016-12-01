@@ -64,7 +64,6 @@ class app.Search
       account = data.data['account']
       content = HandlebarsTemplates['search/account_full'](account)
       div.html(content)
-      debugger
       div.find('.result-description')[0].style.pointerEvents = 'auto'
 
   bind = ->
