@@ -14,9 +14,11 @@ class TeammemberFeatureTest < Capybara::Rails::TestCase
   test 'lists teammembers' do
     login_as_user(:admin)
     team1 = teams(:team1)
-    visit("/teams/#{team1.id}/groups")
 
-    first('.show_members').click
+    visit("/teams/#{team1.id}/groups")
+    page.must_have_selector('.show_members')
+
+    all('.show_members')[0].click
     
     page.must_have_content('Admin test')
     page.must_have_content('Alice test')
