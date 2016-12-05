@@ -12,6 +12,10 @@
   padding-top: 0.5em;
 }
 
+.team-group{
+  display: inline;
+  float: right;
+}
 
 .account-link{
   color: #333;
@@ -67,6 +71,11 @@ input.search-input {
   width: 60%;
   pointer-events: none;
 }
+
+.result-small .result-description {
+  width: 100%;
+}
+
 .result-action {
   float: right;
   width: 35%;
