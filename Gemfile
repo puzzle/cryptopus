@@ -39,10 +39,11 @@ group :development, :test do
 end
 
 group :development do
-  gem 'sextant'
+  gem 'brakeman', require: false
+  gem 'hirb'
   gem 'pry'
   gem 'pry-stack_explorer'
-  gem 'brakeman', require: false
+  gem 'sextant'
 end
 
 group :test do

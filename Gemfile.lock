@@ -113,6 +113,7 @@ GEM
       sprockets (>= 2.0.0, < 4.0)
       tilt (~> 1.2)
     hike (1.2.3)
+    hirb (0.7.3)
     i18n (0.7.0)
     jquery-rails (4.0.5)
       rails-dom-testing (~> 1.0)
@@ -293,6 +294,7 @@ DEPENDENCIES
   figaro
   haml
   handlebars_assets
+  hirb
   jquery-rails
   jquery-ui-rails
   launchy
