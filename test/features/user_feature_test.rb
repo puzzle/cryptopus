@@ -12,9 +12,11 @@ class UserFeatureTest < Capybara::Rails::TestCase
 
   test 'lists teams where user is last teammember' do
     login_as_user(:admin)
-    visit('/admin/users')
 
-    find(:xpath, './/a[@data-user-id="902541635"]').click
+    visit('/admin/users')
+    page.must_have_selector('a.delete_user_link')
+
+    all('a.delete_user_link')[1].click
 
     page.must_have_content('Before you can delete this user you have to delete the following teams, because the user is the last member.') 
     page.must_have_selector('#last_teammember_teams_table')

@@ -15,7 +15,7 @@ class GroupsController < ApplicationController
     @groups = team.groups
 
     teammembers = team.teammembers
-    @teammembers = teammembers.sort_by { |tm| tm.label.downcase }
+    @teammembers = teammembers.includes(:user).sort_by { |tm| tm.label.downcase }
 
     respond_to do |format|
       format.html # index.html.haml

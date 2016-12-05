@@ -13,17 +13,21 @@ class QuickSearchFeatureTest < Capybara::Rails::TestCase
 
   test 'search with not available keyword does not show any results' do
     login_as_user(:bob)
+    page.must_have_selector('.form-group.search')
+
     fill_in 'search_string', with: 'lkj'
     assert_not(page.has_css?('li.result'))
   end
 
   test 'show password after clicking on password field' do
     login_as_user(:bob)
+    page.must_have_selector('.form-group.search')
+
     fill_in 'search_string', with: 'account1'
     page.must_have_selector('.account-entry')
-    first('.account-entry').click
+    all('.account-entry')[0].click
     page.must_have_selector('.password-show', visible: true)
-    first('.password-show').click
+    all('.password-show')[0].click
     page.must_have_selector('.password-show', visible: false)
   end
 end
