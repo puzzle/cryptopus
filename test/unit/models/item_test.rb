@@ -11,9 +11,11 @@ class ItemTest < ActiveSupport::TestCase
 	test 'does not upload same file twice in same account' do
 		params = {}
     params[:account_id] = accounts(:account1).id
+    params[:file] = items(:item1).file
     params[:filename] = items(:item1).filename
     item = Item.new(params)
     assert_not item.valid?
+    assert_equal item.errors.messages[:filename].first, "Filename is already taken"
 	end
 
 	test 'can upload file to account' do

@@ -22,7 +22,7 @@ class ItemsController < ApplicationController
   def create
     respond_to do |format|
       item = Item.create(@account, item_params, plaintext_team_password(team))
-      if item.valid?
+      unless item.errors.present?
         flash[:notice] = t('flashes.items.uploaded')
         format.html { redirect_to team_group_account_url(team, @group, @account) }
       else
