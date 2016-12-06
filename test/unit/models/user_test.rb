@@ -67,8 +67,6 @@ class UserTest < ActiveSupport::TestCase
       return if attempt == locktimes.count - 1
 
       assert_equal attempt + 1, bob.failed_login_attempts
-      puts bob.reload.last_failed_login_attempt_at
-      puts last_failed_login_time <= bob.reload.last_failed_login_attempt_at
       assert last_failed_login_time.to_i <= bob.reload.last_failed_login_attempt_at.to_i
     end
   end
