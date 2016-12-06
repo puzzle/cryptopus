@@ -264,7 +264,21 @@ class UserTest < ActiveSupport::TestCase
       root.send(:disempower)
     end
   end
+  
+  test 'updates legacy password on db user' do
+    bob = users(:bob)
+    bob.update_attributes(password: '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8')
+    assert bob.legacy_password?
+    bob.authenticate('password')
+    assert_not bob.legacy_password?
+  end
 
+  test 'does not update legacy password on login if ldap user' do
+    bob = users(:bob)
+    bob.update_attributes(auth: 'ldap')
+    bob.authenticate('password')
+    assert_not bob.legacy_password?
+  end
 
   private
   def enable_ldap_auth
