@@ -69,7 +69,7 @@ class UserTest < ActiveSupport::TestCase
       assert_equal attempt + 1, bob.failed_login_attempts
       puts last_failed_login_time 
       puts bob.reload.last_failed_login_attempt_at
-      assert last_failed_login_time < bob.reload.last_failed_login_attempt_at
+      assert last_failed_login_time <= bob.reload.last_failed_login_attempt_at
     end
   end
 
