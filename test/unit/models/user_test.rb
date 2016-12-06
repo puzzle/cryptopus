@@ -57,7 +57,7 @@ class UserTest < ActiveSupport::TestCase
       attempt = i + 1
 
       bob.update_attribute(:failed_login_attempts, attempt)
-      last_failed_login_time = Time.now - (locktimes[attempt].seconds)
+      last_failed_login_time = Time.now.utc - (locktimes[attempt].seconds)
       bob.update_attribute(:last_failed_login_attempt_at, last_failed_login_time)
 
       assert_not bob.reload.send(:temporarly_locked?), 'bob shouldnt be locked temporarly'
@@ -67,8 +67,6 @@ class UserTest < ActiveSupport::TestCase
       return if attempt == locktimes.count - 1
 
       assert_equal attempt + 1, bob.failed_login_attempts
-      puts last_failed_login_time 
-      puts bob.reload.last_failed_login_attempt_at
       assert last_failed_login_time < bob.reload.last_failed_login_attempt_at
     end
   end
