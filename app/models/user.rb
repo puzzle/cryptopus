@@ -168,6 +168,7 @@ class User < ActiveRecord::Base
   end
 
   def legacy_password?
+    return false if auth_ldap?
     password.match('sha512').nil?
   end
 
