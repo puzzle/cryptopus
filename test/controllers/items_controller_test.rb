@@ -22,14 +22,14 @@ class ItemsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'does not upload nothing'  do
+  test 'Doesnt upload if no file and no item  params exist'  do
     login_as(:bob)
     item_params = {}
-    number_of_items = Item.count
 
-    assert_raise ActionController::ParameterMissing do
-      post :create, team_id: teams(:team1), group_id: groups(:group1), account_id: accounts(:account1), item: item_params
+    assert_difference('Item.count', 0) do
+      assert_raise ActionController::ParameterMissing do
+        post :create, team_id: teams(:team1), group_id: groups(:group1), account_id: accounts(:account1), item: item_params
+      end
     end
-    assert_equal number_of_items, Item.count
   end
 end
