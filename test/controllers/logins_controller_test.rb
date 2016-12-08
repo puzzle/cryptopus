@@ -38,6 +38,11 @@ class LoginsControllerTest < ActionController::TestCase
     assert_match /Authentication failed/, flash[:error]
   end
 
+  test 'cannot login without username' do
+    post :authenticate, password: 'password'
+    assert_match /Authentication failed/, flash[:error]
+  end
+
   test 'update password' do
     login_as(:bob)
     post :update_password, old_password: 'password', new_password1: 'test', new_password2: 'test'
