@@ -7,17 +7,9 @@
 module FeatureTest
   module FeatureHelper
 
-    DatabaseCleaner.strategy = :truncation
-
     def setup
       Capybara.default_driver = :webkit
       Capybara.javascript_driver = :webkit
-      DatabaseCleaner.start
-    end
-
-    def teardown
-      DatabaseCleaner.clean
-      Capybara.reset_sessions!
     end
 
     def login_as_user(username, password = 'password')
@@ -29,12 +21,8 @@ module FeatureTest
     end
 
     def logout
-      visit('/en/login/logout')
+      visit('/en/login/login')
     end
-
+    
   end
-end
-
-class Capybara::Rails::TestCase
-  self.use_transactional_fixtures = false
 end

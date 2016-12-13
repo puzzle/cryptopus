@@ -49,6 +49,5 @@ end
 group :test do
   gem 'fabrication'
   gem 'simplecov', require: false, group: :test
-  gem 'database_cleaner'
   gem 'mocha'
 end
