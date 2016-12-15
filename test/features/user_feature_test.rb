@@ -18,8 +18,26 @@ class UserFeatureTest < Capybara::Rails::TestCase
 
     all('a.delete_user_link')[1].click
 
-    page.must_have_content('Before you can delete this user you have to delete the following teams, because the user is the last member.') 
+    page.must_have_selector('#delete_user_button')
+    assert_equal all('#delete_user_button')[0][:disabled], 'true'
+
+    page.must_have_content('Before you can delete this user you have to delete the following teams, because the user is the last member.')
     page.must_have_selector('#last_teammember_teams_table')
     page.must_have_content('team2')
+  end
+
+  test "can delete user if he hasn't ast teammember teams" do
+    login_as_user(:admin)
+    visit('/admin/users')
+
+    all('a.delete_user_link')[0].click
+
+    page.must_have_content('Are you sure you want to delete this User?')
+
+    assert_equal all('#delete_user_button')[0][:disabled], nil
+
+    # Can be uncommented if Story #22385 is fixed
+    # all('#delete_user_button')[0].click
+    # assert_not page.has_content?('alice')
   end
 end
