@@ -28,6 +28,7 @@ Capybara::Webkit.configure do |config|
   config.allow_unknown_urls
 end
 
+
 class ActiveSupport::TestCase
   setup :stub_ldap_tools
 
@@ -54,4 +55,16 @@ class ActiveSupport::TestCase
     encrypted_private_key << cipher.final()
     encrypted_private_key
   end
+
+end
+
+class Capybara::Rails::TestCase
+  self.use_transactional_fixtures = false
+  DatabaseCleaner.strategy = :truncation
+
+  setup do
+    DatabaseCleaner.start
+  end
+
+  teardown { DatabaseCleaner.clean }
 end

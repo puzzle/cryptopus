@@ -36,8 +36,7 @@ class UserFeatureTest < Capybara::Rails::TestCase
 
     assert_equal all('#delete_user_button')[0][:disabled], nil
 
-    # Can be uncommented if Story #22385 is fixed
-    # all('#delete_user_button')[0].click
-    # assert_not page.has_content?('alice')
+    all('#delete_user_button')[0].click
+    assert_not page.has_content?('alice')
   end
 end
