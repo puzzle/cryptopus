@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AuthenticatorTest < ActionView::TestCase
+class AuthenticatorTest < ActiveSupport::TestCase
 
   test 'authenticates bob' do
     assert_equal true, Authenticator.authenticate(bob, 'password')
@@ -12,6 +12,18 @@ class AuthenticatorTest < ActionView::TestCase
 
   test 'authentication invalid if blank password' do
     assert_equal false, Authenticator.authenticate(bob, '')
+  end
+
+  test 'authenticates against ldap' do
+    bob.update_attribute(:auth, 'ldap')
+    LdapTools.expects(:ldap_login).with('bob', 'ldappw').returns(true)
+    assert_equal true, Authenticator.authenticate(bob, 'ldappw')
+  end
+
+  test 'doesnt authenticate against ldap' do
+    bob.update_attribute(:auth, 'ldap')
+    LdapTools.expects(:ldap_login).with('bob', 'wrongldappw').returns(false)
+    assert_equal false, Authenticator.authenticate(bob, 'wrongldappw')
   end
 
   test 'increasing of failed login attempts and it\'s defined delays' do

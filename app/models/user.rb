@@ -6,7 +6,6 @@
 #  https://github.com/puzzle/cryptopus.
 
 class User < ActiveRecord::Base
-  #include Authenticate
 
   validates :username, uniqueness: true
   validates :username, presence: true
