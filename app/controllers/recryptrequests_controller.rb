@@ -14,7 +14,7 @@ class RecryptrequestsController < ApplicationController
 
   # POST /recryptrequests/recrypt
   def recrypt
-    unless current_user.authenticate(params[:new_password])
+    unless Authenticator.authenticate(current_user, params[:new_password])
       flash[:error] = t('activerecord.errors.models.user.new_password_invalid')
       return redirect_to recryptrequests_new_ldap_password_path
     end

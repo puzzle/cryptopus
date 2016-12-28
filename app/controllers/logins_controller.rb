@@ -6,7 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class LoginsController < ApplicationController
-  include User::Authenticate
+
   before_filter :redirect_if_ldap_user, only: [:show_update_password, :update_password]
   before_filter :redirect_if_logged_in, only: [:login]
 
@@ -66,7 +66,7 @@ class LoginsController < ApplicationController
   private
 
   def user_locked?(user)
-    if user.locked?
+    if user.locked? || Authenticator.temporarly_locked?(user)
       flash[:error] = t('flashes.logins.locked')
       redirect_to login_login_path
       true
@@ -76,7 +76,7 @@ class LoginsController < ApplicationController
   def authenticate_user(user, password)
     return if user_locked?(user)
 
-    if user.authenticate(password)
+    if Authenticator.authenticate(user, password)
       begin
         create_session(user, password)
       rescue Exceptions::DecryptFailed
@@ -118,7 +118,7 @@ class LoginsController < ApplicationController
   end
 
   def redirect_if_ldap_user
-    redirect_to search_path if current_user.auth_ldap?
+    redirect_to search_path if current_user.ldap?
   end
 
   def redirect_if_logged_in
@@ -126,7 +126,7 @@ class LoginsController < ApplicationController
   end
 
   def password_params_valid?
-    unless current_user.authenticate(params[:old_password])
+    unless Authenticator.authenticate(current_user, params[:old_password])
       flash[:error] = t('flashes.logins.wrong_password')
       return false
     end

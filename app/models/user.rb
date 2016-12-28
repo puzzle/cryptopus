@@ -6,7 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class User < ActiveRecord::Base
-  include Authenticate
+  #include Authenticate
 
   validates :username, uniqueness: true
   validates :username, presence: true
@@ -64,7 +64,6 @@ class User < ActiveRecord::Base
       find_by(uid: 0)
     end
 
-
     private
 
     def create_from_ldap(username, password)
@@ -91,7 +90,7 @@ class User < ActiveRecord::Base
 
   # Updates Information about the user
   def update_info
-    update_info_from_ldap if auth_ldap?
+    update_info_from_ldap if ldap?
     update_attribute(:last_login_at, Time.now) # TODO: needed what for ? remove ?
   end
 
@@ -138,9 +137,17 @@ class User < ActiveRecord::Base
     uid == 0
   end
 
+  def ldap?
+    auth == 'ldap'
+  end
+
+  def auth_db?
+    auth == 'db'
+  end
+
   def update_password(old, new)
-    return if auth_ldap?
-    if authenticate_db(old)
+    return if ldap?
+    if authenticate(old)
       self.password = CryptUtils.one_way_crypt(new)
       pk = CryptUtils.decrypt_private_key(private_key, old)
       self.private_key = CryptUtils.encrypt_private_key(pk, new)
@@ -168,7 +175,7 @@ class User < ActiveRecord::Base
   end
 
   def legacy_password?
-    return false if auth_ldap?
+    return false if ldap?
     password.match('sha512').nil?
   end
 
@@ -184,7 +191,7 @@ class User < ActiveRecord::Base
   def search_groups(term)
     groups.where('name like ?', "%#{term}%")
   end
-  
+
   def search_accounts(term)
     accounts
       .includes(group: [:team])
@@ -195,7 +202,15 @@ class User < ActiveRecord::Base
     /^Salted/ !~ private_key
   end
 
+  def unlock
+    update_attribute(:locked, false)
+    update_attribute(:failed_login_attempts, 0)
+  end
+
   private
+  def authenticate(plaintext_password)
+    Authenticator.authenticate(self, plaintext_password)
+  end
 
   def empower(actor, private_key)
     teams = Team.where(teams: { private: false })

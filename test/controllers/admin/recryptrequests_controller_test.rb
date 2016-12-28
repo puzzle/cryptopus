@@ -29,15 +29,12 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
   test 'reset bobs password' do
     login_as(:admin)
     bob = users(:bob)
-    crypted_password = CryptUtils.one_way_crypt('test')
-    team2_id = teams(:team2).id
 
     post :resetpassword, new_password: 'test', user_id: bob.id
 
     bob.reload
     
-    assert_not Team.exists?(team2_id), 'team2 should be deleted'
-    assert_equal crypted_password, bob.password
+    assert_equal true, Authenticator.authenticate(bob, 'test')
     assert_redirected_to 'where_i_came_from'
   end
 

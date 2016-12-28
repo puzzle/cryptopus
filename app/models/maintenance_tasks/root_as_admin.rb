@@ -25,7 +25,7 @@ class MaintenanceTasks::RootAsAdmin < MaintenanceTask
   private
 
   def check_root_password
-    raise 'Wrong root password' unless User.root.authenticate(root_password)
+    raise 'Wrong root password' unless Authenticator.authenticate(User.root, root_password)
   end
 
   def empower_admins_in_root_teams
