@@ -7,6 +7,8 @@
 
 class User < ActiveRecord::Base
 
+  include User::Authentication
+
   validates :username, uniqueness: true
   validates :username, presence: true
   validates :username, length: { maximum: 20 }
@@ -40,7 +42,7 @@ class User < ActiveRecord::Base
       return user if user
 
       if Setting.value(:ldap, :enable)
-        return unless LdapTools.ldap_login(username, password)
+        return unless authenticate_ldap
         create_from_ldap(username, password)
       end
     end
@@ -146,7 +148,7 @@ class User < ActiveRecord::Base
 
   def update_password(old, new)
     return if ldap?
-    if authenticate(old)
+    if authenticate_db(old)
       self.password = CryptUtils.one_way_crypt(new)
       pk = CryptUtils.decrypt_private_key(private_key, old)
       self.private_key = CryptUtils.encrypt_private_key(pk, new)
@@ -207,10 +209,6 @@ class User < ActiveRecord::Base
   end
 
   private
-  def authenticate(plaintext_password)
-    Authenticator.authenticate(self, plaintext_password)
-  end
-
   def empower(actor, private_key)
     teams = Team.where(teams: { private: false })
 

@@ -238,11 +238,10 @@ de:
       uploaded_file_inexistent: "Datei ist inexistent"
     logins:
       welcome: "Willkommen bei Cryptopus. Zuerst müssen Sie einen Account erstellen. Bitte wählen Sie ein sicheres Passwort."
-      auth_failed: "Authentifikation fehlgeschlagen! Geben Sie einen gültigen Benutzernamen und ein korrektes Passwort ein."
+      auth_failed: "Ungültiger Benutzername / Passwort."
       only_local: "Nur lokale Benutzer dürfen ihr Passwort ändern."
       new_password_set: "Das neue Passwort wurde erfolgreich gesetzt."
       new_passwords_not_equal: "Die neuen Passwörter sind nicht gleich."
-      wrong_password: "Falsches Passwort."
       not_local: "Sie sind kein lokaler Benutzer!"
       locked: "Der Benutzer ist momentan gesperrt. Bitte versuchen Sie es später nocheinmal oder kontaktiern Sie den Administrator."
     recryptrequests:
