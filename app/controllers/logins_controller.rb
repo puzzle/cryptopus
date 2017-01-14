@@ -64,19 +64,19 @@ class LoginsController < ApplicationController
   end
 
   private
-
-  def user_locked?(user)
-    if user.locked? || Authenticator.temporarly_locked?(user)
-      flash[:error] = t('flashes.logins.locked')
-      redirect_to login_login_path
-      true
-    end
-  end
+## TODO redirect and flash error in new auth
+  #def user_locked?(user)
+    #if user.locked? || Authenticator.temporarly_locked?(user)
+      #flash[:error] = t('flashes.logins.locked')
+      #redirect_to login_login_path
+      #true
+    #end
+  #end
 
   def authenticate_user(user, password)
-    return if user_locked?(user)
+    authenticator = Authentication::UserAuthenticator.new(params)
 
-    if Authenticator.authenticate(user, password)
+    if authenticator.password_auth!
       begin
         create_session(user, password)
       rescue Exceptions::DecryptFailed
@@ -126,7 +126,7 @@ class LoginsController < ApplicationController
   end
 
   def password_params_valid?
-    unless Authenticator.authenticate(current_user, params[:old_password])
+    unless current_user.authenticate(params[:old_password])
       flash[:error] = t('flashes.logins.wrong_password')
       return false
     end

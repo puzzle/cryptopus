@@ -36,7 +36,7 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
     bob.reload
     
     assert_equal false, Team.exists?(bob_only_team_id) # team should be removed since only bob had access to it
-    assert_equal true, Authenticator.authenticate(bob, 'test')
+    assert_equal true, bob.authenticate('test')
     assert_redirected_to 'where_i_came_from'
   end
 

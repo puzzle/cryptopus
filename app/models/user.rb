@@ -4,8 +4,10 @@
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
-
 class User < ActiveRecord::Base
+
+  autoload 'Authentication', 'user/authentication'
+  include User::Authentication
 
   validates :username, uniqueness: true
   validates :username, presence: true
@@ -35,12 +37,12 @@ class User < ActiveRecord::Base
     end
 
     def find_or_import_from_ldap(username, password)
-      user = find_by(username: username)
+      user = find_by(username: username.strip)
 
       return user if user
 
       if Setting.value(:ldap, :enable)
-        return unless LdapTools.ldap_login(username, password)
+        return unless authenticate_ldap(username, password)
         create_from_ldap(username, password)
       end
     end
@@ -64,6 +66,10 @@ class User < ActiveRecord::Base
     end
 
     private
+
+    def authenticate_ldap(username, cleartext_password)
+      LdapTools.ldap_login(username, cleartext_password)
+    end
 
     def create_from_ldap(username, password)
       user = new
@@ -146,7 +152,7 @@ class User < ActiveRecord::Base
 
   def update_password(old, new)
     return if ldap?
-    if authenticate(old)
+    if authenticate_db(old)
       self.password = CryptUtils.one_way_crypt(new)
       pk = CryptUtils.decrypt_private_key(private_key, old)
       self.private_key = CryptUtils.encrypt_private_key(pk, new)
@@ -202,15 +208,10 @@ class User < ActiveRecord::Base
   end
 
   def unlock
-    update_attribute(:locked, false)
-    update_attribute(:failed_login_attempts, 0)
+    update!({locked: false, failed_login_attempts: 0})
   end
 
   private
-
-  def authenticate(plaintext_password)
-    Authenticator.authenticate(self, plaintext_password)
-  end
 
   def empower(actor, private_key)
     teams = Team.where(teams: { private: false })
