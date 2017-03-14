@@ -1,4 +1,4 @@
-class BruteForceDetector
+class Authentication::BruteForceDetector
 
   LOCK_TIME_FAILED_LOGIN_ATTEMPT = [0, 0, 0, 3, 5, 20, 30, 60, 120, 240].freeze
 

@@ -1,6 +1,6 @@
 require_relative 'authenticators/user_password.rb'
 
-class UserAuthenticator
+class Authentication::UserAuthenticator
 
   def initialize(params)
     @authenticated = false
@@ -35,12 +35,12 @@ class UserAuthenticator
 
   def authenticator
     @authenticator ||=
-      Authenticators::UserPassword.new(@params)
+      ::UserPassword.new(@params)
   end
 
   def brute_force_detector
     @brute_force_detector ||=
-      BruteForceDetector.new(user)
+     Authentication::BruteForceDetector.new(user)
   end
 
   def preconditions?

@@ -4,9 +4,9 @@
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
-
 class User < ActiveRecord::Base
 
+  autoload 'Authentication', 'user/authentication'
   include User::Authentication
 
   validates :username, uniqueness: true
@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   before_destroy :protect_if_last_teammember
 
   class << self
+    include User::Authentication
 
     def create_db_user(password, user_params)
       user = new(user_params)
@@ -37,12 +38,12 @@ class User < ActiveRecord::Base
     end
 
     def find_or_import_from_ldap(username, password)
-      user = find_by(username: username)
+      user = find_by(username: username.strip)
 
       return user if user
 
       if Setting.value(:ldap, :enable)
-        return unless authenticate_ldap
+        return unless authenticate_ldap(username, password)
         create_from_ldap(username, password)
       end
     end
@@ -113,7 +114,7 @@ class User < ActiveRecord::Base
 
   # rubocop:disable MethodLength
   def recrypt_private_key!(new_password, old_password)
-    unless authenticate(new_password)
+    unless authenticate(username, new_password)
       errors.add(:base,
                  I18n.t('activerecord.errors.models.user.new_password_invalid'))
       return false

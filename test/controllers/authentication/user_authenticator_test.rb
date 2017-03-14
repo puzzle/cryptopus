@@ -40,6 +40,6 @@ class UserAuthenticatorTest < ActiveSupport::TestCase
   end
 
   def authenticator
-    @authenticator ||= UserAuthenticator.new(@params)
+    @authenticator ||= Authentication::UserAuthenticator.new(@params)
   end
 end

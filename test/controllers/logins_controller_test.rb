@@ -48,15 +48,15 @@ class LoginsControllerTest < ActionController::TestCase
     post :update_password, old_password: 'password', new_password1: 'test', new_password2: 'test'
     assert_match /new password/, flash[:notice]
 
-    assert_equal true, Authenticator.authenticate(users(:bob), 'test')
+    assert_equal true, users(:bob).authenticate(users(:bob).username, 'test')
   end
 
   test 'update password, error if oldpassword not match' do
     login_as(:bob)
     post :update_password, old_password: 'wrong_password', new_password1: 'test', new_password2: 'test'
-    assert_match /Wrong password/, flash[:error]
+    assert_match /Invalid user \/ password/, flash[:error]
 
-    assert_equal false, Authenticator.authenticate(users(:bob), 'test')
+    assert_equal false, users(:bob).authenticate(users(:bob).username, 'test')
   end
 
   test 'update password, error if new passwords not match' do
@@ -64,7 +64,7 @@ class LoginsControllerTest < ActionController::TestCase
     post :update_password, old_password: 'password', new_password1: 'test', new_password2: 'wrong_password'
     assert_match /equal/, flash[:error]
 
-    assert_equal false, Authenticator.authenticate(users(:bob), 'test')
+    assert_equal false, users(:bob).authenticate(users(:bob).username, 'test')
   end
 
   test 'redirects if ldap user tries to access update password' do
@@ -73,7 +73,7 @@ class LoginsControllerTest < ActionController::TestCase
     post :update_password, old_password: 'password', new_password1: 'test', new_password2: 'test'
     assert_redirected_to search_path
 
-    assert_equal false, Authenticator.authenticate(users(:bob), 'test')
+    assert_equal false, users(:bob).authenticate(users(:bob).username, 'test')
   end
 
   test 'redirects if ldap user tries to access show update password site' do

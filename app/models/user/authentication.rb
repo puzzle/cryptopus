@@ -1,9 +1,9 @@
 module User::Authentication
 
-  def authenticate(cleartext_password)
+  def authenticate(username, cleartext_password)
     return false if locked?
     if ldap?
-      return authenticate_ldap(cleartext_password)
+      return authenticate_ldap(username, cleartext_password)
     else
       return authenticate_db(cleartext_password)
     end
@@ -11,7 +11,7 @@ module User::Authentication
   end
 
   private
-  def authenticate_ldap(cleartext_password)
+  def authenticate_ldap(username, cleartext_password)
     LdapTools.ldap_login(username, cleartext_password)
   end
 
