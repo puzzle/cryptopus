@@ -192,9 +192,14 @@ class User < ActiveRecord::Base
   end
 
   def search_accounts(term)
-    accounts
-      .includes(group: [:team])
-      .where('accountname like ? or accounts.description like ?', "%#{term}%", "%#{term}%")
+    terms = term.split(' ')
+    collected_accounts = accounts
+    terms.each do |t|
+      collected_accounts = collected_accounts
+        .includes(group: [:team])
+        .where('accountname like ? or accounts.description like ?', "%#{t}%", "%#{t}%")
+    end
+    collected_accounts
   end
 
   def legacy_private_key?

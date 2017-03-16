@@ -198,6 +198,12 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test 'account search sequence should not matter' do
+    accounts = users(:root).search_accounts('1 acc')
+    assert_equal 1, accounts.count
+    assert_equal 'account1', accounts.first.accountname
+  end
+
   private
   def enable_ldap_auth
     Setting.find_by(key: 'ldap_enable').update_attributes(value: true)
