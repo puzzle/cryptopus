@@ -1,17 +1,14 @@
 module User::Authentication
 
-  def authenticate(username, cleartext_password)
+  def authenticate(cleartext_password)
     return false if locked?
-    if ldap?
-      return authenticate_ldap(username, cleartext_password)
-    else
-      return authenticate_db(cleartext_password)
-    end
-    false
+    return authenticate_ldap(cleartext_password) if ldap?
+
+    authenticate_db(cleartext_password)
   end
 
   private
-  def authenticate_ldap(username, cleartext_password)
+  def authenticate_ldap(cleartext_password)
     LdapTools.ldap_login(username, cleartext_password)
   end
 
@@ -19,4 +16,5 @@ module User::Authentication
     salt = password.split('$')[1]
     password.split('$')[2] == Digest::SHA512.hexdigest(salt+cleartext_password)
   end
+  
 end

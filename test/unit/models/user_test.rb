@@ -26,8 +26,8 @@ class UserTest < ActiveSupport::TestCase
     decrypted_private_key = bob.decrypt_private_key('password')
     bob.update_password('password', 'new')
 
-    assert_equal false, Authenticator.authenticate(users(:bob), 'password')
-    assert_equal true, Authenticator.authenticate(users(:bob), 'new')
+    assert_equal false, users(:bob).authenticate('password')
+    assert_equal true, users(:bob).authenticate('new')
     assert_equal decrypted_private_key, bob.decrypt_private_key('new')
   end
 

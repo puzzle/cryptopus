@@ -38,7 +38,7 @@ class NewRootPasswordTest < ActiveSupport::TestCase
     task = MaintenanceTask.initialize_task(1, admin, params)
     task.execute
 
-    assert_equal true, Authenticator.authenticate(User.root, 'new_password')
+    assert_equal true, User.root.authenticate('new_password')
     assert teams(:team1).teammember?(users(:root))
     assert_not teams(:team2).teammember?(users(:root))
   end
@@ -61,7 +61,7 @@ class NewRootPasswordTest < ActiveSupport::TestCase
     task = MaintenanceTask.initialize_task(1, admin, params)
     task.execute
 
-    assert_equal true, Authenticator.authenticate(User.root, 'new_password')
+    assert_equal true, User.root.authenticate('new_password')
     assert teams(:team1).teammember?(users(:root))
     assert_not Team.find_by(name: 'team2')
   end

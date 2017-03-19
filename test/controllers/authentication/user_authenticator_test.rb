@@ -13,24 +13,28 @@ class UserAuthenticatorTest < ActiveSupport::TestCase
 
   test 'authentication fails if required params missing' do
     @params = {}
+
     assert_equal false, authenticate
     assert_match /Invalid user \/ password/, authenticator.errors.first
   end
 
   test 'authentication fails if invalid credentials' do
     @params = {username: 'bob', password: 'invalid'}
+
     assert_equal false, authenticate
     assert_match /Invalid user \/ password/, authenticator.errors.first
   end
 
   test 'authentication fails if user does not exist' do
     @params = {username: 'nobody', password: 'password'}
+
     assert_equal false, authenticate
     assert_match /Invalid user \/ password/, authenticator.errors.first
   end
 
   test 'authentication succeeds if user and password match' do
     @params = {username: 'bob', password: 'password'}
+
     assert_equal true, authenticate
   end
 

@@ -12,7 +12,7 @@ module Authentication
       end
 
       def auth!
-        user.authenticate(@username, @password)
+        user.authenticate(@password)
       end
 
       def user

@@ -126,7 +126,7 @@ class LoginsController < ApplicationController
   end
 
   def password_params_valid?
-    unless current_user.authenticate(current_user.username, params[:old_password])
+    unless current_user.authenticate(params[:old_password])
       flash[:error] = t('flashes.logins.wrong_password')
       return false
     end

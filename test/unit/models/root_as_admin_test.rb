@@ -48,11 +48,10 @@ class RootAsAdminTest < ActiveSupport::TestCase
 
     non_private_team = Fabricate(:non_private_team)
 
-    #Execute maintenance task
     task.execute
 
-    assert non_private_team.teammember?(users(:root))
-    assert teams(:team1).teammember?(bob)
+    assert_equal true, non_private_team.teammember?(users(:root))
+    assert_equal true, teams(:team1).teammember?(bob)
     assert_not teams(:team2).teammember?(admin)
     assert_not teams(:team2).teammember?(users(:root))
 

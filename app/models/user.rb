@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
   before_destroy :protect_if_last_teammember
 
   class << self
-    include User::Authentication
 
     def create_db_user(password, user_params)
       user = new(user_params)
@@ -67,6 +66,10 @@ class User < ActiveRecord::Base
     end
 
     private
+
+    def authenticate_ldap(username, cleartext_password)
+      LdapTools.ldap_login(username, cleartext_password)
+    end
 
     def create_from_ldap(username, password)
       user = new
@@ -114,7 +117,7 @@ class User < ActiveRecord::Base
 
   # rubocop:disable MethodLength
   def recrypt_private_key!(new_password, old_password)
-    unless authenticate(username, new_password)
+    unless authenticate(new_password)
       errors.add(:base,
                  I18n.t('activerecord.errors.models.user.new_password_invalid'))
       return false
