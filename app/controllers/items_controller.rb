@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
         format.html { redirect_to team_group_account_url(team, @group, @account) }
       else
         @item = item
-        format.html { render action: 'new'}
+        format.html { render action: 'new' }
       end
     end
   end

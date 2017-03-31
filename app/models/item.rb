@@ -18,7 +18,7 @@ class Item < ActiveRecord::Base
   class << self
     def create(account, params, plaintext_team_password)
       item = account.items.new
-      item.attributes = (item.new_attributes(params)) unless params[:file].nil?
+      item.attributes = item.new_attributes(params) unless params[:file].nil?
       item.encrypt(plaintext_team_password)
       item.save
       item
@@ -38,10 +38,10 @@ class Item < ActiveRecord::Base
   end
 
   def new_attributes(params)
-    {description: params[:description],
-     filename: params[:file].original_filename,
-     content_type: params[:file].content_type,
-     cleartext_file: params[:file].read}
+    { description: params[:description],
+      filename: params[:file].original_filename,
+      content_type: params[:file].content_type,
+      cleartext_file: params[:file].read }
   end
 
 

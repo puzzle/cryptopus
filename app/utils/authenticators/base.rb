@@ -24,6 +24,7 @@ module Authenticators
     end
 
     private
+
     def authenticated?
       raise 'implement in subclass'
     end

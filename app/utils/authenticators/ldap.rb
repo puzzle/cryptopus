@@ -2,6 +2,7 @@ module Authenticators
   class Ldap < Base
 
     private
+
     def authenticated?
       authenticate_ldap
     end

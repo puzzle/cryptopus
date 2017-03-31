@@ -18,7 +18,7 @@ class CryptUtils
   class << self
     def one_way_crypt(plaintext_password)
       salt = SecureRandom.hex
-      "sha512$#{salt}$" + Digest::SHA512.hexdigest(salt+plaintext_password)
+      "sha512$#{salt}$" + Digest::SHA512.hexdigest(salt + plaintext_password)
     end
 
     def legacy_one_way_crypt(password)

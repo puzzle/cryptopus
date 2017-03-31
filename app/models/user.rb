@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
 
   def last_teammember_teams
     Team.where(id: Teammember.group('team_id').having('count(*) = 1').select('team_id'))
-      .joins(:members).where('users.id = ?', id)
+        .joins(:members).where('users.id = ?', id)
   end
 
   # Updates Information about the user
@@ -207,6 +207,7 @@ class User < ActiveRecord::Base
   end
 
   private
+
   def authenticate(plaintext_password)
     Authenticator.authenticate(self, plaintext_password)
   end

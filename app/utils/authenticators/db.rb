@@ -2,6 +2,7 @@ module Authenticators
   class Db < Base
 
     private
+
     def authenticated?
       return authenticated_legacy? if legacy_password?
       authenticate_db
@@ -20,7 +21,7 @@ module Authenticators
 
     def authenticate_db
       salt = @user.password.split('$')[1]
-      @user.password.split('$')[2] == Digest::SHA512.hexdigest(salt+@password)
+      @user.password.split('$')[2] == Digest::SHA512.hexdigest(salt + @password)
     end
 
     def legacy_password?
