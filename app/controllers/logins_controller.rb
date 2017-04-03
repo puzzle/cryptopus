@@ -16,15 +16,16 @@ class LoginsController < ApplicationController
   end
 
   def authenticate
-    username = params[:username]
-    password = params[:password]
+    authenticator = Authentication::UserAuthenticator.new(params)
 
-    if username.present?
-      user = User.find_or_import_from_ldap(username.strip, password)
-    end
-
-    if user
-      authenticate_user(user, password)
+    if authenticator.password_auth!
+      begin
+        create_session(authenticator.user, params[:password])
+      rescue Exceptions::DecryptFailed
+        redirect_to recryptrequests_new_ldap_password_path
+        return
+      end
+      redirect_after_sucessful_login
     else
       flash[:error] = t('flashes.logins.auth_failed')
       redirect_to login_login_path
@@ -64,31 +65,6 @@ class LoginsController < ApplicationController
   end
 
   private
-## TODO redirect and flash error in new auth
-  #def user_locked?(user)
-    #if user.locked? || Authenticator.temporarly_locked?(user)
-      #flash[:error] = t('flashes.logins.locked')
-      #redirect_to login_login_path
-      #true
-    #end
-  #end
-
-  def authenticate_user(user, password)
-    authenticator = Authentication::UserAuthenticator.new(params)
-
-    if authenticator.password_auth!
-      begin
-        create_session(user, password)
-      rescue Exceptions::DecryptFailed
-        redirect_to recryptrequests_new_ldap_password_path
-        return
-      end
-      redirect_after_sucessful_login
-    else
-      flash[:error] = t('flashes.logins.auth_failed')
-      redirect_to login_login_path
-    end
-  end
 
   def create_session(user, password)
     user.update_info

@@ -178,14 +178,14 @@ class UserTest < ActiveSupport::TestCase
 
     assert_not user.recrypt_private_key!('new_password', 'wrong_old_password')
 
-    assert_match /Your OLD password was wrong/, user.errors.messages[:base][0]
+    assert_match(/Your OLD password was wrong/, user.errors.messages[:base][0])
   end
 
   test 'new error on user if wrong new password at private_key recryption' do
     user = users(:bob)
     assert_not user.recrypt_private_key!('worong_new_password', 'password')
 
-    assert_match /Your NEW password was wrong/, user.errors.messages[:base][0]
+    assert_match(/Your NEW password was wrong/, user.errors.messages[:base][0])
   end
 
 

@@ -1,3 +1,10 @@
+# encoding: utf-8
+
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
+#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+#  See the COPYING file at the top-level directory or at
+#  https://github.com/puzzle/cryptopus.
+
 class Authentication::BruteForceDetector
 
   LOCK_TIME_FAILED_LOGIN_ATTEMPT = [0, 0, 0, 3, 5, 20, 30, 60, 120, 240].freeze

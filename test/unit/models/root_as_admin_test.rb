@@ -12,7 +12,7 @@ class RootAsAdminTest < ActiveSupport::TestCase
   test 'non admin user cannot run task' do
     task = MaintenanceTasks::RootAsAdmin.new(users(:bob))
     task.execute
-    assert_match /Only admin/, Log.first.output
+    assert_match(/Only admin/, Log.first.output)
   end
 
   test 'does not toggle admin on root if root is already admin' do

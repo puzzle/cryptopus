@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
     end
 
     def find_or_import_from_ldap(username, password)
-      user = find_by(username: username.strip)
+      user = find_by(username: username)
 
       return user if user
 

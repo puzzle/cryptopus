@@ -1,3 +1,10 @@
+# encoding: utf-8
+
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
+#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+#  See the COPYING file at the top-level directory or at
+#  https://github.com/puzzle/cryptopus.
+
 module Authentication
   module Authenticators
     class ::UserPassword
@@ -8,11 +15,11 @@ module Authentication
       end
 
       def params_present?
-        @username.present? && @password.present?
+        username.present? && password.present?
       end
 
       def auth!
-        user.authenticate(@password)
+        user.authenticate(password)
       end
 
       def user
@@ -20,11 +27,12 @@ module Authentication
       end
 
       private
-      # def two_factor_required?
-      # end
+
+      attr_reader :username, :password
+
       def find_user
         # password required for initial ldap user creation
-        User.find_or_import_from_ldap(@username, @password)
+        User.find_or_import_from_ldap(username.strip, password)
       end
 
     end

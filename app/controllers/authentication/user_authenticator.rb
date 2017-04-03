@@ -1,3 +1,10 @@
+# encoding: utf-8
+
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
+#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+#  See the COPYING file at the top-level directory or at
+#  https://github.com/puzzle/cryptopus.
+
 require_relative 'authenticators/user_password.rb'
 
 class Authentication::UserAuthenticator
@@ -11,12 +18,12 @@ class Authentication::UserAuthenticator
     return false unless preconditions?
     return false if user_locked?
 
-    unless @authenticated = authenticator.auth!
+    unless authenticated = authenticator.auth!
       add_error('flashes.logins.wrong_password')
     end
 
-    brute_force_detector.update(@authenticated)
-    @authenticated
+    brute_force_detector.update(authenticated)
+    authenticated
   end
 
   def api_key_auth!
@@ -33,14 +40,16 @@ class Authentication::UserAuthenticator
 
   private
 
+  attr_accessor :authenticated, :params
+
   def authenticator
     @authenticator ||=
-      ::UserPassword.new(@params)
+      ::UserPassword.new(params)
   end
 
   def brute_force_detector
     @brute_force_detector ||=
-     Authentication::BruteForceDetector.new(user)
+      Authentication::BruteForceDetector.new(user)
   end
 
   def preconditions?

@@ -13,7 +13,7 @@ class LoginsControllerTest < ActionController::TestCase
   test 'cannot login with wrong password' do
     post :authenticate, password: 'wrong_password', username: 'bob'
 
-    assert_match /Authentication failed/, flash[:error]
+    assert_match(/Authentication failed/, flash[:error])
   end
 
   test 'redirects to recryptrequests page if private key cannot be decrypted' do
@@ -43,20 +43,20 @@ class LoginsControllerTest < ActionController::TestCase
   test 'cannot login with unknown username' do
     post :authenticate, password: 'password', username: 'baduser'
 
-    assert_match /Authentication failed/, flash[:error]
+    assert_match(/Authentication failed/, flash[:error])
   end
 
   test 'cannot login without username' do
     post :authenticate, password: 'password'
 
-    assert_match /Authentication failed/, flash[:error]
+    assert_match(/Authentication failed/, flash[:error])
   end
 
   test 'update password' do
     login_as(:bob)
     post :update_password, old_password: 'password', new_password1: 'test', new_password2: 'test'
 
-    assert_match /new password/, flash[:notice]
+    assert_match(/new password/, flash[:notice])
     assert_equal true, users(:bob).authenticate('test')
   end
 
@@ -64,7 +64,7 @@ class LoginsControllerTest < ActionController::TestCase
     login_as(:bob)
     post :update_password, old_password: 'wrong_password', new_password1: 'test', new_password2: 'test'
 
-    assert_match /Invalid user \/ password/, flash[:error]
+    assert_match(/Invalid user \/ password/, flash[:error])
     assert_equal false, users(:bob).authenticate('test')
   end
 
@@ -72,7 +72,7 @@ class LoginsControllerTest < ActionController::TestCase
     login_as(:bob)
     post :update_password, old_password: 'password', new_password1: 'test', new_password2: 'wrong_password'
 
-    assert_match /equal/, flash[:error]
+    assert_match(/equal/, flash[:error])
     assert_equal false, users(:bob).authenticate('test')
   end
 
