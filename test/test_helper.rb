@@ -20,6 +20,7 @@ Dir[Rails.root.join('test/support/**/*.rb')].sort.each { |f| require f }
 
 SimpleCov.start 'rails' do
   add_filter 'lib/ldap_tools.rb'
+  add_filter 'app/helpers'
   coverage_dir 'test/coverage'
 end
 
