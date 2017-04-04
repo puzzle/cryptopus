@@ -11,6 +11,7 @@ tags
 
 .project
 .idea
+.rake_tasks~
 
 # Ignore application configuration
 /config/application.yml
