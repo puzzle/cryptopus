@@ -86,7 +86,7 @@ class Admin::UsersController < Admin::AdminController
   private
 
   def redirect_if_ldap_user
-    return unless user.auth_ldap?
+    return unless user.ldap?
 
     flash[:error] = t('flashes.admin.users.update.ldap')
 

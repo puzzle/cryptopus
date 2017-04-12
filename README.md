@@ -60,6 +60,7 @@ Requirements
 -   bundle
 -   mysql-server
 -   libmysqlclient-dev, mysql-client
+-   libqtwebkit-dev
 -   sqlite3
 -   optional: LDAP as a user directory
 
@@ -68,25 +69,49 @@ Setup Development Environment
 
 on Ubuntu execute the following command to install system requirements:  
 
-`sudo apt-get install sqlite3 mysql-client libmysqlclient-dev`
+`sudo apt-get install sqlite3 mysql-client libmysqlclient-dev libqtwebkit-dev`
 
-In Terminal:  
-Install RVM (see https://rvm.io/rvm/install)  
 
-`git clone git://github.com/puzzle/cryptopus.git`  
-`rvm install 2.2.1`  
-`rvm use 2.2.1`  
-`cd cryptopus`  
-`bundle`  
-`rake db:create #create database(sqlite3)`  
-`rake db:setup #initialize database and loading database dev seeds`   
-`rails s #start server`  
-log into app with user “root” and password “password”
+Install RVM (Ruby Version Manager):
 
-Docker
-------
+Visit https://rvm.io for further installation guidance. The simplest way to install RVM is as follows:
 
-You can easily test Cryptopus with Docker:
+First get the current gpg-key from https://rvm.io and replace XYZ in the following command with the key:
+`gpg --key-server hkp://keys.gnupg.net --recv-keys XYZ`
+
+`\curl -sSL https://get.rvm.io | bash -s stable`
+`source /home/sascha/.rvm/scripts/rvm`
+
+Change to the directory where you want to put cryptopus and clone the repository:
+`cd path-to-your-cryptopus`
+`git clone git://github.com/puzzle/cryptopus.git`
+`cd cryptopus`
+
+Install Ruby and the Ruby-Bundler:
+`rvm install 2.2.6`
+`gem install bundler`
+
+Build Cryptopus with the bundler:
+`bundle install`
+
+Create and initialize the database:
+`rake db:create`
+`rake db:setup`
+
+Start the Rails server:
+`rails s`
+
+Browse to https://localhost:3000
+
+and login with default credentials:
+user = "root" and password = "password"
+
+
+
+Try before Install
+------------------
+
+Instead of installing Cryptopus you can easily test it with Docker:
 
 1. ​[Install Docker](https://docs.docker.com/engine/installation/ubuntulinux/)        
 2. Build Docker image: `docker build -t cryptopus`  
@@ -94,6 +119,7 @@ You can easily test Cryptopus with Docker:
 `docker run -it --rm --name cryptopus -p 3000:3000 cryptopus`  
 4. Execute rake: `docker exec cryptopus rake db:migrate`    
 5. Visit [localhost:3000](http://localhost:3000) in your browser  
+
 
 Mock + RPM + Puppet
 -------------------

@@ -21,21 +21,13 @@ class UserTest < ActiveSupport::TestCase
     assert_equal [:username], user.errors.keys
   end
 
-  test 'authenticates bob' do
-    assert users(:bob).authenticate('password')
-  end
-
-  test 'authentication invalid if wrong password' do
-    assert_not users(:bob).authenticate('wrong')
-  end
-
   test 'updates bobs user password' do
     bob = users(:bob)
     decrypted_private_key = bob.decrypt_private_key('password')
     bob.update_password('password', 'new')
 
-    assert_not users(:bob).authenticate('password')
-    assert users(:bob).authenticate('new')
+    assert_equal false, users(:bob).authenticate('password')
+    assert_equal true, users(:bob).authenticate('new')
     assert_equal decrypted_private_key, bob.decrypt_private_key('new')
   end
 
@@ -48,56 +40,6 @@ class UserTest < ActiveSupport::TestCase
     assert_not bob.legacy_private_key?
   end
 
-  test 'increasing of failed login attempts and it\'s defined delays' do
-    bob = users(:bob)
-
-    locktimes = User::Authenticate::LOCK_TIME_FAILED_LOGIN_ATTEMPT
-    assert_equal 10, locktimes.count
-    locktimes.each_with_index do |timer, i|
-      attempt = i + 1
-
-      bob.update_attribute(:failed_login_attempts, attempt)
-      last_failed_login_time = Time.now.utc - (locktimes[attempt].seconds)
-      bob.update_attribute(:last_failed_login_attempt_at, last_failed_login_time)
-
-      assert_not bob.reload.send(:temporarly_locked?), 'bob shouldnt be locked temporarly'
-
-      bob.authenticate('wrong password')
-
-      return if attempt == locktimes.count - 1
-
-      assert_equal attempt + 1, bob.failed_login_attempts
-      assert last_failed_login_time.to_i <= bob.reload.last_failed_login_attempt_at.to_i
-    end
-  end
-
-  test 'valid login attempt while user is temporarly locked' do
-    users(:bob).update_attribute(:failed_login_attempts, 8)
-    users(:bob).update_attribute(:last_failed_login_attempt_at, Time.now - 5.seconds)
-
-    assert_nil users(:bob).authenticate('password')
-  end
-
-  test 'tenth invalid login attempt locks user' do
-    last_failed_attempt = Time.now - 240.seconds
-    users(:bob).update_attribute(:failed_login_attempts, 9)
-    users(:bob).update_attribute(:last_failed_login_attempt_at, last_failed_attempt)
-
-    users(:bob).authenticate('wrong password')
-
-    assert_equal 9, users(:bob).failed_login_attempts
-    assert users(:bob).locked
-    assert_equal last_failed_attempt, users(:bob).last_failed_login_attempt_at
-  end
-
-  test 'clear failed login attempts' do
-    users(:bob).update_attribute(:failed_login_attempts, 5)
-
-    users(:bob).authenticate('password')
-
-    assert_equal users(:bob).failed_login_attempts, 0
-  end
-
   test 'unlock user' do
     users(:bob).update_attribute(:locked, true)
     users(:bob).update_attribute(:failed_login_attempts, 3)
@@ -106,6 +48,12 @@ class UserTest < ActiveSupport::TestCase
 
     assert_not users(:bob).locked?
     assert_equal 0, users(:bob).failed_login_attempts
+  end
+
+  test 'only returns accounts where bob is member' do
+    accounts = users(:alice).accounts
+    assert_equal 1, accounts.count
+    assert_equal 'account1', accounts.first.accountname
   end
 
   test 'user locked' do
@@ -118,19 +66,6 @@ class UserTest < ActiveSupport::TestCase
     users(:bob).update_attribute(:locked, false)
 
     assert_not users(:bob).locked?
-  end
-
-  test 'user locked if temporarly locked' do
-    users(:bob).update_attribute(:last_failed_login_attempt_at, Time.now)
-    users(:bob).update_attribute(:failed_login_attempts, 3)
-
-    assert users(:bob).locked?
-  end
-
-  test 'only returns accounts where bob is member' do
-    accounts = users(:alice).accounts
-    assert_equal 1, accounts.count
-    assert_equal 'account1', accounts.first.accountname
   end
 
   test 'create user from ldap' do
@@ -243,14 +178,14 @@ class UserTest < ActiveSupport::TestCase
 
     assert_not user.recrypt_private_key!('new_password', 'wrong_old_password')
 
-    assert_match /Your OLD password was wrong/, user.errors.messages[:base][0]
+    assert_match(/Your OLD password was wrong/, user.errors.messages[:base][0])
   end
 
   test 'new error on user if wrong new password at private_key recryption' do
     user = users(:bob)
     assert_not user.recrypt_private_key!('worong_new_password', 'password')
 
-    assert_match /Your NEW password was wrong/, user.errors.messages[:base][0]
+    assert_match(/Your NEW password was wrong/, user.errors.messages[:base][0])
   end
 
 
@@ -262,20 +197,11 @@ class UserTest < ActiveSupport::TestCase
       root.send(:disempower)
     end
   end
-  
-  test 'updates legacy password on db user' do
-    bob = users(:bob)
-    bob.update_attributes(password: '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8')
-    assert bob.legacy_password?
-    bob.authenticate('password')
-    assert_not bob.legacy_password?
-  end
 
-  test 'does not update legacy password on login if ldap user' do
-    bob = users(:bob)
-    bob.update_attributes(auth: 'ldap')
-    bob.authenticate('password')
-    assert_not bob.legacy_password?
+  test 'account search sequence should not matter' do
+    accounts = users(:root).search_accounts('1 acc')
+    assert_equal 1, accounts.count
+    assert_equal 'account1', accounts.first.accountname
   end
 
   private

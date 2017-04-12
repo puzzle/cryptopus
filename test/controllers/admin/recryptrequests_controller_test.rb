@@ -26,18 +26,17 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
     assert_match /test/, flash[:error]
   end
 
-  test 'reset bobs password' do
+  test 'root resets bobs password and bobs private teams are removed' do
     login_as(:admin)
     bob = users(:bob)
-    crypted_password = CryptUtils.one_way_crypt('test')
-    team2_id = teams(:team2).id
+    bob_only_team_id = teams(:team2).id
 
     post :resetpassword, new_password: 'test', user_id: bob.id
 
     bob.reload
     
-    assert_not Team.exists?(team2_id), 'team2 should be deleted'
-    assert_equal crypted_password, bob.password
+    assert_equal false, Team.exists?(bob_only_team_id) # team should be removed since only bob had access to it
+    assert_equal true, bob.authenticate('test')
     assert_redirected_to 'where_i_came_from'
   end
 

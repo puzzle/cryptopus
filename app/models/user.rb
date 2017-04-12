@@ -4,9 +4,10 @@
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
-
 class User < ActiveRecord::Base
-  include Authenticate
+
+  autoload 'Authentication', 'user/authentication'
+  include User::Authentication
 
   validates :username, uniqueness: true
   validates :username, presence: true
@@ -41,7 +42,7 @@ class User < ActiveRecord::Base
       return user if user
 
       if Setting.value(:ldap, :enable)
-        return unless LdapTools.ldap_login(username, password)
+        return unless authenticate_ldap(username, password)
         create_from_ldap(username, password)
       end
     end
@@ -64,8 +65,11 @@ class User < ActiveRecord::Base
       find_by(uid: 0)
     end
 
-
     private
+
+    def authenticate_ldap(username, cleartext_password)
+      LdapTools.ldap_login(username, cleartext_password)
+    end
 
     def create_from_ldap(username, password)
       user = new
@@ -86,12 +90,12 @@ class User < ActiveRecord::Base
 
   def last_teammember_teams
     Team.where(id: Teammember.group('team_id').having('count(*) = 1').select('team_id'))
-      .joins(:members).where('users.id = ?', id)
+        .joins(:members).where('users.id = ?', id)
   end
 
   # Updates Information about the user
   def update_info
-    update_info_from_ldap if auth_ldap?
+    update_info_from_ldap if ldap?
     update_attribute(:last_login_at, Time.now) # TODO: needed what for ? remove ?
   end
 
@@ -138,8 +142,16 @@ class User < ActiveRecord::Base
     uid == 0
   end
 
+  def ldap?
+    auth == 'ldap'
+  end
+
+  def auth_db?
+    auth == 'db'
+  end
+
   def update_password(old, new)
-    return if auth_ldap?
+    return if ldap?
     if authenticate_db(old)
       self.password = CryptUtils.one_way_crypt(new)
       pk = CryptUtils.decrypt_private_key(private_key, old)
@@ -168,7 +180,7 @@ class User < ActiveRecord::Base
   end
 
   def legacy_password?
-    return false if auth_ldap?
+    return false if ldap?
     password.match('sha512').nil?
   end
 
@@ -184,15 +196,19 @@ class User < ActiveRecord::Base
   def search_groups(term)
     groups.where('name like ?', "%#{term}%")
   end
-  
-  def search_accounts(term)
-    accounts
-      .includes(group: [:team])
-      .where('accountname like ? or accounts.description like ?', "%#{term}%", "%#{term}%")
+
+  def search_accounts(query)
+    query.split(' ').inject(accounts.includes(group: [:team])) do |relation, term|
+      relation.where('accountname like ? or accounts.description like ?', "%#{term}%", "%#{term}%")
+    end
   end
 
   def legacy_private_key?
     /^Salted/ !~ private_key
+  end
+
+  def unlock
+    update!({locked: false, failed_login_attempts: 0})
   end
 
   private

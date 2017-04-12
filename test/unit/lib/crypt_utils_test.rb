@@ -18,10 +18,17 @@ describe CryptUtils do
     @public_key = CryptUtils.get_public_key_from_keypair(keypair)
   end
 
-  describe "#one_way_crypt" do
+  describe "#legacy_one_way_crypt" do
     it "should create SHA1 password hash" do
       sha1hash = 'f79b1011916180fead65ac4e199dd607e89fa411'
-      assert_equal sha1hash, CryptUtils.one_way_crypt(@password)
+      assert_equal sha1hash, CryptUtils.legacy_one_way_crypt(@password)
+    end
+  end
+
+  describe "#one_way_crypt" do
+    it "should create SHA512 password hash" do
+      hash = CryptUtils.one_way_crypt(@password)
+      assert_match /^sha512\$.*\$.*/, hash
     end
   end
 

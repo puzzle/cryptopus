@@ -11,7 +11,7 @@ class NewRootPasswordTest < ActiveSupport::TestCase
   test 'non admin user cannot run task' do
     task = MaintenanceTasks::NewRootPassword.new(users(:bob))
     task.execute
-    assert_match /Only admin/, Log.first.output
+    assert_match(/Only admin/, Log.first.output)
   end
   
   test 'task fails if passwords do not match' do
@@ -23,7 +23,7 @@ class NewRootPasswordTest < ActiveSupport::TestCase
     task = MaintenanceTask.initialize_task(1, admin, params)
     task.execute
 
-    assert_match /Passwords do not match/, Log.first.output
+    assert_match(/Passwords do not match/, Log.first.output)
   end
 
   test 'adds admins to all root only teams and destroy private teams teammembers' do
@@ -38,7 +38,7 @@ class NewRootPasswordTest < ActiveSupport::TestCase
     task = MaintenanceTask.initialize_task(1, admin, params)
     task.execute
 
-    assert User.root.authenticate('new_password')
+    assert_equal true, User.root.authenticate('new_password')
     assert teams(:team1).teammember?(users(:root))
     assert_not teams(:team2).teammember?(users(:root))
   end
@@ -61,7 +61,7 @@ class NewRootPasswordTest < ActiveSupport::TestCase
     task = MaintenanceTask.initialize_task(1, admin, params)
     task.execute
 
-    assert User.root.authenticate('new_password')
+    assert_equal true, User.root.authenticate('new_password')
     assert teams(:team1).teammember?(users(:root))
     assert_not Team.find_by(name: 'team2')
   end

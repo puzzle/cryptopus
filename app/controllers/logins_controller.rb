@@ -6,7 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class LoginsController < ApplicationController
-  include User::Authenticate
+
   before_filter :redirect_if_ldap_user, only: [:show_update_password, :update_password]
   before_filter :redirect_if_logged_in, only: [:login]
 
@@ -16,15 +16,16 @@ class LoginsController < ApplicationController
   end
 
   def authenticate
-    username = params[:username]
-    password = params[:password]
-    
-    if username.present?
-      user = User.find_or_import_from_ldap(username.strip, password)
-    end
+    authenticator = Authentication::UserAuthenticator.new(params)
 
-    if user
-      authenticate_user(user, password)
+    if authenticator.password_auth!
+      begin
+        create_session(authenticator.user, params[:password])
+      rescue Exceptions::DecryptFailed
+        redirect_to recryptrequests_new_ldap_password_path
+        return
+      end
+      redirect_after_sucessful_login
     else
       flash[:error] = t('flashes.logins.auth_failed')
       redirect_to login_login_path
@@ -65,31 +66,6 @@ class LoginsController < ApplicationController
 
   private
 
-  def user_locked?(user)
-    if user.locked?
-      flash[:error] = t('flashes.logins.locked')
-      redirect_to login_login_path
-      true
-    end
-  end
-
-  def authenticate_user(user, password)
-    return if user_locked?(user)
-
-    if user.authenticate(password)
-      begin
-        create_session(user, password)
-      rescue Exceptions::DecryptFailed
-        redirect_to recryptrequests_new_ldap_password_path
-        return
-      end
-      redirect_after_sucessful_login
-    else
-      flash[:error] = t('flashes.logins.auth_failed')
-      redirect_to login_login_path
-    end
-  end
-
   def create_session(user, password)
     user.update_info
 
@@ -118,7 +94,7 @@ class LoginsController < ApplicationController
   end
 
   def redirect_if_ldap_user
-    redirect_to search_path if current_user.auth_ldap?
+    redirect_to search_path if current_user.ldap?
   end
 
   def redirect_if_logged_in
