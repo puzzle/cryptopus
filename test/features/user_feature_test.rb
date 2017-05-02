@@ -34,7 +34,7 @@ class UserFeatureTest < Capybara::Rails::TestCase
 
     page.must_have_content('Are you sure you want to delete this User?')
 
-    assert_equal all('#delete_user_button')[0][:disabled], nil
+    assert_nil all('#delete_user_button')[0][:disabled]
 
     all('#delete_user_button')[0].click
     assert_not page.has_content?('alice')
