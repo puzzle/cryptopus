@@ -149,6 +149,8 @@ GEM
       mini_portile2 (~> 2.1.0)
     parser (2.4.0.0)
       ast (~> 2.2)
+    password_strength (1.1.4)
+      activemodel
     power_assert (0.2.6)
     powerpack (0.1.1)
     pry (0.10.4)
@@ -289,6 +291,7 @@ DEPENDENCIES
   mocha
   mysql2
   net-ldap
+  password_strength
   pry
   pry-stack_explorer
   rails (= 4.2.8)

@@ -237,6 +237,7 @@ en:
       uploaded_filename_is_empty: "The file has to be named"
       uploaded_file_inexistent: "File is inexistent"
     logins:
+      weak_password: "To improve security you should change your login password to a more complex one."
       welcome: "Welcome to Cryptopus, first you have to create a new account. Please enter a new password"
       auth_failed: "Authentication failed! Enter a correct username and password."
       only_local: "Only local users are allowed to change their password."

@@ -16,6 +16,7 @@ class LoginsController < ApplicationController
   end
 
   def authenticate
+    strength = PasswordStrength.test(params[:username], params[:password])
     authenticator = Authentication::UserAuthenticator.new(params)
     if authenticator.password_auth!
       begin
@@ -23,6 +24,9 @@ class LoginsController < ApplicationController
       rescue Exceptions::DecryptFailed
         redirect_to recryptrequests_new_ldap_password_path
         return
+      end
+      if strength.weak? || !strength.valid?
+        flash[:alert] = t('flashes.logins.weak_password')
       end
       redirect_after_sucessful_login
     else

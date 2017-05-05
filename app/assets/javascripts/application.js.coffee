@@ -12,6 +12,8 @@
 #= require turbolinks
 #= require_tree ./modules
 #= require_tree ./templates
+#= require password_strength
+#= require jquery_strength
 
 
 # scope for global functions

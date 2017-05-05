@@ -244,6 +244,7 @@ de:
       new_passwords_not_equal: "Die neuen Passwörter sind nicht gleich."
       not_local: "Sie sind kein lokaler Benutzer!"
       locked: "Der Benutzer ist momentan gesperrt. Bitte versuchen Sie es später nocheinmal oder kontaktiern Sie den Administrator."
+      weak_password: "Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen"
     recryptrequests:
       recrypted: "Ihr Passwort wurde erfolgreich neu verschlüsselt."
       wait: "Bitte warten Sie, bis Ihre Team Passwörter neu verschlüsselt wurden."

@@ -25,6 +25,9 @@
   #hidden_password{style: "display:none"}
     = @account.cleartext_password
   %br/
+  - nice = PasswordStrength.test(@account.cleartext_username, @account.cleartext_password)
+  %p
+    %strong= "Password Strength: #{nice.status}"
   %p
     %strong= t '.last_change', time_ago: (time_ago_in_words @account.updated_at)
   %br/

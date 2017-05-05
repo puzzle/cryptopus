@@ -6,6 +6,7 @@ gem 'mysql2'
 gem 'sqlite3'
 gem 'net-ldap'
 gem 'figaro'
+gem "password_strength"
 
 gem 'active_model_serializers', '0.10.0'
 gem 'airbrake', '< 5.0'
