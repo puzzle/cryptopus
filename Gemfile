@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.2.7.1'
+gem 'rails', '4.2.8'
 
 gem 'mysql2'
 gem 'sqlite3'
@@ -11,7 +11,6 @@ gem 'active_model_serializers', '0.10.0'
 gem 'airbrake', '< 5.0'
 gem 'breadcrumbs_on_rails'
 gem 'clipboard'
-gem 'compass-rails'
 gem 'dynamic_form'
 gem 'haml'
 gem 'handlebars_assets'
