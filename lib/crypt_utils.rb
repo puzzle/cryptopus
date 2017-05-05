@@ -72,20 +72,17 @@ class CryptUtils
     end
 
     def decrypt_private_key(private_key, password)
-      begin
-        cipher = OpenSSL::Cipher::Cipher.new(@@cypher)
-        cipher.decrypt
-        unless private_key.slice(0, @@magic.size) == @@magic
-          raise 'magic does not match'
-        end
-        salt = private_key.slice(@@magic.size, @@salt_length)
-        private_key_part = private_key.slice((@@magic.size + @@salt_length)..-1)
-        cipher.pkcs5_keyivgen password, salt, 1000
-        return cipher.update(private_key_part) + cipher.final
-      rescue
-        raise Exceptions::DecryptFailed
-      end
-      nil
+      cipher = OpenSSL::Cipher::Cipher.new(@@cypher)
+      cipher.decrypt
+
+      raise 'magic does not match' unless private_key.slice(0, @@magic.size) == @@magic
+
+      salt = private_key.slice(@@magic.size, @@salt_length)
+      private_key_part = private_key.slice((@@magic.size + @@salt_length)..-1)
+      cipher.pkcs5_keyivgen password, salt, 1000
+      return cipher.update(private_key_part) + cipher.final
+    rescue
+      raise Exceptions::DecryptFailed
     end
 
     def validate_keypair(private_key, public_key)

@@ -45,7 +45,8 @@ class LdapTools
    def get_uid_by_username(username)
      LdapTools.connect
      filter = Net::LDAP::Filter.eq('uid', username)
-     @@ldap.search(base: Setting.value(:ldap, :basename), filter: filter, attributes: ['uidnumber']) do |entry|
+     @@ldap.search(base: Setting.value(:ldap, :basename), filter: filter,
+                   attributes: ['uidnumber']) do |entry|
        entry.each do |attr, values|
          if attr.to_s == 'uidnumber'
            return values[0].to_s
@@ -58,7 +59,8 @@ class LdapTools
    def get_ldap_info(uid, attribute)
      LdapTools.connect
      filter = Net::LDAP::Filter.eq('uidnumber', uid)
-     @@ldap.search(base: Setting.value(:ldap, :basename), filter: filter, attributes: [attribute]) do |entry|
+     @@ldap.search(base: Setting.value(:ldap, :basename), filter: filter,
+                   attributes: [attribute]) do |entry|
        entry.each do |attr, values|
          if attr.to_s == attribute
            return values[0].to_s

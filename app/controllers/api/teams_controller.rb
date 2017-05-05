@@ -6,7 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::TeamsController < ApiController
-  before_filter :admin_only, except: :index
+  before_action :admin_only, except: :index
 
   def index
     teams = current_user.teams

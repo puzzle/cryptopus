@@ -48,15 +48,14 @@ class User < ActiveRecord::Base
     end
 
     def create_root(password)
-      user = new(
-        uid: 0,
-        username: 'root',
-        givenname: 'root',
-        surname: '',
-        auth: 'db',
-        admin: true,
-        password: CryptUtils.one_way_crypt(password)
-      )
+      user = new(uid: 0,
+                 username: 'root',
+                 givenname: 'root',
+                 surname: '',
+                 auth: 'db',
+                 admin: true,
+                 password: CryptUtils.one_way_crypt(password)
+                )
       user.create_keypair(password)
       user.save!
     end
@@ -96,7 +95,7 @@ class User < ActiveRecord::Base
   # Updates Information about the user
   def update_info
     update_info_from_ldap if ldap?
-    update_attribute(:last_login_at, Time.now) # TODO: needed what for ? remove ?
+    update_attribute(:last_login_at, Time.zone.now) # TODO: needed what for ? remove ?
   end
 
   def toggle_admin(actor, private_key)
@@ -162,7 +161,8 @@ class User < ActiveRecord::Base
 
   def migrate_legacy_private_key(password)
     decrypted_legacy_private_key = CryptUtilsLegacy.decrypt_private_key(private_key, password)
-    newly_encrypted_private_key = CryptUtils.encrypt_private_key(decrypted_legacy_private_key, password)
+    newly_encrypted_private_key = CryptUtils.encrypt_private_key(decrypted_legacy_private_key,
+                                                                 password)
     update_attribute(:private_key, newly_encrypted_private_key)
   end
 
@@ -208,7 +208,7 @@ class User < ActiveRecord::Base
   end
 
   def unlock
-    update!({locked: false, failed_login_attempts: 0})
+    update!(locked: false, failed_login_attempts: 0)
   end
 
   private
