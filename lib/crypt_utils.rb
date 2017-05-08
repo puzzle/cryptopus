@@ -79,7 +79,7 @@ class CryptUtils
 
       salt = private_key.slice(@@magic.size, @@salt_length)
       private_key_part = private_key.slice((@@magic.size + @@salt_length)..-1)
-      cipher.pkcs5_keyivgen password, salt, 1000
+      cipher.pkcs5_keyivgen(password, salt, 1000)
       return cipher.update(private_key_part) + cipher.final
     rescue
       raise Exceptions::DecryptFailed

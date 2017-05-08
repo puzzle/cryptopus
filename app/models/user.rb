@@ -88,14 +88,16 @@ class User < ActiveRecord::Base
   end
 
   def last_teammember_teams
-    Team.where(id: Teammember.group('team_id').having('count(*) = 1').select('team_id'))
-        .joins(:members).where('users.id = ?', id)
+    Team.where(id: Teammember.group('team_id').
+           having('count(*) = 1').
+           select('team_id')).
+           joins(:members).where('users.id = ?', id)
   end
 
   # Updates Information about the user
   def update_info
     update_info_from_ldap if ldap?
-    update_attribute(:last_login_at, Time.zone.now) # TODO: needed what for ? remove ?
+    update_attribute(:last_login_at, Time.zone.now)
   end
 
   def toggle_admin(actor, private_key)
