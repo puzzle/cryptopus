@@ -281,3 +281,8 @@ en:
             filename:
               blank: 'Filename does not exist'
               taken: 'Filename is already taken'
+
+  password_strength:
+    weak: "The password is weak"
+    good: "The password is good"
+    strong: "The password is strong!"
