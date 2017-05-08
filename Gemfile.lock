@@ -304,7 +304,7 @@ DEPENDENCIES
   test-unit
   therubyracer
   turbolinks
-  twitter-bootstrap-rails
+  twitter-bootstrap-rails (~> 3.2)
   uglifier
 
 BUNDLED WITH
