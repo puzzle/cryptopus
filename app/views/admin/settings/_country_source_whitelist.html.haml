@@ -6,7 +6,7 @@
       multiple: true,
       id: 'country-whitelist',
       hidden: true,
-      'data-whitelist': Setting::CountryCode.whitelist_values
+      'data-whitelist': Setting.value('general', 'country_source_whitelist')
 
   %p
     = "If nothing is selected, only private and whitelisted ips are authorized"
