@@ -1,0 +1,15 @@
+.form-group
+  = hidden_field_tag 'setting[general_ip_whitelist][]', ""
+  = label_tag "Whitelisted ips"
+  = select_tag 'setting[general_ip_whitelist]',
+      options_for_select(Setting::IpRange.whitelist_values),
+      multiple: true,
+      id: 'ip-whitelist',
+      hidden: true,
+      'data-whitelist': Setting::IpRange.whitelist_values
+
+  .hint
+    %p To specify a single ip address, just enter it like: <kbd>12.10.255.146</kbd>. IPv6 is also allowed.
+    %p To specify a range you can enter the ip address with the subnet mask: <kbd>12.0.0.0/8</kbd>. This would be the range between 12.0.0.0 and 12.255.255.255
+
+

@@ -38,3 +38,12 @@ ldap_bind_enable:
   value: false
   type: Setting::TrueFalse
 
+general_country_source_whitelist:
+  key: general_country_source_whitelist
+  value: ["CH"]
+  type: Setting::CountryCode
+
+general_ip_whitelist:
+  key: general_ip_whitelist
+  value: ["0.0.0.0"]
+  type: Setting::IpRange

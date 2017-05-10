@@ -99,4 +99,39 @@ class LoginsControllerTest < ActionController::TestCase
 
     assert_redirected_to wizard_path
   end
+
+  test 'should show 401 if ip address is unauthorized' do
+    Authentication::SourceIpChecker.any_instance.stubs(:ip_authorized?).returns(false)
+
+    get :login
+
+    assert_equal 401, response.status
+  end
+
+  test 'saves ip in session if ip allowed' do
+    random_ip = "#{rand(1..253)}.#{rand(254)}.#{rand(254)}.#{rand(254)}"
+    Authentication::SourceIpChecker.any_instance.stubs(:ip_authorized?).returns(true)
+    ActionController::TestRequest.any_instance.stubs(:remote_ip).returns(random_ip)
+
+    get :login
+
+    assert_equal 200, response.status
+    assert_equal random_ip, session[:authorized_ip]
+  end
+
+  test 'does not authorize previously authorized source ip' do
+    source_ip = '102.20.2.1'
+    Authentication::SourceIpChecker.any_instance.stubs(:ip_authorized?).returns(true)
+    ActionController::TestRequest.any_instance.stubs(:remote_ip).returns(source_ip)
+    session[:authorized_ip] = source_ip
+    session[:user_id] = users(:bob).id
+    session[:private_key] = 'fookey'
+
+    Authentication::SourceIpChecker.any_instance.expects(:previously_authorized?)
+    Authentication::SourceIpChecker.any_instance.expects(:ip_authorized?).never
+
+    get :show_update_password
+
+    assert_equal 200, response.status
+  end
 end

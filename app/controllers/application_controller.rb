@@ -4,8 +4,12 @@
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
+#
+require 'geokit'
+require 'user' # fixes user.authenticate problem
 
 class ApplicationController < ActionController::Base
+  before_action :check_source_ip
   before_action :redirect_to_wizard_if_new_setup
   before_action :message_if_fallback
   before_action :authorize, except: [:login, :authenticate, :logout, :wizard]
@@ -21,6 +25,20 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   private
+
+  def check_source_ip
+    return if ip_checker.previously_authorized?
+
+    if ip_checker.ip_authorized?
+      session[:authorized_ip] = request.remote_ip
+    else
+      render layout: false, file: 'public/401.html', status: 401
+    end
+  end
+
+  def ip_checker
+    Authentication::SourceIpChecker.new(request.remote_ip, session[:authorized_ip])
+  end
 
   # redirect if its not possible to decrypt user's private key
   def redirect_if_no_private_key

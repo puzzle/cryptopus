@@ -24,7 +24,7 @@ de:
   forgot_password: "Passwort vergessen?"
   logout: "Abmelden"
   auto_logout: "automatisches Abmelden in"
-  ldap_settings: "LDAP Einstellungen"
+  settings: "Einstellungen"
   recrypt_requests: "Recrypt Anfragen"
   users: "Benutzer"
   change_password: "Passwort wechseln"

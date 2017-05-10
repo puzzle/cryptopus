@@ -5,7 +5,6 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-require_relative 'authenticators/user_password.rb'
 
 class Authentication::UserAuthenticator
 
@@ -44,7 +43,7 @@ class Authentication::UserAuthenticator
 
   def authenticator
     @authenticator ||=
-      ::UserPassword.new(params)
+      Authentication::Authenticators::UserPassword.new(params)
   end
 
   def brute_force_detector

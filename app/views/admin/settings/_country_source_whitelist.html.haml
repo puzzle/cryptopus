@@ -1,0 +1,12 @@
+.form-group
+  = hidden_field_tag 'setting[general_country_source_whitelist][]', ""
+  = label_tag 'Whitelisted Countries'
+  = select_tag 'setting[general_country_source_whitelist]', 
+      options_from_collection_for_select(Country.all, 'alpha2', 'name'),
+      multiple: true,
+      id: 'country-whitelist',
+      hidden: true,
+      'data-whitelist': Setting::CountryCode.whitelist_values
+
+  %p
+    = "If nothing is selected, only private and whitelisted ips are authorized"

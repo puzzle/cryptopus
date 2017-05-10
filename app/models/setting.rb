@@ -6,6 +6,14 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Setting < ActiveRecord::Base
+
+  validates_uniqueness_of :key
+
+  scope :by_section, lambda { |prefix|
+    Setting.where('key LIKE :prefix', { prefix: "#{prefix}_%" })
+      .order(order: :asc)
+  }
+
   class << self
     def value(prefix, key)
       key = "#{prefix}_#{key}" if prefix.present?

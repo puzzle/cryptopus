@@ -7,6 +7,7 @@
 
 module Admin::SettingsHelper
   def input_field_setting(setting)
+    return selectize_input_field(setting) if selectize_input_field(setting)
     content = ''
     content << label_tag(setting.key)
 
@@ -16,6 +17,14 @@ module Admin::SettingsHelper
                  input_field_setting_default(setting)
                end
     content_tag(:div, content.html_safe, class: 'form-group').html_safe
+  end
+
+  def selectize_input_field(setting)
+    if setting.key == 'general_country_source_whitelist'
+      return render 'admin/settings/country_source_whitelist'
+    elsif setting.key == 'general_ip_whitelist'
+      return render 'admin/settings/ip_whitelist'
+    end
   end
 
   def input_field_setting_true_false(setting)
@@ -32,6 +41,10 @@ module Admin::SettingsHelper
   end
 
   private
+
+  def format_key(key)
+    key.gsub(/^[a-z]+_{1}/, '')
+  end
 
   def input_field_formatter(setting)
     str = ''

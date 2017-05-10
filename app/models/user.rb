@@ -4,6 +4,7 @@
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
+
 class User < ActiveRecord::Base
 
   autoload 'Authentication', 'user/authentication'

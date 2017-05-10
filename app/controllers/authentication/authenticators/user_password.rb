@@ -7,7 +7,7 @@
 
 module Authentication
   module Authenticators
-    class ::UserPassword
+    class UserPassword
 
       def initialize(params)
         @username = params[:username]

@@ -19,4 +19,12 @@ class Admin::SettingsControllerTest < ActionController::TestCase
     assert_not Setting.value(:ldap, :enable)
     assert_match /successfully updated/, flash[:notice]
   end
+
+  test 'show error if one setting is invalid' do
+    login_as(:admin)
+
+    post :update_all, setting: {general_ip_whitelist: ['a.b.c.d/99']}
+
+    assert_equal 'invalid ip address: a.b.c.d/99', flash[:error]
+  end
 end

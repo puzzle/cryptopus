@@ -24,7 +24,7 @@ en:
   forgot_password: "Forgot your password?"
   logout: "Logout"
   auto_logout: "auto-logout in"
-  ldap_settings: "LDAP Settings"
+  settings: "Settings"
   recrypt_requests: "Recrypt requests"
   users: "Users"
   change_password: "Change password"
