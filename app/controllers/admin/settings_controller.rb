@@ -8,6 +8,8 @@ require 'countries/global'
 
 class Admin::SettingsController < Admin::AdminController
 
+  helper_method :ldap_settings, :general_settings
+
   def update_all
     update_attributes(params[:setting])
     flash[:notice] = t('flashes.admin.settings.successfully_updated')
@@ -30,4 +32,21 @@ class Admin::SettingsController < Admin::AdminController
   def collect_errors(setting)
     flash[:error] = setting.errors[:value].join(', ')
   end
+
+  def ldap_settings
+    all_settings.select do |s|
+      s.key =~ /^ldap_*/
+    end
+  end
+
+  def general_settings
+    all_settings.select do |s|
+      s.key =~ /^general_*/
+    end
+  end
+
+  def all_settings
+    @all_settings ||= Setting.all
+  end
+
 end
