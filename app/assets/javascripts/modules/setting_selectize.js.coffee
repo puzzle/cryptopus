@@ -10,6 +10,7 @@ class app.SettingSelectize
     bind.call()
 
   selectize_countries = ->
+    return if $("#country-whitelist").length <= 0
     $("#country-whitelist").selectize(
       addPrecedence: true
       allowEmptyOption: true
@@ -21,6 +22,7 @@ class app.SettingSelectize
     )
 
   selectize_ips = ->
+    return if $("#ip-whitelist").length <= 0
     $("#ip-whitelist").selectize(
       create: true
       addPrecedence: true
