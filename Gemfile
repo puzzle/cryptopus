@@ -2,47 +2,47 @@ source 'http://rubygems.org'
 
 gem 'rails', '4.2.8'
 
-gem 'mysql2'
-gem 'sqlite3'
-gem 'net-ldap'
 gem 'figaro'
-gem "password_strength"
+gem 'mysql2'
+gem 'net-ldap'
+gem 'sqlite3'
 
 gem 'active_model_serializers', '0.10.0'
 gem 'airbrake', '< 5.0'
 gem 'bootstrap-select-rails'
 gem 'breadcrumbs_on_rails'
 gem 'clipboard'
-gem 'countries', require: 'countries/global'
 gem 'compass-rails'
+gem 'countries', require: 'countries/global'
 gem 'dynamic_form'
+gem 'faker'
 gem 'geokit'
 gem 'haml'
 gem 'handlebars_assets'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'less-rails'
+gem 'password_strength'
 gem 'rails-i18n'
 gem 'sass-rails'
+gem 'seed-fu'
 gem 'selectize-rails'
+gem 'therubyracer'
 gem 'turbolinks'
 gem 'twitter-bootstrap-rails', '~>3.2'
 gem 'uglifier'
-gem 'therubyracer'
-gem 'seed-fu'
-gem 'faker'
 
 
 group :development, :test do
-  gem 'launchy'
+  gem 'bullet'
   gem 'capybara-webkit'
-  gem 'minitest-rails-capybara'
+  gem 'launchy'
   gem 'minitest-rails'
+  gem 'minitest-rails-capybara'
   gem 'rails-erd'
-  gem 'test-unit'
   gem 'rubocop'
   gem 'rubocop-checkstyle_formatter'
-  gem 'bullet'
+  gem 'test-unit'
 end
 
 group :development do
@@ -54,8 +54,8 @@ group :development do
 end
 
 group :test do
-  gem 'fabrication'
-  gem 'simplecov', require: false, group: :test
   gem 'database_cleaner'
+  gem 'fabrication'
   gem 'mocha'
+  gem 'simplecov', require: false, group: :test
 end
