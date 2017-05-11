@@ -33,13 +33,17 @@ end
 
 
 class ActiveSupport::TestCase
-  setup :stub_ldap_tools
+  setup :stub_ldap_tools, :stub_remote_ip_check
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
   def decrypt_private_key(user)
     user.decrypt_private_key('password')
+  end
+
+  def stub_remote_ip_check
+    Authentication::SourceIpChecker.any_instance.stubs(:remote_ip).returns('127.0.0.1')
   end
 
   #Disable LDAP connection

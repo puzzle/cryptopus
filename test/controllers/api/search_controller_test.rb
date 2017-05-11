@@ -21,8 +21,8 @@ class Api::SearchControllerTest < ActionController::TestCase
 
     assert_equal account.accountname, result_json['accountname']
     assert_equal account.id, result_json['id']
-    assert_equal nil, result_json['cleartext_username']
-    assert_equal nil, result_json['cleartext_password']
+    assert_nil result_json['cleartext_username']
+    assert_nil result_json['cleartext_password']
 
     assert_equal group.name, result_json['group']
     assert_equal group.id, result_json['group_id']
@@ -43,8 +43,8 @@ class Api::SearchControllerTest < ActionController::TestCase
 
     assert_equal account.accountname, result_json['accountname']
     assert_equal account.id, result_json['id']
-    assert_equal nil, result_json['cleartext_username']
-    assert_equal nil, result_json['cleartext_password']
+    assert_nil result_json['cleartext_username']
+    assert_nil result_json['cleartext_password']
 
     assert_equal group.name, result_json['group']
     assert_equal group.id, result_json['group_id']
@@ -52,7 +52,7 @@ class Api::SearchControllerTest < ActionController::TestCase
     assert_equal team.name, result_json['team']
     assert_equal team.id, result_json['team_id']
   end
-  
+
   test "should get group for search term" do
     login_as(:alice)
     xhr :get, :groups, {'q' => 'group'}
@@ -65,13 +65,13 @@ class Api::SearchControllerTest < ActionController::TestCase
     assert_equal group.id, result_json['id']
   end
 
-  
+
   test "should get team for search term" do
     login_as(:alice)
     xhr :get, :teams, {'q' => 'team'}
 
     result_json = JSON.parse(response.body)['data']['teams'][0]
-    
+
     team = teams(:team1)
 
     assert_equal team.name, result_json['name']

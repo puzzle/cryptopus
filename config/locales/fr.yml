@@ -24,7 +24,7 @@ fr:
   forgot_password: "Mot de passe oublié?"
   logout: "Déconnexion"
   auto_logout: "Déconnexion automatique en"
-  ldap_settings: "Paramètres de LDAP"
+  settings: "Paramètres"
   recrypt_requests: "Demandes de re crypt"
   users: "Utilisateur"
   change_password: "Changer le mot de passe"
@@ -46,7 +46,7 @@ fr:
       type_to_search: "Appuyez pour rechercher..."
 
   accounts:
-    title: "Comptes" 
+    title: "Comptes"
     index:
       move: "Déplacer compte à un autre groupe"
       title: "Comptes du groupe %{group_name} de l'équipe %{team_name}"
@@ -244,6 +244,7 @@ fr:
       new_password_set: "Vous mis à jour avec succès le nouveau mot de passe."
       new_passwords_not_equal: "Nouveaux mots de passe n'est pas égal."
       wrong_password: "Mot de passe incorrect."
+      weak_password: "Pour améliorer la sécurité vous devez déterminer un mot de passe utilisateur plus complexe."
       not_local: "Vous n'êtes pas un utilisateur local!"
       locked: "Votre compte est actuellement verouillé. Essayez de vous connecter à nouveau dans un instant, ou contactez l'administrateur si le verrouillage persiste"
     recryptrequests:
@@ -362,3 +363,8 @@ fr:
       x_seconds:
         one: 1 seconde
         other: "%{count} secondes"
+
+  password_strength:
+    weak: "Le mot de passe est faible"
+    good: "Le mot de passe est bon"
+    strong: "Le mot de passe est forte!"

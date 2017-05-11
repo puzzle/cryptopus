@@ -8,7 +8,7 @@
 require 'ldap_tools'
 
 class AccountsController < ApplicationController
-  before_filter :group
+  before_action :group
   helper_method :team
 
   # GET /teams/1/groups/1/accounts
@@ -77,10 +77,8 @@ class AccountsController < ApplicationController
 
   # PUT /teams/1/groups/1/accounts/1
   def update
-    @account = @group.accounts.find(params[:id])
-    @account.attributes = account_params
+    update_account
 
-    @account.encrypt(plaintext_team_password(team))
     respond_to do |format|
       if @account.save
         flash[:notice] = t('flashes.accounts.updated')
@@ -106,21 +104,35 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:account_id])
     respond_to do |format|
       target_group = Group.find(account_params[:group_id])
-      if account_move_handler.move(target_group)
-        flash[:notice] = t('flashes.accounts.moved')
-        format.html { redirect_to team_group_accounts_url(team, @group) }
-      else
-        @items = @account.items.load
-        flash[:error] = @account.errors.full_messages.join
-        format.html { render action: 'show' }
-      end
+      move_account(format, target_group)
     end
   end
 
   private
 
+  def update_account
+    @account = @group.accounts.find(params[:id])
+    @account.attributes = account_params
+    @account.encrypt(plaintext_team_password(team))
+  end
+
+  def move_account(format, target_group)
+    if account_move_handler.move(target_group)
+      flash[:notice] = t('flashes.accounts.moved')
+      format.html { redirect_to team_group_accounts_url(team, @group) }
+    else
+      @items = @account.items.load
+      flash[:error] = @account.errors.full_messages.join
+      format.html { render action: 'show' }
+    end
+  end
+
   def account_params
-    params.require(:account).permit(:accountname, :cleartext_username, :cleartext_password, :description, :group_id)
+    params.require(:account).permit(:accountname,
+                                    :cleartext_username,
+                                    :cleartext_password,
+                                    :description,
+                                    :group_id)
   end
 
   def group

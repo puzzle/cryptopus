@@ -12,7 +12,7 @@ class MaintenanceTask
   PARAM_TYPE_NUMBER = 'number'.freeze
   PARAM_TYPE_TEXT = 'text'.freeze
 
-  TASKS = %w(RootAsAdmin NewRootPassword).freeze
+  TASKS = %w[RootAsAdmin NewRootPassword].freeze
   class << self
     def list
       TASKS.collect do |t|

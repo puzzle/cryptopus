@@ -33,9 +33,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
 
     return redirect_to :back if @user.ldap? || blank_password?
 
-    @user.password = CryptUtils.one_way_crypt(params[:new_password])
-    @user.create_keypair params[:new_password]
-    @user.save
+    encrypt_and_save_user
 
     recrypt_passwords(@user, @admin, session[:private_key]) do
       flash[:notice] = t('flashes.admin.recryptrequests.resetpassword.success')
@@ -45,6 +43,12 @@ class Admin::RecryptrequestsController < Admin::AdminController
   end
 
   private
+
+  def encrypt_and_save_user
+    @user.password = CryptUtils.one_way_crypt(params[:new_password])
+    @user.create_keypair params[:new_password]
+    @user.save
+  end
 
   def recrypt_passwords(user, admin, private_key)
     user.last_teammember_teams.destroy_all

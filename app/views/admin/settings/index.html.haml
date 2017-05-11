@@ -2,11 +2,20 @@
 -#  Cryptopus and licensed under the Affero General Public License version 3 or later.
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
-
-%h1= t('.title')
+%br
+%ul.settings-nav.nav.nav-tabs
+  %li#accounts.tab.active
+    %a{"data-toggle" => "tab", href: "#general-settings"}
+      General
+  %li#groups.tab
+    %a{"data-toggle" => "tab", href: "#ldap-settings"}
+      LDAP
+      
 - @submit_button_text = t(:update)
 = form_tag :update_all_admin_settings, role: 'form' do
-  - @settings.each do |setting|
-    = input_field_setting(setting)
-  %br/
+  .tab-content.settings-content
+    #general-settings.tab-pane.fade.in.active
+      = render partial: 'general'
+    #ldap-settings.tab-pane.fade
+      = render partial: 'ldap'
   = submit_tag t('admin.settings.index.save'), class: 'btn btn-primary'

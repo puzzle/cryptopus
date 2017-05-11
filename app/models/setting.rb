@@ -6,6 +6,9 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Setting < ActiveRecord::Base
+
+  validates_uniqueness_of :key
+
   class << self
     def value(prefix, key)
       key = "#{prefix}_#{key}" if prefix.present?

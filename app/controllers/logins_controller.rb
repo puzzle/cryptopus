@@ -7,29 +7,26 @@
 
 class LoginsController < ApplicationController
 
-  before_filter :redirect_if_ldap_user, only: [:show_update_password, :update_password]
-  before_filter :redirect_if_logged_in, only: [:login]
+  before_action :redirect_if_ldap_user, only: %i[show_update_password update_password]
+  before_action :redirect_if_logged_in, only: :login
 
-  skip_before_filter :verify_authenticity_token, only: [:authenticate]
+  skip_before_action :verify_authenticity_token, only: :authenticate
 
-  def login
-  end
+  def login; end
 
   def authenticate
     authenticator = Authentication::UserAuthenticator.new(params)
-
-    if authenticator.password_auth!
-      begin
-        create_session(authenticator.user, params[:password])
-      rescue Exceptions::DecryptFailed
-        redirect_to recryptrequests_new_ldap_password_path
-        return
-      end
-      redirect_after_sucessful_login
-    else
+    unless authenticator.password_auth!
       flash[:error] = t('flashes.logins.auth_failed')
-      redirect_to login_login_path
+      return redirect_to login_login_path
     end
+
+    unless create_session(authenticator.user, params[:password])
+      return redirect_to recryptrequests_new_ldap_password_path
+    end
+
+    check_password_strength
+    redirect_after_sucessful_login
   end
 
   def logout
@@ -66,12 +63,23 @@ class LoginsController < ApplicationController
 
   private
 
+  def check_password_strength
+    strength = PasswordStrength.test(params[:username], params[:password])
+
+    if strength.weak? || !strength.valid?
+      flash[:alert] = t('flashes.logins.weak_password')
+    end
+  end
+
   def create_session(user, password)
-    user.update_info
-
-    set_session_attributes(user, password)
-
-    CryptUtils.validate_keypair(session[:private_key], user.public_key)
+    begin
+      user.update_info
+      set_session_attributes(user, password)
+      CryptUtils.validate_keypair(session[:private_key], user.public_key)
+    rescue Exceptions::DecryptFailed
+      return false
+    end
+    true
   end
 
   def redirect_after_sucessful_login

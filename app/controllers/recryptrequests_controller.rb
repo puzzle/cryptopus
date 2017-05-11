@@ -9,8 +9,7 @@ class RecryptrequestsController < ApplicationController
   skip_before_action :redirect_if_no_private_key
 
   # GET /recryptrequests/new_ldap_password
-  def new_ldap_password
-  end
+  def new_ldap_password; end
 
   # POST /recryptrequests/recrypt
   def recrypt

@@ -19,8 +19,6 @@ module ApplicationHelper
     end
   end
 
-
-
   def nav_link(name, path)
     class_name = current_page?(path) ? 'active' : ''
 
@@ -30,14 +28,15 @@ module ApplicationHelper
   end
 
   def link_to_destroy(path, entry, options = {})
-    entry_label = entry.label
     entry_class = entry.class.name.downcase
     label_key = "#{entry_class.pluralize}.confirm.delete"
 
     options[:data] ||= {}
 
     unless options[:no_confirm]
-      confirm = t(label_key, entry_class: entry_class, entry_label: entry_label, default: t('confirm.delete'))
+      confirm = t(label_key, entry_class: entry_class,
+                             entry_label: entry.label, default: t('confirm.delete'))
+
       options[:data][:confirm] = confirm
     end
 

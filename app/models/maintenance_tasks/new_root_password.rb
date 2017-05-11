@@ -8,7 +8,8 @@
 class MaintenanceTasks::NewRootPassword < MaintenanceTask
   self.label = 'New root password'
   self.description = 'Sets a new root password.'
-  self.hint = 'WARNING! If you reset the root-password, all private teams can no longer be accessed by root.'
+  self.hint = 'WARNING! If you reset the root-password, all private
+               teams can no longer be accessed by root.'
   self.task_params = [{ label: :new_root_password, type: PARAM_TYPE_PASSWORD },
                       { label: :retype_password, type: PARAM_TYPE_PASSWORD }]
 

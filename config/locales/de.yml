@@ -24,7 +24,7 @@ de:
   forgot_password: "Passwort vergessen?"
   logout: "Abmelden"
   auto_logout: "automatisches Abmelden in"
-  ldap_settings: "LDAP Einstellungen"
+  settings: "Einstellungen"
   recrypt_requests: "Recrypt Anfragen"
   users: "Benutzer"
   change_password: "Passwort wechseln"
@@ -244,6 +244,7 @@ de:
       new_passwords_not_equal: "Die neuen Passwörter sind nicht gleich."
       not_local: "Sie sind kein lokaler Benutzer!"
       locked: "Der Benutzer ist momentan gesperrt. Bitte versuchen Sie es später nocheinmal oder kontaktiern Sie den Administrator."
+      weak_password: "Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen"
     recryptrequests:
       recrypted: "Ihr Passwort wurde erfolgreich neu verschlüsselt."
       wait: "Bitte warten Sie, bis Ihre Team Passwörter neu verschlüsselt wurden."
@@ -359,3 +360,8 @@ de:
       x_seconds:
         one: eine Sekunde
         other: "%{count} Sekunden"
+
+  password_strength:
+    weak: "Das Passwort ist unsicher"
+    good: "Das Passwort genügt"
+    strong: "Das Passwort ist stark!"

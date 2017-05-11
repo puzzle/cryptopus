@@ -10,8 +10,11 @@
 #= require twitter/bootstrap
 #= require handlebars.runtime
 #= require turbolinks
+#= require selectize
 #= require_tree ./modules
 #= require_tree ./templates
+#= require password_strength
+#= require jquery_strength
 
 
 # scope for global functions

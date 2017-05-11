@@ -6,7 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class ItemsController < ApplicationController
-  before_filter :load_parents
+  before_action :load_parents
   helper_method :team
 
   # GET /teams/1/groups/1/accounts/new
@@ -22,7 +22,7 @@ class ItemsController < ApplicationController
   def create
     respond_to do |format|
       item = Item.create(@account, item_params, plaintext_team_password(team))
-      unless item.errors.present?
+      if item.errors.empty?
         flash[:notice] = t('flashes.items.uploaded')
         format.html { redirect_to team_group_account_url(team, @group, @account) }
       else

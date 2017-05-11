@@ -7,7 +7,7 @@
 
 class Admin::UsersController < Admin::AdminController
 
-  before_filter :redirect_if_ldap_user, only: [:edit, :update]
+  before_action :redirect_if_ldap_user, only: %i[edit update]
 
   helper_method :toggle_admin
 

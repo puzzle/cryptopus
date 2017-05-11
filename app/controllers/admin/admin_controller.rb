@@ -6,7 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Admin::AdminController < ApplicationController
-  before_filter :check_for_admin
+  before_action :check_for_admin
 
   protected
 

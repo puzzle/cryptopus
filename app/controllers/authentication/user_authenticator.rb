@@ -5,7 +5,6 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-require_relative 'authenticators/user_password.rb'
 
 class Authentication::UserAuthenticator
 
@@ -18,7 +17,9 @@ class Authentication::UserAuthenticator
     return false unless preconditions?
     return false if user_locked?
 
-    unless authenticated = authenticator.auth!
+    authenticated = authenticator.auth!
+
+    unless authenticated
       add_error('flashes.logins.wrong_password')
     end
 
@@ -44,7 +45,7 @@ class Authentication::UserAuthenticator
 
   def authenticator
     @authenticator ||=
-      ::UserPassword.new(params)
+      Authentication::Authenticators::UserPassword.new(params)
   end
 
   def brute_force_detector
@@ -53,11 +54,15 @@ class Authentication::UserAuthenticator
   end
 
   def preconditions?
-    if params_present? && user.present?
+    if params_present? && valid_username? && user.present?
       return true
     end
     add_error('flashes.logins.wrong_password')
     false
+  end
+
+  def valid_username?
+    params[:username].strip =~ /^([a-zA-Z]|\d)+$/
   end
 
   def params_present?
