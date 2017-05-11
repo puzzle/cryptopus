@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   before_action :check_source_ip
   before_action :redirect_to_wizard_if_new_setup
   before_action :message_if_fallback
-  before_action :authorize, except: [:login, :authenticate, :logout, :wizard]
+  before_action :authorize, except: %i[login authenticate logout wizard]
   before_action :redirect_if_not_teammember
   before_action :redirect_if_no_private_key, except: :logout
   before_action :prepare_menu

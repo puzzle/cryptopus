@@ -32,8 +32,7 @@ class LdapTools
          encryption: :simple_tls,
          auth: { method: :simple,
                  username: user_dn,
-                 password: password
-           }
+                 password: password }
 
        if ldap.bind
          return true

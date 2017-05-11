@@ -6,7 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class TeamsController < ApplicationController
-  before_action :redirect_if_not_teammember_or_admin, except: [:index, :new, :create]
+  before_action :redirect_if_not_teammember_or_admin, except: %i[index new create]
   before_action :redirect_if_not_allowed_to_delete_team, only: [:destroy]
   helper_method :can_delete_team?, :team
 

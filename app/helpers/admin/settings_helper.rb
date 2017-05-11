@@ -21,9 +21,9 @@ module Admin::SettingsHelper
 
   def selectize_input_field(setting)
     if setting.key == 'general_country_source_whitelist'
-      return render 'admin/settings/country_source_whitelist'
+      render 'admin/settings/country_source_whitelist'
     elsif setting.key == 'general_ip_whitelist'
-      return render 'admin/settings/ip_whitelist'
+      render 'admin/settings/ip_whitelist'
     end
   end
 

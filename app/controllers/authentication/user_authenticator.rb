@@ -17,7 +17,9 @@ class Authentication::UserAuthenticator
     return false unless preconditions?
     return false if user_locked?
 
-    unless authenticated = authenticator.auth!
+    authenticated = authenticator.auth!
+
+    unless authenticated
       add_error('flashes.logins.wrong_password')
     end
 

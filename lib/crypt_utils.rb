@@ -50,7 +50,6 @@ class CryptUtils
       keypair = PKey::RSA.new(public_key)
       encrypted_team_password = keypair.public_encrypt(team_password)
       return encrypted_team_password
-
     rescue
       return nil
     end

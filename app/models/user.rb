@@ -18,10 +18,10 @@ class User < ActiveRecord::Base
   has_many :recryptrequests, dependent: :destroy
   has_many :teams, -> { order :name }, through: :teammembers
 
-  scope :locked, -> { where(locked: true) }
-  scope :unlocked, -> { where(locked: false) }
+  scope :locked, (-> { where(locked: true) })
+  scope :unlocked, (-> { where(locked: false) })
 
-  scope :admins, -> { where(admin: true) }
+  scope :admins, (-> { where(admin: true) })
 
   default_scope { order('username') }
 
@@ -55,8 +55,7 @@ class User < ActiveRecord::Base
                  surname: '',
                  auth: 'db',
                  admin: true,
-                 password: CryptUtils.one_way_crypt(password)
-                )
+                 password: CryptUtils.one_way_crypt(password))
       user.create_keypair(password)
       user.save!
     end
@@ -92,7 +91,7 @@ class User < ActiveRecord::Base
     Team.where(id: Teammember.group('team_id').
            having('count(*) = 1').
            select('team_id')).
-           joins(:members).where('users.id = ?', id)
+      joins(:members).where('users.id = ?', id)
   end
 
   # Updates Information about the user
@@ -141,7 +140,7 @@ class User < ActiveRecord::Base
   end
 
   def root?
-    uid == 0
+    uid.zero?
   end
 
   def ldap?
