@@ -8,12 +8,14 @@
 desc 'Runs the taks for a commit build'
 task ci: ['log:clear',
           'db:test:prepare',
+          'rubocop',
           'test']
 
 namespace :ci do
   desc 'Runs the tasks for the nightly build'
   task nightly: ['db:test:prepare',
                  'test',
+                 'rubocop',
                  'brakeman']
 
 end
