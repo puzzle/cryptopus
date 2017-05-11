@@ -23,6 +23,12 @@ class UserAuthenticatorTest < ActiveSupport::TestCase
     assert_equal false, authenticate
   end
 
+  test 'authentication invalid if username with special chars' do
+    @params = {username: 'invalid_username?', password: 'test'}
+
+    assert_equal false, authenticate
+  end
+
   test 'authenticates against ldap' do
     @params = {username: 'bob', password: 'ldappw'}
     bob.update_attribute(:auth, 'ldap')

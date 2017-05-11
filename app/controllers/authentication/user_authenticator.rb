@@ -54,11 +54,15 @@ class Authentication::UserAuthenticator
   end
 
   def preconditions?
-    if params_present? && user.present?
+    if params_present? && valid_username? && user.present?
       return true
     end
     add_error('flashes.logins.wrong_password')
     false
+  end
+
+  def valid_username?
+    params[:username].strip =~ /^([a-zA-Z]|\d)+$/
   end
 
   def params_present?
