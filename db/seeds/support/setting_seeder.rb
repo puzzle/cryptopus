@@ -7,23 +7,22 @@
 
 class SettingSeeder
   
-  def seed_text_setting(key, value, order)
-    seed_setting(:Text, key, value, order)
+  def seed_text_setting(key, value)
+    seed_setting(:Text, key, value)
   end
 
-  def seed_number_setting(key, value, order)
-    seed_setting(:Number, key, value, order)
+  def seed_number_setting(key, value)
+    seed_setting(:Number, key, value)
   end
 
-  def seed_true_false_setting(key, value, order)
-    seed_setting(:TrueFalse, key, value, order)
+  def seed_true_false_setting(key, value)
+    seed_setting(:TrueFalse, key, value)
   end
 
-  def seed_setting(type, key, value, order)
+  def seed_setting(type, key, value)
     "Setting::#{type}".constantize.seed_once(:key) do |s|
       s.key = key
       s.value = value
-      s.order = order
     end
   end
 end
