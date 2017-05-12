@@ -9,12 +9,12 @@ require Rails.root.join('db', 'seeds', 'support', 'setting_seeder')
 
 seeder = SettingSeeder.new
 
-seeder.seed_text_setting('ldap_basename', 'ou=users,dc=yourdomain,dc=com', 0)
-seeder.seed_text_setting('ldap_hostname', 'yourdomain.com', 1)
-seeder.seed_number_setting('ldap_portnumber', '636', 2)
-seeder.seed_text_setting('ldap_encryption', 'simple_tls', 3)
-seeder.seed_text_setting('ldap_bind_password', '', 4)
-seeder.seed_true_false_setting('ldap_enable', 'f', 5)
+seeder.seed_text_setting('ldap_basename', 'ou=users,dc=yourdomain,dc=com')
+seeder.seed_text_setting('ldap_hostname', 'yourdomain.com')
+seeder.seed_number_setting('ldap_portnumber', '636')
+seeder.seed_text_setting('ldap_encryption', 'simple_tls')
+seeder.seed_text_setting('ldap_bind_password', '')
+seeder.seed_true_false_setting('ldap_enable', 'f')
 
-seeder.seed_setting(:CountryCode,'general_country_source_whitelist', [], 0)
-seeder.seed_setting(:IpRange, 'general_ip_whitelist', [], 0)
+seeder.seed_setting(:CountryCode,'general_country_source_whitelist', [])
+seeder.seed_setting(:IpRange, 'general_ip_whitelist', [])
