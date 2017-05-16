@@ -14,6 +14,7 @@
   .form-group
     = f.label :password
     = f.password_field :cleartext_password, autocomplete: :off, class: 'form-control'
+    %div#strength
   .form-group
     = f.label :description
     %span#unencrypted
