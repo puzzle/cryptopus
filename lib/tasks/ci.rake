@@ -7,12 +7,14 @@
 
 desc 'Runs the taks for a commit build'
 task ci: ['log:clear',
+          'geo:fetch',
           'db:test:prepare',
           'test']
 
 namespace :ci do
   desc 'Runs the tasks for the nightly build'
   task nightly: ['db:test:prepare',
+                 'geo:fetch',
                  'test',
                  'brakeman']
 
