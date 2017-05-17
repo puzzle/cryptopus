@@ -110,7 +110,7 @@ GEM
     ffi (1.9.18)
     figaro (1.1.1)
       thor (~> 0.14)
-    geokit (1.11.0)
+    geoip (1.6.3)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     haml (4.0.7)
@@ -316,7 +316,7 @@ DEPENDENCIES
   fabrication
   faker
   figaro
-  geokit
+  geoip
   haml
   handlebars_assets
   hirb

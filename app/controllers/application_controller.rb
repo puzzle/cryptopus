@@ -5,7 +5,6 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 #
-require 'geokit'
 require 'user' # fixes user.authenticate problem
 
 class ApplicationController < ActionController::Base
@@ -27,7 +26,7 @@ class ApplicationController < ActionController::Base
   private
 
   def check_source_ip
-    return if ip_checker.previously_authorized?
+    return if ip_checker.previously_authorized?(session[:authorized_ip])
 
     if ip_checker.ip_authorized?
       session[:authorized_ip] = request.remote_ip
@@ -37,7 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ip_checker
-    Authentication::SourceIpChecker.new(request.remote_ip, session[:authorized_ip])
+    Authentication::SourceIpChecker.new(request.remote_ip)
   end
 
   # redirect if its not possible to decrypt user's private key
