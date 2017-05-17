@@ -6,7 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Authentication::SourceIpChecker
-  require 'geokit'
+  require 'geoip'
   require 'ipaddr'
 
   PRIVATE_IP_RANGES = ['10.0.0.0/8', '127.0.0.0/8',
@@ -19,16 +19,15 @@ class Authentication::SourceIpChecker
     end
   end
 
-  def initialize(remote_ip, authorized_ip)
+  def initialize(remote_ip)
     @remote_ip = remote_ip
-    @authorized_ip = authorized_ip
   end
 
   def ip_authorized?
     private_ip? || ip_whitelisted? || country_authorized?
   end
 
-  def previously_authorized?
+  def previously_authorized?(authorized_ip)
     authorized_ip == remote_ip if authorized_ip.present?
   end
 
@@ -53,9 +52,9 @@ class Authentication::SourceIpChecker
   end
 
   def country_authorized?
-    location = Geokit::Geocoders::MultiGeocoder.geocode(remote_ip)
-    return false if location.country_code.nil?
-    whitelisted_country_codes.include?(location.country_code)
+    country_code = geo_ip.country(remote_ip).country_code2
+    return false if country_code.nil? || country_code.eql?('--')
+    whitelisted_country_codes.include?(country_code)
   end
 
   def whitelisted_country_codes
@@ -65,5 +64,13 @@ class Authentication::SourceIpChecker
   def private_ip?
     ip = IPAddr.new(remote_ip)
     self.class.private_ip_ranges.any? { |range| range.include?(ip) }
+  end
+
+  def geo_ip
+    geo_dat_file_path = "#{Rails.root}/db/GeoIP.dat"
+    unless File.exists?(geo_dat_file_path)
+      raise 'geo ip data file missing: please run rake geo:fetch'
+    end
+    GeoIP.new(geo_dat_file_path)
   end
 end

@@ -2,7 +2,7 @@
 
 set -ex
 
-# This script is executed after our rails images' default assemble script.
+# This script is executed after our default deployment script
 
 pushd /opt/app-root/src
 
