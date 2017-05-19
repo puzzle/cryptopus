@@ -28,8 +28,8 @@ fr:
   recrypt_requests: "Demandes de re crypt"
   users: "Utilisateur"
   change_password: "Changer le mot de passe"
-  last_login: "Votre dernière connexion était il ya %{time_ago}."
-  unencrypted_field_caption: ne pas crypté
+  last_login: "Votre dernière connexion était le %{last_login_date} à %{last_login_time}h."
+  unencrypted_field_caption: "ne pas crypté"
   group: "Groupe"
   team: "Équipe"
   move: "Mouvoir"
@@ -110,6 +110,7 @@ fr:
         username: "Nom d'utilisateur"
         name: "Nom"
         ldap_uid: "LDAP UID"
+        last_login_at: "Dernière connexion à"
         admin: "Admin"
         action: "Action"
         locked: "Bloqué utilisateurs"

@@ -40,6 +40,12 @@ module Admin::SettingsHelper
     text_field_tag(key_param(setting), setting.value, default_field_options)
   end
 
+  def format_local_time(date)
+    local_time = date.getlocal
+    formatted_local_time = local_time.strftime('%d.%m.%Y %H:%M')
+    formatted_local_time
+  end
+
   private
 
   def format_key(key)
@@ -56,4 +62,5 @@ module Admin::SettingsHelper
   def key_param(setting)
     "setting[#{setting.key}]"
   end
+
 end

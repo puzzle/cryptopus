@@ -25,8 +25,30 @@ class LoginsController < ApplicationController
       return redirect_to recryptrequests_new_ldap_password_path
     end
 
+    set_last_login_message
     check_password_strength
     redirect_after_sucessful_login
+  end
+
+  def set_last_login_message
+    session_last_login_at = session[:last_login_at]
+    unless session_last_login_at.nil?
+      flash[:notice] = t(:last_login,
+                         last_login_date: format_last_login_date(session_last_login_at).to_s,
+                         last_login_time: format_last_login_time(session_last_login_at).to_s)
+    end
+  end
+
+  def format_last_login_date(date)
+    local_date = date.getlocal
+    formatted_local_date = local_date.strftime('%d.%m.%Y')
+    formatted_local_date
+  end
+
+  def format_last_login_time(date)
+    local_time = date.getlocal
+    formatted_local_time = local_time.strftime('%H:%M')
+    formatted_local_time
   end
 
   def logout
@@ -73,8 +95,8 @@ class LoginsController < ApplicationController
 
   def create_session(user, password)
     begin
-      user.update_info
       set_session_attributes(user, password)
+      user.update_info
       CryptUtils.validate_keypair(session[:private_key], user.public_key)
     rescue Exceptions::DecryptFailed
       return false
@@ -99,6 +121,7 @@ class LoginsController < ApplicationController
     session[:username] = user.username
     session[:user_id] = user.id.to_s
     session[:private_key] = user.decrypt_private_key(password)
+    session[:last_login_at] = user.last_login_at
   end
 
   def redirect_if_ldap_user

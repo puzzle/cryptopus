@@ -134,4 +134,16 @@ class LoginsControllerTest < ActionController::TestCase
 
     assert_equal 200, response.status
   end
+
+  test 'should show last login at after login' do
+    users(:bob).update_attribute(:last_login_at, '2017-01-01 16:00:00 +0100')
+    post :authenticate, password: 'password', username: 'bob'
+    assert_equal("Your last login was on 01.01.2017 at 16:00 o'clock.", flash[:notice])
+  end
+
+  test 'should not show empty last login at after login' do
+    users(:bob).update_attribute(:last_login_at, nil)
+    post :authenticate, password: 'password', username: 'bob'
+    assert_nil(flash[:notice])
+  end
 end

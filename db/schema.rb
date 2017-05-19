@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161228151102) do
+ActiveRecord::Schema.define(version: 20161007130154) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "accountname", limit: 70, default: "", null: false
@@ -55,10 +55,9 @@ ActiveRecord::Schema.define(version: 20161228151102) do
   end
 
   create_table "settings", force: :cascade do |t|
-    t.string  "key",   null: false
-    t.string  "value"
-    t.string  "type",  null: false
-    t.integer "order"
+    t.string "key",   null: false
+    t.string "value"
+    t.string "type",  null: false
   end
 
   create_table "teammembers", force: :cascade do |t|

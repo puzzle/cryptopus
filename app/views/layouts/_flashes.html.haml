@@ -8,15 +8,18 @@
     %button.close{"aria-label" => "Close", "data-dismiss" => "alert", type: "button"}
       %span{"aria-hidden" => "true"} &#215;
     = flash[:error]
-- elsif flash[:notice]
+
+- if flash[:notice]
   .alert.alert-info
     %button.close{"aria-label" => "Close", "data-dismiss" => "alert", type: "button"}
       %span{"aria-hidden" => "true"} &#215;
     = flash[:notice]
-- elsif flash[:alert]
+
+- if flash[:alert]
   .alert.alert-warning
     %button.close{"aria-label" => "Close", "data-dismiss" => "alert", type: "button"}
       %span{"aria-hidden" => "true"} &#215;
     = flash[:alert]
+
 - else
   .message_container{:id => 'message_container'}

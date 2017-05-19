@@ -26,21 +26,21 @@ class LdapTools
         filter: "uid=#{username}",
         password: password
 
-        if result
-          user_dn = result.first.dn
-          ldap = Net::LDAP.new \
-            host: Setting.value(:ldap, :hostname),
-            port: Setting.value(:ldap, :portnumber),
-            encryption: :simple_tls,
-            auth: { method: :simple,
-                    username: user_dn,
-                    password: password }
+      if result
+        user_dn = result.first.dn
+        ldap = Net::LDAP.new \
+          host: Setting.value(:ldap, :hostname),
+          port: Setting.value(:ldap, :portnumber),
+          encryption: :simple_tls,
+          auth: { method: :simple,
+                  username: user_dn,
+                  password: password }
 
-          if ldap.bind
-            return true
-          end
+        if ldap.bind
+          return true
         end
-        false
+      end
+      false
     end
 
     def get_uid_by_username(username)
@@ -87,7 +87,7 @@ class LdapTools
 
     def check_username(username)
       unless username =~ /^([a-zA-Z]|\d)+$/
-        raise ActiveRecord::StatementInvalid.new('invalid username') 
+        raise ActiveRecord::StatementInvalid.new('invalid username')
       end
     end
   end
