@@ -28,7 +28,7 @@ en:
   recrypt_requests: "Recrypt requests"
   users: "Users"
   change_password: "Change password"
-  last_login: "Your last login was on %{last_login_date} at %{last_login_time} o'clock."
+  last_login: "Your last login was on %{last_login_date}"
   unencrypted_field_caption: not encrypted
   group: "Group"
   team: "Team"

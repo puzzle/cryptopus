@@ -28,7 +28,7 @@ de:
   recrypt_requests: "Recrypt Anfragen"
   users: "Benutzer"
   change_password: "Passwort wechseln"
-  last_login: "Ihr letztes Login war am %{last_login_date} um %{last_login_time} Uhr."
+  last_login: "Ihr letztes Login war am %{last_login_date}"
   unencrypted_field_caption: nicht verschlüsselt
   group: "Gruppe"
   team: "Team"

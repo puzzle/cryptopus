@@ -30,27 +30,6 @@ class LoginsController < ApplicationController
     redirect_after_sucessful_login
   end
 
-  def set_last_login_message
-    session_last_login_at = session[:last_login_at]
-    unless session_last_login_at.nil?
-      flash[:notice] = t(:last_login,
-                         last_login_date: format_last_login_date(session_last_login_at).to_s,
-                         last_login_time: format_last_login_time(session_last_login_at).to_s)
-    end
-  end
-
-  def format_last_login_date(date)
-    local_date = date.getlocal
-    formatted_local_date = local_date.strftime('%d.%m.%Y')
-    formatted_local_date
-  end
-
-  def format_last_login_time(date)
-    local_time = date.getlocal
-    formatted_local_time = local_time.strftime('%H:%M')
-    formatted_local_time
-  end
-
   def logout
     flash_notice = flash[:notice]
     reset_session
@@ -84,6 +63,12 @@ class LoginsController < ApplicationController
   end
 
   private
+
+  def set_last_login_message
+    if session[:last_login_at]
+      flash[:notice] = t(:last_login, last_login_date: l(session[:last_login_at], format: :long))
+    end
+  end
 
   def check_password_strength
     strength = PasswordStrength.test(params[:username], params[:password])

@@ -18,8 +18,8 @@
       %td= user.username
       %td= user.label
       %td
-        - if user.last_login_at != nil
-          = format_local_time(user.last_login_at)
+        - if user.last_login_at
+          = user.last_login_at.strftime('%d.%m.%Y, %H:%M')
       %td= user.uid.to_s
       %td
         - if user != current_user

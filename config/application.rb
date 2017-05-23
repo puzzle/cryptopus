@@ -67,5 +67,7 @@ module Cryptopus
       g.fixture_replacement :fabrication, dir: "test/fabricators"
     end
 
+    config.time_zone = ENV['TIME_ZONE'] || 'Bern'
+
   end
 end
