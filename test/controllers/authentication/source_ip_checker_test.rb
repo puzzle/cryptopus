@@ -24,7 +24,7 @@ class SourceIpCheckerTest <  ActiveSupport::TestCase
     private_ips.each do |ip|
       Authentication::SourceIpChecker.any_instance.stubs(:remote_ip).returns(ip)
       checker = Authentication::SourceIpChecker.new(ip)
-      assert_equal true, checker.send(:private_ip?)
+
       assert_equal true, checker.ip_authorized?
     end
   end

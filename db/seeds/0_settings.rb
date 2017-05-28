@@ -18,3 +18,4 @@ seeder.seed_true_false_setting('ldap_enable', 'f')
 
 seeder.seed_setting(:CountryCode,'general_country_source_whitelist', [])
 seeder.seed_setting(:IpRange, 'general_ip_whitelist', [])
+seeder.seed_true_false_setting('general_two_factor_auth', 't')

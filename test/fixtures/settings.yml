@@ -47,3 +47,8 @@ general_ip_whitelist:
   key: general_ip_whitelist
   value: ["0.0.0.0"]
   type: Setting::IpRange
+
+general_two_factor_auth:
+  key: general_two_factor_auth
+  value: true
+  type: Setting::TrueFalse

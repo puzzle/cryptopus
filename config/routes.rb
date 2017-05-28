@@ -59,6 +59,8 @@ Cryptopus::Application.routes.draw do
 
     get 'search', to: 'search#index'
 
+    resource :user_profile, only: [:show]
+
     root to: 'search#index'
   end
 
@@ -74,7 +76,6 @@ Cryptopus::Application.routes.draw do
       end
     end
 
-    # INFO don't mix scopes and resources in routes
     resources :teams, only: [:destroy, :index]  do
       collection do
         get :last_teammember_teams

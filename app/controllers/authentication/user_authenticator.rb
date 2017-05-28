@@ -8,9 +8,12 @@
 
 class Authentication::UserAuthenticator
 
-  def initialize(params)
+  delegate :two_factor_required?, to: Authenticators::TwoFactor
+
+  def initialize(params, remote_ip)
     @authenticated = false
     @params = params
+    @remote_ip = remote_ip
   end
 
   def password_auth!
@@ -41,11 +44,18 @@ class Authentication::UserAuthenticator
 
   private
 
-  attr_accessor :authenticated, :params
+  attr_accessor :authenticated, :params, :remote_ip
 
   def authenticator
-    @authenticator ||=
+    @authenticator ||= select_authenticator
+  end
+
+  def select_authenticator
+    if two_factor_required?(remote_ip)
+      Authentication::Authenticators::TwoFactor.new(params)
+    else
       Authentication::Authenticators::UserPassword.new(params)
+    end
   end
 
   def brute_force_detector

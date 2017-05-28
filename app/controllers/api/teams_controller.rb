@@ -28,7 +28,7 @@ class Api::TeamsController < ApiController
   def admin_only
     unless current_user.admin?
       add_error t('flashes.admin.admin.no_access')
-      render_json && return
+      render_json
     end
   end
 

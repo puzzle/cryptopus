@@ -15,7 +15,7 @@ class LoginsController < ApplicationController
   def login; end
 
   def authenticate
-    authenticator = Authentication::UserAuthenticator.new(params)
+    authenticator = Authentication::UserAuthenticator.new(params, request.remote_ip)
     unless authenticator.password_auth!
       flash[:error] = t('flashes.logins.auth_failed')
       return redirect_to login_login_path
