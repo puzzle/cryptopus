@@ -10,6 +10,7 @@
     %th= t '.username'
     %th= t '.name'
     %th= t '.last_login_at'
+    %th= t '.last_login_from'
     %th= t '.ldap_uid'
     %th= t '.admin'
     %th{colspan: "3"}= t :actions
@@ -20,6 +21,7 @@
       %td
         - if user.last_login_at
           = user.last_login_at.strftime('%d.%m.%Y, %H:%M')
+      %td= user.last_login_from
       %td= user.uid.to_s
       %td
         - if user != current_user

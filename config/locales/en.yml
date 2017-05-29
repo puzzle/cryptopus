@@ -28,7 +28,8 @@ en:
   recrypt_requests: "Recrypt requests"
   users: "Users"
   change_password: "Change password"
-  last_login: "Your last login was on %{last_login_date}"
+  last_login_date_and_from: "The last login was on %{last_login_date} from %{last_login_from}"
+  last_login_date: "The last login was on %{last_login_date}"
   unencrypted_field_caption: not encrypted
   group: "Group"
   team: "Team"
@@ -111,6 +112,7 @@ en:
         name: "Name"
         ldap_uid: "LDAP UID"
         last_login_at: "Last login at"
+        last_login_from: "Last login from"
         admin: "Admin"
         action: "Action"
         locked: "Locked users"

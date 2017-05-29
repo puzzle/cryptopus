@@ -28,7 +28,7 @@ de:
   recrypt_requests: "Recrypt Anfragen"
   users: "Benutzer"
   change_password: "Passwort wechseln"
-  last_login: "Ihr letztes Login war am %{last_login_date}"
+  last_login: "Das letzte Login war am %{last_login_date} von %{last_login_from}"
   unencrypted_field_caption: nicht verschlüsselt
   group: "Gruppe"
   team: "Team"
@@ -111,6 +111,7 @@ de:
         name: "Name"
         ldap_uid: "LDAP UID"
         last_login_at: "Letzte Anmeldung am"
+        last_login_from: "Letzte Anmeldung von"
         admin: "Admin"
         action: "Aktion"
         locked: "Gesperrte Benutzer"

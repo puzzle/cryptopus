@@ -100,6 +100,10 @@ class User < ActiveRecord::Base
     update_attribute(:last_login_at, Time.zone.now)
   end
 
+  def update_last_login_ip(last_login_ip)
+    update_attribute(:last_login_from, last_login_ip)
+  end
+
   def toggle_admin(actor, private_key)
     if self == actor || !actor.admin?
       raise 'user is not allowed to empower/disempower this user'

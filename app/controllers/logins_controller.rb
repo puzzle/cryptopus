@@ -66,7 +66,15 @@ class LoginsController < ApplicationController
 
   def set_last_login_message
     if session[:last_login_at]
-      flash[:notice] = t(:last_login, last_login_date: l(session[:last_login_at], format: :long))
+      #   if user.last_login_from.present?
+      if session[:last_login_from]
+        flash[:notice] = t(:last_login_date_and_from,
+                           last_login_date: l(session[:last_login_at], format: :long),
+                           last_login_from: session[:last_login_from])
+      else
+        flash[:notice] = t(:last_login_date,
+                           last_login_date: l(session[:last_login_at], format: :long))
+      end
     end
   end
 
@@ -82,6 +90,7 @@ class LoginsController < ApplicationController
     begin
       set_session_attributes(user, password)
       user.update_info
+      user.update_last_login_ip(request.remote_ip)
       CryptUtils.validate_keypair(session[:private_key], user.public_key)
     rescue Exceptions::DecryptFailed
       return false
@@ -107,6 +116,7 @@ class LoginsController < ApplicationController
     session[:user_id] = user.id.to_s
     session[:private_key] = user.decrypt_private_key(password)
     session[:last_login_at] = user.last_login_at
+    session[:last_login_from] = user.last_login_from
   end
 
   def redirect_if_ldap_user
