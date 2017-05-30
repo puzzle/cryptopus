@@ -1,4 +1,26 @@
 # encoding: utf-8
+# == Schema Information
+#
+# Table name: users
+#
+#  id                           :integer          not null, primary key
+#  public_key                   :text             not null
+#  private_key                  :binary           not null
+#  password                     :binary
+#  admin                        :boolean          default("f"), not null
+#  uid                          :integer
+#  last_login_at                :datetime
+#  username                     :string
+#  givenname                    :string
+#  surname                      :string
+#  auth                         :string           default("db"), not null
+#  preferred_locale             :string           default("en"), not null
+#  locked                       :boolean          default("f")
+#  last_failed_login_attempt_at :datetime
+#  failed_login_attempts        :integer          default("0"), not null
+#  last_login_from              :string
+#
+
 
 #  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
@@ -100,7 +122,7 @@ class User < ActiveRecord::Base
     update_attribute(:last_login_at, Time.zone.now)
   end
 
-  def update_last_login_ip(last_login_ip)
+  def set_last_login_ip(last_login_ip)
     update_attribute(:last_login_from, last_login_ip)
   end
 

@@ -44,6 +44,9 @@ GEM
     airbrake (4.3.8)
       builder
       multi_json
+    annotate (2.6.5)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
     arel (6.0.4)
     ast (2.3.0)
     binding_of_caller (0.7.2)
@@ -303,6 +306,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (= 0.10.0)
   airbrake (< 5.0)
+  annotate
   bootstrap-select-rails
   brakeman
   breadcrumbs_on_rails

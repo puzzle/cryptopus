@@ -12,6 +12,8 @@ unless Rails.env.production?
   RuboCop::RakeTask.new
 end
 
+Annotate.load_tasks
+
 Rake::TestTask.new(:test) do |t|
   t.libs << ['lib', 'test']
   t.test_files = Dir['test/**/*_test.rb'].reject do |path| 

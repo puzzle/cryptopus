@@ -1,4 +1,17 @@
 # encoding: utf-8
+# == Schema Information
+#
+# Table name: logs
+#
+#  id          :integer          not null, primary key
+#  output      :string
+#  status      :string
+#  log_type    :string
+#  executer_id :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 
 #  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.

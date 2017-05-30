@@ -90,7 +90,7 @@ class LoginsController < ApplicationController
     begin
       set_session_attributes(user, password)
       user.update_info
-      user.update_last_login_ip(request.remote_ip)
+      user.set_last_login_ip(request.remote_ip)
       CryptUtils.validate_keypair(session[:private_key], user.public_key)
     rescue Exceptions::DecryptFailed
       return false
