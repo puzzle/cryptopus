@@ -150,17 +150,17 @@ namespace :license do
   end
 
   desc 'Insert the license preamble in all source files'
-  task :insert => :config do
+  task insert: :config do
     @licenser.insert
   end
 
   desc 'Update or insert the license preamble in all source files'
-  task :update => :config do
+  task update: :config do
     @licenser.update
   end
 
   desc 'Remove the license preamble from all source files'
-  task :remove => :config do
+  task remove: :config do
     @licenser.remove
   end
 end
