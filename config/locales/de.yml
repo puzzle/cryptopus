@@ -28,8 +28,9 @@ de:
   recrypt_requests: "Recrypt Anfragen"
   users: "Benutzer"
   change_password: "Passwort wechseln"
-  last_login: "Das letzte Login war am %{last_login_date} von %{last_login_from}"
-  unencrypted_field_caption: nicht verschlüsselt
+  last_login_date_and_from: "Das letzte Login war am %{last_login_date} von %{last_login_from}"
+  last_login_date_and_from_country: "Das letzte Login war am %{last_login_date} von %{last_login_from} (%{last_login_country})"
+  last_login_date: "Das letzte Login war am %{last_login_date}"
   group: "Gruppe"
   team: "Team"
   move: "Bewegen"

@@ -28,13 +28,14 @@
 #  https://github.com/puzzle/cryptopus.
 
 class User < ActiveRecord::Base
-
+  require 'ipaddr'
   autoload 'Authentication', 'user/authentication'
   include User::Authentication
 
   validates :username, uniqueness: true
   validates :username, presence: true
   validates :username, length: { maximum: 20 }
+  validate :must_be_valid_ip
 
   has_many :teammembers, dependent: :destroy
   has_many :recryptrequests, dependent: :destroy
@@ -267,4 +268,13 @@ class User < ActiveRecord::Base
     !last_teammember_in_any_team?
   end
 
+  def must_be_valid_ip
+    if last_login_from?
+      begin
+        IPAddr.new(last_login_from.to_s)
+      rescue IPAddr::InvalidAddressError
+        errors.add(last_login_from, "invalid ip address: #{last_login_from}")
+      end
+    end
+  end
 end

@@ -64,5 +64,4 @@ module ApplicationHelper
   def default_field_options
     { class: 'form-control' }
   end
-
 end

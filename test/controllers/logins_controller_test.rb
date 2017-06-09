@@ -158,4 +158,20 @@ class LoginsControllerTest < ActionController::TestCase
     users(:bob).reload
     assert_equal(time.to_s, users(:bob).last_login_at.to_s)
   end
+
+  test 'should not show empty last login from after login' do
+    user = users(:bob)
+    user.update_attributes(last_login_at: '2017-01-01 16:00:00 + 0000', last_login_from: nil)
+
+    post :authenticate, password: 'password', username: 'bob'
+    assert_equal('The last login was on January 01, 2017 16:00', flash[:notice])
+  end
+
+  test 'shoud show country after login' do
+    user = users(:bob)
+    user.update_attributes(last_login_at: '2001-09-11 19:00:00 + 0000', last_login_from: '153.123.34.34')
+
+    post :authenticate, password: 'password', username: 'bob'
+    assert_equal('The last login was on September 11, 2001 19:00 from 153.123.34.34 (JPN)', flash[:notice])
+  end
 end

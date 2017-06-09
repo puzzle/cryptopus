@@ -25,7 +25,7 @@ class LoginsController < ApplicationController
       return redirect_to recryptrequests_new_ldap_password_path
     end
 
-    set_last_login_message
+    last_login_message
     check_password_strength
     redirect_after_sucessful_login
   end
@@ -64,13 +64,23 @@ class LoginsController < ApplicationController
 
   private
 
-  def set_last_login_message
+  def last_login_message
     if session[:last_login_at]
       #   if user.last_login_from.present?
       if session[:last_login_from]
-        flash[:notice] = t(:last_login_date_and_from,
-                           last_login_date: l(session[:last_login_at], format: :long),
-                           last_login_from: session[:last_login_from])
+        last_login_country =
+          GeoIP.new('db/GeoIP.dat').country(session[:last_login_from]).country_code3
+        if last_login_country.present? && last_login_country != "--"
+          flash[:notice] = t(:last_login_date_and_from_country,
+                             last_login_date: l(session[:last_login_at], format: :long),
+                             last_login_from: session[:last_login_from],
+                             last_login_country: last_login_country)
+
+        else
+          flash[:notice] = t(:last_login_date_and_from,
+                             last_login_date: l(session[:last_login_at], format: :long),
+                             last_login_from: session[:last_login_from])
+        end
       else
         flash[:notice] = t(:last_login_date,
                            last_login_date: l(session[:last_login_at], format: :long))
