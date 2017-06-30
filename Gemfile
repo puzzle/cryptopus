@@ -9,6 +9,7 @@ gem 'sqlite3'
 
 gem 'active_model_serializers', '0.10.0'
 gem 'airbrake', '< 5.0'
+gem 'annotate'
 gem 'bootstrap-select-rails'
 gem 'breadcrumbs_on_rails'
 gem 'clipboard'
@@ -31,7 +32,6 @@ gem 'therubyracer'
 gem 'turbolinks'
 gem 'twitter-bootstrap-rails', '~>3.2'
 gem 'uglifier'
-gem 'annotate'
 
 
 group :development, :test do

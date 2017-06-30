@@ -1,4 +1,5 @@
 AllCops:
+  require: rubocop/migrations
   DisplayCopNames: true
   Exclude:
     - Rakefile

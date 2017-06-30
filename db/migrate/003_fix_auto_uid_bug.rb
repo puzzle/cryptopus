@@ -1,16 +1,16 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
 class FixAutoUidBug < ActiveRecord::Migration
-  def self.up
+  def up
     # We cannot use the id as the uid, because this is autoincrement
     # Create the User table new tu ensure that autoincrement is on
     user_table = Hash.new
-    User.unscoped.all.each do |user|
+    User.unscoped.find_each do |user|
       user_table[user.id] = Hash.new
       user_table[user.id][:public_key]  = user.public_key
       user_table[user.id][:private_key] = user.private_key
@@ -18,13 +18,13 @@ class FixAutoUidBug < ActiveRecord::Migration
       user_table[user.id][:admin]       = user.admin
     end
 
-    drop_table "users"
-    create_table "users", :force => true do |t|
-      t.column "public_key",  :text,                       :null => false
-      t.column "private_key", :binary,                     :null => false
-      t.column "password",    :binary
-      t.column "admin",       :boolean, :default => false, :null => false
-      t.column "uid",         :integer,                    :null => false
+    drop_table :users
+    create_table :users, force: true do |t|
+      t.text :public_key, null: false
+      t.binary :private_key, null: false
+      t.binary :password
+      t.boolean :admin, default: false, null: false
+      t.integer :uid, null: false
     end
     User.reset_column_information
 
@@ -38,13 +38,13 @@ class FixAutoUidBug < ActiveRecord::Migration
       new_user.save
     end
 
-    Recryptrequest.all.each do |recryptrequest|
+    Recryptrequest.find_each do |recryptrequest|
       user = User.where("uid = ?", recryptrequest.user_id).first
       recryptrequest.user_id = user.id
       recryptrequest.save
     end
 
-    Teammember.all.each do |teammember|
+    Teammember.find_each do |teammember|
       user = User.where("uid = ?", teammember.user_id).first
       teammember.user_id = user.id
       teammember.save
@@ -52,20 +52,20 @@ class FixAutoUidBug < ActiveRecord::Migration
 
   end
 
-  def self.down
-    Teammember.all.each do |teammember|
+  def down
+    Teammember.find_each do |teammember|
       user = User.find(teammember.user_id)
       teammember.user_id = user.uid
       teammember.save
     end
 
-    Recryptrequest.all.each do |recryptrequest|
+    Recryptrequest.find_each do |recryptrequest|
       user = User.find(recryptrequest.user_id)
       recryptrequest.user_id = user.uid
       recryptrequest.save
     end
 
-    remove_column "users", "id"
-    rename_column "users", "uid", "id"
+    remove_column :users, :id
+    rename_column :users, :uid, :id
   end
 end
