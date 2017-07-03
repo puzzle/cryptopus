@@ -71,7 +71,7 @@ class SourceIpCheckerTest <  ActiveSupport::TestCase
   end
 
   test 'raises error if geo dat file missing' do
-    File.expects(:exists?).returns(false)
+    File.expects(:exist?).returns(false)
     ch_ip = '46.140.0.1'
 
     Authentication::SourceIpChecker.any_instance.stubs(:private_ip?).returns(false)

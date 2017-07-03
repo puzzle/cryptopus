@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 # == Schema Information
 #
 # Table name: users
@@ -123,7 +124,7 @@ class User < ActiveRecord::Base
     update_attribute(:last_login_at, Time.zone.now)
   end
 
-  def set_last_login_ip(last_login_ip)
+  def update_last_login_ip(last_login_ip)
     update_attribute(:last_login_from, last_login_ip)
   end
 

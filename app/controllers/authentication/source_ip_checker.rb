@@ -68,7 +68,7 @@ class Authentication::SourceIpChecker
 
   def geo_ip
     geo_dat_file_path = "#{Rails.root}/db/GeoIP.dat"
-    unless File.exists?(geo_dat_file_path)
+    unless File.exist?(geo_dat_file_path)
       raise 'geo ip data file missing: please run rake geo:fetch'
     end
     GeoIP.new(geo_dat_file_path)

@@ -15,7 +15,6 @@ class LoginsController < ApplicationController
   def login; end
 
   def authenticate
-    authenticator = Authentication::UserAuthenticator.new(params)
     unless authenticator.password_auth!
       flash[:error] = t('flashes.logins.auth_failed')
       return redirect_to login_login_path
@@ -70,7 +69,7 @@ class LoginsController < ApplicationController
       if session[:last_login_from]
         last_login_country =
           GeoIP.new('db/GeoIP.dat').country(session[:last_login_from]).country_code3
-        if last_login_country.present? && last_login_country != "--"
+        if last_login_country.present? && last_login_country != '--'
           flash[:notice] = t(:last_login_date_and_from_country,
                              last_login_date: l(session[:last_login_at], format: :long),
                              last_login_from: session[:last_login_from],
@@ -100,7 +99,7 @@ class LoginsController < ApplicationController
     begin
       set_session_attributes(user, password)
       user.update_info
-      user.set_last_login_ip(request.remote_ip)
+      user.update_last_login_ip(request.remote_ip)
       CryptUtils.validate_keypair(session[:private_key], user.public_key)
     rescue Exceptions::DecryptFailed
       return false
@@ -149,4 +148,9 @@ class LoginsController < ApplicationController
     end
     true
   end
+
+  def authenticator
+    Authentication::UserAuthenticator.new(params)
+  end
+
 end
