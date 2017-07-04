@@ -64,27 +64,8 @@ class LoginsController < ApplicationController
   private
 
   def last_login_message
-    if session[:last_login_at]
-      #   if user.last_login_from.present?
-      if session[:last_login_from]
-        last_login_country =
-          GeoIP.new('db/GeoIP.dat').country(session[:last_login_from]).country_code3
-        if last_login_country.present? && last_login_country != '--'
-          flash[:notice] = t(:last_login_date_and_from_country,
-                             last_login_date: l(session[:last_login_at], format: :long),
-                             last_login_from: session[:last_login_from],
-                             last_login_country: last_login_country)
-
-        else
-          flash[:notice] = t(:last_login_date_and_from,
-                             last_login_date: l(session[:last_login_at], format: :long),
-                             last_login_from: session[:last_login_from])
-        end
-      else
-        flash[:notice] = t(:last_login_date,
-                           last_login_date: l(session[:last_login_at], format: :long))
-      end
-    end
+    flash_message = Flash::LastLoginMessage.new(session)
+    flash[:notice] = flash_message.message if flash_message
   end
 
   def check_password_strength

@@ -28,9 +28,9 @@ en:
   recrypt_requests: "Recrypt requests"
   users: "Users"
   change_password: "Change password"
-  last_login_date_and_from: "The last login was on %{last_login_date} from %{last_login_from}"
-  last_login_date_and_from_country: "The last login was on %{last_login_date} from %{last_login_from} (%{last_login_country})"
-  last_login_date: "The last login was on %{last_login_date}"
+  last_login_date_and_from: "The last login was on %{last_login_at} from %{last_login_from}"
+  last_login_date_and_from_country: "The last login was on %{last_login_at} from %{last_login_from} (%{last_login_country})"
+  last_login_date: "The last login was on %{last_login_at}"
   unencrypted_field_caption: not encrypted
   group: "Group"
   team: "Team"
