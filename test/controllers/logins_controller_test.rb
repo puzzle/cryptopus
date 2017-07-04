@@ -135,21 +135,7 @@ class LoginsControllerTest < ActionController::TestCase
     assert_equal 200, response.status
   end
 
-  test 'should show last login at after login' do
-    user = users(:bob)
-    user.update_attributes(last_login_at: '2017-01-01 16:00:00 + 0000', last_login_from: '192.168.210.10')
-
-    post :authenticate, password: 'password', username: 'bob'
-    assert_equal('The last login was on January 01, 2017 16:00 from 192.168.210.10', flash[:notice])
-  end
-
-  test 'should not show empty last login at after login' do
-    users(:bob).update_attribute(:last_login_at, nil)
-    post :authenticate, password: 'password', username: 'bob'
-    assert_nil(flash[:notice])
-  end
-
-  test 'should update last login at if user logs in' do
+  test 'updates last login at if user logs in' do
     time = Time.zone.now
     ActiveSupport::TimeZone.any_instance.stubs(:now).returns(time)
 
@@ -159,7 +145,21 @@ class LoginsControllerTest < ActionController::TestCase
     assert_equal(time.to_s, users(:bob).last_login_at.to_s)
   end
 
-  test 'should not show empty last login from after login' do
+  test 'shows last login datetime and ip without country' do
+    user = users(:bob)
+    user.update_attributes(last_login_at: '2017-01-01 16:00:00 + 0000', last_login_from: '192.168.210.10')
+
+    post :authenticate, password: 'password', username: 'bob'
+    assert_equal('The last login was on January 01, 2017 16:00 from 192.168.210.10', flash[:notice])
+  end
+
+  test 'does not show last login date if not available' do
+    users(:bob).update_attribute(:last_login_at, nil)
+    post :authenticate, password: 'password', username: 'bob'
+    assert_nil(flash[:notice])
+  end
+
+  test 'does not show previous login ip if not available' do
     user = users(:bob)
     user.update_attributes(last_login_at: '2017-01-01 16:00:00 + 0000', last_login_from: nil)
 
@@ -167,7 +167,7 @@ class LoginsControllerTest < ActionController::TestCase
     assert_equal('The last login was on January 01, 2017 16:00', flash[:notice])
   end
 
-  test 'shoud show country after login' do
+  test 'shows previous login ip and country' do
     user = users(:bob)
     user.update_attributes(last_login_at: '2001-09-11 19:00:00 + 0000', last_login_from: '153.123.34.34')
 
