@@ -20,6 +20,11 @@ describe LdapTools do
     it "can login with valid username" do
       LdapTools.check_username("validUsername")
     end
+
+    it "can login with username and password" do
+      LdapTools.ldap_login("bob", "password")
+    end
+
   end
 
 end
