@@ -336,6 +336,7 @@
                                         "name": "RAILS_AIRBRAKE_HOST",
                                         "value": "Edit me"
                                     },
+                                    {
                                         "name": "RAILS_AIRBRAKE_API_KEY",
                                         "value": "Edit me"
                                     }
@@ -432,54 +433,6 @@
                     "app": "rails",
                     "deploymentconfig": "rails"
                 },
-                "type": "ClusterIP",
-                "sessionAffinity": "None"
-            },
-            "status": {
-                "loadBalancer": {}
-            }
-        },
-        {
-            "kind": "Endpoints",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "glusterfs-cluster",
-                "creationTimestamp": null
-            },
-            "subsets": [
-                {
-                    "addresses": [
-                        {
-                            "ip": "Edit me"
-                        },
-                        {
-                            "ip": "Edit me"
-                        
-                    ],
-                    "ports": [
-                        {
-                            "port": 1,
-                            "protocol": "TCP"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "glusterfs-cluster",
-                "creationTimestamp": null
-            },
-            "spec": {
-                "ports": [
-                    {
-                        "protocol": "TCP",
-                        "port": 1,
-                        "targetPort": 1
-                    }
-                ],
                 "type": "ClusterIP",
                 "sessionAffinity": "None"
             },
