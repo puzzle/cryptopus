@@ -9,6 +9,7 @@ AllCops:
     - test/**/*
     - tmp/**/*
     - test/**/*
+    - vendor/bundle/**/*
 
 Metrics/AbcSize:
   Max: 20
