@@ -10,6 +10,7 @@ require 'net/ldap'
 class LdapTools
 
   class << self
+    # rubocop:disable MethodLength
     def ldap_login(username, password)
       return unless Setting.value(:ldap, :enable)
       check_username(username)
