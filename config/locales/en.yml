@@ -59,7 +59,8 @@ en:
       add_attachment: "Add attachment"
     edit:
       title: "Editing account"
-
+      generate_password: "Generate password"
+      show_password: "Show password"
     show:
       title: "Account: %{account_name}"
       last_change: "Last change was %{time_ago} ago"

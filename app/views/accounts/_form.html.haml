@@ -13,7 +13,7 @@
     = f.text_field :cleartext_username, autocomplete: :off, class: 'form-control'
   .form-group
     = f.label :password
-    = f.password_field :cleartext_password, autocomplete: :off, class: 'form-control'
+    = f.password_field :cleartext_password, autocomplete: :off, class: 'form-control generatable_password'
     %div#strength
   .form-group
     = f.label :description
@@ -22,3 +22,6 @@
     = f.text_area :description, class: 'form-control'
   = f.submit @submit_button_text, class: 'btn btn-primary'
   =link_to "Cancel", team_group_accounts_path(team_id: params[:team_id], id: params[:group_id] ), {:class=>"btn btn-primary"}
+  = button_tag t('accounts.edit.generate_password'), type: 'button', id: 'generate_button', class: 'btn btn-primary'
+  = check_box_tag 'show_checkbox'
+  = label_tag 'show_password_label', t('accounts.edit.show_password')

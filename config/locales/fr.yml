@@ -61,7 +61,8 @@ fr:
       add_attachment: "Ajouter un attachement"
     edit:
       title: "Modifier le compte"
-
+      generate_password: "Générer mot de passe"
+      show_password: "Afficher mot de passe"
     show:
       title: "Compte: %{account_name}"
       last_change: "Dernière mise à jour il ya %{time_ago}"
