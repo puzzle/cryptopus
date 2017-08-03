@@ -29,6 +29,13 @@ Screenshots
 
 Catch a glimpse of Cryptopus with [these screenshots](https://github.com/puzzle/cryptopus/wiki/Screenshots).
 
+Wiki
+====
+
+Are you interested and would like to know more about Cryptopus?
+
+Then you can read the [Cryptopus Wiki](https://github.com/puzzle/cryptopus/wiki).
+
 Features
 ========
 
