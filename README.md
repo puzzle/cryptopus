@@ -3,9 +3,12 @@ Welcome to Cryptopus
 
 Cryptopus is a ruby on rails web application for storing and sharing
 passwords and other sensitive data. All data is stored encrypted in a
-database, safe from third party access.
+database, safe from third party access. The password manager was
+developed from the need to encrypt access data and make several users
+accessible at the same time. The solution is based in the Webframework
+Ruby on Rails and combines symmetric and asymmetric encryption methods.
 
-Copyright (c) 2008-2016, Puzzle ITC GmbH.
+Copyright (c) 2008-2017, Puzzle ITC GmbH.
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the GNU Affero General Public License as published by
@@ -20,6 +23,11 @@ General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see
 [licenses](http://www.gnu.org/licenses/).
+
+Screenshots
+===========
+
+Catch a glimpse of Cryptopus with [these screenshots](https://github.com/puzzle/cryptopus/wiki/Screenshots).
 
 Features
 ========
