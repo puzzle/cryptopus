@@ -58,7 +58,8 @@ de:
       add_attachment: "Anhang hinzufügen"
     edit:
       title: "Account editieren"
-
+      generate_password: "Passwort generieren"
+      show_password: "Passwort anzeigen"
     show:
       title: "Account: %{account_name}"
       last_change: "Letzte Änderung vor %{time_ago}"
