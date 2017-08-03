@@ -29,9 +29,7 @@ Catch a glimpse of Cryptopus with [these screenshots](https://github.com/puzzle/
 Wiki
 ====
 
-Are you interested and would like to know more about Cryptopus?
-
-Then you can read the [Cryptopus Wiki](https://github.com/puzzle/cryptopus/wiki).
+Want to know more, so check out the [Cryptopus Wiki](https://github.com/puzzle/cryptopus/wiki).
 
 Features
 ========
