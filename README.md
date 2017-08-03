@@ -19,7 +19,7 @@ General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see
-[http://www.gnu.org/licenses/](licenses).
+[licenses](http://www.gnu.org/licenses/).
 
 Features
 ========
@@ -143,11 +143,11 @@ License
 This file is part of Cryptopus
 and licensed under the Affero General Public License version 3 or later.
 See the COPYING file at the top-level directory or at
-[https://github.com/puzzle/cryptopus](Github).
+[Github](https://github.com/puzzle/cryptopus).
 
 Contact Information
 ===================
 
 Cryptopus was made by the guys at Puzzle ITC. Please go to
-[http://www.puzzle.ch/](our website) in order to get in touch
+[our website](http://www.puzzle.ch/) in order to get in touch
 with us.
