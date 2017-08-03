@@ -24,9 +24,6 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see
 [licenses](http://www.gnu.org/licenses/).
 
-Screenshots
-===========
-
 Catch a glimpse of Cryptopus with [these screenshots](https://github.com/puzzle/cryptopus/wiki/Screenshots).
 
 Wiki
