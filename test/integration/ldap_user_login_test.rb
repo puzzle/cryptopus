@@ -8,15 +8,20 @@
 require 'test_helper'
 class LdapUserLoginTest < ActionDispatch::IntegrationTest
 include IntegrationTest::DefaultHelper
+
+  setup :enable_ldap
+
   test 'login as ldap user' do
     #Prepare for Test
     user_bob = users(:bob)
     user_bob.update_attribute(:auth, 'ldap')
+    user_bob.update_attribute(:uid, 42)
 
     # Mock
-    LdapTools.stubs(:ldap_login).returns(true)
-    LdapTools.stubs(:get_ldap_info).with(user_bob.uid, 'givenname').returns('Bob')
-    LdapTools.stubs(:get_ldap_info).with(user_bob.uid, 'sn').returns('test')
+    LdapConnection.any_instance.expects(:login)
+                  .with('bob', 'password')
+                  .returns(true)
+    LdapConnection.any_instance.expects(:ldap_info).twice
 
     # login
     login_as('bob')
@@ -26,6 +31,12 @@ include IntegrationTest::DefaultHelper
   test 'ldap login with wrong password' do
     user_bob = users(:bob)
     user_bob.update_attribute(:auth, 'ldap')
+    user_bob.update_attribute(:uid, 42)
+
+    LdapConnection.any_instance.expects(:login)
+                  .with('bob', 'wrong_password')
+                  .returns(false)
+
     login_as('bob', 'wrong_password')
     assert_includes flash[:error], 'Authentication failed'
   end

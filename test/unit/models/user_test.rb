@@ -69,14 +69,14 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'create user from ldap' do
-    username = 'bob'
-    LdapTools.expects(:get_uid_by_username).returns(42)
-    LdapTools.expects(:get_ldap_info).with('42', 'givenname').returns("bob")
-    LdapTools.expects(:get_ldap_info).with('42', 'sn').returns("test")
+    enable_ldap
+    LdapConnection.any_instance.expects(:uidnumber_by_username).returns(42)
+    LdapConnection.any_instance.expects(:ldap_info).with(42, 'givenname').returns("bob")
+    LdapConnection.any_instance.expects(:ldap_info).with(42, 'sn').returns("test")
 
-    user = User.send(:create_from_ldap, username, 'password')
+    user = User.send(:create_from_ldap, 'bob', 'password')
 
-    assert_equal username, user.username
+    assert_equal 'bob', user.username
     assert_equal 42, user.uid
     assert_equal 'bob', user.givenname
     assert_equal 'test', user.surname
@@ -90,27 +90,26 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'does not return user if user not exists in db and ldap' do
-    enable_ldap_auth
+    enable_ldap
 
-    LdapTools.expects(:ldap_login).with('nobody', 'password').returns(false)
+    LdapConnection.any_instance.expects(:login).with('nobody', 'password').returns(false)
     User.expects(:create_from_ldap).never
 
     user = User.find_or_import_from_ldap('nobody', 'password')
-
     assert_nil user
   end
 
   test 'does not return user if user not exists in db and ldap disabled' do
-    LdapTools.expects(:ldap_login).never
+    LdapConnection.any_instance.expects(:login).never
 
     user = User.find_or_import_from_ldap('nobody', 'password')
     assert_nil user
   end
 
   test 'imports and creates user from ldap' do
-    enable_ldap_auth
-    LdapTools.expects(:ldap_login).with('nobody', 'password').returns(true)
-    User.expects(:create_from_ldap).once
+    enable_ldap
+    LdapConnection.any_instance.expects(:login).with('nobody', 'password').returns(true)
+    User.expects(:create_from_ldap)
 
     user = User.find_or_import_from_ldap('nobody', 'password')
 
@@ -171,14 +170,26 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'new error on user if wrong old password at private_key recryption' do
+    enable_ldap
     user = users(:bob)
     user.update_attribute(:auth, 'ldap')
 
-    LdapTools.stubs(:ldap_login).returns(true)
+    LdapConnection.any_instance.expects(:login).returns(true)
 
     assert_not user.recrypt_private_key!('new_password', 'wrong_old_password')
 
     assert_match(/Your OLD password was wrong/, user.errors.messages[:base][0])
+  end
+
+  test 'cannot auth against ldap if ldap disabled' do
+    user = users(:bob)
+    user.update_attribute(:auth, 'ldap')
+
+    LdapConnection.any_instance.expects(:login).never
+
+    error = assert_raises { user.authenticate('password') }
+
+    assert_equal 'cannot authenticate against ldap since ldap auth is disabled', error.message
   end
 
   test 'new error on user if wrong new password at private_key recryption' do
@@ -202,11 +213,6 @@ class UserTest < ActiveSupport::TestCase
     accounts = users(:root).search_accounts('1 acc')
     assert_equal 1, accounts.count
     assert_equal 'account1', accounts.first.accountname
-  end
-
-  private
-  def enable_ldap_auth
-    Setting.find_by(key: 'ldap_enable').update_attributes(value: true)
   end
 
 end

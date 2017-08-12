@@ -4,24 +4,19 @@
 #
 # Table name: users
 #
-#  id                           :integer          not null, primary key
-#  public_key                   :text             not null
-#  private_key                  :binary           not null
-#  password                     :binary
-#  admin                        :boolean          default("f"), not null
-#  uid                          :integer
-#  last_login_at                :datetime
-#  username                     :string
-#  givenname                    :string
-#  surname                      :string
-#  auth                         :string           default("db"), not null
-#  preferred_locale             :string           default("en"), not null
-#  locked                       :boolean          default("f")
-#  last_failed_login_attempt_at :datetime
-#  failed_login_attempts        :integer          default("0"), not null
-#  last_login_from              :string
+#  id               :integer          not null, primary key
+#  public_key       :text             not null
+#  private_key      :binary           not null
+#  password         :binary
+#  admin            :boolean          default("f"), not null
+#  uid              :integer
+#  last_login_at    :datetime
+#  username         :string
+#  givenname        :string
+#  surname          :string
+#  auth             :string           default("db"), not null
+#  preferred_locale :string           default("en"), not null
 #
-
 
 #  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
@@ -31,6 +26,7 @@
 class User < ActiveRecord::Base
   require 'ipaddr'
   autoload 'Authentication', 'user/authentication'
+  include User::Ldap
   include User::Authentication
 
   validates :username, uniqueness: true
@@ -61,17 +57,6 @@ class User < ActiveRecord::Base
       user
     end
 
-    def find_or_import_from_ldap(username, password)
-      user = find_by(username: username)
-
-      return user if user
-
-      if Setting.value(:ldap, :enable)
-        return unless authenticate_ldap(username, password)
-        create_from_ldap(username, password)
-      end
-    end
-
     def create_root(password)
       user = new(uid: 0,
                  username: 'root',
@@ -87,25 +72,9 @@ class User < ActiveRecord::Base
     def root
       find_by(uid: 0)
     end
-
-    private
-
-    def authenticate_ldap(username, cleartext_password)
-      LdapTools.ldap_login(username, cleartext_password)
-    end
-
-    def create_from_ldap(username, password)
-      user = new
-      user.username = username
-      user.auth = 'ldap'
-      user.uid = LdapTools.get_uid_by_username(username)
-      user.create_keypair password
-      user.update_info
-      user
-    rescue
-      raise Exceptions::UserCreationFailed
-    end
   end
+
+  # Instance Methods
 
   def last_teammember_in_any_team?
     last_teammember_teams.any?
@@ -169,10 +138,6 @@ class User < ActiveRecord::Base
 
   def root?
     uid.zero?
-  end
-
-  def ldap?
-    auth == 'ldap'
   end
 
   def auth_db?
@@ -259,12 +224,6 @@ class User < ActiveRecord::Base
     teammembers.joins(:team).where(teams: { private: false }).destroy_all
   end
 
-  # Updates Information about the user from LDAP
-  def update_info_from_ldap
-    self.givenname = LdapTools.get_ldap_info(uid.to_s, 'givenname')
-    self.surname   = LdapTools.get_ldap_info(uid.to_s, 'sn')
-  end
-
   def protect_if_last_teammember
     !last_teammember_in_any_team?
   end
@@ -278,4 +237,5 @@ class User < ActiveRecord::Base
       end
     end
   end
+
 end

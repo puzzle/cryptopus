@@ -7,12 +7,12 @@
 #  id          :integer          not null, primary key
 #  name        :string(40)       default(""), not null
 #  description :text
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  created_on  :datetime         not null
+#  updated_on  :datetime         not null
 #  visible     :boolean          default("t"), not null
 #  private     :boolean          default("f"), not null
+#  noroot      :boolean          default("0"), not null
 #
-
 
 #  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.

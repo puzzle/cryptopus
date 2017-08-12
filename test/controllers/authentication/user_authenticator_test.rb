@@ -29,17 +29,19 @@ class UserAuthenticatorTest < ActiveSupport::TestCase
     assert_equal false, authenticate
   end
 
-  test 'authenticates against ldap' do
+  test 'ldap authentication succeeds with correct user/password' do
+    enable_ldap
     @params = {username: 'bob', password: 'ldappw'}
     bob.update_attribute(:auth, 'ldap')
-    LdapTools.expects(:ldap_login).with('bob', 'ldappw').returns(true)
+    LdapConnection.any_instance.expects(:login).with('bob', 'ldappw').returns(true)
     assert_equal true, authenticate
   end
 
-  test 'doesnt authenticate against ldap' do
+  test 'ldap authentication fails if wrong password' do
+    enable_ldap
     @params = {username: 'bob', password: 'wrongldappw'}
     bob.update_attribute(:auth, 'ldap')
-    LdapTools.expects(:ldap_login).with('bob', 'wrongldappw').returns(false)
+    LdapConnection.any_instance.expects(:login).with('bob', 'wrongldappw').returns(false)
 
     assert_equal false, authenticate
   end
