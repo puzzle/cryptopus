@@ -71,8 +71,16 @@ class LdapConnection
   end
 
   def connection(options = {})
-    params = { host: settings[:hostname], port: settings[:portnumber], encryption: :simple_tls }
-    params.merge(options)
-    Net::LDAP.new(params)
+    settings[:hostname].each do |host|
+      params = { host: host, port: settings[:portnumber], encryption: :simple_tls }
+      params.merge(options)
+      begin
+        ldap = Net::LDAP.new(params)
+        ldap.bind
+        return ldap
+      rescue
+      end
+    end
   end
+
 end

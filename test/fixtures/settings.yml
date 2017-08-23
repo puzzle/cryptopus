@@ -18,32 +18,32 @@ ldap_basename:
   value: example_basename
   type: Setting::Text
 
-ldap_hostname:   
+ldap_hostname:
   key: ldap_hostname
-  value: example_hostname
-  type: Setting::Text
+  value: ["example_hostname"]
+  type: Setting::Host
 
-ldap_portnumber:   
+ldap_portnumber:
   key: ldap_portnumber
   value: 636
   type: Setting::Number
 
-ldap_encryption:   
+ldap_encryption:
   key: ldap_encryption
   value: simple_tls
   type: Setting::Text
 
-ldap_bind_dn:   
+ldap_bind_dn:
   key: ldap_bind_dn
   value: example_bind_dn
   type: Setting::Text
 
-ldap_bind_password:   
+ldap_bind_password:
   key: ldap_bind_password
   value: example_bind_password
   type: Setting::Text
 
-ldap_bind_enable:   
+ldap_bind_enable:
   key: ldap_enable
   value: false
   type: Setting::TrueFalse
