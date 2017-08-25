@@ -31,6 +31,7 @@ de:
   last_login_date_and_from: "Das letzte Login war am %{last_login_at} von %{last_login_from}"
   last_login_date_and_from_country: "Das letzte Login war am %{last_login_at} von %{last_login_from} (%{last_login_country})"
   last_login_date: "Das letzte Login war am %{last_login_at}"
+  unencrypted_field_caption: nicht verschlüsselt
   group: "Gruppe"
   team: "Team"
   move: "Bewegen"
