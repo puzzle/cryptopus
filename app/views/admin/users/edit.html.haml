@@ -5,7 +5,7 @@
 
 %h1= t '.title'
 - @submit_button_text = t(:update)
-= render partial: 'form'
+= render 'form'
 - if @user.auth_db? && !@user.new_record?
   %br/
   = form_tag(resetpassword_admin_recryptrequests_path(user_id: @user.id)) do

@@ -16,9 +16,9 @@
     = stylesheet_link_tag :application, media: "all"
     = javascript_include_tag :application
   %body
-    = render partial: 'layouts/icons'
+    = render 'layouts/icons'
     .container.main{role: "main"}
-      = render partial: 'layouts/navigation'
-      = render partial: 'layouts/flashes'
+      = render 'layouts/navigation'
+      = render 'layouts/flashes'
       = yield
-    = render partial: 'layouts/footer' if current_user
+    = render 'layouts/footer' if current_user

@@ -20,4 +20,4 @@
       %td= simple_format group.description
       %td.action_icon= link_to image_tag("edit.svg"), [:edit, team, group]
       %td.action_icon= link_to_destroy [team, group], group
-= render partial: 'teammembers/index'
+= render 'teammembers/index'

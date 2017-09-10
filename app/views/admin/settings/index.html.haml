@@ -15,7 +15,7 @@
 = form_tag :update_all_admin_settings, role: 'form' do
   .tab-content.settings-content
     #general-settings.tab-pane.fade.in.active
-      = render partial: 'general'
+      = render 'general'
     #ldap-settings.tab-pane.fade
-      = render partial: 'ldap'
+      = render 'ldap'
   = submit_tag t('admin.settings.index.save'), class: 'btn btn-primary'
