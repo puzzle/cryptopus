@@ -15,7 +15,7 @@ class QuickSearchFeatureTest < Capybara::Rails::TestCase
     login_as_user(:bob)
     page.must_have_selector('.form-group.search')
 
-    fill_in 'search_string', with: 'lkj'
+    fill_in 'q', with: 'lkj'
     assert_not(page.has_css?('li.result'))
   end
 
@@ -23,7 +23,7 @@ class QuickSearchFeatureTest < Capybara::Rails::TestCase
     login_as_user(:bob)
     page.must_have_selector('.form-group.search')
 
-    fill_in 'search_string', with: 'account1'
+    fill_in 'q', with: 'account1'
     page.must_have_selector('.account-entry')
     all('.account-entry')[0].click
     page.must_have_selector('.password-show', visible: true)
