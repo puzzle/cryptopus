@@ -57,7 +57,7 @@ class ActiveSupport::TestCase
 end
 
 class Capybara::Rails::TestCase
-  self.use_transactional_fixtures = false
+  self.use_transactional_tests = false
   DatabaseCleaner.strategy = :truncation
 
   setup do

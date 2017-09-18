@@ -21,7 +21,7 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
     login_as(:admin)
     bob = users(:bob)
 
-    post :resetpassword, new_password: 'test', user_id: bob.id
+    post :resetpassword, params: { new_password: 'test', user_id: bob.id }
 
     assert_match /test/, flash[:error]
   end
@@ -31,7 +31,7 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
     bob = users(:bob)
     bob_only_team_id = teams(:team2).id
 
-    post :resetpassword, new_password: 'test', user_id: bob.id
+    post :resetpassword, params: { new_password: 'test', user_id: bob.id }
 
     bob.reload
     
@@ -45,7 +45,7 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
     bob = users(:bob)
     bob_password = bob.password
 
-    post :resetpassword, user_id: bob.id
+    post :resetpassword, params: { user_id: bob.id }
 
     bob.reload
 
@@ -60,7 +60,7 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
     bob.update_attribute(:auth, 'ldap')
     bob_password = bob.password
 
-    post :resetpassword, new_password: 'test', user_id: bob.id
+    post :resetpassword, params: { new_password: 'test', user_id: bob.id }
 
     bob.reload
 
@@ -73,7 +73,7 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
     alice = users(:alice)
     alice_password = alice.password
 
-    post :resetpassword, new_password: 'test', user_id: alice.id
+    post :resetpassword, params: { new_password: 'test', user_id: alice.id }
 
     alice.reload
 

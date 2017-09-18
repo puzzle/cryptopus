@@ -16,7 +16,7 @@ module Admin::SettingsHelper
                else
                  input_field_setting_default(setting)
                end
-    content_tag(:div, content.html_safe, class: 'form-group').html_safe
+    safe_join([content_tag(:div, content.html_safe, class: 'form-group')])
   end
 
   def selectize_input_field(setting)

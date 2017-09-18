@@ -16,7 +16,7 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
     task.stubs(:execute).returns(false)
 
     login_as(:admin)
-    post :execute, id: 0, task_params: {root_password: 'password'}
+    post :execute, params: { id: 0, task_params: {root_password: 'password'} }
 
     assert_match /Task failed/, flash[:error]
   end
@@ -27,14 +27,14 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
     task.stubs(:execute).returns(true)
 
     login_as(:admin)
-    post :execute, id: 0, task_params: {root_password: 'password'}
+    post :execute, params: { id: 0, task_params: {root_password: 'password'} }
 
     assert_match /successfully/, flash[:notice]
   end
 
   test 'prepares task from array' do
     login_as(:admin)
-    get :prepare, id: 0, task_params: {type: 'password', label: :root_password}
+    get :prepare, params: { id: 0, task_params: {type: 'password', label: :root_password} }
     assert_equal MaintenanceTasks::RootAsAdmin, assigns(:maintenance_task)
   end
 

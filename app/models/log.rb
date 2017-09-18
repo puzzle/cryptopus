@@ -19,8 +19,8 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Log < ActiveRecord::Base
+class Log < ApplicationRecord
   default_scope { order('created_at DESC') }
-  validates_inclusion_of :log_type, in: %w[maintenance_task]
-  validates_inclusion_of :status, in: %w[failed success]
+  validates :log_type, inclusion: %w[maintenance_task]
+  validates :status, inclusion: %w[failed success]
 end

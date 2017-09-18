@@ -85,11 +85,13 @@ class app.TeamMembers
       show_members()
       load_candidates()
 
-    $(document).on 'click', '.show_members', ->
+    $(document).on 'click', '.show_members', (e) ->
+      e.preventDefault()
       toggle_members()
       load_members()
 
     $(document).on 'click', '.members li .remove_member', (e) ->
+      e.preventDefault()
       delete_member(e)
 
   new TeamMembers

@@ -13,7 +13,7 @@ class Admin::SettingsControllerTest < ActionController::TestCase
 
   test 'update setting attributes' do
     login_as(:admin)
-    post :update_all, setting: {ldap_basename: 'test_basename', ldap_portnumber: '1234', ldap_enable: 'f'}
+    post :update_all, params: { setting: {ldap_basename: 'test_basename', ldap_portnumber: '1234', ldap_enable: 'f'} }
     assert_equal 'test_basename', Setting.value(:ldap, :basename)
     assert_equal '1234', Setting.value(:ldap, :portnumber)
     assert_not Setting.value(:ldap, :enable)
@@ -23,7 +23,7 @@ class Admin::SettingsControllerTest < ActionController::TestCase
   test 'show error if one setting is invalid' do
     login_as(:admin)
 
-    post :update_all, setting: {general_ip_whitelist: ['a.b.c.d/99']}
+    post :update_all, params: { setting: {general_ip_whitelist: ['a.b.c.d/99']} }
 
     assert_equal 'invalid ip address: a.b.c.d/99', flash[:error]
   end

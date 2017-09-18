@@ -12,7 +12,7 @@ class app.AccountMove
   renderMoveAccountForm = ->
     $(@account_move).show()
     render_teams()
-     
+
   render_teams = ->
     teams_container = $('.move_list_team')
     team_url = '/api/teams'
@@ -44,7 +44,8 @@ class app.AccountMove
     $(document).on 'page:load', render_teams
     $(document).on 'change', '.move_team select', (e) ->
       load_groups()
-    $(document).on 'click', '#move_account_button', ->
+    $(document).on 'click', '#move_account_button', (e) ->
+      e.preventDefault()
       renderMoveAccountForm()
 
   new AccountMove

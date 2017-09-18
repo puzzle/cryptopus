@@ -17,7 +17,7 @@ class Api::Team::Group::AccountsControllerTest < ActionController::TestCase
     group = groups(:group1)
     account = accounts(:account1)
 
-    xhr :get, :show, team_id: team, group_id: group, id: account
+    get :show, params: { team_id: team, group_id: group, id: account }, xhr: true
     account = JSON.parse(response.body)['data']['account']
 
     assert_equal 'account1', account['accountname']
