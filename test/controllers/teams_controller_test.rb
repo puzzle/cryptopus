@@ -1,4 +1,17 @@
 # encoding: utf-8
+# == Schema Information
+#
+# Table name: teams
+#
+#  id          :integer          not null, primary key
+#  name        :string(40)       default(""), not null
+#  description :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  visible     :boolean          default(TRUE), not null
+#  private     :boolean          default(FALSE), not null
+#
+
 
 #  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
@@ -15,7 +28,7 @@ class TeamsControllerTest < ActionController::TestCase
     login_as(:admin)
 
     assert_difference('Team.count', -1) do
-      delete :destroy, id: teams(:team1).id
+      delete :destroy, params: { id: teams(:team1).id }
     end
 
     assert_redirected_to teams_path
@@ -26,7 +39,7 @@ class TeamsControllerTest < ActionController::TestCase
     login_as(:bob)
 
     assert_difference('Team.count', 0) do
-      delete :destroy, id: teams(:team1).id
+      delete :destroy, params: { id: teams(:team1).id }
     end
 
     assert_redirected_to teams_path
@@ -39,7 +52,7 @@ class TeamsControllerTest < ActionController::TestCase
     teammembers(:team1_bob).delete
 
     assert_difference('Team.count', 0) do
-      delete :destroy, id: teams(:team1).id
+      delete :destroy, params: { id: teams(:team1).id }
     end
 
     assert_redirected_to teams_path
@@ -52,7 +65,7 @@ class TeamsControllerTest < ActionController::TestCase
     teammembers(:team1_admin).delete
 
     assert_difference('Team.count', -1) do
-      delete :destroy, id: teams(:team1).id
+      delete :destroy, params: { id: teams(:team1).id }
     end
 
     assert_redirected_to teams_path
@@ -76,7 +89,7 @@ class TeamsControllerTest < ActionController::TestCase
 
     team_params = {name: 'foo', private: false, description: 'foo foo' }
 
-    post :create, team: team_params
+    post :create, params: { team: team_params }
 
     assert_redirected_to teams_path
 
@@ -97,7 +110,7 @@ class TeamsControllerTest < ActionController::TestCase
 
     update_params = { private: true }
 
-    put :update, id: team, team: update_params
+    put :update, params: { id: team, team: update_params }
 
     team.reload
 
@@ -112,7 +125,7 @@ class TeamsControllerTest < ActionController::TestCase
 
     update_params = { private: false }
 
-    put :update, id: team, team: update_params
+    put :update, params: { id: team, team: update_params }
 
     team.reload
 
@@ -124,7 +137,7 @@ class TeamsControllerTest < ActionController::TestCase
 
     team1 = teams(:team1)
 
-    get :edit, id: team1
+    get :edit, params: { id: team1 }
 
     assert_select '.breadcrumb', text: 'Teamsteam1'
     assert_select '.breadcrumb a', count: 1

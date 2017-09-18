@@ -31,6 +31,7 @@ de:
   last_login_date_and_from: "Das letzte Login war am %{last_login_at} von %{last_login_from}"
   last_login_date_and_from_country: "Das letzte Login war am %{last_login_at} von %{last_login_from} (%{last_login_country})"
   last_login_date: "Das letzte Login war am %{last_login_at}"
+  unencrypted_field_caption: nicht verschlüsselt
   group: "Gruppe"
   team: "Team"
   move: "Bewegen"
@@ -58,7 +59,7 @@ de:
       add_attachment: "Anhang hinzufügen"
     edit:
       title: "Account editieren"
-
+      generate_password: "Passwort generieren"
     show:
       title: "Account: %{account_name}"
       last_change: "Letzte Änderung vor %{time_ago}"

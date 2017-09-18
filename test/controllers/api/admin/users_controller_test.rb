@@ -10,27 +10,27 @@ require 'test_helper'
 class Api::Admin::UsersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
-  
+
   test 'admin empowers user' do
     teammembers(:team1_bob).destroy
     bob = users(:bob)
 
     login_as(:admin)
-    xhr :patch, :toggle_admin, user_id: bob
+    patch :toggle_admin, params: { user_id: bob }, xhr: true
 
     bob.reload
     assert bob.admin?
     assert bob.teammembers.find_by(team_id: teams(:team1))
   end
-  
+
   test 'admin disempowers user' do
     teammembers(:team1_bob).destroy
     bob = users(:bob)
 
     login_as(:admin)
-    xhr :patch, :toggle_admin, user_id: bob
+    patch :toggle_admin, params: { user_id: bob }, xhr: true
     bob.reload
-    xhr :patch, :toggle_admin, user_id: bob
+    patch :toggle_admin, params: { user_id: bob }, xhr: true
     bob.reload
 
     assert_not bob.admin?

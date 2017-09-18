@@ -4,18 +4,22 @@
 #
 # Table name: users
 #
-#  id               :integer          not null, primary key
-#  public_key       :text             not null
-#  private_key      :binary           not null
-#  password         :binary
-#  admin            :boolean          default("f"), not null
-#  uid              :integer
-#  last_login_at    :datetime
-#  username         :string
-#  givenname        :string
-#  surname          :string
-#  auth             :string           default("db"), not null
-#  preferred_locale :string           default("en"), not null
+#  id                           :integer          not null, primary key
+#  public_key                   :text             not null
+#  private_key                  :binary           not null
+#  password                     :binary
+#  admin                        :boolean          default(FALSE), not null
+#  uid                          :integer
+#  last_login_at                :datetime
+#  username                     :string
+#  givenname                    :string
+#  surname                      :string
+#  auth                         :string           default("db"), not null
+#  preferred_locale             :string           default("en"), not null
+#  locked                       :boolean          default(FALSE)
+#  last_failed_login_attempt_at :datetime
+#  failed_login_attempts        :integer          default(0), not null
+#  last_login_from              :string
 #
 
 #  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
@@ -23,7 +27,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   require 'ipaddr'
   autoload 'Authentication', 'user/authentication'
   include User::Ldap

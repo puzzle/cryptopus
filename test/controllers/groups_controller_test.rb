@@ -1,4 +1,16 @@
 # encoding: utf-8
+# == Schema Information
+#
+# Table name: groups
+#
+#  id          :integer          not null, primary key
+#  name        :string(40)       default(""), not null
+#  description :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  team_id     :integer          default(0), not null
+#
+
 
 #  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
@@ -14,7 +26,7 @@ class GroupsControllerTest < ActionController::TestCase
     login_as (:bob)
     team1 = teams(:team1)
 
-    get :index, team_id: team1
+    get :index, params: { team_id: team1 }
     assert_select '.breadcrumb', text: 'Teamsteam1'
     assert_select '.breadcrumb a', count: 1
     assert_select '.breadcrumb a', text: 'Teams'
@@ -27,7 +39,7 @@ class GroupsControllerTest < ActionController::TestCase
     team1 = teams(:team1)
     group1 = groups(:group1)
 
-    get :edit, id: group1, team_id: team1
+    get :edit, params: { id: group1, team_id: team1 }
     assert_select '.breadcrumb', text: 'Teamsteam1group1'
     assert_select '.breadcrumb a', count: 2
     assert_select '.breadcrumb a', text: 'Teams'
@@ -41,7 +53,7 @@ class GroupsControllerTest < ActionController::TestCase
     team = teams(:team1)
 
     update_params = { name: 'new_name', description: 'new_description' }
-    put :update, team_id: team, id: group, group: update_params
+    put :update, params: { team_id: team, id: group, group: update_params }
 
     group.reload
 
@@ -53,7 +65,7 @@ class GroupsControllerTest < ActionController::TestCase
     login_as(:bob)
 
     assert_difference('Group.count', -1) do
-      delete :destroy, id: groups(:group1), team_id: teams(:team1)
+      delete :destroy, params: { id: groups(:group1), team_id: teams(:team1) }
     end
 
     assert_redirected_to team_groups_path
@@ -64,7 +76,7 @@ class GroupsControllerTest < ActionController::TestCase
 
     login_as(:alice)
 
-    get :index, team_id: team2
+    get :index, params: { team_id: team2 }
 
     assert_match /You are not member of this team/, flash[:error]
     assert_redirected_to teams_path

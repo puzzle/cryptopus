@@ -5,7 +5,7 @@
 # Table name: items
 #
 #  id           :integer          not null, primary key
-#  account_id   :integer          default("0"), not null
+#  account_id   :integer          default(0), not null
 #  description  :text
 #  file         :binary
 #  created_at   :datetime         not null
@@ -14,13 +14,12 @@
 #  content_type :text             not null
 #
 
-
 #  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Item < ActiveRecord::Base
+class Item < ApplicationRecord
   belongs_to :account
   validates :filename, uniqueness: { scope: :account }
   validates :description, length: { maximum: 300 }
@@ -84,12 +83,12 @@ class Item < ActiveRecord::Base
 
   def decrypt_attr(attr, team_password)
     crypted_file = send(attr)
-    return unless crypted_file.present?
+    return if crypted_file.blank?
     CryptUtils.decrypt_blob(crypted_file, team_password)
   end
 
   def encrypt_file(team_password)
-    return unless cleartext_file.present?
+    return if cleartext_file.blank?
     crypted_file = CryptUtils.encrypt_blob(cleartext_file, team_password)
     self.file = crypted_file
   end

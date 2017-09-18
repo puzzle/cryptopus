@@ -31,9 +31,20 @@ class app.SettingSelectize
       items: $("#ip-whitelist").data('whitelist').split(' ')
     )
 
+  selectize_hosts = ->
+    return if $("#host-whitelist").length <= 0
+    $("#host-whitelist").selectize(
+      delimiter: ','
+      create: true
+      addPrecedence: true
+      allowEmptyOption: true
+      plugins: ['remove_button']
+      items: $("#host-whitelist").data('whitelist').split(' ')
+    )
+
   bind = ->
     $(document).on 'page:change', selectize_countries
     $(document).on 'page:change', selectize_ips
-      
+    $(document).on 'page:change', selectize_hosts
 
   new SettingSelectize

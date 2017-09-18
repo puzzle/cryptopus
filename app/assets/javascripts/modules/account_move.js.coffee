@@ -1,6 +1,8 @@
-# Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
-# Cryptopus and licensed under the Affero General Public License version 3 or later.
-# See the COPYING file at the top-level directory or at
+# Copyright (c) 2008-2016, Puzzle ITC GmbH.
+# This file is part of Cryptopus and licensed
+# under the Affero General Public License
+# version 3 or later. See the COPYING file
+# at the top-level directory or at
 # https://github.com/puzzle/cryptopus.
 
 app = window.App ||= {}
@@ -44,7 +46,8 @@ class app.AccountMove
     $(document).on 'page:load', render_teams
     $(document).on 'change', '.move_team select', (e) ->
       load_groups()
-    $(document).on 'click', '#move_account_button', ->
+    $(document).on 'click', '#move_account_button', (e) ->
+      e.preventDefault()
       renderMoveAccountForm()
 
   new AccountMove

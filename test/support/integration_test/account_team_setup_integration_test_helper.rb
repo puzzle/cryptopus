@@ -11,16 +11,16 @@ module IntegrationTest
       login_as(username.to_s, user_password)
 
       #New Team
-      post teams_path, team: {name: 'Web', description: 'team_description', private: private}
+      post teams_path, params: { team: {name: 'Web', description: 'team_description', private: private} }
 
       #New Group
       team = Team.find_by_name('Web')
-      post team_groups_path(team_id: team.id), group: {name: 'Default', description: 'group_description'}
+      post team_groups_path(team_id: team.id), params: { group: {name: 'Default', description: 'group_description'} }
 
       #New Account
       group = team.groups.find_by_name('Default')
       account_path = team_group_accounts_path(team_id: team.id, group_id: group.id)
-      post account_path, account: {accountname: 'puzzle', description: 'account_description', cleartext_username: 'account_username', cleartext_password: 'account_password'}
+      post account_path, params: { account: {accountname: 'puzzle', description: 'account_description', cleartext_username: 'account_username', cleartext_password: 'account_password'} }
 
       logout
       group.accounts.find_by_accountname('puzzle')

@@ -1,5 +1,18 @@
 # encoding: utf-8
 
+# == Schema Information
+#
+# Table name: teammembers
+#
+#  id         :integer          not null, primary key
+#  team_id    :integer          default(0), not null
+#  password   :binary           not null
+#  user_id    :integer          default(0), not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+
 # Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
 # Cryptopus and licensed under the Affero General Public License version 3 or later.
 # See the COPYING file at the top-level directory or at

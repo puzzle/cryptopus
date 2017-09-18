@@ -7,11 +7,10 @@
 #  id          :integer          not null, primary key
 #  name        :string(40)       default(""), not null
 #  description :text
-#  created_on  :datetime         not null
-#  updated_on  :datetime         not null
-#  visible     :boolean          default("t"), not null
-#  private     :boolean          default("f"), not null
-#  noroot      :boolean          default("0"), not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  visible     :boolean          default(TRUE), not null
+#  private     :boolean          default(FALSE), not null
 #
 
 #  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
@@ -19,7 +18,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Team < ActiveRecord::Base
+class Team < ApplicationRecord
   has_many :groups, -> { order :name }, dependent: :destroy
   has_many :teammembers, dependent: :delete_all
   has_many :members, through: :teammembers, source: :user
@@ -69,7 +68,7 @@ class Team < ActiveRecord::Base
   end
 
   def teammember(user_id)
-    teammembers.where(user_id: user_id).first
+    teammembers.find_by(user_id: user_id)
   end
 
   def add_user(user, plaintext_team_password)

@@ -15,7 +15,7 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
     login_as(:admin)
     team = Team.create(users(:admin), {name: 'foo'})
 
-    xhr :get, :candidates, team_id: team
+    get :candidates, params: { team_id: team }, xhr: true
 
     candidates = JSON.parse(response.body)['data']['users']
 
@@ -30,7 +30,7 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
     team = teams(:team1)
     teammembers(:team1_bob).destroy!
 
-    xhr :get, :index, team_id: team
+    get :index, params: { team_id: team }, xhr: true
 
     members = JSON.parse(response.body)['data']['teammembers']
 
@@ -44,7 +44,7 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
     team = teams(:team1)
     user = Fabricate(:user)
 
-    xhr :post, :create, team_id: team, user_id: user
+    post :create, params: { team_id: team, user_id: user }, xhr: true
 
     assert team.teammember?(user), 'User should be added to team'
   end
@@ -53,14 +53,14 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
     login_as(:alice)
 
     assert_raise do
-      xhr :delete, :destroy, team_id: teams(:team1), id: users(:admin)
+      delete :destroy, params: { team_id: teams(:team1), id: users(:admin) }, xhr: true
     end
   end
 
   test 'remove teammember from team' do
     login_as(:alice)
     assert_difference('Teammember.count', -1) do
-      xhr :delete, :destroy, team_id: teams(:team1), id: users(:bob)
+      delete :destroy, params: { team_id: teams(:team1), id: users(:bob) }, xhr: true
     end
   end
 end

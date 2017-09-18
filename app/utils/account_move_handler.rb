@@ -11,7 +11,7 @@ class AccountMoveHandler < AccountHandler
 
   def move(new_group)
     @new_group = new_group
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       move_account_to_new_team unless same_team?
 
       account.group_id = new_group.id

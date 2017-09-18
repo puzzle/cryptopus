@@ -4,7 +4,7 @@
 #
 #  id          :integer          not null, primary key
 #  accountname :string(70)       default(""), not null
-#  group_id    :integer          default("0"), not null
+#  group_id    :integer          default(0), not null
 #  description :text
 #  username    :binary
 #  password    :binary

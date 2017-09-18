@@ -16,7 +16,7 @@ class AddAttachmentToAccountTest < ActionDispatch::IntegrationTest
     login_as('bob')
     items_path = team_group_account_items_path team, group, account
     file_path = 'test/fixtures/files/test_file.txt'
-    post items_path, item: {file: fixture_file_upload(file_path, 'text/plain')}
+    post items_path, params: { item: {file: fixture_file_upload(file_path, 'text/plain')} }
     logout
 
     login_as('alice')

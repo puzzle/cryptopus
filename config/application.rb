@@ -5,16 +5,13 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
 require 'rails/all'
 
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require(:default, Rails.env)
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
-end
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require(*Rails.groups)
 
 module Cryptopus
   class Application < Rails::Application
@@ -22,8 +19,8 @@ module Cryptopus
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Custom directories with classes and modules you want to be autoloadable.
-    # config.autoload_paths += %W(#{config.root}/extras)
+#    Custom directories with classes and modules you want to be autoloadable.
+    config.autoload_paths += %W(#{config.root}/extras)
     config.autoload_paths += [config.root.join('lib')]
 
     # Only load the plugins named here, in the order given (default is alphabetical).
@@ -62,10 +59,15 @@ module Cryptopus
     # Filter password out form log files
     config.filter_parameters << :password
 
+
     config.generators do |g|
       g.test_framework      :minitest, fixture_replacement: :fabrication
       g.fixture_replacement :fabrication, dir: "test/fabricators"
     end
+
+    ActiveSupport.halt_callback_chains_on_return_false = false
+
+    config.action_controller.permit_all_parameters = true
 
     config.time_zone = ENV['TIME_ZONE'] || 'Bern'
 
