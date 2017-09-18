@@ -4,7 +4,7 @@
 # Table name: items
 #
 #  id           :integer          not null, primary key
-#  account_id   :integer          default("0"), not null
+#  account_id   :integer          default(0), not null
 #  description  :text
 #  file         :binary
 #  created_at   :datetime         not null

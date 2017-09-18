@@ -26,14 +26,16 @@ include IntegrationTest::DefaultHelper
 
   test 'bob logs out manuel' do
     login_as('bob')
-    get_via_redirect logout_login_path
+    get logout_login_path
+    follow_redirect!
     assert_equal login_login_path, request.fullpath
   end
 
   test 'goto requested page after login' do
     account = accounts(:account1)
     account1_path = team_group_account_path('en',account.group.team, account.group, account)
-    get_via_redirect account1_path
+    get account1_path
+    follow_redirect!
     assert_equal login_login_path, request.fullpath
     login_as('bob')
     assert_equal account1_path, request.fullpath

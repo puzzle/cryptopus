@@ -6,7 +6,7 @@
 #
 #  id          :integer          not null, primary key
 #  accountname :string(70)       default(""), not null
-#  group_id    :integer          default("0"), not null
+#  group_id    :integer          default(0), not null
 #  description :text
 #  username    :binary
 #  password    :binary
@@ -14,13 +14,12 @@
 #  updated_at  :datetime         not null
 #
 
-
 #  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Account < ActiveRecord::Base
+class Account < ApplicationRecord
 
   belongs_to :group
   has_many :items, dependent: :destroy
@@ -50,18 +49,18 @@ class Account < ActiveRecord::Base
 
   def decrypt_attr(attr, team_password)
     crypted_value = send(attr)
-    return unless crypted_value.present?
+    return if crypted_value.blank?
     CryptUtils.decrypt_blob(crypted_value, team_password)
   end
 
   def encrypt_username(team_password)
-    return self.username = '' unless cleartext_username.present?
+    return self.username = '' if cleartext_username.blank?
     crypted_value = CryptUtils.encrypt_blob(cleartext_username, team_password)
     self.username = crypted_value
   end
 
   def encrypt_password(team_password)
-    return unless cleartext_password.present?
+    return if cleartext_password.blank?
     crypted_value = CryptUtils.encrypt_blob(cleartext_password, team_password)
     self.password = crypted_value
   end

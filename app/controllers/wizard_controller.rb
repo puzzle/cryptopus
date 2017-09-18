@@ -35,7 +35,7 @@ class WizardController < ApplicationController
 
   def create_session_and_redirect(password)
     reset_session
-    user = User.find_by_username('root')
+    user = User.find_by(username: 'root')
     request.session[:user_id] = user.id
     request.session[:username] = user.username
     session[:private_key] = CryptUtils.decrypt_private_key(user.private_key, password)

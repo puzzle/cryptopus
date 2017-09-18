@@ -5,12 +5,11 @@
 # Table name: teammembers
 #
 #  id         :integer          not null, primary key
-#  team_id    :integer          default("0"), not null
+#  team_id    :integer          default(0), not null
 #  password   :binary           not null
-#  user_id    :integer          default("0"), not null
-#  created_on :datetime         not null
-#  updated_on :datetime         not null
-#  team_admin :boolean          default("0"), not null
+#  user_id    :integer          default(0), not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 #  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
@@ -18,7 +17,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Teammember < ActiveRecord::Base
+class Teammember < ApplicationRecord
   delegate :label, to: :user
   belongs_to :team
   belongs_to :user
@@ -33,7 +32,7 @@ class Teammember < ActiveRecord::Base
 
 
   def recrypt_team_password(user, admin, private_key)
-    teammember_admin = admin.teammembers.find_by_team_id(team_id)
+    teammember_admin = admin.teammembers.find_by(team_id: team_id)
     team_password = CryptUtils.decrypt_team_password(teammember_admin.
       password, private_key)
 
@@ -46,14 +45,14 @@ class Teammember < ActiveRecord::Base
   def protect_if_last_teammember
     if team.teammembers.count == 1
       errors.add(:base, 'Cannot remove last teammember')
-      false
+      throw :abort
     end
   end
 
   def protect_if_admin_in_non_private_team
     if !team.private? && user.admin?
       errors.add(:base, 'Admin user cannot be removed from non private team')
-      false
+      throw :abort
     end
   end
 end

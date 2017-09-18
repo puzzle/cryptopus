@@ -39,6 +39,7 @@ class app.Account
     $(document).on 'page:load', ready
     $(document).ready(ready)
     $(document).on 'click', '.password-link', (e) ->
+      e.preventDefault()
       showPassword(e)
 
     $(document).on 'click', '.clip_button', (e) ->

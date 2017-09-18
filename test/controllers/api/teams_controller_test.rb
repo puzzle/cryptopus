@@ -14,9 +14,9 @@ class Api::TeamsControllerTest < ActionController::TestCase
   test 'destroy team' do
     login_as(:admin)
     team = Fabricate(:private_team)
-    
+
     assert_difference('Team.count', -1) do
-      delete :destroy, id: team.id
+      delete :destroy, params: { id: team.id }
     end
     assert_not Teammember.where(team_id: team.id).present?, 'teammembers should be removed'
   end
@@ -27,7 +27,7 @@ class Api::TeamsControllerTest < ActionController::TestCase
     soloteam = Fabricate(:private_team)
     user = soloteam.teammembers.first.user
 
-    get :last_teammember_teams, user_id: user.id
+    get :last_teammember_teams, params: { user_id: user.id }
     team = JSON.parse(response.body)['data']['teams'][0]
 
 
@@ -41,7 +41,7 @@ class Api::TeamsControllerTest < ActionController::TestCase
     soloteam = Fabricate(:private_team)
     user = soloteam.teammembers.first.user
 
-    response = delete :destroy, id: soloteam.id
+    response = delete :destroy, params: { id: soloteam.id }
 
     error_message = JSON.parse(response.body)['messages']['errors'][0]
 
@@ -55,7 +55,7 @@ class Api::TeamsControllerTest < ActionController::TestCase
     soloteam = Fabricate(:private_team)
     user = User.find(soloteam.teammembers.first.user_id)
 
-    response = get :last_teammember_teams, user_id: user.id
+    response = get :last_teammember_teams, params: { user_id: user.id }
 
     error_message = JSON.parse(response.body)['messages']['errors'][0]
 
@@ -65,7 +65,7 @@ class Api::TeamsControllerTest < ActionController::TestCase
   test 'listing all teams' do
       login_as(:bob)
 
-      xhr :get, :index
+      get :index, xhr: true
 
       team1 = JSON.parse(response.body)['data']['teams'][0]['name']
       team2 = JSON.parse(response.body)['data']['teams'][1]['name']

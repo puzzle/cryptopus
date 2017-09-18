@@ -98,7 +98,9 @@ class ApplicationController < ActionController::Base
   end
 
   def prepare_menu
-    if File.exist?("#{Rails.root}/app/views/#{controller_path}/_#{action_name}_menu.html.haml")
+    if File.exist?(Rails.root.join('app',
+                                   'views',
+                                   '#{controller_path}', '_#{action_name}_menu.html.haml'))
       @menu_to_render = "#{controller_path}/#{action_name}_menu"
     else
       @menu_to_render = nil

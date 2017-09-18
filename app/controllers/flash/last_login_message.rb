@@ -51,7 +51,7 @@ module Flash
 
     def last_login_country
       ip_address = last_login_from
-      return unless ip_address.present?
+      return if ip_address.blank?
       GeoIP.new('db/GeoIP.dat').country(ip_address).country_code3
     end
 

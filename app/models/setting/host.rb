@@ -26,7 +26,7 @@ class Setting::Host < Setting
 
   def must_be_valid_host
     value.each do |host|
-      if host.present? && !/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/.match(host)
+      if host.present? && host?(host)
         errors.add(:value, "invalid host: #{host}")
       end
     end
@@ -34,5 +34,12 @@ class Setting::Host < Setting
 
   def reject_blank_values
     value.reject!(&:blank?)
+  end
+
+  def host?(host)
+    a = 'a-zA-Z0-9'
+    a2 = 'A-Za-z0-9'
+    regex = "^(([#{a}]|[#{a}][#{a}\-]*[#{a}])\.)*([#{a2}]|[#{a2}][#{a2}\-]*[#{a2}])$"
+    !/#{regex}/.match(host)
   end
 end

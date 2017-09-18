@@ -15,7 +15,8 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
     group = groups(:group1)
     accounts_path = team_group_accounts_path(team_id: team.id, group_id: group.id)
 
-    post_via_redirect accounts_path, account: {accountname: 'e-mail', cleartext_username: 'bob@test', cleartext_password: 'alice33'}
+    post accounts_path, params: { account: {accountname: 'e-mail', cleartext_username: 'bob@test', cleartext_password: 'alice33'} }
+    follow_redirect!
 
     account = group.accounts.find_by_accountname('e-mail')
     assert account
