@@ -5,7 +5,7 @@
 
 .form-group.search
   %h1= t('.hi_user', username: username)
-  = text_field_tag :search_string,  params[:search_string], placeholder: t('.type_to_search'), autocomplete: 'off', autofocus: true, class: 'form-control search-input'
+  = text_field_tag :q,  params[:q], placeholder: t('.type_to_search'), autocomplete: 'off', autofocus: true, class: 'form-control search-input'
  
 .container
   %ul.nav.nav-tabs

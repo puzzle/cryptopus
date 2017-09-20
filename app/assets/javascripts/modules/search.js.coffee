@@ -11,6 +11,7 @@ class app.Search
 
   ready = ->
     new Clipboard('.clip_button')
+    doSearch.call()
 
   search = (term, search_type) ->
     return $.get('/api/search/'+search_type, q: term).then (data) ->
@@ -23,14 +24,16 @@ class app.Search
   doSearch = ->
     search_type = $('li.tab.active').attr('id')
     input_field = $('.search-input')
+    return unless input_field.length
     $('.result-info').hide()
     term = input_field.val()
+    history.replaceState({}, '', '?q=' + term)
     if input_field.val().length <= 2
       updateResultArea('', search_type)
     else
       $.when(search(term, search_type)).then (content) ->
-          updateResultArea(content, search_type)
-          $('.result-info').show() if content.replace(/\s/g, '') == ''
+        updateResultArea(content, search_type)
+        $('.result-info').show() if content.replace(/\s/g, '') == ''
 
   showPassword = (e) ->
     e.preventDefault()
