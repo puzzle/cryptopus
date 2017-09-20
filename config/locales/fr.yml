@@ -61,7 +61,7 @@ fr:
       add_attachment: "Ajouter un attachement"
     edit:
       title: "Modifier le compte"
-
+      random_password: "Mot de passe aléatoire"
     show:
       title: "Compte: %{account_name}"
       last_change: "Dernière mise à jour il ya %{time_ago}"

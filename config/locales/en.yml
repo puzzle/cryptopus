@@ -59,7 +59,7 @@ en:
       add_attachment: "Add attachment"
     edit:
       title: "Editing account"
-
+      random_password: "Random password"
     show:
       title: "Account: %{account_name}"
       last_change: "Last change was %{time_ago} ago"
