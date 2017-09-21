@@ -14,9 +14,9 @@ class AddAttachmentToAccountTest < ActionDispatch::IntegrationTest
     account = accounts(:account1)
 
     login_as('bob')
-    items_path = team_group_account_items_path team, group, account
+    items_path = team_group_account_items_path(team, group, account)
     file_path = 'test/fixtures/files/test_file.txt'
-    post items_path, item: {file: fixture_file_upload(file_path, 'text/plain')}
+    post items_path, params: { item: {file: fixture_file_upload(file_path, 'text/plain')} }
     logout
 
     login_as('alice')
@@ -29,8 +29,7 @@ class AddAttachmentToAccountTest < ActionDispatch::IntegrationTest
     delete item_path
     logout
 
-    login_as('bob')
-    error = assert_raises(ActiveRecord::RecordNotFound) { get item_path }
-    assert_includes error.message, "Couldn't find Item"
+    assert_equal false, Item.exists?(file.id)
+
   end
 end

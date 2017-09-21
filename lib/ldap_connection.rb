@@ -75,4 +75,5 @@ class LdapConnection
     params.merge(options)
     Net::LDAP.new(params)
   end
+
 end

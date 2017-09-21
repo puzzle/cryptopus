@@ -11,7 +11,7 @@ class Api::SearchControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
   test "should get account for matching accountname without cleartext username / password" do
     login_as(:alice)
-    xhr :get, :accounts, {'q' => 'acc'}
+    get :accounts, params: {'q' => 'acc'}, xhr: true
 
     result_json = JSON.parse(response.body)['data']['accounts'][0]
 
@@ -33,7 +33,7 @@ class Api::SearchControllerTest < ActionController::TestCase
 
   test "should get account for matching description without cleartext username / password" do
     login_as(:alice)
-    xhr :get, :accounts, {'q' => 'des'}
+    get :accounts, params: {'q' => 'des'}, xhr: true
 
     result_json = JSON.parse(response.body)['data']['accounts'][0]
 
@@ -55,7 +55,7 @@ class Api::SearchControllerTest < ActionController::TestCase
 
   test "should get group for search term" do
     login_as(:alice)
-    xhr :get, :groups, {'q' => 'group'}
+    get :groups, params: {'q' => 'group'}, xhr: true
 
     result_json = JSON.parse(response.body)['data']['groups'][0]
 
@@ -68,7 +68,7 @@ class Api::SearchControllerTest < ActionController::TestCase
 
   test "should get team for search term" do
     login_as(:alice)
-    xhr :get, :teams, {'q' => 'team'}
+    get :teams, params: {'q' => 'team'}, xhr: true
 
     result_json = JSON.parse(response.body)['data']['teams'][0]
 

@@ -9,7 +9,7 @@
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  team_id     :integer          default("0"), not null
+#  team_id     :integer          default(0), not null
 #
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
@@ -17,7 +17,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Group < ActiveRecord::Base
+class Group < ApplicationRecord
   belongs_to :team
   has_many :accounts, -> { order :accountname }, dependent: :destroy
 

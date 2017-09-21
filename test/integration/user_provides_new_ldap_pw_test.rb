@@ -37,7 +37,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     login_as('bob')
 
     # Recrypt
-    post recryptrequests_recrypt_path, new_password: 'newPassword', old_password: 'password'
+    post recryptrequests_recrypt_path, params: { new_password: 'newPassword', old_password: 'password' }
     logout
 
     login_as('bob', 'newPassword')
@@ -71,12 +71,12 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     login_as('bob')
 
     # Recrypt
-    post recryptrequests_recrypt_path, forgot_password: true, new_password: 'newPassword'
+    post recryptrequests_recrypt_path, params: { forgot_password: true, new_password: 'newPassword' }
 
     login_as('admin')
     bobs_user_id = users(:bob).id
     recrypt_id = Recryptrequest.find_by_user_id(bobs_user_id).id
-    post admin_recryptrequest_path(recrypt_id), _method: 'delete'
+    post admin_recryptrequest_path(recrypt_id), params: { _method: 'delete' }
 
     # Test if user could see his account(he should see now)
     login_as('bob', 'newPassword')
@@ -106,7 +106,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     login_as('bob')
 
     # Recrypt
-    post recryptrequests_recrypt_path, new_password: 'newPassword', old_password: 'wrong_password'
+    post recryptrequests_recrypt_path, params: { new_password: 'newPassword', old_password: 'wrong_password' }
 
     # Test if user got error messages
     assert_match 'Your OLD password was wrong', flash[:error]
@@ -136,7 +136,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
       .with('bob', 'wrong_password')
       .returns(false)
 
-    post recryptrequests_recrypt_path, new_password: 'wrong_password'
+    post recryptrequests_recrypt_path, params: { new_password: 'wrong_password' }
 
     # Test if user got error messages
     assert_match 'Your NEW password was wrong', flash[:error]
@@ -166,7 +166,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
       .with('bob', 'wrong_password')
       .returns(false)
 
-    post recryptrequests_recrypt_path, forgot_password: true, new_password: 'wrong_password'
+    post recryptrequests_recrypt_path, params: { forgot_password: true, new_password: 'wrong_password' }
 
     # Test if user got error messages
     assert_match 'Your NEW password was wrong', flash[:error]

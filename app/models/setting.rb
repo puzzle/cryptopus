@@ -16,9 +16,9 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Setting < ActiveRecord::Base
+class Setting < ApplicationRecord
 
-  validates_uniqueness_of :key
+  validates :key, uniqueness: true
 
   class << self
     def value(prefix, key)

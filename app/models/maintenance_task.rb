@@ -36,7 +36,7 @@ class MaintenanceTask
   end
 
   def execute
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       yield if block_given?
       success_log_entry('successful')
       true

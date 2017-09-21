@@ -20,11 +20,11 @@ class app.User
     $(@last_teammember_teams).show()
 
   onDeleteUser = (lastTeammemberTeamsLink) ->
-      $.ajax({
-        url: lastTeammemberTeamsLink,
-        success: (response) =>
-          onLastTeammemberDataLoaded(response)
-      })
+    $.ajax({
+      url: lastTeammemberTeamsLink,
+      success: (response) ->
+        onLastTeammemberDataLoaded(response)
+    })
 
   onLastTeammemberDataLoaded = (response) ->
     showLastTeammemberTeams()
@@ -61,29 +61,30 @@ class app.User
     $.ajax({
       url: url,
       type: 'DELETE'
+      success: ->
+        window.location.reload()
     })
-
 
   bind = ->
     @last_teammember_teams = '#last_teammember_teams'
 
-    $(document).on 'click', '#last_teammember_teams_cancel_button', =>
+    $(document).on 'click', '#last_teammember_teams_cancel_button', ->
       hideLastTeammemberTeams()
 
 
     $(document).on 'click', '#team_table .delete_user_link', (e) ->
+      e.preventDefault()
       element = $(this)
       self.teammemberLink = element.data('last-teammember-teams-link')
       self.user_id = element.data('user-id')
       onDeleteUser(self.teammemberLink)
 
    $(document).on 'click', '#delete_last_teammember_team_link', (e) ->
-      team_id_element = $(this).closest('tr').find('#last_teammember_team_id')
-      team_id = parseInt(team_id_element.text())
-      deleteLastTeammemberTeam(team_id)
+     team_id_element = $(this).closest('tr').find('#last_teammember_team_id')
+     team_id = parseInt(team_id_element.text())
+     deleteLastTeammemberTeam(team_id)
 
    $(document).on 'click', '#delete_user_button', ->
      deleteUser()
-     window.location.replace(window.location.pathname)
 
   new User

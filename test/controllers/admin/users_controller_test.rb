@@ -16,7 +16,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     bob.update_attribute(:admin, true)
     login_as(:bob)
 
-    delete :destroy, id: bob.id
+    delete :destroy, params: { id: bob.id }
 
     assert bob.reload.persisted?
 
@@ -27,7 +27,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     alice = users(:alice)
     login_as(:bob)
 
-    delete :destroy, id: alice.id
+    delete :destroy, params: { id: alice.id }
 
     assert alice.reload.persisted?
     assert_match /Access denied/, flash[:error]
@@ -39,7 +39,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     bob.update_attribute(:admin, true)
     login_as(:bob)
 
-    delete :destroy, id: alice.id
+    delete :destroy, params: { id: alice.id }
 
     assert_not User.find_by(username: 'alice')
   end
@@ -50,7 +50,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     bob.update_attribute(:failed_login_attempts, 5)
 
     login_as(:admin)
-    get :unlock, id: bob.id
+    get :unlock, params: { id: bob.id }
 
     assert_not bob.reload.locked
     assert_equal 0, bob.failed_login_attempts
@@ -62,7 +62,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     bob.update_attribute(:failed_login_attempts, 5)
 
     login_as(:alice)
-    get :unlock, id: bob.id
+    get :unlock, params: { id: bob.id }
 
     assert bob.reload.locked
     assert_equal 5, bob.failed_login_attempts
@@ -73,7 +73,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     update_params = { username: 'new_username', givenname: 'new_givenname' }
 
     login_as(:admin)
-    post :update, id: alice, user: update_params
+    post :update, params: { id: alice, user: update_params }
 
     alice.reload
 
@@ -88,7 +88,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
     update_params = { username: 'new_username'}
 
     login_as(:admin)
-    post :update, id: bob, user: update_params
+    post :update, params: { id: bob, user: update_params }
 
     bob.reload
 

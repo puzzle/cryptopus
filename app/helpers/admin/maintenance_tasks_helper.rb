@@ -12,7 +12,7 @@ module Admin::MaintenanceTasksHelper
     content << label_tag(label)
 
     content << create_tag_with_correct_type(label, param[:type])
-    content_tag(:div, content.html_safe, class: 'form-group').html_safe
+    safe_join([content_tag(:div, content.html_safe, class: 'form-group')])
   end
 
   def create_tag_with_correct_type(label, type)

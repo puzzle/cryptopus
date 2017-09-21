@@ -31,7 +31,9 @@ class Admin::RecryptrequestsController < Admin::AdminController
     @user = User.find(params[:user_id])
     @admin = User.find(session[:user_id])
 
-    return redirect_to :back if @user.ldap? || blank_password?
+    if @user.ldap? || blank_password?
+      return redirect_back(fallback_location: admin_recryptrequests_path)
+    end
 
     encrypt_and_save_user
 
@@ -39,7 +41,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
       flash[:notice] = t('flashes.admin.recryptrequests.resetpassword.success')
     end
 
-    redirect_to :back
+    redirect_back(fallback_location: admin_recryptrequests_path)
   end
 
   private

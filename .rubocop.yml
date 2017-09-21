@@ -70,23 +70,23 @@ Rails/Delegate:
   Enabled: false
 
 # That's no huge stopper
-Style/EmptyLines:
+Layout/EmptyLines:
   Enabled: false
 
 # We thinks that's fine for specs
-Style/EmptyLinesAroundBlockBody:
+Layout/EmptyLinesAroundBlockBody:
   Enabled: false
 
 # We thinks that's fine
-Style/EmptyLinesAroundClassBody:
+Layout/EmptyLinesAroundClassBody:
   Enabled: false
 
 # We thinks that's fine
-Style/EmptyLinesAroundModuleBody:
+Layout/EmptyLinesAroundModuleBody:
   Enabled: false
 
 # We thinks that's fine
-Style/MultilineOperationIndentation:
+Layout/MultilineOperationIndentation:
   Enabled: false
 
 # We thinks that's fine

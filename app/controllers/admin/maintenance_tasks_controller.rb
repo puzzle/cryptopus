@@ -24,7 +24,7 @@ class Admin::MaintenanceTasksController < Admin::AdminController
   def execute
     param_values = { private_key: session[:private_key] }
 
-    param_values.merge!(params[:task_params])
+    param_values.merge!(task_params)
     task = MaintenanceTask.initialize_task(params[:id], current_user, param_values)
 
     if task.execute
@@ -34,4 +34,12 @@ class Admin::MaintenanceTasksController < Admin::AdminController
     end
     redirect_to admin_maintenance_tasks_path
   end
+
+  private
+
+  def task_params
+    params.require(:task_params).
+      permit(:new_root_password, :retype_password, :root_password)
+  end
+
 end

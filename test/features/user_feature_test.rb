@@ -26,7 +26,7 @@ class UserFeatureTest < Capybara::Rails::TestCase
     page.must_have_content('team2')
   end
 
-  test "can delete user if he hasn't ast teammember teams" do
+  test "can delete user if he isn't last teammember in any teams" do
     login_as_user(:admin)
     visit('/admin/users')
 
