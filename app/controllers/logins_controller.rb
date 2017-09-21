@@ -20,7 +20,7 @@ class LoginsController < ApplicationController
       return redirect_to login_login_path
     end
 
-    unless create_session(authenticator.user, params[:password])
+    unless create_session(authenticator.user, login_params[:password])
       return redirect_to recryptrequests_new_ldap_password_path
     end
 
@@ -43,7 +43,7 @@ class LoginsController < ApplicationController
 
   def update_password
     if password_params_valid?
-      current_user.update_password(params[:old_password], params[:new_password1])
+      current_user.update_password(update_password_params[:old_password], update_password_params[:new_password1])
       flash[:notice] = t('flashes.logins.new_password_set')
       redirect_to teams_path
     else
@@ -53,7 +53,7 @@ class LoginsController < ApplicationController
 
   # POST /login/changelocale
   def changelocale
-    locale = params[:new_locale]
+    locale = params.permit(:new_locale)[:new_locale]
     if locale.present?
       current_user.update_attribute(:preferred_locale, locale)
     end
@@ -69,7 +69,7 @@ class LoginsController < ApplicationController
   end
 
   def check_password_strength
-    strength = PasswordStrength.test(params[:username], params[:password])
+    strength = PasswordStrength.test(login_params[:username], login_params[:password])
 
     if strength.weak? || !strength.valid?
       flash[:alert] = t('flashes.logins.weak_password')
@@ -118,12 +118,12 @@ class LoginsController < ApplicationController
   end
 
   def password_params_valid?
-    unless current_user.authenticate(params[:old_password])
+    unless current_user.authenticate(update_password_params[:old_password])
       flash[:error] = t('flashes.logins.wrong_password')
       return false
     end
 
-    if params[:new_password1] != params[:new_password2]
+    if update_password_params[:new_password1] != update_password_params[:new_password2]
       flash[:error] = t('flashes.logins.new_passwords.not_equal')
       return false
     end
@@ -131,7 +131,15 @@ class LoginsController < ApplicationController
   end
 
   def authenticator
-    Authentication::UserAuthenticator.new(params)
+    Authentication::UserAuthenticator.new(login_params)
+  end
+
+  def login_params
+    params.permit(:username, :password)
+  end
+
+  def update_password_params
+    params.permit(:old_password, :new_password1, :new_password2)
   end
 
 end
