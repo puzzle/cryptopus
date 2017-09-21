@@ -7,10 +7,10 @@
 
 class LoginsController < ApplicationController
 
+  DEFAULT_PARAMS = [:utf8, :authenticity_token, :commit, :locale].freeze
+
   before_action :redirect_if_ldap_user, only: %i[show_update_password update_password]
   before_action :redirect_if_logged_in, only: :login
-
-  skip_before_action :verify_authenticity_token, only: :authenticate
 
   def login; end
 
@@ -136,11 +136,11 @@ class LoginsController < ApplicationController
   end
 
   def login_params
-    params.permit(:username, :password)
+    params.permit(:username, :password, *DEFAULT_PARAMS)
   end
 
   def update_password_params
-    params.permit(:old_password, :new_password1, :new_password2)
+    params.permit(:old_password, :new_password1, :new_password2, *DEFAULT_PARAMS)
   end
 
 end
