@@ -43,7 +43,8 @@ class LoginsController < ApplicationController
 
   def update_password
     if password_params_valid?
-      current_user.update_password(update_password_params[:old_password], update_password_params[:new_password1])
+      current_user.update_password(update_password_params[:old_password],
+                                   update_password_params[:new_password1])
       flash[:notice] = t('flashes.logins.new_password_set')
       redirect_to teams_path
     else
