@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '5.0.5'
+gem 'rails', '5.1.4'
 
 gem 'figaro'
 gem 'mysql2'
@@ -8,7 +8,7 @@ gem 'net-ldap'
 gem 'sqlite3'
 
 gem 'active_model_serializers', '0.10.0'
-gem 'airbrake', '< 5.0'
+gem 'airbrake'
 gem 'annotate'
 gem 'bootstrap-select-rails'
 gem 'breadcrumbs_on_rails'

@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-Cryptopus::Application.routes.draw do
+Rails.application.routes.draw do
   scope "(:locale)", locale: /en|de|fr/ do
     namespace :recryptrequests do
       get 'new_ldap_password'
