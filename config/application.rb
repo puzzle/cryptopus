@@ -58,14 +58,11 @@ module Cryptopus
 
     # Filter password out form log files
     config.filter_parameters << :password
-    config.action_controller.raise_on_unfiltered_parameters = true
 
     config.generators do |g|
       g.test_framework      :minitest, fixture_replacement: :fabrication
       g.fixture_replacement :fabrication, dir: "test/fabricators"
     end
-
-    ActiveSupport.halt_callback_chains_on_return_false = false
 
     config.time_zone = ENV['TIME_ZONE'] || 'Bern'
 
