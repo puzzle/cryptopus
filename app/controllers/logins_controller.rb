@@ -7,9 +7,7 @@
 
 class LoginsController < ApplicationController
 
-  DEFAULT_PARAMS = %i(utf8, authenticity_token, commit, locale).freeze
-
-  before_action :redirect_if_ldap_user, only: %i(show_update_password update_password)
+  before_action :redirect_if_ldap_user, only: %i[show_update_password update_password]
   before_action :redirect_if_logged_in, only: :login
 
   def login; end
