@@ -10,6 +10,12 @@ class LoginsController < ApplicationController
   before_action :redirect_if_ldap_user, only: %i[show_update_password update_password]
   before_action :redirect_if_logged_in, only: :login
 
+  # it's save to disable this for authenticate since there is no logged in session active
+  # in this case.
+  # caused problem with login form since the server side session is getting invalid after
+  # configured timeout.
+  skip_before_action :verify_authenticity_token, only: :authenticate
+
   def login; end
 
   def authenticate
