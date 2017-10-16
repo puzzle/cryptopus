@@ -19,7 +19,7 @@ class Admin::UsersController < Admin::AdminController
       @soloteams = teams_to_delete(user_to_delete)
     end
 
-    @users = User.where('uid != 0 or uid is null')
+    @users = User.where('ldap_uid != 0 or ldap_uid is null')
 
     respond_to do |format|
       format.html

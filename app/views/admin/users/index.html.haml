@@ -22,7 +22,7 @@
         - if user.last_login_at
           = user.last_login_at.strftime('%d.%m.%Y, %H:%M')
       %td= user.last_login_from
-      %td= user.uid.to_s
+      %td= user.ldap_uid.to_s
       %td
         - if user != current_user
           = change_admin_attribute(user)

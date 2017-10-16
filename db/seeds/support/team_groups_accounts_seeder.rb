@@ -48,7 +48,7 @@ class TeamGroupsAccountsSeeder
   end
 
   def root
-    User.find_by(uid: 0)
+    User.find_by(ldap_uid: 0)
   end
 
   # provide team password for first member only

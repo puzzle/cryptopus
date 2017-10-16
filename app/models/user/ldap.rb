@@ -46,7 +46,7 @@ class User
         user = new
         user.username = username
         user.auth = 'ldap'
-        user.uid = ldap_connection.uidnumber_by_username(username)
+        user.ldap_uid = ldap_connection.uidnumber_by_username(username)
         user.create_keypair password
         user.update_info
         user
@@ -64,8 +64,8 @@ class User
 
     # Updates Information about the user from LDAP
     def update_info_from_ldap
-      self.givenname = ldap_connection.ldap_info(uid, 'givenname')
-      self.surname = ldap_connection.ldap_info(uid, 'sn')
+      self.givenname = ldap_connection.ldap_info(ldap_uid, 'givenname')
+      self.surname = ldap_connection.ldap_info(ldap_uid, 'sn')
     end
 
     def ldap_connection

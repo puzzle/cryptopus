@@ -26,7 +26,7 @@ class WizardControllerTest < ActionController::TestCase
     User.delete_all
     post :apply, params: { password: 'password', password_repeat: 'password' }
     assert_redirected_to admin_users_path
-    assert User.find_by_uid(0)
+    assert User.find_by_ldap_uid(0)
   end
 
   test 'cannot access wizard if already set up' do

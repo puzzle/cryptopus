@@ -77,11 +77,11 @@ ActiveRecord::Schema.define(version: 20171010071016) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.text "public_key", null: false
-    t.binary "private_key", null: false
-    t.binary "password"
-    t.boolean "admin", default: false, null: false
-    t.integer "uid"
+    t.text     "public_key",                                   null: false
+    t.binary   "private_key",                                  null: false
+    t.binary   "password"
+    t.boolean  "admin",                        default: false, null: false
+    t.integer  "ldap_uid"
     t.datetime "last_login_at"
     t.string "username"
     t.string "givenname"

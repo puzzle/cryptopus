@@ -7,7 +7,7 @@
 #  private_key                  :binary           not null
 #  password                     :binary
 #  admin                        :boolean          default(FALSE), not null
-#  uid                          :integer
+#  ldap_uid                     :integer
 #  last_login_at                :datetime
 #  username                     :string
 #  givenname                    :string
@@ -26,7 +26,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 root:
-  uid: 0
+  ldap_uid: 0
   username: root
   givenname: Root
   surname: test
