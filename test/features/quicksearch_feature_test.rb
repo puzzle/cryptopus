@@ -19,7 +19,7 @@ class QuickSearchFeatureTest < Capybara::Rails::TestCase
     assert_not(page.has_css?('li.result'))
   end
 
-  test 'show password after clicking on password field' do
+  test 'shows password after clicking on password field' do
     login_as_user(:bob)
     page.must_have_selector('.form-group.search')
 
@@ -29,5 +29,24 @@ class QuickSearchFeatureTest < Capybara::Rails::TestCase
     page.must_have_selector('.password-show', visible: true)
     all('.password-show')[0].click
     page.must_have_selector('.password-show', visible: false)
+  end
+
+  test 'search and access account' do
+    login_as_user(:bob)
+    page.must_have_selector('.form-group.search')
+
+    fill_in 'q', with: 'account1'
+    page.must_have_selector('.account-entry')
+    all('.account-entry')[0].click
+    page.must_have_content('account1')
+  end
+
+  test 'search by get params' do
+    login_as_user(:bob)
+    visit('/search?q=account1')
+
+    page.must_have_selector('.account-entry')
+    all('.account-entry')[0].click
+    page.must_have_content('account1')
   end
 end
