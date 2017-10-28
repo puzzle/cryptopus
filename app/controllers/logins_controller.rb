@@ -14,11 +14,12 @@ class LoginsController < ApplicationController
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
   skip_before_action :verify_authenticity_token, only: :authenticate
+  skip_before_action :authorize, only: %i[authenticate login logout]
 
   def login; end
 
   def authenticate
-    unless authenticator.password_auth!
+    unless authenticator.auth!
       flash[:error] = t('flashes.logins.auth_failed')
       return redirect_to login_login_path
     end
@@ -127,7 +128,7 @@ class LoginsController < ApplicationController
   end
 
   def authenticator
-    Authentication::UserAuthenticator.new(params)
+    Authentication::UserPasswordAuthenticator.new(params)
   end
 
   def authorize_action

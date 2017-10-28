@@ -30,34 +30,33 @@ class CryptUtils
       keypair
     end
 
-    def get_private_key_from_keypair(keypair)
+    def extract_private_key(keypair)
       keypair.to_s
     end
 
-    def get_public_key_from_keypair(keypair)
+    def extract_public_key(keypair)
       keypair.public_key.to_s
     end
 
-    def decrypt_team_password(team_password, private_key)
+    def decrypt_rsa(encrypted_content, private_key)
       keypair = PKey::RSA.new(private_key)
-      decrypted_team_password = keypair.private_decrypt(team_password)
-      return decrypted_team_password
+      decrypted_content = keypair.private_decrypt(encrypted_content)
+      return decrypted_content
     rescue
       return nil
     end
 
-    def encrypt_team_password(team_password, public_key)
+    def encrypt_rsa(content, public_key)
       keypair = PKey::RSA.new(public_key)
-      encrypted_team_password = keypair.public_encrypt(team_password)
-      return encrypted_team_password
+      encrypted_content = keypair.public_encrypt(content)
+      return encrypted_content
     rescue
       return nil
     end
 
     def new_team_password
       cipher = OpenSSL::Cipher::Cipher.new(@@cypher)
-      team_password = cipher.random_key
-      team_password
+      cipher.random_key
     end
 
     def encrypt_private_key(private_key, password)

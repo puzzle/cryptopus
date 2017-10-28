@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-Fabricator(:user) do
+Fabricator(:user, class_name: User::Human) do
   username { Faker::Name.last_name.downcase }
   givenname { Faker::Name.first_name }
   surname 'test'

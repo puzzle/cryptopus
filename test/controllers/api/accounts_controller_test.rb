@@ -140,4 +140,25 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_equal 'password', account['cleartext_password']
     end
   end
+
+  test 'authenticates with valid api user and returns account details' do
+
+    request.env['HTTP_API_USER'] = 'bob-abcd'
+    request.env['HTTP_API_TOKEN'] = 'abcd'
+
+    account1 = accounts(:account1)
+
+    get :show, params: { id: account1.id }
+
+  end
+
 end
+
+  #test 'cannot authenticate for unsupported action' do
+  #end
+
+
+#def http_auth_headers
+#{ 'HTTP_API_USER': 'bob-abcd', 'HTTP_API_TOKEN': 'abcd' }
+#end
+

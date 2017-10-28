@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class User
+class User::Human
   module Ldap
 
     def self.included(base)

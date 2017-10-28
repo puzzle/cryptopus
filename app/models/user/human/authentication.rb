@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class User
+class User::Human
   module Authentication
 
     def authenticate(cleartext_password)
@@ -22,11 +22,6 @@ class User
         raise 'cannot authenticate against ldap since ldap auth is disabled'
       end
       ldap_connection.login(username, cleartext_password)
-    end
-
-    def authenticate_db(cleartext_password)
-      salt = password.split('$')[1]
-      password.split('$')[2] == Digest::SHA512.hexdigest(salt + cleartext_password)
     end
   end
 end

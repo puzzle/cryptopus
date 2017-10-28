@@ -1,0 +1,19 @@
+class AddUniqueIdToAccounts < ActiveRecord::Migration
+
+  def up
+    add_column :accounts, :api_id, unique: true
+    add_index :accounts, :api_id
+
+    create_api_ids
+
+  end
+  def down
+    remove_index :accounts, :api_id
+    remove_column :accounts, :api_id
+  end
+
+  private
+  def create_api_ids
+  end
+
+end
