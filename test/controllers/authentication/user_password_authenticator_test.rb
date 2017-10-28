@@ -5,11 +5,11 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-require_relative '../../../app/controllers/authentication/user_authenticator.rb'
-require_relative '../../../app/controllers/authentication/brute_force_detector.rb'
+#require_relative '../../../app/controllers/authentication/user_authenticator.rb'
+#require_relative '../../../app/controllers/authentication/brute_force_detector.rb'
 require 'test_helper'
 
-class UserAuthenticatorTest < ActiveSupport::TestCase
+class UserPasswordAuthenticatorTest < ActiveSupport::TestCase
 
   test 'authenticates bob' do
     @params = {username: 'bob', password: 'password'}
@@ -59,7 +59,7 @@ class UserAuthenticatorTest < ActiveSupport::TestCase
 
       assert_equal false, authenticator.send(:user_locked?), 'bob should should not be locked temporarly'
 
-      Authentication::UserAuthenticator.new(@params).password_auth!
+      Authentication::UserPasswordAuthenticator.new(@params).auth!
 
       if attempt == LOCKTIMES.count
         assert_equal true, bob.reload.locked?, 'bob should be logged after 10 failed login attempts'
@@ -101,11 +101,11 @@ class UserAuthenticatorTest < ActiveSupport::TestCase
 
   private
   def authenticate
-    authenticator.password_auth!
+    authenticator.auth!
   end
 
   def authenticator
-    @authenticator ||= Authentication::UserAuthenticator.new(@params)
+    @authenticator ||= Authentication::UserPasswordAuthenticator.new(@params)
   end
 
   def bob

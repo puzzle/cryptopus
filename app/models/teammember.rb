@@ -20,9 +20,10 @@
 class Teammember < ApplicationRecord
   delegate :label, to: :user
   belongs_to :team
-  belongs_to :user
+  belongs_to :user, polymorphic: true
   before_destroy :protect_if_last_teammember
   before_destroy :protect_if_admin_in_non_private_team
+  # TODO -> on destroy: remove api-token user first if present
 
   validates :user_id, uniqueness: { scope: :team }
 

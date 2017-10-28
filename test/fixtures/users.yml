@@ -18,6 +18,9 @@
 #  failed_login_attempts        :integer          default(0), not null
 #  last_login_from              :string
 #  role                         :integer          default("user"), not null
+#  type                         :string
+#  human_user_id                :integer
+#  options                      :text
 #
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
@@ -26,6 +29,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 root:
+  type: User::Human
   ldap_uid: 0
   username: root
   givenname: Root
@@ -37,6 +41,7 @@ root:
   private_key: <%= "!!binary \"#{FixturesHelper.read_private_key('root')}\"" %>
 
 bob:
+  type: User::Human
   username: bob
   givenname: Bob
   surname: test
@@ -47,6 +52,7 @@ bob:
   private_key: <%= "!!binary \"#{FixturesHelper.read_private_key('bob')}\"" %>
 
 alice:
+  type: User::Human
   username: alice
   givenname: Alice
   surname: test
@@ -57,6 +63,7 @@ alice:
   private_key: <%= "!!binary \"#{FixturesHelper.read_private_key('alice')}\"" %>
 
 admin:
+  type: User::Human
   username: admin
   givenname: Admin
   surname: test

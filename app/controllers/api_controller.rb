@@ -7,12 +7,14 @@
 
 class ApiController < ApplicationController
 
+  class_attribute :api_token_accessible
+
+  protected
+
   def render_json(data = nil)
     data = ActiveModelSerializers::SerializableResource.new(data).as_json
     render status: response_status, json: { data: data, messages: messages }
   end
-
-  protected
 
   def add_error(msg)
     messages[:errors] << msg
@@ -27,6 +29,35 @@ class ApiController < ApplicationController
   end
 
   private
+
+  def authorize
+    if api_token_access?
+      authorize_by_token
+    else
+      super
+    end
+  end
+
+  def api_token_access?
+    request.env['HTTP_API_USER'].present?
+  end
+
+  def accessible_by_api_token?
+    api_token_accessible &&
+      api_token_accessible.include?(action_name.to_sym)
+  end
+
+  def authorize_by_token
+    if accessible_by_api_token? && api_token_authenticator.auth!
+      @current_user = api_token_authenticator.user
+    else
+      render 401
+    end
+  end
+
+  def api_token_authenticator
+    Authentication::ApiTokenAuthenticator.new(params)
+  end
 
   def messages
     @messages ||=
@@ -47,4 +78,5 @@ class ApiController < ApplicationController
     add_error t('flashes.admin.admin.no_access')
     render_json && return
   end
+
 end

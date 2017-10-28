@@ -6,18 +6,18 @@
 #  https://github.com/puzzle/cryptopus.
 
 
-class Authentication::UserAuthenticator
+class Authentication::UserPasswordAuthenticator
 
   def initialize(params)
     @authenticated = false
     @params = params
   end
 
-  def password_auth!
+  def auth!
     return false unless preconditions?
     return false if user_locked?
 
-    authenticated = authenticator.auth!
+    authenticated = user_auth!
 
     unless authenticated
       add_error('flashes.logins.wrong_password')
@@ -27,26 +27,18 @@ class Authentication::UserAuthenticator
     authenticated
   end
 
-  def api_key_auth!
-    raise 'not yet implemented'
-  end
-
   def errors
     @errors ||= []
   end
 
   def user
-    authenticator.user
+    @user ||= find_user
   end
 
   private
 
-  attr_accessor :authenticated, :params
-
-  def authenticator
-    @authenticator ||=
-      Authentication::Authenticators::UserPassword.new(params)
-  end
+  attr_accessor :authenticated
+  attr_reader :params
 
   def brute_force_detector
     @brute_force_detector ||=
@@ -61,12 +53,12 @@ class Authentication::UserAuthenticator
     false
   end
 
-  def valid_username?
-    params[:username].strip =~ /^([a-zA-Z]|\d)+$/
+  def params_present?
+    username.present? && password.present?
   end
 
-  def params_present?
-    authenticator.params_present?
+  def valid_username?
+    username.strip =~ /^([a-zA-Z]|\d)+$/
   end
 
   def user_locked?
@@ -79,6 +71,23 @@ class Authentication::UserAuthenticator
 
   def add_error(msg_key)
     errors << I18n.t(msg_key)
+  end
+
+  def find_user
+    # password required for initial ldap user creation
+    User.find_or_import_from_ldap(username.strip, password)
+  end
+
+  def username
+    params[:username]
+  end
+
+  def password
+    params[:password]
+  end
+
+  def user_auth!
+    user.authenticate(password)
   end
 
 end

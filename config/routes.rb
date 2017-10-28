@@ -69,9 +69,20 @@ Rails.application.routes.draw do
   end
 
   scope '/api', module: 'api' do
-    get :groups, to: 'groups#index'
-    get :accounts, to: 'accounts#index'
-    get :teams, to: 'teams#index'
+    resources :groups, only: [:index]
+    resources :teams, only: [:index]
+    resources :accounts, only: [:show, :index]
+
+    resources :api_tokens, except: :show do
+      member do
+        patch 'renew', to: 'api_tokens/renew#update'
+      end
+    end
+    scope '/search', module: 'search' do
+      get :accounts
+      get :groups
+      get :teams
+    end
 
     scope '/admin', module: 'admin' do
       resources :users, only: :destroy do

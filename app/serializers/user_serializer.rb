@@ -20,6 +20,9 @@
 #  failed_login_attempts        :integer          default(0), not null
 #  last_login_from              :string
 #  role                         :integer          default("user"), not null
+#  type                         :string
+#  human_user_id                :integer
+#  options                      :text
 #
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
