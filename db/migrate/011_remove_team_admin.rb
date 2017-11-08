@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class RemoveTeamAdmin < ActiveRecord::Migration
+class RemoveTeamAdmin < ActiveRecord::Migration[4.2]
   def change
     remove_column :teammembers, :team_admin, :boolean, default: false, null: false
   end

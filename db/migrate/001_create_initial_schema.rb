@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class CreateInitialSchema < ActiveRecord::Migration
+class CreateInitialSchema < ActiveRecord::Migration[4.2]
   def change
     create_table :accounts, force: true do |t|
       t.string :accountname, limit: 40, default: "", null: false

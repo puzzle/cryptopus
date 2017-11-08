@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class RemoveColumnAdminAndRootrequired < ActiveRecord::Migration
+class RemoveColumnAdminAndRootrequired < ActiveRecord::Migration[4.2]
   def change
     remove_column :recryptrequests, :adminrequired, :boolean
     remove_column :recryptrequests, :rootrequired, :boolean

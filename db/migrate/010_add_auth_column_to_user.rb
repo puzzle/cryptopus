@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class AddAuthColumnToUser < ActiveRecord::Migration
+class AddAuthColumnToUser < ActiveRecord::Migration[4.2]
 
   def change
     add_column :users, :auth, :string, default: 'db', null: false

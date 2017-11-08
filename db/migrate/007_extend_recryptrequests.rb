@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class ExtendRecryptrequests < ActiveRecord::Migration
+class ExtendRecryptrequests < ActiveRecord::Migration[4.2]
 
   def change
     add_column :recryptrequests, :adminrequired, :boolean, default: 1, null: false

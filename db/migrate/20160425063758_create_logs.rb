@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class CreateLogs < ActiveRecord::Migration
+class CreateLogs < ActiveRecord::Migration[4.2]
   def change
     create_table :logs do |t|
       t.string :output

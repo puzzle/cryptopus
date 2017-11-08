@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class CreateSettingsTable < ActiveRecord::Migration
+class CreateSettingsTable < ActiveRecord::Migration[4.2]
   def up
     create_table :settings do |t|
       t.string :key,   null: false

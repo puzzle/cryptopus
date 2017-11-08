@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class AddLastLoginTime < ActiveRecord::Migration
+class AddLastLoginTime < ActiveRecord::Migration[4.2]
 
   def change
     add_column :users, :last_login_at, :datetime

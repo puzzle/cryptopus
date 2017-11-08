@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class RaiseAccountnameLimit < ActiveRecord::Migration
+class RaiseAccountnameLimit < ActiveRecord::Migration[4.2]
   def change
     change_column :accounts, :accountname, :string, limit: 70
   end

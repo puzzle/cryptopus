@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class RemoveLockedFromTeammember < ActiveRecord::Migration
+class RemoveLockedFromTeammember < ActiveRecord::Migration[4.2]
   def change
     remove_column :teammembers, :locked
   end

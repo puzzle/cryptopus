@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class GroupAndTeamChanges < ActiveRecord::Migration
+class GroupAndTeamChanges < ActiveRecord::Migration[4.2]
   def up
 
     # Grouppasswords => Teammembers table

@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class FixAutoUidBug < ActiveRecord::Migration
+class FixAutoUidBug < ActiveRecord::Migration[4.2]
   def up
     # We cannot use the id as the uid, because this is autoincrement
     # Create the User table new tu ensure that autoincrement is on
