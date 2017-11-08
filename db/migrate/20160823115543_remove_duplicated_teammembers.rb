@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class RemoveDuplicatedTeammembers < ActiveRecord::Migration
+class RemoveDuplicatedTeammembers < ActiveRecord::Migration[4.2]
   def up
     seen = Set.new
     Teammember.all.each do |tm|

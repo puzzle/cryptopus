@@ -30,8 +30,9 @@
 class User < ApplicationRecord
   require 'ipaddr'
   autoload 'Authentication', 'user/authentication'
-  include User::Ldap
   include User::Authentication
+  autoload 'Ldap', 'user/ldap'
+  include User::Ldap
 
   validates :username, uniqueness: true
   validates :username, presence: true

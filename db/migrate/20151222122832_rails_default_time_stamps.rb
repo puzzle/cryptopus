@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class RailsDefaultTimeStamps < ActiveRecord::Migration
+class RailsDefaultTimeStamps < ActiveRecord::Migration[4.2]
   def change
     rename_column :teams, :created_on, :created_at
     rename_column :teams, :updated_on, :updated_at

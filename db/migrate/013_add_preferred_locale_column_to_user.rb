@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class AddPreferredLocaleColumnToUser < ActiveRecord::Migration
+class AddPreferredLocaleColumnToUser < ActiveRecord::Migration[4.2]
 
   def change
     add_column :users, :preferred_locale, :string, default: 'en', null: false

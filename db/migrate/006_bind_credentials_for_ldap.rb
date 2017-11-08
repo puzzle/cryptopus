@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class BindCredentialsForLdap < ActiveRecord::Migration
+class BindCredentialsForLdap < ActiveRecord::Migration[4.2]
 
   def change
     add_column :ldapsettings, :bind_dn, :string, default: nil

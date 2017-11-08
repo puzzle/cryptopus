@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class SetUidColumnNullableForUsers < ActiveRecord::Migration
+class SetUidColumnNullableForUsers < ActiveRecord::Migration[4.2]
   def up
     change_column :users, :uid, :integer, null: true
   end

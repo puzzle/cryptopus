@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class AddLoginAttemptsAndBlockedAttributeToUser < ActiveRecord::Migration
+class AddLoginAttemptsAndBlockedAttributeToUser < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :locked, :boolean, default: false
     add_column :users, :last_failed_login_attempt_at, :datetime

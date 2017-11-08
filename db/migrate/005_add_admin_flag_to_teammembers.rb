@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class AddAdminFlagToTeammembers < ActiveRecord::Migration
+class AddAdminFlagToTeammembers < ActiveRecord::Migration[4.2]
   def change
     add_column :teammembers, :admin, :boolean, default: 0, null: false
 
