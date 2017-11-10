@@ -77,6 +77,7 @@ Rails.application.routes.draw do
           patch :update_role, to: 'users/role#update'
         end
       end
+      resources :ldap_connection_test, only: ['new']
     end
 
     # INFO don't mix scopes and resources in routes
