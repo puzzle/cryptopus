@@ -6,7 +6,6 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::Admin::LdapConnectionTestController < ApiController
-  helper_method :ldap_enabled
 
   def new
     if ldap_enabled
@@ -50,5 +49,13 @@ class Api::Admin::LdapConnectionTestController < ApiController
 
   def hostname_error(hostname)
     add_error(t('flashes.api.admin.settings.test_ldap_connection.failed', hostname: hostname))
+  end
+  
+  def ldap_connection
+    LdapConnection.new
+  end
+
+  def hostlist
+    Setting.value(:ldap, 'hostname')
   end
 end

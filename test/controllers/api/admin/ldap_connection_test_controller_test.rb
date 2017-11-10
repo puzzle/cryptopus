@@ -40,6 +40,9 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
 
     Setting::HostList.any_instance.expects(:value).returns([])
 
+    Api::Admin::LdapConnectionTestController.any_instance.expects(:hostlist)
+           .returns([])
+
     get :new
 
     errors = JSON.parse(response.body)['messages']['errors']
