@@ -8,7 +8,7 @@ A password manager is used to encrypt data and manage users and usergroups.
 
 Cryptopus combines symmetric and asymmetric encryption.
 
-You'll find more information on our [wiki](https://github.com/puzzle/cryptopus/wiki) page.
+Learn more about Cryptopus on our [wiki](https://github.com/puzzle/cryptopus/wiki) page.
 
 Development
 ============
@@ -17,16 +17,21 @@ Cryptopus runs on Ruby 2.2.1 and Rails 5, using a sqlite3 database.
 
 Install them following this [guide](https://github.com/puzzle/cryptopus/wiki/System-Requirements).
 
-If you want to you can try out cryptopus using [Docker](https://github.com/puzzle/cryptopus/wiki/Test-Cryptopus-with-Docker)
+If you want to you can try out Cryptopus using [Docker](https://github.com/puzzle/cryptopus/wiki/Test-Cryptopus-with-Docker)
 
-Change to the directory where you want to put cryptopus and clone the repository:
 
-`cd path-to-your-cryptopus`
+Go to your target Directory and clone the repository:
+
 `git clone git://github.com/puzzle/cryptopus.git`
-`cd cryptopus`
+
+
 
 Build Cryptopus with the bundler:
+
+`cd cryptopus`
+
 `bundle install`
+
 
 Create and initialize the database:
 
@@ -34,13 +39,16 @@ Create and initialize the database:
 
 `rake db:setup`
 
+
 Start the Rails server:
 `rails s`
 
-Browse to https://localhost:3000
 
+Browse to https://localhost:3000
 and login with default credentials:
+
 user = "root" and password = "password"
+
 
 Information regarding Mock, RPM and Puppet can be found [here](https://github.com/puzzle/cryptopus/wiki/Mock-and-RPM-and-Puppet)
 
@@ -65,7 +73,7 @@ Disclaimer
 
 This program is distributed WITHOUT ANY WARRANTY;
 
-Without even the implied warranty of MERCHANTABILITY 
+Without even the implied warranty of MERCHANTABILITY
 or FITNESS FOR A PARTICULAR PURPOSE. 
 
 See the License for more details.
