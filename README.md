@@ -13,34 +13,32 @@ Learn more about Cryptopus on our [wiki](https://github.com/puzzle/cryptopus/wik
 Development
 ============
 
-Cryptopus runs on Ruby 2.2.1 and Rails 5, using a sqlite3 database.
-
-Install them following this [guide](https://github.com/puzzle/cryptopus/wiki/System-Requirements).
+Cryptopus runs on Ruby 2.2.1 and Rails 5, using a sqlite3 database. Get them [here](https://github.com/puzzle/cryptopus/wiki/System-Requirements).
 
 If you want to you can try out Cryptopus using [Docker](https://github.com/puzzle/cryptopus/wiki/Test-Cryptopus-with-Docker)
 
 
-Go to your target Directory and clone the repository:
+#### Go to your target Directory and clone the repository:
 
 `git clone git://github.com/puzzle/cryptopus.git`
 
 
 
-Build Cryptopus with the bundler:
+#### Build Cryptopus with the bundler:
 
 `cd cryptopus`
 
 `bundle install`
 
 
-Create and initialize the database:
+#### Create and initialize the database:
 
 `rake db:create`
 
 `rake db:setup`
 
 
-Start the Rails server:
+#### Start the Rails server:
 `rails s`
 
 
