@@ -20,6 +20,7 @@ Install them following this [guide](https://github.com/puzzle/cryptopus/wiki/Sys
 If you want to you can try out cryptopus using [Docker](https://github.com/puzzle/cryptopus/wiki/Test-Cryptopus-with-Docker)
 
 Change to the directory where you want to put cryptopus and clone the repository:
+
 `cd path-to-your-cryptopus`
 `git clone git://github.com/puzzle/cryptopus.git`
 `cd cryptopus`
@@ -28,7 +29,9 @@ Build Cryptopus with the bundler:
 `bundle install`
 
 Create and initialize the database:
+
 `rake db:create`
+
 `rake db:setup`
 
 Start the Rails server:
@@ -61,8 +64,10 @@ Disclaimer
 ==========
 
 This program is distributed WITHOUT ANY WARRANTY;
+
 Without even the implied warranty of MERCHANTABILITY 
 or FITNESS FOR A PARTICULAR PURPOSE. 
+
 See the License for more details.
 
 License
