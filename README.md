@@ -1,4 +1,4 @@
-![logo](https://github.com/puzzle/cryptopus/blob/df_readme/app/assets/images/cryptopussy.svg)
+![logo](https://github.com/puzzle/cryptopus/blob/master/app/assets/images/cryptopussy.svg)
 
 
 Welcome to Cryptopus
