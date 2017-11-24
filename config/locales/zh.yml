@@ -6,7 +6,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 zh:
-  fallback: "!WARNING! This is the Fallback Cryptopus! Do not write any new data it will not persist"
+  fallback: "!警告! 这是Fallback Cryptopus! 不要保存任何数据，这些数据不能保持一致。"
   confirmation: "你确定？"
   show: "显示"
   edit: "编辑"
