@@ -59,6 +59,14 @@ module ApplicationHelper
     @translations[I18n.locale].with_indifferent_access
   end
 
+  def current_version
+    if File.zero?('.build')
+      File.read('.build')
+    else
+      File.read('.version')
+    end
+  end
+
   private
 
   def default_field_options
