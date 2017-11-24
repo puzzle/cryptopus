@@ -11,4 +11,5 @@
         = text_field_tag :username, params[:username], id: 'username', placeholder: t(:username), class: 'form-control'
         = password_field_tag :password, nil, id: 'password', placeholder: t(:password), class: 'form-control'
       = submit_tag t('.submit'), class: 'btn btn-primary'
-    = current_version
+.version
+  = current_version
