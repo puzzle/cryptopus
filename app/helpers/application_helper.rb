@@ -60,11 +60,8 @@ module ApplicationHelper
   end
 
   def current_version
-    if File.zero?('.build')
-      File.read('.build')
-    else
-      File.read('.version')
-    end
+    hash = File.zero?('.build') ? File.read('.build') : ''
+    "Version " + File.read('.version') + hash
   end
 
   private
