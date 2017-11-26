@@ -63,7 +63,7 @@ class LoginsController < ApplicationController
       current_user.update_attribute(:preferred_locale, locale)
     end
 
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   private

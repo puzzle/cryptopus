@@ -16,7 +16,7 @@ module I18n
   end
 
   def self.available_locales
-    ['en', 'de', 'fr']
+    ['en', 'de', 'fr', 'zh']
   end
 
 end
