@@ -12,13 +12,12 @@ class Admin::UsersControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
   test 'logged-in admin user cannot delete own user' do
-    bob = users(:bob)
-    bob.update_attribute(:admin, true)
-    login_as(:bob)
+    admin = users(:admin)
+    login_as(:admin)
 
-    delete :destroy, params: { id: bob.id }
+    delete :destroy, params: { id: admin.id }
 
-    assert bob.reload.persisted?
+    assert admin.reload.persisted?
 
     assert_match /You can't delete your-self/, flash[:error]
   end
@@ -34,10 +33,9 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   test 'admin can delete another user' do
-    bob = users(:bob)
+    admin = users(:admin)
     alice = users(:alice)
-    bob.update_attribute(:admin, true)
-    login_as(:bob)
+    login_as(:admin)
 
     delete :destroy, params: { id: alice.id }
 
