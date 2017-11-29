@@ -42,6 +42,16 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_not User.find_by(username: 'alice')
   end
 
+  test 'admin can delete another admin' do
+    admin = users(:admin)
+    admin2 = Fabricate(:admin)
+    login_as(:admin)
+
+    delete :destroy, params: { id: admin2.id }
+
+    assert_not User.find_by(username: admin2.username)
+  end
+
   test 'unlock user as admin' do
     bob = users(:bob)
     bob.update_attribute(:locked, true)
