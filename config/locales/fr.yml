@@ -31,7 +31,6 @@ fr:
   last_login_date_and_from: "La dernière connexion était le %{last_login_at} de %{last_login_from}"
   last_login_date_and_from_country: "La dernière connexion était le %{last_login_at} de %{last_login_from} (%{last_login_country})"
   last_login_date: "La dernière connexion était le %{last_login_at}"
- 
   last_login: "La dernière connexion était le %{last_login_at} de %{last_login_from}"
   unencrypted_field_caption: ne pas crypté
   group: Groupe
@@ -72,6 +71,7 @@ fr:
       title: Nouveau compte
 
   admin:
+    title: "Admin"
     maintenance_tasks:
       index:
         title: Les tâches de maintenance

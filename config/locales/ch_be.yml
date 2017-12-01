@@ -21,6 +21,8 @@ ch_be:
   download: Abäladä
   yes: Ja
   no: Nei
+  help: Hiuf
+  version: Version
   forgot_password: Hesch z Passwort vergässä?
   logout: Abmäudä
   auto_logout: outomatisch Abmäudä i
@@ -100,6 +102,7 @@ ch_be:
       title: Nöie Account
 
   admin:
+    title: Admin
     maintenance_tasks:
       index:
         title: Wartigsufgabe

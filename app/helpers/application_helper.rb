@@ -61,7 +61,7 @@ module ApplicationHelper
 
   def version_info
     build_info = File.file?('BUILD') ? File.read('BUILD') : ''
-    "Version #{File.read('VERSION')} #{build_info}"
+    I18n.t('version') + " #{File.read('VERSION')} #{build_info}"
   end
 
   def version_link

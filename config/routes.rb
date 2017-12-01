@@ -7,7 +7,7 @@
 
 Rails.application.routes.draw do
   
-  scope "(:locale)", locale: /en|de|fr|zh|ch_be/ do
+  scope "(:locale)", locale: /en|de|fr|zh|ru|ch_be/ do
     namespace :recryptrequests do
       get 'new_ldap_password'
       post 'recrypt'

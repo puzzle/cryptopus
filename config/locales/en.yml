@@ -21,6 +21,8 @@ en:
   download: Download
   yes: Yes
   no: No
+  help: Help
+  version: Version
   forgot_password: Forgot your password?
   logout: Logout
   auto_logout: auto-logout in
@@ -70,6 +72,7 @@ en:
       title: New Account
 
   admin:
+    title: Admin
     maintenance_tasks:
       index:
         title: Maintenance tasks
@@ -96,7 +99,7 @@ en:
         ldap_password: Your LDAP Password
         forgot_password_recrypt: |
           When you forgot your old password, just the teams which aren't private will be decrypted.
-          All private teams whitch would become unaccessible for any users will be deleted.
+          All private teams which would become unaccessible for any users will be deleted.
           After the request was send you have to wait until an admin decrypts your passwords.
         recrypt: Recrypt
         send: Send request
