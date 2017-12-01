@@ -40,7 +40,7 @@ class Admin::UsersController < Admin::AdminController
     if user == current_user
       flash[:error] = t('flashes.admin.users.destroy.own_user')
     else
-      destroy_user(user)
+      destroy_user
     end
 
     respond_to do |format|
@@ -85,8 +85,9 @@ class Admin::UsersController < Admin::AdminController
 
   private
 
-  def destroy_user(user)
+  def destroy_user
     # admins cannot be removed from non-private teams
+    # so set admin to false first
     user.update!(admin: false) if user.admin?
     user.destroy!
   end

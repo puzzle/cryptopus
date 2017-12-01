@@ -15,7 +15,9 @@ class Admin::UsersControllerTest < ActionController::TestCase
     admin = users(:admin)
     login_as(:admin)
 
-    delete :destroy, params: { id: admin.id }
+    assert_difference('User.count', 0) do
+      delete :destroy, params: { id: admin.id }
+    end
 
     assert admin.reload.persisted?
 
@@ -26,30 +28,32 @@ class Admin::UsersControllerTest < ActionController::TestCase
     alice = users(:alice)
     login_as(:bob)
 
-    delete :destroy, params: { id: alice.id }
+    assert_difference('User.count', 0) do
+      delete :destroy, params: { id: alice.id }
+    end
 
     assert alice.reload.persisted?
     assert_match /Access denied/, flash[:error]
   end
 
   test 'admin can delete another user' do
-    admin = users(:admin)
     alice = users(:alice)
     login_as(:admin)
 
-    delete :destroy, params: { id: alice.id }
+    assert_difference('User.count', -1) do
+      delete :destroy, params: { id: alice.id }
+    end
 
     assert_not User.find_by(username: 'alice')
   end
 
   test 'admin can delete another admin' do
-    admin = users(:admin)
     admin2 = Fabricate(:admin)
     login_as(:admin)
 
-    delete :destroy, params: { id: admin2.id }
-
-    assert_not User.find_by(username: admin2.username)
+    assert_difference('User.count', -1) do
+      delete :destroy, params: { id: admin2.id }
+    end
   end
 
   test 'unlock user as admin' do
