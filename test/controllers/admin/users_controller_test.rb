@@ -12,13 +12,14 @@ class Admin::UsersControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
   test 'logged-in admin user cannot delete own user' do
-    bob = users(:bob)
-    bob.update_attribute(:admin, true)
-    login_as(:bob)
+    admin = users(:admin)
+    login_as(:admin)
 
-    delete :destroy, params: { id: bob.id }
+    assert_difference('User.count', 0) do
+      delete :destroy, params: { id: admin.id }
+    end
 
-    assert bob.reload.persisted?
+    assert admin.reload.persisted?
 
     assert_match /You can't delete your-self/, flash[:error]
   end
@@ -27,21 +28,32 @@ class Admin::UsersControllerTest < ActionController::TestCase
     alice = users(:alice)
     login_as(:bob)
 
-    delete :destroy, params: { id: alice.id }
+    assert_difference('User.count', 0) do
+      delete :destroy, params: { id: alice.id }
+    end
 
     assert alice.reload.persisted?
     assert_match /Access denied/, flash[:error]
   end
 
   test 'admin can delete another user' do
-    bob = users(:bob)
     alice = users(:alice)
-    bob.update_attribute(:admin, true)
-    login_as(:bob)
+    login_as(:admin)
 
-    delete :destroy, params: { id: alice.id }
+    assert_difference('User.count', -1) do
+      delete :destroy, params: { id: alice.id }
+    end
 
     assert_not User.find_by(username: 'alice')
+  end
+
+  test 'admin can delete another admin' do
+    admin2 = Fabricate(:admin)
+    login_as(:admin)
+
+    assert_difference('User.count', -1) do
+      delete :destroy, params: { id: admin2.id }
+    end
   end
 
   test 'unlock user as admin' do
