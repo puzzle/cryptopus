@@ -21,11 +21,14 @@ zh:
   download: "下载"
   yes: "是"
   no: "否"
+  help: "Help"
+  version: "Version"
   forgot_password: "忘记你的密码？"
   logout: "注销"
   auto_logout: "自动注销"
   settings: "设置"
   recrypt_requests: "加密请求"
+  maintenance_tasks: "维护任务"
   users: "用户"
   change_password: "更改密码"
   last_login_date_and_from: "上次登陆时间：%{last_login_at} 位置 %{last_login_from}"
@@ -43,7 +46,7 @@ zh:
   search:
     title: "搜索"
     index:
-      hi_user: "你好 %{username}! 想要恢复密码？"
+      hi_user: "你好 %{username}! 找一个密码？"
       no_results_found: "未找到任何结果"
       type_to_search: "输入搜索关键字..."
 
@@ -70,6 +73,7 @@ zh:
       title: "新帐户"
 
   admin:
+    title: "Admin"
     maintenance_tasks:
       index:
         title: "维护任务"

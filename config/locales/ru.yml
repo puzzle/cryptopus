@@ -1,0 +1,308 @@
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
+#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+#  See the COPYING file at the top-level directory or at
+#  https://github.com/puzzle/cryptopus.
+
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+ru:
+  fallback: "!ВНИМАНИЕ! Это резервный Cryptopus! Не сохраняйте в него никаких новых данных, они будут утеряны"
+  confirmation: "Вы уверены?"
+  show: "Показать"
+  edit: "Редактировать"
+  update: "Обновить"
+  create: "Создать"
+  delete: "Удалить"
+  add: "Добавить"
+  description: "Описание"
+  username: "Имя пользователя"
+  password: "Пароль"
+  actions: "Действия"
+  download: "Скачать"
+  yes: "Да"
+  no: "Нет"
+  help: "Помощь"
+  version: "Версия"
+  forgot_password: "Забыли пароль?"
+  logout: "Выйти"
+  auto_logout: "автоматический выход через"
+  settings: "Настройки"
+  recrypt_requests: "Перешифровать запросы"
+  maintenance_tasks: "Задачи обслуживания"
+  users: "Пользователи"
+  change_password: "Сменить пароль"
+  last_login_date_and_from: "Последний вход был %{last_login_at} с %{last_login_from}"
+  last_login_date_and_from_country: "Последний вход был %{last_login_at} с %{last_login_from} (%{last_login_country})"
+  last_login_date: "Последний вход был %{last_login_at}"
+  unencrypted_field_caption: "не зашифровано"
+  group: "Группа"
+  team: "Команда"
+  move: "Переместить"
+  executed_at: "Выполнено"
+  status: "Статус"
+  output: "Вывод"
+  executer: "Исполнитель"
+
+  i18n:
+    language:
+      name: 'Русский'
+
+  search:
+    title: "Поиск"
+    index:
+      hi_user: "Здравствуйте, %{username}! Ищете пароль?"
+      no_results_found: "ничего не найдено"
+      type_to_search: "Поиск..."
+
+  accounts:
+    title: "Аккаунты"
+    index:
+      move: "Переместить аккаунт в другую группу"
+      title: "Аккаунты в группе %{group_name} для команды %{team_name}"
+    index_menu:
+      create: "Создать аккаунт"
+      group: "Группы"
+    show_menu:
+      add_attachment: "Прикрепить файл"
+    edit:
+      title: "Редактивание аккаунта"
+      random_password: "Случайный пароль"
+    show:
+      title: "Аккаунт: %{account_name}"
+      last_change: "Последнее изменение %{time_ago} назад"
+      attachments: "Вложения"
+      file: "Файл"
+      show_password: "Показать пароль"
+    new:
+      title: "Новый аккаунт"
+
+  admin:
+    title: "Администрирование"
+    maintenance_tasks:
+      index:
+        title: "Задачи обслуживания"
+        maintenance_task: "Задачи обслуживания"
+        run: "выполнить"
+        logs: "Журналы"
+      new_root_password:
+        label: "Новый пароль для пользователя root"
+        description: "Устанавливает новый пароль для пользователя root."
+      root_as_admin:
+        label: "Назначить пользователя root администратором"
+        description: "Назначает пользователя root администратором и удаляет роль root."
+    settings:
+      index:
+        title: "Редактировать настройки"
+        save: "Сохранить настройки"
+    recryptrequests:
+      index:
+        title: "Запросы на перешифрование"
+        user: "Пользователь"
+        admin_required: "Необходимы права администратора"
+        recrypt: "Перешифровать"
+      request:
+        request_sent: "Запрос на перешифрование ваших групповых паролей был отправлен. Подождите, пока администратор не перешифрует ваши пароли."
+      uncrypterror:
+        new_password: "Новый пароль?!"
+        ldap_password_changed: "Ваш LDAP пароль был изменен с момента вашего последнего входа."
+        ldap_enter_old_password: "Пожалуйста, введите ваш старый LDAP пароль чтобы расшифровать ваш личный ключ."
+        ldap_old_password: "Ваш старый LDAP пароль"
+        ldap_new_password: "Ваш новый LDAP пароль"
+        ldap_password: "Ваш LDAP пароль"
+        forgot_password_recrypt: |
+          Если вы забыли ваш старый пароль, то только не приватные команды будут расшифрованы.
+          Все приватные команды, которые станут ни для кого недоступны, будут удалены.
+          После отправки запроса вам придётся подождать, пока администратор не расшифрует ваши пароли.
+        recrypt: "Перешифровать"
+        send: "Отправить запрос"
+
+    users:
+      index_menu:
+        create: "Создать нового пользователя"
+      edit:
+        title: "Редактирование пользователя"
+        reset_password: "Сбросить пароль"
+        warning: "После сброса пароля пользователь теряет доступ ко всем приватным командам. Все команды, в которых никого кроме него не было, удаляются."
+      index:
+        title: "Список пользователей"
+        username: "Имя пользователя"
+        name: "Имя"
+        ldap_uid: "LDAP UID"
+        last_login_at: "Последний вход"
+        last_login_from: "Последний вход с"
+        admin: "Администратор"
+        action: "Действие"
+        locked: "Заблокированные пользователи"
+        unlock: "Разблокировать"
+      last_teammember_teams:
+        message: "Перед удалением этого пользователя вам придётся удалить следующие команды, в которых кроме него никого нет."
+        delete_user: "Вы действительно хотите удалить этого пользователя?"
+        destroy: "Уничтожить пользователя"
+      new:
+        title: "Новый пользователь"
+
+  groups:
+    title: "Группы"
+    index_menu:
+      create: "Создать группу"
+    edit:
+      title: "Редактирование группы"
+    index:
+      title: "Группы для команды %{team_name}"
+      group: "Группа"
+      members: "Участники группы"
+      add_member: "Добавить участника"
+      admins: "Администраторы"
+    new:
+      title: "Новая группа"
+
+  items:
+    new:
+      title: "Добавить вложение к аккаунту"
+      upload: "Файл для загрузки"
+      upload_file: "Загрузить файл"
+
+  logins:
+    login:
+      title: "Вход"
+      description: "Введите имя пользователя и пароль для входа в cryptopus"
+      submit: "Войти"
+    logout:
+      title: "Выйти"
+      message: "До свидания"
+      hint: "Пожалуйста, очистите кэш браузера."
+    newuser:
+      title: "Добро пожаловать в Cryptopus"
+      description: "Мы создали новый секретный ключ для вас. Приятной работы с Cryptopus"
+    noaccess:
+      title: "В доступе отказано"
+    show_update_password:
+      title: "Изменение пароля"
+      old: "Старый пароль"
+      new: "Новый пароль"
+      new_retype: "Новый пароль (ещё раз)"
+      submit: "Изменить"
+
+  teammembers:
+    new:
+      title: "Добавить нового участника команды"
+    confirm:
+      delete: "Удалить %{entry_label} из команды?"
+    show: "Показать участников"
+    hide: "Скрыть участников"
+
+  teams:
+    title: "Команды"
+    form:
+      private: "Приватная"
+    index_menu:
+      create: "Создать новую команду"
+    index:
+      title: "Вы состоите в следующих командах:"
+      team: "Команда"
+    new:
+      title: "Создать новую команду"
+    description:
+      private: "Запретить доступ администраторам"
+
+  flashes:
+    api:
+      admin:
+        users:
+          toggle:
+            empowered: "%{username} теперь администратор"
+            disempowered: "%{username} больше не администратор"
+      members:
+        removed: "%{username} был удалён из команды"
+        added: "%{username} был добавлен в команду"
+    wizard:
+      fill_password_fields: "Пожалуйста, введите начальный пароль"
+      paswords_do_not_match: "Пароли не совпадают"
+    admin:
+      admin:
+        no_access: "В доступе отказано"
+      settings:
+        example: "Это примерные настройки. Пожалуйста замените их вашими."
+        successfully_updated: "Ваши настройки были обновлены."
+      recryptrequests:
+        some: "Успешно перешифрованы некоторые пароли для %{user_name}"
+        all: "Успешно перешифрованы все пароли для %{user_name}"
+        resetpassword:
+          success: "Пароль сброшен"
+          required: "Пароль должен быть непустым"
+      users:
+        created: "Создан новый пользователь."
+        destroy:
+          own_user: "Вы не можете удалить сами себя"
+          root: "Пользователь Root не может быть удалён"
+        update:
+          root: "Пользователь Root не может быть изменён"
+          ldap: "Ldap-пользователь не может быть изменён"
+      maintenance_tasks:
+        succeed: "Задача успешно выполнена."
+        failed: "Задача не выполнена. Детали в логах."
+
+    accounts:
+      created: "Аккаунт создан."
+      updated: "Аккаунт обновлён."
+      moved: "Аккаунт перемещён"
+    application:
+      wait: "Подождите окончания перешифрования ваших командных паролей."
+    groups:
+      created: "Новая группа создана."
+      updated: "Группа обновлена."
+    items:
+      uploaded: "Файл загружен."
+      uploaded_size_to_high: "Файл слишком большой (макс. 10 МБ)"
+      uploaded_filename_is_empty: "Файл должен иметь имя"
+      uploaded_file_inexistent: "Файл не существует"
+    logins:
+      weak_password: "Для усиления безопасности смените пароль на более сложный."
+      welcome: "Добро пожаловать в Cryptopus! Для начала вам нужно создать аккаунт. Пожалуйста, введите новый пароль."
+      auth_failed: "Ошибка аутентификации! Введите правильное имя пользователя и пароль."
+      only_local: "Только локальные пользователи могут менять свой пароль."
+      new_password_set: "Вы успешно поменяли пароль"
+      new_passwords_not_equal: "Новые пароли не совпадают"
+      wrong_password: "Неверное имя пользователя / пароль"
+      not_local: "Вы не локальный пользователь!"
+      locked: "Пользователь заблокирован. Пожалуйста, попробуйте войти позже или свяжитесь с администратором, если ваш аккаунт заблокирован навсегда"
+    recryptrequests:
+      recrypted: "Вы успешно перешифровали пароль"
+      wait: "Дождитесь окончания перешифровки командных паролей"
+      wrong_password: "Неверный пароль"
+    teams:
+      wrong_user_password: "Введите правильные имя пользователя и пароль чтобы проверить настройки LDAP"
+      created: "Новая команда создана."
+      updated: "Команда обновлена."
+      deleted: "Команда удалена"
+      cannot_delete: "Только администратор может удалять команды"
+      no_member: "Вы не состоите в этой команде"
+    teammembers:
+      could_not_remove_last_teammember: "Не удалось удалить последнего участника команды"
+      could_not_remove_admin_from_private_team: "Не удалось удалить администратора из приватной команды"
+
+  confirm:
+    delete: "Удалить %{entry_class} %{entry_label} ?"
+    changeAdmin: "дать/забрать права администратора?"
+    deleteWithTeams: "Удалить все команды, в которых кроме пользователя %{username} никого нет"
+
+#Validation Errors
+  activerecord:
+    errors:
+      template:
+        body: ''
+        header: ''
+      models:
+        user:
+          new_password_invalid: "Ваш новый пароль неверен"
+          old_password_invalid: "Ваш старый пароль неверен"
+        item:
+          attributes:
+            filename:
+              blank: 'Имя файла не задано'
+              taken: 'Имя файла уже занято'
+
+  password_strength:
+    weak: "Слабый пароль"
+    good: "Хороший пароль"
+    strong: "Сильный пароль!"
