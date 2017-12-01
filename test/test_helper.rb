@@ -54,6 +54,10 @@ class ActiveSupport::TestCase
     Setting.find_by(key: 'ldap_enable').update_attributes(value: true)
   end
 
+  def self.context(title, &block)
+    yield
+  end
+
 end
 
 class Capybara::Rails::TestCase
