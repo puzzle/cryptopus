@@ -10,8 +10,11 @@ class app.Shortcuts
   constructor: () ->
     bind.call()
 
-  search = () ->
-    window.location = '/search'
+  loginLocation = () ->
+    window.location.href.indexOf("login/login") > -1
+
+  login = () ->
+    $('.btn').click()
 
   copyUsername = () ->
     if window.location.href.indexOf("accounts/") > -1
@@ -21,6 +24,15 @@ class app.Shortcuts
     if window.location.href.indexOf("accounts/") > -1
       $('#copy_password_button').click()
 
+  openAdminDropdown = () ->
+    $('.dropdown-toggle').click()
+  
+  checkDropdown = () ->
+    $('.dropdown.open').length == 1
+  
+  changeLocation = (location) ->
+    window.location = location
+  
   bind = ->
     $(document).on 'keydown', (e) ->
       if !e
@@ -28,7 +40,7 @@ class app.Shortcuts
       # search (ctrl + f)
       if e.ctrlKey && e.keyCode==70
         e.preventDefault()
-        search()
+        changeLocation('/search')
       # copy username (ctrl + u)
       if e.ctrlKey && e.keyCode==85
         e.preventDefault()
@@ -37,5 +49,40 @@ class app.Shortcuts
       if e.ctrlKey && e.keyCode==67
         e.preventDefault()
         copyPassword()
+      # go to teams location (ctrl + shift + t)
+      if e.ctrlKey && e.shiftKey && e.keyCode==84
+        e.preventDefault()
+        changeLocation('/teams')
+      # go to change password location (ctrl + shift + c)
+      if e.ctrlKey && e.shiftKey && e.keyCode==67
+        e.preventDefault()
+        changeLocation('/login/show_update_password')
+      # open admin dropdown (ctrl + shift + a)
+      if e.ctrlKey && e.shiftKey && e.keyCode==65
+        e.preventDefault()
+        openAdminDropdown()
+      # go to admin dropdown location (1-4)
+      if e.keyCode==49
+        if checkDropdown()
+          e.preventDefault()
+          changeLocation('/admin/settings/index')
+      else if e.keyCode==50
+        if checkDropdown()
+          e.preventDefault()
+          changeLocation('/admin/recryptrequests')
+      else if e.keyCode==51
+        if checkDropdown()
+          e.preventDefault()
+          changeLocation('/admin/users')
+      else if e.keyCode==52
+        if checkDropdown()
+          e.preventDefault()
+          changeLocation('/admin/maintenance_tasks')
+      if e.ctrlKey && e.keyCode==76
+        e.preventDefault()
+        if loginLocation()
+          login()
+        else
+          changeLocation('/login/logout')
 
   new Shortcuts
