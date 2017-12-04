@@ -59,6 +59,11 @@ module ApplicationHelper
     @translations[I18n.locale].with_indifferent_access
   end
 
+  def version_info
+    build_info = File.file?('BUILD') ? File.read('BUILD') : ''
+    "Version #{File.read('VERSION')} #{build_info}"
+  end
+
   private
 
   def default_field_options
