@@ -13,7 +13,6 @@ class MultipleLdapHostnames < ActiveRecord::Migration[5.1]
     Setting.create!(key: 'ldap_hostname', value: [value], type: 'Setting::HostList')
   end
 
-
   def down
     value = hostname.try(:first)
     ldap_hostname_setting.destroy!

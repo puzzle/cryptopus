@@ -1,4 +1,4 @@
-#m encoding: utf-8
+# encoding: utf-8
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
@@ -9,7 +9,7 @@ class AddAdminFlagToTeammembers < ActiveRecord::Migration[4.2]
   def change
     add_column :teammembers, :admin, :boolean, default: 0, null: false
 
-    root = User.unscoped.find_by_uid( "0" )
+    root = User.unscoped.find_by_uid('0')
 
     unless root.nil?
       Teammember.reset_column_information

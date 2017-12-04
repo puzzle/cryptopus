@@ -30,6 +30,7 @@ class UserSeeder
   end
 
   private
+
   def seed_user(username, admin = false)
     User.seed_once(:username) do |u|
       u.username = username.to_s
@@ -46,7 +47,7 @@ class UserSeeder
     keypair = CryptUtils.new_keypair
     uncrypted_private_key = CryptUtils.get_private_key_from_keypair(keypair)
     user.public_key = CryptUtils.get_public_key_from_keypair(keypair)
-    user.private_key = CryptUtils.encrypt_private_key( uncrypted_private_key, 'password' )
+    user.private_key = CryptUtils.encrypt_private_key(uncrypted_private_key, 'password')
   end
 
 end

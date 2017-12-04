@@ -11,6 +11,6 @@ seeder = UserSeeder.new
 
 seeder.seed_root
 
-seeder.seed_users([:alice, :bob, :john, :kate])
+seeder.seed_users(%i[alice bob john kate])
 
-seeder.seed_admins([:bruce, :emily])
+seeder.seed_admins(%i[bruce emily])

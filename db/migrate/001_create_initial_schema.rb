@@ -8,8 +8,8 @@
 class CreateInitialSchema < ActiveRecord::Migration[4.2]
   def change
     create_table :accounts, force: true do |t|
-      t.string :accountname, limit: 40, default: "", null: false
-      t.integer :group_id, default: 0,  null: false
+      t.string :accountname, limit: 40, default: '', null: false
+      t.integer :group_id, default: 0, null: false
       t.text :description
       t.binary :username
       t.binary :password
@@ -18,23 +18,23 @@ class CreateInitialSchema < ActiveRecord::Migration[4.2]
     end
 
     create_table :grouppasswords, force: true do |t|
-      t.integer :group_id, default: 0,  null: false
+      t.integer :group_id, default: 0, null: false
       t.binary :password, null: false
-      t.integer :user_id, default: 0,  null: false
+      t.integer :user_id, default: 0, null: false
       t.timestamp :created_on, null: false
       t.timestamp :updated_on, null: false
     end
 
     create_table :groups, force: true do |t|
-      t.string :groupname, limit: 40, default: "", null: false
+      t.string :groupname, limit: 40, default: '', null: false
       t.text :description
       t.timestamp :created_on, null: false
       t.timestamp :updated_on, null: false
-      t.integer :user_id, default: 0,  null: false
+      t.integer :user_id, default: 0, null: false
     end
 
     create_table :items, force: true do |t|
-      t.integer :account_id, default: 0,  null: false
+      t.integer :account_id, default: 0, null: false
       t.text :description
       t.binary :file
       t.timestamp :created_on, null: false
@@ -44,10 +44,10 @@ class CreateInitialSchema < ActiveRecord::Migration[4.2]
     end
 
     create_table :ldapsettings, force: true do |t|
-      t.string :basename, limit: 200, default: "ou=users,dc=yourdomain,dc=com", null: false
-      t.string :hostname, limit: 50,  default: "yourdomain.com", null: false
-      t.string :portnumber, limit: 10,  default: "636", null: false
-      t.string :encryption, limit: 30,  default: "simple_tls", null: false
+      t.string :basename, limit: 200, default: 'ou=users,dc=yourdomain,dc=com', null: false
+      t.string :hostname, limit: 50, default: 'yourdomain.com', null: false
+      t.string :portnumber, limit: 10, default: '636', null: false
+      t.string :encryption, limit: 30, default: 'simple_tls', null: false
     end
 
     create_table :recryptrequests, force: true do |t|

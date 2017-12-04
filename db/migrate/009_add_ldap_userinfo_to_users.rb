@@ -14,14 +14,14 @@ class AddLdapUserinfoToUsers < ActiveRecord::Migration[4.2]
 
     User.reset_column_information
     User.find_each do |user|
-      if user.uid == 0
+      if user.uid.zero?
         user.username  = 'root'
         user.givenname = 'root'
         user.surname   = ''
       else
-        user.username  = get_ldap_info( user.uid.to_s, :uid )
-        user.givenname = get_ldap_info( user.uid.to_s, :givenname )
-        user.surname   = get_ldap_info( user.uid.to_s, :sn )
+        user.username  = get_ldap_info(user.uid.to_s, :uid)
+        user.givenname = get_ldap_info(user.uid.to_s, :givenname)
+        user.surname   = get_ldap_info(user.uid.to_s, :sn)
       end
       user.save
     end
@@ -34,17 +34,20 @@ class AddLdapUserinfoToUsers < ActiveRecord::Migration[4.2]
   end
 
   private
-  def get_ldap_info( uid, attribute )
+
+  def get_ldap_info(uid, attribute)
     ldap_legacy_connect
-    filter = Net::LDAP::Filter.eq( :uidnumber, uid )
-    @@ldap.search( base: @@ldap_settings.basename, filter: filter, attributes: [attribute] ) do | entry |
-      entry.each do |attr, values|
-      if attr.to_s == attribute
-        return values[0].to_s
-      end
-    end
-    end
-    return "No <#{attribute} for uid #{uid}>"
+    filter = Net::LDAP::Filter.eq(:uidnumber, uid)
+    @@ldap.search(base: @@ldap_settings.basename,
+                  filter: filter,
+                  attributes: [attribute]) do |entry|
+                    entry.each do |attr, values|
+                      if attr.to_s == attribute
+                        return values[0].to_s
+                      end
+                    end
+                  end
+    "No <#{attribute} for uid #{uid}>"
   end
 
   def ldap_legacy_connect
