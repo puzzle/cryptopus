@@ -8,9 +8,9 @@
 class CreateSettingsTable < ActiveRecord::Migration[4.2]
   def up
     create_table :settings do |t|
-      t.string :key,   null: false
+      t.string :key, null: false
       t.string :value
-      t.string :type,  null: false
+      t.string :type, null: false
     end
     values = ldap_values
     create_ldap_settings(values)
@@ -19,11 +19,11 @@ class CreateSettingsTable < ActiveRecord::Migration[4.2]
   end
 
   def down
-    create_table "ldapsettings", :force => true do |t|
-      t.string :basename,      limit: 200, default: "ou=users,dc=yourdomain,dc=com", null:  false
-      t.string :hostname,      limit: 50,  default: "yourdomain.com",                null:  false
-      t.string :portnumber,    limit: 10,  default: "636",                           null:  false
-      t.string :encryption,    limit: 30,  default: "simple_tls",                    null:  false
+    create_table 'ldapsettings', force: true do |t|
+      t.string :basename,      limit: 200, default: 'ou=users,dc=yourdomain,dc=com', null:  false
+      t.string :hostname,      limit: 50,  default: 'yourdomain.com',                null:  false
+      t.string :portnumber,    limit: 10,  default: '636',                           null:  false
+      t.string :encryption,    limit: 30,  default: 'simple_tls',                    null:  false
       t.string :bind_dn
       t.string :bind_password
     end
@@ -37,7 +37,9 @@ class CreateSettingsTable < ActiveRecord::Migration[4.2]
 
     drop_table :settings
   end
+
   private
+
   def create_ldap_settings(values)
     Setting::Text.create!(key: :ldap_basename, value: values[:basename])
     Setting::Text.create!(key: :ldap_hostname, value: values[:hostname])

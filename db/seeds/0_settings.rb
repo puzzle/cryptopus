@@ -16,5 +16,5 @@ seeder.seed_text_setting('ldap_encryption', 'simple_tls')
 seeder.seed_text_setting('ldap_bind_password', '')
 seeder.seed_true_false_setting('ldap_enable', 'f')
 
-seeder.seed_setting(:CountryCode,'general_country_source_whitelist', [])
+seeder.seed_setting(:CountryCode, 'general_country_source_whitelist', [])
 seeder.seed_setting(:IpRange, 'general_ip_whitelist', [])

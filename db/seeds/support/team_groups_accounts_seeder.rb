@@ -9,23 +9,10 @@ class TeamGroupsAccountsSeeder
 
   def seed_team(name, members, admin = false)
     name = name.to_s.capitalize
-    Team.seed_once(:name) do |t|
-      t.name = name
-      t.description = Faker::Lorem.paragraph
-      t.groups = [Group.create(name: Faker::Lorem.word.capitalize)]
-      t.private = !admin
-    end
-
+    seed_teams(name, admin)
     team = Team.find_by(name: name)
-
     plaintext_team_pw = CryptUtils.new_team_password
-
-    members.each do |m|
-      u = user(m)
-      add_member(team, u, plaintext_team_pw)
-      add_member(team, root)
-    end
-
+    add_members(members, team, plaintext_team_pw)
     seed_accounts(team)
   end
 
@@ -34,15 +21,15 @@ class TeamGroupsAccountsSeeder
     plaintext_private_key = member.decrypt_private_key('password')
     plaintext_team_pw = team.decrypt_team_password(member, plaintext_private_key)
     team.groups.each do |g|
-      unless g.accounts.present?
-        (1..15).to_a.sample.times do
-          seed_account(g, plaintext_team_pw)
-        end
+      next unless g.accounts.blank?
+      (1..15).to_a.sample.times do
+        seed_account(g, plaintext_team_pw)
       end
     end
   end
 
   private
+
   def user(username)
     User.find_by(username: username.to_s)
   end
@@ -69,6 +56,23 @@ class TeamGroupsAccountsSeeder
                            username: username,
                            password: password,
                            description: Faker::Lorem.paragraph)
+  end
+
+  def seed_teams(name, admin)
+    Team.seed_once(:name) do |t|
+      t.name = name
+      t.description = Faker::Lorem.paragraph
+      t.groups = [Group.create(name: Faker::Lorem.word.capitalize)]
+      t.private = !admin
+    end
+  end
+
+  def add_members(members, team, plaintext_team_pw)
+    members.each do |m|
+      u = user(m)
+      add_member(team, u, plaintext_team_pw)
+      add_member(team, root)
+    end
   end
 
 end

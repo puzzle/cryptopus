@@ -6,7 +6,6 @@
 #  https://github.com/puzzle/cryptopus.
 
 class SettingSeeder
-  
   def seed_text_setting(key, value)
     seed_setting(:Text, key, value)
   end

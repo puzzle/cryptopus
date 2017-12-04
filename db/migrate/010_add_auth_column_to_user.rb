@@ -12,11 +12,11 @@ class AddAuthColumnToUser < ActiveRecord::Migration[4.2]
 
     User.reset_column_information
     User.find_each do |user|
-      if user.uid == 0
-        user.auth = 'db'
-      else
-        user.auth = 'ldap'
-      end
+      user.auth = if user.uid.zero?
+                    'db'
+                  else
+                    'ldap'
+                  end
       user.save
     end
   end

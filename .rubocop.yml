@@ -1,10 +1,9 @@
 AllCops:
-  require: rubocop/migrations
   DisplayCopNames: true
   Exclude:
     - Rakefile
-    - db/**/*
     - config/**/*
+    - db/schema.rb
     - lib/tasks/**/*
     - test/**/*
     - tmp/**/*
@@ -14,6 +13,8 @@ AllCops:
 Metrics/AbcSize:
   Max: 20
   Severity: error
+  Exclude:
+    - db/migrate/**
 
 Metrics/ClassLength:
   Max: 200
@@ -30,6 +31,8 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 10
   Severity: error
+  Exclude:
+    - db/migrate/**
 
 
 # Keep for now, easier with superclass definitions
