@@ -59,9 +59,9 @@ module ApplicationHelper
     @translations[I18n.locale].with_indifferent_access
   end
 
-  def current_version
-    hash = File.file?('.build') ? File.read('.build') : ''
-    "Version " + File.read('.version') + hash
+  def version_info
+    build_info = File.file?('BUILD') ? File.read('BUILD') : ''
+    "Version #{File.read('VERSION')} #{build_info}"
   end
 
   private
