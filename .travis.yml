@@ -3,6 +3,8 @@ addons:
   apt:
     packages:
       - libqtwebkit-dev
+      - libqtwebkit4
+      - qt5-qmake-gles
 cache: bundler
 rvm:
  - 2.2
