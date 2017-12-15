@@ -1,0 +1,24 @@
+language: ruby
+cache: bundler
+rvm:
+ - 2.2
+branches:
+ only:
+  - master
+env:
+ global:
+  - RAILS_ENV=test
+  - QMAKE=/usr/lib64/qt5/bin/qmake
+  - RAILS_DB_NAME='pitc_cryptopus_test'
+  - RAILS_DB_HOST='pitc-cryptopus-test.db.puzzle.ch'
+  - RAILS_DB_PORT=3306
+  - RAILS_DB_ADAPTER='mysql2'
+  - RAILS_DB_USERNAME='pitc_cryptopus_t'
+  - RAILS_DB_PASSWORD='3dOPKS.w@5<n'
+before_install:
+ - sudo service mysql restart
+install:
+ - bundle install --path vendor/bundle
+script:
+ - bin/rails db:environment:set RAILS_ENV=test
+ - bundle exec rake ci --trace
