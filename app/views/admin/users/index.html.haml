@@ -27,8 +27,7 @@
         - if user != current_user
           = change_admin_attribute(user)
       %td.action_icon
-        - if user.auth != 'ldap'
-          = link_to image_tag("edit.svg"), edit_admin_user_path(user)
+        = link_to image_tag("edit.svg"), edit_admin_user_path(user)
       %td.action_icon
         - if user != current_user
           = link_to image_tag("remove.svg"), '#',
