@@ -104,19 +104,17 @@ class Admin::UsersControllerTest < ActionController::TestCase
       assert_equal alice.givenname, 'new_givenname'
     end
 
-    test 'cannot update ldap-user-profile' do
-      bob = users(:bob)
-      bob.update_attribute(:auth, 'ldap')
-
-      update_params = { username: 'new_username'}
+    test 'admin updates ldap-user-profile' do
+      alice = users(:alice)
+      alice.update_attribute(:auth, 'ldap')
+      update_params = { username: 'new_username' }
 
       login_as(:admin)
-      post :update, params: { id: bob, user: update_params }
+      post :update, params: { id: alice, user: update_params }
 
-      bob.reload
+      alice.reload
 
-      assert_not_equal 'new_username', bob.username
-      assert_match /Ldap user cannot be updated/, flash[:error]
+      assert_equal alice.username, 'new_username'
     end
 
   end

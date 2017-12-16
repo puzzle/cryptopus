@@ -7,7 +7,7 @@
 
 class Admin::UsersController < Admin::AdminController
 
-  before_action :redirect_if_ldap_user, only: %i[edit update]
+  before_action :user, only: %i[edit update]
 
   helper_method :toggle_admin
 
@@ -28,7 +28,7 @@ class Admin::UsersController < Admin::AdminController
 
   # PUT /admin/users/1
   def update
-    user.update_attributes(user_params)
+    user.update_attributes(user_update_params)
 
     respond_to do |format|
       format.html { redirect_to admin_users_path }
@@ -62,7 +62,7 @@ class Admin::UsersController < Admin::AdminController
   def create
     password = params[:user][:password]
 
-    @user = User.create_db_user(password, user_params)
+    @user = User.create_db_user(password, user_create_params)
 
     respond_to do |format|
       if @user.save
@@ -92,21 +92,23 @@ class Admin::UsersController < Admin::AdminController
     user.destroy!
   end
 
-  def redirect_if_ldap_user
-    return unless user.ldap?
-
-    flash[:error] = t('flashes.admin.users.update.ldap')
-
-    respond_to do |format|
-      format.html { redirect_to admin_users_path }
-    end
-  end
-
   def user
     @user ||= User.find(params[:id])
   end
 
-  def user_params
-    params.require(:user).permit(:username, :givenname, :surname, :password)
+  def user_create_params
+    permit_user_params([:username, :givenname, :surname, :password])
+  end
+
+  def user_update_params
+    if user.auth == 'db'
+      permit_user_params([:username, :givenname, :surname])
+    else
+      permit_user_params(:username)
+    end
+  end
+
+  def permit_user_params(attributes)
+    params.require(:user).permit(attributes)
   end
 end
