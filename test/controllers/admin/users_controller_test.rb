@@ -100,11 +100,11 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
       alice.reload
 
-      assert_equal alice.username, 'new_username'
-      assert_equal alice.givenname, 'new_givenname'
+      assert_equal 'new_username', alice.username
+      assert_equal 'new_givenname', alice.givenname
     end
 
-    test 'admin updates ldap-user-profile' do
+    test 'admin updates ldap-user-username' do
       alice = users(:alice)
       alice.update_attribute(:auth, 'ldap')
       update_params = { username: 'new_username' }
@@ -114,7 +114,33 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
       alice.reload
 
-      assert_equal alice.username, 'new_username'
+      assert_equal 'new_username', alice.username
+    end
+    
+    test 'admin cannot update ldap-user-givenname' do
+      alice = users(:alice)
+      alice.update_attribute(:auth, 'ldap')
+      update_params = { givenname: 'new_givenname' }
+
+      login_as(:admin)
+      post :update, params: { id: alice, user: update_params }
+
+      alice.reload
+
+      assert_equal 'Alice', alice.givenname
+    end
+    
+    test 'admin cannot update ldap-user-surname' do
+      alice = users(:alice)
+      alice.update_attribute(:auth, 'ldap')
+      update_params = { surname: 'new_surname' }
+
+      login_as(:admin)
+      post :update, params: { id: alice, user: update_params }
+
+      alice.reload
+
+      assert_equal 'test', alice.surname
     end
 
   end
