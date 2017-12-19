@@ -5,7 +5,6 @@ addons:
     packages:
       - libqtwebkit-dev
       - libqtwebkit4
-      - qt5-qmake
 rvm:
  - 2.2
 env:
@@ -19,6 +18,7 @@ env:
   - RAILS_DB_USERNAME='pitc_cryptopus_t'
   - RAILS_DB_PASSWORD='3dOPKS.w@5<n'
 before_install:
+ - sudo apt-get install qt5-qmake
  - sudo service mysql restart
 install:
  - bundle install --path vendor/bundle
