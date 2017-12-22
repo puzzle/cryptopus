@@ -18,8 +18,8 @@ env:
   - RAILS_DB_USERNAME='pitc_cryptopus_t'
   - RAILS_DB_PASSWORD='3dOPKS.w@5<n'
 before_install:
+ - sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
  - sudo service mysql restart
- - gem install capybara-webkit -v '1.14.0'
 install:
  - bundle install --path vendor/bundle
  - rake db:create
