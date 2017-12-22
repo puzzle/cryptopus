@@ -15,6 +15,7 @@ env:
 before_install:
  - sudo service mysql restart
 before_script:
+ - bundle-update rake
  - bundle install --path vendor/bundle
  - rake db:create
  - rake db:setup
