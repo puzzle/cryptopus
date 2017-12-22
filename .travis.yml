@@ -5,19 +5,15 @@ rvm:
 env:
  global:
   - RAILS_ENV=test
-  - RAILS_DB_NAME='pitc_cryptopus_test'
-  - RAILS_DB_HOST='pitc-cryptopus-test.db.puzzle.ch'
-  - RAILS_DB_PORT=3306
-  - RAILS_DB_ADAPTER='mysql2'
-  - RAILS_DB_USERNAME='pitc_cryptopus_t'
-  - RAILS_DB_PASSWORD='3dOPKS.w@5<n'
 before_install:
  - sudo service mysql restart
 install:
  - bundle install --path vendor/bundle
 before_script:
+ - bundle exec rake db:create
+ - bundle exec rake db:setup
  - bundle exec rake geo:fetch
 script:
  - bundle --deployment
- - bin/rails db:environment:set RAILS_ENV=test
+ - bin/rails s
  - bundle exec rake ci --trace
