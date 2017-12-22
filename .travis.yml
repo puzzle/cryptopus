@@ -18,7 +18,6 @@ env:
   - RAILS_DB_USERNAME='pitc_cryptopus_t'
   - RAILS_DB_PASSWORD='3dOPKS.w@5<n'
 before_install:
- - sudo apt-get install sqlite3 mysql-client libmysqlclient-dev libqtwebkit-dev
  - sudo service mysql restart
 install:
  - bundle install --path vendor/bundle
