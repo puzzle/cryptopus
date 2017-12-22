@@ -1,10 +1,5 @@
 language: ruby
 cache: bundler
-addons:
-  apt:
-    packages:
-      - libqtwebkit-dev
-      - libqtwebkit4
 rvm:
  - 2.2
 env:
@@ -18,9 +13,6 @@ env:
   - RAILS_DB_USERNAME='pitc_cryptopus_t'
   - RAILS_DB_PASSWORD='3dOPKS.w@5<n'
 before_install:
- - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
- - sudo apt-get update -qq
- - sudo apt-get install -qq qt5-qmake qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev
  - sudo service mysql restart
 before_script:
  - bundle install --path vendor/bundle
@@ -28,6 +20,5 @@ before_script:
  - rake db:setup
  - rake geo:fetch
 script:
- -
  - bin/rails db:environment:set RAILS_ENV=test
  - bundle exec rake ci --trace
