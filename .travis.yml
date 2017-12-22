@@ -2,9 +2,7 @@ language: ruby
 cache: bundler
 rvm:
  - 2.2
-env:
- global:
-  - RAILS_ENV=test
+
 before_install:
  - sudo service mysql restart
 install:
@@ -15,5 +13,4 @@ before_script:
  - bundle exec rake geo:fetch
 script:
  - bundle --deployment
- - bin/rails s
  - bundle exec rake ci --trace
