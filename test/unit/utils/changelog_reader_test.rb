@@ -47,7 +47,6 @@ class ChangelogReaderTest < ActiveSupport::TestCase
     test 'reads log correctly' do      
       subject.send(:parse_changelog_lines, changelog_lines)
 
-
       changelogs = subject.instance_variable_get(:@changelogs)
 
       assert_equal(2, changelogs.count)
