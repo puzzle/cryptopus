@@ -13,6 +13,7 @@ before_install:
  - sudo service mysql restart
 install:
  - bundle install --path vendor/bundle
+ - bundle update mysql2
 before_script:
  - bundle exec rake db:create
  - bundle exec rake db:setup
