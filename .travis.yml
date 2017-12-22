@@ -5,6 +5,7 @@ addons:
 env:
   global:
    - HEADLESS=true
+   - RAILS_DB_ADAPTER=mysql2
 rvm:
  - 2.2
 
