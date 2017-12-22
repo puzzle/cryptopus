@@ -19,6 +19,7 @@ env:
   - RAILS_DB_PASSWORD='3dOPKS.w@5<n'
 before_install:
  - sudo service mysql restart
+ - gem install capybara-webkit -v '1.14.0'
 install:
  - bundle install --path vendor/bundle
  - rake db:create
