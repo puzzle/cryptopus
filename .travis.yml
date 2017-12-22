@@ -18,10 +18,13 @@ env:
   - RAILS_DB_USERNAME='pitc_cryptopus_t'
   - RAILS_DB_PASSWORD='3dOPKS.w@5<n'
 before_install:
- - sudo apt-get install qt5-qmake
+ - sudo apt-get install sqlite3 mysql-client libmysqlclient-dev libqtwebkit-dev
  - sudo service mysql restart
 install:
  - bundle install --path vendor/bundle
+ - rake db:create
+ - rake db:setup
+ - rake geo:fetch
 script:
  - bin/rails db:environment:set RAILS_ENV=test
  - bundle exec rake ci --trace
