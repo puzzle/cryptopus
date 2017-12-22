@@ -16,8 +16,6 @@ before_install:
 install:
  - bundle install --path vendor/bundle
 before_script:
- - bundle exec rake db:create
- - bundle exec rake db:setup
  - bundle exec rake geo:fetch
 script:
  - bin/rails db:environment:set RAILS_ENV=test
