@@ -18,5 +18,6 @@ install:
 before_script:
  - bundle exec rake geo:fetch
 script:
+ - bundle --deployment
  - bin/rails db:environment:set RAILS_ENV=test
  - bundle exec rake ci --trace
