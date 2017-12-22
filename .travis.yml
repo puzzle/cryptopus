@@ -13,8 +13,9 @@ env:
   - RAILS_DB_PASSWORD='3dOPKS.w@5<n'
 before_install:
  - sudo service mysql restart
-before_script:
+install:
  - bundle install --path vendor/bundle
+before_script:
  - rake db:create
  - rake db:setup
  - rake geo:fetch
