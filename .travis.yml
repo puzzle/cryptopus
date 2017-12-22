@@ -18,9 +18,11 @@ env:
   - RAILS_DB_USERNAME='pitc_cryptopus_t'
   - RAILS_DB_PASSWORD='3dOPKS.w@5<n'
 before_install:
- - sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
+ - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq qt5-qmake qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev
  - sudo service mysql restart
-install:
+before_script:
  - bundle install --path vendor/bundle
  - rake db:create
  - rake db:setup
