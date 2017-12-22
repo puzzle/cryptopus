@@ -64,6 +64,10 @@ module ApplicationHelper
     "Version #{File.read('VERSION')} #{build_info}"
   end
 
+  def version_link
+    link_to(version_info, '/changelog')
+  end
+
   private
 
   def default_field_options
