@@ -5,7 +5,6 @@ rvm:
 env:
  global:
   - RAILS_ENV=test
-  - QMAKE=qmake
   - RAILS_DB_NAME='pitc_cryptopus_test'
   - RAILS_DB_HOST='pitc-cryptopus-test.db.puzzle.ch'
   - RAILS_DB_PORT=3306
@@ -15,7 +14,6 @@ env:
 before_install:
  - sudo service mysql restart
 before_script:
- - bundle update rake
  - bundle install --path vendor/bundle
  - rake db:create
  - rake db:setup
