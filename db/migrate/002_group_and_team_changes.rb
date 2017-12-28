@@ -5,7 +5,8 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class GroupAndTeamChanges < ActiveRecord::Migration[4.2]
+class GroupAndTeamChanges < ActiveRecord::Migration[5.1]
+
   def up
 
     # Grouppasswords => Teammembers table
@@ -32,8 +33,7 @@ class GroupAndTeamChanges < ActiveRecord::Migration[4.2]
     create_table :groups, force: true do |t|
       t.string :name, limit: 40, default: "", null: false
       t.text :description
-      t.timestamp :created_on, null: false
-      t.timestamp :updated_on, null: false
+      t.timestamps
       t.integer :team_id, default: 0,  null: false
     end
 

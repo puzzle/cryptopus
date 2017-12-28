@@ -5,7 +5,8 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class CreateInitialSchema < ActiveRecord::Migration[4.2]
+class CreateInitialSchema < ActiveRecord::Migration[5.1]
+
   def change
     create_table :accounts, force: true do |t|
       t.string :accountname, limit: 40, default: "", null: false
@@ -13,23 +14,20 @@ class CreateInitialSchema < ActiveRecord::Migration[4.2]
       t.text :description
       t.binary :username
       t.binary :password
-      t.timestamp :created_on, null: false
-      t.timestamp :updated_on, null: false
+      t.timestamps
     end
 
     create_table :grouppasswords, force: true do |t|
       t.integer :group_id, default: 0,  null: false
       t.binary :password, null: false
       t.integer :user_id, default: 0,  null: false
-      t.timestamp :created_on, null: false
-      t.timestamp :updated_on, null: false
+      t.timestamps
     end
 
     create_table :groups, force: true do |t|
       t.string :groupname, limit: 40, default: "", null: false
       t.text :description
-      t.timestamp :created_on, null: false
-      t.timestamp :updated_on, null: false
+      t.timestamps
       t.integer :user_id, default: 0,  null: false
     end
 
@@ -37,8 +35,7 @@ class CreateInitialSchema < ActiveRecord::Migration[4.2]
       t.integer :account_id, default: 0,  null: false
       t.text :description
       t.binary :file
-      t.timestamp :created_on, null: false
-      t.timestamp :updated_on, null: false
+      t.timestamps
       t.text :filename, null: false
       t.text :content_type, null: false
     end
