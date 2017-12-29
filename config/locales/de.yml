@@ -6,186 +6,186 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 de:
-  fallback: "ACHTUNG! Dass ist die Cryptopus Fallback Umgebung. Schreiben sie keine neuen Daten da diese nicht erhalten bleiben!"
-  confirmation: "Sind Sie sicher?"
-  show: "Anzeigen"
-  edit: "Editieren"
-  update: "Updaten"
-  create: "Erstellen"
-  delete: "Löschen"
-  add: "Hinzufügen"
-  description: "Beschreibung"
-  username: "Benutzername"
-  password: "Passwort"
-  actions: "Aktionen"
-  download: "Herunterladen"
-  yes: "Ja"
-  no: "Nein"
-  forgot_password: "Passwort vergessen?"
-  logout: "Abmelden"
-  auto_logout: "automatisches Abmelden in"
-  settings: "Einstellungen"
-  recrypt_requests: "Recrypt Anfragen"
-  users: "Benutzer"
-  change_password: "Passwort wechseln"
+  fallback: 'ACHTUNG! Dass ist die Cryptopus Fallback Umgebung. Schreiben sie keine neuen Daten da diese nicht erhalten bleiben!'
+  confirmation: Sind Sie sicher?
+  show: Anzeigen
+  edit: Editieren
+  update: Updaten
+  create: Erstellen
+  delete: Löschen
+  add: Hinzufügen
+  description: Beschreibung
+  username: Benutzername
+  password: Passwort
+  actions: Aktionen
+  download: Herunterladen
+  yes: Ja
+  no: Nein
+  forgot_password: Passwort vergessen?
+  logout: Abmelden
+  auto_logout: automatisches Abmelden in
+  settings: Einstellungen
+  recrypt_requests: Recrypt Anfragen
+  users: Benutzer
+  change_password: Passwort wechseln
   last_login_date_and_from: "Das letzte Login war am %{last_login_at} von %{last_login_from}"
   last_login_date_and_from_country: "Das letzte Login war am %{last_login_at} von %{last_login_from} (%{last_login_country})"
   last_login_date: "Das letzte Login war am %{last_login_at}"
   unencrypted_field_caption: nicht verschlüsselt
-  group: "Gruppe"
-  team: "Team"
-  move: "Bewegen"
+  group: Gruppe
+  team: Team
+  move: Bewegen"
 
   i18n:
     language:
-      name: 'Deutsch'
+      name: Deutsch
 
   search:
-    title: "Suche"
+    title: Suche
     index:
       hi_user: "Hi %{username}! Du suchst ein Passwort?"
-      no_results_found: "keine Resultate gefunden"
-      type_to_search: "Tippen um zu suchen..."
+      no_results_found: keine Resultate gefunden
+      type_to_search: Tippen um zu suchen...
 
   accounts:
-    title: 'Accounts'
+    title: Accounts
     index:
-      move: "Account zu einer anderen Gruppe verschieben"
+      move: Account zu einer anderen Gruppe verschieben
       title: "Accounts der Gruppe %{group_name} des Teams %{team_name}"
     index_menu:
-      create: "Account erstellen"
-      group: "Gruppen"
+      create: Account erstellen
+      group: Gruppen
     show_menu:
-      add_attachment: "Anhang hinzufügen"
+      add_attachment: Anhang hinzufügen
     edit:
-      title: "Account editieren"
-      random_password: "Zufälliges Passwort"
+      title: Account editieren
+      random_password: Zufälliges Passwort
     show:
       title: "Account: %{account_name}"
       last_change: "Letzte Änderung vor %{time_ago}"
-      attachments: "Anhänge"
-      file: "Datei"
-      show_password: "Passwort anzeigen"
+      attachments: Anhänge
+      file: Datei
+      show_password: Passwort anzeigen
     new:
-      title: "Neuer Account"
+      title: Neuer Account
 
   admin:
     maintenance_tasks:
       index:
-        title: "Wartungsaufgaben"
-        maintenance_task: "Wartungsaufgabe"
-        run: "Ausführen"
+        title: Wartungsaufgaben
+        maintenance_task: Wartungsaufgabe
+        run: Ausführen
     settings:
       index:
-        title: "Einstellungen bearbeiten"
-        save: "Änderungen speichern"
+        title: Einstellungen bearbeiten
+        save: Änderungen speichern
     recryptrequests:
       index:
-        title: "Entschlüsselungs Anfragen"
-        user: "Benutzer"
-        admin_required: "Admin erforderlich"
-        recrypt: "Entschlüsseln"
+        title: Entschlüsselungs Anfragen
+        user: Benutzer
+        admin_required: Admin erforderlich
+        recrypt: Entschlüsseln
       request:
-        request_sent: "Es wurde eine Recrypt Anfrage gesendet. Bitte warten Sie, bis sie oder er Ihre Passwörter neu verschlüsselt hat."
+        request_sent: Es wurde eine Recrypt Anfrage gesendet. Bitte warten Sie, bis sie oder er Ihre Passwörter neu verschlüsselt hat.
       uncrypterror:
-        new_password: "Neues Passwort?!"
-        ldap_password_changed: "Ihr LDAP Passwort hat sich seit Ihrem letzten Login geändert."
-        ldap_enter_old_password: "Bitte geben Sie Ihr altes LDAP Passwort ein um Ihren privaten Schlüssel zu entschlüsseln."
-        ldap_old_password: "Ihr altes LDAP Passwort"
-        ldap_new_password: "Ihr neues LDAP Passwort"
-        ldap_password: "Ihr LDAP Passwort"
+        new_password: Neues Passwort?!
+        ldap_password_changed: Ihr LDAP Passwort hat sich seit Ihrem letzten Login geändert.
+        ldap_enter_old_password: Bitte geben Sie Ihr altes LDAP Passwort ein um Ihren privaten Schlüssel zu entschlüsseln.
+        ldap_old_password: Ihr altes LDAP Passwort
+        ldap_new_password: Ihr neues LDAP Passwort
+        ldap_password: Ihr LDAP Passwort
         forgot_password_recrypt: |
           Falls Sie Ihr Passwort vergessen haben, werden nur Teams entschlüsselt welche nicht privat sind.
           Sollten dadurch private Teams entstehen, auf die niemand Zugriff hat, werden diese gelöscht.
           Nachdem das Formular abgesendet wurde, müssen Sie warten, bis ein Admin die Anfrage abgearbeitet hat.
-        recrypt: "Recrypt"
-        send: "Anfrage senden"
+        recrypt: Recrypt
+        send: Anfrage senden
     users:
       index_menu:
-        create: "Benutzer erstellen"
+        create: Benutzer erstellen
       edit:
-        title: "Benutzer bearbeiten"
-        reset_password: "Passwort zurücksetzen"
-        warning: "Das zurücksetzen des Passworts eines Benutzers führt zum Verlust des Zugriff auf alle Private Teams und die löschung aller Teams, in denen er der einzige Member ist"
+        title: Benutzer bearbeiten
+        reset_password: Passwort zurücksetzen
+        warning: Das zurücksetzen des Passworts eines Benutzers führt zum Verlust des Zugriff auf alle Private Teams und die löschung aller Teams, in denen er der einzige Member ist
       index:
-        title: "Liste aller Cryptopus Benutzer"
-        username: "Benutzername"
-        name: "Name"
-        ldap_uid: "LDAP UID"
-        last_login_at: "Letzte Anmeldung am"
-        last_login_from: "Letzte Anmeldung von"
-        admin: "Admin"
-        action: "Aktion"
-        locked: "Gesperrte Benutzer"
-        unlock: "Entsperren"
+        title: Liste aller Cryptopus Benutzer
+        username: Benutzername
+        name: Name
+        ldap_uid: LDAP UID
+        last_login_at: Letzte Anmeldung am
+        last_login_from: Letzte Anmeldung von
+        admin: Admin
+        action: Aktion
+        locked: Gesperrte Benutzer
+        unlock: Entsperren
       last_teammember_teams:
-        message: "Folgende Teams in denen der zu löschende User der letzte Member ist müssen gelöscht werden."
-        delete_user: "Sind Sie sicher, dass Sie diesen Benutzer löschen möchten?"
-        destroy: "Benutzer löschen"
+        message: Folgende Teams in denen der zu löschende User der letzte Member ist müssen gelöscht werden.
+        delete_user: Sind Sie sicher, dass Sie diesen Benutzer löschen möchten?
+        destroy: Benutzer löschen
       new:
-        title: "Neuer Benutzer"
+        title: Neuer Benutzer
 
   groups:
-    title: "Gruppen"
+    title: Gruppen
     index_menu:
-      create: "Gruppe erstellen"
+      create: Gruppe erstellen
     edit:
-      title: "Gruppe bearbeiten"
+      title: Gruppe bearbeiten
     index:
       title: "Gruppen des Teams %{team_name}"
-      group: "Gruppe"
-      members: "Mitglieder"
-      add_member: "Mitglied hinzufügen"
-      admins: "Admins"
+      group: Gruppe
+      members: Mitglieder
+      add_member: Mitglied hinzufügen
+      admins: Admins
     new:
-      title: "Gruppe erstellen"
+      title: Gruppe erstellen
 
   items:
     new:
-      title: "Anhang zum Account hinzufügen"
-      upload: "Datei für das Hochladen"
-      upload_file: "Datei hochladen"
+      title: Anhang zum Account hinzufügen
+      upload: Datei für das Hochladen
+      upload_file: Datei hochladen
 
   logins:
     login:
-      title: "Anmelden"
-      description: "Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein um Cryptopus zu verwenden."
-      submit: "Anmelden"
+      title: Anmelden
+      description: Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein um Cryptopus zu verwenden.
+      submit: Anmelden
     logout:
-      title: "Abmelden"
-      message: "Aufwiedersehen"
-      hint: "Bitte löschen Sie den Cache Ihres Browsers."
+      title: Abmelden
+      message: Aufwiedersehen
+      hint: Bitte löschen Sie den Cache Ihres Browsers.
     newuser:
-      title: "Willkommen bei Cryptopus"
-      description: "Wir haben für Sie ein neues Schlüsselpaar erstellt. Viel Vergnügen mit Cryptopus."
+      title: Willkommen bei Cryptopus
+      description: Wir haben für Sie ein neues Schlüsselpaar erstellt. Viel Vergnügen mit Cryptopus.
     noaccess:
-      title: "Zugriff verweigert"
+      title: Zugriff verweigert
     show_update_password:
-      title: "Passwort wechseln"
-      old: "Altes Passwort"
-      new: "Neues Passwort"
-      new_retype: "Neues Passwort (wiederholen)"
-      submit: "Ändern"
+      title: Passwort wechseln
+      old: Altes Passwort
+      new: Neues Passwort
+      new_retype: Neues Passwort (wiederholen)
+      submit: Ändern
 
   teammembers:
     new:
-      title: "Ein neues Teammitglied hinzufügen"
+      title: Ein neues Teammitglied hinzufügen
     confirm:
       delete: "%{entry_label} von diesem team entfernen ?"
-    show: "Mitglieder anzeigen"
-    hide: "Mitglieder verstecken"
+    show: Mitglieder anzeigen
+    hide: Mitglieder verstecken
 
   teams:
-    title: "Teams"
+    title: Teams
     form:
-      private: "Privat"
+      private: Privat
     index_menu:
-      create: "Team erstellen"
+      create: Team erstellen
     index:
-      title: "Sie sind Mitglied der folgenden Teams:"
-      team: "Team"
+      title: 'Sie sind Mitglied der folgenden Teams:'
+      team: Team
     new:
-      title: "Neues Team erstellen"
+      title: Neues Team erstellen
     description:
       private: Admins haben keinen Zugriff wenn angewählt
 
@@ -200,98 +200,98 @@ de:
         added: "%{username} wurde erfolgreich hinzugefügt"
         removed: "%{username} wurde erfolgreich entfernt"
     wizard:
-      fill_password_fields: "Bitte füllen Sie alle Felder aus"
-      paswords_do_not_match: "Die Passwörter stimmen nicht überein"
+      fill_password_fields: Bitte füllen Sie alle Felder aus
+      paswords_do_not_match: Die Passwörter stimmen nicht überein
     admin:
       admin:
-        no_access: "Zugriff verweigert"
+        no_access: Zugriff verweigert
       settings:
-        example: "Dies sind Beispieleinstellungen. Bitte überschreiben Sie sie mit Ihren Einstellungen."
-        successfully_updated: "Ihre Einstellungen wurden erfolgreich angepasst."
+        example: Dies sind Beispieleinstellungen. Bitte überschreiben Sie sie mit Ihren Einstellungen.
+        successfully_updated: Ihre Einstellungen wurden erfolgreich angepasst.
       recryptrequests:
         some: "Einige Passwörter wurden erfolgreich wiederverschlüsselt für %{user_name}."
         all: "Alle Passwörter wurden erfolgreich wiederverschlüsselt für %{user_name}."
         resetpassword:
-          success: "Das Passwort wurde erfolgreich gesetzt"
-          required: "Das Passwort darf nicht leer sein"
+          success: Das Passwort wurde erfolgreich gesetzt
+          required: Das Passwort darf nicht leer sein
       users:
-        created: "Der neue Benutzer wurde erfolgreich erstellt."
+        created: Der neue Benutzer wurde erfolgreich erstellt.
         destroy:
-          own_user: "Eigener Benutzer kann nicht gelöscht werden"
-          root: "Root kann nicht gelöscht werden"
+          own_user: Eigener Benutzer kann nicht gelöscht werden
+          root: Root kann nicht gelöscht werden
         update:
-          root: "Root kann nicht aktualisiert werden"
-          ldap: "Ldap User kann nicht aktualisiert werden"
+          root: Root kann nicht aktualisiert werden
+          ldap: Ldap User kann nicht aktualisiert werden
       maintenance_tasks:
-        succeed: "Wartungsaufgabe wurde erfolgreich durchgeführt"
-        failed: "Wartungsaufgabe ist gescheitert. Siehe Logs für mehr Details."
+        succeed: Wartungsaufgabe wurde erfolgreich durchgeführt
+        failed: Wartungsaufgabe ist gescheitert. Siehe Logs für mehr Details.
 
     accounts:
-      created: "Der neue Account wurde erfolgreich erstellt."
-      updated: "Der Account wurde erfolgreich aktualisiert."
-      moved: "Der Account wurde erfolgreich veschoben"
+      created: Der neue Account wurde erfolgreich erstellt.
+      updated: Der Account wurde erfolgreich aktualisiert.
+      moved: Der Account wurde erfolgreich veschoben
     application:
-      wait: "Bitte warten Sie, bis  Ihre Team Passwörter neu verschlüsselt wurden."
+      wait: Bitte warten Sie, bis  Ihre Team Passwörter neu verschlüsselt wurden.
     groups:
-      created: "Die neue Gruppe wurde erfolgreich erstellt."
-      updated: "Die Gruppe wurde erfolgreich bearbeitet."
+      created: Die neue Gruppe wurde erfolgreich erstellt.
+      updated: Die Gruppe wurde erfolgreich bearbeitet.
     items:
-      uploaded: "Die Datei wurde erfolgreich hochgeladen."
-      uploaded_size_to_high: "Die Datei ist zu gross zum hochladen. (Max. 10MB)"
-      uploaded_filename_is_empty: "Die Datei muss benannt sein"
-      uploaded_file_inexistent: "Datei ist inexistent"
+      uploaded: Die Datei wurde erfolgreich hochgeladen.
+      uploaded_size_to_high: Die Datei ist zu gross zum hochladen. (Max. 10MB)
+      uploaded_filename_is_empty: Die Datei muss benannt sein
+      uploaded_file_inexistent: Datei ist inexistent
     logins:
-      welcome: "Willkommen bei Cryptopus. Zuerst müssen Sie einen Account erstellen. Bitte wählen Sie ein sicheres Passwort."
-      auth_failed: "Ungültiger Benutzername / Passwort."
-      only_local: "Nur lokale Benutzer dürfen ihr Passwort ändern."
-      new_password_set: "Das neue Passwort wurde erfolgreich gesetzt."
-      new_passwords_not_equal: "Die neuen Passwörter sind nicht gleich."
-      not_local: "Sie sind kein lokaler Benutzer!"
-      locked: "Der Benutzer ist momentan gesperrt. Bitte versuchen Sie es später nocheinmal oder kontaktiern Sie den Administrator."
-      weak_password: "Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen"
+      welcome: Willkommen bei Cryptopus. Zuerst müssen Sie einen Account erstellen. Bitte wählen Sie ein sicheres Passwort.
+      auth_failed: Ungültiger Benutzername / Passwort.
+      only_local: Nur lokale Benutzer dürfen ihr Passwort ändern.
+      new_password_set: Das neue Passwort wurde erfolgreich gesetzt.
+      new_passwords_not_equal: Die neuen Passwörter sind nicht gleich.
+      not_local: Sie sind kein lokaler Benutzer!
+      locked: Der Benutzer ist momentan gesperrt. Bitte versuchen Sie es später nocheinmal oder kontaktiern Sie den Administrator.
+      weak_password: Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen
     recryptrequests:
-      recrypted: "Ihr Passwort wurde erfolgreich neu verschlüsselt."
-      wait: "Bitte warten Sie, bis Ihre Team Passwörter neu verschlüsselt wurden."
-      wrong_password: "Das Passwort war falsch."
+      recrypted: Ihr Passwort wurde erfolgreich neu verschlüsselt.
+      wait: Bitte warten Sie, bis Ihre Team Passwörter neu verschlüsselt wurden.
+      wrong_password: Das Passwort war falsch.
     teams:
-      wrong_user_password: "Geben Sie einen gültigen Benutzernamen und ein korrektes Passwort ein oder prüfen Sie Ihre LDAP Einstellungen."
-      created: "Das Team wurde erfolgreich erstellt."
-      updated: "Das Team wurde erfolgreich angepasst."
-      deleted: "Das Team wurde erfolgreich gelöscht"
-      cannot_delete: "Nur admins können das Team löschen"
-      no_member: "Sie sind nicht Mitglied dieses Teams"
+      wrong_user_password: Geben Sie einen gültigen Benutzernamen und ein korrektes Passwort ein oder prüfen Sie Ihre LDAP Einstellungen.
+      created: Das Team wurde erfolgreich erstellt.
+      updated: Das Team wurde erfolgreich angepasst.
+      deleted: Das Team wurde erfolgreich gelöscht
+      cannot_delete: Nur Admins können das Team löschen
+      no_member: Sie sind nicht Mitglied dieses Teams
     teammembers:
-      could_not_remove_last_teammember: "Der letzte Benutzer eines Teams kann nicht entfernt werden"
-      could_not_remove_admin_from_private_team: "Admins können nicht aus einem privaten Team gelöscht werden"
+      could_not_remove_last_teammember: Der letzte Benutzer eines Teams kann nicht entfernt werden
+      could_not_remove_admin_from_private_team: Admins können nicht aus einem privaten Team gelöscht werden
 
   helpers:
     label:
       user:
-        username: "Benutzername"
-        password: "Passwort"
-        admin: "Admin"
-        givenname: "Vorname"
-        surname: "Nachname"
-        submit: "Erstellen"
+        username: Benutzername
+        password: Passwort
+        admin: Admin
+        givenname: Vorname
+        surname: Nachname
+        submit: Erstellen
       account:
-        account: "Account"
-        username: "Benutzername"
-        password: "Passwort"
-        description: "Beschreibung"
+        account: Account
+        username: Benutzername
+        password: Passwort
+        description: Beschreibung
       team:
-        name: "Name"
-        description: "Beschreibung"
+        name: Name
+        description: Beschreibung
       group:
-        name: "Name"
-        description: "Beschreibung"
+        name: Name
+        description: Beschreibung
       ldapsetting:
-        portnumber: "Port"
-        bind_password: "Bind Passwort"
-        encryption: "Verschlüsselung"
+        portnumber: Port
+        bind_password: Bind Passwort
+        encryption: Verschlüsselung
 
   confirm:
     delete: "%{entry_class} %{entry_label} löschen?"
-    change_admin: "Admin-Rechte geben/entziehen?"
+    change_admin: Admin-Rechte geben/entziehen?
     deleteWithTeams: "Lösche alle Teams in denen %{username} der letze Team Member ist"
 
 
@@ -299,59 +299,59 @@ de:
   activerecord:
     attributes:
       user:
-        username: 'Benutzername'
+        username: Benutzername
     errors:
       template:
-        body: ''
-        header: ''
+        body: 
+        header: 
       models:
         account:
           attributes:
             accountname:
-              blank: 'kann nicht leer sein'
-              taken: 'ist bereits vergeben'
+              blank: kann nicht leer sein
+              taken: ist bereits vergeben
         group:
           attributes:
             name:
-              blank: 'kann nicht leer sein'
-              taken: 'ist bereits vergeben'
+              blank: kann nicht leer sein
+              taken: ist bereits vergeben
         user:
-          new_password_invalid: "Ihr neues Passwort war falsch"
-          old_password_invalid: "Ihr altes Passwort war falsch"
+          new_password_invalid: Ihr neues Passwort war falsch
+          old_password_invalid: Ihr altes Passwort war falsch
           attributes:
             username:
-              blank: 'kann nicht leer sein'
-              taken: 'ist bereits vergeben'
+              blank: kann nicht leer sein
+              taken: ist bereits vergeben
         item:
           attributes:
             filename:
-              blank: 'Filename kann nicht leer sein'
-              taken: 'Filename ist bereits vergeben'
+              blank: Filename kann nicht leer sein
+              taken: Filename ist bereits vergeben
 
   datetime:
     distance_in_words:
       about_x_hours:
         one: etwa eine Stunde
-        other: etwa %{count} Stunden
+        other: "etwa %{count} Stunden"
       about_x_months:
         one: etwa ein Monat
-        other: etwa %{count} Monate
+        other: "etwa %{count} Monate"
       about_x_years:
         one: etwa ein Jahr
-        other: etwa %{count} Jahren
+        other: "etwa %{count} Jahren"
       almost_x_years:
         one: fast ein Jahr
-        other: fast %{count} Jahre
+        other: "fast %{count} Jahre"
       half_a_minute: eine halbe Minute
       less_than_x_minutes:
         one: weniger als eine Minute
-        other: weniger als %{count} Minuten
+        other: "weniger als %{count} Minuten"
       less_than_x_seconds:
         one: weniger als eine Sekunde
-        other: weniger als %{count} Sekunden
+        other: "weniger als %{count} Sekunden"
       over_x_years:
         one: mehr als ein Jahr
-        other: mehr als %{count} Jahre
+        other: "mehr als %{count} Jahre"
       x_days:
         one: ein Tag
         other: "%{count} Tage"
@@ -366,6 +366,6 @@ de:
         other: "%{count} Sekunden"
 
   password_strength:
-    weak: "Das Passwort ist unsicher"
-    good: "Das Passwort genügt"
-    strong: "Das Passwort ist stark!"
+    weak: Das Passwort ist unsicher
+    good: Das Passwort genügt
+    strong: Das Passwort ist stark!
