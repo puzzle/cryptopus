@@ -15,7 +15,7 @@ include IntegrationTest::DefaultHelper
     #Prepare for Test
     user_bob = users(:bob)
     user_bob.update_attribute(:auth, 'ldap')
-    user_bob.update_attribute(:uid, 42)
+    user_bob.update_attribute(:ldap_uid, 42)
 
     # Mock
     LdapConnection.any_instance.expects(:login)
@@ -31,7 +31,7 @@ include IntegrationTest::DefaultHelper
   test 'ldap login with wrong password' do
     user_bob = users(:bob)
     user_bob.update_attribute(:auth, 'ldap')
-    user_bob.update_attribute(:uid, 42)
+    user_bob.update_attribute(:ldap_uid, 42)
 
     LdapConnection.any_instance.expects(:login)
                   .with('bob', 'wrong_password')

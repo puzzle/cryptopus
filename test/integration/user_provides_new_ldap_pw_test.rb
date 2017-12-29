@@ -18,7 +18,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     # Prepare for Test
     user_bob = users(:bob)
     user_bob.update_attribute(:auth, 'ldap')
-    user_bob.update_attribute(:uid, 42)
+    user_bob.update_attribute(:ldap_uid, 42)
 
     # Method call expectations
     LdapConnection.any_instance.expects(:ldap_info)
@@ -52,7 +52,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     # Prepare for Test
     user_bob = users(:bob)
     user_bob.update_attributes(auth: 'ldap')
-    user_bob.update_attribute(:uid, 42)
+    user_bob.update_attribute(:ldap_uid, 42)
 
     # Method call expectations
     LdapConnection.any_instance.expects(:ldap_info)
@@ -89,7 +89,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     # Prepare for Test
     user_bob = users(:bob)
     user_bob.update_attribute(:auth, 'ldap')
-    user_bob.update_attribute(:uid, 42)
+    user_bob.update_attribute(:ldap_uid, 42)
 
     # Method call expectations
     LdapConnection.any_instance.expects(:ldap_info)
@@ -116,7 +116,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     # Prepare for Test
     user_bob = users(:bob)
     user_bob.update_attribute(:auth, 'ldap')
-    user_bob.update_attribute(:uid, 42)
+    user_bob.update_attribute(:ldap_uid, 42)
 
     # Method call expectations
     LdapConnection.any_instance.expects(:ldap_info)
@@ -146,7 +146,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     # Prepare for Test
     user_bob = users(:bob)
     user_bob.update_attribute(:auth, 'ldap')
-    user_bob.update_attribute(:uid, 42)
+    user_bob.update_attribute(:ldap_uid, 42)
 
     # Method call expectations
     LdapConnection.any_instance.expects(:ldap_info)

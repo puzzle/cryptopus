@@ -9,7 +9,7 @@ class UserSeeder
 
   def seed_root
     User.seed_once(:username) do |u|
-      u.uid = 0
+      u.ldap_uid = 0
       u.username = 'root'
       u.givenname = 'root'
       u.auth = 'db'
