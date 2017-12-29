@@ -21,11 +21,14 @@ de:
   download: "Herunterladen"
   yes: "Ja"
   no: "Nein"
+  help: "Hilfe"
+  version: "Version"
   forgot_password: "Passwort vergessen?"
   logout: "Abmelden"
   auto_logout: "automatisches Abmelden in"
   settings: "Einstellungen"
   recrypt_requests: "Recrypt Anfragen"
+  maintenance_tasks: "Wartungsaufgaben"
   users: "Benutzer"
   change_password: "Passwort wechseln"
   last_login_date_and_from: "Das letzte Login war am %{last_login_at} von %{last_login_from}"
@@ -70,6 +73,7 @@ de:
       title: "Neuer Account"
 
   admin:
+    title: "Admin"
     maintenance_tasks:
       index:
         title: "Wartungsaufgaben"

@@ -21,17 +21,19 @@ fr:
   download: "Télécharger"
   yes: "Oui"
   no: "Non"
+  help: "Help"
+  version: "Version"
   forgot_password: "Mot de passe oublié?"
   logout: "Déconnexion"
   auto_logout: "Déconnexion automatique en"
   settings: "Paramètres"
   recrypt_requests: "Demandes de re crypt"
+  maintenance_tasks: "Les tâches de maintenance"
   users: "Utilisateur"
   change_password: "Changer le mot de passe"
   last_login_date_and_from: "La dernière connexion était le %{last_login_at} de %{last_login_from}"
   last_login_date_and_from_country: "La dernière connexion était le %{last_login_at} de %{last_login_from} (%{last_login_country})"
   last_login_date: "La dernière connexion était le %{last_login_at}"
- 
   last_login: "La dernière connexion était le %{last_login_at} de %{last_login_from}"
   unencrypted_field_caption: "ne pas crypté"
   group: "Groupe"
@@ -72,6 +74,7 @@ fr:
       title: "Nouveau compte"
 
   admin:
+    title: "Admin"
     maintenance_tasks:
       index:
         title: "Les tâches de maintenance"
