@@ -10,9 +10,9 @@ rvm:
 
 before_install:
  - sudo service mysql restart
- - xvfb-run -a bundle exec spec
 install:
  - bundle install --path vendor/bundle
+ - xvfb-run -a bundle exec spec
 before_script:
  - bundle exec rake db:create
  - bundle exec rake db:setup
