@@ -4,6 +4,9 @@
 
 *   Upgraded to Rails 5.1.4
 *   Changelog introduced
+*   Chinese, Russian, Berndeutsch locale added
+*   Support for several ldap servers added
+*   Keyboard shortcuts added
 
 ## Version 2.0
 
