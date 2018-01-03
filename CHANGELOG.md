@@ -4,6 +4,7 @@
 
 *   Upgraded to Rails 5.1.4
 *   Changelog introduced
+*   Introduced Travis routine
 
 ## Version 2.0
 
