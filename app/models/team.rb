@@ -52,8 +52,9 @@ class Team < ApplicationRecord
   end
 
   def member_candidates
-    excluded_user_ids = User.joins('LEFT JOIN teammembers ON users.id = teammembers.user_id').
-                        where('users.ldap_uid = 0 OR teammembers.team_id = ?', id).
+    excluded_user_ids = User.
+                        unscoped.joins('LEFT JOIN teammembers ON users.id = teammembers.user_id').
+                        where('users.username = "root" OR teammembers.team_id = ?', id).
                         distinct.
                         pluck(:id)
     User.where('id NOT IN(?)', excluded_user_ids)
