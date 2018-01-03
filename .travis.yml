@@ -10,6 +10,7 @@ rvm:
 
 before_install:
  - sudo service mysql restart
+ - xvfb-run -a bundle exec spec
 install:
  - bundle install --path vendor/bundle
 before_script:
