@@ -6,6 +6,7 @@ branches:
  only:
   - master
   - stable
+  - mz_df_travis
 before_install:
  - sudo service mysql restart
 install:
