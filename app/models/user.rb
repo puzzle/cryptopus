@@ -142,7 +142,7 @@ class User < ApplicationRecord
   end
 
   def root?
-    ldap_uid.zero?
+    username == 'root'
   end
 
   def auth_db?
