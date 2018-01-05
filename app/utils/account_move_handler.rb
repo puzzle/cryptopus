@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -11,7 +11,7 @@ class AccountMoveHandler < AccountHandler
 
   def move(new_group)
     @new_group = new_group
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       move_account_to_new_team unless same_team?
 
       account.group_id = new_group.id

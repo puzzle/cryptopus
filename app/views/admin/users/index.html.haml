@@ -1,4 +1,4 @@
--#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 -#  Cryptopus and licensed under the Affero General Public License version 3 or later.
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
@@ -9,6 +9,8 @@
   %tr
     %th= t '.username'
     %th= t '.name'
+    %th= t '.last_login_at'
+    %th= t '.last_login_from'
     %th= t '.ldap_uid'
     %th= t '.admin'
     %th{colspan: "3"}= t :actions
@@ -16,7 +18,11 @@
     %tr{class: "#{cycle( 'odd', 'even' )}"}
       %td= user.username
       %td= user.label
-      %td= user.uid.to_s
+      %td
+        - if user.last_login_at
+          = user.last_login_at.strftime('%d.%m.%Y, %H:%M')
+      %td= user.last_login_from
+      %td= user.ldap_uid.to_s
       %td
         - if user != current_user
           = change_admin_attribute(user)
@@ -29,7 +35,6 @@
             data: { last_teammember_teams_link: last_teammember_teams_teams_path(user_id: user.id),
                     user_id: user.id},
             class: 'delete_user_link'
-
 - if User.locked.count != 0
   %h1= t '.locked'
   %table.table.table-striped
@@ -44,9 +49,8 @@
         %td.action_icon
           = link_to image_tag("unlock.svg"),  unlock_admin_user_path(user.id), title: t('.unlock')
 
-%div{id: "last_teammember_teams"}
-  = render partial: 'last_teammember_teams'
-
+#last_teammember_teams
+  = render 'last_teammember_teams'
 
 
 :javascript

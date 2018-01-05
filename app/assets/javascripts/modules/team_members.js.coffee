@@ -1,4 +1,4 @@
-# Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+# Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 # Cryptopus and licensed under the Affero General Public License version 3 or later.
 # See the COPYING file at the top-level directory or at
 # https://github.com/puzzle/cryptopus.
@@ -85,11 +85,13 @@ class app.TeamMembers
       show_members()
       load_candidates()
 
-    $(document).on 'click', '.show_members', ->
+    $(document).on 'click', '.show_members', (e) ->
+      e.preventDefault()
       toggle_members()
       load_members()
 
     $(document).on 'click', '.members li .remove_member', (e) ->
+      e.preventDefault()
       delete_member(e)
 
   new TeamMembers

@@ -1,4 +1,4 @@
--#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 -#  Cryptopus and licensed under the Affero General Public License version 3 or later.
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
@@ -8,15 +8,18 @@
     %button.close{"aria-label" => "Close", "data-dismiss" => "alert", type: "button"}
       %span{"aria-hidden" => "true"} &#215;
     = flash[:error]
-- elsif flash[:notice]
+
+- if flash[:notice]
   .alert.alert-info
     %button.close{"aria-label" => "Close", "data-dismiss" => "alert", type: "button"}
       %span{"aria-hidden" => "true"} &#215;
     = flash[:notice]
-- elsif flash[:alert]
+
+- if flash[:alert]
   .alert.alert-warning
     %button.close{"aria-label" => "Close", "data-dismiss" => "alert", type: "button"}
       %span{"aria-hidden" => "true"} &#215;
     = flash[:alert]
+
 - else
   .message_container{:id => 'message_container'}

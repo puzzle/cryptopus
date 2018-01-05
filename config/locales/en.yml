@@ -1,4 +1,4 @@
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -6,182 +6,189 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  fallback: "!WARNING! This is the Fallback Cryptopus! Do not write any new data it will not persist"
-  confirmation: "Are you sure?"
-  show: "Show"
-  edit: "Edit"
-  update: "Update"
-  create: "Create"
-  delete: "Delete"
-  add: "Add"
-  description: "Description"
-  username: "Username"
-  password: "Password"
-  actions: "Actions"
-  download: "Download"
-  yes: "Yes"
-  no: "No"
-  forgot_password: "Forgot your password?"
-  logout: "Logout"
-  auto_logout: "auto-logout in"
-  settings: "Settings"
-  recrypt_requests: "Recrypt requests"
-  users: "Users"
-  change_password: "Change password"
-  last_login: "Your last login was %{time_ago} ago."
+  fallback: '!WARNING! This is the Fallback Cryptopus! Do not write any new data it will not persist'
+  confirmation: Are you sure?
+  show: Show
+  edit: Edit
+  update: Update
+  create: Create
+  delete: Delete
+  add: Add
+  description: Description
+  username: Username
+  password: Password
+  actions: Actions
+  download: Download
+  yes: Yes
+  no: No
+  help: Help
+  version: Version
+  forgot_password: Forgot your password?
+  logout: Logout
+  auto_logout: auto-logout in
+  settings: Settings
+  recrypt_requests: Recrypt requests
+  users: Users
+  change_password: Change password
+  last_login_date_and_from: "The last login was on %{last_login_at} from %{last_login_from}"
+  last_login_date_and_from_country: "The last login was on %{last_login_at} from %{last_login_from} (%{last_login_country})"
+  last_login_date: "The last login was on %{last_login_at}"
   unencrypted_field_caption: not encrypted
-  group: "Group"
-  team: "Team"
-  move: "Move"
+  group: Group
+  team: Team
+  move: Move
 
   i18n:
     language:
-      name: 'English'
+      name: English
 
   search:
-    title: "Search"
+    title: Search
     index:
       hi_user: "Hi %{username}! Want to recover a password?"
-      no_results_found: "no results found"
-      type_to_search: "Type to search..."
+      no_results_found: no results found
+      type_to_search: Type to search...
 
   accounts:
-    title: "Accounts"
+    title: Accounts
     index:
-      move: "Move account to other group"
+      move: Move account to other group
       title: "Accounts in group %{group_name} for team %{team_name}"
     index_menu:
-      create: "Create Account"
-      group: "Groups"
+      create: Create Account
+      group: Groups
     show_menu:
-      add_attachment: "Add attachment"
+      add_attachment: Add attachment
     edit:
-      title: "Editing account"
-
+      title: Editing account
+      random_password: Random password
     show:
       title: "Account: %{account_name}"
       last_change: "Last change was %{time_ago} ago"
-      attachments: "Attachments"
-      file: "File"
-      show_password: "Show password"
+      attachments: Attachments
+      file: File
+      show_password: Show password
     new:
-      title: "New Account"
+      title: New Account
 
   admin:
+    title: Admin
     maintenance_tasks:
       index:
-        title: "Maintenance tasks"
-        maintenance_task: "Maintenance tasks"
-        run: "execute"
+        title: Maintenance tasks
+        maintenance_task: Maintenance tasks
+        run: execute
     settings:
       index:
-        title: "Edit Settings"
-        save: "Save changes"
+        title: Edit Settings
+        save: Save changes
     recryptrequests:
       index:
-        title: "Re-encryption requests"
-        user: "User"
-        admin_required: "Admin required"
-        recrypt: "Recrypt"
+        title: Re-encryption requests
+        user: User
+        admin_required: Admin required
+        recrypt: Recrypt
       request:
-        request_sent: "A request to recrypt your group passwords was sent. Wait until she recrypted your passwords."
+        request_sent: A request to recrypt your group passwords was sent. Wait until she recrypted your passwords.
       uncrypterror:
-        new_password: "New password?!"
-        ldap_password_changed: "Your LDAP Password has changed since your last login."
-        ldap_enter_old_password: "Please enter your old LDAP Passwort to decrypt your Private_key."
-        ldap_old_password: "Your old LDAP Password"
-        ldap_new_password: "Your new LDAP Password"
-        ldap_password: "Your LDAP Password"
+        new_password: New password?!
+        ldap_password_changed: Your LDAP Password has changed since your last login.
+        ldap_enter_old_password: Please enter your old LDAP Passwort to decrypt your Private_key.
+        ldap_old_password: Your old LDAP Password
+        ldap_new_password: Your new LDAP Password
+        ldap_password: Your LDAP Password
         forgot_password_recrypt: |
           When you forgot your old password, just the teams which aren't private will be decrypted.
-          All private teams whitch would become unaccessible for any users will be deleted.
+          All private teams which would become unaccessible for any users will be deleted.
           After the request was send you have to wait until an admin decrypts your passwords.
-        recrypt: "Recrypt"
-        send: "Send request"
+        recrypt: Recrypt
+        send: Send request
     users:
       index_menu:
-        create: "Create new user"
+        create: Create new user
       edit:
-        title: "Editing user"
-        reset_password: "Reset password"
-        warning: "By resetting the password, the user loses access to all his private teams. All teams, where he is the only member will be deleted"
+        title: Editing user
+        reset_password: Reset password
+        warning: By resetting the password, the user loses access to all his private teams. All teams, where he is the only member will be deleted
       index:
-        title: "List of all Cryptopus users"
-        username: "Username"
-        name: "Name"
-        ldap_uid: "LDAP UID"
-        admin: "Admin"
-        action: "Action"
-        locked: "Locked users"
-        unlock: "Unlock"
+        title: List of all Cryptopus users
+        username: Username
+        name: Name
+        ldap_uid: LDAP UID
+        last_login_at: Last login at
+        last_login_from: Last login from
+        admin: Admin
+        action: Action
+        locked: Locked users
+        unlock: Unlock
       last_teammember_teams:
-        message: "Before you can delete this user you have to delete the following teams, because the user is the last member."
-        delete_user: "Are you sure you want to delete this User?"
-        destroy: "Destroy User"
+        message: Before you can delete this user you have to delete the following teams, because the user is the last member.
+        delete_user: Are you sure you want to delete this User?
+        destroy: Destroy User
       new:
-        title: "New user"
+        title: New user
 
   groups:
-    title: "Groups"
+    title: Groups
     index_menu:
-      create: "Create group"
+      create: Create group
     edit:
-      title: "Editing group"
+      title: Editing group
     index:
       title: "Groups for team %{team_name}"
-      group: "Group"
-      members: "Members"
-      add_member: "Add member"
-      admins: "Admins"
+      group: Group
+      members: Members
+      add_member: Add member
+      admins: Admins
     new:
-      title: "New group"
+      title: New group
 
   items:
     new:
-      title: "Add new attachment to account"
-      upload: "File to upload"
-      upload_file: "Upload file"
+      title: Add new attachment to account
+      upload: File to upload
+      upload_file: Upload file
 
   logins:
     login:
-      title: "Log in"
-      description: "Please enter your username and password to access cryptopus"
-      submit: "Login"
+      title: Log in
+      description: Please enter your username and password to access cryptopus
+      submit: Login
     logout:
-      title: "Logout"
-      message: "Bye"
-      hint: "Please clear your browser cache."
+      title: Logout
+      message: Bye
+      hint: Please clear your browser cache.
     newuser:
-      title: "Welcome to Cryptopus"
-      description: "We created a new keypair for you. Enjoy Cryptopus."
+      title: Welcome to Cryptopus
+      description: We created a new keypair for you. Enjoy Cryptopus.
     noaccess:
-      title: "Access denied"
+      title: Access denied
     show_update_password:
-      title: "Change password"
-      old: "Old password"
-      new: "New password"
-      new_retype: "New password (retype)"
-      submit: "Change"
+      title: Change password
+      old: Old password
+      new: New password
+      new_retype: New password (retype)
+      submit: Change
 
   teammembers:
     new:
-      title: "Add a new teammember"
+      title: Add a new teammember
     confirm:
       delete: "Remove %{entry_label} from team ?"
-    show: "Show members"
-    hide: "Hide members"
+    show: Show members
+    hide: Hide members
 
   teams:
-    title: "Teams"
+    title: Teams
     form:
-      private: "Private"
+      private: Private
     index_menu:
-      create: "Create new team"
+      create: Create new team
     index:
-      title: "You are member of the following teams:"
-      team: "Team"
+      title: 'You are member of the following teams:'
+      team: Team
     new:
-      title: "Create a new team"
+      title: Create a new team
     description:
       private: admins have no access if checked
 
@@ -196,93 +203,93 @@ en:
         removed: "%{username} was successfully removed from team"
         added: "%{username} was successfully added to team"
     wizard:
-      fill_password_fields: "Please provide an initial password"
-      paswords_do_not_match: "Passwords do not match"
+      fill_password_fields: Please provide an initial password
+      paswords_do_not_match: Passwords do not match
     admin:
       admin:
-        no_access: "Access denied"
+        no_access: Access denied
       settings:
-        example: "These are example settings. Please overwrite them with your settings."
-        successfully_updated: "Your settings were successfully updated."
+        example: These are example settings. Please overwrite them with your settings.
+        successfully_updated: Your settings were successfully updated.
       recryptrequests:
         some: "Successfully recrypted some passwords for %{user_name}"
         all: "Successfully recrypted all passwords for %{user_name}"
         resetpassword:
-          success: "Successfully reset password"
-          required: "The password must not be blank"
+          success: Successfully reset password
+          required: The password must not be blank
       users:
-        created: "Successfully created a new user."
+        created: Successfully created a new user.
         destroy:
-          own_user: "You can't delete your-self"
-          root: "Root cannot be deleted"
+          own_user: You can't delete your-self
+          root: Root cannot be deleted
         update:
-          root: "Root cannot be updated"
-          ldap: "Ldap user cannot be updated"
+          root: Root cannot be updated
+          ldap: Ldap user cannot be updated
       maintenance_tasks:
-        succeed: "Task was executed successfully."
-        failed: "Task failed. See logs for more information."
+        succeed: Task was executed successfully.
+        failed: Task failed. See logs for more information.
 
     accounts:
-      created: "Account was successfully created."
-      updated: "Account was successfully updated."
-      moved: "Account was successfully moved"
+      created: Account was successfully created.
+      updated: Account was successfully updated.
+      moved: Account was successfully moved
     application:
-      wait: "Wait for the recryption of your team passwords."
+      wait: Wait for the recryption of your team passwords.
     groups:
-      created: "Successfully created a new group."
-      updated: "Group was successfully updated."
+      created: Successfully created a new group.
+      updated: Group was successfully updated.
     items:
-      uploaded: "File was successfully uploaded."
-      uploaded_size_to_high: "The file is too big to upload. (max. 10MB)"
-      uploaded_filename_is_empty: "The file has to be named"
-      uploaded_file_inexistent: "File is inexistent"
+      uploaded: File was successfully uploaded.
+      uploaded_size_to_high: The file is too big to upload. (max. 10MB)
+      uploaded_filename_is_empty: The file has to be named
+      uploaded_file_inexistent: File is inexistent
     logins:
-      weak_password: "To improve security you should change your login password to a more complex one."
-      welcome: "Welcome to Cryptopus, first you have to create a new account. Please enter a new password"
-      auth_failed: "Authentication failed! Enter a correct username and password."
-      only_local: "Only local users are allowed to change their password."
-      new_password_set: "You successfully set the new password"
-      new_passwords_not_equal: "New passwords not equal"
-      wrong_password: "Invalid user / password"
-      not_local: "You are not a local user!"
-      locked: "User is currently locked. Please try to login again a bit later or contact the administrator if your user has been locked permanently"
+      weak_password: To improve security you should change your login password to a more complex one.
+      welcome: Welcome to Cryptopus, first you have to create a new account. Please enter a new password
+      auth_failed: Authentication failed! Enter a correct username and password.
+      only_local: Only local users are allowed to change their password.
+      new_password_set: You successfully set the new password
+      new_passwords_not_equal: New passwords not equal
+      wrong_password: Invalid user / password
+      not_local: You are not a local user!
+      locked: User is currently locked. Please try to login again a bit later or contact the administrator if your user has been locked permanently
     recryptrequests:
-      recrypted: "You have successfully recrypted the password"
-      wait: "Wait for the recryption of your team passwords"
-      wrong_password: "Your password was wrong"
+      recrypted: You have successfully recrypted the password
+      wait: Wait for the recryption of your team passwords
+      wrong_password: Your password was wrong"
     teams:
-      wrong_user_password: "Enter a correct username and password or check the LDAP Settings"
-      created: "Successfully created a new team."
-      updated: "Team was successfully updated."
-      deleted: "Team was successfully deleted"
-      cannot_delete: "Only admin may delete teams"
-      no_member: "You are not member of this team"
+      wrong_user_password: Enter a correct username and password or check the LDAP Settings
+      created: Successfully created a new team.
+      updated: Team was successfully updated.
+      deleted: Team was successfully deleted
+      cannot_delete: Only admin may delete teams
+      no_member: You are not member of this team
     teammembers:
-      could_not_remove_last_teammember: "Could not remove last teammember"
-      could_not_remove_admin_from_private_team: "Could not remove admin from private team"
+      could_not_remove_last_teammember: Could not remove last teammember
+      could_not_remove_admin_from_private_team: Could not remove admin from private team
 
   confirm:
     delete: "Delete %{entry_class} %{entry_label} ?"
-    changeAdmin: "give/remove Admin-Rights?"
+    changeAdmin: give/remove Admin-Rights?
     deleteWithTeams: "Delete all teams where %{username} is the last teammember"
 
 #Validation Errors
   activerecord:
     errors:
       template:
-        body: ''
-        header: ''
+        body: 
+        header:
       models:
         user:
-          new_password_invalid: "Your NEW password was wrong"
-          old_password_invalid: "Your OLD password was wrong"
+          new_password_invalid: Your NEW password was wrong
+          old_password_invalid: Your OLD password was wrong
         item:
           attributes:
             filename:
-              blank: 'Filename does not exist'
-              taken: 'Filename is already taken'
+              blank: Filename does not exist
+              taken: Filename is already taken
 
   password_strength:
-    weak: "The password is weak"
-    good: "The password is good"
-    strong: "The password is strong!"
+    weak: The password is weak
+    good: The password is good
+    strong: The password is strong!

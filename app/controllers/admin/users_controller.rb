@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -19,7 +19,7 @@ class Admin::UsersController < Admin::AdminController
       @soloteams = teams_to_delete(user_to_delete)
     end
 
-    @users = User.where('uid != 0 or uid is null')
+    @users = User.where('ldap_uid != 0 or ldap_uid is null')
 
     respond_to do |format|
       format.html
@@ -40,7 +40,7 @@ class Admin::UsersController < Admin::AdminController
     if user == current_user
       flash[:error] = t('flashes.admin.users.destroy.own_user')
     else
-      user.destroy
+      destroy_user
     end
 
     respond_to do |format|
@@ -84,6 +84,13 @@ class Admin::UsersController < Admin::AdminController
 
 
   private
+
+  def destroy_user
+    # admins cannot be removed from non-private teams
+    # so set admin to false first
+    user.update!(admin: false) if user.admin?
+    user.destroy!
+  end
 
   def redirect_if_ldap_user
     return unless user.ldap?

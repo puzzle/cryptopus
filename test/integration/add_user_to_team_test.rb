@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -16,7 +16,7 @@ class AddUserToTeamTest < ActionDispatch::IntegrationTest
 
     login_as('bob')
     path = team_members_path(team_id: teams(:team1))
-    xhr :post, path, user_id: users(:alice).id
+    post path, params: { user_id: users(:alice).id }, xhr: true
     logout
 
     can_access_account(account_path, 'alice', 'password','test', 'password')

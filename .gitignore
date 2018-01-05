@@ -9,6 +9,7 @@ log
 public/assets
 coverage
 tags
+BUILD
 
 .project
 .idea

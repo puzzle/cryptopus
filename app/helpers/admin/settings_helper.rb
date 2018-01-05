@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -16,7 +16,7 @@ module Admin::SettingsHelper
                else
                  input_field_setting_default(setting)
                end
-    content_tag(:div, content.html_safe, class: 'form-group').html_safe
+    safe_join([content_tag(:div, content.html_safe, class: 'form-group')])
   end
 
   def selectize_input_field(setting)
@@ -34,6 +34,16 @@ module Admin::SettingsHelper
 
   def input_field_setting_number(setting)
     number_field_tag(key_param(setting), setting.value, default_field_options)
+  end
+
+  def input_field_setting_host_list(_setting)
+    hidden_field_tag('setting[ldap_hostname][]', '')
+    select_tag('setting[ldap_hostname]',
+               options_for_select(Setting.value('ldap', 'hostname')),
+               multiple: true,
+               id: 'host-list',
+               hidden: true,
+               'data-whitelist': Setting.value('ldap', 'hostname'))
   end
 
   def input_field_setting_default(setting)
@@ -56,4 +66,5 @@ module Admin::SettingsHelper
   def key_param(setting)
     "setting[#{setting.key}]"
   end
+
 end

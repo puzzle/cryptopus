@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -67,8 +67,8 @@ class Authentication::SourceIpChecker
   end
 
   def geo_ip
-    geo_dat_file_path = "#{Rails.root}/db/GeoIP.dat"
-    unless File.exists?(geo_dat_file_path)
+    geo_dat_file_path = Rails.root.join('db', 'GeoIP.dat')
+    unless File.exist?(geo_dat_file_path)
       raise 'geo ip data file missing: please run rake geo:fetch'
     end
     GeoIP.new(geo_dat_file_path)

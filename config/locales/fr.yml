@@ -1,4 +1,4 @@
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -6,351 +6,357 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 fr:
-  fallback: "ATTENTION! Ça c’est l’environment Fallback de Cryptopus. Ne créez pas des nouvelles données parce qu’elles ne seront pas sauvées!"
-  confirmation: "Etes-vous sûr?"
-  show: "Montrer"
-  edit: "Modifier"
-  update: "Mettre à jour"
-  create: "Créer"
-  delete: "Supprimer"
-  add: "Ajouter"
-  description: "Description"
-  username: "Nom d'utilisateur"
-  password: "Mot de passe"
-  actions: "Actions"
-  download: "Télécharger"
-  yes: "Oui"
-  no: "Non"
-  forgot_password: "Mot de passe oublié?"
-  logout: "Déconnexion"
-  auto_logout: "Déconnexion automatique en"
-  settings: "Paramètres"
-  recrypt_requests: "Demandes de re crypt"
-  users: "Utilisateur"
-  change_password: "Changer le mot de passe"
-  last_login: "Votre dernière connexion était il ya %{time_ago}."
+  fallback: 'ATTENTION! Ça c’est l’environment Fallback de Cryptopus. Ne créez pas des nouvelles données parce qu’elles ne seront pas sauvées!'
+  confirmation: Etes-vous sûr?
+  show: Montrer
+  edit: Modifier
+  update: Mettre à jour
+  create: Créer
+  delete: Supprimer
+  add: Ajoutea
+  description: Description
+  username: Nom d'utilisateur
+  password: Mot de passe
+  actions: Actions
+  download: Télécharger
+  yes: Oui
+  no: Non
+  forgot_password: Mot de passe oublié?
+  logout: Déconnexion
+  auto_logout: Déconnexion automatique en
+  settings: Paramètres
+  recrypt_requests: Demandes de re crypt
+  users: Utilisateur
+  change_password: Changer le mot de passe
+  last_login_date_and_from: "La dernière connexion était le %{last_login_at} de %{last_login_from}"
+  last_login_date_and_from_country: "La dernière connexion était le %{last_login_at} de %{last_login_from} (%{last_login_country})"
+  last_login_date: "La dernière connexion était le %{last_login_at}"
+  last_login: "La dernière connexion était le %{last_login_at} de %{last_login_from}"
   unencrypted_field_caption: ne pas crypté
-  group: "Groupe"
-  team: "Équipe"
-  move: "Mouvoir"
+  group: Groupe
+  team: Équipe
+  move: Mouvoir
 
   i18n:
     language:
-      name: 'Français'
+      name: Français
 
   search:
-    title: "Recherche"
+    title: Recherche
     index:
       hi_user: "Salut %{username}! Vous cherchez un mot de passe?"
-      no_results_found: "Aucun résultat trouvé"
-      type_to_search: "Appuyez pour rechercher..."
+      no_results_found: Aucun résultat trouvé
+      type_to_search: Appuyez pour rechercher...
 
   accounts:
-    title: "Comptes"
+    title: Comptes
     index:
-      move: "Déplacer compte à un autre groupe"
+      move: Déplacer compte à un autre groupe
       title: "Comptes du groupe %{group_name} de l'équipe %{team_name}"
     index_menu:
-      create: "Créer compte"
-      group: "Groupes"
+      create: Créer compte
+      group: Groupes
     show_menu:
-      add_attachment: "Ajouter un attachement"
+      add_attachment: Ajouter un attachement
     edit:
-      title: "Modifier le compte"
-
+      title: Modifier le compte
+      random_password: Mot de passe aléatoire
     show:
       title: "Compte: %{account_name}"
       last_change: "Dernière mise à jour il ya %{time_ago}"
-      attachments: "Attachements"
-      file: "Fichier"
-      show_password: "Afficher le mot de passe"
+      attachments: Attachements
+      file: Fichier
+      show_password: Afficher le mot de passe
     new:
-      title: "Nouveau compte"
+      title: Nouveau compte
 
   admin:
+    title: "Admin"
     maintenance_tasks:
       index:
-        title: "Les tâches de maintenance"
-        maintenance_task: "Tâche de maintenance"
-        run: "effectuer"
+        title: Les tâches de maintenance
+        maintenance_task: Tâche de maintenance
+        run: effectuer
     settings:
       index:
-        title: "Modifier les paramètres"
-        save: "Sauvegarder les modifications"
+        title: Modifier les paramètres
+        save: Sauvegarder les modifications
     recryptrequests:
       index:
-        title: "Demandes de re crypt"
-        user: "Utilisateur"
-        admin_required: "Admin requis"
-        recrypt: "re crypt"
+        title: Demandes de re crypt
+        user: Utilisateur
+        admin_required: Admin requis
+        recrypt: re crypt
       request:
-        request_sent: "Une demande de re crypt vos mots de passe de groupe a été envoyée. S'il vous plaît attendre jusqu'à ce qu'elle re crypté vos nouveaux mots de passe."
+        request_sent: Une demande de re crypt vos mots de passe de groupe a été envoyée. S'il vous plaît attendre jusqu'à ce qu'elle re crypté vos nouveaux mots de passe.
       uncrypterror:
-        new_password: "Nouveau mot de passe?!"
-        ldap_password_changed: "Votre mot de passe de LDAP a changé depuis votre dernière connexion."
-        ldap_enter_old_password: "S'il vous plaît entrez votre ancien mot de passe pour déchiffrer votre clé privée."
-        ldap_old_password: "Votre ancien mot de passe de LDAP"
-        ldap_new_password: "Votre nouveau mot de passe de LDAP"
-        ldap_password: "Votre mot de passe de LDAP"
+        new_password: Nouveau mot de passe?!
+        ldap_password_changed: Votre mot de passe de LDAP a changé depuis votre dernière connexion.
+        ldap_enter_old_password: S'il vous plaît entrez votre ancien mot de passe pour déchiffrer votre clé privée.
+        ldap_old_password: Votre ancien mot de passe de LDAP
+        ldap_new_password: Votre nouveau mot de passe de LDAP
+        ldap_password: Votre mot de passe de LDAP
         forgot_password_recrypt: |
           Si vous avez oublié votre mot de passe, seulement celles équipes sont décryptées qui ne sont pas privées.
           Tout les équipes sur laquelles personnes n'a accès sont supprimées.
           Après l'envoi du formulaire, vous devez attendre jusqu'à ce qu'un administrateur a traité la demande.
-        recrypt: "Re crypter"
-        send: "Envoyer la demande"
+        recrypt: Re crypter
+        send: Envoyer la demande
     users:
       index_menu:
-        create: "Créer utilisateur"
+        create: Créer utilisateur
       edit:
-        title: "Modifier l'utilisatuer"
-        reset_password: "Réinitialiser mot de passe"
-        warning: "Avec la réinitialisation du mot de passe l’utilisateur perd l’access a tout ses teams privées et tout les teams ou il est le seul membre seront supprimées"
+        title: Modifier l'utilisatuer
+        reset_password: Réinitialiser mot de passe
+        warning: Avec la réinitialisation du mot de passe l’utilisateur perd l’access a tout ses teams privées et tout les teams ou il est le seul membre seront supprimées
       index:
-        title: "La Liste de toutes les utilisateurs"
-        username: "Nom d'utilisateur"
-        name: "Nom"
-        ldap_uid: "LDAP UID"
-        admin: "Admin"
-        action: "Action"
-        locked: "Bloqué utilisateurs"
-        unlock: "déverrouillage"
+        title: La Liste de toutes les utilisateurs
+        username: Nom d'utilisateur
+        name: Nom
+        ldap_uid: LDAP UID
+        last_login_at: Dernière connexion à
+        last_login_from: Dernière connexion de
+        admin: Admin
+        action: Action
+        locked: Bloqué utilisateurs
+        unlock: déverrouillage
       last_teammember_teams:
-        message: "L'équipe suivante sera supprimée, car l'utilisateur est son dernier membre."
-        delete_user: "Êtes-vous sûr de vouloir supprimer cet utilisateur?"
-        destroy: "supprimer l'utilisateur"
+        message: L'équipe suivante sera supprimée, car l'utilisateur est son dernier membre.
+        delete_user: Êtes-vous sûr de vouloir supprimer cet utilisateur?
+        destroy: supprimer l'utilisateur
       new:
-        title: "Nouvel utilisateur"
+        title: Nouvel utilisateur
 
   groups:
-    title: "Groupes"
+    title: Groupes
     index_menu:
-      create: "Créer groupe"
+      create: Créer groupe
     edit:
-      title: "Modifier le groupe"
+      title: Modifier le groupe
     index:
       title: "Groupes de l'équipe %{team_name}"
-      group: "Groupe"
-      members: "Membres"
-      add_member: "Ajouter un membre"
-      admins: "Admins"
+      group: Groupe
+      members: Membres
+      add_member: Ajouter un membre
+      admins: Admins
     new:
-      title: "Nouveau groupe"
+      title: Nouveau groupe
 
   items:
     new:
-      title: "Ajouter un attachement au compte"
-      upload: "Fichier de téléchargement"
-      upload_file: "Télécharge le fichier"
+      title: Ajouter un attachement au compte
+      upload: Fichier de téléchargement
+      upload_file: Télécharge le fichier
 
   logins:
     login:
-      title: "Identifiez-vous"
-      description: "S'il vous plaît entrer un nom d'utilisateur valide et mot de passe."
-      submit: "S'identifier"
+      title: Identifiez-vous
+      description: S'il vous plaît entrer un nom d'utilisateur valide et mot de passe.
+      submit: S'identifier
     logout:
-      title: "Déconnexion"
-      message: "Au revoir"
-      hint: "S'il vous plaît vider le cache de votre navigateur."
+      title: Déconnexion
+      message: Au revoir
+      hint: S'il vous plaît vider le cache de votre navigateur.
     newuser:
-      title: "Bienvenue à Cryptopus"
-      description: "Nous avons créé une nouvelle paire de clés pour vous. Amusez-vous avec Cryptopus."
+      title: Bienvenue à Cryptopus
+      description: Nous avons créé une nouvelle paire de clés pour vous. Amusez-vous avec Cryptopus.
     noaccess:
-      title: "Accès refusé"
+      title: Accès refusé
     show_update_password:
-      title: "Changer le mot de passe"
-      old: "Ancien mot de passe"
-      new: "Nouveau mot de passe"
-      new_retype: "Nouveau mot de passe (retaper)"
-      submit: "Change"
+      title: Changer le mot de passe
+      old: Ancien mot de passe
+      new: Nouveau mot de passe
+      new_retype: Nouveau mot de passe (retaper)
+      submit: Change
 
   teammembers:
     new:
-      title: "Ajouter un nouveau membre de l'équipe"
+      title: Ajouter un nouveau membre de l'équipe
     confirm:
       delete: "Supprimer %{entry_label} de cette équipe ?"
-    show: "Voir les membres"
-    hide: "Membres masquer"
+    show: Voir les membres
+    hide: Membres masquer
 
   teams:
-    title: "Équipes"
+    title: Équipes
     form:
-      private: "Privé"
-      private_hint: "Administrateurs n'ont pas accès à cette équipe."
+      private: Privé
+      private_hint: Administrateurs n'ont pas accès à cette équipe.
     index_menu:
-      create: "Créer équipe"
+      create: Créer équipe
     index:
-      title: "Vous êtes membre des équipes suivantes:"
-      team: "Équipe"
+      title: 'Vous êtes membre des équipes suivantes:'
+      team: Équipe
     new:
-      title: "Créer une nouvelle équipe"
+      title: Créer une nouvelle équipe
     description:
-      private: "Administrateurs auront pas accès à votre équipe."
+      private: Administrateurs auront pas accès à votre équipe.
 
   flashes:
     api:
       admin:
         users:
           toggle:
-            empowerd: "L'usutilisateur a reçu les droits d administrateur"
-            disempowerd: "L'utilisateur a perdu les droits d'administrateur"
+            empowerd: L'usutilisateur a reçu les droits d administrateur
+            disempowerd: L'utilisateur a perdu les droits d'administrateur
     members:
       added: "%{username} a été enlevé avec succès à l'équipe"
       removed: "%{username} a été ajouté avec succès à l'équipe"
     wizard:
-      fill_password_fields: "S'il vous plaît remplir tous les champs"
-      paswords_do_not_match: "Les mots de passe ne correspondent pas"
+      fill_password_fields: S'il vous plaît remplir tous les champs
+      paswords_do_not_match: Les mots de passe ne correspondent pas
     admin:
       admin:
-        no_access: "Accès refusé"
+        no_access: Accès refusé
       settings:
-        example: "Ce sont des exemples de paramètres. S'il vous plaît écraser avec vos paramètres."
-        successfully_updated: "Vos paramètres ont été modifiés avec succès."
+        example: Ce sont des exemples de paramètres. S'il vous plaît écraser avec vos paramètres.
+        successfully_updated: Vos paramètres ont été modifiés avec succès.
       recryptrequests:
         some: "Certains mots de passe ont été re crypté pour %{user_name}."
         all: "Tous les mots de passe ont été re crypté pour %{user_name}."
         resetpassword:
-          success: "Mot de passe réinitialisé avec succès"
-          required: "Le mot de passe ne peut pas être vide"
+          success: Mot de passe réinitialisé avec succès
+          required: Le mot de passe ne peut pas être vide
       users:
-        created: "Utilisateur créé avec succès."
+        created: Utilisateur créé avec succès.
         destroy:
-          own_user: "Actuel de l'utilisateur ne peut pas être supprimé"
-          root: "Root ne peut pas être supprimé"
+          own_user: Actuel de l'utilisateur ne peut pas être supprimé
+          root: Root ne peut pas être supprimé
         update:
-          root: "Root ne peuvent pas être mis à jour"
-          ldap: "Ldap utilisateur ne peuvent pas être mis à jour"
+          root: Root ne peuvent pas être mis à jour
+          ldap: Ldap utilisateur ne peuvent pas être mis à jour
       maintenance_tasks:
-        succeed: "La tâche a été exécutée avec succès.."
-        failed: "La tâche a échoué. Consultez les journaux pour plus d'informations."
+        succeed: La tâche a été exécutée avec succès..
+        failed: La tâche a échoué. Consultez les journaux pour plus d'informations.
 
     accounts:
-      created: "Compte créé avec succès."
-      updated: "Compte modifiée avec succès."
-      moved: "Le team a été déplacé avec succès."
+      created: Compte créé avec succès.
+      updated: Compte modifiée avec succès.
+      moved: Le team a été déplacé avec succès.
     application:
-      wait: "S'il vous plaît attendre jusqu'à ce vos mots de passe a ètè nouveau cryptées."
+      wait: S'il vous plaît attendre jusqu'à ce vos mots de passe a ètè nouveau cryptées.
     groups:
-      created: "Groupe créé avec succès."
-      updated: "Groupe modifiée avec succès"
+      created: Groupe créé avec succès.
+      updated: Groupe modifiée avec succès
     items:
-      uploaded: "Fichier téléchargé avec succès."
-      uploaded_size_to_high: "Fichier est trop volumineux pour tèlècharger. (max. 10MB)"
-      uploaded_filename_is_empty: "Le fichier n'a pas été nommé"
-      uploaded_file_inexistent: "Fichier est inexistant"
+      uploaded: Fichier téléchargé avec succès.
+      uploaded_size_to_high: Fichier est trop volumineux pour tèlècharger. (max. 10MB)
+      uploaded_filename_is_empty: Le fichier n'a pas été nommé
+      uploaded_file_inexistent: Fichier est inexistant
     logins:
-      welcome: "Bienvenue à Cryptopus, vous devez d'abord créer un nouveau compte. S'il vous plaît entrez un nouveau mot de passe."
-      auth_failed: "L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe."
-      only_local: "Only local users are allowed to change their password."
-      new_password_set: "Vous mis à jour avec succès le nouveau mot de passe."
-      new_passwords_not_equal: "Nouveaux mots de passe n'est pas égal."
-      wrong_password: "Mot de passe incorrect."
-      weak_password: "Pour améliorer la sécurité vous devez déterminer un mot de passe utilisateur plus complexe."
-      not_local: "Vous n'êtes pas un utilisateur local!"
-      locked: "Votre compte est actuellement verouillé. Essayez de vous connecter à nouveau dans un instant, ou contactez l'administrateur si le verrouillage persiste"
+      welcome: Bienvenue à Cryptopus, vous devez d'abord créer un nouveau compte. S'il vous plaît entrez un nouveau mot de passe.
+      auth_failed: L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe.
+      only_local: Only local users are allowed to change their password.
+      new_password_set: Vous mis à jour avec succès le nouveau mot de passe.
+      new_passwords_not_equal: Nouveaux mots de passe n'est pas égal.
+      wrong_password: Mot de passe incorrect.
+      weak_password: Pour améliorer la sécurité vous devez déterminer un mot de passe utilisateur plus complexe.
+      not_local: Vous n'êtes pas un utilisateur local!
+      locked: Votre compte est actuellement verouillé. Essayez de vous connecter à nouveau dans un instant, ou contactez l'administrateur si le verrouillage persiste
     recryptrequests:
-      recrypted: "Vous avez réussi re crypté le mot de passe."
-      wait: "S'il vous plaît attendez que Racine a recrypted vos mots de passe de l'équipe."
-      wrong_password: "Votre mot de passe était incorrect"
+      recrypted: Vous avez réussi re crypté le mot de passe.
+      wait: S'il vous plaît attendez que Racine a recrypted vos mots de passe de l'équipe.
+      wrong_password: Votre mot de passe était incorrect
     teams:
-      wrong_user_password: "Saisissez un nom d'utilisateur et mot de passe ou vérifier les paramètres LDAP."
-      created: "Créé avec succès une nouvelle équipe."
-      updated: "L'équipe a été mise à jour avec succès."
-      deleted: "L'équipe a été supprimé."
-      cannot_delete: "Vous pouvez seulement supprimer une équipe si vous etes un admin."
-      no_member: "Vous n'êtes pas membre de cette équipe"
+      wrong_user_password: Saisissez un nom d'utilisateur et mot de passe ou vérifier les paramètres LDAP.
+      created: Créé avec succès une nouvelle équipe.
+      updated: L'équipe a été mise à jour avec succès.
+      deleted: L'équipe a été supprimé.
+      cannot_delete: Vous pouvez seulement supprimer une équipe si vous etes un admin.
+      no_member: Vous n'êtes pas membre de cette équipe
     teammembers:
-      could_not_remove_last_teammember: "Il n’est pas possible de supprimer le dernier utilisateur de l'équipe"
-      could_not_remove_admin_from_private_team: "Il n’est pas possible de supprimer un admin d'une équipe privée"
+      could_not_remove_last_teammember: Il n’est pas possible de supprimer le dernier utilisateur de l'équipe
+      could_not_remove_admin_from_private_team: Il n’est pas possible de supprimer un admin d'une équipe privée
 
   helpers:
     label:
       user:
-        username: "Nom d'utilisateur"
-        password: "Mot de passe"
-        admin: "Admin"
-        givenname: "Prénom"
-        surname: "Nom de famille"
+        username: Nom d'utilisateur
+        password: Mot de passe
+        admin: Admin
+        givenname: Prénom
+        surname: Nom de famille
       account:
-        account: "Compte"
-        username: "Nom d'utilisateur"
-        password: "Mot de passe"
-        description: "Description"
+        account: Compte
+        username: Nom d'utilisateur
+        password: Mot de passe
+        description: Description
       team:
-        name: "Nom"
-        description: "Description"
+        name: Nom
+        description: Description
       group:
-        name: "Nom"
-        description: "Description"
+        name: Nom
+        description: Description
       ldapsetting:
-        portnumber: "Port"
-        bind_password: "Mot de passe de Bind"
-        encryption: "Chiffrement"
+        portnumber: Port
+        bind_password: Mot de passe de Bind
+        encryption: Chiffrement
 
   confirm:
     delete: "Supprimez %{entry_class} %{entry_label} ?"
-    changeAdmin: "donner/enlever les droits de l'administrateur?"
+    changeAdmin: donner/enlever les droits de l'administrateur?
     deleteWithTeams: "Supprimer toutes les équipe où %{username} est le dernier."
 
 #Validation Errors
   activerecord:
     attributes:
       user:
-        username: "Nom d'utilisateur"
+        username: Nom d'utilisateur
     errors:
       template:
-        body: ''
-        header: ''
+        body:
+        header: 
       models:
         account:
           attributes:
             accountname:
-              blank: 'ne peut pas être vide'
-              taken: 'est déjà pris'
+              blank: ne peut pas être vide
+              taken: est déjà pris
         group:
           attributes:
             name:
-              blank: 'ne peut pas être vide'
-              taken: 'est déjà pris'
+              blank: ne peut pas être vide
+              taken: est déjà pris
         user:
-          new_password_invalid: "Votre nouveau mot de passe était incorrect"
-          old_password_invalid: "Votre ancien mot de passe était incorrect"
+          new_password_invalid: Votre nouveau mot de passe était incorrect
+          old_password_invalid: Votre ancien mot de passe était incorrect
           attributes:
             username:
-              blank: 'ne peut pas être vide'
-              taken: 'est déjà pris'
+              blank: ne peut pas être vide
+              taken: est déjà pris
         item:
           attributes:
             filename:
-              blank: 'Filename ne peut pas être vide'
-              taken: 'Filename est déjà pris'
+              blank: Filename ne peut pas être vide
+              taken: Filename est déjà pris
 
 
   datetime:
     distance_in_words:
       about_x_hours:
         one: environ une heure
-        other: environ %{count} heures
+        other: "environ %{count} heures"
       about_x_months:
         one: environ un mois
-        other: environ %{count} mois
+        other: "environ %{count} mois"
       about_x_years:
         one: environ un an
-        other: environ %{count} ans
+        other: "environ %{count} ans"
       almost_x_years:
         one: presqu'un an
-        other: presque %{count} ans
+        other: "presque %{count} ans"
       half_a_minute: une demi-minute
       less_than_x_minutes:
         one: moins d'une minute
-        other: moins de %{count} minutes
+        other: "moins de %{count} minutes"
         zero: moins d'une minute
       less_than_x_seconds:
         one: moins d'une seconde
-        other: moins de %{count} secondes
+        other: "moins de %{count} secondes"
         zero: moins d'une seconde
       over_x_years:
         one: plus d'un an
-        other: plus de %{count} ans
+        other: "plus de %{count} ans"
       x_days:
         one: 1 jour
         other: "%{count} jours"
@@ -365,6 +371,6 @@ fr:
         other: "%{count} secondes"
 
   password_strength:
-    weak: "Le mot de passe est faible"
-    good: "Le mot de passe est bon"
-    strong: "Le mot de passe est forte!"
+    weak: Le mot de passe est faible
+    good: Le mot de passe est bon
+    strong: Le mot de passe est forte!

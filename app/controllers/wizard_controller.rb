@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -35,7 +35,7 @@ class WizardController < ApplicationController
 
   def create_session_and_redirect(password)
     reset_session
-    user = User.find_by_username('root')
+    user = User.find_by(username: 'root')
     request.session[:user_id] = user.id
     request.session[:username] = user.username
     session[:private_key] = CryptUtils.decrypt_private_key(user.private_key, password)

@@ -1,4 +1,4 @@
--#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 -#  Cryptopus and licensed under the Affero General Public License version 3 or later.
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
@@ -16,9 +16,9 @@
     = stylesheet_link_tag :application, media: "all"
     = javascript_include_tag :application
   %body
-    = render partial: 'layouts/icons'
+    = render 'layouts/icons'
     .container.main{role: "main"}
-      = render partial: 'layouts/navigation'
-      = render partial: 'layouts/flashes'
+      = render 'layouts/navigation'
+      = render 'layouts/flashes'
       = yield
-    = render partial: 'layouts/footer' if current_user
+    = render 'layouts/footer' if current_user

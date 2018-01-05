@@ -18,7 +18,10 @@ class User
     private
 
     def authenticate_ldap(cleartext_password)
-      LdapTools.ldap_login(username, cleartext_password)
+      unless Setting.value('ldap', 'enable') == true
+        raise 'cannot authenticate against ldap since ldap auth is disabled'
+      end
+      ldap_connection.login(username, cleartext_password)
     end
 
     def authenticate_db(cleartext_password)

@@ -1,4 +1,4 @@
--#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 -#  Cryptopus and licensed under the Affero General Public License version 3 or later.
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
@@ -13,7 +13,7 @@
   %br/
   .result-username.select-click
     %input#cleartext_username.form-control{readonly: "readonly", type: "text", value: "#{@account.cleartext_username}"}/
-    %button.btn.clip_button{"data-clipboard-target" => "#cleartext_username", title: "Click to copy" }
+    %button.btn.clip_button{"data-clipboard-target" => "#cleartext_username", title: "copy username (ctrl + u)", id: "copy_username_button"}
       %svg.icon-clippy
         %use{"xlink:href" => "#icon-clippy"}
   %a.password-link{href: "#"}= t '.show_password'
@@ -30,7 +30,7 @@
     - elsif strength.status == :strong
       =image_tag 'strong.png'
       %strong= t 'password_strength.strong'
-    %button.btn.clip_button{"data-clipboard-target" => "#cleartext_password", title: "Click to copy"}
+    %button.btn.clip_button{"data-clipboard-target" => "#cleartext_password", title: "copy password (ctrl + c)", id: "copy_password_button"}
       %svg.icon-clippy
         %use{"xlink:href" => "#icon-clippy"}
   #hidden_password{style: "display:none"}
@@ -55,4 +55,4 @@
         %td.action_icon= link_to_destroy [team, @group, @account, item], item
 
 %div{id: "move_account_form"}
-  = render partial: 'move_account_form'
+  = render 'move_account_form'

@@ -1,20 +1,17 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
 require 'rails/all'
 
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require(:default, Rails.env)
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
-end
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require(*Rails.groups)
 
 module Cryptopus
   class Application < Rails::Application
@@ -23,8 +20,7 @@ module Cryptopus
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    # config.autoload_paths += %W(#{config.root}/extras)
-    config.autoload_paths += [config.root.join('lib')]
+    config.eager_load_paths << Rails.root.join('lib')
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -46,7 +42,7 @@ module Cryptopus
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password, :private_key]
+    config.filter_parameters += [:password, :private_key, /password/, :cleartext_username]
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
@@ -59,13 +55,12 @@ module Cryptopus
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    # Filter password out form log files
-    config.filter_parameters << :password
-
     config.generators do |g|
       g.test_framework      :minitest, fixture_replacement: :fabrication
       g.fixture_replacement :fabrication, dir: "test/fabricators"
     end
+
+    config.time_zone = ENV['TIME_ZONE'] || 'Bern'
 
   end
 end

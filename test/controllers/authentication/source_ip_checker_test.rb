@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -71,7 +71,7 @@ class SourceIpCheckerTest <  ActiveSupport::TestCase
   end
 
   test 'raises error if geo dat file missing' do
-    File.expects(:exists?).returns(false)
+    File.expects(:exist?).returns(false)
     ch_ip = '46.140.0.1'
 
     Authentication::SourceIpChecker.any_instance.stubs(:private_ip?).returns(false)

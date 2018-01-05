@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -150,17 +150,17 @@ namespace :license do
   end
 
   desc 'Insert the license preamble in all source files'
-  task :insert => :config do
+  task insert: :config do
     @licenser.insert
   end
 
   desc 'Update or insert the license preamble in all source files'
-  task :update => :config do
+  task update: :config do
     @licenser.update
   end
 
   desc 'Remove the license preamble from all source files'
-  task :remove => :config do
+  task remove: :config do
     @licenser.remove
   end
 end

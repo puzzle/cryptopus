@@ -1,4 +1,14 @@
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+# == Schema Information
+#
+# Table name: settings
+#
+#  id    :integer          not null, primary key
+#  key   :string           not null
+#  value :string
+#  type  :string           not null
+#
+
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -8,32 +18,32 @@ ldap_basename:
   value: example_basename
   type: Setting::Text
 
-ldap_hostname:   
+ldap_hostname:
   key: ldap_hostname
-  value: example_hostname
-  type: Setting::Text
+  value: ["example_hostname"]
+  type: Setting::HostList
 
-ldap_portnumber:   
+ldap_portnumber:
   key: ldap_portnumber
   value: 636
   type: Setting::Number
 
-ldap_encryption:   
+ldap_encryption:
   key: ldap_encryption
   value: simple_tls
   type: Setting::Text
 
-ldap_bind_dn:   
+ldap_bind_dn:
   key: ldap_bind_dn
   value: example_bind_dn
   type: Setting::Text
 
-ldap_bind_password:   
+ldap_bind_password:
   key: ldap_bind_password
   value: example_bind_password
   type: Setting::Text
 
-ldap_bind_enable:   
+ldap_bind_enable:
   key: ldap_enable
   value: false
   type: Setting::TrueFalse

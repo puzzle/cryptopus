@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -12,7 +12,7 @@ module Admin::MaintenanceTasksHelper
     content << label_tag(label)
 
     content << create_tag_with_correct_type(label, param[:type])
-    content_tag(:div, content.html_safe, class: 'form-group').html_safe
+    safe_join([content_tag(:div, content.html_safe, class: 'form-group')])
   end
 
   def create_tag_with_correct_type(label, type)

@@ -1,13 +1,24 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+# == Schema Information
+#
+# Table name: settings
+#
+#  id    :integer          not null, primary key
+#  key   :string           not null
+#  value :string
+#  type  :string           not null
+#
+
+
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Setting < ActiveRecord::Base
+class Setting < ApplicationRecord
 
-  validates_uniqueness_of :key
+  validates :key, uniqueness: true
 
   class << self
     def value(prefix, key)

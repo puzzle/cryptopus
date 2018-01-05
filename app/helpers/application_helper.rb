@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -59,10 +59,18 @@ module ApplicationHelper
     @translations[I18n.locale].with_indifferent_access
   end
 
+  def version_info
+    build_info = File.file?('BUILD') ? File.read('BUILD') : ''
+    I18n.t('version') + " #{File.read('VERSION')} #{build_info}"
+  end
+
+  def version_link
+    link_to(version_info, '/changelog')
+  end
+
   private
 
   def default_field_options
     { class: 'form-control' }
   end
-
 end

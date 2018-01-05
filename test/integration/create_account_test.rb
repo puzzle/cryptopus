@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -15,7 +15,8 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
     group = groups(:group1)
     accounts_path = team_group_accounts_path(team_id: team.id, group_id: group.id)
 
-    post_via_redirect accounts_path, account: {accountname: 'e-mail', cleartext_username: 'bob@test', cleartext_password: 'alice33'}
+    post accounts_path, params: { account: {accountname: 'e-mail', cleartext_username: 'bob@test', cleartext_password: 'alice33'} }
+    follow_redirect!
 
     account = group.accounts.find_by_accountname('e-mail')
     assert account

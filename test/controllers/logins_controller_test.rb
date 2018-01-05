@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -11,7 +11,7 @@ class LoginsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
   test 'cannot login with wrong password' do
-    post :authenticate, password: 'wrong_password', username: 'bob'
+    post :authenticate, params: { password: 'wrong_password', username: 'bob' }
 
     assert_match(/Authentication failed/, flash[:error])
   end
@@ -19,7 +19,7 @@ class LoginsControllerTest < ActionController::TestCase
   test 'redirects to recryptrequests page if private key cannot be decrypted' do
     users(:bob).update(private_key: "invalid private_key")
 
-    post :authenticate, password: 'password', username: 'bob'
+    post :authenticate, params: { password: 'password', username: 'bob' }
 
     assert_redirected_to recryptrequests_new_ldap_password_path
   end
@@ -35,26 +35,26 @@ class LoginsControllerTest < ActionController::TestCase
   test 'login logout and save jumpto if set' do
     login_as(:admin)
 
-    get :logout, jumpto: admin_users_path
+    get :logout, params: { jumpto: admin_users_path }
 
     assert_redirected_to admin_users_path
   end
 
   test 'cannot login with unknown username' do
-    post :authenticate, password: 'password', username: 'baduser'
+    post :authenticate, params: { password: 'password', username: 'baduser' }
 
     assert_match(/Authentication failed/, flash[:error])
   end
 
   test 'cannot login without username' do
-    post :authenticate, password: 'password'
+    post :authenticate, params: { password: 'password' }
 
     assert_match(/Authentication failed/, flash[:error])
   end
 
   test 'update password' do
     login_as(:bob)
-    post :update_password, old_password: 'password', new_password1: 'test', new_password2: 'test'
+    post :update_password, params: { old_password: 'password', new_password1: 'test', new_password2: 'test' }
 
     assert_match(/new password/, flash[:notice])
     assert_equal true, users(:bob).authenticate('test')
@@ -62,7 +62,7 @@ class LoginsControllerTest < ActionController::TestCase
 
   test 'update password, error if oldpassword not match' do
     login_as(:bob)
-    post :update_password, old_password: 'wrong_password', new_password1: 'test', new_password2: 'test'
+    post :update_password, params: { old_password: 'wrong_password', new_password1: 'test', new_password2: 'test' }
 
     assert_match(/Invalid user \/ password/, flash[:error])
     assert_equal false, users(:bob).authenticate('test')
@@ -70,7 +70,7 @@ class LoginsControllerTest < ActionController::TestCase
 
   test 'update password, error if new passwords not match' do
     login_as(:bob)
-    post :update_password, old_password: 'password', new_password1: 'test', new_password2: 'wrong_password'
+    post :update_password, params: { old_password: 'password', new_password1: 'test', new_password2: 'wrong_password' }
 
     assert_match(/equal/, flash[:error])
     assert_equal false, users(:bob).authenticate('test')
@@ -79,7 +79,7 @@ class LoginsControllerTest < ActionController::TestCase
   test 'redirects if ldap user tries to update password' do
     users(:bob).update_attribute(:auth, 'ldap')
     login_as(:bob)
-    post :update_password, old_password: 'password', new_password1: 'test', new_password2: 'test'
+    post :update_password, params: { old_password: 'password', new_password1: 'test', new_password2: 'test' }
 
     assert_redirected_to search_path
   end
@@ -133,5 +133,45 @@ class LoginsControllerTest < ActionController::TestCase
     get :show_update_password
 
     assert_equal 200, response.status
+  end
+
+  test 'updates last login at if user logs in' do
+    time = Time.zone.now
+    ActiveSupport::TimeZone.any_instance.stubs(:now).returns(time)
+
+    post :authenticate, params: { password: 'password', username: 'bob' }
+
+    users(:bob).reload
+    assert_equal(time.to_s, users(:bob).last_login_at.to_s)
+  end
+
+  test 'shows last login datetime and ip without country' do
+    user = users(:bob)
+    user.update_attributes(last_login_at: '2017-01-01 16:00:00 + 0000', last_login_from: '192.168.210.10')
+
+    post :authenticate, params: { password: 'password', username: 'bob' }
+    assert_equal('The last login was on January 01, 2017 16:00 from 192.168.210.10', flash[:notice])
+  end
+
+  test 'does not show last login date if not available' do
+    users(:bob).update_attribute(:last_login_at, nil)
+    post :authenticate, params: { password: 'password', username: 'bob' }
+    assert_nil(flash[:notice])
+  end
+
+  test 'does not show previous login ip if not available' do
+    user = users(:bob)
+    user.update_attributes(last_login_at: '2017-01-01 16:00:00 + 0000', last_login_from: nil)
+
+    post :authenticate, params: { password: 'password', username: 'bob' }
+    assert_equal('The last login was on January 01, 2017 16:00', flash[:notice])
+  end
+
+  test 'shows previous login ip and country' do
+    user = users(:bob)
+    user.update_attributes(last_login_at: '2001-09-11 19:00:00 + 0000', last_login_from: '153.123.34.34')
+
+    post :authenticate, params: { password: 'password', username: 'bob' }
+    assert_equal('The last login was on September 11, 2001 19:00 from 153.123.34.34 (JP)', flash[:notice])
   end
 end

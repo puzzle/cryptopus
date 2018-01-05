@@ -1,4 +1,4 @@
--#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 -#  Cryptopus and licensed under the Affero General Public License version 3 or later.
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
@@ -20,4 +20,4 @@
       %td= simple_format group.description
       %td.action_icon= link_to image_tag("edit.svg"), [:edit, team, group]
       %td.action_icon= link_to_destroy [team, group], group
-= render partial: 'teammembers/index'
+= render 'teammembers/index'

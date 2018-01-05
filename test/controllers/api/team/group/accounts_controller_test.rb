@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -17,7 +17,7 @@ class Api::Team::Group::AccountsControllerTest < ActionController::TestCase
     group = groups(:group1)
     account = accounts(:account1)
 
-    xhr :get, :show, team_id: team, group_id: group, id: account
+    get :show, params: { team_id: team, group_id: group, id: account }, xhr: true
     account = JSON.parse(response.body)['data']['account']
 
     assert_equal 'account1', account['accountname']

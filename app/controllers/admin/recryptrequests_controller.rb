@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -31,7 +31,9 @@ class Admin::RecryptrequestsController < Admin::AdminController
     @user = User.find(params[:user_id])
     @admin = User.find(session[:user_id])
 
-    return redirect_to :back if @user.ldap? || blank_password?
+    if @user.ldap? || blank_password?
+      return redirect_back(fallback_location: admin_recryptrequests_path)
+    end
 
     encrypt_and_save_user
 
@@ -39,7 +41,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
       flash[:notice] = t('flashes.admin.recryptrequests.resetpassword.success')
     end
 
-    redirect_to :back
+    redirect_back(fallback_location: admin_recryptrequests_path)
   end
 
   private

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
@@ -8,7 +8,8 @@
 module IntegrationTest
   module DefaultHelper
     def login_as(username, password = 'password')
-      post_via_redirect "/en/login/authenticate", username: username, password: password
+      post "/en/login/authenticate", params: { username: username, password: password }
+      follow_redirect!
     end
 
     def logout
