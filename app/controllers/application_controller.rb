@@ -20,6 +20,9 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  # includes pundit, a scaleable authorization system
+  include Pundit
+
   # includes a security token
   protect_from_forgery with: :exception
 
