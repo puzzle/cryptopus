@@ -11,6 +11,7 @@ before_install:
 install:
  - bundle install --path vendor/bundle
 before_script:
+ - bundle exec rake db:create
  - bundle exec rake db:setup
  - bundle exec rake db:migrate
  - bundle exec rake geo:fetch
