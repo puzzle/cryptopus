@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :check_source_ip
   before_action :redirect_to_wizard_if_new_setup
   before_action :message_if_fallback
-  before_action :authorize, except: %i[login authenticate logout wizard]
+  before_action :validate_user, except: %i[login authenticate logout wizard]
   before_action :redirect_if_not_teammember
   before_action :redirect_if_no_private_key, except: :logout
   before_action :prepare_menu
@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  def authorize
+  def validate_user
     if current_user.nil?
       session[:jumpto] = request.parameters
       redirect_to login_login_path
