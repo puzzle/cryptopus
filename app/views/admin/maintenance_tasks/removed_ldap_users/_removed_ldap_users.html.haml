@@ -1,0 +1,24 @@
+-#  Copyright (c) 2008-2016, Puzzle ITC GmbH. This file is part of
+-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+-#  See the COPYING file at the top-level directory or at
+-#  https://github.com/puzzle/cryptopus.
+
+%table.table.table-striped#team_table
+  %tr
+    %th= 'Username'
+    %th= 'Name'
+    %th= 'LDAP UID'
+    %th= 'Actions'
+  - @maintenance_task.removed_ldap_users.each do |user|
+    %tr{class: "#{cycle( 'odd', 'even' )}"}
+      %td= user.username
+      %td= user.label
+      %td= user.uid.to_s
+      %td.action_icon
+        = link_to image_tag("remove.svg"), '#',
+          data: { last_teammember_teams_link: last_teammember_teams_teams_path(user_id: user.id),
+            user_id: user.id},
+          class: 'delete_user_link'
+
+#last_teammember_teams
+  = render 'admin/users/last_teammember_teams'

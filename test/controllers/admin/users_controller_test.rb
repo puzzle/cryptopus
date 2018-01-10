@@ -11,56 +11,6 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
-  context '#destroy' do
-
-    test 'logged-in admin user cannot delete own user' do
-      admin = users(:admin)
-      login_as(:admin)
-
-      assert_difference('User.count', 0) do
-        delete :destroy, params: { id: admin.id }
-      end
-
-      assert admin.reload.persisted?
-
-      assert_match /You can't delete your-self/, flash[:error]
-    end
-
-    test 'bob cannot delete another user' do
-      alice = users(:alice)
-      login_as(:bob)
-
-      assert_difference('User.count', 0) do
-        delete :destroy, params: { id: alice.id }
-      end
-
-      assert alice.reload.persisted?
-      assert_match /Access denied/, flash[:error]
-    end
-
-    test 'admin can delete another user' do
-      alice = users(:alice)
-      login_as(:admin)
-
-      assert_difference('User.count', -1) do
-        delete :destroy, params: { id: alice.id }
-      end
-
-      assert_not User.find_by(username: 'alice')
-    end
-
-    test 'admin can delete another admin' do
-      admin2 = Fabricate(:admin)
-      login_as(:admin)
-
-      assert_difference('User.count', -1) do
-        delete :destroy, params: { id: admin2.id }
-      end
-
-      assert_not User.find_by(username: admin2.username)
-    end
-  end
-
   context '#unlock' do
 
     test 'unlock user as admin' do
@@ -116,9 +66,8 @@ class Admin::UsersControllerTest < ActionController::TestCase
       bob.reload
 
       assert_not_equal 'new_username', bob.username
-      assert_match /Ldap user cannot be updated/, flash[:error]
+      assert_match(/Ldap user cannot be updated/, flash[:error])
     end
-
   end
 
 end

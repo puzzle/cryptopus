@@ -57,12 +57,15 @@ class app.User
     })
 
   deleteUser = () ->
-    url = '/admin/users/' + self.user_id
+    url = '/api/admin/users/' + self.user_id
     $.ajax({
       url: url,
       type: 'DELETE'
       success: ->
-        window.location.reload()
+        userIdAttribute = '[data-user-id=' + self.user_id + ']'
+        $(userIdAttribute).parents('tr').remove()
+      complete: ->
+        hideLastTeammemberTeams()
     })
 
   bind = ->

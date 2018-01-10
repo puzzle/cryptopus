@@ -32,4 +32,12 @@ module Admin::MaintenanceTasksHelper
     method_name = 'check_box_tag'
     send(method_name, "task_params[#{label}]", '', checked, default_field_options)
   end
+
+  def maintenance_task_action_link(task)
+    action = task.prepare? ? 'prepare' : 'execute'
+    label = "admin.maintenance_tasks.index.#{action}"
+    path = send("admin_maintenance_tasks_#{action}_path", task.id)
+    link_to(label, path)
+  end
+
 end

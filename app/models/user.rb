@@ -48,6 +48,8 @@ class User < ApplicationRecord
 
   scope :admins, (-> { where(admin: true) })
 
+  scope :ldap, -> { where(auth: 'ldap') }
+
   default_scope { order('username') }
 
   before_destroy :protect_if_last_teammember
@@ -243,4 +245,7 @@ class User < ApplicationRecord
     end
   end
 
+  def ldap_usernames
+    User.ldap.collect(&:username)
+  end
 end

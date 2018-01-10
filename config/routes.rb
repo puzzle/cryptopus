@@ -33,7 +33,7 @@ Rails.application.routes.draw do
         get 'index'
       end
 
-      resources :users do
+      resources :users, except: :destroy do
         member do
           get 'unlock'
         end
@@ -72,7 +72,7 @@ Rails.application.routes.draw do
       get :teams
     end
     scope '/admin', module: 'admin' do
-      resources :users, only: [] do
+      resources :users, only: :destroy do
         patch :toggle_admin, to: '/api/admin/users#toggle_admin'
       end
     end

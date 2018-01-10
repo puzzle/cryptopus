@@ -10,11 +10,14 @@
     %th{style: "width: 150px;"}= t '.maintenance_task'
     %th= t :description
     %th{colspan: "3"}= t :actions
-  - @maintenance_tasks.each_with_index do |task, id|
+  - @maintenance_tasks.each do |task|
     %tr{class: "#{cycle('odd', 'even')}"}
       %td= task.label
       %td= task.description
-      %td= link_to t('admin.maintenance_tasks.index.run'), admin_maintenance_tasks_prepare_path(id)
+      - if task.prepare?
+        %td= link_to t('admin.maintenance_tasks.index.prepare'), admin_maintenance_tasks_prepare_path(task.id)
+      - else
+        %td= link_to t('admin.maintenance_tasks.index.execute'), admin_maintenance_tasks_execute_path(task.id), method: :post
 
 %br
 
