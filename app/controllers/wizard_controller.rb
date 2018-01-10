@@ -7,7 +7,7 @@
 
 class WizardController < ApplicationController
   before_action :redirect_if_already_set_up
-  skip_before_action :authorize, :redirect_to_wizard_if_new_setup
+  skip_before_action :validate_user, :redirect_to_wizard_if_new_setup
 
   def index
     respond_to do |format|
