@@ -10,40 +10,43 @@ class MaintenanceTaskTest < ActiveSupport::TestCase
   class FailingTask < MaintenanceTask
     def execute
       super do
-        Team.all.destroy_all
+        Account.first.destroy!
         raise 'test'
       end
     end
   end
   
-  class RunningTask < MaintenanceTask
+  class WorkingTask < MaintenanceTask
     def execute
       super do
-        Team.all.destroy_all
+        Account.first.destroy!
       end
     end
   end
 
-  test 'creates new Log if exception was thrown' do
+  test 'creates new Log and rolls back db changes if exception was thrown' do
     mt = FailingTask.new
     mt.executer = users(:admin)
-    result = mt.execute
 
-    assert_not result
+    assert_difference('Account.count', 0) do
+      result = mt.execute
+      assert_not result
+    end
+
     assert_equal 'test', Log.first.output
     assert_equal mt.executer.id, Log.first.executer_id
     assert_equal 'failed', Log.first.status
   end
 
-  test 'return true if execute method doesnt fails' do
-    mt = RunningTask.new
+  test 'return true if execute method succeeds' do
+    mt = WorkingTask.new
     mt.executer = users(:admin)
     
-    assert mt.execute
+    assert_equal true, mt.execute
   end
 
   test 'create new success log' do
-    mt = RunningTask.new
+    mt = WorkingTask.new
     mt.executer = users(:admin)
     mt.send(:success_log_entry, 'test')
 
@@ -52,21 +55,12 @@ class MaintenanceTaskTest < ActiveSupport::TestCase
     assert_equal 'success', Log.first.status
   end
 
-  test 'rollback if exception was thrown' do
-    mt = FailingTask.new 
-    mt.executer = users(:admin)
-
-    assert_difference('Team.count', 0) do
+  test 'save changed data if no error occurs' do
+    assert_difference('Account.count', -1) do
+      mt = WorkingTask.new
+      mt.executer = users(:admin)
       mt.execute
     end
-  end
-
-  test 'save changed data if no error occurs' do
-    mt = RunningTask.new
-    mt.executer = users(:admin)
-    mt.execute
-
-    assert_equal 0, Team.count
   end
 
   test 'list all maintenance tasks' do

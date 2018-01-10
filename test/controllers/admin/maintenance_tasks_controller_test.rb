@@ -58,7 +58,7 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
       assert_select 'input', id: 'task_params_retype_password', type: 'password'
     end
 
-    test 'returns 404 if no task params' do
+    test 'returns 404 if task has no prepare' do
       enable_ldap
       login_as(:admin)
 

@@ -245,7 +245,4 @@ class User < ApplicationRecord
     end
   end
 
-  def ldap_usernames
-    User.ldap.collect(&:username)
-  end
 end

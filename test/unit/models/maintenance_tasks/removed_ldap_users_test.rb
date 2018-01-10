@@ -42,33 +42,42 @@ class RemovedLdapUsersTest < ActiveSupport::TestCase
   end
 
   test 'returns removed ldap users' do
+    enable_ldap
+
     bob = users(:bob)
-    bob.update_attribute(:auth, 'ldap')
+    bob.update!(auth: 'ldap')
     alice = users(:alice)
-    alice.update_attribute(:auth, 'ldap')
+    alice.update!(auth: 'ldap')
+
     
     LdapConnection.any_instance.expects(:test_connection)
       .returns(true)
 
-    LdapConnection.any_instance.expects(:exists?)
-      .times(2)
-      .returns(false)
+    LdapConnection.any_instance.
+      expects(:exists?).
+      with('bob').
+      returns(false)
 
-    enable_ldap
+    LdapConnection.any_instance.
+      expects(:exists?).
+      with('alice').
+      returns(true)
+
     task = MaintenanceTask.find(3)
     task.executer = users(:admin)
     task.execute
 
     assert_match(/successful/, Log.first.output)
-    assert_equal 'alice', task.removed_ldap_users.first.username
-    assert_equal 'bob', task.removed_ldap_users.second.username
+    assert_equal 'bob', task.removed_ldap_users.first.username
+    assert_equal 1, task.removed_ldap_users.size
   end
   
   test 'no removed ldap users exists' do
+    enable_ldap
+
     LdapConnection.any_instance.expects(:test_connection)
       .returns(true)
 
-    enable_ldap
     task = MaintenanceTask.find(3)
     task.executer = users(:admin)
     task.execute
