@@ -35,21 +35,6 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  # DELETE /admin/users/1
-  def destroy
-    if user == current_user
-      flash[:error] = t('flashes.admin.users.destroy.own_user')
-    else
-      destroy_user
-    end
-
-    respond_to do |format|
-      format.html do
-        redirect_to admin_users_path
-      end
-    end
-  end
-
   # GET /admin/users/new
   def new
     @user = User.new

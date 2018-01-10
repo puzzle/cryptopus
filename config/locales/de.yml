@@ -199,6 +199,9 @@ de:
           toggle:
             empowered: "%{username} hat nun Admin-Rechte"
             disempowered: "Dem Benutzer %{username} wurden die Admin-Rechte entzogen"
+          destroy:
+            own_user: "Eigener Benutzer kann nicht gelöscht werden"
+          no_access: "Zugriff verweigert"
       members:
         added: "%{username} wurde erfolgreich hinzugefügt"
         removed: "%{username} wurde erfolgreich entfernt"
@@ -228,6 +231,8 @@ de:
       maintenance_tasks:
         succeed: Wartungsaufgabe wurde erfolgreich durchgeführt
         failed: Wartungsaufgabe ist gescheitert. Siehe Logs für mehr Details.
+        ldap_connection:
+          failed: Kein konfigurierter Ldap-Server konnte erreicht werden.
 
     accounts:
       created: Der neue Account wurde erfolgreich erstellt.

@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Admin::AdminController < ApplicationController
+class Api::Admin::AdminController < ApiController
   before_action :check_for_admin
 
   protected
@@ -14,8 +14,10 @@ class Admin::AdminController < ApplicationController
     user = User.find(session[:user_id])
 
     unless user.admin?
-      flash[:error] = t('flashes.admin.admin.no_access')
-      redirect_to teams_path
+      add_error(t('flashes.api.admin.users.no_access'))
+      @response_status = 403
+      render_json
     end
   end
+
 end

@@ -9,18 +9,21 @@ require 'test_helper'
 class NewRootPasswordTest < ActiveSupport::TestCase
 
   test 'non admin user cannot run task' do
-    task = MaintenanceTasks::NewRootPassword.new(users(:bob))
+    task = MaintenanceTask.find(2)
+    task.executer = users(:bob) 
     task.execute
+
     assert_match(/Only admin/, Log.first.output)
   end
   
   test 'task fails if passwords do not match' do
-    admin = users(:admin)
     params = {}
     params['new_root_password'] = 'test'
     params['retype_password'] = 'other password'
  
-    task = MaintenanceTask.initialize_task(1, admin, params)
+    task = MaintenanceTask.find(2)
+    task.executer = users(:admin)
+    task.param_values = params
     task.execute
 
     assert_match(/Passwords do not match/, Log.first.output)
@@ -35,7 +38,9 @@ class NewRootPasswordTest < ActiveSupport::TestCase
     params['new_root_password'] = 'new_password'
     params['retype_password'] = 'new_password'
 
-    task = MaintenanceTask.initialize_task(1, admin, params)
+    task = MaintenanceTask.find(2)
+    task.executer = admin
+    task.param_values = params
     task.execute
 
     assert_equal true, User.root.authenticate('new_password')
@@ -58,7 +63,9 @@ class NewRootPasswordTest < ActiveSupport::TestCase
     params['new_root_password'] = 'new_password'
     params['retype_password'] = 'new_password'
 
-    task = MaintenanceTask.initialize_task(1, admin, params)
+    task = MaintenanceTask.find(2)
+    task.executer = admin
+    task.param_values = params
     task.execute
 
     assert_equal true, User.root.authenticate('new_password')

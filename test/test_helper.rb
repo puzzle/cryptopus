@@ -51,7 +51,7 @@ class ActiveSupport::TestCase
   end
 
   def enable_ldap
-    Setting.find_by(key: 'ldap_enable').update_attributes(value: true)
+    Setting.find_by(key: 'ldap_enable').update!(value: true)
   end
 
   def self.context(title, &block)

@@ -10,9 +10,19 @@ class RootAsAdminTest < ActiveSupport::TestCase
   setup :disempower_root
 
   test 'non admin user cannot run task' do
-    task = MaintenanceTasks::RootAsAdmin.new(users(:bob))
+    task = MaintenanceTask.find(1)
+    task.executer = users(:bob)
     task.execute
+
     assert_match(/Only admin/, Log.first.output)
+  end
+
+  test 'current user private key' do
+    task = MaintenanceTask.find(1)
+    task.executer = users(:admin)
+    task.param_values = { private_key: 'test' }
+
+    assert_equal 'test', task.send(:current_user_private_key)
   end
 
   test 'does not toggle admin on root if root is already admin' do
@@ -20,8 +30,9 @@ class RootAsAdminTest < ActiveSupport::TestCase
     params = {}
     params['root_password'] = 'password'
 
-    task = MaintenanceTask.initialize_task(0, users(:admin), params)
-
+    task = MaintenanceTask.find(1)
+    task.executer = users(:admin)
+    task.param_values = params
     task.execute
 
     root.reload
@@ -30,9 +41,6 @@ class RootAsAdminTest < ActiveSupport::TestCase
   end
 
   test 'adds admins to all root only teams' do
-    root = users(:root)
-    root.update_attributes(admin: false)
-
     admin = users(:admin)
     admin_private_key = CryptUtils.decrypt_private_key(admin.private_key, 'password')
 
@@ -44,7 +52,9 @@ class RootAsAdminTest < ActiveSupport::TestCase
     params[:private_key] = admin_private_key
     params['root_password'] = 'password'
 
-    task = MaintenanceTask.initialize_task(0, admin, params)
+    task = MaintenanceTask.find(1)
+    task.executer = admin
+    task.param_values = params
 
     non_private_team = Fabricate(:non_private_team)
 
@@ -54,7 +64,6 @@ class RootAsAdminTest < ActiveSupport::TestCase
     assert_equal true, teams(:team1).teammember?(bob)
     assert_not teams(:team2).teammember?(admin)
     assert_not teams(:team2).teammember?(users(:root))
-
     assert User.root.admin
   end
 

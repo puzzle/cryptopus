@@ -6,18 +6,19 @@
 #  https://github.com/puzzle/cryptopus.
 
 class MaintenanceTasks::RootAsAdmin < MaintenanceTask
+  self.id = 1
   self.label = 'Set root as admin'
   self.description = 'Sets the root as an admin and the root role will be removed.'
   self.task_params = [{ label: :root_password, type: PARAM_TYPE_PASSWORD }]
 
   def execute
     super do
-      raise 'Only admins can run this Task' unless @current_user.admin?
+      raise 'Only admins can run this Task' unless executer.admin?
 
       check_root_password
       empower_admins_in_root_teams
       unless User.root.admin?
-        User.root.toggle_admin(@current_user, current_user_private_key)
+        User.root.toggle_admin(current_user, current_user_private_key)
       end
     end
   end
@@ -37,7 +38,7 @@ class MaintenanceTasks::RootAsAdmin < MaintenanceTask
   end
 
   def root_password
-    @param_values['root_password']
+    param_values['root_password']
   end
 
   def add_admins_to_team(roots_plaintext_private_key, team)
@@ -48,4 +49,9 @@ class MaintenanceTasks::RootAsAdmin < MaintenanceTask
     end
     team.update_attributes(private: false)
   end
+
+  def current_user_private_key
+    param_values[:private_key]
+  end
+
 end

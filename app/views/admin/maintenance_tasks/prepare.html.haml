@@ -4,9 +4,11 @@
 -#  https://github.com/puzzle/cryptopus.
 
 %h1= @maintenance_task.label
+
 = form_tag :admin_maintenance_tasks_execute do
+
   - @maintenance_task.task_params.each do |p|
     = create_maintenance_task_field(p)
 
-  = submit_tag "execute", class: 'btn btn-primary'
-  =link_to "Cancel", admin_maintenance_tasks_path, {:class=>"btn btn-primary"}
+  = submit_tag 'Execute', class: 'btn btn-primary'
+  = link_to 'Cancel', admin_maintenance_tasks_path, {class: 'btn btn-primary'}

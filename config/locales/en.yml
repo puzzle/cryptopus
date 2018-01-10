@@ -78,6 +78,8 @@ en:
         title: Maintenance tasks
         maintenance_task: Maintenance tasks
         run: execute
+        prepare: prepare
+        execute: execute
     settings:
       index:
         title: Edit Settings
@@ -199,6 +201,10 @@ en:
           toggle:
             empowered: "%{username} is now an admin"
             disempowered: "%{username} is no more admin"
+          destroy:
+            own_user: "You can't delete your-self"
+            success: "Deleted user %{username}"
+          no_access: "Access denied"
       members:
         removed: "%{username} was successfully removed from team"
         added: "%{username} was successfully added to team"
@@ -228,6 +234,8 @@ en:
       maintenance_tasks:
         succeed: Task was executed successfully.
         failed: Task failed. See logs for more information.
+        ldap_connection:
+          failed: No configured Ldap Server could be reached.
 
     accounts:
       created: Account was successfully created.

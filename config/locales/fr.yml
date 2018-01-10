@@ -199,6 +199,9 @@ fr:
           toggle:
             empowerd: L'usutilisateur a reçu les droits d administrateur
             disempowerd: L'utilisateur a perdu les droits d'administrateur
+          destroy:
+            own_user: Actuel de l'utilisateur ne peut pas être supprimé
+          no_access: Accès refusé
     members:
       added: "%{username} a été enlevé avec succès à l'équipe"
       removed: "%{username} a été ajouté avec succès à l'équipe"
@@ -228,6 +231,8 @@ fr:
       maintenance_tasks:
         succeed: La tâche a été exécutée avec succès..
         failed: La tâche a échoué. Consultez les journaux pour plus d'informations.
+        ldap_connection:
+          failed: Aucunt serveur LDAP configuré n'a pu être atteint.
 
     accounts:
       created: Compte créé avec succès.
