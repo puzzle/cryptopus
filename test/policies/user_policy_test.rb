@@ -283,7 +283,7 @@ class UserPolicyTest < PolicyTest
         end
       end
     end
-
+    
     test 'user cannot read userlist' do
       assert_nil Pundit.policy_scope!(bob, User)
     end
