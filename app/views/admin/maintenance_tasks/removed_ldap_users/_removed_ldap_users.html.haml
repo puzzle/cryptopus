@@ -13,7 +13,7 @@
     %tr{class: "#{cycle( 'odd', 'even' )}"}
       %td= user.username
       %td= user.label
-      %td= user.uid.to_s
+      %td= user.ldap_uid.to_s
       %td.action_icon
         = link_to image_tag("remove.svg"), '#',
           data: { last_teammember_teams_link: last_teammember_teams_teams_path(user_id: user.id),

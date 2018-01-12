@@ -8,6 +8,8 @@
 class Api::Admin::UsersController < Api::Admin::AdminController
 
   def toggle_admin
+    authorize User
+
     user = User.find(params[:user_id])
     user.toggle_admin(current_user, session[:private_key])
 
@@ -18,6 +20,7 @@ class Api::Admin::UsersController < Api::Admin::AdminController
 
   # DELETE /api/admin/users/1
   def destroy
+    authorize user
     if user == current_user
       add_error(t('flashes.api.admin.users.destroy.own_user'))
     else
