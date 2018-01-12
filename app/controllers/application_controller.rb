@@ -26,6 +26,8 @@ class ApplicationController < ActionController::Base
   # includes a security token
   protect_from_forgery with: :exception
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   private
 
   def check_source_ip
@@ -129,5 +131,11 @@ class ApplicationController < ActionController::Base
 
   def team
     @team ||= Team.find(params[:team_id])
+  end
+
+  def user_not_authorized
+    flash[:error] = t('flashes.admin.admin.no_access')
+    redirect_to teams_path
+    # redirect_to(request.referrer || root_path)
   end
 end
