@@ -23,8 +23,16 @@ class ApplicationController < ActionController::Base
   # includes pundit, a scaleable authorization system
   include Pundit
 
+  # verifies that authorize has been called in every action except index
+  after_action :verify_authorized, except: :index
+
+  # verifies that policy_scope is used in index
+  after_action :verify_policy_scoped, only: :index
+
   # includes a security token
   protect_from_forgery with: :exception
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
 
@@ -129,5 +137,11 @@ class ApplicationController < ActionController::Base
 
   def team
     @team ||= Team.find(params[:team_id])
+  end
+
+  def user_not_authorized
+    flash[:error] = t('flashes.admin.admin.no_access')
+    redirect_to teams_path
+    # redirect_to(request.referrer || root_path)
   end
 end
