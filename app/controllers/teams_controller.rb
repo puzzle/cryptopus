@@ -6,7 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class TeamsController < ApplicationController
-  helper_method :can_delete_team?, :team
+  helper_method :team
 
   # GET /teams
   def index
@@ -73,10 +73,6 @@ class TeamsController < ApplicationController
 
   def team_params
     params.require(:team).permit(:name, :private, :description)
-  end
-
-  def can_delete_team?(_team)
-    current_user.admin?
   end
 
   def team
