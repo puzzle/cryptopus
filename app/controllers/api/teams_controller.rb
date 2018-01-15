@@ -6,7 +6,6 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::TeamsController < ApiController
-
   def index
     teams = policy_scope Team
     render_json teams
