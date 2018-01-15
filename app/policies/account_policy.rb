@@ -1,32 +1,8 @@
 class AccountPolicy < TeamDependantPolicy
-  def show?
-    team_member?
-  end
-
-  def new?
-    team_member?
-  end
-
-  def create?
-    team_member?
-  end
-
   def create_item?
     team_member?
   end
-
-  def edit?
-    team_member?
-  end
-
-  def update?
-    team_member?
-  end
-
-  def destroy?
-    team_member?
-  end
-
+  
   def move?
     team_member?
   end
