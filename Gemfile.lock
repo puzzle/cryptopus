@@ -202,6 +202,8 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     public_suffix (3.0.0)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.3)
     rack-test (0.7.0)
       rack (>= 1.0, < 3)
@@ -354,6 +356,7 @@ DEPENDENCIES
   password_strength
   pry
   pry-stack_explorer
+  pundit
   rails (= 5.1.4)
   rails-controller-testing
   rails-erd

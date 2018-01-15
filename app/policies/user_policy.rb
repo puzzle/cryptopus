@@ -34,13 +34,8 @@ class UserPolicy < ApplicationPolicy
   end
 
   class Scope < Scope
-    def initialize(current_user, scope)
-      @current_user = current_user
-      @scope = scope
-    end
-
     def resolve
-      if @current_user.admin?
+      if @user.admin?
         @scope.where('ldap_uid != 0 or ldap_uid is null')
       end
     end
