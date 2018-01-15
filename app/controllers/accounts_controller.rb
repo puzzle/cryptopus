@@ -13,7 +13,7 @@ class AccountsController < ApplicationController
   def index
     accounts_breadcrumbs
 
-    @accounts = @group.accounts.all
+    @accounts = AccountPolicy::Scope.new(current_user, @group).resolve
 
     respond_to do |format|
       format.html # index.html.haml
@@ -23,6 +23,7 @@ class AccountsController < ApplicationController
   # GET /teams/1/groups/1/accounts/1
   def show
     @account = Account.find(params[:id])
+    authorize @account
     @items = @account.items.load
 
     accounts_breadcrumbs
@@ -36,16 +37,19 @@ class AccountsController < ApplicationController
 
   # GET /teams/1/groups/1/accounts/new
   def new
+    authorize Account
+
     @account = @group.accounts.new
+    authorite @account
 
     respond_to do |format|
       format.html # new.html.haml
     end
   end
-
   # POST /teams/1/groups/1/accounts
   def create
     @account = @group.accounts.new(account_params)
+    authorize @account
 
     @account.encrypt(plaintext_team_password(team))
 
@@ -62,6 +66,8 @@ class AccountsController < ApplicationController
   # GET /teams/1/groups/1/accounts/1/edit
   def edit
     @account = @group.accounts.find(params[:id])
+    authorize @account
+
     @groups = team.groups.all
 
     accounts_breadcrumbs
@@ -90,6 +96,7 @@ class AccountsController < ApplicationController
   # DELETE /teams/1/groups/1/accounts/1
   def destroy
     @account = @group.accounts.find(params[:id])
+    authorize @account
     @account.destroy
 
     respond_to do |format|
@@ -100,6 +107,7 @@ class AccountsController < ApplicationController
   # PUT /teams/1/groups/1/accounts/1/move
   def move
     @account = Account.find(params[:account_id])
+    authorize @account
     respond_to do |format|
       target_group = Group.find(account_params[:group_id])
       move_account(format, target_group)
@@ -110,6 +118,7 @@ class AccountsController < ApplicationController
 
   def update_account
     @account = @group.accounts.find(params[:id])
+    authorize @account
     @account.attributes = account_params
     @account.encrypt(plaintext_team_password(team))
   end

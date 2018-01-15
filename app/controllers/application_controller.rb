@@ -24,10 +24,10 @@ class ApplicationController < ActionController::Base
   include Pundit
 
   # verifies that authorize has been called in every action except index
-  after_action :verify_authorized, except: :index
+  # after_action :verify_authorized, except: :index
 
   # verifies that policy_scope is used in index
-  after_action :verify_policy_scoped, only: :index
+  # after_action :verify_policy_scoped, only: :index
 
   # includes a security token
   protect_from_forgery with: :exception
