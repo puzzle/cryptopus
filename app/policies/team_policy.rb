@@ -1,5 +1,4 @@
 class TeamPolicy < TeamDependantPolicy
-
   def create?
     true
   end

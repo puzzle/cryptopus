@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TeamPolicyTest < PolicyTest
-  
+
   context '#create' do
     test 'everyone can create a new team' do
       assert_permit alice, Team.new, :create?
