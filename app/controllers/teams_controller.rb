@@ -6,7 +6,6 @@
 #  https://github.com/puzzle/cryptopus.
 
 class TeamsController < ApplicationController
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   helper_method :can_delete_team?, :team
 
   # GET /teams
