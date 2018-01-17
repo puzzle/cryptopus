@@ -9,7 +9,7 @@ class TeamPolicy < ApplicationPolicy
   end
 
   def update?
-    (@user.admin? and not @team.private) || @team.teammember?(@user.id)
+    (@user.admin? && !@team.private?) || @team.teammember?(@user.id)
   end
 
   def destroy?
