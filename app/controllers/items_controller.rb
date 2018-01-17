@@ -12,6 +12,7 @@ class ItemsController < ApplicationController
   # GET /teams/1/groups/1/accounts/new
   def new
     @item = @account.items.new
+    authorize @item
 
     respond_to do |format|
       format.html # new.html.haml
@@ -22,6 +23,7 @@ class ItemsController < ApplicationController
   def create
     respond_to do |format|
       item = Item.create(@account, item_params, plaintext_team_password(team))
+      authorize item
       if item.errors.empty?
         flash[:notice] = t('flashes.items.uploaded')
         format.html { redirect_to team_group_account_url(team, @group, @account) }
@@ -35,6 +37,7 @@ class ItemsController < ApplicationController
   # POST /teams/1/groups/1/accounts/1/items/1
   def show
     @item = @account.items.find(params[:id])
+    authorize @item
     file = @item.decrypt(plaintext_team_password(team))
 
     send_data file, filename: @item.filename, type: @item.content_type, disposition: 'attachment'
@@ -43,6 +46,7 @@ class ItemsController < ApplicationController
   # DELETE /teams/1/groups/1/accounts/1/items/1
   def destroy
     @item = @account.items.find(params[:id])
+    authorize @item
     @item.destroy
 
     respond_to do |format|
