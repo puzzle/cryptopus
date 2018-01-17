@@ -37,10 +37,8 @@ class AccountsController < ApplicationController
 
   # GET /teams/1/groups/1/accounts/new
   def new
-    authorize Account
-
     @account = @group.accounts.new
-    authorite @account
+    authorize @account
 
     respond_to do |format|
       format.html # new.html.haml

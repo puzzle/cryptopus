@@ -10,11 +10,11 @@ class AccountPolicy < TeamChildrenPolicy
   end
 
   def new?
-    true
+    team_member?(@current_user, @account.group.team)
   end
 
   def create?
-    true
+    team_member?(@current_user, @account.group.team)
   end
 
   def edit?

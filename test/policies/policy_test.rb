@@ -20,5 +20,9 @@ class PolicyTest < ActiveSupport::TestCase
   def bob
     users(:bob)
   end
+
+  def alice
+    users(:alice)
+  end
   
 end

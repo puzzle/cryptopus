@@ -270,6 +270,8 @@ en:
       created: Successfully created a new team.
       updated: Team was successfully updated.
       deleted: Team was successfully deleted
+      cannnot_delete: Only admin may delete teams
+      no_member: You are not member of this team
     teammembers:
       could_not_remove_last_teammember: Could not remove last teammember
       could_not_remove_admin_from_private_team: Could not remove admin from private team
