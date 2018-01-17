@@ -12,7 +12,7 @@ class GroupsController < ApplicationController
   def index
     groups_breadcrumbs
 
-    @groups = team.groups
+    @groups = GroupPolicy::Scope.new(current_user, team).resolve
 
     teammembers = team.teammembers
     @teammembers = teammembers.includes(:user).sort_by { |tm| tm.label.downcase }
@@ -25,6 +25,7 @@ class GroupsController < ApplicationController
   # GET /teams/1/groups/1
   def show
     @group = team.groups.find(params[:id])
+    authorize @group
 
     respond_to do |format|
       format.html # show.html.haml
@@ -34,6 +35,7 @@ class GroupsController < ApplicationController
   # GET /teams/1/groups/new
   def new
     @group = team.groups.new
+    authorize @group
 
     respond_to do |format|
       format.html # new.html.haml
@@ -43,6 +45,7 @@ class GroupsController < ApplicationController
   # POST /teams/1/groups
   def create
     @group = team.groups.new(group_params)
+    authorize @group
 
     respond_to do |format|
       if @group.save
@@ -57,6 +60,7 @@ class GroupsController < ApplicationController
   # GET /teams/1/groups/1/edit
   def edit
     @group = team.groups.find(params[:id])
+    authorize @group
 
     groups_breadcrumbs
 
@@ -68,6 +72,7 @@ class GroupsController < ApplicationController
   # PUT /teams/1/groups/1
   def update
     @group = team.groups.find(params[:id])
+    authorize @group
 
     respond_to do |format|
       if @group.update_attributes(group_params)
@@ -82,6 +87,7 @@ class GroupsController < ApplicationController
   # DELETE /teams/1/groups/1
   def destroy
     @group = team.groups.find(params[:id])
+    authorize @group
     @group.destroy
 
     respond_to do |format|
