@@ -72,7 +72,7 @@ class UserPolicyTest < PolicyTest
   end
 
   context '#scope' do
-    test 'admin receives user list' do
+    test 'admin receives userlist' do
       assert_not_nil Pundit.policy_scope!(admin, User)
     end
 
