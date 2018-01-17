@@ -44,6 +44,7 @@ class AccountsController < ApplicationController
       format.html # new.html.haml
     end
   end
+
   # POST /teams/1/groups/1/accounts
   def create
     @account = @group.accounts.new(account_params)
