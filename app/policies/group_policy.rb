@@ -1,34 +1,4 @@
 class GroupPolicy < TeamDependantPolicy
-  def show?
-    team_member?
-  end
-
-  def new?
-    team_member?
-  end
-
-  def create?
-    team_member?
-  end
-
-  def edit?
-    team_member?
-  end
-
-  def update?
-    team_member?
-  end
-
-  def destroy?
-    team_member?
-  end
-
-  protected
-
-  def team
-    group.team
-  end
-
   private
 
   def current_user
