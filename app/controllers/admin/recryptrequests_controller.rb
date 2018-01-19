@@ -29,8 +29,8 @@ class Admin::RecryptrequestsController < ApplicationController
 
   # POST /admin/recryptrequests/resetpassword
   def resetpassword
-    authorize_and_set_user_and_admin
-
+    @user = User.find(params[:user_id])
+    authorize @user
     if @user.ldap? || blank_password?
       return redirect_back(fallback_location: admin_recryptrequests_path)
     end
