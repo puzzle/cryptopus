@@ -23,6 +23,7 @@ class SettingPolicyTest < PolicyTest
     test 'conf admin can update settings' do
       assert_permit conf_admin, Setting, :update_all?
     end   
+    
     test 'user cannot update settings' do
       refute_permit bob, Setting, :update_all?
     end
