@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Admin::UsersController < Admin::AdminController
+class Admin::UsersController < ApplicationController
 
   before_action :redirect_if_ldap_user, only: %i[edit update]
   before_action :authorize_user_class, only: %i[index new create]

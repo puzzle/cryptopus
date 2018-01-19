@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Admin::RecryptrequestsController < Admin::AdminController
+class Admin::RecryptrequestsController < ApplicationController
 
   # GET /admin/recryptrequests
   def index
