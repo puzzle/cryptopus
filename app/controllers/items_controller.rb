@@ -22,14 +22,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       item = Item.create(@account, item_params, plaintext_team_password(team))
       authorize item
-      if item.errors.empty?
-        flash[:notice] = t('flashes.items.uploaded')
-        format.html { redirect_to team_group_account_url(team, @group, @account) }
-      else
-        @item = item
-        format.html { render action: 'new' }
-      end
-      #display_item(item)
+      display_item(format, item)
     end
   end
 
@@ -64,7 +57,7 @@ class ItemsController < ApplicationController
     @account = @group.accounts.find(params[:account_id])
   end
 
-  def display_item(item)
+  def display_item(format, item)
     if item.errors.empty?
       flash[:notice] = t('flashes.items.uploaded')
       format.html { redirect_to team_group_account_url(team, @group, @account) }

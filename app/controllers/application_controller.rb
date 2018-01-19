@@ -81,7 +81,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-def redirect_if_not_teammember
+  def redirect_if_not_teammember
     team_id = params[:team_id]
     return if team_id.nil?
     team = Team.find(team_id)
