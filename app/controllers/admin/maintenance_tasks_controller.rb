@@ -9,12 +9,14 @@ class Admin::MaintenanceTasksController < Admin::AdminController
 
   # GET /admin/maintenance_tasks
   def index
-    @maintenance_tasks = MaintenanceTask.list
+    authorize MaintenanceTask
+    @maintenance_tasks = policy_scope(MaintenanceTask)
     @maintenance_logs = Log.where(log_type: 'maintenance_task')
   end
 
   # GET /admin/maintenance_tasks/1/prepare
   def prepare
+    authorize MaintenanceTask
     raise routing_error unless maintenance_task.prepare?
 
     flash[:notice] = maintenance_task.hint
@@ -24,6 +26,7 @@ class Admin::MaintenanceTasksController < Admin::AdminController
   # POST /admin/maintenance_tasks/1/execute
   def execute
     raise routing_error unless maintenance_task
+    authorize MaintenanceTask
 
     set_task_attributes
 
