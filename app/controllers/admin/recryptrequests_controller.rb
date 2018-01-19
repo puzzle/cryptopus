@@ -15,6 +15,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
   # DELETE /admin/recryptrequest/1
   def destroy
     @recryptrequest = Recryptrequest.find_by(id: params[:id])
+    authorize @recryptrequest
     @user = @recryptrequest.user
     @admin = User.find(session[:user_id])
 
@@ -29,6 +30,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
   # POST /admin/recryptrequests/resetpassword
   def resetpassword
     @user = User.find(params[:user_id])
+    authorize @user
     @admin = User.find(session[:user_id])
 
     if @user.ldap? || blank_password?

@@ -33,6 +33,10 @@ class UserPolicy < ApplicationPolicy
     @current_user.admin?
   end
 
+  def resetpassword?
+    @current_user.admin?
+  end
+
   class Scope < Scope
     def resolve
       if @user.admin?
