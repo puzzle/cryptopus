@@ -72,19 +72,11 @@ class GroupPolicyTest < PolicyTest
   end
 
   private
-<<<<<<< 868436976b46bc525aedfbb55eec4d012c5bcc88
 
   def group2
     groups(:group2)
   end
 
-=======
-  
-  def group2
-    groups(:group2)
-  end
-  
->>>>>>> group policy
   def team2
     teams(:team2)
   end
