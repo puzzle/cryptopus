@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Admin::MaintenanceTasksController < Admin::AdminController
+class Admin::MaintenanceTasksController < ApplicationController
 
   # GET /admin/maintenance_tasks
   def index
