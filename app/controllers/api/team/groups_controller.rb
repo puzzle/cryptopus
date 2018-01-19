@@ -8,7 +8,7 @@
 class Api::Team::GroupsController < ApiController
 
   def index
-    groups = team.groups
+    groups = GroupPolicy::Scope.new(current_user, team).resolve
     render_json groups
   end
 
