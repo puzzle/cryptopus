@@ -39,9 +39,9 @@ class TeamPolicy < TeamDependantPolicy
 
   class Scope < TeamDependantScope
     def resolve
-      @user.teams
+      @current_user.teams
     end
-
+    
     def resolve_members
       @scope.teammembers.list if team_member?
     end
