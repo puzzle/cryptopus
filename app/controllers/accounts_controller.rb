@@ -50,8 +50,14 @@ class AccountsController < ApplicationController
 
     @account.encrypt(plaintext_team_password(team))
 
-    respond_to do |_format|
-      save_account
+    respond_to do |format|
+      if @account.save
+        flash[:notice] = t('flashes.accounts.created')
+        format.html { redirect_to team_group_accounts_url(team, @group) }
+      else
+        format.html { render action: 'new' }
+      end
+      #save_account
     end
   end
 

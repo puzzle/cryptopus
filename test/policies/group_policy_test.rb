@@ -72,11 +72,11 @@ class GroupPolicyTest < PolicyTest
   end
 
   private
-  
+
   def group2
     groups(:group2)
   end
-  
+
   def team2
     teams(:team2)
   end
