@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -52,13 +50,8 @@ class AccountsController < ApplicationController
 
     @account.encrypt(plaintext_team_password(team))
 
-    respond_to do |format|
-      if @account.save
-        flash[:notice] = t('flashes.accounts.created')
-        format.html { redirect_to team_group_accounts_url(team, @group) }
-      else
-        format.html { render action: 'new' }
-      end
+    respond_to do |_format|
+      save_account
     end
   end
 
@@ -159,5 +152,14 @@ class AccountsController < ApplicationController
 
   def account_move_handler
     AccountMoveHandler.new(@account, session[:private_key], current_user)
+  end
+
+  def save_account
+    if @account.save
+      flash[:notice] = t('flashes.accounts.created')
+      format.html { redirect_to team_group_accounts_url(team, @group) }
+    else
+      format.html { render action: 'new' }
+    end
   end
 end

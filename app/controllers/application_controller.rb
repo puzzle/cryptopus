@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
   before_action :redirect_to_wizard_if_new_setup
   before_action :message_if_fallback
   before_action :validate_user, except: %i[login authenticate logout wizard]
-  before_action :redirect_if_not_teammember
   before_action :redirect_if_no_private_key, except: :logout
   before_action :prepare_menu
   before_action :set_locale
@@ -79,15 +78,6 @@ class ApplicationController < ActionController::Base
       flash[:notice] = t('flashes.application.wait')
       redirect_to logout_login_path
     end
-  end
-
-  def redirect_if_not_teammember
-    team_id = params[:team_id]
-    return if team_id.nil?
-    team = Team.find(team_id)
-    return if team.teammember?(current_user.id)
-    flash[:error] = t('flashes.teams.no_member')
-    redirect_to teams_path
   end
 
   def plaintext_team_password(team)

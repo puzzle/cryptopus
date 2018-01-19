@@ -4,39 +4,45 @@ class TeamPolicyTest < PolicyTest
   
   context '#create' do
     test 'everyone can create a new team' do
-      assert_permit alice, Team.new, :create
-      assert_permit admin, Team.new, :create 
+      assert_permit alice, Team.new, :create?
+      assert_permit admin, Team.new, :create?
 
-      assert_permit alice, Team.new, :new
-      assert_permit admin, Team.new, :new
+      assert_permit alice, Team.new, :new?
+      assert_permit admin, Team.new, :new?
     end
   end
 
   context '#update' do
     test 'teammember can edit a team' do
+      assert team2.teammember? bob
       assert_permit bob, team2, :edit?
     end
 
     test 'non-teammember cannot edit a team' do
+      assert_not team2.teammember? alice
       refute_permit alice, team2, :edit?
     end
 
     test 'admin can edit a public team' do
-      assert_permit admin, team2, :edit?
+      assert_not team1.private?
+      assert_permit admin, team1, :edit?
     end
 
     test 'admin cannot edit a private team' do
+      assert private_team.private?
       refute_permit admin, private_team, :edit?
     end
   end
 
   context '#destroy' do
     test 'non-teammember cannot delete a team'do
+      assert_not team2.teammember? alice
       refute_permit alice, team2, :destroy?
     end
 
-    test 'teammember can delete a team' do
-      assert_permit bob, team2, :destroy?
+    test 'teammember cannot delete a team' do
+      assert team2.teammember? bob
+      refute_permit bob, team2, :destroy?
     end
 
     test 'admin can delete any team' do
@@ -47,25 +53,29 @@ class TeamPolicyTest < PolicyTest
 
   context '#scope' do
     test 'admin sees all non-private teams' do
-      teams = policy_scope(admin, Team)
-      Teams.all.each do |t|
-        assert_true teams.include?(t)
+      teams = TeamPolicy::Scope.new(admin, Team).resolve
+      teams.all.each do |t|
+        assert teams.include?(t)
       end     
     end
 
     test 'user can see all and only the teams he is a part of' do
-      teams = policy_scope(bob, Team)
+      teams = TeamPolicy::Scope.new(bob, Team).resolve
       bob.teams.each do |t|
-        assert_true teams.include?(t)
+        assert teams.include?(t)
       end
 
       teams.each do |t|
-        assert_true bob.teams.include?(t)
+        assert bob.teams.include?(t)
       end
     end
   end
 
   private
+
+  def team1
+    teams(:team1)
+  end
 
   def team2
     teams(:team2)
@@ -74,5 +84,6 @@ class TeamPolicyTest < PolicyTest
   def private_team
     team = teams(:team2)
     team.private = true
+    team
   end
 end

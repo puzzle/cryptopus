@@ -1,6 +1,6 @@
-class TeamPolicy < ApplicationPolicy
-  def initialize(user, team)
-    @user = user
+class TeamPolicy < TeamChildrenPolicy
+  def initialize(current_user, team)
+    @current_user = current_user
     @team = team
   end
 
@@ -9,25 +9,37 @@ class TeamPolicy < ApplicationPolicy
   end
 
   def update?
-    (@user.admin? && !@team.private?) || @team.teammember?(@user.id)
+    (@current_user.admin? && !@team.private?) || team_member?(@current_user, @team)
   end
 
   def destroy?
-    @user.admin?
+    @current_user.admin?
   end
 
   def last_teammember_teams?
-    @user.admin?
+    @current_user.admin?
   end
 
-  class Scope < Scope
-    def initialize(user, team)
-      @user = user
-      @scope = team
+  def add_member?
+    team_member?(@current_user, @team)
+  end
+
+  def remove_member?
+    team_member?(@current_user, @team)
+  end
+
+  class Scope < TeamChildrenScope
+    def initialize(current_user, team)
+      @current_user = current_user
+      @team = team
     end
 
     def resolve
-      @user.teams
+      @current_user.teams
+    end
+
+    def resolve_members
+      @team.teammembers.list if team_member?(@current_user, @team)
     end
   end
 end
