@@ -51,6 +51,7 @@ class TeamsController < ApplicationController
   # PUT /teams/1
   def update
     authorize team
+    add_breadcrumb t('teams.title'), :teams_path
     respond_to do |format|
       if team.update_attributes(team_params)
         flash[:notice] = t('flashes.teams.updated')

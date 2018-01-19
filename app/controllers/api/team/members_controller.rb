@@ -8,7 +8,7 @@
 class Api::Team::MembersController < ApiController
 
   def index
-    members = team.teammembers.list
+    members = TeamPolicy::Scope.new(current_user, team).resolve_members
     render_json members
   end
 
@@ -18,6 +18,7 @@ class Api::Team::MembersController < ApiController
   end
 
   def create
+    authorize team, :add_member?
     new_member = User.find(params[:user_id])
 
     decrypted_team_password = team.decrypt_team_password(current_user, session[:private_key])
@@ -29,7 +30,9 @@ class Api::Team::MembersController < ApiController
   end
 
   def destroy
-    team.teammembers.find_by(user_id: params[:id]).destroy!
+    authorize team, :remove_member?
+    teammember = team.teammembers.find_by(user_id: params[:id])
+    teammember.destroy!
     username = User.find(params[:id]).username
     add_info(t('flashes.api.members.removed', username: username))
     render_json ''
