@@ -70,6 +70,30 @@ class TeamPolicyTest < PolicyTest
       end
     end
   end
+  
+  context '#add' do
+    test 'teammember can add a teammember' do
+      assert team2.teammember? bob
+      assert_permit bob, team2, :add_member?
+    end
+
+    test 'non-teammember cannot add a teammember' do
+      assert_not team2.teammember? alice
+      refute_permit alice, team2, :add_member?
+    end
+  end
+  
+  context '#remove' do
+    test 'teammember can remove a teammember' do
+      assert team2.teammember? bob
+      assert_permit bob, team2, :remove_member?
+    end
+
+    test 'non-teammember cannot remove a teammember' do
+      assert_not team2.teammember? alice
+      refute_permit alice, team2, :remove_member?
+    end
+  end
 
   private
 
