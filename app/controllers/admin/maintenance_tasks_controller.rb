@@ -16,6 +16,7 @@ class Admin::MaintenanceTasksController < ApplicationController
 
   # GET /admin/maintenance_tasks/1/prepare
   def prepare
+    authorize MaintenanceTask
     raise routing_error unless maintenance_task.prepare?
     authorize maintenance_task
 
