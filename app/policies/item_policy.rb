@@ -1,4 +1,4 @@
-class ItemPolicy < TeamChildrenPolicy
+class ItemPolicy < TeamDependantPolicy
 
   def initialize(current_user, item)
     @current_user = current_user
