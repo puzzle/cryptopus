@@ -41,7 +41,6 @@ class MaintenanceTaskPolicyTest < PolicyTest
       refute_permit cadmin, task, :prepare?
     end
 
-
     test 'non-admin cannot prepare enabled maintenance tasks' do
       refute_permit bob, task, :prepare?      
     end
