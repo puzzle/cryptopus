@@ -9,11 +9,11 @@ class MaintenanceTaskPolicy < ApplicationPolicy
   end
 
   def execute?
-    @current_user.admin?
+    @current_user.admin? && @maintenance_task.enabled?
   end
 
   def prepare?
-    @current_user.admin?
+    @current_user.admin? && @maintenance_task.enabled?
   end
 
   class Scope < Scope
