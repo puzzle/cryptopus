@@ -1,6 +1,10 @@
 class GroupPolicy < TeamDependantPolicy
   private
 
+  def team
+    group.team
+  end
+
   def current_user
     @user
   end
