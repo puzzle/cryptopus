@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: users
@@ -8,7 +7,6 @@
 #  public_key                   :text             not null
 #  private_key                  :binary           not null
 #  password                     :binary
-#  admin                        :boolean          default(FALSE), not null
 #  ldap_uid                     :integer
 #  last_login_at                :datetime
 #  username                     :string
@@ -20,6 +18,7 @@
 #  last_failed_login_attempt_at :datetime
 #  failed_login_attempts        :integer          default(0), not null
 #  last_login_from              :string
+#  role                         :integer          default(0), not null
 #
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
@@ -46,7 +45,8 @@ class User < ApplicationRecord
   scope :locked, (-> { where(locked: true) })
   scope :unlocked, (-> { where(locked: false) })
 
-  scope :admins, (-> { where(admin: true) })
+  scope :admins, (-> { where(role: 2) })
+  scope :conf_admins, (-> { where(role: 1) })
 
   scope :ldap, -> { where(auth: 'ldap') }
 
@@ -70,7 +70,7 @@ class User < ApplicationRecord
                  givenname: 'root',
                  surname: '',
                  auth: 'db',
-                 admin: true,
+                 role: 2,
                  password: CryptUtils.one_way_crypt(password))
       user.create_keypair(password)
       user.save!
@@ -104,13 +104,16 @@ class User < ApplicationRecord
     update_attribute(:last_login_from, last_login_ip)
   end
 
-  def toggle_admin(actor, private_key)
-    if self == actor || !actor.admin?
-      raise 'user is not allowed to empower/disempower this user'
+  def update_role(actor, role, private_key)
+    if self == actor || actor.role == 0 || self.role < role
+     raise 'user is not allowed to empower/disempower this user'
     end
-
-    update(admin: !admin?)
-    admin? ? empower(actor, private_key) : disempower
+    if role == 2
+      empower(actor, private_key)
+    elsif actor.admin?
+      disempower
+    end
+    update(role: role)
   end
 
   def create_keypair(password)
@@ -145,6 +148,14 @@ class User < ApplicationRecord
 
   def root?
     username == 'root'
+  end
+
+  def admin?
+    role == 2
+  end
+
+  def conf_admin?
+    role == 1
   end
 
   def auth_db?

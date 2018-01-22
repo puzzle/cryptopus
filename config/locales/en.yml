@@ -198,9 +198,10 @@ en:
     api:
       admin:
         users:
-          toggle:
-            empowered: "%{username} is now an admin"
-            disempowered: "%{username} is no more admin"
+          update:
+            user: "%{username} is now a user"
+            conf_admin: "%{username} is now an conf-admin"
+            admin: "%{username} is now an admin"
           destroy:
             own_user: "You can't delete your-self"
             success: "Deleted user %{username}"

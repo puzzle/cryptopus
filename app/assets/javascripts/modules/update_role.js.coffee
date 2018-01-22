@@ -5,7 +5,7 @@
 
 app = window.App ||= {}
 
-class app.ToggleAdmin
+class app.UpdateRole
   constructor: () ->
     bind.call()
 
@@ -18,8 +18,8 @@ class app.ToggleAdmin
   bind = ->
     $(document).on 'click', '.toggle-button', ->
       user_id = $(this).attr('id')
-      url = '/api/admin/users/' + user_id + '/toggle_admin'
+      url = '/api/admin/users/' + user_id + '/update_role'
       toggle(url)
       $(this).toggleClass('toggle-button-selected')
 
-  new ToggleAdmin
+  new UpdateRole

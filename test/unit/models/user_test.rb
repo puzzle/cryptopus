@@ -122,7 +122,7 @@ class UserTest < ActiveSupport::TestCase
     private_key = decrypt_private_key(admin)
 
     assert_raise RuntimeError do
-      admin.toggle_admin(admin, private_key)
+      admin.update_role(admin, 0, private_key)
     end
 
     admin.reload
@@ -137,7 +137,7 @@ class UserTest < ActiveSupport::TestCase
     private_key = decrypt_private_key(alice)
 
     assert_raise RuntimeError do
-      bob.toggle_admin(alice, private_key)
+      bob.update_role(alice, 2, private_key)
     end
 
     bob.reload
@@ -151,7 +151,7 @@ class UserTest < ActiveSupport::TestCase
     private_key = decrypt_private_key(bob)
 
     exception = assert_raises(Exception) do
-      bob.toggle_admin(bob, private_key)
+      bob.update_role(bob, 2, private_key)
     end
     assert_equal 'user is not allowed to empower/disempower this user', exception.message
 
@@ -202,7 +202,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'root can not be disempowered' do
     root = users(:root)
-    root.update_attributes(admin: true)
+    root.update_attributes(role: 2)
 
     assert_raise "root can not be disempowered" do
       root.send(:disempower)

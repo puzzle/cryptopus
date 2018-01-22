@@ -6,7 +6,6 @@
 #  public_key                   :text             not null
 #  private_key                  :binary           not null
 #  password                     :binary
-#  admin                        :boolean          default(FALSE), not null
 #  ldap_uid                     :integer
 #  last_login_at                :datetime
 #  username                     :string
@@ -18,6 +17,7 @@
 #  last_failed_login_attempt_at :datetime
 #  failed_login_attempts        :integer          default(0), not null
 #  last_login_from              :string
+#  role                         :integer          default(0), not null
 #
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
@@ -30,7 +30,7 @@ root:
   username: root
   givenname: Root
   surname: test
-  admin: true
+  role: 2
   auth: db
   password: 'sha512$aaea15339f56acbaac0719af4f282bb3$d0c2148e42e16f9620e502d51d9ae42fb70e03cde93def02c09256f8c8f278cb0688d197af0b0f4d7852b997d7e79d12cf1b70a210ebf5e065a815bbd9721c19'
   public_key: <%= "!!binary \"#{FixturesHelper.read_public_key('root')}\"" %>
@@ -40,6 +40,7 @@ bob:
   username: bob
   givenname: Bob
   surname: test
+  role: 0
   auth: db
   password: 'sha512$aaea15339f56acbaac0719af4f282bb3$d0c2148e42e16f9620e502d51d9ae42fb70e03cde93def02c09256f8c8f278cb0688d197af0b0f4d7852b997d7e79d12cf1b70a210ebf5e065a815bbd9721c19'
   public_key: <%= "!!binary \"#{FixturesHelper.read_public_key('bob')}\"" %>
@@ -49,6 +50,7 @@ alice:
   username: alice
   givenname: Alice
   surname: test
+  role: 0
   auth: db
   password: 'sha512$aaea15339f56acbaac0719af4f282bb3$d0c2148e42e16f9620e502d51d9ae42fb70e03cde93def02c09256f8c8f278cb0688d197af0b0f4d7852b997d7e79d12cf1b70a210ebf5e065a815bbd9721c19'
   public_key: <%= "!!binary \"#{FixturesHelper.read_public_key('alice')}\"" %>
@@ -59,7 +61,7 @@ admin:
   username: admin
   givenname: Admin
   surname: test
-  admin: true
+  role: 2
   auth: db
   password: 'sha512$aaea15339f56acbaac0719af4f282bb3$d0c2148e42e16f9620e502d51d9ae42fb70e03cde93def02c09256f8c8f278cb0688d197af0b0f4d7852b997d7e79d12cf1b70a210ebf5e065a815bbd9721c19'
   public_key: <%= "!!binary \"#{FixturesHelper.read_public_key('admin')}\"" %>

@@ -33,41 +33,41 @@ class UserPolicyTest < PolicyTest
 
   context '#create' do
     test 'admin can create a new user with keypair' do
-      assert_permit admin, User, :new?
+      assert_permit admin, User, :create?
     end
     
     test 'user cannot create a new user with keypair' do
-      refute_permit bob, User, :new?
+      refute_permit bob, User, :create?
     end
   end
 
   context '#unlock' do
     test 'admin can unlock an user' do
-      assert_permit admin, bob, :new?
+      assert_permit admin, bob, :unlock?
     end
     
     test 'user cannot unlock an user' do
-      refute_permit bob, bob, :new?
+      refute_permit bob, bob, :unlock?
     end
   end
 
-  context '#toggle_admin' do
+  context '#update_role' do
     test 'admin can distribute admin rights' do
-      assert_permit admin, bob, :new?
+      assert_permit admin, bob, :update_role?
     end
     
     test 'user cannot distribute admin rights' do
-      refute_permit bob, bob, :new?
+      refute_permit bob, bob, :update_role?
     end
   end
 
   context '#destroy' do
     test 'admin destroy an user' do
-      assert_permit admin, bob, :new?
+      assert_permit admin, bob, :destroy?
     end
     
     test 'user cannot destroy an user' do
-      refute_permit bob, bob, :new?
+      refute_permit bob, bob, :destroy?
     end
   end
 

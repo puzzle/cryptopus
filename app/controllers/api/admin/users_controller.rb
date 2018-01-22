@@ -6,16 +6,15 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::Admin::UsersController < Api::Admin::AdminController
-
-  def toggle_admin
-    authorize User
-
+  
+  def update_role
     user = User.find(params[:user_id])
-    user.toggle_admin(current_user, session[:private_key])
-
-    toggle_way = user.admin? ? 'empowered' : 'disempowered'
-    add_info(t("flashes.api.admin.users.toggle.#{toggle_way}", username: user.username))
-    render_json ''
+    authorize user
+    role = params[:role].to_i
+    user.update_role(current_user, role, session[:private_key])
+   
+    add_info(t("flashes.api.admin.users.update.#{role}", username: user.username))
+    render_json '' 
   end
 
   # DELETE /api/admin/users/1
@@ -39,7 +38,7 @@ class Api::Admin::UsersController < Api::Admin::AdminController
   def destroy_user
     # admins cannot be removed from non-private teams
     # so set admin to false first
-    user.update!(admin: false) if user.admin?
+    user.update!(role: 0) if user.admin?
     user.destroy!
   end
 

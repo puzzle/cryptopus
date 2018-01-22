@@ -11,7 +11,7 @@ class Admin::UsersController < ApplicationController
   before_action :authorize_user_class, only: %i[index new create]
   before_action :authorize_user, only: %i[update unlock]
 
-  helper_method :toggle_admin
+  helper_method :update_role
 
   # GET /admin/users
   def index
@@ -73,7 +73,7 @@ class Admin::UsersController < ApplicationController
   def destroy_user
     # admins cannot be removed from non-private teams
     # so set admin to false first
-    user.update!(admin: false) if user.admin?
+    user.update!(role: 0) if user.admin?
     user.destroy!
   end
 

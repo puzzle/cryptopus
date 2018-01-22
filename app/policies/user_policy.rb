@@ -25,7 +25,7 @@ class UserPolicy < ApplicationPolicy
     @current_user.admin?
   end
 
-  def toggle_admin?
+  def update_role?
     @current_user.admin?
   end
 

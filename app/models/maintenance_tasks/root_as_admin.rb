@@ -18,7 +18,7 @@ class MaintenanceTasks::RootAsAdmin < MaintenanceTask
       check_root_password
       empower_admins_in_root_teams
       unless User.root.admin?
-        User.root.toggle_admin(current_user, current_user_private_key)
+        User.root.update_role(current_user, 2, current_user_private_key)
       end
     end
   end
