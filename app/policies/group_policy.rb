@@ -1,4 +1,4 @@
-class GroupPolicy < TeamChildrenPolicy
+class GroupPolicy < TeamDependantPolicy
 
   def initialize(current_user, group)
     @current_user = current_user
@@ -29,7 +29,7 @@ class GroupPolicy < TeamChildrenPolicy
     team_member?(@current_user, @group.team)
   end
 
-  class Scope < TeamChildrenScope
+  class Scope < TeamDependantScope
     def initialize(current_user, team)
       @current_user = current_user
       @team = team
