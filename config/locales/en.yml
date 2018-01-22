@@ -308,5 +308,5 @@ en:
     team_policy:
       update?:  You are not a member of this team
       destroy?: Only admin may delete teams
-      
+        
 
