@@ -1,5 +1,5 @@
 class RecryptrequestPolicy < ApplicationPolicy
- 
+
   def initialize(current_user, recryptrequest)
     @current_user = current_user
     @recryptrequest = recryptrequest
@@ -10,11 +10,11 @@ class RecryptrequestPolicy < ApplicationPolicy
   end
 
   def new_ldap_password?
-    @current_user.admin?
+    @current_user.ldap?
   end
 
   def recrypt?
-    @current_user.admin?
+    true
   end
 
   class Scope < Scope
@@ -22,8 +22,9 @@ class RecryptrequestPolicy < ApplicationPolicy
       @current_user = current_user
       @scope = scope
     end
+
     def resolve
-      if current_user.admin?
+      if @current_user.admin?
         scope.all
       end
     end

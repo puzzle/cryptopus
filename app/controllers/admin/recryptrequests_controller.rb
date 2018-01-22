@@ -9,7 +9,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
 
   # GET /admin/recryptrequests
   def index
-    @recryptrequests = Recryptrequest.all
+    @recryptrequests = policy_scope Recryptrequest
   end
 
   # DELETE /admin/recryptrequest/1
@@ -29,9 +29,7 @@ class Admin::RecryptrequestsController < Admin::AdminController
 
   # POST /admin/recryptrequests/resetpassword
   def resetpassword
-    @user = User.find(params[:user_id])
-    authorize @user
-    @admin = User.find(session[:user_id])
+    authorize_and_set_user_and_admin
 
     if @user.ldap? || blank_password?
       return redirect_back(fallback_location: admin_recryptrequests_path)
@@ -47,6 +45,12 @@ class Admin::RecryptrequestsController < Admin::AdminController
   end
 
   private
+
+  def authorize_and_set_user_and_admin
+    @user = User.find(params[:user_id])
+    authorize @user
+    @admin = User.find(session[:user_id])
+  end
 
   def encrypt_and_save_user
     @user.password = CryptUtils.one_way_crypt(params[:new_password])

@@ -75,7 +75,6 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
 
     login_as('admin')
     bobs_user_id = users(:bob).id
-    require 'pry'; binding.pry
     recrypt_id = Recryptrequest.find_by_user_id(bobs_user_id).id
     post admin_recryptrequest_path(recrypt_id), params: { _method: 'delete' }
 
