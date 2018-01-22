@@ -56,7 +56,7 @@ class User < ApplicationRecord
   enum role: %i[user conf_admin admin]
 
   class << self
-
+ 
     def create_db_user(password, user_params)
       user = new(user_params)
       user.auth = 'db'
@@ -82,6 +82,13 @@ class User < ApplicationRecord
     end
   end
 
+  module Role
+    USER = 0
+    CONF_ADMIN = 1
+    ADMIN = 2
+  end
+
+ 
   # Instance Methods
 
   def last_teammember_in_any_team?
