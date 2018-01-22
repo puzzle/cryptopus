@@ -12,14 +12,14 @@ class MaintenanceTask
   PARAM_TYPE_NUMBER = 'number'.freeze
   PARAM_TYPE_TEXT = 'text'.freeze
 
-  TASKS = %w[RootAsAdmin NewRootPassword].freeze
-  LDAP_TASKS = %w[RemovedLdapUsers].freeze
+  TASKS = %w[RootAsAdmin NewRootPassword RemovedLdapUsers].freeze
 
   class << self
     def list
-      tasks.collect do |t|
-        constantize_class(t).new
-      end
+      TASKS.collect do |t|
+        task = constantize_class(t).new
+        task if task.enabled?
+      end.compact
     end
 
     def find(id)
@@ -28,12 +28,6 @@ class MaintenanceTask
 
     def constantize_class(task)
       "MaintenanceTasks::#{task}".constantize
-    end
-
-    def tasks
-      tasks = TASKS
-      tasks += LDAP_TASKS if Setting.value('ldap', 'enable')
-      tasks
     end
 
   end
@@ -57,6 +51,14 @@ class MaintenanceTask
 
   def prepare?
     task_params.present?
+  end
+
+  def enabled?
+    true
+  end
+
+  def policy_class
+    MaintenanceTaskPolicy
   end
 
   protected

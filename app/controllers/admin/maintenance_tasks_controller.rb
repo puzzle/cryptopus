@@ -16,8 +16,8 @@ class Admin::MaintenanceTasksController < Admin::AdminController
 
   # GET /admin/maintenance_tasks/1/prepare
   def prepare
-    authorize MaintenanceTask
     raise routing_error unless maintenance_task.prepare?
+    authorize maintenance_task
 
     flash[:notice] = maintenance_task.hint
     flash[:error] = maintenance_task.error
@@ -26,7 +26,7 @@ class Admin::MaintenanceTasksController < Admin::AdminController
   # POST /admin/maintenance_tasks/1/execute
   def execute
     raise routing_error unless maintenance_task
-    authorize MaintenanceTask
+    authorize maintenance_task
 
     set_task_attributes
 
