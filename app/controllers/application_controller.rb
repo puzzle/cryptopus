@@ -7,6 +7,7 @@
 #
 require 'user' # fixes user.authenticate problem
 
+
 class ApplicationController < ActionController::Base
   before_action :check_source_ip
   before_action :redirect_to_wizard_if_new_setup

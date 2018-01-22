@@ -45,8 +45,8 @@ class User < ApplicationRecord
   scope :locked, (-> { where(locked: true) })
   scope :unlocked, (-> { where(locked: false) })
 
-  scope :admins, (-> { where(role: 2) })
-  scope :conf_admins, (-> { where(role: 1) })
+  scope :admins, (-> { where(role: Role::ADMIN) })
+  scope :conf_admins, (-> { where(role: Role::CONF_ADMIN) })
 
   scope :ldap, -> { where(auth: 'ldap') }
 
@@ -55,7 +55,7 @@ class User < ApplicationRecord
   before_destroy :protect_if_last_teammember
 
   class << self
-
+ 
     def create_db_user(password, user_params)
       user = new(user_params)
       user.auth = 'db'
@@ -70,7 +70,7 @@ class User < ApplicationRecord
                  givenname: 'root',
                  surname: '',
                  auth: 'db',
-                 role: 2,
+                 role: Role::ADMIN,
                  password: CryptUtils.one_way_crypt(password))
       user.create_keypair(password)
       user.save!
@@ -81,6 +81,13 @@ class User < ApplicationRecord
     end
   end
 
+  module Role
+    USER = 0
+    CONF_ADMIN = 1
+    ADMIN = 2
+  end
+
+ 
   # Instance Methods
 
   def last_teammember_in_any_team?
@@ -105,10 +112,10 @@ class User < ApplicationRecord
   end
 
   def update_role(actor, role, private_key)
-    if self == actor || actor.role == 0 || self.role < role
+    if self == actor || actor.role == Role::USER || self.role < role
      raise 'user is not allowed to empower/disempower this user'
     end
-    if role == 2
+    if role == Role::ADMIN
       empower(actor, private_key)
     elsif actor.admin?
       disempower
@@ -151,11 +158,11 @@ class User < ApplicationRecord
   end
 
   def admin?
-    role == 2
+    role == Role::ADMIN
   end
 
   def conf_admin?
-    role == 1
+    role == Role::CONF_ADMIN
   end
 
   def auth_db?

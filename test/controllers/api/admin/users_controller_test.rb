@@ -16,7 +16,7 @@ class Api::Admin::UsersControllerTest < ActionController::TestCase
     bob = users(:bob)
 
     login_as(:admin)
-    patch :update_role, params: { user_id: bob, role: 2 }, xhr: true
+    patch :update_role, params: { user_id: bob, role: User::Role::ADMIN }, xhr: true
 
     bob.reload
     assert bob.admin?
@@ -28,9 +28,9 @@ class Api::Admin::UsersControllerTest < ActionController::TestCase
     bob = users(:bob)
 
     login_as(:admin)
-    patch :update_role, params: { user_id: bob, role: 2 }, xhr: true
+    patch :update_role, params: { user_id: bob, role: User::Role::ADMIN }, xhr: true
     bob.reload
-    patch :update_role, params: { user_id: bob, role: 0 }, xhr: true
+    patch :update_role, params: { user_id: bob, role: User::Role::USER }, xhr: true
     bob.reload
 
     assert_not bob.admin?
@@ -62,7 +62,7 @@ class Api::Admin::UsersControllerTest < ActionController::TestCase
   test 'admin can delete another user' do
     bob = users(:bob)
     alice = users(:alice)
-    bob.update_attribute(:role, 2)
+    bob.update_attribute(:role, User::Role::ADMIN)
     login_as(:bob)
 
     delete :destroy, params: { id: alice.id }

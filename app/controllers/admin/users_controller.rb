@@ -73,7 +73,7 @@ class Admin::UsersController < ApplicationController
   def destroy_user
     # admins cannot be removed from non-private teams
     # so set admin to false first
-    user.update!(role: 0) if user.admin?
+    user.update!(role: User::Role::USER) if user.admin?
     user.destroy!
   end
 
