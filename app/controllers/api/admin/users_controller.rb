@@ -7,16 +7,6 @@
 
 class Api::Admin::UsersController < Api::Admin::AdminController
 
-  def update_role
-    user = User.find(params[:user_id])
-    authorize user
-    role = params[:role]
-    user.update_role(current_user, role, session[:private_key])
-
-    add_info(t("flashes.api.admin.users.update.#{role}", username: user.username))
-    render_json ''
-  end
-
   # DELETE /api/admin/users/1
   def destroy
     authorize user
@@ -41,5 +31,4 @@ class Api::Admin::UsersController < Api::Admin::AdminController
     user.update!(role: :user) if user.admin?
     user.destroy!
   end
-
 end

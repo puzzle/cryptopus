@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: users
@@ -47,7 +46,6 @@ class User < ApplicationRecord
   scope :unlocked, (-> { where(locked: false) })
 
   scope :admins, (-> { where(role: :admin) })
-  scope :conf_admins, (-> { where(role: :conf_admin) })
 
   scope :ldap, -> { where(auth: 'ldap') }
 
@@ -108,8 +106,6 @@ class User < ApplicationRecord
   end
 
   def update_role(actor, role, private_key)
-    can_set_role?(actor, role)
-
     was_admin = admin?
     update(role: role)
 

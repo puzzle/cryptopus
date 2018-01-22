@@ -16,6 +16,7 @@ class Api::Admin::UsersControllerTest < ActionController::TestCase
     bob = users(:bob)
 
     login_as(:admin)
+    
     patch :update_role, params: { user_id: bob, role: :admin }, xhr: true
 
     bob.reload

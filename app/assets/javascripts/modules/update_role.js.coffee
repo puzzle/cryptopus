@@ -3,25 +3,23 @@
 # See the COPYING file at the top-level directory or at
 # https://github.com/puzzle/cryptopus.
 
-app = window.App ||={}
+app = window.App ||= {}
 
 class app.UpdateRole
   constructor: () ->
     bind.call()
 
-  update_role = (url, role) ->
+  toggle = (url) ->
     $.ajax({
       type: "PATCH",
-      url: url,
-      data: { role: role.toString() }
-    });
+      url: url
+    })
 
   bind = ->
-    $(document).on 'click', '.dropdown-item', ->
-      user_id = $(this).parents('.btn-group').attr('id')
-      user_role = $(this).closest('li').index()
+    $(document).on 'click', '.toggle-button', ->
+      user_id = $(this).attr('id')
       url = '/api/admin/users/' + user_id + '/update_role'
-      $(this).parents('.btn-group').find('.dropdown-toggle').text($(this).text())
-      update_role(url, user_role)
+      toggle(url)
+      $(this).toggleClass('toggle-button-selected')
 
   new UpdateRole

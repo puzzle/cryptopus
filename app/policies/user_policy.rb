@@ -23,10 +23,12 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update_role?
-    if user.user?
-      return admin_or_conf_admin?
+    return false if current_user == user
+
+    if user.admin?
+      return current_user.admin?
     end
-    current_user.admin?
+    admin_or_conf_admin?
   end
 
   def destroy?
