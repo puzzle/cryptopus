@@ -6,7 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::Admin::UsersController < Api::Admin::AdminController
-
+  
   # DELETE /api/admin/users/1
   def destroy
     authorize user

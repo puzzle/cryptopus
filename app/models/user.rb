@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 # == Schema Information
 #
 # Table name: users
@@ -56,7 +57,7 @@ class User < ApplicationRecord
   enum role: %i[user conf_admin admin]
 
   class << self
- 
+
     def create_db_user(password, user_params)
       user = new(user_params)
       user.auth = 'db'
@@ -88,7 +89,6 @@ class User < ApplicationRecord
     ADMIN = 2
   end
 
- 
   # Instance Methods
 
   def last_teammember_in_any_team?
@@ -159,6 +159,10 @@ class User < ApplicationRecord
 
   def ldap_user?
     auth == 'ldap'
+  end
+
+  def role?(role)
+    role == @role
   end
 
   def auth_db?
