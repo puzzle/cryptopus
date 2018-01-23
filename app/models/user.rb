@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 # == Schema Information
 #
 # Table name: users
@@ -55,7 +56,7 @@ class User < ApplicationRecord
   before_destroy :protect_if_last_teammember
 
   class << self
- 
+
     def create_db_user(password, user_params)
       user = new(user_params)
       user.auth = 'db'
@@ -87,7 +88,6 @@ class User < ApplicationRecord
     ADMIN = 2
   end
 
- 
   # Instance Methods
 
   def last_teammember_in_any_team?
@@ -112,15 +112,18 @@ class User < ApplicationRecord
   end
 
   def update_role(actor, role, private_key)
-    if self == actor || actor.role == Role::USER || self.role < role
-     raise 'user is not allowed to empower/disempower this user'
+    if self == actor || actor.role == Role::USER || actor.role < role
+      raise 'user is not allowed to empower/disempower this user'
     end
+
+    wasadmin = admin?
+    update(role: role)
+
     if role == Role::ADMIN
       empower(actor, private_key)
-    elsif actor.admin?
+    elsif wasadmin
       disempower
     end
-    update(role: role)
   end
 
   def create_keypair(password)
@@ -163,6 +166,10 @@ class User < ApplicationRecord
 
   def conf_admin?
     role == Role::CONF_ADMIN
+  end
+
+  def role?(role)
+    role == @role
   end
 
   def auth_db?

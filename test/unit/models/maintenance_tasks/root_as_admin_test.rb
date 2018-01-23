@@ -64,7 +64,7 @@ class RootAsAdminTest < ActiveSupport::TestCase
     assert_equal true, teams(:team1).teammember?(bob)
     assert_not teams(:team2).teammember?(admin)
     assert_not teams(:team2).teammember?(users(:root))
-    assert User.root.admin
+    assert User.root.admin?
   end
 
   private
