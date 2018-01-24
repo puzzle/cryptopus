@@ -51,7 +51,7 @@ class AccountsController < ApplicationController
     @account.encrypt(plaintext_team_password(team))
 
     respond_to do |format|
-      save_account(format)
+      create_account(format)
     end
   end
 
@@ -154,7 +154,7 @@ class AccountsController < ApplicationController
     AccountMoveHandler.new(@account, session[:private_key], current_user)
   end
 
-  def save_account(format)
+  def create_account(format)
     if @account.save
       flash[:notice] = t('flashes.accounts.created')
       format.html { redirect_to team_group_accounts_url(team, @group) }
