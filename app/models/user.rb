@@ -161,8 +161,12 @@ class User < ApplicationRecord
     auth == 'ldap'
   end
 
-  def role?(role)
-    role == @role
+  def non_admin?
+    role == Role::USER
+  end
+
+  def ldap_user?
+    auth == 'ldap'
   end
 
   def auth_db?

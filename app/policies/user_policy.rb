@@ -82,11 +82,7 @@ class UserPolicy < ApplicationPolicy
   def ldap_connection
     LdapConnection.new
   end
-
-  def resetpassword?
-    @current_user.admin?
-  end
-
+  
   class Scope < Scope
     def resolve
       if @user.admin? || @user.conf_admin?
