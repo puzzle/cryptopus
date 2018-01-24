@@ -116,12 +116,12 @@ class User < ApplicationRecord
       raise 'user is not allowed to empower/disempower this user'
     end
 
-    wasadmin = admin?
+    was_admin = admin?
     update(role: role)
 
     if role == Role::ADMIN
       empower(actor, private_key)
-    elsif wasadmin
+    elsif was_admin
       disempower
     end
   end
@@ -168,8 +168,12 @@ class User < ApplicationRecord
     role == Role::CONF_ADMIN
   end
 
-  def role?(role)
-    role == @role
+  def non_admin?
+    role == Role::USER
+  end
+
+  def ldap_user?
+    auth == 'ldap'
   end
 
   def auth_db?

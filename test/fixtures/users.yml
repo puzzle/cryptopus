@@ -56,7 +56,6 @@ alice:
   public_key: <%= "!!binary \"#{FixturesHelper.read_public_key('alice')}\"" %>
   private_key: <%= "!!binary \"#{FixturesHelper.read_private_key('alice')}\"" %>
 
-
 admin:
   username: admin
   givenname: Admin
@@ -66,3 +65,13 @@ admin:
   password: 'sha512$aaea15339f56acbaac0719af4f282bb3$d0c2148e42e16f9620e502d51d9ae42fb70e03cde93def02c09256f8c8f278cb0688d197af0b0f4d7852b997d7e79d12cf1b70a210ebf5e065a815bbd9721c19'
   public_key: <%= "!!binary \"#{FixturesHelper.read_public_key('admin')}\"" %>
   private_key: <%= "!!binary \"#{FixturesHelper.read_private_key('admin')}\"" %>
+
+conf_admin:
+  username: tux
+  givenname: Tux
+  surname: Miller
+  role: 1
+  auth: db
+  password: 'sha512$aaea15339f56acbaac0719af4f282bb3$d0c2148e42e16f9620e502d51d9ae42fb70e03cde93def02c09256f8c8f278cb0688d197af0b0f4d7852b997d7e79d12cf1b70a210ebf5e065a815bbd9721c19'
+  public_key: <%= "!!binary \"#{FixturesHelper.read_public_key('conf_admin')}\"" %>
+  private_key: <%= "!!binary \"#{FixturesHelper.read_private_key('conf_admin')}\"" %>

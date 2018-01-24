@@ -6,24 +6,51 @@ class UserPolicyTest < PolicyTest
       assert_permit admin, User, :index?
     end
     
+    test 'conf_admin can access admin/users page' do
+      assert_permit conf_admin, User, :index?
+    end
+    
     test 'user cannot access admin/users page' do
       refute_permit bob, User, :index?
     end
   end
 
   context '#update' do
-    test 'admin can update user information' do
-      assert_permit admin, bob, :update? 
+    test 'update action permissions' do
+      users = [admin, conf_admin, bob]
+      records = users
+      results = [true, true, true, false, true, true, false, false, false]
+      test_action_permissions(:update?, users, records, results)
     end
 
-    test 'user cannot update user information' do
-      refute_permit bob, bob, :update?
-    end
+   # test 'admin can update user information' do
+   #   assert_permit admin, bob, :update? 
+   # end
+   # 
+   # test 'admin can update admin information' do
+   #   assert_permit conf_admin, admin, :update? 
+   # end
+   # 
+   # test 'conf_admin can update user information' do
+   #   assert_permit conf_admin, bob, :update? 
+   # end
+   # 
+   # test 'conf_admin cannot update conf_admin information' do
+   #   refute_permit conf_admin, conf_admin, :update? 
+   # end
+
+   # test 'user cannot update user information' do
+   #   refute_permit bob, bob, :update?
+   # end
   end
 
   context '#new' do
     test 'admin can create a new user' do
       assert_permit admin, bob, :new?
+    end
+    
+    test 'conf_admin can create a new user' do
+      assert_permit conf_admin, bob, :new?
     end
     
     test 'user cannot create a new user' do

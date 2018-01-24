@@ -65,7 +65,7 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
     bob.reload
 
     assert_equal bob_password, bob.password
-    assert_redirected_to 'where_i_came_from'
+    assert_redirected_to teams_path
   end
 
   test 'normal user could not reset password' do

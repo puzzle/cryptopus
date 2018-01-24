@@ -143,6 +143,5 @@ class ApplicationController < ActionController::Base
   def user_not_authorized
     flash[:error] = t('flashes.admin.admin.no_access')
     redirect_to teams_path
-    # redirect_to(request.referrer || root_path)
   end
 end

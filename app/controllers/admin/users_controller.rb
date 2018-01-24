@@ -30,7 +30,7 @@ class Admin::UsersController < ApplicationController
 
   # PUT /admin/users/1
   def update
-    user.update_attributes(user_params)
+    user.update_attributes(permitted_attributes(user))
 
     respond_to do |format|
       format.html { redirect_to admin_users_path }
@@ -47,7 +47,7 @@ class Admin::UsersController < ApplicationController
 
   # POST /admin/users
   def create
-    @user = User.create_db_user(password, user_params)
+    @user = User.create_db_user(password, permitted_attributes(User))
 
     respond_to do |format|
       if @user.save
@@ -89,10 +89,6 @@ class Admin::UsersController < ApplicationController
 
   def user
     @user ||= User.find(params[:id])
-  end
-
-  def user_params
-    params.require(:user).permit(:username, :givenname, :surname, :password)
   end
 
   def password
