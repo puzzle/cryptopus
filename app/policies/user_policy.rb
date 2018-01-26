@@ -36,13 +36,15 @@ class UserPolicy < ApplicationPolicy
   end
 
   def destroy?
+    # if @user.ldap_user?
+    #   unless ldap_connection.exists?(@user.username)
+    #     return @current_user.admin? || @current_user.conf_admin?
+    #   end
+    # else
     if @user.non_admin?
       return @current_user.admin? || @current_user.conf_admin?
-    elsif @user.ldap_user?
-      unless ldap_connection.exists?(@user.username)
-        return @current_user.admin? || @current_user.conf_admin?
-      end
     end
+    # end
     @current_user.admin?
   end
 
@@ -79,7 +81,7 @@ class UserPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if @user.admin?
+      if @user.admin? || @user.conf_admin?
         @scope.where('ldap_uid != 0 or ldap_uid is null')
       end
     end
