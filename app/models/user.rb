@@ -112,9 +112,7 @@ class User < ApplicationRecord
   end
 
   def update_role(actor, role, private_key)
-    if self == actor || actor.role == Role::USER || actor.role < role || actor.role < self.role
-      raise 'user is not allowed to empower/disempower this user'
-    end
+    can_user_set_user_role?(actor, role)
 
     was_admin = admin?
     update(role: role)
@@ -274,4 +272,9 @@ class User < ApplicationRecord
     end
   end
 
+  def can_user_set_user_role?(actor, role)
+    if self == actor || actor.role == Role::USER || actor.role < role || actor.role < self.role
+      raise 'user is not allowed to empower/disempower this user'
+    end
+  end
 end
