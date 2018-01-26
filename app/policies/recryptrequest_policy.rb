@@ -16,7 +16,7 @@ class RecryptrequestPolicy < ApplicationPolicy
   end
 
   private
-
+  
   def current_user
     @user
   end
