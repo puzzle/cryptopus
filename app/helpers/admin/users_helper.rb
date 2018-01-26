@@ -16,4 +16,9 @@ module Admin::UsersHelper
       content_tag(:button)
     end
   end
+
+  def role(role)
+    roles = ['User', 'Conf Admin', 'Admin']
+    roles[role]
+  end
 end

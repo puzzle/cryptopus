@@ -23,9 +23,19 @@
           = user.last_login_at.strftime('%d.%m.%Y, %H:%M')
       %td= user.last_login_from
       %td= user.ldap_uid.to_s
+
       %td
         - if user != current_user
-          = change_admin_attribute(user)
+          .btn-group
+            %button.btn.btn-primary.dropdown-toggle{id: 'role-dropdown','data-toggle':'dropdown', 
+              type: 'button'}
+              = role(user.role)
+              %b.caret
+            %ul.dropdown-menu{'aria-labelledby':'dropdownMenuButton'}
+              %li.dropdown-item{:href => "#"}=t(role(0))
+              %li.dropdown-item{:href => "#"}=t(role(1))
+              %li.dropdown-item{:href => "#"}=t(role(2))
+
       %td.action_icon
         - if user.auth != 'ldap'
           = link_to image_tag("edit.svg"), edit_admin_user_path(user)
@@ -33,7 +43,7 @@
         - if user != current_user
           = link_to image_tag("remove.svg"), '#',
             data: { last_teammember_teams_link: last_teammember_teams_teams_path(user_id: user.id),
-                    user_id: user.id},
+              user_id: user.id},
             class: 'delete_user_link'
 - if User.locked.count != 0
   %h1= t '.locked'
