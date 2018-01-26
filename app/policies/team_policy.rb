@@ -13,7 +13,7 @@ class TeamPolicy < TeamDependantPolicy
   end
 
   def destroy?
-    @current_user.admin?
+    @current_user.admin? || (@current_user.conf_admin? && @team.members.size == 1)
   end
 
   def last_teammember_teams?

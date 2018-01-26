@@ -5,22 +5,34 @@ class MaintenanceTaskPolicy < ApplicationPolicy
   end
 
   def index?
-    @current_user.admin?
+    user_allowed
   end
 
   def execute?
-    @current_user.admin? && @maintenance_task.enabled?
+    user_allowed && @maintenance_task.enabled?
   end
 
   def prepare?
-    @current_user.admin? && @maintenance_task.enabled?
+    user_allowed && @maintenance_task.enabled?
   end
 
   class Scope < Scope
     def resolve
-      if @user.admin?
+      if user_allowed
         @scope.list
       end
     end
+
+    private
+
+    def user_allowed
+      @user.admin? || @user.conf_admin?
+    end
+  end
+
+  private
+
+  def user_allowed
+    @current_user.admin? || @current_user.conf_admin?
   end
 end

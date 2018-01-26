@@ -6,10 +6,10 @@ class SettingPolicy < ApplicationPolicy
   end
 
   def index?
-    @current_user.admin?
+    @current_user.admin? || @current_user.conf_admin?
   end
 
   def update_all?
-    @current_user.admin?
+    @current_user.admin? || @current_user.conf_admin?
   end
 end

@@ -46,8 +46,17 @@ class TeamPolicyTest < PolicyTest
     end
 
     test 'admin can delete any team' do
+      assert_permit admin, team1, :destroy?
       assert_permit admin, team2, :destroy?
       assert_permit admin, private_team, :destroy?
+    end
+
+    test 'conf admin can delete a team with only one teammember' do
+      assert_permit conf_admin, team2, :destroy?
+    end
+
+    test 'conf admin cannot delete a team with more than one teammmember' do
+      refute_permit conf_admin, team1, :destroy?
     end
   end
 

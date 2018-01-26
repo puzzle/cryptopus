@@ -5,6 +5,10 @@ class SettingPolicyTest < PolicyTest
     test 'admin can access admin/settings page' do
       assert_permit admin, Setting, :index?
     end
+
+    test 'conf admin can access admin/settings page' do
+      assert_permit conf_admin, Setting, :index?
+    end
     
     test 'user cannot access admin/settings page' do
       refute_permit bob, Setting, :index?
@@ -15,7 +19,10 @@ class SettingPolicyTest < PolicyTest
     test 'admin can update settings' do
       assert_permit admin, Setting, :update_all?
     end
-    
+ 
+    test 'conf admin can update settings' do
+      assert_permit conf_admin, Setting, :update_all?
+    end   
     test 'user cannot update settings' do
       refute_permit bob, Setting, :update_all?
     end
