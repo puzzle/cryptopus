@@ -1,31 +1,36 @@
 class TeamPolicy < TeamDependantPolicy
-  def initialize(current_user, team)
-    @current_user = current_user
-    @team = team
-  end
-
   def create?
     true
   end
 
   def update?
-    (@current_user.admin? && !@team.private?) || team_member?(@current_user, @team)
+    (current_user.admin? && !team.private?) || team_member?(current_user, team)
   end
 
   def destroy?
-    @current_user.admin? || (@current_user.conf_admin? && @team.members.size == 1)
+    current_user.admin? || (current_user.conf_admin? && team.members.size == 1)
   end
 
   def last_teammember_teams?
-    @current_user.admin?
+    current_user.admin?
   end
 
   def add_member?
-    team_member?(@current_user, @team)
+    team_member?(current_user, team)
   end
 
   def remove_member?
-    team_member?(@current_user, @team)
+    team_member?(current_user, team)
+  end
+
+  private
+
+  def current_user
+    @user
+  end
+
+  def team
+    @record
   end
 
   class Scope < TeamDependantScope

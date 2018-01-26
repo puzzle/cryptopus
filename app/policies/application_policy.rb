@@ -34,6 +34,10 @@ class ApplicationPolicy
     false
   end
 
+  def admin_or_conf_admin?
+    @user.admin? || @user.conf_admin?
+  end
+
   def scope
     Pundit.policy_scope!(user, record.class)
   end
@@ -48,6 +52,10 @@ class ApplicationPolicy
 
     def resolve
       scope
+    end
+
+    def admin_or_conf_admin?
+      @user.admin? || @user.conf_admin?
     end
   end
 end
