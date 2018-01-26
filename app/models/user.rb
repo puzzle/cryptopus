@@ -266,11 +266,4 @@ class User < ApplicationRecord
       end
     end
   end
-
-  # completely move to policy !!!
-  def can_set_role?(actor, role)
-    if self == actor || actor.user? || actor.conf_admin? && role == :admin
-      raise 'user is not allowed to empower/disempower this user'
-    end
-  end
 end
