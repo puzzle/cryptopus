@@ -266,14 +266,42 @@ class UserPolicyTest < PolicyTest
   end
 
   context '#resetpassword' do
-    test 'admin can reset a password' do
-      assert_permit admin, bob, :resetpassword?
+    context 'admin' do
+      test 'admin can reset admins password' do
+        assert_permit admin, admin, :resetpassword?
+      end
+
+      test 'admin can reset conf_admins password' do
+        assert_permit admin, conf_admin, :resetpassword?
+      end
+
+      test 'admin can reset users password' do
+        assert_permit admin, bob, :resetpassword?
+      end
     end
 
-    test 'non-admin cannot reset a password' do
-      refute_permit bob, bob, :resetpassword?      
-      refute_permit bob, alice, :resetpassword?      
-      refute_permit alice, bob, :resetpassword?      
+    context 'conf_admin' do
+      test 'conf_admin cannot reset admins password' do
+        refute_permit conf_admin, admin, :resetpassword?
+      end
+
+      test 'conf_admin cannot reset conf_admins password' do
+        refute_permit conf_admin, conf_admin, :resetpassword?
+      end
+
+      test 'conf_admin can reset users password' do
+        assert_permit conf_admin, bob, :resetpassword?
+      end
+    end
+
+    context 'user' do
+      test 'non-admin cannot reset a password' do
+        refute_permit bob, bob, :resetpassword?
+        refute_permit bob, alice, :resetpassword?
+        refute_permit alice, bob, :resetpassword?
+        refute_permit bob, admin, :resetpassword?
+        refute_permit bob, conf_admin, :resetpassword?
+      end
     end
   end
 
@@ -295,7 +323,7 @@ class UserPolicyTest < PolicyTest
         end
       end
     end
-    
+
     test 'user cannot read userlist' do
       assert_nil Pundit.policy_scope!(bob, User)
     end
