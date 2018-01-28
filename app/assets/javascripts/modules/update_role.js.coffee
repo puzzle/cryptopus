@@ -21,7 +21,7 @@ class app.UpdateRole
       user_id = $(this).parents('.btn-group').attr('id')
       user_role = $(this).closest('li').index()
       url = '/api/admin/users/' + user_id + '/update_role'
+      $(this).parents('.btn-group').find('.dropdown-toggle').text($(this).text())
       update_role(url, user_role)
-        $('.btn:first-child').text($(this).text()
-  
+
   new UpdateRole

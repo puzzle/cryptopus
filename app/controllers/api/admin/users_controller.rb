@@ -8,8 +8,6 @@
 class Api::Admin::UsersController < Api::Admin::AdminController
 
   def update_role
-    require 'pry'
-    binding.pry
     user = User.find(params[:user_id])
     authorize user
     role = params[:role].to_i
