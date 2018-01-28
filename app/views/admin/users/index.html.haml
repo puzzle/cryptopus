@@ -26,7 +26,7 @@
 
       %td
         - if user != current_user
-          .btn-group
+          .btn-group{id: user.id } 
             %button.btn.btn-primary.dropdown-toggle{id: 'role-dropdown','data-toggle':'dropdown'}
               = role(user.role)
               %b.caret
