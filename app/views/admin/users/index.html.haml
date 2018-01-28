@@ -27,14 +27,13 @@
       %td
         - if user != current_user
           .btn-group
-            %button.btn.btn-primary.dropdown-toggle{id: 'role-dropdown','data-toggle':'dropdown', 
-              type: 'button'}
+            %button.btn.btn-primary.dropdown-toggle{id: 'role-dropdown','data-toggle':'dropdown'}
               = role(user.role)
               %b.caret
             %ul.dropdown-menu{'aria-labelledby':'dropdownMenuButton'}
-              %li.dropdown-item{:href => "#"}=t(role(0))
-              %li.dropdown-item{:href => "#"}=t(role(1))
-              %li.dropdown-item{:href => "#"}=t(role(2))
+              %li.dropdown-item=t(role(0))
+              %li.dropdown-item=t(role(1))
+              %li.dropdown-item=t(role(2))
 
       %td.action_icon
         - if user.auth != 'ldap'

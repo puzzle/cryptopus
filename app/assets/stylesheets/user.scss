@@ -41,5 +41,12 @@
 }
 
 #role-dropdown{
-  width: 100px
+  width: 100px;
+}
+.dropdown-item{
+  padding: 5px; 
+  border: 1px black;
+}
+.dropdown-item:hover{
+  background: lightgrey;
 }
