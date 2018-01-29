@@ -23,18 +23,16 @@ class Api::Admin::UsersControllerTest < ActionController::TestCase
     assert bob.teammembers.find_by(team_id: teams(:team1))
   end
 
-  test 'admin disempowers user' do
+  test 'root disempowers user' do
     teammembers(:team1_bob).destroy
-    bob = users(:bob)
+    admin = users(:admin)
 
-    login_as(:admin)
-    patch :update_role, params: { user_id: bob, role: :admin }, xhr: true
-    bob.reload
-    patch :update_role, params: { user_id: bob, role: :user }, xhr: true
-    bob.reload
+    login_as(:root)
+    patch :update_role, params: { user_id: admin, role: :user }, xhr: true
+    admin.reload
 
-    assert_not bob.admin?
-    assert_not bob.teammembers.find_by(team_id: teams(:team1))
+    assert_not admin.admin?
+    assert_not admin.teammembers.find_by(team_id: teams(:team1))
   end
   
   test 'logged-in admin user cannot delete own user' do

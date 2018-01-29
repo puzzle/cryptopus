@@ -195,7 +195,7 @@ class UserTest < ActiveSupport::TestCase
       admin = users(:admin)
 
       assert_raise RuntimeError do
-        admin.update_role(conf_admin, :conf_admin, private_key)
+        admin.update_role(conf_admin, :admin, private_key)
       end
 
       assert admin.admin?
@@ -245,7 +245,7 @@ class UserTest < ActiveSupport::TestCase
       private_key = decrypt_private_key(bob)
 
       exception = assert_raises(Exception) do
-        bob.update_role(bob, User::Role::ADMIN, private_key)
+        bob.update_role(bob, :admin, private_key)
       end
       assert_equal 'user is not allowed to empower/disempower this user', exception.message
 
