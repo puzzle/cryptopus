@@ -28,7 +28,7 @@
         - if user != current_user
           .btn-group{id: user.id } 
             %button.btn.btn-primary.dropdown-toggle{id: 'role-dropdown','data-toggle':'dropdown'}
-              = role(user.role)
+              = user.role.capitalize
               %b.caret
             %ul.dropdown-menu{'aria-labelledby':'dropdownMenuButton'}
               %li.dropdown-item=t(role(0))
