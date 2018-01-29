@@ -305,7 +305,7 @@ en:
 
   #Pundit
   pundit:
-    default: You cannot perform this action.
+    default: Access denied
     team_policy:
       update?:  You are not a member of this team
       destroy?: Only admin may delete teams

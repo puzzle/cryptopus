@@ -1,26 +1,32 @@
 class GroupPolicy < TeamDependantPolicy
   def show?
-    team_member?(current_user, group.team)
+    team_member?
   end
 
   def new?
-    team_member?(current_user, group.team)
+    team_member?
   end
 
   def create?
-    team_member?(current_user, group.team)
+    team_member?
   end
 
   def edit?
-    team_member?(current_user, group.team)
+    team_member?
   end
 
   def update?
-    team_member?(current_user, group.team)
+    team_member?
   end
 
   def destroy?
-    team_member?(current_user, group.team)
+    team_member?
+  end
+
+  protected
+
+  def team
+    group.team
   end
 
   private
@@ -34,15 +40,17 @@ class GroupPolicy < TeamDependantPolicy
   end
 
   class Scope < TeamDependantScope
-    def initialize(current_user, team)
-      @current_user = current_user
-      @team = team
-    end
-
     def resolve
-      if team_member?(@current_user, @team)
-        @team.groups.all
+      if team_member?
+        team.groups.all
       end
     end
+
+    protected
+
+    def team
+      @scope
+    end
+
   end
 end

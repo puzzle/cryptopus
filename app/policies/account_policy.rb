@@ -1,30 +1,40 @@
 class AccountPolicy < TeamDependantPolicy
   def show?
-    team_member?(current_user, account.group.team)
+    team_member?
   end
 
   def new?
-    team_member?(current_user, account.group.team)
+    team_member?
   end
 
   def create?
-    team_member?(current_user, account.group.team)
+    team_member?
+  end
+
+  def create_item?
+    team_member?
   end
 
   def edit?
-    team_member?(current_user, account.group.team)
+    team_member?
   end
 
   def update?
-    team_member?(current_user, account.group.team)
+    team_member?
   end
 
   def destroy?
-    team_member?(current_user, account.group.team)
+    team_member?
   end
 
   def move?
-    team_member?(current_user, account.group.team)
+    team_member?
+  end
+
+  protected
+
+  def team
+    account.group.team
   end
 
   private
@@ -38,15 +48,16 @@ class AccountPolicy < TeamDependantPolicy
   end
 
   class Scope < TeamDependantScope
-    def initialize(current_user, group)
-      @current_user = current_user
-      @group = group
+    def resolve
+      if team_member?
+        @scope.accounts.all
+      end
     end
 
-    def resolve
-      if team_member?(@current_user, @group.team)
-        @group.accounts.all
-      end
+    protected
+
+    def team
+      @scope.team
     end
   end
 end

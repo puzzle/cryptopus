@@ -55,7 +55,7 @@ class User < ApplicationRecord
 
   before_destroy :protect_if_last_teammember
 
-  enum role: [:user, :conf_admin, :admin]
+  enum role: %i[user conf_admin admin]
 
   class << self
 

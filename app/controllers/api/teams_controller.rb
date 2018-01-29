@@ -6,7 +6,6 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::TeamsController < ApiController
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def index
     teams = policy_scope Team
@@ -33,10 +32,5 @@ class Api::TeamsController < ApiController
 
   def team
     @team ||= Team.find(params['id'])
-  end
-
-  def user_not_authorized(_exception)
-    add_error t('flashes.admin.admin.no_access')
-    render_json && return
   end
 end

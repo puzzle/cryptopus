@@ -20,9 +20,7 @@ class ItemsController < ApplicationController
   # POST /teams/1/groups/1/accounts/1/items
   def create
     respond_to do |format|
-      item = Item.create(@account, item_params, plaintext_team_password(team))
-      authorize item
-      display_item(format, item)
+      create_item(format)
     end
   end
 
@@ -57,7 +55,9 @@ class ItemsController < ApplicationController
     @account = @group.accounts.find(params[:account_id])
   end
 
-  def display_item(format, item)
+  def create_item(format)
+    authorize @account
+    item = Item.create(@account, item_params, plaintext_team_password(team))
     if item.errors.empty?
       flash[:notice] = t('flashes.items.uploaded')
       format.html { redirect_to team_group_account_url(team, @group, @account) }

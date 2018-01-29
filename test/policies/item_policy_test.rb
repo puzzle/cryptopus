@@ -35,17 +35,11 @@ class ItemPolicyTest < PolicyTest
 
   context '#create' do
     test 'teammember can create a new item with keypair' do
-      Item.any_instance.expects(:account)
-                       .returns(account)
-      
-      assert_permit bob, item1, :create?
+      assert_permit bob, account, :create_item?
     end
 
     test 'non teammember cannot create a new item with keypair' do
-      Item.any_instance.expects(:account)
-                       .returns(account)
-
-      refute_permit alice, item1, :create?
+      refute_permit alice, account, :create_item?
     end
   end
   

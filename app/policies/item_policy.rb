@@ -1,18 +1,20 @@
 class ItemPolicy < TeamDependantPolicy
   def show?
-    team_member?(current_user, item.account.group.team)
+    team_member?
   end
 
   def new?
-    team_member?(current_user, item.account.group.team)
-  end
-
-  def create?
-    team_member?(current_user, item.account.group.team)
+    team_member?
   end
 
   def destroy?
-    team_member?(current_user, item.account.group.team)
+    team_member?
+  end
+
+  protected
+
+  def team
+    item.account.group.team
   end
 
   private
