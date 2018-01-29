@@ -83,12 +83,6 @@ class User < ApplicationRecord
     end
   end
 
-  module Role
-    USER = 0
-    CONF_ADMIN = 1
-    ADMIN = 2
-  end
-
   # Instance Methods
 
   def last_teammember_in_any_team?
@@ -155,14 +149,6 @@ class User < ApplicationRecord
 
   def root?
     username == 'root'
-  end
-
-  def ldap_user?
-    auth == 'ldap'
-  end
-
-  def non_admin?
-    role == Role::USER
   end
 
   def ldap_user?
