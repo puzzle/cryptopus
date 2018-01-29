@@ -4,7 +4,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    if user.non_admin?
+    if user.user?
       return admin_or_conf_admin?
     end
     current_user.admin?
@@ -23,7 +23,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update_role?
-    if user.non_admin?
+    if user.user?
       return admin_or_conf_admin?
     end
     current_user.admin?
@@ -35,7 +35,7 @@ class UserPolicy < ApplicationPolicy
     #     return current_user.admin? || current_user.conf_admin?
     #   end
     # else
-    if user.non_admin?
+    if user.user?
       return admin_or_conf_admin?
     end
     # end
@@ -44,7 +44,7 @@ class UserPolicy < ApplicationPolicy
 
   def resetpassword?
     unless user.ldap_user?
-      if user.non_admin?
+      if user.user?
         return admin_or_conf_admin?
       end
       current_user.admin?

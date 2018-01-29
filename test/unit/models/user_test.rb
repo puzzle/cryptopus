@@ -168,7 +168,7 @@ class UserTest < ActiveSupport::TestCase
       private_key = decrypt_private_key(admin)
 
       assert_raise RuntimeError do
-        admin.update_role(admin, User::Role::USER, private_key)
+        admin.update_role(admin, :user, private_key)
       end
 
       admin.reload
@@ -182,7 +182,7 @@ class UserTest < ActiveSupport::TestCase
       bob = users(:bob)
 
       assert_raise RuntimeError do
-        bob.update_role(conf_admin, User::Role::ADMIN, private_key)
+        bob.update_role(conf_admin, :admin, private_key)
       end
 
       assert_not bob.admin?
@@ -195,7 +195,7 @@ class UserTest < ActiveSupport::TestCase
       admin = users(:admin)
 
       assert_raise RuntimeError do
-        admin.update_role(conf_admin, User::Role::CONF_ADMIN, private_key)
+        admin.update_role(conf_admin, :conf_admin, private_key)
       end
 
       assert admin.admin?
@@ -207,7 +207,7 @@ class UserTest < ActiveSupport::TestCase
       private_key = decrypt_private_key(conf_admin)
       bob = users(:bob)
 
-      bob.update_role(conf_admin, User::Role::CONF_ADMIN, private_key)
+      bob.update_role(conf_admin, :conf_admin, private_key)
 
       assert bob.conf_admin?
     end
@@ -217,9 +217,9 @@ class UserTest < ActiveSupport::TestCase
       private_key = decrypt_private_key(conf_admin)
       bob = users(:bob)
 
-      bob.update_role(conf_admin, User::Role::CONF_ADMIN, private_key)
+      bob.update_role(conf_admin, :conf_admin, private_key)
 
-      bob.update_role(conf_admin, User::Role::USER, private_key)
+      bob.update_role(conf_admin, :user, private_key)
 
       assert_not bob.conf_admin?
     end
@@ -231,7 +231,7 @@ class UserTest < ActiveSupport::TestCase
       private_key = decrypt_private_key(alice)
 
       assert_raise RuntimeError do
-        bob.update_role(alice, User::Role::ADMIN, private_key)
+        bob.update_role(alice, :admin, private_key)
       end
 
       bob.reload
@@ -256,7 +256,7 @@ class UserTest < ActiveSupport::TestCase
 
    test 'root can not be disempowered' do
      root = users(:root)
-     root.update_attributes(role: User::Role::ADMIN)
+     root.update_attributes(role: :admin)
 
      assert_raise "root can not be disempowered" do
        root.send(:disempower)

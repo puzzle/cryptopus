@@ -46,14 +46,16 @@ class User < ApplicationRecord
   scope :locked, (-> { where(locked: true) })
   scope :unlocked, (-> { where(locked: false) })
 
-  scope :admins, (-> { where(role: Role::ADMIN) })
-  scope :conf_admins, (-> { where(role: Role::CONF_ADMIN) })
+  scope :admins, (-> { where(role: :admin) })
+  scope :conf_admins, (-> { where(role: :conf_admin) })
 
   scope :ldap, -> { where(auth: 'ldap') }
 
   default_scope { order('username') }
 
   before_destroy :protect_if_last_teammember
+
+  enum role: [:user, :conf_admin, :admin]
 
   class << self
 
@@ -71,7 +73,7 @@ class User < ApplicationRecord
                  givenname: 'root',
                  surname: '',
                  auth: 'db',
-                 role: Role::ADMIN,
+                 role: :admin,
                  password: CryptUtils.one_way_crypt(password))
       user.create_keypair(password)
       user.save!
@@ -80,12 +82,6 @@ class User < ApplicationRecord
     def root
       find_by(ldap_uid: 0)
     end
-  end
-
-  module Role
-    USER = 0
-    CONF_ADMIN = 1
-    ADMIN = 2
   end
 
   # Instance Methods
@@ -117,7 +113,7 @@ class User < ApplicationRecord
     was_admin = admin?
     update(role: role)
 
-    if role == Role::ADMIN
+    if admin?
       empower(actor, private_key)
     elsif was_admin
       disempower
@@ -156,18 +152,6 @@ class User < ApplicationRecord
 
   def root?
     username == 'root'
-  end
-
-  def admin?
-    role == Role::ADMIN
-  end
-
-  def conf_admin?
-    role == Role::CONF_ADMIN
-  end
-
-  def non_admin?
-    role == Role::USER
   end
 
   def ldap_user?
@@ -272,8 +256,9 @@ class User < ApplicationRecord
     end
   end
 
+  # completely move to policy !!!
   def can_user_set_user_role?(actor, role)
-    if self == actor || actor.role == Role::USER || actor.role < role || actor.role < self.role
+    if self == actor || actor.user? || actor.conf_admin? && role == :admin
       raise 'user is not allowed to empower/disempower this user'
     end
   end

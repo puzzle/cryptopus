@@ -9,7 +9,7 @@ Fabricator(:user) do
   username { Faker::Name.last_name.downcase }
   givenname { Faker::Name.first_name }
   surname 'test'
-  role User::Role::USER
+  role :user
   auth 'db'
   password '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8'
   before_save { |user| user.create_keypair('password') }
@@ -19,6 +19,6 @@ Fabricator(:admin, from: :user) do
   after_save do |user|
     actor = User.find_by(username: 'admin')
     private_key = actor.decrypt_private_key('password')
-    user.update_role(actor, User::Role::ADMIN, private_key)
+    user.update_role(actor, :admin, private_key)
   end
 end
