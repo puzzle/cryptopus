@@ -317,11 +317,9 @@ class UserPolicyTest < PolicyTest
     test 'list received contains only valid users' do
       users = Pundit.policy_scope!(admin, User)
 
-      users.each do |user|
-        unless user.ldap_uid
-          assert_not_equal user.ldap_uid, 0
-        end
-      end
+      ldap_uids = users.pluck(:ldap_uid)
+
+      refute_includes ldap_uids, 0
     end
 
     test 'user cannot read userlist' do
