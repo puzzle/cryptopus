@@ -5,22 +5,21 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Admin::RecryptrequestsController < Admin::AdminController
+class Admin::RecryptrequestsController < ApplicationController
 
   # GET /admin/recryptrequests
   def index
-    @recryptrequests = Recryptrequest.all
+    @recryptrequests = policy_scope Recryptrequest
   end
 
   # DELETE /admin/recryptrequest/1
   def destroy
     @recryptrequest = Recryptrequest.find_by(id: params[:id])
-    @user = @recryptrequest.user
-    @admin = User.find(session[:user_id])
+    authorize @recryptrequest
 
-    recrypt_passwords(@recryptrequest.user, @admin, session[:private_key]) do
+    recrypt_passwords(@recryptrequest.user, admin, session[:private_key]) do
       @recryptrequest.destroy
-      flash[:notice] = t('flashes.admin.recryptrequests.all', user_name: @user.username)
+      flash[:notice] = t('flashes.admin.recryptrequests.all', user_name: user.username)
     end
 
     redirect_to admin_recryptrequests_path
@@ -28,16 +27,15 @@ class Admin::RecryptrequestsController < Admin::AdminController
 
   # POST /admin/recryptrequests/resetpassword
   def resetpassword
-    @user = User.find(params[:user_id])
-    @admin = User.find(session[:user_id])
+    authorize user
 
-    if @user.ldap? || blank_password?
+    if user.ldap? || blank_password?
       return redirect_back(fallback_location: admin_recryptrequests_path)
     end
 
     encrypt_and_save_user
 
-    recrypt_passwords(@user, @admin, session[:private_key]) do
+    recrypt_passwords(@user, admin, session[:private_key]) do
       flash[:notice] = t('flashes.admin.recryptrequests.resetpassword.success')
     end
 
@@ -46,10 +44,18 @@ class Admin::RecryptrequestsController < Admin::AdminController
 
   private
 
+  def admin
+    current_user
+  end
+
+  def user
+    @user ||= User.find(params[:user_id])
+  end
+
   def encrypt_and_save_user
-    @user.password = CryptUtils.one_way_crypt(params[:new_password])
-    @user.create_keypair params[:new_password]
-    @user.save
+    user.password = CryptUtils.one_way_crypt(params[:new_password])
+    user.create_keypair params[:new_password]
+    user.save
   end
 
   def recrypt_passwords(user, admin, private_key)

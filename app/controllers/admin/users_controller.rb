@@ -5,9 +5,11 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Admin::UsersController < Admin::AdminController
+class Admin::UsersController < ApplicationController
 
   before_action :redirect_if_ldap_user, only: %i[edit update]
+  before_action :authorize_user_class, only: %i[index new create]
+  before_action :authorize_user, only: %i[update unlock]
 
   helper_method :toggle_admin
 
@@ -19,7 +21,7 @@ class Admin::UsersController < Admin::AdminController
       @soloteams = teams_to_delete(user_to_delete)
     end
 
-    @users = User.where('ldap_uid != 0 or ldap_uid is null')
+    @users = policy_scope(User)
 
     respond_to do |format|
       format.html
@@ -45,8 +47,6 @@ class Admin::UsersController < Admin::AdminController
 
   # POST /admin/users
   def create
-    password = params[:user][:password]
-
     @user = User.create_db_user(password, user_params)
 
     respond_to do |format|
@@ -70,13 +70,6 @@ class Admin::UsersController < Admin::AdminController
 
   private
 
-  def destroy_user
-    # admins cannot be removed from non-private teams
-    # so set admin to false first
-    user.update!(admin: false) if user.admin?
-    user.destroy!
-  end
-
   def redirect_if_ldap_user
     return unless user.ldap?
 
@@ -93,5 +86,17 @@ class Admin::UsersController < Admin::AdminController
 
   def user_params
     params.require(:user).permit(:username, :givenname, :surname, :password)
+  end
+
+  def password
+    params[:user][:password]
+  end
+
+  def authorize_user_class
+    authorize User
+  end
+
+  def authorize_user
+    authorize user
   end
 end

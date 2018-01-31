@@ -6,13 +6,11 @@
 #  https://github.com/puzzle/cryptopus.
 
 class TeamsController < ApplicationController
-  before_action :redirect_if_not_teammember_or_admin, except: %i[index new create]
-  before_action :redirect_if_not_allowed_to_delete_team, only: [:destroy]
-  helper_method :can_delete_team?, :team
+  helper_method :team
 
   # GET /teams
   def index
-    @teams = current_user.teams
+    @teams = policy_scope Team
 
     respond_to do |format|
       format.html # index.html.haml
@@ -22,6 +20,7 @@ class TeamsController < ApplicationController
   # GET /teams/new
   def new
     @team = Team.new
+    authorize @team
 
     respond_to do |format|
       format.html # new.html.haml
@@ -32,6 +31,7 @@ class TeamsController < ApplicationController
   def create
     respond_to do |format|
       team = Team.create(current_user, team_params)
+      authorize team
       if team.valid?
         flash[:notice] = t('flashes.teams.created')
         format.html { redirect_to(teams_url) }
@@ -43,12 +43,15 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
+    authorize team
     add_breadcrumb t('teams.title'), :teams_path
     add_breadcrumb team.label
   end
 
   # PUT /teams/1
   def update
+    authorize team
+    add_breadcrumb t('teams.title'), :teams_path
     respond_to do |format|
       if team.update_attributes(team_params)
         flash[:notice] = t('flashes.teams.updated')
@@ -61,6 +64,7 @@ class TeamsController < ApplicationController
 
   # DELETE /teams/1
   def destroy
+    authorize team
     team.destroy
     flash[:notice] = t('flashes.teams.deleted')
     redirect_to teams_path
@@ -72,23 +76,14 @@ class TeamsController < ApplicationController
     params.require(:team).permit(:name, :private, :description)
   end
 
-  def redirect_if_not_teammember_or_admin
-    return if team.teammember?(current_user.id) || current_user.admin?
-    flash[:error] = 'You are not member of this team'
-    redirect_to teams_path
-  end
-
-  def redirect_if_not_allowed_to_delete_team
-    return if can_delete_team?(team)
-    flash[:error] = t('flashes.teams.cannot_delete')
-    redirect_to teams_path
-  end
-
-  def can_delete_team?(_team)
-    current_user.admin?
-  end
-
   def team
     @team ||= Team.find(params[:id])
+  end
+
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+
+    flash[:error] = t "#{policy_name}.#{exception.query}", scope: 'pundit', default: :default
+    redirect_to teams_path
   end
 end

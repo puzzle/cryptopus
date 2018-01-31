@@ -9,6 +9,7 @@ class Api::Team::Group::AccountsController < ApiController
 
   def show
     account = Account.includes(group: [:team]).find(params['id'])
+    authorize account
     account.decrypt(plaintext_team_password(team))
     render_json account
   end

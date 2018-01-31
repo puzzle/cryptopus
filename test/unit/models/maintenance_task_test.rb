@@ -64,6 +64,7 @@ class MaintenanceTaskTest < ActiveSupport::TestCase
   end
 
   test 'list all maintenance tasks' do
+    enable_ldap
     list = MaintenanceTask.list
 
     assert_equal MaintenanceTasks::RootAsAdmin, list.first.class
