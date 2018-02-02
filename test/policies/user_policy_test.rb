@@ -112,7 +112,11 @@ class UserPolicyTest < PolicyTest
       end
 
       test 'admin can update an admins role' do
-        assert_permit admin, admin, :update_role?
+        assert_permit admin, admin2, :update_role?
+      end
+      
+      test 'admin cannot update himself' do
+        refute_permit admin, admin, :update_role?
       end
     end
 
@@ -121,18 +125,22 @@ class UserPolicyTest < PolicyTest
         assert_permit conf_admin, bob, :update_role?
       end
 
-      test 'conf_admin cannot update a conf admins role' do
-        refute_permit conf_admin, conf_admin, :update_role?
+      test 'conf_admin can update a conf admins role' do
+        assert_permit conf_admin, conf_admin2, :update_role?
       end
 
       test 'conf_admin cannot update an admins role' do
         refute_permit conf_admin, admin, :update_role?
       end
+      
+      test 'conf_admin cannot update himself' do
+        refute_permit conf_admin, conf_admin, :update_role?
+      end
     end
 
     context 'user' do
       test 'user cannot update a users role' do
-        refute_permit bob, bob, :update_role?
+        refute_permit bob, alice, :update_role?
       end
 
       test 'user cannot update a conf admins role' do
@@ -141,6 +149,10 @@ class UserPolicyTest < PolicyTest
 
       test 'user cannot update an admins role' do
         refute_permit bob, admin, :update_role?
+      end
+      
+      test 'user cannot update himself' do
+        refute_permit bob, bob, :update_role?
       end
     end
   end
@@ -325,5 +337,17 @@ class UserPolicyTest < PolicyTest
     test 'user cannot read userlist' do
       assert_nil Pundit.policy_scope!(bob, User)
     end
+  end
+
+  private
+
+  def conf_admin2
+    conf_admin2 = Fabricate(:admin)
+    conf_admin2.update_role(conf_admin2, 'conf_admin', conf_admin2.private_key)
+    conf_admin2
+  end
+
+  def admin2
+    Fabricate(:admin)
   end
 end

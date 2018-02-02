@@ -17,8 +17,8 @@ module Admin::UsersHelper
     end
   end
 
-  def role(role)
+  def role(userrole)
     roles = ['User', 'Conf Admin', 'Admin']
-    roles[role.to_i]
+    roles[User.roles[userrole]]
   end
 end

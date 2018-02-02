@@ -162,46 +162,6 @@ class UserTest < ActiveSupport::TestCase
   end
   
   context '#update_role' do
-  
-    test 'admin cannot disempower himself' do
-      admin = users(:admin)
-      private_key = decrypt_private_key(admin)
-
-      assert_raise RuntimeError do
-        admin.update_role(admin, :user, private_key)
-      end
-
-      admin.reload
-      assert admin.admin?
-      assert non_private_team.teammember?(admin.id)
-    end
-
-    test 'conf admin cannot upgrade another user to admin' do
-      conf_admin = users(:conf_admin)
-      private_key = decrypt_private_key(conf_admin)
-      bob = users(:bob)
-
-      assert_raise RuntimeError do
-        bob.update_role(conf_admin, :admin, private_key)
-      end
-
-      assert_not bob.admin?
-      assert_not non_private_team.teammember?(bob.id)
-    end
-    
-    test 'conf admin cannot downgrade an admin' do
-      conf_admin = users(:conf_admin)
-      private_key = decrypt_private_key(conf_admin)
-      admin = users(:admin)
-
-      assert_raise RuntimeError do
-        admin.update_role(conf_admin, :admin, private_key)
-      end
-
-      assert admin.admin?
-      assert non_private_team.teammember?(admin.id)
-    end
-
     test 'conf admin can upgrade another user to conf admin' do
       conf_admin = users(:conf_admin)
       private_key = decrypt_private_key(conf_admin)
@@ -222,36 +182,6 @@ class UserTest < ActiveSupport::TestCase
       bob.update_role(conf_admin, :user, private_key)
 
       assert_not bob.conf_admin?
-    end
-
-    test 'non admin user cannot empower/disempower someone else' do
-      private_team = Fabricate(:private_team)
-      bob = users(:bob)
-      alice = users(:alice)
-      private_key = decrypt_private_key(alice)
-
-      assert_raise RuntimeError do
-        bob.update_role(alice, :admin, private_key)
-      end
-
-      bob.reload
-      assert_not bob.admin?
-      assert_not private_team.teammember?(bob.id)
-    end
-
-    test 'bob cannot empower himself' do
-      private_team = Fabricate(:private_team)
-      bob = users(:bob)
-      private_key = decrypt_private_key(bob)
-
-      exception = assert_raises(Exception) do
-        bob.update_role(bob, :admin, private_key)
-      end
-      assert_equal 'user is not allowed to empower/disempower this user', exception.message
-
-      bob.reload
-      assert_not bob.admin?
-      assert_not private_team.teammember?(bob.id)
     end
 
    test 'root can not be disempowered' do

@@ -11,7 +11,7 @@
       .navbar-collapse.collapse
         %ul.nav.navbar-nav
           = nav_link t('teams.title'), teams_path
-          - if current_user.admin?
+          - if current_user.admin? || current_user.conf_admin?
             %li.dropdown
               <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown", role="button">
               %span=t('admin.title')
@@ -19,7 +19,8 @@
               </a>
               %ul.dropdown-menu
                 %li= nav_link t(:settings), admin_settings_path
-                %li= nav_link t(:recrypt_requests), admin_recryptrequests_path
+                - if current_user.admin?
+                  %li= nav_link t(:recrypt_requests), admin_recryptrequests_path
                 %li= nav_link t(:users), admin_users_path
                 %li= nav_link t(:maintenance_tasks), admin_maintenance_tasks_path
           - if current_user.auth_db?
