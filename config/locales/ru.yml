@@ -84,9 +84,6 @@ ru:
         maintenance_task: "Задачи обслуживания"
         run: "выполнить"
         logs: "Журналы"
-      new_root_password:
-        label: "Новый пароль для пользователя root"
-        description: "Устанавливает новый пароль для пользователя root."
       root_as_admin:
         label: "Назначить пользователя root администратором"
         description: "Назначает пользователя root администратором и удаляет роль root."
