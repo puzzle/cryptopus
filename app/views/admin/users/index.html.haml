@@ -28,13 +28,13 @@
         - if user != current_user
           .btn-group{id: user.id } 
             %button.btn.btn-default.dropdown-toggle{id: 'role-dropdown','data-toggle':'dropdown'}
-              = role(user.role)
+              = role_title(user.role)
               %b.caret
             %ul.dropdown-menu{'aria-labelledby':'dropdownMenuButton'}
-              %li.dropdown-item{val: 'user'}= role(:user)
-              %li.dropdown-item{val: 'conf_admin'}= role(:conf_admin)
+              %li.dropdown-item{val: 'user'}= role_title(:user)
+              %li.dropdown-item{val: 'conf_admin'}= role_title(:conf_admin)
               - if current_user.admin?
-                %li.dropdown-item{val: 'admin'}= role(:admin)
+                %li.dropdown-item{val: 'admin'}= role_title(:admin)
 
       %td.action_icon
         - if user.auth != 'ldap'

@@ -9,6 +9,7 @@ class Admin::RecryptrequestsController < ApplicationController
 
   # GET /admin/recryptrequests
   def index
+    authorize Recryptrequest
     @recryptrequests = policy_scope Recryptrequest
   end
 

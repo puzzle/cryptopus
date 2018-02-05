@@ -140,8 +140,10 @@ class ApplicationController < ActionController::Base
     @team ||= Team.find(params[:team_id])
   end
 
-  def user_not_authorized
-    flash[:error] = t('flashes.admin.admin.no_access')
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+
+    flash[:error] = t "#{policy_name}.#{exception.query}", scope: 'pundit', default: :default
     redirect_to teams_path
   end
 end
