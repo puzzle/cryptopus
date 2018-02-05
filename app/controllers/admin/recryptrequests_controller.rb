@@ -17,9 +17,8 @@ class Admin::RecryptrequestsController < ApplicationController
     @recryptrequest = Recryptrequest.find_by(id: params[:id])
     authorize @recryptrequest
     @user = @recryptrequest.user
-    @admin = User.find(session[:user_id])
 
-    recrypt_passwords(@recryptrequest.user, @admin, session[:private_key]) do
+    recrypt_passwords(@recryptrequest.user, current_user, session[:private_key]) do
       @recryptrequest.destroy
       flash[:notice] = t('flashes.admin.recryptrequests.all', user_name: @user.username)
     end
@@ -37,7 +36,7 @@ class Admin::RecryptrequestsController < ApplicationController
 
     encrypt_and_save_user
 
-    recrypt_passwords(@user, @admin, session[:private_key]) do
+    recrypt_passwords(@user, current_user, session[:private_key]) do
       flash[:notice] = t('flashes.admin.recryptrequests.resetpassword.success')
     end
 
@@ -45,12 +44,6 @@ class Admin::RecryptrequestsController < ApplicationController
   end
 
   private
-
-  def authorize_and_set_user_and_admin
-    @user = User.find(params[:user_id])
-    authorize @user
-    @admin = User.find(session[:user_id])
-  end
 
   def encrypt_and_save_user
     @user.password = CryptUtils.one_way_crypt(params[:new_password])

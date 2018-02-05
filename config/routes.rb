@@ -73,7 +73,9 @@ Rails.application.routes.draw do
     end
     scope '/admin', module: 'admin' do
       resources :users, only: :destroy do
-        patch :update_role, to: '/api/admin/users#update_role'
+        member do
+          patch :update_role, to: 'users/role#update'
+        end
       end
     end
 

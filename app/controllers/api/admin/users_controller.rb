@@ -7,17 +7,6 @@
 
 class Api::Admin::UsersController < Api::Admin::AdminController
   
-  def update_role
-    user = User.find(params[:user_id])
-    authorize user
-    role = params[:role]
-    return add_error(t('flashes.api.admin.users.no_access')) if update_role_not_allowed(role)
-    user.update_role(current_user, role, session[:private_key])
-
-    add_info(t("flashes.api.admin.users.update.#{role}", username: user.username))
-    render_json ''
-  end
-
   # DELETE /api/admin/users/1
   def destroy
     authorize user
