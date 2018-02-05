@@ -21,5 +21,4 @@ class Api::Admin::Users::RoleController < Api::Admin::AdminController
     end
     roles.map(&:to_s).include?(role)
   end
-
 end

@@ -129,6 +129,10 @@ en:
         destroy: Destroy User
       new:
         title: New user
+    user_roles:
+      user: User
+      conf_admin: Conf Admin
+      admin: Admin
 
   groups:
     title: Groups

@@ -1,3 +1,5 @@
+-# encoding: utf-8
+
 -#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 -#  Cryptopus and licensed under the Affero General Public License version 3 or later.
 -#  See the COPYING file at the top-level directory or at
@@ -26,16 +28,7 @@
 
       %td
         - if user != current_user
-          .btn-group{id: user.id } 
-            %button.btn.btn-default.dropdown-toggle{id: 'role-dropdown','data-toggle':'dropdown'}
-              = role_title(user.role)
-              %b.caret
-            %ul.dropdown-menu{'aria-labelledby':'dropdownMenuButton'}
-              %li.dropdown-item{val: 'user'}= role_title(:user)
-              %li.dropdown-item{val: 'conf_admin'}= role_title(:conf_admin)
-              - if current_user.admin?
-                %li.dropdown-item{val: 'admin'}= role_title(:admin)
-
+          = Admin::UserRole::Dropdown.new(current_user).render
       %td.action_icon
         - if user.auth != 'ldap'
           = link_to image_tag("edit.svg"), edit_admin_user_path(user)
