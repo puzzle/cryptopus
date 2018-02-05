@@ -41,7 +41,7 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
 
         bob.reload
         assert_equal true, bob.admin?
-        assert_equal true, bob.teammembers.find_by(team_id: teams(:team1))
+        assert bob.teammembers.find_by(team_id: teams(:team1))
       end
       
       test 'admin updates conf_admin to admin' do
@@ -53,7 +53,7 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
 
         conf_admin.reload
         assert_equal true, conf_admin.admin?
-        assert_equal true, conf_admin.teammembers.find_by(team_id: teams(:team1))
+        assert conf_admin.teammembers.find_by(team_id: teams(:team1))
       end
 
       test 'admin updates admin to conf_admin' do
@@ -101,7 +101,7 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
 
         admin.reload
         assert_equal true, admin.admin?
-        assert_equal true, admin.teammembers.find_by(team_id: teams(:team1))
+        assert admin.teammembers.find_by(team_id: teams(:team1))
       end
     end
     
@@ -123,11 +123,9 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
         bob = users(:bob)
 
         login_as(:tux)
-        patch :update, params: { id: bob, role: :admin }, xhr: true
-
-        bob.reload
-        assert_equal true, bob.user?
-        assert_not bob.teammembers.find_by(team_id: teams(:team1))
+        assert_raises ArgumentError do
+          patch :update, params: { id: bob, role: :admin }, xhr: true
+        end
       end
       
       test 'conf admin updates conf admin to user' do
@@ -147,11 +145,9 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
         conf_admin2 = Fabricate(:conf_admin) 
 
         login_as(:tux)
-        patch :update, params: { id: conf_admin2, role: :admin }, xhr: true
-
-        conf_admin2.reload
-        assert_equal true, conf_admin2.conf_admin?
-        assert_not conf_admin2.teammembers.find_by(team_id: teams(:team1))
+        assert_raises ArgumentError do
+          patch :update, params: { id: conf_admin2, role: :admin }, xhr: true
+        end
       end
       
       test 'conf admin cannot update admin to conf admin' do
@@ -163,7 +159,7 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
 
         admin.reload
         assert_equal true, admin.admin?
-        assert_equal true, admin.teammembers.find_by(team_id: teams(:team1))
+        assert admin.teammembers.find_by(team_id: teams(:team1))
       end
       
       test 'conf admin cannot update admin to user' do
@@ -175,7 +171,7 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
 
         admin.reload
         assert_equal true, admin.admin?
-        assert_equal true, admin.teammembers.find_by(team_id: teams(:team1))
+        assert admin.teammembers.find_by(team_id: teams(:team1))
       end
       
       test 'conf admin cannot update himself' do
@@ -201,7 +197,7 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
 
         admin.reload
         assert_equal true, admin.admin?
-        assert_equal true, admin.teammembers.find_by(team_id: teams(:team1))
+        assert admin.teammembers.find_by(team_id: teams(:team1))
       end
 
       test 'user cannot update admin to user' do
@@ -272,7 +268,7 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
         patch :update, params: { id: bob, role: :conf_admin }, xhr: true
 
         bob.reload
-        assert bob.user?
+        assert_equal true, bob.user?
         assert_not bob.teammembers.find_by(team_id: teams(:team1))
       end
     end
