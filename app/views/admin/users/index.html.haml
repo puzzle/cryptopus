@@ -27,8 +27,7 @@
       %td= user.ldap_uid.to_s
 
       %td
-        - if user != current_user
-          = Admin::UserRole::Dropdown.new(current_user).render
+        = Admin::UserRole::Dropdown.new(user, current_user).render
       %td.action_icon
         - if user.auth != 'ldap'
           = link_to image_tag("edit.svg"), edit_admin_user_path(user)

@@ -30,7 +30,7 @@ class TeamDependantPolicy < ApplicationPolicy
   protected
 
   def team
-    raise 'missing method'
+    raise 'implement in subclass'
   end
 
   class TeamDependantScope < Scope

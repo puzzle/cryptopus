@@ -17,11 +17,12 @@ class app.UpdateRole
     })
 
   bind = ->
-    $(document).on 'click', '.dropdown-item', ->
-      user_id = $(this).parents('.btn-group').attr('id')
+    $(document).on 'click', '.dropdown-item', (e) ->
+      e.preventDefault()
+      user_id = $(this).parents('.dropdown').attr('id')
       user_role = $(this).closest('li').attr('val')
       url = '/api/admin/users/' + user_id + '/update_role'
-      $(this).parents('.btn-group').find('.dropdown-toggle').text($(this).text())
       update_role(url, user_role)
+      $(this).parents('.dropdown').find('.dropdown-toggle span:first').text($(this).text())
 
   new UpdateRole
