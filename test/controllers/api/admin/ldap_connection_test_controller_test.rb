@@ -15,7 +15,6 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
     login_as(:admin)
 
     Net::LDAP.any_instance.expects(:bind).returns(true)
-
     get :new
 
     info = JSON.parse(response.body)['messages']['info']
@@ -26,6 +25,7 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
   test 'connection to ldap server fails' do
     login_as(:admin)
 
+    Net::LDAP.any_instance.expects(:bind).returns(false)
     get :new
 
     errors = JSON.parse(response.body)['messages']['errors']
@@ -44,5 +44,9 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
     errors = JSON.parse(response.body)['messages']['errors']
 
     assert_includes(errors, 'No hostname present')
+  end
+
+  test 'ldap disabled' do
+    
   end
 end

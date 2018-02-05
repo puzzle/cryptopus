@@ -12,6 +12,16 @@ class LdapConnection
   MANDATORY_LDAP_SETTING_KEYS = %i[hostname portnumber basename].freeze
   LDAP_SETTING_KEYS = (MANDATORY_LDAP_SETTING_KEYS + %i[bind_dn bind_password]).freeze
 
+  def self.connect
+    hostlist = Setting.value(:ldap, 'hostname')
+
+    hostlist.each do |hostname|
+      connection = LdapConnection.new
+      connection.test_connection(hostname) ? success << hostname : failed << hostname
+    end
+    [success, failed]
+  end
+
   def initialize
     collect_settings
     assert_setting_values
