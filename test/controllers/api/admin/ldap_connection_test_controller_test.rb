@@ -13,6 +13,9 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
 
   test 'connection to ldap server success' do
     login_as(:admin)
+    enable_ldap
+
+    Setting.find_by(key: 'ldap_enable').expects(:value).returns(true)
 
     Net::LDAP.any_instance.expects(:bind).returns(true)
     get :new
@@ -24,6 +27,9 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
 
   test 'connection to ldap server fails' do
     login_as(:admin)
+    enable_ldap
+
+    Setting.find_by(key: 'ldap_enable').expects(:value).returns(true)
 
     Net::LDAP.any_instance.expects(:bind).returns(false)
     get :new
@@ -35,6 +41,9 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
 
   test 'no hostname is present' do
     login_as(:admin)
+    enable_ldap
+
+    Setting.find_by(key: 'ldap_enable').expects(:value).returns(true)
 
     Api::Admin::LdapConnectionTestController.any_instance.expects(:hostlist)
            .returns([])
@@ -47,6 +56,21 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
   end
 
   test 'ldap disabled' do
-    
+    login_as(:admin)
+    disable_ldap
+
+    get :new
+  end
+
+  private
+
+  def enable_ldap
+    ldap = Setting.find_by(key: 'ldap_enable')
+    ldap.update(value: true)
+  end
+
+  def disable_ldap
+    ldap = Setting.find_by(key: 'ldap_enable')
+    ldap.update(value: false)
   end
 end
