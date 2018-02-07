@@ -13,7 +13,7 @@ class Api::Admin::AdminController < ApiController
   def check_for_admin
     user = User.find(session[:user_id])
 
-    unless user.admin?
+    unless user.admin? || user.conf_admin?
       add_error(t('flashes.api.admin.users.no_access'))
       @response_status = 403
       render_json

@@ -19,9 +19,10 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
 
     candidates = JSON.parse(response.body)['data']['users']
 
-    assert_equal 2, candidates.size
+    assert_equal 3, candidates.size
     assert candidates.any? {|c| c['label'] == 'Alice test' }, 'Alice should be candidate'
     assert candidates.any? {|c| c['label'] == 'Bob test' }, 'Bob should be candidate'
+    assert candidates.any? {|c| c['label'] == 'Tux Miller' }, 'Configuration should be candidate'
   end
 
   test 'returns team members for given team' do

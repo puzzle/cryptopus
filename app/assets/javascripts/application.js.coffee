@@ -24,9 +24,4 @@
 # scope for global functions
 app = window.App ||= {}
 
-Turbolinks.enableProgressBar()
 @flash_messages = []
-# Password hidden
-# $ ->
-#   $( ".select-click" ).on 'click', (e) ->
-#     e.target.select()

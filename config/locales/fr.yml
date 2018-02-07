@@ -126,6 +126,10 @@ fr:
         destroy: supprimer l'utilisateur
       new:
         title: Nouvel utilisateur
+    user_roles:
+      user: Utilisateur
+      conf_admin: Conf Admin
+      admin: Admin
 
   groups:
     title: Groupes

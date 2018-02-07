@@ -13,31 +13,35 @@ class UserSeeder
       u.username = 'root'
       u.givenname = 'root'
       u.auth = 'db'
-      u.admin = true
+      u.role = :admin
       u.password = CryptUtils.one_way_crypt('password')
       create_keypair(u)
     end
   end
 
-  def seed_users(usernames, admin = false)
+  def seed_users(usernames, role = :user)
     usernames.each do |username|
-      seed_user(username, admin)
+      seed_user(username, role)
     end
   end
 
+  def seed_conf_admins(usernames)
+    seed_users(usernames, :conf_admin)
+  end
+
   def seed_admins(usernames)
-    seed_users(usernames, true)
+    seed_users(usernames, :admin)
   end
 
   private
-  def seed_user(username, admin = false)
+  def seed_user(username, role = :user)
     User.seed_once(:username) do |u|
       u.username = username.to_s
       u.givenname = username.to_s.capitalize
       u.surname = Faker::Name.last_name
       u.auth = 'db'
       u.password = CryptUtils.one_way_crypt('password')
-      u.admin = admin
+      u.role = role
       create_keypair(u)
     end
   end

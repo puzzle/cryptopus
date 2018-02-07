@@ -40,4 +40,11 @@ class ApiController < ApplicationController
   def success_or_error
     messages[:errors].present? ? :internal_server_error : nil
   end
+
+  protected
+
+  def user_not_authorized(_exception)
+    add_error t('flashes.admin.admin.no_access')
+    render_json && return
+  end
 end

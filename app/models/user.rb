@@ -8,7 +8,6 @@
 #  public_key                   :text             not null
 #  private_key                  :binary           not null
 #  password                     :binary
-#  admin                        :boolean          default(FALSE), not null
 #  ldap_uid                     :integer
 #  last_login_at                :datetime
 #  username                     :string
@@ -20,6 +19,7 @@
 #  last_failed_login_attempt_at :datetime
 #  failed_login_attempts        :integer          default(0), not null
 #  last_login_from              :string
+#  role                         :integer          default(0), not null
 #
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
@@ -46,13 +46,15 @@ class User < ApplicationRecord
   scope :locked, (-> { where(locked: true) })
   scope :unlocked, (-> { where(locked: false) })
 
-  scope :admins, (-> { where(admin: true) })
+  scope :admins, (-> { where(role: :admin) })
 
   scope :ldap, -> { where(auth: 'ldap') }
 
   default_scope { order('username') }
 
   before_destroy :protect_if_last_teammember
+
+  enum role: %i[user conf_admin admin]
 
   class << self
 
@@ -70,7 +72,7 @@ class User < ApplicationRecord
                  givenname: 'root',
                  surname: '',
                  auth: 'db',
-                 admin: true,
+                 role: :admin,
                  password: CryptUtils.one_way_crypt(password))
       user.create_keypair(password)
       user.save!
@@ -104,13 +106,15 @@ class User < ApplicationRecord
     update_attribute(:last_login_from, last_login_ip)
   end
 
-  def toggle_admin(actor, private_key)
-    if self == actor || !actor.admin?
-      raise 'user is not allowed to empower/disempower this user'
-    end
+  def update_role(actor, role, private_key)
+    was_admin = admin?
+    update!(role: role)
 
-    update(admin: !admin?)
-    admin? ? empower(actor, private_key) : disempower
+    if admin?
+      empower(actor, private_key)
+    elsif was_admin
+      disempower
+    end
   end
 
   def create_keypair(password)
@@ -145,6 +149,10 @@ class User < ApplicationRecord
 
   def root?
     username == 'root'
+  end
+
+  def ldap_user?
+    auth == 'ldap'
   end
 
   def auth_db?
@@ -244,5 +252,4 @@ class User < ApplicationRecord
       end
     end
   end
-
 end

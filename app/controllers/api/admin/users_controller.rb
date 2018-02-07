@@ -7,17 +7,9 @@
 
 class Api::Admin::UsersController < Api::Admin::AdminController
 
-  def toggle_admin
-    user = User.find(params[:user_id])
-    user.toggle_admin(current_user, session[:private_key])
-
-    toggle_way = user.admin? ? 'empowered' : 'disempowered'
-    add_info(t("flashes.api.admin.users.toggle.#{toggle_way}", username: user.username))
-    render_json ''
-  end
-
   # DELETE /api/admin/users/1
   def destroy
+    authorize user
     if user == current_user
       add_error(t('flashes.api.admin.users.destroy.own_user'))
     else
@@ -36,8 +28,7 @@ class Api::Admin::UsersController < Api::Admin::AdminController
   def destroy_user
     # admins cannot be removed from non-private teams
     # so set admin to false first
-    user.update!(admin: false) if user.admin?
+    user.update!(role: :user) if user.admin?
     user.destroy!
   end
-
 end

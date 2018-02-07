@@ -5,11 +5,13 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Admin::UsersController < Admin::AdminController
+class Admin::UsersController < ApplicationController
 
   before_action :redirect_if_ldap_user, only: %i[edit update]
+  before_action :authorize_user_class, only: %i[index new create]
+  before_action :authorize_user, only: %i[update unlock]
 
-  helper_method :toggle_admin
+  helper_method :update_role
 
   # GET /admin/users
   def index
@@ -19,7 +21,7 @@ class Admin::UsersController < Admin::AdminController
       @soloteams = teams_to_delete(user_to_delete)
     end
 
-    @users = User.where('ldap_uid != 0 or ldap_uid is null')
+    @users = policy_scope(User)
 
     respond_to do |format|
       format.html
@@ -28,7 +30,7 @@ class Admin::UsersController < Admin::AdminController
 
   # PUT /admin/users/1
   def update
-    user.update_attributes(user_params)
+    user.update_attributes(permitted_attributes(user))
 
     respond_to do |format|
       format.html { redirect_to admin_users_path }
@@ -45,9 +47,7 @@ class Admin::UsersController < Admin::AdminController
 
   # POST /admin/users
   def create
-    password = params[:user][:password]
-
-    @user = User.create_db_user(password, user_params)
+    @user = User.create_db_user(password, permitted_attributes(User))
 
     respond_to do |format|
       if @user.save
@@ -73,7 +73,7 @@ class Admin::UsersController < Admin::AdminController
   def destroy_user
     # admins cannot be removed from non-private teams
     # so set admin to false first
-    user.update!(admin: false) if user.admin?
+    user.update!(role: :user) if user.admin?
     user.destroy!
   end
 
@@ -91,7 +91,15 @@ class Admin::UsersController < Admin::AdminController
     @user ||= User.find(params[:id])
   end
 
-  def user_params
-    params.require(:user).permit(:username, :givenname, :surname, :password)
+  def password
+    params[:user][:password]
+  end
+
+  def authorize_user_class
+    authorize User
+  end
+
+  def authorize_user
+    authorize user
   end
 end

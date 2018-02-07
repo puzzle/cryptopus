@@ -45,7 +45,7 @@ class RootAsAdminTest < ActiveSupport::TestCase
     admin_private_key = CryptUtils.decrypt_private_key(admin.private_key, 'password')
 
     bob = users(:bob)
-    bob.update_attributes(admin: true)
+    bob.update_attributes(role: :admin)
     teammembers(:team1_admin).destroy
 
     params = {}
@@ -64,7 +64,7 @@ class RootAsAdminTest < ActiveSupport::TestCase
     assert_equal true, teams(:team1).teammember?(bob)
     assert_not teams(:team2).teammember?(admin)
     assert_not teams(:team2).teammember?(users(:root))
-    assert User.root.admin
+    assert_equal true, User.root.admin?
   end
 
   private

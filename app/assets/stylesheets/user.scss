@@ -1,41 +1,54 @@
-#last_teammember_teams{
-  position:fixed;
-  top:0;
-  left:0;
-  background:rgba(0,0,0,0.6);
-  z-index:5;
-  width:100%;
-  height:100%;
+#last_teammember_teams {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 5;
+  width: 100%;
+  height: 100%;
   display: none;
 }
 
-#teamscreen{
-  width:600px;
+#teamscreen {
+  width: 600px;
   margin: 10% auto;
   padding: 10px 10px 70px 10px;
   background: white;
-  position:relative;
-  z-index:10;
-  border:5px solid #cccccc;
-  border-radius:10px;
+  position: relative;
+  z-index: 10;
+  border: 5px solid #cccccc;
+  border-radius: 10px;
 }
 
-#teamscreen_content{
+#teamscreen_content {
   max-height: 400px;
   overflow: auto;
 }
 
-#teamscreen_buttons{
+#teamscreen_buttons {
   margin-top: 10px;
-  border-top: 1px solid #cccccc;;
+  border-top: 1px solid #cccccc;
 }
 
 #last_teammember_teams_cancel_button,
-#delete_user_button{
-  margin: 15px 0 0 5px;;
+#delete_user_button {
+  margin: 15px 0 0 5px;
 }
 
 .last_teammember_teams_table,
-.delete_user_warning_message{
+.delete_user_warning_message {
   display: none;
+}
+
+#role-dropdown {
+  width: 111px;
+}
+
+.dropdown-item {
+  padding: 5px;
+  border: 1px black;
+}
+
+.dropdown-item:hover {
+  background: lightgrey;
 }

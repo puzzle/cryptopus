@@ -5,17 +5,19 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Admin::MaintenanceTasksController < Admin::AdminController
+class Admin::MaintenanceTasksController < ApplicationController
 
   # GET /admin/maintenance_tasks
   def index
-    @maintenance_tasks = MaintenanceTask.list
+    authorize MaintenanceTask
+    @maintenance_tasks = policy_scope(MaintenanceTask)
     @maintenance_logs = Log.where(log_type: 'maintenance_task')
   end
 
   # GET /admin/maintenance_tasks/1/prepare
   def prepare
     raise routing_error unless maintenance_task.prepare?
+    authorize maintenance_task
 
     flash[:notice] = maintenance_task.hint
     flash[:error] = maintenance_task.error
@@ -24,6 +26,7 @@ class Admin::MaintenanceTasksController < Admin::AdminController
   # POST /admin/maintenance_tasks/1/execute
   def execute
     raise routing_error unless maintenance_task
+    authorize maintenance_task
 
     set_task_attributes
 

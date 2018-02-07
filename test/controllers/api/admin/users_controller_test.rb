@@ -11,63 +11,39 @@ class Api::Admin::UsersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
-  test 'admin empowers user' do
-    teammembers(:team1_bob).destroy
-    bob = users(:bob)
-
-    login_as(:admin)
-    patch :toggle_admin, params: { user_id: bob }, xhr: true
-
-    bob.reload
-    assert bob.admin?
-    assert bob.teammembers.find_by(team_id: teams(:team1))
-  end
-
-  test 'admin disempowers user' do
-    teammembers(:team1_bob).destroy
-    bob = users(:bob)
-
-    login_as(:admin)
-    patch :toggle_admin, params: { user_id: bob }, xhr: true
-    bob.reload
-    patch :toggle_admin, params: { user_id: bob }, xhr: true
-    bob.reload
-
-    assert_not bob.admin?
-    assert_not bob.teammembers.find_by(team_id: teams(:team1))
-  end
+  context '#destroy' do
+    test 'logged-in admin user cannot delete own user' do
+      bob = users(:bob)
+      bob.update_attribute(:role, 2)
+      login_as(:bob)
   
-  test 'logged-in admin user cannot delete own user' do
-    bob = users(:bob)
-    bob.update_attribute(:admin, true)
-    login_as(:bob)
-
-    delete :destroy, params: { id: bob.id }
-
-    assert bob.reload.persisted?
-    assert_includes(errors, 'You can\'t delete your-self')
-  end
-
-  test 'non admin cannot delete another user' do
-    alice = users(:alice)
-    login_as(:bob)
-
-    delete :destroy, params: { id: alice.id }
-
-    assert alice.reload.persisted?
-    assert_includes(errors, 'Access denied')
-    assert_equal 403, status_code
-  end
-
-  test 'admin can delete another user' do
-    bob = users(:bob)
-    alice = users(:alice)
-    bob.update_attribute(:admin, true)
-    login_as(:bob)
-
-    delete :destroy, params: { id: alice.id }
-
-    assert_not User.find_by(username: 'alice')
+      delete :destroy, params: { id: bob.id }
+  
+      assert_equal true, bob.reload.persisted?
+      assert_includes(errors, 'You can\'t delete your-self')
+    end
+  
+    test 'non admin cannot delete another user' do
+      alice = users(:alice)
+      login_as(:bob)
+  
+      delete :destroy, params: { id: alice.id }
+  
+      assert_equal true, alice.reload.persisted?
+      assert_includes(errors, 'Access denied')
+      assert_equal 403, status_code
+    end
+  
+    test 'admin can delete another user' do
+      bob = users(:bob)
+      alice = users(:alice)
+      bob.update_attribute(:role, :admin)
+      login_as(:bob)
+  
+      delete :destroy, params: { id: alice.id }
+  
+      assert_not User.find_by(username: 'alice')
+    end
   end
 
   private
