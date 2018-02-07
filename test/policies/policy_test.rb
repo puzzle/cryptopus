@@ -30,7 +30,7 @@ class PolicyTest < ActiveSupport::TestCase
   end
 
   def ldap_user
-    ldap_user = users(:bob)
+    ldap_user = Fabricate(:user)
     ldap_user.auth = 'ldap'
     ldap_user
   end

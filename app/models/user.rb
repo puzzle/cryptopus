@@ -108,7 +108,7 @@ class User < ApplicationRecord
 
   def update_role(actor, role, private_key)
     was_admin = admin?
-    update(role: role)
+    update!(role: role)
 
     if admin?
       empower(actor, private_key)

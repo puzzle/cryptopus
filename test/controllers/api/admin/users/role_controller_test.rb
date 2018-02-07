@@ -41,7 +41,7 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
 
         bob.reload
         assert_equal true, bob.admin?
-        assert bob.teammembers.find_by(team_id: teams(:team1))
+        assert_equal true, teams(:team1).teammember?(bob)
       end
       
       test 'admin updates conf_admin to admin' do
@@ -53,7 +53,7 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
 
         conf_admin.reload
         assert_equal true, conf_admin.admin?
-        assert conf_admin.teammembers.find_by(team_id: teams(:team1))
+        assert_equal true, teams(:team1).teammember?(conf_admin)
       end
 
       test 'admin updates admin to conf_admin' do
@@ -65,7 +65,7 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
 
         admin2.reload
         assert_equal true, admin2.conf_admin?
-        assert_not admin2.teammembers.find_by(team_id: teams(:team1))
+        assert_equal false, teams(:team1).teammember?(admin2)
       end
       
       test 'admin updates admin to user' do
@@ -77,7 +77,7 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
 
         admin2.reload
         assert_equal true, admin2.user?
-        assert_not admin2.teammembers.find_by(team_id: teams(:team1))
+        assert_equal false, teams(:team1).teammember?(admin2)
       end
       
       test 'admin updates conf_admin to user' do
@@ -89,7 +89,7 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
 
         conf_admin.reload
         assert_equal true, conf_admin.user?
-        assert_not conf_admin.teammembers.find_by(team_id: teams(:team1))
+        assert_equal false, teams(:team1).teammember?(conf_admin)
       end
       
       test 'admin cannot update himself' do
@@ -101,7 +101,7 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
 
         admin.reload
         assert_equal true, admin.admin?
-        assert admin.teammembers.find_by(team_id: teams(:team1))
+        assert_equal true, teams(:team1).teammember?(admin)
       end
     end
     

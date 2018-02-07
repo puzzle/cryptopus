@@ -68,14 +68,11 @@ class TeamPolicyTest < PolicyTest
     end
 
     test 'user can see all and only the teams he is a part of' do
-      teams = TeamPolicy::Scope.new(bob, Team).resolve
-      bob.teams.each do |t|
-        assert_equal true, teams.include?(t)
-      end
+      team1.teammembers.find_by(user_id: bob.id).destroy!
+      bobs_teams = TeamPolicy::Scope.new(bob, Team).resolve
 
-      teams.each do |t|
-        assert_equal true, bob.teams.include?(t)
-      end
+      assert_equal 1, bobs_teams.count
+      assert_equal bob.teams, bobs_teams
     end
   end
   

@@ -169,7 +169,7 @@ class UserTest < ActiveSupport::TestCase
 
       bob.update_role(conf_admin, :conf_admin, private_key)
 
-      assert bob.conf_admin?
+      assert_equal true, bob.conf_admin?
     end
 
     test 'conf admin can downgrade another conf admin to user' do

@@ -303,7 +303,8 @@ class UserPolicyTest < PolicyTest
 
   def conf_admin2
     conf_admin2 = Fabricate(:admin)
-    conf_admin2.update_role(conf_admin2, 'conf_admin', conf_admin2.private_key)
+    admin2_pk = admin2.decrypt_private_key('password')
+    conf_admin2.update_role(conf_admin2, :conf_admin, admin2_pk)
     conf_admin2
   end
 
