@@ -37,21 +37,11 @@ class TeamPolicy < TeamDependantPolicy
     @record
   end
 
-  private
-
-  def current_user
-    @user
-  end
-
-  def team
-    @record
-  end
-
   class Scope < TeamDependantScope
     def resolve
-      @current_user.teams
+      @user.teams
     end
-    
+
     def resolve_members
       @scope.teammembers.list if team_member?
     end

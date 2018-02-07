@@ -2,7 +2,7 @@ class AccountPolicy < TeamDependantPolicy
   def create_item?
     team_member?
   end
-  
+
   def move?
     team_member?
   end

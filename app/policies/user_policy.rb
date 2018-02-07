@@ -82,7 +82,7 @@ class UserPolicy < ApplicationPolicy
   def ldap_connection
     LdapConnection.new
   end
-  
+
   class Scope < Scope
     def resolve
       if @user.admin? || @user.conf_admin?

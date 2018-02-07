@@ -63,20 +63,18 @@ class TeamPolicyTest < PolicyTest
   context '#scope' do
     test 'admin sees all non-private teams' do
       teams = TeamPolicy::Scope.new(admin, Team).resolve
-      Team.all.each do |t|
-        unless t.private? do assert teams.include?(t); end
-        end
-      end   
+
+      assert_equal Team.where(private: false), teams
     end
 
     test 'user can see all and only the teams he is a part of' do
       teams = TeamPolicy::Scope.new(bob, Team).resolve
       bob.teams.each do |t|
-        assert teams.include?(t)
+        assert_equal true, teams.include?(t)
       end
 
       teams.each do |t|
-        assert bob.teams.include?(t)
+        assert_equal true, bob.teams.include?(t)
       end
     end
   end
@@ -116,8 +114,6 @@ class TeamPolicyTest < PolicyTest
   end
 
   def private_team
-    team = teams(:team2)
-    team.private = true
-    team
+    Fabricate(:private_team)
   end
 end
