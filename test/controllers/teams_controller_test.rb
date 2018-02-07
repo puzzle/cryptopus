@@ -56,7 +56,7 @@ class TeamsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to teams_path
-    assert_match /not member/, flash[:error]
+    assert_match /Only admin/, flash[:error]
   end
 
   test "Admin can delete team if not in team" do

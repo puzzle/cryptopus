@@ -13,6 +13,7 @@ require 'rails/test_help'
 require "minitest/autorun"
 require 'mocha/mini_test'
 require "minitest/rails/capybara"
+require 'policies/policy_test'
 
 ActiveRecord::Migration.maintain_test_schema!
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010071016) do
+ActiveRecord::Schema.define(version: 20180122132626) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "accountname", limit: 70, default: "", null: false
@@ -77,11 +77,10 @@ ActiveRecord::Schema.define(version: 20171010071016) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.text     "public_key",                                   null: false
-    t.binary   "private_key",                                  null: false
-    t.binary   "password"
-    t.boolean  "admin",                        default: false, null: false
-    t.integer  "ldap_uid"
+    t.text "public_key", null: false
+    t.binary "private_key", null: false
+    t.binary "password"
+    t.integer "ldap_uid"
     t.datetime "last_login_at"
     t.string "username"
     t.string "givenname"
@@ -92,6 +91,7 @@ ActiveRecord::Schema.define(version: 20171010071016) do
     t.datetime "last_failed_login_attempt_at"
     t.integer "failed_login_attempts", default: 0, null: false
     t.string "last_login_from"
+    t.integer "role", default: 0, null: false
   end
 
 end

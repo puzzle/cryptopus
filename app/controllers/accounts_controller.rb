@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -13,7 +11,7 @@ class AccountsController < ApplicationController
   def index
     accounts_breadcrumbs
 
-    @accounts = @group.accounts.all
+    @accounts = AccountPolicy::Scope.new(current_user, @group).resolve
 
     respond_to do |format|
       format.html # index.html.haml
@@ -23,6 +21,7 @@ class AccountsController < ApplicationController
   # GET /teams/1/groups/1/accounts/1
   def show
     @account = Account.find(params[:id])
+    authorize @account
     @items = @account.items.load
 
     accounts_breadcrumbs
@@ -37,6 +36,7 @@ class AccountsController < ApplicationController
   # GET /teams/1/groups/1/accounts/new
   def new
     @account = @group.accounts.new
+    authorize @account
 
     respond_to do |format|
       format.html # new.html.haml
@@ -46,22 +46,20 @@ class AccountsController < ApplicationController
   # POST /teams/1/groups/1/accounts
   def create
     @account = @group.accounts.new(account_params)
+    authorize @account
 
     @account.encrypt(plaintext_team_password(team))
 
     respond_to do |format|
-      if @account.save
-        flash[:notice] = t('flashes.accounts.created')
-        format.html { redirect_to team_group_accounts_url(team, @group) }
-      else
-        format.html { render action: 'new' }
-      end
+      save_account(format)
     end
   end
 
   # GET /teams/1/groups/1/accounts/1/edit
   def edit
     @account = @group.accounts.find(params[:id])
+    authorize @account
+
     @groups = team.groups.all
 
     accounts_breadcrumbs
@@ -90,6 +88,7 @@ class AccountsController < ApplicationController
   # DELETE /teams/1/groups/1/accounts/1
   def destroy
     @account = @group.accounts.find(params[:id])
+    authorize @account
     @account.destroy
 
     respond_to do |format|
@@ -100,6 +99,7 @@ class AccountsController < ApplicationController
   # PUT /teams/1/groups/1/accounts/1/move
   def move
     @account = Account.find(params[:account_id])
+    authorize @account
     respond_to do |format|
       target_group = Group.find(account_params[:group_id])
       move_account(format, target_group)
@@ -110,6 +110,7 @@ class AccountsController < ApplicationController
 
   def update_account
     @account = @group.accounts.find(params[:id])
+    authorize @account
     @account.attributes = account_params
     @account.encrypt(plaintext_team_password(team))
   end
@@ -151,5 +152,14 @@ class AccountsController < ApplicationController
 
   def account_move_handler
     AccountMoveHandler.new(@account, session[:private_key], current_user)
+  end
+
+  def save_account(format)
+    if @account.save
+      flash[:notice] = t('flashes.accounts.created')
+      format.html { redirect_to team_group_accounts_url(team, @group) }
+    else
+      format.html { render action: 'new' }
+    end
   end
 end
