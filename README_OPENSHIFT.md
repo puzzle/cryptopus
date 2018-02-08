@@ -7,9 +7,9 @@ oc new-project cryptopus-dev
 
 # Get and apply openshift project template
 ```
-wget https://raw.githubusercontent.com/puzzle/cryptopus/master/ose-cryptopus.yaml
-oc process OSE_PROJECT=cryptopus-dev PUBLIC_HOSTNAME=cryptopus.example.com -f cryptopus.yaml | oc create -f -
-
+oc new-app https://raw.githubusercontent.com/puzzle/cryptopus/master/ose-cryptopus.yaml
+oc start-build -w rails
+oc rollout latest rails
 ```
 
 # export the openShift V3 Project:

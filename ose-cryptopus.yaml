@@ -71,17 +71,6 @@ objects:
     labels:
       app: rails
     name: rails
-  spec:
-    tags:
-    - annotations: null
-      from:
-        kind: DockerImage
-        name: "${OSE_PROJECT}/rails:latest"
-      generation: 2
-      importPolicy: {}
-      name: latest
-  status:
-    dockerImageRepository: ""
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
@@ -304,7 +293,7 @@ objects:
             value: "${PUBLIC_HOSTNAME}"
           - name: PASSENGER_START_TIMEOUT
             value: "120"
-          image: "172.30.1.1/${OSE_PROJECT}/rails:latest"
+          image: rails:latest
           imagePullPolicy: Always
           name: rails
           ports:
@@ -325,6 +314,14 @@ objects:
     test: false
     triggers:
     - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: false
+        from:
+          kind: ImageStreamTag
+          name: rails:latest
+        containerNames:
+          - rails
   status: {}
 - apiVersion: v1
   kind: Route
@@ -347,7 +344,7 @@ objects:
       - lastTransitionTime: 2017-02-02T13:29:23Z
         status: "True"
         type: Admitted
-      host: "${PUBLIC_HOSTNAME}" 
+      host: "${PUBLIC_HOSTNAME}"
       routerName: ha-router-be
       wildcardPolicy: None
     - conditions:
@@ -396,26 +393,21 @@ objects:
     type: ClusterIP
   status:
     loadBalancer: {}
-parameters: 
-  - 
-    name: "OSE_PROJECT"
-    description: "Name of the project this template is applied to"
-    required: true
-  - 
+parameters:
+  -
     name: "PUBLIC_HOSTNAME"
     description: "The Rails 5 host name param, must be set to the public route"
-    value: "cryptopus.example.com"
-  - 
+  -
     name: "SECRET_KEY_BASE"
     description: "Secret Key"
     generate: "expression"
     from: "[a-zA-Z0-9]{128}"
-  - 
+  -
     name: "DATABASE_USER"
     description: "Database user name"
     generate: "expression"
     from: "[a-z]{1}[a-zA-Z0-9]{15}"
-  - 
+  -
     name: "DATABASE_PASSWORD"
     description: "Database user password"
     generate: "expression"
