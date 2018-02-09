@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20180122132626) do
     t.text "public_key", null: false
     t.binary "private_key", null: false
     t.binary "password"
+    t.boolean "admin", default: false, null: false
     t.integer "ldap_uid"
     t.datetime "last_login_at"
     t.string "username"

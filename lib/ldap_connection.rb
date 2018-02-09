@@ -58,8 +58,11 @@ class LdapConnection
     result.present?
   end
 
-  def test_connection
-    connection.bind
+  def test_connection(host, options)
+    params = connection_params(host, options)
+
+    ldap = Net::LDAP.new(params)
+    ldap.bind
   rescue
     false
   end

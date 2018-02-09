@@ -16,7 +16,6 @@ class Api::Admin::LdapConnectionTestController < ApiController
       rescue ArgumentError
         hostlist_error
       end
-
       render_json ''
     else
       render status: 404, json: {}
@@ -49,13 +48,5 @@ class Api::Admin::LdapConnectionTestController < ApiController
 
   def hostname_error(hostname)
     add_error(t('flashes.api.admin.settings.test_ldap_connection.failed', hostname: hostname))
-  end
-  
-  def ldap_connection
-    LdapConnection.new
-  end
-
-  def hostlist
-    Setting.value(:ldap, 'hostname')
   end
 end

@@ -27,6 +27,7 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
     login_as(:admin)
     enable_ldap
 
+    Net::LDAP.any_instance.expects(:bind).returns(false)
     get :new
 
     errors = JSON.parse(response.body)['messages']['errors']
@@ -39,9 +40,6 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
     enable_ldap
 
     Setting::HostList.any_instance.expects(:value).returns([])
-
-    Api::Admin::LdapConnectionTestController.any_instance.expects(:hostlist)
-           .returns([])
 
     get :new
 
