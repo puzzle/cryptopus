@@ -103,6 +103,10 @@ class UserPolicyTest < PolicyTest
 
   context '#update_role' do
     context 'admin' do
+      test 'admin cannot update a roots role' do
+        refute_permit admin, root, :update_role?
+      end
+
       test 'admin can update a users role' do
         assert_permit admin, bob, :update_role?
       end
@@ -121,6 +125,10 @@ class UserPolicyTest < PolicyTest
     end
 
     context 'conf_admin' do
+      test 'conf admin cannot update a roots role' do
+        refute_permit conf_admin, root, :update_role?
+      end
+
       test 'conf_admin can update a users role' do
         assert_permit conf_admin, bob, :update_role?
       end
@@ -139,6 +147,10 @@ class UserPolicyTest < PolicyTest
     end
 
     context 'user' do
+      test 'user cannot update a roots role' do
+        refute_permit bob, root, :update_role?
+      end
+
       test 'user cannot update a users role' do
         refute_permit bob, alice, :update_role?
       end
@@ -159,6 +171,10 @@ class UserPolicyTest < PolicyTest
 
   context '#destroy' do
     context 'admin' do
+      test 'admin cannot destroy root' do
+        refute_permit admin, root, :destroy?
+      end
+
       test 'admin can destroy an admin' do
         assert_permit admin, admin, :destroy?
       end
@@ -189,6 +205,10 @@ class UserPolicyTest < PolicyTest
     end
 
     context 'conf_admin' do
+      test 'conf admin cannot destroy root' do
+        refute_permit conf_admin, root, :destroy?
+      end
+
       test 'conf_admin cannot destroy an admin' do
         refute_permit conf_admin, admin, :destroy?
       end
@@ -219,6 +239,10 @@ class UserPolicyTest < PolicyTest
     end
 
     context 'user' do
+      test 'user cannot destroy root' do
+        refute_permit bob, root, :destroy?
+      end
+
       test 'user cannot destroy an admin' do
         refute_permit bob, admin, :destroy?
       end
@@ -286,8 +310,16 @@ class UserPolicyTest < PolicyTest
       assert_not_nil Pundit.policy_scope!(conf_admin, User)
     end
 
-    test 'list received contains only valid users' do
+    test 'list received contains all users' do
       users = Pundit.policy_scope!(admin, User)
+
+      ldap_uids = users.pluck(:ldap_uid)
+
+      assert_includes ldap_uids, 0
+    end
+    
+    test 'list received contains only valid users' do
+      users = Pundit.policy_scope!(conf_admin, User)
 
       ldap_uids = users.pluck(:ldap_uid)
 

@@ -29,6 +29,10 @@ class PolicyTest < ActiveSupport::TestCase
     users(:alice)
   end
 
+  def root
+    users(:root)
+  end
+
   def ldap_user
     ldap_user = Fabricate(:user)
     ldap_user.auth = 'ldap'

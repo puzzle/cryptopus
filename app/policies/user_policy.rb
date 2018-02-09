@@ -23,7 +23,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update_role?
-    return false if current_user == user
+    return false if current_user == user || user.ldap_uid.try(:zero?)
 
     if user.admin?
       return current_user.admin?
@@ -37,6 +37,8 @@ class UserPolicy < ApplicationPolicy
     #     return current_user.admin? || current_user.conf_admin?
     #   end
     # else
+    return false if user.ldap_uid.try(:zero?)
+
     if user.user?
       return admin_or_conf_admin?
     end
@@ -59,7 +61,7 @@ class UserPolicy < ApplicationPolicy
     attrs = %i[givenname surname]
 
     if current_user.admin?
-      attrs + %i[username password]
+      user.ldap_uid.try(:zero?) ? %i[password] : attrs + %i[username password]
     elsif current_user.conf_admin?
       attrs
     end
@@ -85,7 +87,9 @@ class UserPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if @user.admin? || @user.conf_admin?
+      if @user.admin?
+        @scope
+      elsif @user.conf_admin?
         @scope.where('ldap_uid != 0 or ldap_uid is null')
       end
     end

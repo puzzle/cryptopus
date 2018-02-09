@@ -4,13 +4,18 @@
 -#  https://github.com/puzzle/cryptopus.
 
 %h1= t '.title'
-- @submit_button_text = t(:update)
-= render 'form'
+
+- unless @user.ldap_uid == 0
+  - @submit_button_text = t(:update)
+  = render 'form'
 - if @user.auth_db? && !@user.new_record?
   %br/
-  = form_tag(resetpassword_admin_recryptrequests_path(user_id: @user.id)) do
+  = form_tag(resetpassword_admin_recryptrequests_path(user_id: @user.id), {id: 'reset_password_form'}) do
     %br/
     .form-group
       = label_tag t('.reset_password')
       = password_field_tag :new_password, nil, class: 'form-control'
-    = submit_tag t('.reset_password'), class: 'btn btn-primary', data: { confirm: t('admin.users.edit.warning') }
+    = submit_tag t('.reset_password'), class: 'btn btn-primary reset_password_button'
+
+#reset_password_popup
+  = render 'admin/users/reset_password'

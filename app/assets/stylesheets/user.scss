@@ -1,4 +1,5 @@
-#last_teammember_teams {
+#last_teammember_teams,
+#reset_password_popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,7 +10,8 @@
   display: none;
 }
 
-#teamscreen {
+#teamscreen,
+#reset_password_screen {
   width: 600px;
   margin: 10% auto;
   padding: 10px 10px 70px 10px;
@@ -25,13 +27,16 @@
   overflow: auto;
 }
 
-#teamscreen_buttons {
+#teamscreen_buttons,
+#reset_password_screen_buttons {
   margin-top: 10px;
   border-top: 1px solid #cccccc;
 }
 
 #last_teammember_teams_cancel_button,
-#delete_user_button {
+#delete_user_button,
+#reset_password_cancel_button,
+#reset_password_submit_button {
   margin: 15px 0 0 5px;
 }
 
