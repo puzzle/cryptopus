@@ -9,9 +9,9 @@ class Api::Admin::LdapConnectionTestController < ApiController
   helper_method :ldap_enabled
 
   def new
-    return 404 unless ldap_enabled
+    render status: 404, json: {} unless ldap_enabled
     
-    hostname_error unless LdapConnection.connect.any
+    hostname_error unless LdapConnection.test.any?
 
     render_json ''
   end

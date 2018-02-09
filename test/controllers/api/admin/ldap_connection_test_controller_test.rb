@@ -57,7 +57,6 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
 
   test 'ldap disabled' do
     login_as(:admin)
-    disable_ldap
 
     get :new
   end
@@ -67,10 +66,5 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
   def enable_ldap
     ldap = Setting.find_by(key: 'ldap_enable')
     ldap.update(value: true)
-  end
-
-  def disable_ldap
-    ldap = Setting.find_by(key: 'ldap_enable')
-    ldap.update(value: false)
   end
 end
