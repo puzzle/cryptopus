@@ -12,17 +12,34 @@ class LdapConnection
   MANDATORY_LDAP_SETTING_KEYS = %i[hostname portnumber basename].freeze
   LDAP_SETTING_KEYS = (MANDATORY_LDAP_SETTING_KEYS + %i[bind_dn bind_password]).freeze
 
-  def self.test
-    hostlist = Setting.value(:ldap, 'hostname')
+  class << self
+    def test
+      options = { user: user, password: password }
 
-    success = []
-    failed = []
+      success = []
+      failed = []
 
-    hostlist.each do |hostname|
-      connection = LdapConnection.new
-      connection.test_connection(hostname) ? success << hostname : failed << hostname
+      hostlist.each do |hostname|
+        connection = LdapConnection.new
+        connection.test_connection(hostname, options) ? success << hostname : failed << hostname
+      end
+
+      { success: success, failed: failed }
     end
-    [success, failed]
+
+    private
+
+    def hostlist
+      Setting.value(:ldap, 'hostname')
+    end
+
+    def user
+      Setting.value(:ldap, 'bind_dn')
+    end
+
+    def password
+      Setting.value(:ldap, 'bind_password')
+    end
   end
 
   def initialize
@@ -71,8 +88,11 @@ class LdapConnection
     result.present?
   end
 
-  def test_connection
-    connection.bind
+  def test_connection(host, options)
+    params = connection_params(host, options)
+
+    ldap = Net::LDAP.new(params)
+    ldap.bind
   rescue
     false
   end

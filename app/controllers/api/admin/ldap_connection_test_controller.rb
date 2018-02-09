@@ -9,11 +9,15 @@ class Api::Admin::LdapConnectionTestController < ApiController
   helper_method :ldap_enabled
 
   def new
-    render status: 404, json: {} unless ldap_enabled
-    
-    hostname_error unless LdapConnection.test.any?
+    if ldap_enabled
+      hosts = LdapConnection.test
 
-    render_json ''
+      hosts_status_messages(hosts)
+
+      render_json ''
+    else
+      render status: 404, json: {}
+    end
   end
 
   private
@@ -22,7 +26,27 @@ class Api::Admin::LdapConnectionTestController < ApiController
     Setting.value(:ldap, 'enable')
   end
 
-  def hostname_error
+  def hosts_status_messages(hosts)
+    hostlist_error unless hosts[:success].any? || hosts[:failed].any?
+
+    hosts[:success].each do |host|
+      hostname_info(host)
+    end
+
+    hosts[:failed].each do |host|
+      hostname_error(host)
+    end
+  end
+
+  def hostlist_error
     add_error(t('flashes.api.admin.settings.test_ldap_connection.no_hostname_present'))
+  end
+
+  def hostname_info(hostname)
+    add_info(t('flashes.api.admin.settings.test_ldap_connection.successful', hostname: hostname))
+  end
+
+  def hostname_error(hostname)
+    add_error(t('flashes.api.admin.settings.test_ldap_connection.failed', hostname: hostname))
   end
 end

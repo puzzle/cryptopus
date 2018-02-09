@@ -15,8 +15,6 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
     login_as(:admin)
     enable_ldap
 
-    Setting.find_by(key: 'ldap_enable').expects(:value).returns(true)
-
     Net::LDAP.any_instance.expects(:bind).returns(true)
     get :new
 
@@ -28,8 +26,6 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
   test 'connection to ldap server fails' do
     login_as(:admin)
     enable_ldap
-
-    Setting.find_by(key: 'ldap_enable').expects(:value).returns(true)
 
     Net::LDAP.any_instance.expects(:bind).returns(false)
     get :new
@@ -43,10 +39,7 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
     login_as(:admin)
     enable_ldap
 
-    Setting.find_by(key: 'ldap_enable').expects(:value).returns(true)
-
-    Api::Admin::LdapConnectionTestController.any_instance.expects(:hostlist)
-           .returns([])
+    Setting::HostList.any_instance.expects(:value).returns([])
 
     get :new
 
@@ -59,6 +52,9 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
     login_as(:admin)
 
     get :new
+
+    assert_empty JSON.parse(response.body)
+    assert_equal 404, response.status
   end
 
   private
