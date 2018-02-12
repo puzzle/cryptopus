@@ -313,9 +313,7 @@ class UserPolicyTest < PolicyTest
     test 'list received contains all users' do
       users = Pundit.policy_scope!(admin, User)
 
-      ldap_uids = users.pluck(:ldap_uid)
-
-      assert_includes ldap_uids, 0
+      assert_equal User.all.count, users.count
     end
     
     test 'list received contains only valid users' do

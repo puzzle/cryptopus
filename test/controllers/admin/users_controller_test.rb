@@ -41,68 +41,48 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   context '#update' do
     context 'admin' do
-      test 'admin updates user-profile' do
+      test 'admin updates users attributes' do
         alice = users(:alice)
-        update_params = { username: 'new_username',
-                          givenname: 'new_givenname',
-                          surname: 'new_surname',
-                          password: 'new_password' }
 
         login_as(:admin)
         post :update, params: { id: alice, user: update_params }
 
         alice.reload
 
-        assert_equal 'new_password', alice.password
         assert_equal 'new_username', alice.username
         assert_equal 'new_givenname', alice.givenname
         assert_equal 'new_surname', alice.surname
       end
 
-      test 'admin updates conf admin-profile' do
+      test 'admin updates conf admins attributes' do
         tux = users(:conf_admin)
-        update_params = { username: 'new_username',
-                          givenname: 'new_givenname',
-                          surname: 'new_surname',
-                          password: 'new_password' }
 
         login_as(:admin)
         post :update, params: { id: tux, user: update_params }
 
         tux.reload
 
-        assert_equal 'new_password', tux.password
         assert_equal 'new_username', tux.username
         assert_equal 'new_username', tux.username
         assert_equal 'new_givenname', tux.givenname
       end
 
-      test 'admin updates admin-profile' do
+      test 'admin updates admins attributes' do
         admin2 = Fabricate(:admin)
-        update_params = { username: 'new_username',
-                          givenname: 'new_givenname',
-                          surname: 'new_surname',
-                          password: 'new_password' }
 
         login_as(:admin)
         post :update, params: { id: admin2, user: update_params }
 
         admin2.reload
 
-        assert_equal 'new_password', admin2.password
         assert_equal 'new_username', admin2.username
         assert_equal 'new_username', admin2.username
         assert_equal 'new_givenname', admin2.givenname
       end
 
-      test 'admin cannot update ldap-user-profile' do
+      test 'admin cannot update ldap-users attributes' do
         bob = users(:bob)
         bob.update_attribute(:auth, 'ldap')
-
-        update_params = { password: 'new_password',
-                          username: 'new_username',
-                          givenname: 'new_givenname',
-                          surname: 'new_surname' }
 
         login_as(:admin)
         post :update, params: { id: bob, user: update_params }
@@ -110,38 +90,29 @@ class Admin::UsersControllerTest < ActionController::TestCase
         bob.reload
 
         assert_not_equal 'new_username', bob.username
-        assert_not_equal 'new_password', bob.password
         assert_not_equal 'new_givenname', bob.givenname
         assert_not_equal 'new_surname', bob.surname
         assert_match(/Ldap user cannot be updated/, flash[:error])
       end
 
-      test 'admin can only update roots password' do
+      test 'admin cannot update roots attributes' do
         root = users(:root)
-        update_params = { password: 'new_password',
-                          username: 'new_username',
-                          givenname: 'new_givenname',
-                          surname: 'new_surname' }
 
         login_as(:admin)
         post :update, params: { id: root, user: update_params }
 
         root.reload
 
-        assert_equal 'new_password', root.password
         assert_equal 'root', root.username
         assert_equal 'Root', root.givenname
         assert_equal 'test', root.surname
+        assert_match(/Access denied/, flash[:error])
       end
     end
 
     context 'conf admin' do
       test 'conf admin can only update users surname and givenname' do
         alice = users(:alice)
-        update_params = { username: 'new_username',
-                          givenname: 'new_givenname',
-                          surname: 'new_surname',
-                          password: 'new_password' }
 
         login_as(:tux)
         post :update, params: { id: alice, user: update_params }
@@ -149,18 +120,13 @@ class Admin::UsersControllerTest < ActionController::TestCase
         alice.reload
 
         assert_equal 'alice', alice.username
-        assert_not_equal 'new_password', alice.password
         assert_equal 'new_givenname', alice.givenname
         assert_equal 'new_surname', alice.surname
       end
 
-      test 'conf admin cannot update conf admin-profile' do
+      test 'conf admin cannot update conf admins attributes' do
         conf_admin = Fabricate(:conf_admin)
         tux = users(:conf_admin)
-        update_params = { username: 'new_username',
-                          givenname: 'new_givenname',
-                          surname: 'new_surname',
-                          password: 'new_password' }
 
         login_as(conf_admin.username)
         post :update, params: { id: tux, user: update_params }
@@ -168,17 +134,13 @@ class Admin::UsersControllerTest < ActionController::TestCase
         tux.reload
 
         assert_equal 'tux', tux.username
-        assert_not_equal 'new_password', tux.password
         assert_equal 'Tux', tux.givenname
         assert_equal 'Miller', tux.surname
+        assert_match(/Access denied/, flash[:error])
       end
 
-      test 'conf admin cannot update admin-profile' do
+      test 'conf admin cannot update admins attributes' do
         admin = users(:admin)
-        update_params = { username: 'new_username',
-                          givenname: 'new_givenname',
-                          surname: 'new_surname',
-                          password: 'new_password' }
 
         login_as(:tux)
         post :update, params: { id: admin, user: update_params }
@@ -186,19 +148,14 @@ class Admin::UsersControllerTest < ActionController::TestCase
         admin.reload
 
         assert_equal 'admin', admin.username
-        assert_not_equal 'new_password', admin.password
         assert_equal 'Admin', admin.givenname
         assert_equal 'test', admin.surname
+        assert_match(/Access denied/, flash[:error])
       end
 
-      test 'conf admin cannot update ldap-user-profile' do
+      test 'conf admin cannot update ldap-users attributes' do
         bob = users(:bob)
         bob.update_attribute(:auth, 'ldap')
-
-        update_params = { username: 'new_username',
-                          givenname: 'new_givenname',
-                          surname: 'new_surname',
-                          password: 'new_password' }
 
         login_as(:tux)
         post :update, params: { id: bob, user: update_params }
@@ -206,13 +163,12 @@ class Admin::UsersControllerTest < ActionController::TestCase
         bob.reload
 
         assert_not_equal 'new_username', bob.username
-        assert_not_equal 'new_password', bob.password
         assert_not_equal 'new_givenname', bob.givenname
         assert_not_equal 'new_surname', bob.surname
         assert_match(/Ldap user cannot be updated/, flash[:error])
       end
       
-      test 'conf admin cannot update root-profile' do
+      test 'conf admin cannot update roots attributes' do
         root = users(:root)
 
         login_as(:tux)
@@ -220,10 +176,10 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
         root.reload
 
-        assert_not_equal 'new_password', root.password
         assert_equal 'root', root.username
         assert_equal 'Root', root.givenname
         assert_equal 'test', root.surname
+        assert_match(/Access denied/, flash[:error])
       end
     end
   end
@@ -231,8 +187,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
   private
 
   def update_params
-    { password: 'new_password',
-      username: 'new_username',
+    { username: 'new_username',
       givenname: 'new_givenname',
       surname: 'new_surname' }
   end

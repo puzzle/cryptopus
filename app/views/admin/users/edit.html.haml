@@ -5,7 +5,7 @@
 
 %h1= t '.title'
 
-- unless @user.ldap_uid == 0
+- unless @user.root?
   - @submit_button_text = t(:update)
   = render 'form'
 - if @user.auth_db? && !@user.new_record?

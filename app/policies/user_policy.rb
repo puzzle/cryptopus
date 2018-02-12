@@ -4,6 +4,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
+    return if user.ldap_user? || user.root?
     if user.user?
       return admin_or_conf_admin?
     end
@@ -23,7 +24,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update_role?
-    return false if current_user == user || user.ldap_uid.try(:zero?)
+    return false if current_user == user || user.root?
 
     if user.admin?
       return current_user.admin?
@@ -37,7 +38,7 @@ class UserPolicy < ApplicationPolicy
     #     return current_user.admin? || current_user.conf_admin?
     #   end
     # else
-    return false if user.ldap_uid.try(:zero?)
+    return false if user.root?
 
     if user.user?
       return admin_or_conf_admin?
@@ -56,12 +57,12 @@ class UserPolicy < ApplicationPolicy
   end
 
   def permitted_attributes_for_update
-    return if user.ldap_user?
+    return if user.ldap_user? || user.root?
 
     attrs = %i[givenname surname]
 
     if current_user.admin?
-      user.ldap_uid.try(:zero?) ? %i[password] : attrs + %i[username password]
+      attrs + %i[username]
     elsif current_user.conf_admin?
       attrs
     end

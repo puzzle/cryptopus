@@ -10,16 +10,13 @@ class app.ResetPassword
     bind.call()
 
   reset_password = () ->
+    $.ui.dialog.prototype._focusTabbable = ->
     $('#reset_password_screen').dialog
-      autoOpen: false
-      modal: true
-      width: 600
-      height: 300
       resizable: false
+      modal: true
+      autoOpen: false
     $('.ui-widget-header').hide()
     $('#reset_password_screen').dialog('open')
-    $('.alert-danger.reset-password').show()
-    $('#delete_user_button').prop('disabled', false)
 
   bind = ->
     $(document).on 'click', '.reset_password_button', (e) ->
