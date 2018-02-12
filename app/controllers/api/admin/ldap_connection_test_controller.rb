@@ -10,9 +10,7 @@ class Api::Admin::LdapConnectionTestController < ApiController
   def new
     if ldap_enabled
       begin
-        ldap = LdapConnection.new
-        hosts = ldap.test
-        hosts_status_messages(hosts)
+        test_ldap
       rescue ArgumentError
         hostlist_error
       end
@@ -23,6 +21,12 @@ class Api::Admin::LdapConnectionTestController < ApiController
   end
 
   private
+
+  def test_ldap
+    ldap = LdapConnection.new
+    hosts = ldap.test
+    hosts_status_messages(hosts)
+  end
 
   def ldap_enabled
     Setting.value(:ldap, 'enable')
