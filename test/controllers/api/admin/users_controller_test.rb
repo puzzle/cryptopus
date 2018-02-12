@@ -18,7 +18,7 @@ class Api::Admin::UsersControllerTest < ActionController::TestCase
       login_as(:bob)
   
       delete :destroy, params: { id: bob.id }
-  
+
       assert_equal true, bob.reload.persisted?
       assert_includes(errors, 'You can\'t delete yourself')
     end
