@@ -12,36 +12,6 @@ class LdapConnection
   MANDATORY_LDAP_SETTING_KEYS = %i[hostname portnumber basename].freeze
   LDAP_SETTING_KEYS = (MANDATORY_LDAP_SETTING_KEYS + %i[bind_dn bind_password]).freeze
 
-  class << self
-    def test
-      options = { user: user, password: password }
-
-      success = []
-      failed = []
-
-      hostlist.each do |hostname|
-        connection = LdapConnection.new
-        connection.test_connection(hostname, options) ? success << hostname : failed << hostname
-      end
-
-      { success: success, failed: failed }
-    end
-
-    private
-
-    def hostlist
-      Setting.value(:ldap, 'hostname')
-    end
-
-    def user
-      Setting.value(:ldap, 'bind_dn')
-    end
-
-    def password
-      Setting.value(:ldap, 'bind_password')
-    end
-  end
-
   def initialize
     collect_settings
     assert_setting_values
@@ -88,13 +58,23 @@ class LdapConnection
     result.present?
   end
 
-  def test_connection(host, options)
-    params = connection_params(host, options)
-
-    ldap = Net::LDAP.new(params)
-    ldap.bind
+  def test_connection
+    connection.bind
   rescue
     false
+  end
+
+  def test
+    options = { user: user, password: password }
+
+    success = []
+    failed = []
+
+    ldap_hosts.each do |hostname|
+      test_connection_with(hostname, options) ? success << hostname : failed << hostname
+    end
+
+    { success: success, failed: failed }
   end
 
   private
@@ -169,9 +149,25 @@ class LdapConnection
     settings[:hostname]
   end
 
+  def user
+    settings[:bind_dn]
+  end
+
+  def password
+    settings[:bind_password]
+  end
+
   def expected_message(message)
     message =~ /name or service not known/i ||
       /connection timed out/i
   end
 
+  def test_connection_with(host, options)
+    params = connection_params(host, options)
+
+    ldap = Net::LDAP.new(params)
+    ldap.bind
+  rescue
+    false
+  end
 end

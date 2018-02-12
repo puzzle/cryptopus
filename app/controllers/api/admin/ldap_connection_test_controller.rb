@@ -10,9 +10,13 @@ class Api::Admin::LdapConnectionTestController < ApiController
 
   def new
     if ldap_enabled
-      hosts = LdapConnection.test
-
-      hosts_status_messages(hosts)
+      begin
+        ldap = LdapConnection.new
+        hosts = ldap.test
+        hosts_status_messages(hosts)
+      rescue ArgumentError
+        hostlist_error
+      end
 
       render_json ''
     else
@@ -27,8 +31,6 @@ class Api::Admin::LdapConnectionTestController < ApiController
   end
 
   def hosts_status_messages(hosts)
-    hostlist_error unless hosts[:success].any? || hosts[:failed].any?
-
     hosts[:success].each do |host|
       hostname_info(host)
     end
