@@ -48,6 +48,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def resetpassword?
+    return false if current_user == user
     unless user.ldap_user?
       if user.user?
         return admin_or_conf_admin?

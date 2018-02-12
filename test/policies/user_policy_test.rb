@@ -263,16 +263,16 @@ class UserPolicyTest < PolicyTest
 
   context '#resetpassword' do
     context 'admin' do
-      test 'admin can reset admins password' do
-        assert_permit admin, admin, :resetpassword?
-      end
-
       test 'admin can reset conf_admins password' do
         assert_permit admin, conf_admin, :resetpassword?
       end
 
       test 'admin can reset users password' do
         assert_permit admin, bob, :resetpassword?
+      end
+
+      test 'admin cannot reset his own password' do
+        refute_permit admin, admin, :resetpassword?
       end
     end
 

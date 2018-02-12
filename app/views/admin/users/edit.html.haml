@@ -8,7 +8,7 @@
 - unless @user.root?
   - @submit_button_text = t(:update)
   = render 'form'
-- if @user.auth_db? && !@user.new_record?
+- if !@user.new_record? && policy(@user).resetpassword?
   %br/
   = form_tag(resetpassword_admin_recryptrequests_path(user_id: @user.id), {id: 'reset_password_form'}) do
     %br/

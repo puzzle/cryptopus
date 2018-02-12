@@ -29,10 +29,10 @@
       %td
         = Admin::UserRole::Dropdown.new(user, current_user).render
       %td.action_icon
-        - if user.auth != 'ldap'
+        - if policy(user).edit? || policy(user).resetpassword?
           = link_to image_tag("edit.svg"), edit_admin_user_path(user)
       %td.action_icon
-        - if user != current_user && user.ldap_uid != 0
+        - if policy(user).destroy?
           = link_to image_tag("remove.svg"), '#',
             data: { last_teammember_teams_link: last_teammember_teams_teams_path(user_id: user.id),
               user_id: user.id},
