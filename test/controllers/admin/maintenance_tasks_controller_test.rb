@@ -28,9 +28,8 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
 
       maintenance_tasks = assigns(:maintenance_tasks)
 
-      assert_equal 2, maintenance_tasks.size
+      assert_equal 1, maintenance_tasks.size
       assert_equal true, maintenance_tasks.any? { |t| t.class == MaintenanceTasks::RootAsAdmin }
-      assert_equal true, maintenance_tasks.any? { |t| t.class == MaintenanceTasks::NewRootPassword }
     end
 
   end
@@ -48,14 +47,12 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
     test 'shows form with task params' do
       login_as(:admin)
 
-      get :prepare, params: { id: 2 }
+      get :prepare, params: { id: 1 }
 
-      assert_equal MaintenanceTasks::NewRootPassword, assigns(:maintenance_task).class
-      assert_select 'h1', text: 'New root password'
-      assert_select 'label', text: 'New root password'
-      assert_select 'input', id: 'task_params_new_root_password', type: 'password'
-      assert_select 'label', text: 'Retype password'
-      assert_select 'input', id: 'task_params_retype_password', type: 'password'
+      assert_equal MaintenanceTasks::RootAsAdmin, assigns(:maintenance_task).class
+      assert_select 'h1', text: 'Set root as admin'
+      assert_select 'label', text: 'Root password'
+      assert_select 'input', id: 'task_params_root_password', type: 'password'
     end
 
     test 'returns 404 if task has no prepare' do
@@ -82,7 +79,7 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
     test 'execute task' do
       login_as(:admin)
       assert_difference('Log.count', 1) do
-        post :execute, params: { id: 2, task_params: {new_root_password: 'password', retype_password: 'password'} }
+        post :execute, params: { id: 1, task_params: {root_password: 'password'} }
       end
 
       assert_redirected_to admin_maintenance_tasks_path
@@ -92,7 +89,7 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
     test 'displays error if task execution fails' do
       login_as(:admin)
       assert_difference('Log.count', 1) do
-        post :execute, params: { id: 2, task_params: {new_root_password: 'password'} }
+        post :execute, params: { id: 1 }
       end
 
       assert_redirected_to admin_maintenance_tasks_path

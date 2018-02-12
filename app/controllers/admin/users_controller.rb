@@ -30,7 +30,7 @@ class Admin::UsersController < ApplicationController
 
   # PUT /admin/users/1
   def update
-    user.update_attributes(permitted_attributes(user))
+    user.update!(permitted_attributes(user))
 
     respond_to do |format|
       format.html { redirect_to admin_users_path }

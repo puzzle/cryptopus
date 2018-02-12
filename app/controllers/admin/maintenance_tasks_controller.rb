@@ -71,7 +71,7 @@ class Admin::MaintenanceTasksController < ApplicationController
   def task_params
     return {} unless params[:task_params]
     params.require(:task_params).
-      permit(:new_root_password, :retype_password, :root_password)
+      permit(:retype_password, :root_password)
   end
 
   def routing_error

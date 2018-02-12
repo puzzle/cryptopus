@@ -4,6 +4,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
+    return if user.ldap_user? || user.root?
     if user.user?
       return admin_or_conf_admin?
     end
@@ -23,7 +24,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update_role?
-    return false if current_user == user
+    return false if current_user == user || user.root?
 
     if user.admin?
       return current_user.admin?
@@ -37,6 +38,8 @@ class UserPolicy < ApplicationPolicy
     #     return current_user.admin? || current_user.conf_admin?
     #   end
     # else
+    return false if user.root?
+
     if user.user?
       return admin_or_conf_admin?
     end
@@ -45,6 +48,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def resetpassword?
+    return false if current_user == user
     unless user.ldap_user?
       if user.user?
         return admin_or_conf_admin?
@@ -54,12 +58,12 @@ class UserPolicy < ApplicationPolicy
   end
 
   def permitted_attributes_for_update
-    return if user.ldap_user?
+    return if user.ldap_user? || user.root?
 
     attrs = %i[givenname surname]
 
     if current_user.admin?
-      attrs + %i[username password]
+      attrs + %i[username]
     elsif current_user.conf_admin?
       attrs
     end
@@ -85,7 +89,9 @@ class UserPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if @user.admin? || @user.conf_admin?
+      if @user.admin?
+        @scope
+      elsif @user.conf_admin?
         @scope.where('ldap_uid != 0 or ldap_uid is null')
       end
     end
