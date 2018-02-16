@@ -81,6 +81,7 @@ fr:
       index:
         title: Modifier les paramètres
         save: Sauvegarder les modifications
+        ldap: Tester la connexion LDAP
     recryptrequests:
       index:
         title: Demandes de re crypt
@@ -206,6 +207,11 @@ fr:
           destroy:
             own_user: Actuel de l'utilisateur ne peut pas être supprimé
           no_access: Accès refusé
+        settings:
+          test_ldap_connection:
+            successful: Connexion au serveur Ldap réussie
+            failed: Connexion au serveur Ldap échoué
+            no_hostname_present: Aucun nom d'hôte n'existe
     members:
       added: "%{username} a été enlevé avec succès à l'équipe"
       removed: "%{username} a été ajouté avec succès à l'équipe"

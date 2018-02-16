@@ -64,6 +64,19 @@ class LdapConnection
     false
   end
 
+  def test
+    options = { user: user, password: password }
+
+    success = []
+    failed = []
+
+    ldap_hosts.each do |hostname|
+      test_connection_with(hostname, options) ? success << hostname : failed << hostname
+    end
+
+    { success: success, failed: failed }
+  end
+
   private
 
   attr_reader :settings
@@ -136,9 +149,25 @@ class LdapConnection
     settings[:hostname]
   end
 
+  def user
+    settings[:bind_dn]
+  end
+
+  def password
+    settings[:bind_password]
+  end
+
   def expected_message(message)
     message =~ /name or service not known/i ||
       /connection timed out/i
   end
 
+  def test_connection_with(host, options)
+    params = connection_params(host, options)
+
+    ldap = Net::LDAP.new(params)
+    ldap.bind
+  rescue
+    false
+  end
 end
