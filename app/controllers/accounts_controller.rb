@@ -9,6 +9,9 @@ class AccountsController < ApplicationController
 
   # GET /teams/1/groups/1/accounts
   def index
+    authorize team, :team_member?
+    skip_policy_scope
+
     accounts_breadcrumbs
 
     @accounts = AccountPolicy::Scope.new(current_user, @group).resolve

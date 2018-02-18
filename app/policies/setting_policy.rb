@@ -7,6 +7,10 @@ class SettingPolicy < ApplicationPolicy
     admin_or_conf_admin?
   end
 
+  def ldap_connection_test?
+    admin_or_conf_admin?
+  end
+
   private
 
   def current_user

@@ -73,14 +73,19 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     # Recrypt
     post recryptrequests_recrypt_path, params: { forgot_password: true, new_password: 'newPassword' }
 
+    get logout_login_path
+
     login_as('admin')
     bobs_user_id = users(:bob).id
     recrypt_id = Recryptrequest.find_by_user_id(bobs_user_id).id
     post admin_recryptrequest_path(recrypt_id), params: { _method: 'delete' }
 
+    get logout_login_path
+
     # Test if user could see his account(he should see now)
     login_as('bob', 'newPassword')
     get account_path
+
     assert_select "input#cleartext_username", {value: "test"}
     assert_select "input#cleartext_password", {value: "password"}
   end

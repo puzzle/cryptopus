@@ -7,8 +7,7 @@
 
 class LoginsController < ApplicationController
 
-  before_action :redirect_if_ldap_user, only: %i[show_update_password update_password]
-  before_action :redirect_if_logged_in, only: :login
+  before_action :authorize_action
 
   # it's save to disable this for authenticate since there is no logged in session active
   # in this case.
@@ -114,14 +113,6 @@ class LoginsController < ApplicationController
     session[:last_login_from] = user.last_login_from
   end
 
-  def redirect_if_ldap_user
-    redirect_to search_path if current_user.ldap?
-  end
-
-  def redirect_if_logged_in
-    redirect_to search_path if current_user
-  end
-
   def password_params_valid?
     unless current_user.authenticate(params[:old_password])
       flash[:error] = t('flashes.logins.wrong_password')
@@ -137,6 +128,10 @@ class LoginsController < ApplicationController
 
   def authenticator
     Authentication::UserAuthenticator.new(params)
+  end
+
+  def authorize_action
+    authorize :logins
   end
 
 end

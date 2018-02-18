@@ -81,7 +81,7 @@ class LoginsControllerTest < ActionController::TestCase
     login_as(:bob)
     post :update_password, params: { old_password: 'password', new_password1: 'test', new_password2: 'test' }
 
-    assert_redirected_to search_path
+    assert_redirected_to teams_path
   end
 
   test 'redirects if ldap user tries to access update password site' do
@@ -89,7 +89,7 @@ class LoginsControllerTest < ActionController::TestCase
     login_as(:bob)
     get :show_update_password
 
-    assert_redirected_to search_path
+    assert_redirected_to teams_path
   end
 
   test 'should redirect to wizard if new setup' do

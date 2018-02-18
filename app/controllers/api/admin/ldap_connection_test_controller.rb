@@ -7,6 +7,8 @@
 
 class Api::Admin::LdapConnectionTestController < ApiController
 
+  before_action :authorize_action
+
   def new
     if ldap_enabled
       begin
@@ -21,6 +23,10 @@ class Api::Admin::LdapConnectionTestController < ApiController
   end
 
   private
+
+  def authorize_action
+    authorize Setting, :ldap_connection_test?
+  end
 
   def test_ldap
     ldap = LdapConnection.new

@@ -8,16 +8,19 @@
 class Api::SearchController < ApiController
 
   def accounts
+    skip_authorization
     accounts = current_user.search_accounts(term)
 
     render_json accounts
   end
 
   def groups
+    skip_authorization
     render_json current_user.search_groups(term)
   end
 
   def teams
+    skip_authorization
     render_json current_user.search_teams(term)
   end
 

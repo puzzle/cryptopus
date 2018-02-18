@@ -10,6 +10,7 @@ class WizardController < ApplicationController
   skip_before_action :validate_user, :redirect_to_wizard_if_new_setup
 
   def index
+    skip_policy_scope
     respond_to do |format|
       format.html # index.html.haml
     end
@@ -17,6 +18,7 @@ class WizardController < ApplicationController
 
   # rubocop:disable MethodLength
   def apply
+    skip_authorization
     password = params[:password]
     password_repeat = params[:password_repeat]
     if password.blank?

@@ -83,10 +83,6 @@ class UserPolicy < ApplicationPolicy
     @record
   end
 
-  def ldap_connection
-    LdapConnection.new
-  end
-
   class Scope < Scope
     def resolve
       if @user.admin?
