@@ -28,4 +28,18 @@ class SettingPolicyTest < PolicyTest
       refute_permit bob, Setting, :update_all?
     end
   end
+  
+  context '#scope' do
+    test 'admin receives settings' do
+      assert_not_nil SettingPolicy::Scope.new(admin, Setting).resolve
+    end
+    
+    test 'conf admin receives settings' do
+      assert_not_nil SettingPolicy::Scope.new(conf_admin, Setting).resolve
+    end
+
+    test 'user does not receive settings' do
+      assert_nil SettingPolicy::Scope.new(bob, Setting).resolve
+    end
+  end
 end
