@@ -27,6 +27,10 @@ class TeamPolicy < TeamDependantPolicy
     team_member?
   end
 
+  def admins_list?
+    admin_or_conf_admin?
+  end
+
   private
 
   def current_user
@@ -43,7 +47,11 @@ class TeamPolicy < TeamDependantPolicy
     end
 
     def resolve_members
-      @scope.teammembers.list if team_member?
+      team.teammembers.list if team_member?
+    end
+
+    def resolve_teamlist
+      team.all if admin_or_conf_admin?
     end
 
     protected

@@ -59,6 +59,20 @@ class TeamPolicyTest < PolicyTest
       refute_permit conf_admin, team1, :destroy?
     end
   end
+  
+  context '#teamlist' do
+    test 'admin can access admin/teamlist page' do
+      assert_permit admin, Team, :admins_list?
+    end
+    
+    test 'conf_admin can access admin/teamlist page' do
+      assert_permit conf_admin, Team, :admins_list?
+    end
+    
+    test 'user cannot access admin/teamlist page' do
+      refute_permit bob, Team, :admins_list?
+    end
+  end
 
   context '#scope' do
     test 'admin sees all non-private teams' do
@@ -74,6 +88,24 @@ class TeamPolicyTest < PolicyTest
       assert_equal 1, bobs_teams.count
       assert_equal bob.teams, bobs_teams
     end
+  end
+    
+  test 'admin sees teamlist' do
+    teamlist = TeamPolicy::Scope.new(admin, Team).resolve_teamlist
+
+    assert_equal Team.all, teamlist
+  end
+  
+  test 'conf admin sees teamlist' do
+    teamlist = TeamPolicy::Scope.new(admin, Team).resolve_teamlist
+
+    assert_equal Team.all, teamlist
+  end
+
+  test 'user cannot see teamlist' do
+    teamlist = TeamPolicy::Scope.new(bob, Team).resolve_teamlist
+
+    assert_nil teamlist
   end
   
   context '#add' do

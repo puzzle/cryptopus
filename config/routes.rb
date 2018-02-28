@@ -38,11 +38,14 @@ Rails.application.routes.draw do
           get 'unlock'
         end
       end
+
       resources :recryptrequests do
         collection do
           post 'resetpassword'
         end
       end
+  
+      get  'teamlist', to: 'teamlist#index'
     end
 
     resource :login do

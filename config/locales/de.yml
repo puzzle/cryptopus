@@ -29,6 +29,7 @@ de:
   settings: Einstellungen
   recrypt_requests: Recrypt Anfragen
   users: Benutzer
+  teamlist: Teamliste
   change_password: Passwort wechseln
   last_login_date_and_from: "Das letzte Login war am %{last_login_at} von %{last_login_from}"
   last_login_date_and_from_country: "Das letzte Login war am %{last_login_at} von %{last_login_from} (%{last_login_country})"
@@ -128,6 +129,9 @@ de:
         destroy: Benutzer löschen
       new:
         title: Neuer Benutzer
+    teamlist:
+      index:
+        title: Teamliste
     user_roles:
       user: Benutzer
       conf_admin: Conf Admin
