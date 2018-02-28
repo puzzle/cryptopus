@@ -3,13 +3,13 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Admin::TeamlistController < ApplicationController
+class Admin::TeamsController < ApplicationController
 
   # GET /teams
   def index
     skip_policy_scope
-    authorize Team, :admins_list?
-    @teams = TeamPolicy::Scope.new(current_user, Team).resolve_teamlist
+    authorize Team, :index_all?
+    @teams = TeamPolicy::Scope.new(current_user, Team).resolve_all
 
     respond_to do |format|
       format.html

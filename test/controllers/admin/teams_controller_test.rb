@@ -8,7 +8,7 @@
 require 'test_helper'
 require 'test/unit'
 
-class Admin::TeamlistControllerTest < ActionController::TestCase
+class Admin::TeamsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
   context '#index' do

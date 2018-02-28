@@ -60,17 +60,17 @@ class TeamPolicyTest < PolicyTest
     end
   end
   
-  context '#teamlist' do
-    test 'admin can access admin/teamlist page' do
-      assert_permit admin, Team, :admins_list?
+  context 'admin teams' do
+    test 'admin can list all teams' do
+      assert_permit admin, Team, :index_all?
     end
     
-    test 'conf_admin can access admin/teamlist page' do
-      assert_permit conf_admin, Team, :admins_list?
+    test 'conf_admin can list all teams' do
+      assert_permit conf_admin, Team, :index_all?
     end
     
-    test 'user cannot access admin/teamlist page' do
-      refute_permit bob, Team, :admins_list?
+    test 'user cannot list all teams' do
+      refute_permit bob, Team, :index_all?
     end
   end
 
@@ -81,7 +81,7 @@ class TeamPolicyTest < PolicyTest
       assert_equal Team.where(private: false), teams
     end
 
-    test 'user can see all and only the teams he is a part of' do
+    test 'user can only list teams where member' do
       team1.teammembers.find_by(user_id: bob.id).destroy!
       bobs_teams = TeamPolicy::Scope.new(bob, Team).resolve
 
@@ -90,22 +90,22 @@ class TeamPolicyTest < PolicyTest
     end
   end
     
-  test 'admin sees teamlist' do
-    teamlist = TeamPolicy::Scope.new(admin, Team).resolve_teamlist
+  test 'admin may list all teams' do
+    teams = TeamPolicy::Scope.new(admin, Team).resolve_all
 
-    assert_equal Team.all, teamlist
+    assert_equal Team.all, teams
   end
   
-  test 'conf admin sees teamlist' do
-    teamlist = TeamPolicy::Scope.new(admin, Team).resolve_teamlist
+  test 'conf admin may list all teams' do
+    teams = TeamPolicy::Scope.new(admin, Team).resolve_all
 
-    assert_equal Team.all, teamlist
+    assert_equal Team.all, teams
   end
 
-  test 'user cannot see teamlist' do
-    teamlist = TeamPolicy::Scope.new(bob, Team).resolve_teamlist
+  test 'user may not list all teams' do
+    teams = TeamPolicy::Scope.new(bob, Team).resolve_all
 
-    assert_nil teamlist
+    assert_nil teams
   end
   
   context '#add' do

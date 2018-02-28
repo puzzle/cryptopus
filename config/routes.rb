@@ -45,7 +45,7 @@ Rails.application.routes.draw do
         end
       end
   
-      get  'teamlist', to: 'teamlist#index'
+      get  'teams', to: 'teams#index'
     end
 
     resource :login do

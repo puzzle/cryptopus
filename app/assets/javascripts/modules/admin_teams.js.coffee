@@ -7,7 +7,7 @@
 # scope for global functions
 app = window.App ||= {}
 
-class app.Teamlist
+class app.AdminTeams
   constructor: () ->
     bind()
   
@@ -31,7 +31,8 @@ class app.Teamlist
     ul.empty()
 
   bind = ->
-    $(document).on 'click', '.members-link', ->
+    $(document).on 'click', '.members-link', (e) ->
+      e.preventDefault()
       members_link = $(this)
       if members_link.text() == 'Show'
         members_link.text('Hide')
@@ -40,4 +41,4 @@ class app.Teamlist
         members_link.text('Show')
         hide(members_link.parent())
 
-  new Teamlist
+  new AdminTeams

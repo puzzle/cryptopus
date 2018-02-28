@@ -3,7 +3,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-module Admin::TeamlistHelper
+module Admin::TeamsHelper
   def number_of_groups
     @team.groups.count
   end
@@ -16,11 +16,11 @@ module Admin::TeamlistHelper
     accounts
   end
 
-  def teammember_list
-    content_tag(:ul, '', class: 'members-list').html_safe
-  end
+  #def teammember_list
+    #content_tag(:ul, '', class: 'members-list').html_safe
+  #end
 
-  def members_button
-    link_to('Show', '', class: 'members-link', remote: true).html_safe
-  end
+  #def members_button
+    #link_to('Show', '', class: 'members-link', remote: true).html_safe
+  #end
 end
