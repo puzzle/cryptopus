@@ -130,6 +130,9 @@ en:
         destroy: Destroy User
       new:
         title: New user
+    teams:
+      index:
+        title: Teams
     user_roles:
       user: User
       conf_admin: Conf Admin

@@ -12,6 +12,7 @@ class Admin::SettingsController < ApplicationController
 
   def index
     authorize Setting
+    policy_scope Setting
   end
 
   def update_all

@@ -59,6 +59,20 @@ class TeamPolicyTest < PolicyTest
       refute_permit conf_admin, team1, :destroy?
     end
   end
+  
+  context 'admin teams' do
+    test 'admin can list all teams' do
+      assert_permit admin, Team, :index_all?
+    end
+    
+    test 'conf_admin can list all teams' do
+      assert_permit conf_admin, Team, :index_all?
+    end
+    
+    test 'user cannot list all teams' do
+      refute_permit bob, Team, :index_all?
+    end
+  end
 
   context '#scope' do
     test 'admin sees all non-private teams' do
@@ -67,13 +81,31 @@ class TeamPolicyTest < PolicyTest
       assert_equal Team.where(private: false), teams
     end
 
-    test 'user can see all and only the teams he is a part of' do
+    test 'user can only list teams where member' do
       team1.teammembers.find_by(user_id: bob.id).destroy!
       bobs_teams = TeamPolicy::Scope.new(bob, Team).resolve
 
       assert_equal 1, bobs_teams.count
       assert_equal bob.teams, bobs_teams
     end
+  end
+    
+  test 'admin may list all teams' do
+    teams = TeamPolicy::Scope.new(admin, Team).resolve_all
+
+    assert_equal Team.all, teams
+  end
+  
+  test 'conf admin may list all teams' do
+    teams = TeamPolicy::Scope.new(admin, Team).resolve_all
+
+    assert_equal Team.all, teams
+  end
+
+  test 'user may not list all teams' do
+    teams = TeamPolicy::Scope.new(bob, Team).resolve_all
+
+    assert_nil teams
   end
   
   context '#add' do

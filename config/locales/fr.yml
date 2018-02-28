@@ -127,6 +127,9 @@ fr:
         destroy: supprimer l'utilisateur
       new:
         title: Nouvel utilisateur
+    teams:
+      index:
+        title: Teams
     user_roles:
       user: Utilisateur
       conf_admin: Conf Admin

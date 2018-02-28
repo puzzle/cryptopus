@@ -20,4 +20,12 @@ class SettingPolicy < ApplicationPolicy
   def setting
     @record
   end
+
+  class Scope < Scope
+    def resolve
+      if admin_or_conf_admin?
+        @scope
+      end
+    end
+  end
 end
