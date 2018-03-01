@@ -16,11 +16,4 @@ module Admin::TeamsHelper
     accounts
   end
 
-  #def teammember_list
-    #content_tag(:ul, '', class: 'members-list').html_safe
-  #end
-
-  #def members_button
-    #link_to('Show', '', class: 'members-link', remote: true).html_safe
-  #end
 end
