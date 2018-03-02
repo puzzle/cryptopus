@@ -9,6 +9,12 @@ class Finders::AccountsFinder < Finders::BaseFinder
       relation.where('accountname like ? or accounts.description like ?', "%#{term}%", "%#{term}%")
     end
   end
+  
+  def find_by_tag(user, tag)
+    tag.split(' ').inject(accounts(user).includes(group: [:team])) do |relation, term|
+      relation.where('tag like ?', "%#{term}%")
+    end
+  end
 
   private
 

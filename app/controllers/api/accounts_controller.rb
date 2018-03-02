@@ -6,7 +6,7 @@
 class Api::AccountsController < ApiController
   def index
     skip_policy_scope
-    accounts = accounts_finder.find(current_user, term)
+    accounts = find_accounts
     render_json accounts
   rescue ActionController::ParameterMissing
     render_json
@@ -14,11 +14,23 @@ class Api::AccountsController < ApiController
 
   private
 
+  def find_accounts
+    if params[:q].present?
+      accounts_finder.find(current_user, query)
+    else
+      accounts_finder.find_by_tag(current_user, tag)
+    end
+  end
+
   def accounts_finder
     Finders::AccountsFinder.new
   end
 
-  def term
+  def query
     params.require(:q)
+  end
+
+  def tag
+    params.require(:tag)
   end
 end

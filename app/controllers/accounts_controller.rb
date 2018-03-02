@@ -133,6 +133,7 @@ class AccountsController < ApplicationController
     params.require(:account).permit(:accountname,
                                     :cleartext_username,
                                     :cleartext_password,
+                                    :tag,
                                     :description,
                                     :group_id)
   end

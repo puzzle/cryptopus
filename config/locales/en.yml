@@ -15,6 +15,7 @@ en:
   delete: Delete
   add: Add
   description: Description
+  tag: Tag
   username: Username
   password: Password
   actions: Actions

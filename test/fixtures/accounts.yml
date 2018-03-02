@@ -31,3 +31,4 @@ account2:
   group: group2
   username: <%= "!!binary \"#{FixturesHelper.read_account_username('team2', 'account2')}\"" %>
   password: <%= "!!binary \"#{FixturesHelper.read_account_password('team2', 'account2')}\"" %>
+  tag: tag2

@@ -15,13 +15,29 @@ class AccountsFinderTest < ActiveSupport::TestCase
     assert_equal 'account1', accounts.second.accountname
   end
   
+  test 'teammember finds his accounts by tag' do
+    accounts = accounts_finder.find_by_tag(bob, 'tag')
+    assert_equal 1, accounts.count
+    assert_equal 'account2', accounts.first.accountname
+  end
+  
   test 'teammember does not find an account with invalid query' do
     accounts = accounts_finder.find(bob, '42account42')
     assert_equal 0, accounts.count
   end
   
+  test 'teammember does not find an account with invalid tag' do
+    accounts = accounts_finder.find_by_tag(bob, 'tag77')
+    assert_equal 0, accounts.count
+  end
+  
   test 'non-teammember does not find account' do
     accounts = accounts_finder.find(alice, 'account2')
+    assert_equal 0, accounts.count
+  end
+  
+  test 'non-teammember does not find account by tag' do
+    accounts = accounts_finder.find_by_tag(alice, 'tag')
     assert_equal 0, accounts.count
   end
 

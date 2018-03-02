@@ -18,6 +18,9 @@
       = button_tag t('accounts.edit.random_password'), type: 'button', id: 'generate_button', class: 'btn btn-primary btn-sm'
       %div#strength
   .form-group
+    = f.label :tag
+    = f.text_field :tag, autocomplete: :off, class: 'form-control'
+  .form-group
     = f.label :description
     %span#unencrypted
     (#{I18n.t('unencrypted_field_caption')})

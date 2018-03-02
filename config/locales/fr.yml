@@ -15,6 +15,7 @@ fr:
   delete: Supprimer
   add: Ajoutea
   description: Description
+  tag: Tag
   username: Nom d'utilisateur
   password: Mot de passe
   actions: Actions
