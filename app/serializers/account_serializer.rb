@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: accounts
@@ -12,8 +11,8 @@
 #  password    :binary
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  tag         :string
 #
-
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.

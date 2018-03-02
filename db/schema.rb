@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122132626) do
+ActiveRecord::Schema.define(version: 20180302134828) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "accountname", limit: 70, default: "", null: false
@@ -20,10 +20,12 @@ ActiveRecord::Schema.define(version: 20180122132626) do
     t.binary "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "tag"
+    t.index ["tag"], name: "index_accounts_on_tag"
   end
 
   create_table "groups", force: :cascade do |t|
-    t.string "name", limit: 40, default: "", null: false
+    t.string "name", limit: 70, default: "", null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -68,7 +70,7 @@ ActiveRecord::Schema.define(version: 20180122132626) do
   end
 
   create_table "teams", force: :cascade do |t|
-    t.string "name", limit: 40, default: "", null: false
+    t.string "name", limit: 70, default: "", null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -80,7 +82,6 @@ ActiveRecord::Schema.define(version: 20180122132626) do
     t.text "public_key", null: false
     t.binary "private_key", null: false
     t.binary "password"
-    t.boolean "admin", default: false, null: false
     t.integer "ldap_uid"
     t.datetime "last_login_at"
     t.string "username"
