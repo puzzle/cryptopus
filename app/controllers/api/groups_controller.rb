@@ -5,7 +5,6 @@
 
 class Api::GroupsController < ApiController
   def index
-    skip_authorization
     skip_policy_scope
     groups = groups_finder.find(current_user, term)
     render_json groups

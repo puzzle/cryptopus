@@ -5,7 +5,6 @@
 
 class Api::AccountsController < ApiController
   def index
-    skip_authorization
     skip_policy_scope
     accounts = accounts_finder.find(current_user, term)
     render_json accounts

@@ -7,7 +7,6 @@
 
 class Api::TeamsController < ApiController
   def index
-    skip_authorization
     skip_policy_scope
     teams = teams_finder.find(current_user, term)
     render_json teams

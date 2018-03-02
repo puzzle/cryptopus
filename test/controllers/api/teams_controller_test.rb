@@ -64,7 +64,7 @@ class Api::TeamsControllerTest < ActionController::TestCase
 
   test 'should get team for search term' do
     login_as(:alice)
-    get :index, params: {'q' => 'team'}, xhr: true
+    get :index, params: {'q': 'team'}, xhr: true
 
     result_json = JSON.parse(response.body)['data']['teams'][0]
 
@@ -72,5 +72,14 @@ class Api::TeamsControllerTest < ActionController::TestCase
 
     assert_equal team.name, result_json['name']
     assert_equal team.id, result_json['id']
+  end
+  
+  test 'should get empty json for no query' do
+    login_as(:alice)
+    get :index, params: {'q': ''}, xhr: true
+
+    empty_json = JSON.parse(response.body)['data']
+    
+    assert_nil empty_json
   end
 end
