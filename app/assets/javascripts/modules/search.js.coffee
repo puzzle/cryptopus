@@ -14,7 +14,7 @@ class app.Search
     doSearch.call()
 
   search = (term, search_type) ->
-    return $.get('/api/search/'+search_type, q: term).then (data) ->
+    return $.get('/api/'+search_type, q: term).then (data) ->
       objects = data.data[search_type]
       HandlebarsTemplates['search/'+search_type+'_result_entries'](objects)
 

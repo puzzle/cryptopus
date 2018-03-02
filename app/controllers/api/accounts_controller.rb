@@ -1,33 +1,25 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Api::SearchController < ApiController
-
-  def accounts
+class Api::AccountsController < ApiController
+  def index
     skip_authorization
-    accounts = current_user.search_accounts(term)
-
+    skip_policy_scope
+    accounts = accounts_finder.find(current_user, term)
     render_json accounts
-  end
-
-  def groups
-    skip_authorization
-    render_json current_user.search_groups(term)
-  end
-
-  def teams
-    skip_authorization
-    render_json current_user.search_teams(term)
+  rescue ActionController::ParameterMissing
+    render_json
   end
 
   private
 
+  def accounts_finder
+    Finders::AccountsFinder.new
+  end
+
   def term
     params.require(:q)
   end
-
 end
