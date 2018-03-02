@@ -11,7 +11,7 @@ class Api::GroupsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
   test 'should get group for search term' do
     login_as(:alice)
-    get :index, params: {'q' => 'group'}, xhr: true
+    get :index, params: {'q': 'group'}, xhr: true
 
     result_json = JSON.parse(response.body)['data']['groups'][0]
 
@@ -19,5 +19,14 @@ class Api::GroupsControllerTest < ActionController::TestCase
 
     assert_equal group.name, result_json['name']
     assert_equal group.id, result_json['id']
+  end
+  
+  test 'should get empty json for no query' do
+    login_as(:alice)
+    get :index, params: {'q': ''}, xhr: true
+
+    empty_json = JSON.parse(response.body)['data']
+    
+    assert_nil empty_json
   end
 end

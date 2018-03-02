@@ -6,9 +6,26 @@
 #  https://github.com/puzzle/cryptopus.
 
 require 'test_helper'
-class AccountsFinderTest <  ActiveSupport::TestCase
+class AccountsFinderTest < ActiveSupport::TestCase
 
-  test 'only returns accounts where bob is member' do
+  test 'teammember finds his accounts' do
+    accounts = accounts_finder.find(bob, 'account')
+    assert_equal 2, accounts.count
+    assert_equal 'account2', accounts.first.accountname
+    assert_equal 'account1', accounts.second.accountname
+  end
+  
+  test 'teammember does not find an account with invalid query' do
+    accounts = accounts_finder.find(bob, '42account42')
+    assert_equal 0, accounts.count
+  end
+  
+  test 'non-teammember does not find account' do
+    accounts = accounts_finder.find(alice, 'account2')
+    assert_equal 0, accounts.count
+  end
+
+  test 'only returns accounts where alice is member' do
     accounts = accounts_finder.send(:accounts, alice)
     assert_equal 1, accounts.count
     assert_equal 'account1', accounts.first.accountname
@@ -21,6 +38,10 @@ class AccountsFinderTest <  ActiveSupport::TestCase
   end
 
   def alice
-    users(:alice)
+   users(:alice)
+  end
+
+  def bob
+    users(:bob)
   end
 end

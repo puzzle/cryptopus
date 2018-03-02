@@ -11,7 +11,7 @@ class Api::AccountsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
   test 'should get account for matching accountname without cleartext username / password' do
     login_as(:alice)
-    get :index, params: {'q' => 'acc'}, xhr: true
+    get :index, params: {'q': 'acc'}, xhr: true
 
     result_json = JSON.parse(response.body)['data']['accounts'][0]
 
@@ -30,10 +30,19 @@ class Api::AccountsControllerTest < ActionController::TestCase
     assert_equal team.name, result_json['team']
     assert_equal team.id, result_json['team_id']
   end
+  
+  test 'should get empty json for no query' do
+    login_as(:alice)
+    get :index, params: {'q': ''}, xhr: true
+
+    empty_json = JSON.parse(response.body)['data']
+    
+    assert_nil empty_json
+  end
 
   test 'should get account for matching description without cleartext username / password' do
     login_as(:alice)
-    get :index, params: {'q' => 'des'}, xhr: true
+    get :index, params: {'q': 'des'}, xhr: true
 
     result_json = JSON.parse(response.body)['data']['accounts'][0]
 
