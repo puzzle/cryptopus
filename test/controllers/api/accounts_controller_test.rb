@@ -7,11 +7,11 @@
 
 require 'test_helper'
 
-class Api::SearchControllerTest < ActionController::TestCase
+class Api::AccountsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
-  test "should get account for matching accountname without cleartext username / password" do
+  test 'should get account for matching accountname without cleartext username / password' do
     login_as(:alice)
-    get :accounts, params: {'q' => 'acc'}, xhr: true
+    get :index, params: {'q' => 'acc'}, xhr: true
 
     result_json = JSON.parse(response.body)['data']['accounts'][0]
 
@@ -31,9 +31,9 @@ class Api::SearchControllerTest < ActionController::TestCase
     assert_equal team.id, result_json['team_id']
   end
 
-  test "should get account for matching description without cleartext username / password" do
+  test 'should get account for matching description without cleartext username / password' do
     login_as(:alice)
-    get :accounts, params: {'q' => 'des'}, xhr: true
+    get :index, params: {'q' => 'des'}, xhr: true
 
     result_json = JSON.parse(response.body)['data']['accounts'][0]
 
@@ -51,30 +51,5 @@ class Api::SearchControllerTest < ActionController::TestCase
 
     assert_equal team.name, result_json['team']
     assert_equal team.id, result_json['team_id']
-  end
-
-  test "should get group for search term" do
-    login_as(:alice)
-    get :groups, params: {'q' => 'group'}, xhr: true
-
-    result_json = JSON.parse(response.body)['data']['groups'][0]
-
-    group = groups(:group1)
-
-    assert_equal group.name, result_json['name']
-    assert_equal group.id, result_json['id']
-  end
-
-
-  test "should get team for search term" do
-    login_as(:alice)
-    get :teams, params: {'q' => 'team'}, xhr: true
-
-    result_json = JSON.parse(response.body)['data']['teams'][0]
-
-    team = teams(:team1)
-
-    assert_equal team.name, result_json['name']
-    assert_equal team.id, result_json['id']
   end
 end

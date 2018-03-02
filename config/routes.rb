@@ -69,11 +69,10 @@ Rails.application.routes.draw do
   end
 
   scope '/api', module: 'api' do
-    scope '/search', module: 'search' do
-      get :accounts
-      get :groups
-      get :teams
-    end
+    get 'groups', to: 'groups#index'
+    get 'accounts', to: 'accounts#index'
+    get 'teams', to: 'teams#index'
+
     scope '/admin', module: 'admin' do
       resources :users, only: :destroy do
         member do
