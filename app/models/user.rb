@@ -183,34 +183,9 @@ class User < ApplicationRecord
     raise Exceptions::DecryptFailed
   end
 
-  def accounts
-    Account.joins(:group).
-      joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
-      where(teammembers: { user_id: id })
-  end
-
   def legacy_password?
     return false if ldap?
     password.match('sha512').nil?
-  end
-
-  def groups
-    Group.joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
-      where(teammembers: { user_id: id })
-  end
-
-  def search_teams(term)
-    teams.where('name like ?', "%#{term}%")
-  end
-
-  def search_groups(term)
-    groups.where('name like ?', "%#{term}%")
-  end
-
-  def search_accounts(query)
-    query.split(' ').inject(accounts.includes(group: [:team])) do |relation, term|
-      relation.where('accountname like ? or accounts.description like ?', "%#{term}%", "%#{term}%")
-    end
   end
 
   def legacy_private_key?

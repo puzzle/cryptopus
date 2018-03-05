@@ -7,8 +7,11 @@
 
 class Api::TeamsController < ApiController
   def index
-    teams = policy_scope Team
+    skip_policy_scope
+    teams = teams_finder.find(current_user, term)
     render_json teams
+  rescue ActionController::ParameterMissing
+    render_json
   end
 
   def last_teammember_teams
@@ -31,5 +34,13 @@ class Api::TeamsController < ApiController
 
   def team
     @team ||= Team.find(params['id'])
+  end
+
+  def teams_finder
+    Finders::TeamsFinder.new
+  end
+
+  def term
+    params.require(:q)
   end
 end
