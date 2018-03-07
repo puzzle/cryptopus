@@ -183,6 +183,17 @@ class User < ApplicationRecord
     raise Exceptions::DecryptFailed
   end
 
+  def accounts
+    Account.joins(:group).
+      joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
+      where(teammembers: { user_id: id })
+  end
+
+  def groups
+    Group.joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
+      where(teammembers: { user_id: id })
+  end
+
   def legacy_password?
     return false if ldap?
     password.match('sha512').nil?

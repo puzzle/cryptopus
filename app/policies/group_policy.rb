@@ -20,6 +20,10 @@ class GroupPolicy < TeamDependantPolicy
       end
     end
 
+    def resolve_all
+      @user.groups
+    end
+
     protected
 
     def team

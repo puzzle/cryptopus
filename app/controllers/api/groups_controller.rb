@@ -6,19 +6,26 @@
 class Api::GroupsController < ApiController
   def index
     skip_policy_scope
-    groups = groups_finder.find(current_user, term)
-    render_json groups
+    groups = GroupPolicy::Scope.new(current_user, Group).resolve_all
+    render_json find_groups(groups)
   rescue ActionController::ParameterMissing
     render_json
   end
 
   private
 
-  def groups_finder
-    Finders::GroupsFinder.new
+  def find_groups(groups)
+    if query_param.present?
+      groups = finder(groups, query_param).apply
+    end
+    groups
   end
 
-  def term
-    params.require(:q)
+  def finder(groups, query)
+    Finders::GroupsFinder.new(groups, query)
+  end
+
+  def query_param
+    params[:q]
   end
 end

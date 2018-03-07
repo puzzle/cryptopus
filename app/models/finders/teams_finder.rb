@@ -4,7 +4,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Finders::TeamsFinder < Finders::BaseFinder
-  def find(user, term)
-    user.teams.where('name like ?', "%#{term}%")
+  def apply
+    @records.where('name like ?', "%#{@term}%")
   end
 end

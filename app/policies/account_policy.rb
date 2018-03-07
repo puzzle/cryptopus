@@ -30,6 +30,10 @@ class AccountPolicy < TeamDependantPolicy
       end
     end
 
+    def resolve_all
+      @user.accounts
+    end
+
     protected
 
     def team

@@ -31,13 +31,26 @@ class Api::AccountsControllerTest < ActionController::TestCase
     assert_equal team.id, result_json['team_id']
   end
   
-  test 'should get empty json for no query' do
+  test 'should get all accounts for no query' do
     login_as(:alice)
     get :index, params: {'q': ''}, xhr: true
 
-    empty_json = JSON.parse(response.body)['data']
-    
-    assert_nil empty_json
+    result_json = JSON.parse(response.body)['data']['accounts'][0]
+
+    account = accounts(:account1)
+    group = account.group
+    team = group.team
+
+    assert_equal account.accountname, result_json['accountname']
+    assert_equal account.id, result_json['id']
+    assert_nil result_json['cleartext_username']
+    assert_nil result_json['cleartext_password']
+
+    assert_equal group.name, result_json['group']
+    assert_equal group.id, result_json['group_id']
+
+    assert_equal team.name, result_json['team']
+    assert_equal team.id, result_json['team_id']
   end
 
   test 'should get account for matching description without cleartext username / password' do

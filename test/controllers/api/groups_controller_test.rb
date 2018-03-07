@@ -21,12 +21,15 @@ class Api::GroupsControllerTest < ActionController::TestCase
     assert_equal group.id, result_json['id']
   end
   
-  test 'should get empty json for no query' do
+  test 'should get all groups for no query' do
     login_as(:alice)
     get :index, params: {'q': ''}, xhr: true
 
-    empty_json = JSON.parse(response.body)['data']
+    result_json = JSON.parse(response.body)['data']['groups'][0]
     
-    assert_nil empty_json
+    group = groups(:group1)
+
+    assert_equal group.name, result_json['name']
+    assert_equal group.id, result_json['id']
   end
 end

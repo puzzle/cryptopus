@@ -11,10 +11,8 @@ class AccountsController < ApplicationController
   def index
     authorize team, :team_member?
     skip_policy_scope
-
-    accounts_breadcrumbs
-
     @accounts = AccountPolicy::Scope.new(current_user, @group).resolve
+    accounts_breadcrumbs
 
     respond_to do |format|
       format.html # index.html.haml

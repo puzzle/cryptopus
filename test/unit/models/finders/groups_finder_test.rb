@@ -9,39 +9,19 @@ require 'test_helper'
 class GroupsFinderTest <  ActiveSupport::TestCase
 
   test 'teammember finds his groups' do
-    groups = groups_finder.find(bob, 'group')
-    assert_equal 2, groups.count
-    assert_equal 'group1', groups.first.name
-    assert_equal 'group2', groups.second.name
-  end
-  
-  test 'teammember does not find a group with invalid query' do
-    groups = groups_finder.find(bob, '42group42')
-    assert_equal 0, groups.count
-  end
-  
-  test 'non-teammember does not find group' do
-    groups = groups_finder.find(alice, 'group2')
-    assert_equal 0, groups.count
-  end
-
-  test 'only returns groups where alice is member' do
-    groups = groups_finder.send(:groups, alice)
+    groups = find(Group.all, 'group1')
     assert_equal 1, groups.count
     assert_equal 'group1', groups.first.name
   end
-
+  
+  test 'teammember does not find a group with invalid query' do
+    groups = find(Group.all, '42group42')
+    assert_equal 0, groups.count
+  end
+  
   private
 
-  def groups_finder
-    Finders::GroupsFinder.new
-  end
-
-  def alice
-    users(:alice)
-  end
-
-  def bob
-    users(:bob)
+  def find(groups, query)
+    Finders::GroupsFinder.new(groups, query).apply
   end
 end

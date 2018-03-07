@@ -4,33 +4,39 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::AccountsController < ApiController
+
+  def self.policy_class
+    AccountPolicy
+  end
+
   def index
     skip_policy_scope
-    accounts = find_accounts
-    render_json accounts
+    accounts = AccountPolicy::Scope.new(current_user, Account).resolve_all
+    render_json find_accounts(accounts)
   rescue ActionController::ParameterMissing
     render_json
   end
 
   private
 
-  def find_accounts
-    if params[:q].present?
-      accounts_finder.find(current_user, query)
-    else
-      accounts_finder.find_by_tag(current_user, tag)
+  def find_accounts(accounts)
+    if query_param.present?
+      accounts = finder(accounts, query_param).apply
+    elsif tag_param.present?
+      accounts.find_by(tag: tag_param)
     end
+    accounts
   end
 
-  def accounts_finder
-    Finders::AccountsFinder.new
+  def finder(accounts, query)
+    Finders::AccountsFinder.new(accounts, query)
   end
 
-  def query
-    params.require(:q)
+  def query_param
+    params[:q]
   end
 
-  def tag
-    params.require(:tag)
+  def tag_param
+    params[:tag]
   end
 end

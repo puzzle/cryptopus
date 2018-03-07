@@ -74,12 +74,15 @@ class Api::TeamsControllerTest < ActionController::TestCase
     assert_equal team.id, result_json['id']
   end
   
-  test 'should get empty json for no query' do
+  test 'should get all teams for no query' do
     login_as(:alice)
     get :index, params: {'q': ''}, xhr: true
 
-    empty_json = JSON.parse(response.body)['data']
-    
-    assert_nil empty_json
+    result_json = JSON.parse(response.body)['data']['teams'][0]
+
+    team = teams(:team1)
+
+    assert_equal team.name, result_json['name']
+    assert_equal team.id, result_json['id']
   end
 end

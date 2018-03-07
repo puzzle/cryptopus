@@ -4,14 +4,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Finders::GroupsFinder < Finders::BaseFinder
-  def find(user, term)
-    groups(user).where('name like ?', "%#{term}%")
-  end
-
-  private
-
-  def groups(user)
-    Group.joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
-      where(teammembers: { user_id: user.id })
+  def apply
+    @records.where('name like ?', "%#{@term}%")
   end
 end

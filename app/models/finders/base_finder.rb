@@ -4,4 +4,12 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Finders::BaseFinder
+  def initialize(records, term)
+    @records = records
+    @term = term
+  end
+
+  def apply
+    raise 'implement in subclass'
+  end
 end

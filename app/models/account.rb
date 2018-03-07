@@ -65,5 +65,4 @@ class Account < ApplicationRecord
     crypted_value = CryptUtils.encrypt_blob(cleartext_password, team_password)
     self.password = crypted_value
   end
-
 end

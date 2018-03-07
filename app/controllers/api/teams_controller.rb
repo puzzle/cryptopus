@@ -6,10 +6,14 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::TeamsController < ApiController
+
+  def self.policy_class
+    TeamPolicy
+  end
+
   def index
-    skip_policy_scope
-    teams = teams_finder.find(current_user, term)
-    render_json teams
+    teams = policy_scope(Team)
+    render_json find_teams(teams)
   rescue ActionController::ParameterMissing
     render_json
   end
@@ -36,11 +40,18 @@ class Api::TeamsController < ApiController
     @team ||= Team.find(params['id'])
   end
 
-  def teams_finder
-    Finders::TeamsFinder.new
+  def find_teams(teams)
+    if query_param.present?
+      teams = finder(teams, query_param).apply
+    end
+    teams
   end
 
-  def term
-    params.require(:q)
+  def finder(teams, query)
+    Finders::TeamsFinder.new(teams, query)
+  end
+
+  def query_param
+    params[:q]
   end
 end
