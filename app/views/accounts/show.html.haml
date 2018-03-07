@@ -50,7 +50,7 @@
     - for item in @items
       %tr{class: "#{cycle( 'odd', 'even' )}"}
         %td
-          = link_to image_tag("file.svg") + item.filename, [team, @group, @account, item]
+          = link_to image_tag("file.svg") + item.filename, [team, @group, @account, item], target: ''
         %td{valign: "top"}= simple_format item.description
         %td.action_icon= link_to_destroy [team, @group, @account, item], item
 
