@@ -14,8 +14,6 @@ class Api::TeamsController < ApiController
   def index
     teams = policy_scope(Team)
     render_json find_teams(teams)
-  rescue ActionController::ParameterMissing
-    render_json
   end
 
   def last_teammember_teams
@@ -27,7 +25,7 @@ class Api::TeamsController < ApiController
   def destroy
     authorize team
     team.destroy
-    render_json ''
+    render_json
   end
 
   private

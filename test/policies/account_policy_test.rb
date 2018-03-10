@@ -71,16 +71,6 @@ class AccountPolicyTest < PolicyTest
     end
   end
 
-  context '#scope' do
-    test 'teammember receives accountlist' do
-      assert_not_nil AccountPolicy::Scope.new(bob, group2).resolve
-    end
-
-    test 'non teammember cannot read accountlist' do
-      assert_nil AccountPolicy::Scope.new(alice, group2).resolve
-    end
-  end
-
   private
   
   def account2

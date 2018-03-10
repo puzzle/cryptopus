@@ -4,12 +4,14 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::GroupsController < ApiController
+
+  def self.policy_class
+    GroupPolicy
+  end
+
   def index
-    skip_policy_scope
-    groups = GroupPolicy::Scope.new(current_user, Group).resolve_all
+    groups = policy_scope(Group)
     render_json find_groups(groups)
-  rescue ActionController::ParameterMissing
-    render_json
   end
 
   private

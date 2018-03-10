@@ -61,16 +61,6 @@ class GroupPolicyTest < PolicyTest
     end
   end
 
-  context '#scope' do
-    test 'teammember receives grouplist' do
-      assert_not_nil GroupPolicy::Scope.new(bob, team2).resolve
-    end
-
-    test 'non teammember cannot read grouplist' do
-      assert_nil GroupPolicy::Scope.new(alice, team2).resolve
-    end
-  end
-
   private
 
   def group2

@@ -14,13 +14,8 @@ class GroupPolicy < TeamDependantPolicy
   end
 
   class Scope < TeamDependantScope
-    def resolve
-      if team_member?
-        team.groups
-      end
-    end
 
-    def resolve_all
+    def resolve
       @user.groups
     end
 

@@ -24,13 +24,8 @@ class AccountPolicy < TeamDependantPolicy
   end
 
   class Scope < TeamDependantScope
-    def resolve
-      if team_member?
-        @scope.accounts.all
-      end
-    end
 
-    def resolve_all
+    def resolve
       @user.accounts
     end
 

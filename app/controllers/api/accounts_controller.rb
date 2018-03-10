@@ -10,11 +10,9 @@ class Api::AccountsController < ApiController
   end
 
   def index
-    skip_policy_scope
-    accounts = AccountPolicy::Scope.new(current_user, Account).resolve_all
-    render_json find_accounts(accounts)
-  rescue ActionController::ParameterMissing
-    render_json
+    accounts = policy_scope(Account)
+    accounts = find_accounts(accounts)
+    render_json accounts
   end
 
   private

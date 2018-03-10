@@ -8,28 +8,56 @@
 require 'test_helper'
 
 class Api::GroupsControllerTest < ActionController::TestCase
+
   include ControllerTest::DefaultHelper
-  test 'should get group for search term' do
-    login_as(:alice)
-    get :index, params: {'q': 'group'}, xhr: true
 
-    result_json = JSON.parse(response.body)['data']['groups'][0]
+  context '#index' do
 
-    group = groups(:group1)
+    test 'returns matching groups' do
 
-    assert_equal group.name, result_json['name']
-    assert_equal group.id, result_json['id']
+      login_as(:alice)
+
+      get :index, params: { 'q': 'group' }, xhr: true
+
+      result_json = JSON.parse(response.body)['data']['groups'][0]
+
+      group = groups(:group1)
+
+      assert_equal group.name, result_json['name']
+      assert_equal group.id, result_json['id']
+
+    end
+
+    test 'returns all groups if empty query param given' do
+
+      login_as(:alice)
+
+      get :index, params: { 'q': '' }, xhr: true
+
+      result_json = JSON.parse(response.body)['data']['groups'][0]
+
+      group = groups(:group1)
+
+      assert_equal group.name, result_json['name']
+      assert_equal group.id, result_json['id']
+
+    end
+
+    test 'returns all groups if no query param given' do
+
+      login_as(:alice)
+
+      get :index, xhr: true
+
+      result_json = JSON.parse(response.body)['data']['groups'][0]
+
+      group = groups(:group1)
+
+      assert_equal group.name, result_json['name']
+      assert_equal group.id, result_json['id']
+
+    end
+
   end
-  
-  test 'should get all groups for no query' do
-    login_as(:alice)
-    get :index, params: {'q': ''}, xhr: true
 
-    result_json = JSON.parse(response.body)['data']['groups'][0]
-    
-    group = groups(:group1)
-
-    assert_equal group.name, result_json['name']
-    assert_equal group.id, result_json['id']
-  end
 end

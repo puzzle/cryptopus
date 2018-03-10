@@ -10,9 +10,9 @@ class GroupsController < ApplicationController
 
   # GET /teams/1/groups
   def index
-    authorize team, :team_member?
     skip_policy_scope
-    @groups = GroupPolicy::Scope.new(current_user, team).resolve
+    authorize team, :team_member?
+    @groups = team.groups
     groups_breadcrumbs
 
     teammembers = TeamPolicy::Scope.new(current_user, team).resolve_members
