@@ -14,10 +14,9 @@ class GroupPolicy < TeamDependantPolicy
   end
 
   class Scope < TeamDependantScope
+
     def resolve
-      if team_member?
-        team.groups
-      end
+      @user.groups
     end
 
     protected

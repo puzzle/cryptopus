@@ -19,7 +19,7 @@
 #  last_failed_login_attempt_at :datetime
 #  failed_login_attempts        :integer          default(0), not null
 #  last_login_from              :string
-#  role                         :integer          default(0), not null
+#  role                         :integer          default("user"), not null
 #
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
@@ -189,28 +189,14 @@ class User < ApplicationRecord
       where(teammembers: { user_id: id })
   end
 
-  def legacy_password?
-    return false if ldap?
-    password.match('sha512').nil?
-  end
-
   def groups
     Group.joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
       where(teammembers: { user_id: id })
   end
 
-  def search_teams(term)
-    teams.where('name like ?', "%#{term}%")
-  end
-
-  def search_groups(term)
-    groups.where('name like ?', "%#{term}%")
-  end
-
-  def search_accounts(query)
-    query.split(' ').inject(accounts.includes(group: [:team])) do |relation, term|
-      relation.where('accountname like ? or accounts.description like ?', "%#{term}%", "%#{term}%")
-    end
+  def legacy_password?
+    return false if ldap?
+    password.match('sha512').nil?
   end
 
   def legacy_private_key?

@@ -50,12 +50,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 0, users(:bob).failed_login_attempts
   end
 
-  test 'only returns accounts where bob is member' do
-    accounts = users(:alice).accounts
-    assert_equal 1, accounts.count
-    assert_equal 'account1', accounts.first.accountname
-  end
-
   test 'user locked' do
     users(:bob).update_attribute(:locked, true)
 
@@ -66,6 +60,18 @@ class UserTest < ActiveSupport::TestCase
     users(:bob).update_attribute(:locked, false)
 
     assert_not users(:bob).locked?
+  end
+
+  test 'only returns accounts where alice is member' do
+    accounts = users(:alice).accounts
+    assert_equal 1, accounts.count
+    assert_equal 'account1', accounts.first.accountname
+  end
+  
+  test 'only returns groups where alice is member' do
+    groups = users(:alice).groups
+    assert_equal 1, groups.count
+    assert_equal 'group1', groups.first.name
   end
 
   test 'create user from ldap' do
@@ -153,12 +159,6 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.recrypt_private_key!('worong_new_password', 'password')
 
     assert_match(/Your NEW password was wrong/, user.errors.messages[:base][0])
-  end
-  
-  test 'account search sequence should not matter' do
-    accounts = users(:root).search_accounts('1 acc')
-    assert_equal 1, accounts.count
-    assert_equal 'account1', accounts.first.accountname
   end
   
   context '#update_role' do

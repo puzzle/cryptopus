@@ -6,9 +6,14 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::TeamsController < ApiController
+
+  def self.policy_class
+    TeamPolicy
+  end
+
   def index
-    teams = policy_scope Team
-    render_json teams
+    teams = policy_scope(Team)
+    render_json find_teams(teams)
   end
 
   def last_teammember_teams
@@ -20,7 +25,7 @@ class Api::TeamsController < ApiController
   def destroy
     authorize team
     team.destroy
-    render_json ''
+    render_json
   end
 
   private
@@ -31,5 +36,20 @@ class Api::TeamsController < ApiController
 
   def team
     @team ||= Team.find(params['id'])
+  end
+
+  def find_teams(teams)
+    if query_param.present?
+      teams = finder(teams, query_param).apply
+    end
+    teams
+  end
+
+  def finder(teams, query)
+    Finders::TeamsFinder.new(teams, query)
+  end
+
+  def query_param
+    params[:q]
   end
 end

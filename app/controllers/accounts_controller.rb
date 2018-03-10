@@ -9,12 +9,10 @@ class AccountsController < ApplicationController
 
   # GET /teams/1/groups/1/accounts
   def index
-    authorize team, :team_member?
     skip_policy_scope
-
+    authorize team, :team_member?
+    @accounts = @group.accounts
     accounts_breadcrumbs
-
-    @accounts = AccountPolicy::Scope.new(current_user, @group).resolve
 
     respond_to do |format|
       format.html # index.html.haml
@@ -133,6 +131,7 @@ class AccountsController < ApplicationController
     params.require(:account).permit(:accountname,
                                     :cleartext_username,
                                     :cleartext_password,
+                                    :tag,
                                     :description,
                                     :group_id)
   end

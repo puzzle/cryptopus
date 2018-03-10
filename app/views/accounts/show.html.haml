@@ -10,6 +10,9 @@
   %p
     %strong= t :description
     = simple_format @account.description
+  %p
+    %strong= t :tag
+    = simple_format @account.tag
   %br/
   .result-username.select-click
     %input#cleartext_username.form-control{readonly: "readonly", type: "text", value: "#{@account.cleartext_username}"}/
