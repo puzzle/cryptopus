@@ -111,12 +111,10 @@ class Api::AccountsControllerTest < ActionController::TestCase
     end
 
     test 'returns account for matching tag without cleartext username / password' do
-
       login_as(:bob)
+      get :index, params: { 'tag': 'www.tag.ch' }, xhr: true
 
-      get :index, params: { 'tag': 'tag' }, xhr: true
-
-      result_json = JSON.parse(response.body)['data']['accounts'][0]
+      result_json = JSON.parse(response.body)['data']['account']
 
       account = accounts(:account2)
       group = account.group
@@ -133,7 +131,5 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_equal team.name, result_json['team']
       assert_equal team.id, result_json['team_id']
     end
-
   end
-
 end
