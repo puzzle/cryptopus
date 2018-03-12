@@ -62,7 +62,7 @@ class Authentication::UserAuthenticator
   end
 
   def valid_username?
-    params[:username].strip =~ /^([a-zA-Z]|\d)+$/
+    authenticator.valid_username?
   end
 
   def params_present?
@@ -80,5 +80,4 @@ class Authentication::UserAuthenticator
   def add_error(msg_key)
     errors << I18n.t(msg_key)
   end
-
 end

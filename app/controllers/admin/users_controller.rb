@@ -13,6 +13,8 @@ class Admin::UsersController < ApplicationController
 
   helper_method :update_role
 
+  rescue_from ActiveRecord::RecordInvalid, with: :username_invalid_message
+
   # GET /admin/users
   def index
     # defining @soloteams for further use in destroy action
@@ -101,5 +103,10 @@ class Admin::UsersController < ApplicationController
 
   def authorize_user
     authorize user
+  end
+
+  def username_invalid_message
+    flash[:error] = 'username is invalid'
+    redirect_to admin_users_path
   end
 end

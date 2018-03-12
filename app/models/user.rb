@@ -37,6 +37,7 @@ class User < ApplicationRecord
   validates :username, uniqueness: true
   validates :username, presence: true
   validates :username, length: { maximum: 20 }
+  validates :username, format: { with: /\A([A-Za-z\d]+[._-]?)+[A-Za-z\d]\z/ }
   validate :must_be_valid_ip
 
   has_many :teammembers, dependent: :destroy

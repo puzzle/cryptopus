@@ -18,6 +18,10 @@ module Authentication
         username.present? && password.present?
       end
 
+      def valid_username?
+        username.strip =~ /\A([A-Za-z\d]+[._-]?)+[A-Za-z\d]\z/
+      end
+
       def auth!
         user.authenticate(password)
       end
@@ -34,7 +38,6 @@ module Authentication
         # password required for initial ldap user creation
         User.find_or_import_from_ldap(username.strip, password)
       end
-
     end
   end
 end
