@@ -82,14 +82,14 @@ Rails.application.routes.draw do
       resources :ldap_connection_test, only: ['new']
     end
 
+    resources :accounts, only: ['show']
+
     # INFO don't mix scopes and resources in routes
     resources :teams, only: [:destroy, :index]  do
       collection do
         get :last_teammember_teams
       end
-      resources :groups, only: ['index'], module: 'team' do
-        resources :accounts, only: ['show'], module: 'group'
-      end
+      resources :groups, only: ['index'], module: 'team'
       resources :members, except: [:new, :edit], module: 'team' do
         collection do
           get :candidates

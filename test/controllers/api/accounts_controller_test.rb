@@ -12,9 +12,7 @@ class Api::AccountsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
   context '#index' do
-
     test 'returns account with matching name' do
-
       login_as(:alice)
 
       get :index, params: { 'q': 'acc' }, xhr: true
@@ -35,11 +33,9 @@ class Api::AccountsControllerTest < ActionController::TestCase
 
       assert_equal team.name, account1_json['team']
       assert_equal team.id, account1_json['team_id']
-
     end
 
     test 'returns all accounts if empty query param given' do
-
       login_as(:alice)
 
       get :index, params: { 'q': '' }, xhr: true
@@ -60,11 +56,9 @@ class Api::AccountsControllerTest < ActionController::TestCase
 
       assert_equal team.name, account1_json['team']
       assert_equal team.id, account1_json['team_id']
-
     end
 
     test 'returns all accounts if no query param given' do
-
       login_as(:alice)
 
       get :index, xhr: true
@@ -85,7 +79,6 @@ class Api::AccountsControllerTest < ActionController::TestCase
 
       assert_equal team.name, account1_json['team']
       assert_equal team.id, account1_json['team_id']
-
     end
 
     test 'returns account for matching description without cleartext username / password' do
@@ -111,7 +104,6 @@ class Api::AccountsControllerTest < ActionController::TestCase
     end
 
     test 'returns account for matching tag without cleartext username / password' do
-
       login_as(:bob)
 
       get :index, params: { 'tag': 'tag' }, xhr: true
@@ -133,7 +125,19 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_equal team.name, result_json['team']
       assert_equal team.id, result_json['team_id']
     end
-
   end
+  
+  context '#show' do
+    test 'return decrypted account' do
+      login_as(:bob)
+      account = accounts(:account1)
 
+      get :show, params: { id: account }, xhr: true
+      account = JSON.parse(response.body)['data']['account']
+
+      assert_equal 'account1', account['accountname']
+      assert_equal 'test', account['cleartext_username']
+      assert_equal 'password', account['cleartext_password']
+    end
+  end
 end

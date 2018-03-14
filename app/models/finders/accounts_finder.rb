@@ -5,7 +5,7 @@
 
 class Finders::AccountsFinder < Finders::BaseFinder
   def apply
-    @term.split(' ').inject(@records.includes(group: [:team])) do |relation, term|
+    @term.split(' ').inject(@records) do |relation, term|
       relation.where('accountname like ? or accounts.description like ?', "%#{term}%", "%#{term}%")
     end
   end

@@ -15,6 +15,13 @@ class Api::AccountsController < ApiController
     render_json accounts
   end
 
+  def show
+    account = Account.find(params['id'])
+    authorize account
+    account.decrypt(plaintext_team_password(account.group.team))
+    render_json account
+  end
+
   private
 
   def find_accounts(accounts)
