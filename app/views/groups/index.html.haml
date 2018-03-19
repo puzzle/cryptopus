@@ -6,18 +6,19 @@
 %h1
   = t '.title', team_name: team.name
   - if team.private?
-    =image_tag( "encrypted_small.svg" ) 
-= hidden_field_tag :team_id, team.id
-= link_to t('groups.new.title'), new_team_group_path, class: 'btn btn-primary pull-right'
-%table.table.table-striped
-  %tr
-    %th{style: "width: 150px;"}= t '.group'
-    %th= t :description
-    %th{colspan: "3"}= t :actions
-  - for group in @groups
-    %tr{class: "#{cycle('odd', 'even')}"}
-      %td= link_to image_tag( "folder_open.svg" ) + " " + %Q{#{group.name}}, team_group_accounts_path(team, group)
-      %td= simple_format group.description
-      %td.action_icon= link_to image_tag("edit.svg"), [:edit, team, group]
-      %td.action_icon= link_to_destroy [team, group], group
-= render 'teammembers/index'
+    =image_tag('encrypted_small.svg')
+%br
+
+%ul.teams-nav.nav.nav-tabs
+  %li.tab.active
+    %a{"data-toggle" => "tab", href: "#groups"}
+      Groups
+  %li.tab
+    %a{"data-toggle" => "tab", href: "#members", id: 'members-tab'}
+      Members
+  
+.tab-content.teams-content
+  #groups.tab-pane.fade.in.active
+    = render 'groups'
+  #members.tab-pane.fade
+    = render 'members'

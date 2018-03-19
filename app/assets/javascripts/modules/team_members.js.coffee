@@ -94,4 +94,8 @@ class app.TeamMembers
       e.preventDefault()
       delete_member(e)
 
+    $(document).on 'click', '#members-tab', ->
+      toggle_members()
+      load_members()
+
   new TeamMembers
