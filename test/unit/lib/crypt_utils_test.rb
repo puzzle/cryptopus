@@ -14,8 +14,8 @@ describe CryptUtils do
     @password = 'foo password'
     @team_password = CryptUtils.new_team_password
     keypair = CryptUtils.new_keypair
-    @private_key = CryptUtils.get_private_key_from_keypair(keypair)
-    @public_key = CryptUtils.get_public_key_from_keypair(keypair)
+    @private_key = CryptUtils.extract_private_key(keypair)
+    @public_key = CryptUtils.extract_public_key(keypair)
   end
 
   describe "#legacy_one_way_crypt" do
@@ -34,8 +34,8 @@ describe CryptUtils do
 
   describe "team password" do
     it "should enrcypt and decrypt team password" do
-      encrypted_password = CryptUtils.encrypt_team_password(@team_password, @public_key)
-      decrypted_password = CryptUtils.decrypt_team_password(encrypted_password, @private_key)
+      encrypted_password = CryptUtils.encrypt_rsa(@team_password, @public_key)
+      decrypted_password = CryptUtils.decrypt_rsa(encrypted_password, @private_key)
       assert_equal decrypted_password, @team_password
     end
   end
@@ -54,7 +54,7 @@ describe CryptUtils do
     end
 
     it "should raise expection if keypair does not match" do
-      public_key = CryptUtils.get_public_key_from_keypair(CryptUtils.new_keypair)
+      public_key = CryptUtils.extract_public_key(CryptUtils.new_keypair)
       assert_raises(Exceptions::DecryptFailed) { CryptUtils.validate_keypair(@private_key, public_key) }
     end
   end

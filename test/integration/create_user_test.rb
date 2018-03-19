@@ -11,36 +11,36 @@ include IntegrationTest::DefaultHelper
 
   test 'admin creates new user' do
     login_as('admin')
-    post admin_users_path, params: { user: {
+    post admin_users_path, params: { user_human: {
                                   username: "simon",
                                   password: "password",
-                                  admin: 0,
+                                  role: :user,
                                   givenname: "Simon",
                                   surname: "Kern"} }
     assert_redirected_to admin_users_path
-    assert User.find_by_username('simon')
+    assert User::Human.find_by_username('simon')
     logout
     login_as('simon')
   end
 
   test 'bob cannot create new user' do
     login_as('bob')
-    post admin_users_path, params: { user: {
+    post admin_users_path, params: { user_human: {
                                   username: "rsiegfried",
                                   password: "password",
-                                  admin: 0,
+                                  role: :user,
                                   givenname: "Roland",
                                   surname: "Siegfried"} }
     assert_redirected_to teams_path
-    assert_nil User.find_by_username('rsiegfried')
+    assert_nil User::Human.find_by_username('rsiegfried')
   end
 
     test 'cannot create second user bob' do
       login_as('admin')
-      post admin_users_path, params: { user: {
+      post admin_users_path, params: { user_human: {
                                     username: "bob",
                                     password: "password",
-                                    admin: 0,
+                                    role: :user,
                                     givenname: "Bob",
                                     surname: "Test"} }
       assert_equal request.fullpath, admin_users_path

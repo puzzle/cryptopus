@@ -99,7 +99,7 @@ class User::HumanTest < ActiveSupport::TestCase
       user = User::Human.send(:create_from_ldap, 'bob', 'password')
 
       assert_equal 'bob', user.username
-      assert_equal 42, user.uid
+      assert_equal 42, user.ldap_uid
       assert_equal 'bob', user.givenname
       assert_equal 'test', user.surname
       assert_equal 'ldap', user.auth

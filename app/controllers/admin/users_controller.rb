@@ -21,7 +21,7 @@ class Admin::UsersController < ApplicationController
       @soloteams = teams_to_delete(user_to_delete)
     end
 
-    @users = policy_scope(User)
+    @users = policy_scope(User::Human)
 
     respond_to do |format|
       format.html
@@ -47,7 +47,7 @@ class Admin::UsersController < ApplicationController
 
   # POST /admin/users
   def create
-    @user = User::Human.create_db_user(password, permitted_attributes(User))
+    @user = User::Human.create_db_user(password, permitted_attributes(User::Human))
 
     respond_to do |format|
       if @user.save
@@ -92,11 +92,11 @@ class Admin::UsersController < ApplicationController
   end
 
   def password
-    params[:user][:password]
+    params[:user_human][:password]
   end
 
   def authorize_user_class
-    authorize User
+    authorize User::Human
   end
 
   def authorize_user

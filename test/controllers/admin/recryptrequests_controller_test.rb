@@ -16,7 +16,7 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
   end
 
   test 'error message if recrypt_team_password raises error' do
-    CryptUtils.expects(:decrypt_team_password).raises('test')
+    CryptUtils.expects(:decrypt_rsa).raises('test')
 
     login_as(:admin)
     bob = users(:bob)

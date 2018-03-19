@@ -85,8 +85,8 @@ class CryptUtils
 
     def validate_keypair(private_key, public_key)
       test_data = 'Test Data'
-      encrypted_test_data = CryptUtils.encrypt_team_password(test_data, public_key)
-      unless test_data == CryptUtils.decrypt_team_password(encrypted_test_data, private_key)
+      encrypted_test_data = CryptUtils.encrypt_rsa(test_data, public_key)
+      unless test_data == CryptUtils.decrypt_rsa(encrypted_test_data, private_key)
         raise Exceptions::DecryptFailed
       end
     end

@@ -34,7 +34,7 @@ class Team < ApplicationRecord
       plaintext_team_password = CryptUtils.new_team_password
       team.add_user(creator, plaintext_team_password)
       unless team.private?
-        User.admins.each do |a|
+        User::Human.admins.each do |a|
           team.add_user(a, plaintext_team_password) unless a == creator
         end
       end
@@ -83,14 +83,14 @@ class Team < ApplicationRecord
 
   def decrypt_team_password(user, plaintext_private_key)
     crypted_team_password = teammember(user.id).password
-    CryptUtils.decrypt_team_password(crypted_team_password, plaintext_private_key)
+    CryptUtils.decrypt_rsa(crypted_team_password, plaintext_private_key)
   end
 
   private
 
   def create_teammember(user, plaintext_team_password)
     crypted_team_password = CryptUtils.
-                            encrypt_team_password(plaintext_team_password, user.public_key)
+                            encrypt_rsa(plaintext_team_password, user.public_key)
 
     teammembers.create!(password: crypted_team_password,
                         user: user)

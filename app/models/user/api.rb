@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 # == Schema Information
 #
 # Table name: users
@@ -29,18 +30,16 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class User::ApiToken < User
+class User::Api < User
 
   VALID_FOR_OPTIONS = { one_min: 1.minute.seconds,
                         five_mins: 5.minutes.seconds,
                         twelve_hours: 12.hours.seconds,
-                        infinite: 0
-                      }.freeze
-                         
+                        infinite: 0 }.freeze
 
   belongs_to :human_user, class_name: 'User::Human'
 
-  serialize :options, User::ApiToken::Options
+  serialize :options, User::Api::Options
 
   validates :human_user, presence: true
   validates :valid_for, inclusion: VALID_FOR_OPTIONS.values
@@ -51,7 +50,7 @@ class User::ApiToken < User
   def renew_token(human_private_key)
     # create new random token
     # recrypt private key with new password
-    #new_token = SecureRandom.hex(16)
+    # new_token = SecureRandom.hex(16)
   end
 
   def authenticate(cleartext_password)
@@ -65,8 +64,12 @@ class User::ApiToken < User
 
   private
 
-  delegate :description, :description=, :encrypted_token, :encrypted_token=,
-    :valid_for=, to: :options
+  delegate :description,
+           :description=,
+           :encrypted_token,
+           :encrypted_token=,
+           :valid_for=,
+           to: :options
 
   def init_token
     self.options = Options.new

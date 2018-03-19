@@ -11,19 +11,19 @@ class WizardControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
   test 'display error if password fields empty' do
-    User.delete_all
+    User::Human.delete_all
     post :apply, params: { password: '', password_repeat: 'password' }
     assert_match /Please provide an initial password/, flash[:error]
   end
 
   test 'display error if passwords do not match' do
-    User.delete_all
+    User::Human.delete_all
     post :apply, params: { password: 'password', password_repeat: 'other_password' }
     assert_match /Passwords do not match/, flash[:error]
   end
 
   test 'creates initial setup and redirects to user admin page' do
-    User.delete_all
+    User::Human.delete_all
     post :apply, params: { password: 'password', password_repeat: 'password' }
     assert_redirected_to admin_users_path
     assert User.find_by_ldap_uid(0)

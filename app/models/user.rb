@@ -31,7 +31,6 @@
 #  https://github.com/puzzle/cryptopus.
 
 class User < ApplicationRecord
-
   validates_uniqueness_of :username
   validates :username, presence: true
 

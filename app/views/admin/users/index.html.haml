@@ -37,7 +37,7 @@
             data: { last_teammember_teams_link: last_teammember_teams_teams_path(user_id: user.id),
               user_id: user.id},
             class: 'delete_user_link'
-- if User.locked.count != 0
+- if User::Human.locked.count != 0
   %h1= t '.locked'
   %table.table.table-striped
     %tr

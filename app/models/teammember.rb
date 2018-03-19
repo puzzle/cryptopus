@@ -20,10 +20,10 @@
 class Teammember < ApplicationRecord
   delegate :label, to: :user
   belongs_to :team
-  belongs_to :user, polymorphic: true
+  belongs_to :user, class_name: 'User', foreign_key: :user_id
   before_destroy :protect_if_last_teammember
   before_destroy :protect_if_admin_in_non_private_team
-  # TODO -> on destroy: remove api-token user first if present
+  # TODO: -> on destroy: remove api-token user first if present
 
   validates :user_id, uniqueness: { scope: :team }
 
@@ -34,10 +34,10 @@ class Teammember < ApplicationRecord
 
   def recrypt_team_password(user, admin, private_key)
     teammember_admin = admin.teammembers.find_by(team_id: team_id)
-    team_password = CryptUtils.decrypt_team_password(teammember_admin.
+    team_password = CryptUtils.decrypt_rsa(teammember_admin.
       password, private_key)
 
-    self.password = CryptUtils.encrypt_team_password(team_password, user.public_key)
+    self.password = CryptUtils.encrypt_rsa(team_password, user.public_key)
     save
   end
 

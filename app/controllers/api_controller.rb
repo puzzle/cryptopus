@@ -28,15 +28,20 @@ class ApiController < ApplicationController
     @team ||= ::Team.find(params[:team_id])
   end
 
+  def user_not_authorized(_exception)
+    add_error t('flashes.admin.admin.no_access')
+    render_json && return
+  end
+
   private
 
-  def authorize
-    if api_token_access?
-      authorize_by_token
-    else
-      super
-    end
-  end
+  # def authorize
+  #   if api_token_access?
+  #     authorize_by_token
+  #   else
+  #     super
+  #   end
+  # end
 
   def api_token_access?
     request.env['HTTP_API_USER'].present?

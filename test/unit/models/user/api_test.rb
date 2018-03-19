@@ -7,12 +7,12 @@
 
 require 'test_helper'
 
-class User::ApiTokenTest < ActiveSupport::TestCase
+class User::ApiTest < ActiveSupport::TestCase
 
   context '#create' do
 
     test 'creates new token for human user' do
-      @api_token = bob.api_tokens.create!(description: 'firefox plugin')
+      @api_token = bob.apis.create!(description: 'firefox plugin')
 
       token = decrypted_token
       assert_match /\A[a-z0-9]{32}\z/, token
@@ -22,7 +22,7 @@ class User::ApiTokenTest < ActiveSupport::TestCase
     end
 
     test 'creation fails if no human user assigned' do
-      @api_token = User::ApiToken.create
+      @api_token = User::Api.create
 
       assert_equal false, @api_token.persisted?
       assert_match /can't be blank/, @api_token.errors.messages[:username].first

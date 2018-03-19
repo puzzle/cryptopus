@@ -24,7 +24,7 @@ class WizardController < ApplicationController
     if password.blank?
       flash[:error] = t('flashes.wizard.fill_password_fields')
     elsif password == password_repeat
-      User.create_root password
+      User::Human.create_root password
       create_session_and_redirect(password)
       return
     else
@@ -37,7 +37,7 @@ class WizardController < ApplicationController
 
   def create_session_and_redirect(password)
     reset_session
-    user = User.find_by(username: 'root')
+    user = User::Human.find_by(username: 'root')
     request.session[:user_id] = user.id
     request.session[:username] = user.username
     session[:private_key] = CryptUtils.decrypt_private_key(user.private_key, password)
@@ -45,6 +45,6 @@ class WizardController < ApplicationController
   end
 
   def redirect_if_already_set_up
-    redirect_to login_login_path if User.all.count > 0
+    redirect_to login_login_path if User::Human.all.count > 0
   end
 end
