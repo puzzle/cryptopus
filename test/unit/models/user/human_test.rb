@@ -240,7 +240,7 @@ class User::HumanTest < ActiveSupport::TestCase
 
   end
 
-  context 'api token' do
+  context 'api user' do
   end
 
 end
