@@ -112,7 +112,7 @@ class Api::AccountsControllerTest < ActionController::TestCase
 
     test 'returns account for matching tag without cleartext username / password' do
       login_as(:bob)
-      get :index, params: { 'tag': 'www.tag.ch' }, xhr: true
+      get :index, params: { 'tag': 'www.example.com' }, xhr: true
 
       result_json = JSON.parse(response.body)['data']['account']
 
