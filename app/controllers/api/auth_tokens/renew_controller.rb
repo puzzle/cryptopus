@@ -1,6 +1,5 @@
 class Api::ApiTokens::RenewController < ApiController
 
-  def update
-  end
+  def update; end
 
 end

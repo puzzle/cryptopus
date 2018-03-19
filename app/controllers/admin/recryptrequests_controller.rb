@@ -21,7 +21,7 @@ class Admin::RecryptrequestsController < ApplicationController
 
     recrypt_passwords(@recryptrequest.user, current_user, session[:private_key]) do
       @recryptrequest.destroy
-      # TODO remove all api tokens
+      # TODO: remove all api tokens
       flash[:notice] = t('flashes.admin.recryptrequests.all', user_name: @user.username)
     end
 
@@ -30,7 +30,7 @@ class Admin::RecryptrequestsController < ApplicationController
 
   # POST /admin/recryptrequests/resetpassword
   def resetpassword
-    @user = User.find(params[:user_id])
+    @user = User::Human.find(params[:user_id])
     authorize @user
     if @user.ldap? || blank_password?
       return redirect_back(fallback_location: admin_recryptrequests_path)

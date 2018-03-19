@@ -17,7 +17,7 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
 
     get :candidates, params: { team_id: team }, xhr: true
 
-    candidates = JSON.parse(response.body)['data']['users']
+    candidates = JSON.parse(response.body)['data']['user/humen']
 
     assert_equal 3, candidates.size
     assert candidates.any? {|c| c['label'] == 'Alice test' }, 'Alice should be candidate'

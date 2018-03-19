@@ -32,7 +32,7 @@ class MaintenanceTasks::RemovedLdapUsers < MaintenanceTask
   private
 
   def collect_removed_ldap_users
-    User.ldap.collect do |user|
+    User::Human.ldap.collect do |user|
       user unless ldap_connection.exists?(user.username)
     end.compact
   end

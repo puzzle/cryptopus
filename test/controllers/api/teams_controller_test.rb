@@ -42,7 +42,6 @@ class Api::TeamsControllerTest < ActionController::TestCase
     user = soloteam.teammembers.first.user
 
     response = delete :destroy, params: { id: soloteam.id }
-
     error_message = JSON.parse(response.body)['messages']['errors'][0]
 
     assert_equal 'Access denied', error_message

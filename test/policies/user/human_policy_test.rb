@@ -1,17 +1,17 @@
 require 'test_helper'
 
-class UserPolicyTest < PolicyTest
+class HumanPolicyTest < PolicyTest
   context '#index' do
     test 'admin can access admin/users page' do
-      assert_permit admin, User, :index?
+      assert_permit admin, User::Human, :index?
     end
     
     test 'conf_admin can access admin/users page' do
-      assert_permit conf_admin, User, :index?
+      assert_permit conf_admin, User::Human, :index?
     end
     
     test 'user cannot access admin/users page' do
-      refute_permit bob, User, :index?
+      refute_permit bob, User::Human, :index?
     end
   end
 
@@ -75,15 +75,15 @@ class UserPolicyTest < PolicyTest
 
   context '#create' do
     test 'admin can create a new user with keypair' do
-      assert_permit admin, User, :create?
+      assert_permit admin, User::Human, :create?
     end
 
     test 'conf_admin can create a new user with keypair' do
-      assert_permit conf_admin, User, :create?
+      assert_permit conf_admin, User::Human, :create?
     end
 
     test 'user cannot create a new user with keypair' do
-      refute_permit bob, User, :create?
+      refute_permit bob, User::Human, :create?
     end
   end
 
@@ -303,21 +303,21 @@ class UserPolicyTest < PolicyTest
 
   context '#scope' do
     test 'admin receives userlist' do
-      assert_not_nil Pundit.policy_scope!(admin, User)
+      assert_not_nil Pundit.policy_scope!(admin, User::Human)
     end
 
     test 'conf_admin receives userlist' do
-      assert_not_nil Pundit.policy_scope!(conf_admin, User)
+      assert_not_nil Pundit.policy_scope!(conf_admin, User::Human)
     end
 
     test 'list received contains all users' do
-      users = Pundit.policy_scope!(admin, User)
+      users = Pundit.policy_scope!(admin, User::Human)
 
-      assert_equal User.all.count, users.count
+      assert_equal User::Human.all.count, users.count
     end
     
     test 'list received contains only valid users' do
-      users = Pundit.policy_scope!(conf_admin, User)
+      users = Pundit.policy_scope!(conf_admin, User::Human)
 
       ldap_uids = users.pluck(:ldap_uid)
 
@@ -325,7 +325,7 @@ class UserPolicyTest < PolicyTest
     end
 
     test 'user cannot read userlist' do
-      assert_nil Pundit.policy_scope!(bob, User)
+      assert_nil Pundit.policy_scope!(bob, User::Human)
     end
   end
 

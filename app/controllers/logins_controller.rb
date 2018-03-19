@@ -14,7 +14,7 @@ class LoginsController < ApplicationController
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
   skip_before_action :verify_authenticity_token, only: :authenticate
-  skip_before_action :authorize, only: %i[authenticate login logout]
+  before_action :skip_authorization, only: %i[authenticate login logout]
 
   def login; end
 
@@ -134,5 +134,4 @@ class LoginsController < ApplicationController
   def authorize_action
     authorize :logins
   end
-
 end

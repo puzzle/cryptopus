@@ -75,7 +75,7 @@ class Authentication::UserPasswordAuthenticator
 
   def find_user
     # password required for initial ldap user creation
-    User.find_or_import_from_ldap(username.strip, password)
+    User::Human.find_or_import_from_ldap(username.strip, password)
   end
 
   def username

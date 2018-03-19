@@ -6,7 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class User::Human
-  module Authentication
+  module Authenticator
 
     def authenticate(cleartext_password)
       return false if locked?

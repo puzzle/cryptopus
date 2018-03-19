@@ -45,7 +45,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
         alice = users(:alice)
 
         login_as(:admin)
-        post :update, params: { id: alice, user: update_params }
+        post :update, params: { id: alice, user_human: update_params }
 
         alice.reload
 
@@ -58,7 +58,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
         tux = users(:conf_admin)
 
         login_as(:admin)
-        post :update, params: { id: tux, user: update_params }
+        post :update, params: { id: tux, user_human: update_params }
 
         tux.reload
 
@@ -71,7 +71,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
         admin2 = Fabricate(:admin)
 
         login_as(:admin)
-        post :update, params: { id: admin2, user: update_params }
+        post :update, params: { id: admin2, user_human: update_params }
 
         admin2.reload
 
@@ -85,7 +85,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
         bob.update_attribute(:auth, 'ldap')
 
         login_as(:admin)
-        post :update, params: { id: bob, user: update_params }
+        post :update, params: { id: bob, user_human: update_params }
 
         bob.reload
 
@@ -99,7 +99,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
         root = users(:root)
 
         login_as(:admin)
-        post :update, params: { id: root, user: update_params }
+        post :update, params: { id: root, user_human: update_params }
 
         root.reload
 
@@ -115,7 +115,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
         alice = users(:alice)
 
         login_as(:tux)
-        post :update, params: { id: alice, user: update_params }
+        post :update, params: { id: alice, user_human: update_params }
 
         alice.reload
 
@@ -129,7 +129,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
         tux = users(:conf_admin)
 
         login_as(conf_admin.username)
-        post :update, params: { id: tux, user: update_params }
+        post :update, params: { id: tux, user_human: update_params }
 
         tux.reload
 
@@ -143,7 +143,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
         admin = users(:admin)
 
         login_as(:tux)
-        post :update, params: { id: admin, user: update_params }
+        post :update, params: { id: admin, user_human: update_params }
 
         admin.reload
 
@@ -158,7 +158,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
         bob.update_attribute(:auth, 'ldap')
 
         login_as(:tux)
-        post :update, params: { id: bob, user: update_params }
+        post :update, params: { id: bob, user_human: update_params }
 
         bob.reload
 
@@ -172,7 +172,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
         root = users(:root)
 
         login_as(:tux)
-        post :update, params: { id: root, user: update_params }
+        post :update, params: { id: root, user_human: update_params }
 
         root.reload
 

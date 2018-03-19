@@ -1,4 +1,4 @@
-class UserPolicy < ApplicationPolicy
+class User::HumanPolicy < ApplicationPolicy
   def index?
     admin_or_conf_admin?
   end

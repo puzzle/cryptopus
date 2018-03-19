@@ -1,4 +1,5 @@
 # encoding: utf-8
+#
 # == Schema Information
 #
 # Table name: users
@@ -7,7 +8,6 @@
 #  public_key                   :text             not null
 #  private_key                  :binary           not null
 #  password                     :binary
-#  admin                        :boolean          default(FALSE), not null
 #  ldap_uid                     :integer
 #  last_login_at                :datetime
 #  username                     :string
@@ -22,6 +22,7 @@
 #  type                         :string
 #  human_user_id                :integer
 #  options                      :text
+#  role                         :integer          default("user"), not null
 #
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
@@ -30,8 +31,12 @@
 #  https://github.com/puzzle/cryptopus.
 
 class User::Human < User
+  require 'ipaddr'
+  autoload 'Authentication', 'user/human/authenticator'
+  include User::Human::Authenticator
+  autoload 'Ldap', 'user/human/ldap'
   include User::Human::Ldap
-  include User::Human::Authentication
+
 
   validates :username, length: { maximum: 20 }
   validate :must_be_valid_ip
@@ -39,16 +44,18 @@ class User::Human < User
   has_many :teammembers, dependent: :destroy, foreign_key: :user_id
   has_many :recryptrequests, dependent: :destroy, foreign_key: :user_id
   has_many :teams, -> { order :name }, through: :teammembers
-  has_many :api_tokens, dependent: :destroy, foreign_key: :human_user_id
+  has_many :apis, dependent: :destroy, foreign_key: :human_user_id
 
-  scope :locked, (-> { where(locked: true) })
-  scope :unlocked, (-> { where(locked: false) })
-
-  scope :admins, (-> { where(admin: true) })
+  scope :locked, -> { where(locked: true) }
+  scope :unlocked, -> { where(locked: false) }
+  scope :ldap, -> { where(auth: 'ldap') }
+  scope :admins, (-> { where(role: :admin) })
 
   default_scope { order('username') }
 
   before_destroy :protect_if_last_teammember
+
+  enum role: %i[user conf_admin admin]
 
   class << self
 
@@ -61,19 +68,19 @@ class User::Human < User
     end
 
     def create_root(password)
-      user = new(uid: 0,
+      user = new(ldap_uid: 0,
                  username: 'root',
                  givenname: 'root',
                  surname: '',
                  auth: 'db',
-                 admin: true,
+                 role: :admin,
                  password: CryptUtils.one_way_crypt(password))
       user.create_keypair(password)
       user.save!
     end
 
     def root
-      find_by(uid: 0)
+      find_by(username: 'root')
     end
   end
 
@@ -100,13 +107,15 @@ class User::Human < User
     update_attribute(:last_login_from, last_login_ip)
   end
 
-  def toggle_admin(actor, private_key)
-    if self == actor || !actor.admin?
-      raise 'user is not allowed to empower/disempower this user'
-    end
+  def update_role(actor, role, private_key)
+    was_admin = admin?
+    update!(role: role)
 
-    update(admin: !admin?)
-    admin? ? empower(actor, private_key) : disempower
+    if admin?
+      empower(actor, private_key)
+    elsif was_admin
+      disempower
+    end
   end
 
   # rubocop:disable MethodLength
@@ -128,26 +137,16 @@ class User::Human < User
     save!
   end
 
-  def label
-    givenname.blank? ? username : "#{givenname} #{surname}"
-  end
-
   def root?
-    uid.zero?
+    username == 'root'
   end
 
   def auth_db?
     auth == 'db'
   end
 
-  def update_password(old, new)
-    return if ldap?
-    if authenticate_db(old)
-      self.password = CryptUtils.one_way_crypt(new)
-      pk = CryptUtils.decrypt_private_key(private_key, old)
-      self.private_key = CryptUtils.encrypt_private_key(pk, new)
-      save
-    end
+  def ldap_user?
+    auth == 'ldap'
   end
 
   def migrate_legacy_private_key(password)
@@ -210,7 +209,7 @@ class User::Human < User
     teams.each do |t|
       next if t.teammember?(self)
       active_teammember = t.teammembers.find_by user_id: actor.id
-      team_password = CryptUtils.decrypt_team_password(active_teammember.password, private_key)
+      team_password = CryptUtils.decrypt_rsa(active_teammember.password, private_key)
       t.add_user(self, team_password)
     end
   end

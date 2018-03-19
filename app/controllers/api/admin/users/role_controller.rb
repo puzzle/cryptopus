@@ -4,7 +4,8 @@ class Api::Admin::Users::RoleController < Api::Admin::AdminController
     role = params[:role]
     raise ArgumentError unless allowed?(role)
 
-    user = User.find(params[:id])
+    user = User::Human.find(params[:id])
+    skip_authorization
     authorize user, :update_role?
     user.update_role(current_user, role, session[:private_key])
 

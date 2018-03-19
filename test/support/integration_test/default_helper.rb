@@ -8,7 +8,7 @@
 module IntegrationTest
   module DefaultHelper
     def login_as(username, password = 'password')
-      post "/en/login/authenticate", params: { username: username, password: password }
+      post authenticate_login_path, params: { username: username, password: password }
       follow_redirect!
     end
 
