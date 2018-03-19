@@ -41,7 +41,7 @@ class User::Api < User
 
   serialize :options, User::Api::Options
 
-  validates :human_user, presence: true
+  validates :human_user, :valid_for, presence: true
   validates :valid_for, inclusion: VALID_FOR_OPTIONS.values
 
   after_initialize :init_username, if: :human_user

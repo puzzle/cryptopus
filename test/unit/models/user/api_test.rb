@@ -12,23 +12,35 @@ class User::ApiTest < ActiveSupport::TestCase
   context '#create' do
 
     test 'creates new token for human user' do
-      @api_token = bob.apis.create!(description: 'firefox plugin')
+      @api_user = bob.apis.create!(description: 'firefox plugin')
 
       token = decrypted_token
       assert_match /\A[a-z0-9]{32}\z/, token
-      assert_equal true, @api_token.authenticate(token)
-      assert_match /\Abob-[a-z0-9]{6}\z/, @api_token.username
-      assert_equal 60, @api_token.valid_for
+      assert_equal true, @api_user.authenticate(token)
+      assert_match /\Abob-[a-z0-9]{6}\z/, @api_user.username
+      assert_equal 60, @api_user.valid_for
     end
 
     test 'creation fails if no human user assigned' do
-      @api_token = User::Api.create
+      @api_user = User::Api.create
 
-      assert_equal false, @api_token.persisted?
-      assert_match /can't be blank/, @api_token.errors.messages[:username].first
-      assert_match /can't be blank/, @api_token.errors.messages[:human_user].first
+      assert_equal false, @api_user.persisted?
+      assert_match /can't be blank/, @api_user.errors.messages[:username].first
+      assert_match /can't be blank/, @api_user.errors.messages[:human_user].first
     end
 
+    test 'creation fails for illegal options' do
+      option_failure 42
+      option_failure -20
+      option_failure -1
+    end
+
+    test 'creation passes for all valid options' do
+      option_success 1.minute.seconds
+      option_success 5.minute.seconds
+      option_success 12.hours.seconds
+      option_success 0
+    end
   end
 
   context '#renew' do
@@ -42,13 +54,26 @@ class User::ApiTest < ActiveSupport::TestCase
   end
 
   private
+
+  def option_success(seconds)
+    @api_user = bob.apis.new(valid_for: seconds, description: 'api-access')
+
+    assert_equal true, @api_user.valid?
+    assert_equal seconds, @api_user.valid_for
+  end
+
+  def option_failure(seconds)
+    @api_user = bob.apis.new(valid_for: seconds, description: 'api-access')
+    assert_equal false, @api_user.valid?
+    assert_match /is not included in the list/, @api_user.errors.messages[:valid_for].first
+  end
   
   def bob
     users(:bob)
   end
 
   def decrypted_token
-    @api_token.send(:decrypt_token, bobs_private_key)
+    @api_user.send(:decrypt_token, bobs_private_key)
   end
 
   def bobs_private_key
