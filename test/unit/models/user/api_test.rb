@@ -50,6 +50,33 @@ class User::ApiTest < ActiveSupport::TestCase
 
   end
 
+  context '#locked' do
+    test 'user not locked' do
+      @api_user = bob.apis.create
+
+      assert_equal false, bob.locked?
+      assert_equal false, @api_user.locked?
+    end
+
+    test 'api user locked' do
+      @api_user = bob.apis.create
+
+      @api_user.update_attribute(:locked, true)
+      
+      assert_equal false, bob.locked?
+      assert_equal true, @api_user.locked?
+    end
+
+    test 'user locked' do
+      @api_user = bob.apis.create
+
+      bob.update_attribute(:locked, true)
+
+      assert_equal true, bob.locked?
+      assert_equal true, @api_user.locked?
+    end
+  end
+
   context '#authenticate' do
   end
 
