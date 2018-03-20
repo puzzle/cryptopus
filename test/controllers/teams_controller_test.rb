@@ -4,7 +4,7 @@
 # Table name: teams
 #
 #  id          :integer          not null, primary key
-#  name        :string(70)       default(""), not null
+#  name        :string(40)       default(""), not null
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

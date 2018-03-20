@@ -47,6 +47,10 @@ class User::Api < User
   after_initialize :init_username, if: :human_user
   before_create :init_token
 
+  def locked?
+    locked || human_user.locked?
+  end
+
   def renew_token(human_private_key)
     # create new random token
     # recrypt private key with new password

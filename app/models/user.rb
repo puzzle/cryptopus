@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: users
@@ -19,10 +18,10 @@
 #  last_failed_login_attempt_at :datetime
 #  failed_login_attempts        :integer          default(0), not null
 #  last_login_from              :string
-#  role                         :integer          default("user"), not null
 #  type                         :string
 #  human_user_id                :integer
 #  options                      :text
+#  role                         :integer          default(0), not null
 #
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
