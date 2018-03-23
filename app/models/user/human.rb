@@ -55,8 +55,6 @@ class User::Human < User
 
   before_destroy :protect_if_last_teammember
 
-  enum role: %i[user conf_admin admin]
-
   class << self
 
     def create_db_user(password, user_params)

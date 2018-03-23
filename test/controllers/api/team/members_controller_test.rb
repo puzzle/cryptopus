@@ -64,4 +64,28 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
       delete :destroy, params: { team_id: teams(:team1), id: users(:bob) }, xhr: true
     end
   end
+  
+  context 'api user' do
+    test 'add api user to team' do
+      login_as(:admin)
+      team = teams(:team1)
+      user = users(:api) 
+
+      post :create, params: { team_id: team, user_id: user }, xhr: true
+
+      assert team.teammember?(user), 'User should be added to team'
+  end
+  
+    test 'remove api user from team' do
+      login_as(:admin)
+      team = teams(:team1)
+      user = users(:api) 
+
+      post :create, params: { team_id: team, user_id: user }, xhr: true
+
+      assert_difference('Teammember.count', -1) do
+        delete :destroy, params: { team_id: teams(:team1), id: user }, xhr: true
+      end
+    end
+  end
 end
