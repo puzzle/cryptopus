@@ -30,6 +30,6 @@
 # https://github.com/puzzle/cryptopus.
 
 class UserSerializer < ApplicationSerializer
-  attributes :id, :label, :admin?
+  attributes :id, :label, :role
 
 end

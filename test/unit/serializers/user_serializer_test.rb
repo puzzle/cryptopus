@@ -12,7 +12,7 @@ class UserSerializerTest < ActiveSupport::TestCase
     as_json = JSON.parse(UserSerializer.new(users(:alice)).to_json)
 
     assert_equal 3, as_json.size
-    assert_equal false, as_json['admin?']
+    assert_equal 'user', as_json['role']
     assert_equal 'Alice test', as_json['label']
     assert_equal users(:alice).id, as_json['id']
   end
