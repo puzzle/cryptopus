@@ -34,6 +34,8 @@ class User < ApplicationRecord
   validates_uniqueness_of :username
   validates :username, presence: true
 
+  enum role: %i[user conf_admin admin]
+
   def update_password(old, new)
     return if ldap?
     if authenticate_db(old)
