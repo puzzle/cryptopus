@@ -58,5 +58,4 @@ class User < ApplicationRecord
   def label
     givenname.blank? ? username : "#{givenname} #{surname}"
   end
-
 end

@@ -1,5 +1,5 @@
 # encoding: utf-8
-#
+
 # == Schema Information
 #
 # Table name: users
@@ -201,6 +201,10 @@ class User::Human < User
     update!(locked: false, failed_login_attempts: 0)
   end
 
+  def api_user?(api_id)
+    api_user(api_id).present?
+  end
+
   private
 
   def empower(actor, private_key)
@@ -233,4 +237,7 @@ class User::Human < User
     end
   end
 
+  def api_user(api_id)
+    apis.find_by_id(api_id)
+  end
 end

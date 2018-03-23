@@ -78,6 +78,8 @@ Rails.application.routes.draw do
         patch 'renew', to: 'api_tokens/renew#update'
       end
     end
+    resources :api_users, controller: 'user/apis'
+    resources :accounts, only: [:show]
     scope '/search', module: 'search' do
       get :accounts
       get :groups
