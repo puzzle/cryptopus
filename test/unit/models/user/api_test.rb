@@ -71,6 +71,7 @@ class User::ApiTest < ActiveSupport::TestCase
       @api_user = bob.apis.create
 
       bob.update_attribute(:locked, true)
+      @api_user.reload
 
       assert_equal true, bob.locked?
       assert_equal true, @api_user.locked?
