@@ -12,7 +12,7 @@ class User::ApiTest < ActiveSupport::TestCase
   context '#create' do
 
     test 'creates new token for human user' do
-      @api_user = bob.apis.create!(description: 'firefox plugin')
+      @api_user = bob.api_users.create!(description: 'firefox plugin')
 
       token = decrypted_token
       assert_match(/\A[a-z0-9]{32}\z/, token)
@@ -47,7 +47,7 @@ class User::ApiTest < ActiveSupport::TestCase
 
     test 'creates new token and updates expiring time' do
       @now = Time.now
-      @api_user = bob.apis.create
+      @api_user = bob.api_users.create
       @api_user.options.valid_for = 5.minutes.seconds
       @api_user.options.valid_until = @now
       token = @api_user.password
@@ -62,7 +62,7 @@ class User::ApiTest < ActiveSupport::TestCase
 
     test 'fails with the wrong userpassword' do
       @now = Time.now
-      @api_user = bob.apis.create
+      @api_user = bob.api_users.create
       @api_user.options.valid_for = 5.minutes.seconds
       @api_user.options.valid_until = @now
       token = @api_user.password
@@ -78,14 +78,14 @@ class User::ApiTest < ActiveSupport::TestCase
 
   context '#locked' do
     test 'user not locked' do
-      @api_user = bob.apis.create
+      @api_user = bob.api_users.create
 
       assert_equal false, bob.locked?
       assert_equal false, @api_user.locked?
     end
 
     test 'api user locked' do
-      @api_user = bob.apis.create
+      @api_user = bob.api_users.create
 
       @api_user.update_attribute(:locked, true)
       
@@ -94,7 +94,7 @@ class User::ApiTest < ActiveSupport::TestCase
     end
 
     test 'user locked' do
-      @api_user = bob.apis.create
+      @api_user = bob.api_users.create
 
       bob.update_attribute(:locked, true)
       @api_user.reload
@@ -110,14 +110,14 @@ class User::ApiTest < ActiveSupport::TestCase
   private
 
   def option_success(seconds)
-    @api_user = bob.apis.new(valid_for: seconds, description: 'api-access')
+    @api_user = bob.api_users.new(valid_for: seconds, description: 'api-access')
 
     assert_equal true, @api_user.valid?
     assert_equal seconds, @api_user.valid_for
   end
 
   def option_failure(seconds)
-    @api_user = bob.apis.new(valid_for: seconds, description: 'api-access')
+    @api_user = bob.api_users.new(valid_for: seconds, description: 'api-access')
     assert_equal(false, @api_user.valid?)
     assert_match(/is not included in the list/, @api_user.errors.messages[:valid_for].first)
   end

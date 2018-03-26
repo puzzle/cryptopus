@@ -52,7 +52,7 @@ class Team < ApplicationRecord
   end
 
   def member_candidates
-    excluded_user_ids = User.
+    excluded_user_ids = User::Human.
                         unscoped.joins('LEFT JOIN teammembers ON users.id = teammembers.user_id').
                         where('users.username = "root"
                               OR teammembers.team_id = ?

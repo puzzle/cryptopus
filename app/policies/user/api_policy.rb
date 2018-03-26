@@ -4,34 +4,34 @@ class User::ApiPolicy < ApplicationPolicy
   end
 
   def show?
-    api_user?
+    own_api_user?
   end
 
   def update?
-    api_user?
+    own_api_user?
   end
 
   def destroy?
-    api_user?
+    own_api_user?
   end
 
   def permitted_attributes_for_update
-    %i[locked options]
+    %i[description valid_for]
   end
 
   def permitted_attributes_for_create
-    %i[username password human_user_id options]
+    %i[description valid_for]
   end
 
   private
 
-  def api_user?
-    @user.api_user?(@record.id)
+  def own_api_user?
+    @record.human_user_id == @user.id
   end
 
   class Scope < Scope
     def resolve
-      @user.apis
+      @user.api_users
     end
   end
 end
