@@ -44,15 +44,8 @@ class User::Api < User
   validates :human_user, :valid_for, presence: true
   validates :valid_for, inclusion: VALID_FOR_OPTIONS.values
 
-  after_initialize :init_username, if: :human_user
+  after_initialize :init_username, if: :human_user, unless: :persisted?
   before_create :init_token
-
-  def self.create_api_user(password, user_params)
-    api = new(user_params)
-    api.create_keypair password
-    api.password = CryptUtils.one_way_crypt(password)
-    api
-  end
 
   def locked?
     locked || human_user.locked?
@@ -103,7 +96,7 @@ class User::Api < User
 
   def init_username
     hash = SecureRandom.hex(3)
-    self.username = username.present? ? "#{username}-#{hash}" : "#{human_user.username}-#{hash}"
+    self.username = "#{human_user.username}-#{hash}"
   end
 
   def random_token

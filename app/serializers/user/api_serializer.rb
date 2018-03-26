@@ -30,7 +30,8 @@
 #  See the COPYING file at the top-level directory or at
 # https://github.com/puzzle/cryptopus.
 
-class UserSerializer < ApplicationSerializer
-  attributes :id, :label, :role
+class User::ApiSerializer < ApplicationSerializer
+
+  attributes :id, :username, :valid_for
 
 end

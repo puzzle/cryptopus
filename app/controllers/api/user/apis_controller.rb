@@ -16,9 +16,9 @@ class Api::User::ApisController < ApiController
 
   # POST /api/api_users
   def create
-    @api = User::Api.create_api_user(password, permitted_attributes(User::Api))
-    authorize @api
-    @api.save!
+    new_api = current_user.api_users.new(permitted_attributes(User::Api))
+    authorize new_api
+    new_api.save!
   end
 
   # POST /api/api_users/1
