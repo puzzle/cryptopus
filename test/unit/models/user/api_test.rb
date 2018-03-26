@@ -15,24 +15,24 @@ class User::ApiTest < ActiveSupport::TestCase
       @api_user = bob.apis.create!(description: 'firefox plugin')
 
       token = decrypted_token
-      assert_match /\A[a-z0-9]{32}\z/, token
-      assert_equal true, @api_user.authenticate(token)
-      assert_match /\Abob-[a-z0-9]{6}\z/, @api_user.username
-      assert_equal 60, @api_user.valid_for
+      assert_match(/\A[a-z0-9]{32}\z/, token)
+      assert_equal(true, @api_user.authenticate(token))
+      assert_match(/\Abob-[a-z0-9]{6}\z/, @api_user.username)
+      assert_equal(60, @api_user.valid_for)
     end
 
     test 'creation fails if no human user assigned' do
       @api_user = User::Api.create
 
-      assert_equal false, @api_user.persisted?
-      assert_match /can't be blank/, @api_user.errors.messages[:username].first
-      assert_match /can't be blank/, @api_user.errors.messages[:human_user].first
+      assert_equal(false, @api_user.persisted?)
+      assert_match(/can't be blank/, @api_user.errors.messages[:username].first)
+      assert_match(/can't be blank/, @api_user.errors.messages[:human_user].first)
     end
 
     test 'creation fails for illegal options' do
-      option_failure 42
-      option_failure -20
-      option_failure -1
+      option_failure(42)
+      option_failure(-20)
+      option_failure(-1)
     end
 
     test 'creation passes for all valid options' do
@@ -46,8 +46,34 @@ class User::ApiTest < ActiveSupport::TestCase
   context '#renew' do
 
     test 'creates new token and updates expiring time' do
+      @now = Time.now
+      @api_user = bob.apis.create
+      @api_user.options.valid_for = 5.minutes.seconds
+      @api_user.options.valid_until = @now
+      token = @api_user.password
+
+      Time.expects(:now).at_least_once().returns(@now)
+
+      @api_user.renew_token(bob.decrypt_private_key('password'))
+
+      assert_equal @now.advance(seconds: 5.minutes.seconds).to_i, @api_user.valid_until.to_i
+      assert_not_equal token, @api_user.password
     end
 
+    test 'fails with the wrong userpassword' do
+      @now = Time.now
+      @api_user = bob.apis.create
+      @api_user.options.valid_for = 5.minutes.seconds
+      @api_user.options.valid_until = @now
+      token = @api_user.password
+
+      assert_raise Exceptions::AuthenticationFailed do
+        @api_user.renew_token(SecureRandom.hex(16))
+      end
+
+      assert_equal @now.to_i, @api_user.valid_until.to_i
+      assert_equal token, @api_user.password
+    end
   end
 
   context '#locked' do
@@ -92,8 +118,8 @@ class User::ApiTest < ActiveSupport::TestCase
 
   def option_failure(seconds)
     @api_user = bob.apis.new(valid_for: seconds, description: 'api-access')
-    assert_equal false, @api_user.valid?
-    assert_match /is not included in the list/, @api_user.errors.messages[:valid_for].first
+    assert_equal(false, @api_user.valid?)
+    assert_match(/is not included in the list/, @api_user.errors.messages[:valid_for].first)
   end
   
   def bob
@@ -107,5 +133,4 @@ class User::ApiTest < ActiveSupport::TestCase
   def bobs_private_key
     bob.decrypt_private_key('password')
   end
-
 end

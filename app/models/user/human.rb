@@ -143,7 +143,7 @@ class User::Human < User
     auth == 'db'
   end
 
-  def ldap_user?
+  def ldap?
     auth == 'ldap'
   end
 

@@ -13,11 +13,11 @@ class LoginsPolicy < ApplicationPolicy
   end
 
   def show_update_password?
-    user.present? && !user.ldap_user?
+    user.present? && !user.ldap?
   end
 
   def update_password?
-    user.present? && !user.ldap_user?
+    user.present? && !user.ldap?
   end
 
   def changelocale?

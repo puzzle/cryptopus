@@ -4,7 +4,7 @@ class User::HumanPolicy < ApplicationPolicy
   end
 
   def update?
-    return if user.ldap_user? || user.root?
+    return if user.ldap? || user.root?
     if user.user?
       return admin_or_conf_admin?
     end
@@ -33,7 +33,7 @@ class User::HumanPolicy < ApplicationPolicy
   end
 
   def destroy?
-    # if user.ldap_user?
+    # if user.ldap?
     #   unless ldap_connection.exists?(user.username)
     #     return current_user.admin? || current_user.conf_admin?
     #   end
@@ -49,7 +49,7 @@ class User::HumanPolicy < ApplicationPolicy
 
   def resetpassword?
     return false if current_user == user
-    unless user.ldap_user?
+    unless user.ldap?
       if user.user?
         return admin_or_conf_admin?
       end
@@ -58,7 +58,7 @@ class User::HumanPolicy < ApplicationPolicy
   end
 
   def permitted_attributes_for_update
-    return if user.ldap_user? || user.root?
+    return if user.ldap? || user.root?
 
     attrs = %i[givenname surname]
 
