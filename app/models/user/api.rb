@@ -59,9 +59,10 @@ class User::Api < User
   end
 
   def renew_token(human_private_key)
-    # create new random token
-    # recrypt private key with new password
-    # new_token = SecureRandom.hex(16)
+    old_token = decrypt_token(human_private_key)
+    new_token = SecureRandom.hex(16)
+    update_password(old_token, new_token)
+    options.valid_until = valid_until_time
   end
 
   def authenticate(cleartext_password)
@@ -73,6 +74,14 @@ class User::Api < User
     options.valid_for || 1.minute.seconds
   end
 
+  def valid_until
+    options.valid_until
+  end
+
+  def ldap?
+    false
+  end
+
   private
 
   delegate :description,
@@ -81,6 +90,10 @@ class User::Api < User
            :encrypted_token=,
            :valid_for=,
            to: :options
+
+  def valid_until_time
+    Time.now.advance(seconds: options.valid_for)
+  end
 
   def init_token
     self.options = Options.new
