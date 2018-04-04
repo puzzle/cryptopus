@@ -47,16 +47,22 @@ class User::Api < User
   after_initialize :init_username, if: :human_user, unless: :persisted?
   before_create :init_token
 
+  delegate :valid_until,
+           to: :options
+
   def locked?
     super || human_user.locked?
   end
 
   def renew_token(human_private_key)
+    self.locked = false
     old_token = decrypt_token(human_private_key)
     new_token = SecureRandom.hex(16)
+
     update_password(old_token, new_token)
     options.valid_until = valid_until_time
     encrypt_token(new_token)
+    save!
     new_token
   end
 
@@ -67,10 +73,6 @@ class User::Api < User
 
   def valid_for
     options.valid_for || 1.minute.seconds
-  end
-
-  def valid_until
-    options.valid_until
   end
 
   def ldap?
@@ -88,10 +90,11 @@ class User::Api < User
            :encrypted_token,
            :encrypted_token=,
            :valid_for=,
+           :valid_until=,
            to: :options
 
   def valid_until_time
-    Time.now.advance(seconds: options.valid_for)
+    Time.now.advance(seconds: valid_for)
   end
 
   def init_token
@@ -115,5 +118,4 @@ class User::Api < User
     create_keypair(token)
     self.password = CryptUtils.one_way_crypt(token)
   end
-
 end
