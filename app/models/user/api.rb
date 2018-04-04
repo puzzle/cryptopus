@@ -60,7 +60,7 @@ class User::Api < User
     new_token = SecureRandom.hex(16)
 
     update_password(old_token, new_token)
-    options.valid_until = valid_until_time
+    options.valid_until = calculate_valid_until
     encrypt_token(new_token)
     save!
     new_token
@@ -93,7 +93,7 @@ class User::Api < User
            :valid_until=,
            to: :options
 
-  def valid_until_time
+  def calculate_valid_until
     Time.now.advance(seconds: valid_for)
   end
 
