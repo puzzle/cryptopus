@@ -73,16 +73,11 @@ Rails.application.routes.draw do
     resources :teams, only: [:index]
     resources :accounts, only: [:show, :index]
 
-    resources :api_tokens, except: :show do
-      member do
-        patch 'renew', to: 'api_tokens/renew#update'
+    resources :api_users, controller: 'user/apis' do
+      member do 
+        post :token, to: 'api_users/token#update'
+        delete :token, to: 'api_users/token#destroy'
       end
-    end
-    
-    resources :api_users, controller: 'user/apis'
-
-    scope '/api_users', module: 'api_users' do
-      resources :token, only: [:update, :destroy]
     end
 
     resources :accounts, only: [:show]
