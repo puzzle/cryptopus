@@ -55,33 +55,19 @@ class User::ApiTest < ActiveSupport::TestCase
 
     test 'creates new token and updates expiring time' do
       now = Time.now
-      api_user = bob.api_users.create
+      api_user = bob.api_users.create!
       api_user.options.valid_for = 5.minutes.seconds
       api_user.options.valid_until = now
-      token = api_user.password
 
-      Time.expects(:now).at_least_once().returns(now)
+      Time.expects(:now).at_least_once.returns(now)
 
-      api_user.renew_token(bob.decrypt_private_key('password'))
+      new_token = api_user.renew_token(bob.decrypt_private_key('password'))
 
       assert_equal now.advance(seconds: 5.minutes.seconds).to_i, api_user.valid_until.to_i
-      assert_not_equal token, api_user.password
+      assert_equal true, api_user.authenticate(new_token)
+      assert_equal new_token, api_user.decrypt_token(bob.decrypt_private_key('password')) 
     end
 
-    test 'fails with the wrong userpassword' do
-      now = Time.now
-      api_user = bob.api_users.create
-      api_user.options.valid_for = 5.minutes.seconds
-      api_user.options.valid_until = now
-      token = api_user.password
-
-      assert_raise Exceptions::AuthenticationFailed do
-        api_user.renew_token(SecureRandom.hex(16))
-      end
-
-      assert_equal now.to_i, api_user.valid_until.to_i
-      assert_equal token, api_user.password
-    end
   end
 
   context '#locked' do
