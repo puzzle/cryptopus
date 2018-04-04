@@ -56,6 +56,8 @@ class User::Api < User
     new_token = SecureRandom.hex(16)
     update_password(old_token, new_token)
     options.valid_until = valid_until_time
+    encrypt_token(new_token)
+    new_token
   end
 
   def authenticate(cleartext_password)
@@ -73,6 +75,10 @@ class User::Api < User
 
   def ldap?
     false
+  end
+
+  def decrypt_token(human_private_key)
+    CryptUtils.decrypt_rsa(encrypted_token, human_private_key)
   end
 
   private
@@ -108,10 +114,6 @@ class User::Api < User
     self.encrypted_token = CryptUtils.encrypt_rsa(token, public_key)
     create_keypair(token)
     self.password = CryptUtils.one_way_crypt(token)
-  end
-
-  def decrypt_token(human_private_key)
-    CryptUtils.decrypt_rsa(encrypted_token, human_private_key)
   end
 
 end
