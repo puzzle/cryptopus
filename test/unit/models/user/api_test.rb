@@ -66,6 +66,7 @@ class User::ApiTest < ActiveSupport::TestCase
       assert_equal now.advance(seconds: 5.minutes.seconds).to_i, api_user.valid_until.to_i
       assert_equal true, api_user.authenticate(new_token)
       assert_equal new_token, api_user.decrypt_token(bob.decrypt_private_key('password')) 
+      assert_equal false, api_user.locked?
     end
 
   end

@@ -78,14 +78,20 @@ Rails.application.routes.draw do
         patch 'renew', to: 'api_tokens/renew#update'
       end
     end
+    
     resources :api_users, controller: 'user/apis'
+
+    scope '/api_users', module: 'api_users' do
+      resources :token, only: [:update, :destroy]
+    end
+
     resources :accounts, only: [:show]
     scope '/search', module: 'search' do
       get :accounts
       get :groups
       get :teams
     end
-
+  
     scope '/admin', module: 'admin' do
       resources :users, only: :destroy do
         member do
