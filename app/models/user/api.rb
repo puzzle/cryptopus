@@ -48,7 +48,7 @@ class User::Api < User
   before_create :init_token
 
   def locked?
-    locked || human_user.locked?
+    super || human_user.locked?
   end
 
   def renew_token(human_private_key)
