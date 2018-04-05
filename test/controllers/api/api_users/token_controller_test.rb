@@ -15,13 +15,13 @@ class Api::ApiUsers::TokenControllerTest < ActionController::TestCase
 
   context '#update' do
     test 'user renews token' do
-      old_token = @api_user.decrypt_token(private_key)
+      old_token = @api_user.send(:decrypt_token, private_key)
       
-      post :update, params: { id: @api_user.id }, xhr: true
+      get :show, params: { id: @api_user.id }, xhr: true
 
       @api_user.reload
 
-      new_token = @api_user.decrypt_token(private_key)
+      new_token = @api_user.send(:decrypt_token, private_key)
 
       assert_equal false, @api_user.locked?
       assert_equal false, @api_user.authenticate(old_token)
@@ -35,7 +35,7 @@ class Api::ApiUsers::TokenControllerTest < ActionController::TestCase
 
       @api_user.reload
       
-      token = @api_user.decrypt_token(private_key)
+      token = @api_user.send(:decrypt_token, private_key)
 
       assert_equal true, @api_user.locked?
       assert_equal false, @api_user.authenticate(token)
