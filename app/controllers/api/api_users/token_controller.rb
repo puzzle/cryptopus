@@ -3,7 +3,7 @@ require 'user/api'
 class Api::ApiUsers::TokenController < ApplicationController
 
   # POST /api/api_users/token/1
-  def update
+  def show
     authorize api_user
     api_user.renew_token(session[:private_key])
   end

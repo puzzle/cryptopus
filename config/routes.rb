@@ -75,7 +75,7 @@ Rails.application.routes.draw do
 
     resources :api_users, controller: 'user/apis' do
       member do 
-        post :token, to: 'api_users/token#update'
+        get :token, to: 'api_users/token#show'
         delete :token, to: 'api_users/token#destroy'
       end
     end

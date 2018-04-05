@@ -79,11 +79,11 @@ class User::Api < User
     false
   end
 
+  private
+
   def decrypt_token(human_private_key)
     CryptUtils.decrypt_rsa(encrypted_token, human_private_key)
   end
-
-  private
 
   delegate :description,
            :description=,
