@@ -2,7 +2,7 @@ class Team::ApiUser < ActiveModelSerializers::Model
 
   delegate :id,
            :username,
-           :valid_for,
+           :description,
            to: :@api_user
 
   def self.list(current_user, team)

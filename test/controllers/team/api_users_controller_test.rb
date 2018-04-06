@@ -47,15 +47,17 @@ class Team::ApiUsersControllerTest < ActionController::TestCase
   
   context '#destroy' do
     test 'user disables api user for team' do
-      api_user1 = bob.api_users.create
+      api_user = bob.api_users.create
       team = teams(:team1)
+      plainttext_team_password = team.decrypt_team_password(bob, bobs_private_key)
       
       login_as(:bob)
 
-      post :create, params: { team_id: team, id: api_user1.id }, xhr: true
-      delete :destroy, params: { team_id: team, id: api_user1.id }, xhr: true
+      team.add_user(api_user, plainttext_team_password)
 
-      assert_equal false, team.teammember?(api_user1)
+      delete :destroy, params: { team_id: team, id: api_user.id }, xhr: true
+
+      assert_equal false, team.teammember?(api_user)
     end
   end
     
@@ -63,6 +65,10 @@ class Team::ApiUsersControllerTest < ActionController::TestCase
 
   def bob
     users(:bob)
+  end
+
+  def bobs_private_key
+    bob.decrypt_private_key('password')
   end
 
   def alice
