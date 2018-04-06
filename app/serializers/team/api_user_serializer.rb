@@ -1,10 +1,10 @@
 class Team::ApiUserSerializer < ApplicationSerializer
 
-  attributes :id, :username, :valid_for, :enabled?
+  attributes :id, :username, :description, :enabled?
 
   delegate :id,
            :username,
-           :valid_for,
+           :description,
            :enabled?,
            to: :object
 end

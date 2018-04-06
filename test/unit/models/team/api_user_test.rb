@@ -11,8 +11,8 @@ class Team::ApiUserTest < ActiveSupport::TestCase
   
   context '#list' do
     test 'user lists his api_users' do
-      api_user
-      api_user
+      create_api_user
+      create_api_user
       alice.api_users.create
       api_users = Team::ApiUser.list(bob, team)
 
@@ -24,7 +24,7 @@ class Team::ApiUserTest < ActiveSupport::TestCase
     test 'enable api user for team' do
       plaintext_team_password = team.decrypt_team_password(bob, bobs_private_key)
 
-      team_api_user = Team::ApiUser.new(api_user, team)
+      team_api_user = Team::ApiUser.new(create_api_user, team)
       team_api_user.enable(plaintext_team_password)
 
       assert_equal true, team_api_user.enabled?
@@ -35,7 +35,7 @@ class Team::ApiUserTest < ActiveSupport::TestCase
     test 'disable api user for team ' do
       plaintext_team_password = team.decrypt_team_password(bob, bobs_private_key)
 
-      team_api_user = Team::ApiUser.new(api_user, team)
+      team_api_user = Team::ApiUser.new(create_api_user, team)
       team_api_user.enable(plaintext_team_password)
       team_api_user.disable
 
@@ -61,7 +61,7 @@ class Team::ApiUserTest < ActiveSupport::TestCase
     teams(:team1)
   end
 
-  def api_user
+  def create_api_user
     bob.api_users.create
   end
 end
