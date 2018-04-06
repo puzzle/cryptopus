@@ -35,7 +35,7 @@ class UserSeeder
 
   private
   def seed_user(username, role = :user)
-    User.seed_once(:username) do |u|
+    User::Human.seed_once(:username) do |u|
       u.username = username.to_s
       u.givenname = username.to_s.capitalize
       u.surname = Faker::Name.last_name
@@ -48,9 +48,9 @@ class UserSeeder
 
   def create_keypair(user)
     keypair = CryptUtils.new_keypair
-    uncrypted_private_key = CryptUtils.get_private_key_from_keypair(keypair)
-    user.public_key = CryptUtils.get_public_key_from_keypair(keypair)
-    user.private_key = CryptUtils.encrypt_private_key( uncrypted_private_key, 'password' )
+    unencrypted_private_key = CryptUtils.extract_private_key(keypair)
+    user.public_key = CryptUtils.extract_public_key(keypair)
+    user.private_key = CryptUtils.encrypt_private_key(unencrypted_private_key, 'password')
   end
 
 end
