@@ -19,7 +19,11 @@ class ApiController < ApplicationController
   end
 
   def add_info(msg)
-    messages[:info] << msg
+    messages[:infos] << msg
+  end
+  
+  def add_success(msg)
+    messages[:successes] << msg
   end
 
   def team
@@ -30,7 +34,7 @@ class ApiController < ApplicationController
 
   def messages
     @messages ||=
-      { errors: [], info: [] }
+      { errors: [], infos: [], successes: [] }
   end
 
   def response_status
