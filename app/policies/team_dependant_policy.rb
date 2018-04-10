@@ -1,6 +1,6 @@
 class TeamDependantPolicy < ApplicationPolicy
   def show?
-    team_member?
+    team.teammember?(@user.id)
   end
 
   def new?
@@ -24,7 +24,7 @@ class TeamDependantPolicy < ApplicationPolicy
   end
 
   def team_member?
-    team.teammember?(@user.id)
+    @user.is_a?(User::Human) && team.teammember?(@user.id)
   end
 
   protected

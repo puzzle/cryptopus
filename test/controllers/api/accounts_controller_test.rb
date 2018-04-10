@@ -151,7 +151,6 @@ class Api::AccountsControllerTest < ActionController::TestCase
     get :show, params: { id: account1.id }
 
   end
-
 end
 
   #test 'cannot authenticate for unsupported action' do

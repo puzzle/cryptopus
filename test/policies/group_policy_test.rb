@@ -61,6 +61,14 @@ class GroupPolicyTest < PolicyTest
     end
   end
 
+  context '#api user' do
+    test 'for team enabled api user is not allowed to show group' do
+      assert_raise Pundit::NotAuthorizedError do
+        GroupPolicy.new(api_user, group2)
+      end
+    end
+  end
+
   private
 
   def group2
@@ -69,5 +77,14 @@ class GroupPolicyTest < PolicyTest
 
   def team2
     teams(:team2)
+  end
+  
+  def api_user
+    bobs_private_key = bob.decrypt_private_key('password')
+    plaintext_team_password = team2.decrypt_team_password(bob, bobs_private_key)
+      
+    api_user =  bob.api_users.create
+    team2.add_user(api_user, plaintext_team_password)
+    api_user
   end
 end

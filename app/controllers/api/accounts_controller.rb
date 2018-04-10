@@ -5,8 +5,6 @@
 
 class Api::AccountsController < ApiController
 
-  self.api_token_accessible = [:show]
-
   def self.policy_class
     AccountPolicy
   end

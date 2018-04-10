@@ -7,8 +7,6 @@
 
 class ApiController < ApplicationController
 
-  class_attribute :api_token_accessible
-
   protected
 
   def render_json(data = nil)
@@ -30,7 +28,7 @@ class ApiController < ApplicationController
 
   def user_not_authorized(_exception)
     add_error t('flashes.admin.admin.no_access')
-    render_json && return
+    render_json
   end
 
   private
@@ -47,13 +45,8 @@ class ApiController < ApplicationController
     request.env['HTTP_API_USER'].present?
   end
 
-  def accessible_by_api_token?
-    api_token_accessible &&
-      api_token_accessible.include?(action_name.to_sym)
-  end
-
   def authorize_by_token
-    if accessible_by_api_token? && api_token_authenticator.auth!
+    if api_token_authenticator.auth!
       @current_user = api_token_authenticator.user
     else
       render 401
