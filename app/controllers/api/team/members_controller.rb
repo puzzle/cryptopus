@@ -36,27 +36,12 @@ class Api::Team::MembersController < ApiController
     authorize team, :remove_member?
     teammember.destroy!
 
-    remove_api_users(teammember.user) if teammember.user.type == 'User::Human'
-
     username = User.find(params[:id]).username
     add_info(t('flashes.api.members.removed', username: username))
     render_json ''
   end
 
   private
-
-  def remove_api_users(user)
-    user.api_users.each do |api_user|
-      team_api_user = create_team_api_user(api_user)
-      if team_api_user.enabled?
-        team_api_user.disable
-      end
-    end
-  end
-
-  def create_team_api_user(api_user)
-    Team::ApiUser.new(api_user, team)
-  end
 
   def teammember
     @teammember ||= team.teammembers.find_by(user_id: params[:id])

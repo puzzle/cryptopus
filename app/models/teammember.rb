@@ -23,6 +23,7 @@ class Teammember < ApplicationRecord
   belongs_to :user, class_name: 'User', foreign_key: :user_id
   before_destroy :protect_if_last_teammember
   before_destroy :protect_if_admin_in_non_private_team
+  before_destroy :remove_api_users
   # TODO: -> on destroy: remove api-token user first if present
 
   validates :user_id, uniqueness: { scope: :team }
@@ -55,5 +56,15 @@ class Teammember < ApplicationRecord
       errors.add(:base, 'Admin user cannot be removed from non private team')
       throw :abort
     end
+  end
+
+  def remove_api_users
+    return unless user.is_a?(User::Human)
+    ids = user.api_users.pluck(:id)
+    team.teammembers.where(user_id: ids).destroy_all
+  end
+
+  def create_team_api_user(api_user)
+    Team::ApiUser.new(api_user, team)
   end
 end

@@ -29,6 +29,20 @@ class TeammemberTest < ActiveSupport::TestCase
     assert teammember.valid?
     assert teammember2.valid?
   end
+  
+  test 'can add api user' do
+    api_user = user.api_users.create
+    
+    bobs_private_key = user.decrypt_private_key('password')
+    plaintext_team_password = teams(:team1).decrypt_team_password(user, bobs_private_key)
+
+    teams(:team1).add_user(api_user, plaintext_team_password)
+
+    team = teams(:team1)
+    team1_bob = teammembers(:team1_bob)
+    assert_equal false, team1_bob.destroyed?
+    assert_equal true, team.teammember?(api_user)
+  end
 
   test 'cannot remove last teammember' do
     team = teams(:team2)
@@ -55,5 +69,27 @@ class TeammemberTest < ActiveSupport::TestCase
     team1_bob.destroy
     assert team1_bob.destroyed?
     assert team1_bob.errors.empty?
+  end
+  
+  test 'remove teammember and his api users from team' do
+    api_user = user.api_users.create
+    
+    bobs_private_key = user.decrypt_private_key('password')
+    plaintext_team_password = teams(:team1).decrypt_team_password(user, bobs_private_key)
+
+    teams(:team1).add_user(api_user, plaintext_team_password)
+
+    team = teams(:team1)
+    team1_bob = teammembers(:team1_bob)
+    team1_bob.destroy
+    assert team1_bob.destroyed?
+    assert team1_bob.errors.empty?
+    assert_equal false, team.teammember?(api_user)
+  end
+
+  private
+
+  def user
+    users(:bob)
   end
 end
