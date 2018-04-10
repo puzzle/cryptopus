@@ -1,4 +1,9 @@
 class AccountPolicy < TeamDependantPolicy
+  def initialize(user, record)
+    @user = user
+    @record = record
+  end
+
   def create_item?
     team_member?
   end
@@ -10,17 +15,7 @@ class AccountPolicy < TeamDependantPolicy
   protected
 
   def team
-    account.group.team
-  end
-
-  private
-
-  def current_user
-    @user
-  end
-
-  def account
-    @record
+    @record.group.team
   end
 
   class Scope < TeamDependantScope
