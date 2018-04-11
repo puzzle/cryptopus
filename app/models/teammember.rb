@@ -64,7 +64,4 @@ class Teammember < ApplicationRecord
     team.teammembers.where(user_id: ids).destroy_all
   end
 
-  def create_team_api_user(api_user)
-    Team::ApiUser.new(api_user, team)
-  end
 end

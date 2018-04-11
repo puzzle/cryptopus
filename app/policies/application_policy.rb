@@ -2,7 +2,7 @@ class ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
-    # api users have only access to show and find accounts, all other actions are forbidden
+    # api users have only limited access: make sure access is forbidden by default
     raise Pundit::NotAuthorizedError if user.is_a?(User::Api)
     @user = user
     @record = record
