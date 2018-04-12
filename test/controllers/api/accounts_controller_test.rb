@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -126,7 +124,7 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_equal team.id, result_json['team_id']
     end
   end
-  
+
   context '#show' do
     test 'return decrypted account' do
       login_as(:bob)
@@ -141,23 +139,48 @@ class Api::AccountsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'authenticates with valid api user and returns account details' do
+  context '#api_user' do
+    test 'authenticates with valid api user and returns account details' do
+      api_user.update!(valid_until: DateTime.now + 5.minutes)
+    
+      teams(:team1).add_user(api_user, plaintext_team_password)
 
-    request.env['HTTP_API_USER'] = 'bob-abcd'
-    request.env['HTTP_API_TOKEN'] = 'abcd'
+      request.env['HTTP_API_USER'] = api_user.username
+      request.env['HTTP_API_TOKEN'] = token
 
-    account1 = accounts(:account1)
+      account = accounts(:account1)
+      get :show, params: { id: account }, xhr: true
 
-    get :show, params: { id: account1.id }
+      account = JSON.parse(response.body)['data']['account']
 
+      assert_equal 'account1', account['accountname']
+      assert_equal 'test', account['cleartext_username']
+      assert_equal 'password', account['cleartext_password']
+    end
+  end
+
+# test 'cannot authenticate for unsupported action' do
+# end
+
+  private
+
+  def bob
+    users(:bob)
+  end
+
+  def api_user
+    @api_user ||= bob.api_users.create
+  end
+
+  def private_key
+    bob.decrypt_private_key('password')
+  end
+
+  def plaintext_team_password
+    teams(:team1).decrypt_team_password(bob, private_key)
+  end
+
+  def token
+    api_user.send(:decrypt_token, private_key)
   end
 end
-
-  #test 'cannot authenticate for unsupported action' do
-  #end
-
-
-#def http_auth_headers
-#{ 'HTTP_API_USER': 'bob-abcd', 'HTTP_API_TOKEN': 'abcd' }
-#end
-

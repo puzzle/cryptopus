@@ -5,11 +5,11 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-#require_relative '../../../app/controllers/authentication/user_authenticator.rb'
+#require_relative '../../../app/controllers/authentication/user_password_authenticator.rb'
 #require_relative '../../../app/controllers/authentication/brute_force_detector.rb'
 require 'test_helper'
 
-class UserPasswordAuthenticatorTest < ActiveSupport::TestCase
+class Authentication::UserPasswordAuthenticatorTest < ActiveSupport::TestCase
 
   test 'authenticates bob' do
     @params = {username: 'bob', password: 'password'}
@@ -76,21 +76,21 @@ class UserPasswordAuthenticatorTest < ActiveSupport::TestCase
     @params = {}
 
     assert_equal false, authenticate
-    assert_match /Invalid user \/ password/, authenticator.errors.first
+    assert_match(/Invalid user \/ password/, authenticator.errors.first)
   end
 
   test 'authentication fails if invalid credentials' do
     @params = {username: 'bob', password: 'invalid'}
 
     assert_equal false, authenticate
-    assert_match /Invalid user \/ password/, authenticator.errors.first
+    assert_match(/Invalid user \/ password/, authenticator.errors.first)
   end
 
   test 'authentication fails if user does not exist' do
     @params = {username: 'nobody', password: 'password'}
 
     assert_equal false, authenticate
-    assert_match /Invalid user \/ password/, authenticator.errors.first
+    assert_match(/Invalid user \/ password/, authenticator.errors.first)
   end
 
   test 'authentication succeeds if user and password match' do

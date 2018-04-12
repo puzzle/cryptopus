@@ -1,6 +1,6 @@
 class TeamDependantPolicy < ApplicationPolicy
   def show?
-    team.teammember?(@user.id)
+    team_member?
   end
 
   def new?

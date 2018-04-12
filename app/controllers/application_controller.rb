@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
 
   # redirect if its not possible to decrypt user's private key
   def redirect_if_no_private_key
-    if current_user && session[:private_key].nil?
+    if current_user.is_a?(User::Human) && session[:private_key].nil?
       redirect_to recryptrequests_new_ldap_password_path
     end
   end

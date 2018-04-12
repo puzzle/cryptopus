@@ -72,7 +72,7 @@ class User::ApiTest < ActiveSupport::TestCase
   end
 
   context '#locked' do
-    test 'user not locked' do
+    test 'api user not locked' do
       api_user = bob.api_users.create
 
       assert_equal false, bob.locked?
@@ -82,7 +82,7 @@ class User::ApiTest < ActiveSupport::TestCase
     test 'api user locked' do
       api_user = bob.api_users.create
 
-      api_user.update_attribute(:locked, true)
+      api_user.update!(locked: true)
       
       assert_equal false, bob.locked?
       assert_equal true, api_user.locked?
@@ -91,15 +91,62 @@ class User::ApiTest < ActiveSupport::TestCase
     test 'human user locked' do
       api_user = bob.api_users.create
 
-      bob.update_attribute(:locked, true)
+      bob.update!(locked: true)
       api_user.reload
 
       assert_equal true, bob.locked?
       assert_equal true, api_user.locked?
     end
   end
+  
+  context '#expired' do
+    test 'api user not expired' do
+      api_user = bob.api_users.create
+
+      api_user.update!(valid_until: DateTime.now + 5.minutes)
+
+      assert_equal false, api_user.expired?
+    end
+
+    test 'api user expired' do
+      api_user = bob.api_users.create
+
+      api_user.update!(valid_until: DateTime.now - 5.minutes)
+      
+      assert_equal true, api_user.expired?
+    end
+    
+    test 'api user expired if valid until nil' do
+      api_user = bob.api_users.create
+      
+      assert_nil api_user.valid_until
+      assert_equal true, api_user.expired?
+    end
+  end
 
   context '#authenticate' do
+    test 'api user authenticates with valid password' do
+      api_user = bob.api_users.create
+      
+      token = decrypted_token(api_user)
+      
+      assert_equal true, api_user.authenticate(token)
+    end
+
+    test 'api user cannot authenticate with invalid password' do
+      api_user = bob.api_users.create
+      
+      assert_equal false, api_user.authenticate('abcd')
+    end
+
+    test 'api user cannot authenticate if locked' do
+      api_user = bob.api_users.create
+      api_user.update!(locked: true)
+      
+      token = decrypted_token(api_user)
+      
+      assert_equal false, api_user.authenticate(token)
+    end
   end
 
   private
