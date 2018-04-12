@@ -54,13 +54,18 @@ class User::Api < User
     super || human_user.locked?
   end
 
+  def expired?
+    return true unless valid_until
+    valid_until < Time.now
+  end
+
   def renew_token(human_private_key)
     self.locked = false
     old_token = decrypt_token(human_private_key)
     new_token = SecureRandom.hex(16)
 
+    calculate_valid_until
     update_password(old_token, new_token)
-    options.valid_until = calculate_valid_until
     encrypt_token(new_token)
     save!
     new_token
@@ -79,6 +84,12 @@ class User::Api < User
     false
   end
 
+  def decrypt_private_key(password)
+    CryptUtils.decrypt_private_key(private_key, password)
+  rescue
+    raise Exceptions::DecryptFailed
+  end
+
   private
 
   def decrypt_token(human_private_key)
@@ -92,10 +103,6 @@ class User::Api < User
            :valid_for=,
            :valid_until=,
            to: :options
-
-  def calculate_valid_until
-    Time.now.advance(seconds: valid_for)
-  end
 
   def init_token
     self.options = Options.new
@@ -117,5 +124,9 @@ class User::Api < User
     self.encrypted_token = CryptUtils.encrypt_rsa(token, public_key)
     create_keypair(token)
     self.password = CryptUtils.one_way_crypt(token)
+  end
+
+  def calculate_valid_until
+    options.valid_until = DateTime.now.advance(seconds: valid_for)
   end
 end

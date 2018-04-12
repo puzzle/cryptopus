@@ -4,6 +4,10 @@ class AccountPolicy < TeamDependantPolicy
     @record = record
   end
 
+  def show?
+    team.teammember?(@user.id)
+  end
+
   def create_item?
     team_member?
   end

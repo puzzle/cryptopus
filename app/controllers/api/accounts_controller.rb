@@ -4,11 +4,6 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::AccountsController < ApiController
-
-  def self.policy_class
-    AccountPolicy
-  end
-
   def index
     accounts = policy_scope(Account)
     accounts = find_accounts(accounts)
@@ -16,7 +11,7 @@ class Api::AccountsController < ApiController
   end
 
   def show
-    account = Account.find(params['id'])
+    account = Account.find(params[:id])
     authorize account
     account.decrypt(plaintext_team_password(account.group.team))
     render_json account

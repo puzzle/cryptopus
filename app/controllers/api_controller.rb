@@ -6,7 +6,6 @@
 #  https://github.com/puzzle/cryptopus.
 
 class ApiController < ApplicationController
-
   protected
 
   def render_json(data = nil)
@@ -31,30 +30,46 @@ class ApiController < ApplicationController
     render_json
   end
 
+  def plaintext_team_password(team)
+    return super if session[:private_key].present?
+
+    raise 'You have no access to this team' unless team.teammember?(current_user.id)
+
+    private_key = current_user.decrypt_private_key(request.env['HTTP_API_TOKEN'])
+    plaintext_team_password = team.decrypt_team_password(current_user, private_key)
+    raise 'Failed to decrypt the team password' unless plaintext_team_password
+    plaintext_team_password
+  end
+  
+  def current_user
+    # falsch?
+    @current_user ||= super
+  end
+
   private
 
-  # def authorize
-  #   if api_token_access?
-  #     authorize_by_token
-  #   else
-  #     super
-  #   end
-  # end
+   def validate_user
+     if api_token_access?
+       authorize_by_token
+     else
+       super
+     end
+   end
 
   def api_token_access?
     request.env['HTTP_API_USER'].present?
   end
 
   def authorize_by_token
-    if api_token_authenticator.auth!
-      @current_user = api_token_authenticator.user
+    if api_user_authenticator.auth!
+      @current_user = api_user_authenticator.user
     else
       render 401
     end
   end
 
-  def api_token_authenticator
-    Authentication::ApiTokenAuthenticator.new(params)
+  def api_user_authenticator
+    Authentication::ApiUserAuthenticator.new(request.headers)
   end
 
   def messages
