@@ -33,16 +33,11 @@ class ApiController < ApplicationController
   def plaintext_team_password(team)
     return super if session[:private_key].present?
 
-    raise 'You have no access to this team' unless team.teammember?(current_user.id)
-
-    private_key = current_user.decrypt_private_key(request.env['HTTP_API_TOKEN'])
-    plaintext_team_password = team.decrypt_team_password(current_user, private_key)
-    raise 'Failed to decrypt the team password' unless plaintext_team_password
-    plaintext_team_password
+    plaintext_team_password = team.decrypt_team_password(current_user, api_users_private_key)
+    plaintext_team_password ? plaintext_team_password : (raise 'Failed to decrypt the team password')
   end
   
   def current_user
-    # falsch?
     @current_user ||= super
   end
 
@@ -57,14 +52,17 @@ class ApiController < ApplicationController
    end
 
   def api_token_access?
-    request.env['HTTP_API_USER'].present?
+    return false if session[:user_id]
+    api_username.present?
   end
 
   def authorize_by_token
     if api_user_authenticator.auth!
       @current_user = api_user_authenticator.user
     else
-      render 401
+      add_error('Authentification failed')
+      @response_status = 401
+      render_json
     end
   end
 
@@ -85,4 +83,15 @@ class ApiController < ApplicationController
     messages[:errors].present? ? :internal_server_error : nil
   end
 
+  def api_users_private_key
+    current_user.decrypt_private_key(api_token)
+  end
+
+  def api_token
+    request.env['HTTP_API_TOKEN']
+  end
+
+  def api_username
+    request.env['HTTP_API_USER']
+  end
 end

@@ -69,6 +69,17 @@ class Authentication::ApiUserAuthenticatorTest < ActiveSupport::TestCase
     assert_equal false, authenticate
   end
   
+  test 'authentication fails if api users human user is locked' do
+    bob.update!(locked: true)
+    api_user.update!(valid_until: DateTime.now + 5.minutes)
+    
+    token = api_user.send(:decrypt_token, private_key)
+    @headers = { 'HTTP_API_USER' => api_user.username, 'HTTP_API_TOKEN' => token }
+
+    assert_equal true, api_user.locked?
+    assert_equal false, authenticate
+  end
+  
   test 'increasing of failed login attempts and it\'s defined delays' do
     api_user.update!(valid_until: DateTime.now + 5.minutes)
     @headers = { 'HTTP_API_USER' => api_user.username, 'HTTP_API_TOKEN' => 'wrong password'}
