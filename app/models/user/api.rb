@@ -84,8 +84,8 @@ class User::Api < User
     false
   end
 
-  def decrypt_private_key(password)
-    CryptUtils.decrypt_private_key(private_key, password)
+  def decrypt_private_key(token)
+    CryptUtils.decrypt_private_key(private_key, token)
   rescue
     raise Exceptions::DecryptFailed
   end

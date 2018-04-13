@@ -54,12 +54,12 @@ class User::ApiTest < ActiveSupport::TestCase
   context '#renew' do
 
     test 'creates new token and updates expiring time' do
-      now = Time.now
+      now = DateTime.now
       api_user = bob.api_users.create!
       api_user.options.valid_for = 5.minutes.seconds
       api_user.options.valid_until = now
 
-      Time.expects(:now).at_least_once.returns(now)
+      DateTime.expects(:now).at_least_once.returns(now)
 
       new_token = api_user.renew_token(bob.decrypt_private_key('password'))
 

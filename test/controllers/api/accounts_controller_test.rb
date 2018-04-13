@@ -157,6 +157,62 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_equal 'test', account['cleartext_username']
       assert_equal 'password', account['cleartext_password']
     end
+    
+    test 'does not authenticate with invalid api token and does not show account details' do
+      api_user.update!(valid_until: DateTime.now + 5.minutes)
+    
+      teams(:team1).add_user(api_user, plaintext_team_password)
+
+      request.env['HTTP_API_USER'] = api_user.username
+      request.env['HTTP_API_TOKEN'] = 'abcd'
+
+      account = accounts(:account1)
+      get :show, params: { id: account }, xhr: true
+
+      assert_includes errors, 'Authentification failed'
+      assert_equal 401, JSON.parse(response.code)
+    end
+    
+    test 'cannot authenticate without headers and does not show account details' do
+      api_user.update!(valid_until: DateTime.now + 5.minutes)
+    
+      teams(:team1).add_user(api_user, plaintext_team_password)
+
+      account = accounts(:account1)
+      get :show, params: { id: account }, xhr: true
+
+      assert_redirected_to login_login_path
+      assert_nil response.body['data']
+    end
+    
+    test 'does not show account details if valid api user not teammember' do
+      api_user.update!(valid_until: DateTime.now + 5.minutes)
+    
+      request.env['HTTP_API_USER'] = api_user.username
+      request.env['HTTP_API_TOKEN'] = token
+
+      account = accounts(:account1)
+      get :show, params: { id: account }, xhr: true
+
+      assert_includes errors, 'Access denied'
+    end
+    
+    test 'cannot authenticate with api user with session' do
+      session[:user_id] = api_user.id
+      api_user.update!(valid_until: DateTime.now + 5.minutes)
+    
+      teams(:team1).add_user(api_user, plaintext_team_password)
+
+      request.env['HTTP_API_USER'] = api_user.username
+      request.env['HTTP_API_TOKEN'] = token
+
+      account = accounts(:account1)
+      error = assert_raise ActiveRecord::RecordNotFound do
+        get :show, params: { id: account }, xhr: true
+      end
+
+      assert_match 'Couldn\'t find User::Human', error.message
+    end
   end
 
 # test 'cannot authenticate for unsupported action' do
@@ -182,5 +238,9 @@ class Api::AccountsControllerTest < ActionController::TestCase
 
   def token
     api_user.send(:decrypt_token, private_key)
+  end
+
+  def errors
+    JSON.parse(response.body)['messages']['errors']
   end
 end
