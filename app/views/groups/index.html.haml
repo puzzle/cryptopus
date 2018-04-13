@@ -16,9 +16,14 @@
   %li.tab
     %a{"data-toggle" => "tab", href: "#members", id: 'members-tab'}
       Members
+  %li.tab
+    %a{"data-toggle" => "tab", href: "#api_users", id: 'api-users-tab'}
+      Api-Users
   
 .tab-content.teams-content
   #groups.tab-pane.fade.in.active
     = render 'groups'
   #members.tab-pane.fade
     = render 'members'
+  #api_users.tab-pane.fade
+    = render 'api_users'

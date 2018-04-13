@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: users
@@ -22,7 +21,7 @@
 #  type                         :string
 #  human_user_id                :integer
 #  options                      :text
-#  role                         :integer          default(0), not null
+#  role                         :integer          default("user"), not null
 #
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
