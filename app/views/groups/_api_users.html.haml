@@ -4,13 +4,17 @@
 -#  Cryptopus and licensed under the Affero General Public License version 3 or later.
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
-
 - if current_user.api_users.empty?
-  = t 'api-user.empty'
-  = link_to t('api-user.new.title'), new_api_user_path, class: 'btn btn-primary pull right'
+  = t 'api-user.none'
+  = link_to(t('here'), :back)
 - else
-  %table.table.table-striped
+  %table.table.table-striped#api_user_table
+    %tr
+      %th= t '.user'
+      %th= t '.description'
+      %th= t '.enabled'
     - current_user.api_users.each do |api|
       %tr{class: "#{cycle( 'odd', 'even' )}"}
         %td= api.label
+        %td= api.description
         %td= toggle_api_user api

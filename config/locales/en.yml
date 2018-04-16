@@ -38,7 +38,9 @@ en:
   group: Group
   team: Team
   move: Move
-
+  here: Here
+  api-user:
+    none: You don't have any Api-Users. Create one
   i18n:
     language:
       name: English
@@ -146,7 +148,7 @@ en:
     edit:
       title: Editing group
     index:
-      title: "Groups for team %{team_name}"
+      title: "Team %{team_name}"
       group: Group
       members: Members
       add_member: Add member

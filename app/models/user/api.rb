@@ -1,6 +1,7 @@
 # encoding: utf-8
+
 # == Schema Information
-#
+
 # Table name: users
 #
 #  id                           :integer          not null, primary key

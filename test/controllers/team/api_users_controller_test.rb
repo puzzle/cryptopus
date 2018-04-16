@@ -22,7 +22,7 @@ class Team::ApiUsersControllerTest < ActionController::TestCase
 
       get :index, params: { team_id: team }, xhr: true
 
-      api_users = JSON.parse(response.body)['team/api_users']
+      api_users = JSON.parse(response.body)['data']['team/api_users']
 
       assert_equal 2, api_users.size
       assert_equal api_user1.username, api_users.first.values[1]

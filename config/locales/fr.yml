@@ -37,7 +37,9 @@ fr:
   group: Groupe
   team: Équipe
   move: Mouvoir
-
+  here: Ici
+  api-user:
+    none: Vous n'avez aucun api-utilisateur. Créer un
   i18n:
     language:
       name: Français

@@ -38,7 +38,9 @@ de:
   group: Gruppe
   team: Team
   move: Bewegen"
-
+  here: Hier
+  api-user:
+    none: Du hast keinen Api-Benutzer. Erstelle einen
   i18n:
     language:
       name: Deutsch
