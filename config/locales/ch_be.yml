@@ -37,7 +37,9 @@ ch_be:
   group: Gruppä
   team: Team
   move: Bewegä
-
+  here: hiä
+  api-user:
+    none: Du hesch kei Api-Benutzer. Hol dr einä
   time:
     formats:
       default: "%A, %d. %B %Y, %H:%M"
