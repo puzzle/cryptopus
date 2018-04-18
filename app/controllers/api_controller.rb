@@ -31,10 +31,11 @@ class ApiController < ApplicationController
   end
 
   def plaintext_team_password(team)
-    return super if session[:private_key].present?
+    return super if active_session?
 
     team_password = team.decrypt_team_password(current_user, api_users_private_key)
-    team_password ? team_password : (raise 'Failed to decrypt the team password')
+    raise 'Failed to decrypt the team password' unless team_password.present?
+    team_password
   end
 
   def current_user
@@ -52,7 +53,7 @@ class ApiController < ApplicationController
   end
 
   def api_token_access?
-    return false if session[:user_id]
+    return false if active_session?
     api_username.present?
   end
 

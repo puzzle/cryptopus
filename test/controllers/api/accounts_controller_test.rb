@@ -195,28 +195,27 @@ class Api::AccountsControllerTest < ActionController::TestCase
       get :show, params: { id: account }, xhr: true
 
       assert_includes errors, 'Access denied'
+      assert_equal 500, JSON.parse(response.code)
     end
     
-    test 'cannot authenticate with api user with session' do
-      session[:user_id] = api_user.id
-      api_user.update!(valid_until: DateTime.now + 5.minutes)
-    
-      teams(:team1).add_user(api_user, plaintext_team_password)
+    test 'human user shows account details and does not use api user authenticator' do
+      login_as(:bob)
 
       request.env['HTTP_API_USER'] = api_user.username
       request.env['HTTP_API_TOKEN'] = token
 
       account = accounts(:account1)
-      error = assert_raise ActiveRecord::RecordNotFound do
-        get :show, params: { id: account }, xhr: true
-      end
+      get :show, params: { id: account }, xhr: true
 
-      assert_match 'Couldn\'t find User::Human', error.message
+      Authentication::ApiUserAuthenticator.expects(:new).never
+
+      account = JSON.parse(response.body)['data']['account']
+
+      assert_equal 'account1', account['accountname']
+      assert_equal 'test', account['cleartext_username']
+      assert_equal 'password', account['cleartext_password']
     end
   end
-
-# test 'cannot authenticate for unsupported action' do
-# end
 
   private
 

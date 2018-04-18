@@ -18,7 +18,7 @@ include IntegrationTest::DefaultHelper
                                   givenname: "Simon",
                                   surname: "Kern"} }
     assert_redirected_to admin_users_path
-    assert User::Human.find_by_username('simon')
+    assert User::Human.find_by(username: 'simon')
     logout
     login_as('simon')
   end
@@ -32,7 +32,7 @@ include IntegrationTest::DefaultHelper
                                   givenname: "Roland",
                                   surname: "Siegfried"} }
     assert_redirected_to teams_path
-    assert_nil User::Human.find_by_username('rsiegfried')
+    assert_nil User::Human.find_by(username: 'rsiegfried')
   end
 
     test 'cannot create second user bob' do

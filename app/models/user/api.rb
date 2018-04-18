@@ -55,6 +55,7 @@ class User::Api < User
   end
 
   def expired?
+    return false if valid_for.zero?
     return true unless valid_until
     valid_until < Time.now
   end
@@ -64,7 +65,7 @@ class User::Api < User
     old_token = decrypt_token(human_private_key)
     new_token = SecureRandom.hex(16)
 
-    calculate_valid_until
+    refresh_valid_until
     update_password(old_token, new_token)
     encrypt_token(new_token)
     save!
@@ -126,7 +127,8 @@ class User::Api < User
     self.password = CryptUtils.one_way_crypt(token)
   end
 
-  def calculate_valid_until
+  def refresh_valid_until
+    return if valid_for.zero?
     options.valid_until = DateTime.now.advance(seconds: valid_for)
   end
 end

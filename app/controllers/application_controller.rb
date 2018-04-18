@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
 
   # redirect if its not possible to decrypt user's private key
   def redirect_if_no_private_key
-    if current_user.is_a?(User::Human) && session[:private_key].nil?
+    if current_user.is_a?(User::Human) && !active_session?
       redirect_to recryptrequests_new_ldap_password_path
     end
   end
@@ -145,5 +145,9 @@ class ApplicationController < ActionController::Base
 
     flash[:error] = t "#{policy_name}.#{exception.query}", scope: 'pundit', default: :default
     redirect_to teams_path
+  end
+
+  def active_session?
+    session[:private_key].present?
   end
 end
