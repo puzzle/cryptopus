@@ -21,10 +21,23 @@ class Authentication::ApiUserAuthenticatorTest < ActiveSupport::TestCase
   
   test 'authentication fails if api token expired' do
     token = api_user.send(:decrypt_token, private_key)
-    api_user.update!(valid_until: DateTime.now - 5.minutes)
+    valid_for = 1.minute.seconds
+    
+    api_user.update!(valid_for: valid_for)
+    api_user.update!(valid_until: DateTime.now - 1.minute)
     @headers = { 'HTTP_API_USER' => api_user.username, 'HTTP_API_TOKEN' => token }
 
     assert_equal false, authenticate
+  end
+  
+  test 'authentication success if api token valid for infinite' do
+    token = api_user.send(:decrypt_token, private_key)
+    valid_for = 0
+
+    api_user.update!(valid_for: valid_for)
+    @headers = { 'HTTP_API_USER' => api_user.username, 'HTTP_API_TOKEN' => token }
+
+    assert_equal true, authenticate
   end
   
   test 'authentication fails if api token invalid' do
@@ -34,7 +47,7 @@ class Authentication::ApiUserAuthenticatorTest < ActiveSupport::TestCase
     assert_equal false, authenticate
   end
   
-  test 'authentication fails if api token nil' do
+  test 'authentication fails if api token blank' do
     api_user.update!(valid_until: DateTime.now + 5.minutes)
     @headers = { 'HTTP_API_USER' => api_user.username, 'HTTP_API_TOKEN' => nil }
 

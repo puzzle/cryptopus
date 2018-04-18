@@ -75,12 +75,10 @@ class Authentication::ApiUserAuthenticator
   end
 
   def api_username
-    # request.headers['HTTP_API_USER']
     headers['HTTP_API_USER']
   end
 
   def api_token
-    # request.headers['HTTP_API_TOKEN']
     headers['HTTP_API_TOKEN']
   end
 
