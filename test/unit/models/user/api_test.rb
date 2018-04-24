@@ -56,8 +56,8 @@ class User::ApiTest < ActiveSupport::TestCase
     test 'creates new token and updates expiring time' do
       now = DateTime.now
       api_user = bob.api_users.create!
-      api_user.options.valid_for = 5.minutes.seconds
-      api_user.options.valid_until = now
+      api_user.valid_for = 5.minutes.seconds
+      api_user.valid_until = now
 
       DateTime.expects(:now).at_least_once.returns(now)
 
@@ -66,6 +66,18 @@ class User::ApiTest < ActiveSupport::TestCase
       assert_equal now.advance(seconds: 5.minutes.seconds).to_i, api_user.valid_until.to_i
       assert_equal true, api_user.authenticate(new_token)
       assert_equal new_token, decrypted_token(api_user)
+      assert_equal false, api_user.expired?
+      assert_equal false, api_user.locked?
+    end
+
+    test 'creates new token which never expires' do
+      api_user = bob.api_users.create!
+      api_user.valid_for = 0
+
+      new_token = api_user.renew_token(bob.decrypt_private_key('password'))
+      assert_equal nil, api_user.valid_until
+      assert_equal new_token, decrypted_token(api_user)
+      assert_equal false, api_user.expired?
       assert_equal false, api_user.locked?
     end
 
