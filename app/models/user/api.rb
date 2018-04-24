@@ -131,4 +131,5 @@ class User::Api < User
     return if valid_for.zero?
     options.valid_until = DateTime.now.advance(seconds: valid_for)
   end
+
 end
