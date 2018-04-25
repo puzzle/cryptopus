@@ -31,7 +31,11 @@
 # https://github.com/puzzle/cryptopus.
 
 class User::ApiSerializer < ApplicationSerializer
-
-  attributes :id, :username, :valid_for
-
+  attributes :id,
+             :username,
+             :description,
+             :valid_until,
+             :valid_for,
+             :last_login_at,
+             :last_login_from
 end

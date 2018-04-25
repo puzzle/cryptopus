@@ -1,0 +1,10 @@
+{{#each .}}
+<tr class="{% cycle 'odd' 'even' %} api-user-row">
+    <td> {{username}} </td> 
+    <td> {{description}} </td> 
+    <td> {{valid_until}} </td> 
+    <td> {{valid_for}} </td> 
+    <td> {{last_login_at}} </td> 
+    <td> {{last_login_from}} </td> 
+</tr>
+{{/each}}

@@ -44,7 +44,7 @@ class User::Human < User
   has_many :teammembers, dependent: :destroy, foreign_key: :user_id
   has_many :recryptrequests, dependent: :destroy, foreign_key: :user_id
   has_many :teams, -> { order :name }, through: :teammembers
-  has_many :api_users, class_name: '::User::Api', dependent: :destroy, foreign_key: :human_user_id
+  has_many :api_users, class_name: 'User::Api', dependent: :destroy, foreign_key: :human_user_id
 
   scope :locked, -> { where(locked: true) }
   scope :unlocked, -> { where(locked: false) }
@@ -54,6 +54,8 @@ class User::Human < User
   default_scope { order('username') }
 
   before_destroy :protect_if_last_teammember
+
+  delegate :l, to: I18n
 
   class << self
 
@@ -197,6 +199,10 @@ class User::Human < User
 
   def unlock
     update!(locked: false, failed_login_attempts: 0)
+  end
+
+  def formatted_last_login_at
+    l(last_login_at, format: :long) if last_login_at
   end
 
   private

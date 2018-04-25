@@ -40,6 +40,7 @@ fr:
   here: Ici
   api-user:
     none: Vous n'avez aucun api-utilisateur. Créer un
+
   i18n:
     language:
       name: Français
@@ -202,6 +203,22 @@ fr:
       title: Créer une nouvelle équipe
     description:
       private: Administrateurs auront pas accès à votre équipe.
+  
+  profile:
+    index:
+      title: "Profil de %{label}"
+    info:
+      info: Info
+      last_login_at: Dernière connexion à
+      last_login_from: Dernière connexion de
+    api_users:
+      api_users: Utilisateurs d'Api
+      username: "Nom d'utilisateur"
+      description: Description
+      valid_until: Valable jusque
+      valid_for: Valable 
+      last_login_at: Dernière connexion à
+      last_login_from: Dernière connexion de
 
   flashes:
     api:

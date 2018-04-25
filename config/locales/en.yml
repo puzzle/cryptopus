@@ -41,6 +41,7 @@ en:
   here: Here
   api-user:
     none: You don't have any Api-Users. Create one
+
   i18n:
     language:
       name: English
@@ -204,6 +205,22 @@ en:
       title: Create a new team
     description:
       private: admins have no access if checked
+  
+  profile:
+    index:
+      title: "Profile of %{label}"
+    info:
+      info: Info
+      last_login_at: Last login at
+      last_login_from: Last login from
+    api_users:
+      api_users: Api Users
+      username: Username
+      description: Description
+      valid_until: Valid until
+      valid_for: Valid for
+      last_login_at: Last login at
+      last_login_from: Last login from
 
   flashes:
     api:

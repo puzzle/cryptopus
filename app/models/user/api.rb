@@ -44,6 +44,9 @@ class User::Api < User
   validates :human_user, :valid_for, presence: true
   validates :valid_for, inclusion: VALID_FOR_OPTIONS.values
 
+  has_many :teammembers, dependent: :destroy, foreign_key: :user_id
+  has_many :teams, -> { order :name }, through: :teammembers
+
   after_initialize :init_username, if: :human_user, unless: :persisted?
   before_create :init_token
 
