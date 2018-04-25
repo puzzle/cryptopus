@@ -4,7 +4,8 @@ class Api::User::ApisController < ApiController
 
   # GET /api/api_users
   def index
-    @apis = policy_scope(User::Api)
+    skip_policy_scope
+    @apis = current_user.api_users
     render_json @apis
   end
 

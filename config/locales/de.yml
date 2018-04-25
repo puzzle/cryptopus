@@ -203,6 +203,22 @@ de:
     description:
       private: Admins haben keinen Zugriff wenn angewählt
 
+  profile:
+    index:
+      title: "Profil von %{label}"
+    info:
+      info: Info
+      last_login_at: Letztes Login um
+      last_login_from: Letztes Login von
+    api_users:
+      api_users: Api Benutzer
+      username: Benutzername
+      description: Beschreibung
+      valid_until: Gültig bis
+      valid_for: Gültig für
+      last_login_at: Letztes Login um
+      last_login_from: Letztes Login von
+
   flashes:
     api:
       admin:

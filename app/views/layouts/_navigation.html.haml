@@ -29,6 +29,8 @@
           = nav_link image_tag("magnifying-glass.svg", class: "search-icon", title: "search (ctrl + f)") + t('search.title'), search_path
         %ul.nav.navbar-nav.navbar-right.logout
           = nav_link t(:logout), logout_login_path
+        %ul.nav.navbar-nav.navbar-right#profile-button
+          = nav_link current_user.username, profile_path
   - unless @breadcrumbs.nil?
     .bread-container
       .breadcrumb

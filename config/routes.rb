@@ -67,6 +67,8 @@ Rails.application.routes.draw do
     root to: 'search#index'
     
     get 'changelog', to: 'changelog#index'
+      
+    get 'profile', to: 'profile#index'
   end
 
   scope '/api', module: 'api' do
