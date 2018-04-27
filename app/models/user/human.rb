@@ -205,6 +205,10 @@ class User::Human < User
     l(last_login_at, format: :long) if last_login_at
   end
 
+  def expired?
+    false
+  end
+
   private
 
   def empower(actor, private_key)

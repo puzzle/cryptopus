@@ -128,7 +128,9 @@ class LoginsController < ApplicationController
   end
 
   def authenticator
-    Authentication::UserPasswordAuthenticator.new(params)
+    username = params[:username]
+    password = params[:password]
+    Authentication::UserAuthenticator.new(username: username, password: password)
   end
 
   def authorize_action
