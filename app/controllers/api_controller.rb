@@ -33,7 +33,7 @@ class ApiController < ApplicationController
   def plaintext_team_password(team)
     return super if active_session?
 
-    team_password = team.decrypt_team_password(current_user, api_users_private_key)
+    team_password = team.decrypt_team_password(current_user, users_private_key)
     raise 'Failed to decrypt the team password' unless team_password.present?
     team_password
   end
@@ -45,21 +45,31 @@ class ApiController < ApplicationController
   private
 
   def validate_user
-    if api_token_access?
-      authorize_by_token
+    if api_access?
+      redirect_if_pending_recrypt_request
+      authorize_with_headers
     else
       super
     end
   end
 
-  def api_token_access?
+  def api_access?
     return false if active_session?
-    api_username.present?
+    username.present?
   end
 
-  def authorize_by_token
-    if api_user_authenticator.auth!
-      @current_user = api_user_authenticator.user
+  def redirect_if_pending_recrypt_request
+    user = authenticator.user.is_a?(User::Api) ? authenticator.user.human_user : authenticator.user
+    if user.recryptrequests.first
+      add_error('Wait for the recryption of your users team passwords')
+      @response_status = 403
+      render_json
+    end
+  end
+
+  def authorize_with_headers
+    if authenticator.auth!
+      @current_user = authenticator.user
     else
       add_error('Authentification failed')
       @response_status = 401
@@ -67,8 +77,8 @@ class ApiController < ApplicationController
     end
   end
 
-  def api_user_authenticator
-    Authentication::ApiUserAuthenticator.new(request.headers)
+  def authenticator
+    Authentication::UserAuthenticator.new(username: username, password: password)
   end
 
   def messages
@@ -84,15 +94,15 @@ class ApiController < ApplicationController
     messages[:errors].present? ? :internal_server_error : nil
   end
 
-  def api_users_private_key
-    current_user.decrypt_private_key(api_token)
+  def users_private_key
+    current_user.decrypt_private_key(password)
   end
 
-  def api_token
-    request.env['HTTP_API_TOKEN']
+  def username
+    request.env['Authorization-User']
   end
 
-  def api_username
-    request.env['HTTP_API_USER']
+  def password
+    Base64.decode64(request.env['Authorization-Password'])
   end
 end

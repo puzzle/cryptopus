@@ -5,17 +5,19 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
+require 'user/api'
 
-class Authentication::UserPasswordAuthenticator
+class Authentication::UserAuthenticator
 
-  def initialize(params)
+  def initialize(username: nil, password: nil)
     @authenticated = false
-    @params = params
+    @username = username
+    @password = password
   end
 
   def auth!
     return false unless preconditions?
-    return false if user_locked?
+    return false if user_locked? || user.expired?
 
     authenticated = user_auth!
 
@@ -38,7 +40,7 @@ class Authentication::UserPasswordAuthenticator
   private
 
   attr_accessor :authenticated
-  attr_reader :params
+  attr_reader :username, :password
 
   def brute_force_detector
     @brute_force_detector ||=
@@ -58,7 +60,7 @@ class Authentication::UserPasswordAuthenticator
   end
 
   def valid_username?
-    username.strip =~ /^([a-zA-Z]|\d)+$/
+    username.strip =~ /^([a-zA-Z]|\d|)+[-]?([a-zA-Z]|\d)*[^-]$/
   end
 
   def user_locked?
@@ -74,20 +76,13 @@ class Authentication::UserPasswordAuthenticator
   end
 
   def find_user
+    api_user = User::Api.find_by(username: username.strip)
+    return api_user if api_user.present?
     # password required for initial ldap user creation
     User::Human.find_or_import_from_ldap(username.strip, password)
-  end
-
-  def username
-    params[:username]
-  end
-
-  def password
-    params[:password]
   end
 
   def user_auth!
     user.authenticate(password)
   end
-
 end

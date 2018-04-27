@@ -145,8 +145,8 @@ class Api::AccountsControllerTest < ActionController::TestCase
     
       teams(:team1).add_user(api_user, plaintext_team_password)
 
-      request.env['HTTP_API_USER'] = api_user.username
-      request.env['HTTP_API_TOKEN'] = token
+      request.env['Authorization-User'] = api_user.username
+      request.env['Authorization-Password'] = token
 
       account = accounts(:account1)
       get :show, params: { id: account }, xhr: true
@@ -163,8 +163,8 @@ class Api::AccountsControllerTest < ActionController::TestCase
     
       teams(:team1).add_user(api_user, plaintext_team_password)
 
-      request.env['HTTP_API_USER'] = api_user.username
-      request.env['HTTP_API_TOKEN'] = 'abcd'
+      request.env['Authorization-User'] = api_user.username
+      request.env['Authorization-Password'] = Base64.encode64('abcd')
 
       account = accounts(:account1)
       get :show, params: { id: account }, xhr: true
@@ -185,11 +185,28 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_nil response.body['data']
     end
     
+    test 'cannot authenticate and does not show account details if recryptrequests of human user pending' do
+      api_user.update!(valid_until: DateTime.now + 5.minutes)
+
+      bob.recryptrequests.create!
+      
+      request.env['Authorization-User'] = api_user.username
+      request.env['Authorization-Password'] = token
+    
+      teams(:team1).add_user(api_user, plaintext_team_password)
+
+      account = accounts(:account1)
+      get :show, params: { id: account }, xhr: true
+
+      assert_equal 403, JSON.parse(response.code)
+      assert_includes errors, 'Wait for the recryption of your users team passwords'
+    end
+    
     test 'does not show account details if valid api user not teammember' do
       api_user.update!(valid_until: DateTime.now + 5.minutes)
     
-      request.env['HTTP_API_USER'] = api_user.username
-      request.env['HTTP_API_TOKEN'] = token
+      request.env['Authorization-User'] = api_user.username
+      request.env['Authorization-Password'] = token
 
       account = accounts(:account1)
       get :show, params: { id: account }, xhr: true
@@ -198,16 +215,30 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_equal 500, JSON.parse(response.code)
     end
     
-    test 'human user shows account details and does not use api user authenticator' do
+    test 'human user shows account details and does not use api user authenticator if active session' do
       login_as(:bob)
 
-      request.env['HTTP_API_USER'] = api_user.username
-      request.env['HTTP_API_TOKEN'] = token
+      request.env['Authorization-User'] = bob.username
+      request.env['Authorization-Password'] = Base64.encode64('password')
 
       account = accounts(:account1)
       get :show, params: { id: account }, xhr: true
 
-      Authentication::ApiUserAuthenticator.expects(:new).never
+      Authentication::UserAuthenticator.expects(:new).never
+
+      account = JSON.parse(response.body)['data']['account']
+
+      assert_equal 'account1', account['accountname']
+      assert_equal 'test', account['cleartext_username']
+      assert_equal 'password', account['cleartext_password']
+    end
+    
+    test 'human user shows account details if headers valid' do
+      request.env['Authorization-User'] = bob.username
+      request.env['Authorization-Password'] = Base64.encode64('password')
+
+      account = accounts(:account1)
+      get :show, params: { id: account }, xhr: true
 
       account = JSON.parse(response.body)['data']['account']
 
@@ -236,7 +267,8 @@ class Api::AccountsControllerTest < ActionController::TestCase
   end
 
   def token
-    api_user.send(:decrypt_token, private_key)
+    decrypted_token = api_user.send(:decrypt_token, private_key)
+    Base64.encode64(decrypted_token)
   end
 
   def errors
