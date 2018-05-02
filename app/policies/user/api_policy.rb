@@ -1,4 +1,8 @@
 class User::ApiPolicy < ApplicationPolicy
+  def index?
+    user.is_a?(User::Human)
+  end
+
   def create?
     true
   end

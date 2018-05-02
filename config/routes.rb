@@ -49,7 +49,7 @@ Rails.application.routes.draw do
       get  'teams', to: 'teams#index'
     end
 
-    resource :login do
+    resource :login, except: :show do
       get 'login'
       get 'show_update_password'
       post 'update_password'

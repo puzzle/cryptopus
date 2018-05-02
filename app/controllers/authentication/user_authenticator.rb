@@ -17,7 +17,7 @@ class Authentication::UserAuthenticator
 
   def auth!
     return false unless preconditions?
-    return false if user_locked? || user.expired?
+    return false if user_locked?
 
     authenticated = user_auth!
 
@@ -34,7 +34,7 @@ class Authentication::UserAuthenticator
   end
 
   def user
-    @user ||= find_user
+    @user ||= User.find_user(username, password)
   end
 
   private
@@ -60,7 +60,7 @@ class Authentication::UserAuthenticator
   end
 
   def valid_username?
-    username.strip =~ /^([a-zA-Z]|\d|)+[-]?([a-zA-Z]|\d)*[^-]$/
+    username.strip =~ /^([a-zA-Z]|\d)+[-]?([a-zA-Z]|\d)*[^-]$/
   end
 
   def user_locked?
@@ -73,13 +73,6 @@ class Authentication::UserAuthenticator
 
   def add_error(msg_key)
     errors << I18n.t(msg_key)
-  end
-
-  def find_user
-    api_user = User::Api.find_by(username: username.strip)
-    return api_user if api_user.present?
-    # password required for initial ldap user creation
-    User::Human.find_or_import_from_ldap(username.strip, password)
   end
 
   def user_auth!

@@ -22,7 +22,7 @@ class Api::User::ApisControllerTest < ActionController::TestCase
       result_json = JSON.parse(response.body)['data']['user/apis'][0]
 
       assert_equal @api_user.username, result_json['username']
-      assert_equal @api_user.description, result_json['description']
+      assert_nil result_json['description']
       assert_equal @api_user.valid_for, result_json['valid_for']
       assert_equal @api_user.id, result_json['id']
     end
@@ -36,7 +36,7 @@ class Api::User::ApisControllerTest < ActionController::TestCase
       result_json = JSON.parse(response.body)['data']['user/api']
 
       assert_equal @api_user.username, result_json['username']
-      assert_equal @api_user.description, result_json['description']
+      assert_nil result_json['description']
       assert_equal @api_user.valid_for, result_json['valid_for']
       assert_equal @api_user.id, result_json['id']
     end

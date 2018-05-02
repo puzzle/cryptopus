@@ -5,6 +5,7 @@ class Api::User::ApisController < ApiController
   # GET /api/api_users
   def index
     skip_policy_scope
+    authorize User::Api
     @apis = current_user.api_users
     render_json @apis
   end
@@ -38,9 +39,5 @@ class Api::User::ApisController < ApiController
 
   def api
     @api ||= User::Api.find(params[:id])
-  end
-
-  def password
-    params[:user_api][:password]
   end
 end
