@@ -54,7 +54,7 @@ class User::Api < User
            to: :options
 
   def locked?
-    super || human_user.locked?
+    super || expired? || human_user.locked?
   end
 
   def expired?

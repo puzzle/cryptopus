@@ -45,7 +45,7 @@ class ApiController < ApplicationController
   private
 
   def validate_user
-    if api_access?
+    if header_auth?
       redirect_if_pending_recrypt_request
       authorize_with_headers
     else
@@ -53,14 +53,14 @@ class ApiController < ApplicationController
     end
   end
 
-  def api_access?
+  def header_auth?
     return false if active_session?
     username.present?
   end
 
   def redirect_if_pending_recrypt_request
-    user = authenticator.user.is_a?(User::Api) ? authenticator.user.human_user : authenticator.user
-    if user.recryptrequests.first
+    return unless current_user.is_a?(User::Human)
+    if current_user.recryptrequests.first
       add_error('Wait for the recryption of your users team passwords')
       @response_status = 403
       render_json
@@ -78,7 +78,7 @@ class ApiController < ApplicationController
   end
 
   def authenticator
-    Authentication::UserAuthenticator.new(username: username, password: password)
+    Authentication::UserAuthenticator.new(username: username, password: password_header)
   end
 
   def messages
@@ -95,14 +95,14 @@ class ApiController < ApplicationController
   end
 
   def users_private_key
-    current_user.decrypt_private_key(password)
+    current_user.decrypt_private_key(password_header)
   end
 
   def username
-    request.env['Authorization-User']
+    request.headers['Authorization-User']
   end
 
-  def password
-    Base64.decode64(request.env['Authorization-Password'])
+  def password_header
+    Base64.decode64(request.headers['Authorization-Password'])
   end
 end

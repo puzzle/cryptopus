@@ -83,9 +83,13 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_if_not_teammember
-    team_id = params[:team_id]
     return if team_id.nil?
-    team = Team.find(team_id)
+    begin
+      team = Team.find(team_id)
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = t('flashes.teams.not_existing', id: team_id)
+      return redirect_to teams_path
+    end
     return if team.teammember?(current_user.id)
     flash[:error] = t('flashes.teams.no_member')
     redirect_to teams_path
@@ -152,6 +156,10 @@ class ApplicationController < ActionController::Base
   end
 
   def headers_present?
-    request.env['Authorization-User']
+    request.headers['Authorization-User']
+  end
+
+  def team_id
+    params[:team_id]
   end
 end

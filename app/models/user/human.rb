@@ -37,7 +37,6 @@ class User::Human < User
   autoload 'Ldap', 'user/human/ldap'
   include User::Human::Ldap
 
-
   validates :username, length: { maximum: 20 }
   validate :must_be_valid_ip
 
@@ -56,6 +55,8 @@ class User::Human < User
   before_destroy :protect_if_last_teammember
 
   delegate :l, to: I18n
+
+  enum role: %i[user conf_admin admin]
 
   class << self
 
@@ -163,12 +164,6 @@ class User::Human < User
     raise Exceptions::DecryptFailed
   end
 
-  def accounts
-    Account.joins(:group).
-      joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
-      where(teammembers: { user_id: id })
-  end
-
   def legacy_password?
     return false if ldap?
     password.match('sha512').nil?
@@ -203,10 +198,6 @@ class User::Human < User
 
   def formatted_last_login_at
     l(last_login_at, format: :long) if last_login_at
-  end
-
-  def expired?
-    false
   end
 
   private

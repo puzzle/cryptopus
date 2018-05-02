@@ -52,6 +52,7 @@ class Teammember < ApplicationRecord
   end
 
   def protect_if_admin_in_non_private_team
+    return if user.is_a?(User::Api)
     if !team.private? && user.admin?
       errors.add(:base, 'Admin user cannot be removed from non private team')
       throw :abort

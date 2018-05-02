@@ -306,6 +306,7 @@ en:
       deleted: Team was successfully deleted
       cannnot_delete: Only admin may delete teams
       no_member: You are not member of this team
+      not_existing: "Team with id %{id} does not exist"
       cannnot_delete: Only admin may delete teams
       no_member: You are not member of this team
     teammembers:

@@ -34,7 +34,11 @@ class User < ApplicationRecord
   validates_uniqueness_of :username
   validates :username, presence: true
 
-  enum role: %i[user conf_admin admin]
+  def self.find_user(username, password)
+    user = find_by(username: username.strip)
+    return user if user.present?
+    User::Human.find_or_import_from_ldap(username.strip, password) if User::Human.ldap_enabled?
+  end
 
   def update_password(old, new)
     return if ldap?
@@ -61,5 +65,15 @@ class User < ApplicationRecord
 
   def label
     givenname.blank? ? username : "#{givenname} #{surname}"
+  end
+
+  def unlock
+    update!(locked: false, failed_login_attempts: 0)
+  end
+
+  def accounts
+    Account.joins(:group).
+      joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
+      where(teammembers: { user_id: id })
   end
 end
