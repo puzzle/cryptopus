@@ -15,12 +15,6 @@ class Admin::UsersController < ApplicationController
 
   # GET /admin/users
   def index
-    # defining @soloteams for further use in destroy action
-    if flash[:user_to_delete].present?
-      user_to_delete = User::Human.find(flash[:user_to_delete])
-      @soloteams = teams_to_delete(user_to_delete)
-    end
-
     @users = policy_scope(User::Human)
 
     respond_to do |format|
