@@ -137,6 +137,26 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_equal 'test', account['cleartext_username']
       assert_equal 'password', account['cleartext_password']
     end
+    
+    test 'cannot authenticate and does not return decrypted account if recrypt requests pending' do
+      bob.recryptrequests.create!
+
+      login_as(:bob)
+      account = accounts(:account1)
+
+      get :show, params: { id: account }, xhr: true
+
+      assert_includes errors, 'Wait for the recryption of your users team passwords'
+      assert_equal 403, JSON.parse(response.code)
+    end
+    
+    test 'cannot authenticate and does not return decrypted account if user not logged in' do
+      account = accounts(:account1)
+      get :show, params: { id: account }, xhr: true
+
+      assert_includes errors, 'User not logged in'
+      assert_equal 401, JSON.parse(response.code)
+    end
   end
 
   context '#api_user' do
@@ -181,8 +201,8 @@ class Api::AccountsControllerTest < ActionController::TestCase
       account = accounts(:account1)
       get :show, params: { id: account }, xhr: true
 
-      assert_redirected_to login_login_path
-      assert_nil response.body['data']
+      assert_equal 401, JSON.parse(response.code)
+      assert_includes errors, 'User not logged in'
     end
     
     test 'authenticates and shows account details even if recryptrequests of human user pending' do

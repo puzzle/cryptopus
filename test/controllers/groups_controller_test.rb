@@ -76,7 +76,7 @@ class GroupsControllerTest < ActionController::TestCase
 
     get :index, params: { team_id: team2 }
 
-    assert_match /You are not member of this team/, flash[:error]
+    assert_match /Access denied/, flash[:error]
     assert_redirected_to teams_path
   end
 end

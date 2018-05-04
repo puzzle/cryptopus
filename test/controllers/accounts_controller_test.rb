@@ -77,7 +77,7 @@ class AccountsControllerTest < ActionController::TestCase
 
     get :index, params: { team_id: team2, group_id: group2 }
 
-    assert_match /You are not member of this team/ , flash[:error]
+    assert_match /Access denied/ , flash[:error]
     assert_redirected_to teams_path
   end
   test 'can create account without username and password' do

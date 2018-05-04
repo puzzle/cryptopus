@@ -9,98 +9,47 @@ require 'user' # fixes user.authenticate problem
 
 class ApplicationController < ActionController::Base
 
-  before_action :check_source_ip
-  before_action :redirect_to_wizard_if_new_setup
-  before_action :message_if_fallback
   before_action :validate_user, except: %i[login authenticate logout wizard]
-  before_action :redirect_if_not_teammember
+  before_action :message_if_fallback
   before_action :redirect_if_no_private_key, except: :logout
   before_action :prepare_menu
   before_action :set_locale
-  before_action :set_cache_headers
 
-  helper_method :current_user
-
-  # includes pundit, a scaleable authorization system
-  include Pundit
-
-  # verifies that authorize has been called in every action except index
-  after_action :verify_authorized, except: :index
-
-  # verifies that policy_scope is used in index
-  after_action :verify_policy_scoped, only: :index
+  include PolicyCheck
+  include SourceIpCheck
+  include UserSession
+  include Caching
+  include FlashMessages
 
   # includes a security token
   protect_from_forgery with: :exception
 
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
   private
-
-  def check_source_ip
-    return if ip_checker.previously_authorized?(session[:authorized_ip])
-
-    if ip_checker.ip_authorized?
-      session[:authorized_ip] = request.remote_ip
-    else
-      render layout: false, file: 'public/401.html', status: 401
-    end
-  end
-
-  def ip_checker
-    Authentication::SourceIpChecker.new(request.remote_ip)
-  end
 
   # redirect if its not possible to decrypt user's private key
   def redirect_if_no_private_key
-    if current_user.is_a?(User::Human) && !active_session? && !headers_present?
+    if current_user.is_a?(User::Human) && !active_session?
       redirect_to recryptrequests_new_ldap_password_path
     end
   end
 
-  def message_if_fallback
-    flash[:error] = t('fallback') if ENV['CRYPTOPUS_FALLBACK'] == 'true'
-  end
-
-  def current_user
-    @current_user ||= User::Human.find(session[:user_id]) if session[:user_id]
-  end
-
   def validate_user
-    if current_user.nil?
-      session[:jumpto] = request.parameters
-      redirect_to login_login_path
-    else
-      redirect_if_pending_recryptrequest
-    end
+    handle_pending_recrypt_request
+    check_if_user_logged_in
   end
 
-  def redirect_if_pending_recryptrequest
-    if current_user.recryptrequests.first
-      flash[:notice] = t('flashes.application.wait')
+  def handle_pending_recrypt_request
+    if pending_recrypt_request?
+      pending_recrypt_request_message
       redirect_to logout_login_path
     end
   end
 
-  def redirect_if_not_teammember
-    return if team_id.nil?
-    begin
-      team = Team.find(team_id)
-    rescue ActiveRecord::RecordNotFound
-      flash[:error] = t('flashes.teams.not_existing', id: team_id)
-      return redirect_to teams_path
+  def check_if_user_logged_in
+    if current_user.nil?
+      session[:jumpto] = request.parameters
+      redirect_to login_login_path
     end
-    return if team.teammember?(current_user.id)
-    flash[:error] = t('flashes.teams.no_member')
-    redirect_to teams_path
-  end
-
-  def plaintext_team_password(team)
-    raise 'You have no access to this team' unless team.teammember?(current_user.id)
-    private_key = session[:private_key]
-    plaintext_team_password = team.decrypt_team_password(current_user, private_key)
-    raise 'Failed to decrypt the team password' unless plaintext_team_password
-    plaintext_team_password
   end
 
   def set_locale
@@ -123,19 +72,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_cache_headers
-    response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
-  end
-
-  def redirect_to_wizard_if_new_setup
-    if User.all.count <= 0
-      redirect_to wizard_path
-      flash[:notice] = t('flashes.logins.welcome')
-    end
-  end
-
   def default_url_options(options = {})
     { locale: I18n.locale }.merge options
   end
@@ -144,19 +80,8 @@ class ApplicationController < ActionController::Base
     @team ||= Team.find(params[:team_id])
   end
 
-  def user_not_authorized(exception)
-    policy_name = exception.policy.class.to_s.underscore
-
-    flash[:error] = t "#{policy_name}.#{exception.query}", scope: 'pundit', default: :default
-    redirect_to teams_path
-  end
-
   def active_session?
     session[:private_key].present?
-  end
-
-  def headers_present?
-    request.headers['Authorization-User']
   end
 
   def team_id
