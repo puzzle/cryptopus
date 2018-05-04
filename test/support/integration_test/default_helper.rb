@@ -34,7 +34,7 @@ module IntegrationTest
     def cannot_access_account(account_path, username, user_password = 'password')
       login_as(username, user_password)
       get account_path
-      assert_match /You are not member of this team/, flash[:error]
+      assert_match /Access denied/, flash[:error]
       assert_redirected_to teams_path
       logout
     end
