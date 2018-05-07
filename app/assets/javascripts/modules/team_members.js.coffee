@@ -30,7 +30,7 @@ class app.TeamMembers
     team_id = $('input#team_id').val()
     url = '/api/teams/' + team_id + '/members/candidates'
     $.get(url).done (data) ->
-      render_candidates(data['data']['users'])
+      render_candidates(data['data']['user/humen'])
 
   render_candidates = (users) ->
     availableUsers = []
