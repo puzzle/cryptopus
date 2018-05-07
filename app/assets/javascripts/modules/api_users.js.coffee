@@ -18,7 +18,6 @@ class app.ApiUsers
     ]
 
   api_users_data = (data) ->
-    debugger
     api_users = data['data']['user/apis']
     if(!api_users)
       api_users = [data['data']['user/api']]
@@ -66,53 +65,6 @@ class app.ApiUsers
                              .fadeIn()
     })
 
-
-  updateApiUser = (id, data) ->
-    $.ajax({
-      type: "PATCH",
-      url: '/api/api_users/' +id,
-      data: data
-    })
-
-  updateApiUserValidFor = (user_id, valid_for) ->
-    data = { user_api: { valid_for: valid_for } }
-    updateApiUser(user_id, data)
-
-  updateApiUserDescription = (user_id, description) ->
-    data = { user_api: { description: description } }
-    updateApiUser(user_id, data)
-
-  renewApiUser = (id) ->
-    $.ajax({
-      type: "GET",
-      url: '/api/api_users/' + id + '/token'
-    })
-
-  removeApiUser = (id) ->
-    $.ajax({
-      type: "DELETE",
-      url: '/api/api_users/' +id
-    })
-
-  removeDialog = (elem) ->
-    $('<div></div>').appendTo('body')
-    .html('<div><h5> Delete Api-User ' + $(elem).parents('.api-user-row').children().first().text().trim() + '?')
-    .dialog({
-      modal: true, title: 'Remove Api-User', zIndex: 1000, autoOpen: true,
-      width: 'auto', resizable: false,
-      buttons: {
-        Yes: () ->
-          removeApiUser(id(elem))
-          $(this).dialog('close')
-          $(elem).parents('.api-user-row').remove()
-        No: () ->
-          $(this).dialog('close')
-      },
-      close: () ->
-        $(this).remove()
-      })
-
-
   id = (elem) ->
     $(elem).parents('.api-user-row').attr('id')
 
@@ -120,41 +72,9 @@ class app.ApiUsers
     $(document).on 'click', '#profile-api-users-tab', ->
       load_api_users()
 
-    $(document).on 'click', '#dropdown_valid_for', (e) ->
-      e.preventDefault()
-      valid_for = $(this).closest('li').attr('val')
-      updateApiUserValidFor(id(this), valid_for)
-      $(this).parents('.dropdown').find('.dropdown-toggle span:first').text($(this).text())
-
-    $(document).on 'click', '.api-user-description', ->
-      user_id = id(this)
-      replaceWith = $('<input id="hiddenFied_'+user_id+'" type="text" />')
-      if($(this).text().trim()!='click to enter description..')
-        replaceWith.val($(this).text().trim())
-      elem = $(this)
-      elem.hide()
-      elem.after replaceWith
-      replaceWith.focus()
-      replaceWith.blur ->
-        if $(this).val() != ''
-          description = $(this).val()
-          updateApiUserDescription(id(this), description)
-          elem.text($(this).val())
-        $(this).remove()
-        elem.show()
-
     $(document).on 'click', '#create_api_user_button', (e) ->
       e.preventDefault()
       url = '/api/api_users'
       create_api_user(url)
-
-    $(document).on 'click', '#renew-user', (e) ->
-      e.preventDefault()
-      user_id = id(this)
-      renewApiUser(user_id)
-
-    $(document).on 'click', '#remove-user', (e) ->
-      e.preventDefault()
-      removeDialog(this)
 
   new ApiUsers

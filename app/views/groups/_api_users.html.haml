@@ -6,7 +6,7 @@
 -#  https://github.com/puzzle/cryptopus.
 - if current_user.api_users.empty?
   = t 'api-user.none'
-  = link_to(t('here'), :back)
+  = link_to(t('here'), profile_path + '#api_users')
 - else
   %table.table.table-striped#api_user_table
     %tr
