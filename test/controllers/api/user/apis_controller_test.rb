@@ -77,15 +77,61 @@ class Api::User::ApisControllerTest < ActionController::TestCase
       end
     end
   end
+  
+  context '#lock' do
+    test 'user locks his api user' do
+      get :lock, params: { id: @api_user.id }, xhr: true
+
+      @api_user.reload
+
+      assert_equal true, @api_user.locked
+    end
+    
+    test 'user cannot lock a foreign api user' do
+      api_user2 = foreign_api_user
+
+      get :lock, params: { id: api_user2.id }, xhr: true
+
+      api_user2.reload
+
+      assert_equal false, api_user2.locked
+    end
+  end
+  
+  context '#unlock' do
+    test 'user unlocks his api user' do
+      @api_user.update_attribute(:locked, true)
+
+      get :unlock, params: { id: @api_user.id }, xhr: true
+
+      @api_user.reload
+
+      assert_equal false, @api_user.locked
+    end
+
+    test 'user cannot unlock a foreign api user' do
+      api_user2 = foreign_api_user
+      api_user2.update_attribute(:locked, true)
+      
+      get :unlock, params: { id: api_user2.id }, xhr: true
+
+      api_user2.reload
+
+      assert_equal true, api_user2.locked
+    end
+  end
 
   private
 
   def create_api_user
     @api_user = users(:bob).api_users.create!(description: 'my sweet api user')
   end
+  
+  def foreign_api_user
+    users(:alice).api_users.create!
+  end
 
   def login_as_bob
     login_as(:bob)
   end
-
 end

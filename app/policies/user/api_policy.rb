@@ -19,6 +19,14 @@ class User::ApiPolicy < ApplicationPolicy
     own_api_user?
   end
 
+  def lock?
+    own_api_user?
+  end
+
+  def unlock?
+    own_api_user?
+  end
+
   def permitted_attributes_for_update
     %i[description valid_for]
   end

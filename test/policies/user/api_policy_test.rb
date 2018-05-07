@@ -51,6 +51,26 @@ class User::ApiPolicyTest < PolicyTest
     end
   end
   
+  context '#lock' do
+    test 'user can lock his api user'do
+      assert_permit bob, @api_user, :lock?
+    end
+
+    test 'user cannot lock a foreign api user' do
+      refute_permit alice, @api_user, :lock?
+    end
+  end
+  
+  context '#unlock' do
+    test 'user can unlock his api user'do
+      assert_permit bob, @api_user, :unlock?
+    end
+
+    test 'user cannot unlock a foreign api user' do
+      refute_permit alice, @api_user, :unlock?
+    end
+  end
+
   private
 
   def create_api_user

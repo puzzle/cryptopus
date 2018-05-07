@@ -35,6 +35,18 @@ class Api::User::ApisController < ApiController
     api.destroy!
   end
 
+  # GET /api/api_users/1/lock
+  def lock
+    authorize api
+    api.lock
+  end
+
+  # GET /api/api_users/1/unlock
+  def unlock
+    authorize api
+    api.unlock
+  end
+
   private
 
   def api
