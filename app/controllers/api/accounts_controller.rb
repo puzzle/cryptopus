@@ -6,7 +6,8 @@
 class Api::AccountsController < ApiController
 
   def index
-    accounts = policy_scope(Account)
+    authorize Account
+    accounts = current_user.accounts
     accounts = find_accounts(accounts)
     render_json accounts
   end

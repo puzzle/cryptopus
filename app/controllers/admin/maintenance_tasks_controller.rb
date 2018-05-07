@@ -10,7 +10,7 @@ class Admin::MaintenanceTasksController < ApplicationController
   # GET /admin/maintenance_tasks
   def index
     authorize MaintenanceTask
-    @maintenance_tasks = policy_scope(MaintenanceTask)
+    @maintenance_tasks = MaintenanceTask.list
     @maintenance_logs = Log.where(log_type: 'maintenance_task')
   end
 

@@ -12,11 +12,8 @@ module PolicyCheck
   include Pundit
 
   included do
-    # verifies that authorize has been called in every action except index
-    after_action :verify_authorized, except: :index
-
-    # verifies that policy_scope is used in index
-    after_action :verify_policy_scoped, only: :index
+    # verifies that authorize has been called in every action
+    after_action :verify_authorized
 
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   end

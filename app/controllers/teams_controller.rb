@@ -10,7 +10,8 @@ class TeamsController < ApplicationController
 
   # GET /teams
   def index
-    @teams = policy_scope Team
+    authorize Team
+    @teams = current_user.teams
 
     respond_to do |format|
       format.html # index.html.haml

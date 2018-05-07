@@ -8,9 +8,8 @@
 class Api::Team::MembersController < ApiController
 
   def index
-    skip_policy_scope
     authorize team, :team_member?
-    members = TeamPolicy::Scope.new(current_user, team).resolve_members
+    members = team.teammembers.list
     render_json members
   end
 

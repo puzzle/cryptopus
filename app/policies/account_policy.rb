@@ -4,6 +4,10 @@ class AccountPolicy < TeamDependantPolicy
     @record = record
   end
 
+  def index?
+    true
+  end
+
   def show?
     team.teammember?(@user.id)
   end
@@ -20,18 +24,5 @@ class AccountPolicy < TeamDependantPolicy
 
   def team
     @record.group.team
-  end
-
-  class Scope < TeamDependantScope
-
-    def resolve
-      @user.accounts
-    end
-
-    protected
-
-    def team
-      @scope.team
-    end
   end
 end

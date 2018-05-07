@@ -10,7 +10,8 @@ class Api::GroupsController < ApiController
   end
 
   def index
-    groups = policy_scope(Group)
+    authorize Group
+    groups = current_user.groups
     render_json find_groups(groups)
   end
 

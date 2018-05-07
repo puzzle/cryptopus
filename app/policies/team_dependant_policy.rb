@@ -32,16 +32,4 @@ class TeamDependantPolicy < ApplicationPolicy
   def team
     raise 'implement in subclass'
   end
-
-  class TeamDependantScope < Scope
-    def team_member?
-      team.teammember?(@user.id)
-    end
-
-    protected
-
-    def team
-      raise 'Implement in subclass'
-    end
-  end
 end

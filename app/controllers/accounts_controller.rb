@@ -9,7 +9,6 @@ class AccountsController < ApplicationController
 
   # GET /teams/1/groups/1/accounts
   def index
-    skip_policy_scope
     authorize team, :team_member?
     @accounts = @group.accounts
     accounts_breadcrumbs

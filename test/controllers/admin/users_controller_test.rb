@@ -10,6 +10,57 @@ require 'test_helper'
 class Admin::UsersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
+  
+  context '#index' do
+    test 'admin receives userlist' do
+      login_as(:admin)
+      get :index
+
+      users = assigns(:users)
+
+      assert_equal 5, users.size
+      assert_equal User::Human.all.count, users.count
+      assert_equal true, users.any? { |t| t.username == 'root' }
+    end
+    
+    test 'conf admin receives userlist' do
+      login_as(:tux)
+      get :index
+
+      users = assigns(:users)
+
+      assert_equal 4, users.size
+      assert_equal false, users.any? { |t| t.username == 'root' }
+    end
+    
+    test 'list received contains only valid users' do
+      login_as(:tux)
+      get :index
+
+      users = assigns(:users)
+      ldap_uids = users.pluck(:ldap_uid)
+
+      refute_includes ldap_uids, 0
+    end
+    
+    test 'does not list locked users' do
+      users(:bob).update_attribute(:locked, true)
+
+      login_as(:admin)
+      get :index
+
+      users = assigns(:users)
+
+      assert_equal 4, users.size
+    end
+    
+    test 'user does not receive userlist' do
+      login_as(:bob)
+      get :index
+
+      assert_nil assigns(:users)
+    end
+  end
 
   context '#unlock' do
 
@@ -36,7 +87,6 @@ class Admin::UsersControllerTest < ActionController::TestCase
       assert bob.reload.locked
       assert_equal 5, bob.failed_login_attempts
     end
-
   end
 
   context '#update' do

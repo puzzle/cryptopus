@@ -20,18 +20,4 @@ class RecryptrequestPolicy < ApplicationPolicy
   def current_user
     @user
   end
-
-  class Scope < Scope
-    def resolve
-      if current_user.admin?
-        @scope.all
-      end
-    end
-
-    private
-
-    def current_user
-      @user
-    end
-  end
 end

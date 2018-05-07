@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class TeamPolicyTest < PolicyTest
+  context '#index' do
+    test 'everyone can show his teams' do
+      assert_permit alice, Team, :index?
+      assert_permit admin, Team, :index?
+    end
+  end
 
   context '#create' do
     test 'everyone can create a new team' do
@@ -74,40 +80,6 @@ class TeamPolicyTest < PolicyTest
     end
   end
 
-  context '#scope' do
-    test 'admin sees all non-private teams' do
-      teams = TeamPolicy::Scope.new(admin, Team).resolve
-
-      assert_equal Team.where(private: false), teams
-    end
-
-    test 'user can only list teams where member' do
-      team1.teammembers.find_by(user_id: bob.id).destroy!
-      bobs_teams = TeamPolicy::Scope.new(bob, Team).resolve
-
-      assert_equal 1, bobs_teams.count
-      assert_equal bob.teams, bobs_teams
-    end
-  end
-    
-  test 'admin may list all teams' do
-    teams = TeamPolicy::Scope.new(admin, Team).resolve_all
-
-    assert_equal Team.all, teams
-  end
-  
-  test 'conf admin may list all teams' do
-    teams = TeamPolicy::Scope.new(admin, Team).resolve_all
-
-    assert_equal Team.all, teams
-  end
-
-  test 'user may not list all teams' do
-    teams = TeamPolicy::Scope.new(bob, Team).resolve_all
-
-    assert_nil teams
-  end
-  
   context '#add' do
     test 'teammember can add a teammember' do
       assert team2.teammember? bob

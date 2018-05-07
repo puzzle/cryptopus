@@ -4,15 +4,15 @@ class MaintenanceTaskPolicyTest < PolicyTest
 
   context '#index' do
     test 'admin sees maintenance tasks' do
-      assert_not_nil MaintenanceTaskPolicy::Scope.new(admin, MaintenanceTask).resolve
+      assert_permit admin, MaintenanceTask, :index?
     end
 
     test 'conf admin sees maintenance tasks' do
-      assert_not_nil MaintenanceTaskPolicy::Scope.new(conf_admin, MaintenanceTask).resolve
+      assert_permit conf_admin, MaintenanceTask, :index?
     end
 
-    test 'non-admin cant see maintenance tasks' do
-      assert_nil MaintenanceTaskPolicy::Scope.new(bob, MaintenanceTask).resolve
+    test 'non-admin cannot see maintenance tasks' do
+      refute_permit bob, MaintenanceTask, :index?
     end
   end
 

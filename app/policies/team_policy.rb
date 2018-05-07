@@ -1,4 +1,8 @@
 class TeamPolicy < TeamDependantPolicy
+  def index?
+    true
+  end
+
   def create?
     true
   end
@@ -39,25 +43,5 @@ class TeamPolicy < TeamDependantPolicy
 
   def team
     @record
-  end
-
-  class Scope < TeamDependantScope
-    def resolve
-      @user.teams
-    end
-
-    def resolve_members
-      team.teammembers.list if team_member?
-    end
-
-    def resolve_all
-      Team.all if admin_or_conf_admin?
-    end
-
-    protected
-
-    def team
-      @scope
-    end
   end
 end

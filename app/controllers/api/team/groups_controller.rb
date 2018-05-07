@@ -8,9 +8,8 @@
 class Api::Team::GroupsController < ApiController
 
   def index
-    skip_policy_scope
     authorize team, :team_member?
-    groups = GroupPolicy::Scope.new(current_user, team).resolve
+    groups = current_user.groups
     render_json groups
   end
 
