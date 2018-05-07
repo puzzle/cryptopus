@@ -20,6 +20,7 @@ class Api::User::ApisController < ApiController
     new_api = current_user.api_users.new(permitted_attributes(User::Api))
     authorize new_api
     new_api.save!
+    render_json new_api
   end
 
   # POST /api/api_users/1

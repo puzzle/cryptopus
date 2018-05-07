@@ -37,5 +37,6 @@ class User::ApiSerializer < ApplicationSerializer
              :valid_until,
              :valid_for,
              :last_login_at,
-             :last_login_from
+             :last_login_from,
+             :locked
 end

@@ -17,7 +17,7 @@ class app.UpdateRole
     })
 
   bind = ->
-    $(document).on 'click', '.dropdown-item', (e) ->
+    $(document).on 'click', '#dropdown-role', (e) ->
       e.preventDefault()
       user_id = $(this).parents('.dropdown').attr('id')
       user_role = $(this).closest('li').attr('val')
