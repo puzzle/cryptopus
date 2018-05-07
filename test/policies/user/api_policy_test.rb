@@ -4,6 +4,14 @@ require 'user/api'
 class User::ApiPolicyTest < PolicyTest
 
   setup :create_api_user
+  
+  context '#index' do
+    test 'everyone sees his api users' do
+      assert_permit alice, User::Api, :index?
+      assert_permit bob, User::Api, :index?
+      assert_permit admin, User::Api, :index?
+    end
+  end
 
   context '#create' do
     test 'everyone can create a new api user' do
@@ -40,21 +48,6 @@ class User::ApiPolicyTest < PolicyTest
 
     test 'user cannot delete a foreign api user' do
       refute_permit alice, @api_user, :destroy?
-    end
-  end
-  
-
-  context '#scope' do
-    test 'user sees all his api users' do
-      api_users = User::ApiPolicy::Scope.new(bob, User::Api).resolve
-
-      assert_equal User::Api.where(human_user_id: bob.id), api_users
-    end
- 
-    test 'user cannot see foreign api users' do
-      api_users = User::ApiPolicy::Scope.new(alice, User::Api).resolve
-
-      assert_not_equal User::Api.where(human_user_id: bob.id), api_users
     end
   end
   

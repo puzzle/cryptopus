@@ -3,23 +3,15 @@ require 'test_helper'
 class RecryptRequestPolicyTest < PolicyTest
   context '#index?' do
     test 'admin can see all recryptrequests' do
-      assert_equal true, admin.admin?
-      recryptrequests = Pundit.policy_scope!(admin, Recryptrequest)
-      Recryptrequest.all.each do |r|
-        assert recryptrequests.include?(r)
-      end
+      assert_permit admin, Recryptrequest, :index?
     end
     
     test 'conf admin cannot see pending recryptrequests' do
-      assert_equal true, conf_admin.conf_admin?
-      recryptrequests = Pundit.policy_scope!(conf_admin, Recryptrequest)
-      assert_nil recryptrequests      
+      refute_permit conf_admin, Recryptrequest, :index?
     end
 
     test 'normal user cannot see pending recryptrequests' do
-      assert_not bob.admin?
-      recryptrequests = Pundit.policy_scope!(bob, Recryptrequest)
-      assert_nil recryptrequests      
+      refute_permit bob, Recryptrequest, :index?
     end
   end
 

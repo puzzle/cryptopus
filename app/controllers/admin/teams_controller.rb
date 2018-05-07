@@ -7,9 +7,8 @@ class Admin::TeamsController < ApplicationController
 
   # GET /teams
   def index
-    skip_policy_scope
     authorize Team, :index_all?
-    @teams = TeamPolicy::Scope.new(current_user, Team).resolve_all
+    @teams = Team.all
 
     respond_to do |format|
       format.html

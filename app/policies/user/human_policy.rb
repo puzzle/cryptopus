@@ -82,14 +82,4 @@ class User::HumanPolicy < ApplicationPolicy
   def user
     @record
   end
-
-  class Scope < Scope
-    def resolve
-      if @user.admin?
-        @scope
-      elsif @user.conf_admin?
-        @scope.where('ldap_uid != 0 or ldap_uid is null')
-      end
-    end
-  end
 end

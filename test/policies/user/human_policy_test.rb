@@ -301,34 +301,6 @@ class HumanPolicyTest < PolicyTest
     end
   end
 
-  context '#scope' do
-    test 'admin receives userlist' do
-      assert_not_nil Pundit.policy_scope!(admin, User::Human)
-    end
-
-    test 'conf_admin receives userlist' do
-      assert_not_nil Pundit.policy_scope!(conf_admin, User::Human)
-    end
-
-    test 'list received contains all users' do
-      users = Pundit.policy_scope!(admin, User::Human)
-
-      assert_equal User::Human.all.count, users.count
-    end
-    
-    test 'list received contains only valid users' do
-      users = Pundit.policy_scope!(conf_admin, User::Human)
-
-      ldap_uids = users.pluck(:ldap_uid)
-
-      refute_includes ldap_uids, 0
-    end
-
-    test 'user cannot read userlist' do
-      assert_nil Pundit.policy_scope!(bob, User::Human)
-    end
-  end
-
   private
 
   def conf_admin2

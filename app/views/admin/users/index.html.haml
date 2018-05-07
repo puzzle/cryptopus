@@ -16,7 +16,7 @@
     %th= t '.ldap_uid'
     %th= t '.admin'
     %th{colspan: "3"}= t :actions
-  - @users.unlocked.each do |user|
+  - @users.each do |user|
     %tr{class: "#{cycle( 'odd', 'even' )}"}
       %td= user.username
       %td= user.label
@@ -44,7 +44,7 @@
       %th{style: "width: 150px;"}= t '.username'
       %th= t '.name'
       %th= t '.action'
-    - User.locked.each do |user|
+    - User::Human.locked.each do |user|
       %tr{class: "#{cycle( 'odd', 'even' )}"}
         %td= link_to user.username, edit_admin_user_path(user)
         %td= user.label

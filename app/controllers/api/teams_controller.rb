@@ -12,7 +12,8 @@ class Api::TeamsController < ApiController
   end
 
   def index
-    teams = policy_scope(Team)
+    authorize Team
+    teams = current_user.teams
     render_json find_teams(teams)
   end
 

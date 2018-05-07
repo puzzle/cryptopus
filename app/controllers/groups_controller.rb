@@ -10,12 +10,11 @@ class GroupsController < ApplicationController
 
   # GET /teams/1/groups
   def index
-    skip_policy_scope
     authorize team, :team_member?
     @groups = team.groups
     groups_breadcrumbs
 
-    teammembers = TeamPolicy::Scope.new(current_user, team).resolve_members
+    teammembers = team.teammembers.list
     @teammembers = teammembers.includes(:user).sort_by { |tm| tm.label.downcase }
 
     respond_to do |format|

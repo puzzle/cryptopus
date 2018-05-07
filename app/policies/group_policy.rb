@@ -1,4 +1,8 @@
 class GroupPolicy < TeamDependantPolicy
+  def index?
+    true
+  end
+
   private
 
   def team
@@ -11,19 +15,5 @@ class GroupPolicy < TeamDependantPolicy
 
   def group
     @record
-  end
-
-  class Scope < TeamDependantScope
-
-    def resolve
-      @user.groups
-    end
-
-    protected
-
-    def team
-      @scope
-    end
-
   end
 end

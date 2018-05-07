@@ -32,10 +32,4 @@ class User::ApiPolicy < ApplicationPolicy
   def own_api_user?
     @record.human_user_id == @user.id
   end
-
-  class Scope < Scope
-    def resolve
-      @user.api_users
-    end
-  end
 end

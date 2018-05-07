@@ -10,7 +10,7 @@ class WizardController < ApplicationController
   skip_before_action :validate_user, :redirect_to_wizard_if_new_setup
 
   def index
-    skip_policy_scope
+    skip_authorization
     respond_to do |format|
       format.html # index.html.haml
     end

@@ -9,7 +9,6 @@ class SearchController < ApplicationController
 
   # GET /search
   def index
-    skip_policy_scope
     authorize :search, :index?
   end
 end

@@ -20,10 +20,4 @@ class MaintenanceTaskPolicy < ApplicationPolicy
   def maintenance_task
     @record
   end
-
-  class Scope < Scope
-    def resolve
-      @scope.list if admin_or_conf_admin?
-    end
-  end
 end
