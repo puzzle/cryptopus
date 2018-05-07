@@ -72,6 +72,9 @@ Rails.application.routes.draw do
   end
 
   scope '/api', module: 'api' do
+    get '/api_users/:id/lock', to: 'user/apis#lock', controller: 'user/apis'
+    get '/api_users/:id/unlock', to: 'user/apis#unlock', controller: 'user/apis'
+
     resources :groups, only: [:index]
     resources :teams, only: [:index]
     resources :accounts, only: [:show, :index]

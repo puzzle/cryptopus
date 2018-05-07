@@ -71,6 +71,10 @@ class User < ApplicationRecord
     update!(locked: false, failed_login_attempts: 0)
   end
 
+  def lock
+    update!(locked: true)
+  end
+
   def accounts
     Account.joins(:group).
       joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
