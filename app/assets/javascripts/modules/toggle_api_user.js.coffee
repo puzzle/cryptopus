@@ -21,9 +21,10 @@ class app.ToggleApiUser
       url: url,
       type: "DELETE"
     })
- 
+
   bind = ->
-    $(document).on 'click', '.toggle-button', ->
+    $(document).on 'click', '.team.toggle-button', (e)->
+      e.preventDefault()
       api_user_id = $(this).attr('id')
       url = '/teams/' + team_id.value + '/api_users'
       if($(this).hasClass('toggle-button-selected'))

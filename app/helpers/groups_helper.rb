@@ -7,7 +7,7 @@
 
 module GroupsHelper
   def toggle_api_user(api_user)
-    class_name = 'toggle-button'
+    class_name = 'team toggle-button'
     class_name += ' toggle-button-selected' if team.teammember?(api_user)
 
     content_tag(:div, class: class_name, id: api_user.id) do
