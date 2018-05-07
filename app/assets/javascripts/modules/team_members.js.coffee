@@ -96,6 +96,5 @@ class app.TeamMembers
 
     $(document).on 'click', '#members-tab', ->
       toggle_members()
-      load_members()
 
   new TeamMembers
