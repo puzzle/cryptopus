@@ -1,20 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
-  "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg width="18" height="18">
-  <image id="image0" width="18" height="18" x="0" y="0"
-    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASEAAAAAAjNQ3IAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
-AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0T//xSrMc0AAAAJcEhZ
-cwAAAFoAAABaAHAjuH0AAAAHdElNRQfiBQcLIAPCtz0ZAAABhklEQVQoz2P4TwRgQOX+Lvl05tOu
-3ykg9t9LfxkwFD37sNA4g9U/1d82/cHC3Oeli5u7y34FIytS3LfFp08xRsZW3lM+UMZJsc7nvJOC
-7e7nl5EU7ZtkriknbtFfOWPJuSX/qvZaz1BkVQwzDLq8Fa7o2Xef7XLCge3nLf6ZgfiPeNOiVeco
-xaqt2sULV7QwSk7P7Om5cJjrjthbleqcVbun/Gjleriik/aV7ye/+esEU/Sr927ZGand3Rt2vUhF
-ctO/rN/PiA4nlDBb8c8JSdELyw2zd/eckbqb+6sDpuSv9WSJioaTrHBFK9uVr6nd0zlnVXEkCKbo
-nIvZOTmbhavhinb+VlumFKs6Lc3vkQ7YhbrnBQLD5UR9nj5Xgiu6vNzQWzFWkcW6omrekswlVpVx
-FtVyoub6+9Yhuen5adu1ThN9VRWbZJzkHeQtZGwUs33m7tvxXwFJ0S+/7trFV59PX9iW/snf1784
-w3Zh+3NBjCD4y/73JtjbmZ8Ofrr8u57ocEIAAC+C7J/xCYgkAAAAJXRFWHRkYXRlOmNyZWF0ZQAy
-MDE4LTA1LTA3VDEzOjA5OjM1KzAyOjAwqidKvQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wNS0w
-N1QxMzowOTozNSswMjowMNt68gEAAABQdEVYdHN2ZzpiYXNlLXVyaQBmaWxlOi8vL2hvbWUvbXp1
-cmJ1Y2hlbi9naXQvY3J5cHRvcHVzL2FwcC9hc3NldHMvaW1hZ2VzL3JlZnJlc2guc3ZnvbcoxQAA
-AABJRU5ErkJggg==" />
+<!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+<svg viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="si-glyph si-glyph-arrow-reload">
+    <!-- Generator: Sketch 3.0.3 (7891) - http://www.bohemiancoding.com/sketch -->
+    <title>802</title>
+    
+    <defs></defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(1.000000, 2.000000)" fill="#434343">
+            <path d="M15.796,6.908 L14.234,5.21 C14.019,4.998 13.672,4.998 13.458,5.21 L11.894,6.908 C11.679,7.122 11.679,7.467 11.894,7.68 L13.188,7.68 C12.702,9.505 11.27,10.976 9.399,11.47 C7.231,12.042 4.913,11.191 3.632,9.351 L2.541,10.102 C3.807,11.921 5.884,12.966 8.039,12.966 C8.604,12.966 9.176,12.894 9.737,12.745 C12.188,12.099 14.04,10.112 14.55,7.68 L15.795,7.68 C16.01,7.467 16.01,7.122 15.796,6.908 L15.796,6.908 Z" class="si-glyph-fill"></path>
+            <path d="M4.475,6.021 C4.69,5.808 4.69,5.462 4.475,5.249 L3.018,5.249 C3.516,3.448 4.936,2.001 6.789,1.511 C8.959,0.938 11.275,1.791 12.555,3.632 L13.647,2.88 C12.049,0.585 9.161,-0.479 6.448,0.235 C4.016,0.878 2.175,2.84 1.648,5.249 L0.196,5.249 C-0.019,5.463 -0.019,5.809 0.196,6.021 L1.834,7.658 C2.048,7.87 2.396,7.87 2.61,7.658 L4.475,6.021 L4.475,6.021 Z" class="si-glyph-fill"></path>
+        </g>
+    </g>
 </svg>
