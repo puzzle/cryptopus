@@ -30,8 +30,9 @@ class app.ApiUsers
       $('.api-user-row').remove()
       if api_users.length == 0
         $('#api_users_table').remove()
-        $('#api_users_title').text('No Api Users')
+        $('#no_api_users').attr('hidden', false)
       else
+        $('#no_api_users').attr('hidden', true)
         show_api_users(api_users)
 
   api_users_template = (api_users) ->
@@ -73,6 +74,7 @@ class app.ApiUsers
       load_api_users()
 
     $(document).on 'click', '#create_api_user_button', (e) ->
+      $('#no_api_users').attr('hidden', true)
       e.preventDefault()
       url = '/api/api_users'
       create_api_user(url)

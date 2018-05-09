@@ -212,6 +212,7 @@ de:
       last_login_from: Letztes Login von
     api_users:
       api_users: Api Benutzer
+      no_api_users: Keine Api Benutzer
       username: Benutzername
       description: Beschreibung
       valid_until: Gültig bis
