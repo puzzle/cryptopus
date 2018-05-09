@@ -18,9 +18,8 @@ class app.ApiUserRemove
       width: 'auto', resizable: false,
       buttons: {
         Yes: () ->
-          removeApiUser(id(elem))
+          removeApiUser(elem)
           $(this).dialog('close')
-          $(elem).parents('.api-user-row').remove()
         No: () ->
           $(this).dialog('close')
       },
@@ -28,11 +27,19 @@ class app.ApiUserRemove
         $(this).remove()
       })
 
-  removeApiUser = (id) ->
+  removeApiUser = (elem) ->
     $.ajax({
       type: "DELETE",
-      url: '/api/api_users/' +id
+      url: '/api/api_users/' +id(elem)
+      success: (data) ->
+        $(elem).parents('.api-user-row').remove()
+        if(wasLastElement())
+          $('#api_users_table').hide()
+          $('#api_users_title').text('No Api Users')
     })
+
+  wasLastElement = ->
+    $('#api_users_table tr').length == 1
 
   id = (elem) ->
     $(elem).parents('.api-user-row').attr('id')

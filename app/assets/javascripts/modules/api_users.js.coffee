@@ -29,8 +29,7 @@ class app.ApiUsers
       api_users = api_users_data(data)
       $('.api-user-row').remove()
       if api_users.length == 0
-        $('#api_users_table').remove()
-        $('#no_api_users').attr('hidden', false)
+        hideTable()
       else
         $('#no_api_users').attr('hidden', true)
         show_api_users(api_users)
@@ -39,6 +38,16 @@ class app.ApiUsers
     initValidFor(api_users, options)
     HandlebarsTemplates['api_users'](api_users: api_users, options: options)
 
+  hideTable = () ->
+    $('#api_users_table').hide()
+    $('#no_api_users').attr('hidden', false)
+
+  isFirst = () ->
+    $('#api_users_title').text().trim() == 'No Api Users'
+
+  showTable = () ->
+    $('#no_api_users').attr('hidden', true)
+    $('#api_users_table').show()
 
   show_api_users = (api_users) ->
     template = api_users_template(api_users)
@@ -62,6 +71,9 @@ class app.ApiUsers
       }
       success: (data) ->
         api_user = api_users_data(data)
+        if(isFirst())
+          showTable()
+
         $('#api_users_table').append(api_users_template(api_user))
                              .fadeIn()
     })
