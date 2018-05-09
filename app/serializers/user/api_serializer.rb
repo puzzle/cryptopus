@@ -31,6 +31,8 @@
 # https://github.com/puzzle/cryptopus.
 
 class User::ApiSerializer < ApplicationSerializer
+  delegate :l, to: I18n
+
   attributes :id,
              :username,
              :description,
@@ -39,4 +41,13 @@ class User::ApiSerializer < ApplicationSerializer
              :last_login_at,
              :last_login_from,
              :locked
+
+  def valid_until
+    valid_until = object.valid_until
+    l(valid_until, format: :long) if valid_until
+  end
+
+  def last_login_at
+    object.formatted_last_login_at
+  end
 end

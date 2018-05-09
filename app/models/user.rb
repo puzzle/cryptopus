@@ -31,6 +31,8 @@
 #  https://github.com/puzzle/cryptopus.
 
 class User < ApplicationRecord
+  delegate :l, to: I18n
+
   validates_uniqueness_of :username
   validates :username, presence: true
 
@@ -67,6 +69,10 @@ class User < ApplicationRecord
     givenname.blank? ? username : "#{givenname} #{surname}"
   end
 
+  def formatted_last_login_at
+    l(last_login_at, format: :long) if last_login_at
+  end
+  
   def unlock
     update!(locked: false, failed_login_attempts: 0)
   end

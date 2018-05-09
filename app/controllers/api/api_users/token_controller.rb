@@ -1,11 +1,12 @@
 require 'user/api'
 
-class Api::ApiUsers::TokenController < ApplicationController
+class Api::ApiUsers::TokenController < ApiController
 
   # GET /api/api_users/token/1
   def show
     authorize api_user
     api_user.renew_token(session[:private_key])
+    render_json api_user
   end
 
   # DELETE /api/api_users/token/1
