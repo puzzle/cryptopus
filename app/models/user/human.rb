@@ -192,10 +192,6 @@ class User::Human < User
     /^Salted/ !~ private_key
   end
 
-  def formatted_last_login_at
-    l(last_login_at, format: :long) if last_login_at
-  end
-
   private
 
   def empower(actor, private_key)

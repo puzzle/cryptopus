@@ -16,8 +16,22 @@ class app.ApiUserRenew
   renewApiUser = (id) ->
     $.ajax({
       type: "GET",
-      url: '/api/api_users/' + id + '/token'
+      url: '/api/api_users/' + id + '/token',
+      success: (data) ->
+        api_user = data['data']['user/api']
+        timestamp = validUntil(api_user)
+        updateTimestamp(id, timestamp)
     })
+
+  updateTimestamp = (id, timestamp) ->
+    elem = $('.api-user-row#' + id).children().find('#valid_until')
+    elem.text(timestamp)
+
+  validUntil = (api_user) ->
+    if(api_user.valid_for == 0)
+      ''
+    else
+      api_user.valid_until
 
   bind = ->
     $(document).on 'click', '#renew-user', (e) ->

@@ -27,6 +27,7 @@ class Api::User::ApisController < ApiController
   def update
     authorize api
     api.update!(permitted_attributes(api))
+    render_json api
   end
 
   # DELETE /api/api_users/1
