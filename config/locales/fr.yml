@@ -213,6 +213,7 @@ fr:
       last_login_from: Dernière connexion de
     api_users:
       api_users: Utilisateurs d'Api
+      no_api_users: Pas d'utilisateurs Api 
       username: "Nom d'utilisateur"
       description: Description
       valid_until: Valable jusque
