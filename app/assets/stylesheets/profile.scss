@@ -6,13 +6,32 @@
 #profile-tabs {
   padding-top: 3em;
 }
+
 .api-user-description {
   width: 200px;
 }
+
 .api-user-description:hover {
   background: #fffbe1;
   width: 200px;
 }
+
 #valid_for_dropdown {
   width: 120px;
+}
+
+#renew-user {
+  width: 20px;
+}
+
+#api_users_table tbody tr td {
+  line-height: 2;
+}
+
+.toggle-button {
+  margin-top: 5px;
+}
+
+.action-icons {
+  margin-bottom: 5px;
 }
