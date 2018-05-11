@@ -38,8 +38,6 @@ fr:
   team: Équipe
   move: Mouvoir
   here: Ici
-  api-user:
-    none: Vous n'avez aucun api-utilisateur. Créer un
 
   i18n:
     language:
@@ -203,7 +201,7 @@ fr:
       title: Créer une nouvelle équipe
     description:
       private: Administrateurs auront pas accès à votre équipe.
-  
+
   profile:
     index:
       title: "Profil de %{label}"
@@ -213,11 +211,11 @@ fr:
       last_login_from: Dernière connexion de
     api_users:
       api_users: Utilisateurs d'Api
-      no_api_users: Pas d'utilisateurs Api 
+      no_api_users: Pas d'utilisateurs Api
       username: "Nom d'utilisateur"
       description: Description
       valid_until: Valable jusque
-      valid_for: Valable 
+      valid_for: Valable
       last_login_at: Dernière connexion à
       last_login_from: Dernière connexion de
 
@@ -236,6 +234,21 @@ fr:
             successful: Connexion au serveur Ldap réussie
             failed: Connexion au serveur Ldap échoué
             no_hostname_present: Aucun nom d'hôte n'existe
+      api-users:
+        create: "%{username} a été crée"
+        update:
+          description: "La description de %{username} a été mis à jour"
+          valid_for: "L'Utilisateur %{username} sera valable %{valid_for} dès le prochain renouvellement"
+          time:
+            one_min: pour une minute
+            five_mins: pour cinq minutes
+            twelve_hours: pour douze heurs
+            infinite: infiniment
+        destroy: "%{username} a été supprime"
+        lock: "%{username} est maintenant blocké"
+        unlock: "%{username} n'est plus blocké"
+        token:
+          renew: "%{username} a été renouvelé"
     members:
       added: "%{username} a été enlevé avec succès à l'équipe"
       removed: "%{username} a été ajouté avec succès à l'équipe"

@@ -55,7 +55,7 @@ class app.ApiUserUpdate
     $(document).on 'click', '.api-user-description', ->
       elem = this
       user_id = id(elem)
-      replaceWith = $('<input id="hiddenFied_'+user_id+'" type="text" />')
+      replaceWith = $('<input class="hiddenFied" type="text" />')
       if(hasDescription(elem))
         replaceWith.val($(elem).text().trim())
 

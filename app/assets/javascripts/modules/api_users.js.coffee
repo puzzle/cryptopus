@@ -10,7 +10,12 @@ class app.ApiUsers
   constructor: () ->
     bind.call()
 
-  options = [
+  loadOptions = () ->
+    url = '/api/api_users/options'
+    $.get(url).done (data) ->
+      options = data['data']
+
+  options =  [
       { name: 'One minute', value: 60},
       { name: 'Five minutes', value: 300},
       { name: 'Twelve hours', value: 43200},
@@ -55,6 +60,8 @@ class app.ApiUsers
 
   initValidFor = (api_users, options) ->
     api_users.forEach (api_user) ->
+      if(options.length == 0)
+        loadOptions()
       options.forEach (elem) ->
         if elem.value == api_user.valid_for
           api_user.valid_text = elem.name

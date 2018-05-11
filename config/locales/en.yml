@@ -39,8 +39,7 @@ en:
   team: Team
   move: Move
   here: Here
-  api-user:
-    none: You don't have any Api-Users. Create one
+
 
   i18n:
     language:
@@ -205,7 +204,7 @@ en:
       title: Create a new team
     description:
       private: admins have no access if checked
-  
+
   profile:
     index:
       title: "Profile of %{label}"
@@ -222,6 +221,11 @@ en:
       valid_for: Valid for
       last_login_at: Last login at
       last_login_from: Last login from
+      options:
+        one_min:  One minute
+        five_mins: Five minutes
+        twelve_hours: Twelve hours
+        infinite: Infinite
 
   flashes:
     api:
@@ -239,7 +243,22 @@ en:
           test_ldap_connection:
             successful: "Connection to Ldap Server %{hostname} successful"
             failed: "Connection to Ldap Server %{hostname} failed"
-            no_hostname_present: "No hostname present" 
+            no_hostname_present: "No hostname present"
+      api-users:
+        create: "%{username} has been created"
+        update:
+          description: "Updated description for user %{username}"
+          valid_for: "User %{username} will now be valid %{valid_for} after renewal"
+          time:
+            one_min: for one minute
+            five_mins: for five minutes
+            twelve_hours: for twelve hours
+            infinite: without limit
+        destroy: "Removed %{username}"
+        lock: "Locked %{username}"
+        unlock: "Unlocked %{username}"
+        token:
+          renew: "Renewed %{username}"
       members:
         removed: "%{username} was successfully removed from team"
         added: "%{username} was successfully added to team"
