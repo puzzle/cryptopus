@@ -6,13 +6,13 @@
 #  https://github.com/puzzle/cryptopus.
 
 Rails.application.routes.draw do
-  
+
   scope "(:locale)", locale: /en|de|fr|zh|ru|ch_be/ do
     namespace :recryptrequests do
       get 'new_ldap_password'
       post 'recrypt'
     end
-    
+
     resources :teams do
       resources :api_users, only: [:index, :create, :destroy], module: 'team'
       resources :teammembers
@@ -45,7 +45,7 @@ Rails.application.routes.draw do
           post 'resetpassword'
         end
       end
-  
+
       get  'teams', to: 'teams#index'
     end
 
@@ -74,13 +74,14 @@ Rails.application.routes.draw do
   scope '/api', module: 'api' do
     get '/api_users/:id/lock', to: 'user/apis#lock', controller: 'user/apis'
     get '/api_users/:id/unlock', to: 'user/apis#unlock', controller: 'user/apis'
+    get '/api_users/options', to: 'api_users/options#index', controller: 'user/apis'
 
     resources :groups, only: [:index]
     resources :teams, only: [:index]
     resources :accounts, only: [:show, :index]
 
     resources :api_users, controller: 'user/apis' do
-      member do 
+      member do
         get :token, to: 'api_users/token#show'
         delete :token, to: 'api_users/token#destroy'
       end

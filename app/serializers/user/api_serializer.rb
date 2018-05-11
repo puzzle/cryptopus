@@ -44,7 +44,7 @@ class User::ApiSerializer < ApplicationSerializer
 
   def valid_until
     valid_until = object.valid_until
-    l(valid_until, format: :long) if valid_until
+    l(valid_until, format: '%Y-%m-%d::%H:%M') if valid_until
   end
 
   def last_login_at

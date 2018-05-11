@@ -11,6 +11,10 @@
   width: 200px;
 }
 
+input {
+  width: 200px
+}
+
 .api-user-description:hover {
   background: #fffbe1;
   width: 200px;
@@ -36,7 +40,10 @@
   margin-bottom: 5px;
 }
 
+#valid_until{
+  width: 116px;
+}
+
 #create_api_user_button {
   margin-top: -38px;
 }
-

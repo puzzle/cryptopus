@@ -39,8 +39,7 @@ de:
   team: Team
   move: Bewegen"
   here: Hier
-  api-user:
-    none: Du hast keinen Api-Benutzer. Erstelle einen
+
   i18n:
     language:
       name: Deutsch
@@ -235,6 +234,21 @@ de:
             successful: "Verbindung zum Ldap Server %{hostname} erfolgreich"
             failed: "Verbindung zum Ldap Server %{hostname} fehlgeschlagen"
             no_hostname_present: "Kein Hostname vorhanden"
+      api-users:
+        create: "%{username} wurde erstellt"
+        update:
+          description: "%{username}'s Beschreibung wurde aktualiert"
+          valid_for: "Benutzer %{username} wird nach dem nächsten Erneuern %{valid_for} gültig sein"
+          time:
+            one_min: für eine Minute
+            five_mins: für fünf Minuten
+            twelve_hours: für zwölf Stunden
+            infinite: bis zum Ende der Zeit
+        destroy: "%{username} wurde entfernt"
+        lock: "%{username} wurde gesperrt"
+        unlock: "%{username} wurde entsperrt"
+        token:
+          renew: "%{username} wurde erneuert"
       members:
         added: "%{username} wurde erfolgreich hinzugefügt"
         removed: "%{username} wurde erfolgreich entfernt"
