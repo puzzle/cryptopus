@@ -29,18 +29,8 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
       users = assigns(:users)
 
-      assert_equal 4, users.size
-      assert_equal false, users.any? { |t| t.username == 'root' }
-    end
-    
-    test 'list received contains only valid users' do
-      login_as(:tux)
-      get :index
-
-      users = assigns(:users)
-      ldap_uids = users.pluck(:ldap_uid)
-
-      refute_includes ldap_uids, 0
+      assert_equal 5, users.size
+      assert_equal true, users.any? { |t| t.username == 'root' }
     end
     
     test 'does not list locked users' do

@@ -248,7 +248,7 @@ fr:
         lock: "%{username} est maintenant blocké"
         unlock: "%{username} n'est plus blocké"
         token:
-          renew: "%{username} a été renouvelé"
+          renew: "%{username} a été renouvelé, nouveau jeton: %{token}"
     members:
       added: "%{username} a été enlevé avec succès à l'équipe"
       removed: "%{username} a été ajouté avec succès à l'équipe"

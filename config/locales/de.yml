@@ -248,7 +248,7 @@ de:
         lock: "%{username} wurde gesperrt"
         unlock: "%{username} wurde entsperrt"
         token:
-          renew: "%{username} wurde erneuert"
+          renew: "%{username} wurde erneuert, neues Token: %{token}"
       members:
         added: "%{username} wurde erfolgreich hinzugefügt"
         removed: "%{username} wurde erfolgreich entfernt"
