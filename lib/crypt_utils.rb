@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -8,14 +6,15 @@
 require 'openssl'
 require 'digest/sha1'
 
-include OpenSSL
-
 class CryptUtils
+
   @@magic = 'Salted__'
   @@salt_length = 8
   @@cypher = 'aes-256-cbc'
 
   class << self
+    include OpenSSL
+
     def one_way_crypt(plaintext_password)
       salt = SecureRandom.hex
       "sha512$#{salt}$" + Digest::SHA512.hexdigest(salt + plaintext_password)
@@ -41,17 +40,17 @@ class CryptUtils
     def decrypt_rsa(encrypted_content, private_key)
       keypair = PKey::RSA.new(private_key)
       decrypted_content = keypair.private_decrypt(encrypted_content)
-      return decrypted_content
-    rescue
-      return nil
+      decrypted_content
+    rescue StandardError
+      nil
     end
 
     def encrypt_rsa(content, public_key)
       keypair = PKey::RSA.new(public_key)
       encrypted_content = keypair.public_encrypt(content)
-      return encrypted_content
-    rescue
-      return nil
+      encrypted_content
+    rescue StandardError
+      nil
     end
 
     def new_team_password
@@ -78,8 +77,8 @@ class CryptUtils
       salt = private_key.slice(@@magic.size, @@salt_length)
       private_key_part = private_key.slice((@@magic.size + @@salt_length)..-1)
       cipher.pkcs5_keyivgen(password, salt, 1000)
-      return cipher.update(private_key_part) + cipher.final
-    rescue
+      cipher.update(private_key_part) + cipher.final
+    rescue StandardError
       raise Exceptions::DecryptFailed
     end
 

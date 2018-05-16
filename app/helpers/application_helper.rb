@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -45,11 +43,11 @@ module ApplicationHelper
     link_to image_tag('remove.svg'), path, options
   end
 
-  def labeled_check_box(f, attr, enabled = true)
+  def labeled_check_box(form, attr, enabled = true)
     options = {}
     options[:disabled] = 'disabled' unless enabled
     label_tag(attr) do
-      concat f.check_box(attr, options)
+      concat form.check_box(attr, options)
       concat t(".#{attr}")
     end
   end

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -60,7 +58,7 @@ class LdapConnection
 
   def test_connection
     connection.bind
-  rescue
+  rescue StandardError
     false
   end
 
@@ -131,12 +129,12 @@ class LdapConnection
     ldap
   end
 
-  def handle_exception(host, e)
+  def handle_exception(host, exception)
     if ldap_hosts.last == host
-      raise e
+      raise exception
     else
-      return if e.is_a?(Net::LDAP::ConnectionRefusedError)
-      raise(e) unless expected_message(e.message)
+      return if exception.is_a?(Net::LDAP::ConnectionRefusedError)
+      raise(exception) unless expected_message(exception.message)
     end
   end
 
@@ -167,7 +165,7 @@ class LdapConnection
 
     ldap = Net::LDAP.new(params)
     ldap.bind
-  rescue
+  rescue StandardError
     false
   end
 end

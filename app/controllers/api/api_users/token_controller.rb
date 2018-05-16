@@ -9,23 +9,23 @@ class Api::ApiUsers::TokenController < ApiController
 
   # GET /api/api_users/token/1
   def show
-    authorize api_user
-    token = api_user.renew_token(session[:private_key])
-    add_info(t('flashes.api.api-users.token.renew', username: api_user.username, token: token))
-    render_json api_user
+    authorize api
+    token = api.renew_token(session[:private_key])
+    add_info(t('flashes.api.api-users.token.renew', username: api.username, token: token))
+    render_json api
   end
 
   # DELETE /api/api_users/token/1
   def destroy
-    authorize api_user
-    api_user.update!(locked: true)
-    add_info(t('flashes.api.api-users.token.invalidated', username: api_user.username))
+    authorize api
+    api.update!(locked: true)
+    add_info(t('flashes.api.api-users.token.invalidated', username: api.username))
     render_json ''
   end
 
   private
 
-  def api_user
+  def api
     @api ||= User::Api.find(params[:id])
   end
 end

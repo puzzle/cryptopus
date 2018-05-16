@@ -98,7 +98,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
     LOCKTIMES.each_with_index do |timer, i|
       attempt = i + 1
 
-      last_failed_login_time = DateTime.now.utc - LOCKTIMES[i].seconds
+      last_failed_login_time = Time.now.utc - LOCKTIMES[i].seconds
       bob.update!({last_failed_login_attempt_at: last_failed_login_time})
 
       assert_equal false, authenticator.send(:user_locked?), 'bob should should not be locked temporarly'
@@ -117,7 +117,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
 
   test 'authentication success if valid api token' do
     token = api_user.send(:decrypt_token, private_key)
-    api_user.update!(valid_until: DateTime.now + 5.minutes)
+    api_user.update!(valid_until: Time.now + 5.minutes)
     @username = api_user.username
     @password = token
 
@@ -129,7 +129,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
     valid_for = 1.minute.seconds
     
     api_user.update!(valid_for: valid_for)
-    api_user.update!(valid_until: DateTime.now - 1.minute)
+    api_user.update!(valid_until: Time.now - 1.minute)
     @username = api_user.username
     @password = token
 
@@ -148,7 +148,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
   end
   
   test 'authentication fails if api token invalid' do
-    api_user.update!(valid_until: DateTime.now + 5.minutes)
+    api_user.update!(valid_until: Time.now + 5.minutes)
     @username = api_user.username
     @password = 'abcd'
 
@@ -156,7 +156,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
   end
   
   test 'authentication fails if api token blank' do
-    api_user.update!(valid_until: DateTime.now + 5.minutes)
+    api_user.update!(valid_until: Time.now + 5.minutes)
     @username = api_user.username
     @password = ''
 
@@ -165,7 +165,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
 
   test 'authentication fails if api user is locked' do
     api_user.update!(locked: true)
-    api_user.update!(valid_until: DateTime.now + 5.minutes)
+    api_user.update!(valid_until: Time.now + 5.minutes)
     
     token = api_user.send(:decrypt_token, private_key)
     @username = api_user.username
@@ -176,7 +176,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
   
   test 'authentication fails if api users human user is locked' do
     bob.update!(locked: true)
-    api_user.update!(valid_until: DateTime.now + 5.minutes)
+    api_user.update!(valid_until: Time.now + 5.minutes)
     
     token = api_user.send(:decrypt_token, private_key)
     @username = api_user.username

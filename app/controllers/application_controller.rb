@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -65,7 +63,7 @@ class ApplicationController < ActionController::Base
   def prepare_menu
     if File.exist?(Rails.root.join('app',
                                    'views',
-                                   '#{controller_path}', '_#{action_name}_menu.html.haml'))
+                                   controller_path.to_s, "_#{action_name}_menu.html.haml"))
       @menu_to_render = "#{controller_path}/#{action_name}_menu"
     else
       @menu_to_render = nil
