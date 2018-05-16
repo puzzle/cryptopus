@@ -2,7 +2,18 @@
 
 ## Version 2.2
 
-* removed LDAP users maintenance task
+* Upgraded to Rails 5.1.6
+* Removed LDAP users maintenance task
+* Introduced Pundit policies
+* New user role Conf-Admin
+* Removed new root password task
+* Test LDAP connection button
+* Admin Teamlist
+* User Profile Page
+* Added tag to accounts
+* New Api Users and API access for account
+* Keyboard shortcuts removed
+* Many Bug Fixes
 
 ## Version 2.1
 
