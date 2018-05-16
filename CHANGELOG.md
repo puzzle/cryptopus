@@ -5,14 +5,13 @@
 * Upgraded to Rails 5.1.6
 * Removed LDAP users maintenance task
 * Introduced Pundit policies
-* New role Conf-Admin
+* New user role Conf-Admin
 * Removed new root password task
 * Test LDAP connection button
-* Created Teamlist
-* Implemented Profile Page
+* Admin Teamlist
+* User Profile Page
 * Added tag to accounts
-* New Api Users
-* Authorize via headers
+* New Api Users and API access for account
 * Keyboard shortcuts removed
 * Many Bug Fixes
 
