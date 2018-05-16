@@ -161,7 +161,7 @@ class Api::AccountsControllerTest < ActionController::TestCase
 
   context '#api_user' do
     test 'authenticates with valid api user and returns account details' do
-      api_user.update!(valid_until: DateTime.now + 5.minutes)
+      api_user.update!(valid_until: Time.now + 5.minutes)
     
       teams(:team1).add_user(api_user, plaintext_team_password)
 
@@ -179,7 +179,7 @@ class Api::AccountsControllerTest < ActionController::TestCase
     end
     
     test 'does not authenticate with invalid api token and does not show account details' do
-      api_user.update!(valid_until: DateTime.now + 5.minutes)
+      api_user.update!(valid_until: Time.now + 5.minutes)
     
       teams(:team1).add_user(api_user, plaintext_team_password)
 
@@ -194,7 +194,7 @@ class Api::AccountsControllerTest < ActionController::TestCase
     end
     
     test 'cannot authenticate without headers and does not show account details' do
-      api_user.update!(valid_until: DateTime.now + 5.minutes)
+      api_user.update!(valid_until: Time.now + 5.minutes)
     
       teams(:team1).add_user(api_user, plaintext_team_password)
 
@@ -206,7 +206,7 @@ class Api::AccountsControllerTest < ActionController::TestCase
     end
     
     test 'authenticates and shows account details even if recryptrequests of human user pending' do
-      api_user.update!(valid_until: DateTime.now + 5.minutes)
+      api_user.update!(valid_until: Time.now + 5.minutes)
 
       bob.recryptrequests.create!
       
@@ -226,7 +226,7 @@ class Api::AccountsControllerTest < ActionController::TestCase
     end
     
     test 'does not show account details if valid api user not teammember' do
-      api_user.update!(valid_until: DateTime.now + 5.minutes)
+      api_user.update!(valid_until: Time.now + 5.minutes)
     
       request.headers['Authorization-User'] = api_user.username
       request.headers['Authorization-Password'] = token

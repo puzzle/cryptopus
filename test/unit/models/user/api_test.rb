@@ -13,7 +13,7 @@ class User::ApiTest < ActiveSupport::TestCase
 
     test 'creates new token for human user' do
       api_user = bob.api_users.create!(description: 'firefox plugin')
-      api_user.update!(valid_until: DateTime.now + 5.minutes)
+      api_user.update!(valid_until: Time.now + 5.minutes)
 
       token = decrypted_token(api_user)
       assert_match(/\A[a-z0-9]{32}\z/, token)
@@ -32,7 +32,7 @@ class User::ApiTest < ActiveSupport::TestCase
 
     test 'invalid value for valid_for option' do
       api_user = bob.api_users.new(description: 'api-access')
-      api_user.update!(valid_until: DateTime.now + 5.minutes)
+      api_user.update!(valid_until: Time.now + 5.minutes)
 
       [42 -20 -1].each do |v|
         api_user.valid_for = v
@@ -43,7 +43,7 @@ class User::ApiTest < ActiveSupport::TestCase
 
     test 'valid value for valid_for option' do
       api_user = bob.api_users.new(description: 'api-access')
-      api_user.update!(valid_until: DateTime.now + 5.minutes)
+      api_user.update!(valid_until: Time.now + 5.minutes)
 
       [1.minute.seconds, 5.minute.seconds,
        12.hours.seconds, 0].each do |v|
@@ -57,12 +57,12 @@ class User::ApiTest < ActiveSupport::TestCase
   context '#renew' do
 
     test 'creates new token and updates expiring time' do
-      now = DateTime.now
+      now = Time.now
       api_user = bob.api_users.create!
       api_user.valid_for = 5.minutes.seconds
       api_user.valid_until = now
 
-      DateTime.expects(:now).at_least_once.returns(now)
+      Time.expects(:now).at_least_once.returns(now)
 
       new_token = api_user.renew_token(bob.decrypt_private_key('password'))
 
@@ -89,7 +89,7 @@ class User::ApiTest < ActiveSupport::TestCase
   context '#locked' do
     test 'api user not locked' do
       api_user = bob.api_users.create
-      api_user.update!(valid_until: DateTime.now + 5.minutes)
+      api_user.update!(valid_until: Time.now + 5.minutes)
 
       assert_equal false, bob.locked?
       assert_equal false, api_user.locked?
@@ -97,7 +97,7 @@ class User::ApiTest < ActiveSupport::TestCase
 
     test 'api user locked' do
       api_user = bob.api_users.create
-      api_user.update!(valid_until: DateTime.now + 5.minutes)
+      api_user.update!(valid_until: Time.now + 5.minutes)
       api_user.update!(locked: true)
       
       assert_equal false, bob.locked?
@@ -119,7 +119,7 @@ class User::ApiTest < ActiveSupport::TestCase
     test 'api user not expired' do
       api_user = bob.api_users.create
 
-      api_user.update!(valid_until: DateTime.now + 5.minutes)
+      api_user.update!(valid_until: Time.now + 5.minutes)
 
       assert_equal false, api_user.expired?
     end
@@ -127,7 +127,7 @@ class User::ApiTest < ActiveSupport::TestCase
     test 'api user expired' do
       api_user = bob.api_users.create
 
-      api_user.update!(valid_until: DateTime.now - 5.minutes)
+      api_user.update!(valid_until: Time.now - 5.minutes)
       
       assert_equal true, api_user.expired?
     end
@@ -143,7 +143,7 @@ class User::ApiTest < ActiveSupport::TestCase
   context '#authenticate' do
     test 'api user authenticates with valid password' do
       api_user = bob.api_users.create
-      api_user.update!(valid_until: DateTime.now + 5.minutes)
+      api_user.update!(valid_until: Time.now + 5.minutes)
       
       token = decrypted_token(api_user)
       

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 # == Schema Information
 #
 # Table name: users
@@ -137,6 +135,7 @@ class User::Human < User
     end
     save!
   end
+  # rubocop:enable MethodLength
 
   def root?
     username == 'root'
@@ -160,7 +159,7 @@ class User::Human < User
   def decrypt_private_key(password)
     migrate_legacy_private_key(password) if legacy_private_key?
     CryptUtils.decrypt_private_key(private_key, password)
-  rescue
+  rescue StandardError
     raise Exceptions::DecryptFailed
   end
 

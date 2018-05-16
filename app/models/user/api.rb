@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 # == Schema Information
 
 # Table name: users
@@ -90,7 +88,7 @@ class User::Api < User
 
   def decrypt_private_key(token)
     CryptUtils.decrypt_private_key(private_key, token)
-  rescue
+  rescue StandardError
     raise Exceptions::DecryptFailed
   end
 
@@ -132,7 +130,7 @@ class User::Api < User
 
   def refresh_valid_until
     return if valid_for.zero?
-    options.valid_until = DateTime.now.advance(seconds: valid_for)
+    options.valid_until = Time.now.advance(seconds: valid_for)
   end
 
 end

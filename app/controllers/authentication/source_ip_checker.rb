@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -58,7 +56,7 @@ class Authentication::SourceIpChecker
   end
 
   def whitelisted_country_codes
-    @country_codes ||= Setting.value(:general, :country_source_whitelist)
+    @whitelisted_country_codes ||= Setting.value(:general, :country_source_whitelist)
   end
 
   def private_ip?

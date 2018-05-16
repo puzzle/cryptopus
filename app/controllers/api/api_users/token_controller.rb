@@ -26,6 +26,6 @@ class Api::ApiUsers::TokenController < ApiController
   private
 
   def api_user
-    @api ||= User::Api.find(params[:id])
+    @api_user ||= User::Api.find(params[:id])
   end
 end
