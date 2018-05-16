@@ -258,7 +258,7 @@ en:
         lock: "Locked %{username}"
         unlock: "Unlocked %{username}"
         token:
-          renew: "Renewed %{username}"
+          renew: "Renewed %{username}, new token: %{token}"
       members:
         removed: "%{username} was successfully removed from team"
         added: "%{username} was successfully added to team"

@@ -68,13 +68,14 @@ class Api::User::ApisController < ApiController
     if params['description'].present?
       add_info(t('flashes.api.api-users.update.description', username: username))
     elsif params['valid_for']
-      add_info(t('flashes.api.api-users.update.valid_for', username: username, valid_for: valid_for(params)))
+      add_info(t('flashes.api.api-users.update.valid_for',
+                 username: username, valid_for: valid_for(params)))
     end
   end
 
   def valid_for(param)
     time = param['valid_for'].to_i
-    unless(time == 0)
+    unless time.zero?
       time = time.seconds
     end
     time_s = User::Api::VALID_FOR_OPTIONS.invert[time].to_s

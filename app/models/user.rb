@@ -72,7 +72,7 @@ class User < ApplicationRecord
   def formatted_last_login_at
     l(last_login_at, format: :long) if last_login_at
   end
-  
+
   def unlock
     update!(locked: false, failed_login_attempts: 0)
   end

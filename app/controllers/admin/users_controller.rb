@@ -16,7 +16,7 @@ class Admin::UsersController < ApplicationController
   # GET /admin/users
   def index
     authorize User::Human
-    @users = list_users.unlocked
+    @users = User::Human.all.unlocked
 
     respond_to do |format|
       format.html
@@ -63,14 +63,6 @@ class Admin::UsersController < ApplicationController
   end
 
   private
-
-  def list_users
-    if current_user.admin?
-      User::Human.all
-    elsif current_user.conf_admin?
-      User::Human.all.where('ldap_uid != 0 or ldap_uid is null')
-    end
-  end
 
   def destroy_user
     # admins cannot be removed from non-private teams
