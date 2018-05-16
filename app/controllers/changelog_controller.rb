@@ -4,5 +4,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class ChangelogController < ApplicationController
-  def index; end
+  def index
+    skip_authorization # accessible by everyone
+  end
 end
