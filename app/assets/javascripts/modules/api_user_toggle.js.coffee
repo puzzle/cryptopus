@@ -23,14 +23,14 @@ class app.ApiUserToggle
 
   lockApiUser = (id) ->
     $.ajax({
-      method: 'GET',
+      method: 'POST',
       url: '../api/api_users/' + id + '/lock'
     })
 
   unlockApiUser = (id) ->
     $.ajax({
-      method: 'GET',
-      url: '../api/api_users/' + id + '/unlock'
+      method: 'DELETE',
+      url: '../api/api_users/' + id + '/lock'
     })
 
   id = (elem) ->

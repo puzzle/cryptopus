@@ -72,18 +72,17 @@ Rails.application.routes.draw do
   end
 
   scope '/api', module: 'api' do
-    get '/api_users/:id/lock', to: 'user/apis#lock', controller: 'user/apis'
-    get '/api_users/:id/unlock', to: 'user/apis#unlock', controller: 'user/apis'
-    get '/api_users/options', to: 'api_users/options#index', controller: 'user/apis'
 
     resources :groups, only: [:index]
     resources :teams, only: [:index]
     resources :accounts, only: [:show, :index]
 
-    resources :api_users, controller: 'user/apis' do
+    resources :api_users do
       member do
         get :token, to: 'api_users/token#show'
         delete :token, to: 'api_users/token#destroy'
+        post :lock, to: 'api_users/lock#create'
+        delete :lock, to: 'api_users/lock#destroy'
       end
     end
 
