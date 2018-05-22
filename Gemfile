@@ -65,3 +65,6 @@ group :test do
   gem 'rails-controller-testing'
   gem 'simplecov', require: false, group: :test
 end
+
+# Added at 2018-05-18 13:57:32 +0200 by dfischli:
+gem "i18n-js", "~> 3.0"

@@ -19,7 +19,8 @@
 #= require_tree ./templates
 #= require password_strength
 #= require jquery_strength
-
+#= require i18n.js
+#= require i18n/translations
 
 # scope for global functions
 app = window.App ||= {}
