@@ -4,22 +4,22 @@
 # https://github.com/puzzle/cryptopus.
 
 # scope for global functions
+
+#= require i18n/translations
+
 app = window.App ||= {}
 
 class app.ApiUsers
   constructor: () ->
     bind.call()
 
-  loadOptions = () ->
-    url = '/api/api_users/options'
-    $.get(url).done (data) ->
-      options = data['data']
+  scope = 'profile.api_users.options'
 
   options =  [
-      { name: 'One minute', value: 60},
-      { name: 'Five minutes', value: 300},
-      { name: 'Twelve hours', value: 43200},
-      { name: 'Infinite', value: 0}
+      { name: I18n.t('one_min', {scope: scope}), value: 60},
+      { name: I18n.t('five_mins', {scope: scope}), value: 300},
+      { name: I18n.t('twelve_hours', {scope: scope}), value: 43200},
+      { name: I18n.t('infinite', {scope: scope}), value: 0}
     ]
 
   api_users_data = (data) ->
@@ -60,8 +60,6 @@ class app.ApiUsers
 
   initValidFor = (api_users, options) ->
     api_users.forEach (api_user) ->
-      if(options.length == 0)
-        loadOptions()
       options.forEach (elem) ->
         if elem.value == api_user.valid_for
           api_user.valid_text = elem.name
