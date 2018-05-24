@@ -21,6 +21,7 @@ gem 'faker'
 gem 'geoip'
 gem 'haml'
 gem 'handlebars_assets'
+gem 'i18n-js', '~> 3.0'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
@@ -65,6 +66,3 @@ group :test do
   gem 'rails-controller-testing'
   gem 'simplecov', require: false, group: :test
 end
-
-# Added at 2018-05-18 13:57:32 +0200 by dfischli:
-gem "i18n-js", "~> 3.0"
