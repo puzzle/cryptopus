@@ -217,6 +217,7 @@ en:
       no_api_users: No Api Users
       username: Username
       description: Description
+      enter_description: click to enter description..
       valid_until: Valid until
       valid_for: Valid for
       last_login_at: Last login at
