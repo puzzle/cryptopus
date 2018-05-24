@@ -43,6 +43,13 @@ class app.ApiUsers
     initValidFor(api_users, options)
     HandlebarsTemplates['api_users'](api_users: api_users, options: options)
 
+  apiUsersTable = (apiUsers) ->
+    initValidFor(apiUsers, options)
+    HandlebarsTemplates['api_users'](api_users: api_users, options: options)
+
+  apiUserRow = (apiUser) ->
+    
+
   hideTable = () ->
     $('#api_users_table').hide()
     $('#no_api_users').attr('hidden', false)
