@@ -15,13 +15,6 @@ class app.ApiUsers
 
   scope = 'profile.api_users.options'
 
-  options =  [
-      { name: I18n.t('one_min', {scope: scope}), value: 60},
-      { name: I18n.t('five_mins', {scope: scope}), value: 300},
-      { name: I18n.t('twelve_hours', {scope: scope}), value: 43200},
-      { name: I18n.t('infinite', {scope: scope}), value: 0}
-    ]
-
   api_users_data = (data) ->
     api_users = data['data']['user/apis']
     if(!api_users)
@@ -40,15 +33,12 @@ class app.ApiUsers
         show_api_users(api_users)
 
   api_users_template = (api_users) ->
-    initValidFor(api_users, options)
-    HandlebarsTemplates['api_users'](api_users: api_users, options: options)
+    HandlebarsTemplates['api_users'](api_users: api_users)
 
   apiUsersTable = (apiUsers) ->
-    initValidFor(apiUsers, options)
-    HandlebarsTemplates['api_users'](api_users: api_users, options: options)
+    HandlebarsTemplates['api_users'](api_users: api_users)
 
   apiUserRow = (apiUser) ->
-    
 
   hideTable = () ->
     $('#api_users_table').hide()
@@ -64,12 +54,6 @@ class app.ApiUsers
   show_api_users = (api_users) ->
     template = api_users_template(api_users)
     $('#api_users_table').append(template)
-
-  initValidFor = (api_users, options) ->
-    api_users.forEach (api_user) ->
-      options.forEach (elem) ->
-        if elem.value == api_user.valid_for
-          api_user.valid_text = elem.name
 
   create_api_user = (url) ->
     $.ajax({
