@@ -214,10 +214,16 @@ fr:
       no_api_users: Pas d'utilisateurs Api
       username: "Nom d'utilisateur"
       description: Description
+      enter_description: Entrez une description..
       valid_until: Valable jusque
       valid_for: Valable
       last_login_at: Dernière connexion à
       last_login_from: Dernière connexion de
+      options:
+        one_min: Une minute
+        five_mins: Cinq minutes
+        twelve_hours: Douze heures
+        infinite: Illimité
 
   flashes:
     api:

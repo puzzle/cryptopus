@@ -5,7 +5,7 @@
         {{#if description}}
           {{description}}
         {{else}}
-          <i>click to enter description..</i>
+        <i> {{I18n 'profile.api_users.enter_description'}}</i>
         {{/if}}
       </div>
     </td>
@@ -17,15 +17,22 @@
     <td>
      <div class='dropdown'>
      <button class='btn btn-default dropdown-toggle' data-toggle='dropdown' id='valid_for_dropdown'>
-      <span>{{valid_text}}</span>
+      <span>{{ApiUserTimeText valid_for}}</span>
       <span class='caret'></span>
       </button>
       <ul class='dropdown-menu' aria-labelledby='valid_for_dropdown'>
-        {{#each ../options}}
-          <li class='dropdown-item' id='dropdown_valid_for' val={{value}}>
-            <a href='#'>{{name}}</a>
-          </li>
-        {{/each}}
+        <li class='dropdown-item' id='dropdown_valid_for' val=60>
+        <a href='#'>{{ApiUserTimeText 60}}</a>
+        </li>
+        <li class='dropdown-item' id='dropdown_valid_for' val=300>
+        <a href='#'>{{ApiUserTimeText 300}}</a>
+        </li>
+        <li class='dropdown-item' id='dropdown_valid_for' val=43200>
+        <a href='#'>{{ApiUserTimeText 43200}}</a>
+        </li>
+        <li class='dropdown-item' id='dropdown_valid_for' val=0>
+        <a href='#'>{{ApiUserTimeText 0}}</a>
+        </li>
       </ul>
       </div>
     </td>

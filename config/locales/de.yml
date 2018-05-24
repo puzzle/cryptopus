@@ -214,10 +214,16 @@ de:
       no_api_users: Keine Api Benutzer
       username: Benutzername
       description: Beschreibung
+      enter_description: Geben Sie eine Beschreibung ein..
       valid_until: Gültig bis
       valid_for: Gültig für
       last_login_at: Letztes Login um
       last_login_from: Letztes Login von
+      options:
+        one_min: Eine Minute
+        five_mins: Fünf Minuten
+        twelve_hours: Zwölf Stunden
+        infinite: Unbegrenzt
 
   flashes:
     api:

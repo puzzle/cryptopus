@@ -22,6 +22,7 @@
 #= require localization
 #= require turbolinks
 #= require turbolinks-compatibility
+#= require handlebars_helpers
 
 # scope for global functions
 app = window.App ||= {}
