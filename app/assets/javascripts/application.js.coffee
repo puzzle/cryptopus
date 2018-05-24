@@ -12,14 +12,17 @@
 #= require clipboard.js
 #= require twitter/bootstrap
 #= require handlebars.runtime
-#= require turbolinks
-#= require turbolinks-compatibility
 #= require selectize
 #= require_tree ./modules
 #= require_tree ./templates
 #= require password_strength
 #= require jquery_strength
-
+#= require i18n.js
+#= require i18n/translations
+#= require localization
+#= require turbolinks
+#= require turbolinks-compatibility
+#= require handlebars_helpers
 
 # scope for global functions
 app = window.App ||= {}

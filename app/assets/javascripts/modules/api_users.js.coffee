@@ -4,23 +4,16 @@
 # https://github.com/puzzle/cryptopus.
 
 # scope for global functions
+
+#= require i18n/translations
+
 app = window.App ||= {}
 
 class app.ApiUsers
   constructor: () ->
     bind.call()
 
-  loadOptions = () ->
-    url = '/api/api_users/options'
-    $.get(url).done (data) ->
-      options = data['data']
-
-  options =  [
-      { name: 'One minute', value: 60},
-      { name: 'Five minutes', value: 300},
-      { name: 'Twelve hours', value: 43200},
-      { name: 'Infinite', value: 0}
-    ]
+  scope = 'profile.api_users.options'
 
   api_users_data = (data) ->
     api_users = data['data']['user/apis']
@@ -40,8 +33,12 @@ class app.ApiUsers
         show_api_users(api_users)
 
   api_users_template = (api_users) ->
-    initValidFor(api_users, options)
-    HandlebarsTemplates['api_users'](api_users: api_users, options: options)
+    HandlebarsTemplates['api_users'](api_users: api_users)
+
+  apiUsersTable = (apiUsers) ->
+    HandlebarsTemplates['api_users'](api_users: api_users)
+
+  apiUserRow = (apiUser) ->
 
   hideTable = () ->
     $('#api_users_table').hide()
@@ -57,14 +54,6 @@ class app.ApiUsers
   show_api_users = (api_users) ->
     template = api_users_template(api_users)
     $('#api_users_table').append(template)
-
-  initValidFor = (api_users, options) ->
-    api_users.forEach (api_user) ->
-      if(options.length == 0)
-        loadOptions()
-      options.forEach (elem) ->
-        if elem.value == api_user.valid_for
-          api_user.valid_text = elem.name
 
   create_api_user = (url) ->
     $.ajax({

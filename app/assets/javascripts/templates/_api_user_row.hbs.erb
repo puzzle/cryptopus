@@ -1,0 +1,56 @@
+<tr class="{% cycle 'odd' 'even' %} api-user-row" id={{id}}>
+    <td> {{username}} </td>
+    <td>
+    <div class=api-user-description>
+        {{#if description}}
+          {{description}}
+        {{else}}
+        <i> {{I18n 'profile.api_users.enter_description'}}</i>
+        {{/if}}
+      </div>
+    </td>
+    <td>
+      <div id=valid_until>
+        {{valid_until}}
+      </div>
+    </td>
+    <td>
+     <div class='dropdown'>
+     <button class='btn btn-default dropdown-toggle' data-toggle='dropdown' id='valid_for_dropdown'>
+      <span>{{ApiUserTimeText valid_for}}</span>
+      <span class='caret'></span>
+      </button>
+      <ul class='dropdown-menu' aria-labelledby='valid_for_dropdown'>
+        <li class='dropdown-item' id='dropdown_valid_for' val=60>
+        <a href='#'>{{ApiUserTimeText 60}}</a>
+        </li>
+        <li class='dropdown-item' id='dropdown_valid_for' val=300>
+        <a href='#'>{{ApiUserTimeText 300}}</a>
+        </li>
+        <li class='dropdown-item' id='dropdown_valid_for' val=43200>
+        <a href='#'>{{ApiUserTimeText 43200}}</a>
+        </li>
+        <li class='dropdown-item' id='dropdown_valid_for' val=0>
+        <a href='#'>{{ApiUserTimeText 0}}</a>
+        </li>
+      </ul>
+      </div>
+    </td>
+    <td> {{last_login_at}} </td>
+    <td> {{last_login_from}} </td>
+    <td>
+      <div id='active-api-user'
+        {{#if locked}}
+          class='toggle-button toggle-button-selected'
+        {{else}}
+          class='toggle-button'
+        {{/if}}
+        ><button></button>
+      </div>
+    </td>
+    <td>
+      <a href='#'><img src=<%= image_path("refresh.svg") %> id='renew-user' class='action-icons'></a>
+      <a href='#'><img src=<%= image_path("remove.svg") %> id='remove-user' class='action-icons'></a>
+    </td>
+</tr>
+
