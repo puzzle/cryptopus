@@ -19,13 +19,21 @@ class app.ApiUserRenew
       url: '/api/api_users/' + id + '/token',
       success: (data) ->
         api_user = data['data']['user/api']
+        row = $('.api-user-row#' + id)
         timestamp = validUntil(api_user)
-        updateTimestamp(id, timestamp)
+        updateTimestamp(row, timestamp)
+        updateLocked(row)
     })
 
-  updateTimestamp = (id, timestamp) ->
-    elem = $('.api-user-row#' + id).children().find('#valid_until')
+  updateTimestamp = (row, timestamp) ->
+    elem = row.children().find('#valid_until')
     elem.text(timestamp)
+
+  updateLocked = (row) ->
+    elem = row.children().find('#active-api-user')
+    selected = 'toggle-button-selected'
+    if(elem.hasClass(selected))
+      elem.removeClass(selected)
 
   validUntil = (api_user) ->
     if(api_user.valid_for == 0)
