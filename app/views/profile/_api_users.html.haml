@@ -3,17 +3,4 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 
-%h1#api_users_title= t '.api_users'
 = button_tag t('new'), type: 'button', id: 'create_api_user_button', class: 'btn btn-primary pull-right'
-%div{id: 'no_api_users', hidden: true}
-  %p= t '.no_api_users'
-%table.table.table-striped#api_users_table
-  %tr
-    %th= t '.username'
-    %th= t '.description'
-    %th= t '.valid_until'
-    %th= t '.valid_for'
-    %th= t '.last_login_at'
-    %th= t '.last_login_from'
-    %th= t '.locked'
-    %th= t '.actions'

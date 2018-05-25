@@ -10,6 +10,9 @@ class app.ApiUserRemove
   constructor: () ->
     bind.call()
 
+  noApiUsersContent = () ->
+    HandlebarsTemplates['api_users']()
+
   removeDialog = (elem) ->
     $('<div></div>').appendTo('body')
     .html('<div><h5> Delete Api-User ' + $(elem).parents('.api-user-row').children().first().text().trim() + '?')
@@ -32,14 +35,15 @@ class app.ApiUserRemove
       type: "DELETE",
       url: '/api/api_users/' +id(elem)
       success: (data) ->
-        $(elem).parents('.api-user-row').remove()
-        if(wasLastElement())
-          $('#api_users_table').hide()
-          $('#api_users_title').text('No Api Users')
-    })
+        if(isLastElement())
+          content = noApiUsersContent()
+          $("#api_user_content").replaceWith(content)
+        else
+          $(elem).parents('.api-user-row').remove()
+      })
 
-  wasLastElement = ->
-    $('#api_users_table tr').length == 1
+  isLastElement = ->
+    $('#api_users_table tr').length == 2
 
   id = (elem) ->
     $(elem).parents('.api-user-row').attr('id')

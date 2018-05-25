@@ -1,5 +1,4 @@
-# Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-# Cryptopus and licensed under the Affero General Public License version 3 or later.
+# Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of # Cryptopus and licensed under the Affero General Public License version 3 or later.
 # See the COPYING file at the top-level directory or at
 # https://github.com/puzzle/cryptopus.
 
@@ -13,49 +12,48 @@ class app.ApiUsers
   constructor: () ->
     bind.call()
 
-  scope = 'profile.api_users.options'
+  scope = 'profile.api_users'
 
-  api_users_data = (data) ->
-    api_users = data['data']['user/apis']
-    if(!api_users)
-      api_users = [data['data']['user/api']]
-    api_users
+  initialize = (data) ->
+    apiUsers = apiUsersData(data)
+    content = apiUsersContent(apiUsers)
+    renderContent(content)
 
-  load_api_users = () ->
-    url = '/api/api_users'
-    $.get(url).done (data) ->
-      api_users = api_users_data(data)
-      $('.api-user-row').remove()
-      if api_users.length == 0
-        hideTable()
-      else
-        $('#no_api_users').attr('hidden', true)
-        show_api_users(api_users)
+  initializeRow = (data) ->
+    apiUser = apiUsersData(data)
+    row = apiUserRows(apiUser)
+    appendRow(row)
 
-  api_users_template = (api_users) ->
-    HandlebarsTemplates['api_users'](api_users: api_users)
+  apiUsersData = (data) ->
+    apiUsers = data['data']['user/apis']
+    if(!apiUsers)
+      apiUsers = [data['data']['user/api']]
+    apiUsers
 
-  apiUsersTable = (apiUsers) ->
-    HandlebarsTemplates['api_users'](api_users: api_users)
+  apiUsersContent = (apiUsers) ->
+    HandlebarsTemplates['api_users'](api_users: apiUsers)
 
-  apiUserRow = (apiUser) ->
+  apiUserRows = (apiUser) ->
+    Handlebars.partials['_api_user_row'](api_users: apiUser)
 
-  hideTable = () ->
-    $('#api_users_table').hide()
-    $('#no_api_users').attr('hidden', false)
+  renderContent = (content) ->
+    if $('#api_user_content').length == 0
+      $("#api_users").append(content)
+    else
+      $("#api_user_content").replaceWith(content)
+
+  appendRow = (row) ->
+    $('#api_users_table_body').append(row)
 
   isFirst = () ->
-    $('#api_users_title').text().trim() == 'No Api Users'
+    $('#api_users_table_body').length == 0
 
-  showTable = () ->
-    $('#no_api_users').attr('hidden', true)
-    $('#api_users_table').show()
+  loadApiUsers = () ->
+    url = '/api/api_users'
+    $.get(url).done (data) ->
+      initialize(data)
 
-  show_api_users = (api_users) ->
-    template = api_users_template(api_users)
-    $('#api_users_table').append(template)
-
-  create_api_user = (url) ->
+  createApiUser = (url) ->
     $.ajax({
       url: url,
       method: 'POST',
@@ -66,12 +64,10 @@ class app.ApiUsers
         }
       }
       success: (data) ->
-        api_user = api_users_data(data)
         if(isFirst())
-          showTable()
-
-        $('#api_users_table').append(api_users_template(api_user))
-                             .fadeIn()
+          initialize(data)
+        else
+          initializeRow(data)
     })
 
   id = (elem) ->
@@ -79,12 +75,12 @@ class app.ApiUsers
 
   bind = ->
     $(document).on 'click', '#profile-api-users-tab', ->
-      load_api_users()
+      loadApiUsers()
 
     $(document).on 'click', '#create_api_user_button', (e) ->
       $('#no_api_users').attr('hidden', true)
       e.preventDefault()
       url = '/api/api_users'
-      create_api_user(url)
+      createApiUser(url)
 
   new ApiUsers
