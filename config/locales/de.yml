@@ -220,6 +220,7 @@ de:
       valid_for: Gültig für
       last_login_at: Letztes Login um
       last_login_from: Letztes Login von
+      locked: Blockiert
       options:
         one_min: Eine Minute
         five_mins: Fünf Minuten
