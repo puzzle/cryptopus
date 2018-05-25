@@ -2,7 +2,7 @@
   {{#if api_users}}
     <h1> {{I18n 'profile.api_users.api_users'}} </h1>
     <table class="table table-striped" id="api_users_table">
-      <thead>
+      <tbody>
         <tr>
           <th> {{I18n 'username'}} </th>
           <th> {{I18n 'description' }} </th>
@@ -13,7 +13,7 @@
           <th> {{I18n 'profile.api_users.locked'}} </th>
           <th> {{I18n 'actions'}} </th>
         </tr>
-      </thead>
+      </tbody>
       <tbody id="api_users_table_body">
         {{> _api_user_row}}
       </tbody>
