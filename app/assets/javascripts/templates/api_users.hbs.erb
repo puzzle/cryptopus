@@ -1,3 +1,23 @@
-{{#each api_users}}
-  {{> _api_user_row}}
-{{/each}}
+<div id="api_user_content">
+  {{#if api_users}}
+    <h1> {{I18n 'profile.api_users.api_users'}} </h1>
+    <table class="table table-striped" id="api_users_table">
+      <thead>
+        <tr>
+          <th> {{I18n 'username'}} </th>
+          <th> {{I18n 'description' }} </th>
+          <th> {{I18n 'profile.api_users.valid_until'}} </th>
+          <th> {{I18n 'profile.api_users.valid_for'}} </th>
+          <th> {{I18n 'profile.api_users.last_login_at'}} </th>
+          <th> {{I18n 'profile.api_users.last_login_from'}} </th>
+          <th> {{I18n 'profile.api_users.locked'}} </th>
+          <th> {{I18n 'actions'}} </th>
+        </tr>
+      </thead>
+      <tbody id="api_users_table_body">
+        {{> _api_user_row}}
+      </tbody>
+  {{else}}
+    <h1> {{I18n 'profile.api_users.no_api_users' }} </h1>
+  {{/if}}
+</div>
