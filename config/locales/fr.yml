@@ -220,7 +220,7 @@ fr:
       valid_for: Valable
       last_login_at: Dernière connexion à
       last_login_from: Dernière connexion de
-      locked: Bloquée
+      locked: Bloqué
       options:
         one_min: Une minute
         five_mins: Cinq minutes
@@ -253,8 +253,8 @@ fr:
             twelve_hours: pour douze heurs
             infinite: infiniment
         destroy: "%{username} a été supprime"
-        lock: "%{username} est maintenant blocké"
-        unlock: "%{username} n'est plus blocké"
+        lock: "%{username} est maintenant bloqué"
+        unlock: "%{username} n'est plus bloqué"
         token:
           renew: "%{username} a été renouvelé, nouveau jeton: %{token}"
     members:
