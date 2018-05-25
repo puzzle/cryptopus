@@ -36,6 +36,7 @@ class User::Human
 
       private
 
+      # instance methods
       def ldap_connection
         assert_ldap_enabled
         LdapConnection.new
@@ -56,11 +57,6 @@ class User::Human
       rescue StandardError
         raise Exceptions::UserCreationFailed
       end
-    end
-
-    # instance methods
-    def ldap?
-      auth == 'ldap'
     end
 
     private

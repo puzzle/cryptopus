@@ -10,14 +10,4 @@ class SettingPolicy < ApplicationPolicy
   def ldap_connection_test?
     admin_or_conf_admin?
   end
-
-  private
-
-  def current_user
-    @user
-  end
-
-  def setting
-    @record
-  end
 end

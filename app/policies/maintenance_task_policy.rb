@@ -13,10 +13,6 @@ class MaintenanceTaskPolicy < ApplicationPolicy
 
   private
 
-  def current_user
-    @user
-  end
-
   def maintenance_task
     @record
   end

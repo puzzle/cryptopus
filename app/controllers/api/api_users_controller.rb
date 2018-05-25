@@ -51,7 +51,8 @@ class Api::ApiUsersController < ApiController
     username = api.username
     if params['description'].present?
       add_info(t('flashes.api.api-users.update.description', username: username))
-    elsif params['valid_for']
+    end
+    if params['valid_for'].present?
       add_info(t('flashes.api.api-users.update.valid_for',
                  username: username, valid_for: valid_for(params)))
     end

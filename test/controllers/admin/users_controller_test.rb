@@ -10,7 +10,7 @@ require 'test_helper'
 class Admin::UsersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
-  
+
   context '#index' do
     test 'admin receives userlist' do
       login_as(:admin)
@@ -22,7 +22,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
       assert_equal User::Human.all.count, users.count
       assert_equal true, users.any? { |t| t.username == 'root' }
     end
-    
+
     test 'conf admin receives userlist' do
       login_as(:tux)
       get :index
@@ -32,7 +32,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
       assert_equal 5, users.size
       assert_equal true, users.any? { |t| t.username == 'root' }
     end
-    
+
     test 'does not list locked users' do
       users(:bob).update_attribute(:locked, true)
 
@@ -43,7 +43,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
       assert_equal 4, users.size
     end
-    
+
     test 'user does not receive userlist' do
       login_as(:bob)
       get :index
@@ -207,7 +207,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
         assert_not_equal 'new_surname', bob.surname
         assert_match(/Ldap user cannot be updated/, flash[:error])
       end
-      
+
       test 'conf admin cannot update roots attributes' do
         root = users(:root)
 
