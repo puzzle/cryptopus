@@ -9,10 +9,6 @@ class GroupPolicy < TeamDependantPolicy
     group.team
   end
 
-  def current_user
-    @user
-  end
-
   def group
     @record
   end

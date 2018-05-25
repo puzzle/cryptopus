@@ -5,10 +5,6 @@ class ItemPolicy < TeamDependantPolicy
     item.account.group.team
   end
 
-  def current_user
-    @user
-  end
-
   def item
     @record
   end

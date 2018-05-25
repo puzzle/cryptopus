@@ -62,13 +62,6 @@ class Admin::UsersController < ApplicationController
 
   private
 
-  def destroy_user
-    # admins cannot be removed from non-private teams
-    # so set admin to false first
-    user.update!(role: :user) if user.admin?
-    user.destroy!
-  end
-
   def redirect_if_ldap_user
     return unless user.ldap?
 
