@@ -8,10 +8,10 @@
 %ul.teams-nav.nav.nav-tabs#profile-tabs
   %li.tab.active
     %a{"data-toggle" => "tab", href: "#info"}
-      Info
+      = t 'profile.info.info'
   %li.tab#profile-api-users-tab
     %a{"data-toggle" => "tab", href: "#api_users"}
-      Api Users
+      = t 'profile.api_users.api_users'
 
 .tab-content.teams-content
   #info.tab-pane.fade.in.active
