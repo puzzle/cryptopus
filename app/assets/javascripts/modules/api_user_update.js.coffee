@@ -3,6 +3,8 @@
 # See the COPYING file at the top-level directory or at
 # https://github.com/puzzle/cryptopus.
 
+#require i18n/translations
+
 # scope for global functions
 app = window.App ||={}
 
@@ -29,7 +31,7 @@ class app.ApiUserUpdate
     $(elem).parents('.api-user-row').attr('id')
 
   hasDescription = (elem) ->
-    $(elem).text().trim()!='click to enter description..'
+    $(elem).text().trim()!= I18n.t 'profile.api_users.enter_description'
 
   replace = (toReplace, replaceWith) ->
     toReplace.hide()
