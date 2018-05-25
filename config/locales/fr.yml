@@ -38,6 +38,7 @@ fr:
   team: Équipe
   move: Mouvoir
   here: Ici
+  new: Nouveau
 
   i18n:
     language:
@@ -212,13 +213,14 @@ fr:
     api_users:
       api_users: Utilisateurs d'Api
       no_api_users: Pas d'utilisateurs Api
-      username: "Nom d'utilisateur"
+      username: Nom d'utilisateur
       description: Description
       enter_description: Entrez une description..
       valid_until: Valable jusque
       valid_for: Valable
       last_login_at: Dernière connexion à
       last_login_from: Dernière connexion de
+      locked: Bloquée
       options:
         one_min: Une minute
         five_mins: Cinq minutes

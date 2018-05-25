@@ -39,6 +39,7 @@ en:
   team: Team
   move: Move
   here: Here
+  new: New
 
 
   i18n:
@@ -222,6 +223,7 @@ en:
       valid_for: Valid for
       last_login_at: Last login at
       last_login_from: Last login from
+      locked: Locked
       options:
         one_min:  One minute
         five_mins: Five minutes
