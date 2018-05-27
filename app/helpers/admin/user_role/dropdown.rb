@@ -75,7 +75,7 @@ module Admin
 
       def button_enabled?
         return false if own_user?
-        if @user.admin? && !@current_user.admin?
+        if (@user.admin? && !@current_user.admin?) || @user.root?
           false
         else
           true

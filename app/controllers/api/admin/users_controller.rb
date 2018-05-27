@@ -8,12 +8,8 @@ class Api::Admin::UsersController < Api::Admin::AdminController
   # DELETE /api/admin/users/1
   def destroy
     authorize user
-    if user == current_user
-      add_error(t('flashes.api.admin.users.destroy.own_user'))
-    else
-      destroy_user
-      add_info(t('flashes.api.admin.users.destroy.success', username: user.username))
-    end
+    destroy_user
+    add_info(t('flashes.api.admin.users.destroy.success', username: user.username))
     render_json ''
   end
 
