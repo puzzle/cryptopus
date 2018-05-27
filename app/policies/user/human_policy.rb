@@ -11,6 +11,16 @@ class User::HumanPolicy < ApplicationPolicy
     current_user.admin?
   end
 
+  def edit?
+    return false if current_user == user
+    unless user.ldap?
+      if user.user?
+        return admin_or_conf_admin?
+      end
+      current_user.admin?
+    end
+  end
+
   def new?
     admin_or_conf_admin?
   end
@@ -33,17 +43,11 @@ class User::HumanPolicy < ApplicationPolicy
   end
 
   def destroy?
-    # if user.ldap?
-    #   unless ldap_connection.exists?(user.username)
-    #     return current_user.admin? || current_user.conf_admin?
-    #   end
-    # else
-    return false if user.root?
+    return false if user.root? || current_user == user
 
     if user.user?
       return admin_or_conf_admin?
     end
-    # end
     current_user.admin?
   end
 

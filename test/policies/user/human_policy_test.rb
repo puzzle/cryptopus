@@ -171,12 +171,16 @@ class HumanPolicyTest < PolicyTest
 
   context '#destroy' do
     context 'admin' do
+      test 'user cannot delete himself' do
+        refute_permit admin, admin, :destroy?
+      end
+
       test 'admin cannot destroy root' do
         refute_permit admin, root, :destroy?
       end
 
       test 'admin can destroy an admin' do
-        assert_permit admin, admin, :destroy?
+        assert_permit admin, admin2, :destroy?
       end
 
       test 'admin can destroy a conf_admin' do

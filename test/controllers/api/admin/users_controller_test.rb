@@ -20,7 +20,7 @@ class Api::Admin::UsersControllerTest < ActionController::TestCase
       delete :destroy, params: { id: bob.id }
 
       assert_equal true, bob.reload.persisted?
-      assert_includes(errors, 'You can\'t delete yourself')
+      assert_includes(errors, 'Access denied')
     end
   
     test 'non admin cannot delete another user' do
