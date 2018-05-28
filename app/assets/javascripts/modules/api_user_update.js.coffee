@@ -41,11 +41,12 @@ class app.ApiUserUpdate
     replaceWith.focus()
 
   saveDescription = (input, textfield) ->
-    description = $(input).val().trim()
     textfield = $(textfield)
-    if(description != '')
-      updateApiUserDescription(id(input), description)
-      textfield.text(description)
+    newDescription = $(input).val().trim()
+    oldDescription = textfield.text().trim()
+    if(newDescription != '' and newDescription != oldDescription)
+      updateApiUserDescription(id(input), newDescription)
+      textfield.text(newDescription)
     input.remove()
     textfield.show()
 
