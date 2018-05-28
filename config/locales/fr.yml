@@ -13,6 +13,7 @@ fr:
   update: Mettre à jour
   create: Créer
   delete: Supprimer
+  cancel: Annuler
   add: Ajoutea
   description: Description
   tag: Tag
@@ -20,8 +21,8 @@ fr:
   password: Mot de passe
   actions: Actions
   download: Télécharger
-  yes: Oui
-  no: Non
+  "yes": Oui
+  "no": Non
   forgot_password: Mot de passe oublié?
   logout: Déconnexion
   auto_logout: Déconnexion automatique en
@@ -226,6 +227,9 @@ fr:
         five_mins: Cinq minutes
         twelve_hours: Douze heures
         infinite: Illimité
+      delete:
+        title: Supprimer Api-User
+        content: "Est-ce que vous voulez supprimer l'utilisateur d'Api %{username}?"
 
   flashes:
     api:

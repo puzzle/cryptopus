@@ -13,6 +13,7 @@ de:
   update: Updaten
   create: Erstellen
   delete: Löschen
+  cancel: Abbrechen
   add: Hinzufügen
   description: Beschreibung
   tag: Tag
@@ -20,8 +21,8 @@ de:
   password: Passwort
   actions: Aktionen
   download: Herunterladen
-  yes: Ja
-  no: Nein
+  "yes": Ja
+  "no": Nein
   help: Hilfe
   version: Version
   forgot_password: Passwort vergessen?
@@ -226,6 +227,9 @@ de:
         five_mins: Fünf Minuten
         twelve_hours: Zwölf Stunden
         infinite: Unbegrenzt
+      delete:
+        title: Entferne Api-User
+        content: "Lösche Api-User %{username}?"
 
   flashes:
     api:
