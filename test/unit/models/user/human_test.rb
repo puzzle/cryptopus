@@ -52,6 +52,27 @@ class User::HumanTest < ActiveSupport::TestCase
 
   end
 
+  context 'legacy password' do
+
+    test 'user has legacy password' do
+      bob = users(:bob)
+      hash = Digest::MD5.hexdigest('password')
+      bob.update_attribute(:password, hash)
+
+      assert_equal true, bob.legacy_password?
+    end
+
+    test 'ldap user cant have legacy password' do
+      bob = users(:bob)
+      hash = Digest::MD5.hexdigest('password')
+      bob.update_attribute(:password, hash)
+      bob.auth = 'ldap'
+
+      assert_equal false, bob.legacy_password?
+    end
+
+  end
+
   context 'locking' do
 
     test 'unlock user' do
@@ -229,18 +250,4 @@ class User::HumanTest < ActiveSupport::TestCase
     end
 
   end
-
-  context 'account search' do
-
-    test 'account search sequence should not matter' do
-      accounts = users(:root).search_accounts('1 acc')
-      assert_equal 1, accounts.count
-      assert_equal 'account1', accounts.first.accountname
-    end
-
-  end
-
-  context 'api user' do
-  end
-
 end
