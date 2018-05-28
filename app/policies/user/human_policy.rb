@@ -12,7 +12,7 @@ class User::HumanPolicy < ApplicationPolicy
   end
 
   def edit?
-    return false if current_user == user
+    return false if own_user?
     unless user.ldap?
       if user.user?
         return admin_or_conf_admin?
@@ -34,7 +34,7 @@ class User::HumanPolicy < ApplicationPolicy
   end
 
   def update_role?
-    return false if current_user == user || user.root?
+    return false if own_user? || user.root?
 
     if user.admin?
       return current_user.admin?
@@ -43,7 +43,7 @@ class User::HumanPolicy < ApplicationPolicy
   end
 
   def destroy?
-    return false if user.root? || current_user == user
+    return false if user.root? || own_user?
 
     if user.user?
       return admin_or_conf_admin?
@@ -52,7 +52,7 @@ class User::HumanPolicy < ApplicationPolicy
   end
 
   def resetpassword?
-    return false if current_user == user
+    return false if own_user?
     unless user.ldap?
       if user.user?
         return admin_or_conf_admin?
@@ -85,5 +85,9 @@ class User::HumanPolicy < ApplicationPolicy
 
   def user
     @record
+  end
+
+  def own_user?
+    current_user == user
   end
 end

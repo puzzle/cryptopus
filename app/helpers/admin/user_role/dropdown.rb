@@ -24,7 +24,7 @@ module Admin
       def render
         content_tag(:div, class: 'dropdown', id: @user.id) do
           content = [render_button]
-          content += [render_menu] if button_enabled?
+          content += [render_menu] if update_role?
           safe_join(content)
         end
       end
@@ -34,7 +34,7 @@ module Admin
       def render_button
         content_tag(:button, class: button_style, id: 'role-dropdown', 'data-toggle': 'dropdown') do
           content = [content_tag(:span, role_label(@user.role))]
-          content += [content_tag(:span, '', class: 'caret')] if button_enabled?
+          content += [content_tag(:span, '', class: 'caret')] if update_role?
           safe_join(content)
         end
       end
@@ -47,7 +47,7 @@ module Admin
 
       def button_style
         style = %w[btn btn-default dropdown-toggle]
-        style << 'disabled' unless button_enabled?
+        style << 'disabled' unless update_role?
         style.join(' ')
       end
 
@@ -69,19 +69,6 @@ module Admin
         roles
       end
 
-      def own_user?
-        @user == @current_user
-      end
-
-      def button_enabled?
-        return false if own_user?
-        if (@user.admin? && !@current_user.admin?) || @user.root?
-          false
-        else
-          true
-        end
-      end
-
       def role_option(role)
         content_tag(:a, href: '#') do
           role_label(role)
@@ -90,6 +77,10 @@ module Admin
 
       def role_label(role)
         t('admin.user_roles.' + role)
+      end
+
+      def update_role?
+        User::HumanPolicy.new(@current_user, @user).update_role?
       end
     end
   end
