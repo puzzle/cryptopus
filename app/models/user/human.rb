@@ -173,20 +173,6 @@ class User::Human < User
       where(teammembers: { user_id: id })
   end
 
-  def search_teams(term)
-    teams.where('name like ?', "%#{term}%")
-  end
-
-  def search_groups(term)
-    groups.where('name like ?', "%#{term}%")
-  end
-
-  def search_accounts(query)
-    query.split(' ').inject(accounts.includes(group: [:team])) do |relation, term|
-      relation.where('accountname like ? or accounts.description like ?', "%#{term}%", "%#{term}%")
-    end
-  end
-
   def legacy_private_key?
     /^Salted/ !~ private_key
   end
