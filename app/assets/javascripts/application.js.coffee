@@ -28,3 +28,5 @@
 app = window.App ||= {}
 
 @flash_messages = []
+
+I18n.fallbacks = true

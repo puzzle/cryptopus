@@ -12,6 +12,8 @@ class app.ApiUserUpdate
   constructor: () ->
     bind.call()
 
+  ENTER_KEYCODE = 13
+
   updateApiUserValidFor = (user_id, valid_for) ->
     data = { user_api: { valid_for: valid_for } }
     updateApiUser(user_id, data)
@@ -57,11 +59,14 @@ class app.ApiUserUpdate
     $(document).on 'click', '.api-user-description', ->
       elem = this
       user_id = id(elem)
-      replaceWith = $('<input class="hiddenFied" type="text" />')
+      replaceWith = $('<input class="hiddenFied" id="descriptionInput" type="text" />')
       if(hasDescription(elem))
         replaceWith.val($(elem).text().trim())
 
       replace($(this), replaceWith)
+      replaceWith.keypress (e) ->
+        if(e.which == ENTER_KEYCODE)
+          this.blur()
       replaceWith.blur ->
         saveDescription(this, elem)
 
