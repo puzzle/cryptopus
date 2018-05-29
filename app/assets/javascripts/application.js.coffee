@@ -5,6 +5,8 @@
 # at the top-level directory or at
 # https://github.com/puzzle/cryptopus.
 #
+#= require turbolinks
+#= require turbolinks-compatibility
 #= require jquery
 #= require jquery_ujs
 #= require jquery-ui
@@ -17,11 +19,9 @@
 #= require_tree ./templates
 #= require password_strength
 #= require jquery_strength
-#= require i18n.js
+#= require i18n
 #= require i18n/translations
 #= require localization
-#= require turbolinks
-#= require turbolinks-compatibility
 #= require handlebars_helpers
 
 # scope for global functions

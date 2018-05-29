@@ -31,7 +31,7 @@ class app.ApiUserRemove
             $(this).dialog('close')
        },  {
           text: I18n.t('yes'),
-          "class": "btn btn-primary pull-right",
+          "class": "btn btn-primary",
           click: () ->
             removeApiUser(elem)
             $(this).dialog('close')

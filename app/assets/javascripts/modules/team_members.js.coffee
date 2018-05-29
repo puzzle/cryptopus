@@ -13,7 +13,6 @@ class app.TeamMembers
   toggle_members = ->
     if $('.columns').is(':visible')
       $('.members').hide().promise()
-      $('.show_members').text(I18n.teammembers.show)
     else
       show_members()
 
@@ -21,7 +20,6 @@ class app.TeamMembers
   show_members = ->
     $('.members').show().promise()
     load_members()
-    $('.show_members').text(I18n.teammembers.hide)
 
 
   load_candidates = ->
@@ -84,11 +82,6 @@ class app.TeamMembers
     $(document).on 'click', '#search_member', (e) ->
       show_members()
       load_candidates()
-
-    $(document).on 'click', '.show_members', (e) ->
-      e.preventDefault()
-      toggle_members()
-      load_members()
 
     $(document).on 'click', '.members li .remove_member', (e) ->
       e.preventDefault()
