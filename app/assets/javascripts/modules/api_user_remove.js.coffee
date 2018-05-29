@@ -17,29 +17,32 @@ class app.ApiUserRemove
     username = $(elem).parents('.api-user-row').children().first().text().trim()
 
     $('<div></div>').appendTo('body')
-    .html('<div><h5>' + I18n.t('profile.api_users.delete.content', {username: username}))
+    .html('<div class="alert alert-danger delete-api-user"><h5>' + I18n.t('profile.api_users.delete.content', {username: username}) + '</h5></div>')
     .dialog({
+      resizable: false,
+      draggable: false,
+      modal: true,
+      width: 'auto',
       classes: {
-          "ui-dialog": 'remove-api-user-dialog'
-        }
-      modal: true, title: I18n.t('profile.api_users.delete.title'), zIndex: 1000, autoOpen: true,
-      width: 'auto', resizable: false,
+          'ui-dialog': 'remove-api-user-dialog',
+          'ui-dialog-content': 'alert alert-danger'
+        },
       buttons: [{
-          text: I18n.t('cancel'),
-          "class": "btn bnt-primary pull-right",
-          click: () ->
-            $(this).dialog('close')
-       },  {
           text: I18n.t('yes'),
-          "class": "btn btn-primary",
+          'class': 'btn btn-primary',
           click: () ->
             removeApiUser(elem)
             $(this).dialog('close')
-        }],
+        }, {
+          text: I18n.t('cancel'),
+          'class': 'btn btn-primary pull-right',
+          click: () ->
+            $(this).dialog('close')
+       }],
       close: () ->
         $(this).remove()
       })
-    $('.ui-dialog-titlebar-close').hide()
+    $('.ui-dialog-titlebar').hide()
 
   removeApiUser = (elem) ->
     $.ajax({
