@@ -4,8 +4,6 @@
 
 # scope for global functions
 
-#= require i18n/translations
-
 app = window.App ||= {}
 
 class app.ApiUsers

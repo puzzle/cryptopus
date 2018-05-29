@@ -5,8 +5,6 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 
-:javascript
-  window.I18n = #{current_translations.to_json.html_safe}
 .add_member
   %input.form-control#search_member{placeholder: "add member", type: "text"}/
 %h1.members= t '.members'

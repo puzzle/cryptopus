@@ -13,6 +13,7 @@
     %div{id: "last_teammember_teams_table"}
 
   %div{id: "teamscreen_buttons"}
-    %button#last_teammember_teams_cancel_button.btn.btn-primary.pull-right Cancel
+    %button#last_teammember_teams_cancel_button.btn.btn-primary.pull-right
+      = I18n.t('cancel')
     %button#delete_user_button.btn.btn-primary.pull-right{disabled: "disabled"}
       = I18n.t('admin.users.last_teammember_teams.destroy')
