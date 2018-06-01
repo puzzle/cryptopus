@@ -4,15 +4,13 @@
 
 * Upgraded to Rails 5.1.6
 * Introduced Pundit policies
-* New page: User Profile Page
-* New feature: API access: API Users can be generated in profile page
-* New feature: Tags for Accounts
-* New user role: Conf-Admin
-* New button: Test LDAP connection
-* Re-worked Admin Teamlist
-* Removed feature: Keyboard shortcuts
-* Removed maintenance task: LDAP users
-* Removed maintenance task: new root password
+* User Profile Page
+* API access / API Users
+* Tags for Accounts
+* New user role Conf-Admin
+* Test LDAP connection
+* Admin Teamlist
+* Removed LDAP users maintenance task
 * Many Bug Fixes
 
 ## Version 2.1
