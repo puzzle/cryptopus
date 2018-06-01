@@ -25,7 +25,7 @@ class Api::AccountsController < ApiController
     if query_param.present?
       accounts = finder(accounts, query_param).apply
     elsif tag_param.present?
-      accounts.find_by(tag: tag_param)
+      accounts = accounts.find_by(tag: tag_param)
     end
     accounts
   end
