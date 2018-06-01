@@ -21,6 +21,7 @@ class Team::ApiUsersController < ApiController
   def destroy
     authorize team, :team_member?
     team_api_user.disable
+    render_json
   end
 
   private
