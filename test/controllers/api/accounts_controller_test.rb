@@ -106,7 +106,7 @@ class Api::AccountsControllerTest < ActionController::TestCase
 
       get :index, params: { 'tag': 'tag' }, xhr: true
 
-      result_json = JSON.parse(response.body)['data']['accounts'][0]
+      result_json = JSON.parse(response.body)['data']['account']
 
       account = accounts(:account2)
       group = account.group
