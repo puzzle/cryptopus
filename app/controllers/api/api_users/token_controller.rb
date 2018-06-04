@@ -10,9 +10,8 @@ class Api::ApiUsers::TokenController < ApiController
   # GET /api/api_users/token/1
   def show
     authorize api_user
-    token = api_user.renew_token(session[:private_key])
     username = api_user.username
-    add_info(t('flashes.api.api-users.token.renew', username: username, token: token))
+    add_info(t('flashes.api.api-users.token.renew', username: username, token: renew_token))
     render_json api_user
   end
 
@@ -28,5 +27,15 @@ class Api::ApiUsers::TokenController < ApiController
 
   def api_user
     @api_user ||= User::Api.find(params[:id])
+  end
+
+  def renew_token
+    if active_session?
+      api_user.renew_token(session[:private_key])
+    else
+      password = password_header
+      private_key = current_user.decrypt_private_key(password)
+      api_user.renew_token(private_key)
+    end
   end
 end

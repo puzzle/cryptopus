@@ -39,6 +39,18 @@ class ApiController < ActionController::Base
     team_password
   end
 
+  def active_session?
+    session[:private_key].present?
+  end
+
+  def username
+    request.headers['Authorization-User']
+  end
+
+  def password_header
+    Base64.decode64(request.headers['Authorization-Password'])
+  end
+
   private
 
   def validate_user
@@ -65,10 +77,6 @@ class ApiController < ActionController::Base
     username.present?
   end
 
-  def active_session?
-    session[:private_key].present?
-  end
-
   def authorize_with_headers
     if authenticator.auth!
       @current_user = authenticator.user
@@ -84,13 +92,5 @@ class ApiController < ActionController::Base
 
   def users_private_key
     current_user.decrypt_private_key(password_header)
-  end
-
-  def username
-    request.headers['Authorization-User']
-  end
-
-  def password_header
-    Base64.decode64(request.headers['Authorization-Password'])
   end
 end
