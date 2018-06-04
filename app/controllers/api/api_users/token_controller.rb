@@ -12,9 +12,7 @@ class Api::ApiUsers::TokenController < ApiController
     authorize api_user
     token = api_user.renew_token(session[:private_key])
     username = api_user.username
-    token_base64 = Base64.encode64(token)
-    renew_flash = 'flashes.api.api-users.token.renew'
-    add_info(t(renew_flash, username: username, token: token_base64))
+    add_info(t('flashes.api.api-users.token.renew', username: username, token: token))
     render_json api_user
   end
 
