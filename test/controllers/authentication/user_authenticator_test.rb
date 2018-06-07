@@ -40,6 +40,13 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
     assert_match(/Invalid user \/ password/, authenticator.errors.first)
   end
 
+  test 'authentication fails if no user for username' do
+    @username = 'mrInvalid'
+    @password ='password'
+
+    assert_equal false, authenticate
+  end
+
   test 'authentication fails if username with special chars' do
     @username = 'invalid_username?'
     @password ='password'
