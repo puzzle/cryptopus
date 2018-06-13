@@ -39,7 +39,6 @@ en:
   group: Group
   team: Team
   move: Move
-  here: Here
   new: New
 
 
@@ -216,7 +215,7 @@ en:
       last_login_from: Last login from
     api_users:
       api_users: Api Users
-      no_api_users: No Api Users
+      no_api_users: No Api User exists
       username: Username
       description: Description
       enter_description: click to enter description..

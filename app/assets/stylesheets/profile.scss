@@ -9,6 +9,7 @@
 
 .api-user-description {
   width: 200px;
+  word-wrap: break-word;
 }
 
 input {
@@ -40,12 +41,16 @@ input {
   margin-bottom: 5px;
 }
 
-#valid_until{
+#valid_until {
   width: 116px;
 }
 
-.remove-api-user-dialog{
+.remove-api-user-dialog {
   margin: 10% auto;
   border: 5px solid #cccccc;
   border-radius: 10px;
+}
+
+#create_api_user_button {
+  margin-bottom: 10px;
 }

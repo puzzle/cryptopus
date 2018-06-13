@@ -5,8 +5,7 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 - if current_user.api_users.empty?
-  = t 'api-user.none'
-  = link_to(t('here'), profile_path + '#api_users')
+  = link_to(t('profile.api_users.no_api_users'), profile_path + '#api_users')
 - else
   %table.table.table-striped#api_user_table
     %tr

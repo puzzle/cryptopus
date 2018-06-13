@@ -1,6 +1,5 @@
 <div id="api_user_content">
   {{#if api_users}}
-    <h1> {{I18n 'profile.api_users.api_users'}} </h1>
     <table class="table table-striped" id="api_users_table">
       <tbody>
         <tr>
@@ -18,6 +17,6 @@
         {{> _api_user_row}}
       </tbody>
   {{else}}
-    <h1> {{I18n 'profile.api_users.no_api_users' }} </h1>
+    <p> {{I18n 'profile.api_users.no_api_users' }} </p>
   {{/if}}
 </div>

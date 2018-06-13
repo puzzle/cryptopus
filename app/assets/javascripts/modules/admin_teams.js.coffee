@@ -12,7 +12,11 @@ class app.AdminTeams
     bind()
   
   show = (td) ->
-    ul = $('.members-list', td)
+    debugger
+    ul = document.createElement('ul')
+    ul.className = 'members-list'
+    td.append(ul)
+
     url = '/api/teams/' + team_id(td.parent()) + '/members'
     $.get(url).done (data) ->
       add_teammembers(data['data']['teammembers'], ul)
@@ -28,7 +32,7 @@ class app.AdminTeams
 
   hide = (td) ->
     ul = $('.members-list', td)
-    ul.empty()
+    ul.remove()
 
   bind = ->
     $(document).on 'click', '.members-link', (e) ->
