@@ -213,7 +213,7 @@ fr:
       last_login_from: Dernière connexion de
     api_users:
       api_users: Utilisateurs d'Api
-      no_api_users: Pas d'utilisateurs Api
+      no_api_users: Il n'y a pas d'utilisateurs d'Api
       username: Nom d'utilisateur
       description: Description
       enter_description: Entrez une description..

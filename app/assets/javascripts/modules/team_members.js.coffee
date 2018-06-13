@@ -16,11 +16,9 @@ class app.TeamMembers
     else
       show_members()
 
-
   show_members = ->
     $('.members').show().promise()
     load_members()
-
 
   load_candidates = ->
     input_field = $('#search_member')

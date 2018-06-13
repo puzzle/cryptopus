@@ -13,3 +13,8 @@
  *= require selectize
  *= require selectize.default
 */
+
+.nav-tabs .tab a:focus {
+  outline: 0;
+}
+
