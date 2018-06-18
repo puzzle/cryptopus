@@ -12,7 +12,6 @@ class app.AdminTeams
     bind()
   
   show = (td) ->
-    debugger
     ul = document.createElement('ul')
     ul.className = 'members-list'
     td.append(ul)
