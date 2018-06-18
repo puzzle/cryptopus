@@ -23,7 +23,7 @@
   .result-password.select-click
     %input#cleartext_password.password-hidden.form-control{readonly: "readonly", type: "text", value: "#{@account.cleartext_password}"}/
     %br/
-    = Password::Strength.new(@account.cleartext_username, @account.cleartext_password).password_complexity
+    = password_complexity(@account.cleartext_username, @account.cleartext_password)
     %button.btn.clip_button{"data-clipboard-target" => "#cleartext_password", title: "copy password (ctrl + c)", id: "copy_password_button"}
       %svg.icon-clippy
         %use{"xlink:href" => "#icon-clippy"}
