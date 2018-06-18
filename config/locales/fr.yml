@@ -436,6 +436,6 @@ fr:
         other: "%{count} secondes"
 
   password_strength:
-    weak: Le mot de passe est faible
-    good: Le mot de passe est bon
-    strong: Le mot de passe est forte!
+    weak: Faible
+    good: Bon
+    strong: Forte
