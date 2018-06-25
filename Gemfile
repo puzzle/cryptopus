@@ -8,7 +8,6 @@ gem 'net-ldap'
 gem 'sqlite3'
 
 gem 'active_model_serializers', '0.10.0'
-gem 'airbrake'
 gem 'annotate'
 gem 'bootstrap-select-rails'
 gem 'breadcrumbs_on_rails'
@@ -21,6 +20,7 @@ gem 'faker'
 gem 'geoip'
 gem 'haml'
 gem 'handlebars_assets'
+gem 'i18n-js', '~> 3.0'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
@@ -36,7 +36,6 @@ gem 'therubyracer'
 gem 'turbolinks'
 gem 'twitter-bootstrap-rails', '~>3.2'
 gem 'uglifier'
-
 
 group :development, :test do
   gem 'bullet'
@@ -66,5 +65,8 @@ group :test do
   gem 'simplecov', require: false, group: :test
 end
 
-# Added at 2018-05-18 13:57:32 +0200 by dfischli:
-gem 'i18n-js', '~> 3.0'
+group :production do
+  # newer versions not compatible with current errbit server
+  gem 'airbrake', '~> 6.1.2'
+  gem 'airbrake-ruby', '~> 2.2.7'
+end
