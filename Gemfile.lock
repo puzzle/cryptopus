@@ -44,9 +44,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    airbrake (7.3.3)
-      airbrake-ruby (~> 2.10)
-    airbrake-ruby (2.10.0)
+    airbrake (6.1.2)
+      airbrake-ruby (~> 2.2, >= 2.2.5)
+    airbrake-ruby (2.2.7)
     annotate (2.7.3)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
@@ -323,7 +323,8 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (= 0.10.0)
-  airbrake
+  airbrake (~> 6.1.2)
+  airbrake-ruby (~> 2.2.7)
   annotate
   bootstrap-select-rails
   brakeman
@@ -378,4 +379,4 @@ DEPENDENCIES
   uglifier
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
