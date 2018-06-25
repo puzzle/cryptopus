@@ -17,11 +17,12 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
 
     get :candidates, params: { team_id: team }, xhr: true
 
-    candidates = JSON.parse(response.body)['data']['users']
+    candidates = JSON.parse(response.body)['data']['user/humen']
 
-    assert_equal 2, candidates.size
+    assert_equal 3, candidates.size
     assert candidates.any? {|c| c['label'] == 'Alice test' }, 'Alice should be candidate'
     assert candidates.any? {|c| c['label'] == 'Bob test' }, 'Bob should be candidate'
+    assert candidates.any? {|c| c['label'] == 'Tux Miller' }, 'Configuration should be candidate'
   end
 
   test 'returns team members for given team' do
@@ -60,7 +61,50 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
   test 'remove teammember from team' do
     login_as(:alice)
     assert_difference('Teammember.count', -1) do
-      delete :destroy, params: { team_id: teams(:team1), id: users(:bob) }, xhr: true
+      delete :destroy, params: { team_id: teams(:team1), id: user }, xhr: true
     end
+  end
+  
+  test 'remove human user and his api users from team' do
+    api_user = user.api_users.create
+    bobs_private_key = user.decrypt_private_key('password')
+    plaintext_team_password = teams(:team1).decrypt_team_password(user, bobs_private_key)
+
+    teams(:team1).add_user(api_user, plaintext_team_password)
+
+    login_as(:alice)
+    assert_difference('Teammember.count', -2) do
+      delete :destroy, params: { team_id: teams(:team1), id: user }, xhr: true
+    end
+    assert_equal false, teams(:team1).teammember?(user)
+    assert_equal false, teams(:team1).teammember?(api_user)
+  end
+  
+  context 'api user' do
+    test 'add api user to team' do
+      login_as(:bob)
+      team = teams(:team1)
+      api_user = user.api_users.create!(description: 'my sweet api user')
+
+      post :create, params: { team_id: team, user_id: api_user }, xhr: true
+
+      assert team.teammember?(api_user), 'User should be added to team'
+  end
+  
+    test 'remove api user from team' do
+      login_as(:admin)
+      team = teams(:team1)
+      api_user = user.api_users.create!(description: 'my sweet api user')
+
+      post :create, params: { team_id: team, user_id: api_user }, xhr: true
+
+      assert_difference('Teammember.count', -1) do
+        delete :destroy, params: { team_id: teams(:team1), id: api_user }, xhr: true
+      end
+    end
+  end
+
+  def user
+    users(:bob)
   end
 end

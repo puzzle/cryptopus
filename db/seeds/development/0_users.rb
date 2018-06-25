@@ -13,4 +13,6 @@ seeder.seed_root
 
 seeder.seed_users([:alice, :bob, :john, :kate])
 
+seeder.seed_conf_admins([:tux])
+
 seeder.seed_admins([:bruce, :emily])

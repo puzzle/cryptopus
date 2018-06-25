@@ -13,16 +13,12 @@ class app.TeamMembers
   toggle_members = ->
     if $('.columns').is(':visible')
       $('.members').hide().promise()
-      $('.show_members').text(I18n.teammembers.show)
     else
       show_members()
-
 
   show_members = ->
     $('.members').show().promise()
     load_members()
-    $('.show_members').text(I18n.teammembers.hide)
-
 
   load_candidates = ->
     input_field = $('#search_member')
@@ -30,7 +26,7 @@ class app.TeamMembers
     team_id = $('input#team_id').val()
     url = '/api/teams/' + team_id + '/members/candidates'
     $.get(url).done (data) ->
-      render_candidates(data['data']['users'])
+      render_candidates(data['data']['user/humen'])
 
   render_candidates = (users) ->
     availableUsers = []
@@ -85,13 +81,11 @@ class app.TeamMembers
       show_members()
       load_candidates()
 
-    $(document).on 'click', '.show_members', (e) ->
-      e.preventDefault()
-      toggle_members()
-      load_members()
-
     $(document).on 'click', '.members li .remove_member', (e) ->
       e.preventDefault()
       delete_member(e)
+
+    $(document).on 'click', '#members-tab', ->
+      toggle_members()
 
   new TeamMembers

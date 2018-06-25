@@ -1,8 +1,50 @@
-.settings-content{
+.settings-content {
   padding-top: 30px;
 }
 
-.settings-nav{
+.settings-nav {
   width: 700px;
   margin: 0 auto;
+}
+
+#ldap-button {
+  margin-bottom: 7px;
+}
+
+#ldap_enabled_label {
+  display: block;
+  cursor: pointer;
+}
+
+ #ldap_enabled_checkbox {
+  display: none;
+}
+
+#ldap_enabled_checkbox + label:before {
+  content: "\2714";
+  border: 0.2em solid black;
+  border-radius: 0.4em;
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  padding-left: 0.3em;
+  color: transparent;
+  transition: 0.2s;
+}
+
+// Specific padding for Chrome Browser
+@supports (-webkit-appearance:none) {
+  #ldap_enabled_checkbox + label:before {
+    padding-left: 0.2em;
+  }
+}
+
+#ldap_enabled_checkbox + label:active:before {
+  transform: scale(0);
+}
+
+#ldap_enabled_checkbox:checked + label:before {
+  background-color: MediumSeaGreen;
+  border-color: MediumSeaGreen;
+  color: white;
 }

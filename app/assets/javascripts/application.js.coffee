@@ -5,6 +5,8 @@
 # at the top-level directory or at
 # https://github.com/puzzle/cryptopus.
 #
+#= require turbolinks
+#= require turbolinks-compatibility
 #= require jquery
 #= require jquery_ujs
 #= require jquery-ui
@@ -12,21 +14,19 @@
 #= require clipboard.js
 #= require twitter/bootstrap
 #= require handlebars.runtime
-#= require turbolinks
-#= require turbolinks-compatibility
 #= require selectize
 #= require_tree ./modules
 #= require_tree ./templates
 #= require password_strength
 #= require jquery_strength
-
+#= require i18n
+#= require i18n/translations
+#= require localization
+#= require handlebars_helpers
 
 # scope for global functions
 app = window.App ||= {}
 
-Turbolinks.enableProgressBar()
 @flash_messages = []
-# Password hidden
-# $ ->
-#   $( ".select-click" ).on 'click', (e) ->
-#     e.target.select()
+
+I18n.fallbacks = true

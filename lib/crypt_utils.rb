@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -8,14 +6,15 @@
 require 'openssl'
 require 'digest/sha1'
 
-include OpenSSL
-
 class CryptUtils
+
   @@magic = 'Salted__'
   @@salt_length = 8
   @@cypher = 'aes-256-cbc'
 
   class << self
+    include OpenSSL
+
     def one_way_crypt(plaintext_password)
       salt = SecureRandom.hex
       "sha512$#{salt}$" + Digest::SHA512.hexdigest(salt + plaintext_password)
@@ -30,34 +29,33 @@ class CryptUtils
       keypair
     end
 
-    def get_private_key_from_keypair(keypair)
+    def extract_private_key(keypair)
       keypair.to_s
     end
 
-    def get_public_key_from_keypair(keypair)
+    def extract_public_key(keypair)
       keypair.public_key.to_s
     end
 
-    def decrypt_team_password(team_password, private_key)
+    def decrypt_rsa(encrypted_content, private_key)
       keypair = PKey::RSA.new(private_key)
-      decrypted_team_password = keypair.private_decrypt(team_password)
-      return decrypted_team_password
-    rescue
-      return nil
+      decrypted_content = keypair.private_decrypt(encrypted_content)
+      decrypted_content
+    rescue StandardError
+      nil
     end
 
-    def encrypt_team_password(team_password, public_key)
+    def encrypt_rsa(content, public_key)
       keypair = PKey::RSA.new(public_key)
-      encrypted_team_password = keypair.public_encrypt(team_password)
-      return encrypted_team_password
-    rescue
-      return nil
+      encrypted_content = keypair.public_encrypt(content)
+      encrypted_content
+    rescue StandardError
+      nil
     end
 
     def new_team_password
       cipher = OpenSSL::Cipher::Cipher.new(@@cypher)
-      team_password = cipher.random_key
-      team_password
+      cipher.random_key
     end
 
     def encrypt_private_key(private_key, password)
@@ -79,15 +77,15 @@ class CryptUtils
       salt = private_key.slice(@@magic.size, @@salt_length)
       private_key_part = private_key.slice((@@magic.size + @@salt_length)..-1)
       cipher.pkcs5_keyivgen(password, salt, 1000)
-      return cipher.update(private_key_part) + cipher.final
-    rescue
+      cipher.update(private_key_part) + cipher.final
+    rescue StandardError
       raise Exceptions::DecryptFailed
     end
 
     def validate_keypair(private_key, public_key)
       test_data = 'Test Data'
-      encrypted_test_data = CryptUtils.encrypt_team_password(test_data, public_key)
-      unless test_data == CryptUtils.decrypt_team_password(encrypted_test_data, private_key)
+      encrypted_test_data = CryptUtils.encrypt_rsa(test_data, public_key)
+      unless test_data == CryptUtils.decrypt_rsa(encrypted_test_data, private_key)
         raise Exceptions::DecryptFailed
       end
     end

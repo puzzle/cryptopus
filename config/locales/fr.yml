@@ -13,14 +13,16 @@ fr:
   update: Mettre à jour
   create: Créer
   delete: Supprimer
+  cancel: Annuler
   add: Ajoutea
   description: Description
+  tag: Tag
   username: Nom d'utilisateur
   password: Mot de passe
   actions: Actions
   download: Télécharger
-  yes: Oui
-  no: Non
+  "yes": Oui
+  "no": Non
   forgot_password: Mot de passe oublié?
   logout: Déconnexion
   auto_logout: Déconnexion automatique en
@@ -36,6 +38,8 @@ fr:
   group: Groupe
   team: Équipe
   move: Mouvoir
+  here: Ici
+  new: Nouveau
 
   i18n:
     language:
@@ -81,6 +85,7 @@ fr:
       index:
         title: Modifier les paramètres
         save: Sauvegarder les modifications
+        ldap: Tester la connexion LDAP
     recryptrequests:
       index:
         title: Demandes de re crypt
@@ -126,6 +131,13 @@ fr:
         destroy: supprimer l'utilisateur
       new:
         title: Nouvel utilisateur
+    teams:
+      index:
+        title: Teams
+    user_roles:
+      user: Utilisateur
+      conf_admin: Conf Admin
+      admin: Admin
 
   groups:
     title: Groupes
@@ -192,6 +204,33 @@ fr:
     description:
       private: Administrateurs auront pas accès à votre équipe.
 
+  profile:
+    index:
+      title: "Profil de %{label}"
+    info:
+      info: Info
+      last_login_at: Dernière connexion à
+      last_login_from: Dernière connexion de
+    api_users:
+      api_users: Utilisateurs d'Api
+      no_api_users: Il n'y a pas d'utilisateurs d'Api
+      username: Nom d'utilisateur
+      description: Description
+      enter_description: Entrez une description..
+      valid_until: Valable jusque
+      valid_for: Valable
+      last_login_at: Dernière connexion à
+      last_login_from: Dernière connexion de
+      locked: Bloqué
+      options:
+        one_min: Une minute
+        five_mins: Cinq minutes
+        twelve_hours: Douze heures
+        infinite: Illimité
+      delete:
+        title: Supprimer Api-User
+        content: "Est-ce que vous voulez supprimer l'utilisateur d'Api %{username}?"
+
   flashes:
     api:
       admin:
@@ -199,6 +238,29 @@ fr:
           toggle:
             empowerd: L'usutilisateur a reçu les droits d administrateur
             disempowerd: L'utilisateur a perdu les droits d'administrateur
+          destroy:
+            own_user: Actuel de l'utilisateur ne peut pas être supprimé
+          no_access: Accès refusé
+        settings:
+          test_ldap_connection:
+            successful: Connexion au serveur Ldap réussie
+            failed: Connexion au serveur Ldap échoué
+            no_hostname_present: Aucun nom d'hôte n'existe
+      api-users:
+        create: "%{username} a été crée"
+        update:
+          description: "La description de %{username} a été mis à jour"
+          valid_for: "L'Utilisateur %{username} sera valable %{valid_for} dès le prochain renouvellement"
+          time:
+            one_min: pour une minute
+            five_mins: pour cinq minutes
+            twelve_hours: pour douze heurs
+            infinite: infiniment
+        destroy: "%{username} a été supprime"
+        lock: "%{username} est maintenant bloqué"
+        unlock: "%{username} n'est plus bloqué"
+        token:
+          renew: "%{username} a été renouvelé, nouveau jeton: %{token}"
     members:
       added: "%{username} a été enlevé avec succès à l'équipe"
       removed: "%{username} a été ajouté avec succès à l'équipe"
@@ -228,6 +290,8 @@ fr:
       maintenance_tasks:
         succeed: La tâche a été exécutée avec succès..
         failed: La tâche a échoué. Consultez les journaux pour plus d'informations.
+        ldap_connection:
+          failed: Aucunt serveur LDAP configuré n'a pu être atteint.
 
     accounts:
       created: Compte créé avec succès.
@@ -264,6 +328,7 @@ fr:
       deleted: L'équipe a été supprimé.
       cannot_delete: Vous pouvez seulement supprimer une équipe si vous etes un admin.
       no_member: Vous n'êtes pas membre de cette équipe
+      not_existing: "Il n'y a pas d'équipe avec l'id %{id}"
     teammembers:
       could_not_remove_last_teammember: Il n’est pas possible de supprimer le dernier utilisateur de l'équipe
       could_not_remove_admin_from_private_team: Il n’est pas possible de supprimer un admin d'une équipe privée

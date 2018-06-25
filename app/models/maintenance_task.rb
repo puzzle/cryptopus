@@ -1,39 +1,36 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
 class MaintenanceTask
-  class_attribute :label, :description, :hint, :task_params
+  class_attribute :label, :description, :hint, :task_params, :error, :id
   PARAM_TYPE_PASSWORD = 'password'.freeze
   PARAM_TYPE_CHECKBOX = 'check_box'.freeze
   PARAM_TYPE_NUMBER = 'number'.freeze
   PARAM_TYPE_TEXT = 'text'.freeze
 
-  TASKS = %w[RootAsAdmin NewRootPassword].freeze
+  TASKS = %w[RootAsAdmin RemovedLdapUsers].freeze
+
   class << self
     def list
       TASKS.collect do |t|
-        constantize_class(t)
-      end
+        task = constantize_class(t).new
+        task if task.enabled?
+      end.compact
     end
 
-    def initialize_task(task_id, current_user, param_values = {})
-      id = task_id.to_i
-      constantize_class(TASKS[id]).new(current_user, param_values)
+    def find(id)
+      list.find { |task| task.id == id.to_i }
     end
 
     def constantize_class(task)
       "MaintenanceTasks::#{task}".constantize
     end
+
   end
 
-  def initialize(current_user, param_values = {})
-    @current_user = current_user
-    @param_values = param_values
-  end
+  attr_accessor :executer, :param_values
 
   def execute
     ApplicationRecord.transaction do
@@ -41,16 +38,28 @@ class MaintenanceTask
       success_log_entry('successful')
       true
     end
-  rescue => e
+  rescue StandardError => e
     failed_log_entry(e)
     false
   end
 
-  protected
-
-  def current_user_private_key
-    @param_values[:private_key]
+  def name
+    self.class.name.split('::').last.underscore
   end
+
+  def prepare?
+    task_params.present?
+  end
+
+  def enabled?
+    true
+  end
+
+  def policy_class
+    MaintenanceTaskPolicy
+  end
+
+  protected
 
   def failed_log_entry(exception)
     create_log_entry(exception.message, 'failed')
@@ -62,7 +71,7 @@ class MaintenanceTask
 
   def create_log_entry(message, status)
     Log.create(output: message,
-               executer_id: @current_user.id,
+               executer_id: executer.id,
                status: status,
                log_type: 'maintenance_task')
   end

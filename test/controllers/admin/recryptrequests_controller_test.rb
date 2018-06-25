@@ -16,7 +16,7 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
   end
 
   test 'error message if recrypt_team_password raises error' do
-    CryptUtils.expects(:decrypt_team_password).raises('test')
+    CryptUtils.expects(:decrypt_rsa).raises('test')
 
     login_as(:admin)
     bob = users(:bob)
@@ -65,7 +65,7 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
     bob.reload
 
     assert_equal bob_password, bob.password
-    assert_redirected_to 'where_i_came_from'
+    assert_redirected_to teams_path
   end
 
   test 'normal user could not reset password' do
@@ -79,9 +79,28 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
 
     assert_equal alice_password, alice.password
   end
+  
+  test 'index cannot be accessed by user' do
+    login_as(:bob)
+
+    get :index
+
+    assert_redirected_to teams_path
+  end
+  
+  test 'index cannot be accessed by conf admin' do
+    login_as(:tux)
+
+    get :index
+
+    assert_redirected_to teams_path
+  end
 
   test 'show recryptrequests' do
     login_as(:admin)
+
     get :index
+
+    assert_select 'h1', text: 'Re-encryption requests'
   end
 end

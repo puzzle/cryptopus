@@ -10,6 +10,9 @@
   %p
     %strong= t :description
     = simple_format @account.description
+  %p
+    %strong= t :tag
+    = simple_format @account.tag
   %br/
   .result-username.select-click
     %input#cleartext_username.form-control{readonly: "readonly", type: "text", value: "#{@account.cleartext_username}"}/
@@ -50,7 +53,7 @@
     - for item in @items
       %tr{class: "#{cycle( 'odd', 'even' )}"}
         %td
-          = link_to image_tag("file.svg") + item.filename, [team, @group, @account, item]
+          = link_to image_tag("file.svg") + item.filename, [team, @group, @account, item], target: ''
         %td{valign: "top"}= simple_format item.description
         %td.action_icon= link_to_destroy [team, @group, @account, item], item
 

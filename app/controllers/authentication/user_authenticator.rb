@@ -1,23 +1,23 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
+require 'user/api'
 
 class Authentication::UserAuthenticator
 
-  def initialize(params)
+  def initialize(username: nil, password: nil)
     @authenticated = false
-    @params = params
+    @username = username
+    @password = password
   end
 
-  def password_auth!
+  def auth!
     return false unless preconditions?
     return false if user_locked?
 
-    authenticated = authenticator.auth!
+    authenticated = user_auth!
 
     unless authenticated
       add_error('flashes.logins.wrong_password')
@@ -27,26 +27,18 @@ class Authentication::UserAuthenticator
     authenticated
   end
 
-  def api_key_auth!
-    raise 'not yet implemented'
-  end
-
   def errors
     @errors ||= []
   end
 
   def user
-    authenticator.user
+    @user ||= User.find_user(username, password)
   end
 
   private
 
-  attr_accessor :authenticated, :params
-
-  def authenticator
-    @authenticator ||=
-      Authentication::Authenticators::UserPassword.new(params)
-  end
+  attr_accessor :authenticated
+  attr_reader :username, :password
 
   def brute_force_detector
     @brute_force_detector ||=
@@ -61,12 +53,12 @@ class Authentication::UserAuthenticator
     false
   end
 
-  def valid_username?
-    params[:username].strip =~ /^([a-zA-Z]|\d)+$/
+  def params_present?
+    username.present? && password.present?
   end
 
-  def params_present?
-    authenticator.params_present?
+  def valid_username?
+    username.strip =~ /^([a-zA-Z]|\d)+[-]?([a-zA-Z]|\d)*[^-]$/
   end
 
   def user_locked?
@@ -81,4 +73,7 @@ class Authentication::UserAuthenticator
     errors << I18n.t(msg_key)
   end
 
+  def user_auth!
+    user.authenticate(password)
+  end
 end

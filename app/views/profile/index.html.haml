@@ -1,0 +1,22 @@
+-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
+-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+-#  See the COPYING file at the top-level directory or at
+-#  https://github.com/puzzle/cryptopus.
+
+%h1= t '.title', label: @current_user.label
+
+%ul.teams-nav.nav.nav-tabs#profile-tabs
+  %li.tab.active
+    %a{"data-toggle" => "tab", href: "#info"}
+      = t 'profile.info.info'
+  %li.tab#profile-api-users-tab
+    %a{"data-toggle" => "tab", href: "#api_users"}
+      = t 'profile.api_users.api_users'
+
+.tab-content.teams-content
+  #info.tab-pane.fade.in.active
+    = render 'info'
+  #api_users.tab-pane.fade
+    = render 'api_users'
+
+

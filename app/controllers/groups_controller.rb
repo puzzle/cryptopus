@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -10,11 +8,11 @@ class GroupsController < ApplicationController
 
   # GET /teams/1/groups
   def index
+    authorize team, :team_member?
+    @groups = team.groups
     groups_breadcrumbs
 
-    @groups = team.groups
-
-    teammembers = team.teammembers
+    teammembers = team.teammembers.list
     @teammembers = teammembers.includes(:user).sort_by { |tm| tm.label.downcase }
 
     respond_to do |format|
@@ -25,6 +23,7 @@ class GroupsController < ApplicationController
   # GET /teams/1/groups/1
   def show
     @group = team.groups.find(params[:id])
+    authorize @group
 
     respond_to do |format|
       format.html # show.html.haml
@@ -34,6 +33,7 @@ class GroupsController < ApplicationController
   # GET /teams/1/groups/new
   def new
     @group = team.groups.new
+    authorize @group
 
     respond_to do |format|
       format.html # new.html.haml
@@ -43,6 +43,7 @@ class GroupsController < ApplicationController
   # POST /teams/1/groups
   def create
     @group = team.groups.new(group_params)
+    authorize @group
 
     respond_to do |format|
       if @group.save
@@ -57,6 +58,7 @@ class GroupsController < ApplicationController
   # GET /teams/1/groups/1/edit
   def edit
     @group = team.groups.find(params[:id])
+    authorize @group
 
     groups_breadcrumbs
 
@@ -68,6 +70,7 @@ class GroupsController < ApplicationController
   # PUT /teams/1/groups/1
   def update
     @group = team.groups.find(params[:id])
+    authorize @group
 
     respond_to do |format|
       if @group.update_attributes(group_params)
@@ -82,6 +85,7 @@ class GroupsController < ApplicationController
   # DELETE /teams/1/groups/1
   def destroy
     @group = team.groups.find(params[:id])
+    authorize @group
     @group.destroy
 
     respond_to do |format|

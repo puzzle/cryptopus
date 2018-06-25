@@ -6,14 +6,15 @@
 #  https://github.com/puzzle/cryptopus.
 
 Rails.application.routes.draw do
-  
+
   scope "(:locale)", locale: /en|de|fr|zh|ru|ch_be/ do
     namespace :recryptrequests do
       get 'new_ldap_password'
       post 'recrypt'
     end
-    
+
     resources :teams do
+      resources :api_users, only: [:index, :create, :destroy], module: 'team'
       resources :teammembers
       resources :groups do
         resources :accounts do
@@ -33,19 +34,22 @@ Rails.application.routes.draw do
         get 'index'
       end
 
-      resources :users do
+      resources :users, except: :destroy do
         member do
           get 'unlock'
         end
       end
+
       resources :recryptrequests do
         collection do
           post 'resetpassword'
         end
       end
+
+      get  'teams', to: 'teams#index'
     end
 
-    resource :login do
+    resource :login, except: :show do
       get 'login'
       get 'show_update_password'
       post 'update_password'
@@ -63,28 +67,49 @@ Rails.application.routes.draw do
     root to: 'search#index'
     
     get 'changelog', to: 'changelog#index'
+      
+    get 'profile', to: 'profile#index'
   end
 
   scope '/api', module: 'api' do
+
+    resources :groups, only: [:index]
+    resources :teams, only: [:index]
+    resources :accounts, only: [:show, :index]
+
+    resources :api_users do
+      member do
+        get :token, to: 'api_users/token#show'
+        delete :token, to: 'api_users/token#destroy'
+        post :lock, to: 'api_users/lock#create'
+        delete :lock, to: 'api_users/lock#destroy'
+      end
+    end
+
+    resources :accounts, only: [:show]
     scope '/search', module: 'search' do
       get :accounts
       get :groups
       get :teams
     end
+  
     scope '/admin', module: 'admin' do
-      resources :users, only: [] do
-        patch :toggle_admin, to: '/api/admin/users#toggle_admin'
+      resources :users, only: :destroy do
+        member do
+          patch :update_role, to: 'users/role#update'
+        end
       end
+      resources :ldap_connection_test, only: ['new']
     end
+
+    resources :accounts, only: ['show']
 
     # INFO don't mix scopes and resources in routes
     resources :teams, only: [:destroy, :index]  do
       collection do
         get :last_teammember_teams
       end
-      resources :groups, only: ['index'], module: 'team' do
-        resources :accounts, only: ['show'], module: 'group'
-      end
+      resources :groups, only: ['index'], module: 'team'
       resources :members, except: [:new, :edit], module: 'team' do
         collection do
           get :candidates

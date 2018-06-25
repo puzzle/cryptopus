@@ -12,7 +12,6 @@
 #  private     :boolean          default(FALSE), not null
 #
 
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -56,7 +55,7 @@ class TeamsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to teams_path
-    assert_match /not member/, flash[:error]
+    assert_match /Only admin/, flash[:error]
   end
 
   test "Admin can delete team if not in team" do

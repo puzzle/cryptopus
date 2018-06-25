@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -29,7 +27,8 @@ module Admin::SettingsHelper
 
   def input_field_setting_true_false(setting)
     content = hidden_field_tag(key_param(setting), 'f')
-    content << check_box_tag(key_param(setting), 't', setting.value, default_field_options)
+    content << check_box_tag(key_param(setting), 't', setting.value, id: 'ldap_enabled_checkbox')
+    content << label_tag(:ldap_enabled_checkbox, '', id: 'ldap_enabled_label')
   end
 
   def input_field_setting_number(setting)

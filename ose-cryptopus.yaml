@@ -1,0 +1,414 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: cryptopus
+objects:
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: mysql-backup
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+  status: {}
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: mysql-database
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+  status: {}
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    labels:
+      app: rails
+    name: rails
+  spec:
+    output:
+      to:
+        kind: ImageStreamTag
+        name: rails:latest
+    postCommit: {}
+    resources:
+      limits:
+        cpu: "1"
+        memory: 2Gi
+      requests:
+        cpu: 100m
+        memory: 1Gi
+    runPolicy: Serial
+    source:
+      git:
+        ref: master
+        uri: https://github.com/puzzle/cryptopus.git
+      type: Git
+    strategy:
+      sourceStrategy:
+        env:
+        - name: RAILS_HOST_NAME
+          value: "${PUBLIC_HOSTNAME}"
+        forcePull: true
+        from:
+          kind: DockerImage
+          name: puzzle/ose3-rails:ruby22
+        incremental: true
+      type: Source
+    triggers: []
+  status:
+    lastVersion: 0
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    generation: 2
+    labels:
+      app: rails
+    name: rails
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    generation: 1
+    labels:
+      app: mysql
+      template: mysql-persistent-template
+    name: mysql
+  spec:
+    replicas: 1
+    selector:
+      name: mysql
+    strategy:
+      recreateParams:
+        timeoutSeconds: 600
+      resources:
+        limits:
+          cpu: "1"
+          memory: 1Gi
+        requests:
+          cpu: 250m
+          memory: 256Mi
+      type: Recreate
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        labels:
+          app: mysql-persistent
+          name: mysql
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_USER
+            value: "${DATABASE_USER}"
+          - name: MYSQL_PASSWORD
+            value: "${DATABASE_PASSWORD}"
+          - name: MYSQL_DATABASE
+            value: database
+          - name: MYSQL_KEY_BUFFER_SIZE
+            value: 16M
+          - name: MYSQL_SORT_BUFFER_SIZE
+            value: 2M
+          - name: MYSQL_INNODB_LOG_FILE_SIZE
+            value: 128M
+          - name: MYSQL_INNODB_LOG_BUFFER_SIZE
+            value: 128M
+          image: centos/mysql-56-centos7
+          imagePullPolicy: IfNotPresent
+          name: mysql
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            capabilities: {}
+            privileged: false
+          terminationMessagePath: /dev/termination-log
+          volumeMounts:
+          - mountPath: /var/lib/mysql/data
+            name: mysql-data
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: mysql-database
+    test: false
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - mysql
+        from:
+          kind: ImageStreamTag
+          name: mysql:5.7
+          namespace: openshift
+      type: ImageChange
+    - type: ConfigChange
+  status: {}
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    generation: 1
+    labels:
+      app: mysql-backup
+    name: mysql-backup-persistent
+  spec:
+    replicas: 1
+    selector:
+      app: mysql-backup
+    strategy:
+      resources:
+        limits:
+          cpu: "1"
+          memory: 1Gi
+        requests:
+          cpu: 250m
+          memory: 256Mi
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        labels:
+          app: mysql-backup
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_USER
+            value: "${DATABASE_USER}"
+          - name: MYSQL_PASSWORD
+            value: "${DATABASE_PASSWORD}"
+          - name: MYSQL_SERVICE_HOST
+            value: mysql
+          - name: MYSQL_DATABASE
+            value: database
+          - name: BACKUP_DATA_DIR
+            value: /opt/app-root/backup/
+          - name: BACKUP_KEEP
+            value: "5"
+          - name: BACKUP_MINUTE
+            value: "10"
+          - name: BACKUP_HOUR
+            value: 11,19
+          image: appuio/mysql-simple-backup-container
+          imagePullPolicy: Always
+          name: mysql-backup
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1Gi
+            requests:
+              cpu: 250m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          volumeMounts:
+          - mountPath: /opt/app-root/backup/
+            name: mysql-backup-data
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: mysql-backup-data
+          persistentVolumeClaim:
+            claimName: mysql-backup
+    test: false
+    triggers:
+    - type: ConfigChange
+  status: {}
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    generation: 1
+    labels:
+      app: rails
+    name: rails
+  spec:
+    replicas: 1
+    selector:
+      app: rails
+    strategy:
+      recreateParams:
+        mid:
+          execNewPod:
+            command:
+            - /usr/bin/bash
+            - -c
+            - /usr/libexec/s2i/deploy
+            containerName: rails
+          failurePolicy: Abort
+        timeoutSeconds: 600
+      resources:
+        limits:
+          cpu: "1"
+          memory: 1Gi
+        requests:
+          cpu: 10m
+          memory: 512Mi
+      type: Recreate
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: Puzzle ITC
+        labels:
+          app: rails
+      spec:
+        containers:
+        - env:
+          - name: SECRET_KEY_BASE
+            value: "${SECRET_KEY_BASE}"
+          - name: TZ
+            value: Europe/Berlin
+          - name: RAILS_ENV
+            value: production
+          - name: RAILS_DB_NAME
+            value: database
+          - name: RAILS_DB_HOST
+            value: mysql
+          - name: RAILS_DB_USERNAME
+            value: "${DATABASE_USER}"
+          - name: RAILS_DB_PASSWORD
+            value: "${DATABASE_PASSWORD}"
+          - name: RAILS_DB_ADAPTER
+            value: mysql2
+          - name: RAILS_HOST_NAME
+            value: "${PUBLIC_HOSTNAME}"
+          - name: PASSENGER_START_TIMEOUT
+            value: "120"
+          image: rails:latest
+          imagePullPolicy: Always
+          name: rails
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 512Mi
+          terminationMessagePath: /dev/termination-log
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: false
+        from:
+          kind: ImageStreamTag
+          name: rails:latest
+        containerNames:
+          - rails
+  status: {}
+- apiVersion: v1
+  kind: Route
+  metadata:
+    labels:
+      app: rails
+    name: rails
+  spec:
+    host: "${PUBLIC_HOSTNAME}"
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: rails
+      weight: 100
+    wildcardPolicy: None
+  status:
+    ingress:
+    - conditions:
+      - lastTransitionTime: 2017-02-02T13:29:23Z
+        status: "True"
+        type: Admitted
+      host: "${PUBLIC_HOSTNAME}"
+      routerName: ha-router-be
+      wildcardPolicy: None
+    - conditions:
+      - lastTransitionTime: 2017-02-23T18:14:09Z
+        status: "True"
+        type: Admitted
+      host: "${PUBLIC_HOSTNAME}"
+      routerName: ha-router
+      wildcardPolicy: None
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: mysql
+      template: mysql-persistent-template
+    name: mysql
+  spec:
+    ports:
+    - name: mysql
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+    selector:
+      name: mysql
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: Puzzle ITC
+    labels:
+      app: rails
+    name: rails
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: rails
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+parameters:
+  -
+    name: "PUBLIC_HOSTNAME"
+    description: "The Rails 5 host name param, must be set to the public route"
+  -
+    name: "SECRET_KEY_BASE"
+    description: "Secret Key"
+    generate: "expression"
+    from: "[a-zA-Z0-9]{128}"
+  -
+    name: "DATABASE_USER"
+    description: "Database user name"
+    generate: "expression"
+    from: "[a-z]{1}[a-zA-Z0-9]{15}"
+  -
+    name: "DATABASE_PASSWORD"
+    description: "Database user password"
+    generate: "expression"
+    from: "[a-zA-Z0-9]{16}"

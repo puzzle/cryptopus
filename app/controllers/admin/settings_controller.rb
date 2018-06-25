@@ -1,16 +1,20 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 require 'countries/global'
 
-class Admin::SettingsController < Admin::AdminController
+class Admin::SettingsController < ApplicationController
 
   helper_method :ldap_settings, :general_settings
 
+  def index
+    authorize Setting
+    Setting.all
+  end
+
   def update_all
+    authorize Setting
     update_attributes(params[:setting])
     flash[:notice] = t('flashes.admin.settings.successfully_updated')
     respond_to do |format|

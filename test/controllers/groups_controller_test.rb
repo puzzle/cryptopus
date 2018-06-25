@@ -11,7 +11,6 @@
 #  team_id     :integer          default(0), not null
 #
 
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -33,9 +32,8 @@ class GroupsControllerTest < ActionController::TestCase
     assert_select '.breadcrumb a', text: 'team1', count: 0
   end
 
-  test 'show breadcrump path 2 if user is on edit of groups' do
+  test 'show breadcrumb path 2 if user is on edit of groups' do
     login_as (:bob)
-
     team1 = teams(:team1)
     group1 = groups(:group1)
 
@@ -61,7 +59,7 @@ class GroupsControllerTest < ActionController::TestCase
     assert_equal 'new_description', group.description
   end
 
-  test "Teammember delete group" do
+  test 'teammember delete group' do
     login_as(:bob)
 
     assert_difference('Group.count', -1) do
@@ -78,7 +76,7 @@ class GroupsControllerTest < ActionController::TestCase
 
     get :index, params: { team_id: team2 }
 
-    assert_match /You are not member of this team/, flash[:error]
+    assert_match /Access denied/, flash[:error]
     assert_redirected_to teams_path
   end
 end

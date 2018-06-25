@@ -1,0 +1,20 @@
+-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
+-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+-#  See the COPYING file at the top-level directory or at
+-#  https://github.com/puzzle/cryptopus.
+
+%h1= @maintenance_task.label
+- unless @maintenance_task.label == 'Removed ldap users'
+  = form_tag :admin_tasks_execute
+
+- if @maintenance_task.label == 'Removed ldap users'
+  - if @maintenance_task.removed_ldap_users.present?
+    %p= 'Following users were not found in LDAP but are still existing:'
+    = render partial: 'admin/maintenance_tasks/removed_ldap_users/removed_ldap_users'
+  - else
+    %p= 'No users found.'
+- else
+  - @maintenance_task.task_params.each do |p|
+    = create_task_field(p)
+
+=link_to "Cancel", admin_maintenance_tasks_path, {:class=>"btn btn-primary"}

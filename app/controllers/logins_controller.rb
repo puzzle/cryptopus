@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -7,19 +5,19 @@
 
 class LoginsController < ApplicationController
 
-  before_action :redirect_if_ldap_user, only: %i[show_update_password update_password]
-  before_action :redirect_if_logged_in, only: :login
+  before_action :authorize_action
 
   # it's save to disable this for authenticate since there is no logged in session active
   # in this case.
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
   skip_before_action :verify_authenticity_token, only: :authenticate
+  before_action :skip_authorization, only: %i[authenticate login logout]
 
   def login; end
 
   def authenticate
-    unless authenticator.password_auth!
+    unless authenticator.auth!
       flash[:error] = t('flashes.logins.auth_failed')
       return redirect_to login_login_path
     end
@@ -114,14 +112,6 @@ class LoginsController < ApplicationController
     session[:last_login_from] = user.last_login_from
   end
 
-  def redirect_if_ldap_user
-    redirect_to search_path if current_user.ldap?
-  end
-
-  def redirect_if_logged_in
-    redirect_to search_path if current_user
-  end
-
   def password_params_valid?
     unless current_user.authenticate(params[:old_password])
       flash[:error] = t('flashes.logins.wrong_password')
@@ -136,7 +126,12 @@ class LoginsController < ApplicationController
   end
 
   def authenticator
-    Authentication::UserAuthenticator.new(params)
+    username = params[:username]
+    password = params[:password]
+    Authentication::UserAuthenticator.new(username: username, password: password)
   end
 
+  def authorize_action
+    authorize :logins
+  end
 end

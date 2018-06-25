@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 # == Schema Information
 #
 # Table name: accounts
@@ -12,6 +10,7 @@
 #  password    :binary
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  tag         :string
 #
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
@@ -64,5 +63,4 @@ class Account < ApplicationRecord
     crypted_value = CryptUtils.encrypt_blob(cleartext_password, team_password)
     self.password = crypted_value
   end
-
 end

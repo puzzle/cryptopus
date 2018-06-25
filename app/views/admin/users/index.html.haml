@@ -1,3 +1,5 @@
+-# encoding: utf-8
+
 -#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 -#  Cryptopus and licensed under the Affero General Public License version 3 or later.
 -#  See the COPYING file at the top-level directory or at
@@ -14,7 +16,7 @@
     %th= t '.ldap_uid'
     %th= t '.admin'
     %th{colspan: "3"}= t :actions
-  - @users.unlocked.each do |user|
+  - @users.each do |user|
     %tr{class: "#{cycle( 'odd', 'even' )}"}
       %td= user.username
       %td= user.label
@@ -23,26 +25,26 @@
           = user.last_login_at.strftime('%d.%m.%Y, %H:%M')
       %td= user.last_login_from
       %td= user.ldap_uid.to_s
+
       %td
-        - if user != current_user
-          = change_admin_attribute(user)
+        = Admin::UserRole::Dropdown.new(user, current_user).render
       %td.action_icon
-        - if user.auth != 'ldap'
+        - if policy(user).edit? || policy(user).resetpassword?
           = link_to image_tag("edit.svg"), edit_admin_user_path(user)
       %td.action_icon
-        - if user != current_user
+        - if policy(user).destroy?
           = link_to image_tag("remove.svg"), '#',
             data: { last_teammember_teams_link: last_teammember_teams_teams_path(user_id: user.id),
-                    user_id: user.id},
+              user_id: user.id},
             class: 'delete_user_link'
-- if User.locked.count != 0
+- if User::Human.locked.count != 0
   %h1= t '.locked'
   %table.table.table-striped
     %tr
       %th{style: "width: 150px;"}= t '.username'
       %th= t '.name'
       %th= t '.action'
-    - User.locked.each do |user|
+    - User::Human.locked.each do |user|
       %tr{class: "#{cycle( 'odd', 'even' )}"}
         %td= link_to user.username, edit_admin_user_path(user)
         %td= user.label
@@ -51,7 +53,3 @@
 
 #last_teammember_teams
   = render 'last_teammember_teams'
-
-
-:javascript
-  window.I18n = #{current_translations.to_json.html_safe}

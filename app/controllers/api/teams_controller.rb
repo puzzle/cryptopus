@@ -1,35 +1,30 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
 class Api::TeamsController < ApiController
-  before_action :admin_only, except: :index
+
+  def self.policy_class
+    TeamPolicy
+  end
 
   def index
+    authorize Team
     teams = current_user.teams
-    render_json teams
+    render_json find_teams(teams)
   end
 
   def last_teammember_teams
     teams = user.last_teammember_teams
+    authorize teams
     render_json teams
   end
 
   def destroy
+    authorize team
     team.destroy
-    render_json ''
-  end
-
-  protected
-
-  def admin_only
-    unless current_user.admin?
-      add_error t('flashes.admin.admin.no_access')
-      render_json && return
-    end
+    render_json
   end
 
   private
@@ -40,5 +35,20 @@ class Api::TeamsController < ApiController
 
   def team
     @team ||= Team.find(params['id'])
+  end
+
+  def find_teams(teams)
+    if query_param.present?
+      teams = finder(teams, query_param).apply
+    end
+    teams
+  end
+
+  def finder(teams, query)
+    Finders::TeamsFinder.new(teams, query)
+  end
+
+  def query_param
+    params[:q]
   end
 end

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -47,6 +45,34 @@ class LdapConnection
                         return entry.uidnumber[0].to_s if entry.respond_to?(:uidnumber)
                       end
     raise "No uidnumber for uid #{username}"
+  end
+
+  def exists?(username)
+    return unless username_valid?(username)
+
+    filter = Net::LDAP::Filter.eq('uid', username)
+    result = connection.search(base: settings[:basename],
+                               filter: filter)
+    result.present?
+  end
+
+  def test_connection
+    connection.bind
+  rescue StandardError
+    false
+  end
+
+  def test
+    options = { user: user, password: password }
+
+    success = []
+    failed = []
+
+    ldap_hosts.each do |hostname|
+      test_connection_with(hostname, options) ? success << hostname : failed << hostname
+    end
+
+    { success: success, failed: failed }
   end
 
   private
@@ -103,12 +129,12 @@ class LdapConnection
     ldap
   end
 
-  def handle_exception(host, e)
+  def handle_exception(host, exception)
     if ldap_hosts.last == host
-      raise e
+      raise exception
     else
-      return if e.is_a?(Net::LDAP::ConnectionRefusedError)
-      raise(e) unless expected_message(e.message)
+      return if exception.is_a?(Net::LDAP::ConnectionRefusedError)
+      raise(exception) unless expected_message(exception.message)
     end
   end
 
@@ -121,9 +147,25 @@ class LdapConnection
     settings[:hostname]
   end
 
+  def user
+    settings[:bind_dn]
+  end
+
+  def password
+    settings[:bind_password]
+  end
+
   def expected_message(message)
     message =~ /name or service not known/i ||
       /connection timed out/i
   end
 
+  def test_connection_with(host, options)
+    params = connection_params(host, options)
+
+    ldap = Net::LDAP.new(params)
+    ldap.bind
+  rescue StandardError
+    false
+  end
 end

@@ -42,7 +42,6 @@ class Api::TeamsControllerTest < ActionController::TestCase
     user = soloteam.teammembers.first.user
 
     response = delete :destroy, params: { id: soloteam.id }
-
     error_message = JSON.parse(response.body)['messages']['errors'][0]
 
     assert_equal 'Access denied', error_message
@@ -62,14 +61,27 @@ class Api::TeamsControllerTest < ActionController::TestCase
     assert_equal 'Access denied', error_message
   end
 
-  test 'listing all teams' do
-      login_as(:bob)
+  test 'should get team for search term' do
+    login_as(:alice)
+    get :index, params: {'q': 'team'}, xhr: true
 
-      get :index, xhr: true
+    result_json = JSON.parse(response.body)['data']['teams'][0]
 
-      team1 = JSON.parse(response.body)['data']['teams'][0]['name']
-      team2 = JSON.parse(response.body)['data']['teams'][1]['name']
-      assert_equal team1, 'team1'
-      assert_equal team2, 'team2'
+    team = teams(:team1)
+
+    assert_equal team.name, result_json['name']
+    assert_equal team.id, result_json['id']
+  end
+  
+  test 'should get all teams for no query' do
+    login_as(:alice)
+    get :index, params: {'q': ''}, xhr: true
+
+    result_json = JSON.parse(response.body)['data']['teams'][0]
+
+    team = teams(:team1)
+
+    assert_equal team.name, result_json['name']
+    assert_equal team.id, result_json['id']
   end
 end

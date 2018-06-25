@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 # == Schema Information
 #
 # Table name: recryptrequests
@@ -14,5 +12,5 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Recryptrequest < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, class_name: 'User::Human', foreign_key: :user_id
 end

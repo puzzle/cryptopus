@@ -1,5 +1,6 @@
 ![logo](https://github.com/puzzle/cryptopus/blob/master/app/assets/images/cryptopussy.svg)
 
+[![Build Status](https://travis-ci.org/puzzle/cryptopus.svg)](https://travis-ci.org/puzzle/cryptopus)
 
 Welcome to Cryptopus
 ====================

@@ -6,7 +6,6 @@
 #  public_key                   :text             not null
 #  private_key                  :binary           not null
 #  password                     :binary
-#  admin                        :boolean          default(FALSE), not null
 #  ldap_uid                     :integer
 #  last_login_at                :datetime
 #  username                     :string
@@ -18,6 +17,10 @@
 #  last_failed_login_attempt_at :datetime
 #  failed_login_attempts        :integer          default(0), not null
 #  last_login_from              :string
+#  type                         :string
+#  human_user_id                :integer
+#  options                      :text
+#  role                         :integer          default("user"), not null
 #
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
@@ -26,41 +29,58 @@
 #  https://github.com/puzzle/cryptopus.
 
 root:
+  type: User::Human
   ldap_uid: 0
   username: root
   givenname: Root
   surname: test
-  admin: true
+  role: <%= User::Human.roles[:admin] %>
   auth: db
   password: 'sha512$aaea15339f56acbaac0719af4f282bb3$d0c2148e42e16f9620e502d51d9ae42fb70e03cde93def02c09256f8c8f278cb0688d197af0b0f4d7852b997d7e79d12cf1b70a210ebf5e065a815bbd9721c19'
   public_key: <%= "!!binary \"#{FixturesHelper.read_public_key('root')}\"" %>
   private_key: <%= "!!binary \"#{FixturesHelper.read_private_key('root')}\"" %>
 
 bob:
+  type: User::Human
   username: bob
   givenname: Bob
   surname: test
+  role: <%= User::Human.roles[:user] %>
   auth: db
   password: 'sha512$aaea15339f56acbaac0719af4f282bb3$d0c2148e42e16f9620e502d51d9ae42fb70e03cde93def02c09256f8c8f278cb0688d197af0b0f4d7852b997d7e79d12cf1b70a210ebf5e065a815bbd9721c19'
   public_key: <%= "!!binary \"#{FixturesHelper.read_public_key('bob')}\"" %>
   private_key: <%= "!!binary \"#{FixturesHelper.read_private_key('bob')}\"" %>
 
 alice:
+  type: User::Human
   username: alice
   givenname: Alice
   surname: test
+  role: <%= User::Human.roles[:user] %>
   auth: db
   password: 'sha512$aaea15339f56acbaac0719af4f282bb3$d0c2148e42e16f9620e502d51d9ae42fb70e03cde93def02c09256f8c8f278cb0688d197af0b0f4d7852b997d7e79d12cf1b70a210ebf5e065a815bbd9721c19'
   public_key: <%= "!!binary \"#{FixturesHelper.read_public_key('alice')}\"" %>
   private_key: <%= "!!binary \"#{FixturesHelper.read_private_key('alice')}\"" %>
 
-
 admin:
+  type: User::Human
   username: admin
   givenname: Admin
   surname: test
-  admin: true
+  role: <%= User::Human.roles[:admin] %>
   auth: db
   password: 'sha512$aaea15339f56acbaac0719af4f282bb3$d0c2148e42e16f9620e502d51d9ae42fb70e03cde93def02c09256f8c8f278cb0688d197af0b0f4d7852b997d7e79d12cf1b70a210ebf5e065a815bbd9721c19'
   public_key: <%= "!!binary \"#{FixturesHelper.read_public_key('admin')}\"" %>
   private_key: <%= "!!binary \"#{FixturesHelper.read_private_key('admin')}\"" %>
+
+conf_admin:
+  type: User::Human
+  username: tux
+  givenname: Tux
+  surname: Miller
+  role: <%= User::Human.roles[:conf_admin] %>
+  auth: db
+  password: 'sha512$aaea15339f56acbaac0719af4f282bb3$d0c2148e42e16f9620e502d51d9ae42fb70e03cde93def02c09256f8c8f278cb0688d197af0b0f4d7852b997d7e79d12cf1b70a210ebf5e065a815bbd9721c19'
+  public_key: <%= "!!binary \"#{FixturesHelper.read_public_key('conf_admin')}\"" %>
+  private_key: <%= "!!binary \"#{FixturesHelper.read_private_key('conf_admin')}\"" %>
+

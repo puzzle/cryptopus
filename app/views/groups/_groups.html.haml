@@ -1,0 +1,19 @@
+-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
+-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+-#  See the COPYING file at the top-level directory or at
+-#  https://github.com/puzzle/cryptopus.
+
+= hidden_field_tag :team_id, team.id
+= link_to t('groups.new.title'), new_team_group_path, class: 'btn btn-primary pull-right', id: 'group-button'
+%table.table.table-striped
+  %tr
+    %th{style: "width: 150px;"}= t '.group'
+    %th= t :description
+    %th{colspan: "3"}= t :actions
+  - for group in @groups
+    %tr{class: "#{cycle('odd', 'even')}"}
+      %td= link_to image_tag( "folder_open.svg" ) + " " + %Q{#{group.name}}, team_group_accounts_path(team, group)
+      %td= simple_format group.description
+      %td.action_icon= link_to image_tag("edit.svg"), [:edit, team, group]
+      %td.action_icon= link_to_destroy [team, group], group
+

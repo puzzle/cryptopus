@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 # == Schema Information
 #
 # Table name: teammembers
@@ -20,9 +18,11 @@
 class Teammember < ApplicationRecord
   delegate :label, to: :user
   belongs_to :team
-  belongs_to :user
+  belongs_to :user, class_name: 'User', foreign_key: :user_id
   before_destroy :protect_if_last_teammember
   before_destroy :protect_if_admin_in_non_private_team
+  before_destroy :remove_api_users
+  # TODO: -> on destroy: remove api-token user first if present
 
   validates :user_id, uniqueness: { scope: :team }
 
@@ -33,10 +33,10 @@ class Teammember < ApplicationRecord
 
   def recrypt_team_password(user, admin, private_key)
     teammember_admin = admin.teammembers.find_by(team_id: team_id)
-    team_password = CryptUtils.decrypt_team_password(teammember_admin.
+    team_password = CryptUtils.decrypt_rsa(teammember_admin.
       password, private_key)
 
-    self.password = CryptUtils.encrypt_team_password(team_password, user.public_key)
+    self.password = CryptUtils.encrypt_rsa(team_password, user.public_key)
     save
   end
 
@@ -50,9 +50,17 @@ class Teammember < ApplicationRecord
   end
 
   def protect_if_admin_in_non_private_team
+    return if user.is_a?(User::Api)
     if !team.private? && user.admin?
       errors.add(:base, 'Admin user cannot be removed from non private team')
       throw :abort
     end
   end
+
+  def remove_api_users
+    return unless user.is_a?(User::Human)
+    ids = user.api_users.pluck(:id)
+    team.teammembers.where(user_id: ids).destroy_all
+  end
+
 end

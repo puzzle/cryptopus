@@ -37,7 +37,9 @@ ch_be:
   group: Gruppä
   team: Team
   move: Bewegä
-
+  here: hiä
+  api-user:
+    none: Du hesch kei Api-Benutzer. Hol dr einä
   time:
     formats:
       default: "%A, %d. %B %Y, %H:%M"
@@ -221,6 +223,29 @@ ch_be:
       title: Nöis Team ersteue
     description:
       private: Admins hei ke Zuegriff we si agwäut si
+
+  profile:
+    index:
+      title: "S Profil vom %{label}"
+    info:
+      info: Info
+      last_login_at: Letschts Login am
+      last_login_from: Letschts Login vo
+    api_users:
+      api_users: Api Benützer
+      no_api_users: Kei Api Benützer
+      username: Benutzernamä
+      description: Beschribig
+      enter_description: Gib e beschribig ii..
+      valid_until: Güutig bis
+      valid_for: Güutig für
+      last_login_at: Letschts Login am
+      last_login_from: Letschts Login vo
+      options:
+        one_min: Ei minutä
+        five_mins: Füf minutä
+        twelve_hours: Zwöuf Stung
+        infinite: Eewigs
 
   flashes:
     api:

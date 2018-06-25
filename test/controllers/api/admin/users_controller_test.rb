@@ -11,29 +11,48 @@ class Api::Admin::UsersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
-  test 'admin empowers user' do
-    teammembers(:team1_bob).destroy
-    bob = users(:bob)
+  context '#destroy' do
+    test 'logged-in admin user cannot delete own user' do
+      bob = users(:bob)
+      bob.update_attribute(:role, 2)
+      login_as(:bob)
+  
+      delete :destroy, params: { id: bob.id }
 
-    login_as(:admin)
-    patch :toggle_admin, params: { user_id: bob }, xhr: true
-
-    bob.reload
-    assert bob.admin?
-    assert bob.teammembers.find_by(team_id: teams(:team1))
+      assert_equal true, bob.reload.persisted?
+      assert_includes(errors, 'Access denied')
+    end
+  
+    test 'non admin cannot delete another user' do
+      alice = users(:alice)
+      login_as(:bob)
+  
+      delete :destroy, params: { id: alice.id }
+  
+      assert_equal true, alice.reload.persisted?
+      assert_includes(errors, 'Access denied')
+      assert_equal 403, status_code
+    end
+  
+    test 'admin can delete another user' do
+      bob = users(:bob)
+      alice = users(:alice)
+      bob.update_attribute(:role, :admin)
+      login_as(:bob)
+  
+      delete :destroy, params: { id: alice.id }
+  
+      assert_not User.find_by(username: 'alice')
+    end
   end
 
-  test 'admin disempowers user' do
-    teammembers(:team1_bob).destroy
-    bob = users(:bob)
+  private
 
-    login_as(:admin)
-    patch :toggle_admin, params: { user_id: bob }, xhr: true
-    bob.reload
-    patch :toggle_admin, params: { user_id: bob }, xhr: true
-    bob.reload
+  def errors
+    JSON.parse(response.body)['messages']['errors']
+  end
 
-    assert_not bob.admin?
-    assert_not bob.teammembers.find_by(team_id: teams(:team1))
+  def status_code
+    JSON.parse(response.code)
   end
 end

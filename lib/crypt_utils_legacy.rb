@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -8,9 +6,8 @@
 require 'openssl'
 require 'digest/sha1'
 
-include OpenSSL
-
 class CryptUtilsLegacy
+  include OpenSSL
 
   def self.decrypt_private_key(private_key, password)
     cipher = OpenSSL::Cipher::Cipher.new('aes-256-cbc')

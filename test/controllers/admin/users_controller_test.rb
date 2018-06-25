@@ -11,53 +11,44 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
-  context '#destroy' do
-
-    test 'logged-in admin user cannot delete own user' do
-      admin = users(:admin)
+  context '#index' do
+    test 'admin receives userlist' do
       login_as(:admin)
+      get :index
 
-      assert_difference('User.count', 0) do
-        delete :destroy, params: { id: admin.id }
-      end
+      users = assigns(:users)
 
-      assert admin.reload.persisted?
-
-      assert_match /You can't delete your-self/, flash[:error]
+      assert_equal 5, users.size
+      assert_equal User::Human.all.count, users.count
+      assert_equal true, users.any? { |t| t.username == 'root' }
     end
 
-    test 'bob cannot delete another user' do
-      alice = users(:alice)
+    test 'conf admin receives userlist' do
+      login_as(:tux)
+      get :index
+
+      users = assigns(:users)
+
+      assert_equal 5, users.size
+      assert_equal true, users.any? { |t| t.username == 'root' }
+    end
+
+    test 'does not list locked users' do
+      users(:bob).update_attribute(:locked, true)
+
+      login_as(:admin)
+      get :index
+
+      users = assigns(:users)
+
+      assert_equal 4, users.size
+    end
+
+    test 'user does not receive userlist' do
       login_as(:bob)
+      get :index
 
-      assert_difference('User.count', 0) do
-        delete :destroy, params: { id: alice.id }
-      end
-
-      assert alice.reload.persisted?
-      assert_match /Access denied/, flash[:error]
-    end
-
-    test 'admin can delete another user' do
-      alice = users(:alice)
-      login_as(:admin)
-
-      assert_difference('User.count', -1) do
-        delete :destroy, params: { id: alice.id }
-      end
-
-      assert_not User.find_by(username: 'alice')
-    end
-
-    test 'admin can delete another admin' do
-      admin2 = Fabricate(:admin)
-      login_as(:admin)
-
-      assert_difference('User.count', -1) do
-        delete :destroy, params: { id: admin2.id }
-      end
-
-      assert_not User.find_by(username: admin2.username)
+      assert_nil assigns(:users)
     end
   end
 
@@ -86,39 +77,158 @@ class Admin::UsersControllerTest < ActionController::TestCase
       assert bob.reload.locked
       assert_equal 5, bob.failed_login_attempts
     end
-
   end
 
   context '#update' do
+    context 'admin' do
+      test 'admin updates users attributes' do
+        alice = users(:alice)
 
-    test 'admin updates user-profile' do
-      alice = users(:alice)
-      update_params = { username: 'new_username', givenname: 'new_givenname' }
+        login_as(:admin)
+        post :update, params: { id: alice, user_human: update_params }
 
-      login_as(:admin)
-      post :update, params: { id: alice, user: update_params }
+        alice.reload
 
-      alice.reload
+        assert_equal 'new_username', alice.username
+        assert_equal 'new_givenname', alice.givenname
+        assert_equal 'new_surname', alice.surname
+      end
 
-      assert_equal alice.username, 'new_username'
-      assert_equal alice.givenname, 'new_givenname'
+      test 'admin updates conf admins attributes' do
+        tux = users(:conf_admin)
+
+        login_as(:admin)
+        post :update, params: { id: tux, user_human: update_params }
+
+        tux.reload
+
+        assert_equal 'new_username', tux.username
+        assert_equal 'new_username', tux.username
+        assert_equal 'new_givenname', tux.givenname
+      end
+
+      test 'admin updates admins attributes' do
+        admin2 = Fabricate(:admin)
+
+        login_as(:admin)
+        post :update, params: { id: admin2, user_human: update_params }
+
+        admin2.reload
+
+        assert_equal 'new_username', admin2.username
+        assert_equal 'new_username', admin2.username
+        assert_equal 'new_givenname', admin2.givenname
+      end
+
+      test 'admin cannot update ldap-users attributes' do
+        bob = users(:bob)
+        bob.update_attribute(:auth, 'ldap')
+
+        login_as(:admin)
+        post :update, params: { id: bob, user_human: update_params }
+
+        bob.reload
+
+        assert_not_equal 'new_username', bob.username
+        assert_not_equal 'new_givenname', bob.givenname
+        assert_not_equal 'new_surname', bob.surname
+        assert_match(/Ldap user cannot be updated/, flash[:error])
+      end
+
+      test 'admin cannot update roots attributes' do
+        root = users(:root)
+
+        login_as(:admin)
+        post :update, params: { id: root, user_human: update_params }
+
+        root.reload
+
+        assert_equal 'root', root.username
+        assert_equal 'Root', root.givenname
+        assert_equal 'test', root.surname
+        assert_match(/Access denied/, flash[:error])
+      end
     end
 
-    test 'cannot update ldap-user-profile' do
-      bob = users(:bob)
-      bob.update_attribute(:auth, 'ldap')
+    context 'conf admin' do
+      test 'conf admin can only update users surname and givenname' do
+        alice = users(:alice)
 
-      update_params = { username: 'new_username'}
+        login_as(:tux)
+        post :update, params: { id: alice, user_human: update_params }
 
-      login_as(:admin)
-      post :update, params: { id: bob, user: update_params }
+        alice.reload
 
-      bob.reload
+        assert_equal 'alice', alice.username
+        assert_equal 'new_givenname', alice.givenname
+        assert_equal 'new_surname', alice.surname
+      end
 
-      assert_not_equal 'new_username', bob.username
-      assert_match /Ldap user cannot be updated/, flash[:error]
+      test 'conf admin cannot update conf admins attributes' do
+        conf_admin = Fabricate(:conf_admin)
+        tux = users(:conf_admin)
+
+        login_as(conf_admin.username)
+        post :update, params: { id: tux, user_human: update_params }
+
+        tux.reload
+
+        assert_equal 'tux', tux.username
+        assert_equal 'Tux', tux.givenname
+        assert_equal 'Miller', tux.surname
+        assert_match(/Access denied/, flash[:error])
+      end
+
+      test 'conf admin cannot update admins attributes' do
+        admin = users(:admin)
+
+        login_as(:tux)
+        post :update, params: { id: admin, user_human: update_params }
+
+        admin.reload
+
+        assert_equal 'admin', admin.username
+        assert_equal 'Admin', admin.givenname
+        assert_equal 'test', admin.surname
+        assert_match(/Access denied/, flash[:error])
+      end
+
+      test 'conf admin cannot update ldap-users attributes' do
+        bob = users(:bob)
+        bob.update_attribute(:auth, 'ldap')
+
+        login_as(:tux)
+        post :update, params: { id: bob, user_human: update_params }
+
+        bob.reload
+
+        assert_not_equal 'new_username', bob.username
+        assert_not_equal 'new_givenname', bob.givenname
+        assert_not_equal 'new_surname', bob.surname
+        assert_match(/Ldap user cannot be updated/, flash[:error])
+      end
+
+      test 'conf admin cannot update roots attributes' do
+        root = users(:root)
+
+        login_as(:tux)
+        post :update, params: { id: root, user_human: update_params }
+
+        root.reload
+
+        assert_equal 'root', root.username
+        assert_equal 'Root', root.givenname
+        assert_equal 'test', root.surname
+        assert_match(/Access denied/, flash[:error])
+      end
     end
-
   end
 
+  private
+
+  def update_params
+    { username: 'new_username',
+      givenname: 'new_givenname',
+      surname: 'new_surname' }
+  end
 end

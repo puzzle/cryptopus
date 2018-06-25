@@ -11,8 +11,9 @@ require 'simplecov'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require "minitest/autorun"
-require 'mocha/mini_test'
+require 'mocha/minitest'
 require "minitest/rails/capybara"
+require 'policies/policy_test'
 
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -51,7 +52,7 @@ class ActiveSupport::TestCase
   end
 
   def enable_ldap
-    Setting.find_by(key: 'ldap_enable').update_attributes(value: true)
+    Setting.find_by(key: 'ldap_enable').update!(value: true)
   end
 
   def self.context(title, &block)

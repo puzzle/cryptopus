@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '5.1.4'
+gem 'rails', '5.1.6'
 
 gem 'figaro'
 gem 'mysql2'
@@ -26,6 +26,7 @@ gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
 gem 'less-rails'
 gem 'password_strength'
+gem 'pundit'
 gem 'rails-i18n'
 gem 'sass-rails'
 gem 'seed-fu'
@@ -64,3 +65,6 @@ group :test do
   gem 'rails-controller-testing'
   gem 'simplecov', require: false, group: :test
 end
+
+# Added at 2018-05-18 13:57:32 +0200 by dfischli:
+gem 'i18n-js', '~> 3.0'
