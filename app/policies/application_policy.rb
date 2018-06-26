@@ -3,7 +3,7 @@ class ApplicationPolicy
 
   def initialize(user, record)
     # api users have only limited access: make sure access is forbidden by default
-    raise Pundit::NotAuthorizedError if user.is_a?(User::Api)
+    raise Pundit::NotAuthorizedError if user.is_a?(::User::Api)
     @user = user
     @record = record
   end

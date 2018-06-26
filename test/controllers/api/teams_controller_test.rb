@@ -20,22 +20,6 @@ class Api::TeamsControllerTest < ActionController::TestCase
     end
     assert_not Teammember.where(team_id: team.id).present?, 'teammembers should be removed'
   end
-
-  test 'returns last teammember teams' do
-    login_as(:admin)
-
-    soloteam = Fabricate(:private_team)
-    user = soloteam.teammembers.first.user
-
-    get :last_teammember_teams, params: { user_id: user.id }
-    team = JSON.parse(response.body)['data']['teams'][0]
-
-
-    assert_equal soloteam.id, team['id']
-    assert_equal soloteam.name, team['name']
-    assert_equal soloteam.description, team['description']
-  end
-
   test 'cannot delete team if not admin' do
     login_as(:bob)
     soloteam = Fabricate(:private_team)
@@ -48,6 +32,33 @@ class Api::TeamsControllerTest < ActionController::TestCase
     assert user.last_teammember_teams.present?
   end
 
+  test 'returns last teammember teams' do
+    login_as(:admin)
+
+    soloteam = Fabricate(:private_team)
+    user = soloteam.teammembers.first.user
+
+    get :last_teammember_teams, params: { user_id: user.id }
+    team = JSON.parse(response.body)['data']['teams'][0]
+
+    assert_equal soloteam.id, team['id']
+    assert_equal soloteam.name, team['name']
+    assert_equal soloteam.description, team['description']
+  end
+
+  test 'returns last teammember teams as conf admin' do
+    login_as(:tux)
+
+    soloteam = Fabricate(:private_team)
+    user = soloteam.teammembers.first.user
+
+    get :last_teammember_teams, params: { user_id: user.id }
+    team = JSON.parse(response.body)['data']['teams'][0]
+
+    assert_equal soloteam.id, team['id']
+    assert_equal soloteam.name, team['name']
+    assert_equal soloteam.description, team['description']
+  end
 
   test 'cannot show last teammember teams if not admin' do
     login_as(:bob)

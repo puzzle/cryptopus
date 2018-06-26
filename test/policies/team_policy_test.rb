@@ -103,6 +103,20 @@ class TeamPolicyTest < PolicyTest
       refute_permit alice, team2, :remove_member?
     end
   end
+  
+  context '#last_teammember_teams' do
+    test 'admin can list last teammember teams' do
+      assert_permit admin, Team, :last_teammember_teams?
+    end
+
+    test 'conf admin can list last teammember teams' do
+      assert_permit conf_admin, Team, :last_teammember_teams?
+    end
+
+    test 'user cannot list last teammember teams' do
+      refute_permit alice, Team, :last_teammember_teams?
+    end
+  end
 
   private
 
