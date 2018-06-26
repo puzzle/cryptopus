@@ -117,6 +117,20 @@ class TeamPolicyTest < PolicyTest
       refute_permit alice, Team, :last_teammember_teams?
     end
   end
+  
+  context '#list_members' do
+    test 'admin can list members of all teams' do
+      assert_permit admin, private_team, :list_members?
+    end
+
+    test 'conf admin can list members of all teams' do
+      assert_permit conf_admin, private_team, :list_members?
+    end
+
+    test 'user cannot list members of team he isnt member of' do
+      refute_permit alice, team2, :last_teammember_teams?
+    end
+  end
 
   private
 
