@@ -6,7 +6,7 @@
 class Api::Team::MembersController < ApiController
 
   def index
-    authorize team, :team_member?
+    authorize team, :list_members?
     members = team.teammembers.list
     render_json members
   end

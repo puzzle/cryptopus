@@ -35,6 +35,10 @@ class TeamPolicy < TeamDependantPolicy
     admin_or_conf_admin?
   end
 
+  def list_members?
+    team_member? || admin_or_conf_admin?
+  end
+
   private
 
   def current_user
