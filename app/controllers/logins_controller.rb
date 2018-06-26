@@ -33,10 +33,12 @@ class LoginsController < ApplicationController
 
   def logout
     flash_notice = flash[:notice]
+    jumpto = params[:jumpto]
     reset_session
+    session[:jumpto] = jumpto
     flash[:notice] = flash_notice
 
-    redirect_to params[:jumpto] || login_login_path
+    redirect_to login_login_path
   end
 
   def show_update_password

@@ -24,11 +24,19 @@ include IntegrationTest::DefaultHelper
     assert_equal login_login_path, request.fullpath
   end
 
-  test 'bob logs out manuel' do
+  test 'bob logs out' do
     login_as('bob')
     get logout_login_path
     follow_redirect!
     assert_equal login_login_path, request.fullpath
+  end
+
+  test 'jumpto is set when autologout' do
+    login_as('bob')
+    get logout_login_path(jumpto: admin_users_path)
+    follow_redirect!
+    assert_equal login_login_path, request.fullpath
+    assert_equal session[:jumpto], admin_users_path
   end
 
   test 'goto requested page after login' do

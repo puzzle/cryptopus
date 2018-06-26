@@ -85,6 +85,20 @@ class RemovedLdapUsersTest < ActiveSupport::TestCase
     assert_match(/successful/, Log.first.output)
     assert_equal [], task.removed_ldap_users
   end
+  
+  test 'conf admin can execute task' do
+    enable_ldap
+
+    LdapConnection.any_instance.expects(:test_connection)
+      .returns(true)
+
+    task = MaintenanceTask.find(3)
+    task.executer = users(:conf_admin)
+    task.execute
+
+    assert_match(/successful/, Log.first.output)
+    assert_equal [], task.removed_ldap_users
+  end
 
   private
 

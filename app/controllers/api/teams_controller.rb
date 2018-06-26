@@ -16,8 +16,8 @@ class Api::TeamsController < ApiController
   end
 
   def last_teammember_teams
+    authorize Team, :last_teammember_teams?
     teams = user.last_teammember_teams
-    authorize teams
     render_json teams
   end
 

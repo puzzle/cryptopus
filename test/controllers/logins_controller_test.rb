@@ -37,7 +37,8 @@ class LoginsControllerTest < ActionController::TestCase
 
     get :logout, params: { jumpto: admin_users_path }
 
-    assert_redirected_to admin_users_path
+    assert_redirected_to login_login_path
+    assert_equal session[:jumpto], admin_users_path
   end
 
   test 'cannot login with unknown username' do

@@ -20,7 +20,7 @@ class TeamPolicy < TeamDependantPolicy
   end
 
   def last_teammember_teams?
-    current_user.admin?
+    admin_or_conf_admin?
   end
 
   def add_member?
