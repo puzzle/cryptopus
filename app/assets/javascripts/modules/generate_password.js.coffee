@@ -14,9 +14,7 @@ class app.GeneratePassword
     password_field.val(randomPassword())
 
   randomPassword = () ->
-    buffer = new Uint8Array(10)
-    window.crypto.getRandomValues(buffer)
-    btoa(String.fromCharCode.apply(null, buffer))
+    password = Math.random().toString(36).slice(-10);
 
   bind = ->
     $(document).on 'click', '#generate_button', ->
