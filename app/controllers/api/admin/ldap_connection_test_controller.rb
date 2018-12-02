@@ -16,7 +16,7 @@ class Api::Admin::LdapConnectionTestController < ApiController
       end
       render_json ''
     else
-      render status: 404, json: {}
+      render status: :not_found, json: {}
     end
   end
 

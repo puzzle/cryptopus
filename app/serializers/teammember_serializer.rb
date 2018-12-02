@@ -26,11 +26,13 @@ class TeammemberSerializer < ApplicationSerializer
   def deletable
     return false if last_teammember?
     return true if private_team?
+
     !user.admin?
   end
 
   def admin
     return false if private_team?
+
     user.admin?
   end
 

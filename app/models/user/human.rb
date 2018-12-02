@@ -165,6 +165,7 @@ class User::Human < User
 
   def legacy_password?
     return false if ldap?
+
     password.match('sha512').nil?
   end
 
@@ -184,6 +185,7 @@ class User::Human < User
 
     teams.each do |t|
       next if t.teammember?(self)
+
       active_teammember = t.teammembers.find_by user_id: actor.id
       team_password = CryptUtils.decrypt_rsa(active_teammember.password, private_key)
       t.add_user(self, team_password)
@@ -192,6 +194,7 @@ class User::Human < User
 
   def disempower
     raise 'root can not be disempowered' if username == 'root'
+
     teammembers.joins(:team).where(teams: { private: false }).destroy_all
   end
 

@@ -25,6 +25,7 @@ class AccountMoveHandler < AccountHandler
 
   def move_account_to_new_team
     raise 'user is not member of new team' unless new_team.teammember?(user.id)
+
     old_team_password = old_team.decrypt_team_password(user, private_key)
     move_items(old_team_password)
     account.decrypt(old_team_password)

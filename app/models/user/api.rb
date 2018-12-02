@@ -58,6 +58,7 @@ class User::Api < User
   def expired?
     return false if valid_for.zero?
     return true unless valid_until
+
     valid_until < Time.now
   end
 
@@ -75,6 +76,7 @@ class User::Api < User
 
   def authenticate(cleartext_password)
     return false if locked?
+
     authenticate_db(cleartext_password)
   end
 
@@ -130,6 +132,7 @@ class User::Api < User
 
   def refresh_valid_until
     return if valid_for.zero?
+
     options.valid_until = Time.now.advance(seconds: valid_for)
   end
 

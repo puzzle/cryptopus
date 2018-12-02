@@ -54,7 +54,8 @@ class ChangelogReader
   end
 
   def add_changelog_entry(entry)
-    return unless entry.present?
+    return if entry.blank?
+
     @current_version.log_entries << entry
   end
 end
