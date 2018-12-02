@@ -43,6 +43,7 @@ class MaintenanceTasks::RootAsAdmin < MaintenanceTask
     plaintext_team_password = team.decrypt_team_password(User::Human.root, roots_plain_private_key)
     User::Human.admin.each do |u|
       next if team.teammember?(u)
+
       team.add_user(u, plaintext_team_password)
     end
     team.update_attributes(private: false)

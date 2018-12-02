@@ -17,6 +17,7 @@ class LdapConnection
 
   def login(username, password)
     return false if user_invalid?(username, password)
+
     result = connection.bind_as(base: settings[:basename],
                                 filter: "uid=#{username}",
                                 password: password)
@@ -30,14 +31,16 @@ class LdapConnection
 
   def ldap_info(uidnumber, attribute)
     raise ArgumentError unless uidnumber.present? && attribute.present?
+
     filter = Net::LDAP::Filter.eq('uidnumber', uidnumber.to_s)
     result = connection.search(base: settings[:basename],
                                filter: filter).try(:first).try(attribute).try(:first)
-    result.present? ? result : "No #{attribute} for uidnumber #{uidnumber}"
+    result.presence || "No #{attribute} for uidnumber #{uidnumber}"
   end
 
   def uidnumber_by_username(username)
     return unless username_valid?(username)
+
     filter = Net::LDAP::Filter.eq('uid', username)
     connection.search(base: settings[:basename],
                       filter: filter,

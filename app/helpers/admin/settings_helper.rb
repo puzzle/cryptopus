@@ -6,6 +6,7 @@
 module Admin::SettingsHelper
   def input_field_setting(setting)
     return selectize_input_field(setting) if selectize_input_field(setting)
+
     content = ''
     content << label_tag(setting.key)
 

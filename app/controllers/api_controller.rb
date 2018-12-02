@@ -35,7 +35,8 @@ class ApiController < ActionController::Base
     return plaintext_team_password(team) if active_session?
 
     team_password = team.decrypt_team_password(current_user, users_private_key)
-    raise 'Failed to decrypt the team password' unless team_password.present?
+    raise 'Failed to decrypt the team password' if team_password.blank?
+
     team_password
   end
 
@@ -74,6 +75,7 @@ class ApiController < ActionController::Base
 
   def header_auth?
     return false if active_session?
+
     username.present?
   end
 

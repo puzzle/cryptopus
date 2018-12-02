@@ -27,7 +27,7 @@ class Team::ApiUsersController < ApiController
   private
 
   def team_api_user
-    api_user = User::Api.find_by_id(params[:id])
+    api_user = User::Api.find_by(id: params[:id])
     Team::ApiUser.new(api_user, team)
   end
 end

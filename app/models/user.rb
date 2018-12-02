@@ -37,11 +37,13 @@ class User < ApplicationRecord
   def self.find_user(username, password)
     user = find_by(username: username.strip)
     return user if user.present?
+
     User::Human.find_or_import_from_ldap(username.strip, password) if User::Human.ldap_enabled?
   end
 
   def update_password(old, new)
     return if ldap?
+
     if authenticate_db(old)
       self.password = CryptUtils.one_way_crypt(new)
       pk = CryptUtils.decrypt_private_key(private_key, old)
@@ -58,7 +60,8 @@ class User < ApplicationRecord
   end
 
   def authenticate_db(cleartext_password)
-    raise Exceptions::AuthenticationFailed unless cleartext_password.present?
+    raise Exceptions::AuthenticationFailed if cleartext_password.blank?
+
     salt = password.split('$')[1]
     password.split('$')[2] == Digest::SHA512.hexdigest(salt + cleartext_password)
   end

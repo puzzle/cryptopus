@@ -19,6 +19,7 @@ class User::Human
 
         if Setting.value(:ldap, :enable)
           return unless authenticate_ldap(username, password)
+
           create_from_ldap(username, password)
         end
       end
@@ -31,6 +32,7 @@ class User::Human
 
       def ldap_enabled?
         return true if Setting.value('ldap', 'enable') == true
+
         false
       end
 

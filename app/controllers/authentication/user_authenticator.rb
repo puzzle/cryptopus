@@ -49,6 +49,7 @@ class Authentication::UserAuthenticator
     if params_present? && valid_username? && user.present?
       return true
     end
+
     add_error('flashes.logins.wrong_password')
     false
   end
@@ -65,6 +66,7 @@ class Authentication::UserAuthenticator
     unless brute_force_detector.locked?
       return false
     end
+
     add_error('flashes.logins.locked')
     true
   end

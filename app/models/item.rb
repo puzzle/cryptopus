@@ -62,6 +62,7 @@ class Item < ApplicationRecord
 
   def valid_file_size
     return if cleartext_file.nil?
+
     if cleartext_file.size > 10_000_000 # 10MB
       errors[:base] << I18n.t('flashes.items.uploaded_size_to_high')
     end
@@ -82,11 +83,13 @@ class Item < ApplicationRecord
   def decrypt_attr(attr, team_password)
     crypted_file = send(attr)
     return if crypted_file.blank?
+
     CryptUtils.decrypt_blob(crypted_file, team_password)
   end
 
   def encrypt_file(team_password)
     return if cleartext_file.blank?
+
     crypted_file = CryptUtils.encrypt_blob(cleartext_file, team_password)
     self.file = crypted_file
   end

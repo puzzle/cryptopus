@@ -8,15 +8,18 @@ class User::HumanPolicy < ApplicationPolicy
     if user.user?
       return admin_or_conf_admin?
     end
+
     current_user.admin?
   end
 
   def edit?
     return false if own_user?
+
     unless user.ldap?
       if user.user?
         return admin_or_conf_admin?
       end
+
       current_user.admin?
     end
   end
@@ -39,6 +42,7 @@ class User::HumanPolicy < ApplicationPolicy
     if user.admin?
       return current_user.admin?
     end
+
     admin_or_conf_admin?
   end
 
@@ -48,15 +52,18 @@ class User::HumanPolicy < ApplicationPolicy
     if user.user?
       return admin_or_conf_admin?
     end
+
     current_user.admin?
   end
 
   def resetpassword?
     return false if own_user?
+
     unless user.ldap?
       if user.user?
         return admin_or_conf_admin?
       end
+
       current_user.admin?
     end
   end
