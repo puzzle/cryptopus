@@ -439,3 +439,10 @@ fr:
     weak: Le mot de passe est faible
     good: Le mot de passe est bon
     strong: Le mot de passe est forte!
+    
+  #Pundit
+  pundit:
+    default: Accès refusé
+    team_policy:
+      update?: Vous n'êtes pas membre de cette équipe
+      destroy?: Seul l'administrateur peut supprimer des équipes 
