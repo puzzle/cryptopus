@@ -20,7 +20,7 @@
 #  type                         :string
 #  human_user_id                :integer
 #  options                      :text
-#  role                         :integer          default("user"), not null
+#  role                         :integer          default(0), not null
 #
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
