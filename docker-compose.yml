@@ -2,11 +2,13 @@ version: '2'
 
 services:
   cryptopus:
-    build: .
-    image: cryptopus
-    container_name: cryptopus
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
-    volumes: 
-      - ./db:/cryptopus/db
+    image: puzzle/cryptopus
+    container_name: cryptopus-sqlite
+    environment:
+      SECRET_KEY_BASE: d7220ce1111af18af11c4d93897c74e283ec2d1c6dee93965fd8d9d104724720e281ed54486844551329faca574e99f509e19f9af6ff3455c88ed10337780ccf
     ports:
-      - 3000:3000
+      - 8080:8080
+    volumes:
+      - cryptopus-sqlite:/opt/app-root/src/db
+volumes:
+  cryptopus-sqlite:

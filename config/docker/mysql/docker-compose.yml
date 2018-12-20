@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+  cryptopus:
+    image: puzzle/cryptopus
+    container_name: cryptopus
+    env_file:
+      - mysql-prod.env 
+    environment:
+      RAILS_DB_ADAPTER: 'mysql2'
+      RAILS_DB_HOST: 'cryptopus-mysql'
+      RAILS_DB_NAME: 'cryptopus_prod'
+      RAILS_DB_PORT: 3306
+    ports:
+      - 8080:8080
+    links:
+      - cryptopus-mysql:cryptopus-mysql
+  cryptopus-mysql:
+    image: mysql:5.7
+    container_name: cryptopus-mysql
+    env_file:
+      - mysql-prod.env 
+    restart: always
+    volumes:
+      - cryptopus-mysql:/var/lib/mysql
+    ports:
+      - 3306
+volumes:
+  cryptopus-mysql:

@@ -44,4 +44,4 @@ test:
 
 production:
   <<: *generic
-  database: <%= ENV['RAILS_DB_NAME'] || "#{Rails.root}/db/development.sqlite3" %>
+  database: <%= ENV['RAILS_DB_NAME'] || "#{Rails.root}/db/production.sqlite3" %>
