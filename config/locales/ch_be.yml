@@ -94,6 +94,7 @@ ch_be:
     edit:
       title: Account editiere
       random_password: Zuefäuigs Passwort
+      edit_password_placeholder: Klickä oder fokusierä für Igab ...
     show:
       title: "Account: %{account_name}"
       last_change: "Letschti Änderig vor %{time_ago}"
