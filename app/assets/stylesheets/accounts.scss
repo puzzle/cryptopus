@@ -1,37 +1,36 @@
-#move_account_form{
-  position:fixed;
-  top:0;
-  left:0;
-  background:rgba(0,0,0,0.6);
-  z-index:5;
-  width:100%;
-  height:100%;
+#move_account_form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 5;
+  width: 100%;
+  height: 100%;
   display: none;
 }
 
-#movescreen{
-  width:600px;
+#movescreen {
+  width: 600px;
   margin: 10% auto;
   padding: 10px 10px 70px 10px;
   background: white;
-  position:relative;
-  z-index:10;
-  border:5px solid #cccccc;
-  border-radius:10px;
+  position: relative;
+  z-index: 10;
+  border: 5px solid #cccccc;
+  border-radius: 10px;
 }
 
-#movescreen_buttons{
+#movescreen_buttons {
   margin-top: 10px;
 }
 
-#move_account_button{
+#move_account_button {
   margin-right: 5px;
 }
 
-#account_password{
-  width: 75%
+#account_password {
+  width: 50%;
 }
-#generate_button{
-  width: 24%
+#generate_button {
+  width: 24%;
 }
-

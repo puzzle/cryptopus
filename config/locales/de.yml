@@ -66,6 +66,7 @@ de:
     edit:
       title: Account editieren
       random_password: Zufälliges Passwort
+      edit_password_placeholder: Klicken oder fokusieren für Eingabe ...
     show:
       title: "Account: %{account_name}"
       last_change: "Letzte Änderung vor %{time_ago}"

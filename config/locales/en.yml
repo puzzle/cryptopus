@@ -66,6 +66,7 @@ en:
     edit:
       title: Editing account
       random_password: Random password
+      edit_password_placeholder: Click or focus to set ...
     show:
       title: "Account: %{account_name}"
       last_change: "Last change was %{time_ago} ago"
