@@ -118,7 +118,6 @@ GEM
     ffi (1.9.23)
     figaro (1.1.1)
       thor (~> 0.14)
-    geoip (1.6.4)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     grease (0.3.1)
@@ -341,7 +340,6 @@ DEPENDENCIES
   fabrication
   faker
   figaro
-  geoip
   haml
   handlebars_assets
   hirb
@@ -381,4 +379,4 @@ DEPENDENCIES
   uglifier
 
 BUNDLED WITH
-   1.16.2
+   1.16.5

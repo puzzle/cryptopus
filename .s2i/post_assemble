@@ -6,6 +6,4 @@ set -ex
 
 pushd /opt/app-root/src
 
-bundle exec rake geo:fetch
-
 popd

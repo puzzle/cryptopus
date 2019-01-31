@@ -173,6 +173,6 @@ class LoginsControllerTest < ActionController::TestCase
     user.update_attributes(last_login_at: '2001-09-11 19:00:00 + 0000', last_login_from: '153.123.34.34')
 
     post :authenticate, params: { password: 'password', username: 'bob' }
-    assert_equal('The last login was on September 11, 2001 19:00 from 153.123.34.34 (JP)', flash[:notice])
+    assert_equal('The last login was on September 11, 2001 19:00 from 153.123.34.34', flash[:notice])
   end
 end

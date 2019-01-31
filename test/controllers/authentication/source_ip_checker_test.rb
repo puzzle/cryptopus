@@ -29,28 +29,9 @@ class SourceIpCheckerTest <  ActiveSupport::TestCase
     end
   end
 
-  test 'does not allow ip if unknown location' do
-    country = mock()
-    country.expects(:country_code2).returns('--')
-    GeoIP.any_instance.expects(:country).returns(country)
-
-    checker = Authentication::SourceIpChecker.new('1.42.42.12')
-
-    assert_equal false, checker.ip_authorized?
-  end
-
   test 'does not allow ip if country is not whitelisted' do
     checker = Authentication::SourceIpChecker.new('8.8.8.8')
-    assert_equal false, checker.send(:country_authorized?)
     assert_equal false, checker.ip_authorized?
-  end
-
-  test 'allows ip from whitelisted country' do
-    ch_ip = '46.140.0.1'
-
-    checker = Authentication::SourceIpChecker.new(ch_ip)
-    assert_equal true, checker.send(:country_authorized?)
-    assert_equal true, checker.ip_authorized?
   end
 
   test 'allows whitelisted ip' do
@@ -69,20 +50,4 @@ class SourceIpCheckerTest <  ActiveSupport::TestCase
     assert_equal true, checker.send(:ip_whitelisted?)
     assert_equal true, checker.ip_authorized?
   end
-
-  test 'raises error if geo dat file missing' do
-    File.expects(:exist?).returns(false)
-    ch_ip = '46.140.0.1'
-
-    Authentication::SourceIpChecker.any_instance.stubs(:private_ip?).returns(false)
-    Authentication::SourceIpChecker.any_instance.stubs(:remote_ip).returns(ch_ip)
-
-    checker = Authentication::SourceIpChecker.new(ch_ip)
-    exception = assert_raises(RuntimeError) do
-      checker.ip_authorized?
-    end
-
-    assert_match /run rake geo:fetch/, exception.message
-  end
-
 end
