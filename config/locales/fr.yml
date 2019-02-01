@@ -439,3 +439,10 @@ fr:
     weak: Faible
     good: Bon
     strong: Forte
+    
+  #Pundit
+  pundit:
+    default: Accès refusé
+    team_policy:
+      update?: Vous n'êtes pas membre de cette équipe
+      destroy?: Seul l'administrateur peut supprimer des équipes

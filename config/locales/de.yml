@@ -437,3 +437,10 @@ de:
     weak: Unsicher
     good: Genügend
     strong: Stark
+
+  #Pundit
+  pundit:
+    default: Zugriff verweigert
+    team_policy:
+      update?:  Du bist nicht Mitglied dieses Teams
+      destroy?: Nur Admins dürfen Teams löschen

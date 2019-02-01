@@ -52,6 +52,7 @@ class Authentication::SourceIpChecker
   def country_authorized?
     country_code = geo_ip.country(remote_ip).country_code2
     return false if country_code.nil? || country_code.eql?('--')
+
     whitelisted_country_codes.include?(country_code)
   end
 
@@ -69,6 +70,7 @@ class Authentication::SourceIpChecker
     unless File.exist?(geo_dat_file_path)
       raise 'geo ip data file missing: please run rake geo:fetch'
     end
+
     GeoIP.new(geo_dat_file_path)
   end
 end

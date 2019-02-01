@@ -22,7 +22,7 @@ module ApiMessages
   end
 
   def response_status
-    @response_status ? @response_status : success_or_error
+    @response_status || success_or_error
   end
 
   def success_or_error

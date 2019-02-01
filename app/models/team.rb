@@ -29,6 +29,7 @@ class Team < ApplicationRecord
     def create(creator, params)
       team = super(params)
       return team unless team.valid?
+
       plaintext_team_password = CryptUtils.new_team_password
       team.add_user(creator, plaintext_team_password)
       unless team.private?
@@ -72,6 +73,7 @@ class Team < ApplicationRecord
 
   def add_user(user, plaintext_team_password)
     raise 'user is already team member' if teammember?(user.id)
+
     create_teammember(user, plaintext_team_password)
   end
 

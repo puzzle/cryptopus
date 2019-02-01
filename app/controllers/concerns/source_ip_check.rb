@@ -16,7 +16,7 @@ module SourceIpCheck
     if ip_checker.ip_authorized?
       session[:authorized_ip] = request.remote_ip
     else
-      render layout: false, file: 'public/401.html', status: 401
+      render layout: false, file: 'public/401.html', status: :unauthorized
     end
   end
 

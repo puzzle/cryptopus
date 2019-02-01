@@ -15,6 +15,7 @@ module UserSession
     if current_user.recryptrequests.first
       return true
     end
+
     false
   end
 
@@ -24,9 +25,11 @@ module UserSession
 
   def plaintext_team_password(team)
     raise 'You have no access to this team' unless team.teammember?(current_user.id)
+
     private_key = session[:private_key]
     plaintext_team_password = team.decrypt_team_password(current_user, private_key)
     raise 'Failed to decrypt the team password' unless plaintext_team_password
+
     plaintext_team_password
   end
 end

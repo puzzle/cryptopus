@@ -13,7 +13,7 @@ class MaintenanceTasks::RemovedLdapUsers < MaintenanceTask
 
   def execute
     super do
-      raise 'Only admins can run this Task' unless executer.admin?
+      raise 'Only admins can run this Task' unless executer.admin? || executer.conf_admin?
 
       if LdapConnection.new.test_connection
         @removed_ldap_users = collect_removed_ldap_users

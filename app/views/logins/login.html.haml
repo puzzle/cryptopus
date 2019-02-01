@@ -8,7 +8,9 @@
     %fieldset
       = image_tag("cryptopussy.svg", class: 'logo')
       .form-group
-        = text_field_tag :username, params[:username], id: 'username', placeholder: t(:username), class: 'form-control'
+        %div#login-username
+          = text_field_tag :username, params[:username], id: 'username', placeholder: t(:username), class: 'form-control',
+            pattern: '[a-zA-Z0-9_.-]{1,}', title: '(a-z, 0-9, _-.)'
         = password_field_tag :password, nil, id: 'password', placeholder: t(:password), class: 'form-control'
       = submit_tag t('.submit'), class: 'btn btn-primary'
 .version-info

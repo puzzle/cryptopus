@@ -15,6 +15,7 @@ class Admin::MaintenanceTasksController < ApplicationController
   # GET /admin/maintenance_tasks/1/prepare
   def prepare
     raise routing_error unless maintenance_task.prepare?
+
     authorize maintenance_task
 
     flash[:notice] = maintenance_task.hint
@@ -24,6 +25,7 @@ class Admin::MaintenanceTasksController < ApplicationController
   # POST /admin/maintenance_tasks/1/execute
   def execute
     raise routing_error unless maintenance_task
+
     authorize maintenance_task
 
     set_task_attributes
@@ -68,6 +70,7 @@ class Admin::MaintenanceTasksController < ApplicationController
 
   def task_params
     return {} unless params[:task_params]
+
     params.require(:task_params).
       permit(:retype_password, :root_password)
   end
