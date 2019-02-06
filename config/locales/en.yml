@@ -121,7 +121,6 @@ en:
         title: List of all Cryptopus users
         username: Username
         name: Name
-        password_complexity: Password complexity
         ldap_uid: LDAP UID
         last_login_at: Last login at
         last_login_from: Last login from
@@ -362,9 +361,9 @@ en:
               taken: Filename is already taken
 
   password_strength:
-    weak: Weak
-    good: Good
-    strong: Strong
+    weak: The password is weak
+    good: The password is good
+    strong: The password is strong!
 
   #Pundit
   pundit:
