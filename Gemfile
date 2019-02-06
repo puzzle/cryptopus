@@ -54,7 +54,6 @@ group :development do
   gem 'hirb'
   gem 'pry'
   gem 'pry-stack_explorer'
-  gem 'rb-readline'
   gem 'sextant'
 end
 
