@@ -54,7 +54,11 @@ module Flash
       ip_address = last_login_from
       return if ip_address.blank?
 
-      GeoIP.new('db/GeoIP.dat').country(ip_address).country_code2
+      geo_ip.country_code(ip_address)
+    end
+
+    def geo_ip
+      @geo_ip ||= GeoIp.new
     end
 
   end
