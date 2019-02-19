@@ -30,9 +30,8 @@ class SourceIpCheckerTest <  ActiveSupport::TestCase
   end
 
   test 'does not allow ip if unknown location' do
-    country = mock()
-    country.expects(:country_code2).returns('--')
-    GeoIP.any_instance.expects(:country).returns(country)
+    country = {}
+    MaxMind::DB.any_instance.expects(:get).with('1.42.42.12').returns(country)
 
     checker = Authentication::SourceIpChecker.new('1.42.42.12')
 
@@ -71,7 +70,8 @@ class SourceIpCheckerTest <  ActiveSupport::TestCase
   end
 
   test 'raises error if geo dat file missing' do
-    File.expects(:exist?).returns(false)
+    db_file_path = Rails.root.join('db', 'geo_ip.mmdb')
+    File.expects(:exist?).with(db_file_path).returns(false)
     ch_ip = '46.140.0.1'
 
     Authentication::SourceIpChecker.any_instance.stubs(:private_ip?).returns(false)

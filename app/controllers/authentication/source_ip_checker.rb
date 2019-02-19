@@ -4,7 +4,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Authentication::SourceIpChecker
-  require 'geoip'
+  require 'maxmind/db'
   require 'ipaddr'
 
   PRIVATE_IP_RANGES = ['10.0.0.0/8', '127.0.0.0/8',
@@ -50,10 +50,9 @@ class Authentication::SourceIpChecker
   end
 
   def country_authorized?
-    country_code = geo_ip.country(remote_ip).country_code2
-    return false if country_code.nil? || country_code.eql?('--')
-
-    whitelisted_country_codes.include?(country_code)
+    country_code = geo_ip.country_code(remote_ip)
+    country_code.present? &&
+      whitelisted_country_codes.include?(country_code)
   end
 
   def whitelisted_country_codes
@@ -66,11 +65,6 @@ class Authentication::SourceIpChecker
   end
 
   def geo_ip
-    geo_dat_file_path = Rails.root.join('db', 'GeoIP.dat')
-    unless File.exist?(geo_dat_file_path)
-      raise 'geo ip data file missing: please run rake geo:fetch'
-    end
-
-    GeoIP.new(geo_dat_file_path)
+    @geo_ip ||= GeoIp.new
   end
 end
