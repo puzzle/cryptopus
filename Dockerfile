@@ -1,4 +1,4 @@
-FROM puzzle/ose3-rails
+FROM puzzle/ose3-rails:ruby22
 USER root
 COPY . /tmp/src
 RUN $STI_SCRIPTS_PATH/assemble
