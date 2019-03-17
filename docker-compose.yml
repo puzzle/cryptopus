@@ -2,7 +2,7 @@ version: '2'
 
 services:
   cryptopus:
-    image: puzzle/cryptopus
+    image: puzzle/cryptopus:stable
     container_name: cryptopus-sqlite
     environment:
       SECRET_KEY_BASE: d7220ce1111af18af11c4d93897c74e283ec2d1c6dee93965fd8d9d104724720e281ed54486844551329faca574e99f509e19f9af6ff3455c88ed10337780ccf
