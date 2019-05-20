@@ -1,5 +1,10 @@
 # Cryptopus Changelog
 
+## Version 2.3
+
+* Fix Geo IP DB for country filter
+* Fix browser password manager conflicts
+
 ## Version 2.2
 
 * Upgraded to Rails 5.1.6
