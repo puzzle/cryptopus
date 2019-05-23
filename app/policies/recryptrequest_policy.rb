@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RecryptrequestPolicy < ApplicationPolicy
   def index?
     current_user.admin?

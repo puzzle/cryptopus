@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Team::ApiUserSerializer < ApplicationSerializer
 
   attributes :id, :username, :description, :enabled?

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::ApiPolicy < ApplicationPolicy
   def index?
     user.is_a?(User::Human)

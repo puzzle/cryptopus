@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -54,14 +56,14 @@ class CryptUtils
     end
 
     def new_team_password
-      cipher = OpenSSL::Cipher::Cipher.new(@@cypher)
+      cipher = OpenSSL::Cipher.new(@@cypher)
       cipher.random_key
     end
 
     def encrypt_private_key(private_key, password)
-      cipher = OpenSSL::Cipher::Cipher.new(@@cypher)
+      cipher = OpenSSL::Cipher.new(@@cypher)
       cipher.encrypt
-      salt = OpenSSL::Random.pseudo_bytes @@salt_length
+      salt = OpenSSL::Random.random_bytes(@@salt_length)
       cipher.pkcs5_keyivgen password, salt, 1000
       private_key_part = cipher.update(private_key) + cipher.final
 
@@ -69,7 +71,7 @@ class CryptUtils
     end
 
     def decrypt_private_key(private_key, password)
-      cipher = OpenSSL::Cipher::Cipher.new(@@cypher)
+      cipher = OpenSSL::Cipher.new(@@cypher)
       cipher.decrypt
 
       raise 'magic does not match' unless private_key.slice(0, @@magic.size) == @@magic
@@ -91,7 +93,7 @@ class CryptUtils
     end
 
     def encrypt_blob(blob, team_password)
-      cipher = OpenSSL::Cipher::Cipher.new(@@cypher)
+      cipher = OpenSSL::Cipher.new(@@cypher)
       cipher.encrypt
       cipher.key = team_password
       crypted_blob = cipher.update(blob)
@@ -100,7 +102,7 @@ class CryptUtils
     end
 
     def decrypt_blob(blob, team_password)
-      cipher = OpenSSL::Cipher::Cipher.new(@@cypher)
+      cipher = OpenSSL::Cipher.new(@@cypher)
       cipher.decrypt
       cipher.key = team_password
       decrypted_blob = cipher.update(blob)

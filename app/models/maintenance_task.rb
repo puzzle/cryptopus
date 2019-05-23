@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -5,10 +7,10 @@
 
 class MaintenanceTask
   class_attribute :label, :description, :hint, :task_params, :error, :id
-  PARAM_TYPE_PASSWORD = 'password'.freeze
-  PARAM_TYPE_CHECKBOX = 'check_box'.freeze
-  PARAM_TYPE_NUMBER = 'number'.freeze
-  PARAM_TYPE_TEXT = 'text'.freeze
+  PARAM_TYPE_PASSWORD = 'password'
+  PARAM_TYPE_CHECKBOX = 'check_box'
+  PARAM_TYPE_NUMBER = 'number'
+  PARAM_TYPE_TEXT = 'text'
 
   TASKS = %w[RootAsAdmin RemovedLdapUsers].freeze
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::HumanPolicy < ApplicationPolicy
   def index?
     admin_or_conf_admin?

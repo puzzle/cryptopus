@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -44,6 +46,6 @@ class WizardController < ApplicationController
   end
 
   def redirect_if_already_set_up
-    redirect_to login_login_path if User::Human.all.count > 0
+    redirect_to login_login_path if User::Human.all.count.positive?
   end
 end

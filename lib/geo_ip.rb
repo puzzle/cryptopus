@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GeoIp
 
   MAX_MIND_DB_PATH = Rails.root.join('db', 'geo_ip.mmdb').freeze

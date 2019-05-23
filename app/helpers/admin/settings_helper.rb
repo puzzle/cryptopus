@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -8,9 +10,9 @@ module Admin::SettingsHelper
     return selectize_input_field(setting) if selectize_input_field(setting)
 
     content = ''
-    content << label_tag(setting.key)
+    content += label_tag(setting.key)
 
-    content << if respond_to?(input_field_formatter(setting))
+    content += if respond_to?(input_field_formatter(setting))
                  send(input_field_formatter(setting), setting)
                else
                  input_field_setting_default(setting)
@@ -28,8 +30,8 @@ module Admin::SettingsHelper
 
   def input_field_setting_true_false(setting)
     content = hidden_field_tag(key_param(setting), 'f')
-    content << check_box_tag(key_param(setting), 't', setting.value, id: 'ldap_enabled_checkbox')
-    content << label_tag(:ldap_enabled_checkbox, '', id: 'ldap_enabled_label')
+    content += check_box_tag(key_param(setting), 't', setting.value, id: 'ldap_enabled_checkbox')
+    content + label_tag(:ldap_enabled_checkbox, '', id: 'ldap_enabled_label')
   end
 
   def input_field_setting_number(setting)
@@ -58,8 +60,8 @@ module Admin::SettingsHelper
 
   def input_field_formatter(setting)
     str = ''
-    str << 'input_field_setting_'
-    str << setting.class.name.demodulize.underscore
+    str += 'input_field_setting_'
+    str += setting.class.name.demodulize.underscore
     str.to_sym
   end
 

@@ -1,7 +1,7 @@
 language: ruby
 cache: bundler
 rvm:
- - 2.2
+ - 2.5
 branches:
  only:
   - master
@@ -18,4 +18,3 @@ before_script:
 script:
  - bundle --deployment
  - bundle exec rake ci --trace
-

@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 # Cryptopus and licensed under the Affero General Public License version 3 or later.
 # See the COPYING file at the top-level directory or at
 # https://github.com/puzzle/cryptopus.
 
 class ChangelogReader
-  VERSION_REGEX = /^## [^\s]+ ((\d+\.)+(\d+))$/i
-  ENTRY_REGEX = /^\*\s*(.*)/
+  VERSION_REGEX = /^## [^\s]+ ((\d+\.)+(\d+))$/i.freeze
+  ENTRY_REGEX = /^\*\s*(.*)/.freeze
 
   class << self
     def changelog

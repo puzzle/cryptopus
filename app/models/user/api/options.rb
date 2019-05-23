@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::Api::Options
   attr_accessor :valid_until, :source_ips, :encrypted_token, :description
   attr_reader :valid_for

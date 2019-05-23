@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'user/api'
 
 class Api::ApiUsersController < ApiController

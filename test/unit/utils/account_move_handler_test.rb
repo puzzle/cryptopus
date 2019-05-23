@@ -12,13 +12,13 @@ class AccountMoveHandlerTest < ActiveSupport::TestCase
     account = accounts(:account1)
     bob = users(:bob)
     private_key = decrypt_private_key(bob)
-    new_group = groups(:group2)
-    team_password = new_group.team.teammembers.find_by(user_id: bob.id).password
-    Fabricate(:account, group: new_group, team_password: team_password, accountname: 'account1')
+    target_group = groups(:group2)
+    team_password = target_group.team.decrypt_team_password(bob, private_key)
+    Fabricate(:account, group: target_group, team_password: team_password, accountname: 'account1')
 
     account_handler = AccountMoveHandler.new(account, private_key, bob)
 
-    assert_nil account_handler.move(new_group)
+    assert_nil account_handler.move(target_group)
   end
 
   test 'Move account to a group from another team' do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -10,7 +12,7 @@ class CryptUtilsLegacy
   include OpenSSL
 
   def self.decrypt_private_key(private_key, password)
-    cipher = OpenSSL::Cipher::Cipher.new('aes-256-cbc')
+    cipher = OpenSSL::Cipher.new('aes-256-cbc')
     cipher.decrypt
     cipher.key = password.unpack('a2' * 32).map { |x| x.hex }.pack('c' * 32)
     decrypted_private_key = cipher.update(private_key)

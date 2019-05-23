@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -7,9 +9,9 @@ module Admin::MaintenanceTasksHelper
   def create_maintenance_task_field(param)
     label = param[:label]
     content = ''
-    content << label_tag(label)
+    content += label_tag(label)
 
-    content << create_tag_with_correct_type(label, param[:type])
+    content += create_tag_with_correct_type(label, param[:type])
     safe_join([content_tag(:div, content.html_safe, class: 'form-group')])
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: settings
@@ -25,12 +27,12 @@ class Setting::IpRange < Setting
 
   def must_be_valid_ips
     value.each do |ip|
-      begin
-        IPAddr.new(ip)
-      rescue IPAddr::InvalidAddressError
-        errors.add(:value, "invalid ip address: #{ip}")
-        break
-      end
+
+      IPAddr.new(ip)
+    rescue IPAddr::InvalidAddressError
+      errors.add(:value, "invalid ip address: #{ip}")
+      break
+
     end
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Team::ApiUser < ActiveModelSerializers::Model
 
   delegate :id,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: settings
@@ -22,9 +24,7 @@ class Setting < ApplicationRecord
     def value(prefix, key)
       key = "#{prefix}_#{key}" if prefix.present?
       setting = find_by(key: key)
-      if setting
-        setting.value
-      end
+      setting&.value
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TeamDependantPolicy < ApplicationPolicy
   def show?
     team_member?

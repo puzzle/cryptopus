@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 source 'http://rubygems.org'
 
-gem 'rails', '5.1.6'
+gem 'rails', '5.2.3'
 
 gem 'figaro'
 gem 'mysql2'
 gem 'net-ldap'
-gem 'sqlite3'
+gem 'sqlite3', '~> 1.3.6'
 
 gem 'active_model_serializers', '0.10.0'
 gem 'annotate'
@@ -31,7 +33,7 @@ gem 'rails-i18n'
 gem 'sass-rails'
 gem 'seed-fu'
 gem 'selectize-rails'
-gem 'sprockets', '3.6.3'
+gem 'sprockets'
 gem 'therubyracer'
 gem 'turbolinks'
 gem 'twitter-bootstrap-rails', '~>3.2'
@@ -44,8 +46,8 @@ group :development, :test do
   gem 'minitest-rails'
   gem 'minitest-rails-capybara'
   gem 'rails-erd'
-  gem 'rubocop'
   gem 'rubocop-checkstyle_formatter'
+  gem 'rubocop-rails'
   gem 'test-unit'
 end
 

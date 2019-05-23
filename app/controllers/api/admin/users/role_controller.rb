@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::Admin::Users::RoleController < Api::Admin::AdminController
 
   def update

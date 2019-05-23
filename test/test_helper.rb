@@ -43,7 +43,7 @@ class ActiveSupport::TestCase
   end
 
   def legacy_encrypt_private_key(private_key, password)
-    cipher = OpenSSL::Cipher::Cipher.new( "aes-256-cbc" )
+    cipher = OpenSSL::Cipher.new( "aes-256-cbc" )
     cipher.encrypt
     cipher.key = password.unpack( 'a2'*32 ).map{|x| x.hex}.pack( 'c'*32 )
     encrypted_private_key = cipher.update( private_key )
