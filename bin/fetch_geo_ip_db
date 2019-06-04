@@ -1,0 +1,11 @@
+#!/bin/bash
+
+GEO_IP_DATA_URL=https://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz
+RAILS_ROOT=$1
+
+mkdir -p $RAILS_ROOT/tmp/geoip
+cd $RAILS_ROOT/tmp/geoip
+wget $GEO_IP_DATA_URL
+tar -zxvf GeoLite2-Country.tar.gz
+mv $RAILS_ROOT/tmp/geoip/GeoLite2-Country*/GeoLite2-Country.mmdb $RAILS_ROOT/db/geo_ip.mmdb
+rm -r $RAILS_ROOT/tmp/geoip
