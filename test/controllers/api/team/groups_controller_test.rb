@@ -11,7 +11,7 @@ class Api::Team::GroupsControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
-  test 'listing all groups of a choosen team' do
+  test 'listing all groups of a given team' do
 
     login_as(:bob)
     team = teams(:team1)
@@ -20,7 +20,7 @@ class Api::Team::GroupsControllerTest < ActionController::TestCase
 
     groups = JSON.parse(response.body)['data']['groups']
 
-    assert_equal 2, groups.count
+    assert_equal "group1", groups.first['name']
 
   end
 end

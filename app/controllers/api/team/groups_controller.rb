@@ -9,7 +9,7 @@ class Api::Team::GroupsController < ApiController
 
   def index
     authorize team, :team_member?
-    groups = current_user.groups
+    groups = team.groups
     render_json groups
   end
 
