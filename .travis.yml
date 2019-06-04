@@ -9,6 +9,7 @@ branches:
 before_install:
  - sudo service mysql restart
 install:
+ - gem install bundler
  - bundle install --path vendor/bundle
 before_script:
  - bundle exec rake db:create
