@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180302134828) do
+ActiveRecord::Schema.define(version: 2019_06_04_054153) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "accountname", limit: 70, default: "", null: false
