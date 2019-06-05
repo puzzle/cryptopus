@@ -18,4 +18,5 @@ before_script:
  - bundle exec rake geo:fetch
 script:
  - bundle --deployment
+ - bundle exec brakeman
  - bundle exec rake ci --trace
