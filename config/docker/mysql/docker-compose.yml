@@ -12,7 +12,7 @@ services:
       RAILS_DB_NAME: 'cryptopus_prod'
       RAILS_DB_PORT: 3306
     ports:
-      - localhost:8080:8080
+      - localhost:8080:3000
     links:
       - cryptopus-mysql:cryptopus-mysql
   cryptopus-mysql:

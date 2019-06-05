@@ -205,6 +205,7 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     public_suffix (3.1.0)
+    puma (3.12.1)
     pundit (2.0.1)
       activesupport (>= 3.0.0)
     rack (2.0.7)
@@ -363,6 +364,7 @@ DEPENDENCIES
   password_strength
   pry
   pry-stack_explorer
+  puma (~> 3.11)
   pundit
   rails (= 5.2.3)
   rails-controller-testing
@@ -384,4 +386,4 @@ DEPENDENCIES
   uglifier
 
 BUNDLED WITH
-   2.0.1
+   1.17.3
