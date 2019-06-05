@@ -3,7 +3,6 @@ version: '2'
 services:
   cryptopus:
     image: puzzle/cryptopus:latest
-    image: crydev
     container_name: cryptopus-sqlite
     environment:
       RAILS_LOG_TO_STDOUT: 1
