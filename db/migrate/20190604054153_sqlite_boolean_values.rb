@@ -18,7 +18,7 @@ class SqliteBooleanValues < ActiveRecord::Migration[5.2]
   private
 
   def sqlite?
-    ActiveRecord::Base.connection.instance_of?(ActiveRecord::ConnectionAdapters::SQLite3Adapter)
+    ActiveRecord::Base.connection.instance_values["config"][:adapter] == 'sqlite3'
   end
 
 end
