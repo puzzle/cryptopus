@@ -12,6 +12,6 @@ USER 1001
 # make sure unique secret key is set by operator
 ENV SECRET_KEY_BASE=
 ENV RAILS_SERVE_STATIC_FILES=1
-ENV RAILS_LOG_TO_STDOUT: 1
+ENV RAILS_LOG_TO_STDOUT=1
 
 CMD bundle exec puma -t 8
