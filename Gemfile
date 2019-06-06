@@ -12,6 +12,7 @@ gem 'sqlite3', '~> 1.3.6'
 
 gem 'active_model_serializers', '0.10.0'
 gem 'annotate'
+gem 'bleib', '0.0.9'
 gem 'bootstrap-select-rails'
 gem 'breadcrumbs_on_rails'
 gem 'clipboard'

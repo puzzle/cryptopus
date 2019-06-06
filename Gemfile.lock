@@ -58,6 +58,7 @@ GEM
     ast (2.4.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
+    bleib (0.0.9)
     bootstrap-select-rails (1.13.8)
     brakeman (4.5.1)
     breadcrumbs_on_rails (3.0.1)
@@ -332,6 +333,7 @@ DEPENDENCIES
   airbrake (~> 6.1.2)
   airbrake-ruby (~> 2.2.7)
   annotate
+  bleib (= 0.0.9)
   bootstrap-select-rails
   brakeman
   breadcrumbs_on_rails
