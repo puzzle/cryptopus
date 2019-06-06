@@ -5,7 +5,7 @@ ENV SECRET_KEY_BASE=cannot-be-blank-for-production-env-when-building
 USER root
 COPY . /tmp/src
 RUN $STI_SCRIPTS_PATH/assemble
-RUN bash -c bundle exec rake geo:fetch
+RUN bin/fetch_geo_ip_db /opt/app-root/src
 
 USER 1001
 
