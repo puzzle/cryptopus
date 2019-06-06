@@ -7,6 +7,9 @@
 
 Rails.application.routes.draw do
 
+  get 'status/health', to: 'status#health'
+  get 'status/readiness', to: 'status#readiness'
+
   scope "(:locale)", locale: /en|de|fr|zh|ru|ch_be/ do
     namespace :recryptrequests do
       get 'new_ldap_password'
