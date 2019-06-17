@@ -30,6 +30,13 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
 
     team = teams(:team1)
     teammembers(:team1_bob).destroy!
+    user = users(:alice)
+
+    api_user = user.api_users.create!
+    alices_private_key = user.decrypt_private_key('password')
+    plaintext_team_password = team.decrypt_team_password(user, alices_private_key)
+
+    team.add_user(api_user, plaintext_team_password)
 
     get :index, params: { team_id: team }, xhr: true
 
@@ -38,6 +45,7 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
     assert_equal 3, members.size
     assert members.any? {|c| c['label'] == 'Alice test' }, 'Alice should be in team'
     assert members.any? {|c| c['label'] == 'Admin test' },  'Admin should be in team'
+    assert members.none? {|c| c['label'] == api_user.label }, 'should not include any api users'
   end
 
   test 'creates new teammember for given team' do
@@ -103,6 +111,8 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
       end
     end
   end
+
+  private
 
   def user
     users(:bob)

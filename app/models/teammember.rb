@@ -21,6 +21,7 @@ class Teammember < ApplicationRecord
   delegate :label, to: :user
   belongs_to :team
   belongs_to :user, class_name: 'User', foreign_key: :user_id
+  belongs_to :human, class_name: 'User::Human', foreign_key: :user_id
   before_destroy :protect_if_last_teammember
   before_destroy :protect_if_admin_in_non_private_team
   before_destroy :remove_api_users
@@ -28,7 +29,7 @@ class Teammember < ApplicationRecord
 
   validates :user_id, uniqueness: { scope: :team }
 
-  scope :list, (-> { joins(:user).order('users.username') })
+  scope :list, (-> { joins(:human).order('users.username') })
   scope :in_non_private_teams, (-> { joins(:team).where('teams.private' => false) })
   scope :in_private_teams, (-> { joins(:team).where('teams.private' => true) })
 

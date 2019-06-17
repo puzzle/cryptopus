@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
 
     resources :teams do
-      resources :api_users, only: [:index, :create, :destroy], module: 'team'
+      resources :api_users, only: [:index, :create, :destroy], module: 'api/team'
       resources :teammembers
       resources :groups do
         resources :accounts do

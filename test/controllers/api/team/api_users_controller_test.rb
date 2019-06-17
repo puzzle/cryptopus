@@ -7,7 +7,7 @@
 
 require 'test_helper'
 
-class Team::ApiUsersControllerTest < ActionController::TestCase
+class Api::Team::ApiUsersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 

@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Team::ApiUsersController < ApiController
+class Api::Team::ApiUsersController < ApiController
 
   def index
     authorize team, :team_member?
