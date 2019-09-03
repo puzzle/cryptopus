@@ -1,5 +1,9 @@
 language: ruby
 cache: bundler
+addons:
+  apt:
+    packages:
+      - libqtwebkit-dev
 rvm:
  - 2.5
 branches:
