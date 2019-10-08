@@ -9,6 +9,7 @@ require 'user' # fixes user.authenticate problem
 
 class ApplicationController < ActionController::Base
 
+  before_action :set_sentry_request_context
   before_action :validate_user, except: %i[login authenticate logout wizard]
   before_action :message_if_fallback
   before_action :redirect_if_no_private_key, except: :logout
@@ -86,5 +87,9 @@ class ApplicationController < ActionController::Base
 
   def team_id
     params[:team_id]
+  end
+
+  def set_sentry_request_context
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end
