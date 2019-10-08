@@ -51,5 +51,7 @@
         %td.action_icon
           = link_to image_tag("unlock.svg"),  unlock_admin_user_path(user.id), title: t('.unlock')
 
+%div{style: "height: 100px"}
+
 #last_teammember_teams
   = render 'last_teammember_teams'
