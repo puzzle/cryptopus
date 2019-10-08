@@ -35,6 +35,7 @@ gem 'rails-i18n'
 gem 'sass-rails'
 gem 'seed-fu'
 gem 'selectize-rails'
+gem 'sentry-raven'
 gem 'sprockets'
 gem 'therubyracer'
 gem 'turbolinks'
@@ -67,10 +68,4 @@ group :test do
   gem 'mocha'
   gem 'rails-controller-testing'
   gem 'simplecov', require: false, group: :test
-end
-
-group :production do
-  # newer versions not compatible with current errbit server
-  gem 'airbrake', '~> 6.1.2'
-  gem 'airbrake-ruby', '~> 2.2.7'
 end
