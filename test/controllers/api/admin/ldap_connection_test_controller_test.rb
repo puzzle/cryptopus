@@ -15,6 +15,7 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
     login_as(:admin)
     enable_ldap
 
+    Net::LDAP.any_instance.expects(:auth)
     Net::LDAP.any_instance.expects(:bind).returns(true)
     get :new
 
@@ -27,6 +28,7 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
     login_as(:admin)
     enable_ldap
 
+    Net::LDAP.any_instance.expects(:auth)
     Net::LDAP.any_instance.expects(:bind).returns(false)
     get :new
 

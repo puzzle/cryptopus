@@ -24,7 +24,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     LdapConnection.any_instance.expects(:ldap_info)
       .times(4)
 
-    LdapConnection.any_instance.expects(:login)
+    LdapConnection.any_instance.expects(:authenticate!)
       .with('bob', any_of('password', 'newPassword'))
       .returns(true)
       .times(4)
@@ -58,7 +58,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     LdapConnection.any_instance.expects(:ldap_info)
       .times(4)
 
-    LdapConnection.any_instance.expects(:login)
+    LdapConnection.any_instance.expects(:authenticate!)
       .with('bob', any_of('password', 'newPassword'))
       .returns(true)
       .times(3)
@@ -100,7 +100,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     LdapConnection.any_instance.expects(:ldap_info)
       .times(2)
 
-    LdapConnection.any_instance.expects(:login)
+    LdapConnection.any_instance.expects(:authenticate!)
       .with('bob', any_of('password', 'newPassword'))
       .returns(true)
       .times(3)
@@ -127,7 +127,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     LdapConnection.any_instance.expects(:ldap_info)
       .times(2)
 
-    LdapConnection.any_instance.expects(:login)
+    LdapConnection.any_instance.expects(:authenticate!)
       .with('bob', any_of('password', 'newPassword'))
       .returns(true)
 
@@ -137,7 +137,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     login_as('bob')
 
     # Recrypt
-    LdapConnection.any_instance.expects(:login)
+    LdapConnection.any_instance.expects(:authenticate!)
       .with('bob', 'wrong_password')
       .returns(false)
 
@@ -157,7 +157,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     LdapConnection.any_instance.expects(:ldap_info)
       .times(2)
 
-    LdapConnection.any_instance.expects(:login)
+    LdapConnection.any_instance.expects(:authenticate!)
       .with('bob', 'password')
       .returns(true)
 
@@ -167,7 +167,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     login_as('bob')
 
     #Recrypt
-    LdapConnection.any_instance.expects(:login)
+    LdapConnection.any_instance.expects(:authenticate!)
       .with('bob', 'wrong_password')
       .returns(false)
 

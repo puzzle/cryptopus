@@ -47,7 +47,7 @@ class User::Human
       end
 
       def authenticate_ldap(username, cleartext_password)
-        ldap_connection.login(username, cleartext_password)
+        ldap_connection.authenticate!(username, cleartext_password)
       end
 
       def create_from_ldap(username, password)

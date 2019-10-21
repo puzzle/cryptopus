@@ -18,7 +18,7 @@ include IntegrationTest::DefaultHelper
     user_bob.update_attribute(:ldap_uid, 42)
 
     # Mock
-    LdapConnection.any_instance.expects(:login)
+    LdapConnection.any_instance.expects(:authenticate!)
                   .with('bob', 'password')
                   .returns(true)
     LdapConnection.any_instance.expects(:ldap_info).twice
@@ -33,7 +33,7 @@ include IntegrationTest::DefaultHelper
     user_bob.update_attribute(:auth, 'ldap')
     user_bob.update_attribute(:ldap_uid, 42)
 
-    LdapConnection.any_instance.expects(:login)
+    LdapConnection.any_instance.expects(:authenticate!)
                   .with('bob', 'wrong_password')
                   .returns(false)
 

@@ -13,9 +13,15 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
+
+ldap_enable:
+  key: ldap_enable
+  value: false
+  type: Setting::TrueFalse
+
 ldap_basename:
   key: ldap_basename
-  value: example_basename
+  value: ou=users,dc=acme
   type: Setting::Text
 
 ldap_hostname:
@@ -42,11 +48,6 @@ ldap_bind_password:
   key: ldap_bind_password
   value: example_bind_password
   type: Setting::Text
-
-ldap_bind_enable:
-  key: ldap_enable
-  value: false
-  type: Setting::TrueFalse
 
 general_country_source_whitelist:
   key: general_country_source_whitelist

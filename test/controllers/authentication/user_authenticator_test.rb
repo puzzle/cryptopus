@@ -81,7 +81,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
     @username = 'bob'
     @password = 'ldappw'
     bob.update_attribute(:auth, 'ldap')
-    LdapConnection.any_instance.expects(:login).with('bob', 'ldappw').returns(true)
+    LdapConnection.any_instance.expects(:authenticate!).with('bob', 'ldappw').returns(true)
 
     assert_equal true, authenticate
   end
@@ -91,7 +91,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
     @username = 'bob'
     @password = 'wrongldappw'
     bob.update_attribute(:auth, 'ldap')
-    LdapConnection.any_instance.expects(:login).with('bob', 'wrongldappw').returns(false)
+    LdapConnection.any_instance.expects(:authenticate!).with('bob', 'wrongldappw').returns(false)
 
     assert_equal false, authenticate
   end
