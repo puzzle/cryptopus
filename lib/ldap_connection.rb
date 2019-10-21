@@ -17,16 +17,13 @@ class LdapConnection
     assert_setting_values
   end
 
-  def login(username, password)
+  def authenticate!(username, password)
     return false if user_invalid?(username, password)
 
-    result = connection.bind_as(base: settings[:basename],
-                                filter: "uid=#{username}",
-                                password: password)
-
-    if result
-      ldap = connection(method: :simple, username: result.first.dn, password: password)
-      return true if ldap.bind
+    user_entry = search_for_login(username)
+    if user_entry
+      connection.auth(user_entry.dn, password)
+      return connection.bind
     end
     false
   end
@@ -61,28 +58,34 @@ class LdapConnection
     result.present?
   end
 
+  def test
+    success = []
+    failed = []
+
+    ldap_hosts.each do |host|
+      reachable?(host) ? success << host : failed << host
+    end
+
+    { success: success, failed: failed }
+  end
+
   def test_connection
     connection.bind
   rescue StandardError
     false
   end
 
-  def test
-    options = { user: user, password: password }
-
-    success = []
-    failed = []
-
-    ldap_hosts.each do |hostname|
-      test_connection_with(hostname, options) ? success << hostname : failed << hostname
-    end
-
-    { success: success, failed: failed }
-  end
-
   private
 
   attr_reader :settings
+
+  def reachable?(host)
+    params = connection_params(host)
+    ldap = ldap_connection(params, false)
+    ldap.bind
+  rescue StandardError
+    false
+  end
 
   def collect_settings
     @settings = {}
@@ -107,19 +110,14 @@ class LdapConnection
     username =~ /^[a-zA-Z\d]+$/
   end
 
-  def connection(options = {})
-    if @ldap_host
-      params = connection_params(@ldap_host, options)
-      Net::LDAP.new(params)
-    else
-      hosts_connection(options)
-    end
+  def connection
+    @connection ||=
+      first_available_server
   end
 
-  def hosts_connection(options)
+  def first_available_server
     ldap_hosts.each do |host|
-      @ldap_host = host
-      params = connection_params(host, options)
+      params = connection_params(host)
       begin
         return ldap_connection(params)
       rescue Net::LDAP::Error => e
@@ -128,9 +126,12 @@ class LdapConnection
     end
   end
 
-  def ldap_connection(params)
+  def ldap_connection(params, bind = true)
     ldap = Net::LDAP.new(params)
-    ldap.bind
+    if bind_dn.present?
+      ldap.auth(bind_dn, bind_password)
+    end
+    ldap.bind if bind
     ldap
   end
 
@@ -143,34 +144,34 @@ class LdapConnection
     end
   end
 
-  def connection_params(host, options)
-    params = { host: host, port: settings[:portnumber], encryption: :simple_tls }
-    params.merge(options)
+  def connection_params(host)
+    { host: host, port: settings[:portnumber], encryption: :simple_tls }
   end
 
   def ldap_hosts
     settings[:hostname]
   end
 
-  def user
+  def bind_dn
     settings[:bind_dn]
   end
 
-  def password
+  def bind_password
     settings[:bind_password]
   end
 
-  def expected_message(message)
-    message =~ /name or service not known/i ||
-      /connection timed out/i
+  def basename
+    settings[:basename]
   end
 
-  def test_connection_with(host, options)
-    params = connection_params(host, options)
+  def expected_message(message)
+    message =~ /name or service not known|connection timed out/i
+  end
 
-    ldap = Net::LDAP.new(params)
-    ldap.bind
-  rescue StandardError
-    false
+  def search_for_login(username)
+    filter = Net::LDAP::Filter.eq('uid', username)
+    ldap_entry = nil
+    connection.search(base: basename, filter: filter) { |entry| ldap_entry = entry }
+    ldap_entry
   end
 end

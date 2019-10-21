@@ -22,7 +22,7 @@ class User::Human
         raise 'cannot authenticate against ldap since ldap auth is disabled'
       end
 
-      ldap_connection.login(username, cleartext_password)
+      ldap_connection.authenticate!(username, cleartext_password)
     end
   end
 end

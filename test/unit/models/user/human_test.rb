@@ -130,7 +130,7 @@ class User::HumanTest < ActiveSupport::TestCase
       user = users(:bob)
       user.update_attribute(:auth, 'ldap')
 
-      LdapConnection.any_instance.expects(:login).never
+      LdapConnection.any_instance.expects(:authenticate!).never
 
       error = assert_raises { user.authenticate('password') }
 
@@ -150,7 +150,7 @@ class User::HumanTest < ActiveSupport::TestCase
     test 'does not return user if user not exists in db and ldap' do
       enable_ldap
 
-      LdapConnection.any_instance.expects(:login).with('nobody', 'password').returns(false)
+      LdapConnection.any_instance.expects(:authenticate!).with('nobody', 'password').returns(false)
       User::Human.expects(:create_from_ldap).never
 
       user = User::Human.find_or_import_from_ldap('nobody', 'password')
@@ -158,7 +158,7 @@ class User::HumanTest < ActiveSupport::TestCase
     end
 
     test 'does not return user if user not exists in db and ldap disabled' do
-      LdapConnection.any_instance.expects(:login).never
+      LdapConnection.any_instance.expects(:authenticate!).never
 
       user = User::Human.find_or_import_from_ldap('nobody', 'password')
       assert_nil user
@@ -166,7 +166,7 @@ class User::HumanTest < ActiveSupport::TestCase
 
     test 'imports and creates user from ldap' do
       enable_ldap
-      LdapConnection.any_instance.expects(:login).with('nobody', 'password').returns(true)
+      LdapConnection.any_instance.expects(:authenticate!).with('nobody', 'password').returns(true)
       User::Human.expects(:create_from_ldap)
 
       user = User::Human.find_or_import_from_ldap('nobody', 'password')
@@ -235,7 +235,7 @@ class User::HumanTest < ActiveSupport::TestCase
       user = users(:bob)
       user.update_attribute(:auth, 'ldap')
 
-      LdapConnection.any_instance.expects(:login).returns(true)
+      LdapConnection.any_instance.expects(:authenticate!).returns(true)
 
       assert_not user.recrypt_private_key!('new_password', 'wrong_old_password')
 
