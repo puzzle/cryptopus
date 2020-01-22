@@ -11,6 +11,10 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   context '#index' do
     test 'admin receives userlist' do
       login_as(:admin)

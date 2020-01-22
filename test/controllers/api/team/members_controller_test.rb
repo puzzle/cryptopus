@@ -11,6 +11,10 @@ class Api::Team::MembersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   test 'returns team member candidates for new team' do
     login_as(:admin)
     team = Team.create(users(:admin), {name: 'foo'})

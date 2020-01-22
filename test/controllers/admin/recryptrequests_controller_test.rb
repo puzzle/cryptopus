@@ -13,6 +13,7 @@ class Admin::RecryptrequestsControllerTest < ActionController::TestCase
 
   def setup
     request.env["HTTP_REFERER"] = 'where_i_came_from'
+    GeoIp.stubs(:activated?)
   end
 
   test 'error message if recrypt_team_password raises error' do

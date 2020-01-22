@@ -11,6 +11,10 @@ class Api::GroupsControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   context '#index' do
 
     test 'returns matching groups' do

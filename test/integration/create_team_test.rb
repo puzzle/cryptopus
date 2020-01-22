@@ -9,6 +9,11 @@ require 'test_helper'
 class CreateTeamTest < ActionDispatch::IntegrationTest
 include IntegrationTest::DefaultHelper
 include IntegrationTest::AccountTeamSetupHelper
+
+  setup do
+    GeoIp.expects(:activated?).returns(false).at_least_once
+  end
+
   test 'bob creates new normal team' do
     # Setup for test
     account = create_team_group_account('bob', 'password')

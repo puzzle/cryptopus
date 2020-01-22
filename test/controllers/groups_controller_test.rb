@@ -21,6 +21,10 @@ require 'test_helper'
 class GroupsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   test 'show breadcrumb path 1 if user is on index of groups' do
     login_as (:bob)
     team1 = teams(:team1)

@@ -11,6 +11,10 @@ class Api::Admin::LdapConnectionTestControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   test 'connection to ldap server success' do
     login_as(:admin)
     enable_ldap

@@ -11,6 +11,10 @@ class Api::Admin::UsersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+  
   context '#destroy' do
     test 'logged-in admin user cannot delete own user' do
       bob = users(:bob)

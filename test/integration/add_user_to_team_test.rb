@@ -9,6 +9,7 @@ require 'test_helper'
 class AddUserToTeamTest < ActionDispatch::IntegrationTest
   include IntegrationTest::DefaultHelper
   test 'bob adds alice to team' do
+    GeoIp.expects(:activated?).returns(false).at_least_once
     teammembers(:team1_alice).destroy
 
     account_path = team_group_account_path(team_id: teams(:team1).id, group_id: groups(:group1).id, id: accounts(:account1).id)

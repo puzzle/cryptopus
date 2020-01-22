@@ -10,8 +10,8 @@ require 'test_helper'
 class Api::ApiUsers::TokenControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
-  
-  setup :login_as_bob, :create_api_user
+
+  setup :login_as_bob, :create_api_user, :mock_geo_ip
 
   context '#update' do
     test 'user renews token' do
@@ -43,7 +43,11 @@ class Api::ApiUsers::TokenControllerTest < ActionController::TestCase
   end
 
   private
-  
+
+  def mock_geo_ip
+    GeoIp.stubs(:activated?)
+  end
+
   def create_api_user
     @api_user = users(:bob).api_users.create!(description: 'my sweet api user')
   end

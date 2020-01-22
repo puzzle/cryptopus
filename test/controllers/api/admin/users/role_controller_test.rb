@@ -4,6 +4,10 @@ class Api::Admin::Users::RoleControllerTest < ActionController::TestCase
 
    include ControllerTest::DefaultHelper
 
+   setup do
+     GeoIp.stubs(:activated?)
+   end
+
    context '#update' do
     context 'root' do
       test 'root updates admin to user' do

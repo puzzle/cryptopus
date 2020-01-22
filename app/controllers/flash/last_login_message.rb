@@ -55,6 +55,7 @@ module Flash
     def last_login_country
       ip_address = last_login_from
       return if ip_address.blank?
+      return unless GeoIp.activated?
 
       geo_ip.country_code(ip_address)
     end

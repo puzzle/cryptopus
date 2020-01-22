@@ -11,6 +11,10 @@ class Api::TeamsControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+  
   test 'destroy team' do
     login_as(:admin)
     team = Fabricate(:private_team)

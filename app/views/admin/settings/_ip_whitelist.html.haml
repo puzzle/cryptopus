@@ -6,10 +6,9 @@
       multiple: true,
       id: 'ip-whitelist',
       hidden: true,
-      'data-whitelist': Setting.value('general', 'ip_whitelist')
+      'data-whitelist': Setting.value('general', 'ip_whitelist'),
+      placeholder:  GeoIp.activated? ? '' : t('admin.settings.index.whitelist_placeholder_geo_ip_deactivated')
 
   .hint
     %p To specify a single ip address, just enter it like: <kbd>12.10.255.146</kbd>. IPv6 is also allowed.
     %p To specify a range you can enter the ip address with the subnet mask: <kbd>12.0.0.0/8</kbd>. This would be the range between 12.0.0.0 and 12.255.255.255
-
-

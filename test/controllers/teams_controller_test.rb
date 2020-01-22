@@ -23,6 +23,10 @@ class TeamsControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   test "admin can delete team if in team" do
     login_as(:admin)
 

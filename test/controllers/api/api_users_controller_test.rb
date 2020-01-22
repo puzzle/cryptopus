@@ -11,7 +11,7 @@ class Api::ApiUsersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
-  setup :login_as_bob, :create_api_user
+  setup :login_as_bob, :create_api_user, :mock_geo_ip
 
   context '#index' do
 
@@ -90,5 +90,9 @@ class Api::ApiUsersControllerTest < ActionController::TestCase
 
   def login_as_bob
     login_as(:bob)
+  end
+
+  def mock_geo_ip
+    GeoIp.stubs(:activated?)
   end
 end

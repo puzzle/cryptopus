@@ -9,6 +9,10 @@ class Api::AccountsControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   context '#index' do
     test 'returns account with matching name' do
       login_as(:alice)

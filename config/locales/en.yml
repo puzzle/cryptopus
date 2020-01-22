@@ -90,6 +90,7 @@ en:
         title: Edit Settings
         save: Save changes
         ldap: Test LDAP connection
+        whitelist_placeholder_geo_ip_deactivated: If no IP's are added every IP will be allowed
     recryptrequests:
       index:
         title: Re-encryption requests
