@@ -29,8 +29,6 @@ Rails.application.routes.draw do
 
     namespace :admin do
       resources :maintenance_tasks, only: :index
-      get '/maintenance_tasks/:id/prepare', to: 'maintenance_tasks#prepare', as: 'maintenance_tasks_prepare'
-      post '/maintenance_tasks/:id/execute', to: 'maintenance_tasks#execute', as: 'maintenance_tasks_execute'
 
       resource :settings do
         post 'update_all'
@@ -66,11 +64,11 @@ Rails.application.routes.draw do
     post 'wizard/apply'
 
     get 'search', to: 'search#index'
-    
+
     root to: 'search#index'
-    
+
     get 'changelog', to: 'changelog#index'
-      
+
     get 'profile', to: 'profile#index'
   end
 
@@ -95,7 +93,7 @@ Rails.application.routes.draw do
       get :groups
       get :teams
     end
-  
+
     scope '/admin', module: 'admin' do
       resources :users, only: :destroy do
         member do
@@ -118,6 +116,6 @@ Rails.application.routes.draw do
           get :candidates
         end
       end
-    end 
+    end
   end
 end

@@ -12,7 +12,7 @@ class MaintenanceTask
   PARAM_TYPE_NUMBER = 'number'
   PARAM_TYPE_TEXT = 'text'
 
-  TASKS = %w[RootAsAdmin RemovedLdapUsers].freeze
+  TASKS = %w[RemovedLdapUsers].freeze
 
   class << self
     def list
