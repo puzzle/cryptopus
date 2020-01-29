@@ -16,7 +16,7 @@ class WizardController < ApplicationController
     end
   end
 
-  # rubocop:disable MethodLength
+  # rubocop:disable Metrics/MethodLength
   def apply
     skip_authorization
     password = params[:password]
@@ -32,7 +32,7 @@ class WizardController < ApplicationController
     end
     render 'index'
   end
-  # rubocop:enable MethodLength
+  # rubocop:enable Metrics/MethodLength
 
   private
 

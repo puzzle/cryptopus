@@ -11,11 +11,11 @@ require migration_file_name
 
 class MultipleLdapHostnamesMigrationTest < ActiveSupport::TestCase
 
-  before(:each) do
+  setup do
     ldap_hostname_setting.destroy!
   end
 
-  describe '#up' do
+  context '#up' do
     test 'changes text to hostlist' do
       Setting.create!(key: 'ldap_hostname', value: 'ldap1.crypto.pus', type: 'Setting::Text')
 
@@ -44,7 +44,7 @@ class MultipleLdapHostnamesMigrationTest < ActiveSupport::TestCase
     end
   end
 
-  describe '#down' do
+  context '#down' do
     test 'changes hostlist to text' do
       Setting.create!(key: 'ldap_hostname', value: ['ldap1.crypto.pus'], type: 'Setting::HostList')
 

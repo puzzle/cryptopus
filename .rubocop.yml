@@ -1,3 +1,5 @@
+require: rubocop-rails
+
 AllCops:
   DisplayCopNames: true
   Exclude:
@@ -22,7 +24,7 @@ Metrics/CyclomaticComplexity:
   Max: 6
   Severity: error
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
   Severity: warning
 
@@ -30,42 +32,33 @@ Metrics/MethodLength:
   Max: 10
   Severity: error
 
-
 # Keep for now, easier with superclass definitions
-ClassAndModuleChildren:
+Style/ClassAndModuleChildren:
   Enabled: false
 
 # The ones we use must exist for the entire class hierarchy.
-ClassVars:
+Style/ClassVars:
   Enabled: false
 
 # map instead of collect, reduce instead of inject.
 # Probably later
-CollectionMethods:
+Style/CollectionMethods:
   Enabled: false
 
 # Well, well, well
-Documentation:
+Style/Documentation:
   Enabled: false
 
 # Probably later
-DotPosition:
+Layout/DotPosition:
   Enabled: false
 
 # Missing UTF-8 encoding statements should always be created.
-Encoding:
+Style/Encoding:
   Severity: error
 
 # Keep single line bodys for if and unless
-IfUnlessModifier:
-  Enabled: false
-
-# We thinks that's fine
-HasAndBelongsToMany:
-  Enabled: false
-
-# We think that's the developers choice
-Rails/Delegate:
+Style/IfUnlessModifier:
   Enabled: false
 
 # That's no huge stopper
@@ -102,4 +95,44 @@ Style/GuardClause:
 
 # We thinks that's fine
 Style/SingleLineBlockParams:
+  Enabled: false
+
+# We thinks that's fine
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+# We think that's the developers choice
+Rails/Delegate:
+  Enabled: false
+
+# To be specified at a later point
+
+Rails/EnumHash:
+  Enabled: false
+
+Rails/HelperInstanceVariable:
+  Enabled: false
+
+Rails/InverseOf:
+  Enabled: false
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false
+
+Rails/ApplicationController:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/TimeZone:
+  Enabled: false
+
+Rails/Validation:
+  Enabled: false
+
+Rails/ActiveRecordAliases:
   Enabled: false
