@@ -12,6 +12,7 @@ class Api::Team::GroupsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
   test 'listing all groups of a given team' do
+    GeoIp.stubs(:activated?)
 
     login_as(:bob)
     team = teams(:team1)

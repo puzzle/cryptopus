@@ -11,13 +11,17 @@ class Api::Team::ApiUsersControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   context '#index' do
     test 'user lists his api users' do
       api_user1 = bob.api_users.create
       api_user2 = bob.api_users.create
       alice.api_users.create
       team = teams(:team1)
-      
+
       login_as(:bob)
 
       get :index, params: { team_id: team }, xhr: true

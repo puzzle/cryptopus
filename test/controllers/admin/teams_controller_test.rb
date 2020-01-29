@@ -11,6 +11,10 @@ require 'test/unit'
 class Admin::TeamsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   context '#index' do
 
     test 'user cannot access admin teams' do

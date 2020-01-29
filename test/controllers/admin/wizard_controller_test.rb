@@ -10,6 +10,10 @@ require 'test_helper'
 class WizardControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   test 'display error if password fields empty' do
     User::Human.delete_all
     post :apply, params: { password: '', password_repeat: 'password' }

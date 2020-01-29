@@ -88,6 +88,7 @@ de:
         title: Einstellungen bearbeiten
         save: Änderungen speichern
         ldap: Ldap Verbindung testen
+        whitelist_placeholder_geo_ip_deactivated: Falls keine IP's angegeben sind werden alle IP's erlaubt
     recryptrequests:
       index:
         title: Entschlüsselungs Anfragen

@@ -24,6 +24,10 @@ require 'test_helper'
 class ItemsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   test 'does not upload file with empty filename'  do
     account1 = accounts(:account1)
 

@@ -11,6 +11,10 @@ require 'test/unit'
 class Admin::SettingsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   test 'update setting attributes' do
     login_as(:admin)
     post :update_all, params: { setting: {ldap_basename: 'test_basename', ldap_portnumber: '1234', ldap_enable: 'f'} }

@@ -10,8 +10,8 @@ require 'test_helper'
 class Api::ApiUsers::LockControllerTest < ActionController::TestCase
 
   include ControllerTest::DefaultHelper
-  setup :login_as_bob, :create_api_user
-  
+  setup :login_as_bob, :create_api_user, :mock_geo_ip
+
   context '#lock' do
     test 'user locks his api user' do
       post :create, params: { id: @api_user.id }, xhr: true
@@ -68,6 +68,10 @@ class Api::ApiUsers::LockControllerTest < ActionController::TestCase
 
   def create_api_user
     @api_user = users(:bob).api_users.create!(description: 'my sweet api user')
+  end
+
+  def mock_geo_ip
+    GeoIp.stubs(:activated?)
   end
 
 end

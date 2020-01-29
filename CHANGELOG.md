@@ -2,6 +2,7 @@
 
 ## Version 2.4
 * Upgrade to Ruby 2.5, Rails 5.2.3
+* Fix Geo IP DB for new License
 
 ## Version 2.3
 

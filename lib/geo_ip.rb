@@ -5,10 +5,6 @@ class GeoIp
   MAX_MIND_DB_PATH = Rails.root.join('db', 'geo_ip.mmdb').freeze
 
   def initialize
-    unless File.exist?(MAX_MIND_DB_PATH)
-      raise 'geo ip db file missing: please run rake geo:fetch'
-    end
-
     @max_mind = MaxMind::DB.new(MAX_MIND_DB_PATH)
   end
 
@@ -18,4 +14,27 @@ class GeoIp
       try(:[], 'iso_code')
   end
 
+  class << self
+    def activated?
+      if country_whitelist_configured?
+        db_present? ? true : (raise error_message)
+      else
+        db_present?
+      end
+    end
+
+    private
+
+    def db_present?
+      File.exist?(MAX_MIND_DB_PATH)
+    end
+
+    def country_whitelist_configured?
+      Setting.value(:general, :country_source_whitelist).any?
+    end
+
+    def error_message
+      'Either remove all countrys from the settings or install geo ip db (https://github.com/puzzle/cryptopus/wiki/Geo-IP-Database).'
+    end
+  end
 end

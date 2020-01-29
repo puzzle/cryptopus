@@ -10,6 +10,10 @@ require 'test_helper'
 class LoginsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   test 'cannot login with wrong password' do
     post :authenticate, params: { password: 'wrong_password', username: 'bob' }
 
@@ -147,6 +151,8 @@ class LoginsControllerTest < ActionController::TestCase
   end
 
   test 'shows last login datetime and ip without country' do
+    GeoIp.expects(:activated?).returns(false).at_least_once
+
     user = users(:bob)
     user.update_attributes(last_login_at: '2017-01-01 16:00:00 + 0000', last_login_from: '192.168.210.10')
 
@@ -169,6 +175,11 @@ class LoginsControllerTest < ActionController::TestCase
   end
 
   test 'shows previous login ip and country' do
+    geo_ip = mock()
+    GeoIp.expects(:activated?).returns(true).at_least_once
+    geo_ip.stubs(:country_code).returns('JP').at_least_once
+    Flash::LastLoginMessage.any_instance.expects(:geo_ip).returns(geo_ip).at_least_once
+
     user = users(:bob)
     user.update_attributes(last_login_at: '2001-09-11 19:00:00 + 0000', last_login_from: '153.123.34.34')
 

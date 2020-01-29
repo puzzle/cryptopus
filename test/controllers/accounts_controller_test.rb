@@ -24,6 +24,10 @@ require 'test_helper'
 class AccountsControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   context 'move' do
     test 'move account from one group to another' do
       login_as (:bob)

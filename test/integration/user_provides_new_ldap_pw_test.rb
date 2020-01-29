@@ -15,6 +15,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
   setup :enable_ldap
 
   test 'Bob provides new ldap password and remembers old password' do
+    GeoIp.expects(:activated?).returns(false).at_least_once
     # Prepare for Test
     user_bob = users(:bob)
     user_bob.update_attribute(:auth, 'ldap')
@@ -49,6 +50,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
   end
 
   test "Bob provides new ldap password and doesn't remember his old password" do
+    GeoIp.expects(:activated?).returns(false).at_least_once
     # Prepare for Test
     user_bob = users(:bob)
     user_bob.update_attributes(auth: 'ldap')

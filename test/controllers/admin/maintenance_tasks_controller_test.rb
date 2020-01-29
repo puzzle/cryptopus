@@ -11,6 +11,10 @@ require 'test/unit'
 class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
   include ControllerTest::DefaultHelper
 
+  setup do
+    GeoIp.stubs(:activated?)
+  end
+
   context '#index' do
 
     test 'index cannot be accessed by non-root' do
