@@ -43,7 +43,7 @@ class Team < ApplicationRecord
     end
   end
 
-  def update_attributes(attributes)
+  def update(attributes)
     attributes.delete('private')
     super(attributes)
   end

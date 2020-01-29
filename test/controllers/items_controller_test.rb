@@ -13,7 +13,6 @@
 #  content_type :text             not null
 #
 
-
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -28,11 +27,11 @@ class ItemsControllerTest < ActionController::TestCase
     GeoIp.stubs(:activated?)
   end
 
-  test 'does not upload file with empty filename'  do
+  test 'does not upload file with empty file'  do
     account1 = accounts(:account1)
 
     login_as(:bob)
-    file = fixture_file_upload('files/emptyfile/ ','text/plain')
+    file = fixture_file_upload('files/empty.txt','text/plain')
     item_params = {filename: 'Testfile', content_typ: 'application/zip', file: file, description: 'test' }
 
     assert_difference('Item.count', 0) do

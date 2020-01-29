@@ -315,9 +315,9 @@ class LdapConnectionTest < ActiveSupport::TestCase
         .with('example_bind_dn', 'example_bind_password')
 
       Net::LDAP.any_instance.expects(:bind)
-        .raises(Net::LDAP::ConnectionRefusedError)
+        .raises(Errno::ECONNREFUSED)
 
-      assert_raise Net::LDAP::ConnectionRefusedError do
+      assert_raise Errno::ECONNREFUSED do
         ldap_connection.send(:connection)
       end
     end

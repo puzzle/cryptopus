@@ -10,9 +10,9 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'simplecov'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require "minitest/autorun"
+require 'minitest/autorun'
 require 'mocha/minitest'
-require "minitest/rails/capybara"
+# require 'minitest/rails/capybara'
 require 'policies/policy_test'
 
 ActiveRecord::Migration.maintain_test_schema!
@@ -25,12 +25,12 @@ SimpleCov.start 'rails' do
   coverage_dir 'test/coverage'
 end
 
-Capybara.default_max_wait_time = 5
-
-Capybara::Webkit.configure do |config|
-  config.debug = false
-  config.allow_unknown_urls
-end
+# Capybara.default_max_wait_time = 5
+#
+# Capybara::Webkit.configure do |config|
+#   config.debug = false
+#   config.allow_unknown_urls
+# end
 
 
 class ActiveSupport::TestCase
@@ -61,13 +61,13 @@ class ActiveSupport::TestCase
 
 end
 
-class Capybara::Rails::TestCase
-  self.use_transactional_tests = false
-  DatabaseCleaner.strategy = :truncation
-
-  setup do
-    DatabaseCleaner.start
-  end
-
-  teardown { DatabaseCleaner.clean }
-end
+# class Capybara::Rails::TestCase
+#   self.use_transactional_tests = false
+#   DatabaseCleaner.strategy = :truncation
+#
+#   setup do
+#     DatabaseCleaner.start
+#   end
+#
+#   teardown { DatabaseCleaner.clean }
+# end

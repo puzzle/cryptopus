@@ -53,7 +53,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
     GeoIp.expects(:activated?).returns(false).at_least_once
     # Prepare for Test
     user_bob = users(:bob)
-    user_bob.update_attributes(auth: 'ldap')
+    user_bob.update(auth: 'ldap')
     user_bob.update_attribute(:ldap_uid, 42)
 
     # Method call expectations

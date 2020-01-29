@@ -44,8 +44,8 @@ class Authentication::BruteForceDetector
     if attempts >= LOCK_TIME_FAILED_LOGIN_ATTEMPT.length
       user.update_attribute(:locked, true)
     else
-      user.update_attributes(failed_login_attempts: attempts,
-                             last_failed_login_attempt_at: now)
+      user.update(failed_login_attempts: attempts,
+                  last_failed_login_attempt_at: now)
     end
   end
 
