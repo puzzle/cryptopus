@@ -14,41 +14,7 @@ class Admin::MaintenanceTasksController < ApplicationController
     @maintenance_logs = Log.where(log_type: 'maintenance_task')
   end
 
-  # GET /admin/maintenance_tasks/1/prepare
-  def prepare
-    raise routing_error unless maintenance_task.prepare?
-
-    authorize maintenance_task
-
-    flash[:notice] = maintenance_task.hint
-    flash[:error] = maintenance_task.error
-  end
-
-  # POST /admin/maintenance_tasks/1/execute
-  def execute
-    raise routing_error unless maintenance_task
-
-    authorize maintenance_task
-
-    set_task_attributes
-
-    result = maintenance_task.execute
-    result ? success_message : error_message
-
-    if result && template_exists?(partial)
-      render partial
-    else
-      redirect_to admin_maintenance_tasks_path
-    end
-  end
-
   private
-
-  def set_task_attributes
-    maintenance_task.executer = current_user
-    maintenance_task.param_values = param_values
-  end
-
   def partial
     "admin/maintenance_tasks/#{maintenance_task.name}/result.html.haml"
   end
