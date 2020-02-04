@@ -13,7 +13,6 @@ module SourceIpCheck
   end
 
   def check_source_ip
-
     return if ip_checker.previously_authorized?(session[:authorized_ip])
 
     if ip_checker.ip_authorized?

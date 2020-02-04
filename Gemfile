@@ -41,7 +41,6 @@ gem 'therubyracer'
 gem 'turbolinks'
 gem 'twitter-bootstrap-rails', '~>3.2'
 gem 'uglifier'
-gem 'rubocop-rails'
 
 group :development, :test do
   gem 'bullet'
