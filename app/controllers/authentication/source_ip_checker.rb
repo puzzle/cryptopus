@@ -18,7 +18,7 @@ class Authentication::SourceIpChecker
       IPAddr.new(r)
     end
   end
-  
+
   def initialize(remote_ip)
     @remote_ip = remote_ip
   end
@@ -53,10 +53,9 @@ class Authentication::SourceIpChecker
   end
 
   def country_authorized?
-    return true
-  #   country_code = geo_ip.country_code(remote_ip)
-  #   country_code.present? &&
-  #     whitelisted_country_codes.include?(country_code)
+    country_code = geo_ip.country_code(remote_ip)
+    country_code.present? &&
+    whitelisted_country_codes.include?(country_code)
   end
 
   def whitelisted_country_codes
