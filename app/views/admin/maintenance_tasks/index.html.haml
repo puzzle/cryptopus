@@ -15,10 +15,7 @@
       %tr{class: "#{cycle('odd', 'even')}"}
         %td= task.label
         %td= task.description
-        - if task.prepare?
-          %td= link_to t('admin.maintenance_tasks.index.prepare'), admin_maintenance_tasks_prepare_path(task.id)
-        - else
-          %td= link_to t('admin.maintenance_tasks.index.execute'), admin_maintenance_tasks_execute_path(task.id), method: :post
+        %td= link_to t('admin.maintenance_tasks.index.execute'), admin_maintenance_tasks_execute_path(task.id), method: :post
 - else
   %tr
     %td= t '.unavailable'

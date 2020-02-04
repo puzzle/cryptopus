@@ -26,7 +26,7 @@ class MaintenanceTasks::RemovedLdapUsers < MaintenanceTask
   end
 
   def enabled?
-    Setting.find_by(key: 'ldap_enable').value
+    Setting.value(:ldap, :enable)
   end
 
   private

@@ -84,9 +84,6 @@ ru:
         maintenance_task: "Задачи обслуживания"
         run: "выполнить"
         logs: "Журналы"
-      root_as_admin:
-        label: "Назначить пользователя root администратором"
-        description: "Назначает пользователя root администратором и удаляет роль root."
     settings:
       index:
         title: "Редактировать настройки"

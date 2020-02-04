@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
     namespace :admin do
       resources :maintenance_tasks, only: :index
+      post '/maintenance_tasks/:id/execute', to: 'maintenance_tasks#execute', as: 'maintenance_tasks_execute'
 
       resource :settings do
         post 'update_all'

@@ -25,14 +25,85 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
       assert_redirected_to teams_path
     end
 
-    test 'get all maintenance tasks' do
+    test 'get all maintenance tasks without ldap' do
       login_as(:admin)
 
       get :index
 
       maintenance_tasks = assigns(:maintenance_tasks)
 
+      assert_equal 0, maintenance_tasks.size
+    end
+
+    test 'get all maintenance tasks with ldap enabled' do
+      MaintenanceTasks::RemovedLdapUsers.any_instance.expects(:enabled?).returns(true).at_least_once
+      login_as(:admin)
+
+      get :index
+      maintenance_tasks = assigns(:maintenance_tasks)
+
       assert_equal 1, maintenance_tasks.size
+    end
+
+    context '#execute' do
+
+      test 'execute cannot be accessed by non-root' do
+        MaintenanceTasks::RemovedLdapUsers.any_instance.expects(:enabled?).returns(true).at_least_once
+        login_as(:bob)
+
+        post :execute, params: { id: 3 }
+
+        assert_redirected_to teams_path
+      end
+
+      test 'execute task' do
+        MaintenanceTasks::RemovedLdapUsers.any_instance.expects(:enabled?).returns(true).at_least_once
+        LdapConnection.any_instance.expects(:test_connection).returns(true)
+
+        login_as(:admin)
+        assert_difference('Log.count', 1) do
+          post :execute, params: { id: 3 }
+        end
+
+        assert_template 'admin/maintenance_tasks/removed_ldap_users/result.html.haml'
+        assert_match(/successfully/, flash[:notice])
+      end
+
+      test 'displays error if task execution fails' do
+        MaintenanceTasks::RemovedLdapUsers.any_instance.expects(:enabled?).returns(true).at_least_once
+        login_as(:admin)
+        assert_difference('Log.count', 1) do
+          post :execute, params: { id: 3 }
+        end
+
+        assert_redirected_to admin_maintenance_tasks_path
+        assert_match(/Task failed/, flash[:error])
+      end
+
+      test 'returns 404 if invalid maintenance task id' do
+        enable_ldap
+        login_as(:admin)
+
+        assert_raise ActionController::RoutingError do
+          post :execute, params: { id: 42, task_params: {} }
+        end
+      end
+
+      test 'executes task and renders result page' do
+        enable_ldap
+        login_as(:admin)
+
+        LdapConnection.any_instance.expects(:test_connection)
+          .returns(true)
+
+        assert_difference('Log.count', 1) do
+          post :execute, params: { id: 3 }
+        end
+
+        assert_template 'admin/maintenance_tasks/removed_ldap_users/result.html.haml'
+        assert_match(/successfully/, flash[:notice])
+      end
+
     end
 
   end
