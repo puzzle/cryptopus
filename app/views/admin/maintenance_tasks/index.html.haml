@@ -5,7 +5,7 @@
 
 %h1= t '.title'
 
-- if !@maintenance_tasks.empty?
+- unless @maintenance_tasks.empty?
   %table.table.table-striped
     %tr
       %th{style: "width: 150px;"}= t '.maintenance_task'

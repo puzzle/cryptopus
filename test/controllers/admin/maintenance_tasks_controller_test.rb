@@ -36,7 +36,7 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
     end
 
     test 'get all maintenance tasks with ldap enabled' do
-      MaintenanceTasks::RemovedLdapUsers.any_instance.expects(:enabled?).returns(true).at_least_once
+      enable_ldap
       login_as(:admin)
 
       get :index
@@ -48,7 +48,7 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
     context '#execute' do
 
       test 'execute cannot be accessed by non-root' do
-        MaintenanceTasks::RemovedLdapUsers.any_instance.expects(:enabled?).returns(true).at_least_once
+        enable_ldap
         login_as(:bob)
 
         post :execute, params: { id: 3 }
@@ -57,7 +57,7 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
       end
 
       test 'execute task' do
-        MaintenanceTasks::RemovedLdapUsers.any_instance.expects(:enabled?).returns(true).at_least_once
+        enable_ldap
         LdapConnection.any_instance.expects(:test_connection).returns(true)
 
         login_as(:admin)
@@ -70,7 +70,8 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
       end
 
       test 'displays error if task execution fails' do
-        MaintenanceTasks::RemovedLdapUsers.any_instance.expects(:enabled?).returns(true).at_least_once
+        enable_ldap
+
         login_as(:admin)
         assert_difference('Log.count', 1) do
           post :execute, params: { id: 3 }
