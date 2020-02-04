@@ -81,6 +81,7 @@ en:
     maintenance_tasks:
       index:
         title: Maintenance tasks
+        unavailable: No maintenance tasks available
         maintenance_task: Maintenance tasks
         run: execute
         prepare: prepare
@@ -117,7 +118,7 @@ en:
         create: Create new user
       edit:
         title: Editing user
-        reset_password: Reset password  
+        reset_password: Reset password
         warning: By resetting the password, the user loses access to all his private teams. All teams, where he is the only member will be deleted
       index:
         title: List of all Cryptopus users
@@ -350,7 +351,7 @@ en:
   activerecord:
     errors:
       template:
-        body: 
+        body:
         header:
       models:
         user:

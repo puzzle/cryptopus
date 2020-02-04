@@ -16,70 +16,42 @@ class MaintenanceTaskPolicyTest < PolicyTest
     end
   end
 
-  context '#prepare' do
-    test 'admin can prepare enabled maintenance tasks' do
-      assert_permit admin, task, :prepare?
-    end
-  
-    test 'conf_admin can prepare enabled maintenance tasks' do
-      assert_permit conf_admin, task, :prepare?
-    end   
- 
-    test 'admin cannot prepare disabled maintenance tasks' do
-      MaintenanceTasks::RootAsAdmin.any_instance
-                                       .expects(:enabled?)
-                                       .returns(false)
-      
-      refute_permit admin, task, :prepare?
-    end
-
-    test 'conf_admin cannot prepare disabled maintenance tasks' do
-      MaintenanceTasks::RootAsAdmin.any_instance
-                                       .expects(:enabled?)
-                                       .returns(false)
-      cadmin = conf_admin
-      refute_permit cadmin, task, :prepare?
-    end
-
-    test 'non-admin cannot prepare enabled maintenance tasks' do
-      refute_permit bob, task, :prepare?      
-    end
-  end
-
   context '#execute' do
-    test 'admin can execute enabled maintenance tasks' do
-      assert_permit admin, task, :execute?
-    end
-    
-    test 'admin cannot execute disabled maintenance tasks' do
-      MaintenanceTasks::RootAsAdmin.any_instance
-                                       .expects(:enabled?)
-                                       .returns(false)
-      
-      refute_permit admin, task, :execute?
+      test 'admin can execute enabled maintenance tasks' do
+        enable_ldap
+        assert_permit admin, task, :execute?
+      end
+
+      test 'admin cannot execute disabled maintenance tasks' do
+        MaintenanceTasks::RemovedLdapUsers.any_instance
+                                         .expects(:enabled?)
+                                         .returns(false)
+
+        refute_permit admin, task, :execute?
+      end
+
+      test 'conf_admin can execute enabled maintenance tasks' do
+        enable_ldap
+        assert_permit conf_admin, task, :execute?
+      end
+
+      test 'conf_admin cannot execute disabled maintenance tasks' do
+        MaintenanceTasks::RemovedLdapUsers.any_instance
+                                         .expects(:enabled?)
+                                         .returns(false)
+
+        refute_permit conf_admin, task, :execute?
+      end
+
+      test 'non-admin cannot execute enabled maintenance tasks' do
+        refute_permit bob, task, :execute?
+      end
     end
 
-    test 'conf_admin can execute enabled maintenance tasks' do
-      assert_permit conf_admin, task, :execute?
-    end
-    
-    test 'conf_admin cannot execute disabled maintenance tasks' do
-      MaintenanceTasks::RootAsAdmin.any_instance
-                                       .expects(:enabled?)
-                                       .returns(false)
-      
-      refute_permit conf_admin, task, :execute?
-    end
+    private
 
-    test 'non-admin cannot execute enabled maintenance tasks' do
-      refute_permit bob, task, :execute?      
+    def task
+      MaintenanceTasks::RemovedLdapUsers.new
     end
-  end
-
-  private
-
-  def task
-    MaintenanceTasks::RootAsAdmin.new
-  end
 
 end

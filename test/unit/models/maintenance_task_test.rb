@@ -15,7 +15,7 @@ class MaintenanceTaskTest < ActiveSupport::TestCase
       end
     end
   end
-  
+
   class WorkingTask < MaintenanceTask
     def execute
       super do
@@ -41,7 +41,7 @@ class MaintenanceTaskTest < ActiveSupport::TestCase
   test 'return true if execute method succeeds' do
     mt = WorkingTask.new
     mt.executer = users(:admin)
-    
+
     assert_equal true, mt.execute
   end
 
@@ -67,7 +67,6 @@ class MaintenanceTaskTest < ActiveSupport::TestCase
     enable_ldap
     list = MaintenanceTask.list
 
-    assert_equal MaintenanceTasks::RootAsAdmin, list.first.class
     assert_equal MaintenanceTask::TASKS.count, list.count
   end
 end

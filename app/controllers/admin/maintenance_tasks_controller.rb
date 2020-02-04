@@ -14,19 +14,10 @@ class Admin::MaintenanceTasksController < ApplicationController
     @maintenance_logs = Log.where(log_type: 'maintenance_task')
   end
 
-  # GET /admin/maintenance_tasks/1/prepare
-  def prepare
-    raise routing_error unless maintenance_task.prepare?
-
-    authorize maintenance_task
-
-    flash[:notice] = maintenance_task.hint
-    flash[:error] = maintenance_task.error
-  end
-
   # POST /admin/maintenance_tasks/1/execute
   def execute
     raise routing_error unless maintenance_task
+
 
     authorize maintenance_task
 

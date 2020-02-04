@@ -79,6 +79,7 @@ fr:
     maintenance_tasks:
       index:
         title: Les tâches de maintenance
+        unavailable: Il n'y a pas de tâches de maintenance
         maintenance_task: Tâche de maintenance
         run: effectuer
     settings:
@@ -370,7 +371,7 @@ fr:
     errors:
       template:
         body:
-        header: 
+        header:
       models:
         account:
           attributes:
@@ -439,10 +440,10 @@ fr:
     weak: Le mot de passe est faible
     good: Le mot de passe est bon
     strong: Le mot de passe est forte!
-    
+
   #Pundit
   pundit:
     default: Accès refusé
     team_policy:
       update?: Vous n'êtes pas membre de cette équipe
-      destroy?: Seul l'administrateur peut supprimer des équipes 
+      destroy?: Seul l'administrateur peut supprimer des équipes

@@ -33,9 +33,7 @@ class User::Human
       end
 
       def ldap_enabled?
-        return true if Setting.value('ldap', 'enable') == true
-
-        false
+        Setting.value('ldap', 'enable')
       end
 
       private

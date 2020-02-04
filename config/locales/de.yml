@@ -81,6 +81,7 @@ de:
     maintenance_tasks:
       index:
         title: Wartungsaufgaben
+        unavailable: Keine Wartungsaufgaben vorhanden
         maintenance_task: Wartungsaufgabe
         run: Ausführen
     settings:
@@ -372,8 +373,8 @@ de:
         username: Benutzername
     errors:
       template:
-        body: 
-        header: 
+        body:
+        header:
       models:
         account:
           attributes:
