@@ -15,6 +15,7 @@ BUILD
 .idea
 .rake_tasks~
 .tags
+.tags_swap
 
 # Ignore application configuration
 /config/application.yml

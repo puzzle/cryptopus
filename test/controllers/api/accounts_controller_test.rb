@@ -141,7 +141,7 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_equal 'test', account['cleartext_username']
       assert_equal 'password', account['cleartext_password']
     end
-    
+
     test 'cannot authenticate and does not return decrypted account if recrypt requests pending' do
       bob.recryptrequests.create!
 
@@ -153,7 +153,7 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_includes errors, 'Wait for the recryption of your users team passwords'
       assert_equal 403, JSON.parse(response.code)
     end
-    
+
     test 'cannot authenticate and does not return decrypted account if user not logged in' do
       account = accounts(:account1)
       get :show, params: { id: account }, xhr: true
@@ -166,12 +166,11 @@ class Api::AccountsControllerTest < ActionController::TestCase
   context '#api_user' do
     test 'authenticates with valid api user and returns account details' do
       api_user.update!(valid_until: Time.now + 5.minutes)
-    
+
       teams(:team1).add_user(api_user, plaintext_team_password)
 
       request.headers['Authorization-User'] = api_user.username
       request.headers['Authorization-Password'] = token
-
       account = accounts(:account1)
       get :show, params: { id: account }, xhr: true
 
@@ -181,10 +180,10 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_equal 'test', account['cleartext_username']
       assert_equal 'password', account['cleartext_password']
     end
-    
+
     test 'does not authenticate with invalid api token and does not show account details' do
       api_user.update!(valid_until: Time.now + 5.minutes)
-    
+
       teams(:team1).add_user(api_user, plaintext_team_password)
 
       request.headers['Authorization-User'] = api_user.username
@@ -196,10 +195,10 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_includes errors, 'Authentification failed'
       assert_equal 401, JSON.parse(response.code)
     end
-    
+
     test 'cannot authenticate without headers and does not show account details' do
       api_user.update!(valid_until: Time.now + 5.minutes)
-    
+
       teams(:team1).add_user(api_user, plaintext_team_password)
 
       account = accounts(:account1)
@@ -208,15 +207,15 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_equal 401, JSON.parse(response.code)
       assert_includes errors, 'User not logged in'
     end
-    
+
     test 'authenticates and shows account details even if recryptrequests of human user pending' do
       api_user.update!(valid_until: Time.now + 5.minutes)
 
       bob.recryptrequests.create!
-      
+
       request.headers['Authorization-User'] = api_user.username
       request.headers['Authorization-Password'] = token
-    
+
       teams(:team1).add_user(api_user, plaintext_team_password)
 
       account = accounts(:account1)
@@ -228,10 +227,10 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_equal 'test', account['cleartext_username']
       assert_equal 'password', account['cleartext_password']
     end
-    
+
     test 'does not show account details if valid api user not teammember' do
       api_user.update!(valid_until: Time.now + 5.minutes)
-    
+
       request.headers['Authorization-User'] = api_user.username
       request.headers['Authorization-Password'] = token
 
@@ -239,14 +238,13 @@ class Api::AccountsControllerTest < ActionController::TestCase
       get :show, params: { id: account }, xhr: true
 
       assert_includes errors, 'Access denied'
-      assert_equal 500, JSON.parse(response.code)
+      assert_equal 403, JSON.parse(response.code)
     end
-    
+
     test 'human user shows account details and does not use api user authenticator if active session' do
       login_as(:bob)
 
-      request.headers['Authorization-User'] = bob.username
-      request.headers['Authorization-Password'] = Base64.encode64('password')
+      set_request_headers
 
       account = accounts(:account1)
       get :show, params: { id: account }, xhr: true
@@ -259,10 +257,9 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_equal 'test', account['cleartext_username']
       assert_equal 'password', account['cleartext_password']
     end
-    
+
     test 'human user shows account details if headers valid' do
-      request.headers['Authorization-User'] = bob.username
-      request.headers['Authorization-Password'] = Base64.encode64('password')
+      set_request_headers
 
       account = accounts(:account1)
       get :show, params: { id: account }, xhr: true
@@ -273,12 +270,86 @@ class Api::AccountsControllerTest < ActionController::TestCase
       assert_equal 'test', account['cleartext_username']
       assert_equal 'password', account['cleartext_password']
     end
+
+  end
+
+  context '#update' do
+    test 'update account with valid params structure' do
+      set_request_headers
+
+      account = accounts(:account1)
+
+      account_params = {
+        id: account.id,
+        account: {
+          accountname: "Bob Meyer",
+          tag: "taggy"
+        }
+      }
+      patch :update, params: account_params , xhr: true
+
+      account.reload
+
+      assert_equal "Bob Meyer", account.accountname
+      assert_equal "taggy", account.tag
+      assert_equal 200, response.status
+    end
+
+    test 'account password and username attributes cannot be set by params' do
+      set_request_headers
+
+      account = accounts(:account1)
+
+      account_params = {
+        id: account.id,
+        account: {
+          username: "Bob Meyer",
+          password: "password"
+        }
+      }
+
+      patch :update, params: account_params , xhr: true
+
+      account.reload
+
+      assert_not_equal account.username, "Bob Meyer"
+      assert_not_equal account.password, "password"
+      assert_equal 200, response.status
+      assert_equal response.body, response_from_update
+    end
+
+    test 'do not update account when user not in team' do
+      request.headers['Authorization-User'] = alice.username
+      request.headers['Authorization-Password'] = Base64.encode64('password')
+
+    account = accounts(:account2)
+
+    account_params = {
+      id: account.id,
+      account: {
+        accountname: "Bob Meyer",
+        tag: "taggy"
+      }
+    }
+
+    patch :update, params: account_params , xhr: true
+
+    account.reload
+
+    assert_equal 'account2', account.accountname
+    assert_equal 'tag', account.tag
+    assert_equal 403, response.status
+    end
   end
 
   private
 
   def bob
     users(:bob)
+  end
+
+  def alice
+    users(:alice)
   end
 
   def api_user
@@ -298,7 +369,17 @@ class Api::AccountsControllerTest < ActionController::TestCase
     Base64.encode64(decrypted_token)
   end
 
+  def set_request_headers
+    request.headers['Authorization-User'] = bob.username
+    request.headers['Authorization-Password'] = Base64.encode64('password')
+  end
+
   def errors
     JSON.parse(response.body)['messages']['errors']
   end
+
+  def response_from_update
+    '{"data":{"account":{"id":303742481,"accountname":"account1","group_id":683612621,"group":"group1","team":"team1","team_id":235930340,"cleartext_password":null,"cleartext_username":null}},"messages":{"errors":[],"info":[]}}'
+  end
+
 end
