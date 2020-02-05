@@ -14,6 +14,14 @@ class AccountPolicy < TeamDependantPolicy
     team.teammember?(@user.id)
   end
 
+  def update?
+    team.teammember?(@user.id)
+  end
+
+  def permitted_attributes
+    %i[accountname group_id description cleartext_username cleartext_password tag]
+  end
+
   def create_item?
     team_member?
   end

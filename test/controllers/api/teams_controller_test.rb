@@ -14,7 +14,7 @@ class Api::TeamsControllerTest < ActionController::TestCase
   setup do
     GeoIp.stubs(:activated?)
   end
-  
+
   test 'destroy team' do
     login_as(:admin)
     team = Fabricate(:private_team)
@@ -24,6 +24,7 @@ class Api::TeamsControllerTest < ActionController::TestCase
     end
     assert_not Teammember.where(team_id: team.id).present?, 'teammembers should be removed'
   end
+
   test 'cannot delete team if not admin' do
     login_as(:bob)
     soloteam = Fabricate(:private_team)
@@ -87,7 +88,7 @@ class Api::TeamsControllerTest < ActionController::TestCase
     assert_equal team.name, result_json['name']
     assert_equal team.id, result_json['id']
   end
-  
+
   test 'should get all teams for no query' do
     login_as(:alice)
     get :index, params: {'q': ''}, xhr: true

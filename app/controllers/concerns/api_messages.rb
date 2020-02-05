@@ -33,6 +33,7 @@ module ApiMessages
 
   def no_access_message
     add_error t('flashes.admin.admin.no_access')
+    @response_status = 403
   end
 
   def pending_recrypt_request_message

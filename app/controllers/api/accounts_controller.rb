@@ -4,9 +4,10 @@
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
-
 class Api::AccountsController < ApiController
+  helper_method :team
 
+  # GET /api/accounts
   def index
     authorize Account
     accounts = current_user.accounts
@@ -14,14 +15,27 @@ class Api::AccountsController < ApiController
     render_json accounts
   end
 
+  # GET /api/accounts/:id
   def show
-    account = Account.find(params[:id])
     authorize account
     account.decrypt(decrypted_team_password(account.group.team))
     render_json account
   end
 
+  # PATCH /api/accounts/:id?Query
+  def update
+    authorize account
+    account.attributes = account_params
+    account.encrypt(decrypted_team_password(account.group.team))
+    account.update!(permitted_attributes(account))
+    render_json account
+  end
+
   private
+
+  def account_params
+    permitted_attributes(account)
+  end
 
   def find_accounts(accounts)
     if query_param.present?
@@ -30,6 +44,10 @@ class Api::AccountsController < ApiController
       accounts = accounts.find_by(tag: tag_param)
     end
     accounts
+  end
+
+  def account
+    @account ||= Account.find(params[:id])
   end
 
   def finder(accounts, query)

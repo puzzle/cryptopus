@@ -116,14 +116,14 @@ class User::HumanTest < ActiveSupport::TestCase
       mock_ldap_settings
 
       LdapConnection.any_instance.expects(:uidnumber_by_username).returns(42)
-      LdapConnection.any_instance.expects(:ldap_info).with(42, 'givenname').returns("bob")
+      LdapConnection.any_instance.expects(:ldap_info).with(42, 'givenname').returns('test_user')
       LdapConnection.any_instance.expects(:ldap_info).with(42, 'sn').returns("test")
 
-      user = User::Human.send(:create_from_ldap, 'bob', 'password')
+      user = User::Human.send(:create_from_ldap, 'test_user', 'password')
 
-      assert_equal 'bob', user.username
+      assert_equal 'test_user', user.username
       assert_equal 42, user.ldap_uid
-      assert_equal 'bob', user.givenname
+      assert_equal 'test_user', user.givenname
       assert_equal 'test', user.surname
       assert_equal 'ldap', user.auth
     end

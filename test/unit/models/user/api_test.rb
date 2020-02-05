@@ -99,7 +99,7 @@ class User::ApiTest < ActiveSupport::TestCase
       api_user = bob.api_users.create
       api_user.update!(valid_until: Time.now + 5.minutes)
       api_user.update!(locked: true)
-      
+
       assert_equal false, bob.locked?
       assert_equal true, api_user.locked?
     end
@@ -114,7 +114,7 @@ class User::ApiTest < ActiveSupport::TestCase
       assert_equal true, api_user.locked?
     end
   end
-  
+
   context '#expired' do
     test 'api user not expired' do
       api_user = bob.api_users.create
@@ -128,46 +128,47 @@ class User::ApiTest < ActiveSupport::TestCase
       api_user = bob.api_users.create
 
       api_user.update!(valid_until: Time.now - 5.minutes)
-      
+
       assert_equal true, api_user.expired?
     end
-    
+
     test 'api user expired if valid until nil' do
       api_user = bob.api_users.create
-      
+
       assert_nil api_user.valid_until
       assert_equal true, api_user.expired?
     end
   end
 
+
   context '#authenticate' do
     test 'api user authenticates with valid password' do
       api_user = bob.api_users.create
       api_user.update!(valid_until: Time.now + 5.minutes)
-      
+
       token = decrypted_token(api_user)
-      
+
       assert_equal true, api_user.authenticate(token)
     end
 
     test 'api user cannot authenticate with invalid password' do
       api_user = bob.api_users.create
-      
+
       assert_equal false, api_user.authenticate('abcd')
     end
 
     test 'api user cannot authenticate if locked' do
       api_user = bob.api_users.create
       api_user.update!(locked: true)
-      
+
       token = decrypted_token(api_user)
-      
+
       assert_equal false, api_user.authenticate(token)
     end
   end
 
   private
-  
+
   def bob
     users(:bob)
   end

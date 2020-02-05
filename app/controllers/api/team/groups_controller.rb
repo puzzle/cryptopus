@@ -7,6 +7,7 @@
 
 class Api::Team::GroupsController < ApiController
 
+  # GET /api/groups
   def index
     authorize team, :team_member?
     groups = team.groups
