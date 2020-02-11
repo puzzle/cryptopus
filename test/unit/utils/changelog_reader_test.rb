@@ -6,27 +6,27 @@
 #  https://github.com/puzzle/cryptopus.
 
 require 'test_helper'
-class ChangelogReaderTest < ActiveSupport::TestCase
+describe ChangelogReader do
 
-  context 'verify CHANGELOG.md' do
+  describe 'verify CHANGELOG.md' do
 
-    test 'Every changelog entry has a version' do
+    it 'Every changelog entry has a version' do
       ChangelogReader.changelog.each do |changelog_entry|
         version = changelog_entry.version
-        assert_not_empty(version)
+        assert(true, version.nil?)
       end
     end
 
-    test 'Every changlog entry has at least one entry' do
+    it 'Every changlog entry has at least one entry' do
       ChangelogReader.changelog.each do |changelog_entry|
-        assert_not_empty(changelog_entry.log_entries)
+        assert(true, changelog_entry.log_entries.nil?)
       end
     end
   end
 
-  context 'test ChangelogReader' do
+  describe 'test ChangelogReader' do
 
-    subject { ChangelogReader.new }    
+    subject { ChangelogReader.new }
 
     let(:changelog_lines) do
       [
@@ -44,7 +44,7 @@ class ChangelogReaderTest < ActiveSupport::TestCase
       subject.instance_variable_set(:@changelogs, [])
     end
 
-    test 'reads log correctly' do      
+    it 'reads log correctly' do
       subject.send(:parse_changelog_lines, changelog_lines)
 
       changelogs = subject.instance_variable_get(:@changelogs)
@@ -63,17 +63,17 @@ class ChangelogReaderTest < ActiveSupport::TestCase
       assert_equal('changes', version11.log_entries[0])
     end
 
-    test 'header line parsed' do
+    it 'header line parsed' do
       version = subject.send(:header_line, '## Version 0.0')
       assert_equal('0.0', version)
     end
 
-    test 'entry line parsed' do
+    it 'entry line parsed' do
       entry = subject.send(:entry_line, '* change')
       assert_equal('change', entry)
     end
 
-    test 'doesnt parse invalid line' do
+    it 'doesnt parse invalid line' do
       version = subject.send(:header_line, 'invalid')
       assert_nil(version)
 

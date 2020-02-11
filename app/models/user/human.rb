@@ -119,7 +119,7 @@ class User::Human < User
     end
   end
 
-  # rubocop:disable MethodLength
+  # rubocop:disable Metrics/MethodLength
   def recrypt_private_key!(new_password, old_password)
     unless authenticate(new_password)
       errors.add(:base,
@@ -137,7 +137,7 @@ class User::Human < User
     end
     save!
   end
-  # rubocop:enable MethodLength
+  # rubocop:enable Metrics/MethodLength
 
   def root?
     username == 'root'

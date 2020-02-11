@@ -21,7 +21,6 @@ module Cryptopus
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.eager_load_paths << Rails.root.join('lib')
-
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -61,8 +60,5 @@ module Cryptopus
     end
 
     config.time_zone = ENV['TIME_ZONE'] || 'Bern'
-
-    # https://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/SQLite3Adapter.html#method-c-represent_boolean_as_integer
-    config.active_record.sqlite3.represent_boolean_as_integer = true
   end
 end

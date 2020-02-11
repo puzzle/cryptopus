@@ -2,7 +2,7 @@
 
 class GeoIp
 
-  MAX_MIND_DB_PATH = Rails.root.join('db', 'geo_ip.mmdb').freeze
+  MAX_MIND_DB_PATH = Rails.root.join('db/geo_ip.mmdb').freeze
 
   def initialize
     @max_mind = MaxMind::DB.new(MAX_MIND_DB_PATH)

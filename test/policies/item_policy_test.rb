@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ItemPolicyTest < PolicyTest
 
-  before(:each) do
+  setup do
     remove_alice_from_team
   end
 

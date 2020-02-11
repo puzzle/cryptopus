@@ -18,9 +18,9 @@
 
 class Setting::HostList < Setting
 
-  # rubocop:disable LineLength
+  # rubocop:disable Layout/LineLength
   HOST_REGEX = /^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/.freeze
-  # rubocop:enable LineLength
+  # rubocop:enable Layout/LineLength
 
   before_validation :reject_blank_values
   validate :must_be_valid_host

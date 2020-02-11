@@ -71,7 +71,7 @@ class Item < ApplicationRecord
   end
 
   def uploaded_file_exist
-    if cleartext_file.nil? && file.nil?
+    if cleartext_file.blank? && file.nil?
       errors[:base] << I18n.t('flashes.items.uploaded_file_inexistent')
     end
   end
