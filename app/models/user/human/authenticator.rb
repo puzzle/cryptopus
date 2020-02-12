@@ -18,7 +18,7 @@ class User::Human
     private
 
     def authenticate_ldap(cleartext_password)
-      unless Setting.value('ldap', 'enable') == true
+      unless AuthConfig.ldap_enabled?
         raise 'cannot authenticate against ldap since ldap auth is disabled'
       end
 

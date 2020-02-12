@@ -19,7 +19,7 @@ class User::Human
 
         return user if user
 
-        if Setting.value(:ldap, :enable)
+        if ldap_enabled?
           return unless authenticate_ldap(username, password)
 
           create_from_ldap(username, password)
@@ -27,13 +27,13 @@ class User::Human
       end
 
       def assert_ldap_enabled
-        unless Setting.value('ldap', 'enable') == true
+        unless ldap_enabled?
           raise 'cannot perform ldap operation since ldap is disabled'
         end
       end
 
       def ldap_enabled?
-        Setting.value('ldap', 'enable')
+        AuthConfig.ldap_enabled?
       end
 
       private

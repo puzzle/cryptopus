@@ -9,18 +9,7 @@ require 'test_helper'
 
 class LdapConnectionTest < ActiveSupport::TestCase
 
-  context 'ldap settings' do
-
-    LdapConnection::MANDATORY_LDAP_SETTING_KEYS.each do |k|
-      test "raises error on missing mandatory setting value: #{k}" do
-        Setting.find_by(key: "ldap_#{k}").update!(value: nil)
-        assert_raises ArgumentError do
-          ldap_connection
-        end
-      end
-    end
-
-  end
+  setup :mock_ldap_settings
 
   context '#authenticate' do
 
@@ -255,7 +244,9 @@ class LdapConnectionTest < ActiveSupport::TestCase
   context "multiple ldap servers" do
 
     test 'reaches first ldap server' do
-      settings(:ldap_hostname).update!(value: ['ldap1.crypto.pus', 'ldap2.crypto.pus'])
+      LdapConnection.any_instance.expects(:ldap_hosts)
+        .returns(['ldap1.crypto.pus', 'ldap2.crypto.pus'])
+        .at_least_once
 
       Net::LDAP.any_instance.expects(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -267,7 +258,9 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'reaches second ldap server' do
-      settings(:ldap_hostname).update!(value: ['ldap1.crypto.pus', 'ldap2.crypto.pus'])
+      LdapConnection.any_instance.expects(:ldap_hosts)
+        .returns(['ldap1.crypto.pus', 'ldap2.crypto.pus'])
+        .at_least_once
 
       Net::LDAP.any_instance.expects(:bind)
         .times(2)
@@ -285,9 +278,11 @@ class LdapConnectionTest < ActiveSupport::TestCase
     test 'ldap server cannot be resolved by dns' do
       Net::LDAP.any_instance.expects(:auth)
         .with('example_bind_dn', 'example_bind_password')
+        .at_least_once
 
       Net::LDAP.any_instance.expects(:bind)
         .raises(Net::LDAP::Error, 'getaddrinfo: Name or service not known')
+        .at_least_once
 
       e = assert_raise Net::LDAP::Error do
         ldap_connection.send(:connection)
@@ -299,9 +294,11 @@ class LdapConnectionTest < ActiveSupport::TestCase
     test 'ldap server is not reachable' do
       Net::LDAP.any_instance.expects(:auth)
         .with('example_bind_dn', 'example_bind_password')
+        .at_least_once
 
       Net::LDAP.any_instance.expects(:bind)
         .raises(Net::LDAP::Error, 'Connection timed out - user specified timeout')
+        .at_least_once
 
       e = assert_raise Net::LDAP::Error do
         ldap_connection.send(:connection)
@@ -313,9 +310,11 @@ class LdapConnectionTest < ActiveSupport::TestCase
     test 'ldap server refuses connection' do
       Net::LDAP.any_instance.expects(:auth)
         .with('example_bind_dn', 'example_bind_password')
+        .at_least_once
 
       Net::LDAP.any_instance.expects(:bind)
         .raises(Net::LDAP::ConnectionRefusedError)
+        .at_least_once
 
       assert_raise Net::LDAP::ConnectionRefusedError do
         ldap_connection.send(:connection)
@@ -323,8 +322,6 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'unexpected error occured while trying to reach first ldap server' do
-      settings(:ldap_hostname).update!(value: ['ldap1.crypto.pus', 'ldap2.crypto.pus'])
-
       Net::LDAP.any_instance.expects(:auth)
         .with('example_bind_dn', 'example_bind_password')
 

@@ -9,7 +9,7 @@ require 'test_helper'
 class LdapUserLoginTest < ActionDispatch::IntegrationTest
 include IntegrationTest::DefaultHelper
 
-  setup :enable_ldap
+  setup :mock_ldap_settings, :enable_ldap
 
   test 'login as ldap user' do
     #Prepare for Test

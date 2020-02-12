@@ -8,7 +8,7 @@ require 'countries/global'
 
 class Admin::SettingsController < ApplicationController
 
-  helper_method :ldap_settings, :general_settings
+  helper_method :general_settings
 
   def index
     authorize Setting
@@ -36,12 +36,6 @@ class Admin::SettingsController < ApplicationController
 
   def collect_errors(setting)
     flash[:error] = setting.errors[:value].join(', ')
-  end
-
-  def ldap_settings
-    all_settings.select do |s|
-      s.key =~ /^ldap_*/
-    end
   end
 
   def general_settings

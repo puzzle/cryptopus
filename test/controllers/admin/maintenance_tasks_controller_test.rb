@@ -58,6 +58,7 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
 
       test 'execute task' do
         enable_ldap
+        mock_ldap_settings
         LdapConnection.any_instance.expects(:test_connection).returns(true)
 
         login_as(:admin)
@@ -82,7 +83,6 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
       end
 
       test 'returns 404 if invalid maintenance task id' do
-        enable_ldap
         login_as(:admin)
 
         assert_raise ActionController::RoutingError do
@@ -92,6 +92,7 @@ class Admin::MaintenanceTasksControllerTest < ActionController::TestCase
 
       test 'executes task and renders result page' do
         enable_ldap
+        mock_ldap_settings
         login_as(:admin)
 
         LdapConnection.any_instance.expects(:test_connection)

@@ -14,9 +14,10 @@ class RemovedLdapUsersTest < ActiveSupport::TestCase
     assert_nil MaintenanceTask.find(3)
     assert_not task.enabled?
   end
-  
+
   test 'task is available if ldap is enabled' do
     enable_ldap
+
     task = MaintenanceTask.find(3)
 
     assert_not_nil task
@@ -25,6 +26,7 @@ class RemovedLdapUsersTest < ActiveSupport::TestCase
 
   test 'non admin user cannot run task' do
     enable_ldap
+
     task = MaintenanceTask.find(3)
     task.executer = users(:bob)
     task.execute
@@ -34,6 +36,8 @@ class RemovedLdapUsersTest < ActiveSupport::TestCase
 
   test 'raises if ldap connection failed' do
     enable_ldap
+    mock_ldap_settings
+
     task = MaintenanceTask.find(3)
     task.executer = users(:admin)
     task.execute
@@ -43,13 +47,14 @@ class RemovedLdapUsersTest < ActiveSupport::TestCase
 
   test 'returns removed ldap users' do
     enable_ldap
+    mock_ldap_settings
 
     bob = users(:bob)
     bob.update!(auth: 'ldap')
     alice = users(:alice)
     alice.update!(auth: 'ldap')
 
-    
+
     LdapConnection.any_instance.expects(:test_connection)
       .returns(true)
 
@@ -71,9 +76,10 @@ class RemovedLdapUsersTest < ActiveSupport::TestCase
     assert_equal 'bob', task.removed_ldap_users.first.username
     assert_equal 1, task.removed_ldap_users.size
   end
-  
+
   test 'no removed ldap users exists' do
     enable_ldap
+    mock_ldap_settings
 
     LdapConnection.any_instance.expects(:test_connection)
       .returns(true)
@@ -85,9 +91,10 @@ class RemovedLdapUsersTest < ActiveSupport::TestCase
     assert_match(/successful/, Log.first.output)
     assert_equal [], task.removed_ldap_users
   end
-  
+
   test 'conf admin can execute task' do
     enable_ldap
+    mock_ldap_settings
 
     LdapConnection.any_instance.expects(:test_connection)
       .returns(true)

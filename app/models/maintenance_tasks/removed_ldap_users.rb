@@ -26,7 +26,7 @@ class MaintenanceTasks::RemovedLdapUsers < MaintenanceTask
   end
 
   def enabled?
-    Setting.value(:ldap, :enable)
+    AuthConfig.ldap_enabled?
   end
 
   private

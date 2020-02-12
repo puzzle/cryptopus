@@ -14,6 +14,7 @@ BUILD
 .project
 .idea
 .rake_tasks~
+.tags
 
 # Ignore application configuration
 /config/application.yml

@@ -9,12 +9,11 @@ require 'net/ldap'
 
 class LdapConnection
 
-  MANDATORY_LDAP_SETTING_KEYS = %i[hostname portnumber basename].freeze
+  MANDATORY_LDAP_SETTING_KEYS = %i[hostnames portnumber basename].freeze
   LDAP_SETTING_KEYS = (MANDATORY_LDAP_SETTING_KEYS + %i[bind_dn bind_password]).freeze
 
   def initialize
-    collect_settings
-    assert_setting_values
+    settings
   end
 
   def authenticate!(username, password)
@@ -41,7 +40,7 @@ class LdapConnection
     return unless username_valid?(username)
 
     filter = Net::LDAP::Filter.eq('uid', username)
-    connection.search(base: settings[:basename],
+    connection.search(base: basename,
                       filter: filter,
                       attributes: ['uidnumber']) do |entry|
                         return entry.uidnumber[0].to_s if entry.respond_to?(:uidnumber)
@@ -53,7 +52,7 @@ class LdapConnection
     return unless username_valid?(username)
 
     filter = Net::LDAP::Filter.eq('uid', username)
-    result = connection.search(base: settings[:basename],
+    result = connection.search(base: basename,
                                filter: filter)
     result.present?
   end
@@ -77,27 +76,12 @@ class LdapConnection
 
   private
 
-  attr_reader :settings
-
   def reachable?(host)
     params = connection_params(host)
     ldap = ldap_connection(params, false)
     ldap.bind
   rescue StandardError
     false
-  end
-
-  def collect_settings
-    @settings = {}
-    LDAP_SETTING_KEYS.each do |k|
-      @settings[k] = Setting.value(:ldap, k)
-    end
-  end
-
-  def assert_setting_values
-    MANDATORY_LDAP_SETTING_KEYS.each do |k|
-      raise ArgumentError, "missing config field: #{k}" if settings[k].blank?
-    end
   end
 
   def user_invalid?(username, password)
@@ -145,11 +129,11 @@ class LdapConnection
   end
 
   def connection_params(host)
-    { host: host, port: settings[:portnumber], encryption: :simple_tls }
+    { host: host, port: settings[:portnumber], encryption: settings[:encryption] }
   end
 
   def ldap_hosts
-    settings[:hostname]
+    settings[:hostnames]
   end
 
   def bind_dn
@@ -166,6 +150,10 @@ class LdapConnection
 
   def expected_message(message)
     message =~ /name or service not known|connection timed out/i
+  end
+
+  def settings
+    AuthConfig.ldap_settings
   end
 
   def search_for_login(username)
