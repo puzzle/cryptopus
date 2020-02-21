@@ -46,12 +46,9 @@ class AuthConfig
       raise ArgumentError, "missing config field: #{k}" if settings[k].blank?
     end
     settings[:encryption] = encryptions[settings[:encryption]] || :simple_tls
-    settings[:bind_password] = decode_password(settings[:bind_password])
+    password = settings[:bind_password]
+    settings[:bind_password] = Base64.decode64(password) if password.present?
     settings
-  end
-
-  def decode_password(password)
-    password && Base64.decode64(password)
   end
 
   def settings_file
