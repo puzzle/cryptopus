@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ -n "${GEO_IP_LICENSE_KEY}" ]; then
-  GEO_IP_DATA_URL="https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&date=20200114&license_key=$GEO_IP_LICENSE_KEY&suffix=tar.gz"
+  GEO_IP_DATA_URL="https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=$GEO_IP_LICENSE_KEY&suffix=tar.gz"
   RAILS_ROOT=$1
 
   mkdir -p $RAILS_ROOT/tmp/geoip
