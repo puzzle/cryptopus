@@ -6,7 +6,7 @@ provider: db
 #
 # ldap:
 #   bind_dn: 'example_bind_dn'
-#   bind_password: 'example_bind_password'
+#   bind_password: cGFzc3dvcmQ= # base64 encoded # echo -n 'password' | base64
 #   encryption: 'simple_tls'
 #   hostnames:
 #     - 'example_hostname'
