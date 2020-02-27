@@ -52,11 +52,26 @@ class ActiveSupport::TestCase
   end
 
   def enable_ldap
-    Setting.find_by(key: 'ldap_enable').update!(value: true)
+    AuthConfig.expects(:ldap_enabled?).returns(true).at_least_once
+  end
+
+  def mock_ldap_settings
+    AuthConfig.expects(:ldap_settings).returns(ldap_settings).at_least_once
   end
 
   def self.context(title, &block)
     yield
+  end
+
+  def ldap_settings
+    {
+      bind_dn: 'example_bind_dn',
+      bind_password: 'ZXhhbXBsZV9iaW5kX3Bhc3N3b3Jk',
+      encryption: 'simple_tls',
+      hostnames: ['example_hostname'],
+      basename: 'ou=users,dc=acme',
+      portnumber: 636
+    }
   end
 
 end

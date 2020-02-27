@@ -17,10 +17,9 @@ class Admin::SettingsControllerTest < ActionController::TestCase
 
   test 'update setting attributes' do
     login_as(:admin)
-    post :update_all, params: { setting: {ldap_basename: 'test_basename', ldap_portnumber: '1234', ldap_enable: 'f'} }
-    assert_equal 'test_basename', Setting.value(:ldap, :basename)
-    assert_equal '1234', Setting.value(:ldap, :portnumber)
-    assert_not Setting.value(:ldap, :enable)
+    post :update_all, params: { setting: {general_country_source_whitelist: ['CH','UK'], general_ip_whitelist: ['192.168.1.1','192.168.1.2']} }
+    assert_equal ['CH','UK'], Setting.value(:general, :country_source_whitelist)
+    assert_equal ['192.168.1.1','192.168.1.2'], Setting.value(:general, :ip_whitelist)
     assert_match /successfully updated/, flash[:notice]
   end
 

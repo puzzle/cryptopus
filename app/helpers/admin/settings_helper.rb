@@ -28,35 +28,11 @@ module Admin::SettingsHelper
     end
   end
 
-  def input_field_setting_true_false(setting)
-    content = hidden_field_tag(key_param(setting), 'f')
-    content += check_box_tag(key_param(setting), 't', setting.value, id: 'ldap_enabled_checkbox')
-    content + label_tag(:ldap_enabled_checkbox, '', id: 'ldap_enabled_label')
-  end
-
-  def input_field_setting_number(setting)
-    number_field_tag(key_param(setting), setting.value, default_field_options)
-  end
-
-  def input_field_setting_host_list(_setting)
-    hidden_field_tag('setting[ldap_hostname][]', '')
-    select_tag('setting[ldap_hostname]',
-               options_for_select(Setting.value('ldap', 'hostname')),
-               multiple: true,
-               id: 'host-list',
-               hidden: true,
-               'data-whitelist': Setting.value('ldap', 'hostname'))
-  end
-
   def input_field_setting_default(setting)
     text_field_tag(key_param(setting), setting.value, default_field_options)
   end
 
   private
-
-  def format_key(key)
-    key.gsub(/^[a-z]+_{1}/, '')
-  end
 
   def input_field_formatter(setting)
     str = ''

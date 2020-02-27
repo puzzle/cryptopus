@@ -1,0 +1,9 @@
+provider: ldap
+
+ldap:
+  bind_dn: 'example_bind_dn'
+  bind_password: 'example_bind_password'
+  encryption: 'simple_tls'
+  hostnames:
+  basename: 'ou=users,dc=acme'
+  portnumber: 636

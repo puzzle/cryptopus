@@ -113,6 +113,8 @@ class User::HumanTest < ActiveSupport::TestCase
 
     test 'create user from ldap' do
       enable_ldap
+      mock_ldap_settings
+
       LdapConnection.any_instance.expects(:uidnumber_by_username).returns(42)
       LdapConnection.any_instance.expects(:ldap_info).with(42, 'givenname').returns("bob")
       LdapConnection.any_instance.expects(:ldap_info).with(42, 'sn').returns("test")
@@ -149,6 +151,7 @@ class User::HumanTest < ActiveSupport::TestCase
 
     test 'does not return user if user not exists in db and ldap' do
       enable_ldap
+      mock_ldap_settings
 
       LdapConnection.any_instance.expects(:authenticate!).with('nobody', 'password').returns(false)
       User::Human.expects(:create_from_ldap).never
@@ -166,6 +169,8 @@ class User::HumanTest < ActiveSupport::TestCase
 
     test 'imports and creates user from ldap' do
       enable_ldap
+      mock_ldap_settings
+
       LdapConnection.any_instance.expects(:authenticate!).with('nobody', 'password').returns(true)
       User::Human.expects(:create_from_ldap)
 
@@ -232,6 +237,8 @@ class User::HumanTest < ActiveSupport::TestCase
 
     test 'new error on user if wrong old password at private_key recryption' do
       enable_ldap
+      mock_ldap_settings
+
       user = users(:bob)
       user.update_attribute(:auth, 'ldap')
 

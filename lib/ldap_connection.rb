@@ -9,12 +9,11 @@ require 'net/ldap'
 
 class LdapConnection
 
-  MANDATORY_LDAP_SETTING_KEYS = %i[hostname portnumber basename].freeze
+  MANDATORY_LDAP_SETTING_KEYS = %i[hostnames portnumber basename].freeze
   LDAP_SETTING_KEYS = (MANDATORY_LDAP_SETTING_KEYS + %i[bind_dn bind_password]).freeze
 
   def initialize
-    collect_settings
-    assert_setting_values
+    validate_settings!
   end
 
   def authenticate!(username, password)
@@ -41,7 +40,7 @@ class LdapConnection
     return unless username_valid?(username)
 
     filter = Net::LDAP::Filter.eq('uid', username)
-    connection.search(base: settings[:basename],
+    connection.search(base: basename,
                       filter: filter,
                       attributes: ['uidnumber']) do |entry|
                         return entry.uidnumber[0].to_s if entry.respond_to?(:uidnumber)
@@ -53,7 +52,7 @@ class LdapConnection
     return unless username_valid?(username)
 
     filter = Net::LDAP::Filter.eq('uid', username)
-    result = connection.search(base: settings[:basename],
+    result = connection.search(base: basename,
                                filter: filter)
     result.present?
   end
@@ -77,27 +76,12 @@ class LdapConnection
 
   private
 
-  attr_reader :settings
-
   def reachable?(host)
     params = connection_params(host)
     ldap = ldap_connection(params, false)
     ldap.bind
   rescue StandardError
     false
-  end
-
-  def collect_settings
-    @settings = {}
-    LDAP_SETTING_KEYS.each do |k|
-      @settings[k] = Setting.value(:ldap, k)
-    end
-  end
-
-  def assert_setting_values
-    MANDATORY_LDAP_SETTING_KEYS.each do |k|
-      raise ArgumentError, "missing config field: #{k}" if settings[k].blank?
-    end
   end
 
   def user_invalid?(username, password)
@@ -111,8 +95,7 @@ class LdapConnection
   end
 
   def connection
-    @connection ||=
-      first_available_server
+    @connection ||= first_available_server
   end
 
   def first_available_server
@@ -145,11 +128,11 @@ class LdapConnection
   end
 
   def connection_params(host)
-    { host: host, port: settings[:portnumber], encryption: :simple_tls }
+    { host: host, port: settings[:portnumber], encryption: settings[:encryption] }
   end
 
   def ldap_hosts
-    settings[:hostname]
+    settings[:hostnames]
   end
 
   def bind_dn
@@ -166,6 +149,27 @@ class LdapConnection
 
   def expected_message(message)
     message =~ /name or service not known|connection timed out/i
+  end
+
+  def settings
+    @settings ||= load_settings
+  end
+
+  def load_settings
+    ldap_settings = AuthConfig.ldap_settings
+    raise ArgumentError, 'No ldap settings' if ldap_settings.blank?
+
+    encryptions = { 'simple_tls' => :simple_tls, 'start_tls' => :start_tls }
+    ldap_settings[:encryption] = encryptions[ldap_settings[:encryption]] || :simple_tls
+    password = ldap_settings[:bind_password]
+    ldap_settings[:bind_password] = Base64.decode64(password) if password.present?
+    ldap_settings
+  end
+
+  def validate_settings!
+    MANDATORY_LDAP_SETTING_KEYS.each do |k|
+      raise ArgumentError, "missing config field: #{k}" if settings[k].blank?
+    end
   end
 
   def search_for_login(username)

@@ -12,7 +12,7 @@ class UserProvidesNewLdapPwTest < ActionDispatch::IntegrationTest
   include IntegrationTest::AccountTeamSetupHelper
   include IntegrationTest::DefaultHelper
 
-  setup :enable_ldap
+  setup :enable_ldap, :mock_ldap_settings
 
   test 'Bob provides new ldap password and remembers old password' do
     GeoIp.expects(:activated?).returns(false).at_least_once

@@ -17,7 +17,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
 
     assert_equal true, authenticate
   end
-  
+
   test 'authentication fails if username blank' do
     @username = ''
     @password = 'password'
@@ -31,7 +31,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
 
     assert_equal false, authenticate
   end
-  
+
   test 'authentication fails if wrong password' do
     @username = 'bob'
     @password = 'invalid'
@@ -53,7 +53,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
 
     assert_equal false, authenticate
   end
-  
+
   test 'authentication fails if required params missing' do
     assert_equal false, authenticate
     assert_match(/Invalid user \/ password/, authenticator.errors.first)
@@ -66,10 +66,10 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
     assert_equal false, authenticate
     assert_match(/Invalid user \/ password/, authenticator.errors.first)
   end
-  
+
   test 'authentication fails if user is locked' do
     bob.update!(locked: true)
-    
+
     @username = 'bob'
     @password = 'password'
 
@@ -78,6 +78,8 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
 
   test 'ldap authentication succeeds with correct credentials' do
     enable_ldap
+    mock_ldap_settings
+
     @username = 'bob'
     @password = 'ldappw'
     bob.update_attribute(:auth, 'ldap')
@@ -88,6 +90,8 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
 
   test 'ldap authentication fails if wrong password' do
     enable_ldap
+    mock_ldap_settings
+
     @username = 'bob'
     @password = 'wrongldappw'
     bob.update_attribute(:auth, 'ldap')
@@ -130,11 +134,11 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
 
     assert_equal true, authenticate
   end
- 
+
   test 'authentication fails if api token expired' do
     token = api_user.send(:decrypt_token, private_key)
     valid_for = 1.minute.seconds
-    
+
     api_user.update!(valid_for: valid_for)
     api_user.update!(valid_until: Time.now - 1.minute)
     @username = api_user.username
@@ -142,7 +146,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
 
     assert_equal false, authenticate
   end
-  
+
   test 'authentication success if api token valid for infinite' do
     token = api_user.send(:decrypt_token, private_key)
     valid_for = 0
@@ -153,7 +157,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
 
     assert_equal true, authenticate
   end
-  
+
   test 'authentication fails if api token invalid' do
     api_user.update!(valid_until: Time.now + 5.minutes)
     @username = api_user.username
@@ -161,7 +165,7 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
 
     assert_equal false, authenticate
   end
-  
+
   test 'authentication fails if api token blank' do
     api_user.update!(valid_until: Time.now + 5.minutes)
     @username = api_user.username
@@ -173,18 +177,18 @@ class Authentication::UserAuthenticatorTest < ActiveSupport::TestCase
   test 'authentication fails if api user is locked' do
     api_user.update!(locked: true)
     api_user.update!(valid_until: Time.now + 5.minutes)
-    
+
     token = api_user.send(:decrypt_token, private_key)
     @username = api_user.username
     @password = token
 
     assert_equal false, authenticate
   end
-  
+
   test 'authentication fails if api users human user is locked' do
     bob.update!(locked: true)
     api_user.update!(valid_until: Time.now + 5.minutes)
-    
+
     token = api_user.send(:decrypt_token, private_key)
     @username = api_user.username
     @password = token
