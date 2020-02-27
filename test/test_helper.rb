@@ -66,13 +66,9 @@ class ActiveSupport::TestCase
   def ldap_settings
     {
       bind_dn: 'example_bind_dn',
-      bind_password: 'example_bind_password',
+      bind_password: 'ZXhhbXBsZV9iaW5kX3Bhc3N3b3Jk',
       encryption: 'simple_tls',
-      hostnames:
-        [
-        'example_hostname',
-        'example_hostname2'
-        ],
+      hostnames: ['example_hostname'],
       basename: 'ou=users,dc=acme',
       portnumber: 636
     }

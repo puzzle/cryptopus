@@ -1,7 +1,7 @@
 
 namespace :ldap do
   desc 'test connection to ldap server'
-  task :connection_test do
+  task :test do
     ldap_connection_test = LdapConnectionTest.new
     ldap_connection_test.new
   end
@@ -12,6 +12,10 @@ require 'auth_config'
 
 class LdapConnectionTest
   def new
+    unless AuthConfig.ldap_enabled?
+      puts 'Ldap is diasabled'
+      return
+    end
     print_settings
     begin
       test_ldap

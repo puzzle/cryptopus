@@ -95,8 +95,7 @@ class LdapConnection
   end
 
   def connection
-    @connection ||=
-      first_available_server
+    @connection ||= first_available_server
   end
 
   def first_available_server
@@ -153,7 +152,20 @@ class LdapConnection
   end
 
   def settings
-    AuthConfig.ldap_settings
+    @settings ||= validate_ldap(AuthConfig.ldap_settings)
+  end
+
+  def validate_ldap(settings)
+    raise ArgumentError, 'No ldap settings' if settings.blank?
+
+    encryptions = { 'simple_tls' => :simple_tls, 'start_tls' => :start_tls }
+    MANDATORY_LDAP_SETTING_KEYS.each do |k|
+      raise ArgumentError, "missing config field: #{k}" if settings[k].blank?
+    end
+    settings[:encryption] = encryptions[settings[:encryption]] || :simple_tls
+    password = settings[:bind_password]
+    settings[:bind_password] = Base64.decode64(password) if password.present?
+    settings
   end
 
   def search_for_login(username)

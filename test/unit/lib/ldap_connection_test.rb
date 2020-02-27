@@ -9,11 +9,29 @@ require 'test_helper'
 
 class LdapConnectionTest < ActiveSupport::TestCase
 
-  setup :mock_ldap_settings
+
+  context '#ldap_settings' do
+    test 'should throw exception for no ldap settings' do
+      error = assert_raises do
+        ldap_connection
+      end
+      assert_equal 'No ldap settings', error.message
+    end
+
+    test 'should throw exception about missing hostname' do
+      AuthConfig.expects(:ldap_settings)
+        .returns( { basename: 'ou=users,dc=acme', portnumber: 636 } )
+
+      error = assert_raises do
+        ldap_connection
+      end
+      assert_equal 'missing config field: hostnames', error.message
+    end
+  end
 
   context '#authenticate' do
-
     test 'authenticates with valid user and password' do
+      mock_ldap_settings
       user_entry = mock
       user_entry.expects(:dn)
                 .returns('uid=bob,ou=ldap')
@@ -41,6 +59,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'does not authenticate with valid user but invalid password' do
+      mock_ldap_settings
       user_entry = mock
       user_entry.expects(:dn)
                 .returns('uid=bob,ou=ldap')
@@ -70,6 +89,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'does not authenticate if user does not exist' do
+      mock_ldap_settings
       # bind by bind_dn
       Net::LDAP.any_instance.expects(:auth)
                .with('example_bind_dn', 'example_bind_password')
@@ -96,6 +116,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
   context '#ldap_info' do
 
     test 'does not return info if uid does not exist' do
+      mock_ldap_settings
       # bind by bind_dn
       Net::LDAP.any_instance.expects(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -118,6 +139,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'does not return info if attribute does not exist' do
+      mock_ldap_settings
       # bind by bind_dn
       Net::LDAP.any_instance.expects(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -144,6 +166,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'raises exception if missing parameter' do
+      mock_ldap_settings
       assert_raises ArgumentError do
         ldap_connection.ldap_info(nil, nil)
       end
@@ -156,6 +179,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'returns ldap info' do
+      mock_ldap_settings
       # bind by bind_dn
       Net::LDAP.any_instance.expects(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -183,6 +207,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'does not return uidnumber if username invalid' do
+      mock_ldap_settings
       Net::LDAP.any_instance.expects(:bind).never
       Net::LDAP.any_instance.expects(:auth).never
       Net::LDAP.any_instance.expects(:search).never
@@ -191,6 +216,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'returns uidnumber by username' do
+      mock_ldap_settings
       # bind by bind_dn
       Net::LDAP.any_instance.expects(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -217,6 +243,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'does not return uidnumber if username does not exist' do
+      mock_ldap_settings
       # bind by bind_dn
       Net::LDAP.any_instance.expects(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -244,6 +271,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
   context "multiple ldap servers" do
 
     test 'reaches first ldap server' do
+      mock_ldap_settings
       LdapConnection.any_instance.expects(:ldap_hosts)
         .returns(['ldap1.crypto.pus', 'ldap2.crypto.pus'])
         .at_least_once
@@ -258,6 +286,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'reaches second ldap server' do
+      mock_ldap_settings
       LdapConnection.any_instance.expects(:ldap_hosts)
         .returns(['ldap1.crypto.pus', 'ldap2.crypto.pus'])
         .at_least_once
@@ -276,6 +305,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'ldap server cannot be resolved by dns' do
+      mock_ldap_settings
       Net::LDAP.any_instance.expects(:auth)
         .with('example_bind_dn', 'example_bind_password')
         .at_least_once
@@ -292,6 +322,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'ldap server is not reachable' do
+      mock_ldap_settings
       Net::LDAP.any_instance.expects(:auth)
         .with('example_bind_dn', 'example_bind_password')
         .at_least_once
@@ -308,6 +339,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'ldap server refuses connection' do
+      mock_ldap_settings
       Net::LDAP.any_instance.expects(:auth)
         .with('example_bind_dn', 'example_bind_password')
         .at_least_once
@@ -322,6 +354,7 @@ class LdapConnectionTest < ActiveSupport::TestCase
     end
 
     test 'unexpected error occured while trying to reach first ldap server' do
+      mock_ldap_settings
       Net::LDAP.any_instance.expects(:auth)
         .with('example_bind_dn', 'example_bind_password')
 
@@ -340,5 +373,4 @@ class LdapConnectionTest < ActiveSupport::TestCase
   def ldap_connection
     LdapConnection.new
   end
-
 end

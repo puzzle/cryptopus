@@ -2,21 +2,23 @@
 
 class AuthConfig
 
-  def initialize(path = 'config/auth.yml')
-    @path = path
-  end
+  PATH = Rails.root.join('config/auth.yml')
 
   class << self
+    def auth_config
+      @@auth_config ||= new
+    end
+
     def ldap_settings
-      @@ldap_settings ||= new.ldap
+      @@ldap_settings ||= auth_config.ldap
     end
 
     def ldap_enabled?
-      @@ldap_enabled ||= new.ldap_enabled?
+      @@ldap_enabled ||= auth_config.ldap_enabled?
     end
 
     def provider
-      @@provider ||= new.provider
+      @@provider ||= auth_config.provider
     end
   end
 
@@ -25,31 +27,14 @@ class AuthConfig
   end
 
   def ldap_enabled?
-    return false unless File.exist?(Rails.root.join(@path)) || provider != 'ldap'
-
-    LdapConnection::MANDATORY_LDAP_SETTING_KEYS.any? { |k| settings_file[:ldap][k] }
-  rescue StandardError
-    false
+    provider == 'ldap'
   end
 
   def ldap
-    validate_ldap(settings_file[:ldap])
+    settings_file[:ldap]
   end
 
   private
-
-  def validate_ldap(settings)
-    raise ArgumentError, 'No ldap settings' if settings.blank?
-
-    encryptions = { 'simple_tls' => :simple_tls, 'start_tls' => :start_tls }
-    LdapConnection::MANDATORY_LDAP_SETTING_KEYS.each do |k|
-      raise ArgumentError, "missing config field: #{k}" if settings[k].blank?
-    end
-    settings[:encryption] = encryptions[settings[:encryption]] || :simple_tls
-    password = settings[:bind_password]
-    settings[:bind_password] = Base64.decode64(password) if password.present?
-    settings
-  end
 
   def settings_file
     @settings_file ||= load_file
@@ -58,10 +43,10 @@ class AuthConfig
   def load_file
     return { provider: 'db' } unless valid_file?
 
-    YAML.safe_load(File.read(Rails.root.join(@path))).deep_symbolize_keys
+    YAML.safe_load(File.read(PATH)).deep_symbolize_keys
   end
 
   def valid_file?
-    File.exist?(Rails.root.join(@path)) && File.zero?(Rails.root.join(@path)) == false
+    File.exist?(PATH) && !File.zero?(PATH)
   end
 end
