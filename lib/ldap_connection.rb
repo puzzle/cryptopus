@@ -13,7 +13,7 @@ class LdapConnection
   LDAP_SETTING_KEYS = (MANDATORY_LDAP_SETTING_KEYS + %i[bind_dn bind_password]).freeze
 
   def initialize
-    settings
+    validate_settings!
   end
 
   def authenticate!(username, password)
@@ -152,20 +152,24 @@ class LdapConnection
   end
 
   def settings
-    @settings ||= validate_ldap(AuthConfig.ldap_settings)
+    @settings ||= load_settings
   end
 
-  def validate_ldap(settings)
-    raise ArgumentError, 'No ldap settings' if settings.blank?
+  def load_settings
+    ldap_settings = AuthConfig.ldap_settings
+    raise ArgumentError, 'No ldap settings' if ldap_settings.blank?
 
     encryptions = { 'simple_tls' => :simple_tls, 'start_tls' => :start_tls }
+    ldap_settings[:encryption] = encryptions[ldap_settings[:encryption]] || :simple_tls
+    password = ldap_settings[:bind_password]
+    ldap_settings[:bind_password] = Base64.decode64(password) if password.present?
+    ldap_settings
+  end
+
+  def validate_settings!
     MANDATORY_LDAP_SETTING_KEYS.each do |k|
       raise ArgumentError, "missing config field: #{k}" if settings[k].blank?
     end
-    settings[:encryption] = encryptions[settings[:encryption]] || :simple_tls
-    password = settings[:bind_password]
-    settings[:bind_password] = Base64.decode64(password) if password.present?
-    settings
   end
 
   def search_for_login(username)
