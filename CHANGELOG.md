@@ -1,5 +1,9 @@
 # Cryptopus Changelog
 
+## Version 2.5
+* Rails 6.0
+* Move LDAP config from db settings to auth.yml
+
 ## Version 2.4
 * Upgrade to Ruby 2.5, Rails 5.2.3
 * Fix Geo IP DB for new License
