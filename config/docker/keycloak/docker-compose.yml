@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:7.0.1
+    env_file: docker.env
+    command: "-Djboss.socket.binding.port-offset=100 -Dkeycloak.import=/realm-export.json"
+    ports:
+      - 8180:8180
+    volumes:
+      - ${PWD}/realm-export.json:/realm-export.json
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file: docker.env
+  cryptopus:
+    image: cry:latest
+    container_name: cryptopus
+    env_file: docker.env
+    ports:
+      - 8080:3000
+    depends_on:
+      - cryptopus-mysql
+  cryptopus-mysql:
+    image: mysql:5.7
+    container_name: cryptopus-mysql
+    env_file: docker.env
+    restart: always
+    volumes:
+      - cryptopus-mysql:/var/lib/mysql
+
+volumes:
+  postgres_data:
+  cryptopus-mysql:
