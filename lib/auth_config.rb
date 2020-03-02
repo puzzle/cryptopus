@@ -37,7 +37,7 @@ class AuthConfig
   private
 
   def settings_file
-    @settings_file ||= load_file
+    @settings_file ||= load_file.freeze
   end
 
   def load_file
