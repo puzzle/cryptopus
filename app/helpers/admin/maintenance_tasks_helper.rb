@@ -12,7 +12,8 @@ module Admin::MaintenanceTasksHelper
     content += label_tag(label)
 
     content += create_tag_with_correct_type(label, param[:type])
-    safe_join([content_tag(:div, content.html_safe, class: 'form-group')])
+
+    safe_join([content_tag(:div, content.html_safe, class: 'form-group')]) # rubocop:disable Rails/OutputSafety
   end
 
   def create_tag_with_correct_type(label, type)

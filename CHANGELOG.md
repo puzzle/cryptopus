@@ -3,6 +3,7 @@
 ## Version 2.5
 * Rails 6.0
 * Move LDAP config from db settings to auth.yml
+* Rubocop Update
 
 ## Version 2.4
 * Upgrade to Ruby 2.5, Rails 5.2.3

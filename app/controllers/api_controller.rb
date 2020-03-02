@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class ApiController < ActionController::Base
+class ApiController < ActionController::Base # rubocop:disable Rails/ApplicationController
 
   before_action :validate_user
 

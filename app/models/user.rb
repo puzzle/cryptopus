@@ -33,7 +33,7 @@
 class User < ApplicationRecord
   delegate :l, to: I18n
 
-  validates_uniqueness_of :username
+  validates :username, uniqueness: :username
   validates :username, presence: true
 
   def self.find_user(username, password)

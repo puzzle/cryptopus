@@ -21,7 +21,7 @@ class LoginsControllerTest < ActionController::TestCase
   end
 
   test 'redirects to recryptrequests page if private key cannot be decrypted' do
-    users(:bob).update(private_key: "invalid private_key")
+    users(:bob).update!(private_key: "invalid private_key")
 
     post :authenticate, params: { password: 'password', username: 'bob' }
 
@@ -154,7 +154,7 @@ class LoginsControllerTest < ActionController::TestCase
     GeoIp.expects(:activated?).returns(false).at_least_once
 
     user = users(:bob)
-    user.update_attributes(last_login_at: '2017-01-01 16:00:00 + 0000', last_login_from: '192.168.210.10')
+    user.update!(last_login_at: '2017-01-01 16:00:00 + 0000', last_login_from: '192.168.210.10')
 
     post :authenticate, params: { password: 'password', username: 'bob' }
     assert_equal('The last login was on January 01, 2017 16:00 from 192.168.210.10', flash[:notice])
@@ -168,7 +168,7 @@ class LoginsControllerTest < ActionController::TestCase
 
   test 'does not show previous login ip if not available' do
     user = users(:bob)
-    user.update_attributes(last_login_at: '2017-01-01 16:00:00 + 0000', last_login_from: nil)
+    user.update!(last_login_at: '2017-01-01 16:00:00 + 0000', last_login_from: nil)
 
     post :authenticate, params: { password: 'password', username: 'bob' }
     assert_equal('The last login was on January 01, 2017 16:00', flash[:notice])
@@ -181,7 +181,7 @@ class LoginsControllerTest < ActionController::TestCase
     Flash::LastLoginMessage.any_instance.expects(:geo_ip).returns(geo_ip).at_least_once
 
     user = users(:bob)
-    user.update_attributes(last_login_at: '2001-09-11 19:00:00 + 0000', last_login_from: '153.123.34.34')
+    user.update!(last_login_at: '2001-09-11 19:00:00 + 0000', last_login_from: '153.123.34.34')
 
     post :authenticate, params: { password: 'password', username: 'bob' }
     assert_equal('The last login was on September 11, 2001 19:00 from 153.123.34.34 (JP)', flash[:notice])

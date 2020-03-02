@@ -73,17 +73,17 @@ class User::HumanPolicy < ApplicationPolicy
   def permitted_attributes_for_update
     return if user.ldap? || user.root?
 
-    attrs = %i[givenname surname]
+    attrs = [:givenname, :surname]
 
     if current_user.admin?
-      attrs + %i[username]
+      attrs + [:username]
     elsif current_user.conf_admin?
       attrs
     end
   end
 
   def permitted_attributes_for_create
-    %i[username givenname surname password] if current_user.admin?
+    [:username, :givenname, :surname, :password] if current_user.admin?
   end
 
   private

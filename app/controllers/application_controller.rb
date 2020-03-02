@@ -10,7 +10,7 @@ require 'user' # fixes user.authenticate problem
 class ApplicationController < ActionController::Base
 
   before_action :set_sentry_request_context
-  before_action :validate_user, except: %i[login authenticate logout wizard]
+  before_action :validate_user, except: [:login, :authenticate, :logout, :wizard]
   before_action :message_if_fallback
   before_action :redirect_if_no_private_key, except: :logout
   before_action :prepare_menu

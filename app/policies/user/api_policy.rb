@@ -30,11 +30,11 @@ class User::ApiPolicy < ApplicationPolicy
   end
 
   def permitted_attributes_for_update
-    %i[description valid_for]
+    [:description, :valid_for]
   end
 
   def permitted_attributes_for_create
-    %i[description valid_for]
+    [:description, :valid_for]
   end
 
   private

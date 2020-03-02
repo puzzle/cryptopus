@@ -75,7 +75,7 @@ class GroupsController < ApplicationController
     authorize @group
 
     respond_to do |format|
-      if @group.update_attributes(group_params)
+      if @group.update!(group_params)
         flash[:notice] = t('flashes.groups.updated')
         format.html { redirect_to team_groups_url(team) }
       else
