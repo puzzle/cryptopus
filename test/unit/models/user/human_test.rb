@@ -211,7 +211,7 @@ class User::HumanTest < ActiveSupport::TestCase
    test 'root can not be disempowered' do
 
      root = users(:root)
-     root.update_attributes(role: :admin)
+     root.update!(role: :admin)
 
      assert_raise "root can not be disempowered" do
        root.send(:disempower)

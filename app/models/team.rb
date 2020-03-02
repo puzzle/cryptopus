@@ -19,6 +19,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Team < ApplicationRecord
+  attr_readonly :private
   has_many :groups, -> { order :name }, dependent: :destroy
   has_many :teammembers, dependent: :delete_all
   has_many :members, through: :teammembers, source: :user
@@ -41,11 +42,6 @@ class Team < ApplicationRecord
       end
       team
     end
-  end
-
-  def update_attributes(attributes)
-    attributes.delete('private')
-    super(attributes)
   end
 
   def label

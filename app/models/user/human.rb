@@ -43,7 +43,8 @@ class User::Human < User
   has_many :teammembers, dependent: :destroy, foreign_key: :user_id
   has_many :recryptrequests, dependent: :destroy, foreign_key: :user_id
   has_many :teams, -> { order :name }, through: :teammembers
-  has_many :api_users, class_name: 'User::Api', dependent: :destroy, foreign_key: :human_user_id
+  has_many :api_users, class_name: 'User::Api', dependent: :destroy,
+                       foreign_key: :human_user_id
 
   scope :locked, -> { where(locked: true) }
   scope :unlocked, -> { where(locked: false) }
@@ -56,7 +57,7 @@ class User::Human < User
 
   delegate :l, to: I18n
 
-  enum role: %i[user conf_admin admin]
+  enum role: [:user, :conf_admin, :admin]
 
   class << self
 
@@ -101,11 +102,11 @@ class User::Human < User
   # Updates Information about the user
   def update_info
     update_info_from_ldap if ldap?
-    update_attribute(:last_login_at, Time.zone.now)
+    update(last_login_at: Time.zone.now)
   end
 
   def update_last_login_ip(last_login_ip)
-    update_attribute(:last_login_from, last_login_ip)
+    update!(last_login_from: last_login_ip)
   end
 
   def update_role(actor, role, private_key)
@@ -155,7 +156,7 @@ class User::Human < User
     decrypted_legacy_private_key = CryptUtilsLegacy.decrypt_private_key(private_key, password)
     newly_encrypted_private_key = CryptUtils.encrypt_private_key(decrypted_legacy_private_key,
                                                                  password)
-    update_attribute(:private_key, newly_encrypted_private_key)
+    update!(private_key: newly_encrypted_private_key)
   end
 
   def decrypt_private_key(password)

@@ -15,8 +15,12 @@ class TeammemberSerializerTest < ActiveSupport::TestCase
   end
 
   test 'teammember is deletable if not last teammember and private team' do
-    teams(:team1).update_attributes(private: true)
-    as_json = JSON.parse(TeammemberSerializer.new(teammembers(:team1_admin)).to_json)
+    bob = users(:bob)
+    bobs_private_key = bob.decrypt_private_key('password')
+    plaintext_team_password = teams(:team2).decrypt_team_password(bob, bobs_private_key)
+    teams(:team2).add_user(Fabricate(:user), plaintext_team_password)
+
+    as_json = JSON.parse(TeammemberSerializer.new(teammembers(:team2_bob)).to_json)
 
     assert as_json['deletable'], 'teammember should be deletable'
   end
@@ -34,8 +38,7 @@ class TeammemberSerializerTest < ActiveSupport::TestCase
   end
 
   test 'admin is not a admin teammember if private team' do
-    teams(:team1).update_attributes(private: true)
-    as_json = JSON.parse(TeammemberSerializer.new(teammembers(:team1_admin)).to_json)
+    as_json = JSON.parse(TeammemberSerializer.new(teammembers(:team2_bob)).to_json)
 
     assert_not as_json['admin'], 'admin teammember should not be admin in private team'
   end

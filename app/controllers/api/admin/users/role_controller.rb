@@ -18,7 +18,7 @@ class Api::Admin::Users::RoleController < Api::Admin::AdminController
   private
 
   def allowed?(role)
-    roles = %i[user conf_admin]
+    roles = [:user, :conf_admin]
     if current_user.admin?
       roles << :admin
     end

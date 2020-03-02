@@ -17,7 +17,9 @@ module Admin::SettingsHelper
                else
                  input_field_setting_default(setting)
                end
+    # rubocop:disable Rails/OutputSafety
     safe_join([content_tag(:div, content.html_safe, class: 'form-group')])
+    # rubocop:enable Rails/OutputSafety
   end
 
   def selectize_input_field(setting)

@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class StatusController < ActionController::Base
+class StatusController < ActionController::Base # rubocop:disable Rails/ApplicationController
 
   # Is the web server OK?
   def health

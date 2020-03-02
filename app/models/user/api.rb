@@ -61,7 +61,7 @@ class User::Api < User
     return false if valid_for.zero?
     return true unless valid_until
 
-    valid_until < Time.now
+    valid_until < Time.zone.now
   end
 
   def renew_token(human_private_key)
@@ -135,7 +135,7 @@ class User::Api < User
   def refresh_valid_until
     return if valid_for.zero?
 
-    options.valid_until = Time.now.advance(seconds: valid_for)
+    options.valid_until = Time.zone.now.advance(seconds: valid_for)
   end
 
 end

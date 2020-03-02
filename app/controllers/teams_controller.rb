@@ -54,7 +54,7 @@ class TeamsController < ApplicationController
     authorize team
     add_breadcrumb t('teams.title'), :teams_path
     respond_to do |format|
-      if team.update_attributes(team_params)
+      if team.update!(team_params)
         flash[:notice] = t('flashes.teams.updated')
         format.html { redirect_to(teams_url) }
       else

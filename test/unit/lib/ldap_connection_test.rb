@@ -346,7 +346,6 @@ class LdapConnectionTest < ActiveSupport::TestCase
 
       Net::LDAP.any_instance.expects(:bind)
         .raises(Net::LDAP::ConnectionRefusedError)
-        .at_least_once
 
       assert_raise Net::LDAP::ConnectionRefusedError do
         ldap_connection.send(:connection)

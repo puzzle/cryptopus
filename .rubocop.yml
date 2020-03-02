@@ -12,11 +12,27 @@ AllCops:
     - test/**/*
     - vendor/bundle/**/*
 
+Rails:
+  Enabled: true
+
+Metrics/BlockLength:
+  ExcludedMethods:
+    - namespace # rake
+    - task # rake
+    - scope # routes
+    - resources # routes
+    - draw # routes
+    - configure # initializers
+
 Metrics/AbcSize:
   Max: 20
   Severity: error
 
 Metrics/ClassLength:
+  Max: 200
+  Severity: error
+
+Metrics/ModuleLength:
   Max: 200
   Severity: error
 
@@ -27,10 +43,27 @@ Metrics/CyclomaticComplexity:
 Layout/LineLength:
   Max: 100
   Severity: warning
+  AutoCorrect: true
 
 Metrics/MethodLength:
   Max: 10
   Severity: error
+
+Metrics/ParameterLists:
+  Max: 4
+  Severity: warning
+
+Layout/ClassStructure:
+  Enabled: true
+
+# controller#entry methods have @model_name instance variables.
+# therefore disable this cop
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+# We thinks that's fine
+Rails/EnumHash:
+  Enabled: false
 
 # Keep for now, easier with superclass definitions
 Style/ClassAndModuleChildren:
@@ -40,9 +73,36 @@ Style/ClassAndModuleChildren:
 Style/ClassVars:
   Enabled: false
 
+# We think there are good reasons not to do that
+Rails/RakeEnvironment:
+  Enabled: false
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+# We thinks that's fine
+Style/FormatStringToken:
+  Enabled: false
+
+
+Style/HashSyntax:
+  Exclude:
+    - lib/tasks/**/*.rake
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Rails/Output:
+  Exclude:
+    - db/seeds.rb
+
 # map instead of collect, reduce instead of inject.
 # Probably later
 Style/CollectionMethods:
+  Enabled: false
+
+# This cop does not consider action inheritance, therefore disabled
+Rails/LexicallyScopedActionFilter:
   Enabled: false
 
 # Well, well, well
@@ -105,34 +165,11 @@ Rails/HasAndBelongsToMany:
 Rails/Delegate:
   Enabled: false
 
-# To be specified at a later point
-
-Rails/EnumHash:
-  Enabled: false
-
 Rails/HelperInstanceVariable:
   Enabled: false
 
 Rails/InverseOf:
   Enabled: false
 
-Rails/LexicallyScopedActionFilter:
-  Enabled: false
-
 Rails/OutputSafety:
-  Enabled: false
-
-Rails/ApplicationController:
-  Enabled: false
-
-Rails/SkipsModelValidations:
-  Enabled: false
-
-Rails/TimeZone:
-  Enabled: false
-
-Rails/Validation:
-  Enabled: false
-
-Rails/ActiveRecordAliases:
-  Enabled: false
+  Severity: warning

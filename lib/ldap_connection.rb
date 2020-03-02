@@ -9,8 +9,8 @@ require 'net/ldap'
 
 class LdapConnection
 
-  MANDATORY_LDAP_SETTING_KEYS = %i[hostnames portnumber basename].freeze
-  LDAP_SETTING_KEYS = (MANDATORY_LDAP_SETTING_KEYS + %i[bind_dn bind_password]).freeze
+  MANDATORY_LDAP_SETTING_KEYS = [:hostnames, :portnumber, :basename].freeze
+  LDAP_SETTING_KEYS = (MANDATORY_LDAP_SETTING_KEYS + [:bind_dn, :bind_password]).freeze
 
   def initialize
     validate_settings!

@@ -7,9 +7,9 @@
 
 class Admin::UsersController < ApplicationController
 
-  before_action :redirect_if_ldap_user, only: %i[update edit]
-  before_action :authorize_user_class, only: %i[index new create]
-  before_action :authorize_user, only: %i[update unlock edit]
+  before_action :redirect_if_ldap_user, only: [:update, :edit]
+  before_action :authorize_user_class, only: [:index, :new, :create]
+  before_action :authorize_user, only: [:update, :unlock, :edit]
 
   helper_method :update_role
 

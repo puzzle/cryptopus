@@ -14,9 +14,7 @@ class LoginsController < ApplicationController
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
   skip_before_action :verify_authenticity_token, only: :authenticate
-  before_action :skip_authorization, only: %i[authenticate login logout]
-
-  def login; end
+  before_action :skip_authorization, only: [:authenticate, :login, :logout]
 
   def authenticate
     unless authenticator.auth!
@@ -62,7 +60,7 @@ class LoginsController < ApplicationController
   def changelocale
     locale = params.permit(:new_locale)[:new_locale]
     if locale.present?
-      current_user.update_attribute(:preferred_locale, locale)
+      current_user.update!(:preferred_locale, locale)
     end
 
     redirect_back(fallback_location: root_path)
