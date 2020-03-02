@@ -38,7 +38,6 @@ class User::Human
 
       private
 
-      # instance methods
       def ldap_connection
         assert_ldap_enabled
         LdapConnection.new

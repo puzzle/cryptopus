@@ -10,7 +10,7 @@ class AuthConfig
     end
 
     def ldap_settings
-      auth_config.ldap
+      auth_config.ldap.dup
     end
 
     def ldap_enabled?
