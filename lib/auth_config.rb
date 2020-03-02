@@ -10,15 +10,15 @@ class AuthConfig
     end
 
     def ldap_settings
-      @@ldap_settings ||= auth_config.ldap
+      auth_config.ldap
     end
 
     def ldap_enabled?
-      @@ldap_enabled ||= auth_config.ldap_enabled?
+      auth_config.ldap_enabled?
     end
 
     def provider
-      @@provider ||= auth_config.provider
+      auth_config.provider
     end
   end
 
