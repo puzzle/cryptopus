@@ -77,7 +77,7 @@ Rails.application.routes.draw do
 
     resources :groups, only: [:index]
     resources :teams, only: [:index]
-    resources :accounts, only: [:show, :index]
+    resources :accounts, only: [:show, :index, :update]
 
     resources :api_users do
       member do

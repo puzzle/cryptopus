@@ -7,18 +7,21 @@
 
 class Api::Team::MembersController < ApiController
 
+  # GET /api/teams/:team_id
   def index
     authorize team, :list_members?
     members = team.teammembers.list
     render_json members
   end
 
+  # GET /api/teams/:team_id/members/candidates
   def candidates
     authorize team, :team_member?
     candidates = team.member_candidates
     render_json candidates
   end
 
+  # POST /api/teams/:team_id/members
   def create
     authorize team, :add_member?
     new_member = User.find(params[:user_id])
@@ -31,6 +34,7 @@ class Api::Team::MembersController < ApiController
     render_json ''
   end
 
+  # DELETE /api/teams/:team_id/members/:id
   def destroy
     authorize team, :remove_member?
     teammember.destroy!

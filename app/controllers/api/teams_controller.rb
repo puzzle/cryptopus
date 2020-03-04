@@ -11,18 +11,21 @@ class Api::TeamsController < ApiController
     TeamPolicy
   end
 
+  # GET /api/teams
   def index
     authorize Team
     teams = current_user.teams
     render_json find_teams(teams)
   end
 
+  # GET /api/teams/last_teammember_teams
   def last_teammember_teams
     authorize Team, :last_teammember_teams?
     teams = user.last_teammember_teams
     render_json teams
   end
 
+  # DELETE /api/teams/:id
   def destroy
     authorize team
     team.destroy

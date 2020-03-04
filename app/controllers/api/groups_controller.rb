@@ -11,6 +11,7 @@ class Api::GroupsController < ApiController
     GroupPolicy
   end
 
+  # GET /api/groups
   def index
     authorize Group
     groups = current_user.groups

@@ -33,13 +33,13 @@ class Api::Team::ApiUsersControllerTest < ActionController::TestCase
       assert_equal api_user2.username, api_users.second.values[1]
     end
   end
-  
+
   context '#create' do
     test 'user enables api user for team' do
       api_user1 = bob.api_users.create
       api_user2 = bob.api_users.create
       team = teams(:team1)
-      
+
       login_as(:bob)
 
       post :create, params: { team_id: team, id: api_user1.id }, xhr: true
@@ -48,23 +48,23 @@ class Api::Team::ApiUsersControllerTest < ActionController::TestCase
       assert_equal false, team.teammember?(api_user2)
     end
   end
-  
+
   context '#destroy' do
     test 'user disables api user for team' do
       api_user = bob.api_users.create
       team = teams(:team1)
-      plainttext_team_password = team.decrypt_team_password(bob, bobs_private_key)
-      
+      plaintext_team_password = team.decrypt_team_password(bob, bobs_private_key)
+
       login_as(:bob)
 
-      team.add_user(api_user, plainttext_team_password)
+      team.add_user(api_user, plaintext_team_password)
 
       delete :destroy, params: { team_id: team, id: api_user.id }, xhr: true
 
       assert_equal false, team.teammember?(api_user)
     end
   end
-    
+
   private
 
   def bob

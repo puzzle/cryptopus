@@ -11,7 +11,7 @@ class Api::ApiUsersController < ApiController
     render_json api_users
   end
 
-  # GET /api/api_users/1
+  # GET /api/api_users/:id
   def show
     authorize api_user
     render_json api_user
@@ -26,7 +26,7 @@ class Api::ApiUsersController < ApiController
     render_json new_api_user
   end
 
-  # POST /api/api_users/1
+  # POST /api/api_users/:id
   def update
     authorize api_user
     params = permitted_attributes(api_user)
@@ -35,7 +35,7 @@ class Api::ApiUsersController < ApiController
     render_json api_user
   end
 
-  # DELETE /api/api_users/1
+  # DELETE /api/api_users/:id
   def destroy
     authorize api_user
     api_user.destroy!
