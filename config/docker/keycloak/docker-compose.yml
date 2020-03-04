@@ -4,7 +4,7 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:7.0.1
     env_file: docker.env
-    command: "-Djboss.socket.binding.port-offset=100 -Dkeycloak.import=/realm-export.json"
+    command: "-Djboss.socket.binding.port-offset=100 -Dkeycloak.import=/realm-export.json -Dkeycloak.migration.strategy=IGNORE_EXISTING"
     ports:
       - 8180:8180
     volumes:
@@ -12,12 +12,15 @@ services:
     depends_on:
       - postgres
   postgres:
+    container_name: postgres
     image: postgres
+    ports:
+      - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file: docker.env
   cryptopus:
-    image: cry:latest
+    image: puzzle/cryptopus:latest
     container_name: cryptopus
     env_file: docker.env
     ports:
