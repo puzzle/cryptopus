@@ -27,7 +27,7 @@ class Api::AccountsController < ApiController
     authorize account
     account.attributes = account_params
     account.encrypt(decrypted_team_password(account.group.team))
-    account.update!(permitted_attributes(account))
+    account.save!
     render_json account
   end
 

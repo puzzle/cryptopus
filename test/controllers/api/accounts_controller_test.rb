@@ -244,7 +244,7 @@ class Api::AccountsControllerTest < ActionController::TestCase
     test 'human user shows account details and does not use api user authenticator if active session' do
       login_as(:bob)
 
-      set_request_headers
+      set_auth_headers
 
       account = accounts(:account1)
       get :show, params: { id: account }, xhr: true
@@ -259,7 +259,7 @@ class Api::AccountsControllerTest < ActionController::TestCase
     end
 
     test 'human user shows account details if headers valid' do
-      set_request_headers
+      set_auth_headers
 
       account = accounts(:account1)
       get :show, params: { id: account }, xhr: true
@@ -275,9 +275,67 @@ class Api::AccountsControllerTest < ActionController::TestCase
 
   context '#update' do
     test 'update account with valid params structure' do
-      set_request_headers
+      set_auth_headers
 
       account = accounts(:account1)
+
+      account_params = {
+        id: account.id,
+        account: {
+          accountname: "Bob Meyer",
+          tag: "taggy",
+          cleartext_username: 'globi',
+          cleartext_password: 'petzi'
+        }
+      }
+      patch :update, params: account_params , xhr: true
+
+      account.reload
+
+      account.decrypt(plaintext_team_password)
+      assert_equal "Bob Meyer", account.accountname
+      assert_equal "taggy", account.tag
+      assert_equal "globi", account.cleartext_username
+      assert_equal "petzi", account.cleartext_password
+
+      assert_equal 200, response.status
+
+      account = JSON.parse(response.body)['data']['account']
+
+      assert_equal 'Bob Meyer', account['accountname']
+      assert_equal 'globi', account['cleartext_username']
+      assert_equal 'petzi', account['cleartext_password']
+    end
+
+    test 'account password and username attributes cannot be set by params' do
+      set_auth_headers
+
+      account = accounts(:account1)
+
+      account_params = {
+        id: account.id,
+        account: {
+          username: "invalid username param",
+          password: "invalid password param"
+        }
+      }
+
+      patch :update, params: account_params , xhr: true
+
+      assert_equal 200, response.status
+
+      account = JSON.parse(response.body)['data']['account']
+
+      assert_equal 'account1', account['accountname']
+      assert_equal nil, account['cleartext_username']
+      assert_equal nil, account['cleartext_password']
+    end
+
+    test 'do not update account when user not in team' do
+      request.headers['Authorization-User'] = alice.username
+      request.headers['Authorization-Password'] = Base64.encode64('password')
+
+      account = accounts(:account2)
 
       account_params = {
         id: account.id,
@@ -286,59 +344,14 @@ class Api::AccountsControllerTest < ActionController::TestCase
           tag: "taggy"
         }
       }
-      patch :update, params: account_params , xhr: true
-
-      account.reload
-
-      assert_equal "Bob Meyer", account.accountname
-      assert_equal "taggy", account.tag
-      assert_equal 200, response.status
-    end
-
-    test 'account password and username attributes cannot be set by params' do
-      set_request_headers
-
-      account = accounts(:account1)
-
-      account_params = {
-        id: account.id,
-        account: {
-          username: "Bob Meyer",
-          password: "password"
-        }
-      }
 
       patch :update, params: account_params , xhr: true
 
       account.reload
 
-      assert_not_equal account.username, "Bob Meyer"
-      assert_not_equal account.password, "password"
-      assert_equal 200, response.status
-      assert_equal response.body, response_from_update
-    end
-
-    test 'do not update account when user not in team' do
-      request.headers['Authorization-User'] = alice.username
-      request.headers['Authorization-Password'] = Base64.encode64('password')
-
-    account = accounts(:account2)
-
-    account_params = {
-      id: account.id,
-      account: {
-        accountname: "Bob Meyer",
-        tag: "taggy"
-      }
-    }
-
-    patch :update, params: account_params , xhr: true
-
-    account.reload
-
-    assert_equal 'account2', account.accountname
-    assert_equal 'tag', account.tag
-    assert_equal 403, response.status
+      assert_equal 'account2', account.accountname
+      assert_equal 'tag', account.tag
+      assert_equal 403, response.status
     end
   end
 
@@ -369,17 +382,13 @@ class Api::AccountsControllerTest < ActionController::TestCase
     Base64.encode64(decrypted_token)
   end
 
-  def set_request_headers
+  def set_auth_headers
     request.headers['Authorization-User'] = bob.username
     request.headers['Authorization-Password'] = Base64.encode64('password')
   end
 
   def errors
     JSON.parse(response.body)['messages']['errors']
-  end
-
-  def response_from_update
-    '{"data":{"account":{"id":303742481,"accountname":"account1","group_id":683612621,"group":"group1","team":"team1","team_id":235930340,"cleartext_password":null,"cleartext_username":null}},"messages":{"errors":[],"info":[]}}'
   end
 
 end

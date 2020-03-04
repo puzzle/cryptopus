@@ -9,7 +9,7 @@ require 'user/api'
 
 class Api::ApiUsers::TokenController < ApiController
 
-  # GET /api/api_users/1/token
+  # GET /api/api_users/:id/token
   def show
     authorize api_user
     username = api_user.username
@@ -17,7 +17,7 @@ class Api::ApiUsers::TokenController < ApiController
     render_json api_user
   end
 
-  # DELETE /api/api_users/1/token
+  # DELETE /api/api_users/:id/token
   def destroy
     authorize api_user
     api_user.update!(locked: true)
