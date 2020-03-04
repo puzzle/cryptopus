@@ -7,7 +7,7 @@ gem 'rails', '6'
 gem 'figaro'
 gem 'mysql2'
 gem 'net-ldap'
-gem 'puma', '~> 3.12'
+gem 'puma'
 gem 'sqlite3'
 
 gem 'active_model_serializers', '0.10.0'

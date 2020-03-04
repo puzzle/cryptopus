@@ -189,7 +189,8 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     public_suffix (4.0.3)
-    puma (3.12.3)
+    puma (4.3.3)
+      nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
     rack (2.1.2)
@@ -350,7 +351,7 @@ DEPENDENCIES
   password_strength
   pry
   pry-stack_explorer
-  puma (~> 3.12)
+  puma
   pundit
   rails (= 6)
   rails-controller-testing
