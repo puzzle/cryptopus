@@ -17,7 +17,7 @@ class Admin::SettingsController < ApplicationController
 
   def update_all
     authorize Setting
-    update(params[:setting])
+    update_settings
     flash[:notice] = t('flashes.admin.settings.successfully_updated')
     respond_to do |format|
       format.html { redirect_to admin_settings_path }
@@ -26,8 +26,8 @@ class Admin::SettingsController < ApplicationController
 
   private
 
-  def update(setting_params)
-    setting_params.each do |key, value|
+  def update_settings
+    params[:setting].each do |key, value|
       setting = Setting.find_by(key: key)
       setting.update(value: value)
       collect_errors(setting) if setting.errors.any?

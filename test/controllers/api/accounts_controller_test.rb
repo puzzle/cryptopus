@@ -327,8 +327,8 @@ class Api::AccountsControllerTest < ActionController::TestCase
       account = JSON.parse(response.body)['data']['account']
 
       assert_equal 'account1', account['accountname']
-      assert_equal nil, account['cleartext_username']
-      assert_equal nil, account['cleartext_password']
+      assert_nil account['cleartext_username']
+      assert_nil account['cleartext_password']
     end
 
     test 'do not update account when user not in team' do
