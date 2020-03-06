@@ -48,15 +48,6 @@ class LdapConnection
     raise "No uidnumber for uid #{username}"
   end
 
-  def exists?(username)
-    return unless username_valid?(username)
-
-    filter = Net::LDAP::Filter.eq('uid', username)
-    result = connection.search(base: basename,
-                               filter: filter)
-    result.present?
-  end
-
   def all_uids
     @all_uids ||= fetch_all_uids
   end

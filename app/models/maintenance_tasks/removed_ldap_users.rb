@@ -15,8 +15,10 @@ class MaintenanceTasks::RemovedLdapUsers < MaintenanceTask
 
   def execute
     super do
-      error = raise I18n.t('flashes.admin.maintenance_tasks.ldap_connection.failed')
-      raise error unless ldap_connection.test_connection
+      raise 'Only admins can run this Task' unless executer.admin? || executer.conf_admin?
+
+      connection_error = I18n.t('flashes.admin.maintenance_tasks.ldap_connection.failed')
+      raise connection_error unless ldap_connection.test_connection
 
       @removed_ldap_users = collect_removed_ldap_users
     end
