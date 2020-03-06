@@ -19,7 +19,7 @@ class AccountPolicy < TeamDependantPolicy
   end
 
   def permitted_attributes
-    %i[accountname description cleartext_username cleartext_password tag]
+    [:accountname, :description, :cleartext_username, :cleartext_password, :tag]
   end
 
   def create_item?
