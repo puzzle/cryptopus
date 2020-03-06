@@ -57,6 +57,10 @@ class LdapConnection
     result.present?
   end
 
+  def all_uids
+    @all_uids ||= fetch_all_uids
+  end
+
   def test
     success = []
     failed = []
@@ -177,5 +181,11 @@ class LdapConnection
     ldap_entry = nil
     connection.search(base: basename, filter: filter) { |entry| ldap_entry = entry }
     ldap_entry
+  end
+
+  def fetch_all_uids
+    filter = Net::LDAP::Filter.pres('uid')
+    users = connection.search(base: basename, filter: filter, attributes: 'uid')
+    users.map(&:uid)
   end
 end

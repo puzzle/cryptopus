@@ -4,7 +4,6 @@
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
-
 require 'test_helper'
 class RemovedLdapUsersTest < ActiveSupport::TestCase
 
@@ -54,19 +53,13 @@ class RemovedLdapUsersTest < ActiveSupport::TestCase
     alice = users(:alice)
     alice.update!(auth: 'ldap')
 
-
     LdapConnection.any_instance.expects(:test_connection)
       .returns(true)
 
     LdapConnection.any_instance.
-      expects(:exists?).
-      with('bob').
-      returns(false)
-
-    LdapConnection.any_instance.
-      expects(:exists?).
-      with('alice').
-      returns(true)
+      expects(:all_uids).
+      returns([['alice']]).
+      at_least_once
 
     task = MaintenanceTask.find(3)
     task.executer = users(:admin)
