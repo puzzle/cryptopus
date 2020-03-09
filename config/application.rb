@@ -60,5 +60,7 @@ module Cryptopus
     end
 
     config.time_zone = ENV['TIME_ZONE'] || 'Bern'
+
+    config.paths['config/routes.rb'].concat Dir[Rails.root.join('config/routes/*.rb')].sort
   end
 end
