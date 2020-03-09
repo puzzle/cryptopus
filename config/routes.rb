@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
@@ -10,68 +10,66 @@ Rails.application.routes.draw do
   get 'status/health', to: 'status#health'
   get 'status/readiness', to: 'status#readiness'
 
-  scope "(:locale)", locale: /en|de|fr|zh|ru|ch_be/ do
-    namespace :recryptrequests do
-      get 'new_ldap_password'
-      post 'recrypt'
-    end
-
-    resources :teams do
-      resources :api_users, only: [:index, :create, :destroy], module: 'api/team'
-      resources :teammembers
-      resources :groups do
-        resources :accounts do
-          put 'move', to: 'accounts#move'
-          resources :items
-        end
-      end
-    end
-
-    namespace :admin do
-      resources :maintenance_tasks, only: :index
-      post '/maintenance_tasks/:id/execute', to: 'maintenance_tasks#execute', as: 'maintenance_tasks_execute'
-
-      resource :settings do
-        post 'update_all'
-        get 'index'
-      end
-
-      resources :users, except: :destroy do
-        member do
-          get 'unlock'
-        end
-      end
-
-      resources :recryptrequests do
-        collection do
-          post 'resetpassword'
-        end
-      end
-
-      get  'teams', to: 'teams#index'
-    end
-
-    resource :login, except: :show do
-      get 'login'
-      get 'show_update_password'
-      post 'update_password'
-      get 'logout'
-      get 'noaccess'
-      post 'authenticate'
-      post 'changelocale'
-    end
-
-    get 'wizard', to: 'wizard#index'
-    post 'wizard/apply'
-
-    get 'search', to: 'search#index'
-
-    root to: 'search#index'
-
-    get 'changelog', to: 'changelog#index'
-
-    get 'profile', to: 'profile#index'
+  namespace :recryptrequests do
+    get 'new_ldap_password'
+    post 'recrypt'
   end
+
+  resources :teams do
+    resources :api_users, only: [:index, :create, :destroy], module: 'api/team'
+    resources :teammembers
+    resources :groups do
+      resources :accounts do
+        put 'move', to: 'accounts#move'
+        resources :items
+      end
+    end
+  end
+
+  namespace :admin do
+    resources :maintenance_tasks, only: :index
+    post '/maintenance_tasks/:id/execute', to: 'maintenance_tasks#execute', as: 'maintenance_tasks_execute'
+
+    resource :settings do
+      post 'update_all'
+      get 'index'
+    end
+
+    resources :users, except: :destroy do
+      member do
+        get 'unlock'
+      end
+    end
+
+    resources :recryptrequests do
+      collection do
+        post 'resetpassword'
+      end
+    end
+
+    get  'teams', to: 'teams#index'
+  end
+
+  resource :login, except: :show do
+    get 'login'
+    get 'show_update_password'
+    post 'update_password'
+    get 'logout'
+    get 'noaccess'
+    post 'authenticate'
+    post 'changelocale'
+  end
+
+  get 'wizard', to: 'wizard#index'
+  post 'wizard/apply'
+
+  get 'search', to: 'search#index'
+
+  root to: 'search#index'
+
+  get 'changelog', to: 'changelog#index'
+
+  get 'profile', to: 'profile#index'
 
   scope '/api', module: 'api' do
 

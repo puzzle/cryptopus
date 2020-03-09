@@ -53,10 +53,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def default_url_options(options = {})
-    { locale: I18n.locale }.merge options
-  end
-
   def set_sentry_request_context
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end

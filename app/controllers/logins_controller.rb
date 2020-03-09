@@ -60,7 +60,7 @@ class LoginsController < ApplicationController
   def changelocale
     locale = params.permit(:new_locale)[:new_locale]
     if locale.present?
-      current_user.update!(:preferred_locale, locale)
+      current_user.update!(preferred_locale: locale)
     end
 
     redirect_back(fallback_location: root_path)
