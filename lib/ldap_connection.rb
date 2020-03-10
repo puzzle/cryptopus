@@ -177,6 +177,6 @@ class LdapConnection
   def fetch_all_uids
     filter = Net::LDAP::Filter.pres('uid')
     users = connection.search(base: basename, filter: filter, attributes: 'uid')
-    users.map(&:uid)
+    users.map(&:uid).flatten
   end
 end

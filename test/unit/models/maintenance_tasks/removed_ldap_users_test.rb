@@ -58,7 +58,7 @@ class RemovedLdapUsersTest < ActiveSupport::TestCase
 
     LdapConnection.any_instance.
       expects(:all_uids).
-      returns([['alice']]).
+      returns(['alice']).
       at_least_once
 
     task = MaintenanceTask.find(3)

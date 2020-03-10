@@ -32,7 +32,7 @@ class MaintenanceTasks::RemovedLdapUsers < MaintenanceTask
 
   def collect_removed_ldap_users
     User::Human.ldap.reject do |user|
-      ldap_connection.all_uids.include?([user.username])
+      ldap_connection.all_uids.include?(user.username)
     end
   end
 
