@@ -7,6 +7,8 @@
 
 class Admin::MaintenanceTasksController < ApplicationController
 
+  self.permitted_attrs = [:retype_password, :root_password]
+
   # GET /admin/maintenance_tasks
   def index
     authorize MaintenanceTask
@@ -58,18 +60,14 @@ class Admin::MaintenanceTasksController < ApplicationController
 
   def param_values
     param_values = { private_key: session[:private_key] }
-    param_values.merge!(task_params)
-  end
-
-  def task_params
-    return {} unless params[:task_params]
-
-    params.require(:task_params).
-      permit(:retype_password, :root_password)
+    param_values.merge!(model_params || {})
   end
 
   def routing_error
     ActionController::RoutingError.new('Not Found')
   end
 
+  def model_params
+    @model_params ||= params.require(:task_params).permit(permitted_attrs) if params[:task_params]
+  end
 end

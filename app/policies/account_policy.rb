@@ -18,10 +18,6 @@ class AccountPolicy < TeamDependantPolicy
     team.teammember?(@user.id)
   end
 
-  def permitted_attributes
-    [:accountname, :description, :cleartext_username, :cleartext_password, :tag]
-  end
-
   def create_item?
     team_member?
   end

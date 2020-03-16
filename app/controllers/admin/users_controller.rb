@@ -6,7 +6,6 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Admin::UsersController < ApplicationController
-
   before_action :redirect_if_ldap_user, only: [:update, :edit]
   before_action :authorize_user_class, only: [:index, :new, :create]
   before_action :authorize_user, only: [:update, :unlock, :edit]

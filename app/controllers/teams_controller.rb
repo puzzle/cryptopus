@@ -6,6 +6,8 @@
 #  https://github.com/puzzle/cryptopus.
 
 class TeamsController < ApplicationController
+  self.permitted_attrs = [:name, :private, :description]
+
   helper_method :team
 
   # GET /teams
@@ -31,7 +33,7 @@ class TeamsController < ApplicationController
   # POST /teams
   def create
     respond_to do |format|
-      team = Team.create(current_user, team_params)
+      team = Team.create(current_user, model_params)
       authorize team
       if team.valid?
         flash[:notice] = t('flashes.teams.created')
@@ -54,7 +56,7 @@ class TeamsController < ApplicationController
     authorize team
     add_breadcrumb t('teams.title'), :teams_path
     respond_to do |format|
-      if team.update!(team_params)
+      if team.update!(model_params)
         flash[:notice] = t('flashes.teams.updated')
         format.html { redirect_to(teams_url) }
       else
@@ -72,10 +74,6 @@ class TeamsController < ApplicationController
   end
 
   private
-
-  def team_params
-    params.require(:team).permit(:name, :private, :description)
-  end
 
   def team
     @team ||= Team.find(params[:id])

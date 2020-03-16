@@ -6,6 +6,8 @@
 #  https://github.com/puzzle/cryptopus.
 
 class GroupsController < ApplicationController
+  self.permitted_attrs = [:name, :description]
+
   helper_method :team
 
   # GET /teams/1/groups
@@ -44,7 +46,7 @@ class GroupsController < ApplicationController
 
   # POST /teams/1/groups
   def create
-    @group = team.groups.new(group_params)
+    @group = team.groups.new(model_params)
     authorize @group
 
     respond_to do |format|
@@ -75,7 +77,7 @@ class GroupsController < ApplicationController
     authorize @group
 
     respond_to do |format|
-      if @group.update!(group_params)
+      if @group.update!(model_params)
         flash[:notice] = t('flashes.groups.updated')
         format.html { redirect_to team_groups_url(team) }
       else
@@ -96,10 +98,6 @@ class GroupsController < ApplicationController
   end
 
   private
-
-  def group_params
-    params.require(:group).permit(:name, :description)
-  end
 
   def groups_breadcrumbs
     add_breadcrumb t('teams.title'), :teams_path
