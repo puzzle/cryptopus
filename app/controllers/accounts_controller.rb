@@ -9,6 +9,9 @@ class AccountsController < ApplicationController
   before_action :group
   helper_method :team
 
+  self.permitted_attrs = [:accountname, :cleartext_username, :cleartext_password,
+                          :tag, :description, :group_id]
+
   # GET /teams/1/groups/1/accounts
   def index
     authorize team, :team_member?
@@ -47,7 +50,7 @@ class AccountsController < ApplicationController
 
   # POST /teams/1/groups/1/accounts
   def create
-    @account = @group.accounts.new(account_params)
+    @account = @group.accounts.new(model_params)
     authorize @account
 
     @account.encrypt(plaintext_team_password(team))
@@ -103,7 +106,7 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:account_id])
     authorize @account
     respond_to do |format|
-      target_group = Group.find(account_params[:group_id])
+      target_group = Group.find(model_params[:group_id])
       move_account(format, target_group)
     end
   end
@@ -113,7 +116,7 @@ class AccountsController < ApplicationController
   def update_account
     @account = @group.accounts.find(params[:id])
     authorize @account
-    @account.attributes = account_params
+    @account.attributes = model_params
     @account.encrypt(plaintext_team_password(team))
   end
 
@@ -126,15 +129,6 @@ class AccountsController < ApplicationController
       flash[:error] = @account.errors.full_messages.join
       format.html { render action: 'show' }
     end
-  end
-
-  def account_params
-    params.require(:account).permit(:accountname,
-                                    :cleartext_username,
-                                    :cleartext_password,
-                                    :tag,
-                                    :description,
-                                    :group_id)
   end
 
   def group

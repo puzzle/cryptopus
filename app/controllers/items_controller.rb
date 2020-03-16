@@ -6,6 +6,8 @@
 #  https://github.com/puzzle/cryptopus.
 
 class ItemsController < ApplicationController
+  self.permitted_attrs = [:description, :file]
+
   before_action :load_parents
   helper_method :team
 
@@ -48,10 +50,6 @@ class ItemsController < ApplicationController
 
   private
 
-  def item_params
-    params.require(:item).permit(:description, :file)
-  end
-
   def load_parents
     @group = team.groups.find(params[:group_id])
     @account = @group.accounts.find(params[:account_id])
@@ -59,7 +57,7 @@ class ItemsController < ApplicationController
 
   def create_item(format)
     authorize @account
-    item = Item.create(@account, item_params, plaintext_team_password(team))
+    item = Item.create(@account, model_params, plaintext_team_password(team))
     if item.errors.empty?
       flash[:notice] = t('flashes.items.uploaded')
       format.html { redirect_to team_group_account_url(team, @group, @account) }

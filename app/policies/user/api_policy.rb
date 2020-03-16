@@ -29,14 +29,6 @@ class User::ApiPolicy < ApplicationPolicy
     own_api_user?
   end
 
-  def permitted_attributes_for_update
-    [:description, :valid_for]
-  end
-
-  def permitted_attributes_for_create
-    [:description, :valid_for]
-  end
-
   private
 
   def own_api_user?

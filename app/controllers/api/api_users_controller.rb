@@ -3,6 +3,7 @@
 require 'user/api'
 
 class Api::ApiUsersController < ApiController
+  self.permitted_attrs = [:description, :valid_for]
 
   # GET /api/api_users
   def index
@@ -19,7 +20,7 @@ class Api::ApiUsersController < ApiController
 
   # POST /api/api_users
   def create
-    new_api_user = current_user.api_users.new(permitted_attributes(User::Api))
+    new_api_user = current_user.api_users.new(model_params)
     authorize new_api_user
     new_api_user.save!
     add_info(t('flashes.api.api-users.create', username: new_api_user.username))
@@ -29,8 +30,7 @@ class Api::ApiUsersController < ApiController
   # POST /api/api_users/:id
   def update
     authorize api_user
-    params = permitted_attributes(api_user)
-    api_user.update!(params)
+    api_user.update!(model_params)
     flash_update_info(api_user, params)
     render_json api_user
   end
@@ -44,6 +44,10 @@ class Api::ApiUsersController < ApiController
   end
 
   private
+
+  def model_params
+    @model_params ||= params.require(:user_api).permit(permitted_attrs)
+  end
 
   def api_user
     @api_user ||= User::Api.find(params[:id])

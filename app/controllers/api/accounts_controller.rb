@@ -5,6 +5,9 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 class Api::AccountsController < ApiController
+  self.permitted_attrs = [:accountname, :description, :cleartext_username,
+                          :cleartext_password, :tag]
+
   helper_method :team
 
   # GET /api/accounts
@@ -25,17 +28,13 @@ class Api::AccountsController < ApiController
   # PATCH /api/accounts/:id?Query
   def update
     authorize account
-    account.attributes = account_params
+    account.attributes = model_params
     account.encrypt(decrypted_team_password(account.group.team))
     account.save!
     render_json account
   end
 
   private
-
-  def account_params
-    permitted_attributes(account)
-  end
 
   def find_accounts(accounts)
     if query_param.present?

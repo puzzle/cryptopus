@@ -5,14 +5,16 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class ApiController < ActionController::Base # rubocop:disable Rails/ApplicationController
+class ApiController < ApplicationController
+
+  skip_before_action :set_sentry_request_context
+  skip_before_action :message_if_fallback
+  skip_before_action :redirect_if_no_private_key, except: :logout
+  skip_before_action :prepare_menu
+  skip_before_action :set_locale
 
   before_action :validate_user
 
-  include PolicyCheck
-  include SourceIpCheck
-  include UserSession
-  include Caching
   include ApiMessages
 
   protect_from_forgery with: :exception, unless: :header_auth?
@@ -40,10 +42,6 @@ class ApiController < ActionController::Base # rubocop:disable Rails/Application
     raise 'Failed to decrypt the team password' if team_password.blank?
 
     team_password
-  end
-
-  def active_session?
-    session[:private_key].present?
   end
 
   def username
