@@ -20,6 +20,18 @@ class TeamsController < ApplicationController
     end
   end
 
+  # GET /teams/1
+  def show
+    authorize team
+
+    @groups = team.groups
+    groups_breadcrumbs
+
+    respond_to do |format|
+      format.html # index.html.haml
+    end
+  end
+
   # GET /teams/new
   def new
     @team = Team.new
@@ -74,6 +86,17 @@ class TeamsController < ApplicationController
   end
 
   private
+
+  def groups_breadcrumbs
+    add_breadcrumb t('teams.title'), :teams_path
+
+    add_breadcrumb team.label if action_name == 'show'
+
+    if action_name == 'edit'
+      add_breadcrumb team.label, :team_group_path
+      add_breadcrumb @group.label
+    end
+  end
 
   def team
     @team ||= Team.find(params[:id])

@@ -10,24 +10,12 @@ class GroupsController < ApplicationController
 
   helper_method :team
 
-  # GET /teams/1/groups
-  def index
-    authorize team, :team_member?
-    @groups = team.groups
-    groups_breadcrumbs
-
-    teammembers = team.teammembers.list
-    @teammembers = teammembers.includes(:user).sort_by { |tm| tm.label.downcase }
-
-    respond_to do |format|
-      format.html # index.html.haml
-    end
-  end
-
   # GET /teams/1/groups/1
   def show
-    @group = team.groups.find(params[:id])
-    authorize @group
+    authorize group
+
+    @accounts = group.accounts
+    groups_breadcrumbs
 
     respond_to do |format|
       format.html # show.html.haml
@@ -37,7 +25,7 @@ class GroupsController < ApplicationController
   # GET /teams/1/groups/new
   def new
     @group = team.groups.new
-    authorize @group
+    authorize group
 
     respond_to do |format|
       format.html # new.html.haml
@@ -47,7 +35,7 @@ class GroupsController < ApplicationController
   # POST /teams/1/groups
   def create
     @group = team.groups.new(model_params)
-    authorize @group
+    authorize group
 
     respond_to do |format|
       if @group.save
@@ -61,8 +49,7 @@ class GroupsController < ApplicationController
 
   # GET /teams/1/groups/1/edit
   def edit
-    @group = team.groups.find(params[:id])
-    authorize @group
+    authorize group
 
     groups_breadcrumbs
 
@@ -73,11 +60,10 @@ class GroupsController < ApplicationController
 
   # PUT /teams/1/groups/1
   def update
-    @group = team.groups.find(params[:id])
-    authorize @group
+    authorize group
 
     respond_to do |format|
-      if @group.update!(model_params)
+      if group.update!(model_params)
         flash[:notice] = t('flashes.groups.updated')
         format.html { redirect_to team_groups_url(team) }
       else
@@ -88,12 +74,12 @@ class GroupsController < ApplicationController
 
   # DELETE /teams/1/groups/1
   def destroy
-    @group = team.groups.find(params[:id])
-    authorize @group
-    @group.destroy
+    authorize group
+
+    group.destroy!
 
     respond_to do |format|
-      format.html { redirect_to team_groups_url(team) }
+      format.html { redirect_to team_url(team) }
     end
   end
 
@@ -101,13 +87,11 @@ class GroupsController < ApplicationController
 
   def groups_breadcrumbs
     add_breadcrumb t('teams.title'), :teams_path
-
-    add_breadcrumb team.label if action_name == 'index'
-
-    if action_name == 'edit'
-      add_breadcrumb team.label, :team_groups_path
-      add_breadcrumb @group.label
-    end
+    add_breadcrumb team.label, team_path(team.id)
+    add_breadcrumb group.label
   end
 
+  def group
+    @group ||= team.groups.find(params[:id])
+  end
 end

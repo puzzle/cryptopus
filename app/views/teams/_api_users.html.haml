@@ -1,0 +1,19 @@
+-# encoding: utf-8
+
+-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
+-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+-#  See the COPYING file at the top-level directory or at
+-#  https://github.com/puzzle/cryptopus.
+- if current_user.api_users.empty?
+  = link_to(t('profile.api_users.no_api_users'), profile_path + '#api_users')
+- else
+  %table.table.table-striped#api_user_table
+    %tr
+      %th= t '.user'
+      %th= t '.description'
+      %th= t '.enabled'
+    - current_user.api_users.each do |api|
+      %tr{class: "#{cycle( 'odd', 'even' )}"}
+        %td= api.label
+        %td= api.description
+        %td= toggle_api_user api

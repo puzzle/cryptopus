@@ -19,10 +19,7 @@ include IntegrationTest::AccountTeamSetupHelper
     account = create_team_group_account('bob', 'password')
 
     # Create account link
-    account_path = team_group_account_path(
-                                  team_id: account.group.team.id,
-                                  group_id: account.group.id,
-                                  id: account.id)
+    account_path = account_path(account.id)
 
 
     # Bob can access team / accounts
@@ -40,10 +37,7 @@ include IntegrationTest::AccountTeamSetupHelper
     account = create_team_group_account_private('bob', 'password')
 
     # Create account link
-    account_path = team_group_account_path(
-                                  team_id: account.group.team.id,
-                                  group_id: account.group.id,
-                                  id: account.id)
+    account_path = account_path(account.id)
 
 
     # Bob can not access team / accounts

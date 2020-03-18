@@ -8,12 +8,11 @@
 class ItemsController < ApplicationController
   self.permitted_attrs = [:description, :file]
 
-  before_action :load_parents
   helper_method :team
 
-  # GET /teams/1/groups/1/accounts/new
+  # GET /accounts/1/items/new
   def new
-    @item = @account.items.new
+    @item = account.items.new
     authorize @item
 
     respond_to do |format|
@@ -21,46 +20,56 @@ class ItemsController < ApplicationController
     end
   end
 
-  # POST /teams/1/groups/1/accounts/1/items
+  # POST /accounts/1/items
   def create
+    authorize account
+
     respond_to do |format|
       create_item(format)
     end
   end
 
-  # POST /teams/1/groups/1/accounts/1/items/1
+  # POST /accounts/1/items/1
   def show
-    @item = @account.items.find(params[:id])
+    @item = account.items.find(params[:id])
     authorize @item
+
     file = @item.decrypt(plaintext_team_password(team))
 
     send_data file, filename: @item.filename, type: @item.content_type, disposition: 'attachment'
   end
 
-  # DELETE /teams/1/groups/1/accounts/1/items/1
+  # DELETE /accounts/1/items/1
   def destroy
-    @item = @account.items.find(params[:id])
+    @item = account.items.find(params[:id])
     authorize @item
+
     @item.destroy
 
     respond_to do |format|
-      format.html { redirect_to team_group_account_url(team, @group, @account) }
+      format.html { redirect_to account_url(@account) }
     end
   end
 
   private
 
-  def load_parents
-    @group = team.groups.find(params[:group_id])
-    @account = @group.accounts.find(params[:account_id])
+  def account
+    @account = Account.find(params[:account_id])
+  end
+
+  def group
+    @group ||= account.group
+  end
+
+  def team
+    @team ||= group.team
   end
 
   def create_item(format)
-    authorize @account
-    item = Item.create(@account, model_params, plaintext_team_password(team))
+    item = Item.create(account, model_params, plaintext_team_password(team))
     if item.errors.empty?
       flash[:notice] = t('flashes.items.uploaded')
-      format.html { redirect_to team_group_account_url(team, @group, @account) }
+      format.html { redirect_to account_url(account) }
     else
       @item = item
       format.html { render action: 'new' }

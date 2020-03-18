@@ -17,7 +17,6 @@ class LegacyRoutesController < ApplicationController
   private
 
   def redirect_url
-    LegacyRoutes::Locale.new.redirect_url(request.path)
+    LegacyRoutes::RedirectUrl.new(request.path).redirect_to
   end
-
 end
