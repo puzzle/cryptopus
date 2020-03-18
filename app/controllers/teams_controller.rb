@@ -20,6 +20,20 @@ class TeamsController < ApplicationController
     end
   end
 
+  # GET /teams/1
+  def show
+    authorize team, :team_member?
+    @groups = team.groups
+    groups_breadcrumbs
+
+    teammembers = team.teammembers.list
+    @teammembers = teammembers.includes(:user).sort_by { |tm| tm.label.downcase }
+
+    respond_to do |format|
+      format.html # index.html.haml
+    end
+  end
+
   # GET /teams/new
   def new
     @team = Team.new
@@ -74,6 +88,17 @@ class TeamsController < ApplicationController
   end
 
   private
+
+  def groups_breadcrumbs
+    add_breadcrumb t('teams.title'), :teams_path
+
+    add_breadcrumb team.label if action_name == 'index'
+
+    if action_name == 'edit'
+      add_breadcrumb team.label, :team_groups_path
+      add_breadcrumb @group.label
+    end
+  end
 
   def team
     @team ||= Team.find(params[:id])

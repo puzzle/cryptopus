@@ -4,7 +4,7 @@
 -#  https://github.com/puzzle/cryptopus.
 
 = hidden_field_tag :team_id, team.id
-= link_to t('groups.new.title'), new_team_group_path, class: 'btn btn-primary pull-right', id: 'group-button'
+= link_to t('groups.new.title'), new_team_group_path(team), class: 'btn btn-primary pull-right', id: 'group-button'
 %table.table.table-striped
   %tr
     %th{style: "width: 150px;"}= t '.group'

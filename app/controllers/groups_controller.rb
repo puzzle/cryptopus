@@ -10,20 +10,6 @@ class GroupsController < ApplicationController
 
   helper_method :team
 
-  # GET /teams/1/groups
-  def index
-    authorize team, :team_member?
-    @groups = team.groups
-    groups_breadcrumbs
-
-    teammembers = team.teammembers.list
-    @teammembers = teammembers.includes(:user).sort_by { |tm| tm.label.downcase }
-
-    respond_to do |format|
-      format.html # index.html.haml
-    end
-  end
-
   # GET /teams/1/groups/1
   def show
     @group = team.groups.find(params[:id])
