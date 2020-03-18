@@ -16,13 +16,6 @@ module IntegrationTest
       get '/login/logout'
     end
 
-    def account_path
-      team = teams(:team1)
-      group = groups(:group1)
-      account = accounts(:account1)
-      team_group_account_path(team_id: team.id, group_id: group.id, id: account.id)
-    end
-
     def can_access_account(account_path, username, user_password = 'password',
                            account_username = 'account_username',
                            account_password = 'account_password')

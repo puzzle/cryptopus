@@ -19,8 +19,8 @@ module IntegrationTest
 
       #New Account
       group = team.groups.find_by_name('Default')
-      account_path = team_group_accounts_path(team_id: team.id, group_id: group.id)
-      post account_path, params: { account: {accountname: 'puzzle', description: 'account_description', cleartext_username: 'account_username', cleartext_password: 'account_password'} }
+      account_path = accounts_path()
+      post account_path, params: { account: {accountname: 'puzzle', description: 'account_description', cleartext_username: 'account_username', cleartext_password: 'account_password', group_id: group.id} }
 
       logout
       group.accounts.find_by_accountname('puzzle')

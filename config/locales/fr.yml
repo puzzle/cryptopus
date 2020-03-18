@@ -54,9 +54,6 @@ fr:
 
   accounts:
     title: Comptes
-    index:
-      move: Déplacer compte à un autre groupe
-      title: "Comptes du groupe %{group_name} de l'équipe %{team_name}"
     index_menu:
       create: Créer compte
       group: Groupes
@@ -146,15 +143,11 @@ fr:
       create: Créer groupe
     edit:
       title: Modifier le groupe
-    index:
-      title: "Groupes de l'équipe %{team_name}"
-      group: Groupe
-      members: Membres
-      add_member: Ajouter un membre
-      admins: Admins
     new:
       title: Nouveau groupe
-
+    show:
+      move: Déplacer compte à un autre groupe
+      title: "Comptes du groupe %{group_name} de l'équipe %{team_name}"
   items:
     new:
       title: Ajouter un attachement au compte
@@ -204,7 +197,12 @@ fr:
       title: Créer une nouvelle équipe
     description:
       private: Administrateurs auront pas accès à votre équipe.
-
+    show:
+      title: "Groupes de l'équipe %{team_name}"
+      group: Groupe
+      members: Membres
+      add_member: Ajouter un membre
+      admins: Admins
   profile:
     index:
       title: "Profil de %{label}"
@@ -370,8 +368,8 @@ fr:
         username: Nom d'utilisateur
     errors:
       template:
-        body:
-        header:
+        body: ''
+        header: ''
       models:
         account:
           attributes:

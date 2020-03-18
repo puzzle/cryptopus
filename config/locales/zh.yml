@@ -52,9 +52,6 @@ zh:
 
   accounts:
     title: "帐户"
-    index:
-      move: "移动帐户到其他组"
-      title: "%{team_name} 团队中 %{group_name} 组的成员帐户"
     index_menu:
       create: "创建帐户"
       group: "组"
@@ -135,15 +132,11 @@ zh:
       create: "创建组"
     edit:
       title: "编辑组"
-    index:
-      title: "%{team_name} 团队中的组"
-      group: "组"
-      members: "成员"
-      add_member: "添加成员"
-      admins: "管理员"
     new:
       title: "新的组"
-
+    show:
+      move: "移动帐户到其他组"
+      title: "%{team_name} 团队中 %{group_name} 组的成员帐户"
   items:
     new:
       title: "添加附件到帐户"
@@ -192,7 +185,12 @@ zh:
       title: "创建一个新团队"
     description:
       private: 如果选中管理员将无访问权限
-
+    show:
+      title: "%{team_name} 团队中的组"
+      group: "组"
+      members: "成员"
+      add_member: "添加成员"
+      admins: "管理员"
   flashes:
     api:
       admin:

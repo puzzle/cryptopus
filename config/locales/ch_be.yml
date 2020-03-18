@@ -83,9 +83,6 @@ ch_be:
 
   accounts:
     title: 'Accounts'
-    index:
-      move: Account zure angere Gruppe verschiebe
-      title: "Accounts vo dr Gruppe %{group_name} vom Team %{team_name}"
     index_menu:
       create: Account ersteuä
       group: Gruppä
@@ -168,15 +165,11 @@ ch_be:
       create: Gruppe ersteue
     edit:
       title: Gruppe bearbeite
-    index:
-      title: "Gruppä vom Team %{team_name}"
-      group: Gruppä
-      members: Mitglider
-      add_member: Mitglied hinzuefüege
-      admins: Admins
     new:
       title: Gruppe ersteue
-
+    show:
+      move: Account zure angere Gruppe verschiebe
+      title: "Accounts vo dr Gruppe %{group_name} vom Team %{team_name}"
   items:
     new:
       title: Ahang zum Account hinzuefüege
@@ -225,7 +218,12 @@ ch_be:
       title: Nöis Team ersteue
     description:
       private: Admins hei ke Zuegriff we si agwäut si
-
+    show:
+      title: "Gruppä vom Team %{team_name}"
+      group: Gruppä
+      members: Mitglider
+      add_member: Mitglied hinzuefüege
+      admins: Admins
   profile:
     index:
       title: "S Profil vom %{label}"

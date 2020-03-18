@@ -12,7 +12,8 @@ class AddUserToTeamTest < ActionDispatch::IntegrationTest
     GeoIp.expects(:activated?).returns(false).at_least_once
     teammembers(:team1_alice).destroy
 
-    account_path = team_group_account_path(team_id: teams(:team1).id, group_id: groups(:group1).id, id: accounts(:account1).id)
+    account = accounts(:account1)
+    account_path = account_path(account.id)
     cannot_access_account(account_path, 'alice')
 
     login_as('bob')

@@ -1,5 +1,8 @@
 # Cryptopus Changelog
 
+## Version 2.6
+* Simplified App Urls
+
 ## Version 2.5
 * Rails 6.0
 * Move LDAP config from db settings to auth.yml

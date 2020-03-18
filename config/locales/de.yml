@@ -55,9 +55,6 @@ de:
 
   accounts:
     title: Accounts
-    index:
-      move: Account zu einer anderen Gruppe verschieben
-      title: "Accounts der Gruppe %{group_name} des Teams %{team_name}"
     index_menu:
       create: Account erstellen
       group: Gruppen
@@ -149,15 +146,11 @@ de:
       create: Gruppe erstellen
     edit:
       title: Gruppe bearbeiten
-    index:
-      title: "Gruppen des Teams %{team_name}"
-      group: Gruppe
-      members: Mitglieder
-      add_member: Mitglied hinzufügen
-      admins: Admins
     new:
       title: Gruppe erstellen
-
+    show:
+      move: Account zu einer anderen Gruppe verschieben
+      title: "Accounts der Gruppe %{group_name} des Teams %{team_name}"
   items:
     new:
       title: Anhang zum Account hinzufügen
@@ -195,6 +188,12 @@ de:
 
   teams:
     title: Teams
+    show:
+      title: "Gruppen des Teams %{team_name}"
+      group: Gruppe
+      members: Mitglieder
+      add_member: Mitglied hinzufügen
+      admins: Admins
     form:
       private: Privat
     index_menu:
@@ -373,8 +372,8 @@ de:
         username: Benutzername
     errors:
       template:
-        body:
-        header:
+        body: ''
+        header: ''
       models:
         account:
           attributes:

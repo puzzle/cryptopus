@@ -17,25 +17,28 @@ require 'rails_helper'
 describe GroupsController do
   include ControllerHelpers
 
-  context 'GET index' do
+  context 'GET show' do
     render_views
 
     it 'shows breadcrumb path 1 if user is on index of groups' do
       login_as(:bob)
+      group1 = groups(:group1)
       team1 = teams(:team1)
 
-      get :index, params: { team_id: team1 }
+      get :show, params: { id: group1, team_id: team1 }
 
+      expect(response.body).to match(/href="\/accounts\/#{accounts(:account1).id}"/)
       expect(response.body).to match(/Teams/)
       expect(response.body).to match(/team1/)
     end
 
     it 'redirects if not teammember' do
       team2 = teams(:team2)
+      group2 = groups(:group2)
 
       login_as(:alice)
 
-      get :index, params: { team_id: team2 }
+      get :show, params: { id: group2, team_id: team2 }
 
       expect(flash[:error]).to match(/Access denied/)
       expect(response).to redirect_to teams_path
@@ -77,12 +80,14 @@ describe GroupsController do
   context 'DELETE destroy' do
     it 'deletes group as teammember' do
       login_as(:bob)
+      team1 = teams(:team1)
+      group1 = groups(:group1)
 
       expect do
-        delete :destroy, params: { id: groups(:group1), team_id: teams(:team1) }
+        delete :destroy, params: { id: group1, team_id: team1 }
       end.to change { Group.count }.by(-1)
 
-      expect(response).to redirect_to team_groups_path
+      expect(response).to redirect_to team_path(team1)
     end
   end
 end

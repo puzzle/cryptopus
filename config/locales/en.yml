@@ -55,9 +55,6 @@ en:
 
   accounts:
     title: Accounts
-    index:
-      move: Move account to other group
-      title: "Accounts in group %{group_name} for team %{team_name}"
     index_menu:
       create: Create Account
       group: Groups
@@ -151,15 +148,11 @@ en:
       create: Create group
     edit:
       title: Editing group
-    index:
-      title: "Team %{team_name}"
-      group: Group
-      members: Members
-      add_member: Add member
-      admins: Admins
     new:
       title: New group
-
+    show:
+      move: Move account to other group
+      title: "Accounts in group %{group_name} for team %{team_name}"
   items:
     new:
       title: Add new attachment to account
@@ -208,7 +201,12 @@ en:
       title: Create a new team
     description:
       private: admins have no access if checked
-
+    show:
+      title: "Team %{team_name}"
+      group: Group
+      members: Members
+      add_member: Add member
+      admins: Admins
   profile:
     index:
       title: "Profile of %{label}"
@@ -351,8 +349,8 @@ en:
   activerecord:
     errors:
       template:
-        body:
-        header:
+        body: ''
+        header: ''
       models:
         user:
           new_password_invalid: Your NEW password was wrong
