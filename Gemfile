@@ -2,7 +2,7 @@
 
 source 'http://rubygems.org'
 
-gem 'rails', '6'
+gem 'rails', '~> 6.0'
 
 gem 'figaro'
 gem 'mysql2'
