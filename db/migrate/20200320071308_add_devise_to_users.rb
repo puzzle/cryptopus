@@ -43,6 +43,11 @@ class AddDeviseToUsers < ActiveRecord::Migration[6.0]
     # add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
+    remove_column :users, :locked
+    remove_column :users, :last_failed_login_attempt_at
+    remove_column :users, :failed_login_attempts
+    remove_column :users, :last_login_from
+    
     User.find_each do |user|
       if user.auth == 'db'
         password_salt = user.encrypted_password.split('$')[1]

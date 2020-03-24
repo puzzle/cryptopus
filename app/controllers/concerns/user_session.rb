@@ -8,10 +8,6 @@
 module UserSession
   extend ActiveSupport::Concern
 
-  included do
-    helper_method :current_user
-  end
-
   def pending_recrypt_request?
     return false unless current_user.is_a?(User::Human)
     if current_user.recryptrequests.first
@@ -19,10 +15,6 @@ module UserSession
     end
 
     false
-  end
-
-  def current_user
-    @current_user ||= (User::Human.find(session[:user_id]) if session[:user_id])
   end
 
   def plaintext_team_password(team)

@@ -15,14 +15,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/edit
-  def edit
-    super
-  end
-
-  # PUT /resource
-  # def update
+  # def edit
   #   super
   # end
+
+  # PUT /resource
+  def update
+    super
+    new_key = CryptUtils.decrypt_private_key(@user.private_key, params[:user][:current_password])
+    @user.private_key = CryptUtils.encrypt_private_key(new_key, params[:user][:password])
+    @user.save!
+  end
 
   # DELETE /resource
   # def destroy
