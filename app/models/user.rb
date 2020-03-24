@@ -31,6 +31,10 @@
 #  https://github.com/puzzle/cryptopus.
 
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :trackable, :timeoutable, :lockable, :encryptable, encryptor: :sha512
   delegate :l, to: I18n
 
   validates :username, uniqueness: :username
