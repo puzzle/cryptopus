@@ -10,10 +10,9 @@ class ApplicationController < ActionController::Base
   before_action :set_sentry_request_context
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :skip_authorization, if: :devise_controller?
-  before_action :authenticate_user!, except: [:login, :authenticate, :logout, :wizard, :new]
-  # before_action :validate_user, except: [:login, :authenticate, :logout, :wizard, :new]
+  before_action :authenticate_user!
   before_action :message_if_fallback
-  # before_action :redirect_if_no_private_key, except: :destroy
+  before_action :redirect_if_no_private_key, except: [:destroy, :create]
   before_action :prepare_menu
   before_action :set_locale
 
