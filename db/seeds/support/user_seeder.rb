@@ -14,7 +14,7 @@ class UserSeeder
       u.givenname = 'root'
       u.auth = 'db'
       u.role = :admin
-      u.password = CryptUtils.one_way_crypt('password')
+      u.password = 'password'
       create_keypair(u)
     end
   end
@@ -40,7 +40,7 @@ class UserSeeder
       u.givenname = username.to_s.capitalize
       u.surname = Faker::Name.last_name
       u.auth = 'db'
-      u.password = CryptUtils.one_way_crypt('password')
+      u.password = 'password'
       u.role = role
       create_keypair(u)
     end

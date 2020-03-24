@@ -25,10 +25,10 @@
                 %li= nav_link t('teams.title'), admin_teams_path
                 %li= nav_link t(:maintenance_tasks), admin_maintenance_tasks_path
           - if current_user.auth_db?
-            = nav_link t(:change_password), show_update_password_login_path
+            = nav_link t(:change_password), edit_user_registration_path
           = nav_link image_tag("magnifying-glass.svg", class: "search-icon", title: "search (ctrl + f)") + t('search.title'), search_path
         %ul.nav.navbar-nav.navbar-right.logout
-          = nav_link t(:logout), logout_login_path
+          = link_to(t(:logout), destroy_user_session_path, method: :delete)
         %ul.nav.navbar-nav.navbar-right#profile-button
           = nav_link current_user.username, profile_path
   - unless @breadcrumbs.nil?

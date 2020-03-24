@@ -6,11 +6,15 @@
 #  https://github.com/puzzle/cryptopus.
 #
 
+require 'pry'
 class ApplicationController < ActionController::Base
   before_action :set_sentry_request_context
-  before_action :validate_user, except: [:login, :authenticate, :logout, :wizard]
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :skip_authorization, if: :devise_controller?
+  before_action :authenticate_user!, except: [:login, :authenticate, :logout, :wizard, :new]
+  # before_action :validate_user, except: [:login, :authenticate, :logout, :wizard, :new]
   before_action :message_if_fallback
-  before_action :redirect_if_no_private_key, except: :logout
+  # before_action :redirect_if_no_private_key, except: :destroy
   before_action :prepare_menu
   before_action :set_locale
 
@@ -57,10 +61,15 @@ class ApplicationController < ActionController::Base
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username])
+  end
+
   private
 
   def handle_pending_recrypt_request
-    if pending_recrypt_request?
+    if current_user.pending_recrypt_request?
       pending_recrypt_request_message
       redirect_to logout_login_path
     end
@@ -69,7 +78,7 @@ class ApplicationController < ActionController::Base
   def check_if_user_logged_in
     if current_user.nil?
       session[:jumpto] = request.parameters
-      redirect_to login_login_path
+      redirect_to new_user_session_path
     end
   end
 
