@@ -1,6 +1,6 @@
 %div{id: "movescreen"}
   %div{id: 'account_move_form'}
-    = form_for [team, @group, @account], url: team_group_account_move_path(team, @group, @account), html: {method: :put} do |f|
+    = form_for [team, @group, @account], url: team_group_path(team, @group, @account), html: {method: :put} do |f|
       .form-group
       %h1= 'Move Account'
       %br/
@@ -16,4 +16,4 @@
         </select>
       %div{id: 'movescreen_buttons'}
         = f.submit 'Move Account', class: 'btn btn-primary'
-        =link_to "Cancel", team_group_account_path(team, @group, @account), {:class=>"btn btn-primary"}
+        =link_to "Cancel", team_group_path(team, @group, @account), {:class=>"btn btn-primary"}

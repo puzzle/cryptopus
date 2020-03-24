@@ -10,7 +10,7 @@ require 'test_helper'
 class LegacyRoutes::TeamsTest < ActionDispatch::IntegrationTest
   include IntegrationTest::DefaultHelper
 
-  test 'redirects to groups with without groups in url' do
+  test 'redirects to groups with groups in url' do
     team_url = "/teams/#{teams(:team1).id}/groups"
     login_as('bob')
 

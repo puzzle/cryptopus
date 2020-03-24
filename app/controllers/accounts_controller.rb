@@ -14,13 +14,12 @@ class AccountsController < ApplicationController
 
   # GET /teams/1/groups/1/accounts/1
   def show
-    @account = Account.find(params[:id])
-    authorize @account
-    @items = @account.items.load
+    authorize account
+    @items = account.items.load
 
     accounts_breadcrumbs
 
-    @account.decrypt(plaintext_team_password(team))
+    account.decrypt(plaintext_team_password(team))
 
     respond_to do |format|
       format.html # show.html.haml
@@ -121,18 +120,24 @@ class AccountsController < ApplicationController
   end
 
   def group
-    @group ||= team.groups.find(params[:group_id])
+    @group ||= account.group
+  end
+
+  def team
+    @team ||= group.team
+  end
+
+  def account
+    @account ||= Account.find(params[:id])
   end
 
   def accounts_breadcrumbs
     add_breadcrumb t('teams.title'), :teams_path
-    add_breadcrumb team.label, :team_groups_path
-
-    add_breadcrumb @group.label if action_name == 'index'
+    add_breadcrumb team.label, team_groups_path(team.id)
 
     if action_name == 'show' || action_name == 'edit'
-      add_breadcrumb @group.label, :team_group_accounts_path
-      add_breadcrumb @account.label
+      add_breadcrumb group.label, team_group_path(team.id, group.id)
+      add_breadcrumb account.label
     end
   end
 

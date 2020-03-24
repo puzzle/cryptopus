@@ -7,7 +7,7 @@
 
 require 'test_helper'
 
-class LegacyRoutes::TeamsTest < ActionDispatch::IntegrationTest
+class LegacyRoutes::GroupsTest < ActionDispatch::IntegrationTest
   include IntegrationTest::DefaultHelper
 
   test 'redirects to groups with without groups in url' do
@@ -20,21 +20,21 @@ class LegacyRoutes::TeamsTest < ActionDispatch::IntegrationTest
   end
 
   test 'redirects to teams url with groups in url' do
-    redirect_url = "/teams/#{teams(:team1).id}/groups/#{groups(:group1).id}"
-    account_url = "/teams/#{teams(:team1).id}/GROUPS"
+    redirect_url = "/teams/#{teams(:team1).id}/groups/#{groups(:group1).id}/"
+    account_url = "/teams/#{teams(:team1).id}/groups/#{groups(:group1).id}/accounts/"
     login_as('bob')
 
-    get team_url
+    get account_url
 
     assert_redirected_to redirect_url
   end
 
   test 'redirects to teams url with groups in uppercase in url' do
-    redirect_url = "/teams/#{teams(:team1).id}/"
-    team_url = team_groups_path(teams(:team1).id)
+    redirect_url = "/teams/#{teams(:team1).id}/groups/#{groups(:group1).id}/"
+    accounts_url = "/teams/#{teams(:team1).id}/groups/#{groups(:group1).id}/ACCOUNTS/"
     login_as('bob')
 
-    get team_url
+    get accounts_url
 
     assert_redirected_to redirect_url
   end

@@ -3,7 +3,7 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 
-= link_to 'Edit', edit_team_group_account_path(@account.group.team.id, @account.group.id, @account.id), class: 'btn btn-primary pull-right'
+= link_to 'Edit', edit_account_path(@account.id), class: 'btn btn-primary pull-right'
 = link_to 'Move', '#', class: 'btn btn-primary pull-right', id: 'move_account_button'
 %h1= t '.title', account_name: @account.accountname
 %div
@@ -44,7 +44,7 @@
   %br/
   %br/
   %h1= t '.attachments'
-  = link_to 'New', new_team_group_account_item_path(@account.group.team.id, @account.group.id, @account.id), class: 'btn btn-primary pull-right'
+  = link_to 'New', new_account_item_path(@account.id), class: 'btn btn-primary pull-right'
   %table.table.table-striped
     %tr
       %th{style: "width: 200px;"}= t '.file'
