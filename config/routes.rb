@@ -8,8 +8,8 @@
 Rails.application.routes.draw do
 
   devise_for :users, controllers: {
-  sessions: 'users/sessions',
-  registrations: 'users/registrations'
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
   }
 
   get 'status/health', to: 'status#health'
@@ -56,12 +56,6 @@ Rails.application.routes.draw do
   end
 
   resource :login, except: :show do
-    # get 'login'
-    # get 'show_update_password'
-    # post 'update_password'
-    # get 'logout'
-    # get 'noaccess'
-    # post 'authenticate'
     post 'changelocale'
   end
 

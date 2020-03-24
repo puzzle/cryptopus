@@ -6,7 +6,6 @@
 #  https://github.com/puzzle/cryptopus.
 #
 
-require 'pry'
 class ApplicationController < ActionController::Base
   before_action :set_sentry_request_context
   before_action :configure_permitted_parameters, if: :devise_controller?

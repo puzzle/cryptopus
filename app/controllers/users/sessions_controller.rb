@@ -16,21 +16,19 @@ class Users::SessionsController < Devise::SessionsController
 
 
   def create
-    username = params[:user][:username]
     user = User.find_by(username: username)
-    if user.present?
-      if user.auth_db?
-        super
-        session[:private_key] = @user.decrypt_private_key(params[:user][:password])
-      elsif AuthConfig.ldap_enabled? && user.auth == 'ldap'
-        @user = User::Human.find_or_import_from_ldap(username.strip, password)
-        @user.sign_in(User, user)
-        session[:private_key] = @user.decrypt_private_key(params[:user][:password])
-      end
-    else
-      flash[:error] = t('flashes.logins.auth_failed')
-      redirect_to new_user_session_path
+    if user.auth_db?
+      super
+    elsif user.auth == 'ldap'
+      authenticator.auth!
+      @user.sign_in(User, user)
     end
+    session[:private_key] = @user.decrypt_private_key(password)
+    check_password_strength
+    last_login_message
+  rescue StandardError
+    flash[:error] = t('flashes.logins.auth_failed')
+    redirect_to new_user_session_path
   end
 
   # DELETE /resource/sign_out
@@ -43,5 +41,32 @@ class Users::SessionsController < Devise::SessionsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_in_params
     devise_parameter_sanitizer.permit(:sign_in, keys: [:username])
+  end
+
+  private
+
+  def username
+    params[:user][:username]
+  end
+
+  def password
+    params[:user][:password]
+  end
+
+  def authenticator
+    Authentication::UserAuthenticator.new(username: username, password: password)
+  end
+
+  def last_login_message
+    flash_message = Flash::LastLoginMessage.new(@user)
+    flash[:notice] = flash_message.message if flash_message
+  end
+
+  def check_password_strength
+    strength = PasswordStrength.test(username, password)
+
+    if strength.weak? || !strength.valid?
+      flash[:alert] = t('flashes.logins.weak_password')
+    end
   end
 end

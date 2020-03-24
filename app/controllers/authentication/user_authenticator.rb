@@ -25,7 +25,6 @@ class Authentication::UserAuthenticator
       add_error('flashes.logins.wrong_password')
     end
 
-    brute_force_detector.update(authenticated)
     authenticated
   end
 
@@ -41,11 +40,6 @@ class Authentication::UserAuthenticator
 
   attr_accessor :authenticated
   attr_reader :username, :password
-
-  def brute_force_detector
-    @brute_force_detector ||=
-      Authentication::BruteForceDetector.new(user)
-  end
 
   def preconditions?
     if params_present? && valid_username? && user.present?

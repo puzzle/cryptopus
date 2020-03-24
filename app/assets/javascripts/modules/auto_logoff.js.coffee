@@ -17,8 +17,8 @@ class app.AutoLogoff
     if document.URL.indexOf('/user/sign_in') > -1
       return
     if remaining_seconds <= 1
-      # window.location = '/user/sign_out?jumpto=' + window.location.pathname
-      # Turbolinks.pagesCached(0)
+      window.location = '/user/sign_out?jumpto=' + window.location.pathname
+      Turbolinks.pagesCached(0)
       return
     remaining_seconds -= 1
     $('#countdown').html humanize(remaining_seconds)

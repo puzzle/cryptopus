@@ -6,8 +6,8 @@ module Flash
 
     delegate :t, :l, to: I18n
 
-    def initialize(session)
-      @session = session
+    def initialize(user)
+      @user = user
     end
 
     def message
@@ -24,7 +24,7 @@ module Flash
 
     private
 
-    attr_reader :session, :translation_key, :date_ip_country_values
+    attr_reader :user, :translation_key, :date_ip_country_values
 
     def add_last_login_country
       if last_login_country.present? && last_login_country != '--'
@@ -45,11 +45,11 @@ module Flash
     end
 
     def last_login_at
-      session[:last_login_at]
+      user.last_sign_in_at
     end
 
     def last_login_from
-      session[:last_login_from]
+      user.last_sign_in_ip
     end
 
     def last_login_country
