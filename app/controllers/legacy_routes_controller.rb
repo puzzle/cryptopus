@@ -18,6 +18,13 @@ class LegacyRoutesController < ApplicationController
 
   def redirect_url
     url = LegacyRoutes::Locale.new.redirect_url(request.path)
-    LegacyRoutes::Teams.new.redirect_url(url)
+    targeted_controller = params[:route].split('/').second
+    if targeted_controller == 'teams'
+      return LegacyRoutes::Teams.new.redirect_url(url)
+    end
+
+    if targeted_controller == 'groups'
+      LegacyRoutes::Groups.new.redirect_url(url)
+    end
   end
 end

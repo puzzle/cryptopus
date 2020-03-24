@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :api_users, only: [:index, :create, :destroy], module: 'api/team'
     resources :teammembers
     resources :groups, except: [:index] do
-      resources :accounts do
+      resources :accounts, except: [:index] do
         put 'move', to: 'accounts#move'
         resources :items
       end

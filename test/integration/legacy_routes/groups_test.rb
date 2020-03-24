@@ -11,17 +11,17 @@ class LegacyRoutes::TeamsTest < ActionDispatch::IntegrationTest
   include IntegrationTest::DefaultHelper
 
   test 'redirects to groups with without groups in url' do
-    team_url = "/teams/#{teams(:team1).id}/groups"
+    account_url = "/teams/#{teams(:team1).id}/groups/#{groups(:group1).id}"
     login_as('bob')
 
-    get team_url
+    get account_url
 
-    assert_routing "/teams/#{teams(:team1).id}", controller: "teams", action: "show", id: "#{teams(:team1).id}"
+    assert_routing "/teams/#{teams(:team1).id}/groups/#{groups(:group1).id}", controller: "groups", action: "show", team_id: "#{teams(:team1).id}", id: "#{groups(:group1).id}"
   end
 
   test 'redirects to teams url with groups in url' do
-    redirect_url = "/teams/#{teams(:team1).id}/"
-    team_url = "/teams/#{teams(:team1).id}/GROUPS"
+    redirect_url = "/teams/#{teams(:team1).id}/groups/#{groups(:group1).id}"
+    account_url = "/teams/#{teams(:team1).id}/GROUPS"
     login_as('bob')
 
     get team_url

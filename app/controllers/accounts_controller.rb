@@ -12,17 +12,6 @@ class AccountsController < ApplicationController
   self.permitted_attrs = [:accountname, :cleartext_username, :cleartext_password,
                           :tag, :description, :group_id]
 
-  # GET /teams/1/groups/1/accounts
-  def index
-    authorize team, :team_member?
-    @accounts = @group.accounts
-    accounts_breadcrumbs
-
-    respond_to do |format|
-      format.html # index.html.haml
-    end
-  end
-
   # GET /teams/1/groups/1/accounts/1
   def show
     @account = Account.find(params[:id])

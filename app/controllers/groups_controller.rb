@@ -8,15 +8,17 @@
 class GroupsController < ApplicationController
   self.permitted_attrs = [:name, :description]
 
+  before_action :group
   helper_method :team
 
   # GET /teams/1/groups/1
   def show
-    @group = team.groups.find(params[:id])
-    authorize @group
+    authorize team, :team_member?
+    @accounts = @group.accounts
+    groups_breadcrumbs
 
     respond_to do |format|
-      format.html # show.html.haml
+      format.html # index.html.haml
     end
   end
 
@@ -96,4 +98,7 @@ class GroupsController < ApplicationController
     end
   end
 
+  def group
+    @group ||= team.groups.find(params[:id])
+  end
 end

@@ -5,9 +5,9 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class LegacyRoutes::Teams
+class LegacyRoutes::Groups
 
-  GROUPS_STRING = 'groups'
+  GROUPS_STRING = 'accounts'
 
   def redirect_url(url)
     last_element = url.downcase.split('/').last
