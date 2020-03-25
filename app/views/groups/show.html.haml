@@ -4,7 +4,7 @@
 -#  https://github.com/puzzle/cryptopus.
 
 %h1= t '.title', group_name: @group.name, team_name: team.name
-= link_to t('accounts.new.title'), new_team_group_account_path(team, @group), class: 'btn btn-primary pull-right'
+= link_to t('accounts.new.title'), account_path(@accounts), class: 'btn btn-primary pull-right'
 %table.table.table-striped
   %tr
     %th{style: "width: 150px;"}= t '.account'
@@ -12,7 +12,7 @@
     %th{colspan: "3"}= t :actions
   - @accounts.each do |account|
     %tr{class: "#{cycle('odd', 'even')}"}
-      %td= link_to image_tag( "key.svg" ) + " " + account.accountname, [team, @group, account]
+      %td= link_to image_tag( "key.svg" ) + " " + account.accountname, [account]
       %td= simple_format account.description
-      %td.action_icon= link_to image_tag("edit.svg"), [:edit, team, @group, account]
-      %td.action_icon= link_to_destroy [team, @group, account], account
+      %td.action_icon= link_to image_tag("edit.svg"), [:edit, account]
+      %td.action_icon= link_to_destroy [account], account

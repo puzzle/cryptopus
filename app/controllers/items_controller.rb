@@ -8,6 +8,7 @@
 class ItemsController < ApplicationController
   self.permitted_attrs = [:description, :file]
 
+  before_action :group
   before_action :load_parents
   helper_method :team
 
@@ -50,9 +51,12 @@ class ItemsController < ApplicationController
 
   private
 
-  def load_parents
-    @group = team.groups.find(params[:group_id])
-    @account = @group.accounts.find(params[:account_id])
+  def group
+    @group ||= account.group
+  end
+
+  def team
+    @team ||= group.team
   end
 
   def create_item(format)

@@ -3,7 +3,7 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 
-= form_for([team, @group, @account], html: { role: 'form', autocomplete: 'off' }) do |f|
+= form_for([@account], html: { role: 'form', autocomplete: 'off' }) do |f|
   = f.error_messages
   .form-group
     = f.label :account
@@ -26,4 +26,4 @@
       (#{I18n.t('unencrypted_field_caption')})
     = f.text_area :description, class: 'form-control'
     = f.submit @submit_button_text, class: 'btn btn-primary'
-    =link_to "Cancel", team_group_accounts_path(team_id: params[:team_id], id: params[:group_id] ), {:class=>"btn btn-primary"}
+    =link_to "Cancel", accounts_path(@account), {:class=>"btn btn-primary"}

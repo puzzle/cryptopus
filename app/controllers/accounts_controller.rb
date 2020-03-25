@@ -71,7 +71,7 @@ class AccountsController < ApplicationController
     respond_to do |format|
       if @account.save
         flash[:notice] = t('flashes.accounts.updated')
-        format.html { redirect_to team_group_accounts_url(team, @group) }
+        format.html { redirect_to account_path(@account) }
       else
         format.html { render action: 'edit' }
       end
@@ -85,7 +85,7 @@ class AccountsController < ApplicationController
     @account.destroy
 
     respond_to do |format|
-      format.html { redirect_to team_group_accounts_url(team, @group) }
+      format.html { redirect_to team_group_path(team, @group) }
     end
   end
 

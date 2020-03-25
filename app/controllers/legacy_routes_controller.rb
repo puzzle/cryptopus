@@ -4,7 +4,7 @@
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
-
+require 'pry'
 class LegacyRoutesController < ApplicationController
 
   def redirect
@@ -17,8 +17,6 @@ class LegacyRoutesController < ApplicationController
   private
 
   def redirect_url
-    url = LegacyRoutes::Locale.new.redirect_url(request.path)
-    url = LegacyRoutes::Teams.new.redirect_url(url)
-    LegacyRoutes::Groups.new.redirect_url(url)
+    LegacyRoutes::Handler.new.redirect_url(request.path)
   end
 end

@@ -5,10 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class LegacyRoutes::Url
-
-  GROUPS_STRING = 'groups'
-  ACCOUNTS_STRING = 'accounts'
+class LegacyRoutes::Handler
 
   LOCALES_REGEX = I18n.available_locales.map do |locale|
     "\/#{locale}|"
@@ -16,13 +13,6 @@ class LegacyRoutes::Url
 
   def redirect_url(url)
     url.downcase.remove(/#{LOCALES_REGEX}/)
-
-    last_element = url.downcase.split('/').last
-
-    if last_element == GROUPS_STRING || last_element ==  ACCOUNTS_STRING
-      url.downcase.remove(last_element)
-    else
-      url
-    end
+    url.sub(/(.*\/\d\/)(groups|accounts)$/, '\1')
   end
 end
