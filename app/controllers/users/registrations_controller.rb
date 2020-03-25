@@ -22,9 +22,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     super
-    new_key = CryptUtils.decrypt_private_key(@user.private_key, params[:user][:current_password])
-    @user.private_key = CryptUtils.encrypt_private_key(new_key, params[:user][:password])
-    @user.save!
+    pk = CryptUtils.decrypt_private_key(@user.private_key, params[:user][:current_password])
+    @user.update!(private_key: CryptUtils.encrypt_private_key(pk, params[:user][:password]))
   end
 
   # DELETE /resource
