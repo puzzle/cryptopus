@@ -10,7 +10,8 @@ task ci: ['log:clear',
           'rubocop',
           'geo:fetch',
           'db:test:prepare',
-          'test']
+          'test',
+          'spec']
 
 namespace :ci do
   desc 'Runs the tasks for the nightly build'

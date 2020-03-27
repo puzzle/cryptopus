@@ -137,5 +137,4 @@ class User::Api < User
 
     options.valid_until = Time.zone.now.advance(seconds: valid_for)
   end
-
 end
