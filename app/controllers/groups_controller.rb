@@ -8,7 +8,7 @@
 class GroupsController < ApplicationController
   self.permitted_attrs = [:name, :description]
 
-  before_action :group
+  before_action :group, except: [:new, :create]
   helper_method :team
 
   # GET /teams/1/groups/1
@@ -89,13 +89,8 @@ class GroupsController < ApplicationController
 
   def groups_breadcrumbs
     add_breadcrumb t('teams.title'), :teams_path
-
-    add_breadcrumb team.label if action_name == 'index'
-
-    if action_name == 'edit'
-      add_breadcrumb team.label, :team_groups_path
-      add_breadcrumb @group.label
-    end
+    add_breadcrumb team.label, :team_groups_path
+    add_breadcrumb @group.label
   end
 
   def group

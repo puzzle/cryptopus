@@ -4,7 +4,7 @@
 -#  https://github.com/puzzle/cryptopus.
 
 %h1= t '.title', group_name: @group.name, team_name: team.name
-= link_to t('accounts.new.title'), account_path(@accounts), class: 'btn btn-primary pull-right'
+= link_to t('accounts.new.title'), new_account_path(group_id: @group.id), class: 'btn btn-primary pull-right'
 %table.table.table-striped
   %tr
     %th{style: "width: 150px;"}= t '.account'

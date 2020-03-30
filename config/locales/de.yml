@@ -373,8 +373,8 @@ de:
         username: Benutzername
     errors:
       template:
-        body:
-        header:
+        body: ''
+        header: ''
       models:
         account:
           attributes:

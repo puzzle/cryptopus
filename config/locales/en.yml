@@ -351,8 +351,8 @@ en:
   activerecord:
     errors:
       template:
-        body:
-        header:
+        body: ''
+        header: ''
       models:
         user:
           new_password_invalid: Your NEW password was wrong

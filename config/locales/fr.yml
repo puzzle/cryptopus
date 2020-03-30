@@ -370,8 +370,8 @@ fr:
         username: Nom d'utilisateur
     errors:
       template:
-        body:
-        header:
+        body: ''
+        header: ''
       models:
         account:
           attributes:
