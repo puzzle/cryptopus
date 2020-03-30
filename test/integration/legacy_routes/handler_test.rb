@@ -4,7 +4,7 @@
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
-
+require 'pry'
 require 'test_helper'
 
 class LegacyRoutes::UrlTest < ActionDispatch::IntegrationTest
@@ -69,7 +69,7 @@ class LegacyRoutes::UrlTest < ActionDispatch::IntegrationTest
   end
 
   test 'redirects to team1 url without locale' do
-    team_url = team_groups_path(teams(:team1).id)
+    team_url = "/teams/#{teams(:team1).id}/"
     login_as('bob')
 
     get "/de/teams/#{teams(:team1).id}/groups"
@@ -92,8 +92,9 @@ class LegacyRoutes::UrlTest < ActionDispatch::IntegrationTest
   end
 
   test 'redirects to account url without locale' do
+    accounts_url = "/teams/#{teams(:team1).id}/groups/#{groups(:group1).id}/"
     login_as('bob')
-    accounts_url = team_group_accounts_path(teams(:team1).id, groups(:group1).id)
+    
     get "/de/teams/#{teams(:team1).id}/groups/#{groups(:group1).id}/accounts"
 
     assert_redirected_to accounts_url

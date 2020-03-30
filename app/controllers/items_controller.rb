@@ -8,8 +8,8 @@
 class ItemsController < ApplicationController
   self.permitted_attrs = [:description, :file]
 
+  before_action :account
   before_action :group
-  before_action :load_parents
   helper_method :team
 
   # GET /teams/1/groups/1/accounts/new
@@ -45,11 +45,15 @@ class ItemsController < ApplicationController
     @item.destroy
 
     respond_to do |format|
-      format.html { redirect_to team_group_account_url(team, @group, @account) }
+      format.html { redirect_to account_url(@account) }
     end
   end
 
   private
+
+  def account
+    @account = Account.find(params[:account_id])
+  end
 
   def group
     @group ||= account.group
@@ -64,7 +68,7 @@ class ItemsController < ApplicationController
     item = Item.create(@account, model_params, plaintext_team_password(team))
     if item.errors.empty?
       flash[:notice] = t('flashes.items.uploaded')
-      format.html { redirect_to team_group_account_url(team, @group, @account) }
+      format.html { redirect_to account_url(@account) }
     else
       @item = item
       format.html { render action: 'new' }

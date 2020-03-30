@@ -41,7 +41,7 @@ include IntegrationTest::DefaultHelper
 
   test 'goto requested page after login' do
     account = accounts(:account1)
-    account1_path = team_group_account_path(account.group.team, account.group, account)
+    account1_path = account_path(account)
     get account1_path
     follow_redirect!
     assert_equal login_login_path, request.fullpath

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
@@ -11,8 +12,7 @@ class AccountsController < ApplicationController
 
   # GET /teams/1/groups/1/accounts/1
   def show
-    @account = Account.find(params[:id])
-    authorize @account
+    authorize account
     @items = @account.items.load
     authorize account
     @items = account.items.load
@@ -26,6 +26,7 @@ class AccountsController < ApplicationController
       format.html # show.html.haml
     end
   end
+
   # GET /teams/1/groups/1/accounts/new
   def new
     @account = Account.new(group_id: params[:group_id])
@@ -35,6 +36,7 @@ class AccountsController < ApplicationController
       format.html # new.html.haml
     end
   end
+
   # POST /teams/1/groups/1/accounts
   def create
     @account = Account.new(model_params)
@@ -44,6 +46,7 @@ class AccountsController < ApplicationController
       save_account(format)
     end
   end
+
   # GET /teams/1/groups/1/accounts/1/edit
   def edit
     @account = @group.accounts.find(params[:id])
@@ -55,6 +58,7 @@ class AccountsController < ApplicationController
       format.html # edit.html.haml
     end
   end
+
   # PUT /teams/1/groups/1/accounts/1
   def update
     update_account
@@ -67,6 +71,7 @@ class AccountsController < ApplicationController
       end
     end
   end
+
   # DELETE /teams/1/groups/1/accounts/1
   def destroy
     @account = @group.accounts.find(params[:id])
@@ -76,6 +81,7 @@ class AccountsController < ApplicationController
       format.html { redirect_to team_group_accounts_url(team, @group) }
     end
   end
+
   # PUT /teams/1/groups/1/accounts/1/move
   def move
     @account = Account.find(params[:account_id])
@@ -119,13 +125,17 @@ class AccountsController < ApplicationController
   end
 
   def accounts_breadcrumbs
-    add_breadcrumb t('teams.title'), :teams_path
-    add_breadcrumb team.label, team_groups_path(team.id)
+    teams_breadcrumbs
 
     if %w[show edit new].include?(action_name)
       add_breadcrumb group.label, team_group_path(team.id, group.id)
       add_breadcrumb account.label
     end
+  end
+
+  def teams_breadcrumbs
+    add_breadcrumb t('teams.title'), :teams_path
+    add_breadcrumb team.label, team_groups_path(team.id)
   end
 
   def account_move_handler
@@ -135,7 +145,6 @@ class AccountsController < ApplicationController
   def save_account(format)
     if @account.save
       flash[:notice] = t('flashes.accounts.created')
-      binding.pry
       format.html { redirect_to team_group_url(team.id, group.id) }
     else
       format.html { render action: 'new' }

@@ -12,7 +12,6 @@ class LegacyRoutes::Handler
   end.join('').chop.freeze
 
   def redirect_url(url)
-    url.downcase.remove(/#{LOCALES_REGEX}/)
-    url.sub(/(.*\/\d\/)(groups|accounts)$/, '\1')
+    url.downcase.remove(/#{LOCALES_REGEX}/).sub(/(accounts|groups)$/, '\2')
   end
 end
