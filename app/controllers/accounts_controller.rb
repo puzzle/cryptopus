@@ -13,8 +13,6 @@ class AccountsController < ApplicationController
   # GET /teams/1/groups/1/accounts/1
   def show
     authorize account
-    @items = @account.items.load
-    authorize account
     @items = account.items.load
 
     accounts_breadcrumbs
@@ -30,6 +28,8 @@ class AccountsController < ApplicationController
   # GET /teams/1/groups/1/accounts/new
   def new
     @account = Account.new(group_id: params[:group_id])
+    group
+    team
     authorize @account
 
     respond_to do |format|
@@ -49,8 +49,7 @@ class AccountsController < ApplicationController
 
   # GET /teams/1/groups/1/accounts/1/edit
   def edit
-    @account = @group.accounts.find(params[:id])
-    authorize @account
+    authorize account
     @groups = team.groups.all
     accounts_breadcrumbs
     @account.decrypt(plaintext_team_password(team))
@@ -65,7 +64,7 @@ class AccountsController < ApplicationController
     respond_to do |format|
       if @account.save
         flash[:notice] = t('flashes.accounts.updated')
-        format.html { redirect_to team_group_accounts_url(team, @group) }
+        format.html { redirect_to team_group_url(team, @group) }
       else
         format.html { render action: 'edit' }
       end
@@ -74,11 +73,10 @@ class AccountsController < ApplicationController
 
   # DELETE /teams/1/groups/1/accounts/1
   def destroy
-    @account = @group.accounts.find(params[:id])
-    authorize @account
+    authorize account
     @account.destroy
     respond_to do |format|
-      format.html { redirect_to team_group_accounts_url(team, @group) }
+      format.html { redirect_to team_group_url(team, @group) }
     end
   end
 
@@ -95,16 +93,15 @@ class AccountsController < ApplicationController
   private
 
   def update_account
-    @account = @group.accounts.find(params[:id])
-    authorize @account
-    @account.attributes = model_params
-    @account.encrypt(plaintext_team_password(team))
+    authorize account
+    account.attributes = model_params
+    account.encrypt(plaintext_team_password(team))
   end
 
   def move_account(format, target_group)
     if account_move_handler.move(target_group)
       flash[:notice] = t('flashes.accounts.moved')
-      format.html { redirect_to team_group_accounts_url(team, @group) }
+      format.html { redirect_to team_group_url(team, @group) }
     else
       @items = @account.items.load
       flash[:error] = @account.errors.full_messages.join
@@ -128,6 +125,7 @@ class AccountsController < ApplicationController
     teams_breadcrumbs
 
     add_breadcrumb group.label, team_group_path(team.id, group.id)
+    add_breadcrumb account.label
   end
 
   def teams_breadcrumbs

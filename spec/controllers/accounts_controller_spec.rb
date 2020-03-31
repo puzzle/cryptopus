@@ -20,17 +20,48 @@ require 'rails_helper'
 describe AccountsController do
   include ControllerHelpers
 
+  context 'GET show' do
+    it 'shows an error message if you attempt to look into a team youre not member of' do
+      login_as(:alice)
+
+      account2 = accounts(:account2)
+
+      get :show, params: { id: account2 }
+
+      expect(flash[:error]).to match(/Access denied/)
+      expect(response).to redirect_to teams_path
+    end
+
+    context 'breadcrumbs' do
+      render_views
+      it 'shows breadcrumb path 1 if the user is on index of accounts' do
+        login_as(:bob)
+
+        account1 = accounts(:account1)
+
+        get :show, params: { id: account1 }
+
+        expect(response.body).to match(/Teams/)
+        expect(response.body).to match(/team1/)
+        expect(response.body).to match(/group1/)
+        expect(response.body).to match(/account1/)
+      end
+    end
+  end
+
   context 'POST create' do
     it 'can create an account without username and password' do
       login_as(:bob)
+      group_id = groups(:group1).id
 
       params = { 'accountname' => 'test',
                  'cleartext_username' => '',
                  'cleartext_password' => 'test',
-                 'description' => 'test' }
+                 'description' => 'test',
+                 'group_id' => group_id }
 
       expect do
-        post :create, params: { team_id: teams(:team1), group_id: groups(:group1), account: params }
+        post :create, params: { account: params }
       end.to change { Account.count }.by(1)
 
       created_account = Account.find_by(accountname: 'test')
@@ -46,12 +77,10 @@ describe AccountsController do
         login_as(:bob)
 
         account1 = accounts(:account1)
-        group1 = groups(:group1)
         team1 = teams(:team1)
         group2 = team1.groups.create(name: 'Test', description: 'group_description')
 
-        patch :update, params: { id: account1, group_id: group1, team_id: team1,
-                                 account: { group_id: group2 } }
+        patch :update, params: { id: account1, account: { group_id: group2 } }
         account1.reload
 
         expect(group2.id).to eq account1.group_id

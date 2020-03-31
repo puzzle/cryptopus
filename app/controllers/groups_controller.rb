@@ -77,7 +77,7 @@ class GroupsController < ApplicationController
     group.destroy
 
     respond_to do |format|
-      format.html { redirect_to team_groups_url(team) }
+      format.html { redirect_to team_url(team) }
     end
   end
 

@@ -27,4 +27,4 @@
     = f.text_area :description, class: 'form-control'
     = f.hidden_field :group_id
     = f.submit @submit_button_text, class: 'btn btn-primary'
-    =link_to "Cancel", accounts_path(@account), {:class=>"btn btn-primary"}
+    =link_to "Cancel", team_group_path(@team, @group), {:class=>"btn btn-primary"}
