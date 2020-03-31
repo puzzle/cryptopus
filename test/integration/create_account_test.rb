@@ -4,8 +4,9 @@
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
-require 'pry'
+
 require 'test_helper'
+
 class CreateAccountTest < ActionDispatch::IntegrationTest
   include IntegrationTest::DefaultHelper
   test 'bob creates new account' do

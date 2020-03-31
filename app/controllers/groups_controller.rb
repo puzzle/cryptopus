@@ -8,13 +8,12 @@
 class GroupsController < ApplicationController
   self.permitted_attrs = [:name, :description]
 
-  before_action :group, except: [:new, :create]
   helper_method :team
 
   # GET /teams/1/groups/1
   def show
     authorize team, :team_member?
-    @accounts = @group.accounts
+    @accounts = group.accounts
     groups_breadcrumbs
 
     respond_to do |format|
@@ -49,8 +48,7 @@ class GroupsController < ApplicationController
 
   # GET /teams/1/groups/1/edit
   def edit
-    @group = team.groups.find(params[:id])
-    authorize @group
+    authorize group
 
     groups_breadcrumbs
 
@@ -61,11 +59,10 @@ class GroupsController < ApplicationController
 
   # PUT /teams/1/groups/1
   def update
-    @group = team.groups.find(params[:id])
-    authorize @group
+    authorize group
 
     respond_to do |format|
-      if @group.update!(model_params)
+      if group.update!(model_params)
         flash[:notice] = t('flashes.groups.updated')
         format.html { redirect_to team_groups_url(team) }
       else
@@ -76,9 +73,8 @@ class GroupsController < ApplicationController
 
   # DELETE /teams/1/groups/1
   def destroy
-    @group = team.groups.find(params[:id])
-    authorize @group
-    @group.destroy
+    authorize group
+    group.destroy
 
     respond_to do |format|
       format.html { redirect_to team_groups_url(team) }
@@ -90,7 +86,7 @@ class GroupsController < ApplicationController
   def groups_breadcrumbs
     add_breadcrumb t('teams.title'), :teams_path
     add_breadcrumb team.label, :team_groups_path
-    add_breadcrumb @group.label
+    add_breadcrumb group.label
   end
 
   def group

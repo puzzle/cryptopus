@@ -20,39 +20,6 @@ require 'rails_helper'
 describe AccountsController do
   include ControllerHelpers
 
-  context 'GET index' do
-    it 'shows an error message if you attempt to look into a team youre not member of' do
-      login_as(:alice)
-
-      team2 = teams(:team2)
-      group2 = groups(:group2)
-
-
-      get :index, params: { team_id: team2, group_id: group2 }
-
-      expect(flash[:error]).to match(/Access denied/)
-      expect(response).to redirect_to teams_path
-    end
-
-    context 'breadcrumbs' do
-
-      render_views
-
-      it 'shows breadcrumb path 1 if the user is on index of accounts' do
-        login_as(:bob)
-
-        group1 = groups(:group1)
-        team1 = teams(:team1)
-
-        get :index, params: { group_id: group1, team_id: team1 }
-
-        expect(response.body).to match(/Teams/)
-        expect(response.body).to match(/team1/)
-        expect(response.body).to match(/group1/)
-      end
-    end
-  end
-
   context 'POST create' do
     it 'can create an account without username and password' do
       login_as(:bob)

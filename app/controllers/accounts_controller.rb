@@ -127,10 +127,7 @@ class AccountsController < ApplicationController
   def accounts_breadcrumbs
     teams_breadcrumbs
 
-    if %w[show edit new].include?(action_name)
-      add_breadcrumb group.label, team_group_path(team.id, group.id)
-      add_breadcrumb account.label
-    end
+    add_breadcrumb group.label, team_group_path(team.id, group.id)
   end
 
   def teams_breadcrumbs
