@@ -130,7 +130,7 @@ class AccountsController < ApplicationController
 
   def teams_breadcrumbs
     add_breadcrumb t('teams.title'), :teams_path
-    add_breadcrumb team.label, team_groups_path(team.id)
+    add_breadcrumb team.label, team_group_path(team.id)
   end
 
   def account_move_handler

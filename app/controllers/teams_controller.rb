@@ -92,10 +92,10 @@ class TeamsController < ApplicationController
   def groups_breadcrumbs
     add_breadcrumb t('teams.title'), :teams_path
 
-    add_breadcrumb team.label if action_name == 'index'
+    add_breadcrumb team.label if action_name == 'show'
 
     if action_name == 'edit'
-      add_breadcrumb team.label, :team_groups_path
+      add_breadcrumb team.label, :team_group_path
       add_breadcrumb @group.label
     end
   end
