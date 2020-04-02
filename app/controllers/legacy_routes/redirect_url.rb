@@ -24,11 +24,11 @@ class LegacyRoutes::RedirectUrl
   def new_url
     case @url
     when legacy_accounts_path?
-      account_path(@url.split('/').last) << '/'
+      account_path(@url.split('/').last)
     when legacy_groups_path?
-      team_group_path(1, @url.split('/').second_to_last) << '/'
+      team_group_path(@url.split('/').third, @url.split('/').second_to_last)
     when legacy_teams_path?
-      team_path(@url.split('/').second_to_last) << '/'
+      team_path(@url.split('/').second_to_last)
     else
       @url
     end
