@@ -1,0 +1,200 @@
+//  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
+//  Cryptopus and licensed under the Affero General Public License version 3 or later.
+//  See the COPYING file at the top-level directory or at
+//  https://github.com/puzzle/cryptopus.
+
+html.turbolinks-progress-bar::before {
+  background-color: rgba(50, 50, 50, 0.7) !important;
+  height: 2px !important;
+}
+
+img{
+  vertical-align: bottom!important;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+  width:100vw !important;
+  overflow-x:hidden !important;
+}
+
+body {
+  margin-bottom: 50px;
+}
+
+.main {
+  margin-top: 100px;
+  padding-bottom: 10px;
+}
+
+.alert {
+  width: 500px;
+  margin: auto;
+}
+
+/*Icons*/
+
+[class^="icon-"],
+[class*=" icon-"] {
+  height: 24px;
+  width: 30px;
+  display: inline;
+  fill: currentColor;
+}
+
+.action_icon{
+  width: 20px;
+  text-align: center;
+  vertical-align:middle;
+}
+
+.info_icon{
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  display: inline;
+  margin-left: 5px;
+}
+
+.info_icon:hover{
+  cursor: help;
+}
+
+.search-icon{
+  padding-right: 1px;
+  padding-bottom: 2px;
+  height: 17px;
+  width: 17px;
+  display: inline;
+}
+
+.strength{
+  padding-top: 20px;
+}
+
+#strength_status{
+  padding-top: 5px;
+  padding-left: 1%;
+}
+
+/*Footer*/
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  line-height: 50px;
+  background-color: #F9F9F9;
+  width: 100%;
+  border-top: 1px solid #CBC6C2;
+  z-index: 9999;
+  width:100vw !important;
+}
+
+.footer form {
+  padding-right: 50px;
+}
+
+/*Account*/
+
+.clip_button{
+  position: absolute;
+  left: 210px;
+  top: -2px;
+  border: 1px solid #C9C9C9;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 35px;
+  width: 50px;
+}
+
+.clip_button svg{
+  padding-right: 2px;
+  padding-bottom: 1px;
+}
+
+.copied{
+  border-radius: 3px;
+  color: white;
+  background-color: #555;
+  display: none;
+  position: absolute;
+  padding: 4px;
+  margin-left: 268px;
+  margin-top: -28px;
+}
+/*Team*/
+
+.description{
+  background-color: #eee;
+  display: none;
+  position: absolute;
+  padding: 2px;
+  margin-left: 40px;
+}
+
+.toggle-button {
+  background-color: white;
+  border-radius: 20px;
+  border: 2px solid #D0D0D0;
+  height: 20px;
+  cursor: pointer;
+  width: 40px;
+  position: relative;
+  display: inline-block;
+}
+
+.toggle-button button {
+  cursor: pointer;
+  outline: 0;
+  display:block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  float: left;
+  margin: -1px 0 0 -3px;
+  border: 2px solid #D0D0D0;
+  transition: left 0.3s;
+}
+
+.toggle-button-selected {
+  background-color: white;
+  border: 2px solid #D0D0D0;
+}
+
+.toggle-button-selected button {
+  left: 26px;
+  top: 0;
+  margin: -1px 0 0 -3px;
+  border: 2px solid black;
+  width: 20px;
+  height: 20px;
+    background-color: black;
+}
+
+/* recryptrequest */
+
+#recrypt_description{
+  display: none;
+  width: 100%;
+}
+
+#forgot_password_checkbox{
+  float: right;
+  margin-top: -40px;
+}
+
+#old_password{
+  width: 65%;
+}
+
+#ldap_info{
+  background-color: rgba(217, 237, 247, 0.2);
+  width: 100%;
+}
