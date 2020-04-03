@@ -10,7 +10,7 @@
     = f.text_field :name, autofocus: true, class: 'form-control'
   .checkbox
     = labeled_check_box(f, :private, team.new_record?)
-    = image_tag('info.svg', class: 'info_icon private_info')
+    = image_pack_tag('info.svg', class: 'info_icon private_info')
     %p.description.private
       = t('teams.description.private')
   .form-group

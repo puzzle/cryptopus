@@ -25,13 +25,13 @@
     %br/
     - strength = PasswordStrength.test(@account.cleartext_username, @account.cleartext_password)
     - if strength.status == :weak || strength.status == :invalid
-      =image_tag 'weak.png'
+      =image_pack_tag 'weak.png'
       %strong= t 'password_strength.weak'
     - elsif strength.status == :good
-      =image_tag 'good.png'
+      =image_pack_tag 'good.png'
       %strong= t 'password_strength.good'
     - elsif strength.status == :strong
-      =image_tag 'strong.png'
+      =image_pack_tag 'strong.png'
       %strong= t 'password_strength.strong'
     %button.btn.clip_button{"data-clipboard-target" => "#cleartext_password", title: "copy password (ctrl + c)", id: "copy_password_button"}
       %svg.icon-clippy

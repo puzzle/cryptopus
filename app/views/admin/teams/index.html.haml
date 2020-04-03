@@ -16,9 +16,9 @@
     - @team = team
     %tr{class: "#{cycle( 'odd', 'even' )}", 'team-id': team.id}
       - if team.private?
-        %td= image_tag( "encrypted_small.svg" ) + ' ' + team.name
+        %td= image_pack_tag( "encrypted_small.svg" ) + ' ' + team.name
       - else
-        %td= image_tag( "members.svg" ) + ' ' + team.name
+        %td= image_pack_tag( "members.svg" ) + ' ' + team.name
       %td= number_of_groups
       %td= number_of_accounts
       %td
