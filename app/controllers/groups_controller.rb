@@ -12,7 +12,7 @@ class GroupsController < ApplicationController
 
   # GET /teams/1/groups/1
   def show
-    authorize team, :team_member?
+    authorize team
     @accounts = group.accounts
     groups_breadcrumbs
 

@@ -19,9 +19,7 @@ Rails.application.routes.draw do
     get "/:id/groups" => "legacy_routes#redirect"
     resources :api_users, only: [:index, :create, :destroy], module: 'api/team'
     resources :teammembers
-    resources :groups, except: [:index] do
-
-    end
+    resources :groups, except: [:index]
   end
 
   resources :accounts, except: [:index] do

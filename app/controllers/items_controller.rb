@@ -8,13 +8,11 @@
 class ItemsController < ApplicationController
   self.permitted_attrs = [:description, :file]
 
-  before_action :account
-  before_action :group
   helper_method :team
 
   # GET /teams/1/groups/1/accounts/new
   def new
-    @item = @account.items.new
+    @item = account.items.new
     authorize @item
 
     respond_to do |format|
@@ -31,7 +29,7 @@ class ItemsController < ApplicationController
 
   # POST /teams/1/groups/1/accounts/1/items/1
   def show
-    @item = @account.items.find(params[:id])
+    @item = account.items.find(params[:id])
     authorize @item
     file = @item.decrypt(plaintext_team_password(team))
 
@@ -40,7 +38,7 @@ class ItemsController < ApplicationController
 
   # DELETE /teams/1/groups/1/accounts/1/items/1
   def destroy
-    @item = @account.items.find(params[:id])
+    @item = account.items.find(params[:id])
     authorize @item
     @item.destroy
 
@@ -64,11 +62,11 @@ class ItemsController < ApplicationController
   end
 
   def create_item(format)
-    authorize @account
-    item = Item.create(@account, model_params, plaintext_team_password(team))
+    authorize account
+    item = Item.create(account, model_params, plaintext_team_password(team))
     if item.errors.empty?
       flash[:notice] = t('flashes.items.uploaded')
-      format.html { redirect_to account_url(@account) }
+      format.html { redirect_to account_url(account) }
     else
       @item = item
       format.html { render action: 'new' }

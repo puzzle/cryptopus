@@ -22,12 +22,9 @@ class TeamsController < ApplicationController
 
   # GET /teams/1
   def show
-    authorize team, :team_member?
+    authorize team
     @groups = team.groups
     groups_breadcrumbs
-
-    teammembers = team.teammembers.list
-    @teammembers = teammembers.includes(:user).sort_by { |tm| tm.label.downcase }
 
     respond_to do |format|
       format.html # index.html.haml

@@ -5,6 +5,10 @@ class GroupPolicy < TeamDependantPolicy
     true
   end
 
+  def show?
+    team_member?
+  end
+
   private
 
   def team

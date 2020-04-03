@@ -5,6 +5,10 @@ class TeamPolicy < TeamDependantPolicy
     true
   end
 
+  def show?
+    team_member?
+  end
+
   def create?
     true
   end

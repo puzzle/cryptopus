@@ -17,7 +17,7 @@ class LegacyRoutes::RedirectUrl
   end
 
   def redirect_to
-    remove_locale
+    remove_locale if legacy_locales_path?
     new_url
   end
 

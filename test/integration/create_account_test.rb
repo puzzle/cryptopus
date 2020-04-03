@@ -12,7 +12,6 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
   test 'bob creates new account' do
     login_as('bob')
 
-    team = teams(:team1)
     group = groups(:group1)
     accounts_path = accounts_path(params: { account: {accountname: 'e-mail', cleartext_username: 'bob@test', cleartext_password: 'alice33', group_id: group.id} })
 
@@ -31,8 +30,6 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
   test 'alice reads account data' do
     login_as('alice')
 
-    # team = teams(:team1)
-    # group = groups(:group1)
     account = accounts(:account1)
 
     get account_path(id: account.id)

@@ -56,9 +56,6 @@ ru:
 
   accounts:
     title: "Аккаунты"
-    index:
-      move: "Переместить аккаунт в другую группу"
-      title: "Аккаунты в группе %{group_name} для команды %{team_name}"
     index_menu:
       create: "Создать аккаунт"
       group: "Группы"
@@ -141,15 +138,11 @@ ru:
       create: "Создать группу"
     edit:
       title: "Редактирование группы"
-    index:
-      title: "Группы для команды %{team_name}"
-      group: "Группа"
-      members: "Участники группы"
-      add_member: "Добавить участника"
-      admins: "Администраторы"
     new:
       title: "Новая группа"
-
+    show:
+      move: "Переместить аккаунт в другую группу"
+      title: "Аккаунты в группе %{group_name} для команды %{team_name}"
   items:
     new:
       title: "Добавить вложение к аккаунту"
@@ -198,7 +191,12 @@ ru:
       title: "Создать новую команду"
     description:
       private: "Запретить доступ администраторам"
-
+    show:
+      title: "Группы для команды %{team_name}"
+      group: "Группа"
+      members: "Участники группы"
+      add_member: "Добавить участника"
+      admins: "Администраторы"
   flashes:
     api:
       admin:
