@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
 
   helper_method :team
 
-  # GET /teams/1/groups/1/accounts/new
+  # GET /accounts/1/items/new
   def new
     @item = account.items.new
     authorize @item
@@ -20,26 +20,30 @@ class ItemsController < ApplicationController
     end
   end
 
-  # POST /teams/1/groups/1/accounts/1/items
+  # POST /accounts/1/items
   def create
+    authorize account
+
     respond_to do |format|
       create_item(format)
     end
   end
 
-  # POST /teams/1/groups/1/accounts/1/items/1
+  # POST /accounts/1/items/1
   def show
     @item = account.items.find(params[:id])
     authorize @item
+
     file = @item.decrypt(plaintext_team_password(team))
 
     send_data file, filename: @item.filename, type: @item.content_type, disposition: 'attachment'
   end
 
-  # DELETE /teams/1/groups/1/accounts/1/items/1
+  # DELETE /accounts/1/items/1
   def destroy
     @item = account.items.find(params[:id])
     authorize @item
+
     @item.destroy
 
     respond_to do |format|
@@ -62,7 +66,6 @@ class ItemsController < ApplicationController
   end
 
   def create_item(format)
-    authorize account
     item = Item.create(account, model_params, plaintext_team_password(team))
     if item.errors.empty?
       flash[:notice] = t('flashes.items.uploaded')

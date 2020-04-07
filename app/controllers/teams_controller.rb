@@ -23,6 +23,7 @@ class TeamsController < ApplicationController
   # GET /teams/1
   def show
     authorize team
+
     @groups = team.groups
     groups_breadcrumbs
 

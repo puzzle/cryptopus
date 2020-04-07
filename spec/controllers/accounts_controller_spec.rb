@@ -119,7 +119,7 @@ describe AccountsController do
 
       login_as(:alice)
 
-      put :move, params: { account_id: account.id, group_id: group.id, team_id: team.id,
+      put :move, params: { id: account.id, group_id: group.id, team_id: team.id,
                            account: account_params }
 
       account.reload
@@ -137,7 +137,7 @@ describe AccountsController do
 
       login_as(:bob)
 
-      put :move, params: { account_id: account.id, group_id: group.id, team_id: team.id,
+      put :move, params: { id: account.id, group_id: group.id, team_id: team.id,
                            account: account_params }
 
       account.reload

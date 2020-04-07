@@ -1,6 +1,6 @@
 %div{id: "movescreen"}
   %div{id: 'account_move_form'}
-    = form_for [team, @group, @account], url: account_move_path(@account), html: {method: :put} do |f|
+    = form_for [team, @group, @account], url: move_account_path(@account), html: {method: :put} do |f|
       .form-group
       %h1= 'Move Account'
       %br/

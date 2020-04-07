@@ -6,18 +6,17 @@
 #  https://github.com/puzzle/cryptopus.
 class AccountsController < ApplicationController
 
-  helper_method :team
+  helper_method :team, :group
   self.permitted_attrs = [:accountname, :cleartext_username, :cleartext_password,
                           :tag, :description, :group_id]
 
-  # GET /teams/1/groups/1/accounts/1
+  # GET /accounts/1
   def show
     authorize account
     @items = account.items.load
 
     accounts_breadcrumbs
 
-    @account.decrypt(plaintext_team_password(team))
     account.decrypt(plaintext_team_password(team))
 
     respond_to do |format|
@@ -25,32 +24,29 @@ class AccountsController < ApplicationController
     end
   end
 
-  # GET /teams/1/groups/1/accounts/new
+  # GET /accounts/new?group_id=42
   def new
     @account = Account.new(group_id: params[:group_id])
-    group
-    team
-    authorize @account
+    authorize account
 
     respond_to do |format|
       format.html # new.html.haml
     end
   end
 
-  # POST /teams/1/groups/1/accounts
+  # POST /accounts
   def create
     @account = Account.new(model_params)
-    authorize @account
-    @account.encrypt(plaintext_team_password(team))
+    authorize account
+    account.encrypt(plaintext_team_password(team))
     respond_to do |format|
       save_account(format)
     end
   end
 
-  # GET /teams/1/groups/1/accounts/1/edit
+  # GET /accounts/1/edit
   def edit
     authorize account
-    @groups = team.groups.all
     accounts_breadcrumbs
     @account.decrypt(plaintext_team_password(team))
     respond_to do |format|
@@ -58,8 +54,10 @@ class AccountsController < ApplicationController
     end
   end
 
-  # PUT /teams/1/groups/1/accounts/1
+  # PUT /accounts/1
   def update
+    authorize account
+
     update_account
     respond_to do |format|
       if @account.save
@@ -71,19 +69,20 @@ class AccountsController < ApplicationController
     end
   end
 
-  # DELETE /teams/1/groups/1/accounts/1
+  # DELETE /accounts/1
   def destroy
     authorize account
+
     @account.destroy
     respond_to do |format|
       format.html { redirect_to team_group_url(team, @group) }
     end
   end
 
-  # PUT /teams/1/groups/1/accounts/1/move
+  # PUT /accounts/1/move
   def move
-    @account = Account.find(params[:account_id])
-    authorize @account
+    authorize account
+
     respond_to do |format|
       target_group = Group.find(model_params[:group_id])
       move_account(format, target_group)
@@ -93,7 +92,6 @@ class AccountsController < ApplicationController
   private
 
   def update_account
-    authorize account
     account.attributes = model_params
     account.encrypt(plaintext_team_password(team))
   end

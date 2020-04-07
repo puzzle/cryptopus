@@ -16,14 +16,15 @@ Rails.application.routes.draw do
   end
 
   resources :teams do
-    get "/:id/groups" => "legacy_routes#redirect"
+    resources :groups, except: [:index]
     resources :api_users, only: [:index, :create, :destroy], module: 'api/team'
     resources :teammembers
-    resources :groups, except: [:index]
   end
 
   resources :accounts, except: [:index] do
-    put 'move', to: 'accounts#move'
+    member do
+      put 'move', to: 'accounts#move'
+    end
     resources :items
   end
 

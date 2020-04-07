@@ -12,19 +12,20 @@ class GroupsController < ApplicationController
 
   # GET /teams/1/groups/1
   def show
-    authorize team
+    authorize group
+
     @accounts = group.accounts
     groups_breadcrumbs
 
     respond_to do |format|
-      format.html # index.html.haml
+      format.html # show.html.haml
     end
   end
 
   # GET /teams/1/groups/new
   def new
     @group = team.groups.new
-    authorize @group
+    authorize group
 
     respond_to do |format|
       format.html # new.html.haml
@@ -34,7 +35,7 @@ class GroupsController < ApplicationController
   # POST /teams/1/groups
   def create
     @group = team.groups.new(model_params)
-    authorize @group
+    authorize group
 
     respond_to do |format|
       if @group.save
@@ -74,7 +75,8 @@ class GroupsController < ApplicationController
   # DELETE /teams/1/groups/1
   def destroy
     authorize group
-    group.destroy
+
+    group.destroy!
 
     respond_to do |format|
       format.html { redirect_to team_url(team) }

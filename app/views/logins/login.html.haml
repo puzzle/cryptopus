@@ -4,7 +4,7 @@
 -#  https://github.com/puzzle/cryptopus.
 
 .login-form
-  = form_tag({action: 'authenticate'}, {class: 'login'}) do
+  = form_tag(authenticate_login_path, {class: 'login'}) do
     %fieldset
       = image_tag("cryptopussy.svg", class: 'logo')
       .form-group
