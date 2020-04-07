@@ -2,6 +2,8 @@
   "license": "SEE LICENSE IN COPYING",
   "dependencies": {
     "@rails/webpacker": "5.0.1",
+    "less": "^3.11.1",
+    "less-loader": "^5.0.0",
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2"
   },

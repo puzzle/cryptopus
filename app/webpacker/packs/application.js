@@ -15,5 +15,5 @@
 const images = require.context('../images', true)
 const imagePath = (name) => images(name, true)
 
-
-// console.log('Hello World from Webpacker')
+import '../src/javascript/bootstrap.js'
+import '../src/javascript/bootstrap_tabs.min.js'
