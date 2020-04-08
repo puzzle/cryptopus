@@ -35,4 +35,4 @@
       %td= ml.created_at.to_time
       %td= ml.status
       %td= ml.output
-      %td= User.find_by(id: ml.executer_id).label
+      %td= User.find_by(id: ml.executer_id).try(:label)
