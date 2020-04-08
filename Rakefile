@@ -5,7 +5,6 @@ require 'rake/testtask'
 require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
-Rake::Task["test"].clear
 
 unless Rails.env.production?
   require 'rubocop/rake_task'
@@ -13,11 +12,3 @@ unless Rails.env.production?
 end
 
 Annotate.load_tasks
-
-Rake::TestTask.new(:test) do |t|
-  t.libs << ['lib', 'test']
-  t.test_files = Dir['test/**/*_test.rb'].reject do |path| 
-    path.include?('features')
-  end
-  t.warning = false
-end

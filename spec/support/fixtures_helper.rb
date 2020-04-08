@@ -40,7 +40,7 @@ class FixturesHelper
     private
 
     def read_file(filepath)
-      path = "#{Rails.root}/test/fixtures/files/#{filepath}"
+      path = "#{Rails.root}/spec/fixtures/files/#{filepath}"
       Base64.strict_encode64(File.open(path, 'rb') { |f| f.read })
     end
   end
