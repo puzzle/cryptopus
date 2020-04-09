@@ -10,7 +10,6 @@ task ci: ['log:clear',
           'rubocop',
           'geo:fetch',
           'db:test:prepare',
-          'test',
           'spec']
 
 namespace :ci do
@@ -18,7 +17,7 @@ namespace :ci do
   task nightly: ['db:test:prepare',
                  'rubocop',
                  'geo:fetch',
-                 'test',
+                 'spec',
                  'brakeman']
 
 end

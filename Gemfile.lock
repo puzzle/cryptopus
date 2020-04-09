@@ -167,9 +167,6 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
-    minitest-rails (6.0.1)
-      minitest (~> 5.10)
-      railties (~> 6.0.0)
     mocha (1.11.2)
     multipart-post (2.1.1)
     mysql2 (0.5.3)
@@ -182,7 +179,6 @@ GEM
       ast (~> 2.4.0)
     password_strength (1.1.4)
       activemodel
-    power_assert (1.1.5)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -247,7 +243,7 @@ GEM
     rspec-mocks (3.9.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.9.0)
-    rspec-rails (4.0.0.rc1)
+    rspec-rails (4.0.0)
       actionpack (>= 4.2)
       activesupport (>= 4.2)
       railties (>= 4.2)
@@ -302,8 +298,6 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.4.2)
     temple (0.8.2)
-    test-unit (3.3.5)
-      power_assert
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
@@ -362,7 +356,6 @@ DEPENDENCIES
   launchy
   less-rails
   maxmind-db
-  minitest-rails
   mocha
   mysql2
   net-ldap
@@ -375,7 +368,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-erd
   rails-i18n
-  rspec-rails (~> 4.0.0.beta4)
+  rspec-rails (~> 4.0)
   rubocop-checkstyle_formatter
   rubocop-rails
   sass-rails
@@ -386,7 +379,6 @@ DEPENDENCIES
   simplecov
   sprockets (~> 3)
   sqlite3
-  test-unit
   therubyracer
   turbolinks
   twitter-bootstrap-rails (~> 3.2)

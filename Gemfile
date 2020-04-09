@@ -40,19 +40,14 @@ gem 'therubyracer'
 gem 'turbolinks'
 gem 'twitter-bootstrap-rails', '~>3.2'
 gem 'uglifier'
-
 group :development, :test do
   gem 'bullet'
   gem 'capybara-webkit'
   gem 'launchy'
-  gem 'minitest-rails'
-  gem 'rspec-rails', '~> 4.0.0.beta4' # 4.0.0.beta4 due to https://github.com/rspec/rspec-rails/issues/2177
-  # https://github.com/blowmage/minitest-rails-capybara/issues/44
-  # gem 'minitest-rails-capybara'
   gem 'rails-erd'
+  gem 'rspec-rails', '~> 4.0'
   gem 'rubocop-checkstyle_formatter'
   gem 'rubocop-rails'
-  gem 'test-unit'
 end
 
 group :development do

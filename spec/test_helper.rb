@@ -18,11 +18,11 @@ def enable_ldap
 end
 
 def stub_geo_ip
-  allow(GeoIp).to receive(:activated?).exactly(:once).and_return(nil)
+  allow(GeoIp).to receive(:activated?).at_least(:once).and_return(nil)
 end
 
 def mock_ldap_settings
-  expect(AuthConfig).to receive(:ldap_settings).and_return(ldap_settings).at_least(:once)
+  allow(AuthConfig).to receive(:ldap_settings).and_return(ldap_settings).at_least(:once)
 end
 
 def ldap_settings
