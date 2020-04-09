@@ -157,12 +157,12 @@ de:
       upload: Datei für das Hochladen
       upload_file: Datei hochladen
 
-  logins:
-    login:
+  sessions:
+    new:
       title: Anmelden
       description: Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein um Cryptopus zu verwenden.
       submit: Anmelden
-    logout:
+    destroy:
       title: Abmelden
       message: Aufwiedersehen
       hint: Bitte löschen Sie den Cache Ihres Browsers.

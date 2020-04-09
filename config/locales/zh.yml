@@ -143,12 +143,12 @@ zh:
       upload: "待上传文件"
       upload_file: "上传文件"
 
-  logins:
-    login:
+  sessions:
+    new:
       title: "登陆"
       description: "请输入用户名和密码访问cryptopus"
       submit: "登陆"
-    logout:
+    destroy:
       title: "注销"
       message: "再见"
       hint: "请清除浏览器缓存。"

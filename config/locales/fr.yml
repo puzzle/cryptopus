@@ -154,12 +154,12 @@ fr:
       upload: Fichier de téléchargement
       upload_file: Télécharge le fichier
 
-  logins:
-    login:
+  sessions:
+    new:
       title: Identifiez-vous
       description: S'il vous plaît entrer un nom d'utilisateur valide et mot de passe.
       submit: S'identifier
-    logout:
+    destroy:
       title: Déconnexion
       message: Au revoir
       hint: S'il vous plaît vider le cache de votre navigateur.

@@ -28,13 +28,10 @@ Rails.application.routes.draw do
     resources :items
   end
 
-  resource :login, except: :show do
-    get 'login'
+  resource :sessions, except: [:show, :edit, :update] do
     get 'show_update_password'
     post 'update_password'
-    get 'logout'
     get 'noaccess'
-    post 'authenticate'
     post 'changelocale'
   end
 

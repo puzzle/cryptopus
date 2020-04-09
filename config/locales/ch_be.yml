@@ -176,12 +176,12 @@ ch_be:
       upload: Datei zum Ufeladä
       upload_file: Datei ufeladä
 
-  logins:
-    login:
+  sessions:
+    new:
       title: Amäudä
       description: Bitte gib di Benutzername u dis Passwort i zum z'Cryptopus chönne z bruche.
       submit: Amäudä
-    logout:
+    destroy:
       title: Abmäudä
       message: Ufwiderluege
       hint: Bitte lösch dr Cache vo dim Brauser.

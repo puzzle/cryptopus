@@ -14,11 +14,13 @@ class app.AutoLogoff
     setInterval(( -> logoff_timer()), 1000)
 
   logoff_timer = () ->
-    if document.URL.indexOf('/login/login') > -1
+    if document.URL.indexOf('/sessions/new') > -1
       return
     if remaining_seconds <= 1
-      window.location = '/login/logout?jumpto=' + window.location.pathname
-      Turbolinks.pagesCached(0)
+      $.ajax({
+        method: "DELETE",
+        url: '/sessions?jumpto=' + window.location.pathname 
+      });
       return
     remaining_seconds -= 1
     $('#countdown').html humanize(remaining_seconds)

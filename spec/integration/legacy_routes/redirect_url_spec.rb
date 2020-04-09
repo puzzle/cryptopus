@@ -102,7 +102,7 @@ describe LegacyRoutes::RedirectUrl do
   it 'redirects to login url without locale' do
     get '/de/login/login'
 
-    assert_redirected_to login_login_path
+    assert_redirected_to new_sessions_path
   end
 
   # /de/teams/1/groups/1/accounts -> /accounts
