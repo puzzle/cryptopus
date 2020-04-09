@@ -53,7 +53,7 @@
     - for item in @items
       %tr{class: "#{cycle( 'odd', 'even' )}"}
         %td
-          = link_to image_tag("file.svg") + item.filename, account_item_path(@account, item)
+          = link_to image_pack_tag("file.svg") + item.filename, account_item_path(@account, item)
         %td{valign: "top"}= simple_format item.description
         %td.action_icon= link_to_destroy account_item_path(@account, item), item
 

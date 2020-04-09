@@ -2,7 +2,7 @@ version: '2'
 
 services:
   cryptopus:
-    image: cry2:latest
+    image: puzzle/cryptopus:stable
     container_name: cryptopus
     env_file:
       - mysql-prod.env
@@ -11,9 +11,9 @@ services:
       RAILS_DB_HOST: 'cryptopus-mysql'
       RAILS_DB_NAME: 'cryptopus_prod'
       RAILS_DB_PORT: 3306
-      RAILS_HOST_SSL: 'false' # uncomment for disabling ssl force
+      # RAILS_HOST_SSL: 'false' # uncomment for disabling ssl force
     ports:
-      - 8080:3000
+      - localhost:8080:3000
     links:
       - cryptopus-mysql:cryptopus-mysql
   cryptopus-mysql:

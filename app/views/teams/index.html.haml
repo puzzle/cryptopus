@@ -13,9 +13,9 @@
   - @teams.each do |team|
     %tr{class: "#{cycle( 'odd', 'even' )}"}
       - if team.private?
-        %td= link_to image_tag( "encrypted_small.svg" ) + " #{team.name}", team_path( team )
+        %td= link_to image_pack_tag( "encrypted_small.svg" ) + " #{team.name}", team_path( team )
       - else
-        %td= link_to image_tag( "members.svg" ) + " #{team.name}", team_path( team )
+        %td= link_to image_pack_tag( "members.svg" ) + " #{team.name}", team_path( team )
       %td= simple_format team.description
       %td.action_icon= link_to image_pack_tag( "edit.svg" ), edit_team_path( team )
       - if policy(team).destroy?
