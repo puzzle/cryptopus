@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class LoginsController < ApplicationController
+class SessionsController < ApplicationController
 
   before_action :authorize_action
 
@@ -13,13 +13,13 @@ class LoginsController < ApplicationController
   # in this case.
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
-  skip_before_action :verify_authenticity_token, only: :authenticate
-  before_action :skip_authorization, only: [:authenticate, :login, :logout]
+  skip_before_action :verify_authenticity_token, only: :create
+  before_action :skip_authorization, only: [:create, :new, :destroy]
 
-  def authenticate
+  def create
     unless authenticator.auth!
       flash[:error] = t('flashes.logins.auth_failed')
-      return redirect_to login_login_path
+      return redirect_to new_sessions_path
     end
 
     unless create_session(authenticator.user, params[:password])
@@ -31,14 +31,14 @@ class LoginsController < ApplicationController
     redirect_after_sucessful_login
   end
 
-  def logout
+  def destroy
     flash_notice = flash[:notice]
     jumpto = params[:jumpto]
     reset_session
     session[:jumpto] = jumpto
     flash[:notice] = flash_notice
 
-    redirect_to login_login_path
+    redirect_to new_sessions_path
   end
 
   def show_update_password
@@ -56,7 +56,7 @@ class LoginsController < ApplicationController
     end
   end
 
-  # POST /login/changelocale
+  # POST /sessions/changelocale
   def changelocale
     locale = params.permit(:new_locale)[:new_locale]
     if locale.present?
@@ -134,6 +134,6 @@ class LoginsController < ApplicationController
   end
 
   def authorize_action
-    authorize :logins
+    authorize :sessions
   end
 end

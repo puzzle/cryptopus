@@ -8,9 +8,9 @@
 
 class ApplicationController < ActionController::Base
   before_action :set_sentry_request_context
-  before_action :validate_user, except: [:login, :authenticate, :logout, :wizard]
+  before_action :validate_user, except: [:new, :create, :destroy, :wizard]
   before_action :message_if_fallback
-  before_action :redirect_if_no_private_key, except: :logout
+  before_action :redirect_if_no_private_key, except: [:destroy, :new]
   before_action :prepare_menu
   before_action :set_locale
 
@@ -62,14 +62,14 @@ class ApplicationController < ActionController::Base
   def handle_pending_recrypt_request
     if pending_recrypt_request?
       pending_recrypt_request_message
-      redirect_to logout_login_path
+      redirect_to sessions_path
     end
   end
 
   def check_if_user_logged_in
     if current_user.nil?
       session[:jumpto] = request.parameters
-      redirect_to login_login_path
+      redirect_to new_sessions_path
     end
   end
 

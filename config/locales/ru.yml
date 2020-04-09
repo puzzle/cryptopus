@@ -149,12 +149,12 @@ ru:
       upload: "Файл для загрузки"
       upload_file: "Загрузить файл"
 
-  logins:
-    login:
+  session:
+    new:
       title: "Вход"
       description: "Введите имя пользователя и пароль для входа в cryptopus"
       submit: "Войти"
-    logout:
+    destroy:
       title: "Выйти"
       message: "До свидания"
       hint: "Пожалуйста, очистите кэш браузера."

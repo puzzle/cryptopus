@@ -21,21 +21,21 @@ describe 'User login' do
   it 'logs bob in with wrong password' do
     login_as('bob', 'wrong_password')
     expect(flash[:error]).to include('Authentication failed')
-    expect(request.fullpath).to eq(login_login_path)
+    expect(request.fullpath).to eq(new_sessions_path)
   end
 
   it 'logs bob out' do
     login_as('bob')
-    get logout_login_path
+    delete sessions_path
     follow_redirect!
-    expect(request.fullpath).to eq(login_login_path)
+    expect(request.fullpath).to eq(new_sessions_path)
   end
 
   it 'jumps to is set when autologout' do
     login_as('bob')
-    get logout_login_path(jumpto: admin_users_path)
+    delete sessions_path(jumpto: admin_users_path)
     follow_redirect!
-    expect(request.fullpath).to eq(login_login_path)
+    expect(request.fullpath).to eq(new_sessions_path)
     expect(admin_users_path).to eq(session[:jumpto])
   end
 
@@ -44,13 +44,13 @@ describe 'User login' do
     account1_path = account_path(account)
     get account1_path
     follow_redirect!
-    expect(request.fullpath).to eq(login_login_path)
+    expect(request.fullpath).to eq(new_sessions_path)
     login_as('bob')
     expect(request.fullpath).to eq(account1_path)
   end
 
   it 'should reset session after login' do
-    get login_login_path
+    get new_sessions_path
     old_session_id = session.id
     login_as('bob')
     expect(old_session_id).to_not eq(session.id)

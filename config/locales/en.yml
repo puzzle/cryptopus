@@ -159,12 +159,12 @@ en:
       upload: File to upload
       upload_file: Upload file
 
-  logins:
-    login:
+  sessions:
+    new:
       title: Log in
       description: Please enter your username and password to access cryptopus
       submit: Login
-    logout:
+    destroy:
       title: Logout
       message: Bye
       hint: Please clear your browser cache.
