@@ -242,7 +242,7 @@ zh:
       uploaded_size_to_high: "文件太大不能上船。(最大为：10MB)"
       uploaded_filename_is_empty: "文件必须被命名"
       uploaded_file_inexistent: "文件不存在"
-    logins:
+    sessions:
       weak_password: "为了提高安全性，请设置一个复杂的密码。"
       welcome: "欢迎使用Cryptopus，请先创建一个新帐户。请输入一个新密码"
       auth_failed: "认证出错！请输入正确用户名和密码。"

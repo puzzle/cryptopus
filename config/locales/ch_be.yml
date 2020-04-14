@@ -298,7 +298,7 @@ ch_be:
       uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
       uploaded_filename_is_empty: D Datei muess e Name ha
       uploaded_file_inexistent: Die Datei existiert gar nid
-    logins:
+    sessions:
       welcome: Willkomme bim Cryptopus. Zerscht muesch e nöie Account ersteue. Bitte wäu es sicheres Passwort.
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
       only_local: Nume lokali Benutzer dörfe ires Passwort ändere.

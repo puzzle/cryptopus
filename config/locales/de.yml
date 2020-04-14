@@ -309,7 +309,7 @@ de:
       uploaded_size_to_high: Die Datei ist zu gross zum hochladen. (Max. 10MB)
       uploaded_filename_is_empty: Die Datei muss benannt sein
       uploaded_file_inexistent: Datei ist inexistent
-    logins:
+    sessions:
       welcome: Willkommen bei Cryptopus. Zuerst müssen Sie einen Account erstellen. Bitte wählen Sie ein sicheres Passwort.
       auth_failed: Ungültiger Benutzername / Passwort.
       only_local: Nur lokale Benutzer dürfen ihr Passwort ändern.

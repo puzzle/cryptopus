@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
 
   def create
     unless authenticator.auth!
-      flash[:error] = t('flashes.logins.auth_failed')
+      flash[:error] = t('flashes.sessions.auth_failed')
       return redirect_to new_sessions_path
     end
 
@@ -49,7 +49,7 @@ class SessionsController < ApplicationController
     if password_params_valid?
       current_user.update_password(params[:old_password],
                                    params[:new_password1])
-      flash[:notice] = t('flashes.logins.new_password_set')
+      flash[:notice] = t('flashes.sessions.new_password_set')
       redirect_to teams_path
     else
       render :show_update_password
@@ -77,7 +77,7 @@ class SessionsController < ApplicationController
     strength = PasswordStrength.test(params[:username], params[:password])
 
     if strength.weak? || !strength.valid?
-      flash[:alert] = t('flashes.logins.weak_password')
+      flash[:alert] = t('flashes.sessions.weak_password')
     end
   end
 
@@ -116,12 +116,12 @@ class SessionsController < ApplicationController
 
   def password_params_valid?
     unless current_user.authenticate(params[:old_password])
-      flash[:error] = t('flashes.logins.wrong_password')
+      flash[:error] = t('flashes.sessions.wrong_password')
       return false
     end
 
     if params[:new_password1] != params[:new_password2]
-      flash[:error] = t('flashes.logins.new_passwords.not_equal')
+      flash[:error] = t('flashes.sessions.new_passwords.not_equal')
       return false
     end
     true
