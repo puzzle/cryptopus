@@ -166,6 +166,7 @@ de:
       title: Abmelden
       message: Aufwiedersehen
       hint: Bitte löschen Sie den Cache Ihres Browsers.
+      expired: Du wurdest automatisch abgemeldet.
     newuser:
       title: Willkommen bei Cryptopus
       description: Wir haben für Sie ein neues Schlüsselpaar erstellt. Viel Vergnügen mit Cryptopus.

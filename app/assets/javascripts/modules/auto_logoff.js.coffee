@@ -19,7 +19,8 @@ class app.AutoLogoff
     if remaining_seconds <= 1
       $.ajax({
         method: "DELETE",
-        url: '/sessions?jumpto=' + window.location.pathname 
+        url: '/sessions?jumpto=' + window.location.pathname,
+        data: { message: I18n.t('sessions.destroy.expired') }
       });
       return
     remaining_seconds -= 1

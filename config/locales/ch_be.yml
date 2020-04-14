@@ -185,6 +185,7 @@ ch_be:
       title: Abmäudä
       message: Ufwiderluege
       hint: Bitte lösch dr Cache vo dim Brauser.
+      expired: Du bisch automatisch abgemeldet worde.
     newuser:
       title: Willkomme bim Cryptopus
       description: Mir hei für di es nöis Schlüssupaar ersteut. Viu Spass mitem Cryptopus.

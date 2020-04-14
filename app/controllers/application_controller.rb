@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
   def handle_pending_recrypt_request
     if pending_recrypt_request?
       pending_recrypt_request_message
-      redirect_to sessions_path
+      redirect_to sessions_path, action: 'destroy'
     end
   end
 
