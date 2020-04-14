@@ -5,7 +5,7 @@ services:
     image: puzzle/cryptopus:stable
     container_name: cryptopus
     env_file:
-      - mysql-prod.env 
+      - mysql-prod.env
     environment:
       RAILS_DB_ADAPTER: 'mysql2'
       RAILS_DB_HOST: 'cryptopus-mysql'
@@ -20,7 +20,7 @@ services:
     image: mysql:5.7
     container_name: cryptopus-mysql
     env_file:
-      - mysql-prod.env 
+      - mysql-prod.env
     restart: always
     volumes:
       - cryptopus-mysql:/var/lib/mysql

@@ -1,5 +1,6 @@
 language: ruby
 cache: bundler
+cache: yarn
 addons:
   apt:
     packages:
@@ -12,9 +13,11 @@ branches:
   - stable
 before_install:
  - sudo service mysql restart
+ - nvm install 10.13.0
 install:
  - gem install bundler:1.17.3
  - bundle install --path vendor/bundle
+ - yarn
 before_script:
  - bundle exec rake db:create
  - bundle exec rake db:setup

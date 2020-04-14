@@ -3,7 +3,7 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 
-= form_tag({action: 'apply'}, id: 'wizardform') do
+= form_tag(wizard_apply_path, id: 'wizardform') do
   .form-group
     = label_tag :username, t(:username)
     = text_field_tag :username, params[:username], id: 'username-root', autocomplete: :off, disabled: true, class: 'form-control', value: 'root'

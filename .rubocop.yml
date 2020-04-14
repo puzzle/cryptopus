@@ -11,6 +11,7 @@ AllCops:
     - tmp/**/*
     - test/**/*
     - vendor/bundle/**/*
+    - node_modules/**/*
 
 Rails:
   Enabled: true

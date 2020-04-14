@@ -30,10 +30,10 @@
         = Admin::UserRole::Dropdown.new(user, current_user).render
       %td.action_icon
         - if policy(user).edit? || policy(user).resetpassword?
-          = link_to image_tag("edit.svg"), edit_admin_user_path(user)
+          = link_to image_pack_tag("edit.svg"), edit_admin_user_path(user)
       %td.action_icon
         - if policy(user).destroy?
-          = link_to image_tag("remove.svg"), '#',
+          = link_to image_pack_tag("remove.svg"), '#',
             data: { last_teammember_teams_link: last_teammember_teams_teams_path(user_id: user.id),
               user_id: user.id},
             class: 'delete_user_link'
@@ -49,7 +49,7 @@
         %td= link_to user.username, edit_admin_user_path(user)
         %td= user.label
         %td.action_icon
-          = link_to image_tag("unlock.svg"),  unlock_admin_user_path(user.id), title: t('.unlock')
+          = link_to image_pack_tag("unlock.svg"),  unlock_admin_user_path(user.id), title: t('.unlock')
 
 %div{style: "height: 100px"}
 

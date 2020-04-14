@@ -15,6 +15,8 @@
     %title Cryptopus
     = stylesheet_link_tag :application, media: "all"
     = javascript_include_tag :application
+    = javascript_pack_tag 'stylesheets'
+    = javascript_pack_tag 'application'
   %body{"data-locale" => I18n.locale}
     = render 'layouts/icons'
     .container.main{role: "main"}
