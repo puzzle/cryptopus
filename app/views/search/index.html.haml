@@ -6,7 +6,7 @@
 .form-group.search
   %h1= t('.hi_user', username: username)
   = text_field_tag :q,  params[:q], placeholder: t('.type_to_search'), autocomplete: 'off', autofocus: true, class: 'form-control search-input'
- 
+
 .container
   %ul.nav.nav-tabs
     %li#accounts.tab.active
@@ -26,4 +26,4 @@
     #teams-result.tab-pane.fade
       %ul.search-result.result-list.teams
 %br
-.result-info{style: "display: none;"}= t('.no_results_found')
+.result-info{ class: "display-none" }= t('.no_results_found')
