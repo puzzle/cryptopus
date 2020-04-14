@@ -26,7 +26,7 @@
                 %li= nav_link t(:maintenance_tasks), admin_maintenance_tasks_path
           - if current_user.auth_db?
             = nav_link t(:change_password), show_update_password_sessions_path
-          = nav_link image_tag("magnifying-glass.svg", class: "search-icon", title: "search (ctrl + f)") + t('search.title'), search_path
+          = nav_link image_pack_tag("magnifying-glass.svg", class: "search-icon", title: "search (ctrl + f)") + t('search.title'), search_path
         %ul.nav.navbar-nav.navbar-right.logout
           = nav_link(t(:logout), sessions_path, 'delete')
         %ul.nav.navbar-nav.navbar-right#profile-button

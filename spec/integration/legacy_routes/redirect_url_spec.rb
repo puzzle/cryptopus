@@ -162,4 +162,11 @@ describe LegacyRoutes::RedirectUrl do
     expect { get invalid_teams_url }.to raise_error(ActionController::RoutingError)
   end
 
+  # /en/login/login -> /
+  it 'redirects to admin settings url without locale' do
+    login_as('bob')
+    get '/en/login/login'
+
+    assert_redirected_to root_path
+  end
 end

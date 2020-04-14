@@ -68,27 +68,32 @@ describe Authentication::UserAuthenticator do
     assert_equal false, authenticate
   end
 
-  xit 'ldap authentication succeeds with correct credentials' do
+  it 'ldap authentication succeeds with correct credentials' do
     enable_ldap
     mock_ldap_settings
 
     @username = 'bob'
     @password = 'ldappw'
     bob.update!(auth: 'ldap')
-    LdapConnection.any_instance.expects(:authenticate!).with('bob', 'ldappw').returns(true)
-    assert_equal true, authenticate
+
+    expect_any_instance_of(LdapConnection).to receive(:authenticate!)
+      .with('bob', 'ldappw')
+      .and_return(true)
+    expect(authenticate).to be true
   end
 
-  xit 'ldap authentication fails if wrong password' do
+  it 'ldap authentication fails if wrong password' do
     enable_ldap
     mock_ldap_settings
 
     @username = 'bob'
     @password = 'wrongldappw'
     bob.update!(auth: 'ldap')
-    LdapConnection.any_instance.expects(:authenticate!).with('bob', 'wrongldappw').returns(false)
 
-    assert_equal false, authenticate
+    expect_any_instance_of(LdapConnection).to receive(:authenticate!)
+      .with('bob', 'wrongldappw')
+      .and_return(false)
+    expect(authenticate).to be false
   end
 
   it 'increasing of failed login attempts and it\'s defined delays' do

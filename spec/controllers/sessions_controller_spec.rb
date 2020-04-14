@@ -36,7 +36,7 @@ describe SessionsController do
     end
   end
 
-  context 'GET login' do
+  context 'GET new' do
     it 'should redirect to wizard if new setup' do
       User.delete_all
 
@@ -73,7 +73,7 @@ describe SessionsController do
 
   end
 
-  context 'GET logout' do
+  context 'DELETE destroy' do
     it 'logs in and logs out' do
       login_as(:bob)
 
@@ -92,7 +92,7 @@ describe SessionsController do
     end
   end
 
-  context 'POST authenticate' do
+  context 'POST create' do
     it 'cannot login with wrong password' do
       post :create, params: { password: 'wrong_password', username: 'bob' }
 

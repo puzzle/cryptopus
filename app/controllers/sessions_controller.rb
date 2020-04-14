@@ -36,7 +36,7 @@ class SessionsController < ApplicationController
     jumpto = params[:jumpto]
     reset_session
     session[:jumpto] = jumpto
-    flash[:notice] = flash_notice
+    flash[:notice] = flash_notice || params[:message]
 
     redirect_to new_sessions_path
   end
