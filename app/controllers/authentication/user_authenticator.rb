@@ -22,7 +22,7 @@ class Authentication::UserAuthenticator
     authenticated = user_auth!
 
     unless authenticated
-      add_error('flashes.logins.wrong_password')
+      add_error('flashes.sessions.wrong_password')
     end
 
     brute_force_detector.update(authenticated)
@@ -52,7 +52,7 @@ class Authentication::UserAuthenticator
       return true
     end
 
-    add_error('flashes.logins.wrong_password')
+    add_error('flashes.sessions.wrong_password')
     false
   end
 
@@ -69,7 +69,7 @@ class Authentication::UserAuthenticator
       return false
     end
 
-    add_error('flashes.logins.locked')
+    add_error('flashes.sessions.locked')
     true
   end
 

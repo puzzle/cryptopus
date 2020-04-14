@@ -306,7 +306,7 @@ fr:
       uploaded_size_to_high: Fichier est trop volumineux pour tèlècharger. (max. 10MB)
       uploaded_filename_is_empty: Le fichier n'a pas été nommé
       uploaded_file_inexistent: Fichier est inexistant
-    logins:
+    sessions:
       welcome: Bienvenue à Cryptopus, vous devez d'abord créer un nouveau compte. S'il vous plaît entrez un nouveau mot de passe.
       auth_failed: L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe.
       only_local: Only local users are allowed to change their password.
