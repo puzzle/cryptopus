@@ -8,9 +8,9 @@
 
 class ApplicationController < ActionController::Base
   before_action :set_sentry_request_context
-  before_action :validate_user, except: [:new, :create, :destroy, :wizard]
+  before_action :validate_user, except: :wizard
   before_action :message_if_fallback
-  before_action :redirect_if_no_private_key, except: :destroy
+  before_action :redirect_if_no_private_key
   before_action :prepare_menu
   before_action :set_locale
 

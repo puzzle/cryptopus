@@ -163,9 +163,12 @@ describe LegacyRoutes::RedirectUrl do
   end
 
   # /en/login/login -> /
-  it 'redirects to admin settings url without locale' do
-    login_as('bob')
+  it 'redirects to to root path for old login path' do
     get '/en/login/login'
+
+    assert_redirected_to new_sessions_path
+
+    login_as('bob')
 
     assert_redirected_to root_path
   end

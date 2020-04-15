@@ -5,7 +5,7 @@
 
 - if session[:user_id]
   %li#option.logout
-    = link_to(t(:logout), sessions_path, method: :delete)
+    = link_to(t(:logout), sessions_path, method: :delete) do
       %svg.icon-sign-out.sm
         %use{"xlink:href" => "#icon-sign-out"}
       = t(:logout)
