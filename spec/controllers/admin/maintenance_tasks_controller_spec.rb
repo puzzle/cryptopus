@@ -43,7 +43,7 @@ describe Admin::MaintenanceTasksController do
         expect(response).to redirect_to teams_path
       end
 
-      it 'executes task' do
+      it 'executes task as admin' do
         enable_ldap
         mock_ldap_settings
         expect_any_instance_of(LdapConnection).to receive(:test_connection).and_return(true)
@@ -59,7 +59,32 @@ describe Admin::MaintenanceTasksController do
         expect(flash[:notice]).to match(/successfully/)
       end
 
-      it 'displays error if task execution fails' do
+      it 'executes task as conf_admin' do
+        enable_ldap
+        mock_ldap_settings
+        expect_any_instance_of(LdapConnection).to receive(:test_connection).and_return(true)
+
+        login_as(:tux)
+
+        expect do
+          post :execute, params: { id: 3 }
+          expect(response).to render_template 'admin/maintenance_tasks' \
+                                              '/removed_ldap_users/result.html.haml'
+        end.to change { Log.count }.by(1)
+
+        expect(flash[:notice]).to match(/successfully/)
+      end
+
+      it 'cannot to execute another maintenance task than task 3 as conf_admin ' do
+        enable_ldap
+        mock_ldap_settings
+
+        login_as(:tux)
+
+        expect { post :execute, params: { id: 2 } }.to raise_error(ActionController::RoutingError)
+      end
+
+      it 'displays error if task execution as admin fails' do
         enable_ldap
 
         login_as(:admin)
@@ -72,7 +97,20 @@ describe Admin::MaintenanceTasksController do
         expect(flash[:error]).to match(/Task failed/)
       end
 
-      it 'returns 404 if invalid maintenance task id' do
+      it 'displays error if task execution as conf_admin fails' do
+        enable_ldap
+
+        login_as(:tux)
+
+        expect do
+          post :execute, params: { id: 3 }
+          expect(response).to redirect_to admin_maintenance_tasks_path
+        end.to change { Log.count }.by(1)
+
+        expect(flash[:error]).to match(/Task failed/)
+      end
+
+      it 'returns 404 if invalid maintenance task id selected by admin' do
         login_as(:admin)
 
         expect do
@@ -80,10 +118,34 @@ describe Admin::MaintenanceTasksController do
         end.to raise_error(ActionController::RoutingError)
       end
 
-      it 'executes task and renders result page' do
+      it 'returns 404 if invalid maintenance task id selected by conf_admin' do
+        login_as(:tux)
+
+        expect do
+          post :execute, params: { id: 42, task_params: {} }
+        end.to raise_error(ActionController::RoutingError)
+      end
+
+      it 'executes task and renders result page as admin' do
         enable_ldap
         mock_ldap_settings
         login_as(:admin)
+
+        expect_any_instance_of(LdapConnection).to receive(:test_connection).and_return(true)
+
+        expect do
+          post :execute, params: { id: 3 }
+          expect(response).to render_template 'admin/maintenance_tasks' \
+                                              '/removed_ldap_users/result.html.haml'
+        end.to change { Log.count }.by(1)
+
+        expect(flash[:notice]).to match(/successfully/)
+      end
+
+      it 'executes task and renders result page as conf_admin' do
+        enable_ldap
+        mock_ldap_settings
+        login_as(:tux)
 
         expect_any_instance_of(LdapConnection).to receive(:test_connection).and_return(true)
 
