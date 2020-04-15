@@ -21,6 +21,39 @@ describe Admin::RecryptrequestsController do
       expect(flash[:error]).to match(/test/)
     end
 
+    it 'can reset password as conf_admin' do
+      login_as(:tux)
+      bob = users(:bob)
+
+      post :resetpassword, params: { new_password: 'test', user_id: bob.id }
+
+      bob.reload
+
+      assert_equal bob.authenticate_db('test'), true
+    end
+
+    it 'cannot reset password as bob' do
+      login_as(:bob)
+      bob = users(:bob)
+
+      post :resetpassword, params: { new_password: 'test', user_id: bob.id }
+
+      bob.reload
+
+      assert_equal bob.authenticate_db('test'), false
+    end
+
+    it 'can reset password as admin' do
+      login_as(:admin)
+      bob = users(:bob)
+
+      post :resetpassword, params: { new_password: 'test', user_id: bob.id }
+
+      bob.reload
+
+      assert_equal bob.authenticate_db('test'), true
+    end
+
     it 'resets bobs password and removes bobs private teams as root' do
       login_as(:admin)
       bob = users(:bob)
