@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe SessionsController do
+describe SessionController do
   include ControllerHelpers
 
   context 'GET show_update_password' do
@@ -79,7 +79,7 @@ describe SessionsController do
 
       delete :destroy
 
-      expect(response).to redirect_to new_sessions_path
+      expect(response).to redirect_to session_new_path
     end
 
     it 'logs in, logs out and save jumpto if set' do
@@ -87,7 +87,7 @@ describe SessionsController do
 
       delete :destroy, params: { jumpto: admin_users_path }
 
-      expect(response).to redirect_to new_sessions_path
+      expect(response).to redirect_to session_new_path
       expect(admin_users_path).to eq session[:jumpto]
     end
   end

@@ -20,7 +20,7 @@ module FlashMessages
   def redirect_to_wizard_if_new_setup
     if User.all.count <= 0
       redirect_to wizard_path
-      flash[:notice] = t('flashes.sessions.welcome')
+      flash[:notice] = t('flashes.session.welcome')
     end
   end
 

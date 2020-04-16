@@ -159,7 +159,7 @@ en:
       upload: File to upload
       upload_file: Upload file
 
-  sessions:
+  session:
     new:
       title: Log in
       description: Please enter your username and password to access cryptopus
@@ -172,8 +172,6 @@ en:
     newuser:
       title: Welcome to Cryptopus
       description: We created a new keypair for you. Enjoy Cryptopus.
-    noaccess:
-      title: Access denied
     show_update_password:
       title: Change password
       old: Old password
@@ -313,7 +311,7 @@ en:
       uploaded_size_to_high: The file is too big to upload. (max. 10MB)
       uploaded_filename_is_empty: The file has to be named
       uploaded_file_inexistent: File is inexistent
-    sessions:
+    session:
       weak_password: To improve security you should change your login password to a more complex one.
       welcome: Welcome to Cryptopus, first you have to create a new account. Please enter a new password
       auth_failed: Authentication failed! Enter a correct username and password.

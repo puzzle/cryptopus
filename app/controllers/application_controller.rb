@@ -59,17 +59,27 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def logout
+    flash_notice = params[:autologout] ? t('session.destroy.expired') : flash[:notice]
+    jumpto = params[:jumpto]
+    reset_session
+    session[:jumpto] = jumpto
+    flash[:notice] = flash_notice
+
+    redirect_to session_new_path
+  end
+
   def handle_pending_recrypt_request
     if pending_recrypt_request?
       pending_recrypt_request_message
-      redirect_to sessions_path, action: 'destroy'
+      logout
     end
   end
 
   def check_if_user_logged_in
     if current_user.nil?
       session[:jumpto] = request.parameters
-      redirect_to new_sessions_path
+      redirect_to session_new_path
     end
   end
 

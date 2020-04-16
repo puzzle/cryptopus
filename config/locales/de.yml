@@ -157,7 +157,7 @@ de:
       upload: Datei für das Hochladen
       upload_file: Datei hochladen
 
-  sessions:
+  session:
     new:
       title: Anmelden
       description: Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein um Cryptopus zu verwenden.
@@ -170,8 +170,6 @@ de:
     newuser:
       title: Willkommen bei Cryptopus
       description: Wir haben für Sie ein neues Schlüsselpaar erstellt. Viel Vergnügen mit Cryptopus.
-    noaccess:
-      title: Zugriff verweigert
     show_update_password:
       title: Passwort wechseln
       old: Altes Passwort
@@ -310,7 +308,7 @@ de:
       uploaded_size_to_high: Die Datei ist zu gross zum hochladen. (Max. 10MB)
       uploaded_filename_is_empty: Die Datei muss benannt sein
       uploaded_file_inexistent: Datei ist inexistent
-    sessions:
+    session:
       welcome: Willkommen bei Cryptopus. Zuerst müssen Sie einen Account erstellen. Bitte wählen Sie ein sicheres Passwort.
       auth_failed: Ungültiger Benutzername / Passwort.
       only_local: Nur lokale Benutzer dürfen ihr Passwort ändern.

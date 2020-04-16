@@ -154,7 +154,7 @@ fr:
       upload: Fichier de téléchargement
       upload_file: Télécharge le fichier
 
-  sessions:
+  session:
     new:
       title: Identifiez-vous
       description: S'il vous plaît entrer un nom d'utilisateur valide et mot de passe.
@@ -163,11 +163,10 @@ fr:
       title: Déconnexion
       message: Au revoir
       hint: S'il vous plaît vider le cache de votre navigateur.
+      expired: Tu as été automatiquement déconnecté
     newuser:
       title: Bienvenue à Cryptopus
       description: Nous avons créé une nouvelle paire de clés pour vous. Amusez-vous avec Cryptopus.
-    noaccess:
-      title: Accès refusé
     show_update_password:
       title: Changer le mot de passe
       old: Ancien mot de passe
@@ -306,7 +305,7 @@ fr:
       uploaded_size_to_high: Fichier est trop volumineux pour tèlècharger. (max. 10MB)
       uploaded_filename_is_empty: Le fichier n'a pas été nommé
       uploaded_file_inexistent: Fichier est inexistant
-    sessions:
+    session:
       welcome: Bienvenue à Cryptopus, vous devez d'abord créer un nouveau compte. S'il vous plaît entrez un nouveau mot de passe.
       auth_failed: L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe.
       only_local: Only local users are allowed to change their password.
