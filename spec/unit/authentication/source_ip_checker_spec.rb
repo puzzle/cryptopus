@@ -3,8 +3,6 @@
 require 'rails_helper'
 
 describe Authentication::SourceIpChecker do
-  include ControllerHelpers
-
   it 'allows if previously authorized' do
     checker = Authentication::SourceIpChecker.new('132.120.23.21')
 

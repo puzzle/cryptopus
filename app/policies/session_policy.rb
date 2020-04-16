@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-class LoginsPolicy < ApplicationPolicy
+class SessionPolicy < ApplicationPolicy
 
-  def login?
+  def new?
     user.nil?
   end
 
-  def authenticate?
+  def create?
     user.nil?
   end
 
-  def logout?
+  def destroy?
     user.present?
   end
 

@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class LoginsController < ApplicationController
+class SessionController < ApplicationController
 
   before_action :authorize_action
 
@@ -13,13 +13,15 @@ class LoginsController < ApplicationController
   # in this case.
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
-  skip_before_action :verify_authenticity_token, only: :authenticate
-  before_action :skip_authorization, only: [:authenticate, :login, :logout]
+  skip_before_action :verify_authenticity_token, only: :create
+  skip_before_action :validate_user, only: [:new, :create, :destroy]
+  skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
+  before_action :skip_authorization, only: [:create, :new, :destroy]
 
-  def authenticate
+  def create
     unless authenticator.auth!
-      flash[:error] = t('flashes.logins.auth_failed')
-      return redirect_to login_login_path
+      flash[:error] = t('flashes.session.auth_failed')
+      return redirect_to session_new_path
     end
 
     unless create_session(authenticator.user, params[:password])
@@ -31,14 +33,8 @@ class LoginsController < ApplicationController
     redirect_after_sucessful_login
   end
 
-  def logout
-    flash_notice = flash[:notice]
-    jumpto = params[:jumpto]
-    reset_session
-    session[:jumpto] = jumpto
-    flash[:notice] = flash_notice
-
-    redirect_to login_login_path
+  def destroy
+    logout
   end
 
   def show_update_password
@@ -49,14 +45,14 @@ class LoginsController < ApplicationController
     if password_params_valid?
       current_user.update_password(params[:old_password],
                                    params[:new_password1])
-      flash[:notice] = t('flashes.logins.new_password_set')
+      flash[:notice] = t('flashes.session.new_password_set')
       redirect_to teams_path
     else
       render :show_update_password
     end
   end
 
-  # POST /login/changelocale
+  # POST /session/locale
   def changelocale
     locale = params.permit(:new_locale)[:new_locale]
     if locale.present?
@@ -77,7 +73,7 @@ class LoginsController < ApplicationController
     strength = PasswordStrength.test(params[:username], params[:password])
 
     if strength.weak? || !strength.valid?
-      flash[:alert] = t('flashes.logins.weak_password')
+      flash[:alert] = t('flashes.session.weak_password')
     end
   end
 
@@ -116,12 +112,12 @@ class LoginsController < ApplicationController
 
   def password_params_valid?
     unless current_user.authenticate(params[:old_password])
-      flash[:error] = t('flashes.logins.wrong_password')
+      flash[:error] = t('flashes.session.wrong_password')
       return false
     end
 
     if params[:new_password1] != params[:new_password2]
-      flash[:error] = t('flashes.logins.new_passwords.not_equal')
+      flash[:error] = t('flashes.session.new_passwords.not_equal')
       return false
     end
     true
@@ -134,6 +130,6 @@ class LoginsController < ApplicationController
   end
 
   def authorize_action
-    authorize :logins
+    authorize :session
   end
 end
