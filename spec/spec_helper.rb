@@ -17,11 +17,18 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require 'simplecov'
+require 'capybara/rspec'
+require 'webdrivers'
+
 SimpleCov.start 'rails' do
   add_filter 'lib/ldap_connection.rb'
   add_filter 'app/helpers'
   coverage_dir 'test/coverage'
 end
+
+Capybara.default_driver = ENV['HEAD'] ? :selenium : :selenium_headless
+Capybara.javascript_driver = ENV['HEAD'] ? :selenium : :selenium_headless
+
 RSpec.configure do |config|
 
   # Run before each testcase

@@ -1,32 +1,31 @@
 # frozen_string_literal: true
-#
-# #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-# #  Cryptopus and licensed under the Affero General Public License version 3 or later.
-# #  See the COPYING file at the top-level directory or at
-# #  https://github.com/puzzle/cryptopus.
-#
-# require 'rails_helper'
-# describe AccountMove do
-#   include Feature do::FeatureHelper
-#   include Capybara::DSL
-#
-#   it 'moves account to another team' do
-#     login_as_user(:bob)
-#     team1 = teams(:team1)
-#     group1 = groups(:group1)
-#     account1 = accounts(:account1)
-#     team2 = teams(:team2)
-#     group2 = groups(:group2)
-#
-#     visit("/teams/#{team1.id}/groups/#{group1.id}/accounts/#{account1.id}")
-#     page.must_have_selector('#move_account_button')
-#     all('#move_account_button')[0].click
-#     page.must_have_selector('.edit_account')
-#     find('.move_list_team').find(:xpath, 'option[2]').select_option
-#     find("#movescreen_buttons").find("input").click
-#     using_wait_time 10 do
-#       visit("/teams/#{team2.id}/groups/#{group2.id}/accounts/#{account1.id}")
-#     end
-#
-#   end
-# end
+
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
+#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+#  See the COPYING file at the top-level directory or at
+#  https://github.com/puzzle/cryptopus.
+
+require 'rails_helper'
+
+describe 'AccountMove', type: :feature, js: true do
+  include FeatureTest::FeatureHelper
+  include Capybara::DSL
+  Capybara.default_driver = :selenium_headless # :selenium_chrome and :selenium_chrome_headless are also registered
+
+  it 'moves account to another team' do
+    login_as_user(:bob)
+    account1 = accounts(:account1)
+    visit("/accounts/#{account1.id}")
+
+    expect(page).to have_link('Move')
+
+    click_link 'Move'
+
+    expect(page).to have_selector('.edit_account')
+
+    find('.move_list_team').find(:xpath, 'option[2]').select_option
+    find('#movescreen_buttons').find('input').click
+
+    expect(page).to have_content('Account was successfully moved')
+  end
+end
