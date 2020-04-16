@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SessionsPolicy < ApplicationPolicy
+class SessionPolicy < ApplicationPolicy
 
   def new?
     user.nil?

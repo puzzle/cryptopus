@@ -46,6 +46,6 @@ class WizardController < ApplicationController
   end
 
   def redirect_if_already_set_up
-    redirect_to new_sessions_path if User::Human.all.count.positive?
+    redirect_to session_new_path if User::Human.all.count.positive?
   end
 end

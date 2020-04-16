@@ -161,8 +161,6 @@ ru:
     newuser:
       title: "Добро пожаловать в Cryptopus"
       description: "Мы создали новый секретный ключ для вас. Приятной работы с Cryptopus"
-    noaccess:
-      title: "В доступе отказано"
     show_update_password:
       title: "Изменение пароля"
       old: "Старый пароль"
@@ -248,7 +246,7 @@ ru:
       uploaded_size_to_high: "Файл слишком большой (макс. 10 МБ)"
       uploaded_filename_is_empty: "Файл должен иметь имя"
       uploaded_file_inexistent: "Файл не существует"
-    sessions:
+    session:
       weak_password: "Для усиления безопасности смените пароль на более сложный."
       welcome: "Добро пожаловать в Cryptopus! Для начала вам нужно создать аккаунт. Пожалуйста, введите новый пароль."
       auth_failed: "Ошибка аутентификации! Введите правильное имя пользователя и пароль."

@@ -4,6 +4,6 @@
 -#  https://github.com/puzzle/cryptopus.
 
 - user_locale = current_user.preferred_locale
-= form_tag(changelocale_sessions_path) do
+= form_tag(session_locale_path) do
   %select{name: "new_locale", onchange: "this.form.submit()"}
     = options_for_select(I18n.available_locales.map{ |locale| [I18n.name_for_locale(locale), locale] }, user_locale)

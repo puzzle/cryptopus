@@ -47,12 +47,12 @@ module IntegrationHelpers
 
   module DefaultHelper
     def login_as(username, password = 'password')
-      post sessions_path, params: { username: username, password: password }
+      post session_path, params: { username: username, password: password }
       follow_redirect!
     end
 
     def logout
-      delete sessions_path
+      delete session_path
     end
 
     def can_access_account(account_path, username, user_password = 'password',

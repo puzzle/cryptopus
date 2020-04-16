@@ -14,14 +14,14 @@ class app.AutoLogoff
     setInterval(( -> logoff_timer()), 1000)
 
   logoff_timer = () ->
-    if document.URL.indexOf('/sessions/new') > -1
+    if document.URL.indexOf('/session/new') > -1
       return
     if remaining_seconds <= 1
       $.ajax({
         method: "DELETE",
-        url: '/sessions',
+        url: '/session',
         data: {
-          message: I18n.t('sessions.destroy.expired'),
+          autologout: true,
           jumpto: window.location.pathname
         }
       });

@@ -28,19 +28,19 @@ describe WizardController do
     context 'GET index' do
       it 'cannot access wizard if already set up' do
         post :apply, params: { password: 'password', password_repeat: 'password' }
-        expect(response).to redirect_to(new_sessions_path)
+        expect(response).to redirect_to(session_new_path)
 
         get :index
-        expect(response).to redirect_to(new_sessions_path)
+        expect(response).to redirect_to(session_new_path)
       end
 
       it 'cannot access wizard as logged in user if already set up' do
         login_as('bob')
         post :apply, params: { password: 'password', password_repeat: 'password' }
-        expect(response).to redirect_to(new_sessions_path)
+        expect(response).to redirect_to(session_new_path)
 
         get :index
-        expect(response).to redirect_to(new_sessions_path)
+        expect(response).to redirect_to(session_new_path)
       end
     end
   end
