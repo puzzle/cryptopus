@@ -14,9 +14,9 @@
     = csrf_meta_tags
     %title Cryptopus
     = stylesheet_link_tag :application, media: "all"
-    = javascript_include_tag :application
-    = javascript_pack_tag 'stylesheets'
-    = javascript_pack_tag 'application'
+    = javascript_include_tag :application, nonce: true
+    = javascript_pack_tag 'stylesheets', nonce: true
+    = javascript_pack_tag 'application', 'data-turbolinks-track': :reload, nonce: true
   %body{"data-locale" => I18n.locale}
     = render 'layouts/icons'
     .container.main{role: "main"}
