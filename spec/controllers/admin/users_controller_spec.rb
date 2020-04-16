@@ -27,10 +27,31 @@ describe Admin::UsersController do
       expect(users.any? { |t| t.username == 'root' }).to eq true
     end
 
+    it 'receives userlist as root' do
+      login_as(:root)
+      get :index
+
+      users = assigns(:users)
+
+      expect(users.size).to eq 5
+      expect(users.any? { |t| t.username == 'root' }).to eq true
+    end
+
     it 'does not list locked users' do
       users(:bob).update!(locked: true)
 
       login_as(:admin)
+      get :index
+
+      users = assigns(:users)
+
+      expect(users.size).to eq 4
+    end
+
+    it 'does not list locked users as root' do
+      users(:bob).update!(locked: true)
+
+      login_as(:root)
       get :index
 
       users = assigns(:users)

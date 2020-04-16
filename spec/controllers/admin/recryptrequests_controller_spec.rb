@@ -55,7 +55,35 @@ describe Admin::RecryptrequestsController do
     end
 
     it 'resets bobs password and removes bobs private teams as root' do
+      login_as(:root)
+      bob = users(:bob)
+      bob_only_team_id = teams(:team2).id
+
+      post :resetpassword, params: { new_password: 'test', user_id: bob.id }
+
+      bob.reload
+
+      expect(Team.exists?(bob_only_team_id)).to eq false
+      expect(bob.authenticate('test')).to eq true
+      expect(response).to redirect_to 'where_i_came_from'
+    end
+
+    it 'resets bobs password and removes bobs private teams as conf_admin' do
       login_as(:admin)
+      bob = users(:bob)
+      bob_only_team_id = teams(:team2).id
+
+      post :resetpassword, params: { new_password: 'test', user_id: bob.id }
+
+      bob.reload
+
+      expect(Team.exists?(bob_only_team_id)).to eq false
+      expect(bob.authenticate('test')).to eq true
+      expect(response).to redirect_to 'where_i_came_from'
+    end
+
+    it 'resets bobs password and removes bobs private teams as admin' do
+      login_as(:tux)
       bob = users(:bob)
       bob_only_team_id = teams(:team2).id
 
