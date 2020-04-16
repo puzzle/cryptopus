@@ -19,7 +19,7 @@ describe Api::Admin::UsersController do
       expect(errors).to include('Access denied')
     end
 
-    it 'cannot delete another user as non admin' do
+    it 'cannot delete another user as user' do
       alice = users(:alice)
       login_as(:bob)
 
@@ -28,6 +28,30 @@ describe Api::Admin::UsersController do
       end.to change { User.count }.by(0)
 
       expect(alice.reload).to be_persisted
+      expect(errors).to include('Access denied')
+      expect(response).to have_http_status(403)
+    end
+
+    it 'can delete another user as conf admin' do
+      alice = users(:alice)
+      login_as(:tux)
+
+      expect do
+        delete :destroy, params: { id: alice.id }
+      end.to change { User.count }.by(-1)
+
+      expect(User.find_by(username: 'alice')).to be_nil
+    end
+
+    it 'cannot delete admin as conf admin' do
+      admin = users(:admin)
+      login_as(:tux)
+
+      expect do
+        delete :destroy, params: { id: admin.id }
+      end.to change { User.count }.by(0)
+
+      expect(admin.reload).to be_persisted
       expect(errors).to include('Access denied')
       expect(response).to have_http_status(403)
     end
