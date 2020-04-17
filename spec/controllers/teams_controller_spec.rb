@@ -75,6 +75,20 @@ describe TeamsController do
     end
   end
 
+  context 'GET show' do
+    it 'gives access to look into non private teams to admin' do
+      login_as(:admin)
+      non_private_team = teams(:team1)
+      private_team = teams(:team2)
+
+      get :show, params: { id: non_private_team.id }
+      assert_equal response.code, '200'
+
+      get :show, params: { id: private_team.id }
+      assert_equal response.code, '200'
+    end
+  end
+
   context 'GET edit' do
     render_views
 
