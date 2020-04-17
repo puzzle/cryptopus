@@ -7,8 +7,8 @@
 
 require 'rails_helper'
 
-describe 'AjaxHookFeature', type: :feature, js: true do
-  include FeatureTest::FeatureHelper
+describe 'AjaxHook', type: :system, js: true do
+  include SystemTest::SystemHelper
 
   it 'show user has role user message' do
     login_as_user('root')

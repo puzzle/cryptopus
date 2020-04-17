@@ -26,10 +26,15 @@ SimpleCov.start 'rails' do
   coverage_dir 'test/coverage'
 end
 
-Capybara.default_driver = ENV['HEAD'] ? :selenium : :selenium_headless
-Capybara.javascript_driver = ENV['HEAD'] ? :selenium : :selenium_headless
-
 RSpec.configure do |config|
+
+  config.before(:each, type: :system) do
+    driven_by ENV['HEAD'] ? :selenium : :selenium_headless
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by ENV['HEAD'] ? :selenium : :selenium_headless
+  end
 
   # Run before each testcase
   config.before(:each) do

@@ -7,8 +7,8 @@
 
 require 'rails_helper'
 
-describe 'QuickSearchFeature', type: :feature, js: true do
-  include FeatureTest::FeatureHelper
+describe 'QuickSearch', type: :system, js: true do
+  include SystemTest::SystemHelper
 
   before(:each) do
     login_as_user(:bob)
@@ -31,7 +31,7 @@ describe 'QuickSearchFeature', type: :feature, js: true do
 
     fill_in 'q', with: 'account1'
     expect(page).to have_selector('.account-entry')
-    all('.account-entry')[0].click
+    first('.account-entry').click
     expect(page).to have_content('account1')
   end
 
@@ -39,7 +39,7 @@ describe 'QuickSearchFeature', type: :feature, js: true do
     visit('/search?q=account1')
 
     expect(page).to have_selector('.account-entry')
-    all('.account-entry')[0].click
+    first('.account-entry').click
     expect(page).to have_content('account1')
   end
 end

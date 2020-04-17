@@ -4,13 +4,8 @@
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
-module FeatureTest
-  module FeatureHelper
-
-    def setup
-      Capybara.default_driver = :webkit
-      Capybara.javascript_driver = :webkit
-    end
+module SystemTest
+  module SystemHelper
 
     def login_as_user(username, password = 'password')
       visit('/session/new')

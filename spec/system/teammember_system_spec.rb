@@ -8,8 +8,8 @@
 require 'capybara'
 require 'rails_helper'
 
-describe 'TeammemberFeature', type: :feature do
-  include FeatureTest::FeatureHelper
+describe 'Teammember', type: :system do
+  include SystemTest::SystemHelper
 
   it 'lists teammembers' do
     login_as_user(:admin)
