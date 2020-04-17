@@ -7,15 +7,14 @@
 
 require 'rails_helper'
 
-describe 'AjaxHook', type: :feature, js: true do
+describe 'AjaxHookFeature', type: :feature, js: true do
   include FeatureTest::FeatureHelper
-  include Capybara::DSL
 
-  it 'show toggle-admin message' do
+  it 'show user has role user message' do
     login_as_user('root')
     visit '/admin/users'
-    all(:button, 'role-dropdown')[0].click
+    all(:button, 'role-dropdown')[4].click
     click_link('User')
-    expect(page).to have_content('admin is now a user')
+    expect(page).to have_content('tux is now a user')
   end
 end

@@ -6,9 +6,9 @@
 #  https://github.com/puzzle/cryptopus.
 
 require 'rails_helper'
+
 describe 'QuickSearchFeature', type: :feature, js: true do
   include FeatureTest::FeatureHelper
-  include Capybara::DSL
 
   before(:each) do
     login_as_user(:bob)

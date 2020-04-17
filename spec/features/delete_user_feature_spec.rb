@@ -6,9 +6,9 @@
 #  https://github.com/puzzle/cryptopus.
 
 require 'rails_helper'
-describe 'UserFeature', type: :feature, js: true  do
+
+describe 'DeleteUserFeature', type: :feature, js: true do
   include FeatureTest::FeatureHelper
-  include Capybara::DSL
 
   it 'lists teams where user is last teammember' do
     login_as_user(:admin)

@@ -7,16 +7,16 @@
 
 require 'rails_helper'
 
-describe 'AccountMove', type: :feature, js: true do
+describe 'MoveAccountFeature', type: :feature, js: true do
   include FeatureTest::FeatureHelper
-  include Capybara::DSL
-  Capybara.default_driver = :selenium_headless # :selenium_chrome and :selenium_chrome_headless are also registered
 
   it 'moves account to another team' do
     login_as_user(:bob)
     account1 = accounts(:account1)
     visit("/accounts/#{account1.id}")
-
+    expect(page).to have_link('Teams')
+    expect(page).to have_link('team1')
+    expect(page).to have_link('group1')
     expect(page).to have_link('Move')
 
     click_link 'Move'
@@ -27,5 +27,9 @@ describe 'AccountMove', type: :feature, js: true do
     find('#movescreen_buttons').find('input').click
 
     expect(page).to have_content('Account was successfully moved')
+    visit("/accounts/#{account1.id}")
+    expect(page).to have_link('Teams')
+    expect(page).to have_link('team2')
+    expect(page).to have_link('group2')
   end
 end
