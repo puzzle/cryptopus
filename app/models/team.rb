@@ -54,7 +54,7 @@ class Team < ApplicationRecord
                         where('users.username = "root" OR teammembers.team_id = ?', id).
                         distinct.
                         pluck(:id)
-    User.where('id NOT IN(?)', excluded_user_ids)
+    User::Human.where('id NOT IN(?)', excluded_user_ids)
   end
 
   def last_teammember?(user_id)
