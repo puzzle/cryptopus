@@ -33,6 +33,12 @@ describe TeamsController do
       expect(response.body).to match(/<a .* href="\/teams\/#{teams(:team1).id}"/)
     end
 
+    it 'shows no delete button for teams to conf admin' do
+      login_as(:tux)
+      get :index
+      expect(response.body).to_not match(/<a .* href="\/teams\/#{teams(:team1).id}"/)
+    end
+
     it 'should redirect if pending recryptrequest' do
       Recryptrequest.create(user_id: users(:bob).id).save
 
@@ -44,19 +50,47 @@ describe TeamsController do
       expect(flash[:notice]).to match(/recryption of your team passwords/)
     end
 
+    it 'should not redirect if pending recryptrequest as admin' do
+      Recryptrequest.create(user_id: users(:bob).id).save
+
+      login_as(:admin)
+
+      get :index
+
+      assert_equal response.code, '200'
+    end
+
     it 'redirects to login path if user has pending recryptrequests' do
       Recryptrequest.create(user_id: users(:bob).id)
       login_as(:bob)
       get :index
       expect(flash[:notice]).to match(/Wait for the recryption/)
     end
+
+    it 'redirects to login path if user has pending recryptrequests' do
+      Recryptrequest.create(user_id: users(:bob).id)
+      login_as(:admin)
+      get :index
+      assert_equal response.code, '200'
+    end
   end
 
   context 'GET edit' do
     render_views
 
-    it 'shows breadcrump path 2 if user is on edit of team' do
+    it 'shows breadcrumb path 2 if user is on edit of team' do
       login_as(:bob)
+
+      team1 = teams(:team1)
+
+      get :edit, params: { id: team1 }
+
+      expect(response.body).to match(/Teams/)
+      expect(response.body).to match(/team1/)
+    end
+
+    it 'shows breadcrumb path 2 if admin is on edit of team' do
+      login_as(:admin)
 
       team1 = teams(:team1)
 
@@ -86,6 +120,44 @@ describe TeamsController do
       expect(team).to_not be_private
       expect(team.description).to eq 'foo foo'
     end
+
+    it 'creates new team as admin' do
+      login_as(:admin)
+
+      team_params = { name: 'foo', private: false, description: 'foo foo' }
+
+      expect do
+        post :create, params: { team: team_params }
+      end.to change { Team.count }.by(1)
+
+      expect(response).to redirect_to teams_path
+
+      team = Team.find_by(name: 'foo')
+      expect(team.teammembers.count).to eq 2
+      user_ids = team.teammembers.pluck(:user_id)
+      expect(user_ids).to include(users(:admin).id, users(:root).id)
+      expect(team).to_not be_private
+      expect(team.description).to eq 'foo foo'
+    end
+
+    it 'creates new team as conf_admin' do
+      login_as(:tux)
+
+      team_params = { name: 'foo', private: false, description: 'foo foo' }
+
+      expect do
+        post :create, params: { team: team_params }
+      end.to change { Team.count }.by(1)
+
+      expect(response).to redirect_to teams_path
+
+      team = Team.find_by(name: 'foo')
+      expect(team.teammembers.count).to eq 3
+      user_ids = team.teammembers.pluck(:user_id)
+      expect(user_ids).to include(users(:root).id, users(:admin).id)
+      expect(team).to_not be_private
+      expect(team.description).to eq 'foo foo'
+    end
   end
 
   context 'PUT update' do
@@ -104,8 +176,70 @@ describe TeamsController do
       expect(team).to_not be_private
     end
 
+    it 'cannot enable private on existing team as admin' do
+      login_as(:admin)
+      team = teams(:team1)
+
+      expect(team).to_not be_private
+
+      update_params = { private: true }
+
+      put :update, params: { id: team, team: update_params }
+
+      team.reload
+
+      expect(team).to_not be_private
+    end
+
+    it 'cannot enable private on existing team as conf_admin' do
+      login_as(:tux)
+      team = teams(:team1)
+
+      expect(team).to_not be_private
+
+      update_params = { private: true }
+
+      put :update, params: { id: team, team: update_params }
+
+      team.reload
+
+      expect(team).to_not be_private
+    end
+
     it 'cannot disable private on existing team' do
       login_as(:alice)
+
+      team_params = { name: 'foo', private: true }
+      team = Team.create(users(:alice), team_params)
+
+      update_params = { private: false }
+
+      put :update, params: { id: team, team: update_params }
+
+      team.reload
+
+
+      expect(team).to be_private
+    end
+
+    it 'cannot disable private on existing team as admin' do
+      login_as(:admin)
+
+      team_params = { name: 'foo', private: true }
+      team = Team.create(users(:alice), team_params)
+
+      update_params = { private: false }
+
+      put :update, params: { id: team, team: update_params }
+
+      team.reload
+
+
+      expect(team).to be_private
+    end
+
+    it 'cannot disable private on existing team as conf_admin' do
+      login_as(:tux)
 
       team_params = { name: 'foo', private: true }
       team = Team.create(users(:alice), team_params)
@@ -135,6 +269,17 @@ describe TeamsController do
 
     it 'cannot delete team as normal teammember' do
       login_as(:bob)
+
+      expect do
+        delete :destroy, params: { id: teams(:team1).id }
+      end.to change { Team.count }.by(0)
+
+      expect(response).to redirect_to teams_path
+      expect(flash[:error]).to match(/Only admin/)
+    end
+
+    it 'cannot delete team as conf_admin' do
+      login_as(:tux)
 
       expect do
         delete :destroy, params: { id: teams(:team1).id }
