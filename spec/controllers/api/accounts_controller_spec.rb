@@ -295,7 +295,8 @@ describe Api::AccountsController do
       expect(response).to have_http_status 403
     end
 
-    it 'cannot authenticate and does not return decrypted account if recrypt requests pending as admin' do
+    it 'cannot authenticate admin and does not return decrypted account if recrypt \
+    requests pending' do
       admin.recryptrequests.create!
 
       login_as(:admin)
@@ -380,6 +381,23 @@ describe Api::AccountsController do
         expect(account['cleartext_password']).to eq 'password'
       end
 
+      it 'authenticates and doesnt show account details even \
+       if recryptrequests of human admin pending' do
+        admins_api_user.update!(valid_until: Time.zone.now + 5.minutes)
+
+        admin.recryptrequests.create!
+
+        request.headers['Authorization-User'] = admins_api_user.username
+        request.headers['Authorization-Password'] = token
+
+        teams(:team1).add_user(admins_api_user, plaintext_team_password)
+
+        account = accounts(:account1)
+        get :show, params: { id: account }, xhr: true
+
+        expect(json['data']).to eq nil
+      end
+
       it 'does not show account details if valid api user not teammember' do
         api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
@@ -410,8 +428,38 @@ describe Api::AccountsController do
         expect(account['cleartext_password']).to eq 'password'
       end
 
+      it 'shows account details as admin and does not use user authenticator if active session' do
+        login_as(:admin)
+
+        set_admin_auth_headers
+
+        account = accounts(:account1)
+        get :show, params: { id: account }, xhr: true
+
+        expect(Authentication::UserAuthenticator).to receive(:new).never
+
+        account = json['data']['account']
+
+        expect(account['accountname']).to eq 'account1'
+        expect(account['cleartext_username']).to eq 'test'
+        expect(account['cleartext_password']).to eq 'password'
+      end
+
       it 'shows account as human user details if headers valid' do
         set_auth_headers
+
+        account = accounts(:account1)
+        get :show, params: { id: account }, xhr: true
+
+        account = json['data']['account']
+
+        expect(account['accountname']).to eq 'account1'
+        expect(account['cleartext_username']).to eq 'test'
+        expect(account['cleartext_password']).to eq 'password'
+      end
+
+      it 'shows account as human admin details if headers valid' do
+        set_admin_auth_headers
 
         account = accounts(:account1)
         get :show, params: { id: account }, xhr: true
@@ -428,6 +476,39 @@ describe Api::AccountsController do
   context 'PATCH update' do
     it 'updates account with valid params structure' do
       set_auth_headers
+
+      account = accounts(:account1)
+
+      account_params = {
+        id: account.id,
+        account: {
+          accountname: 'Bob Meyer',
+          tag: 'taggy',
+          cleartext_username: 'globi',
+          cleartext_password: 'petzi'
+        }
+      }
+      patch :update, params: account_params, xhr: true
+
+      account.reload
+
+      account.decrypt(plaintext_team_password)
+      expect(account.accountname).to eq 'Bob Meyer'
+      expect(account.tag).to eq 'taggy'
+      expect(account.cleartext_username).to eq 'globi'
+      expect(account.cleartext_password).to eq 'petzi'
+
+      expect(response).to have_http_status(200)
+
+      account = json['data']['account']
+
+      expect(account['accountname']).to eq 'Bob Meyer'
+      expect(account['cleartext_username']).to eq 'globi'
+      expect(account['cleartext_password']).to eq 'petzi'
+    end
+
+    it 'updates account with valid params structure as admin' do
+      set_admin_auth_headers
 
       account = accounts(:account1)
 
@@ -483,9 +564,55 @@ describe Api::AccountsController do
       expect(account['cleartext_password']).to be_nil
     end
 
+    it 'cannot set account password and username attributes by params as admin' do
+      set_admin_auth_headers
+
+      account = accounts(:account1)
+
+      account_params = {
+        id: account.id,
+        account: {
+          username: 'invalid username param',
+          password: 'invalid password param'
+        }
+      }
+
+      patch :update, params: account_params, xhr: true
+
+      expect(response).to have_http_status(200)
+
+      account = json['data']['account']
+
+      expect(account['accountname']).to eq 'account1'
+      expect(account['cleartext_username']).to be_nil
+      expect(account['cleartext_password']).to be_nil
+    end
+
     it 'does not update account when user not in team' do
       request.headers['Authorization-User'] = alice.username
       request.headers['Authorization-Password'] = Base64.encode64('password')
+
+      account = accounts(:account2)
+
+      account_params = {
+        id: account.id,
+        account: {
+          accountname: 'Bob Meyer',
+          tag: 'taggy'
+        }
+      }
+
+      patch :update, params: account_params, xhr: true
+
+      account.reload
+
+      expect(account.accountname).to eq 'account2'
+      expect(account.tag).to eq 'tag'
+      expect(response).to have_http_status(403)
+    end
+
+    it 'does not update account when user not in team' do
+      set_admin_auth_headers
 
       account = accounts(:account2)
 
@@ -516,6 +643,11 @@ describe Api::AccountsController do
 
   def set_auth_headers
     request.headers['Authorization-User'] = bob.username
+    request.headers['Authorization-Password'] = Base64.encode64('password')
+  end
+
+  def set_admin_auth_headers
+    request.headers['Authorization-User'] = admin.username
     request.headers['Authorization-Password'] = Base64.encode64('password')
   end
 
