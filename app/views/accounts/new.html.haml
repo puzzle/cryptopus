@@ -4,5 +4,6 @@
 -#  https://github.com/puzzle/cryptopus.
 
 %h1= t '.title'
+- @account.description = h @account.description
 - @submit_button_text = t(:create)
 = render 'form'
