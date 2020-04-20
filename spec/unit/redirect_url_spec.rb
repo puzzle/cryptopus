@@ -39,4 +39,13 @@ describe LegacyRoutes::RedirectUrl do
 
     expect(redirect_url).to eq url_without_teams
   end
+
+  it 'returns the root url for legacy login route' do
+    legacy_login_url = '/login/login'
+    root_url = '/'
+
+    redirect_url = LegacyRoutes::RedirectUrl.new(legacy_login_url).redirect_to
+
+    expect(redirect_url).to eq root_url
+  end
 end

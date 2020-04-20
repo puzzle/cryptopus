@@ -41,13 +41,13 @@ class RecryptrequestsController < ApplicationController
     end
 
     flash[:notice] = t('flashes.recryptrequests.wait')
-    redirect_to logout_login_path
+    logout
   end
 
   def recrypt_private_key
     if current_user.recrypt_private_key!(params[:new_password], params[:old_password])
       flash[:notice] = t('flashes.recryptrequests.recrypted')
-      return redirect_to logout_login_path
+      return logout
     end
 
     flash[:error] = current_user.errors.full_messages.join

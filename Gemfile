@@ -44,12 +44,14 @@ gem 'webpacker'
 
 group :development, :test do
   gem 'bullet'
-  gem 'capybara-webkit'
+  gem 'capybara'
   gem 'launchy'
   gem 'rails-erd'
   gem 'rspec-rails', '~> 4.0'
   gem 'rubocop-checkstyle_formatter'
   gem 'rubocop-rails'
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
 end
 
 group :development do

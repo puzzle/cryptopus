@@ -11,8 +11,7 @@ describe AccountSerializer do
     as_json = JSON.parse(AccountSerializer.new(account).to_json)
 
     attrs = %w[accountname id cleartext_password
-               cleartext_username group
-               group_id team team_id]
+               cleartext_username group]
 
     attrs.each do |attr|
       expect(as_json).to include(attr)

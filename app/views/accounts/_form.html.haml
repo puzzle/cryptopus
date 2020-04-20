@@ -17,14 +17,14 @@
       = f.text_field :cleartext_password, class: 'form-control secret', id: 'account_password'
       = button_tag(t('accounts.edit.random_password'), type: 'button', id: 'random_password', class: 'btn btn-primary btn-sm')
       %div#strength
-        .form-group
-          = f.label :tag
-    = f.text_field :tag, class: 'form-control'
+        / .form-group
+        / = f.label :tag
+    / = f.text_field :tag, class: 'form-control'
   .form-group
     = f.label :description
     %span#unencrypted
       (#{I18n.t('unencrypted_field_caption')})
     = f.text_area :description, class: 'form-control'
     = f.hidden_field :group_id
-    = f.submit @submit_button_text, class: 'btn btn-primary'
-    =link_to "Cancel", team_group_path(team, group), {:class=>"btn btn-primary"}
+  = f.submit @submit_button_text, class: 'btn btn-primary'
+  =link_to "Cancel", team_group_path(team, group), {:class=>"btn btn-primary"}

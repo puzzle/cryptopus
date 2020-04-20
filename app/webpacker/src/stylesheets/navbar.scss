@@ -3,9 +3,8 @@
 //  See the COPYING file at the top-level directory or at
 //  https://github.com/puzzle/cryptopus.
 
-
-.navbar-inverse{
-  width:100vw !important;
+.navbar-inverse {
+  width: 100% !important;
 }
 
 .container {
@@ -29,6 +28,20 @@
   margin: auto;
   width: 70%;
   text-align: left;
+}
+
+.logout-icon {
+  padding-right: 1px;
+  padding-bottom: 2px;
+  width: 19px;
+  display: inline;
+}
+
+.admin-settings-icon {
+  padding-right: 1px;
+  padding-bottom: 2px;
+  width: 24px;
+  display: inline;
 }
 
 /*breadcrumbs*/

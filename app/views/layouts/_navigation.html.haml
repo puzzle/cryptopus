@@ -11,11 +11,14 @@
       .navbar-collapse.collapse
         %ul.nav.navbar-nav
           = nav_link t('teams.title'), teams_path
+          - if current_user.auth_db?
+            = nav_link t(:change_password), session_show_update_password_path
+          = nav_link image_pack_tag("magnifying-glass.svg", class: "search-icon", title: "search (ctrl + f)") + t('search.title'), search_path
+        %ul.nav.navbar-nav.navbar-right.logout
           - if current_user.admin? || current_user.conf_admin?
             %li.dropdown
               <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown", role="button">
-              %span=t('admin.title')
-              %b.caret
+              %span=image_pack_tag("admin_settings.svg", class: "admin-settings-icon")
               </a>
               %ul.dropdown-menu
                 %li= nav_link t(:settings), admin_settings_path
@@ -24,11 +27,7 @@
                 %li= nav_link t(:users), admin_users_path
                 %li= nav_link t('teams.title'), admin_teams_path
                 %li= nav_link t(:maintenance_tasks), admin_maintenance_tasks_path
-          - if current_user.auth_db?
-            = nav_link t(:change_password), show_update_password_login_path
-          = nav_link image_pack_tag("magnifying-glass.svg", class: "search-icon", title: "search (ctrl + f)") + t('search.title'), search_path
-        %ul.nav.navbar-nav.navbar-right.logout
-          = nav_link t(:logout), logout_login_path
+          = nav_link image_pack_tag("sign_out.svg", class: "logout-icon"), session_path, :delete
         %ul.nav.navbar-nav.navbar-right#profile-button
           = nav_link current_user.username, profile_path
   - unless @breadcrumbs.nil?

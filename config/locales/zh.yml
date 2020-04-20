@@ -143,20 +143,18 @@ zh:
       upload: "待上传文件"
       upload_file: "上传文件"
 
-  logins:
-    login:
+  session:
+    new:
       title: "登陆"
       description: "请输入用户名和密码访问cryptopus"
       submit: "登陆"
-    logout:
+    destroy:
       title: "注销"
       message: "再见"
       hint: "请清除浏览器缓存。"
     newuser:
       title: "欢迎使用Cryptopus"
       description: "我们已为你创建了一对新密钥。享受Cryptopus的体验。"
-    noaccess:
-      title: "访问拒绝"
     show_update_password:
       title: "改变密码"
       old: "旧密码"
@@ -242,7 +240,7 @@ zh:
       uploaded_size_to_high: "文件太大不能上船。(最大为：10MB)"
       uploaded_filename_is_empty: "文件必须被命名"
       uploaded_file_inexistent: "文件不存在"
-    logins:
+    session:
       weak_password: "为了提高安全性，请设置一个复杂的密码。"
       welcome: "欢迎使用Cryptopus，请先创建一个新帐户。请输入一个新密码"
       auth_failed: "认证出错！请输入正确用户名和密码。"

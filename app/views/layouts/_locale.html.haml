@@ -4,6 +4,11 @@
 -#  https://github.com/puzzle/cryptopus.
 
 - user_locale = current_user.preferred_locale
-= form_tag(changelocale_login_path) do
-  %select{name: "new_locale", onchange: "this.form.submit()"}
+
+= form_tag(session_locale_path) do
+  %select{name: "new_locale", id: "submit-action"}
     = options_for_select(I18n.available_locales.map{ |locale| [I18n.name_for_locale(locale), locale] }, user_locale)
+
+= javascript_tag nonce: true do
+  const doc = document.getElementById("submit-action");
+  doc.addEventListener ("change", function () {doc.form.submit()});

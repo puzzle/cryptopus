@@ -3,16 +3,14 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 
-= link_to 'Edit', edit_account_path(@account.id), class: 'btn btn-primary pull-right'
+= link_to image_pack_tag("edit.svg"), edit_account_path(@account.id), id: 'edit_account_button', class: 'btn btn-secondary pull-right'
 = link_to 'Move', '#', class: 'btn btn-primary pull-right', id: 'move_account_button'
 %h1= t '.title', account_name: @account.accountname
 %div
+  %p.description-text
+    = t '.last_change', time_ago: (time_ago_in_words @account.updated_at)
   %p
-    %strong= t :description
-    = simple_format @account.description
-  %p
-    %strong= t :tag
-    = simple_format @account.tag
+    = h @account.description
   %br/
   .result-username.select-click
     %input#cleartext_username.form-control{readonly: "readonly", type: "text", value: "#{@account.cleartext_username}"}/
@@ -22,25 +20,12 @@
   %a.password-link{href: "#"}= t '.show_password'
   .result-password.select-click
     %input#cleartext_password.password-hidden.form-control{readonly: "readonly", type: "text", value: "#{@account.cleartext_password}"}/
-    %br/
-    - strength = PasswordStrength.test(@account.cleartext_username, @account.cleartext_password)
-    - if strength.status == :weak || strength.status == :invalid
-      =image_pack_tag 'weak.png'
-      %strong= t 'password_strength.weak'
-    - elsif strength.status == :good
-      =image_pack_tag 'good.png'
-      %strong= t 'password_strength.good'
-    - elsif strength.status == :strong
-      =image_pack_tag 'strong.png'
-      %strong= t 'password_strength.strong'
     %button.btn.clip_button{"data-clipboard-target" => "#cleartext_password", title: "copy password (ctrl + c)", id: "copy_password_button"}
       %svg.icon-clippy
         %use{"xlink:href" => "#icon-clippy"}
   #hidden_password{style: "display:none"}
     = @account.cleartext_password
   %br/
-  %p
-    %strong= t '.last_change', time_ago: (time_ago_in_words @account.updated_at)
   %br/
   %br/
   %h1= t '.attachments'

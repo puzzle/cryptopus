@@ -28,15 +28,12 @@ Rails.application.routes.draw do
     resources :items
   end
 
-  resource :login, except: :show do
-    get 'login'
-    get 'show_update_password'
-    post 'update_password'
-    get 'logout'
-    get 'noaccess'
-    post 'authenticate'
-    post 'changelocale'
-  end
+  get 'session/new', to: 'session#new'
+  post 'session', to: 'session#create'
+  delete 'session', to: 'session#destroy'
+  get 'session/show_update_password', to: 'session#show_update_password'
+  post 'session/update_password', to: 'session#update_password'
+  post 'session/locale', to: 'session#changelocale'
 
   get 'wizard', to: 'wizard#index'
   post 'wizard/apply'

@@ -13,6 +13,6 @@
   - @accounts.each do |account|
     %tr{class: "#{cycle('odd', 'even')}"}
       %td= link_to image_pack_tag( "key.svg" ) + " " + account.accountname, account_path(account)
-      %td= simple_format account.description
+      %td= h account.description
       %td.action_icon= link_to image_pack_tag("edit.svg"), edit_account_path(account)
       %td.action_icon= link_to_destroy account_path(account), account
