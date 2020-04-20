@@ -80,6 +80,18 @@ describe Admin::UsersController do
       expect(bob.failed_login_attempts).to eq 0
     end
 
+    it 'unlocks user as conf-admin' do
+      bob = users(:bob)
+      bob.update!(locked: true)
+      bob.update!(failed_login_attempts: 5)
+
+      login_as(:tux)
+      get :unlock, params: { id: bob.id }
+
+      expect(bob.reload.locked).to eq false
+      expect(bob.failed_login_attempts).to eq 0
+    end
+
     it 'cannot unlock user as normal user' do
       bob = users(:bob)
       bob.update!(locked: true)
@@ -121,7 +133,7 @@ describe Admin::UsersController do
         expect(tux.givenname).to eq 'new_givenname'
       end
 
-      it 'updates admins attributes admin' do
+      it 'updates admins attributes as admin' do
         admin2 = Fabricate(:admin)
 
         login_as(:admin)
@@ -235,6 +247,40 @@ describe Admin::UsersController do
         expect(root.surname).to eq 'test'
         expect(flash[:error]).to match(/Access denied/)
       end
+    end
+
+    describe 'user' do
+
+      it 'cannot update user attributes as users' do
+        alice = users(:alice)
+
+        alice_username = alice.username
+
+        login_as(:bob)
+        post :update, params: { id: alice, user_human: update_params }
+
+        alice.reload
+
+        assert_redirected_to teams_path
+
+        expect(alice.username).to eq alice_username
+      end
+
+      it 'cannot update admins attributes as user' do
+        admin2 = Fabricate(:admin)
+
+        admin_username = admin2.username
+
+        login_as(:bob)
+        post :update, params: { id: admin2, user_human: update_params }
+
+        admin2.reload
+
+        assert_redirected_to teams_path
+
+        expect(admin2.username).to eq admin_username
+      end
+
     end
   end
 

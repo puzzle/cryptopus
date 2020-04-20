@@ -36,6 +36,22 @@ describe Admin::SettingsController do
       expect(flash[:notice]).to match(/successfully updated/)
     end
 
+    it 'cannot update settings attributes as user' do
+
+
+      login_as(:bob)
+
+      post :update_all, params: { setting: { general_country_source_whitelist: %w[CH UK],
+                                             general_ip_whitelist: ['192.168.1.1', '192.168.1.2'] } }
+
+
+      expect(Setting.value(:general, :country_source_whitelist)).to eq(%w[CH])
+      expect(Setting.value(:general, :ip_whitelist)).to eq(['0.0.0.0'])
+
+      assert_redirected_to teams_path
+
+    end
+
     it 'shows error if one setting is invalid' do
       login_as(:admin)
 
