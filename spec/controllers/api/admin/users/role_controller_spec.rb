@@ -10,24 +10,75 @@ describe Api::Admin::Users::RoleController do
   let(:conf_admin) { users(:conf_admin) }
   let(:alice) { users(:alice) }
 
-  context 'PATCH update' do
-    context 'as root' do
-      it 'updates admin to user' do
-        teammembers(:team1_bob).destroy!
+  before(:each) do
+    teammembers(:team1_bob).destroy!
+  end
 
+  context 'PATCH update' do
+    context 'root' do
+      it 'updates admin to user' do
         login_as(:root)
         patch :update, params: { id: admin.id, role: :user }, xhr: true
         admin.reload
 
         expect(admin).to_not be_admin
+        expect(admin).to be_user
         expect(admin.teammembers.find_by(team_id: teams(:team1))).to be_nil
+      end
+
+      it 'updates conf admin to user' do
+        login_as(:root)
+        patch :update, params: { id: conf_admin.id, role: :user }, xhr: true
+        conf_admin.reload
+
+        expect(conf_admin).to_not be_conf_admin
+        expect(conf_admin).to be_user
+        expect(bob.teammembers.find_by(team_id: teams(:team1))).to be_nil
+      end
+
+      it 'updates user to admin' do
+        login_as(:root)
+        patch :update, params: { id: bob.id, role: :admin }, xhr: true
+        bob.reload
+
+        expect(bob).to_not be_user
+        expect(bob).to be_admin
+        expect(teams(:team1).teammember?(bob)).to eq true
+      end
+
+      it 'updates conf admin to admin' do
+        login_as(:root)
+        patch :update, params: { id: conf_admin.id, role: :admin }, xhr: true
+        conf_admin.reload
+
+        expect(conf_admin).to_not be_conf_admin
+        expect(conf_admin).to be_admin
+        expect(bob.teammembers.find_by(team_id: teams(:team1))).to be_nil
+      end
+
+      it 'updates admin to conf admin' do
+        login_as(:root)
+        patch :update, params: { id: admin.id, role: :conf_admin }, xhr: true
+        admin.reload
+
+        expect(admin).to_not be_admin
+        expect(admin).to be_conf_admin
+        expect(bob.teammembers.find_by(team_id: teams(:team1))).to be_nil
+      end
+
+      it 'updates user to conf admin' do
+        login_as(:root)
+        patch :update, params: { id: bob.id, role: :conf_admin }, xhr: true
+        bob.reload
+
+        expect(bob).to_not be_admin
+        expect(bob).to be_conf_admin
+        expect(bob.teammembers.find_by(team_id: teams(:team1))).to be_nil
       end
     end
 
-    context 'as admin' do
+    context 'admin' do
       it 'updates user to conf admin' do
-        teammembers(:team1_bob).destroy!
-
         login_as(:admin)
         patch :update, params: { id: bob, role: :conf_admin }, xhr: true
 
@@ -37,8 +88,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'updates user to admin' do
-        teammembers(:team1_bob).destroy!
-
         login_as(:admin)
         patch :update, params: { id: bob, role: :admin }, xhr: true
 
@@ -48,8 +97,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'updates conf_admin to admin' do
-        teammembers(:team1_bob).destroy!
-
         login_as(:admin)
         patch :update, params: { id: conf_admin, role: :admin }, xhr: true
 
@@ -59,7 +106,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'updates admin to conf_admin' do
-        teammembers(:team1_bob).destroy!
         admin2 = Fabricate(:admin)
 
         login_as(:admin)
@@ -71,7 +117,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'updates admin to user' do
-        teammembers(:team1_bob).destroy!
         admin2 = Fabricate(:admin)
 
         login_as(:admin)
@@ -83,8 +128,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'updates conf_admin to user' do
-        teammembers(:team1_bob).destroy!
-
         login_as(:admin)
         patch :update, params: { id: conf_admin, role: :user }, xhr: true
 
@@ -94,8 +137,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'cannot update himself' do
-        teammembers(:team1_bob).destroy!
-
         login_as(:admin)
         patch :update, params: { id: admin, role: :conf_admin }, xhr: true
 
@@ -105,10 +146,8 @@ describe Api::Admin::Users::RoleController do
       end
     end
 
-    context 'as conf_admin' do
+    context 'conf_admin' do
       it 'updates user to conf admin' do
-        teammembers(:team1_bob).destroy!
-
         login_as(:tux)
         patch :update, params: { id: bob, role: :conf_admin }, xhr: true
 
@@ -118,8 +157,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'cannot update user to admin' do
-        teammembers(:team1_bob).destroy!
-
         login_as(:tux)
         expect do
           patch :update, params: { id: bob, role: :admin }, xhr: true
@@ -127,7 +164,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'updates conf admin to user' do
-        teammembers(:team1_bob).destroy!
         conf_admin2 = Fabricate(:conf_admin)
 
         login_as(:tux)
@@ -139,7 +175,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'cannot update conf admin to admin' do
-        teammembers(:team1_bob).destroy!
         conf_admin2 = Fabricate(:conf_admin)
 
         login_as(:tux)
@@ -149,8 +184,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'cannot update admin to conf admin' do
-        teammembers(:team1_bob).destroy!
-
         login_as(:tux)
         patch :update, params: { id: admin, role: :conf_admin }, xhr: true
 
@@ -160,8 +193,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'cannot update admin to user' do
-        teammembers(:team1_bob).destroy!
-
         login_as(:tux)
         patch :update, params: { id: admin, role: :user }, xhr: true
 
@@ -171,8 +202,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'cannot update himself' do
-        teammembers(:team1_bob).destroy!
-
         login_as(:tux)
         patch :update, params: { id: conf_admin, role: :user }, xhr: true
 
@@ -184,8 +213,6 @@ describe Api::Admin::Users::RoleController do
 
     context 'as user' do
       it 'cannot update admin to conf admin' do
-        teammembers(:team1_bob).destroy!
-
         login_as(:bob)
         patch :update, params: { id: admin, role: :conf_admin }, xhr: true
 
@@ -195,8 +222,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'cannot update admin to user' do
-        teammembers(:team1_bob).destroy!
-
         login_as(:bob)
         patch :update, params: { id: admin, role: :user }, xhr: true
 
@@ -206,8 +231,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'cannot update conf admin to admin' do
-        teammembers(:team1_bob).destroy!
-
         login_as(:bob)
         patch :update, params: { id: conf_admin, role: :admin }, xhr: true
 
@@ -217,8 +240,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'cannot update conf admin to user' do
-        teammembers(:team1_bob).destroy!
-
         login_as(:bob)
         patch :update, params: { id: conf_admin, role: :user }, xhr: true
 
@@ -250,7 +271,6 @@ describe Api::Admin::Users::RoleController do
       end
 
       it 'cannot update himself' do
-        teammembers(:team1_bob).destroy!
 
         login_as(:bob)
         patch :update, params: { id: bob, role: :conf_admin }, xhr: true
