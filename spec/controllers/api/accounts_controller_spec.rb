@@ -21,18 +21,13 @@ describe Api::AccountsController do
 
       account = accounts(:account1)
       group = account.group
-      team = group.team
 
       expect(account1_json['accountname']).to eq account.accountname
       expect(account1_json['id']).to eq account.id
       expect(account1_json['cleartext_username']).to be_nil
       expect(account1_json['cleartext_password']).to be_nil
 
-      expect(account1_json['group']).to eq group.name
-      expect(account1_json['group_id']).to eq group.id
-
-      expect(account1_json['team']).to eq team.name
-      expect(account1_json['team_id']).to eq team.id
+      expect(account1_json['group']).to eq group.id
     end
 
     it 'returns all accounts if empty query param given' do
@@ -44,18 +39,13 @@ describe Api::AccountsController do
 
       account = accounts(:account1)
       group = account.group
-      team = group.team
 
       expect(account1_json['accountname']).to eq account.accountname
       expect(account1_json['id']).to eq account.id
       expect(account1_json['cleartext_username']).to be_nil
       expect(account1_json['cleartext_password']).to be_nil
 
-      expect(account1_json['group']).to eq group.name
-      expect(account1_json['group_id']).to eq group.id
-
-      expect(account1_json['team']).to eq team.name
-      expect(account1_json['team_id']).to eq team.id
+      expect(account1_json['group']).to eq group.id
     end
 
     it 'returns all accounts if no query param given' do
@@ -67,18 +57,13 @@ describe Api::AccountsController do
 
       account = accounts(:account1)
       group = account.group
-      team = group.team
 
       expect(account1_json['accountname']).to eq account.accountname
       expect(account1_json['id']).to eq account.id
       expect(account1_json['cleartext_username']).to be_nil
       expect(account1_json['cleartext_password']).to be_nil
 
-      expect(account1_json['group']).to eq group.name
-      expect(account1_json['group_id']).to eq group.id
-
-      expect(account1_json['team']).to eq team.name
-      expect(account1_json['team_id']).to eq team.id
+      expect(account1_json['group']).to eq group.id
     end
 
     it 'returns account for matching description without cleartext username / password' do
@@ -89,18 +74,13 @@ describe Api::AccountsController do
 
       account = accounts(:account1)
       group = account.group
-      team = group.team
 
       expect(result_json['accountname']).to eq account.accountname
       expect(result_json['id']).to eq account.id
       expect(result_json['cleartext_username']).to be_nil
       expect(result_json['cleartext_password']).to be_nil
 
-      expect(result_json['group']).to eq group.name
-      expect(result_json['group_id']).to eq group.id
-
-      expect(result_json['team']).to eq team.name
-      expect(result_json['team_id']).to eq team.id
+      expect(result_json['group']).to eq group.id
     end
 
     it 'returns account for matching tag without cleartext username / password' do
@@ -112,18 +92,13 @@ describe Api::AccountsController do
 
       account = accounts(:account2)
       group = account.group
-      team = group.team
 
       expect(result_json['accountname']).to eq account.accountname
       expect(result_json['id']).to eq account.id
       expect(result_json['cleartext_username']).to be_nil
       expect(result_json['cleartext_password']).to be_nil
 
-      expect(result_json['group']).to eq group.name
-      expect(result_json['group_id']).to eq group.id
-
-      expect(result_json['team']).to eq team.name
-      expect(result_json['team_id']).to eq team.id
+      expect(result_json['group']).to eq group.id
     end
   end
 

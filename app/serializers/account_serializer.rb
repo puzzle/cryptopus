@@ -21,7 +21,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class AccountSerializer < ApplicationSerializer
-  attributes :id, :accountname, :group_id, :group, :team, :team_id,
+  attributes :id, :accountname, :group,
              :cleartext_password, :cleartext_username
 
   def cleartext_password
@@ -33,14 +33,6 @@ class AccountSerializer < ApplicationSerializer
   end
 
   def group
-    object.group.name
-  end
-
-  def team
-    object.group.team.name
-  end
-
-  def team_id
-    object.group.team.id
+    object.group.id
   end
 end
