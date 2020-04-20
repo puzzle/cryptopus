@@ -12,7 +12,6 @@ describe 'QuickSearch', type: :system, js: true do
 
   before(:each) do
     login_as_user(:bob)
-    visit '/search'
   end
 
   after(:each) do
@@ -26,7 +25,7 @@ describe 'QuickSearch', type: :system, js: true do
     expect(page).to have_no_css('li.result')
   end
 
-  it 'search and access account' do
+  xit 'search and access account' do
     expect(page).to have_selector('.form-group.search')
 
     fill_in 'q', with: 'account1'
@@ -35,7 +34,7 @@ describe 'QuickSearch', type: :system, js: true do
     expect(page).to have_content('account1')
   end
 
-  it 'search by get params' do
+  xit 'search by get params' do
     visit('/search?q=account1')
 
     expect(page).to have_selector('.account-entry')
