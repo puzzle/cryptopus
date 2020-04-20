@@ -1,7 +1,12 @@
 namespace :frontend do
-  desc 'prepare for running front end tests'
+  desc 'prepare for running frontend tests'
   task :prepare do
-    sh 'cd frontend && yarn install'
+    sh 'bin/prepare-frontend.sh'
+  end
+
+  desc 'clean up after running frontend tests'
+  task :clean do
+    sh 'bin/clean-frontend.sh'
   end
 end
 

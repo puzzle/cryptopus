@@ -14,10 +14,6 @@ if Rake::Task.task_defined?('spec') # only if current environment knows rspec
     end
 
     namespace :system do
-      desc 'Prepare frontend before running system tests'
-      task :prepare do
-      end
-
       desc 'Run system tests at most three times to gracefully handle flaky specs'
       task :lenient do
         ENV['SPEC_NO_EXCLUDES'] = 'true'
@@ -34,10 +30,6 @@ if Rake::Task.task_defined?('spec') # only if current environment knows rspec
             Rake::Task['spec:system:last'].invoke
           end
         end
-      end
-
-      desc 'Clean up frontend files after system tests'
-      task :cleanup do
       end
 
       RSpec::Core::RakeTask.new('start') do |t|
