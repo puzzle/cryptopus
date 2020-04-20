@@ -98,7 +98,7 @@ describe Api::Team::MembersController do
       expect(members.none? { |c| c['label'] == api_user.label }).to be true
     end
 
-    it 'returns team members for given team' do
+    it 'cannot return team members for given team' do
       login_as(:bob)
 
       team = teams(:team1)
@@ -113,12 +113,7 @@ describe Api::Team::MembersController do
 
       get :index, params: { team_id: team }, xhr: true
 
-      members = JSON.parse(response.body)['data']['teammembers']
-
-      expect(members.size).to eq 3
-      expect(members.any? { |c| c['label'] == 'Alice test' }).to be true
-      expect(members.any? { |c| c['label'] == 'Admin test' }).to be true
-      expect(members.none? { |c| c['label'] == api_user.label }).to be true
+      expect(response['data']).to eq nil
     end
   end
 
@@ -177,7 +172,7 @@ describe Api::Team::MembersController do
       end.to change { Teammember.count }.by(0)
     end
 
-    it 'cannot remove api user from team as user' do
+    it 'can remove api user from team as user' do
       login_as(:bob)
       team = teams(:team1)
       api_user = bob.api_users.create!(description: 'my sweet api user')
@@ -186,7 +181,7 @@ describe Api::Team::MembersController do
 
       expect do
         delete :destroy, params: { team_id: teams(:team1), id: api_user }, xhr: true
-      end.to change { Teammember.count }.by(0)
+      end.to change { Teammember.count }.by(-1)
     end
 
     it 'adds api user to team' do
@@ -242,7 +237,7 @@ describe Api::Team::MembersController do
 
       expect do
         delete :destroy, params: { team_id: teams(:team1), id: users(:admin) }, xhr: true
-      end.to to change { Teammember.count }.by(0)
+      end.to change { Teammember.count }.by(0)
     end
 
     it 'removes teammember from team' do
