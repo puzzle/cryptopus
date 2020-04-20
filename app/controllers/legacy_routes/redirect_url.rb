@@ -8,6 +8,14 @@
 include Rails.application.routes.url_helpers
 
 class LegacyRoutes::RedirectUrl
+
+  LEGACY_PATHS = {
+    teams: /(groups)$/,
+    groups: /(accounts)$/,
+    accounts: /(accounts)\/\d+$/,
+    login: /(\/login)$/
+  }.freeze
+
   LOCALES_REGEX = I18n.available_locales.map do |locale|
     "\/#{locale}|"
   end.join('').chop.freeze
@@ -22,16 +30,11 @@ class LegacyRoutes::RedirectUrl
   end
 
   def new_url
-    case @url
-    when legacy_accounts_path?
-      account_path(@url.split('/').last)
-    when legacy_groups_path?
-      team_group_path(@url.split('/').third, @url.split('/').second_to_last)
-    when legacy_teams_path?
-      team_path(@url.split('/').second_to_last)
-    else
-      @url
+    LEGACY_PATHS.each do |model, path|
+      return send("new_#{model}_path") if @url.match(path)
     end
+
+    @url
   end
 
   def remove_locale
@@ -42,15 +45,19 @@ class LegacyRoutes::RedirectUrl
     /#{LOCALES_REGEX}/
   end
 
-  def legacy_groups_path?
-    /(accounts)$/
+  def new_accounts_path
+    account_path(@url.split('/').last)
   end
 
-  def legacy_teams_path?
-    /(groups)$/
+  def new_groups_path
+    team_group_path(@url.split('/').third, @url.split('/').second_to_last)
   end
 
-  def legacy_accounts_path?
-    /(accounts)\/\d+$/
+  def new_teams_path
+    team_path(@url.split('/').second_to_last)
+  end
+
+  def new_login_path
+    root_path
   end
 end

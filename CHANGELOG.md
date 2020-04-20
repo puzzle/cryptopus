@@ -2,6 +2,9 @@
 
 ## Version 2.6
 * Simplified App Urls
+* Added Content Security Policy
+* Migrated all tests to rspec
+* Added Webpacker
 
 ## Version 2.5
 * Rails 6.0

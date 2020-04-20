@@ -8,7 +8,7 @@
 }
 
 .result-type-icon, .result-title-small{
-  display: inline; 
+  display: inline;
   padding-top: 0.5em;
 }
 
@@ -115,4 +115,8 @@ input.search-input {
 .result-password {
   top: -48px;
   position: relative;
+}
+
+.display-none {
+  display: none;
 }

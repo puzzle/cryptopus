@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe LoginsController do
+describe SessionController do
   include ControllerHelpers
 
   context 'GET show_update_password' do
@@ -34,13 +34,21 @@ describe LoginsController do
 
       expect(response).to redirect_to teams_path
     end
+
+    it 'redirects if ldap admin tries to access update password site' do
+      users(:admin).update!(auth: 'ldap')
+      login_as(:admin)
+      get :show_update_password
+
+      expect(response).to redirect_to teams_path
+    end
   end
 
-  context 'GET login' do
+  context 'GET new' do
     it 'should redirect to wizard if new setup' do
       User.delete_all
 
-      get :login
+      get :new
 
       expect(response).to redirect_to wizard_path
     end
@@ -50,7 +58,7 @@ describe LoginsController do
         .to receive(:ip_authorized?)
         .and_return(false)
 
-      get :login
+      get :new
 
       expect(response).to have_http_status(401)
     end
@@ -65,7 +73,7 @@ describe LoginsController do
         .exactly(3).times
         .and_return(random_ip)
 
-      get :login
+      get :new
 
       expect(response).to have_http_status(200)
       expect(session[:authorized_ip]).to eq random_ip
@@ -73,8 +81,16 @@ describe LoginsController do
 
   end
 
-  context 'GET logout' do
+  context 'DELETE destroy' do
     it 'logs in and logs out' do
+      login_as(:bob)
+
+      delete :destroy
+
+      expect(response).to redirect_to session_new_path
+    end
+
+    it 'logs in and logs out as admin' do
       login_as(:bob)
 
       get :logout
@@ -82,8 +98,34 @@ describe LoginsController do
       expect(response).to redirect_to login_login_path
     end
 
+    it 'logs in and logs out as conf_admin' do
+      login_as(:tux)
+
+      get :logout
+
+      expect(response).to redirect_to login_login_path
+    end
+
     it 'logs in, logs out and save jumpto if set' do
+      login_as(:bob)
+
+      get :logout, params: { jumpto: admin_users_path }
+
+      expect(response).to redirect_to login_login_path
+      expect(admin_users_path).to eq session[:jumpto]
+    end
+
+    it 'logs in, logs out and save jumpto if set as admin' do
       login_as(:admin)
+
+      delete :destroy, params: { jumpto: admin_users_path }
+
+      expect(response).to redirect_to session_new_path
+      expect(admin_users_path).to eq session[:jumpto]
+    end
+
+    it 'logs in, logs out and save jumpto if set as conf_admin' do
+      login_as(:tux)
 
       get :logout, params: { jumpto: admin_users_path }
 
@@ -92,9 +134,9 @@ describe LoginsController do
     end
   end
 
-  context 'POST authenticate' do
+  context 'POST create' do
     it 'cannot login with wrong password' do
-      post :authenticate, params: { password: 'wrong_password', username: 'bob' }
+      post :create, params: { password: 'wrong_password', username: 'bob' }
 
       expect(flash[:error]).to match(/Authentication failed/)
     end
@@ -102,19 +144,35 @@ describe LoginsController do
     it 'redirects to recryptrequests page if private key cannot be decrypted' do
       users(:bob).update!(private_key: 'invalid private_key')
 
-      post :authenticate, params: { password: 'password', username: 'bob' }
+      post :create, params: { password: 'password', username: 'bob' }
+
+      expect(response).to redirect_to recryptrequests_new_ldap_password_path
+    end
+
+    it 'cannot redirect to recryptrequests page if private key cannot be decrypted as admin' do
+      users(:admin).update!(private_key: 'invalid private_key')
+
+      post :authenticate, params: { password: 'password', username: 'admin' }
+
+      expect(response).to redirect_to recryptrequests_new_ldap_password_path
+    end
+
+    it 'cannot redirect to recryptrequests page if private key cannot be decrypted as conf_admin' do
+      users(:conf_admin).update!(private_key: 'invalid private_key')
+
+      post :authenticate, params: { password: 'password', username: 'tux' }
 
       expect(response).to redirect_to recryptrequests_new_ldap_password_path
     end
 
     it 'cannot login with unknown username' do
-      post :authenticate, params: { password: 'password', username: 'baduser' }
+      post :create, params: { password: 'password', username: 'baduser' }
 
       expect(flash[:error]).to match(/Authentication failed/)
     end
 
     it 'cannot login without username' do
-      post :authenticate, params: { password: 'password' }
+      post :create, params: { password: 'password' }
 
       expect(flash[:error]).to match(/Authentication failed/)
     end
@@ -123,10 +181,30 @@ describe LoginsController do
       time = Time.zone.now
       expect_any_instance_of(ActiveSupport::TimeZone).to receive(:now).and_return(time)
 
-      post :authenticate, params: { password: 'password', username: 'bob' }
+      post :create, params: { password: 'password', username: 'bob' }
 
       users(:bob).reload
       expect(users(:bob).last_login_at.to_s).to eq time.to_s
+    end
+
+    it 'updates last login at if user logs in as admin' do
+      time = Time.zone.now
+      expect_any_instance_of(ActiveSupport::TimeZone).to receive(:now).and_return(time)
+
+      post :authenticate, params: { password: 'password', username: 'admin' }
+
+      users(:admin).reload
+      expect(users(:admin).last_login_at.to_s).to eq time.to_s
+    end
+
+    it 'updates last login at if user logs in as conf_admin' do
+      time = Time.zone.now
+      expect_any_instance_of(ActiveSupport::TimeZone).to receive(:now).and_return(time)
+
+      post :authenticate, params: { password: 'password', username: 'tux' }
+
+      users(:conf_admin).reload
+      expect(users(:conf_admin).last_login_at.to_s).to eq time.to_s
     end
 
     it 'shows last login datetime and ip without country' do
@@ -135,14 +213,14 @@ describe LoginsController do
       user = users(:bob)
       user.update!(last_login_at: '2017-01-01 16:00:00 + 0000', last_login_from: '192.168.210.10')
 
-      post :authenticate, params: { password: 'password', username: 'bob' }
+      post :create, params: { password: 'password', username: 'bob' }
       expect(flash[:notice]).to eq 'The last login was on January 01, ' \
                                    '2017 16:00 from 192.168.210.10'
     end
 
     it 'does not show last login date if not available' do
       users(:bob).update!(last_login_at: nil)
-      post :authenticate, params: { password: 'password', username: 'bob' }
+      post :create, params: { password: 'password', username: 'bob' }
       expect(flash[:notice]).to be_nil
     end
 
@@ -150,7 +228,7 @@ describe LoginsController do
       user = users(:bob)
       user.update!(last_login_at: '2017-01-01 16:00:00 + 0000', last_login_from: nil)
 
-      post :authenticate, params: { password: 'password', username: 'bob' }
+      post :create, params: { password: 'password', username: 'bob' }
       expect(flash[:notice]).to eq 'The last login was on January 01, 2017 16:00'
     end
 
@@ -165,7 +243,7 @@ describe LoginsController do
       user = users(:bob)
       user.update!(last_login_at: '2001-09-11 19:00:00 + 0000', last_login_from: '153.123.34.34')
 
-      post :authenticate, params: { password: 'password', username: 'bob' }
+      post :create, params: { password: 'password', username: 'bob' }
       expect(flash[:notice]).to eq 'The last login was on September 11, ' \
                                    '2001 19:00 from 153.123.34.34 (JP)'
     end
@@ -180,6 +258,22 @@ describe LoginsController do
       expect(flash[:notice]).to match(/new password/)
       expect(users(:bob).authenticate('test')).to eq true
     end
+    it 'updates password as admin' do
+      login_as(:admin)
+      post :update_password, params: { old_password: 'password', new_password1: 'test',
+                                       new_password2: 'test' }
+
+      expect(flash[:notice]).to match(/new password/)
+      expect(users(:admin).authenticate('test')).to eq true
+    end
+    it 'updates password as conf_admin' do
+      login_as(:tux)
+      post :update_password, params: { old_password: 'password', new_password1: 'test',
+                                       new_password2: 'test' }
+
+      expect(flash[:notice]).to match(/new password/)
+      expect(users(:conf_admin).authenticate('test')).to eq true
+    end
 
     it 'updates password, error if oldpassword not match' do
       login_as(:bob)
@@ -188,6 +282,24 @@ describe LoginsController do
 
       expect(flash[:error]).to match(/Invalid user \/ password/)
       expect(users(:bob).authenticate('test')).to eq false
+    end
+
+    it 'updates password, error if oldpassword not match as admin' do
+      login_as(:admin)
+      post :update_password, params: { old_password: 'wrong_password', new_password1: 'test',
+                                       new_password2: 'test' }
+
+      expect(flash[:error]).to match(/Invalid user \/ password/)
+      expect(users(:admin).authenticate('test')).to eq false
+    end
+
+    it 'updates password, error if oldpassword not match as conf_admin' do
+      login_as(:tux)
+      post :update_password, params: { old_password: 'wrong_password', new_password1: 'test',
+                                       new_password2: 'test' }
+
+      expect(flash[:error]).to match(/Invalid user \/ password/)
+      expect(users(:conf_admin).authenticate('test')).to eq false
     end
 
     it 'updates password, error if new passwords not match' do
@@ -199,9 +311,45 @@ describe LoginsController do
       expect(users(:bob).authenticate('test')).to eq false
     end
 
+    it 'updates password, error if new passwords not match as conf_admin' do
+      login_as(:tux)
+      post :update_password, params: { old_password: 'password', new_password1: 'test',
+                                       new_password2: 'wrong_password' }
+
+      expect(flash[:error]).to match(/equal/)
+      expect(users(:conf_admin).authenticate('test')).to eq false
+    end
+
+    it 'updates password, error if new passwords not match as admin' do
+      login_as(:admin)
+      post :update_password, params: { old_password: 'password', new_password1: 'test',
+                                       new_password2: 'wrong_password' }
+
+      expect(flash[:error]).to match(/equal/)
+      expect(users(:admin).authenticate('test')).to eq false
+    end
+
     it 'redirects if ldap user tries to update password' do
       users(:bob).update!(auth: 'ldap')
       login_as(:bob)
+      post :update_password, params: { old_password: 'password', new_password1: 'test',
+                                       new_password2: 'test' }
+
+      expect(response).to redirect_to teams_path
+    end
+
+    it 'redirects if ldap user tries to update password as conf_admin' do
+      users(:conf_admin).update!(auth: 'ldap')
+      login_as(:tux)
+      post :update_password, params: { old_password: 'password', new_password1: 'test',
+                                       new_password2: 'test' }
+
+      expect(response).to redirect_to teams_path
+    end
+
+    it 'redirects if ldap user tries to update password as admin' do
+      users(:admin).update!(auth: 'ldap')
+      login_as(:admin)
       post :update_password, params: { old_password: 'password', new_password1: 'test',
                                        new_password2: 'test' }
 
