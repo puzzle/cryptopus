@@ -62,27 +62,12 @@ describe Api::AccountsController do
       expect(account1_json['team_id']).to eq team.id
     end
 
-    it 'returns account with matching name as conf_admin' do
+    it 'cannot return account with matching name as conf_admin' do
       login_as(:tux)
 
       get :index, params: { 'q': 'acc' }, xhr: true
 
-      account1_json = json['data']['accounts'].first
-
-      account = accounts(:account1)
-      group = account.group
-      team = group.team
-
-      expect(account1_json['accountname']).to eq account.accountname
-      expect(account1_json['id']).to eq account.id
-      expect(account1_json['cleartext_username']).to be_nil
-      expect(account1_json['cleartext_password']).to be_nil
-
-      expect(account1_json['group']).to eq group.name
-      expect(account1_json['group_id']).to eq group.id
-
-      expect(account1_json['team']).to eq team.name
-      expect(account1_json['team_id']).to eq team.id
+      expect(json['data']).to eq nil
     end
 
     it 'returns all accounts if empty query param given' do

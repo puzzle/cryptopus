@@ -35,7 +35,7 @@ describe Api::Team::ApiUsersController do
 
       get :index, params: { team_id: team }, xhr: true
 
-      expect(json['data']).to eq []
+      expect(json['data']).to eq '{""=>[]}'
     end
 
     it 'lists bobs api users as admin' do
