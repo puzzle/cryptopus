@@ -12,6 +12,7 @@ AllCops:
     - test/**/*
     - vendor/bundle/**/*
     - node_modules/**/*
+    - frontend/**/*
 
 Rails:
   Enabled: true

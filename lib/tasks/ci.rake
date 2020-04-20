@@ -9,6 +9,8 @@ desc 'Runs the taks for a commit build'
 task ci: ['log:clear',
           'rubocop',
           'geo:fetch',
+          'frontend:prepare',
+          'spec:frontend',
           'db:test:prepare',
           'spec']
 

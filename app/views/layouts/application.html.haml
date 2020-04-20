@@ -10,7 +10,12 @@
     %meta{charset: "utf-8"}/
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}/
     %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
+    %meta{name: "frontend/config/environment", content: "%7B%22modulePrefix%22%3A%22frontend%22%2C%22environment%22%3A%22development%22%2C%22rootURL%22%3A%22%2F%22%2C%22locationType%22%3A%22none%22%2C%22EmberENV%22%3A%7B%22FEATURES%22%3A%7B%7D%2C%22EXTEND_PROTOTYPES%22%3A%7B%22Date%22%3Afalse%7D%2C%22_JQUERY_INTEGRATION%22%3Afalse%7D%2C%22APP%22%3A%7B%22name%22%3A%22frontend%22%2C%22version%22%3A%220.0.0%2Bc85e808a%22%7D%2C%22exportApplicationGlobal%22%3Atrue%2C%22isModuleUnification%22%3Afalse%7D"}/
     %link{href: "/favicon.png", rel: "shortcut icon", type: "image/png"}/
+    %link{href: "http://localhost:4200/assets/vendor.css", media: "all", rel: "stylesheet"}
+    %link{href: "http://localhost:4200/assets/frontend.css", media: "all", rel: "stylesheet"}
+    %script{src: "http://localhost:4200/assets/vendor.js", defer: "true"}
+    %script{src: "http://localhost:4200/assets/frontend.js", defer: "true"}
     = csrf_meta_tags
     %title Cryptopus
     = stylesheet_link_tag :application, media: "all", nonce: true
@@ -18,6 +23,7 @@
     = javascript_pack_tag 'stylesheets', nonce: true
     = javascript_pack_tag 'application', 'data-turbolinks-track': :reload, nonce: true
   %body{"data-locale" => I18n.locale}
+    #ember{style: "margin-top: 100px;"}
     = render 'layouts/icons'
     .container.main{role: "main"}
       = render 'layouts/navigation'
