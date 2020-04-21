@@ -237,7 +237,7 @@ describe Api::Team::MembersController do
 
       expect do
         delete :destroy, params: { team_id: teams(:team1), id: users(:admin) }, xhr: true
-      end.to change { Teammember.count }.by(0)
+      end.to raise_error(ActiveRecord::RecordNotDestroyed)
     end
 
     it 'removes teammember from team' do

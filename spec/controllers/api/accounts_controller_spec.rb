@@ -67,7 +67,7 @@ describe Api::AccountsController do
 
       get :index, params: { 'q': 'acc' }, xhr: true
 
-      expect(json['data']).to eq nil
+      expect(json['data']['accounts']).to eq []
     end
 
     it 'returns all accounts if empty query param given' do
