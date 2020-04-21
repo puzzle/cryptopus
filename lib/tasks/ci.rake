@@ -12,7 +12,8 @@ task ci: ['log:clear',
           'frontend:prepare',
           'spec:frontend',
           'db:test:prepare',
-          'spec']
+          'spec',
+          'spec:system:lenient']
 
 namespace :ci do
   desc 'Runs the tasks for the nightly build'
