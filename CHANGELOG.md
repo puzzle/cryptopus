@@ -1,5 +1,8 @@
 # Cryptopus Changelog
 
+## Version 2.7
+* improved security by deep-testing roles 
+
 ## Version 2.6
 * Simplified App Urls
 * Added Content Security Policy
