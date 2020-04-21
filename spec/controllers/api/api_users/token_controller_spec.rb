@@ -34,15 +34,18 @@ describe Api::ApiUsers::TokenController do
       old_token = foreign_api_user.send(:decrypt_token, foreign_private_key)
 
       get :show, params: { id: foreign_api_user.id }, xhr: true
+      require 'pry'; binding.pry
+      # reponse = 401
 
-      api_user.reload
+      foreign_api_user.reload
 
       new_token = foreign_api_user.send(:decrypt_token, foreign_private_key)
 
-      true
-      # expect(foreign_api_user).to_not be_locked
-      # expect(foreign_api_user.authenticate(old_token)).to eq true
-      # expect(foreign_api_user.authenticate(new_token)).to eq false
+
+
+      expect(foreign_api_user).to_not be_locked
+      expect(foreign_api_user.authenticate(new_token)).to eq false
+      expect(foreign_api_user.authenticate(old_token)).to eq true
     end
   end
 
@@ -58,7 +61,7 @@ describe Api::ApiUsers::TokenController do
       expect(api_user.authenticate(token)).to eq false
     end
 
-    it 'cannot invalidate foreign token as user' do
+    it 'cannot invalidate foreign token' do
 
       delete :destroy, params: { id: foreign_api_user.id }
 
