@@ -65,52 +65,8 @@ describe Api::AccountsController do
       expect(json['data']['accounts']).to eq []
     end
 
-    it 'returns account with matching name as admin' do
-      login_as(:admin)
-
-      get :index, params: { 'q': 'acc' }, xhr: true
-
-      account1_json = json['data']['accounts'].first
-
-      account = accounts(:account1)
-      group = account.group
-
-      expect(account1_json['accountname']).to eq account.accountname
-      expect(account1_json['id']).to eq account.id
-      expect(account1_json['cleartext_username']).to be_nil
-      expect(account1_json['cleartext_password']).to be_nil
-
-      expect(account1_json['group']).to eq group.id
-    end
-
-    it 'cannot return account with matching name as conf_admin' do
-      login_as(:tux)
-
-      get :index, params: { 'q': 'acc' }, xhr: true
-
-      expect(json['data']['accounts']).to eq []
-    end
-
     it 'returns all accounts if empty query param given' do
       login_as(:alice)
-
-      get :index, params: { 'q': '' }, xhr: true
-
-      account1_json = json['data']['accounts'].first
-
-      account = accounts(:account1)
-      group = account.group
-
-      expect(account1_json['accountname']).to eq account.accountname
-      expect(account1_json['id']).to eq account.id
-      expect(account1_json['cleartext_username']).to be_nil
-      expect(account1_json['cleartext_password']).to be_nil
-
-      expect(account1_json['group']).to eq group.id
-    end
-
-    it 'returns all accounts if empty query param given as admin' do
-      login_as(:admin)
 
       get :index, params: { 'q': '' }, xhr: true
 
@@ -181,43 +137,8 @@ describe Api::AccountsController do
       expect(account1_json['group']).to eq group.id
     end
 
-    it 'returns all accounts if no query param given as admin' do
-      login_as(:admin)
-
-      get :index, xhr: true
-
-      account1_json = json['data']['accounts'].first
-
-      account = accounts(:account1)
-      group = account.group
-
-      expect(account1_json['accountname']).to eq account.accountname
-      expect(account1_json['id']).to eq account.id
-      expect(account1_json['cleartext_username']).to be_nil
-      expect(account1_json['cleartext_password']).to be_nil
-
-      expect(account1_json['group']).to eq group.id
-    end
-
     it 'returns account for matching description without cleartext username / password' do
       login_as(:alice)
-      get :index, params: { 'q': 'des' }, xhr: true
-
-      result_json = json['data']['accounts'].first
-
-      account = accounts(:account1)
-      group = account.group
-
-      expect(result_json['accountname']).to eq account.accountname
-      expect(result_json['id']).to eq account.id
-      expect(result_json['cleartext_username']).to be_nil
-      expect(result_json['cleartext_password']).to be_nil
-
-      expect(result_json['group']).to eq group.id
-    end
-
-    it 'returns account for matching description without cleartext username / password as admin' do
-      login_as(:admin)
       get :index, params: { 'q': 'des' }, xhr: true
 
       result_json = json['data']['accounts'].first
@@ -266,14 +187,6 @@ describe Api::AccountsController do
       expect(result_json['cleartext_password']).to be_nil
 
       expect(result_json['group']).to eq group.id
-    end
-
-    it ' doesnot return account for matching tag without cleartext username / password as admin' do
-      login_as(:admin)
-
-      get :index, params: { 'tag': 'tag' }, xhr: true
-
-      expect(json['data']).to eq nil
     end
 
     it ' doesnot return account for matching tag without cleartext username / password as admin' do
@@ -638,7 +551,7 @@ describe Api::AccountsController do
       expect(response).to have_http_status(403)
     end
 
-    it 'does not update account when user not in team' do
+    it 'does not update account when admin not in team' do
       set_admin_auth_headers
 
       account = accounts(:account2)
