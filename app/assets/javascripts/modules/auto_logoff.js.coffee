@@ -6,7 +6,7 @@
 app = window.App ||= {}
 
 class app.AutoLogoff
-  AUTO_LOGOFF_TIME = 300
+  AUTO_LOGOFF_TIME = 10
   remaining_seconds = AUTO_LOGOFF_TIME
 
   constructor: () ->
@@ -23,8 +23,11 @@ class app.AutoLogoff
         data: {
           autologout: true,
           jumpto: window.location.pathname
-        }
+        },
+        success: (data) ->
+          window.location.reload
       });
+
       return
     remaining_seconds -= 1
     $('#countdown').html humanize(remaining_seconds)
