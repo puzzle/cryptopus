@@ -15,7 +15,7 @@ describe Api::ApiUsers::TokenController do
   let(:foreign_private_key) { users(:alice).decrypt_private_key('password') }
 
   context 'GET show' do
-    it 'renews token as user' do
+    it 'bob can renew his token' do
       old_token = api_user.send(:decrypt_token, private_key)
 
       get :show, params: { id: api_user.id }, xhr: true
@@ -29,28 +29,24 @@ describe Api::ApiUsers::TokenController do
       expect(api_user.authenticate(new_token)).to eq true
     end
 
-    it 'cannot renew token of foreign user' do
+    it 'bob cannot renew token of alice' do
 
-      old_token = foreign_api_user.send(:decrypt_token, foreign_private_key)
+      old_hash = foreign_api_user.password
 
       get :show, params: { id: foreign_api_user.id }, xhr: true
-      require 'pry'; binding.pry
-      # reponse = 401
 
       foreign_api_user.reload
 
-      new_token = foreign_api_user.send(:decrypt_token, foreign_private_key)
+      new_hash = foreign_api_user.password
 
+      expect(response).to have_http_status(403)
+      expect(new_hash).to eq old_hash
 
-
-      expect(foreign_api_user).to_not be_locked
-      expect(foreign_api_user.authenticate(new_token)).to eq false
-      expect(foreign_api_user.authenticate(old_token)).to eq true
     end
   end
 
   context 'DELETE destroy' do
-    it 'invalidates token as user' do
+    it 'bob can invalidate his token' do
       delete :destroy, params: { id: api_user.id }
 
       api_user.reload
@@ -61,17 +57,12 @@ describe Api::ApiUsers::TokenController do
       expect(api_user.authenticate(token)).to eq false
     end
 
-    it 'cannot invalidate foreign token' do
+    it 'bob cannot invalidate token of alice' do
 
       delete :destroy, params: { id: foreign_api_user.id }
 
-      foreign_api_user.reload
+      expect(response).to have_http_status(403)
 
-      token = foreign_api_user.send(:decrypt_token, foreign_private_key)
-
-      true
-      # expect(foreign_api_user).to be_locked
-      # expect(foreign_api_user.authenticate(token)).to eq true
     end
   end
 end
