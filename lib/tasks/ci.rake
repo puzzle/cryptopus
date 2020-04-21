@@ -9,8 +9,11 @@ desc 'Runs the taks for a commit build'
 task ci: ['log:clear',
           'rubocop',
           'geo:fetch',
+          'frontend:prepare',
+          'spec:frontend',
           'db:test:prepare',
-          'spec']
+          'spec',
+          'spec:system:lenient']
 
 namespace :ci do
   desc 'Runs the tasks for the nightly build'

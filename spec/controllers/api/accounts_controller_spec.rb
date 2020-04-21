@@ -30,18 +30,39 @@ describe Api::AccountsController do
 
       account = accounts(:account1)
       group = account.group
-      team = group.team
 
       expect(account1_json['accountname']).to eq account.accountname
       expect(account1_json['id']).to eq account.id
       expect(account1_json['cleartext_username']).to be_nil
       expect(account1_json['cleartext_password']).to be_nil
 
-      expect(account1_json['group']).to eq group.name
-      expect(account1_json['group_id']).to eq group.id
+      expect(account1_json['group']).to eq group.id
+    end
 
-      expect(account1_json['team']).to eq team.name
-      expect(account1_json['team_id']).to eq team.id
+    it 'returns account with matching name as admin' do
+      login_as(:admin)
+
+      get :index, params: { 'q': 'acc' }, xhr: true
+
+      account1_json = json['data']['accounts'].first
+
+      account = accounts(:account1)
+      group = account.group
+
+      expect(account1_json['accountname']).to eq account.accountname
+      expect(account1_json['id']).to eq account.id
+      expect(account1_json['cleartext_username']).to be_nil
+      expect(account1_json['cleartext_password']).to be_nil
+
+      expect(account1_json['group']).to eq group.id
+    end
+
+    it 'cannot return account with matching name as conf_admin' do
+      login_as(:tux)
+
+      get :index, params: { 'q': 'acc' }, xhr: true
+
+      expect(json['data']['accounts']).to eq []
     end
 
     it 'returns account with matching name as admin' do
@@ -84,18 +105,31 @@ describe Api::AccountsController do
 
       account = accounts(:account1)
       group = account.group
-      team = group.team
 
       expect(account1_json['accountname']).to eq account.accountname
       expect(account1_json['id']).to eq account.id
       expect(account1_json['cleartext_username']).to be_nil
       expect(account1_json['cleartext_password']).to be_nil
 
-      expect(account1_json['group']).to eq group.name
-      expect(account1_json['group_id']).to eq group.id
+      expect(account1_json['group']).to eq group.id
+    end
 
-      expect(account1_json['team']).to eq team.name
-      expect(account1_json['team_id']).to eq team.id
+    it 'returns all accounts if empty query param given as admin' do
+      login_as(:admin)
+
+      get :index, params: { 'q': '' }, xhr: true
+
+      account1_json = json['data']['accounts'].first
+
+      account = accounts(:account1)
+      group = account.group
+
+      expect(account1_json['accountname']).to eq account.accountname
+      expect(account1_json['id']).to eq account.id
+      expect(account1_json['cleartext_username']).to be_nil
+      expect(account1_json['cleartext_password']).to be_nil
+
+      expect(account1_json['group']).to eq group.id
     end
 
     it 'returns all accounts if empty query param given as admin' do
@@ -130,18 +164,31 @@ describe Api::AccountsController do
 
       account = accounts(:account1)
       group = account.group
-      team = group.team
 
       expect(account1_json['accountname']).to eq account.accountname
       expect(account1_json['id']).to eq account.id
       expect(account1_json['cleartext_username']).to be_nil
       expect(account1_json['cleartext_password']).to be_nil
 
-      expect(account1_json['group']).to eq group.name
-      expect(account1_json['group_id']).to eq group.id
+      expect(account1_json['group']).to eq group.id
+    end
 
-      expect(account1_json['team']).to eq team.name
-      expect(account1_json['team_id']).to eq team.id
+    it 'returns all accounts if no query param given as admin' do
+      login_as(:admin)
+
+      get :index, xhr: true
+
+      account1_json = json['data']['accounts'].first
+
+      account = accounts(:account1)
+      group = account.group
+
+      expect(account1_json['accountname']).to eq account.accountname
+      expect(account1_json['id']).to eq account.id
+      expect(account1_json['cleartext_username']).to be_nil
+      expect(account1_json['cleartext_password']).to be_nil
+
+      expect(account1_json['group']).to eq group.id
     end
 
     it 'returns all accounts if no query param given as admin' do
@@ -175,18 +222,30 @@ describe Api::AccountsController do
 
       account = accounts(:account1)
       group = account.group
-      team = group.team
 
       expect(result_json['accountname']).to eq account.accountname
       expect(result_json['id']).to eq account.id
       expect(result_json['cleartext_username']).to be_nil
       expect(result_json['cleartext_password']).to be_nil
 
-      expect(result_json['group']).to eq group.name
-      expect(result_json['group_id']).to eq group.id
+      expect(result_json['group']).to eq group.id
+    end
 
-      expect(result_json['team']).to eq team.name
-      expect(result_json['team_id']).to eq team.id
+    it 'returns account for matching description without cleartext username / password as admin' do
+      login_as(:admin)
+      get :index, params: { 'q': 'des' }, xhr: true
+
+      result_json = json['data']['accounts'].first
+
+      account = accounts(:account1)
+      group = account.group
+
+      expect(result_json['accountname']).to eq account.accountname
+      expect(result_json['id']).to eq account.id
+      expect(result_json['cleartext_username']).to be_nil
+      expect(result_json['cleartext_password']).to be_nil
+
+      expect(result_json['group']).to eq group.id
     end
 
     it 'returns account for matching description without cleartext username / password as admin' do
@@ -220,18 +279,21 @@ describe Api::AccountsController do
 
       account = accounts(:account2)
       group = account.group
-      team = group.team
 
       expect(result_json['accountname']).to eq account.accountname
       expect(result_json['id']).to eq account.id
       expect(result_json['cleartext_username']).to be_nil
       expect(result_json['cleartext_password']).to be_nil
 
-      expect(result_json['group']).to eq group.name
-      expect(result_json['group_id']).to eq group.id
+      expect(result_json['group']).to eq group.id
+    end
 
-      expect(result_json['team']).to eq team.name
-      expect(result_json['team_id']).to eq team.id
+    it ' doesnot return account for matching tag without cleartext username / password as admin' do
+      login_as(:admin)
+
+      get :index, params: { 'tag': 'tag' }, xhr: true
+
+      expect(json['data']).to eq nil
     end
 
     it ' doesnot return account for matching tag without cleartext username / password as admin' do

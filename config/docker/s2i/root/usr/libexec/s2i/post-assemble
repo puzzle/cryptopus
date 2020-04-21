@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -ex
+
+pushd /opt/app-root/src
+echo $OPENSHIFT_BUILD_COMMIT > BUILD_INFO
+popd
+
+/opt/app-root/src/bin/prepare-frontend.sh

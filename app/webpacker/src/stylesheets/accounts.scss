@@ -28,9 +28,24 @@
   margin-right: 5px;
 }
 
+#edit_account_button {
+  padding: 6px;
+  border: 1px solid #c9c9c9;
+  width: 45px;
+  background-color: #ebe3df;
+}
+
+#edit_account_button:hover {
+  background-color: #ffffff;
+}
+
 #account_password {
   width: 50%;
 }
 #generate_button {
   width: 24%;
+}
+
+.description-text {
+  color: grey;
 }
