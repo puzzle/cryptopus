@@ -6,7 +6,7 @@ describe Admin::MaintenanceTasksController do
   include ControllerHelpers
 
   context 'GET index' do
-    it 'cant access index by non-root' do
+    it 'cant access index as user' do
       login_as(:bob)
 
       get :index
@@ -35,7 +35,7 @@ describe Admin::MaintenanceTasksController do
 
     context 'POST execute' do
 
-      it 'executes cannot be accessed by non-root' do
+      it 'executes cannot be accessed as user' do
         enable_ldap
         login_as(:bob)
 
