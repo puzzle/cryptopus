@@ -93,25 +93,25 @@ describe SessionController do
     it 'logs in and logs out as admin' do
       login_as(:bob)
 
-      get :logout
+      delete :destroy
 
-      expect(response).to redirect_to login_login_path
+      expect(response).to redirect_to session_new_path
     end
 
     it 'logs in and logs out as conf_admin' do
       login_as(:tux)
 
-      get :logout
+      delete :destroy
 
-      expect(response).to redirect_to login_login_path
+      expect(response).to redirect_to session_new_path
     end
 
     it 'logs in, logs out and save jumpto if set' do
       login_as(:bob)
 
-      get :logout, params: { jumpto: admin_users_path }
+      delete :destroy, params: { jumpto: admin_users_path }
 
-      expect(response).to redirect_to login_login_path
+      expect(response).to redirect_to session_new_path
       expect(admin_users_path).to eq session[:jumpto]
     end
 
@@ -127,9 +127,9 @@ describe SessionController do
     it 'logs in, logs out and save jumpto if set as conf_admin' do
       login_as(:tux)
 
-      get :logout, params: { jumpto: admin_users_path }
+      delete :destroy, params: { jumpto: admin_users_path }
 
-      expect(response).to redirect_to login_login_path
+      expect(response).to redirect_to session_new_path
       expect(admin_users_path).to eq session[:jumpto]
     end
   end
@@ -152,7 +152,7 @@ describe SessionController do
     it 'cannot redirect to recryptrequests page if private key cannot be decrypted as admin' do
       users(:admin).update!(private_key: 'invalid private_key')
 
-      post :authenticate, params: { password: 'password', username: 'admin' }
+      post :create, params: { password: 'password', username: 'admin' }
 
       expect(response).to redirect_to recryptrequests_new_ldap_password_path
     end
@@ -160,7 +160,7 @@ describe SessionController do
     it 'cannot redirect to recryptrequests page if private key cannot be decrypted as conf_admin' do
       users(:conf_admin).update!(private_key: 'invalid private_key')
 
-      post :authenticate, params: { password: 'password', username: 'tux' }
+      post :create, params: { password: 'password', username: 'tux' }
 
       expect(response).to redirect_to recryptrequests_new_ldap_password_path
     end
@@ -191,7 +191,7 @@ describe SessionController do
       time = Time.zone.now
       expect_any_instance_of(ActiveSupport::TimeZone).to receive(:now).and_return(time)
 
-      post :authenticate, params: { password: 'password', username: 'admin' }
+      post :create, params: { password: 'password', username: 'admin' }
 
       users(:admin).reload
       expect(users(:admin).last_login_at.to_s).to eq time.to_s
@@ -201,7 +201,7 @@ describe SessionController do
       time = Time.zone.now
       expect_any_instance_of(ActiveSupport::TimeZone).to receive(:now).and_return(time)
 
-      post :authenticate, params: { password: 'password', username: 'tux' }
+      post :create, params: { password: 'password', username: 'tux' }
 
       users(:conf_admin).reload
       expect(users(:conf_admin).last_login_at.to_s).to eq time.to_s
