@@ -42,7 +42,8 @@ describe Admin::SettingsController do
       login_as(:bob)
 
       post :update_all, params: { setting: { general_country_source_whitelist: %w[CH UK],
-                                             general_ip_whitelist: ['192.168.1.1', '192.168.1.2'] } }
+                                             general_ip_whitelist: ['192.168.1.1',
+                                                                    '192.168.1.2'] } }
 
 
       expect(Setting.value(:general, :country_source_whitelist)).to eq(%w[CH])
