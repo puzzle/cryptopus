@@ -16,7 +16,7 @@ module SystemTest
     end
 
     def logout
-      find('a[data-method="delete"][href="/session"]').click
+      find('a[data-method="get"][href="/session/destroy"]').click
     end
   end
 end

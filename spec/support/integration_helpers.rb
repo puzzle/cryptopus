@@ -52,7 +52,7 @@ module IntegrationHelpers
     end
 
     def logout
-      delete session_path
+      get session_destroy_path
     end
 
     def can_access_account(account_path, username, user_password = 'password',

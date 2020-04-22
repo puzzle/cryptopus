@@ -84,14 +84,14 @@ describe 'User provides new Ldap Pw' do
       post recryptrequests_recrypt_path, params: { forgot_password: true,
                                                    new_password: 'newPassword' }
 
-      delete session_path
+      get session_destroy_path
 
       login_as('admin')
       bobs_user_id = bob.id
       recrypt_id = Recryptrequest.find_by(user_id: bobs_user_id).id
       post admin_recryptrequest_path(recrypt_id), params: { _method: :delete }
 
-      delete session_path
+      get session_destroy_path
 
       #  do if user could see his account(he should see now)
       login_as('bob', 'newPassword')

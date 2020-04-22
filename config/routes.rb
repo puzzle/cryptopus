@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 
   get 'session/new', to: 'session#new'
   post 'session', to: 'session#create'
-  delete 'session', to: 'session#destroy'
+  get 'session/destroy', to: 'session#destroy'
   get 'session/show_update_password', to: 'session#show_update_password'
   post 'session/update_password', to: 'session#update_password'
   post 'session/locale', to: 'session#changelocale'

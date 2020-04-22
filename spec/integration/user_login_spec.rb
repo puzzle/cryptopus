@@ -26,14 +26,14 @@ describe 'User login' do
 
   it 'logs bob out' do
     login_as('bob')
-    delete session_path
+    get session_destroy_path
     follow_redirect!
     expect(request.fullpath).to eq(session_new_path)
   end
 
   it 'jumps to is set when autologout' do
     login_as('bob')
-    delete session_path(jumpto: admin_users_path)
+    get session_destroy_path(jumpto: admin_users_path)
     follow_redirect!
     expect(request.fullpath).to eq(session_new_path)
     expect(admin_users_path).to eq(session[:jumpto])
