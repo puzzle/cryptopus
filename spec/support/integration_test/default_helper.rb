@@ -13,7 +13,7 @@ module IntegrationTest
     end
 
     def logout
-      get '/login/logout'
+      get '/session/destroy'
     end
 
     def can_access_account(account_path, username, user_password = 'password',

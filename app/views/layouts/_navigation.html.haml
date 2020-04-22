@@ -27,7 +27,7 @@
                 %li= nav_link t(:users), admin_users_path
                 %li= nav_link t('teams.title'), admin_teams_path
                 %li= nav_link t(:maintenance_tasks), admin_maintenance_tasks_path
-          = nav_link image_pack_tag("sign_out.svg", class: "logout-icon"), session_path, :delete
+          = nav_link image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path, :get
         %ul.nav.navbar-nav.navbar-right#profile-button
           = nav_link current_user.username, profile_path
   - unless @breadcrumbs.nil?
