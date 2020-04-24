@@ -1,9 +1,6 @@
-provider: db
+provider: keycloak
 
-# expample of ldap settings
 
-# provider: ldap
-#
 # ldap:
 #   bind_dn: 'example_bind_dn'
 #   bind_password: cGFzc3dvcmQ= # base64 encoded # echo -n 'password' | base64

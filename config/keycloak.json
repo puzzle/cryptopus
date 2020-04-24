@@ -1,0 +1,10 @@
+{
+  "realm": "cryptopus",
+  "auth-server-url": "http://keycloak:8180/auth",
+  "ssl-required": "external",
+  "resource": "cryptopus",
+  "credentials": {
+    "secret": "0a76235d-4d98-47ba-ab31-22e4748f6fa8"
+  },
+  "confidential-port": 0
+}

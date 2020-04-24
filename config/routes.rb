@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :items
   end
 
+  get 'session/login_keycloak', to: 'session#login_keycloak'
   get 'session/new', to: 'session#new'
   post 'session', to: 'session#create'
   delete 'session', to: 'session#destroy'

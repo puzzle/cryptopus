@@ -14,9 +14,9 @@ class SessionController < ApplicationController
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
   skip_before_action :verify_authenticity_token, only: :create
-  skip_before_action :validate_user, only: [:new, :create, :destroy]
+  skip_before_action :validate_user, only: [:new, :create, :destroy, :login_keycloak]
   skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
-  before_action :skip_authorization, only: [:create, :new, :destroy]
+  before_action :skip_authorization, only: [:create, :new, :destroy, :login_keycloak]
 
   def create
     unless authenticator.auth!
@@ -33,6 +33,12 @@ class SessionController < ApplicationController
     redirect_after_sucessful_login
   end
 
+  def login_keycloak
+    code = params[:code]
+    token = Keycloak::Client.get_token_by_code(code, session_login_keycloak_url)
+    cookies.permanent[:keycloak_token] = token
+    redirect_to teams_path
+  end
   def destroy
     logout
   end

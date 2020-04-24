@@ -17,6 +17,14 @@ class AuthConfig
       auth_config.ldap_enabled?
     end
 
+    def keycloak_enabled?
+      auth_config.keycloak_enabled?
+    end
+
+    def db_enabled?
+      auth_config.keycloak_enabled?
+    end
+
     def provider
       auth_config.provider
     end
@@ -30,8 +38,16 @@ class AuthConfig
     provider == 'ldap'
   end
 
+  def db_enabled?
+    provider == 'db'
+  end
+
   def ldap
     settings_file[:ldap]
+  end
+
+  def keycloak_enabled?
+    provider == 'keycloak'
   end
 
   private

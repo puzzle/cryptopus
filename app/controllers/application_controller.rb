@@ -26,6 +26,12 @@ class ApplicationController < ActionController::Base
 
   delegate :model_identifier, to: :class
 
+  def initialize
+    keycloak_cookie if AuthConfig.keycloak_enabled?
+
+    super
+  end
+
   # redirect if its not possible to decrypt user's private key
   def redirect_if_no_private_key
     if current_user.is_a?(User::Human) && !active_session?
@@ -76,16 +82,34 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def validate_user
+    handle_pending_recrypt_request
+    check_if_user_logged_in
+  end
+
   def check_if_user_logged_in
+    return if current_user.present? && current_user.root?
+
+    keycloak_enabled? ? keycloak_user_logged_in : user_logged_in
+  end
+
+  def keycloak_user_logged_in
+    if Keycloak::Client.user_signed_in? && current_user.nil?
+      # Redirect to sso_login_to_cryptopus oder create_session
+    elsif !Keycloak::Client.user_signed_in?
+      redirect_to Keycloak::Client.url_login_redirect(session_login_keycloak_url, 'code')
+    end
+  end
+
+  def user_logged_in
     if current_user.nil?
       session[:jumpto] = request.parameters
       redirect_to session_new_path
     end
   end
 
-  def validate_user
-    handle_pending_recrypt_request
-    check_if_user_logged_in
+  def keycloak_enabled?
+    AuthConfig.keycloak_enabled?
   end
 
   def model_params
@@ -102,6 +126,12 @@ class ApplicationController < ActionController::Base
 
   def team_id
     params[:team_id]
+  end
+
+  def keycloak_cookie
+    Keycloak.proc_cookie_token = lambda do
+      cookies.permanent[:keycloak_token]
+    end
   end
 
   class << self
