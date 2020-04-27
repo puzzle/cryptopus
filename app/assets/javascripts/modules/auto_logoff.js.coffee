@@ -6,7 +6,7 @@
 app = window.App ||= {}
 
 class app.AutoLogoff
-  AUTO_LOGOFF_TIME = 300
+  AUTO_LOGOFF_TIME = 298
   remaining_seconds = AUTO_LOGOFF_TIME
 
   constructor: () ->
@@ -18,7 +18,7 @@ class app.AutoLogoff
     if document.URL.indexOf('session/new') > -1
       return
     if remaining_seconds <= 1
-      window.location = '/session/destroy?jumpto=' + window.location.pathname
+      window.location = '/session/destroy?jumpto=' + window.location.pathname+"&autologout=true"
 
       return
 
