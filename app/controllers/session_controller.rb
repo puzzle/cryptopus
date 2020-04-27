@@ -17,6 +17,7 @@ class SessionController < ApplicationController
   skip_before_action :validate_user, only: [:new, :create, :destroy, :login_keycloak]
   skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
   before_action :skip_authorization, only: [:create, :new, :destroy, :login_keycloak]
+  before_action :check_root_source_ip, only: :fallback
 
   def create
     unless authenticator.auth!
@@ -33,6 +34,9 @@ class SessionController < ApplicationController
     redirect_after_sucessful_login
   end
 
+  def fallback
+    render :new
+  end
   def login_keycloak
     code = params[:code]
     token = Keycloak::Client.get_token_by_code(code, session_login_keycloak_url)
@@ -40,7 +44,6 @@ class SessionController < ApplicationController
     redirect_to teams_path
   end
   def destroy
-    Keycloak::Client.logout if AuthConfig.keycloak_enabled? && !current_user.root?
     logout
   end
 

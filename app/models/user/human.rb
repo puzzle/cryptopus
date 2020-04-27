@@ -104,7 +104,9 @@ class User::Human < User
 
   # Updates Information about the user
   def update_info
-    update_info_from_ldap if ldap?
+    update_info_from_ldap if AuthConfig.ldap_enabled?
+    update_info_from_keycloak if AuthConfig.keycloak_enabled? && !root?
+
     update(last_login_at: Time.zone.now)
   end
 

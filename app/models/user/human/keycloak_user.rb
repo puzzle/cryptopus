@@ -13,7 +13,6 @@ class User::Human
 
     module ClassMethods
       def create_from_keycloak(username)
-        binding.pry
         user = new
         user.username = username
         user.auth = 'keycloak'
@@ -35,9 +34,8 @@ class User::Human
 
     # Updates Information about the user from Keycloak
     def update_info_from_keycloak
-      binding.pry
       self.givenname = Keycloak::Client.get_attribute('given_name')
-      self.surname = Keycloak::Client.get_attribute('preferred_username')
+      self.surname = Keycloak::Client.get_attribute('family_name')
     end
   end
 end

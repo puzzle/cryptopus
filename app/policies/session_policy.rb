@@ -5,6 +5,11 @@ class SessionPolicy < ApplicationPolicy
   def new?
     user.nil? && !AuthConfig.keycloak_enabled?
   end
+
+  def fallback?
+    user.nil? && AuthConfig.keycloak_enabled?
+  end
+
   def login_keycloak?
     user.nil? && AuthConfig.keycloak_enabled?
   end

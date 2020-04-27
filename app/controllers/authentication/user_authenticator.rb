@@ -16,6 +16,7 @@ class Authentication::UserAuthenticator
   end
 
   def auth!
+    return false if AuthConfig.keycloak_enabled? && username != 'root'
     return false unless preconditions?
     return false if user_locked?
 

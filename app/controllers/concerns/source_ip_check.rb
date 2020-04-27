@@ -12,6 +12,10 @@ module SourceIpCheck
     before_action :check_source_ip
   end
 
+  def check_root_source_ip
+    redirect_to teams_path unless ip_checker.root_ip_authorized?
+  end
+
   def check_source_ip
     return if ip_checker.previously_authorized?(session[:authorized_ip])
 

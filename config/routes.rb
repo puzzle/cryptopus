@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   end
 
   get 'session/login_keycloak', to: 'session#login_keycloak'
+  get 'session/fallback', to: 'session#fallback'
   get 'session/new', to: 'session#new'
   post 'session', to: 'session#create'
   delete 'session', to: 'session#destroy'
