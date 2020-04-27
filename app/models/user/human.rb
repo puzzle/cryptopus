@@ -8,7 +8,7 @@
 #  public_key                   :text             not null
 #  private_key                  :binary           not null
 #  password                     :binary
-#  ldap_uid                     :integer
+#  provider_uid                     :integer
 #  last_login_at                :datetime
 #  username                     :string
 #  givenname                    :string
@@ -36,6 +36,8 @@ class User::Human < User
   include User::Human::Authenticator
   autoload 'Ldap', 'user/human/ldap'
   include User::Human::Ldap
+  autoload 'KeycloakUser', 'user/human/keycloak_user'
+  include User::Human::KeycloakUser
 
   validates :username, length: { maximum: 20 }
   validate :must_be_valid_ip
@@ -49,6 +51,7 @@ class User::Human < User
   scope :locked, -> { where(locked: true) }
   scope :unlocked, -> { where(locked: false) }
   scope :ldap, -> { where(auth: 'ldap') }
+  scope :keycloak, -> { where(auth: 'keycloak') }
   scope :admins, (-> { where(role: :admin) })
 
   default_scope { order('username') }
@@ -70,7 +73,7 @@ class User::Human < User
     end
 
     def create_root(password)
-      user = new(ldap_uid: 0,
+      user = new(provider_uid: 0,
                  username: 'root',
                  givenname: 'root',
                  surname: '',

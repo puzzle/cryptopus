@@ -111,14 +111,14 @@ describe User::Human do
       ldap_mock = double
 
       expect(LdapConnection).to receive(:new).exactly(3).times.and_return(ldap_mock)
-      expect(ldap_mock).to receive(:uidnumber_by_username).and_return(42)
-      expect(ldap_mock).to receive(:ldap_info).with(42, 'givenname').and_return('bob')
-      expect(ldap_mock).to receive(:ldap_info).with(42, 'sn').and_return('test')
+      expect(ldap_mock).to receive(:uidnumber_by_username).and_return('42')
+      expect(ldap_mock).to receive(:ldap_info).with('42', 'givenname').and_return('bob')
+      expect(ldap_mock).to receive(:ldap_info).with('42', 'sn').and_return('test')
 
       user = User::Human.send(:create_from_ldap, 'bob', 'password')
 
       expect(user.username).to eq('bob')
-      expect(user.ldap_uid).to eq(42)
+      expect(user.provider_uid).to eq('42')
       expect(user.givenname).to eq('bob')
       expect(user.surname).to eq('test')
       expect(user.auth).to eq('ldap')

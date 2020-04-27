@@ -26,6 +26,17 @@ class CryptUtils
       Digest::SHA1.hexdigest(password)
     end
 
+    def pk_secret(secret)
+      secret_key_base = Rails.application.secrets.secret_key_base
+      Digest::SHA512.hexdigest(secret_key_base + secret)
+    end
+
+    def create_pk_secret_base(user_id)
+      pk_secret_base = SecureRandom.base64(32)
+      Keycloak::Admin.update_user(user_id, attributes: { pk_secret_base: [pk_secret_base] })
+      pk_secret_base
+    end
+
     def new_keypair
       keypair = PKey::RSA.new(2048)
       keypair

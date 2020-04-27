@@ -8,7 +8,7 @@
 #  public_key                   :text             not null
 #  private_key                  :binary           not null
 #  password                     :binary
-#  ldap_uid                     :integer
+#  provider_uid                     :integer
 #  last_login_at                :datetime
 #  username                     :string
 #  givenname                    :string

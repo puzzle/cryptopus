@@ -145,7 +145,7 @@ ch_be:
         title: Lischtä vo aune Cryptopus Benutzer
         username: Benutzernamä
         name: Namä
-        ldap_uid: LDAP UID
+        provider_uid: LDAP UID
         last_login_at: Letschti Ameudig am
         last_login_from: Letschti Ameudig vo
         admin: Admin

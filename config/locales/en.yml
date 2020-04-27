@@ -121,7 +121,7 @@ en:
         title: List of all Cryptopus users
         username: Username
         name: Name
-        ldap_uid: LDAP UID
+        provider_uid: LDAP UID
         last_login_at: Last login at
         last_login_from: Last login from
         admin: Admin

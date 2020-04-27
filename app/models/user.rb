@@ -8,7 +8,7 @@
 #  public_key                   :text             not null
 #  private_key                  :binary           not null
 #  password                     :binary
-#  ldap_uid                     :integer
+#  provider_uid                     :integer
 #  last_login_at                :datetime
 #  username                     :string
 #  givenname                    :string
@@ -36,11 +36,12 @@ class User < ApplicationRecord
   validates :username, uniqueness: :username
   validates :username, presence: true
 
-  def self.find_user(username, password)
+  def self.find_user(username, password = '')
     user = find_by(username: username.strip)
     return user if user.present?
 
     User::Human.find_or_import_from_ldap(username.strip, password) if User::Human.ldap_enabled?
+    User::Human.create_from_keycloak(username.strip) if AuthConfig.keycloak_enabled?
   end
 
   def update_password(old, new)

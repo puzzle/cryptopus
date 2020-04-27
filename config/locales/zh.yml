@@ -112,7 +112,7 @@ zh:
         title: "列举所有Cryptopus用户"
         username: "用户名"
         name: "名字"
-        ldap_uid: "LDAP UID"
+        provider_uid: "LDAP UID"
         last_login_at: "上次登陆于"
         last_login_from: "上次登陆位置"
         admin: "管理员"

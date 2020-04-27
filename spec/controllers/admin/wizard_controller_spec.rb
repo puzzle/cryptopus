@@ -22,7 +22,7 @@ describe WizardController do
       User::Human.delete_all
       post :apply, params: { password: 'password', password_repeat: 'password' }
       expect(response).to redirect_to(admin_users_path)
-      expect(User.find_by(ldap_uid: 0)).to be
+      expect(User.find_by(provider_uid: '0')).to be
     end
 
     context 'GET index' do

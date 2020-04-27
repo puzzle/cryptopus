@@ -51,7 +51,7 @@ class User::Human
         user = new
         user.username = username
         user.auth = 'ldap'
-        user.ldap_uid = ldap_connection.uidnumber_by_username(username)
+        user.provider_uid = ldap_connection.uidnumber_by_username(username)
         user.create_keypair password
         user.update_info
         user
@@ -64,8 +64,8 @@ class User::Human
 
     # Updates Information about the user from LDAP
     def update_info_from_ldap
-      self.givenname = ldap_connection.ldap_info(ldap_uid, 'givenname')
-      self.surname = ldap_connection.ldap_info(ldap_uid, 'sn')
+      self.givenname = ldap_connection.ldap_info(provider_uid, 'givenname')
+      self.surname = ldap_connection.ldap_info(provider_uid, 'sn')
     end
 
     def ldap_connection

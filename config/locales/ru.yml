@@ -118,7 +118,7 @@ ru:
         title: "Список пользователей"
         username: "Имя пользователя"
         name: "Имя"
-        ldap_uid: "LDAP UID"
+        provider_uid: "LDAP UID"
         last_login_at: "Последний вход"
         last_login_from: "Последний вход с"
         admin: "Администратор"

@@ -40,6 +40,7 @@ class SessionController < ApplicationController
     redirect_to teams_path
   end
   def destroy
+    Keycloak::Client.logout if AuthConfig.keycloak_enabled? && !current_user.root?
     logout
   end
 
