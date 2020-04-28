@@ -7,7 +7,7 @@
 
 - unless @user.root?
   - @submit_button_text = t(:update)
-  - @form_url = admin_user_path
+  - @form_url = admin_user_path(@user)
   = render 'form'
 - if !@user.new_record? && policy(@user).resetpassword?
   %br/
