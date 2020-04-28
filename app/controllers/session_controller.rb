@@ -6,17 +6,16 @@
 #  https://github.com/puzzle/cryptopus.
 
 class SessionController < ApplicationController
-
-  before_action :authorize_action
-
   # it's save to disable this for authenticate since there is no logged in session active
   # in this case.
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
   skip_before_action :verify_authenticity_token, only: :create
-  skip_before_action :validate_user, only: [:new, :create, :destroy, :login_keycloak]
+  skip_before_action :validate_user, expect: [:update_password, :changelocale]
   skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
-  before_action :skip_authorization, only: [:create, :new, :destroy, :login_keycloak]
+
+  before_action :authorize_action
+  before_action :skip_authorization, only: [:create, :new, :destroy, :login_keycloak, :sso]
   before_action :check_root_source_ip, only: :fallback
 
   def create
@@ -37,12 +36,20 @@ class SessionController < ApplicationController
   def fallback
     render :new
   end
+
   def login_keycloak
-    code = params[:code]
-    token = Keycloak::Client.get_token_by_code(code, session_login_keycloak_url)
+    token = Keycloak::Client.get_token_by_code(params[:code], session_login_keycloak_url)
     cookies.permanent[:keycloak_token] = token
-    redirect_to teams_path
+    user = User.find_user(Keycloak::Client.get_attribute('preferred_username'))
+    if Keycloak::Client.get_attribute('pk_secret_base').nil?
+      return redirect_to Keycloak::Client.url_login_redirect(session_login_keycloak_url, 'code')
+    end
+
+    create_session(user, CryptUtils.pk_secret)
+    last_login_message
+    redirect_after_sucessful_login
   end
+
   def destroy
     logout
   end

@@ -1,4 +1,4 @@
-provider: keycloak
+provider: db
 
 
 # ldap:

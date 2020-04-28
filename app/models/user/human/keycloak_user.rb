@@ -17,8 +17,7 @@ class User::Human
         user.username = username
         user.auth = 'keycloak'
         user.provider_uid = Keycloak::Client.get_attribute('sub')
-        user.password = CryptUtils.create_pk_secret_base(user.provider_uid)
-        user.create_keypair(CryptUtils.pk_secret(user.password))
+        user.create_keypair(CryptUtils.pk_secret(CryptUtils.create_pk_secret_base(user.provider_uid)))
         user.update_info
         user
       rescue StandardError

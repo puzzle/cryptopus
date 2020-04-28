@@ -66,6 +66,7 @@ class ApplicationController < ActionController::Base
   private
 
   def logout
+    Keycloak::Client.logout if AuthConfig.keycloak_enabled? && !current_user.root?
     flash_notice = params[:autologout] ? t('session.destroy.expired') : flash[:notice]
     jumpto = params[:jumpto]
     reset_session
@@ -94,9 +95,8 @@ class ApplicationController < ActionController::Base
   end
 
   def keycloak_user_logged_in
-    if Keycloak::Client.user_signed_in? && current_user.nil?
-      # Redirect to sso_login_to_cryptopus oder create_session
-    elsif !Keycloak::Client.user_signed_in?
+    if current_user.nil?
+      session[:jumpto] = request.parameters
       redirect_to Keycloak::Client.url_login_redirect(session_login_keycloak_url, 'code')
     end
   end

@@ -26,9 +26,10 @@ class CryptUtils
       Digest::SHA1.hexdigest(password)
     end
 
-    def pk_secret(secret)
+    def pk_secret(secret = nil)
+      pk_secret_base = Keycloak::Client.get_attribute('pk_secret_base') || secret
       secret_key_base = Rails.application.secrets.secret_key_base
-      Digest::SHA512.hexdigest(secret_key_base + secret)
+      Digest::SHA512.hexdigest(secret_key_base + pk_secret_base)
     end
 
     def create_pk_secret_base(user_id)

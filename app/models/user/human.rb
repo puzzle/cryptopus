@@ -8,7 +8,7 @@
 #  public_key                   :text             not null
 #  private_key                  :binary           not null
 #  password                     :binary
-#  provider_uid                     :integer
+#  provider_uid                 :string
 #  last_login_at                :datetime
 #  username                     :string
 #  givenname                    :string

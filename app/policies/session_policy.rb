@@ -13,7 +13,6 @@ class SessionPolicy < ApplicationPolicy
   def login_keycloak?
     user.nil? && AuthConfig.keycloak_enabled?
   end
-  end
 
   def create?
     user.nil?
