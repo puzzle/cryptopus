@@ -111,8 +111,6 @@ describe Admin::RecryptrequestsController do
       rec.user_id = bob.id
       rec.save
 
-      recs = Recryptrequest.all
-
       get :index
 
       expect(response.body).to match(/<h1>Re-encryption requests/)
