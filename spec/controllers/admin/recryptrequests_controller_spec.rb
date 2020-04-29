@@ -102,5 +102,22 @@ describe Admin::RecryptrequestsController do
 
       expect(response.body).to match(/<h1>Re-encryption requests/)
     end
+
+    it 'shows no error when recryptrequests are present' do
+
+      login_as(:admin)
+      bob = users(:bob)
+      rec = Recryptrequest.new
+      rec.user_id = bob.id
+      rec.save
+
+      recs = Recryptrequest.all
+
+      get :index
+
+      expect(response.body).to match(/<h1>Re-encryption requests/)
+
+    end
+
   end
 end
