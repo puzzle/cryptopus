@@ -46,6 +46,14 @@ describe CryptUtils do
       decrypted_private_key = CryptUtils.decrypt_private_key(encrypted_private_key, @password)
       expect(@private_key).to eq(decrypted_private_key)
     end
+
+    it 'should encrypt and decrypt private key with pk_secret' do
+      expect(Keycloak::Client).to receive(:get_attribute).with('pk_secret_base').and_return(nil)
+      pk_secret = CryptUtils.pk_secret(SecureRandom.base64(32))
+      encrypted_private_key = CryptUtils.encrypt_private_key(@private_key, pk_secret)
+      decrypted_private_key = CryptUtils.decrypt_private_key(encrypted_private_key, pk_secret)
+      expect(@private_key).to eq(decrypted_private_key)
+    end
   end
 
   context 'key pair' do

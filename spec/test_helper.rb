@@ -13,6 +13,10 @@ def legacy_encrypt_private_key(private_key, password)
   encrypted_private_key
 end
 
+def enable_keycloak
+  expect(AuthConfig).to receive(:keycloak_enabled?).and_return(true).at_least(:once)
+end
+
 def enable_ldap
   expect(AuthConfig).to receive(:ldap_enabled?).and_return(true).at_least(:once)
 end

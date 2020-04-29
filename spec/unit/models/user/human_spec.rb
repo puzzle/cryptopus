@@ -104,6 +104,34 @@ describe User::Human do
 
   end
 
+  context 'keycloak' do
+    it 'create user from Keycloak' do
+      enable_keycloak
+
+      expect(Keycloak::Client).to receive(:get_attribute)
+        .with('sub')
+        .and_return('aw123')
+      expect(Keycloak::Client).to receive(:get_attribute)
+        .with('given_name')
+        .and_return('Ben')
+      expect(Keycloak::Client).to receive(:get_attribute)
+        .with('family_name')
+        .and_return('Meier')
+      expect(Keycloak::Client).to receive(:get_attribute)
+        .with('pk_secret_base')
+        .and_return(nil)
+      expect(Keycloak::Admin).to receive(:update_user).and_return(true)
+
+      User::Human.send(:create_from_keycloak, 'ben')
+      user = User.find_by(username: 'ben')
+
+      expect(user.username).to eq('ben')
+      expect(user.givenname).to eq('Ben')
+      expect(user.surname).to eq('Meier')
+      expect(user.provider_uid).to eq('aw123')
+    end
+  end
+
   context 'ldap' do
 
     it 'creates user from ldap' do
