@@ -55,6 +55,13 @@ describe SessionController do
       expect(response).to have_http_status(401)
     end
 
+    it 'should redirect if keycloak is enabled' do
+      enable_keycloak
+      get :new
+
+      expect(response).to redirect_to teams_path
+    end
+
     it 'saves ip in session if ip allowed' do
       random_ip = "#{rand(1..253)}.#{rand(254)}.#{rand(254)}.#{rand(254)}"
       expect_any_instance_of(Authentication::SourceIpChecker)
@@ -204,6 +211,34 @@ describe SessionController do
       login_as(:bob)
       post :update_password, params: { old_password: 'password', new_password1: 'test',
                                        new_password2: 'test' }
+
+      expect(response).to redirect_to teams_path
+    end
+  end
+
+  context 'GET fallback' do
+    it 'shows root login with keycloak' do
+      enable_keycloak
+      expect_any_instance_of(Authentication::SourceIpChecker)
+        .to receive(:root_ip_authorized?)
+        .and_return(true)
+      get :fallback
+
+      expect(response.status).to eq(200)
+      expect(request.fullpath).to eq('/session/fallback')
+    end
+
+    it 'denies access if ip not private' do
+      enable_keycloak
+
+      get :fallback
+
+      expect(response.status).to eq(302)
+      expect(response).to redirect_to teams_path
+    end
+
+    it 'redirects if keycloak is not enabled' do
+      get :fallback
 
       expect(response).to redirect_to teams_path
     end
