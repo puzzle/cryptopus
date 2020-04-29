@@ -11,4 +11,4 @@
   - for recryptrequest in @recryptrequests
     %tr
       %td= recryptrequest.user.label
-      %td.action_icon= link_to t('.recrypt'), [:admin, recryptrequest], method: :delete
+      %td.action_icon= link_to t('.recrypt'), admin_recryptrequest_path(recryptrequest), method: :delete
