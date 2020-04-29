@@ -12,15 +12,11 @@ task ci: ['log:clear',
           'frontend:prepare',
           'spec:frontend',
           'db:test:prepare',
-          'spec',
-          'spec:system:lenient']
+          'spec']
 
 namespace :ci do
   desc 'Runs the tasks for the nightly build'
-  task nightly: ['db:test:prepare',
-                 'rubocop',
-                 'geo:fetch',
-                 'spec',
-                 'brakeman']
+  task nightly: ['brakeman',
+                 'spec:system:lenient']
 
 end

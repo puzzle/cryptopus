@@ -1,6 +1,7 @@
 language: ruby
-cache: bundler
-cache: yarn
+cache:
+  bundler: true
+  yarn: true
 addons:
   apt:
     packages:
@@ -9,8 +10,8 @@ rvm:
  - 2.5
 branches:
  only:
-  - master
   - stable
+  - master
 before_install:
  - sudo service mysql restart
  - nvm install 10.13.0
@@ -30,3 +31,6 @@ script:
  - bundle --deployment
  - bundle exec brakeman
  - bundle exec rake ci --trace
+ - if [ "$TRAVIS_EVENT_TYPE" = "cron" ] || [ "$TRAVIS_EVENT_TYPE" = "api" ]; then
+    bundle exec rake ci:nightly --trace;
+   fi;
