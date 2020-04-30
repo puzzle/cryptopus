@@ -15,7 +15,7 @@ task ci: ['log:clear',
           'spec']
 
 namespace :ci do
-  desc 'Runs the tasks for the nightly build'
+  desc 'Runs the additional tasks for the nightly or manual build'
   task nightly: ['brakeman',
                  'spec:system:lenient']
 
