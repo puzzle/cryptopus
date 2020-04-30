@@ -178,6 +178,24 @@ describe Api::AccountsController do
         expect(account['cleartext_password']).to eq 'password'
       end
 
+      it 'authenticates with valid api user and returns account details with keycloak' do
+        enable_keycloak
+        api_user.update!(valid_until: Time.zone.now + 5.minutes)
+
+        teams(:team1).add_user(api_user, plaintext_team_password)
+
+        request.headers['Authorization-User'] = api_user.username
+        request.headers['Authorization-Password'] = token
+        account = accounts(:account1)
+        get :show, params: { id: account }, xhr: true
+
+        account = json['data']['account']
+
+        expect(account['accountname']).to eq 'account1'
+        expect(account['cleartext_username']).to eq 'test'
+        expect(account['cleartext_password']).to eq 'password'
+      end
+
       it 'does not authenticate with invalid api token and does not show account details' do
         api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
