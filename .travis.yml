@@ -10,7 +10,6 @@ rvm:
  - 2.5
 branches:
  only:
-  - feature-53943-e2e-ci-job
   - stable
   - master
 before_install:
