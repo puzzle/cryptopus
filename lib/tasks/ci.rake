@@ -8,15 +8,14 @@
 desc 'Runs the taks for a commit build'
 task ci: ['log:clear',
           'rubocop',
-          'geo:fetch',
+          'brakeman',
           'frontend:prepare',
           'spec:frontend',
           'db:test:prepare',
           'spec']
 
 namespace :ci do
-  desc 'Runs the additional tasks for the nightly or manual build'
-  task nightly: ['brakeman',
-                 'spec:system:lenient']
+  desc 'Runs the tasks for the nightly or manual build'
+  task nightly: ['ci', 'spec:system:lenient']
 
 end
