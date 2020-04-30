@@ -12,20 +12,30 @@ class User::Human
     end
 
     module ClassMethods
+      def import_from_keycloak(username)
+        raise 'cannot perform this operation since keycloak is disabled' unless keycloak_enabled?
+        return unless Keycloak::Client.user_signed_in?
+
+        create_from_keycloak(username)
+      end
+
+      private
+
+      def keycloak_enabled?
+        AuthConfig.keycloak_enabled?
+      end
+
       def create_from_keycloak(username)
         user = new
         user.username = username
         user.auth = 'keycloak'
         user.provider_uid = Keycloak::Client.get_attribute('sub')
-        user.create_keypair(CryptUtils.pk_secret(CryptUtils.create_pk_secret_base(user.provider_uid)))
+        pk_secret_base = CryptUtils.create_pk_secret_base(user.provider_uid)
+        user.create_keypair(CryptUtils.pk_secret(pk_secret_base))
         user.update_info
         user
       rescue StandardError
         raise Exceptions::UserCreationFailed
-      end
-
-      def keycloak_enabled?
-        AuthConfig.keycloak_enabled?
       end
     end
 

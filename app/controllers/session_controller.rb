@@ -15,7 +15,7 @@ class SessionController < ApplicationController
   skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
 
   before_action :authorize_action
-  before_action :skip_authorization, only: [:create, :new, :destroy, :login_keycloak, :sso]
+  before_action :skip_authorization, only: [:create, :new, :destroy, :sso]
   before_action :check_root_source_ip, only: :fallback
 
   def create
@@ -37,14 +37,11 @@ class SessionController < ApplicationController
     render :new
   end
 
-  def login_keycloak
-    token = Keycloak::Client.get_token_by_code(params[:code], session_login_keycloak_url)
+  def sso
+    token = Keycloak::Client.get_token_by_code(params[:code], session_sso_url)
     cookies.permanent[:keycloak_token] = token
     user = User.find_user(Keycloak::Client.get_attribute('preferred_username'))
-    if Keycloak::Client.get_attribute('pk_secret_base').nil?
-      return redirect_to Keycloak::Client.url_login_redirect(session_login_keycloak_url, 'code')
-    end
-
+    return update_token if Keycloak::Client.get_attribute('pk_secret_base').nil? || user.nil?
     create_session(user, CryptUtils.pk_secret)
     last_login_message
     redirect_after_sucessful_login
@@ -80,6 +77,10 @@ class SessionController < ApplicationController
   end
 
   private
+
+  def update_token
+    redirect_to Keycloak::Client.url_login_redirect(session_sso_url, 'code')
+  end
 
   def last_login_message
     flash_message = Flash::LastLoginMessage.new(session)

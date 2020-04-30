@@ -41,7 +41,7 @@ class User < ApplicationRecord
     return user if user.present?
 
     User::Human.find_or_import_from_ldap(username.strip, password) if User::Human.ldap_enabled?
-    User::Human.create_from_keycloak(username.strip) if AuthConfig.keycloak_enabled?
+    User::Human.import_from_keycloak(username.strip) if AuthConfig.keycloak_enabled?
   end
 
   def update_password(old, new)

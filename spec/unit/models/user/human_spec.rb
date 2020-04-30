@@ -120,9 +120,12 @@ describe User::Human do
       expect(Keycloak::Client).to receive(:get_attribute)
         .with('pk_secret_base')
         .and_return(nil)
-      expect(Keycloak::Admin).to receive(:update_user).and_return(true)
+      expect(Keycloak::Client).to receive(:user_signed_in?)
+        .and_return(true)
+      expect(Keycloak::Admin).to receive(:update_user)
+        .and_return(true)
 
-      User::Human.send(:create_from_keycloak, 'ben')
+      User::Human.send(:import_from_keycloak, 'ben')
       user = User.find_by(username: 'ben')
 
       expect(user.username).to eq('ben')

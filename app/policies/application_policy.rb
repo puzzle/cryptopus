@@ -43,6 +43,14 @@ class ApplicationPolicy
     @user.admin? || @user.conf_admin?
   end
 
+  def keycloak_enabled?
+    AuthConfig.keycloak_enabled?
+  end
+
+  def keycloak_disabled?
+    !AuthConfig.keycloak_enabled?
+  end
+
   def scope
     Pundit.policy_scope!(user, record.class)
   end

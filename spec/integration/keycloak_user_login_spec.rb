@@ -15,18 +15,22 @@ describe 'Keycloak user login' do
   end
 
   it 'logins as new keycloak user' do
+    pk_secret_base = SecureRandom.base64(32)
     # Mock
     expect(Keycloak::Client).to receive(:url_login_redirect)
-      .with(session_login_keycloak_url, 'code')
-      .and_return(session_login_keycloak_path)
+      .with(session_sso_url, 'code')
+      .and_return(session_sso_path)
+      .twice
     expect(Keycloak::Client).to receive(:get_token_by_code)
       .and_return('asdasda')
+      .twice
     expect(Keycloak::Client).to receive(:get_attribute)
       .with('sub')
       .and_return('asdQW123-asdQWE')
     expect(Keycloak::Client).to receive(:get_attribute)
       .with('preferred_username')
       .and_return('ben')
+      .twice
     expect(Keycloak::Client).to receive(:get_attribute)
       .with('given_name')
       .and_return('Ben')
@@ -37,14 +41,10 @@ describe 'Keycloak user login' do
       .twice
     expect(Keycloak::Client).to receive(:get_attribute)
       .with('pk_secret_base').at_least(:once)
-      .and_return(SecureRandom.base64(32))
-      .thrice
-    expect(Keycloak::Client).to receive(:user_signed_in?)
-      .and_return(false)
-      .once
-    expect(Keycloak::Client).to receive(:user_signed_in?)
-      .and_return(true)
+      .and_return(pk_secret_base)
       .at_least(:once)
+    expect(Keycloak::Client).to receive(:user_signed_in?)
+      .and_return(false, true, true)
     expect(Keycloak::Admin).to receive(:update_user)
       .and_return(true)
 
@@ -52,7 +52,7 @@ describe 'Keycloak user login' do
     expect do
       get search_path
       follow_redirect!
-      Keycloak::Client.user_signed_in?
+      follow_redirect!
       follow_redirect!
       user = User.find_by(username: 'ben')
       expect(request.fullpath).to eq(search_path)
