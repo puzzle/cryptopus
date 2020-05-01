@@ -21,10 +21,6 @@ class AuthConfig
       auth_config.keycloak_enabled?
     end
 
-    def db_enabled?
-      auth_config.keycloak_enabled?
-    end
-
     def provider
       auth_config.provider
     end
@@ -36,10 +32,6 @@ class AuthConfig
 
   def ldap_enabled?
     provider == 'ldap'
-  end
-
-  def db_enabled?
-    provider == 'db'
   end
 
   def ldap

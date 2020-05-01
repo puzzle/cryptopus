@@ -104,8 +104,8 @@ class User::Human < User
 
   # Updates Information about the user
   def update_info
-    update_info_from_ldap if AuthConfig.ldap_enabled?
-    update_info_from_keycloak if AuthConfig.keycloak_enabled? && !root?
+    update_info_from_ldap if ldap?
+    update_info_from_keycloak if keycloak?
 
     update(last_login_at: Time.zone.now)
   end
@@ -155,6 +155,10 @@ class User::Human < User
 
   def ldap?
     auth == 'ldap'
+  end
+
+  def keycloak?
+    auth == 'keycloak'
   end
 
   def migrate_legacy_private_key(password)

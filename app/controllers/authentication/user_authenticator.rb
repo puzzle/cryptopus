@@ -16,7 +16,7 @@ class Authentication::UserAuthenticator
   end
 
   def auth!
-    return false if keycloak_root_api_user?
+    return false if keycloak_enabled?
     return false unless preconditions?
     return false if user_locked?
 
@@ -43,7 +43,7 @@ class Authentication::UserAuthenticator
   attr_accessor :authenticated
   attr_reader :username, :password
 
-  def keycloak_root_api_user?
+  def keycloak_enabled?
     AuthConfig.keycloak_enabled? && user.is_a?(User::Human) && !user.root?
   end
 

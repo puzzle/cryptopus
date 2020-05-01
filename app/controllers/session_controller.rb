@@ -42,6 +42,7 @@ class SessionController < ApplicationController
     cookies.permanent[:keycloak_token] = token
     user = User.find_user(Keycloak::Client.get_attribute('preferred_username'))
     return update_token if Keycloak::Client.get_attribute('pk_secret_base').nil? || user.nil?
+
     create_session(user, CryptUtils.pk_secret)
     last_login_message
     redirect_after_sucessful_login
