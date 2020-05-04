@@ -33,7 +33,7 @@
             </div>
             <div id="group-power-select" class="col-sm-5">
               <label name="folder">{{t "folder"}}</label>
-              <PowerSelect @options={{this.selectableGroups}} @selected={{this.changeset.group}} @disabled={{this.isGroupDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setGroup}} @allowClear={{true}} @placeholder={{t "account.form.folderPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |group|>
+              <PowerSelect @options={{this.groups}} @selected={{this.changeset.group}} @disabled={{this.isGroupDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setGroup}} @allowClear={{true}} @placeholder={{t "account.form.folderPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |group|>
                 {{group.name}}
               </PowerSelect>
               <ValidationErrorsList @errors={{this.changeset.error.group.validation}}/>

@@ -4,8 +4,10 @@ import Account from "../../models/account";
 export default Route.extend({
 
   async model(params) {
-    var acc = await this.store.findRecord('account', params.id);
-    return acc;
+
+    var acc = await this.store.query('account', params.id);
+
+    return await this.store.findRecord('account', params.id);
   }
 
 });

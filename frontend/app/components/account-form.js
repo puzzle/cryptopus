@@ -13,13 +13,18 @@ export default class AccountForm extends BaseFormComponent {
 
   @tracked selectedTeam;
   @tracked assignableTeams = this.store.findAll("team");
-  @tracked allGroups = this.store.findAll("group");
+  @tracked groups = [];
+  //@tracked allGroups = this.store.findAll("group");
+  //@tracked allGroups = this.store.query("groups", { team_id: this.selectedTeam.id });
+
+
   isNewView;
   AccountValidations = AccountValidations;
 
   constructor() {
     super(...arguments);
     this.record = this.args.account || this.store.createRecord("account");
+    console.log(this.record.group)
     this.selectedTeam = this.record.group && this.record.group.get("team");
     this.changeset = new Changeset(
       this.record,
@@ -70,6 +75,12 @@ export default class AccountForm extends BaseFormComponent {
   setSelectedTeam(team) {
     this.selectedTeam = team;
     this.changeset.group = null;
+
+    console.log(this.selectedTeam);
+
+    // set groups to all group of selected team
+    this.groups = this.store.query("group", { team_id: this.selectedTeam.id });
+
   }
 
   @action
