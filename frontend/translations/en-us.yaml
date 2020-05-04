@@ -1,0 +1,16 @@
+team: "Team"
+folder: "Folder"
+randomPassword: "Random Password"
+new: "New"
+save: "Save"
+close: "Close"
+newAccount: "New Account"
+account:
+  form:
+    teamPlaceholder: "Select a team"
+    folderPlaceholder: "Select a folder"
+  accountname: "Account name"
+  username: "Username"
+  password: "Password"
+  description: "Description"
+  attachement: "Attachement"

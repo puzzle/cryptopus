@@ -9,7 +9,7 @@ require 'capybara'
 require 'rails_helper'
 
 describe 'Teammember', type: :system do
-  include SystemTest::SystemHelper
+  include SystemHelpers
 
   it 'lists teammembers' do
     login_as_user(:admin)

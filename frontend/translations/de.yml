@@ -1,0 +1,16 @@
+team: "Team"
+folder: "Ordner"
+randomPassword: "Zufälliges Passwort"
+new: "Neu"
+save: "Speichern"
+close: "Schliessen"
+newAccount: "Neuer Account"
+account:
+  form:
+    teamPlaceholder: "Wählen Sie ein Team aus"
+    folderPlaceholder: "Wählen Sie einen Ordner aus"
+  accountname: "Account Name"
+  username: "Username"
+  password: "Password"
+  description: "Beschreibung"
+  attachement: "Anhang"

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe LegacyRoutes::RedirectUrl do
-  include IntegrationTest::DefaultHelper
+  include IntegrationHelpers::DefaultHelper
 
   # /de/teams/1/groups/1 -> /teams/1/groups/1/
   it 'redirects to groups without groups in url' do

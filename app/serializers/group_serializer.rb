@@ -21,10 +21,6 @@ class GroupSerializer < ActiveModel::Serializer
   attributes :id, :name, :team, :team_id
 
   def team
-    object.team.name
-  end
-
-  def team_id
     object.team.id
   end
 end
