@@ -1,0 +1,72 @@
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="accountFormModalLabel" aria-hidden="true" {{did-insert this.setupModal this}}>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="accountFormModalLabel">{{t "newAccount"}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label={{t "close"}}>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-5">
+              <label name="accountname">{{t "account.accountname"}}</label>
+              <div>
+                <Input @value={{this.changeset.accountname}} @name="accountname"/>
+                <ValidationErrorsList @errors={{this.changeset.error.accountname.validation}}/>
+              </div>
+            </div>
+            <div class="col-sm-5" id="team-power-select">
+              <label name="team">{{t "team"}}</label>
+              <PowerSelect @options={{this.assignableTeams}} @selected={{this.selectedTeam}} @onChange={{this.setSelectedTeam}} @renderInPlace={{true}} @allowClear={{true}} @placeholder={{t "account.form.teamPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |team|>
+                {{team.name}}
+              </PowerSelect>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-5">
+              <label name="username">{{t "account.username"}}</label>
+              <div>
+                <Input @value={{this.changeset.cleartextUsername}} @name="cleartextUsername"/>
+              </div>
+            </div>
+            <div id="group-power-select" class="col-sm-5">
+              <label name="folder">{{t "folder"}}</label>
+              <PowerSelect @options={{this.selectableGroups}} @selected={{this.changeset.group}} @disabled={{this.isGroupDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setGroup}} @allowClear={{true}} @placeholder={{t "account.form.folderPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |group|>
+                {{group.name}}
+              </PowerSelect>
+              <ValidationErrorsList @errors={{this.changeset.error.group.validation}}/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
+              <label name="password">{{t "account.password"}}</label>
+              <div>
+                <Input @value={{this.changeset.cleartextPassword}} @name="cleartextPassword" @type="password"/>
+                <button {{on "click" this.setRandomPassword}}>{{t "randomPassword"}}</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <label name="description">{{t "account.description"}}</label>
+              <div>
+                <Textarea @value={{this.changeset.description}} @name="description"/>
+                <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" {{on "click" (fn this.submit this.changeset)}}>{{t "save"}}</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{t "close"}}</button>
+      </div>
+    </div>
+  </div>
+</div>

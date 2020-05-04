@@ -8,7 +8,7 @@
 require 'rails_helper'
 
 describe 'DeleteUser', type: :system, js: true do
-  include SystemTest::SystemHelper
+  include SystemHelpers
 
   it 'lists teams where user is last teammember' do
     login_as_user(:admin)

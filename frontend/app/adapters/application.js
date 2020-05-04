@@ -5,10 +5,10 @@ export default RESTAdapter.extend({
   namespace: "api",
 
   headers: computed(function() {
-    /* eslint-disable ember/no-global-jquery, no-undef, ember/no-jquery  */
+    /* eslint-disable no-undef  */
     return {
       "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
     };
-    /* eslint-enable no-global-jquery, no-undef, no-jquery  */
+    /* eslint-enable no-undef  */
   })
 });

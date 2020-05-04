@@ -21,6 +21,6 @@ fi
 rc=$?
 cd ..
 
-kill -INT $(cat $PID_FILE)
+kill -KILL $(cat $PID_FILE)
 
 exit $rc

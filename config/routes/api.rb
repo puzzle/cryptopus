@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
     resources :groups, only: [:index]
     resources :teams, only: [:index]
-    resources :accounts, only: [:show, :index, :update]
+    resources :accounts, only: [:show, :index, :update, :create]
 
     resources :api_users do
       member do
@@ -16,7 +16,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :accounts, only: [:show]
     scope '/search', module: 'search' do
       get :accounts
       get :groups
@@ -31,8 +30,6 @@ Rails.application.routes.draw do
       end
       resources :ldap_connection_test, only: ['new']
     end
-
-    resources :accounts, only: ['show']
 
     # INFO don't mix scopes and resources in routes
     resources :teams, only: [:destroy, :index]  do

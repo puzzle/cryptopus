@@ -11,7 +11,6 @@ task ci: ['log:clear',
           'brakeman',
           'frontend:prepare',
           'spec:frontend',
-          'db:test:prepare',
           'spec']
 
 namespace :ci do

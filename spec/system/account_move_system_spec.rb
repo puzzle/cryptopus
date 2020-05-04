@@ -8,7 +8,7 @@
 require 'rails_helper'
 
 describe 'MoveAccount', type: :system, js: true do
-  include SystemTest::SystemHelper
+  include SystemHelpers
 
   it 'moves account to another team' do
     login_as_user(:bob)

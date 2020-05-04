@@ -3,9 +3,11 @@ import config from "./config/environment";
 
 export default class Router extends EmberRouter {
   location = config.locationType;
-  rootURL = "/app/";
+  rootURL = config.rootURL;
 }
 
 Router.map(function() {
-  this.route("accounts-edit");
+  this.route("accounts", function() {
+    this.route("new");
+  });
 });

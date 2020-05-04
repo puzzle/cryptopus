@@ -4,7 +4,6 @@ import { setupTest } from "ember-qunit";
 module("Unit | Serializer | application", function(hooks) {
   setupTest(hooks);
 
-  // Replace this with your real tests.
   test("it exists", function(assert) {
     let store = this.owner.lookup("service:store");
     let serializer = store.serializerFor("application");
@@ -12,12 +11,17 @@ module("Unit | Serializer | application", function(hooks) {
     assert.ok(serializer);
   });
 
-  test("it serializes records", function(assert) {
+  test("it serializes group and team_id", function(assert) {
     let store = this.owner.lookup("service:store");
-    let record = store.createRecord("group", {});
+    let team = store.createRecord("team", { id: 2 });
+    let group = store.createRecord("group", {
+      name: "bbt",
+      team: team
+    });
 
-    let serializedRecord = record.serialize();
+    let serializedRecord = group.serialize();
 
-    assert.ok(serializedRecord);
+    assert.equal(serializedRecord.name, "bbt");
+    assert.equal(serializedRecord.team_id, "2");
   });
 });

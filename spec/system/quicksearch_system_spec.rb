@@ -8,7 +8,7 @@
 require 'rails_helper'
 
 describe 'QuickSearch', type: :system, js: true do
-  include SystemTest::SystemHelper
+  include SystemHelpers
 
   before(:each) do
     login_as_user(:bob)

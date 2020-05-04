@@ -27,6 +27,7 @@ before_script:
  - bundle exec rake db:setup
  - bundle exec rake db:migrate
  - bundle exec rake geo:fetch
+ - bundle exec rake frontend:prepare
 script:
  - bundle --deployment
  - if [ "$TRAVIS_EVENT_TYPE" = "push" ] || [ "$TRAVIS_EVENT_TYPE" = "pull_request" ]; then
@@ -35,3 +36,5 @@ script:
  - if [ "$TRAVIS_EVENT_TYPE" = "cron" ] || [ "$TRAVIS_EVENT_TYPE" = "api" ]; then
     bundle exec rake ci:nightly --trace;
    fi;
+after_script:
+ - bundle exec rake frontend:clean
