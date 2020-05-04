@@ -3,11 +3,8 @@ import Account from "../../models/account";
 
 export default Route.extend({
 
-  model(params) {
-    var acc = this.store.findRecord('account', params.id);
-
-
-
+  async model(params) {
+    var acc = await this.store.findRecord('account', params.id);
     return acc;
   }
 

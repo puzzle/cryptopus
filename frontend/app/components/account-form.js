@@ -14,28 +14,26 @@ export default class AccountForm extends BaseFormComponent {
   @tracked selectedTeam;
   @tracked assignableTeams = this.store.findAll("team");
   @tracked allGroups = this.store.findAll("group");
-
+  isNewView;
   AccountValidations = AccountValidations;
 
   constructor() {
     super(...arguments);
-    console.log(this.args.account);
-
     this.record = this.args.account || this.store.createRecord("account");
-    this.selectedTeam = this.record.group && this.record.group.team;
+    this.selectedTeam = this.record.group && this.record.group.get("team");
     this.changeset = new Changeset(
       this.record,
       lookupValidator(AccountValidations),
       AccountValidations
     );
-
+    this.isNewView = !!this.changeset.id
     this.title = this.args.title;
   }
 
   get selectableGroups() {
     if (this.isGroupDropdownDisabled) return this.allGroups;
     return this.allGroups.filter(
-      group => group.team.get("id") === this.selectedTeam.id
+      group => this.id(group.team) === this.id(this.selectedTeam)
     );
   }
 
@@ -71,8 +69,7 @@ export default class AccountForm extends BaseFormComponent {
   @action
   setSelectedTeam(team) {
     this.selectedTeam = team;
-    if (this.changeset.group !== null && this.changeset.group.id !== undefined)
-      this.changeset.group = null;
+    this.changeset.group = null;
   }
 
   @action
@@ -90,5 +87,11 @@ export default class AccountForm extends BaseFormComponent {
     $(this.modalElement).modal("hide");
     /* eslint-enable no-undef  */
     window.location.replace("/accounts/" + savedRecords[0].id);
+  }
+
+  id(object) {
+    if (!this.isNewView) {
+      return object.get("id");
+    }
   }
 }
