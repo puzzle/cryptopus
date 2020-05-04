@@ -19,6 +19,8 @@ export default class AccountForm extends BaseFormComponent {
 
   constructor() {
     super(...arguments);
+    console.log(this.args.account);
+
     this.record = this.args.account || this.store.createRecord("account");
     this.selectedTeam = this.record.group && this.record.group.team;
     this.changeset = new Changeset(
@@ -26,6 +28,8 @@ export default class AccountForm extends BaseFormComponent {
       lookupValidator(AccountValidations),
       AccountValidations
     );
+
+    this.title = this.args.title;
   }
 
   get selectableGroups() {
