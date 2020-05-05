@@ -12,27 +12,36 @@ export default class AccountForm extends BaseFormComponent {
   @service router;
 
   @tracked selectedTeam;
-  @tracked assignableTeams = this.store.findAll("team");
+  @tracked assignableTeams;
   @tracked groups = [];
-  //@tracked allGroups = this.store.findAll("group");
-  //@tracked allGroups = this.store.query("groups", { team_id: this.selectedTeam.id });
 
-
-  isNewView;
+  isEditView;
   AccountValidations = AccountValidations;
 
   constructor() {
     super(...arguments);
-    this.record = this.args.account || this.store.createRecord("account");
-    console.log(this.record.group)
-    this.selectedTeam = this.record.group && this.record.group.get("team");
+
+    this.record = this.args.account
+
     this.changeset = new Changeset(
       this.record,
       lookupValidator(AccountValidations),
       AccountValidations
     );
-    this.isNewView = !!this.changeset.id
+
+    this.isEditView = !!this.changeset.id
     this.title = this.args.title;
+
+    if (this.isEditView) {
+      this.store.findAll("team").then(teams => {
+        this.assignableTeams = teams;
+        this.setSelectedTeam(teams.filter(team => team.id === this.changeset.team_id)[0]);
+        this.store.query("group", { team_id: this.selectedTeam.id }).then(groups => {
+          this.groups = groups;
+          this.setGroup(groups.filter(group => group.id === this.changeset.group_id)[0]);
+        });
+      });
+    }
   }
 
   get selectableGroups() {
@@ -76,11 +85,11 @@ export default class AccountForm extends BaseFormComponent {
     this.selectedTeam = team;
     this.changeset.group = null;
 
-    console.log(this.selectedTeam);
-
-    // set groups to all group of selected team
-    this.groups = this.store.query("group", { team_id: this.selectedTeam.id });
-
+    team.groups.then(values => {
+      console.log(values);
+    })
+    console.log(team.get("groups")[1]);
+    this.groups = team.get("groups")
   }
 
   @action
@@ -101,7 +110,7 @@ export default class AccountForm extends BaseFormComponent {
   }
 
   id(object) {
-    if (!this.isNewView) {
+    if (!this.isEditView) {
       return object.get("id");
     }
   }
