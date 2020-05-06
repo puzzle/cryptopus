@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="accountFormModalLabel">{{@title}}</h5>
+        <h3 class="modal-title align-middle" id="accountFormModalLabel">{{@title}}</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label={{t "close"}}>
           <span aria-hidden="true">&times;</span>
         </button>
@@ -15,7 +15,7 @@
             <div class="col-md-6">
 
               <div class="row">
-                <div class="form-group-sm col-md-12">
+                <div class="form-group col-md-12">
                   <label name="accountname">{{t "account.accountname"}}</label>
                   <div>
                     <Input class="form-control" @value={{this.changeset.accountname}} @name="accountname" />
@@ -58,13 +58,17 @@
 
             </div>
 
+            <div class="col-md-1">
 
-            <div class="col-md-6">
+            </div>
+
+
+            <div class="col-md-5">
 
               <div class="row">
                 <div class="form-group col-md-12" id="team-power-select">
                   <label name="team">{{t "team"}}</label>
-                  <PowerSelect @options={{this.assignableTeams}} @selected={{this.selectedTeam}} @onChange={{this.setSelectedTeam}} @renderInPlace={{true}} @allowClear={{true}} @placeholder={{t "account.form.teamPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |team|>
+                  <PowerSelect class="mb-1" @options={{this.assignableTeams}} @selected={{this.selectedTeam}} @onChange={{this.setSelectedTeam}} @renderInPlace={{true}} @allowClear={{true}} @placeholder={{t "account.form.teamPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |team|>
                     {{team.name}}
                   </PowerSelect>
                 </div>
@@ -73,7 +77,7 @@
               <div class="row">
                 <div id="group-power-select" class="form-group col-md-12">
                   <label name="folder">{{t "folder"}}</label>
-                  <PowerSelect class="form-control" @options={{this.groups}} @selected={{this.changeset.group}} @disabled={{this.isGroupDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setGroup}} @allowClear={{true}} @placeholder={{t "account.form.folderPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |group|>
+                  <PowerSelect @options={{this.groups}} @selected={{this.changeset.group}} @disabled={{this.isGroupDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setGroup}} @allowClear={{true}} @placeholder={{t "account.form.folderPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |group|>
                     {{group.name}}0@
                   </PowerSelect>
                   <ValidationErrorsList @errors={{this.changeset.error.group.validation}}/>
@@ -88,7 +92,7 @@
               <div class="form-group col-md-12">
                 <label name="description">{{t "account.description"}}</label>
                 <div>
-                  <Textarea class="form-control" @value={{this.changeset.description}} @name="description"/>
+                  <Textarea class="form-control vertical-resize" @value={{this.changeset.description}} @name="description"/>
                   <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
                 </div>
               </div>
