@@ -12,10 +12,13 @@ export default class AccountForm extends BaseFormComponent {
   @service router;
 
   @tracked selectedTeam;
+  @tracked selectedGroup;
   @tracked assignableTeams;
-  @tracked groups = [];
+  @tracked availableGroups;
 
   isEditView;
+  allTeams;
+
   AccountValidations = AccountValidations;
 
   constructor() {
@@ -32,16 +35,18 @@ export default class AccountForm extends BaseFormComponent {
     this.isEditView = !!this.changeset.id
     this.title = this.args.title;
 
-    if (this.isEditView) {
-      this.store.findAll("team").then(teams => {
-        this.assignableTeams = teams;
-        this.setSelectedTeam(teams.filter(team => team.id === this.changeset.team_id)[0]);
+    this.store.findAll("team").then(teams => {
+      this.assignableTeams = teams;
+      this.allTeams = teams;
+      if (this.isEditView) {
+        this.selectedTeam = teams.filter(team => team.id === this.changeset.team_id)[0];
         this.store.query("group", { team_id: this.selectedTeam.id }).then(groups => {
-          this.groups = groups;
-          this.setGroup(groups.filter(group => group.id === this.changeset.group_id)[0]);
+          this.availableGroups = groups;
+          this.selectedGroup = groups.filter(group => group.id === this.changeset.group_id)[0];
+          this.changeset.group = this.selectedGroup;
         });
-      });
-    }
+      }
+    });
   }
 
   get selectableGroups() {
@@ -81,20 +86,22 @@ export default class AccountForm extends BaseFormComponent {
   }
 
   @action
-  setSelectedTeam(team) {
-    this.selectedTeam = team;
+  setSelectedTeam(selectedTeam) {
+    this.selectedTeam = selectedTeam;
+    this.changeset.team = selectedTeam;
     this.changeset.group = null;
+    this.selectedGroup = null;
 
-    team.groups.then(values => {
-      console.log(values);
-    })
-    console.log(team.get("groups")[1]);
-    this.groups = team.get("groups")
+    this.store.query("group", { team_id: this.selectedTeam.id }).then(groups => {
+      this.availableGroups = groups;
+      this.setGroup(groups.filter(group => group.id === this.changeset.group_id)[0]);
+    });
   }
 
   @action
   setGroup(group) {
-    this.changeset.group = group;
+    this.selectedGroup = group;
+    this.changeset.group_id = group.id;
   }
 
   async beforeSubmit() {
