@@ -7,72 +7,91 @@
 
 require 'rails_helper'
 
+
 describe 'AccountModal', type: :system, js: true do
   include SystemHelpers
 
-  before(:each) do
-
-  end
-
-  it 'creates new account' do
+  it 'creates, edits and deletes an account' do
     login_as_user(:bob)
-    account1 = accounts(:account1)
-    visit("/accounts/#{account1.id}")
+
+    # create Account
 
     expect(page).to have_link('new Account')
-
     click_link 'new Account'
 
-    #expect(page).to have_title('New Account')
+    expect(find('.modal-content')).to be_present
+    expect(page).to have_text('New Account')
     expect(page).to have_button('Save')
-    expect(page).to have_button('Close')
 
-    fill_in 'accountname', with: 'lkj'
-    fill_in 'cleartextUsername', with: 'lkj'
-    fill_in 'cleartextPassword', with: 'lkj'
-    fill_in 'description', with: 'lkj'
-    # fill_in 'team', with ''
-    # fill_in 'group', with ''
+    expect do
+      fill_in 'accountname', with: 'test'
+      fill_in 'cleartextUsername', with: 'test'
+      fill_in 'cleartextPassword', with: 'test'
+      fill_in 'description', with: 'test'
 
+      find('#team-power-select').find('.ember-power-select-trigger').click # Open trigger
+      find_all('ul.ember-power-select-options > li')[1].click
 
-    find('name').find(:xpath, 'option[2]').select_option
+      find('#group-power-select').find('.ember-power-select-trigger').click # Open trigger
+      find_all('ul.ember-power-select-options > li')[1].click
 
-    click_button "Save"
+      click_button "Save"
+    end.to change {Account.count}.by(1)
 
+    expect(find_field('accountname').value).to eq('accountname')
+    expect(find_field('cleartextUsername').value).to eq('username')
+    expect(find_field('cleartextPassword').value).to eq('password')
+    expect(find('description').value).to eq('desc')
+
+    # TODO
     expect(page).to have_content('Account was successfully created')
 
 
-  end
+    # Edit Account
+    account = Account.find_by(accountname: 'accountname')
+    visit("/accounts/#{account.id}")
 
-  it 'edits properties of existing account' do
-    login_as_user(:bob)
-    account1 = accounts(:account1)
-    visit("/accounts/#{account1.id}")
+
 
     expect(page).to have_link('Edit-Modal')
+    click_link('Edit-Modal')
 
-    find('#edit_account_button').click
-
-    #expect(page).to have_title('New Account')
+    expect(find('.modal-content')).to be_present
+    expect(page).to have_text('Edit Account')
     expect(page).to have_button('Save')
-    expect(page).to have_button('Close')
 
-    fill_in 'accountname', with: 'accountname'
-    fill_in 'cleartextUsername', with: 'username'
-    fill_in 'cleartextPassword', with: 'password'
-    fill_in 'description', with: 'lkj'
+    expect(find_field('accountname').value).to eq('accountname')
+    expect(find('cleartextUsername').value).to eq('username')
+    expect(find('cleartextPassword').value).to eq('password')
+    expect(find('description').value).to eq('description')
+
+    fill_in 'accountname', with: 'accountname2'
+    fill_in 'cleartextUsername', with: 'username2'
+    fill_in 'cleartextPassword', with: 'password2'
+    fill_in 'description', with: 'description2'
+
+    find('#team-power-select').find('.ember-power-select-trigger').click # Open trigger
+    find_all('ul.ember-power-select-options > li')[1].click
+
+    find('#group-power-select').find('.ember-power-select-trigger').click # Open trigger
+    find_all('ul.ember-power-select-options > li')[1].click
 
     click_button "Save"
 
-    expect(first('h1')).to have_text('Account: accountname')
-    expect(find('#cleartextUsername')).to have_text('username')
-    expect(find('#cleartextPassword')).to have_text('password')
+    expect(first('h1')).to have_text('Account: accountname2')
+    expect(find('#cleartextUsername')).to have_text('username2')
+    expect(find('#cleartextPassword')).to have_text('password2')
+    expect(page).to have_text('description2')
+
+    # Delete Account
+    group = Group.find_by(id: account.group_id)
+    team = Team.find_by(id: group.team_id)
+    find(:xpath, "//a[@href='/team/#{group.team_id}/groups/#{account.group_id}']").click
+
+    expect(find('h1')).to have_text("Accounts in group #{group.name} for team #{team.name}")
+
+    expect(find(:xpath, "//a[@href='/accounts/#{account.group_id}', data-method='delete']")).to be_present
 
   end
 
-  it 'moves account to another team' do
-
-
-
-  end
 end
