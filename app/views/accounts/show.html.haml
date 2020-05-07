@@ -3,8 +3,7 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 
-= link_to image_pack_tag("edit.svg"), edit_account_path(@account.id), id: 'edit_account_button', class: 'btn btn-secondary pull-right'
-= link_to "Edit-Modal", "#/accounts/edit/#{@account.id}", { class: 'btn btn-primary pull-right', 'data-turbolinks': 'false' }
+= link_to image_pack_tag("edit.svg"), "#/accounts/edit/#{@account.id}", id: 'edit_account_button', class: 'btn btn-secondary pull-right','data-turbolinks': 'false'
 = link_to 'Move', '#', class: 'btn btn-primary pull-right', id: 'move_account_button'
 %h1= t '.title', account_name: @account.accountname
 %div
