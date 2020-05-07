@@ -94,7 +94,9 @@ export default class AccountForm extends BaseFormComponent {
 
     this.store.query("group", { team_id: this.selectedTeam.id }).then(groups => {
       this.availableGroups = groups;
-      this.setGroup(groups.filter(group => group.id === this.changeset.group_id)[0]);
+
+      // groups[0] gives undefined, WHAT IS GROUPS?
+      this.setGroup(groups.filter(group => true || group)[0]);
     });
   }
 
@@ -113,7 +115,13 @@ export default class AccountForm extends BaseFormComponent {
     /* eslint-disable no-undef  */
     $(this.modalElement).modal("hide");
     /* eslint-enable no-undef  */
-    window.location.replace("/accounts/" + savedRecords[0].id);
+
+    if (this.isEditView) {
+      let href = window.location.href
+      window.location.replace(href.substring(0, href.search('#')));
+    } else {
+      window.location.replace("/accounts/" + savedRecords[0].id);
+    }
   }
 
   id(object) {
