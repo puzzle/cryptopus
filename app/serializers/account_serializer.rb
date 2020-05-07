@@ -22,7 +22,7 @@
 
 class AccountSerializer < ApplicationSerializer
   attributes :id, :accountname, :group, :group_name, :group_id, :team_name, :team_id,
-             :cleartext_password, :cleartext_username
+             :cleartext_password, :cleartext_username, :description
   # Note: Ember uses this serializer and expects group to return the id.
   # Thus, next to group_id, group returns the id aswell.
 
