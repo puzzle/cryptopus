@@ -76,7 +76,7 @@
               <div class="row">
                 <div id="group-power-select" class="form-group col-md-12">
                   <label name="folder">{{t "folder"}}</label>
-                  <PowerSelect @options={{this.groups}} @selected={{this.changeset.group}} @disabled={{this.isGroupDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setGroup}} @allowClear={{true}} @placeholder={{t "account.form.folderPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |group|>
+                  <PowerSelect @options={{this.availableGroups}} @selected={{this.selectedGroup}} @disabled={{this.isGroupDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setGroup}} @allowClear={{true}} @placeholder={{t "account.form.folderPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |group|>
                     {{group.name}}0@
                   </PowerSelect>
                   <ValidationErrorsList @errors={{this.changeset.error.group.validation}}/>
