@@ -4,7 +4,6 @@
 -#  https://github.com/puzzle/cryptopus.
 
 = link_to image_pack_tag("edit.svg"), "#/accounts/edit/#{@account.id}", id: 'edit_account_button', class: 'btn btn-secondary pull-right','data-turbolinks': 'false'
-= link_to 'Move', '#', class: 'btn btn-primary pull-right', id: 'move_account_button'
 %h1= t '.title', account_name: @account.accountname
 %div
   %p.description-text
@@ -41,6 +40,3 @@
           = link_to image_pack_tag("file.svg") + item.filename, account_item_path(@account, item)
         %td{valign: "top"}= simple_format item.description
         %td.action_icon= link_to_destroy account_item_path(@account, item), item
-
-%div{id: "move_account_form"}
-  = render 'move_account_form'
