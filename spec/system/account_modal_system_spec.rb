@@ -14,8 +14,15 @@ describe 'AccountModal', type: :system, js: true do
   it 'creates, edits and deletes an account' do
     login_as_user(:bob)
 
-    account_attr = {accountname: 'acc', username: 'username', password: 'password', description: 'desc'}
-    account_attr_edited = {accountname: 'acc2', username: 'username2', password: 'password2', description: 'desc2'}
+    account_attr = { accountname: 'acc',
+                     username: 'username',
+                     password: 'password',
+                     description: 'desc' }
+
+    account_attr_edited = { accountname: 'acc2',
+                            username: 'username2',
+                            password: 'password2',
+                            description: 'desc2' }
 
     # Create Account
     expect(page).to have_link('new Account')
@@ -27,8 +34,8 @@ describe 'AccountModal', type: :system, js: true do
 
     expect do
       fill_modal(account_attr)
-      click_button "Save"
-    end.to change {Account.count}.by(1)
+      click_button 'Save'
+    end.to change { Account.count }.by(1)
 
     expect_account_page_with(account_attr)
 
@@ -48,7 +55,7 @@ describe 'AccountModal', type: :system, js: true do
     expect_filled_fields_in_modal_with(account_attr)
 
     fill_modal(account_attr_edited)
-    click_button "Save"
+    click_button 'Save'
 
     expect_account_page_with(account_attr_edited)
 
@@ -59,11 +66,10 @@ describe 'AccountModal', type: :system, js: true do
     # Still an async issue. So sometimes test passes, sometimes not.
     expect do
       accept_prompt(wait: 10) do
-        delete_button = find(:xpath, "//a[@href='/accounts/#{account.id}' and @data-method='delete']")
-        expect(delete_button).to be_present
-        delete_button.click
+        del_button = find(:xpath, "//a[@href='/accounts/#{account.id}' and @data-method='delete']")
+        expect(del_button).to be_present
       end
-    end.to change {Account.count}.by(-1)
+    end.to change { Account.count }.by(-1)
 
   end
 
