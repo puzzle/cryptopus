@@ -14,15 +14,7 @@ class AccountPolicy < TeamDependantPolicy
     team.teammember?(@user.id)
   end
 
-  def update?
-    team.teammember?(@user.id)
-  end
-
   def create_item?
-    team_member?
-  end
-
-  def move?
     team_member?
   end
 
