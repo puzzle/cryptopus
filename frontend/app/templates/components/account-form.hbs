@@ -79,7 +79,7 @@
                   <PowerSelect @options={{this.availableGroups}} @selected={{this.selectedGroup}} @disabled={{this.isGroupDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setGroup}} @allowClear={{true}} @placeholder={{t "account.form.folderPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |group|>
                     {{group.name}}
                   </PowerSelect>
-                  <ValidationErrorsList @errors={{this.changeset.error.group_id.validation}}/>
+                  <ValidationErrorsList @errors={{this.changeset.error.groupId.validation}}/>
                 </div>
               </div>
 

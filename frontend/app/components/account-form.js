@@ -37,10 +37,10 @@ export default class AccountForm extends BaseFormComponent {
     this.store.findAll("team").then(teams => {
       this.assignableTeams = teams;
       if (this.isEditView) {
-        this.selectedTeam = teams.find(() => this.changeset.team_id)
-        this.store.query("group", { team_id: this.selectedTeam.id }).then(groups => {
+        this.selectedTeam = teams.find(() => this.changeset.teamId)
+        this.store.query("group", { teamId: this.selectedTeam.id }).then(groups => {
           this.availableGroups = groups;
-          this.selectedGroup = groups.find(() => this.changeset.group_id)
+          this.selectedGroup = groups.find(() => this.changeset.groupId)
           this.changeset.group = this.selectedGroup;
         });
       }
@@ -89,7 +89,7 @@ export default class AccountForm extends BaseFormComponent {
       this.selectedTeam = selectedTeam;
       this.changeset.team = selectedTeam;
 
-      this.store.query("group", { team_id: this.selectedTeam.id }).then(groups => {
+      this.store.query("group", { teamId: this.selectedTeam.id }).then(groups => {
         this.availableGroups = groups;
         this.setGroup(groups.toArray()[0]);
       });
@@ -104,7 +104,7 @@ export default class AccountForm extends BaseFormComponent {
   setGroup(group) {
     if (!!group){
       this.selectedGroup = group;
-      this.changeset.group_id = group.id;
+      this.changeset.groupId = group.id;
     }
   }
 
