@@ -9,7 +9,7 @@ import { selectChoose } from "ember-power-select/test-support";
 const storeStub = Service.extend({
   findAll(modelName) {
     if (modelName === "group") {
-      return [
+      return Promise.all([
         {
           id: 1,
           name: "bbt",
@@ -19,21 +19,35 @@ const storeStub = Service.extend({
             }
           }
         }
-      ];
+      ]);
     } else if (modelName === "team") {
-      return [
+      return Promise.all([
         {
           id: 1,
           name: "supporting",
           description: "supporting groups",
-
           group: [1]
         }
-      ];
+      ]);
     }
   },
   createRecord() {
     return { group: null };
+  },
+  query(modelName) {
+    if(modelName === "group") {
+      return Promise.all([
+        {
+          id: 1,
+          name: "bbt",
+          team: {
+            get() {
+              return 1;
+            }
+          }
+        }
+      ])
+    }
   }
 });
 
