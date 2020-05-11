@@ -6,6 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::Team::MembersController < ApiController
+  self.permitted_attrs = [:user_id]
 
   # GET /api/teams/:team_id
   def index
@@ -24,22 +25,23 @@ class Api::Team::MembersController < ApiController
   # POST /api/teams/:team_id/members
   def create
     authorize team, :add_member?
-    new_member = User.find(params[:user_id])
+    new_member = User.find(model_params[:user_id])
 
     decrypted_team_password = team.decrypt_team_password(current_user, session[:private_key])
 
-    team.add_user(new_member, decrypted_team_password)
+    created_member = team.add_user(new_member, decrypted_team_password)
 
     add_info(t('flashes.api.members.added', username: new_member.username))
-    render_json ''
+    render_json created_member
   end
 
   # DELETE /api/teams/:team_id/members/:id
   def destroy
     authorize team, :remove_member?
+    username = teammember.user.username
+
     teammember.destroy!
 
-    username = User.find(params[:id]).username
     add_info(t('flashes.api.members.removed', username: username))
     render_json ''
   end
@@ -47,6 +49,12 @@ class Api::Team::MembersController < ApiController
   private
 
   def teammember
-    @teammember ||= team.teammembers.find_by(user_id: params[:id])
+    @teammember ||= Teammember.find(params[:id])
+  end
+
+  class << self
+    def model_identifier
+      'teammember'
+    end
   end
 end

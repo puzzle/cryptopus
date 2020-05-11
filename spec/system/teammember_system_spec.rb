@@ -15,10 +15,9 @@ describe 'Teammember', type: :system do
     login_as_user(:admin)
     team1 = teams(:team1)
 
-    visit("/teams/#{team1.id}/groups")
-    expect(page).to have_selector('#members-tab')
+    visit("/teams/#{team1.id}")
 
-    all('#members-tab')[0].click
+    # Click on ember modal here
 
     expect(page).to have_content('Admin test')
     expect(page).to have_content('Alice test')

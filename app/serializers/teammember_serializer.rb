@@ -18,34 +18,38 @@
 # See the COPYING file at the top-level directory or at
 # https://github.com/puzzle/cryptopus.
 
-class TeammemberSerializer < ApplicationSerializer
-  attributes :user_id, :label, :deletable, :admin
+class TeammemberSerializer < ActiveModel::Serializer
+  attributes :id, :user, :user_id, :label, :deletable, :admin
+
+  def user
+    user_object.id
+  end
 
   def user_id
-    user.id
+    user_object.id
   end
 
   def deletable
     return false if last_teammember?
     return true if private_team?
 
-    !user.admin?
+    !user_object.admin?
   end
 
   def admin
     return false if private_team?
 
-    user.admin?
+    user_object.admin?
   end
 
   private
 
-  def user
+  def user_object
     object.user
   end
 
   def last_teammember?
-    object.team.last_teammember?(user)
+    object.team.last_teammember?(user_object)
   end
 
   def private_team?

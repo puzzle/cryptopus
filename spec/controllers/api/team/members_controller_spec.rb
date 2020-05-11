@@ -54,31 +54,9 @@ describe Api::Team::MembersController do
       team = teams(:team1)
       user = Fabricate(:user)
 
-      post :create, params: { team_id: team, user_id: user }, xhr: true
+      post :create, params: { team_id: team, teammember: { user_id: user } }, xhr: true
 
       expect(team.teammember?(user)).to be true
-    end
-
-    it 'removes api user from team' do
-      login_as(:admin)
-      team = teams(:team1)
-      api_user = bob.api_users.create!(description: 'my sweet api user')
-
-      post :create, params: { team_id: team, user_id: api_user }, xhr: true
-
-      expect do
-        delete :destroy, params: { team_id: teams(:team1), id: api_user }, xhr: true
-      end.to change { Teammember.count }.by(-1)
-    end
-
-    it 'adds api user to team' do
-      login_as(:bob)
-      team = teams(:team1)
-      api_user = bob.api_users.create!(description: 'my sweet api user')
-
-      post :create, params: { team_id: team, user_id: api_user }, xhr: true
-
-      expect(team.teammember?(api_user)).to be true
     end
   end
 
@@ -87,14 +65,14 @@ describe Api::Team::MembersController do
       login_as(:alice)
 
       expect do
-        delete :destroy, params: { team_id: teams(:team1), id: users(:admin) }, xhr: true
+        delete :destroy, params: { team_id: teams(:team1), id: teammembers(:team1_admin) }, xhr: true
       end.to raise_error(ActiveRecord::RecordNotDestroyed)
     end
 
     it 'removes teammember from team' do
       login_as(:alice)
       expect do
-        delete :destroy, params: { team_id: teams(:team1), id: bob }, xhr: true
+        delete :destroy, params: { team_id: teams(:team1), id: teammembers(:team1_bob) }, xhr: true
       end.to change { Teammember.count }.by(-1)
     end
 
@@ -107,7 +85,7 @@ describe Api::Team::MembersController do
 
       login_as(:alice)
       expect do
-        delete :destroy, params: { team_id: teams(:team1), id: bob }, xhr: true
+        delete :destroy, params: { team_id: teams(:team1), id: teammembers(:team1_bob) }, xhr: true
       end.to change { Teammember.count }.by(-2)
       expect(teams(:team1).teammember?(bob)).to eq false
       expect(teams(:team1).teammember?(api_user)).to eq false
