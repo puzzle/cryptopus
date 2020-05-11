@@ -5,8 +5,8 @@ export default class Account extends Model {
   @attr("string") cleartextUsername;
   @attr("string") cleartextPassword;
   @attr("string") description;
-  @attr("string") group_name;
-  @attr("string") group_id;
-  @attr("string") team_name;
-  @attr("string") team_id;
+  @attr("string") groupName;
+  @attr("string") groupId;
+  @attr("string") teamName;
+  @attr("string") teamId;
 }

@@ -24,7 +24,7 @@ export default class AccountForm extends BaseFormComponent {
   constructor() {
     super(...arguments);
 
-    this.record = this.args.account
+    this.record = this.args.account || this.store.createRecord("account");
 
     this.changeset = new Changeset(
       this.record,
@@ -33,16 +33,14 @@ export default class AccountForm extends BaseFormComponent {
     );
 
     this.isEditView = !!this.changeset.id
-    this.title = this.args.title;
 
     this.store.findAll("team").then(teams => {
       this.assignableTeams = teams;
-      this.allTeams = teams;
       if (this.isEditView) {
-        this.selectedTeam = teams.filter(team => team.id === this.changeset.team_id)[0];
-        this.store.query("group", { team_id: this.selectedTeam.id }).then(groups => {
+        this.selectedTeam = teams.find(() => this.changeset.teamId)
+        this.store.query("group", { teamId: this.selectedTeam.id }).then(groups => {
           this.availableGroups = groups;
-          this.selectedGroup = groups.filter(group => group.id === this.changeset.group_id)[0];
+          this.selectedGroup = groups.find(() => this.changeset.groupId)
           this.changeset.group = this.selectedGroup;
         });
       }
@@ -52,7 +50,7 @@ export default class AccountForm extends BaseFormComponent {
   get selectableGroups() {
     if (this.isGroupDropdownDisabled) return this.allGroups;
     return this.allGroups.filter(
-      group => this.id(group.team) === this.id(this.selectedTeam)
+      group => group.team.get("id") === this.selectedTeam.get("id")
     );
   }
 
@@ -87,23 +85,27 @@ export default class AccountForm extends BaseFormComponent {
 
   @action
   setSelectedTeam(selectedTeam) {
-    this.selectedTeam = selectedTeam;
-    this.changeset.team = selectedTeam;
-    this.changeset.group = null;
-    this.selectedGroup = null;
+    if (!!selectedTeam) {
+      this.selectedTeam = selectedTeam;
+      this.changeset.team = selectedTeam;
 
-    this.store.query("group", { team_id: this.selectedTeam.id }).then(groups => {
-      this.availableGroups = groups;
+      this.store.query("group", { teamId: this.selectedTeam.id }).then(groups => {
+        this.availableGroups = groups;
+        this.setGroup(groups.toArray()[0]);
+      });
+    }
+  }
 
-      // groups[0] gives undefined, WHAT IS GROUPS?
-      this.setGroup(groups.filter(group => true || group)[0]);
-    });
+  get selectedGroup() {
+    return this.store.peekRecord(this.changeset.groupId);
   }
 
   @action
   setGroup(group) {
-    this.selectedGroup = group;
-    this.changeset.group_id = group.id;
+    if (!!group){
+      this.selectedGroup = group;
+      this.changeset.groupId = group.id;
+    }
   }
 
   async beforeSubmit() {
@@ -121,12 +123,6 @@ export default class AccountForm extends BaseFormComponent {
       window.location.replace(href.substring(0, href.search('#')));
     } else {
       window.location.replace("/accounts/" + savedRecords[0].id);
-    }
-  }
-
-  id(object) {
-    if (!this.isEditView) {
-      return object.get("id");
     }
   }
 }
