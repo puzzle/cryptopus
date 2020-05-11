@@ -13,7 +13,7 @@ class Api::TeamsController < ApiController
 
   # GET /api/teams
   def index
-    authorize Team
+    authorize ::Team
     teams = current_user.teams
     render_json find_teams(teams)
   end
