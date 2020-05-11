@@ -41,8 +41,8 @@ describe 'AccountModal', type: :system, js: true do
 
     # Edit Account
     account = Account.find_by(accountname: account_attr[:accountname])
-    group = Group.find_by(id: account.group_id)
-    team = Team.find_by(id: group.team_id)
+    group = Group.find(account.group_id)
+    team = Team.find(group.team_id)
     visit("/accounts/#{account.id}")
 
     expect(page).to have_link(id: 'edit_account_button')
@@ -65,11 +65,15 @@ describe 'AccountModal', type: :system, js: true do
 
     # Still an async issue. So sometimes test passes, sometimes not.
     expect do
+      del_button = find(:xpath, "//a[@href='/accounts/#{account.id}' and @data-method='delete']")
+      expect(del_button).to be_present
+
       accept_prompt(wait: 10) do
-        del_button = find(:xpath, "//a[@href='/accounts/#{account.id}' and @data-method='delete']")
-        expect(del_button).to be_present
         del_button.click
       end
+
+      expect(find('h1')).to have_text("Accounts in group #{group.name} for team #{team.name}")
+
     end.to change { Account.count }.by(-1)
 
   end
