@@ -73,7 +73,6 @@ describe 'AccountModal', type: :system, js: true do
       end
 
       expect(find('h1')).to have_text("Accounts in group #{group.name} for team #{team.name}")
-
     end.to change { Account.count }.by(-1)
 
   end
