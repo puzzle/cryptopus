@@ -68,7 +68,7 @@ describe 'AccountModal', type: :system, js: true do
       del_button = find(:xpath, "//a[@href='/accounts/#{account.id}' and @data-method='delete']")
       expect(del_button).to be_present
 
-      accept_prompt(wait: 10) do
+      accept_prompt(wait: 3) do
         del_button.click
       end
 
