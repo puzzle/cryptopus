@@ -18,7 +18,6 @@ export default class AccountForm extends BaseFormComponent {
   @tracked availableGroups;
 
   isEditView;
-  allTeams;
 
   AccountValidations = AccountValidations;
 
@@ -38,25 +37,14 @@ export default class AccountForm extends BaseFormComponent {
     this.store.findAll("team").then(teams => {
       this.assignableTeams = teams;
       if (this.isEditView) {
-        this.selectedTeam = teams.find(() => this.changeset.teamId)
+        this.selectedTeam = teams.find((team) => team.id === this.changeset.teamId)
         this.store.query("group", { teamId: this.selectedTeam.id }).then(groups => {
           this.availableGroups = groups;
-          this.selectedGroup = groups.find(() => this.changeset.groupId)
+          this.selectedGroup = groups.find((group) => group.id === this.changeset.groupId)
           this.changeset.group = this.selectedGroup;
         });
       }
     });
-  }
-
-  get selectableGroups() {
-    if (this.isGroupDropdownDisabled) return this.allGroups;
-    return this.allGroups.filter(
-      group => group.team.get("id") === this.selectedTeam.get("id")
-    );
-  }
-
-  get isGroupDropdownDisabled() {
-    return !this.selectedTeam;
   }
 
   setupModal(element, args) {
@@ -92,7 +80,7 @@ export default class AccountForm extends BaseFormComponent {
 
       this.store.query("group", { teamId: this.selectedTeam.id }).then(groups => {
         this.availableGroups = groups;
-        this.setGroup(groups.toArray()[0]);
+        this.setGroup(null);
       });
     }
   }
@@ -106,6 +94,11 @@ export default class AccountForm extends BaseFormComponent {
     if (!isNone(group)){
       this.selectedGroup = group;
       this.changeset.groupId = group.id;
+      this.changeset.group = group;
+    } else {
+      this.selectedGroup = null;
+      this.changeset.groupId = null;
+      this.changeset.group = null;
     }
   }
 
