@@ -13,7 +13,7 @@ class app.Login
 
     password_input = $('#password')
     user_input = $('#username')
-    stored_username = localStorage.getItem('username')
+    stored_username = sessionStorage.getItem('username')
     input_username = user_input.val()
 
     if stored_username != null and stored_username != ''
@@ -28,7 +28,7 @@ class app.Login
     return
 
   setLocalUsername = ->
-    localStorage.setItem 'username', $('#username').val()
+    sessionStorage.setItem 'username', $('#username').val()
     return
 
   bind = ->
