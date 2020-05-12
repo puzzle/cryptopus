@@ -6,6 +6,7 @@ import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "./base-form-component";
 import { bind } from "@ember/runloop";
+import { isNone } from '@ember/utils';
 
 export default class AccountForm extends BaseFormComponent {
   @service store;
@@ -85,7 +86,7 @@ export default class AccountForm extends BaseFormComponent {
 
   @action
   setSelectedTeam(selectedTeam) {
-    if (!!selectedTeam) {
+    if (!isNone(selectedTeam)) {
       this.selectedTeam = selectedTeam;
       this.changeset.team = selectedTeam;
 
@@ -102,7 +103,7 @@ export default class AccountForm extends BaseFormComponent {
 
   @action
   setGroup(group) {
-    if (!!group){
+    if (!isNone(group)){
       this.selectedGroup = group;
       this.changeset.groupId = group.id;
     }
