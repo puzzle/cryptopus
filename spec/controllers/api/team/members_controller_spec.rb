@@ -65,7 +65,9 @@ describe Api::Team::MembersController do
       login_as(:alice)
 
       expect do
-        delete :destroy, params: { team_id: teams(:team1), id: teammembers(:team1_admin) }, xhr: true
+        delete :destroy,
+               params: { team_id: teams(:team1), id: teammembers(:team1_admin) },
+               xhr: true
       end.to raise_error(ActiveRecord::RecordNotDestroyed)
     end
 
