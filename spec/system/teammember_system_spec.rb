@@ -19,9 +19,17 @@ describe 'Teammember', type: :system do
 
     # Click on ember modal here
 
+    edit_button = find_link(page, id: 'edit_account_button')
+    expect(page).to have_link('#edit_account_button')
+    click_link('#edit_account_button')
+
+
+
     expect(page).to have_content('Admin test')
     expect(page).to have_content('Alice test')
     expect(page).to have_content('Bob test')
     expect(page).to have_content('Root test')
+
+
   end
 end
