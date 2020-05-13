@@ -83,12 +83,12 @@ describe 'AccountModal', type: :system, js: true do
 
   private
 
-  def fill_modal(acc_attr={})
+  def fill_modal(acc_attrs)
     within('div.modal-content') do
-      fill_in 'accountname', with: (acc_attr[:accountname])
-      fill_in 'cleartextUsername', with: acc_attr[:username]
-      fill_in 'cleartextPassword', with: acc_attr[:password]
-      fill_in 'description', with: acc_attr[:description]
+      fill_in 'accountname', with: (acc_attrs[:accountname])
+      fill_in 'cleartextUsername', with: acc_attrs[:username]
+      fill_in 'cleartextPassword', with: acc_attrs[:password]
+      fill_in 'description', with: acc_attrs[:description]
 
       find('#team-power-select').find('.ember-power-select-trigger').click # Open trigger
       find_all('ul.ember-power-select-options > li')[0].click
@@ -98,18 +98,18 @@ describe 'AccountModal', type: :system, js: true do
     end
   end
 
-  def expect_account_page_with(acc_attr)
-    expect(first('h1')).to have_text("Account: #{acc_attr[:accountname]}")
-    expect(find('#cleartext_username').value).to eq(acc_attr[:username])
-    expect(find('#cleartext_password').value).to eq(acc_attr[:password])
-    expect(page).to have_text(acc_attr[:description])
+  def expect_account_page_with(acc_attrs)
+    expect(first('h1')).to have_text("Account: #{acc_attrs[:accountname]}")
+    expect(find('#cleartext_username').value).to eq(acc_attrs[:username])
+    expect(find('#cleartext_password').value).to eq(acc_attrs[:password])
+    expect(page).to have_text(acc_attrs[:description])
   end
 
-  def expect_filled_fields_in_modal_with(acc_attr)
-    expect(find_field('accountname').value).to eq(acc_attr[:accountname])
-    expect(find_field('cleartextUsername').value).to eq(acc_attr[:username])
-    expect(find_field('cleartextPassword').value).to eq(acc_attr[:password])
-    expect(find('.vertical-resize').value).to eq(acc_attr[:description])
+  def expect_filled_fields_in_modal_with(acc_attrs)
+    expect(find_field('accountname').value).to eq(acc_attrs[:accountname])
+    expect(find_field('cleartextUsername').value).to eq(acc_attrs[:username])
+    expect(find_field('cleartextPassword').value).to eq(acc_attrs[:password])
+    expect(find('.vertical-resize').value).to eq(acc_attrs[:description])
   end
 
 end
