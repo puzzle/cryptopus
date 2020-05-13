@@ -5,6 +5,7 @@ new: "New"
 save: "Save"
 close: "Close"
 newAccount: "New Account"
+editAccount: "Edit Account"
 account:
   form:
     teamPlaceholder: "Select a team"

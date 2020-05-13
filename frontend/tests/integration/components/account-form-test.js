@@ -9,7 +9,7 @@ import { selectChoose } from "ember-power-select/test-support";
 const storeStub = Service.extend({
   findAll(modelName) {
     if (modelName === "group") {
-      return [
+      return Promise.all([
         {
           id: 1,
           name: "bbt",
@@ -19,21 +19,35 @@ const storeStub = Service.extend({
             }
           }
         }
-      ];
+      ]);
     } else if (modelName === "team") {
-      return [
+      return Promise.all([
         {
           id: 1,
           name: "supporting",
           description: "supporting groups",
-
           group: [1]
         }
-      ];
+      ]);
     }
   },
   createRecord() {
-    return { group: null };
+    return { group: null, isNew: true };
+  },
+  query(modelName) {
+    if(modelName === "group") {
+      return Promise.all([
+        {
+          id: 1,
+          name: "bbt",
+          teamId: {
+            get() {
+              return 1;
+            }
+          }
+        }
+      ])
+    }
   }
 });
 
@@ -46,13 +60,16 @@ module("Integration | Component | account-form", function(hooks) {
   });
 
   test("it renders without input data", async function(assert) {
+
     await render(hbs`<AccountForm />`);
+
     await selectChoose(
       "#team-power-select .ember-power-select-trigger",
       "supporting"
     );
 
     await clickTrigger("#group-power-select");
+
     assert.equal(
       this.element.querySelector(".ember-power-select-dropdown").innerText,
       "bbt"
@@ -70,24 +87,17 @@ module("Integration | Component | account-form", function(hooks) {
 
   test("it renders with input data", async function(assert) {
     this.set("account", {
+      id: 1,
       accountname: "mail",
       cleartextUsername: "mail@ember.com",
+      cleartextPassword: "lol",
       description: "The ember email",
-      group: {
-        id: 1,
-        name: "bbt",
-        team: {
-          id: 1,
-          name: "supporting",
-          description: "supporting groups",
-          group: [1],
-          get() {
-            return 1;
-          }
-        }
-      }
+      groupId: 1,
+      groupName: "bbt",
+      teamId: 1,
+      teamName: "supporting"
     });
-    await render(hbs`<AccountForm @account={{this.account}}/>`);
+    await render(hbs`<AccountForm \@account\=\{{this.account}}/>`);
 
     assert.equal(
       this.element.querySelector("input[name=accountname]").value,

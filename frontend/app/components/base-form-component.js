@@ -8,6 +8,7 @@ export default class BaseFormComponent extends Component {
 
   @tracked
   record;
+  isNewRecord = false;
 
   /* The beforeSubmit method can be implemented by a subclass as a hook in the submit method
    * beforeSubmit can return a promise of a boolean, which decides whether or not to abort the submit.
@@ -45,8 +46,9 @@ export default class BaseFormComponent extends Component {
         : [recordsToSave];
 
       let notPersistedRecords = recordsToSave.filter(
-        record => record.hasDirtyAttributes
+        record => record.hasDirtyAttributes || record.isDirty
       );
+
       return Promise.all(notPersistedRecords.map(record => record.save()))
         .then(savedRecords => {
           this.handleSubmitSuccessful(savedRecords);

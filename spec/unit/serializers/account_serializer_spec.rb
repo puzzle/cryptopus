@@ -17,7 +17,6 @@ describe AccountSerializer do
       expect(as_json).to include(attr)
     end
 
-    expect(as_json).not_to include 'description'
     expect(as_json).not_to include 'updated_at'
     expect(as_json).not_to include 'created_at'
     expect(as_json).not_to include 'username'

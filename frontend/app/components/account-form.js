@@ -6,37 +6,46 @@ import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "./base-form-component";
 import { bind } from "@ember/runloop";
+import { isPresent, isNone } from '@ember/utils';
 
 export default class AccountForm extends BaseFormComponent {
   @service store;
   @service router;
 
   @tracked selectedTeam;
-  @tracked assignableTeams = this.store.findAll("team");
-  @tracked allGroups = this.store.findAll("group");
+  @tracked selectedGroup;
+  @tracked assignableTeams;
+  @tracked availableGroups;
+
 
   AccountValidations = AccountValidations;
 
   constructor() {
     super(...arguments);
+
     this.record = this.args.account || this.store.createRecord("account");
-    this.selectedTeam = this.record.group && this.record.group.team;
+    this.isNewRecord = this.record.isNew;
+
     this.changeset = new Changeset(
       this.record,
       lookupValidator(AccountValidations),
       AccountValidations
     );
-  }
 
-  get selectableGroups() {
-    if (this.isGroupDropdownDisabled) return this.allGroups;
-    return this.allGroups.filter(
-      group => group.team.get("id") === this.selectedTeam.id
-    );
-  }
 
-  get isGroupDropdownDisabled() {
-    return !this.selectedTeam;
+    this.store.findAll("team").then(teams => {
+      this.assignableTeams = teams;
+      if (this.isNewRecord) {
+        return;
+      }
+
+      this.selectedTeam = teams.find((team) => team.id === this.changeset.teamId)
+      this.store.query("group", { teamId: this.selectedTeam.id }).then(groups => {
+        this.availableGroups = groups;
+        this.selectedGroup = groups.find((group) => group.id === this.changeset.groupId)
+        this.changeset.group = this.selectedGroup;
+      });
+    });
   }
 
   setupModal(element, args) {
@@ -65,15 +74,33 @@ export default class AccountForm extends BaseFormComponent {
   }
 
   @action
-  setSelectedTeam(team) {
-    this.selectedTeam = team;
-    if (this.changeset.group !== null && this.changeset.group.id !== undefined)
-      this.changeset.group = null;
+  setSelectedTeam(selectedTeam) {
+    if (isPresent(selectedTeam)) {
+      this.selectedTeam = selectedTeam;
+      this.changeset.team = selectedTeam;
+
+      this.store.query("group", { teamId: this.selectedTeam.id }).then(groups => {
+        this.availableGroups = groups;
+        this.setGroup(null);
+      });
+    }
+  }
+
+  get selectedGroup() {
+    return this.store.peekRecord(this.changeset.groupId);
   }
 
   @action
   setGroup(group) {
-    this.changeset.group = group;
+    if (isNone(group)){
+      this.selectedGroup = null;
+      this.changeset.groupId = null;
+      this.changeset.group = null;
+    } else {
+      this.selectedGroup = group;
+      this.changeset.groupId = group.id;
+      this.changeset.group = group;
+    }
   }
 
   async beforeSubmit() {
@@ -85,6 +112,12 @@ export default class AccountForm extends BaseFormComponent {
     /* eslint-disable no-undef  */
     $(this.modalElement).modal("hide");
     /* eslint-enable no-undef  */
-    window.location.replace("/accounts/" + savedRecords[0].id);
+
+    if (this.isEditView) {
+      let href = window.location.href
+      window.location.replace(href.substring(0, href.search('#')));
+    } else {
+      window.location.replace("/accounts/" + savedRecords[0].id);
+    }
   }
 }

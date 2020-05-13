@@ -21,10 +21,7 @@ Rails.application.routes.draw do
     resources :teammembers
   end
 
-  resources :accounts, except: [:index] do
-    member do
-      put 'move', to: 'accounts#move'
-    end
+  resources :accounts, only: [:show, :destroy] do
     resources :items
   end
 

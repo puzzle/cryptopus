@@ -15,28 +15,8 @@ describe AccountPolicy do
       assert_permit bob, account2, :show?
     end
 
-    it 'can create a new account' do
-      assert_permit bob, account2, :new?
-    end
-
-    it 'can create a new account with keypair' do
-      assert_permit bob, account2, :create?
-    end
-
-    it 'can edit account' do
-      assert_permit bob, account2, :edit?
-    end
-
-    it 'can update account' do
-      assert_permit bob, account2, :update?
-    end
-
     it 'can destroy account' do
       assert_permit bob, account2, :destroy?
-    end
-
-    it 'teammember can move account' do
-      assert_permit bob, account2, :move?
     end
   end
 
@@ -45,29 +25,10 @@ describe AccountPolicy do
       refute_permit alice, account2, :show?
     end
 
-    it 'non teammember cannot create a new account' do
-      refute_permit alice, account2, :new?
-    end
-
-    it 'non teammember cannot create a new account with keypair' do
-      refute_permit alice, account2, :create?
-    end
-
-    it 'non teammember cannot edit account' do
-      refute_permit alice, account2, :edit?
-    end
-
-    it 'non teammember cannot update account' do
-      refute_permit alice, account2, :update?
-    end
-
     it 'non teammember cannot destroy account' do
       refute_permit alice, account2, :destroy?
     end
 
-    it 'non teammember cannot move account' do
-      refute_permit alice, account2, :move?
-    end
   end
 
   context 'for team' do
@@ -75,32 +36,10 @@ describe AccountPolicy do
       assert_permit api_bob, account2, :show?
     end
 
-    it 'enabled api user cannot create a new account' do
-      refute_permit api_bob, account2, :new?
-    end
-
-    it 'enabled api user cannot create a new account with keypair' do
-      refute_permit api_bob, account2, :create?
-    end
-
-
-    it 'enabled api user cannot edit account' do
-      refute_permit api_bob, account2, :edit?
-    end
-
-
-    it 'enabled api user is allowed to update account' do
-      assert_permit api_bob, account2, :update?
-    end
-
-
     it 'enabled api user cannot destroy account' do
       refute_permit api_bob, account2, :destroy?
     end
 
-    it 'enabled api user cannot move account' do
-      refute_permit api_bob, account2, :move?
-    end
   end
 
   context 'not for team' do

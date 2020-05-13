@@ -1,14 +1,3 @@
-#move_account_form {
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 5;
-  width: 100%;
-  height: 100%;
-  display: none;
-}
-
 #movescreen {
   width: 600px;
   margin: 10% auto;
@@ -22,10 +11,6 @@
 
 #movescreen_buttons {
   margin-top: 10px;
-}
-
-#move_account_button {
-  margin-right: 5px;
 }
 
 #edit_account_button {
