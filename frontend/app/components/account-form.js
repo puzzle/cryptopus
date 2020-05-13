@@ -6,7 +6,7 @@ import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "./base-form-component";
 import { bind } from "@ember/runloop";
-import { isNone } from '@ember/utils';
+import { isPresent, isNone } from '@ember/utils';
 
 export default class AccountForm extends BaseFormComponent {
   @service store;
@@ -17,7 +17,6 @@ export default class AccountForm extends BaseFormComponent {
   @tracked assignableTeams;
   @tracked availableGroups;
 
-  isEditView;
 
   AccountValidations = AccountValidations;
 
@@ -25,6 +24,8 @@ export default class AccountForm extends BaseFormComponent {
     super(...arguments);
 
     this.record = this.args.account || this.store.createRecord("account");
+    this.isNewRecord = this.record.get('isNew');
+
 
     this.changeset = new Changeset(
       this.record,
@@ -32,18 +33,19 @@ export default class AccountForm extends BaseFormComponent {
       AccountValidations
     );
 
-    this.isEditView = !!this.changeset.id
 
     this.store.findAll("team").then(teams => {
       this.assignableTeams = teams;
-      if (this.isEditView) {
-        this.selectedTeam = teams.find((team) => team.id === this.changeset.teamId)
-        this.store.query("group", { teamId: this.selectedTeam.id }).then(groups => {
-          this.availableGroups = groups;
-          this.selectedGroup = groups.find((group) => group.id === this.changeset.groupId)
-          this.changeset.group = this.selectedGroup;
-        });
+      if (this.isNewRecord) {
+        return;
       }
+
+      this.selectedTeam = teams.find((team) => team.id === this.changeset.teamId)
+      this.store.query("group", { teamId: this.selectedTeam.id }).then(groups => {
+        this.availableGroups = groups;
+        this.selectedGroup = groups.find((group) => group.id === this.changeset.groupId)
+        this.changeset.group = this.selectedGroup;
+      });
     });
   }
 
@@ -74,7 +76,7 @@ export default class AccountForm extends BaseFormComponent {
 
   @action
   setSelectedTeam(selectedTeam) {
-    if (!isNone(selectedTeam)) {
+    if (isPresent(selectedTeam)) {
       this.selectedTeam = selectedTeam;
       this.changeset.team = selectedTeam;
 
@@ -91,14 +93,14 @@ export default class AccountForm extends BaseFormComponent {
 
   @action
   setGroup(group) {
-    if (!isNone(group)){
-      this.selectedGroup = group;
-      this.changeset.groupId = group.id;
-      this.changeset.group = group;
-    } else {
+    if (isNone(group)){
       this.selectedGroup = null;
       this.changeset.groupId = null;
       this.changeset.group = null;
+    } else {
+      this.selectedGroup = group;
+      this.changeset.groupId = group.id;
+      this.changeset.group = group;
     }
   }
 

@@ -11,18 +11,22 @@ require 'rails_helper'
 describe 'AccountModal', type: :system, js: true do
   include SystemHelpers
 
+  let(:account_attrs) do
+    { accountname: 'acc',
+      username: 'username',
+      password: 'password',
+      description: 'desc' }
+  end
+
+  let(:updated_attrs) do
+    { accountname: 'acc2',
+      username: 'username2',
+      password: 'password2',
+      description: 'desc2' }
+  end
+
   it 'creates, edits and deletes an account' do
     login_as_user(:bob)
-
-    account_attr = { accountname: 'acc',
-                     username: 'username',
-                     password: 'password',
-                     description: 'desc' }
-
-    account_attr_edited = { accountname: 'acc2',
-                            username: 'username2',
-                            password: 'password2',
-                            description: 'desc2' }
 
     # Create Account
     expect(page).to have_link('new Account')
@@ -33,14 +37,14 @@ describe 'AccountModal', type: :system, js: true do
     expect(page).to have_button('Save')
 
     expect do
-      fill_modal(account_attr)
+      fill_modal(account_attrs)
       click_button 'Save'
     end.to change { Account.count }.by(1)
 
-    expect_account_page_with(account_attr)
+    expect_account_page_with(account_attrs)
 
     # Edit Account
-    account = Account.find_by(accountname: account_attr[:accountname])
+    account = Account.find_by(accountname: account_attrs[:accountname])
     group = Group.find(account.group_id)
     team = Team.find(group.team_id)
     visit("/accounts/#{account.id}")
@@ -52,12 +56,12 @@ describe 'AccountModal', type: :system, js: true do
     expect(page).to have_text('Edit Account')
     expect(page).to have_button('Save')
 
-    expect_filled_fields_in_modal_with(account_attr)
+    expect_filled_fields_in_modal_with(account_attrs)
 
-    fill_modal(account_attr_edited)
+    fill_modal(updated_attrs)
     click_button 'Save'
 
-    expect_account_page_with(account_attr_edited)
+    expect_account_page_with(updated_attrs)
 
     # Delete Account
     find(:xpath, "//a[@href='/teams/#{group.team_id}/groups/#{account.group_id}']").click
@@ -79,31 +83,33 @@ describe 'AccountModal', type: :system, js: true do
 
   private
 
-  def fill_modal(account_attr)
-    fill_in 'accountname', with: account_attr[:accountname]
-    fill_in 'cleartextUsername', with: account_attr[:username]
-    fill_in 'cleartextPassword', with: account_attr[:password]
-    fill_in 'description', with: account_attr[:description]
+  def fill_modal(acc_attr={})
+    within('div.modal-content') do
+      fill_in 'accountname', with: (acc_attr[:accountname])
+      fill_in 'cleartextUsername', with: acc_attr[:username]
+      fill_in 'cleartextPassword', with: acc_attr[:password]
+      fill_in 'description', with: acc_attr[:description]
 
-    find('#team-power-select').find('.ember-power-select-trigger').click # Open trigger
-    find_all('ul.ember-power-select-options > li')[0].click
+      find('#team-power-select').find('.ember-power-select-trigger').click # Open trigger
+      find_all('ul.ember-power-select-options > li')[0].click
 
-    find('#group-power-select').find('.ember-power-select-trigger').click # Open trigger
-    find_all('ul.ember-power-select-options > li')[0].click
+      find('#group-power-select').find('.ember-power-select-trigger').click # Open trigger
+      find_all('ul.ember-power-select-options > li')[0].click
+    end
   end
 
-  def expect_account_page_with(account_attr)
-    expect(first('h1')).to have_text("Account: #{account_attr[:accountname]}")
-    expect(find('#cleartext_username').value).to eq(account_attr[:username])
-    expect(find('#cleartext_password').value).to eq(account_attr[:password])
-    expect(page).to have_text(account_attr[:description])
+  def expect_account_page_with(acc_attr)
+    expect(first('h1')).to have_text("Account: #{acc_attr[:accountname]}")
+    expect(find('#cleartext_username').value).to eq(acc_attr[:username])
+    expect(find('#cleartext_password').value).to eq(acc_attr[:password])
+    expect(page).to have_text(acc_attr[:description])
   end
 
-  def expect_filled_fields_in_modal_with(account_attr)
-    expect(find_field('accountname').value).to eq(account_attr[:accountname])
-    expect(find_field('cleartextUsername').value).to eq(account_attr[:username])
-    expect(find_field('cleartextPassword').value).to eq(account_attr[:password])
-    expect(find('.vertical-resize').value).to eq(account_attr[:description])
+  def expect_filled_fields_in_modal_with(acc_attr)
+    expect(find_field('accountname').value).to eq(acc_attr[:accountname])
+    expect(find_field('cleartextUsername').value).to eq(acc_attr[:username])
+    expect(find_field('cleartextPassword').value).to eq(acc_attr[:password])
+    expect(find('.vertical-resize').value).to eq(acc_attr[:description])
   end
 
 end

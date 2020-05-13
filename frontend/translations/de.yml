@@ -5,7 +5,7 @@ new: "Neu"
 save: "Speichern"
 close: "Schliessen"
 newAccount: "Neuer Account"
-edit Account: "Account bearbeiten"
+editAccount: "Account bearbeiten"
 account:
   form:
     teamPlaceholder: "Wählen Sie ein Team aus"
