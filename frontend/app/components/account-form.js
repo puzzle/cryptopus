@@ -24,8 +24,7 @@ export default class AccountForm extends BaseFormComponent {
     super(...arguments);
 
     this.record = this.args.account || this.store.createRecord("account");
-    this.isNewRecord = this.record.get('isNew');
-
+    this.isNewRecord = this.record.isNew;
 
     this.changeset = new Changeset(
       this.record,

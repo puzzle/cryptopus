@@ -32,7 +32,7 @@ const storeStub = Service.extend({
     }
   },
   createRecord() {
-    return { group: null };
+    return { group: null, isNew: true };
   },
   query(modelName) {
     if(modelName === "group") {
@@ -40,7 +40,7 @@ const storeStub = Service.extend({
         {
           id: 1,
           name: "bbt",
-          team: {
+          teamId: {
             get() {
               return 1;
             }
@@ -60,13 +60,16 @@ module("Integration | Component | account-form", function(hooks) {
   });
 
   test("it renders without input data", async function(assert) {
+
     await render(hbs`<AccountForm />`);
+
     await selectChoose(
       "#team-power-select .ember-power-select-trigger",
       "supporting"
     );
 
     await clickTrigger("#group-power-select");
+
     assert.equal(
       this.element.querySelector(".ember-power-select-dropdown").innerText,
       "bbt"
