@@ -27,16 +27,9 @@ class app.Login
     $('#username').select()
     return
 
-  setLocalUsername = ->
-    sessionStorage.setItem 'username', $('#username').val()
-    return
-
   bind = ->
     $(document).on 'page:change', ->
       setFocus()
-
-    $(document).on 'submit', '.login', ->
-      setLocalUsername()
 
     $(document).on 'click', '.logout', ->
       Turbolinks.pagesCached(0)

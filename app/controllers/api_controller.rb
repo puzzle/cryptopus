@@ -91,8 +91,8 @@ class ApiController < ApplicationController
 
   def set_headers
     response.headers['Content-Type'] = 'text/json'
-    response.headers['Content-disposition'] = "attachment;\
-    filename='" + params['controller'].to_s + "'.json"
+    response.headers['Content-Disposition'] = "attachment; filename='"\
+    + request.env['PATH_INFO'] + ".json'"
   end
 
   def authenticator
