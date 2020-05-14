@@ -61,6 +61,7 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
       this.members = this.store.query("teammember", {
         teamId: this.args.teamId
       });
+      this.loadCandidates();
     });
   }
 

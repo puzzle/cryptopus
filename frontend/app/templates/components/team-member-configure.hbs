@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="teamConfigureModalLabel">{{t "team.editMembersAndApiUsers"}}</h5>
+        <h3 class="modal-title" id="teamConfigureModalLabel">{{t "team.editMembersAndApiUsers"}}</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label={{t "close"}}>
           <span aria-hidden="true">&times;</span>
         </button>
@@ -33,11 +33,11 @@
                       <li>
                         {{member.label}}
                         {{#if member.admin}}
-                          <img src="/assets/images/penguin.svg" alt="admin" class="float-right">
+                          <img src="/images/penguin.svg" alt="admin" class="float-right">
                         {{else}}
                           {{#if member.deletable}}
                             <a role="button" {{on "click" (fn this.deleteMember member)}}>
-                              <img src="/assets/images/remove.svg" alt="remove">
+                              <img src="/images/remove.svg" alt="remove">
                             </a>
                           {{/if}}
                         {{/if}}
