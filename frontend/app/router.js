@@ -11,7 +11,11 @@ Router.map(function() {
     this.route("new");
     this.route("edit", { path: '/edit/:id'});
   });
+
   this.route("teams", function() {
+    this.route("new");
+    this.route("edit", {path: '/edit/:id'});
     this.route("configure", { path: "/:team_id/configure" });
   });
+
 });

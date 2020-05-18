@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     end
 
     # INFO don't mix scopes and resources in routes
-    resources :teams, only: [:destroy, :index]  do
+    resources :teams, only: [:show, :update, :destroy, :index]  do
       collection do
         get :last_teammember_teams
       end
