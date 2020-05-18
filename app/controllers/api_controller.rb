@@ -13,6 +13,7 @@ class ApiController < ApplicationController
   skip_before_action :prepare_menu
   skip_before_action :set_locale
 
+  before_action :set_headers
   before_action :validate_user
 
   include ApiMessages
@@ -86,6 +87,12 @@ class ApiController < ApplicationController
       authentification_failed_message
       render_json
     end
+  end
+
+  def set_headers
+    response.headers['Content-Type'] = 'text/json'
+    response.headers['Content-Disposition'] = "attachment; filename='"\
+    + request.env['PATH_INFO'] + ".json'"
   end
 
   def authenticator

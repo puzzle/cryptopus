@@ -13,7 +13,7 @@ class app.Login
 
     password_input = $('#password')
     user_input = $('#username')
-    stored_username = localStorage.getItem('username')
+    stored_username = sessionStorage.getItem('username')
     input_username = user_input.val()
 
     if stored_username != null and stored_username != ''
@@ -27,16 +27,9 @@ class app.Login
     $('#username').select()
     return
 
-  setLocalUsername = ->
-    localStorage.setItem 'username', $('#username').val()
-    return
-
   bind = ->
     $(document).on 'page:change', ->
       setFocus()
-
-    $(document).on 'submit', '.login', ->
-      setLocalUsername()
 
     $(document).on 'click', '.logout', ->
       Turbolinks.pagesCached(0)
