@@ -33,11 +33,11 @@
                       <li>
                         {{member.label}}
                         {{#if member.admin}}
-                          <img src="/images/penguin.svg" alt="admin" class="float-right">
+                          <img src="/ember/assets/images/penguin.svg" alt="admin" class="float-right">
                         {{else}}
                           {{#if member.deletable}}
                             <a role="button" {{on "click" (fn this.deleteMember member)}}>
-                              <img src="/images/remove.svg" alt="remove">
+                              <img src="/ember/assets/images/remove.svg" alt="remove">
                             </a>
                           {{/if}}
                         {{/if}}

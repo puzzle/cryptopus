@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Api::Team::MembersController do
+describe Api::Teams::MembersController do
   include ControllerHelpers
 
   let(:bob) { users(:bob) }

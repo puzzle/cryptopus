@@ -20,7 +20,7 @@ class Api::TeamsController < ApiController
 
   # GET /api/teams/last_teammember_teams
   def last_teammember_teams
-    authorize Team, :last_teammember_teams?
+    authorize ::Team, :last_teammember_teams?
     teams = user.last_teammember_teams
     render_json teams
   end
@@ -39,7 +39,7 @@ class Api::TeamsController < ApiController
   end
 
   def team
-    @team ||= Team.find(params['id'])
+    @team ||= ::Team.find(params['id'])
   end
 
   def find_teams(teams)

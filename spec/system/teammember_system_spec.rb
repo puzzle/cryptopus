@@ -21,7 +21,7 @@ describe 'Teammember', type: :system, js: true do
     team1 = teams(:team1)
 
     # Make Api-User, as modal doesn't work yet without.
-    visit "/profile"
+    visit '/profile'
     click_link 'Api Users'
     click_button 'New'
 
@@ -62,7 +62,6 @@ describe 'Teammember', type: :system, js: true do
         within('.ember-power-select-options') do
           find('li', match: :first).click
         end
-
       end.to change { Teammember.count }.by(1)
 
     end

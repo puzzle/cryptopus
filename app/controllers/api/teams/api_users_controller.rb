@@ -12,7 +12,7 @@ module Api
       # GET /api/api_users
       def index
         authorize team, :team_member?
-        @team_api_users = Team::ApiUser.list(current_user, team)
+        @team_api_users = ::Team::ApiUser.list(current_user, team)
         render_json @team_api_users
       end
 
@@ -35,7 +35,7 @@ module Api
 
       def team_api_user
         api_user = ::User::Api.find(params[:id])
-        Team::ApiUser.new(api_user, team)
+        ::Team::ApiUser.new(api_user, team)
       end
     end
   end
