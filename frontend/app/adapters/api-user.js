@@ -3,8 +3,8 @@ import { pluralize } from "ember-inflector";
 
 export default ApplicationAdapter.extend({
   pathForType(modelName) {
-    let snake_cased = modelName.replace("-", "_");
-    return pluralize(snake_cased);
+    let snakeCased = modelName.replace("-", "_");
+    return pluralize(snakeCased);
   },
 
   urlForQuery(query, modelName) {

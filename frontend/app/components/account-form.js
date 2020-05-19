@@ -108,7 +108,7 @@ export default class AccountForm extends BaseFormComponent {
     return this.changeset.isValid;
   }
 
-  handleSubmitSuccessful(savedRecords) {
+  handleSubmitSuccess(savedRecords) {
     /* eslint-disable no-undef  */
     $(this.modalElement).modal("hide");
     /* eslint-enable no-undef  */

@@ -9,7 +9,7 @@ module Api
     class MembersController < ApiController
       self.permitted_attrs = [:user_id]
 
-      # GET /api/teams/:team_id
+      # GET /api/teams/:team_id/members
       def index
         authorize team, :list_members?
         members = team.teammembers.list

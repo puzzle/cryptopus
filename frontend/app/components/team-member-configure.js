@@ -29,7 +29,7 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
   }
 
   loadCandidates() {
-    fetch(`/api/teams/${this.args.teamId}/members/candidates`).then(
+    fetch(`/api/teams/${this.args.teamId}/candidates`).then(
       response => {
         response.json().then(json => {
           this.candidates = json.data["user/humen"];
@@ -42,7 +42,7 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
     this.router.transitionTo("index");
   }
 
-  handleSubmitSuccessful() {
+  handleSubmitSuccess() {
     this.members = this.store.query("teammember", { teamId: this.args.teamId });
     this.loadCandidates();
   }

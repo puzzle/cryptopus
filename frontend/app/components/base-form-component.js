@@ -26,9 +26,9 @@ export default class BaseFormComponent extends Component {
    * It will be called once the record has been submitted and the api returns an error as response. */
   handleSubmitError() {}
 
-  /* The handleSubmitSuccessful method can be implemented by a subclass as a hook in the submit method
+  /* The handleSubmitSuccess method can be implemented by a subclass as a hook in the submit method
    * It will be called once the record has been submitted and the api returns an ok as response. */
-  handleSubmitSuccessful() {}
+  handleSubmitSuccess() {}
 
   /* The afterSubmit method can be implemented by a subclass as a hook in the submit method
    * It will be called once the record has been submitted and the api has returned any response.
@@ -51,7 +51,7 @@ export default class BaseFormComponent extends Component {
 
       return Promise.all(notPersistedRecords.map(record => record.save()))
         .then(savedRecords => {
-          this.handleSubmitSuccessful(savedRecords);
+          this.handleSubmitSuccess(savedRecords);
           this.afterSubmit();
         })
         .catch(() => {

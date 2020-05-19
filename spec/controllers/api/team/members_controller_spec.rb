@@ -7,22 +7,6 @@ describe Api::Teams::MembersController do
 
   let(:bob) { users(:bob) }
 
-  context 'GET candidates' do
-    it 'returns team member candidates for new team' do
-      login_as(:admin)
-      team = Team.create(users(:admin), name: 'foo')
-
-      get :candidates, params: { team_id: team }, xhr: true
-
-      candidates = json['data']['user/humen']
-
-      expect(candidates.size).to eq 3
-      expect(candidates.any? { |c| c['label'] == 'Alice test' }).to be true
-      expect(candidates.any? { |c| c['label'] == 'Bob test' }).to be true
-      expect(candidates.any? { |c| c['label'] == 'Tux Miller' }).to be true
-    end
-  end
-
   context 'GET index' do
     it 'returns team members for given team' do
       login_as(:admin)

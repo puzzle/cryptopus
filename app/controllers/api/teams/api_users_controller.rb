@@ -9,14 +9,14 @@ module Api
   module Teams
     class ApiUsersController < ApiController
 
-      # GET /api/api_users
+      # GET /api/teams/:team_id/api_users
       def index
         authorize team, :team_member?
         @team_api_users = ::Team::ApiUser.list(current_user, team)
         render_json @team_api_users
       end
 
-      # POST /api/api_users
+      # POST /api/teams/:team_id/api_users
       def create
         authorize team, :team_member?
         plaintext_team_password = team.decrypt_team_password(current_user, session[:private_key])
@@ -24,7 +24,7 @@ module Api
         render_json
       end
 
-      # DELETE /api/api_users/:id
+      # DELETE /api/teams/:team_id/api_users/:id
       def destroy
         authorize team, :team_member?
         team_api_user.disable
