@@ -62,7 +62,7 @@
 
               <div class="row">
                 <div class="col-md-12" id="team-power-select">
-                  <label name="team">{{t "team"}}</label>
+                  <label name="team">{{t "team.team"}}</label>
                   <PowerSelect class="mb-1" @options={{this.assignableTeams}} @selected={{this.selectedTeam}} @onChange={{this.setSelectedTeam}} @renderInPlace={{true}} @allowClear={{true}} @placeholder={{t "account.form.teamPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |team|>
                     {{team.name}}
                   </PowerSelect>
