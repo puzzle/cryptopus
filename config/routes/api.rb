@@ -36,12 +36,11 @@ Rails.application.routes.draw do
       collection do
         get :last_teammember_teams
       end
-      resources :groups, only: ['index'], module: 'team'
-      resources :members, except: [:new, :edit], module: 'team' do
-        collection do
-          get :candidates
-        end
-      end
+      resources :api_users, only: [:create, :destroy, :index], module: 'teams'
+      resources :groups, only: ['index'], module: 'teams'
+      resources :members, except: [:new, :edit], module: 'teams'
+      resources :candidates, only:[:index], module: 'teams'
     end
+
   end
 end

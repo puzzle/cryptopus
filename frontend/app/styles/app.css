@@ -1,3 +1,23 @@
+.float-right {
+  float: right !important;
+}
+
+.mt-3 {
+  margin-top: 3%;
+}
+
+.columns li.ember-power-select-option {
+  width: 100%;
+}
+
+.x-toggle-component {
+  width: 20%;
+}
+
+li a {
+  cursor: pointer;
+}
+
 /* Validation-errors */
 .validation-errors {
   color: red;

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Api::Team::GroupsController do
+describe Api::Teams::GroupsController do
   include ControllerHelpers
 
   context 'GET index' do

@@ -5,6 +5,8 @@
 
 = hidden_field_tag :team_id, team.id
 = link_to t('groups.new.title'), new_team_group_path(team), class: 'btn btn-primary pull-right', id: 'group-button'
+= link_to image_pack_tag("edit.svg"), "#/teams/#{team.id}/configure", id: 'edit_account_button', class: 'btn btn-secondary pull-right','data-turbolinks': 'false'
+
 %table.table.table-striped
   %tr
     %th{style: "width: 150px;"}= t '.group'

@@ -1,0 +1,80 @@
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="teamConfigureModalLabel" aria-hidden="true" {{did-insert this.setupModal this}}>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="teamConfigureModalLabel">{{t "team.editMembersAndApiUsers"}}</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label={{t "close"}}>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item active">
+            <a class="nav-link" id="members-tab" data-toggle="tab" href="#members" role="tab" aria-controls="members" aria-selected="true">{{t "team.members"}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="api-users-tab" data-toggle="tab" href="#api-users" role="tab" aria-controls="api-users" aria-selected="false">{{t "team.apiUsers"}}</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="members" role="tabpanel" aria-labelledby="members-tab">
+            <div class="columns members">
+              <div class="row justify-content-end">
+                <div class="col-sm-4 float-right">
+                  <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{this.addMember}} as |candidate|>
+                    {{candidate.label}}
+                  </PowerSelectTypeahead>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col">
+                  <ol>
+                    {{#each this.members as |member|}}
+                      <li>
+                        {{member.label}}
+                        {{#if member.admin}}
+                          <img src="/ember/assets/images/penguin.svg" alt="admin" class="float-right">
+                        {{else}}
+                          {{#if member.deletable}}
+                            <a role="button" {{on "click" (fn this.deleteMember member)}}>
+                              <img src="/ember/assets/images/remove.svg" alt="remove">
+                            </a>
+                          {{/if}}
+                        {{/if}}
+                      </li>
+                    {{/each}}
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="api-users" role="tabpanel" aria-labelledby="api-users-tab">
+            <table class="table table-striped mt-3">
+              <thead>
+                <tr>
+                  <td>{{t "user"}}</td>
+                  <td>{{t "description"}}</td>
+                  <td>{{t "enabled"}}</td>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each @apiUsers as |user|}}
+                  <tr>
+                    <td>{{user.username}}</td>
+                    <td>{{user.description}}</td>
+                    <td>
+                      <XToggle @theme="material" @value={{user.enabled}} @onToggle={{fn this.toggleApiUser user}} />
+                    </td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{t "close"}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

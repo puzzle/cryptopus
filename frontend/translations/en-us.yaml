@@ -1,4 +1,6 @@
-team: "Team"
+user: "User"
+description: "Description"
+enabled: "Enabled"
 folder: "Folder"
 randomPassword: "Random Password"
 new: "New"
@@ -6,6 +8,11 @@ save: "Save"
 close: "Close"
 newAccount: "New Account"
 editAccount: "Edit Account"
+team:
+  team: "Team"
+  members: "Members"
+  apiUsers: "Api Users"
+  editMembersAndApiUsers: "Edit Team Members and Api Users"
 account:
   form:
     teamPlaceholder: "Select a team"
