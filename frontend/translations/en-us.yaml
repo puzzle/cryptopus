@@ -22,3 +22,12 @@ account:
   password: "Password"
   description: "Description"
   attachement: "Attachement"
+teams:
+  title: 'Teams'
+  forms:
+    newTitle: 'New Team'
+    editTitle: 'Edit Team'
+    privateInfo: 'Admins have no access if checked.'
+  name: 'Name'
+  description: 'Description'
+  private: 'Private'

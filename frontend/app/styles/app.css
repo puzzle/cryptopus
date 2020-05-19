@@ -33,10 +33,36 @@ li a {
   resize: vertical;
 }
 
-#accountFormModalLabel {
-  display:  inline;
+.modal-title {
+  display: inline;
 }
 
 #team-power-select {
   height: 69px;
+}
+
+.private-description{
+  background-color: #eee;
+  position: absolute;
+  padding: 2px;
+  margin-left: 4px;
+}
+
+.info-icon{
+  width: 18px;
+  height: 18px;
+  display: inline;
+}
+
+.info-icon:hover{
+  cursor: help;
+}
+
+#checkbox-private {
+  margin-left: 5px;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background-color: #2988bc !important;
+  border-color: #2479a7 !important;
 }

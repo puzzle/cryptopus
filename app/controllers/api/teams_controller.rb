@@ -7,7 +7,7 @@
 
 class Api::TeamsController < ApiController
 
-  self.permitted_attrs = [:name, :description]
+  self.permitted_attrs = [:name, :description, :private]
 
   def self.policy_class
     TeamPolicy
@@ -20,25 +20,30 @@ class Api::TeamsController < ApiController
     render_json find_teams(teams)
   end
 
-  # GET /api/teams/:id
+  # POST /api/teams/:id
   def show
     authorize team
+    render_json team
+  end
+
+  # POST /api/teams
+  def create
+    team = Team.create(current_user, model_params)
+    authorize team
+    team.save
+    add_info(t('flashes.teams.created'))
+
     render_json team
   end
 
   # PATCH /api/teams/:id
   def update
     authorize team
-    team.attributes = model_params
-    team.save!
-    render_json
-  end
+    team.update!(model_params)
 
-  # GET /api/teams/last_teammember_teams
-  def last_teammember_teams
-    authorize ::Team, :last_teammember_teams?
-    teams = user.last_teammember_teams
-    render_json teams
+    add_info(t('flashes.teams.updated'))
+
+    render_json
   end
 
   # DELETE /api/teams/:id

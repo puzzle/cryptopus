@@ -15,3 +15,12 @@ account:
   password: "Password"
   description: "Beschreibung"
   attachement: "Anhang"
+teams:
+  title: 'Teams'
+  forms:
+    editTitle: 'Team bearbeiten'
+    newTitle: 'neues Team'
+    privateInfo: 'Admins haben keinen Zugriff wenn angewählt.'
+  name: 'Name'
+  description: 'Beschreibung'
+  private: 'Private'

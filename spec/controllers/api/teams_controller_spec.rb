@@ -5,6 +5,9 @@ require 'rails_helper'
 describe Api::TeamsController do
   include ControllerHelpers
 
+  let(:bob) { users(:bob) }
+  let(:alice) { users(:alice) }
+
   context 'GET index' do
     it 'should get team for search term' do
       login_as(:alice)
@@ -31,43 +34,158 @@ describe Api::TeamsController do
     end
   end
 
-  context 'GET last_teammember_teams' do
-    it 'returns last teammember teams' do
-      login_as(:admin)
+  context 'PUT update' do
+    it 'updates team with valid params structure' do
+      set_auth_headers
 
-      soloteam = Fabricate(:private_team)
-      user = soloteam.teammembers.first.user
+      team = teams(:team1)
 
-      get :last_teammember_teams, params: { user_id: user.id }
-      team = data.first
+      update_params = {
+        data: {
+          id: team.id,
+          attributes: {
+            name: 'Team Bob',
+            description: 'yeah, my own team'
+          }
+        }, id: team.id
+      }
 
-      expect(team['id']).to eq soloteam.id.to_s
-      expect(team['attributes']['name']).to eq soloteam.name
-      expect(team['attributes']['description']).to eq soloteam.description
+      patch :update, params: update_params, xhr: true
+
+      team.reload
+
+      expect(team.name).to eq(update_params[:data][:attributes][:name])
+      expect(team.description).to eq(update_params[:data][:attributes][:description])
+
+      expect(response).to have_http_status(200)
     end
 
-    it 'returns last teammember teams as conf admin' do
-      login_as(:tux)
+    it 'does not update team when user not teammember' do
+      request.headers['Authorization-User'] = alice.username
+      request.headers['Authorization-Password'] = Base64.encode64('password')
 
-      soloteam = Fabricate(:private_team)
-      user = soloteam.teammembers.first.user
+      team = teams(:team2)
 
-      get :last_teammember_teams, params: { user_id: user.id }
-      team = data.first
+      team_params =
+        {
+          id: team.id,
+          team:
+            {
+              name: 'Team Alice',
+              description: 'yeah, i wanna steal that team'
+            }
+        }
+      patch :update, params: team_params, xhr: true
 
-      expect(team['id']).to eq soloteam.id.to_s
-      expect(team['attributes']['name']).to eq soloteam.name
-      expect(team['attributes']['description']).to eq soloteam.description
+      team.reload
+
+      expect(team.name).to eq('team2')
+      expect(team.description).to eq('public')
+
+      expect(response).to have_http_status(403)
     end
 
-    it 'cannot show last teammember teams if not admin' do
+    it 'cannot enable private on existing team' do
+      set_auth_headers
+
+      team = teams(:team1)
+
+      expect(team).to_not be_private
+
+      update_params = {
+        data: {
+          id: team.id,
+          attributes: {
+            private: true
+          }
+        }, id: team.id
+      }
+
+      patch :update, params: update_params, xhr: true
+
+      team.reload
+
+      expect(team).to_not be_private
+
+      expect(response).to have_http_status(200)
+    end
+
+    it 'cannot disable private on existing team' do
+      set_auth_headers
+
+      team_params = { name: 'foo', private: true }
+      team = Team.create(users(:bob), team_params)
+
+      update_params = {
+        data: {
+          id: team.id,
+          attributes: {
+            private: false
+          }
+        }, id: team.id
+      }
+
+      patch :update, params: update_params, xhr: true
+
+      team.reload
+
+      expect(team).to be_private
+
+      expect(response).to have_http_status(200)
+    end
+
+  end
+
+  context 'POST create' do
+    it 'creates new team as user' do
       login_as(:bob)
-      soloteam = Fabricate(:private_team)
-      user = User.find(soloteam.teammembers.first.user_id)
 
-      get :last_teammember_teams, params: { user_id: user.id }
+      team_params = {
+        data: {
+          attributes: {
+            name: 'foo',
+            private: false,
+            description: 'foo foo'
+          }
+        }
+      }
 
-      expect(errors.first).to eq 'Access denied'
+      expect do
+        post :create, params: team_params, xhr: true
+      end.to change { Team.count }.by(1)
+
+      team = Team.find_by(name: team_params[:data][:attributes][:name])
+
+      expect(team.description).to eq(team_params[:data][:attributes][:description])
+      expect(team.private).to be team_params[:data][:attributes][:private]
+
+      expect(response).to have_http_status(200)
+    end
+
+    it 'creates new private team as user' do
+      login_as(:bob)
+
+      team_params = {
+        data: {
+          attributes: {
+            name: 'foo',
+            private: true,
+            description: 'foo foo'
+          }
+        }
+      }
+
+      expect do
+        post :create, params: team_params, xhr: true
+        expect(response).to have_http_status(200)
+      end.to change { Team.count }.by(1)
+
+      team = Team.find_by(name: team_params[:data][:attributes][:name])
+
+      expect(team.description).to eq(team_params[:data][:attributes][:description])
+      expect(team.private).to be team_params[:data][:attributes][:private]
+
+      expect(response).to have_http_status(200)
     end
 
   end
@@ -94,5 +212,27 @@ describe Api::TeamsController do
       expect(errors.first).to eq 'Access denied'
       expect(user.last_teammember_teams).to be_present
     end
+
+    it 'cannot delete team as normal user if not in team' do
+      login_as(:bob)
+
+      teammembers(:team1_bob).delete
+
+      expect do
+        delete :destroy, params: { id: teams(:team1).id }
+      end.to change { Team.count }.by(0)
+
+      expect(response).to have_http_status 403
+    end
+
+
   end
+
+  private
+
+  def set_auth_headers
+    request.headers['Authorization-User'] = bob.username
+    request.headers['Authorization-Password'] = Base64.encode64('password')
+  end
+
 end

@@ -28,11 +28,31 @@
                 %li= nav_link t('teams.title'), admin_teams_path
                 %li= nav_link t(:maintenance_tasks), admin_maintenance_tasks_path
           = nav_link image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path, :get
+
         %ul.nav.navbar-nav.navbar-right#profile-button
           %li 
-            %a{'href': '#/accounts/new', 'data-turbolinks': 'false'} new Account
           = nav_link current_user.username, profile_path
+
+        %ul.nav.navbar-nav.navbar-right#add-dropdown
+
+          %li.nav-item
+            %div.dropdown.show
+              %div.btn-group
+                %a.btn.btn-primary.navbar-btn#navbarDropdown{type: 'button', 'href': '#/accounts/new', 'data-turbolinks': 'false'}
+                  new Account
+                %a.btn.navbar-btn.btn-primary.dropdown-toggle.dropdown-toggle-split{'type': 'button', 'data-toggle':'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false'}
+                  %span.caret
+
+                %ul.dropdown-menu{'aria-labelledby': 'navbarDropdown'}
+                  %li
+                    %a.dropdown-item{'href': '#/teams/new', 'data-turbolinks': 'false'} new Team
+                  %li
+                    %a.dropdown-item{'href': '#/groups/new', 'data-turbolinks': 'false'} new Folder
+
+
   - unless @breadcrumbs.nil?
     .bread-container
       .breadcrumb
         = render_breadcrumbs separator: '', tag: :li
+
+

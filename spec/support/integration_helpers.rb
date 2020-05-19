@@ -6,8 +6,16 @@ module IntegrationHelpers
       login_as(username.to_s, user_password)
 
       # New Team
-      post teams_path, params: { team: { name: 'Web', description: 'team_description',
-                                         private: private } }
+      team_params = {
+        data: {
+          attributes: {
+            name: 'Web',
+            private: private,
+            description: 'team_description'
+          }
+        }
+      }
+      post '/api/teams', params: team_params
 
       # New Group
       team = Team.find_by(name: 'Web')
@@ -34,7 +42,12 @@ module IntegrationHelpers
     end
 
     def create_team(user, teamname, private_team)
-      team = Team.create(name: teamname, description: 'team_description', private: private_team)
+      team = Api::Team.create(
+        name: teamname,
+        description: 'team_description',
+        private: private_team
+      )
+
       team_password = cipher.random_key
       crypted_team_password = CryptUtils.encrypt_blob user.public_key, team_password
       Teammember.attr_accessible :team_id, :password

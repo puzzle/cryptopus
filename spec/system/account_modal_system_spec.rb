@@ -67,7 +67,6 @@ describe 'AccountModal', type: :system, js: true do
     find(:xpath, "//a[@href='/teams/#{group.team_id}/groups/#{account.group_id}']").click
     expect(find('h1')).to have_text("Accounts in group #{group.name} for team #{team.name}")
 
-    # Still an async issue. So sometimes test passes, sometimes not.
     expect do
       del_button = find(:xpath, "//a[@href='/accounts/#{account.id}' and @data-method='delete']")
       expect(del_button).to be_present
@@ -78,6 +77,8 @@ describe 'AccountModal', type: :system, js: true do
 
       expect(find('h1')).to have_text("Accounts in group #{group.name} for team #{team.name}")
     end.to change { Account.count }.by(-1)
+
+    logout
 
   end
 

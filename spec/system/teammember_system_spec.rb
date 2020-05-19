@@ -27,7 +27,7 @@ describe 'Teammember', type: :system, js: true do
 
     visit("/teams/#{team1.id}")
 
-    edit_button = page.find_link(id: 'edit_account_button')
+    edit_button = page.find_link(id: 'config_team_button')
     expect(edit_button).to be_present
     edit_button.click
 
