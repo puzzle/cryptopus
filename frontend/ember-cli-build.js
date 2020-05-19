@@ -4,8 +4,10 @@ const EmberApp = require("ember-cli/lib/broccoli/ember-app");
 
 module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
-    storeConfigInMeta: false
-    // Add options here
+    storeConfigInMeta: false,
+    'ember-cli-password-strength': {
+      bundleZxcvbn: true
+    }
   });
 
   // Use `app.import` to add additional libraries to the generated

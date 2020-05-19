@@ -11,19 +11,36 @@ import { isPresent } from "@ember/utils";
 export default class AccountForm extends BaseFormComponent {
   @service store;
   @service router;
+  @service passwordStrength;
 
   @tracked selectedTeam;
   @tracked selectedGroup;
   @tracked assignableTeams;
   @tracked availableGroups;
+  @tracked passwordScore;
+  @tracked passwordLabel;
 
   AccountValidations = AccountValidations;
+
+  @action
+  updatePasswordScore() {
+    this.passwordStrength.strength(this.changeset.cleartextPassword).then(strength => {
+      this.passwordLabel = strength.feedback.warning
+      let calculatedScore = strength.score * 0.25;
+      if (calculatedScore === 0) {
+        this.passwordScore = 0.01;
+      } else {
+        this.passwordScore = calculatedScore;
+      }
+    })
+  }
 
   constructor() {
     super(...arguments);
 
     this.record = this.args.account || this.store.createRecord("account");
     this.isNewRecord = this.record.isNew;
+    this.passwordScore = 0.01;
 
     this.changeset = new Changeset(
       this.record,
@@ -45,6 +62,7 @@ export default class AccountForm extends BaseFormComponent {
       // });
     });
   }
+
 
   setupModal(element, args) {
     var context = args[0];
@@ -69,6 +87,7 @@ export default class AccountForm extends BaseFormComponent {
       pass += PASSWORD_CHARS.charAt(r);
     }
     this.changeset.cleartextPassword = pass;
+    this.updatePasswordScore();
   }
 
   @action

@@ -2967,7 +2967,7 @@ broccoli-funnel-reducer@^1.0.0:
   resolved "https://registry.yarnpkg.com/broccoli-funnel-reducer/-/broccoli-funnel-reducer-1.0.0.tgz#11365b2a785aec9b17972a36df87eef24c5cc0ea"
   integrity sha1-ETZbKnha7JsXlyo234fu8kxcwOo=
 
-broccoli-funnel@^1.0.1:
+broccoli-funnel@^1.0.1, broccoli-funnel@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/broccoli-funnel/-/broccoli-funnel-1.2.0.tgz#cddc3afc5ff1685a8023488fff74ce6fb5a51296"
   integrity sha1-zdw6/F/xaFqAI0iP/3TOb7WlEpY=
@@ -4542,7 +4542,7 @@ ember-assign-polyfill@^2.6.0:
     ember-cli-babel "^6.16.0"
     ember-cli-version-checker "^2.0.0"
 
-ember-auto-import@^1.2.13, ember-auto-import@^1.5.2:
+ember-auto-import@^1.2.13, ember-auto-import@^1.5.2, ember-auto-import@^1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-1.5.3.tgz#b32936f874d1ed7057ad2ed3f6116357820be44b"
   integrity sha512-7JfdunM1BmLy/lyUXu7uEoi0Gi4+dxkGM23FgIEyW5g7z4MidhP53Fc61t49oPSnq7+J4lLpbH1f6C+mDMgb4A==
@@ -4589,26 +4589,26 @@ ember-basic-dropdown@^2.0.13:
     ember-maybe-in-element "^0.4.0"
     ember-truth-helpers "2.1.0"
 
-ember-changeset-validations@^3.2.0:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/ember-changeset-validations/-/ember-changeset-validations-3.3.1.tgz#851974da2d4338391262ee34b51bda5ce0a4549b"
-  integrity sha512-4Sgckw+rEgRWSoYC3AMhmNlzw9WwRkJhsocSy62HolaCOHyhcWtOS+WbEpwFJEsj5mPBiRK1SgOyNI07kjUaow==
+ember-changeset-validations@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/ember-changeset-validations/-/ember-changeset-validations-3.3.2.tgz#a1c24b46c2750a1a79b93261d5399f52b58e6786"
+  integrity sha512-S6873o5ns3JTqL+kg9L4P5uGRs1SwWb1ushw433oKhn5W57gZPxOtfaD/PJW1NOkgjMzLA5MXoiu1c34hK5G0A==
   dependencies:
-    ember-changeset "^3.3.1"
+    ember-changeset "^3.3.8"
     ember-cli-babel "^7.8.0"
     ember-cli-htmlbars "^4.0.5"
     ember-get-config "^0.2.4"
     ember-validators "^2.0.0"
 
-ember-changeset@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-3.3.1.tgz#8e035d74d806110602016481788c1e2634a03303"
-  integrity sha512-AvTAhlec6Cz0eKfKPxAQm33nhp1zQ04p9OiyVL4IRbvBetQ/7Jq+7r4otXO+jecgCxPygzYIy8nAvCjJ3t30GA==
+ember-changeset@^3.3.8:
+  version "3.3.8"
+  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-3.3.8.tgz#27e68db24c2e3bf3cc538ad26fa205e7c3036abf"
+  integrity sha512-jb+pyi3XlU2ovFr5kGKvC8H3gvs7WZo9n7H+G/wcod8j7GD2yr7OSpMXTfEuHHFVveNpIBaHeFS2b8ai65jJ6g==
   dependencies:
     "@glimmer/tracking" "^1.0.0"
     ember-auto-import "^1.5.2"
     ember-cli-babel "^7.19.0"
-    validated-changeset "~0.4.1"
+    validated-changeset "~0.4.9"
 
 ember-class-based-modifier@^0.10.0:
   version "0.10.0"
@@ -4631,7 +4631,7 @@ ember-cli-babel-plugin-helpers@^1.0.0, ember-cli-babel-plugin-helpers@^1.1.0:
   resolved "https://registry.yarnpkg.com/ember-cli-babel-plugin-helpers/-/ember-cli-babel-plugin-helpers-1.1.0.tgz#de3baedd093163b6c2461f95964888c1676325ac"
   integrity sha512-Zr4my8Xn+CzO0gIuFNXji0eTRml5AxZUTDQz/wsNJ5AJAtyFWCY4QtKdoELNNbiCVGt1lq5yLiwTm4scGKu6xA==
 
-ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.12.0, ember-cli-babel@^6.16.0, ember-cli-babel@^6.3.0, ember-cli-babel@^6.6.0, ember-cli-babel@^6.8.1, ember-cli-babel@^6.8.2, ember-cli-babel@^6.9.0, ember-cli-babel@^6.9.2:
+ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.12.0, ember-cli-babel@^6.16.0, ember-cli-babel@^6.3.0, ember-cli-babel@^6.6.0, ember-cli-babel@^6.8.0, ember-cli-babel@^6.8.1, ember-cli-babel@^6.8.2, ember-cli-babel@^6.9.0, ember-cli-babel@^6.9.2:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.18.0.tgz#3f6435fd275172edeff2b634ee7b29ce74318957"
   integrity sha512-7ceC8joNYxY2wES16iIBlbPSxwKDBhYwC8drU3ZEvuPDMwVv1KzxCNu1fvxyFEBWhwaRNTUxSCsEVoTd9nosGA==
@@ -4784,6 +4784,16 @@ ember-cli-normalize-entity-name@^1.0.0:
   dependencies:
     silent-error "^1.0.0"
 
+ember-cli-password-strength@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-password-strength/-/ember-cli-password-strength-2.0.0.tgz#f6f16d5c42ac16a4605305244f15f092f15224b3"
+  integrity sha1-9vFtXEKsFqRgUwUkTxXwkvFSJLM=
+  dependencies:
+    broccoli-funnel "^1.1.0"
+    broccoli-merge-trees "^2.0.0"
+    ember-cli-babel "^6.8.0"
+    zxcvbn "^4.3.0"
+
 ember-cli-path-utils@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ember-cli-path-utils/-/ember-cli-path-utils-1.0.0.tgz#4e39af8b55301cddc5017739b77a804fba2071ed"
@@ -4798,6 +4808,17 @@ ember-cli-preprocess-registry@^3.3.0:
     broccoli-funnel "^2.0.1"
     debug "^3.0.1"
     process-relative-require "^1.0.0"
+
+ember-cli-shims@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-shims/-/ember-cli-shims-1.2.0.tgz#0f53aff0aab80b5f29da3a9731bac56169dd941f"
+  integrity sha1-D1Ov8Kq4C18p2jqXMbrFYWndlB8=
+  dependencies:
+    broccoli-file-creator "^1.1.1"
+    broccoli-merge-trees "^2.0.0"
+    ember-cli-version-checker "^2.0.0"
+    ember-rfc176-data "^0.3.1"
+    silent-error "^1.0.1"
 
 ember-cli-sri@^2.1.1:
   version "2.1.1"
@@ -5150,10 +5171,10 @@ ember-inflector@^3.0.1:
   dependencies:
     ember-cli-babel "^6.6.0"
 
-ember-intl@^4.3.1:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/ember-intl/-/ember-intl-4.3.2.tgz#11c8ca2911db9ce22fd20b42288b037936f79417"
-  integrity sha512-nwp1Xkz98Xo+I9ENe7BXfSAFLIAthETfRLpLo1qV33La8bFVAOHRle/ky6DKD6WDMt2wHTuhYqD0t/YwwhE7tg==
+ember-intl@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/ember-intl/-/ember-intl-4.4.0.tgz#c87260d0418e3318942fa39d925331b6306c0e57"
+  integrity sha512-1pLkXkiXPQCdjKZC30GYwaLz7k0vb58zMl3rcdcsRJX0CBOyXeISpa/o2I4y9VmuyyZutZGayuiBfZkqQN1dqg==
   dependencies:
     "@ember-intl/broccoli-cldr-data" "^3.1.0"
     "@ember-intl/intl-messageformat" "^2.5.0"
@@ -5264,6 +5285,16 @@ ember-power-select@^3.0.3, ember-power-select@^3.0.4:
     ember-text-measurer "^0.5.0"
     ember-truth-helpers "^2.1.0"
 
+ember-progress-bar@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ember-progress-bar/-/ember-progress-bar-1.0.0.tgz#5129fdee5efdc69881da567ef6501109de8f8290"
+  integrity sha512-p06vzp7kCIa63YIUXnY+oQ+ojE8XzIRVyhbFeDVbImeDJM1yc/bl3dD+BEerppx7qg1bhf8A8YVclIERk8NPng==
+  dependencies:
+    broccoli-funnel "^1.0.1"
+    ember-cli-babel "^6.6.0"
+    ember-cli-htmlbars "^2.0.1"
+    progressbar.js "^1.0.1"
+
 ember-qunit@^4.5.1:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/ember-qunit/-/ember-qunit-4.6.0.tgz#ad79fd3ff00073a8779400cc5a4b44829517590f"
@@ -5296,6 +5327,11 @@ ember-resolver@^5.3.0:
     ember-cli-babel "^6.16.0"
     ember-cli-version-checker "^3.1.3"
     resolve "^1.12.0"
+
+ember-rfc176-data@^0.3.1:
+  version "0.3.13"
+  resolved "https://registry.yarnpkg.com/ember-rfc176-data/-/ember-rfc176-data-0.3.13.tgz#ed1712a26e65fec703655f35410414aa1982cf3b"
+  integrity sha512-m9JbwQlT6PjY7x/T8HslnXP7Sz9bx/pz3FrNfNi2NesJnbNISly0Lix6NV1fhfo46572cpq4jrM+/6yYlMefTQ==
 
 ember-rfc176-data@^0.3.12:
   version "0.3.12"
@@ -8996,6 +9032,13 @@ progress@^2.0.0:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
+progressbar.js@^1.0.1:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/progressbar.js/-/progressbar.js-1.1.0.tgz#300f99be40ba93fb0867f91dff01771236cade70"
+  integrity sha512-K68/xcyXKo2I6T3PfIkXrRaycxROmWeU4bugb49iulWR25cU94PM0cfZ47S0jDhG5K3vPhZwCOy1fgb5Pgh6UQ==
+  dependencies:
+    shifty "^2.1.2"
+
 promise-inflight@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/promise-inflight/-/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
@@ -9827,6 +9870,11 @@ shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
   integrity sha512-vFwSUfQvqybiICwZY5+DAWIPLKsWO31Q91JSKl3UYv+K5c2QRPzn0qzec6QPu1Qc9eHYItiP3NdJqNVqetYAww==
+
+shifty@^2.1.2:
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/shifty/-/shifty-2.9.0.tgz#6488fb748e64e5865c8d1d9b8f1762be17e7cc86"
+  integrity sha512-CMPneof4IWabiu7KVCffYh4T+o2BeTC4OjQzbGGezYSDDcuGk4MWZY77KHV2LXWS78T0NgCDUrUfsRNZNvhevg==
 
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.3"
@@ -10922,10 +10970,10 @@ validate-npm-package-name@^3.0.0:
   dependencies:
     builtins "^1.0.3"
 
-validated-changeset@~0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/validated-changeset/-/validated-changeset-0.4.1.tgz#74208c439cb03b7ba69af6819c722768678fffeb"
-  integrity sha512-Q7pvZaWPdqn0Zo/Xpddp9zQ2abqXJLEyyiJbym+O2H2pH5KPOBTB/5UXBvkaQ7zvK6exWBjZnNzzoo1dBWeoAQ==
+validated-changeset@~0.4.9:
+  version "0.4.9"
+  resolved "https://registry.yarnpkg.com/validated-changeset/-/validated-changeset-0.4.9.tgz#54ecb7328d48485b19a444064a5126555eae0d51"
+  integrity sha512-hOAB9YK2l5hd7iXcqlEJrVl9iTEHrub3h+XbOYbgEXdk+PExZ1NsqSHND9pfL53W8mnOMnnt5RK6DKSrIujRgA==
 
 vary@~1.1.2:
   version "1.1.2"
@@ -11280,3 +11328,8 @@ yeast@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
   integrity sha1-AI4G2AlDIMNy28L47XagymyKxBk=
+
+zxcvbn@^4.3.0, zxcvbn@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/zxcvbn/-/zxcvbn-4.4.2.tgz#28ec17cf09743edcab056ddd8b1b06262cc73c30"
+  integrity sha1-KOwXzwl0PtyrBW3dixsGJizHPDA=
