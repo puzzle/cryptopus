@@ -26,7 +26,7 @@ describe 'User provides new Ldap Pw' do
 
       # Prepare for do
       bob.update(auth: 'ldap')
-      bob.update(ldap_uid: 42)
+      bob.update(provider_uid: '42')
 
       # Method call expectations
       expect(LdapConnection).to receive(:new).at_least(:once).and_return(ldap)
@@ -63,7 +63,7 @@ describe 'User provides new Ldap Pw' do
       expect(GeoIp).to receive(:activated?).at_least(:once).and_return(false)
       # Prepare for  do
       bob.update!(auth: 'ldap')
-      bob.update!(ldap_uid: 42)
+      bob.update!(provider_uid: '42')
 
       # Method call expectations
       expect(LdapConnection).to receive(:new).at_least(:once).and_return(ldap)
@@ -107,7 +107,7 @@ describe 'User provides new Ldap Pw' do
 
       # Prepare for  do
       bob.update(auth: 'ldap')
-      bob.update(ldap_uid: 42)
+      bob.update(provider_uid: '42')
 
       # Method call expectations
       expect(LdapConnection).to receive(:new).at_least(:once).and_return(ldap)
@@ -137,7 +137,7 @@ describe 'User provides new Ldap Pw' do
 
       # Prepare for  do
       bob.update(auth: 'ldap')
-      bob.update(ldap_uid: 42)
+      bob.update(provider_uid: '42')
 
       # Method call expectations
       expect(LdapConnection).to receive(:new).at_least(:twice).and_return(ldap)
@@ -169,7 +169,7 @@ describe 'User provides new Ldap Pw' do
 
       # Prepare for  do
       bob.update(auth: 'ldap')
-      bob.update(ldap_uid: 42)
+      bob.update(provider_uid: '42')
 
       # Method call expectations
       expect(LdapConnection).to receive(:new).exactly(4).times.and_return(ldap)

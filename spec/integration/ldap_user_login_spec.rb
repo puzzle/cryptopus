@@ -14,7 +14,7 @@ describe 'Ldap user login' do
     enable_ldap
     user_bob = users(:bob)
     user_bob.update(auth: 'ldap')
-    user_bob.update(ldap_uid: 42)
+    user_bob.update(provider_uid: '42')
   end
 
   it 'logins as ldap user' do

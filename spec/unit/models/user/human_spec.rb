@@ -118,7 +118,7 @@ describe User::Human do
       user = User::Human.send(:create_from_ldap, 'bob', 'password')
 
       expect(user.username).to eq('bob')
-      expect(user.ldap_uid).to eq(42)
+      expect(user.provider_uid).to eq('42')
       expect(user.givenname).to eq('bob')
       expect(user.surname).to eq('test')
       expect(user.auth).to eq('ldap')

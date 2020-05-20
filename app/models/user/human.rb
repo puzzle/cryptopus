@@ -8,7 +8,7 @@
 #  public_key                   :text             not null
 #  private_key                  :binary           not null
 #  password                     :binary
-#  ldap_uid                     :integer
+#  provider_uid                 :string
 #  last_login_at                :datetime
 #  username                     :string
 #  givenname                    :string
@@ -70,7 +70,7 @@ class User::Human < User
     end
 
     def create_root(password)
-      user = new(ldap_uid: 0,
+      user = new(provider_uid: '0',
                  username: 'root',
                  givenname: 'root',
                  surname: '',
