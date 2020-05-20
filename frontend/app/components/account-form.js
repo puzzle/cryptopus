@@ -61,6 +61,7 @@ export default class AccountForm extends BaseFormComponent {
       //   teamId: this.selectedTeam.id
       // });
     });
+    this.updatePasswordScore()
   }
 
 
