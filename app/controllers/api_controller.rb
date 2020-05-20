@@ -80,8 +80,8 @@ class ApiController < CrudController
   end
 
   def authorize_with_headers
-    if authenticator.auth!
-      @current_user = authenticator.user
+    if auth_provider.authenticate!
+      @current_user = auth_provider.user
     else
       authentification_failed_message
       render_json
@@ -94,8 +94,8 @@ class ApiController < CrudController
     + request.env['PATH_INFO'] + ".json'"
   end
 
-  def authenticator
-    Authentication::UserAuthenticator.new(username: username, password: password_header)
+  def auth_provider
+    Authentication::AuthProvider.new(username: username, password: password_header)
   end
 
   def users_private_key

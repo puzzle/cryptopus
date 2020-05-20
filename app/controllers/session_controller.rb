@@ -6,8 +6,9 @@
 #  https://github.com/puzzle/cryptopus.
 
 class SessionController < ApplicationController
-
   before_action :authorize_action
+  before_action :skip_authorization, only: [:create, :new, :destroy, :sso]
+  before_action :check_root_source_ip, only: :fallback
 
   # it's save to disable this for authenticate since there is no logged in session active
   # in this case.
@@ -16,15 +17,15 @@ class SessionController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :create
   skip_before_action :validate_user, only: [:new, :create, :destroy]
   skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
-  before_action :skip_authorization, only: [:create, :new, :destroy]
+
 
   def create
-    unless authenticator.auth!
+    unless auth_provider.authenticate!
       flash[:error] = t('flashes.session.auth_failed')
       return redirect_to session_new_path
     end
 
-    unless create_session(authenticator.user, params[:password])
+    unless create_session(auth_provider.user, params[:password])
       return redirect_to recryptrequests_new_ldap_password_path
     end
 
@@ -33,8 +34,32 @@ class SessionController < ApplicationController
     redirect_after_sucessful_login
   end
 
+  def fallback
+    render :new
+  end
+
+  def sso
+    token = Keycloak::Client.get_token_by_code(params[:code], session_sso_url)
+    cookies.permanent[:keycloak_token] = token
+    auth_provider.authenticate!
+    return update_token if Keycloak::Client.get_attribute('pk_secret_base').nil?
+
+    unless create_session(auth_provider.user, CryptUtils.pk_secret)
+      return redirect_to recryptrequests_new_ldap_password_path
+    end
+
+    last_login_message
+    redirect_after_sucessful_login
+  end
+
   def destroy
-    logout
+    Keycloak::Client.logout if AuthConfig.keycloak_enabled? && !current_user.root?
+    flash_notice = params[:autologout] ? t('session.destroy.expired') : flash[:notice]
+    jumpto = params[:jumpto]
+    reset_session
+    session[:jumpto] = jumpto
+    flash[:notice] = flash_notice
+    redirect_to session_new_path
   end
 
   def show_update_password
@@ -80,8 +105,7 @@ class SessionController < ApplicationController
   def create_session(user, password)
     begin
       set_session_attributes(user, password)
-      user.update_info
-      user.update_last_login_ip(request.remote_ip)
+      auth_provider.update_user_info(request.remote_ip)
       CryptUtils.validate_keypair(session[:private_key], user.public_key)
     rescue Exceptions::DecryptFailed
       return false
@@ -111,7 +135,7 @@ class SessionController < ApplicationController
   end
 
   def password_params_valid?
-    unless current_user.authenticate(params[:old_password])
+    unless auth_provider.authenticate!
       flash[:error] = t('flashes.session.wrong_password')
       return false
     end
@@ -121,12 +145,6 @@ class SessionController < ApplicationController
       return false
     end
     true
-  end
-
-  def authenticator
-    username = params[:username]
-    password = params[:password]
-    Authentication::UserAuthenticator.new(username: username, password: password)
   end
 
   def authorize_action

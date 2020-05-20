@@ -36,13 +36,6 @@ class User < ApplicationRecord
   validates :username, uniqueness: :username
   validates :username, presence: true
 
-  def self.find_user(username, password)
-    user = find_by(username: username.strip)
-    return user if user.present?
-
-    User::Human.find_or_import_from_ldap(username.strip, password) if User::Human.ldap_enabled?
-  end
-
   def update_password(old, new)
     return if ldap?
 
