@@ -24,15 +24,17 @@ export default class AccountForm extends BaseFormComponent {
 
   @action
   updatePasswordScore() {
-    this.passwordStrength.strength(this.changeset.cleartextPassword).then(strength => {
-      this.passwordLabel = strength.feedback.warning
-      let calculatedScore = strength.score * 0.25;
-      if (calculatedScore === 0) {
-        this.passwordScore = 0.01;
-      } else {
-        this.passwordScore = calculatedScore;
-      }
-    })
+    if (isPresent(this.changeset.cleartextPassword)){
+      this.passwordStrength.strength(this.changeset.cleartextPassword).then(strength => {
+        this.passwordLabel = strength.feedback.warning
+        let calculatedScore = strength.score * 0.25;
+        if (calculatedScore === 0) {
+          this.passwordScore = 0.01;
+        } else {
+          this.passwordScore = calculatedScore;
+        }
+      })
+    }
   }
 
   constructor() {
