@@ -10,45 +10,42 @@ require 'rails_helper'
 describe 'Keycloak user login' do
   include IntegrationHelpers::DefaultHelper
 
-  before(:each) do
-    enable_keycloak
-  end
-
   it 'logins as new keycloak user' do
+    enable_keycloak
     pk_secret_base = SecureRandom.base64(32)
     # Mock
-    expect(Keycloak::Client).to receive(:url_login_redirect)
+    expect(Keycloak::Client)
+      .to receive(:url_login_redirect)
       .with(session_sso_url, 'code')
+      .at_least(:once)
       .and_return(session_sso_path)
-    expect(Keycloak::Client).to receive(:get_token_by_code)
+    expect(Keycloak::Client)
+      .to receive(:get_token_by_code)
+      .at_least(:once)
       .and_return('asdasda')
     expect(Keycloak::Client).to receive(:get_attribute)
       .with('sub')
+      .at_least(:once)
       .and_return('asdQW123-asdQWE')
     expect(Keycloak::Client).to receive(:get_attribute)
       .with('preferred_username')
+      .at_least(:once)
       .and_return('ben')
-      .twice
     expect(Keycloak::Client).to receive(:get_attribute)
       .with('given_name')
+      .at_least(:once)
       .and_return('Ben')
-      .twice
     expect(Keycloak::Client).to receive(:get_attribute)
       .with('family_name')
+      .at_least(:once)
       .and_return('Meier')
-      .twice
     expect(Keycloak::Client).to receive(:get_attribute)
-      .with('pk_secret_base').at_least(:once)
+      .with('pk_secret_base')
+      .at_least(:once)
       .and_return(pk_secret_base)
     expect(Keycloak::Client).to receive(:user_signed_in?)
       .and_return(true)
       .at_least(:once)
-    expect(Keycloak::Admin).to receive(:update_user)
-      .and_return(true)
-    expect(Keycloak::Admin).to receive(:get_user)
-      .and_return('{}')
-    expect(Keycloak::Client).to receive(:get_token_by_client_credentials)
-      .and_return('{ "acess_token": "asd" }')
 
     # login
     expect do
@@ -61,14 +58,5 @@ describe 'Keycloak user login' do
       expect(user.surname).to eq('Meier')
       expect(user.givenname).to eq('Ben')
     end.to change { User::Human.count }.by(1)
-  end
-
-  context 'fallback' do
-    xit 'login root via fallback' do
-      get session_fallback_path
-      login_as('root')
-      expect(request.fullpath).to eq(search_path)
-      expect(response.body).to match(/Hi  Root! Want to recover a password?/)
-    end
   end
 end

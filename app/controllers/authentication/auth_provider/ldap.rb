@@ -20,7 +20,7 @@ class Authentication::AuthProvider::Ldap < Authentication::AuthProvider
   end
 
   def find_or_create_user
-    return nil unless params_present? && valid_username? && ldap_connection.authenticate!(username, password)
+    return nil unless params_present? && valid_username? && username == 'root' || ldap_connection.authenticate!(username, password)
 
     user = User.find_by(username: username.strip)
     return create_user if user.nil?
@@ -29,13 +29,12 @@ class Authentication::AuthProvider::Ldap < Authentication::AuthProvider
   end
 
   def update_user_info(remote_ip)
-    user.update(
-      last_login_from: remote_ip,
-      last_login_at: Time.zone.now,
-      givenname: ldap_connection.ldap_info(user.provider_uid, 'givenname'),
-      surname: ldap_connection.ldap_info(user.provider_uid, 'sn')
-    )
+    user.last_login_from = remote_ip
+    user.last_login_at = Time.zone.now
+    update_ldap_info unless user.root?
+    user.save
   end
+
 
   private
 
@@ -48,6 +47,11 @@ class Authentication::AuthProvider::Ldap < Authentication::AuthProvider
     user.surname = ldap_connection.ldap_info(user.provider_uid, 'sn')
     user.create_keypair password
     user.save
+  end
+
+  def update_ldap_info
+    user.givenname = ldap_connection.ldap_info(user.provider_uid, 'givenname')
+    user.surname = ldap_connection.ldap_info(user.provider_uid, 'sn')
   end
 
   def ldap_connection

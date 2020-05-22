@@ -151,12 +151,13 @@ describe User::Human do
   context '#recrypt_private_key' do
     it 'shows new error on user if wrong old password at private_key recryption' do
       enable_ldap
-      ldap_provider
-      mock_ldap_settings
-
+      ldap_connection = double
       bob.update(auth: 'ldap')
 
-      expect_any_instance_of(LdapConnection).to receive(:authenticate!).and_return(true)
+      expect(ldap_connection).to receive(:authenticate!)
+        .with('bob', 'new_password')
+        .exactly(2).times
+        .and_return(true)
 
       expect(bob.recrypt_private_key!('new_password', 'wrong_old_password')).to eq false
 
@@ -165,10 +166,12 @@ describe User::Human do
 
     it 'shows new error on user if wrong new password at private_key recryption' do
       enable_ldap
-      ldap_provider
       mock_ldap_settings
+      ldap = double
 
-      expect_any_instance_of(LdapConnection).to receive(:authenticate!).and_return(false)
+      expect(LdapConnection).to receive(:new).at_least(:once).and_return(ldap)
+      expect(ldap).to receive(:authenticate!).at_least(:once).times.and_return(true)
+
       expect(bob.recrypt_private_key!('worong_new_password', 'password')).to eq false
 
       expect(bob.errors.messages[:base][0]).to match(/Your NEW password was wrong/)

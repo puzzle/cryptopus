@@ -12,6 +12,13 @@ module SourceIpCheck
     before_action :check_source_ip
   end
 
+  def check_root_source_ip
+    unless ip_checker.root_ip_authorized?
+      flash[:error] = t('flashes.session.wrong_root')
+      redirect_to session_new_path
+    end
+  end
+
   def check_source_ip
     return if ip_checker.previously_authorized?(session[:authorized_ip])
 

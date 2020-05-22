@@ -27,6 +27,10 @@ class Authentication::SourceIpChecker
     private_ip? || ip_whitelisted? || GeoIp.activated? && country_authorized?
   end
 
+  def root_ip_authorized?
+    private_ip?
+  end
+
   def previously_authorized?(authorized_ip)
     authorized_ip == remote_ip if authorized_ip.present?
   end

@@ -181,6 +181,7 @@ describe Authentication::AuthProvider do
         .and_return('Meier')
       expect(Keycloak::Client).to receive(:get_attribute)
         .with('pk_secret_base')
+        .at_least(:once)
         .and_return(nil)
       expect(Keycloak::Admin).to receive(:update_user)
         .and_return(true)
@@ -245,7 +246,9 @@ describe Authentication::AuthProvider do
       auth_provider = Authentication::AuthProvider::Ldap.new(username: 'bob', password: 'ldappw')
       bob.update!(auth: 'ldap')
 
-      expect_any_instance_of(LdapConnection).to receive(:authenticate!)
+      expect_any_instance_of(LdapConnection)
+        .to receive(:authenticate!)
+        .twice
         .with('bob', 'ldappw')
         .and_return(true)
       expect(auth_provider.authenticate!).to be true

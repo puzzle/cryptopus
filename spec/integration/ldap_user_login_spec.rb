@@ -9,6 +9,7 @@ require 'rails_helper'
 describe 'Ldap user login' do
   include IntegrationHelpers::DefaultHelper
 
+  # TODO: Tests sind Ablauf spezifisch wegen dem enable_ldap
   before(:each) do
     mock_ldap_settings
     enable_ldap
@@ -25,6 +26,7 @@ describe 'Ldap user login' do
     expect(ldap).to receive(:ldap_info).exactly(:twice)
     expect(ldap).to receive(:authenticate!)
       .with('bob', 'password')
+      .at_least(:once)
       .and_return(true)
 
     # login
@@ -33,7 +35,11 @@ describe 'Ldap user login' do
   end
 
   it 'logins to ldap with wrong password' do
-    expect_any_instance_of(LdapConnection).to receive(:authenticate!)
+    ldap = double
+
+    # Mock
+    expect(LdapConnection).to receive(:new).at_least(:once).and_return(ldap)
+    expect(ldap).to receive(:authenticate!)
       .with('bob', 'wrong_password')
       .and_return(false)
 

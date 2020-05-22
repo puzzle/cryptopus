@@ -181,11 +181,7 @@ describe SessionController do
       expect(Keycloak::Client).to receive(:get_attribute).with('family_name').and_return('Meier').at_least(:once)
       expect(Keycloak::Client).to receive(:get_attribute).with('sub').and_return('1234').at_least(:once)
       expect(Keycloak::Client).to receive(:user_signed_in?).and_return(true).at_least(:once)
-      expect(Keycloak::Admin).to receive(:update_user).and_return(true).at_least(:once)
-      expect(Keycloak::Admin).to receive(:get_user)
-        .and_return('{}')
-      expect(Keycloak::Client).to receive(:get_token_by_client_credentials)
-        .and_return('{ "acess_token": "asd" }')
+
       get :sso
       expect(response).to redirect_to search_path
       user = User.find_by(username: 'ben')

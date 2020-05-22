@@ -2,19 +2,18 @@
 
 class Authentication::AuthProvider::Sso < Authentication::AuthProvider
 
-  def initialize(username: nil)
+  def initialize(username: nil, password: nil)
     @authenticated = false
     @username = username
+    @password = password
     raise 'can\'t preform this action Keycloak is disabled' unless AuthConfig.keycloak_enabled?
   end
 
   def update_user_info(remote_ip)
-    user.update(
-      last_login_from: remote_ip,
-      last_login_at: Time.zone.now,
-      givenname: Keycloak::Client.get_attribute('given_name'),
-      surname: Keycloak::Client.get_attribute('family_name')
-    )
+    user.last_login_from = remote_ip
+    user.last_login_at = Time.zone.now
+    update_keycloak_info unless user.root?
+    user.save
   end
 
   def authenticate!
@@ -46,6 +45,11 @@ class Authentication::AuthProvider::Sso < Authentication::AuthProvider
     user.create_keypair(CryptUtils.pk_secret(pk_secret_base))
     user.save
     user
+  end
+
+  def update_keycloak_info
+    user.givenname = Keycloak::Client.get_attribute('given_name')
+    user.surname = Keycloak::Client.get_attribute('family_name')
   end
 
   def params_present?

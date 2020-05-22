@@ -9,8 +9,21 @@ class Authentication::AuthProvider
   end
 
   def authenticate!
+    return false if user_root?
     return false unless preconditions?
     return false if user.locked?
+
+    salt = user.password.split('$')[1]
+    authenticated = user.password.split('$')[2] == Digest::SHA512.hexdigest(salt + password)
+
+    add_error('flashes.session.wrong_password') unless authenticated
+
+    brute_force_detector.update(authenticated)
+    authenticated
+  end
+
+  def root_authenticate!
+    return false unless username == 'root'
 
     salt = user.password.split('$')[1]
     authenticated = user.password.split('$')[2] == Digest::SHA512.hexdigest(salt + password)
@@ -61,6 +74,14 @@ class Authentication::AuthProvider
     end
 
     add_error('flashes.session.wrong_password')
+    false
+  end
+
+  def user_root?
+    if username == 'root'
+      add_error('flashes.session.wrong_root')
+      return true
+    end
     false
   end
 

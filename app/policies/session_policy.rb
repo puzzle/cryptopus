@@ -3,10 +3,18 @@
 class SessionPolicy < ApplicationPolicy
 
   def new?
-    user.nil?
+    user.nil? && !AuthConfig.keycloak_enabled?
   end
 
   def sso?
+    user.nil? && AuthConfig.keycloak_enabled?
+  end
+
+  def local?
+    user.nil?
+  end
+
+  def root?
     user.nil?
   end
 

@@ -8,15 +8,15 @@
 class SessionController < ApplicationController
   before_action :authorize_action
   before_action :skip_authorization, only: [:create, :new, :destroy, :sso]
-  before_action :check_root_source_ip, only: :fallback
+  before_action :check_root_source_ip, only: [:local, :root]
 
   # it's save to disable this for authenticate since there is no logged in session active
   # in this case.
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
   skip_before_action :verify_authenticity_token, only: :create
-  skip_before_action :validate_user, only: [:new, :create, :destroy, :sso]
-  skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
+  skip_before_action :validate_user, only: [:new, :create, :destroy, :sso, :local, :root]
+  skip_before_action :redirect_if_no_private_key, only: [:destroy, :new, :sso]
 
 
   def create
@@ -34,12 +34,22 @@ class SessionController < ApplicationController
     redirect_after_sucessful_login
   end
 
-  def fallback
-    render :new
+  def root
+    unless auth_provider.root_authenticate!
+      flash[:error] = t('flashes.session.auth_failed')
+      return redirect_to session_new_path
+    end
+
+    unless create_session(auth_provider.user, params[:password])
+      return redirect_to recryptrequests_new_ldap_password_path
+    end
+
+    last_login_message
+    check_password_strength
+    redirect_after_sucessful_login
   end
 
   def sso
-    binding.pry
     token = Keycloak::Client.get_token_by_code(params[:code], session_sso_url)
     cookies.permanent[:keycloak_token] = token
     unless auth_provider.authenticate!

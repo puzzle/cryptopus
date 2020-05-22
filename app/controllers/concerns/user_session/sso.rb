@@ -11,7 +11,6 @@ module UserSession::Sso
   included do
     helper_method :current_user
     before_action :redirect_if_no_private_key
-    # before_action :keycloak_cookie, only: :sso
     before_action :validate_user, except: [:wizard, :sso]
   end
 
@@ -45,8 +44,10 @@ module UserSession::Sso
   end
 
   def auth_provider
-    Authentication::AuthProvider::Sso.new(username:
-                                          Keycloak::Client.get_attribute('preferred_username'))
+    Authentication::AuthProvider::Sso.new(
+      username: params['username'] || Keycloak::Client.get_attribute('preferred_username'),
+      password: params['password']
+    )
   end
 
   private

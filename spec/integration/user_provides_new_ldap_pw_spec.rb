@@ -145,7 +145,7 @@ describe 'User provides new Ldap Pw' do
 
       expect(ldap).to receive(:authenticate!)
         .with('bob', /newPassword|password/)
-        .and_return(true)
+        .and_return(true).at_least(:once)
 
       #  do if Bob can see his account (should not)
       # cannot_access_account(get_account_path, 'bob')
@@ -178,6 +178,7 @@ describe 'User provides new Ldap Pw' do
 
       expect(ldap).to receive(:authenticate!)
         .with('bob', 'password')
+        .exactly(4).times
         .and_return(true)
 
       #  do if Bob can see his account (should not)
@@ -191,7 +192,7 @@ describe 'User provides new Ldap Pw' do
         .and_return(false)
 
       post recryptrequests_recrypt_path, params: { forgot_password: true,
-                                                   new_password: 'wrong_password' }
+                                                   password: 'wrong_password' }
 
       #  do if user got error messages
       expect(flash[:error]).to match(/Your NEW password was wrong/)
