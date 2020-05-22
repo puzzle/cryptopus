@@ -10,6 +10,7 @@ class Authentication::AuthProvider
 
   def authenticate!
     return false unless preconditions?
+    return false if user.locked?
 
     salt = user.password.split('$')[1]
     authenticated = user.password.split('$')[2] == Digest::SHA512.hexdigest(salt + password)
@@ -18,10 +19,6 @@ class Authentication::AuthProvider
 
     brute_force_detector.update(authenticated)
     authenticated
-  end
-
-  def brute_force_detector
-    @brute_force_detector ||= Authentication::BruteForceDetector.new(user)
   end
 
   def find_or_create_user
@@ -44,6 +41,19 @@ class Authentication::AuthProvider
 
   attr_accessor :authenticated
   attr_reader :username, :password
+
+  def user_locked?
+    unless brute_force_detector.locked?
+      return false
+    end
+
+    add_error('flashes.session.locked')
+    true
+  end
+
+  def brute_force_detector
+    @brute_force_detector ||= Authentication::BruteForceDetector.new(user)
+  end
 
   def preconditions?
     if params_present? && valid_username? && user.present?

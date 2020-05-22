@@ -63,9 +63,7 @@ class ApplicationController < ActionController::Base
   end
 
   def keycloak_cookie
-    Keycloak.proc_cookie_token = lambda do
-      cookies.permanent[:keycloak_token]
-    end
+    Keycloak.proc_cookie_token = -> { cookies.permanent[:keycloak_token] }
   end
 
   class << self

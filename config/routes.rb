@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   end
 
   get 'session/new', to: 'session#new'
+  get 'session/sso', to: 'session#sso'
   post 'session', to: 'session#create'
   get 'session/destroy', to: 'session#destroy'
   get 'session/show_update_password', to: 'session#show_update_password'

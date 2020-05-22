@@ -15,7 +15,7 @@ class SessionController < ApplicationController
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
   skip_before_action :verify_authenticity_token, only: :create
-  skip_before_action :validate_user, only: [:new, :create, :destroy]
+  skip_before_action :validate_user, only: [:new, :create, :destroy, :sso]
   skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
 
 
@@ -39,9 +39,13 @@ class SessionController < ApplicationController
   end
 
   def sso
+    binding.pry
     token = Keycloak::Client.get_token_by_code(params[:code], session_sso_url)
     cookies.permanent[:keycloak_token] = token
-    auth_provider.authenticate!
+    unless auth_provider.authenticate!
+      flash[:error] = t('flashes.session.auth_failed')
+      return update_token
+    end
     return update_token if Keycloak::Client.get_attribute('pk_secret_base').nil?
 
     unless create_session(auth_provider.user, CryptUtils.pk_secret)
@@ -135,16 +139,20 @@ class SessionController < ApplicationController
   end
 
   def password_params_valid?
-    unless auth_provider.authenticate!
-      flash[:error] = t('flashes.session.wrong_password')
-      return false
-    end
-
+    # TODO: zweimal kontrollieren ob der User angemeldet ist oder nicht und dann eine Spezifische Fehlermeldung, dass das Passwort falsch ist???
+    # unless auth_provider.authenticate!
+    #   flash[:error] = t('flashes.session.wrong_password')
+    #   return false
+    # end
     if params[:new_password1] != params[:new_password2]
       flash[:error] = t('flashes.session.new_passwords.not_equal')
       return false
     end
     true
+  end
+
+  def update_token
+    redirect_to Keycloak::Client.url_login_redirect(session_sso_url, 'code')
   end
 
   def authorize_action

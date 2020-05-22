@@ -2,18 +2,28 @@
 
 class Authentication::AuthProvider::Ldap < Authentication::AuthProvider
 
-  def authenticate!
+  def initialize(username: nil, password: nil)
+    @authenticated = false
+    @username = username
+    @password = password
+    raise 'can\'t preform this action Ldap is disabled' unless AuthConfig.ldap_enabled?
+  end
+
+  def authenticate!(new_password = nil)
     return false unless preconditions?
 
-    authenticated = ldap_connection.authenticate!(username, password)
+    password_to_check = new_password || password
+    authenticated = ldap_connection.authenticate!(username, password_to_check)
 
     add_error('flashes.session.wrong_password') unless authenticated
     authenticated
   end
 
   def find_or_create_user
+    return nil unless params_present? && valid_username? && ldap_connection.authenticate!(username, password)
+
     user = User.find_by(username: username.strip)
-    return create_user(username, password) if user.nil?
+    return create_user if user.nil?
 
     user
   end
@@ -30,82 +40,17 @@ class Authentication::AuthProvider::Ldap < Authentication::AuthProvider
   private
 
   def create_user
-    user = new
+    user = User.new
     user.username = username
     user.auth = 'ldap'
     user.provider_uid = ldap_connection.uidnumber_by_username(username)
+    user.givenname = ldap_connection.ldap_info(user.provider_uid, 'givenname')
+    user.surname = ldap_connection.ldap_info(user.provider_uid, 'sn')
     user.create_keypair password
-    user
+    user.save
   end
 
   def ldap_connection
     @ldap_connection ||= LdapConnection.new
   end
 end
-# class User::Human
-#   module Ldap
-#
-#     def self.included(base)
-#       base.extend ClassMethods
-#     end
-#
-#     module ClassMethods
-#
-#       def find_or_import_from_ldap(username, password)
-#         user = find_by(username: username)
-#
-#         return user if user
-#
-#         if ldap_enabled?
-#           return unless authenticate_ldap(username, password)
-#
-#           create_from_ldap(username, password)
-#         end
-#       end
-#
-#       def assert_ldap_enabled
-#         unless ldap_enabled?
-#           raise 'cannot perform ldap operation since ldap is disabled'
-#         end
-#       end
-#
-#       def ldap_enabled?
-#         AuthConfig.ldap_enabled?
-#       end
-#
-#       private
-#
-#       def ldap_connection
-#         assert_ldap_enabled
-#         LdapConnection.new
-#       end
-#
-#       def create_from_ldap(username, password)
-#         user = new
-#         user.username = username
-#         user.auth = 'ldap'
-#         user.provider_uid = ldap_connection.uidnumber_by_username(username)
-#         user.create_keypair password
-#         user.update_info
-#         user
-#       rescue StandardError
-#         raise Exceptions::UserCreationFailed
-#       end
-#     end
-#
-#     private
-#
-#     # Updates Information about the user from LDAP
-#     def update_info_from_ldap
-#       self.givenname = ldap_connection.ldap_info(provider_uid, 'givenname')
-#       self.surname = ldap_connection.ldap_info(provider_uid, 'sn')
-#     end
-#
-#     def ldap_connection
-#       self.class.assert_ldap_enabled
-#       LdapConnection.new
-#     end
-#
-#   end
-#
-# end

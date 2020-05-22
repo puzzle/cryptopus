@@ -22,10 +22,11 @@ describe Api::ApiUsers::TokenController do
       api_user.reload
 
       new_token = api_user.send(:decrypt_token, private_key)
-
       expect(api_user).to_not be_locked
-      expect(api_user.authenticate(old_token)).to eq false
-      expect(api_user.authenticate(new_token)).to eq true
+      expect(Authentication::AuthProvider.new(username: api_user.username, password: old_token)
+      .authenticate!).to be false
+      expect(Authentication::AuthProvider.new(username: api_user.username, password: new_token)
+      .authenticate!).to be true
     end
 
     it 'user cannot renew token of foreign_api_user' do
@@ -44,7 +45,8 @@ describe Api::ApiUsers::TokenController do
       token = api_user.send(:decrypt_token, private_key)
 
       expect(api_user).to be_locked
-      expect(api_user.authenticate(token)).to eq false
+      expect(Authentication::AuthProvider.new(username: api_user.username, password: token)
+      .authenticate!).to be false
     end
 
     it 'user cannot invalidate token of foreign_api_user' do

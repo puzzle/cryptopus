@@ -31,7 +31,8 @@ describe Admin::RecryptrequestsController do
       bob.reload
 
       expect(Team.exists?(bob_only_team_id)).to eq false
-      expect(bob.authenticate('test')).to eq true
+      expect(Authentication::AuthProvider.new(username: bob.username, password: 'test')
+                                         .authenticate!).to eq(true)
       expect(response).to redirect_to 'where_i_came_from'
     end
 

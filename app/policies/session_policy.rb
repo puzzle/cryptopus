@@ -6,6 +6,10 @@ class SessionPolicy < ApplicationPolicy
     user.nil?
   end
 
+  def sso?
+    user.nil?
+  end
+
   def create?
     user.nil?
   end

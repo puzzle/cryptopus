@@ -49,7 +49,7 @@ module UserSession::Db
 
   private
 
-# TODO: recryptrequests in nicht ldap umgebung??
+  # TODO: recryptrequests in nicht ldap umgebung??
   def handle_pending_recrypt_request
     if pending_recrypt_request?
       pending_recrypt_request_message

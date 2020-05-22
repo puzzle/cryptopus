@@ -20,7 +20,7 @@ describe User::Api do
 
       token = decrypted_token(api_user)
       expect(token).to match(/\A[a-z0-9]{32}\z/)
-      expect(api_user.authenticate(token)).to eq(true)
+      expect(authenticate(api_user.username, token)).to eq(true)
       expect(api_user.username).to match(/\Abob-[a-z0-9]{6}\z/)
       expect(api_user.valid_for).to eq(60)
     end
@@ -70,7 +70,7 @@ describe User::Api do
       new_token = api_user.renew_token(bob.decrypt_private_key('password'))
 
       expect(api_user.valid_until.to_i).to eq(now.advance(seconds: 5.minutes.seconds).to_i)
-      expect(api_user.authenticate(new_token)).to eq(true)
+      expect(authenticate(api_user.username, new_token)).to eq(true)
       expect(decrypted_token(api_user)).to eq(new_token)
       expect(api_user).to_not be_expired
       expect(api_user).to_not be_locked
@@ -143,36 +143,11 @@ describe User::Api do
     end
   end
 
-
-  context '#authenticate' do
-    context 'as api user' do
-      it 'authenticates with valid password' do
-        api_user = bob.api_users.create
-        api_user.update!(valid_until: Time.zone.now + 5.minutes)
-
-        token = decrypted_token(api_user)
-
-        expect(api_user.authenticate(token)).to eq(true)
-      end
-
-      it 'cannot authenticate with invalid password' do
-        api_user = bob.api_users.create
-
-        expect(api_user.authenticate('abcd')).to eq(false)
-      end
-
-      it 'cannot authenticate if locked' do
-        api_user = bob.api_users.create
-        api_user.update!(locked: true)
-
-        token = decrypted_token(api_user)
-
-        expect(api_user.authenticate(token)).to eq(false)
-      end
-    end
-  end
-
   private
+
+  def authenticate(username, token)
+    Authentication::AuthProvider.new(username: username, password: token).authenticate!
+  end
 
   def decrypted_token(api_user)
     api_user.send(:decrypt_token, bobs_private_key)

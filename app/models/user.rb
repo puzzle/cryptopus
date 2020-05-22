@@ -37,9 +37,9 @@ class User < ApplicationRecord
   validates :username, presence: true
 
   def update_password(old, new)
-    return if ldap?
+    return unless auth_db?
 
-    if authenticate_db(old)
+    if Authentication::AuthProvider.new(username: username, password: old).authenticate!
       self.password = CryptUtils.one_way_crypt(new)
       pk = CryptUtils.decrypt_private_key(private_key, old)
       self.private_key = CryptUtils.encrypt_private_key(pk, new)
@@ -52,13 +52,6 @@ class User < ApplicationRecord
     uncrypted_private_key = CryptUtils.extract_private_key(keypair)
     self.public_key = CryptUtils.extract_public_key(keypair)
     self.private_key = CryptUtils.encrypt_private_key(uncrypted_private_key, password)
-  end
-
-  def authenticate_db(cleartext_password)
-    raise Exceptions::AuthenticationFailed if cleartext_password.blank?
-
-    salt = password.split('$')[1]
-    password.split('$')[2] == Digest::SHA512.hexdigest(salt + cleartext_password)
   end
 
   def label
