@@ -20,7 +20,8 @@ export default class AccountForm extends BaseFormComponent {
   @tracked passwordScore;
   @tracked passwordLabel;
 
-  colors = ['', '#fc0303', '#fc6703', '#fcc603', '#4dd100']
+  colors = ['#fc0303', '#fc6703', '#fcc603', '#4dd100']
+  translations = ['commonPassword', 'veryBadPassword', 'badPassword', 'goodPassword', 'veryGoodPassword']
 
   AccountValidations = AccountValidations;
 
@@ -41,9 +42,11 @@ export default class AccountForm extends BaseFormComponent {
 
   popoverContent(passwordScore) {
     let calculatedScore = passwordScore * 25;
-    return '<div class="progress">' +
-      '<div class="progress-bar" role="progressbar" style="width: ' + calculatedScore + '%; background-color: ' + this.colors[passwordScore] + ' !important;" aria-valuenow="' + calculatedScore + '" aria-valuemin="0" aria-valuemax="100"></div>' +
-      '</div>' + '<h3 class="h3">' + "passwordWarning" + '</h3>';
+    let translation = this.intl.t(this.translations[passwordScore])
+    let color = passwordScore - 1 === -1 ? "none" : this.colors[passwordScore - 1]
+      return '<div class="progress">' +
+        '<div class="progress-bar" role="progressbar" style="width: ' + calculatedScore + '%; background-color: ' + color + ' !important;" aria-valuenow="' + calculatedScore + '" aria-valuemin="0" aria-valuemax="100"></div>' +
+        '</div>' + '<p class="font-weight-bold">' + translation + '</p>';
   }
 
   popoverTemplate() {
@@ -78,7 +81,6 @@ export default class AccountForm extends BaseFormComponent {
       // });
     });
     this.updatePasswordScore()
-
   }
 
   renderPopover(content, template) {
@@ -90,7 +92,6 @@ export default class AccountForm extends BaseFormComponent {
       content : content,
       template: template
     });
-    $('#password').popover('show');
   }
 
 

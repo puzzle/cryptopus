@@ -15,3 +15,8 @@ account:
   password: "Password"
   description: "Beschreibung"
   attachement: "Anhang"
+commonPassword: "Sehr bekanntes Passwort. Nicht verwenden!"
+veryBadPassword: "Sehr schlechtes Passwort!"
+badPassword: "Schlechtes Password!"
+goodPassword: "Gutes Passwort!"
+veryGoodPassword: "Sehr gutes Passwort!"

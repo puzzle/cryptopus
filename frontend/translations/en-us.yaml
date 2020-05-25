@@ -22,3 +22,8 @@ account:
   password: "Password"
   description: "Description"
   attachement: "Attachement"
+commonPassword: "Very common Password. Do not use!"
+veryBadPassword: "Very bad Password!"
+badPassword: "Bad Password!"
+goodPassword: "Good Password!"
+veryGoodPassword: "Very good Password!"
