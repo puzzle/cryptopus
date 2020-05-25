@@ -5,10 +5,6 @@ class TeamPolicy < TeamDependantPolicy
     true
   end
 
-  def show?
-    team_member?
-  end
-
   def create?
     true
   end
@@ -27,14 +23,6 @@ class TeamPolicy < TeamDependantPolicy
 
   def last_teammember_teams?
     admin_or_conf_admin?
-  end
-
-  def add_member?
-    team_member?
-  end
-
-  def remove_member?
-    team_member?
   end
 
   def index_all?

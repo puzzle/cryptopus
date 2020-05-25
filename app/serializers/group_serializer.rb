@@ -18,9 +18,12 @@
 #  https://github.com/puzzle/cryptopus.
 
 class GroupSerializer < ActiveModel::Serializer
-  attributes :id, :name, :team, :team_id
+  attributes :id, :name, :team_id, :team_name
 
-  def team
-    object.team.id
+  belongs_to :team
+
+  def team_name
+    object.team.name
   end
+
 end

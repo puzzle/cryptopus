@@ -12,9 +12,18 @@ describe Api::Teams::GroupsController do
 
       get :index, params: { team_id: team }, xhr: true
 
-      groups = json['data']['groups']
+      attributes = data.first['attributes']
 
-      expect(groups.first['name']).to eq 'group1'
+      expect(attributes['name']).to eq 'group1'
+    end
+
+    it 'does not list groups without team membership' do
+      login_as(:alice)
+      team = teams(:team2)
+
+      get :index, params: { team_id: team }, xhr: true
+
+      expect(response).to have_http_status(403)
     end
   end
 end

@@ -12,7 +12,7 @@ class Api::Admin::Users::RoleController < Api::Admin::AdminController
     user.update_role(current_user, role, session[:private_key])
 
     add_info(t("flashes.api.admin.users.update.#{role}", username: user.username))
-    render_json ''
+    render_json
   end
 
   private

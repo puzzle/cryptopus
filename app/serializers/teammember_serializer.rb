@@ -19,15 +19,10 @@
 # https://github.com/puzzle/cryptopus.
 
 class TeammemberSerializer < ActiveModel::Serializer
-  attributes :id, :user, :user_id, :label, :deletable, :admin
+  attributes :id, :label, :deletable, :admin
 
-  def user
-    user_object.id
-  end
-
-  def user_id
-    user_object.id
-  end
+  belongs_to :user
+  belongs_to :team
 
   def deletable
     return false if last_teammember?

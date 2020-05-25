@@ -18,11 +18,12 @@ module IntegrationHelpers
       # New Account
       group = team.groups.find_by(name: 'Default')
       account_path = accounts_path
-      post account_path, params: { account: { accountname: 'puzzle',
-                                              group_id: group.id,
-                                              description: 'account_description',
-                                              cleartext_username: 'account_username',
-                                              cleartext_password: 'account_password' } }
+      account_params = { data: { attributes: { accountname: 'puzzle',
+                                               group_id: group.id,
+                                               description: 'account_description',
+                                               cleartext_username: 'account_username',
+                                               cleartext_password: 'account_password' } } }
+      post account_path, params: account_params
 
       logout
       group.accounts.find_by(accountname: 'puzzle')

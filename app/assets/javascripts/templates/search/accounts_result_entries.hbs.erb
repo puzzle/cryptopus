@@ -9,8 +9,8 @@ https://github.com/puzzle/cryptopus. }}
       data-account-path="/api/accounts/{{id}}">
       <div class="result-description">
         <%= image_tag("key.svg", class:"result-type-icon", alt:"Account" ) %>
-        <h4 class="result-title-small account-link">{{accountname}}</h4>
-        <div class="team-group">{{team_name}} / {{group_name}}</div>
+        <h4 class="result-title-small account-link">{{attributes.accountname}}</h4>
+        <div class="team-group">{{attributes.team_name}} / {{attributes.group_name}}</div>
       </div>
     </li>
   </div>

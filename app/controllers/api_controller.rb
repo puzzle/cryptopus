@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class ApiController < ApplicationController
+class ApiController < CrudController
 
   skip_before_action :set_sentry_request_context
   skip_before_action :message_if_fallback
@@ -23,8 +23,7 @@ class ApiController < ApplicationController
   protected
 
   def render_json(data = nil)
-    data = ActiveModelSerializers::SerializableResource.new(data).as_json
-    render status: response_status, json: { data: data, messages: messages }
+    render status: response_status, json: data || messages, include: '*'
   end
 
   def team

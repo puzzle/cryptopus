@@ -19,13 +19,13 @@ class app.ApiUsers
 
   initializeRow = (data) ->
     apiUser = apiUsersData(data)
-    row = apiUserRows(apiUser)
+    row = apiUserRows([apiUser])
     appendRow(row)
 
   apiUsersData = (data) ->
-    apiUsers = data['data']['user/apis']
+    apiUsers = data['data']
     if(!apiUsers)
-      apiUsers = [data['data']['user/api']]
+      apiUsers = [data['data']]
     apiUsers
 
   apiUsersContent = (apiUsers) ->
@@ -55,10 +55,12 @@ class app.ApiUsers
     $.ajax({
       url: url,
       method: 'POST',
-      data: {
-        user_api: {
-          description: ''
-          valid_for: '60'
+      data: { 
+        data: {
+          attributes: {
+            description: ''
+            valid_for: '60'
+          }
         }
       }
       success: (data) ->

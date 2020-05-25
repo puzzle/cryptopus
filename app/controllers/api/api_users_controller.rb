@@ -45,10 +45,6 @@ class Api::ApiUsersController < ApiController
 
   private
 
-  def model_params
-    @model_params ||= params.require(:user_api).permit(permitted_attrs)
-  end
-
   def api_user
     @api_user ||= User::Api.find(params[:id])
   end

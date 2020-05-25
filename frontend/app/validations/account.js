@@ -6,5 +6,5 @@ import {
 export default {
   accountname: [validatePresence(true), validateLength({ min: 0, max: 70 })],
   description: [validateLength({ min: 0, max: 4000 })],
-  groupId: [validatePresence(true)]
+  group: [validatePresence(true)]
 };

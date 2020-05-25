@@ -12,12 +12,12 @@ describe Api::Teams::CandidatesController do
 
       get :index, params: { team_id: team }, xhr: true
 
-      candidates = json['data']['user/humen']
+      candidates = json['data']
 
       expect(candidates.size).to eq 3
-      expect(candidates.any? { |c| c['label'] == 'Alice test' }).to be true
-      expect(candidates.any? { |c| c['label'] == 'Bob test' }).to be true
-      expect(candidates.any? { |c| c['label'] == 'Tux Miller' }).to be true
+      expect(candidates.any? { |c| c['attributes']['label'] == 'Alice test' }).to be true
+      expect(candidates.any? { |c| c['attributes']['label'] == 'Bob test' }).to be true
+      expect(candidates.any? { |c| c['attributes']['label'] == 'Tux Miller' }).to be true
     end
   end
 

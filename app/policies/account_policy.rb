@@ -14,6 +14,10 @@ class AccountPolicy < TeamDependantPolicy
     team.teammember?(@user.id)
   end
 
+  def create?
+    team.teammember?(@user.id)
+  end
+
   def create_item?
     team_member?
   end

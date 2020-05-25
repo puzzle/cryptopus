@@ -15,18 +15,18 @@ class app.ApiUserUpdate
   ENTER_KEYCODE = 13
 
   updateApiUserValidFor = (user_id, valid_for) ->
-    data = { user_api: { valid_for: valid_for } }
+    data = { attributes: { valid_for: valid_for } }
     updateApiUser(user_id, data)
 
   updateApiUserDescription = (user_id, description) ->
-    data = { user_api: { description: description } }
+    data = { attributes: { description: description } }
     updateApiUser(user_id, data)
 
   updateApiUser = (id, data) ->
     $.ajax({
       type: "PATCH",
       url: '/api/api_users/' +id,
-      data: data
+      data: { data }
     })
 
   id = (elem) ->

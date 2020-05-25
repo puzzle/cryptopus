@@ -45,10 +45,4 @@ describe Api::Admin::UsersController do
       expect(User.find_by(username: 'alice')).to be_nil
     end
   end
-
-  private
-
-  def errors
-    json['messages']['errors']
-  end
 end

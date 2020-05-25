@@ -25,14 +25,14 @@ export default ApplicationAdapter.extend({
   },
 
   urlForCreateRecord(modelName, snapshot) {
-    return `/${this.namespace}/${snapshot.attr(
-      "teamId"
-    )}/${this.pathForType()}`;
+    return `/${this.namespace}/${snapshot.belongsTo("team", {
+      id: true
+    })}/${this.pathForType()}`;
   },
 
   urlForDeleteRecord(id, modelName, snapshot) {
-    return `/${this.namespace}/${snapshot.attr(
-      "teamId"
-    )}/${this.pathForType()}/${id}`;
+    return `/${this.namespace}/${snapshot.belongsTo("team", {
+      id: true
+    })}/${this.pathForType()}/${id}`;
   }
 });

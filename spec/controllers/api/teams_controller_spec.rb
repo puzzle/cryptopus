@@ -10,24 +10,24 @@ describe Api::TeamsController do
       login_as(:alice)
       get :index, params: { 'q': 'team' }, xhr: true
 
-      result_json = JSON.parse(response.body)['data']['teams'][0]
+      result_json = data.first
 
       team = teams(:team1)
 
-      expect(result_json['name']).to eq team.name
-      expect(result_json['id']).to eq team.id
+      expect(result_json['attributes']['name']).to eq team.name
+      expect(result_json['id']).to eq team.id.to_s
     end
 
     it 'should get all teams for no query' do
       login_as(:alice)
       get :index, params: { 'q': '' }, xhr: true
 
-      result_json = JSON.parse(response.body)['data']['teams'][0]
+      result_json = data.first
 
       team = teams(:team1)
 
-      expect(result_json['name']).to eq team.name
-      expect(result_json['id']).to eq team.id
+      expect(result_json['attributes']['name']).to eq team.name
+      expect(result_json['id']).to eq team.id.to_s
     end
   end
 
@@ -39,11 +39,11 @@ describe Api::TeamsController do
       user = soloteam.teammembers.first.user
 
       get :last_teammember_teams, params: { user_id: user.id }
-      team = JSON.parse(response.body)['data']['teams'][0]
+      team = data.first
 
-      expect(team['id']).to eq soloteam.id
-      expect(team['name']).to eq soloteam.name
-      expect(team['description']).to eq soloteam.description
+      expect(team['id']).to eq soloteam.id.to_s
+      expect(team['attributes']['name']).to eq soloteam.name
+      expect(team['attributes']['description']).to eq soloteam.description
     end
 
     it 'returns last teammember teams as conf admin' do
@@ -53,11 +53,11 @@ describe Api::TeamsController do
       user = soloteam.teammembers.first.user
 
       get :last_teammember_teams, params: { user_id: user.id }
-      team = JSON.parse(response.body)['data']['teams'][0]
+      team = data.first
 
-      expect(team['id']).to eq soloteam.id
-      expect(team['name']).to eq soloteam.name
-      expect(team['description']).to eq soloteam.description
+      expect(team['id']).to eq soloteam.id.to_s
+      expect(team['attributes']['name']).to eq soloteam.name
+      expect(team['attributes']['description']).to eq soloteam.description
     end
 
     it 'cannot show last teammember teams if not admin' do
@@ -67,9 +67,7 @@ describe Api::TeamsController do
 
       get :last_teammember_teams, params: { user_id: user.id }
 
-      error_message = JSON.parse(response.body)['messages']['errors'][0]
-
-      expect(error_message).to eq 'Access denied'
+      expect(errors.first).to eq 'Access denied'
     end
 
   end
@@ -93,9 +91,7 @@ describe Api::TeamsController do
         delete :destroy, params: { id: soloteam.id }
       end.to change { Team.count }.by(0)
 
-      error_message = JSON.parse(response.body)['messages']['errors'][0]
-
-      expect(error_message).to eq 'Access denied'
+      expect(errors.first).to eq 'Access denied'
       expect(user.last_teammember_teams).to be_present
     end
   end

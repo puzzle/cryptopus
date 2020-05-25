@@ -21,37 +21,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class AccountSerializer < ApplicationSerializer
-  attributes :id, :accountname, :group, :group_name, :group_id, :team_name, :team_id,
-             :cleartext_password, :cleartext_username, :description
-  # Note: Ember uses this serializer and expects group to return the id.
-  # Thus, next to group_id, group returns the id aswell.
+  attributes :id, :accountname, :description, :cleartext_password, :cleartext_username
 
-  def cleartext_password
-    object.cleartext_password
-  end
-
-  def cleartext_username
-    object.cleartext_username
-  end
-
-  def group
-    object.group.id
-  end
-
-  def group_id
-    object.group.id
-  end
-
-  def group_name
-    object.group.name
-  end
-
-  def team_id
-    object.group.team.id
-  end
-
-  def team_name
-    object.group.team.name
-  end
-
+  belongs_to :group
 end

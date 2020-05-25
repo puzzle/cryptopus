@@ -11,13 +11,16 @@ class app.Global
     bind.call()
     
   show_messages = (messages) ->
-    return if messages.errors.length == 0 && messages.info.length == 0
+    return if messages.errors == undefined && messages.info == undefined
     compiled_html = HandlebarsTemplates['alert_messages'](messages)
     $('.message_container').html(compiled_html)
 
   get_messages = (data) ->
     json_data = jQuery.parseJSON(data.responseText)
-    json_data.messages
+    if json_data.messages?
+      return json_data.messages
+    else
+      return json_data
 
   bind = ->
       $(document).ajaxComplete (xhr, data) ->

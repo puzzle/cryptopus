@@ -11,7 +11,7 @@ module("Unit | Serializer | application", function(hooks) {
     assert.ok(serializer);
   });
 
-  test("it serializes group and team_id", function(assert) {
+  test("it serializes group", function(assert) {
     let store = this.owner.lookup("service:store");
     let team = store.createRecord("team", { id: 2 });
     let group = store.createRecord("group", {
@@ -21,7 +21,6 @@ module("Unit | Serializer | application", function(hooks) {
 
     let serializedRecord = group.serialize();
 
-    assert.equal(serializedRecord.name, "bbt");
-    assert.equal(serializedRecord.team_id, "2");
+    assert.equal(serializedRecord.data.attributes.name, "bbt");
   });
 });
