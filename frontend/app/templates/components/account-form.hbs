@@ -35,10 +35,7 @@
                 <div class="d-flex col-sm-12">
                   <div class="form-group col-sm-6">
                     <div class="row">
-                      <Input class="form-control mb-10" @value={{mut this.changeset.cleartextPassword}} @name="cleartextPassword" @type="password" @key-up={{action "updatePasswordScore"}}/>
-                      <label>Your Password's strength:</label>
-                      {{ember-progress-bar class="mb-10" id="wrapper" progress=this.passwordScore options=(hash strokeWidth=3 duration=0)}}
-                      <label>{{this.passwordLabel}}</label>
+                      <Input class="form-control mb-10" id="password" @value={{mut this.changeset.cleartextPassword}} @name="cleartextPassword" @type="password" @key-up={{action "updatePasswordScore"}}/>
                     </div>
                   </div>
                   <div class="form-group col-xs-12 col-sm-5 pull-right">

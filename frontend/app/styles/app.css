@@ -44,3 +44,7 @@ li a {
 .mb-10 {
   margin-bottom: 10px;
 }
+
+.popover {
+  min-width: 220px;
+}
