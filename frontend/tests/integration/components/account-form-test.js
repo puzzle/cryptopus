@@ -35,7 +35,7 @@ const storeStub = Service.extend({
     return { group: null, isNew: true };
   },
   query(modelName) {
-    if(modelName === "group") {
+    if (modelName === "group") {
       return Promise.all([
         {
           id: 1,
@@ -46,7 +46,7 @@ const storeStub = Service.extend({
             }
           }
         }
-      ])
+      ]);
     }
   }
 });
@@ -60,7 +60,6 @@ module("Integration | Component | account-form", function(hooks) {
   });
 
   test("it renders without input data", async function(assert) {
-
     await render(hbs`<AccountForm />`);
 
     await selectChoose(
@@ -86,16 +85,20 @@ module("Integration | Component | account-form", function(hooks) {
   });
 
   test("it renders with input data", async function(assert) {
+    this.set("group", {
+      id: 1,
+      name: "bbt",
+      get() {
+        return 1;
+      }
+    });
     this.set("account", {
       id: 1,
       accountname: "mail",
       cleartextUsername: "mail@ember.com",
       cleartextPassword: "lol",
       description: "The ember email",
-      groupId: 1,
-      groupName: "bbt",
-      teamId: 1,
-      teamName: "supporting"
+      group: this.get("group")
     });
     await render(hbs`<AccountForm \@account\=\{{this.account}}/>`);
 

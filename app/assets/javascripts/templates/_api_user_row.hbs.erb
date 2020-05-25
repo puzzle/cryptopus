@@ -1,10 +1,10 @@
 {{#each api_users}}
   <tr class="{% cycle 'odd' 'even' %} api-user-row" id={{id}}>
-      <td> {{username}} </td>
+      <td> {{attributes.username}} </td>
       <td>
       <div class=api-user-description>
-          {{#if description}}
-            {{description}}
+          {{#if attributes.description}}
+            {{attributes.description}}
           {{else}}
           <i> {{I18n 'profile.api_users.enter_description'}}</i>
           {{/if}}
@@ -12,13 +12,13 @@
       </td>
       <td>
         <div id=valid_until>
-          {{valid_until}}
+          {{attributes.valid_until}}
         </div>
       </td>
       <td>
        <div class='dropdown'>
        <button class='btn btn-default dropdown-toggle' data-toggle='dropdown' id='valid_for_dropdown'>
-        <span>{{ApiUserTimeText valid_for}}</span>
+        <span>{{ApiUserTimeText attributes.valid_for}}</span>
         <span class='caret'></span>
         </button>
         <ul class='dropdown-menu' aria-labelledby='valid_for_dropdown'>
@@ -37,11 +37,11 @@
         </ul>
         </div>
       </td>
-      <td> {{last_login_at}} </td>
-      <td> {{last_login_from}} </td>
+      <td> {{attributes.last_login_at}} </td>
+      <td> {{attributes.last_login_from}} </td>
       <td>
         <div id='active-api-user'
-          {{#if locked}}
+          {{#if attributes.locked}}
             class='toggle-button toggle-button-selected'
           {{else}}
             class='toggle-button'

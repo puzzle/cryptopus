@@ -12,12 +12,13 @@ describe Api::GroupsController do
 
       get :index, params: { 'q': 'group' }, xhr: true
 
-      result_json = JSON.parse(response.body)['data']['groups'][0]
+      group_json = data.first
+      attributes = group_json['attributes']
 
       group = groups(:group1)
 
-      expect(result_json['name']).to eq group.name
-      expect(result_json['id']).to eq group.id
+      expect(attributes['name']).to eq group.name
+      expect(group_json['id']).to eq group.id.to_s
 
     end
 
@@ -27,13 +28,13 @@ describe Api::GroupsController do
 
       get :index, params: { 'q': '' }, xhr: true
 
-      result_json = JSON.parse(response.body)['data']['groups'][0]
+      group_json = data.first
+      attributes = group_json['attributes']
 
       group = groups(:group1)
 
-      expect(result_json['name']).to eq group.name
-      expect(result_json['id']).to eq group.id
-
+      expect(attributes['name']).to eq group.name
+      expect(group_json['id']).to eq group.id.to_s
     end
 
     it 'returns all groups if no query param given' do
@@ -42,12 +43,13 @@ describe Api::GroupsController do
 
       get :index, xhr: true
 
-      result_json = JSON.parse(response.body)['data']['groups'][0]
+      group_json = data.first
+      attributes = group_json['attributes']
 
       group = groups(:group1)
 
-      expect(result_json['name']).to eq group.name
-      expect(result_json['id']).to eq group.id
+      expect(attributes['name']).to eq group.name
+      expect(group_json['id']).to eq group.id.to_s
     end
   end
 end

@@ -48,14 +48,13 @@ export default class BaseFormComponent extends Component {
       let notPersistedRecords = recordsToSave.filter(
         record => record.hasDirtyAttributes || record.isDirty
       );
-
-      return Promise.all(notPersistedRecords.map(record => record.save()))
+      Promise.all(notPersistedRecords.map(record => record.save()))
         .then(savedRecords => {
           this.handleSubmitSuccess(savedRecords);
           this.afterSubmit();
         })
-        .catch(() => {
-          this.handleSubmitError();
+        .catch(error => {
+          this.handleSubmitError(error);
 
           this.afterSubmit();
         });

@@ -37,12 +37,12 @@ describe TeamPolicy do
 
     it 'can add a teammember' do
       assert team2.teammember? bob
-      assert_permit bob, team2, :add_member?
+      assert_permit bob, team2, :team_member?
     end
 
     it 'can remove a teammember' do
       expect(team2.teammember?(bob)).to eq true
-      assert_permit bob, team2, :remove_member?
+      assert_permit bob, team2, :team_member?
     end
   end
 
@@ -59,12 +59,12 @@ describe TeamPolicy do
 
     it 'cannot add a teammember' do
       expect(team2.teammember?(alice)).to eq false
-      refute_permit alice, team2, :add_member?
+      refute_permit alice, team2, :team_member?
     end
 
     it 'cannot remove a teammember' do
       expect(team2.teammember?(alice)).to eq false
-      refute_permit alice, team2, :remove_member?
+      refute_permit alice, team2, :team_member?
     end
   end
 

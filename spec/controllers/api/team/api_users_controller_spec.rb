@@ -8,6 +8,7 @@ describe Api::Teams::ApiUsersController do
   let(:bob) { users(:bob) }
   let(:bobs_private_key) { bob.decrypt_private_key('password') }
   let(:alice) { users(:alice) }
+  let(:alices_private_key) { alice.decrypt_private_key('password') }
 
   context 'GET index' do
     it 'lists his api users as user' do
@@ -20,11 +21,19 @@ describe Api::Teams::ApiUsersController do
 
       get :index, params: { team_id: team }, xhr: true
 
-      api_users = json['data']['team/api_users']
+      expect(data.count).to eq 2
+      expect(data.first['attributes']['username']).to eq api_user1.username
+      expect(data.second['attributes']['username']).to eq api_user2.username
+    end
 
-      expect(api_users.size).to eq 2
-      expect(api_users.first.values[1]).to eq api_user1.username
-      expect(api_users.second.values[1]).to eq api_user2.username
+    it 'cannot list api users if not a teammember' do
+      team = teams(:team2)
+
+      login_as(:alice)
+
+      get :index, params: { team_id: team }, xhr: true
+
+      expect(response).to have_http_status(403)
     end
   end
 
@@ -40,6 +49,17 @@ describe Api::Teams::ApiUsersController do
 
       expect(team.teammember?(api_user1)).to eq true
       expect(team.teammember?(api_user2)).to eq false
+    end
+
+    it 'does not enable api user for team if not a teammember' do
+      api_user1 = alice.api_users.create
+      team = teams(:team2)
+
+      login_as(:alice)
+
+      post :create, params: { team_id: team, id: api_user1.id }, xhr: true
+
+      expect(response).to have_http_status(403)
     end
   end
 

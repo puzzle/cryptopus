@@ -12,7 +12,7 @@ class Api::Admin::UsersController < Api::Admin::AdminController
     authorize user
     destroy_user
     add_info(t('flashes.api.admin.users.destroy.success', username: user.username))
-    render_json ''
+    render_json
   end
 
   private

@@ -28,7 +28,7 @@ class app.User
 
   onLastTeammemberDataLoaded = (response) ->
     showLastTeammemberTeams()
-    teams = response.data.teams
+    teams = response.data
     if teams.length == 0 #No last teammember teams for user
       showWarningMessage()
     else
@@ -81,12 +81,12 @@ class app.User
       self.user_id = element.data('user-id')
       onDeleteUser(self.teammemberLink)
 
-   $(document).on 'click', '#delete_last_teammember_team_link', (e) ->
-     team_id_element = $(this).closest('tr').find('#last_teammember_team_id')
-     team_id = parseInt(team_id_element.text())
-     deleteLastTeammemberTeam(team_id)
+    $(document).on 'click', '#delete_last_teammember_team_link', (e) ->
+      team_id_element = $(this).closest('tr').find('#last_teammember_team_id')
+      team_id = parseInt(team_id_element.text())
+      deleteLastTeammemberTeam(team_id)
 
-   $(document).on 'click', '#delete_user_button', ->
-     deleteUser()
+    $(document).on 'click', '#delete_user_button', ->
+      deleteUser()
 
   new User

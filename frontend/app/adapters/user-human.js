@@ -1,19 +1,17 @@
 import ApplicationAdapter from "./application";
 
 export default ApplicationAdapter.extend({
-  namespace: "api/teams",
+  pathForType() {
+    return "user_humen";
+  },
 
   urlForQuery(query, modelName) {
-    if (query.teamId) {
-      let url = `/${this.namespace}/${query.teamId}/${this.pathForType()}`;
-
+    if (query.teamId && query.candidates) {
+      let url = `/${this.namespace}/teams/${query.teamId}/candidates`;
       delete query.teamId;
+      delete query.candidates;
       return url;
     }
     return super.urlForQuery(query, modelName);
   },
-
-  pathForType: function() {
-    return "groups";
-  }
-});
+})

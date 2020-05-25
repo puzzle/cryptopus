@@ -22,7 +22,7 @@ describe Api::ApiUsers::LockController do
         expect(api_user).to be_locked
       end
 
-      it 'cannot lock a foreign api user as user' do
+      it 'cannot lock a foreign api user' do
         foreign_api_user.update!(valid_until: Time.zone.tomorrow)
 
         expect(foreign_api_user).to_not be_locked
@@ -49,7 +49,7 @@ describe Api::ApiUsers::LockController do
         expect(api_user).to_not be_locked
       end
 
-      it 'cannot unlock a foreign api user as user' do
+      it 'cannot unlock a foreign api user' do
         foreign_api_user.update!(locked: true)
 
         delete :destroy, params: { id: foreign_api_user.id }, xhr: true

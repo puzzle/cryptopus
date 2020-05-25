@@ -10,6 +10,7 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
   @service router;
 
   @tracked members;
+  @tracked candidates;
 
   constructor() {
     super(...arguments);
@@ -29,13 +30,7 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
   }
 
   loadCandidates() {
-    fetch(`/api/teams/${this.args.teamId}/candidates`).then(
-      response => {
-        response.json().then(json => {
-          this.candidates = json.data["user/humen"];
-        });
-      }
-    );
+    this.candidates = this.store.query('user-human', { teamId: this.args.teamId, candidates: true })
   }
 
   abort() {
@@ -67,9 +62,10 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
 
   @action
   addMember(member) {
+    let team = this.store.peekRecord('team', this.args.teamId)
     let newMember = this.store.createRecord("teammember", {
-      userId: member.id,
-      teamId: this.args.teamId
+      user: member,
+      team 
     });
     this.submit(newMember);
   }

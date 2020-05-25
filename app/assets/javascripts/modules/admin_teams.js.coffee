@@ -18,12 +18,12 @@ class app.AdminTeams
 
     url = '/api/teams/' + team_id(td.parent()) + '/members'
     $.get(url).done (data) ->
-      add_teammembers(data['data']['teammembers'], ul)
+      add_teammembers(data['data'], ul)
 
   add_teammembers = (members, ul) ->
     members.forEach (member) ->
       li = document.createElement('li')
-      li.innerText = member.label
+      li.innerText = member.attributes.label
       ul.append(li)
 
   team_id = (tr) ->

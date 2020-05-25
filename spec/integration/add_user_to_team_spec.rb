@@ -17,7 +17,7 @@ describe 'Add user to team' do
 
     login_as('bob')
     path = team_members_path(team_id: teams(:team1))
-    post path, params: { teammember: { user_id: users(:alice).id } }, xhr: true
+    post path, params: { data: { attributes: { user_id: users(:alice).id } } }, xhr: true
     logout
 
     can_access_account(account_path, 'alice', 'password', 'test', 'password')

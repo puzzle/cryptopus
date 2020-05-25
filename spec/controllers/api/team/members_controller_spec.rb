@@ -23,12 +23,20 @@ describe Api::Teams::MembersController do
 
       get :index, params: { team_id: team }, xhr: true
 
-      members = JSON.parse(response.body)['data']['teammembers']
+      expect(data.count).to eq 3
+      expect(data.any? { |c| c['attributes']['label'] == 'Alice test' }).to be true
+      expect(data.any? { |c| c['attributes']['label'] == 'Admin test' }).to be true
+      expect(data.none? { |c| c['attributes']['label'] == api_user.label }).to be true
+    end
 
-      expect(members.size).to eq 3
-      expect(members.any? { |c| c['label'] == 'Alice test' }).to be true
-      expect(members.any? { |c| c['label'] == 'Admin test' }).to be true
-      expect(members.none? { |c| c['label'] == api_user.label }).to be true
+    it 'does not return team members for given team without team membership' do
+      login_as(:alice)
+
+      team = teams(:team2)
+
+      get :index, params: { team_id: team }, xhr: true
+
+      expect(response).to have_http_status(403)
     end
   end
 
@@ -38,9 +46,19 @@ describe Api::Teams::MembersController do
       team = teams(:team1)
       user = Fabricate(:user)
 
-      post :create, params: { team_id: team, teammember: { user_id: user } }, xhr: true
+      post :create, params: { team_id: team, data: { attributes: { user_id: user } } }, xhr: true
 
       expect(team.teammember?(user)).to be true
+    end
+
+    it 'does not create new teammember for given team without team memberhip' do
+      login_as(:alice)
+      team = teams(:team2)
+      user = users(:alice)
+
+      post :create, params: { team_id: team, data: { attributes: { user_id: user } } }, xhr: true
+
+      expect(response).to have_http_status(403)
     end
   end
 
@@ -75,6 +93,14 @@ describe Api::Teams::MembersController do
       end.to change { Teammember.count }.by(-2)
       expect(teams(:team1).teammember?(bob)).to eq false
       expect(teams(:team1).teammember?(api_user)).to eq false
+    end
+
+    it 'does not remove member from given team without team membership' do
+      login_as(:alice)
+
+      delete :destroy, params: { team_id: teams(:team2), id: users(:admin) }, xhr: true
+
+      expect(response).to have_http_status(403)
     end
   end
 end

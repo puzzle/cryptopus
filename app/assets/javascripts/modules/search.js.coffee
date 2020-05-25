@@ -15,7 +15,8 @@ class app.Search
 
   search = (term, search_type) ->
     return $.get('/api/'+search_type, q: term).then (data) ->
-      objects = data.data[search_type]
+
+      objects = deserializeJSON(data)
       HandlebarsTemplates['search/'+search_type+'_result_entries'](objects)
 
   updateResultArea = (content, search_type) ->
@@ -64,10 +65,24 @@ class app.Search
     li = $(e.target)
     div = $(e.target).parent()
     $.get(li.data('account-path')).then (data) ->
-      account = data.data['account']
-      content = HandlebarsTemplates['search/account_full'](account)
+
+      data.data.attributes.group_name = data.included[0].attributes.name
+      data.data.attributes.team_id = data.included[0].attributes.team_id
+      data.data.attributes.team_name = data.included[0].attributes.team_name
+
+      content = HandlebarsTemplates['search/account_full'](data.data)
       div.html(content)
       div.find('.result-description')[0].style.pointerEvents = 'auto'
+
+  deserializeJSON = (data) ->
+    for d in data.data
+      relationship_group_ids = d.relationships.groups.data.map (group) -> group.id
+      group = data.included.find (element) -> relationship_group_ids.includes(element.id)
+      d.attributes.group_name = group.attributes.name
+      d.attributes.team_name = group.attributes.team_name
+
+    return data.data
+
 
   bind = ->
     $(document).on 'page:load', ready

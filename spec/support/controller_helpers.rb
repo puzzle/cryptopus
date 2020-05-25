@@ -15,4 +15,18 @@ module ControllerHelpers
   def json
     JSON.parse(response.body)
   end
+
+  def data
+    json['data']
+  end
+
+  def expect_json_object_includes_keys(json, keys)
+    keys.each do |k|
+      expect(json).to include(k)
+    end
+  end
+
+  def errors
+    json['errors']
+  end
 end

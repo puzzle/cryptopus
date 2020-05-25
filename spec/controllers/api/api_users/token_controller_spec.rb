@@ -11,6 +11,7 @@ describe Api::ApiUsers::TokenController do
 
   let(:api_user) { users(:bob).api_users.create!(description: 'my sweet api user') }
   let(:private_key) { users(:bob).decrypt_private_key('password') }
+  let(:foreign_api_user) { users(:alice).api_users.create! }
 
   context 'GET show' do
     it 'user renews token' do
@@ -26,6 +27,12 @@ describe Api::ApiUsers::TokenController do
       expect(api_user.authenticate(old_token)).to eq false
       expect(api_user.authenticate(new_token)).to eq true
     end
+
+    it 'user cannot renew token of foreign_api_user' do
+      get :show, params: { id: foreign_api_user.id }, xhr: true
+
+      expect(response).to have_http_status(403)
+    end
   end
 
   context 'DELETE destroy' do
@@ -38,6 +45,12 @@ describe Api::ApiUsers::TokenController do
 
       expect(api_user).to be_locked
       expect(api_user.authenticate(token)).to eq false
+    end
+
+    it 'user cannot invalidate token of foreign_api_user' do
+      delete :destroy, params: { id: foreign_api_user.id }
+
+      expect(response).to have_http_status(403)
     end
   end
 end
