@@ -6,10 +6,10 @@
 # scope for global functions
 app = window.App ||= {}
 
-class app.Groups
+class app.Folders
 
-  render_groups = (teams) ->
-    template = HandlebarsTemplates['groups']
+  render_folders = (teams) ->
+    template = HandlebarsTemplates['folders']
 
     compiled_html = template()
     $('.message_container').html(compiled_html)

@@ -29,7 +29,7 @@ describe ItemsController do
                       file: file, description: 'test' }
 
       expect do
-        post :create, params: { team_id: teams(:team1), group_id: groups(:group1),
+        post :create, params: { team_id: teams(:team1), folder_id: folders(:folder1),
                                 account_id: account1, item: item_params }
       end.to change { Item.count }.by(0)
     end
@@ -40,7 +40,7 @@ describe ItemsController do
 
       expect do
         expect do
-          post :create, params: { team_id: teams(:team1), group_id: groups(:group1),
+          post :create, params: { team_id: teams(:team1), folder_id: folders(:folder1),
                                   account_id: accounts(:account1), item: item_params }
         end.to raise_error(ActionController::ParameterMissing)
       end.to change { Item.count }.by(0)

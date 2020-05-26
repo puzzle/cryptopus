@@ -9,7 +9,7 @@
 %table.table.table-striped#teamlist_table
   %tr
     %th.teamlist-row= t '.teamname'
-    %th.teamlist-row= t '.groups'
+    %th.teamlist-row= t '.folders'
     %th.teamlist-row= t '.accounts'
     %th.teamlist-row= t '.members'
   - @teams.each do |team|
@@ -19,7 +19,7 @@
         %td= image_pack_tag( "encrypted_small.svg" ) + ' ' + team.name
       - else
         %td= image_pack_tag( "members.svg" ) + ' ' + team.name
-      %td= number_of_groups
+      %td= number_of_folders
       %td= number_of_accounts
       %td
         =link_to('Show', '#', class: 'members-link')

@@ -10,7 +10,7 @@ describe Api::AccountsController do
   let(:api_user) { bob.api_users.create }
   let(:private_key) { bob.decrypt_private_key('password') }
   let(:plaintext_team_password) { teams(:team1).decrypt_team_password(bob, private_key) }
-  let(:nested_models) { ['group'] }
+  let(:nested_models) { ['folder'] }
   let(:attributes) { %w[accountname cleartext_password cleartext_username] }
 
   context 'GET index' do
@@ -24,13 +24,13 @@ describe Api::AccountsController do
       account1_json_relationships = account1_json['relationships']
 
       account = accounts(:account1)
-      group = account.group
+      folder = account.folder
 
       expect(account1_json_attributes['accountname']).to eq account.accountname
       expect(account1_json['id']).to eq account.id.to_s
       expect(account1_json_attributes['cleartext_username']).to be_nil
       expect(account1_json_attributes['cleartext_password']).to be_nil
-      expect(account1_json_relationships['group']['data']['id']).to eq group.id.to_s
+      expect(account1_json_relationships['folder']['data']['id']).to eq folder.id.to_s
 
       expect_json_object_includes_keys(account1_json_attributes, attributes)
       expect_json_object_includes_keys(account1_json_relationships, nested_models)
@@ -46,14 +46,14 @@ describe Api::AccountsController do
       account1_json_relationships = account1_json['relationships']
 
       account = accounts(:account1)
-      group = account.group
+      folder = account.folder
 
       expect(data.count).to eq 1
       expect(account1_json_attributes['accountname']).to eq account.accountname
       expect(account1_json['id']).to eq account.id.to_s
       expect(account1_json_attributes['cleartext_username']).to be_nil
       expect(account1_json_attributes['cleartext_password']).to be_nil
-      expect(account1_json_relationships['group']['data']['id']).to eq group.id.to_s
+      expect(account1_json_relationships['folder']['data']['id']).to eq folder.id.to_s
 
       expect_json_object_includes_keys(account1_json_attributes, attributes)
       expect_json_object_includes_keys(account1_json_relationships, nested_models)
@@ -69,14 +69,14 @@ describe Api::AccountsController do
       account1_json_relationships = account1_json['relationships']
 
       account = accounts(:account1)
-      group = account.group
+      folder = account.folder
 
       expect(data.count).to eq 1
       expect(account1_json_attributes['accountname']).to eq account.accountname
       expect(account1_json['id']).to eq account.id.to_s
       expect(account1_json_attributes['cleartext_username']).to be_nil
       expect(account1_json_attributes['cleartext_password']).to be_nil
-      expect(account1_json_relationships['group']['data']['id']).to eq group.id.to_s
+      expect(account1_json_relationships['folder']['data']['id']).to eq folder.id.to_s
 
       expect_json_object_includes_keys(account1_json_attributes, attributes)
       expect_json_object_includes_keys(account1_json_relationships, nested_models)
@@ -91,14 +91,14 @@ describe Api::AccountsController do
       account1_json_relationships = account1_json['relationships']
 
       account = accounts(:account1)
-      group = account.group
+      folder = account.folder
 
       expect(data.count).to eq 1
       expect(account1_json_attributes['accountname']).to eq account.accountname
       expect(account1_json['id']).to eq account.id.to_s
       expect(account1_json_attributes['cleartext_username']).to be_nil
       expect(account1_json_attributes['cleartext_password']).to be_nil
-      expect(account1_json_relationships['group']['data']['id']).to eq group.id.to_s
+      expect(account1_json_relationships['folder']['data']['id']).to eq folder.id.to_s
 
       expect_json_object_includes_keys(account1_json_attributes, attributes)
       expect_json_object_includes_keys(account1_json_relationships, nested_models)
@@ -113,13 +113,13 @@ describe Api::AccountsController do
       account2_json_relationships = data['relationships']
 
       account = accounts(:account2)
-      group = account.group
+      folder = account.folder
 
       expect(account2_json_attributes['accountname']).to eq account.accountname
       expect(data['id']).to eq account.id.to_s
       expect(account2_json_attributes['cleartext_username']).to be_nil
       expect(account2_json_attributes['cleartext_password']).to be_nil
-      expect(account2_json_relationships['group']['data']['id']).to eq group.id.to_s
+      expect(account2_json_relationships['folder']['data']['id']).to eq folder.id.to_s
 
       expect_json_object_includes_keys(account2_json_attributes, attributes)
       expect_json_object_includes_keys(account2_json_relationships, nested_models)
@@ -135,13 +135,13 @@ describe Api::AccountsController do
 
       account1_json_attributes = data['attributes']
       account1_json_relationships = data['relationships']
-      group_attributes = json['included'].first['attributes']
+      folder_attributes = json['included'].first['attributes']
 
       expect(account1_json_attributes['accountname']).to eq 'account1'
       expect(account1_json_attributes['cleartext_username']).to eq 'test'
       expect(account1_json_attributes['cleartext_password']).to eq 'password'
       expect_json_object_includes_keys(account1_json_relationships, nested_models)
-      expect(group_attributes['name']).to eq 'group1'
+      expect(folder_attributes['name']).to eq 'folder1'
     end
 
     it 'cannot authenticate and does not return decrypted account if recrypt requests pending' do
@@ -177,13 +177,13 @@ describe Api::AccountsController do
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
-        group_attributes = json['included'].first['attributes']
+        folder_attributes = json['included'].first['attributes']
 
         expect(account1_json_attributes['accountname']).to eq 'account1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
-        expect(group_attributes['name']).to eq 'group1'
+        expect(folder_attributes['name']).to eq 'folder1'
       end
 
       it 'does not authenticate with invalid api token and does not show account details' do
@@ -228,14 +228,14 @@ describe Api::AccountsController do
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
-        group_attributes = json['included'].first['attributes']
+        folder_attributes = json['included'].first['attributes']
 
         expect(response).to have_http_status(200)
         expect(account1_json_attributes['accountname']).to eq 'account1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
-        expect(group_attributes['name']).to eq 'group1'
+        expect(folder_attributes['name']).to eq 'folder1'
       end
 
       it 'does not show account details if valid api user not teammember' do
@@ -261,14 +261,14 @@ describe Api::AccountsController do
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
-        group_attributes = json['included'].first['attributes']
+        folder_attributes = json['included'].first['attributes']
 
         expect(response).to have_http_status(200)
         expect(account1_json_attributes['accountname']).to eq 'account1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
-        expect(group_attributes['name']).to eq 'group1'
+        expect(folder_attributes['name']).to eq 'folder1'
       end
 
       it 'shows account as human user details if headers valid' do
@@ -279,14 +279,14 @@ describe Api::AccountsController do
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
-        group_attributes = json['included'].first['attributes']
+        folder_attributes = json['included'].first['attributes']
 
         expect(response).to have_http_status(200)
         expect(account1_json_attributes['accountname']).to eq 'account1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
-        expect(group_attributes['name']).to eq 'group1'
+        expect(folder_attributes['name']).to eq 'folder1'
       end
     end
   end
@@ -449,7 +449,7 @@ describe Api::AccountsController do
       set_auth_headers
 
       login_as(:alice)
-      group = groups(:group1)
+      folder = folders(:folder1)
 
       new_account_params = {
         data: {
@@ -457,10 +457,10 @@ describe Api::AccountsController do
             accountname: 'New Account'
           },
           relationships: {
-            group: {
+              folder: {
               data: {
-                id: group.id,
-                type: 'groups'
+                id: folder.id,
+                type: 'folders'
               }
             }
           }
@@ -477,7 +477,7 @@ describe Api::AccountsController do
       set_auth_headers
 
       login_as(:alice)
-      group = groups(:group2)
+      folder = folders(:folder2)
 
       new_account_params = {
         data: {
@@ -485,10 +485,10 @@ describe Api::AccountsController do
             accountname: 'New Account'
           },
           relationships: {
-            group: {
+              folder: {
               data: {
-                id: group.id,
-                type: 'groups'
+                id: folder.id,
+                type: 'folders'
               }
             }
           }

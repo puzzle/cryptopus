@@ -10,45 +10,45 @@ describe AccountMoveHandler do
 
   let(:bob) { users(:bob) }
 
-  it 'moves account to a group where accountname already exist' do
+  it 'moves account to a folder where accountname already exist' do
     account = accounts(:account1)
     private_key = decrypt_private_key(bob)
-    target_group = groups(:group2)
-    team_password = target_group.team.decrypt_team_password(bob, private_key)
-    Fabricate(:account, group: target_group, team_password: team_password, accountname: 'account1')
+    target_folder = folders(:folder2)
+    team_password = target_folder.team.decrypt_team_password(bob, private_key)
+    Fabricate(:account, folder: target_folder, team_password: team_password, accountname: 'account1')
 
     AccountMoveHandler.new(account, private_key, bob).move
     account.save!
-    expect(account.group).to eq groups(:group1)
+    expect(account.folder).to eq folders(:folder1)
   end
 
-  it 'moves account to a group from another team' do
+  it 'moves account to a folder from another team' do
     account = accounts(:account2)
     private_key = decrypt_private_key(bob)
-    new_group = groups(:group1)
+    new_folder = folders(:folder1)
 
-    expect(groups(:group2).id).to eq(account.group_id)
-    account.group = new_group
+    expect(folders(:folder2).id).to eq(account.folder_id)
+    account.folder = new_folder
     AccountMoveHandler.new(account, private_key, bob).move
     account.save!
 
-    expect(account.decrypt(new_group.team.decrypt_team_password(bob,
+    expect(account.decrypt(new_folder.team.decrypt_team_password(bob,
                                                                 private_key))).to eq('password')
-    expect(new_group.id).to eq(account.group_id)
+    expect(new_folder.id).to eq(account.folder_id)
   end
 
   it 'moves account with items to new team' do
     account = accounts(:account1)
     private_key = decrypt_private_key(bob)
-    new_group = groups(:group2)
-    new_team_password = new_group.team.decrypt_team_password(bob, private_key)
+    new_folder = folders(:folder2)
+    new_team_password = new_folder.team.decrypt_team_password(bob, private_key)
 
-    account.group = new_group
+    account.folder = new_folder
     AccountMoveHandler.new(account, private_key, bob).move
     account.save!
 
     expect(account).to eq(items(:item2).account)
-    expect(teams(:team2)).to eq(items(:item2).account.group.team)
+    expect(teams(:team2)).to eq(items(:item2).account.folder.team)
 
     decrypted_file_item1 = items(:item1).decrypt(new_team_password)
     decrypted_file_item2 = items(:item2).decrypt(new_team_password)
@@ -61,7 +61,7 @@ describe AccountMoveHandler do
     alice = users(:alice)
     private_key = decrypt_private_key(alice)
     account = accounts(:account1)
-    new_group = groups(:group2)
+    new_folder = folders(:folder2)
 
     account.group = new_group
     expect do
@@ -69,25 +69,25 @@ describe AccountMoveHandler do
     end.to raise_error('user is not member of new team')
   end
 
-  it 'moves account to group from same team' do
+  it 'moves account to folder from same team' do
     account = accounts(:account1)
     private_key = decrypt_private_key(bob)
-    new_group = Fabricate(:group, name: 'group3', team_id: teams(:team1).id)
+    new_folder = Fabricate(:folder, name: 'folder3', team_id: teams(:team1).id)
 
-    account.group = new_group
+    account.folder = new_folder
     AccountMoveHandler.new(account, private_key, bob).move
     account.save!
 
-    expect(account.decrypt(new_group.team.decrypt_team_password(bob,
+    expect(account.decrypt(new_folder.team.decrypt_team_password(bob,
                                                                 private_key))).to eq('password')
-    expect(account.group).to eq(new_group)
+    expect(account.folder).to eq(new_folder)
   end
 
   it 'moves is rolled back if account can not be moved' do
     account = accounts(:account1)
     team1 = teams(:team1)
     bobs_private_key = decrypt_private_key(bob)
-    new_group = groups(:group2)
+    new_folder = folders(:folder2)
     item1 = items(:item1)
     item2 = items(:item2)
 
@@ -101,7 +101,7 @@ describe AccountMoveHandler do
       item2.reload.decrypt(team1_password)
       expect(item2.cleartext_file).to eq('Das ist ein test File')
 
-      expect(account.reload.group.team).to eq(team1)
+      expect(account.reload.folder.team).to eq(team1)
     end
   end
 end

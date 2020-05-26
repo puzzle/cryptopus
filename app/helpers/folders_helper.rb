@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-module GroupsHelper
+module FoldersHelper
   def toggle_api_user(api_user)
     class_name = 'team toggle-button'
     class_name += ' toggle-button-selected' if team.teammember?(api_user)

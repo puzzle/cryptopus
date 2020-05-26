@@ -34,7 +34,7 @@ describe Item do
   it 'decrypts item' do
     bobs_private_key = bob.decrypt_private_key('password')
     account = accounts(:account1)
-    team = account.group.team
+    team = account.folder.team
     cleartext_team_password = team.decrypt_team_password(bob, bobs_private_key)
     item = account.items.first
     expect(item.decrypt(cleartext_team_password)).to eq('Das ist ein test File')
@@ -43,7 +43,7 @@ describe Item do
   it 'encrypts item' do
     bobs_private_key = bob.decrypt_private_key('password')
     account = accounts(:account1)
-    team = account.group.team
+    team = account.folder.team
     cleartext_team_password = team.decrypt_team_password(bob, bobs_private_key)
     item = Item.new(account_id: account.id, cleartext_file: 'Das ist ein test File',
                     filename: 'test', content_type: 'text')

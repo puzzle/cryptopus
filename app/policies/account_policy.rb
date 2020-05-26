@@ -25,6 +25,6 @@ class AccountPolicy < TeamDependantPolicy
   protected
 
   def team
-    @record.group.team
+    @record.folder.team
   end
 end

@@ -57,12 +57,12 @@ class ItemsController < ApplicationController
     @account = Account.find(params[:account_id])
   end
 
-  def group
-    @group ||= account.group
+  def folder
+    @folder ||= account.folder
   end
 
   def team
-    @team ||= group.team
+    @team ||= folder.team
   end
 
   def create_item(format)

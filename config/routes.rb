@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
 
   resources :teams, only: [:show, :index] do
-    resources :groups, except: [:index]
+    resources :folders, except: [:index]
   end
 
   resources :accounts, only: [:show, :destroy] do

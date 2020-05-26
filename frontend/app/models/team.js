@@ -4,6 +4,6 @@ export default class Team extends Model {
   @attr("string") name;
   @attr("string") description;
   @attr("boolean") private;
-  @hasMany("group") groups;
+  @hasMany("folder") folders;
   @hasMany("teammember") teammembers;
 }

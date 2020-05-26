@@ -10,8 +10,8 @@ include Rails.application.routes.url_helpers
 class LegacyRoutes::RedirectUrl
 
   LEGACY_PATHS = {
-    teams: /(groups)$/,
-    groups: /(accounts)$/,
+    teams: /(folders)$/,
+    folders: /(accounts)$/,
     accounts: /(accounts)\/\d+$/,
     login: /(\/login)$/
   }.freeze
@@ -49,8 +49,8 @@ class LegacyRoutes::RedirectUrl
     account_path(@url.split('/').last)
   end
 
-  def new_groups_path
-    team_group_path(@url.split('/').third, @url.split('/').second_to_last)
+  def new_folders_path
+    team_folder_path(@url.split('/').third, @url.split('/').second_to_last)
   end
 
   def new_teams_path

@@ -4,7 +4,7 @@ class ItemPolicy < TeamDependantPolicy
   private
 
   def team
-    item.account.group.team
+    item.account.folder.team
   end
 
   def item

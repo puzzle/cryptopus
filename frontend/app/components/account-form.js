@@ -13,9 +13,9 @@ export default class AccountForm extends BaseFormComponent {
   @service router;
 
   @tracked selectedTeam;
-  @tracked selectedGroup;
+  @tracked selectedFolder;
   @tracked assignableTeams;
-  @tracked availableGroups;
+  @tracked availableFolders;
 
   AccountValidations = AccountValidations;
 
@@ -38,7 +38,7 @@ export default class AccountForm extends BaseFormComponent {
       }
 
       this.selectedTeam = teams.find(
-        team => team.id === this.changeset.group.get("team.id")
+        team => team.id === this.changeset.folder.get("team.id")
       );
     });
   }
@@ -74,17 +74,17 @@ export default class AccountForm extends BaseFormComponent {
       this.selectedTeam = selectedTeam;
 
       this.store
-        .query("group", { teamId: this.selectedTeam.id })
-        .then(groups => {
-          this.availableGroups = groups;
-          this.setGroup(null);
+        .query("folder", { teamId: this.selectedTeam.id })
+        .then(folders => {
+          this.availableFolders = folders;
+          this.setfolder(null);
         });
     }
   }
 
   @action
-  setGroup(group) {
-    this.changeset.group = group;
+  setfolder(folder) {
+    this.changeset.folder = folder;
   }
 
   async beforeSubmit() {

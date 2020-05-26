@@ -5,30 +5,30 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Api::GroupsController < ApiController
+class Api::FoldersController < ApiController
 
   def self.policy_class
-    GroupPolicy
+    FolderPolicy
   end
 
-  # GET /api/groups
+  # GET /api/folders
   def index
-    authorize Group
-    groups = current_user.groups
-    render_json find_groups(groups)
+    authorize Folder
+    folders = current_user.folders
+    render_json find_folders(folders)
   end
 
   private
 
-  def find_groups(groups)
+  def find_folders(folders)
     if query_param.present?
-      groups = finder(groups, query_param).apply
+      folders = finder(folders, query_param).apply
     end
-    groups
+    folders
   end
 
-  def finder(groups, query)
-    Finders::GroupsFinder.new(groups, query)
+  def finder(folders, query)
+    Finders::FoldersFinder.new(folders, query)
   end
 
   def query_param

@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-describe Api::Teams::GroupsController do
+describe Api::Teams::FoldersController do
   include ControllerHelpers
 
   context 'GET index' do
-    it 'lists all groups of a given team' do
+    it 'lists all folders of a given team' do
       login_as(:bob)
       team = teams(:team1)
 
@@ -14,10 +14,10 @@ describe Api::Teams::GroupsController do
 
       attributes = data.first['attributes']
 
-      expect(attributes['name']).to eq 'group1'
+      expect(attributes['name']).to eq 'folder1'
     end
 
-    it 'does not list groups without team membership' do
+    it 'does not list folders without team membership' do
       login_as(:alice)
       team = teams(:team2)
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class GroupPolicy < TeamDependantPolicy
+class FolderPolicy < TeamDependantPolicy
   def index?
     true
   end
@@ -12,10 +12,10 @@ class GroupPolicy < TeamDependantPolicy
   private
 
   def team
-    group.team
+    folder.team
   end
 
-  def group
+  def folder
     @record
   end
 end

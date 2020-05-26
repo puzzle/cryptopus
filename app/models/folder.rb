@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: groups
+# Table name: folders
 #
 #  id          :integer          not null, primary key
 #  name        :string(40)       default(""), not null
@@ -17,7 +17,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Group < ApplicationRecord
+class Folder < ApplicationRecord
   belongs_to :team
   has_many :accounts, -> { order :accountname }, dependent: :destroy
 

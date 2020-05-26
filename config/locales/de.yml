@@ -60,7 +60,7 @@ de:
     title: Accounts
     index_menu:
       create: Account erstellen
-      group: Gruppen
+      folder: Gruppen
     show_menu:
       add_attachment: Anhang hinzufügen
     edit:
@@ -151,7 +151,7 @@ de:
       conf_admin: Conf Admin
       admin: Admin
 
-  groups:
+  folders:
     title: Gruppen
     index_menu:
       create: Gruppe erstellen
@@ -161,7 +161,7 @@ de:
       title: Gruppe erstellen
     show:
       move: Account zu einer anderen Gruppe verschieben
-      title: "Accounts der Gruppe %{group_name} des Teams %{team_name}"
+      title: "Accounts der Gruppe %{folder_name} des Teams %{team_name}"
   items:
     new:
       title: Anhang zum Account hinzufügen
@@ -200,7 +200,7 @@ de:
     title: Teams
     show:
       title: "Gruppen des Teams %{team_name}"
-      group: Gruppe
+      folder: Gruppe
       members: Mitglieder
       add_member: Mitglied hinzufügen
       admins: Admins
@@ -320,7 +320,7 @@ de:
       moved: Der Account wurde erfolgreich veschoben
     application:
       wait: Bitte warten Sie, bis  Ihre Team Passwörter neu verschlüsselt wurden.
-    groups:
+    folders:
       created: Die neue Gruppe wurde erfolgreich erstellt.
       updated: Die Gruppe wurde erfolgreich bearbeitet.
     items:
@@ -371,7 +371,7 @@ de:
       team:
         name: Name
         description: Beschreibung
-      group:
+      folder:
         name: Name
         description: Beschreibung
       ldapsetting:
@@ -400,7 +400,7 @@ de:
             accountname:
               blank: kann nicht leer sein
               taken: ist bereits vergeben
-        group:
+        folder:
           attributes:
             name:
               blank: kann nicht leer sein

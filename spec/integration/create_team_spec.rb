@@ -13,7 +13,7 @@ describe 'Create team' do
   context 'as bob' do
     it 'creates new normal team' do
       # Setup for test
-      account = create_team_group_account('bob', 'password')
+      account = create_team_folder_account('bob', 'password')
 
       # Create account link
       account_path = account_path(account)
@@ -31,7 +31,7 @@ describe 'Create team' do
 
     it 'creates private team' do
       # Setup for test
-      account = create_team_group_account_private('bob', 'password')
+      account = create_team_folder_account_private('bob', 'password')
 
       # Create account link
       account_path = account_path(account)

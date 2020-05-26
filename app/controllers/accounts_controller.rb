@@ -6,9 +6,9 @@
 #  https://github.com/puzzle/cryptopus.
 class AccountsController < ApplicationController
 
-  helper_method :team, :group
+  helper_method :team, :folder
   self.permitted_attrs = [:accountname, :cleartext_username, :cleartext_password,
-                          :tag, :description, :group_id]
+                          :tag, :description, :folder_id]
 
   # GET /accounts/1
   def show
@@ -30,18 +30,18 @@ class AccountsController < ApplicationController
 
     @account.destroy
     respond_to do |format|
-      format.html { redirect_to team_group_url(team, @group) }
+      format.html { redirect_to team_folder_url(team, @folder) }
     end
   end
 
   private
 
-  def group
-    @group ||= @account.group
+  def folder
+    @folder ||= @account.folder
   end
 
   def team
-    @team ||= group.team
+    @team ||= folder.team
   end
 
   def account
@@ -51,7 +51,7 @@ class AccountsController < ApplicationController
   def accounts_breadcrumbs
     teams_breadcrumbs
 
-    add_breadcrumb group.label, team_group_path(team.id, group.id)
+    add_breadcrumb folder.label, team_folder_path(team.id, folder.id)
     add_breadcrumb account.label
   end
 

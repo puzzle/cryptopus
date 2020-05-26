@@ -59,7 +59,7 @@ en:
     title: Accounts
     index_menu:
       create: Create Account
-      group: Groups
+      folder: folders
     show_menu:
       add_attachment: Add attachment
     edit:
@@ -106,7 +106,7 @@ en:
         admin_required: Admin required
         recrypt: Recrypt
       request:
-        request_sent: A request to recrypt your group passwords was sent. Wait until she recrypted your passwords.
+        request_sent: A request to recrypt your folder passwords was sent. Wait until she recrypted your passwords.
       uncrypterror:
         new_password: New password?!
         ldap_password_changed: Your LDAP Password has changed since your last login.
@@ -152,17 +152,17 @@ en:
       conf_admin: Conf Admin
       admin: Admin
 
-  groups:
-    title: Groups
+  folders:
+    title: folders
     index_menu:
-      create: Create group
+      create: Create folder
     edit:
-      title: Editing group
+      title: Editing folder
     new:
-      title: New group
+      title: New folder
     show:
-      move: Move account to other group
-      title: "Accounts in group %{group_name} for team %{team_name}"
+      move: Move account to other folder
+      title: "Accounts in folder %{folder_name} for team %{team_name}"
   items:
     new:
       title: Add new attachment to account
@@ -217,7 +217,7 @@ en:
       private: admins have no access if checked
     show:
       title: "Team %{team_name}"
-      group: Group
+      folder: Folder
       members: Members
       add_member: Add member
       admins: Admins
@@ -320,9 +320,9 @@ en:
       moved: Account was successfully moved
     application:
       wait: Wait for the recryption of your team passwords.
-    groups:
-      created: Successfully created a new group.
-      updated: Group was successfully updated.
+    folders:
+      created: Successfully created a new folder.
+      updated: Folder was successfully updated.
     items:
       uploaded: File was successfully uploaded.
       uploaded_size_to_high: The file is too big to upload. (max. 10MB)

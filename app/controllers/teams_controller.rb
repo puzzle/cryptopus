@@ -24,8 +24,8 @@ class TeamsController < ApplicationController
   def show
     authorize team
 
-    @groups = team.groups
-    groups_breadcrumbs
+    @folders = team.folders
+    folders_breadcrumbs
 
     respond_to do |format|
       format.html # index.html.haml
@@ -34,14 +34,14 @@ class TeamsController < ApplicationController
 
   private
 
-  def groups_breadcrumbs
+  def folders_breadcrumbs
     add_breadcrumb t('teams.title'), :teams_path
 
     add_breadcrumb team.label if action_name == 'show'
 
     if action_name == 'edit'
-      add_breadcrumb team.label, :team_group_path
-      add_breadcrumb @group.label
+      add_breadcrumb team.label, :team_folder_path
+      add_breadcrumb @folder.label
     end
   end
 

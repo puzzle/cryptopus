@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: groups
+# Table name: folders
 #
 #  id          :integer          not null, primary key
 #  name        :string(40)       default(""), not null
@@ -15,10 +15,10 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-group1:
-  name: group1
+folder1:
+  name: folder1
   team: team1
 
-group2:
-  name: group2
+folder2:
+  name: folder2
   team: team2

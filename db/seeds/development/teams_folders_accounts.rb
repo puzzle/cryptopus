@@ -5,9 +5,9 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-require Rails.root.join('db', 'seeds', 'support', 'team_groups_accounts_seeder')
+require Rails.root.join('db', 'seeds', 'support', 'team_folders_accounts_seeder')
 
-seeder = TeamGroupsAccountsSeeder.new
+seeder = TeamFoldersAccountsSeeder.new
 
 [:mail, :shops, :distributors].each do |n|
   users = [:alice, :bob]

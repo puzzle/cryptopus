@@ -5,14 +5,14 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class TeamGroupsAccountsSeeder
+class TeamFoldersAccountsSeeder
 
   def seed_team(name, members, admin = false)
     name = name.to_s.capitalize
     Team.seed_once(:name) do |t|
       t.name = name
       t.description = Faker::Lorem.paragraph
-      t.groups = [Group.create(name: Faker::Lorem.word.capitalize)]
+      t.folders = [Folder.create(name: Faker::Lorem.word.capitalize)]
       t.private = !admin
     end
 
@@ -33,7 +33,7 @@ class TeamGroupsAccountsSeeder
     member = team.teammembers.first.user
     plaintext_private_key = member.decrypt_private_key('password')
     plaintext_team_pw = team.decrypt_team_password(member, plaintext_private_key)
-    team.groups.each do |g|
+    team.folders.each do |g|
       unless g.accounts.present?
         (1..15).to_a.sample.times do
           seed_account(g, plaintext_team_pw)
@@ -62,10 +62,10 @@ class TeamGroupsAccountsSeeder
     team.add_user(user, plaintext_team_pw)
   end
 
-  def seed_account(group, plaintext_team_pw)
+  def seed_account(folder, plaintext_team_pw)
     username = CryptUtils.encrypt_blob(Faker::Lorem.word, plaintext_team_pw)
     password = CryptUtils.encrypt_blob(Faker::Internet.password, plaintext_team_pw)
-    group.accounts.create!(accountname: Faker::Company.name,
+    folder.accounts.create!(accountname: Faker::Company.name,
                            username: username,
                            password: password,
                            description: Faker::Lorem.paragraph)

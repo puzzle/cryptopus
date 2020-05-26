@@ -13,10 +13,10 @@ describe Account do
   let(:account) { accounts(:account1) }
   let(:team) { teams(:team1) }
 
-  it 'does not create second account in same group' do
+  it 'does not create second account in same folder' do
     params = {}
     params[:accountname] = 'account1'
-    params[:group_id] = groups(:group1).id
+    params[:folder_id] = folders(:folder1).id
     account = Account.new(params)
     expect(account).to_not be_valid
     expect(account.errors.keys).to eq([:accountname])
@@ -25,7 +25,7 @@ describe Account do
   it 'creates second account' do
     params = {}
     params[:accountname] = 'account1'
-    params[:group_id] = groups(:group2).id
+    params[:folder_id] = folders(:folder2).id
     account = Account.new(params)
     expect(account).to be_valid
   end

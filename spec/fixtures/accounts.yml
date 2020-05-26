@@ -21,14 +21,14 @@
 account1:
   accountname: account1
   description: description1
-  group: group1
+  folder: folder1
   username: <%= "!!binary \"#{FixturesHelper.read_account_username('team1', 'account1')}\"" %>
   password: <%= "!!binary \"#{FixturesHelper.read_account_password('team1', 'account1')}\"" %>
 
 account2:
   accountname: account2
   description: description2
-  group: group2
+  folder: folder2
   username: <%= "!!binary \"#{FixturesHelper.read_account_username('team2', 'account2')}\"" %>
   password: <%= "!!binary \"#{FixturesHelper.read_account_password('team2', 'account2')}\"" %>
   tag: tag

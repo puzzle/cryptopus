@@ -14,6 +14,6 @@ export default ApplicationAdapter.extend({
   },
 
   pathForType: function() {
-    return "groups";
+    return "folders";
   }
 });

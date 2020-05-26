@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-Fabricator(:group) do
+Fabricator(:folder) do
   name { Faker::App.name }
   team_id { 1 }
 end

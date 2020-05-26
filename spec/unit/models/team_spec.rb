@@ -11,16 +11,16 @@ describe Team do
   let(:alice) { users(:alice) }
   let(:bob) { users(:bob) }
 
-  it 'removes all assoziated groups, accounts, teammembers if team is destroyed' do
+  it 'removes all assoziated folders, accounts, teammembers if team is destroyed' do
     team1 = teams(:team1)
     account1 = accounts(:account1)
-    group1 = groups(:group1)
+    folder1 = folders(:folder1)
 
     team1.destroy
 
     expect(team1).to be_destroyed
     expect do
-      Group.find(group1.id)
+      Folder.find(folder1.id)
     end.to raise_error(ActiveRecord::RecordNotFound)
     expect do
       Account.find(account1.id)

@@ -26,7 +26,7 @@ const storeStub = Service.extend({
         {
           id: 1,
           name: "supporting",
-          description: "supporting groups",
+          description: "supporting folders",
           group: [1]
         }
       ]);
@@ -69,7 +69,7 @@ module("Integration | Component | account-form", function(hooks) {
       "supporting"
     );
 
-    await clickTrigger("#group-power-select");
+    await clickTrigger("#folder-power-select");
 
     assert.equal(
       this.element.querySelector(".ember-power-select-dropdown").innerText,

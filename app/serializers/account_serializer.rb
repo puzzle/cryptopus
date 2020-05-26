@@ -6,7 +6,7 @@
 #
 #  id          :integer          not null, primary key
 #  accountname :string(70)       default(""), not null
-#  group_id    :integer          default(0), not null
+#  folder_id    :integer          default(0), not null
 #  description :text
 #  username    :binary
 #  password    :binary
@@ -23,5 +23,5 @@
 class AccountSerializer < ApplicationSerializer
   attributes :id, :accountname, :description, :cleartext_password, :cleartext_username
 
-  belongs_to :group
+  belongs_to :folder
 end
