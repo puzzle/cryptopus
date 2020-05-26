@@ -26,9 +26,9 @@ describe 'AccountModal', type: :system, js: true do
   end
 
   it 'creates, edits and deletes an account' do
-    safe_password = 'AbC3_1AbC!'
-    style_bad_password = 'stroke-dasharray: 100px, 100px; stroke-dashoffset: 99px;'
-    style_good_password = 'stroke-dasharray: 100px, 100px; stroke-dashoffset: 25px;'
+    # safe_password = 'AbC3_1AbC!'
+    # style_bad_password = 'stroke-dasharray: 100px, 100px; stroke-dashoffset: 99px;'
+    # style_good_password = 'stroke-dasharray: 100px, 100px; stroke-dashoffset: 25px;'
     login_as_user(:bob)
 
     # Create Account
@@ -41,13 +41,12 @@ describe 'AccountModal', type: :system, js: true do
 
     # TODO: FIX THIS
     #
-    # find('#password').click
+    # find password popover
     #
-    # expect(find('div.progress-bar')[:style]).to eq(style_bad_password)
+    # check for values (progressbar width and information text)
     #
-    # fill_in 'cleartextPassword', with: safe_password
+    # do this 5 times for no password, very bad, bad, good and very good password
     #
-    # expect(find('div.ember-progress-bar').find('path')[:style]).to eq(style_good_password)
 
     expect do
       fill_modal(account_attrs)

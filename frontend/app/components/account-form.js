@@ -11,13 +11,13 @@ import { isPresent } from "@ember/utils";
 export default class AccountForm extends BaseFormComponent {
   @service store;
   @service router;
+  @service('password-score') passwordScore;
   @service passwordStrength;
 
   @tracked selectedTeam;
   @tracked selectedGroup;
   @tracked assignableTeams;
   @tracked availableGroups;
-  @tracked passwordScore;
   @tracked passwordLabel;
 
   colors = ['#fc0303', '#fc6703', '#fcc603', '#4dd100']
@@ -27,14 +27,13 @@ export default class AccountForm extends BaseFormComponent {
 
   @action
   updatePasswordScore() {
-    if (isPresent(this.changeset.cleartextPassword)){
-      this.passwordStrength.strength(this.changeset.cleartextPassword).then(strength => {
-        this.passwordLabel = strength.feedback.warning
+    if (isPresent(this.changeset.cleartextPassword)) {
+      this.passwordScore.score(this.changeset.cleartextPassword, this.passwordStrength).then(() => {
         if (isNone($('#password').data('bs.popover'))){
-          this.renderPopover(this.popoverContent(strength.score, strength.feedback.warning), this.popoverTemplate());
+          this.renderPopover(this.popoverContent(this.passwordScore.strengthNumber), this.popoverTemplate());
         }
 
-        $('#password').next(".popover").find(".popover-content").html(this.popoverContent(strength.score, strength.feedback.warning));
+        $('#password').next(".popover").find(".popover-content").html(this.popoverContent(this.passwordScore.strengthNumber));
         $('#password').next(".popover").find(".popover-template").html(this.popoverTemplate());
       })
     }
@@ -57,9 +56,10 @@ export default class AccountForm extends BaseFormComponent {
   constructor() {
     super(...arguments);
 
+    this.passwordStrength.load()
+
     this.record = this.args.account || this.store.createRecord("account");
     this.isNewRecord = this.record.isNew;
-    this.passwordScore = 0.01;
 
     this.changeset = new Changeset(
       this.record,
@@ -93,13 +93,6 @@ export default class AccountForm extends BaseFormComponent {
       template: template
     });
   }
-
-
-  @action
-  closePopover() {
-
-  }
-
 
   setupModal(element, args) {
     var context = args[0];
