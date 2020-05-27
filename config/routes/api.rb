@@ -33,13 +33,17 @@ Rails.application.routes.draw do
 
     # INFO don't mix scopes and resources in routes
     resources :teams, only: [:show, :index, :update, :create, :destroy]  do
+      
+      collection do
+        resources :last_member_teams, only: [:index], module: 'teams'
+      end
+      
       resources :api_users, only: [:create, :destroy, :index], module: 'teams'
       resources :groups, only: ['index'], module: 'teams'
       resources :members, except: [:new, :edit], module: 'teams'
       resources :candidates, only:[:index], module: 'teams'
     end
 
-    resources :last_member_teams, only: [:index]
 
   end
 end

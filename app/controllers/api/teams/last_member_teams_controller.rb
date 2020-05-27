@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Api::LastMemberTeamsController < ApiController
+class Api::Teams::LastMemberTeamsController < ApiController
 
   def self.policy_class
     TeamPolicy
