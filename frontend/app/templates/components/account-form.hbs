@@ -35,7 +35,8 @@
                 <div class="d-flex col-sm-12">
                   <div class="form-group col-sm-6">
                     <div class="row">
-                      <Input class="form-control mb-10" id="password" @value={{mut this.changeset.cleartextPassword}} @name="cleartextPassword" @type="password" @key-up={{action "updatePasswordScore"}}/>
+                      <Input class="form-control mb-10" @value={{this.changeset.cleartextPassword}} @focusIn={{this.setPasswordInputElement}} @name="cleartextPassword" @type="password"/>
+                      <PasswordStrengthMeter @password={{this.changeset.cleartextPassword}} @passwordElement={{this.passwordElement}}></PasswordStrengthMeter>
                     </div>
                   </div>
                   <div class="form-group col-xs-12 col-sm-5 pull-right">

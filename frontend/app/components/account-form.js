@@ -11,52 +11,18 @@ import { isPresent } from "@ember/utils";
 export default class AccountForm extends BaseFormComponent {
   @service store;
   @service router;
-  @service('password-score') passwordScore;
-  @service passwordStrength;
 
   @tracked selectedTeam;
   @tracked selectedGroup;
   @tracked assignableTeams;
   @tracked availableGroups;
   @tracked passwordLabel;
-
-  colors = ['#fc0303', '#fc6703', '#fcc603', '#4dd100']
-  translations = ['commonPassword', 'veryBadPassword', 'badPassword', 'goodPassword', 'veryGoodPassword']
+  @tracked passwordElement;
 
   AccountValidations = AccountValidations;
 
-  @action
-  updatePasswordScore() {
-    if (isPresent(this.changeset.cleartextPassword)) {
-      this.passwordScore.score(this.changeset.cleartextPassword, this.passwordStrength).then(() => {
-        if (isNone($('#password').data('bs.popover'))){
-          this.renderPopover(this.popoverContent(this.passwordScore.strengthNumber), this.popoverTemplate());
-        }
-
-        $('#password').next(".popover").find(".popover-content").html(this.popoverContent(this.passwordScore.strengthNumber));
-        $('#password').next(".popover").find(".popover-template").html(this.popoverTemplate());
-      })
-    }
-  }
-
-  popoverContent(passwordScore) {
-    let calculatedScore = passwordScore * 25;
-    let translation = this.intl.t(this.translations[passwordScore])
-    let color = passwordScore - 1 === -1 ? "none" : this.colors[passwordScore - 1]
-      return '<div class="progress">' +
-        '<div class="progress-bar" role="progressbar" style="width: ' + calculatedScore + '%; background-color: ' + color + ' !important;" aria-valuenow="' + calculatedScore + '" aria-valuemin="0" aria-valuemax="100"></div>' +
-        '</div>' + '<p class="font-weight-bold">' + translation + '</p>';
-  }
-
-  popoverTemplate() {
-    return '<div class="popover"><div class="arrow"></div>'+
-      '<h3 class="popover-title"></h3><div class="popover-content"></div></div>';
-  }
-
   constructor() {
     super(...arguments);
-
-    this.passwordStrength.load()
 
     this.record = this.args.account || this.store.createRecord("account");
     this.isNewRecord = this.record.isNew;
@@ -80,18 +46,6 @@ export default class AccountForm extends BaseFormComponent {
       //   teamId: this.selectedTeam.id
       // });
     });
-    this.updatePasswordScore()
-  }
-
-  renderPopover(content, template) {
-    $('#password').popover({
-      // trigger: 'focus',
-      placement: 'top',
-      title: 'Password Strength',
-      html: 'true',
-      content : content,
-      template: template
-    });
   }
 
   setupModal(element, args) {
@@ -108,6 +62,16 @@ export default class AccountForm extends BaseFormComponent {
   }
 
   @action
+  setPasswordInputElement(event) {
+    this.passwordElement = event.target;
+  }
+
+  @action
+  unsetPasswordInputElement() {
+    this.passwordElement = null;
+  }
+
+  @action
   setRandomPassword() {
     let pass = "";
     const PASSWORD_CHARS =
@@ -117,7 +81,6 @@ export default class AccountForm extends BaseFormComponent {
       pass += PASSWORD_CHARS.charAt(r);
     }
     this.changeset.cleartextPassword = pass;
-    this.updatePasswordScore();
   }
 
   @action
