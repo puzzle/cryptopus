@@ -1,0 +1,49 @@
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="teamFormModalLabel" aria-hidden="true" {{did-insert this.setupModal this}}>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="teamFormModalLabel">{{@title}}</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label={{t "close"}}>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label name="name">{{t "teams.name"}}</label>
+                <div>
+                  <Input class="form-control" @value={{this.changeset.name}} @name="name" />
+                  <ValidationErrorsList @errors={{this.changeset.error.name.validation}}/>
+                </div>
+              </div>
+              <div class="checkbox">
+                <label for="checkbox-private" class="" name="private">{{t "teams.private"}}</label>
+                <span data-toggle="private-info-tooltip" data-html="true" data-placement="top" title="<b>{{t "teams.forms.privateInfo"}}</b>">
+                  <img src="/ember/assets/images/info.svg" alt="info" class="info-icon" >
+                </span>
+                <Input id="checkbox-private" class="" @type="checkbox" @checked={{this.changeset.private}} @name="private" disabled={{not this.isNewRecord }}/>
+              </div>
+            </div>
+            <div class="col-md-12">
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label name="description">{{t "teams.description"}}</label>
+                <div>
+                  <Textarea class="form-control vertical-resize" @value={{this.changeset.description}} @name="description"/>
+                  <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" {{on "click" (fn this.submit this.changeset)}}>{{t "save"}}</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{t "close"}}</button>
+      </div>
+    </div>
+  </div>
+</div>

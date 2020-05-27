@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     post 'recrypt'
   end
 
-  resources :teams do
+  resources :teams, only: [:show, :index] do
     resources :groups, except: [:index]
   end
 

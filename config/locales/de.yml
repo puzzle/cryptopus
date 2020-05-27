@@ -197,6 +197,10 @@ de:
       private: Privat
     index_menu:
       create: Team erstellen
+    edit_button:
+      title: Bearbeite Team Eigenschaften.
+    config_button:
+      title: Füge hinzu oder entferne Mitglieder oder API Benutzer.
     index:
       title: 'Sie sind Mitglied der folgenden Teams:'
       team: Team

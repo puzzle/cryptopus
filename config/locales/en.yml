@@ -193,6 +193,10 @@ en:
       private: Private
     index_menu:
       create: Create new team
+    edit_button:
+      title: Edit team properties.
+    config_button:
+      title: Add or remove Members or API-Users.
     index:
       title: 'You are member of the following teams:'
       team: Team
