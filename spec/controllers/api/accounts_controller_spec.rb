@@ -186,9 +186,11 @@ describe Api::AccountsController do
         expect(folder_attributes['name']).to eq 'folder1'
       end
 
-      # TODO: return settings file
-      xit 'authenticates with valid api user and returns account details with keycloak' do
-        enable_keycloak
+      it 'never calls authconfig for provider' do
+        expect_any_instance_of(AuthConfig)
+          .to receive(:settings_file)
+          .never
+
         api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
         teams(:team1).add_user(api_user, plaintext_team_password)

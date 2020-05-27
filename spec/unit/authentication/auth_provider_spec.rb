@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Authentication::AuthProvider do
+describe Authentication::UserAuthenticator do
   context 'db' do
     it 'authenticates bob' do
       @username = 'bob'
@@ -83,7 +83,7 @@ describe Authentication::AuthProvider do
 
         expect(authenticator.send(:user_locked?)).to be false
 
-        Authentication::AuthProvider.new(username: @username, password: @password).authenticate!
+        Authentication::UserAuthenticator.new(username: @username, password: @password).authenticate!
 
         if attempt == LOCKTIMES.count
           expect(bob.reload.locked?).to be true
@@ -192,7 +192,7 @@ describe Authentication::AuthProvider do
       expect(Keycloak::Client).to receive(:get_token_by_client_credentials)
         .and_return('{ "acess_token": "asd" }')
 
-      Authentication::AuthProvider::Sso.new(username: 'ben').user
+      Authentication::UserAuthenticator::Sso.new(username: 'ben').user
       user = User.find_by(username: 'ben')
 
       expect(user.username).to eq('ben')
@@ -203,7 +203,7 @@ describe Authentication::AuthProvider do
 
     it 'raises error because keycloak is not enabled' do
       expect do
-        error = Authentication::AuthProvider::Sso.new(username: 'bob')
+        error = Authentication::UserAuthenticator::Sso.new(username: 'bob')
         expect(error.message).to eq('can\'t preform this action Keycloak is disabled')
       end.to raise_error(StandardError)
     end
@@ -220,7 +220,7 @@ describe Authentication::AuthProvider do
       expect(ldap_mock).to receive(:ldap_info).with('42', 'sn').and_return('test')
       expect(ldap_mock).to receive(:authenticate!).with('ben', 'password').and_return(true)
 
-      Authentication::AuthProvider::Ldap.new(username: 'ben', password: 'password').user
+      Authentication::UserAuthenticator::Ldap.new(username: 'ben', password: 'password').user
       user = User.find_by(username: 'ben')
 
       expect(user.username).to eq('ben')
@@ -232,7 +232,7 @@ describe Authentication::AuthProvider do
 
     it 'raises error because ldap is not enabled' do
       expect do
-        error = Authentication::AuthProvider::Ldap.new(username: 'bob')
+        error = Authentication::UserAuthenticator::Ldap.new(username: 'bob')
         expect(error.message).to eq('can\'t preform this action Ldap is disabled')
       end.to raise_error(StandardError)
     end
@@ -243,7 +243,7 @@ describe Authentication::AuthProvider do
 
       @username = 'bob'
       @password = 'ldappw'
-      auth_provider = Authentication::AuthProvider::Ldap.new(username: 'bob', password: 'ldappw')
+      user_authenticator = Authentication::UserAuthenticator::Ldap.new(username: 'bob', password: 'ldappw')
       bob.update!(auth: 'ldap')
 
       expect_any_instance_of(LdapConnection)
@@ -251,7 +251,7 @@ describe Authentication::AuthProvider do
         .twice
         .with('bob', 'ldappw')
         .and_return(true)
-      expect(auth_provider.authenticate!).to be true
+      expect(user_authenticator.authenticate!).to be true
     end
 
     it 'fails ldap authentication if wrong password' do
@@ -259,13 +259,13 @@ describe Authentication::AuthProvider do
       mock_ldap_settings
 
       bob.update!(auth: 'ldap')
-      auth_provider = Authentication::AuthProvider::Ldap
+      user_authenticator = Authentication::UserAuthenticator::Ldap
                       .new(username: 'bob', password: 'wrongldappw')
 
       expect_any_instance_of(LdapConnection).to receive(:authenticate!)
         .with('bob', 'wrongldappw')
         .and_return(false)
-      expect(auth_provider.authenticate!).to be false
+      expect(user_authenticator.authenticate!).to be false
     end
 
     it 'returns user if exists in db' do
@@ -275,7 +275,7 @@ describe Authentication::AuthProvider do
         .with('bob', 'ldappw')
         .and_return(true)
 
-      user = Authentication::AuthProvider::Ldap.new(username: 'bob', password: 'ldappw').user
+      user = Authentication::UserAuthenticator::Ldap.new(username: 'bob', password: 'ldappw').user
       expect(user).to_not be_nil
       expect(user.username).to eq('bob')
     end
@@ -288,7 +288,7 @@ describe Authentication::AuthProvider do
         .to receive(:authenticate!)
         .with('nobody', 'password').and_return(false)
 
-      user = Authentication::AuthProvider::Ldap
+      user = Authentication::UserAuthenticator::Ldap
              .new(username: 'nobody', password: 'password')
              .find_or_create_user
       expect(user).to be_nil
@@ -302,7 +302,7 @@ describe Authentication::AuthProvider do
   end
 
   def authenticator
-    @authenticator ||= Authentication::AuthProvider.new(username: @username, password: @password)
+    @authenticator ||= Authentication::UserAuthenticator.new(username: @username, password: @password)
   end
 
   def api_user

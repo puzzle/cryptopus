@@ -1,6 +1,19 @@
 # frozen_string_literal: true
 
-class Authentication::AuthProvider
+class Authentication::UserAuthenticator
+
+  class << self
+    def init(params)
+      case AuthConfig.provider
+      when 'db'
+        new(params)
+      when 'ldap'
+        Authentication::UserAuthenticator::Ldap.new(params)
+      when 'keycloak'
+        Authentication::UserAuthenticator::Sso.new(params)
+      end
+    end
+  end
 
   def initialize(username: nil, password: nil)
     @authenticated = false
@@ -13,20 +26,7 @@ class Authentication::AuthProvider
     return false unless preconditions?
     return false if user.locked?
 
-    salt = user.password.split('$')[1]
-    authenticated = user.password.split('$')[2] == Digest::SHA512.hexdigest(salt + password)
-
-    add_error('flashes.session.wrong_password') unless authenticated
-
-    brute_force_detector.update(authenticated)
-    authenticated
-  end
-
-  def root_authenticate!
-    return false unless username == 'root'
-
-    salt = user.password.split('$')[1]
-    authenticated = user.password.split('$')[2] == Digest::SHA512.hexdigest(salt + password)
+    authenticated = user.authenticate_db(password)
 
     add_error('flashes.session.wrong_password') unless authenticated
 
@@ -40,6 +40,19 @@ class Authentication::AuthProvider
 
   def update_user_info(remote_ip)
     user.update(last_login_from: remote_ip, last_login_at: Time.zone.now)
+  end
+
+  def root_authenticate!
+    return false unless username == 'root'
+    return false unless preconditions?
+    return false if user.locked?
+
+    authenticated = user.authenticate_db(password)
+
+    add_error('flashes.session.wrong_password') unless authenticated
+
+    brute_force_detector.update(authenticated)
+    authenticated
   end
 
   def errors

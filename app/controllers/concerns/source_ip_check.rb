@@ -15,7 +15,7 @@ module SourceIpCheck
   def check_root_source_ip
     unless ip_checker.root_ip_authorized?
       flash[:error] = t('flashes.session.wrong_root')
-      redirect_to session_new_path
+      redirect_to teams_path
     end
   end
 

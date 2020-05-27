@@ -40,7 +40,7 @@ describe TeamsController do
 
       get :index
 
-      expect(response).to redirect_to session_new_path
+      expect(response).to redirect_to session_destroy_path
       expect(flash[:notice]).to match(/recryption of your team passwords/)
     end
 

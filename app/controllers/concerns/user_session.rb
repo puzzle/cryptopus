@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-module UserSession::Sso
+module UserSession
   extend ActiveSupport::Concern
 
   included do
@@ -15,11 +15,24 @@ module UserSession::Sso
   end
 
   def validate_user
+    validate_sso_user if AuthConfig.keycloak_enabled?
+    validate_db_ldap_user unless AuthConfig.keycloak_enabled?
+  end
+
+  def validate_sso_user
     return if current_user.present? && current_user.root?
 
     unless current_user.present? && Keycloak::Client.user_signed_in?
       session[:jumpto] = request.parameters
       redirect_to Keycloak::Client.url_login_redirect(session_sso_url, 'code')
+    end
+  end
+
+  def validate_db_ldap_user
+    handle_pending_recrypt_request
+    if current_user.nil?
+      session[:jumpto] = request.parameters
+      redirect_to session_new_path
     end
   end
 
@@ -37,20 +50,32 @@ module UserSession::Sso
     plaintext_team_password
   end
 
+  # redirect if its not possible to decrypt user's private key
   def redirect_if_no_private_key
     if current_user.is_a?(User::Human) && !active_session?
+      # TODO: redirect_to recryptrequests_keycloak_path
       redirect_to recryptrequests_new_ldap_password_path
     end
   end
 
-  def auth_provider
-    Authentication::AuthProvider::Sso.new(
-      username: params['username'] || Keycloak::Client.get_attribute('preferred_username'),
-      password: params['password']
-    )
+  def user_authenticator
+    username = params['username'] || Keycloak::Client.get_attribute('preferred_username')
+    Authentication::UserAuthenticator.init(username: username, password: params['password'])
   end
 
   private
+
+  # TODO: recryptrequests in nicht ldap umgebung??
+  def handle_pending_recrypt_request
+    if pending_recrypt_request?
+      pending_recrypt_request_message
+      redirect_to session_destroy_path
+    end
+  end
+
+  def pending_recrypt_request?
+    current_user.is_a?(User::Human) && current_user.recryptrequests.first
+  end
 
   def active_session?
     session[:private_key].present?

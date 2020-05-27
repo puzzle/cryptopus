@@ -22,6 +22,7 @@ describe 'Root login' do
         .and_return(false)
       post session_root_path, params: { username: 'root', password: 'password' }
       follow_redirect!
+      follow_redirect!
       expect(request.fullpath).to eq(session_new_path)
       expect(response.body).to match(/Login as root only from private IP accessible/)
     end
@@ -43,6 +44,7 @@ describe 'Root login' do
         .and_return(false)
       post session_root_path, params: { username: 'root', password: 'password' }
       follow_redirect!
+      follow_redirect!
       expect(request.fullpath).to eq(session_new_path)
       expect(response.body).to match(/Login as root only from private IP accessible/)
     end
@@ -63,7 +65,6 @@ describe 'Root login' do
         .and_return(false)
       expect(Keycloak::Client).to receive(:url_login_redirect).and_return(session_sso_path)
       post session_root_path, params: { username: 'root', password: 'password' }
-      follow_redirect!
       follow_redirect!
       expect(request.fullpath).to eq(teams_path)
       expect(response).to redirect_to session_sso_path

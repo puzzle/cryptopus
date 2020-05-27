@@ -87,6 +87,11 @@ module IntegrationHelpers
       follow_redirect!
     end
 
+    def login_as_root
+      post session_root_path, params: { username: 'root', password: 'password' }
+      follow_redirect!
+    end
+
     def logout
       get session_destroy_path
     end
@@ -94,7 +99,7 @@ module IntegrationHelpers
     def can_access_account(account_path, username, user_password = 'password',
                            account_username = 'account_username',
                            account_password = 'account_password')
-      login_as(username, user_password)
+      username == 'root' ? login_as_root : login_as(username, user_password)
       get account_path
       expect(response.body)
         .to match(/input .* id='cleartext_username' .* value='#{account_username}'/)

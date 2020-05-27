@@ -16,9 +16,7 @@ class ApplicationController < ActionController::Base
   include SourceIpCheck
   include Caching
   include FlashMessages
-  include UserSession::Db if AuthConfig.db_enabled?
-  include UserSession::Ldap if AuthConfig.ldap_enabled?
-  include UserSession::Sso if AuthConfig.keycloak_enabled?
+  include UserSession
 
   protect_from_forgery with: :exception
 

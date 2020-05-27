@@ -20,12 +20,12 @@ class SessionController < ApplicationController
 
 
   def create
-    unless auth_provider.authenticate!
+    unless user_authenticator.authenticate!
       flash[:error] = t('flashes.session.auth_failed')
       return redirect_to session_new_path
     end
 
-    unless create_session(auth_provider.user, params[:password])
+    unless create_session(user_authenticator.user, params[:password])
       return redirect_to recryptrequests_new_ldap_password_path
     end
 
@@ -35,12 +35,12 @@ class SessionController < ApplicationController
   end
 
   def root
-    unless auth_provider.root_authenticate!
+    unless user_authenticator.root_authenticate!
       flash[:error] = t('flashes.session.auth_failed')
       return redirect_to session_new_path
     end
 
-    unless create_session(auth_provider.user, params[:password])
+    unless create_session(user_authenticator.user, params[:password])
       return redirect_to recryptrequests_new_ldap_password_path
     end
 
@@ -50,23 +50,28 @@ class SessionController < ApplicationController
   end
 
   def sso
-    token = Keycloak::Client.get_token_by_code(params[:code], session_sso_url)
-    cookies.permanent[:keycloak_token] = token
-    unless auth_provider.authenticate!
-      flash[:error] = t('flashes.session.auth_failed')
-      return update_token
+    if params[:code].present?
+      token = Keycloak::Client.get_token_by_code(params[:code], session_sso_url)
+      cookies.permanent[:keycloak_token] = token
     end
-    return update_token if Keycloak::Client.get_attribute('pk_secret_base').nil?
+    if Keycloak::Client.user_signed_in?
+      unless user_authenticator.authenticate!
+        flash[:error] = t('flashes.session.auth_failed')
+        return update_token
+      end
+      return update_token if Keycloak::Client.get_attribute('pk_secret_base').nil?
 
-    unless create_session(auth_provider.user, CryptUtils.pk_secret)
-      return redirect_to recryptrequests_new_ldap_password_path
+      create_session(user_authenticator.user, CryptUtils.pk_secret)
+
+      last_login_message
+      redirect_after_sucessful_login
+    else
+      update_token
     end
-
-    last_login_message
-    redirect_after_sucessful_login
   end
 
   def destroy
+    # TODO: Keycloak logout??
     Keycloak::Client.logout if AuthConfig.keycloak_enabled? && !current_user.root?
     flash_notice = params[:autologout] ? t('session.destroy.expired') : flash[:notice]
     jumpto = params[:jumpto]
@@ -119,7 +124,7 @@ class SessionController < ApplicationController
   def create_session(user, password)
     begin
       set_session_attributes(user, password)
-      auth_provider.update_user_info(request.remote_ip)
+      user_authenticator.update_user_info(request.remote_ip)
       CryptUtils.validate_keypair(session[:private_key], user.public_key)
     rescue Exceptions::DecryptFailed
       return false
@@ -149,13 +154,13 @@ class SessionController < ApplicationController
   end
 
   def password_params_valid?
-    # TODO: zweimal kontrollieren ob der User angemeldet ist oder nicht und dann eine Spezifische Fehlermeldung, dass das Passwort falsch ist???
-    # unless auth_provider.authenticate!
-    #   flash[:error] = t('flashes.session.wrong_password')
-    #   return false
-    # end
+    unless current_user.authenticate_db(params[:old_password])
+      flash[:error] = t('flashes.session.wrong_password')
+      return false
+    end
+
     if params[:new_password1] != params[:new_password2]
-      flash[:error] = t('flashes.session.new_passwords.not_equal')
+      flash[:error] = t('flashes.session.new_passwords_not_equal')
       return false
     end
     true

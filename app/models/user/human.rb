@@ -107,7 +107,7 @@ class User::Human < User
 
   # rubocop:disable Metrics/MethodLength
   def recrypt_private_key!(new_password, old_password)
-    unless auth_provider(new_password).authenticate!
+    unless user_authenticator(new_password).authenticate!
       errors.add(:base,
                  I18n.t('activerecord.errors.models.user.new_password_invalid'))
       return false
@@ -200,7 +200,7 @@ class User::Human < User
     end
   end
 
-  def auth_provider(password)
+  def user_authenticator(password)
     case AuthConfig.provider
     when 'keycloak'
       Authentication::AuthProvider::Sso.new(username: username)

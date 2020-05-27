@@ -1,19 +1,11 @@
 # frozen_string_literal: true
 
-class Authentication::AuthProvider::Ldap < Authentication::AuthProvider
+class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticator::External
 
-  def initialize(username: nil, password: nil)
-    @authenticated = false
-    @username = username
-    @password = password
-    raise 'can\'t preform this action Ldap is disabled' unless AuthConfig.ldap_enabled?
-  end
-
-  def authenticate!(new_password = nil)
+  def authenticate!
     return false unless preconditions?
 
-    password_to_check = new_password || password
-    authenticated = ldap_connection.authenticate!(username, password_to_check)
+    authenticated = ldap_connection.authenticate!(username, password)
 
     add_error('flashes.session.wrong_password') unless authenticated
     authenticated
@@ -39,14 +31,14 @@ class Authentication::AuthProvider::Ldap < Authentication::AuthProvider
   private
 
   def create_user
-    user = User.new
-    user.username = username
-    user.auth = 'ldap'
-    user.provider_uid = ldap_connection.uidnumber_by_username(username)
-    user.givenname = ldap_connection.ldap_info(user.provider_uid, 'givenname')
-    user.surname = ldap_connection.ldap_info(user.provider_uid, 'sn')
-    user.create_keypair password
-    user.save
+    super(
+      {
+        givenname: ldap_connection.ldap_info(user.provider_uid, 'givenname'),
+        surname: ldap_connection.ldap_info(user.provider_uid, 'sn'),
+        provider_uid: ldap_connection.uidnumber_by_username(username)
+      },
+      password
+    )
   end
 
   def update_ldap_info

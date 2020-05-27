@@ -182,7 +182,7 @@ describe SessionController do
       expect(Keycloak::Client).to receive(:get_attribute).with('sub').and_return('1234').at_least(:once)
       expect(Keycloak::Client).to receive(:user_signed_in?).and_return(true).at_least(:once)
 
-      get :sso
+      get :sso, params: { code: 'asd' }
       expect(response).to redirect_to search_path
       user = User.find_by(username: 'ben')
       expect(user.username).to eq('ben')
@@ -190,11 +190,22 @@ describe SessionController do
       expect(session['private_key']).to_not be_nil
     end
 
+    # TODO: Test funktioniert nur isoliert
     it 'redirects to keycloak if not logged in' do
       enable_keycloak
-      # expect(Keycloak::Client).to receive(:get_token_by_code).and_return('asd').at_least(:once)
-      expect(Keycloak::Client).to receive(:user_signed_in?).and_return(false).at_least(:once)
-      get :sso
+      expect(Keycloak::Client)
+        .to receive(:get_token_by_code)
+        .and_return('asd')
+      expect(Keycloak::Client)
+        .to receive(:user_signed_in?)
+        .and_return(false)
+      expect(Keycloak::Client)
+        .to receive(:url_login_redirect)
+        .with(session_sso_url, 'code')
+        .and_return(session_sso_path)
+        .at_least(:once)
+      get :sso, params: { code: 'asd' }
+      expect(response).to redirect_to session_sso_path
     end
   end
 
@@ -205,17 +216,16 @@ describe SessionController do
                                        new_password2: 'test' }
 
       expect(flash[:notice]).to match(/new password/)
-      expect(Authentication::AuthProvider.new(username: 'bob', password: 'test').authenticate!).to eq true
+      expect(users(:bob).authenticate_db('test')).to eq true
     end
 
-    xit 'updates password, error if oldpassword not match' do
+    it 'updates password, error if oldpassword not match' do
       login_as(:bob)
       post :update_password, params: { old_password: 'wrong_password', new_password1: 'test',
                                        new_password2: 'test' }
 
       expect(flash[:error]).to match(/Invalid user \/ password/)
-      expect(Authentication::AuthProvider.new(username: 'bob', password: 'test')
-                                         .authenticate!).to be false
+      expect(users(:bob).authenticate_db('test')).to be false
     end
 
     it 'updates password, error if new passwords not match' do
@@ -223,8 +233,8 @@ describe SessionController do
       post :update_password, params: { old_password: 'password', new_password1: 'test',
                                        new_password2: 'wrong_password' }
 
-      expect(flash[:error]).to match(/equal/)
-      expect(Authentication::AuthProvider.new(username: 'bob', password: 'test').authenticate!).to eq false
+      expect(flash[:error]).to match(/New passwords not equal/)
+      expect(users(:bob).authenticate_db('test')).to eq false
     end
 
     it 'redirects if ldap user tries to update password' do
@@ -232,7 +242,14 @@ describe SessionController do
       login_as(:bob)
       post :update_password, params: { old_password: 'password', new_password1: 'test',
                                        new_password2: 'test' }
+      expect(response).to redirect_to teams_path
+    end
 
+    it 'redirects if keycloak user tries to update password' do
+      users(:bob).update!(auth: 'keycloak')
+      login_as(:bob)
+      post :update_password, params: { old_password: 'password', new_password1: 'test',
+                                       new_password2: 'test' }
       expect(response).to redirect_to teams_path
     end
   end
