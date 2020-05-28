@@ -10,6 +10,7 @@ account:
   form:
     teamPlaceholder: "Wählen Sie ein Team aus"
     folderPlaceholder: "Wählen Sie einen Ordner aus"
+    passwordStrength: "Passwort Stärke"
   accountname: "Account Name"
   username: "Username"
   password: "Password"

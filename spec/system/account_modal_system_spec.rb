@@ -26,9 +26,6 @@ describe 'AccountModal', type: :system, js: true do
   end
 
   it 'creates, edits and deletes an account' do
-    # safe_password = 'AbC3_1AbC!'
-    # style_bad_password = 'stroke-dasharray: 100px, 100px; stroke-dashoffset: 99px;'
-    # style_good_password = 'stroke-dasharray: 100px, 100px; stroke-dashoffset: 25px;'
     login_as_user(:bob)
 
     # Create Account
@@ -39,14 +36,14 @@ describe 'AccountModal', type: :system, js: true do
     expect(page).to have_text('New Account')
     expect(page).to have_button('Save')
 
-    # TODO: FIX THIS
-    #
-    # find password popover
-    #
-    # check for values (progressbar width and information text)
-    #
-    # do this 5 times for no password, very bad, bad, good and very good password
-    #
+
+    expect(page.find_field('cleartextPassword')).to be_present
+    check_password_meter('password', '10')
+    check_password_meter('password11', '25')
+    check_password_meter('cryptopu', '50')
+    check_password_meter('cryptopus1', '75')
+    check_password_meter('cryptopus1,0', '100')
+    check_password_meter('', '0')
 
     expect do
       fill_modal(account_attrs)
@@ -123,6 +120,11 @@ describe 'AccountModal', type: :system, js: true do
     expect(find_field('cleartextUsername').value).to eq(acc_attrs[:username])
     expect(find_field('cleartextPassword').value).to eq(acc_attrs[:password])
     expect(find('.vertical-resize').value).to eq(acc_attrs[:description])
+  end
+
+  def check_password_meter(password, expected_score)
+    fill_in 'cleartextPassword', with: password
+    expect(page.find('.progress-bar')['aria-valuenow']).to eq(expected_score)
   end
 
 end

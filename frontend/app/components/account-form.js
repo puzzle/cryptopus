@@ -16,8 +16,6 @@ export default class AccountForm extends BaseFormComponent {
   @tracked selectedGroup;
   @tracked assignableTeams;
   @tracked availableGroups;
-  @tracked passwordLabel;
-  @tracked passwordElement;
 
   AccountValidations = AccountValidations;
 
@@ -59,16 +57,6 @@ export default class AccountForm extends BaseFormComponent {
 
   abort() {
     this.router.transitionTo("index");
-  }
-
-  @action
-  setPasswordInputElement(event) {
-    this.passwordElement = event.target;
-  }
-
-  @action
-  unsetPasswordInputElement() {
-    this.passwordElement = null;
   }
 
   @action

@@ -7,4 +7,4 @@ export default class PasswordScoreService extends Service {
       this.strengthNumber = strength.score
     })
   }
-};
+}
