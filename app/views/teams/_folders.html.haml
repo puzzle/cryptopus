@@ -17,5 +17,5 @@
     %tr{class: "#{cycle('odd', 'even')}"}
       %td= link_to image_pack_tag( "folder_open.svg" ) + " " + %Q{#{folder.name}}, team_folder_path(team, folder)
       %td= h simple_format folder.description
-      %td.action_icon= link_to image_pack_tag("edit.svg"), edit_team_folder_path(team, folder)
+      %td.action_icon= link_to image_pack_tag("edit.svg"), "#/teams/#{team.id}/folders/#{folder.id}/edit"
       %td.action_icon= link_to_destroy team_folder_path(team, folder), folder
