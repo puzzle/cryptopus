@@ -7,6 +7,8 @@
 
 class Api::FoldersController < ApiController
 
+  self.permitted_attrs = [:name, :description, :team_id]
+
   def self.policy_class
     FolderPolicy
   end
@@ -16,6 +18,32 @@ class Api::FoldersController < ApiController
     authorize Folder
     folders = current_user.folders
     render_json find_folders(folders)
+  end
+
+  # GET /api/folders/:id
+  def show
+    authorize folder
+    render_json folder
+  end
+
+  # POST /api/folders
+  def create
+    folder = Folder.new(model_params)
+    authorize folder
+    folder.save
+    render_json folder
+  end
+
+  # PATCH /api/folders/:id
+  def update
+    authorize folder
+    folder.attributes = model_params
+
+    # Re-Encrypt accounts & items
+    # folder.encrypt(decrypted_team_password(folder.team))
+
+    folder.save!
+    render_json folder
   end
 
   private
@@ -34,4 +62,9 @@ class Api::FoldersController < ApiController
   def query_param
     params[:q]
   end
+
+  def folder
+    @folder ||= ::Folder.find(params[:id])
+  end
+
 end

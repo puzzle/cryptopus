@@ -13,6 +13,18 @@ export default ApplicationAdapter.extend({
     return super.urlForQuery(query, modelName);
   },
 
+  urlForFindRecord(id, modelName, snapshot) {
+    return `/api/${this.pathForType()}/${id}`;
+  },
+
+  urlForCreateRecord(modelName, snapshot) {
+    return `/api/${this.pathForType()}`;
+  },
+
+  urlForUpdateRecord(id, modelName, snapshot) {
+    return `/api/${this.pathForType()}/${id}`;
+  },
+
   pathForType: function() {
     return "folders";
   }

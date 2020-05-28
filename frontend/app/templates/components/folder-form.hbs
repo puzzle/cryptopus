@@ -13,32 +13,19 @@
             <div class="col-md-6">
               <div class="row">
                 <div class="form-group col-md-12">
-                  <label name="accountname">{{t "account.accountname"}}</label>
+                  <label name="name">{{t "folders.name"}}</label>
                   <div>
-                    <Input class="form-control" @value={{this.changeset.name}} @name="accountname" />
+                    <Input class="form-control" @value={{this.changeset.name}} @name="name" />
                     <ValidationErrorsList @errors={{this.changeset.error.name.validation}}/>
                   </div>
                 </div>
               </div>
-
-              <div class="row">
-                <div class="col-md-12">
-                  <label name="password">{{t "account.password"}}</label>
-                </div>
-                <div class="d-flex col-sm-12">
-                  <div class="form-group col-sm-6">
-                    <div class="row">
-                      <Input class="form-control " @value={{this.changeset.cleartextPassword}} @name="cleartextPassword" @type="password"/>
-                    </div>
-                  </div>
-                  <div class="form-group col-xs-12 col-sm-5 pull-right">
-                    <div class="row">
-                      <button class="btn btn-secondary btn-block" {{on "click" this.setRandomPassword}}>{{t "randomPassword"}}</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
+
+            <div class="col-md-1">
+
+            </div>
+
             <div class="col-md-5">
               <div class="row">
                 <div class="col-md-12" id="team-power-select">
@@ -48,21 +35,11 @@
                   </PowerSelect>
                 </div>
               </div>
-
-              <div class="row">
-                <div id="folder-power-select" class="col-md-12">
-                  <label name="folder">{{t "folder"}}</label>
-                  <PowerSelect @options={{this.availableFolders}} @selected={{this.changeset.folders}} @disabled={{this.isFolderDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setFolder}} @allowClear={{true}} @placeholder={{t "account.form.folderPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |folder|>
-                    {{folder.name}}
-                  </PowerSelect>
-                  <ValidationErrorsList @errors={{this.changeset.error.folder.validation}}/>
-                </div>
-              </div>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-12">
-              <label name="description">{{t "account.description"}}</label>
+              <label name="description">{{t "description"}}</label>
               <div>
                 <Textarea class="form-control vertical-resize" @value={{this.changeset.description}} @name="description"/>
                 <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>

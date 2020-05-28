@@ -20,7 +20,7 @@ export default class FolderForm extends BaseFormComponent {
   constructor() {
     super(...arguments);
 
-    this.record = this.args.account || this.store.createRecord("folder");
+    this.record = this.args.folder || this.store.createRecord("folder");
     this.isNewRecord = this.record.isNew;
 
     this.changeset = new Changeset(
@@ -59,7 +59,12 @@ export default class FolderForm extends BaseFormComponent {
   setSelectedTeam(selectedTeam) {
     if (isPresent(selectedTeam)) {
       this.selectedTeam = selectedTeam;
+      this.changeset.team = team;
     }
+  }
+
+  @action
+  setTeam(team) {
   }
 
   async beforeSubmit() {
@@ -72,11 +77,11 @@ export default class FolderForm extends BaseFormComponent {
     $(this.modalElement).modal("hide");
     /* eslint-enable no-undef  */
 
-    if (this.isEditView) {
+    if (this.isNewRecord) {
+      window.location.replace("/teams"+savedRecords[0].team.id+"/folders/" + savedRecords[0].id);
+    } else {
       let href = window.location.href;
       window.location.replace(href.substring(0, href.search("#")));
-    } else {
-      window.location.replace("/accounts/" + savedRecords[0].id);
     }
   }
 }

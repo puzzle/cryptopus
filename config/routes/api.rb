@@ -3,8 +3,8 @@
 Rails.application.routes.draw do
   scope '/api', module: 'api' do
 
-    resources :folders, only: [:index]
     resources :teams, only: [:index]
+    resources :folders, only: [:show, :index, :update, :create]
     resources :accounts, only: [:show, :index, :update, :create]
 
     resources :api_users do

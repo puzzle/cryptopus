@@ -1,0 +1,39 @@
+user: "User"
+description: "Description"
+enabled: "Enabled"
+folder: "Folder"
+randomPassword: "Random Password"
+new: "New"
+save: "Save"
+close: "Close"
+newAccount: "New Account"
+editAccount: "Edit Account"
+team:
+  team: "Team"
+  members: "Members"
+  apiUsers: "Api Users"
+  editMembersAndApiUsers: "Edit Team Members and Api Users"
+account:
+  form:
+    teamPlaceholder: "Select a team"
+    folderPlaceholder: "Select a folder"
+    passwordStrength: "Password Strength"
+  accountname: "Account name"
+  username: "Username"
+  password: "Password"
+  description: "Description"
+  attachement: "Attachement"
+teams:
+  title: 'Teams'
+  forms:
+    newTitle: 'New Team'
+    editTitle: 'Edit Team'
+    privateInfo: 'Admins have no access if checked.'
+  name: 'Name'
+  description: 'Description'
+  private: 'Private'
+folders:
+  forms:
+    editTitle: 'Edit Folder'
+    newTitle: 'New Folder'
+  name: 'Folder Name'

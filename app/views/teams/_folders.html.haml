@@ -4,18 +4,18 @@
 -#  https://github.com/puzzle/cryptopus.
 
 = hidden_field_tag :team_id, team.id
-= link_to t('folder.new.title'), new_team_folder_path(team), class: 'btn btn-primary pull-right', id: 'folder-button'
+= link_to t('folders.new.title'), new_team_folder_path(team), class: 'btn btn-primary pull-right', id: 'folder-button'
 = link_to image_pack_tag("team_config.svg"), "#/teams/#{team.id}/configure", id: 'config_team_button', title: t('teams.config_button.title') , class: 'edit_button btn btn-secondary pull-right','data-turbolinks': 'false'
 = link_to image_pack_tag("edit.svg"), "#/teams/#{team.id}/edit", id: 'edit_team_button', title: t('teams.edit_button.title'), class: 'edit_button btn btn-secondary pull-right','data-turbolinks': 'false'
 
 %table.table.table-striped
   %tr
-    %th{style: "width: 150px;"}= t '.folder'
+    %th{style: "width: 150px;"}= t 'folder'
     %th= t :description
     %th{colspan: "3"}= t :actions
   - for folder in @folders
     %tr{class: "#{cycle('odd', 'even')}"}
       %td= link_to image_pack_tag( "folder_open.svg" ) + " " + %Q{#{folder.name}}, team_folder_path(team, folder)
       %td= h simple_format folder.description
-      %td.action_icon= link_to image_pack_tag("edit.svg"), "#/teams/#{team.id}/folders/#{folder.id}/edit"
+      %td.action_icon= link_to image_pack_tag("edit.svg"), "#/folders/#{folder.id}/edit", 'data-turbolinks': 'false'
       %td.action_icon= link_to_destroy team_folder_path(team, folder), folder
