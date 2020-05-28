@@ -49,18 +49,6 @@ body {
   vertical-align:middle;
 }
 
-.info_icon{
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  display: inline;
-  margin-left: 5px;
-}
-
-.info_icon:hover{
-  cursor: help;
-}
-
 .search-icon{
   padding-right: 1px;
   padding-bottom: 2px;
@@ -127,14 +115,6 @@ body {
 }
 /*Team*/
 
-.description{
-  background-color: #eee;
-  display: none;
-  position: absolute;
-  padding: 2px;
-  margin-left: 40px;
-}
-
 .toggle-button {
   background-color: white;
   border-radius: 20px;
@@ -197,4 +177,18 @@ body {
 #ldap_info{
   background-color: rgba(217, 237, 247, 0.2);
   width: 100%;
+}
+
+.edit_button {
+  padding: 6px;
+  border: 1px solid #c9c9c9;
+  width: 45px;
+  background-color: #ebe3df;
+  margin-left: 6px;
+}
+.edit_button:hover {
+  background-color: #ffffff;
+}
+.edit_button img {
+  height: 18px;
 }

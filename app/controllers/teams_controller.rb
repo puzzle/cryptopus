@@ -32,59 +32,6 @@ class TeamsController < ApplicationController
     end
   end
 
-  # GET /teams/new
-  def new
-    @team = Team.new
-    authorize @team
-
-    respond_to do |format|
-      format.html # new.html.haml
-    end
-  end
-
-  # POST /teams
-  def create
-    respond_to do |format|
-      team = Team.create(current_user, model_params)
-      authorize team
-      if team.valid?
-        flash[:notice] = t('flashes.teams.created')
-        format.html { redirect_to(teams_url) }
-      else
-        format.html { render action: 'new' }
-      end
-    end
-  end
-
-  # GET /teams/1/edit
-  def edit
-    authorize team
-    add_breadcrumb t('teams.title'), :teams_path
-    add_breadcrumb team.label
-  end
-
-  # PUT /teams/1
-  def update
-    authorize team
-    add_breadcrumb t('teams.title'), :teams_path
-    respond_to do |format|
-      if team.update!(model_params)
-        flash[:notice] = t('flashes.teams.updated')
-        format.html { redirect_to(teams_url) }
-      else
-        format.html { render action: 'edit' }
-      end
-    end
-  end
-
-  # DELETE /teams/1
-  def destroy
-    authorize team
-    team.destroy
-    flash[:notice] = t('flashes.teams.deleted')
-    redirect_to teams_path
-  end
-
   private
 
   def groups_breadcrumbs

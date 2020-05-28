@@ -210,6 +210,10 @@ ch_be:
       private: Privat
     index_menu:
       create: Team ersteue
+    edit_button:
+      title: Bearbeite Eigeschafte vom Team
+    config_button:
+      title: Füeg hinzue u lösch Mitglieder u API Benutzer
     index:
       title: 'Du bisch es Mitglied vo de fougende Teams:'
       team: Team
