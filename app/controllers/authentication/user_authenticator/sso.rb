@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator::External
+class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
+
   def initialize(username: nil, password: nil)
-    @authenticated = false
     @username = username
     @password = password
-    raise 'can\'t preform this action Keycloak is disabled' unless AuthConfig.keycloak_enabled?
+    @authenticated = false
   end
 
   def authenticate!
-    return false unless preconditions?
     return false unless Keycloak::Client.user_signed_in?
+    return false unless preconditions?
 
     true
   end
@@ -25,25 +25,39 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
   end
 
   def update_user_info(remote_ip)
-    super({
-      provider_uid: Keycloak::Client.get_attribute('sub'),
-      givenname: Keycloak::Client.get_attribute('given_name'),
-      surname: Keycloak::Client.get_attribute('family_name')
-    })
+    super(
+      last_login_from: remote_ip,
+      # provider_uid: Keycloak::Client.get_attribute('sub'),
+      # givenname: Keycloak::Client.get_attribute('given_name'),
+      # surname: Keycloak::Client.get_attribute('family_name')
+    )
   end
+
+  def login_path
+    session_sso_path
+  end
+
+  def user_logged_in?(session)
+    session[:user_id].present? && session[:private_key].present? && Keycloak::Client.user_signed_in?
+  end
+
 
   private
 
+  def username
+    @username ||= Keycloak::Client.get_attribute('preferred_username')
+  end
+
   def create_user
     pk_secret_base = CryptUtils.pk_secret(Keycloak::Client.get_attribute('pk_secret_base') ||
-                        CryptUtils.create_pk_secret_base(Keycloak::Client.get_attribute('sub')))
-    super({
+                      CryptUtils.create_pk_secret_base(Keycloak::Client.get_attribute('sub')))
+    User::Human.create(
+      username: username,
       givenname: Keycloak::Client.get_attribute('given_name'),
       surname: Keycloak::Client.get_attribute('family_name'),
-      provider_uid: Keycloak::Client.get_attribute('sub')
-    },
-    pk_secret_base
-    )
+      provider_uid: Keycloak::Client.get_attribute('sub'),
+      auth: 'keycloak'
+    ) { |u| u.create_keypair(pk_secret_base) }
   end
 
   def params_present?

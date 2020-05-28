@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+include Rails.application.routes.url_helpers
+
 class Authentication::UserAuthenticator
 
   class << self
     def init(params)
       case AuthConfig.provider
       when 'db'
-        new(params)
+        Authentication::UserAuthenticator::Db.new(params)
       when 'ldap'
         Authentication::UserAuthenticator::Ldap.new(params)
       when 'keycloak'
@@ -22,45 +24,35 @@ class Authentication::UserAuthenticator
   end
 
   def authenticate!
-    return false if user_root?
-    return false unless preconditions?
-    return false if user.locked?
-
-    authenticated = user.authenticate_db(password)
-
-    add_error('flashes.session.wrong_password') unless authenticated
-
-    brute_force_detector.update(authenticated)
-    authenticated
+    raise NotImplementedError, 'implement in subclass'
   end
 
   def find_or_create_user
-    User.find_by(username: username.strip)
+    raise NotImplementedError, 'implement in subclass'
   end
 
-  def update_user_info(remote_ip)
-    user.update(last_login_from: remote_ip, last_login_at: Time.zone.now)
+  def update_user_info(params)
+    params[:last_login_at] = Time.zone.now
+    user.update(params)
   end
 
   def root_authenticate!
     return false unless username == 'root'
     return false unless preconditions?
-    return false if user.locked?
+    return false if brute_force_detector.locked?
 
     authenticated = user.authenticate_db(password)
-
-    add_error('flashes.session.wrong_password') unless authenticated
 
     brute_force_detector.update(authenticated)
     authenticated
   end
 
-  def errors
-    @errors ||= []
-  end
-
   def user
     @user ||= find_or_create_user
+  end
+
+  def login_path
+    raise NotImplementedError, 'implement in subclass'
   end
 
   private
@@ -68,34 +60,12 @@ class Authentication::UserAuthenticator
   attr_accessor :authenticated
   attr_reader :username, :password
 
-  def user_locked?
-    unless brute_force_detector.locked?
-      return false
-    end
-
-    add_error('flashes.session.locked')
-    true
-  end
-
   def brute_force_detector
     @brute_force_detector ||= Authentication::BruteForceDetector.new(user)
   end
 
   def preconditions?
-    if params_present? && valid_username? && user.present?
-      return true
-    end
-
-    add_error('flashes.session.wrong_password')
-    false
-  end
-
-  def user_root?
-    if username == 'root'
-      add_error('flashes.session.wrong_root')
-      return true
-    end
-    false
+    params_present? && valid_username? && user.present?
   end
 
   def params_present?
@@ -104,9 +74,5 @@ class Authentication::UserAuthenticator
 
   def valid_username?
     username.strip =~ /^([a-zA-Z]|\d)+[-]?([a-zA-Z]|\d)*[^-]$/
-  end
-
-  def add_error(msg_key)
-    errors << I18n.t(msg_key)
   end
 end

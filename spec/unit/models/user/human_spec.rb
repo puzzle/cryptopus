@@ -33,9 +33,9 @@ describe User::Human do
       decrypted_private_key = bob.decrypt_private_key('password')
       bob.update_password('password', 'new')
 
-      expect(Authentication::AuthProvider.new(username: bob.username, password: 'password')
+      expect(Authentication::UserAuthenticator.init(username: bob.username, password: 'password')
                                          .authenticate!).to eq(false)
-      expect(Authentication::AuthProvider.new(username: bob.username, password: 'new')
+      expect(Authentication::UserAuthenticator.init(username: bob.username, password: 'new')
                                          .authenticate!).to eq(true)
       expect(bob.decrypt_private_key('new')).to eq(decrypted_private_key)
     end

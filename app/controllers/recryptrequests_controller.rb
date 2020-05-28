@@ -55,7 +55,7 @@ class RecryptrequestsController < ApplicationController
   end
 
   def user_authenticator
-    Authentication::AuthProvider::Ldap.new(
+    Authentication::UserAuthenticator.init(
       username: current_user.username,
       password: params[:new_password]
     )

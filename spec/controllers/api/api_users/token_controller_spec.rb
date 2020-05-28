@@ -23,9 +23,9 @@ describe Api::ApiUsers::TokenController do
 
       new_token = api_user.send(:decrypt_token, private_key)
       expect(api_user).to_not be_locked
-      expect(Authentication::AuthProvider.new(username: api_user.username, password: old_token)
+      expect(Authentication::UserAuthenticator::Db.new(username: api_user.username, password: old_token)
       .authenticate!).to be false
-      expect(Authentication::AuthProvider.new(username: api_user.username, password: new_token)
+      expect(Authentication::UserAuthenticator::Db.new(username: api_user.username, password: new_token)
       .authenticate!).to be true
     end
 
@@ -45,7 +45,7 @@ describe Api::ApiUsers::TokenController do
       token = api_user.send(:decrypt_token, private_key)
 
       expect(api_user).to be_locked
-      expect(Authentication::AuthProvider.new(username: api_user.username, password: token)
+      expect(Authentication::UserAuthenticator::Db.new(username: api_user.username, password: token)
       .authenticate!).to be false
     end
 

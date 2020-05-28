@@ -146,7 +146,7 @@ describe User::Api do
   private
 
   def authenticate(username, token)
-    Authentication::AuthProvider.new(username: username, password: token).authenticate!
+    Authentication::UserAuthenticator::Db.new(username: username, password: token).authenticate!
   end
 
   def decrypted_token(api_user)

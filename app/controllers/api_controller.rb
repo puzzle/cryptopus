@@ -95,7 +95,7 @@ class ApiController < CrudController
   end
 
   def user_authenticator
-    Authentication::AuthProvider.new(username: username, password: password_header)
+    Authentication::UserAuthenticator::Db.new(username: username, password: password_header)
   end
 
   def users_private_key

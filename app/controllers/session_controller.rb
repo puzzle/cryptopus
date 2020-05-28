@@ -15,14 +15,14 @@ class SessionController < ApplicationController
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
   skip_before_action :verify_authenticity_token, only: :create
-  skip_before_action :validate_user, only: [:new, :create, :destroy, :sso, :local, :root]
-  skip_before_action :redirect_if_no_private_key, only: [:destroy, :new, :sso]
+  skip_before_action :validate_user, expect: [:update_password, :changelocale]
+  skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
 
 
   def create
     unless user_authenticator.authenticate!
       flash[:error] = t('flashes.session.auth_failed')
-      return redirect_to session_new_path
+      return redirect_to user_authenticator.login_path
     end
 
     unless create_session(user_authenticator.user, params[:password])
@@ -37,7 +37,7 @@ class SessionController < ApplicationController
   def root
     unless user_authenticator.root_authenticate!
       flash[:error] = t('flashes.session.auth_failed')
-      return redirect_to session_new_path
+      return redirect_to user_authenticator.login_path
     end
 
     unless create_session(user_authenticator.user, params[:password])
@@ -50,20 +50,16 @@ class SessionController < ApplicationController
   end
 
   def sso
-    if params[:code].present?
+    unless params[:code].blank? || Keycloak::Client.user_signed_in?
       token = Keycloak::Client.get_token_by_code(params[:code], session_sso_url)
       cookies.permanent[:keycloak_token] = token
     end
-    if Keycloak::Client.user_signed_in?
-      unless user_authenticator.authenticate!
-        flash[:error] = t('flashes.session.auth_failed')
-        return update_token
-      end
-      return update_token if Keycloak::Client.get_attribute('pk_secret_base').nil?
+    if user_authenticator.authenticate!
+      # return update_token if Keycloak::Client.get_attribute('pk_secret_base').nil?
 
       create_session(user_authenticator.user, CryptUtils.pk_secret)
 
-      last_login_message
+      # last_login_message
       redirect_after_sucessful_login
     else
       update_token
@@ -78,7 +74,7 @@ class SessionController < ApplicationController
     reset_session
     session[:jumpto] = jumpto
     flash[:notice] = flash_notice
-    redirect_to session_new_path
+    redirect_to user_authenticator.login_path
   end
 
   def show_update_password
@@ -133,13 +129,9 @@ class SessionController < ApplicationController
   end
 
   def redirect_after_sucessful_login
-    if session[:jumpto].blank?
-      redirect_to search_path
-    else
-      jump_to = session[:jumpto]
-      session[:jumpto] = nil
-      redirect_to jump_to
-    end
+    jump_to = session[:jumpto] || search_path
+    session[:jumpto] = nil
+    redirect_to jump_to
   end
 
   def set_session_attributes(user, password)

@@ -11,28 +11,14 @@ module UserSession
   included do
     helper_method :current_user
     before_action :redirect_if_no_private_key
-    before_action :validate_user, except: [:wizard, :sso]
+    before_action :validate_user, except: :wizard
   end
 
   def validate_user
-    validate_sso_user if AuthConfig.keycloak_enabled?
-    validate_db_ldap_user unless AuthConfig.keycloak_enabled?
-  end
-
-  def validate_sso_user
-    return if current_user.present? && current_user.root?
-
-    unless current_user.present? && Keycloak::Client.user_signed_in?
-      session[:jumpto] = request.parameters
-      redirect_to Keycloak::Client.url_login_redirect(session_sso_url, 'code')
-    end
-  end
-
-  def validate_db_ldap_user
     handle_pending_recrypt_request
     if current_user.nil?
       session[:jumpto] = request.parameters
-      redirect_to session_new_path
+      redirect_to user_authenticator.login_path
     end
   end
 
@@ -59,8 +45,7 @@ module UserSession
   end
 
   def user_authenticator
-    username = params['username'] || Keycloak::Client.get_attribute('preferred_username')
-    Authentication::UserAuthenticator.init(username: username, password: params['password'])
+    Authentication::UserAuthenticator.init(username: params['username'], password: params['password'])
   end
 
   private

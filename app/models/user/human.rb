@@ -201,13 +201,6 @@ class User::Human < User
   end
 
   def user_authenticator(password)
-    case AuthConfig.provider
-    when 'keycloak'
-      Authentication::AuthProvider::Sso.new(username: username)
-    when 'ldap'
-      Authentication::AuthProvider::Ldap.new(username: username, password: password)
-    when 'db'
-      Authentication::AuthProvider.new(username: username, password: password)
-    end
+    Authentication::UserAuthenticator.init(username: username, password: password)
   end
 end
