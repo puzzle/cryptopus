@@ -305,7 +305,8 @@ describe Api::AccountsController do
             tag: 'taggy',
             cleartext_username: 'globi',
             cleartext_password: 'petzi'
-          }
+          },
+          relationships: { group: { data: { id: account.group_id, type: 'groups' } } }
         }, id: account.id
       }
       patch :update, params: account_params, xhr: true
@@ -322,6 +323,75 @@ describe Api::AccountsController do
       expect(response).to have_http_status(200)
     end
 
+    it 'moves account to other team' do
+      login_as(:bob)
+
+      account = accounts(:account1)
+      target_group = groups(:group2)
+
+      account_params = {
+        data: {
+          id: account.id,
+          attributes: {
+            accountname: 'Bob Meyer',
+            tag: 'taggy',
+            cleartext_username: 'globi',
+            cleartext_password: 'petzi'
+          },
+          relationships: { group: { data: { id: target_group.id, type: 'groups' } } }
+        }, id: account.id
+      }
+      patch :update, params: account_params, xhr: true
+
+      account.reload
+
+      plaintext_team2_password = teams(:team2).decrypt_team_password(bob, private_key)
+      account.decrypt(plaintext_team2_password)
+      item = account.items.first
+      item.decrypt(plaintext_team2_password)
+
+      expect(account.cleartext_username).to eq 'globi'
+      expect(account.cleartext_password).to eq 'petzi'
+      expect(item.cleartext_file).to eq 'Das ist ein test File'
+
+      expect(response).to have_http_status(200)
+    end
+
+    it 'updates account but does not move without team membership' do
+      login_as(:alice)
+
+      account = accounts(:account1)
+      new_group = groups(:group2)
+
+      account_params = {
+        data: {
+          id: account.id,
+          attributes: {
+            accountname: 'Bob Meyer',
+            tag: 'taggy',
+            cleartext_username: 'globi',
+            cleartext_password: 'petzi'
+          },
+          relationships: { group: { data: { id: new_group.id, type: 'groups' } } }
+        }, id: account.id
+      }
+      expect do
+        patch :update, params: account_params, xhr: true
+      end.to raise_error(RuntimeError, 'You have no access to this team')
+
+      account.reload
+
+      plaintext_team2_password = teams(:team2).decrypt_team_password(bob, private_key)
+      expect do
+        account.decrypt(plaintext_team2_password)
+      end.to raise_error(OpenSSL::Cipher::CipherError, 'bad decrypt')
+
+      item = account.items.first
+      expect do
+        item.decrypt(plaintext_team2_password)
+      end.to raise_error(OpenSSL::Cipher::CipherError, 'bad decrypt')
+    end
+
     it 'cannot set account password and username attributes by params' do
       set_auth_headers
 
@@ -333,7 +403,8 @@ describe Api::AccountsController do
           attributes: {
             username: 'invalid username param',
             password: 'invalid password param'
-          }
+          },
+          relationships: { group: { data: { id: account.group_id, type: 'groups' } } }
         }, id: account.id
       }
 

@@ -9,30 +9,27 @@ class AccountMoveHandler < AccountHandler
 
   attr_accessor :new_group
 
-  def move(new_group)
-    @new_group = new_group
+  def move
     ApplicationRecord.transaction do
       move_account_to_new_team unless same_team?
 
-      account.group_id = new_group.id
-      if account.valid?
-        account.save!
-        true
-      else raise ActiveRecord::Rollback
-      end
+      raise ActiveRecord::Rollback unless account.valid?
     end
   end
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def move_account_to_new_team
     raise 'user is not member of new team' unless new_team.teammember?(user.id)
 
     old_team_password = old_team.decrypt_team_password(user, private_key)
     move_items(old_team_password)
+    account.encrypt(old_team_password)
     account.decrypt(old_team_password)
     account.encrypt(new_team.decrypt_team_password(user, private_key))
   end
+  # rubocop:enable Metrics/AbcSize
 
   def move_items(old_team_password)
     new_team_password = new_team.decrypt_team_password(user, private_key)
@@ -48,11 +45,10 @@ class AccountMoveHandler < AccountHandler
   end
 
   def new_team
-    @new_team ||= new_group.team
+    @new_team ||= account.group.team
   end
 
   def old_team
-    @old_team ||= account.group.team
+    @old_team ||= Group.find(account.group_id_was).team
   end
-
 end

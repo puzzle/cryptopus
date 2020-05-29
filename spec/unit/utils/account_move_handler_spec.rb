@@ -17,9 +17,9 @@ describe AccountMoveHandler do
     team_password = target_group.team.decrypt_team_password(bob, private_key)
     Fabricate(:account, group: target_group, team_password: team_password, accountname: 'account1')
 
-    account_handler = AccountMoveHandler.new(account, private_key, bob)
-
-    expect(account_handler.move(target_group)).to be_nil
+    AccountMoveHandler.new(account, private_key, bob).move
+    account.save!
+    expect(account.group).to eq groups(:group1)
   end
 
   it 'moves account to a group from another team' do
@@ -28,9 +28,9 @@ describe AccountMoveHandler do
     new_group = groups(:group1)
 
     expect(groups(:group2).id).to eq(account.group_id)
-    account_handler = AccountMoveHandler.new(account, private_key, bob)
-    account_handler.move(new_group)
-    account.reload
+    account.group = new_group
+    AccountMoveHandler.new(account, private_key, bob).move
+    account.save!
 
     expect(account.decrypt(new_group.team.decrypt_team_password(bob,
                                                                 private_key))).to eq('password')
@@ -43,8 +43,9 @@ describe AccountMoveHandler do
     new_group = groups(:group2)
     new_team_password = new_group.team.decrypt_team_password(bob, private_key)
 
-    account_handler = AccountMoveHandler.new(account, private_key, bob)
-    account_handler.move(new_group)
+    account.group = new_group
+    AccountMoveHandler.new(account, private_key, bob).move
+    account.save!
 
     expect(account).to eq(items(:item2).account)
     expect(teams(:team2)).to eq(items(:item2).account.group.team)
@@ -62,9 +63,9 @@ describe AccountMoveHandler do
     account = accounts(:account1)
     new_group = groups(:group2)
 
+    account.group = new_group
     expect do
-      account_handler = AccountMoveHandler.new(account, private_key, alice)
-      account_handler.move(new_group)
+      AccountMoveHandler.new(account, private_key, alice).move
     end.to raise_error('user is not member of new team')
   end
 
@@ -73,8 +74,9 @@ describe AccountMoveHandler do
     private_key = decrypt_private_key(bob)
     new_group = Fabricate(:group, name: 'group3', team_id: teams(:team1).id)
 
-    account_handler = AccountMoveHandler.new(account, private_key, bob)
-    account_handler.move(new_group)
+    account.group = new_group
+    AccountMoveHandler.new(account, private_key, bob).move
+    account.save!
 
     expect(account.decrypt(new_group.team.decrypt_team_password(bob,
                                                                 private_key))).to eq('password')
@@ -89,11 +91,9 @@ describe AccountMoveHandler do
     item1 = items(:item1)
     item2 = items(:item2)
 
-    expect(account).to receive(:save!)
-
-    account_handler = AccountMoveHandler.new(account, bobs_private_key, bob)
+    account.group = new_group
     begin
-      account_handler.move(new_group)
+      AccountMoveHandler.new(account, bobs_private_key, bob).move
     rescue StandardError
       team1_password = team1.decrypt_team_password(bob, bobs_private_key)
       item1.reload.decrypt(team1_password)
