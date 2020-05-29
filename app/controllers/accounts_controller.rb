@@ -59,5 +59,4 @@ class AccountsController < ApplicationController
     add_breadcrumb t('teams.title'), :teams_path
     add_breadcrumb team.label, team_path(team.id)
   end
-
 end

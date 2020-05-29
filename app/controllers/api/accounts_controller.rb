@@ -39,6 +39,7 @@ class Api::AccountsController < ApiController
     authorize account
     account.attributes = model_params
     account.encrypt(decrypted_team_password(account.group.team))
+    account_move_handler.move if account.group_id_changed?
     account.save!
     render_json account
   end
@@ -68,5 +69,9 @@ class Api::AccountsController < ApiController
 
   def tag_param
     params[:tag]
+  end
+
+  def account_move_handler
+    AccountMoveHandler.new(account, session[:private_key], current_user)
   end
 end

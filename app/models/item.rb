@@ -71,7 +71,7 @@ class Item < ApplicationRecord
   end
 
   def uploaded_file_exist
-    if cleartext_file.blank? && file.nil?
+    if file.nil? && cleartext_file.empty?
       errors[:base] << I18n.t('flashes.items.uploaded_file_inexistent')
     end
   end
@@ -90,10 +90,9 @@ class Item < ApplicationRecord
   end
 
   def encrypt_file(team_password)
-    return if cleartext_file.blank?
+    return if cleartext_file.empty?
 
     crypted_file = CryptUtils.encrypt_blob(cleartext_file, team_password)
     self.file = crypted_file
   end
-
 end
