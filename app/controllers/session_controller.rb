@@ -25,7 +25,7 @@ class SessionController < ApplicationController
       return redirect_to user_authenticator.login_path
     end
 
-    unless create_session(user_authenticator.user, params[:password])
+    unless create_session(params[:password])
       return redirect_to recryptrequests_new_ldap_password_path
     end
 
@@ -40,7 +40,7 @@ class SessionController < ApplicationController
       return redirect_to user_authenticator.login_path
     end
 
-    unless create_session(user_authenticator.user, params[:password])
+    unless create_session(params[:password])
       return redirect_to recryptrequests_new_ldap_password_path
     end
 
@@ -50,14 +50,14 @@ class SessionController < ApplicationController
   end
 
   def sso
-    unless params[:code].blank? || Keycloak::Client.user_signed_in?
+    if params[:code].present? && Keycloak::Client.user_signed_in?
       token = Keycloak::Client.get_token_by_code(params[:code], session_sso_url)
       cookies.permanent[:keycloak_token] = token
     end
     if user_authenticator.authenticate!
       # return update_token if Keycloak::Client.get_attribute('pk_secret_base').nil?
 
-      create_session(user_authenticator.user, CryptUtils.pk_secret)
+      create_session(keycloak_client.user_pk_secret)
 
       # last_login_message
       redirect_after_sucessful_login
@@ -117,10 +117,11 @@ class SessionController < ApplicationController
     end
   end
 
-  def create_session(user, password)
+  def create_session(password)
+    user = user_authenticator.user
+    set_session_attributes(user, password)
+    user_authenticator.update_user_info(request.remote_ip)
     begin
-      set_session_attributes(user, password)
-      user_authenticator.update_user_info(request.remote_ip)
       CryptUtils.validate_keypair(session[:private_key], user.public_key)
     rescue Exceptions::DecryptFailed
       return false
@@ -134,13 +135,13 @@ class SessionController < ApplicationController
     redirect_to jump_to
   end
 
-  def set_session_attributes(user, password)
+  def set_session_attributes(user, pk_secret)
     jumpto = session[:jumpto]
     reset_session
     session[:jumpto] = jumpto
     session[:username] = user.username
     session[:user_id] = user.id.to_s
-    session[:private_key] = user.decrypt_private_key(password)
+    session[:private_key] = user.decrypt_private_key(pk_secret)
     session[:last_login_at] = user.last_login_at
     session[:last_login_from] = user.last_login_from
   end
@@ -164,5 +165,9 @@ class SessionController < ApplicationController
 
   def authorize_action
     authorize :session
+  end
+
+  def keycloak_client
+    @keycloak_client ||= KeycloakClient.new
   end
 end

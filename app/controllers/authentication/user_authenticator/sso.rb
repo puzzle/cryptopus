@@ -49,18 +49,22 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
   end
 
   def create_user
-    pk_secret_base = CryptUtils.pk_secret(Keycloak::Client.get_attribute('pk_secret_base') ||
-                      CryptUtils.create_pk_secret_base(Keycloak::Client.get_attribute('sub')))
+    pk_secret_base = Keycloak::Client.get_attribute('pk_secret_base') ||
+                      KeycloakClient.create_pk_secret_base(Keycloak::Client.get_attribute('sub'))
     User::Human.create(
       username: username,
       givenname: Keycloak::Client.get_attribute('given_name'),
       surname: Keycloak::Client.get_attribute('family_name'),
       provider_uid: Keycloak::Client.get_attribute('sub'),
       auth: 'keycloak'
-    ) { |u| u.create_keypair(pk_secret_base) }
+    ) { |u| u.create_keypair(keycloak_client.user_pk_secret) }
   end
 
   def params_present?
     username.present?
+  end
+
+  def keycloak_client
+    @keycloak_client ||= KeycloakClient.new
   end
 end
