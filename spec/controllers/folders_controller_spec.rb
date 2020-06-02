@@ -45,38 +45,6 @@ describe FoldersController do
     end
   end
 
-  context 'GET edit' do
-    render_views
-
-    it 'shows breadcrumb path 2 if user is on edit of folders' do
-      login_as(:bob)
-      team1 = teams(:team1)
-      folder1 = folders(:folder1)
-
-      get :edit, params: { id: folder1, team_id: team1 }
-
-      expect(response.body).to match(/Teams/)
-      expect(response.body).to match(/team1/)
-      expect(response.body).to match(/folder1/)
-    end
-  end
-
-  context 'PUT update' do
-    it 'updates folder name and description' do
-      login_as(:alice)
-      folder = folders(:folder1)
-      team = teams(:team1)
-
-      update_params = { name: 'new_name', description: 'new_description' }
-      put :update, params: {team_id: team, id: folder, folder: update_params }
-
-      folder.reload
-
-      expect(folder.name).to eq 'new_name'
-      expect(folder.description).to eq 'new_description'
-    end
-  end
-
   context 'DELETE destroy' do
     it 'deletes folder as teammember' do
       login_as(:bob)

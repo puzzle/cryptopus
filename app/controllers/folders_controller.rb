@@ -22,56 +22,6 @@ class FoldersController < ApplicationController
     end
   end
 
-  # GET /teams/1/folders/new
-  def new
-    @folder = team.folders.new
-    authorize folder
-
-    respond_to do |format|
-      format.html # new.html.haml
-    end
-  end
-
-  # POST /teams/1/folders
-  def create
-    @folder = team.folders.new(model_params)
-    authorize folder
-
-    respond_to do |format|
-      if @folder.save
-        flash[:notice] = t('flashes.folders.created')
-        format.html { redirect_to team_folders_url(team) }
-      else
-        format.html { render action: 'new' }
-      end
-    end
-  end
-
-  # GET /teams/1/folders/1/edit
-  def edit
-    authorize folder
-
-    folders_breadcrumbs
-
-    respond_to do |format|
-      format.html # edit.html.haml
-    end
-  end
-
-  # PUT /teams/1/folders/1
-  def update
-    authorize folder
-
-    respond_to do |format|
-      if folder.update!(model_params)
-        flash[:notice] = t('flashes.folders.updated')
-        format.html { redirect_to team_folders_url(team) }
-      else
-        format.html { render action: 'edit' }
-      end
-    end
-  end
-
   # DELETE /teams/1/folders/1
   def destroy
     authorize folder

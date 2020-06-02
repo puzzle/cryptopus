@@ -61,8 +61,8 @@ describe Api::FoldersController do
       folder = folders(:folder1)
       team = teams(:team1)
 
-      update_params = { name: 'new_name', description: 'new_description' }
-      put :update, params: {team_id: team, id: folder, folder: update_params }
+      update_params = { attributes: {name: 'new_name', description: 'new_description' }}
+      put :update, params: {team_id: team, id: folder, data: update_params }
 
       folder.reload
 
@@ -90,7 +90,7 @@ describe Api::FoldersController do
 
       folder.reload
 
-      expect(folder.name).to eq('team2')
+      expect(folder.name).not_to eq('team2')
 
       expect(response).to have_http_status(403)
     end
@@ -118,13 +118,41 @@ describe Api::FoldersController do
               }
           }
       }
+      expect do
+        post :create, params: new_folder_params , xhr: true
+      end.to change { Folder.count }.by(1)
 
-      post :create, params: new_folder_params , xhr: true
+      expect(response).to have_http_status(200)
+      expect(data['attributes']['name']).to eq 'Folder Alice'
+      expect(data['attributes']['description']).to eq 'yeah'
+    end
 
-      folder.reload
+    it 'doesnt create folder name and description if not teammember' do
+      login_as(:alice)
+      team = teams(:team2)
 
-      expect(folder.name).to eq 'Folder Alice'
-      expect(folder.description).to eq 'yeah'
+      new_folder_params = {
+          data: {
+              attributes: {
+                  name: 'Folder Alice',
+                  description: 'yeah'
+              },
+              relationships: {
+                  team: {
+                      data: {
+                          id: team.id,
+                          type: 'teams'
+                      }
+                  }
+              }
+          }
+      }
+      expect do
+        post :create, params: new_folder_params , xhr: true
+      end.to change { Folder.count }.by(0)
+
+      expect(response).to have_http_status(403)
+      expect(data).to eq nil
     end
   end
 
