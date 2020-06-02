@@ -66,7 +66,7 @@ describe AccountMoveHandler do
     account = accounts(:account1)
     new_folder = folders(:folder2)
 
-    account.group = new_group
+    account.folder = new_folder
     expect do
       AccountMoveHandler.new(account, private_key, alice).move
     end.to raise_error('user is not member of new team')
@@ -95,7 +95,7 @@ describe AccountMoveHandler do
     item1 = items(:item1)
     item2 = items(:item2)
 
-    account.group = new_group
+    account.folder = new_folder
     begin
       AccountMoveHandler.new(account, bobs_private_key, bob).move
     rescue StandardError

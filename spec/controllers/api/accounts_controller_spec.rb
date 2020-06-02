@@ -306,7 +306,7 @@ describe Api::AccountsController do
             cleartext_username: 'globi',
             cleartext_password: 'petzi'
           },
-          relationships: { group: { data: { id: account.group_id, type: 'groups' } } }
+          relationships: { folder: { data: { id: account.folder_id, type: 'folders' } } }
         }, id: account.id
       }
       patch :update, params: account_params, xhr: true
@@ -327,7 +327,7 @@ describe Api::AccountsController do
       login_as(:bob)
 
       account = accounts(:account1)
-      target_group = groups(:group2)
+      target_folder = folders(:folder2)
 
       account_params = {
         data: {
@@ -338,7 +338,7 @@ describe Api::AccountsController do
             cleartext_username: 'globi',
             cleartext_password: 'petzi'
           },
-          relationships: { group: { data: { id: target_group.id, type: 'groups' } } }
+          relationships: { folder: { data: { id: target_folder.id, type: 'folders' } } }
         }, id: account.id
       }
       patch :update, params: account_params, xhr: true
@@ -361,7 +361,7 @@ describe Api::AccountsController do
       login_as(:alice)
 
       account = accounts(:account1)
-      new_group = groups(:group2)
+      new_folder = folders(:folder2)
 
       account_params = {
         data: {
@@ -372,7 +372,7 @@ describe Api::AccountsController do
             cleartext_username: 'globi',
             cleartext_password: 'petzi'
           },
-          relationships: { group: { data: { id: new_group.id, type: 'groups' } } }
+          relationships: { folder: { data: { id: new_folder.id, type: 'folders' } } }
         }, id: account.id
       }
       expect do
@@ -404,7 +404,7 @@ describe Api::AccountsController do
             username: 'invalid username param',
             password: 'invalid password param'
           },
-          relationships: { group: { data: { id: account.group_id, type: 'groups' } } }
+          relationships: { folder: { data: { id: account.folder_id, type: 'folders' } } }
         }, id: account.id
       }
 
