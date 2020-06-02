@@ -41,6 +41,14 @@ li a {
   height: 69px;
 }
 
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.popover {
+  min-width: 220px;
+}
+
 .private-description{
   background-color: #eee;
   position: absolute;
@@ -65,4 +73,31 @@ li a {
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background-color: #2988bc !important;
   border-color: #2479a7 !important;
+}
+
+.progress-bar-0 {
+  width: 0% !important;
+  background-color: unset !important;
+}
+.progress-bar-10 {
+  width: 10% !important;
+  background-color: #fc0303 !important;
+}
+
+.progress-bar-25 {
+  width: 25% !important;
+  background-color: #fc0303 !important;
+}
+
+.progress-bar-50 {
+  width: 50% !important;
+  background-color: #fc6703 !important;
+}
+.progress-bar-75 {
+  width: 75% !important;
+  background-color: #fcc603 !important;
+}
+.progress-bar-100 {
+  width: 100% !important;
+  background-color: #4dd100 !important;
 }

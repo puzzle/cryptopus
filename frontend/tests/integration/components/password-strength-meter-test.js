@@ -3,24 +3,20 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
+
 module('Integration | Component | password-strength-meter', function(hooks) {
   setupRenderingTest(hooks);
 
+
   test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<PasswordStrengthMeter />`);
+    this.set('password', 'red');
 
-    assert.equal(this.element.textContent.trim(), '');
+    await render(hbs`<PasswordStrengthMeter @password=this.password/>`);
 
-    // Template block usage:
-    await render(hbs`
-      <PasswordStrengthMeter>
-        template block text
-      </PasswordStrengthMeter>
-    `);
+    assert.equal(this.element.textContent.trim(), 'Password Strength');
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.equal(this.element.querySelector('.progress-bar').getAttribute('class'), 'progress-bar progress-bar-50');
+
   });
 });

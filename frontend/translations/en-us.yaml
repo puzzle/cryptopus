@@ -17,6 +17,7 @@ account:
   form:
     teamPlaceholder: "Select a team"
     folderPlaceholder: "Select a folder"
+    passwordStrength: "Password Strength"
   accountname: "Account name"
   username: "Username"
   password: "Password"
