@@ -24,12 +24,6 @@ class ApplicationController < ActionController::Base
 
   delegate :model_identifier, to: :class
 
-  def initialize
-    keycloak_cookie if AuthConfig.keycloak_enabled?
-
-    super
-  end
-
   def set_locale
     locale = I18n.default_locale
     if current_user
@@ -58,10 +52,6 @@ class ApplicationController < ActionController::Base
 
   def model_params
     params.require(model_identifier).permit(permitted_attrs)
-  end
-
-  def keycloak_cookie
-    Keycloak.proc_cookie_token = -> { cookies.permanent[:keycloak_token] }
   end
 
   class << self

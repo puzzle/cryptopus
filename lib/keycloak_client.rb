@@ -1,7 +1,7 @@
 class KeycloakClient
 
-  def user_pk_secret
-    pk_secret_base = Keycloak::Client.get_attribute('pk_secret_base')
+  def user_pk_secret(secret: nil)
+    pk_secret_base = secret || Keycloak::Client.get_attribute('pk_secret_base')
     Digest::SHA512.hexdigest(secret_key_base + pk_secret_base)
   end
 
