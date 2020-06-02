@@ -16,9 +16,12 @@ account:
   password: "Password"
   description: "Beschreibung"
   attachement: "Anhang"
-commonPassword: "Sehr bekanntes Passwort. Nicht verwenden!"
-veryBadPassword: "Sehr schlechtes Passwort!"
-badPassword: "Schlechtes Password!"
-goodPassword: "Gutes Passwort!"
-veryGoodPassword: "Sehr gutes Passwort!"
-passwordStrength: "Passwort stärke"
+teams:
+  title: 'Teams'
+  forms:
+    editTitle: 'Team bearbeiten'
+    newTitle: 'neues Team'
+    privateInfo: 'Admins haben keinen Zugriff wenn angewählt.'
+  name: 'Name'
+  description: 'Beschreibung'
+  private: 'Private'

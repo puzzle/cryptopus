@@ -16,6 +16,7 @@
   </head>
   <body>
     {{content-for "body"}} {{content-for "test-body"}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
     <script src="/testem.js" integrity=""></script>
     <script src="{{rootURL}}assets/vendor.js"></script>
@@ -32,6 +33,8 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+
+
     {{content-for "body-footer"}} {{content-for "test-body-footer"}}
   </body>
 </html>

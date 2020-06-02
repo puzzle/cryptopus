@@ -4,7 +4,7 @@
 -#  https://github.com/puzzle/cryptopus.
 
 %h1= t '.title'
-= link_to t('teams.new.title'), new_team_path, class: 'btn btn-primary pull-right'
+= link_to t('teams.new.title'), '#/teams/new', class: 'btn btn-primary pull-right', 'data-turbolinks': false
 %table.table.table-striped
   %tr
     %th{style: "width: 150px;"}= t '.team'
@@ -17,7 +17,7 @@
       - else
         %td= link_to image_pack_tag( "members.svg" ) + " #{team.name}", team_path( team )
       %td= h simple_format team.description
-      %td.action_icon= link_to image_pack_tag( "edit.svg" ), edit_team_path( team )
+      %td.action_icon= link_to image_pack_tag( "edit.svg" ), "#/teams/#{team.id}/edit", 'data-turbolinks': false
       - if policy(team).destroy?
         %td.action_icon= link_to_destroy team_path(team), team
       - else
