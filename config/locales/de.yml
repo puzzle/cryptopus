@@ -152,7 +152,7 @@ de:
       admin: Admin
 
   folders:
-    title: Gruppen
+    title: Ordner
     index_menu:
       create: Gruppe erstellen
     edit:

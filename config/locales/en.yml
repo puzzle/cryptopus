@@ -59,7 +59,7 @@ en:
     title: Accounts
     index_menu:
       create: Create Account
-      folder: folders
+      folder: Folder
     show_menu:
       add_attachment: Add attachment
     edit:
@@ -153,7 +153,7 @@ en:
       admin: Admin
 
   folders:
-    title: folders
+    title: Folders
     index_menu:
       create: Create folder
     edit:
