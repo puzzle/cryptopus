@@ -1,0 +1,43 @@
+import { module, test } from "qunit";
+import { setupRenderingTest } from "ember-qunit";
+import { render } from "@ember/test-helpers";
+import { hbs } from "ember-cli-htmlbars";
+
+
+module("Integration | Component | team-form", function(hooks) {
+  setupRenderingTest(hooks);
+
+  test("it renders without input data", async function(assert) {
+
+    await render(hbs`<TeamForm />`);
+
+    assert.ok(this.element.textContent.trim().includes("Name"));
+    assert.ok(this.element.textContent.trim().includes("Private"));
+    assert.ok(this.element.textContent.trim().includes("Description"));
+    assert.ok(this.element.textContent.trim().includes("Save"));
+    assert.ok(this.element.textContent.trim().includes("Close"));
+  });
+
+  test("it renders with input data", async function(assert) {
+    this.set("team", {
+      id: 1,
+      name: "mail",
+      private: false,
+      description: "The ember email",
+    });
+    await render(hbs`<TeamForm \@team\=\{{this.team}}/>`);
+
+    assert.equal(
+      this.element.querySelector("input[name=name]").value,
+      "mail"
+    );
+    assert.equal(
+      this.element.querySelector("input[name=private]").checked,
+      false
+    );
+    assert.equal(
+      this.element.querySelector("textarea[name=description]").value,
+      "The ember email"
+    );
+  });
+});
