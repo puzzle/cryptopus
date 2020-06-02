@@ -39,18 +39,18 @@ module UserSession
   # redirect if its not possible to decrypt user's private key
   def redirect_if_no_private_key
     if current_user.is_a?(User::Human) && !active_session?
-      # TODO: redirect_to recryptrequests_keycloak_path
       redirect_to recryptrequests_new_ldap_password_path
     end
   end
 
   def user_authenticator
-    Authentication::UserAuthenticator.init(username: params['username'], password: params['password'])
+    Authentication::UserAuthenticator.init(
+      username: params['username'], password: params['password']
+    )
   end
 
   private
 
-  # TODO: recryptrequests in nicht ldap umgebung??
   def handle_pending_recrypt_request
     if pending_recrypt_request?
       pending_recrypt_request_message

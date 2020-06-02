@@ -174,13 +174,32 @@ describe SessionController do
   context 'GET sso' do
     it 'logs in User with Keycloak' do
       enable_keycloak
-      expect(Keycloak::Client).to receive(:get_token_by_code).and_return('asd').at_least(:once)
-      expect(Keycloak::Client).to receive(:get_attribute).with('pk_secret_base').and_return('').at_least(:once)
-      expect(Keycloak::Client).to receive(:get_attribute).with('preferred_username').and_return('ben').at_least(:once)
-      expect(Keycloak::Client).to receive(:get_attribute).with('given_name').and_return('Ben').at_least(:once)
-      expect(Keycloak::Client).to receive(:get_attribute).with('family_name').and_return('Meier').at_least(:once)
-      expect(Keycloak::Client).to receive(:get_attribute).with('sub').and_return('1234').at_least(:once)
-      expect(Keycloak::Client).to receive(:user_signed_in?).and_return(true).at_least(:once)
+      expect(Keycloak::Client).to receive(:get_token_by_code)
+        .and_return('asd')
+        .at_least(:once)
+      expect(Keycloak::Client).to receive(:get_attribute)
+        .with('pk_secret_base')
+        .and_return('')
+        .at_least(:once)
+      expect(Keycloak::Client).to receive(:get_attribute)
+        .with('preferred_username')
+        .and_return('ben')
+        .at_least(:once)
+      expect(Keycloak::Client).to receive(:get_attribute)
+        .with('given_name')
+        .and_return('Ben')
+        .at_least(:once)
+      expect(Keycloak::Client).to receive(:get_attribute)
+        .with('family_name')
+        .and_return('Meier')
+        .at_least(:once)
+      expect(Keycloak::Client).to receive(:get_attribute)
+        .with('sub')
+        .and_return('1234')
+        .at_least(:once)
+      expect(Keycloak::Client).to receive(:user_signed_in?)
+        .and_return(true)
+        .at_least(:once)
 
       get :sso, params: { code: 'asd' }
       expect(response).to redirect_to search_path
@@ -190,7 +209,6 @@ describe SessionController do
       expect(session['private_key']).to_not be_nil
     end
 
-    # TODO: Test funktioniert nur isoliert
     it 'redirects to keycloak if not logged in' do
       enable_keycloak
       expect(Keycloak::Client)
@@ -201,11 +219,16 @@ describe SessionController do
         .and_return(false)
       expect(Keycloak::Client)
         .to receive(:url_login_redirect)
-        .with(session_sso_url, 'code')
+        .with('http://www.example.com' + session_sso_path, 'code')
         .and_return(session_sso_path)
         .at_least(:once)
       get :sso, params: { code: 'asd' }
       expect(response).to redirect_to session_sso_path
+    end
+
+    it 'redirects to normal login if keycloak disabled' do
+      get :sso, params: { code: 'asd' }
+      expect(response).to redirect_to teams_path
     end
   end
 

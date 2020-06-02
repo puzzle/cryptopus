@@ -17,7 +17,11 @@ describe 'Keycloak user login' do
     expect(Keycloak::Client)
       .to receive(:url_login_redirect)
       .with(session_sso_url, 'code')
-      .and_return(session_sso_path)
+      .and_return(session_sso_path(code: 'asd'))
+    expect(Keycloak::Client)
+      .to receive(:get_token_by_code)
+      .with('asd', session_sso_url)
+      .and_return('token')
     expect(Keycloak::Client).to receive(:get_attribute)
       .with('sub')
       .at_least(:once)
@@ -39,12 +43,12 @@ describe 'Keycloak user login' do
       .at_least(:once)
       .and_return(pk_secret_base)
     expect(Keycloak::Client).to receive(:user_signed_in?)
-      .and_return(true)
-      .at_least(:once)
+      .and_return(false, true, true, true, true)
 
     # login
     expect do
       get search_path
+      follow_redirect!
       follow_redirect!
       follow_redirect!
       user = User.find_by(username: 'ben')

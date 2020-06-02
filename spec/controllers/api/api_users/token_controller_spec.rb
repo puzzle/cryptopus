@@ -15,18 +15,17 @@ describe Api::ApiUsers::TokenController do
 
   context 'GET show' do
     it 'user renews token' do
-      old_token = api_user.send(:decrypt_token, private_key)
+      @token = api_user.send(:decrypt_token, private_key)
+      @username = api_user.username
 
       get :show, params: { id: api_user.id }, xhr: true
 
       api_user.reload
 
-      new_token = api_user.send(:decrypt_token, private_key)
       expect(api_user).to_not be_locked
-      expect(Authentication::UserAuthenticator::Db.new(username: api_user.username, password: old_token)
-      .authenticate!).to be false
-      expect(Authentication::UserAuthenticator::Db.new(username: api_user.username, password: new_token)
-      .authenticate!).to be true
+      expect(authenticate!).to be false
+      @token = api_user.send(:decrypt_token, private_key)
+      expect(authenticate!).to be true
     end
 
     it 'user cannot renew token of foreign_api_user' do
@@ -42,11 +41,10 @@ describe Api::ApiUsers::TokenController do
 
       api_user.reload
 
-      token = api_user.send(:decrypt_token, private_key)
-
+      @token = api_user.send(:decrypt_token, private_key)
+      @username = api_user.username
       expect(api_user).to be_locked
-      expect(Authentication::UserAuthenticator::Db.new(username: api_user.username, password: token)
-      .authenticate!).to be false
+      expect(authenticate!).to be false
     end
 
     it 'user cannot invalidate token of foreign_api_user' do
@@ -54,5 +52,15 @@ describe Api::ApiUsers::TokenController do
 
       expect(response).to have_http_status(403)
     end
+  end
+
+  private
+
+  def authenticate!
+    authenticator.authenticate!
+  end
+
+  def authenticator
+    Authentication::UserAuthenticator::Db.new(username: @username, password: @token)
   end
 end

@@ -27,7 +27,7 @@ describe 'HTTP headers' do
     it 'should have met the same-site cookie attribute on login into the session' do
       login_as(:alice)
 
-      expect(response.headers['Set-Cookie']).to include('SameSite=Strict')
+      expect(response.headers['Set-Cookie']).to include('SameSite=Lax')
     end
   end
 end

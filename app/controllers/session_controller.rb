@@ -6,10 +6,6 @@
 #  https://github.com/puzzle/cryptopus.
 
 class SessionController < ApplicationController
-  before_action :authorize_action
-  before_action :skip_authorization, only: [:create, :new, :destroy, :sso]
-  before_action :check_root_source_ip, only: [:local, :root]
-
   # it's save to disable this for authenticate since there is no logged in session active
   # in this case.
   # caused problem with login form since the server side session is getting invalid after
@@ -18,6 +14,10 @@ class SessionController < ApplicationController
   skip_before_action :validate_user, expect: [:update_password, :changelocale]
   skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
 
+  before_action :authorize_action
+  before_action :skip_authorization, only: [:create, :new, :destroy, :sso]
+  before_action :keycloak_cookie, only: :sso
+  before_action :check_root_source_ip, only: [:local, :root]
 
   def create
     unless user_authenticator.authenticate!
@@ -37,7 +37,7 @@ class SessionController < ApplicationController
   def root
     unless user_authenticator.root_authenticate!
       flash[:error] = t('flashes.session.auth_failed')
-      return redirect_to user_authenticator.login_path
+      return redirect_to session_local_path
     end
 
     unless create_session(params[:password])
@@ -50,25 +50,18 @@ class SessionController < ApplicationController
   end
 
   def sso
-    if params[:code].present? && Keycloak::Client.user_signed_in?
-      token = Keycloak::Client.get_token_by_code(params[:code], session_sso_url)
-      cookies.permanent[:keycloak_token] = token
+    cookies.permanent[:keycloak_token] = user_authenticator.token(params) if params[:code].present?
+    unless user_authenticator.authenticate!
+      return redirect_to user_authenticator.keycloak_login
     end
-    if user_authenticator.authenticate!
-      # return update_token if Keycloak::Client.get_attribute('pk_secret_base').nil?
 
-      create_session(keycloak_client.user_pk_secret)
-
-      # last_login_message
-      redirect_after_sucessful_login
-    else
-      update_token
-    end
+    create_session(keycloak_client.user_pk_secret)
+    last_login_message
+    redirect_after_sucessful_login
   end
 
   def destroy
-    # TODO: Keycloak logout??
-    Keycloak::Client.logout if AuthConfig.keycloak_enabled? && !current_user.root?
+    user_authenticator.logout
     flash_notice = params[:autologout] ? t('session.destroy.expired') : flash[:notice]
     jumpto = params[:jumpto]
     reset_session
@@ -118,10 +111,10 @@ class SessionController < ApplicationController
   end
 
   def create_session(password)
-    user = user_authenticator.user
-    set_session_attributes(user, password)
-    user_authenticator.update_user_info(request.remote_ip)
     begin
+      user = user_authenticator.user
+      set_session_attributes(user, password)
+      user_authenticator.update_user_info(request.remote_ip)
       CryptUtils.validate_keypair(session[:private_key], user.public_key)
     rescue Exceptions::DecryptFailed
       return false
@@ -159,12 +152,12 @@ class SessionController < ApplicationController
     true
   end
 
-  def update_token
-    redirect_to Keycloak::Client.url_login_redirect(session_sso_url, 'code')
-  end
-
   def authorize_action
     authorize :session
+  end
+
+  def keycloak_cookie
+    Keycloak.proc_cookie_token = -> { cookies.permanent[:keycloak_token] }
   end
 
   def keycloak_client

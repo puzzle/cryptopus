@@ -14,9 +14,9 @@ class ApplicationController < ActionController::Base
 
   include PolicyCheck
   include SourceIpCheck
+  include UserSession
   include Caching
   include FlashMessages
-  include UserSession
 
   protect_from_forgery with: :exception
 

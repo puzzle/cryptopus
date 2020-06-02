@@ -6,8 +6,10 @@
 #  https://github.com/puzzle/cryptopus.
 
 require 'rails_helper'
+
 describe 'Root login' do
   include IntegrationHelpers::DefaultHelper
+
   context 'Db as provider' do
     it 'lets root login via local ip' do
       post session_root_path, params: { username: 'root', password: 'password' }
@@ -25,6 +27,22 @@ describe 'Root login' do
       follow_redirect!
       expect(request.fullpath).to eq(session_new_path)
       expect(response.body).to match(/Login as root only from private IP accessible/)
+    end
+
+    it 'does not let non root User login' do
+      post session_root_path, params: { username: 'bob', password: 'password' }
+      follow_redirect!
+      expect(request.fullpath).to eq(session_local_path)
+      expect(response.body)
+        .to match(/Authentication failed! Enter a correct username and password./)
+    end
+
+    it 'does not let root login with wrong password' do
+      post session_root_path, params: { username: 'bob', password: 'wrong_password' }
+      follow_redirect!
+      expect(request.fullpath).to eq(session_local_path)
+      expect(response.body)
+        .to match(/Authentication failed! Enter a correct username and password./)
     end
   end
 
@@ -49,6 +67,7 @@ describe 'Root login' do
       expect(response.body).to match(/Login as root only from private IP accessible/)
     end
   end
+
   context 'Keycloak as provider' do
     it 'lets root login via local ip' do
       enable_keycloak
@@ -63,7 +82,6 @@ describe 'Root login' do
       expect_any_instance_of(Authentication::SourceIpChecker)
         .to receive(:root_ip_authorized?)
         .and_return(false)
-      expect(Keycloak::Client).to receive(:url_login_redirect).and_return(session_sso_path)
       post session_root_path, params: { username: 'root', password: 'password' }
       follow_redirect!
       expect(request.fullpath).to eq(teams_path)

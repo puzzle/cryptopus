@@ -28,7 +28,9 @@ describe Authentication::UserAuthenticator do
   private
 
   def authenticator
-    @authenticator ||= Authentication::UserAuthenticator.new(username: @username, password: @password)
+    @authenticator ||= Authentication::UserAuthenticator.new(
+      username: @username, password: @password
+    )
   end
 
   def api_user

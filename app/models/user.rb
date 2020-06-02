@@ -44,8 +44,6 @@ class User < ApplicationRecord
       pk = CryptUtils.decrypt_private_key(private_key, old)
       self.private_key = CryptUtils.encrypt_private_key(pk, new)
       save
-    else
-      'flashes.session.wrong_password'
     end
   end
 

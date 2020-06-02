@@ -106,7 +106,9 @@ describe Authentication::UserAuthenticator::Ldap do
   end
 
   def authenticator
-    @authenticator ||= Authentication::UserAuthenticator.init(username: @username, password: @password)
+    @authenticator ||= Authentication::UserAuthenticator.init(
+      username: @username, password: @password
+    )
   end
 
   def api_user

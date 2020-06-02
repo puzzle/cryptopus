@@ -33,13 +33,11 @@ class Authentication::UserAuthenticator
 
   def update_user_info(params)
     params[:last_login_at] = Time.zone.now
-    user.update(params)
+    user.update(params.compact)
   end
 
   def root_authenticate!
-    return false unless username == 'root'
-    return false unless preconditions?
-    return false if brute_force_detector.locked?
+    return false unless root_preconditions?
 
     authenticated = user.authenticate_db(password)
 
@@ -55,6 +53,9 @@ class Authentication::UserAuthenticator
     raise NotImplementedError, 'implement in subclass'
   end
 
+  def logout
+  end
+
   private
 
   attr_accessor :authenticated
@@ -65,7 +66,12 @@ class Authentication::UserAuthenticator
   end
 
   def preconditions?
-    params_present? && valid_username? && user.present?
+    params_present? && valid_username? && username != 'root' && user.present? &&
+      !brute_force_detector.locked?
+  end
+
+  def root_preconditions?
+    username.present? && password.present? && username == 'root' && !brute_force_detector.locked?
   end
 
   def params_present?

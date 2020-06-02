@@ -18,12 +18,14 @@ describe Authentication::UserAuthenticator::Sso do
         .with('given_name')
         .and_return('Ben')
       expect(Keycloak::Client).to receive(:get_attribute)
+        .with('preferred_username')
+        .and_return('ben')
+      expect(Keycloak::Client).to receive(:get_attribute)
         .with('family_name')
         .and_return('Meier')
       expect(Keycloak::Client).to receive(:get_attribute)
         .with('pk_secret_base')
-        .at_least(:once)
-        .and_return(nil)
+        .and_return(nil, 'asd')
       expect(Keycloak::Admin).to receive(:update_user)
         .and_return(true)
       expect(Keycloak::Client).to receive(:user_signed_in?)
@@ -53,6 +55,8 @@ describe Authentication::UserAuthenticator::Sso do
     it 'doesn\'t authenticate root' do
       @username = 'root'
       @password = 'password'
+      expect(Keycloak::Client).to receive(:user_signed_in?)
+        .and_return(false)
       expect(authenticate!).to be false
     end
   end
@@ -64,7 +68,9 @@ describe Authentication::UserAuthenticator::Sso do
   end
 
   def authenticator
-    @authenticator ||= Authentication::UserAuthenticator.init(username: @username, password: @password)
+    @authenticator ||= Authentication::UserAuthenticator.init(
+      username: @username, password: @password
+    )
   end
 
   def api_user

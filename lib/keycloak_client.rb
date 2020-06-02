@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class KeycloakClient
 
   def user_pk_secret(secret: nil)

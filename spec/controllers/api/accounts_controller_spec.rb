@@ -166,6 +166,10 @@ describe Api::AccountsController do
 
     context 'api_user' do
       it 'authenticates with valid api user and returns account details' do
+        expect_any_instance_of(AuthConfig)
+          .to receive(:settings_file)
+          .never
+
         api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
         teams(:team1).add_user(api_user, plaintext_team_password)
@@ -184,27 +188,6 @@ describe Api::AccountsController do
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
         expect(folder_attributes['name']).to eq 'folder1'
-      end
-
-      it 'never calls authconfig for provider' do
-        expect_any_instance_of(AuthConfig)
-          .to receive(:settings_file)
-          .never
-
-        api_user.update!(valid_until: Time.zone.now + 5.minutes)
-
-        teams(:team1).add_user(api_user, plaintext_team_password)
-
-        request.headers['Authorization-User'] = api_user.username
-        request.headers['Authorization-Password'] = token
-        account = accounts(:account1)
-        get :show, params: { id: account }, xhr: true
-
-        account = json['data']['account']
-
-        expect(account['accountname']).to eq 'account1'
-        expect(account['cleartext_username']).to eq 'test'
-        expect(account['cleartext_password']).to eq 'password'
       end
 
       it 'does not authenticate with invalid api token and does not show account details' do

@@ -3,7 +3,6 @@
 class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticator
 
   def authenticate!
-    return false if username == 'root'
     return false unless preconditions?
     return false if brute_force_detector.locked?
 
@@ -12,26 +11,10 @@ class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticato
     authenticated
   end
 
-  def find_or_create_user
-    # TODO: policy to create user??
-    return nil unless params_present? && valid_username? && username == 'root' || ldap_connection.authenticate!(username, password)
-
-    user = User.find_by(username: username.strip)
-    return create_user if user.nil?
-
-    user
-  end
-
   def update_user_info(remote_ip)
-    super(
-      last_login_from: remote_ip,
-      givenname: ldap_connection.ldap_info(user.provider_uid, 'givenname'),
-      surname: ldap_connection.ldap_info(user.provider_uid, 'sn')
-    )
-  end
-
-  def user_logged_in?(session)
-    session[:user_id].present? && session[:private_key].present? && user.recryptrequests.first.nil?
+    params = { last_login_from: remote_ip }
+    params.merge(ldap_params) unless username == 'root'
+    super(params)
   end
 
   def login_path
@@ -39,6 +22,20 @@ class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticato
   end
 
   private
+
+  def find_or_create_user
+    return unless username == 'root' || ldap_connection.authenticate!(username, password)
+
+    user = User.find_by(username: username.strip)
+    return create_user if user.nil?
+
+    user
+  end
+
+  def ldap_params
+    { givenname: ldap_connection.ldap_info(user.provider_uid, 'givenname'),
+      surname: ldap_connection.ldap_info(user.provider_uid, 'sn') }
+  end
 
   def create_user
     provider_uid = ldap_connection.uidnumber_by_username(username)
