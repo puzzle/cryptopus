@@ -83,7 +83,7 @@ export default class AccountForm extends BaseFormComponent {
   }
 
   @action
-  setfolder(folder) {
+  setFolder(folder) {
     this.changeset.folder = folder;
   }
 

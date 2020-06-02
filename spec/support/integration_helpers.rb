@@ -19,18 +19,42 @@ module IntegrationHelpers
 
       # New Folder
       team = Team.find_by(name: 'Web')
-      post team_folders_path(team_id: team.id),
-           params: {folder: {name: 'Default',
-                             description: 'folder_description' } }
+
+      folder_params = {
+        data: {
+          attributes: {
+            name: 'Default',
+            description: 'yeah'
+          },
+          relationships: {
+            team: {
+              data: {
+                id: team.id,
+                type: 'teams'
+              }
+            }
+          }
+        }
+      }
+
+      post "/api/folders", params: folder_params
 
       # New Account
       folder = team.folders.find_by(name: 'Default')
       account_path = accounts_path
-      account_params = { data: { attributes: { accountname: 'puzzle',
-                                               folder_id: folder.id,
-                                               description: 'account_description',
-                                               cleartext_username: 'account_username',
-                                               cleartext_password: 'account_password' } } }
+
+      account_params = {
+        data: {
+          attributes: {
+            accountname: 'puzzle',
+            folder_id: folder.id,
+            description: 'account_description',
+            cleartext_username: 'account_username',
+            cleartext_password: 'account_password'
+          }
+        }
+      }
+
       post account_path, params: account_params
 
       logout

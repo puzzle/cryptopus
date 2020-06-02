@@ -106,7 +106,6 @@ describe 'AccountModal', type: :system, js: true do
 
       find('#folder-power-select').find('.ember-power-select-trigger').click # Open trigger
       find_all('ul.ember-power-select-options > li')[0].click
-      expect(page).to_not be_present
     end
   end
 
