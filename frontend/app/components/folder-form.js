@@ -65,9 +65,6 @@ export default class FolderForm extends BaseFormComponent {
     }
   }
 
-  @action
-  setTeam(team) {
-  }
 
   async beforeSubmit() {
     await this.changeset.validate();
@@ -78,9 +75,8 @@ export default class FolderForm extends BaseFormComponent {
     /* eslint-disable no-undef  */
     $(this.modalElement).modal("hide");
     /* eslint-enable no-undef  */
-
     if (this.isNewRecord) {
-      window.location.replace("/teams"+savedRecords[0].team.id+"/folders/" + savedRecords[0].id);
+      window.location.replace("/teams/"+savedRecords[0].team.get('id')+"/folders/" + savedRecords[0].id);
     } else {
       let href = window.location.href;
       window.location.replace(href.substring(0, href.search("#")));

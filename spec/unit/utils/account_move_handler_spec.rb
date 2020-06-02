@@ -15,7 +15,10 @@ describe AccountMoveHandler do
     private_key = decrypt_private_key(bob)
     target_folder = folders(:folder2)
     team_password = target_folder.team.decrypt_team_password(bob, private_key)
-    Fabricate(:account, folder: target_folder, team_password: team_password, accountname: 'account1')
+    Fabricate(:account,
+              folder: target_folder,
+              team_password: team_password,
+              accountname: 'account1')
 
     AccountMoveHandler.new(account, private_key, bob).move
     account.save!
@@ -33,7 +36,7 @@ describe AccountMoveHandler do
     account.save!
 
     expect(account.decrypt(new_folder.team.decrypt_team_password(bob,
-                                                                private_key))).to eq('password')
+                                                                 private_key))).to eq('password')
     expect(new_folder.id).to eq(account.folder_id)
   end
 
@@ -78,8 +81,9 @@ describe AccountMoveHandler do
     AccountMoveHandler.new(account, private_key, bob).move
     account.save!
 
-    expect(account.decrypt(new_folder.team.decrypt_team_password(bob,
-                                                                private_key))).to eq('password')
+
+    decrypted = account.decrypt(new_folder.team.decrypt_team_password(bob, private_key))
+    expect(decrypted).to eq('password')
     expect(account.folder).to eq(new_folder)
   end
 

@@ -457,7 +457,7 @@ describe Api::AccountsController do
             accountname: 'New Account'
           },
           relationships: {
-              folder: {
+            folder: {
               data: {
                 id: folder.id,
                 type: 'folders'
@@ -485,7 +485,7 @@ describe Api::AccountsController do
             accountname: 'New Account'
           },
           relationships: {
-              folder: {
+            folder: {
               data: {
                 id: folder.id,
                 type: 'folders'

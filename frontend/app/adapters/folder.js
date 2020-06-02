@@ -13,6 +13,8 @@ export default ApplicationAdapter.extend({
     return super.urlForQuery(query, modelName);
   },
 
+
+  /* eslint-disable no-unused-vars */
   urlForFindRecord(id, modelName, snapshot) {
     return `/api/${this.pathForType()}/${id}`;
   },
@@ -24,6 +26,8 @@ export default ApplicationAdapter.extend({
   urlForUpdateRecord(id, modelName, snapshot) {
     return `/api/${this.pathForType()}/${id}`;
   },
+  /* eslint-enable no-unused-vars */
+
 
   pathForType: function() {
     return "folders";

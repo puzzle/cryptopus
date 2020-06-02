@@ -77,7 +77,7 @@ export default class AccountForm extends BaseFormComponent {
         .query("folder", { teamId: this.selectedTeam.id })
         .then(folders => {
           this.availableFolders = folders;
-          this.setfolder(null);
+          this.setFolder(null);
         });
     }
   }

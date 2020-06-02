@@ -33,6 +33,7 @@ describe 'FolderModal', type: :system, js: true do
     expect(page).to have_link('new Folder')
     click_link 'new Folder'
 
+
     expect(find('.modal-content')).to be_present
     expect(page).to have_text('New Folder')
     expect(page).to have_button('Save')
@@ -69,12 +70,14 @@ describe 'FolderModal', type: :system, js: true do
 
     expect_teams_page_with(updated_attrs, team)
 
+
     # Delete Folder
     visit("/teams/#{folder.team_id}")
     expect(page).to have_text("Team #{team.name}")
 
     expect do
-      del_button = find(:xpath, "//a[@href='/teams/#{team.id}/folders/#{folder.id}' and @data-method='delete']")
+      href = "/teams/#{team.id}/folders/#{folder.id}"
+      del_button = find(:xpath, "//a[@href='#{href}' and @data-method='delete']")
       expect(del_button).to be_present
 
       accept_prompt(wait: 3) do
@@ -82,7 +85,6 @@ describe 'FolderModal', type: :system, js: true do
       end
 
       expect(page).to have_text("Team #{team.name}")
-
     end.to change { Folder.count }.by(-1)
 
     logout

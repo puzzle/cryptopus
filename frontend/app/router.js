@@ -20,7 +20,7 @@ Router.map(function() {
   });
 
   this.route("folders" ,function() {
-    this.route("new", { path: "/new"});
+    this.route("new");
     this.route("edit", { path: ':id/edit/'});
   });
 

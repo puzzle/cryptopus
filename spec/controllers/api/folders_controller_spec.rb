@@ -61,8 +61,8 @@ describe Api::FoldersController do
       folder = folders(:folder1)
       team = teams(:team1)
 
-      update_params = { attributes: {name: 'new_name', description: 'new_description' }}
-      put :update, params: {team_id: team, id: folder, data: update_params }
+      update_params = { attributes: { name: 'new_name', description: 'new_description' } }
+      put :update, params: { team_id: team, id: folder, data: update_params }
 
       folder.reload
 
@@ -77,15 +77,14 @@ describe Api::FoldersController do
 
       folder = folders(:folder2)
 
-      folder_params =
-          {
-              id: folder.id,
-              folder:
-                  {
-                      name: 'Folder Alice',
-                      description: 'yeah, i wanna steal that folder'
-                  }
-          }
+      folder_params = {
+        id: folder.id,
+        folder:
+        {
+          name: 'Folder Alice',
+          description: 'yeah, i wanna steal that folder'
+        }
+      }
       patch :update, params: folder_params, xhr: true
 
       folder.reload
@@ -103,23 +102,23 @@ describe Api::FoldersController do
       team = teams(:team1)
 
       new_folder_params = {
-          data: {
-              attributes: {
-                  name: 'Folder Alice',
-                  description: 'yeah'
-              },
-              relationships: {
-                  team: {
-                      data: {
-                          id: team.id,
-                          type: 'teams'
-                      }
-                  }
+        data: {
+          attributes: {
+            name: 'Folder Alice',
+            description: 'yeah'
+          },
+          relationships: {
+            team: {
+              data: {
+                id: team.id,
+                type: 'teams'
               }
+            }
           }
+        }
       }
       expect do
-        post :create, params: new_folder_params , xhr: true
+        post :create, params: new_folder_params, xhr: true
       end.to change { Folder.count }.by(1)
 
       expect(response).to have_http_status(200)
@@ -132,23 +131,23 @@ describe Api::FoldersController do
       team = teams(:team2)
 
       new_folder_params = {
-          data: {
-              attributes: {
-                  name: 'Folder Alice',
-                  description: 'yeah'
-              },
-              relationships: {
-                  team: {
-                      data: {
-                          id: team.id,
-                          type: 'teams'
-                      }
-                  }
+        data: {
+          attributes: {
+            name: 'Folder Alice',
+            description: 'yeah'
+          },
+          relationships: {
+            team: {
+              data: {
+                id: team.id,
+                type: 'teams'
               }
+            }
           }
+        }
       }
       expect do
-        post :create, params: new_folder_params , xhr: true
+        post :create, params: new_folder_params, xhr: true
       end.to change { Folder.count }.by(0)
 
       expect(response).to have_http_status(403)
