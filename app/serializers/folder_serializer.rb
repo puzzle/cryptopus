@@ -18,7 +18,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class FolderSerializer < ActiveModel::Serializer
-  attributes :id, :name, :team_id, :team_name
+  attributes :id, :name, :team_id, :team_name, :description
 
   belongs_to :team
 

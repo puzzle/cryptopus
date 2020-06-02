@@ -14,6 +14,7 @@ export default class FolderForm extends BaseFormComponent {
 
   @tracked selectedTeam;
   @tracked assignableTeams;
+  isEditView
 
   FolderValidations = FolderValidations;
 
@@ -21,8 +22,9 @@ export default class FolderForm extends BaseFormComponent {
     super(...arguments);
 
     this.record = this.args.folder || this.store.createRecord("folder");
-    this.isNewRecord = this.record.isNew;
 
+    this.isNewRecord = this.record.isNew;
+    this.isEditView = !this.isNewRecord;
     this.changeset = new Changeset(
       this.record,
       lookupValidator(FolderValidations),
@@ -59,7 +61,7 @@ export default class FolderForm extends BaseFormComponent {
   setSelectedTeam(selectedTeam) {
     if (isPresent(selectedTeam)) {
       this.selectedTeam = selectedTeam;
-      this.changeset.team = team;
+      this.changeset.team = selectedTeam;
     }
   }
 
