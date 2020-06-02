@@ -16,7 +16,7 @@ module('Integration | Component | password-strength-meter', function(hooks) {
 
     assert.equal(this.element.textContent.trim(), 'Password Strength');
 
-    assert.equal(this.element.querySelector('.progress-bar').getAttribute('class'), 'progress-bar progress-bar-0');
+    assert.equal(this.element.querySelector('.progress-bar').getAttribute('class'), 'progress-bar progress-bar-50');
 
   });
 });

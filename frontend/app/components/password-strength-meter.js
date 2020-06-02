@@ -6,28 +6,26 @@ import { isPresent } from "@ember/utils";
 
 export default class PasswordStrengthMeterComponent extends Component {
 
-  @service('password-score') passwordScore;
   @service passwordStrength;
-  @service intl;
 
   @tracked score = 0;
 
   constructor() {
     super(...arguments)
 
-    this.passwordStrength.load()
+    this.passwordStrength.load();
   }
 
-  didUpdateAttrs() {
+  didReceiveAttrs() {
+
     if(isPresent(this.password)) {
-      this.passwordScore.score(this.password, this.passwordStrength).then(() => {
-        let score = this.passwordScore.strengthNumber;
+      this.passwordStrength.strength(this.password).then(strength => {
+        let score = strength.score
 
         if(score === 0)
           this.score = 10;
         else
           this.score = score * 25;
-
       });
     } else {
       this.score = 0;
