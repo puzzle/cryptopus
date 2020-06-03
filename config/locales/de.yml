@@ -31,16 +31,19 @@ de:
   settings: Einstellungen
   recrypt_requests: Recrypt Anfragen
   users: Benutzer
+  user: Benutzer
   change_password: Passwort wechseln
   last_login_date_and_from: "Das letzte Login war am %{last_login_at} von %{last_login_from}"
   last_login_date_and_from_country: "Das letzte Login war am %{last_login_at} von %{last_login_from} (%{last_login_country})"
   last_login_date: "Das letzte Login war am %{last_login_at}"
   unencrypted_field_caption: nicht verschlüsselt
-  group: Gruppe
+  folder: Ordner
   team: Team
   move: Bewegen"
   here: Hier
   new: Neu
+  save: Speichern
+  close: Schliessen
 
   i18n:
     language:
@@ -64,6 +67,9 @@ de:
       title: Account editieren
       random_password: Zufälliges Passwort
       edit_password_placeholder: Klicken oder fokusieren für Eingabe ...
+      team_placeholder: Wählen Sie ein Team aus
+      folder_placeholder: Wählen Sie ein Ordner aus
+      password_strength: Passwort Stärke
     show:
       title: "Account: %{account_name}"
       last_change: "Letzte Änderung vor %{time_ago}"
@@ -194,6 +200,7 @@ de:
       add_member: Mitglied hinzufügen
       admins: Admins
     form:
+      enabled: Aktiviert
       private: Privat
     index_menu:
       create: Team erstellen
@@ -206,8 +213,12 @@ de:
       team: Team
     new:
       title: Neues Team erstellen
+    edit:
+      title: Team bearbeiten
     description:
       private: Admins haben keinen Zugriff wenn angewählt
+    configure:
+      title: Teammitglieder und Api Nutzer anpassen
 
   profile:
     index:
@@ -348,6 +359,7 @@ de:
         submit: Erstellen
       account:
         account: Account
+        account_name: Accountname
         username: Benutzername
         password: Passwort
         description: Beschreibung

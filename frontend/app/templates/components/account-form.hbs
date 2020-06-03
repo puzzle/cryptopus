@@ -13,7 +13,7 @@
             <div class="col-md-6">
               <div class="row">
                 <div class="form-group col-md-12">
-                  <label name="accountname">{{t "account.accountname"}}</label>
+                  <label name="accountname">{{t "helpers.label.account.account_name"}}</label>
                   <div>
                     <Input class="form-control" @value={{this.changeset.accountname}} @name="accountname" />
                     <ValidationErrorsList @errors={{this.changeset.error.accountname.validation}}/>
@@ -22,7 +22,7 @@
               </div>
               <div class="row">
                 <div class="form-group col-md-12">
-                  <label name="username">{{t "account.username"}}</label>
+                  <label name="username">{{t "username"}}</label>
                   <div>
                     <Input class="form-control" @value={{this.changeset.cleartextUsername}} @name="cleartextUsername"/>
                   </div>
@@ -30,7 +30,7 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <label name="password">{{t "account.password"}}</label>
+                  <label name="password">{{t "password"}}</label>
                 </div>
                 <div class="d-flex col-sm-12">
                   <div class="form-group col-sm-6">
@@ -41,7 +41,7 @@
                   </div>
                   <div class="form-group col-xs-12 col-sm-5 pull-right">
                     <div class="row">
-                      <button class="btn btn-secondary btn-block" {{on "click" this.setRandomPassword}}>{{t "randomPassword"}}</button>
+                      <button class="btn btn-secondary btn-block" {{on "click" this.setRandomPassword}}>{{t "accounts.edit.random_password"}}</button>
                     </div>
                   </div>
                 </div>
@@ -50,8 +50,8 @@
             <div class="col-md-5">
               <div class="row">
                 <div class="col-md-12" id="team-power-select">
-                  <label name="team">{{t "team.team"}}</label>
-                  <PowerSelect class="mb-1" @options={{this.assignableTeams}} @selected={{this.selectedTeam}} @onChange={{this.setSelectedTeam}} @renderInPlace={{true}} @allowClear={{true}} @placeholder={{t "account.form.teamPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |team|>
+                  <label name="team">{{t "team"}}</label>
+                  <PowerSelect class="mb-1" @options={{this.assignableTeams}} @selected={{this.selectedTeam}} @onChange={{this.setSelectedTeam}} @renderInPlace={{true}} @allowClear={{true}} @placeholder={{t "accounts.edit.team_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |team|>
                     {{team.name}}
                   </PowerSelect>
                 </div>
@@ -60,7 +60,7 @@
               <div class="row">
                 <div id="group-power-select" class="col-md-12">
                   <label name="folder">{{t "folder"}}</label>
-                  <PowerSelect @options={{this.availableGroups}} @selected={{this.changeset.group}} @disabled={{this.isGroupDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setGroup}} @allowClear={{true}} @placeholder={{t "account.form.folderPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |group|>
+                  <PowerSelect @options={{this.availableGroups}} @selected={{this.changeset.group}} @disabled={{this.isGroupDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setGroup}} @allowClear={{true}} @placeholder={{t "accounts.edit.folder_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |group|>
                     {{group.name}}
                   </PowerSelect>
                   <ValidationErrorsList @errors={{this.changeset.error.group.validation}}/>
@@ -70,7 +70,7 @@
           </div>
           <div class="row">
             <div class="form-group col-md-12">
-              <label name="description">{{t "account.description"}}</label>
+              <label name="description">{{t "description"}}</label>
               <div>
                 <Textarea class="form-control vertical-resize" @value={{this.changeset.description}} @name="description"/>
                 <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>

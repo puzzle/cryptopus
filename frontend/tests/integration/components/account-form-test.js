@@ -5,6 +5,7 @@ import { hbs } from "ember-cli-htmlbars";
 import Service from "@ember/service";
 import { clickTrigger } from "ember-power-select/test-support/helpers";
 import { selectChoose } from "ember-power-select/test-support";
+import { setLocale } from "ember-intl/test-support";
 
 const storeStub = Service.extend({
   findAll(modelName) {
@@ -57,6 +58,7 @@ module("Integration | Component | account-form", function(hooks) {
   hooks.beforeEach(function() {
     this.owner.unregister("service:store");
     this.owner.register("service:store", storeStub);
+    setLocale("en");
   });
 
   test("it renders without input data", async function(assert) {
@@ -74,7 +76,7 @@ module("Integration | Component | account-form", function(hooks) {
       "bbt"
     );
 
-    assert.ok(this.element.textContent.trim().includes("Account name"));
+    assert.ok(this.element.textContent.trim().includes("Accountname"));
     assert.ok(this.element.textContent.trim().includes("Team"));
     assert.ok(this.element.textContent.trim().includes("Username"));
     assert.ok(this.element.textContent.trim().includes("Folder"));

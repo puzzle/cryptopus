@@ -12,15 +12,15 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
-                <label name="name">{{t "teams.name"}}</label>
+                <label name="name">{{t "helpers.label.team.name"}}</label>
                 <div>
                   <Input class="form-control" @value={{this.changeset.name}} @name="name" />
                   <ValidationErrorsList @errors={{this.changeset.error.name.validation}}/>
                 </div>
               </div>
               <div class="checkbox">
-                <label for="checkbox-private" class="" name="private">{{t "teams.private"}}</label>
-                <span data-toggle="private-info-tooltip" data-html="true" data-placement="top" title="<b>{{t "teams.forms.privateInfo"}}</b>">
+                <label for="checkbox-private" class="" name="private">{{t "teams.form.private"}}</label>
+                <span data-toggle="private-info-tooltip" data-html="true" data-placement="top" title="<b>{{t "teams.description.private"}}</b>">
                   <img src="/ember/assets/images/info.svg" alt="info" class="info-icon" >
                 </span>
                 <Input id="checkbox-private" class="" @type="checkbox" @checked={{this.changeset.private}} @name="private" disabled={{not this.isNewRecord }}/>
@@ -30,7 +30,7 @@
             </div>
             <div class="col-md-12">
               <div class="form-group">
-                <label name="description">{{t "teams.description"}}</label>
+                <label name="description">{{t "helpers.label.team.description"}}</label>
                 <div>
                   <Textarea class="form-control vertical-resize" @value={{this.changeset.description}} @name="description"/>
                   <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>

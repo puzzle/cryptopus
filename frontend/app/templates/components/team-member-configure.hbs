@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="teamConfigureModalLabel">{{t "team.editMembersAndApiUsers"}}</h3>
+        <h3 class="modal-title" id="teamConfigureModalLabel">{{t "teams.configure.title"}}</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label={{t "close"}}>
           <span aria-hidden="true">&times;</span>
         </button>
@@ -10,10 +10,10 @@
       <div class="modal-body">
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item active">
-            <a class="nav-link" id="members-tab" data-toggle="tab" href="#members" role="tab" aria-controls="members" aria-selected="true">{{t "team.members"}}</a>
+            <a class="nav-link" id="members-tab" data-toggle="tab" href="#members" role="tab" aria-controls="members" aria-selected="true">{{t "teams.show.members"}}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="api-users-tab" data-toggle="tab" href="#api-users" role="tab" aria-controls="api-users" aria-selected="false">{{t "team.apiUsers"}}</a>
+            <a class="nav-link" id="api-users-tab" data-toggle="tab" href="#api-users" role="tab" aria-controls="api-users" aria-selected="false">{{t "profile.api_users.api_users"}}</a>
           </li>
         </ul>
         <div class="tab-content">
@@ -54,7 +54,7 @@
                 <tr>
                   <td>{{t "user"}}</td>
                   <td>{{t "description"}}</td>
-                  <td>{{t "enabled"}}</td>
+                  <td>{{t "teams.form.enabled"}}</td>
                 </tr>
               </thead>
               <tbody>
