@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2020_06_02_170103) do
     t.text "public_key", null: false
     t.binary "private_key", null: false
     t.binary "password"
-    t.string "provider_uid"
+    t.integer "ldap_uid"
     t.datetime "last_login_at"
     t.string "username"
     t.string "givenname"

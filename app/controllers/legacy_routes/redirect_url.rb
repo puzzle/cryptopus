@@ -10,8 +10,8 @@ include Rails.application.routes.url_helpers
 class LegacyRoutes::RedirectUrl
 
   LEGACY_PATHS = {
-    teams: /(folders)$/,
-    folders: /(accounts)$/,
+    teams: /(groups)$/,
+    groups: /(accounts)$/,
     accounts: /(accounts)\/\d+$/,
     login: /(\/login)$/
   }.freeze
@@ -27,29 +27,36 @@ class LegacyRoutes::RedirectUrl
   def redirect_to
     remove_locale if legacy_locales_path?
     new_url
+    rename_group_to_folder
+    @url
   end
 
   def new_url
     LEGACY_PATHS.each do |model, path|
-      return send("new_#{model}_path") if @url.match(path)
+      if @url.match(path)
+        @url = send("new_#{model}_path")
+        return
+      end
     end
-
-    @url
   end
 
   def remove_locale
     @url = @url.dup.remove(/#{LOCALES_REGEX}/)
   end
 
+  def rename_group_to_folder
+    @url = @url.gsub(/(group)/, 'folder')
+  end
+
   def legacy_locales_path?
-    /#{LOCALES_REGEX}/
+    @url.match(/(#{LOCALES_REGEX})\//)
   end
 
   def new_accounts_path
     account_path(@url.split('/').last)
   end
 
-  def new_folders_path
+  def new_groups_path
     team_folder_path(@url.split('/').third, @url.split('/').second_to_last)
   end
 

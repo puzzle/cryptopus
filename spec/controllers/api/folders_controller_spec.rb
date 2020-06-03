@@ -12,7 +12,9 @@ describe Api::FoldersController do
 
       login_as(:alice)
 
-      get :index, params: { 'q': 'folder' }, xhr: true
+      team1 = teams(:team1)
+
+      get :index, params: {team_id: team1, 'q': 'folder' }, xhr: true
 
       folder_json = data.first
       attributes = folder_json['attributes']
@@ -27,8 +29,9 @@ describe Api::FoldersController do
     it 'returns all folders if empty query param given' do
 
       login_as(:alice)
+      team1 = teams(:team1)
 
-      get :index, params: { 'q': '' }, xhr: true
+      get :index, params: { team_id: team1, 'q': '' }, xhr: true
 
       folder_json = data.first
       attributes = folder_json['attributes']
@@ -39,11 +42,12 @@ describe Api::FoldersController do
       expect(folder_json['id']).to eq folder.id.to_s
     end
 
-    it 'returns all folders if no query param given' do
+    it 'returns all folders of team if no only team param given' do
 
       login_as(:alice)
+      team1 = teams(:team1)
 
-      get :index, xhr: true
+      get :index, params: {team_id: team1}, xhr: true
 
       folder_json = data.first
       attributes = folder_json['attributes']
@@ -76,9 +80,11 @@ describe Api::FoldersController do
       request.headers['Authorization-Password'] = Base64.encode64('password')
 
       folder = folders(:folder2)
+      team = teams(:team2)
 
       folder_params = {
         id: folder.id,
+        team_id: team.id,
         folder:
         {
           name: 'Folder Alice',
@@ -102,6 +108,7 @@ describe Api::FoldersController do
       team = teams(:team1)
 
       new_folder_params = {
+        team_id: team.id,
         data: {
           attributes: {
             name: 'Folder Alice',
@@ -131,6 +138,7 @@ describe Api::FoldersController do
       team = teams(:team2)
 
       new_folder_params = {
+        team_id: team.id,
         data: {
           attributes: {
             name: 'Folder Alice',

@@ -4,17 +4,15 @@ import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
-import BaseFormComponent from "./base-form-component";
-import { bind } from "@ember/runloop";
+import ModalForm from "./modal-form";
 import { isPresent } from "@ember/utils";
 
-export default class FolderForm extends BaseFormComponent {
+export default class FolderForm extends ModalForm {
   @service store;
   @service router;
 
   @tracked selectedTeam;
   @tracked assignableTeams;
-  isEditView
 
   FolderValidations = FolderValidations;
 
@@ -24,38 +22,30 @@ export default class FolderForm extends BaseFormComponent {
     this.record = this.args.folder || this.store.createRecord("folder");
 
     this.isNewRecord = this.record.isNew;
-    this.isEditView = !this.isNewRecord;
+
     this.changeset = new Changeset(
       this.record,
       lookupValidator(FolderValidations),
       FolderValidations
     );
 
+    if(this.isNewRecord && isPresent(this.args.team)) {
+      this.changeset.team = this.args.team
+    }
+
     this.store.findAll("team").then(teams => {
       this.assignableTeams = teams;
-      if (this.isNewRecord) {
-        return;
+      if (isPresent(this.changeset.team)) {
+        this.selectedTeam = teams.find(
+          team => team.id === this.changeset.get("team.id")
+        );
       }
-
-      this.selectedTeam = teams.find(
-        team => team.id === this.changeset.get("team.id")
-      );
     });
-  }
-
-  setupModal(element, args) {
-    var context = args[0];
-    context.modalElement = element;
-    /* eslint-disable no-undef  */
-    $(element).on("hidden.bs.modal", bind(context, context.abort));
-    $(element).modal("show");
-    /* eslint-enable no-undef  */
   }
 
   abort() {
     this.router.transitionTo("index");
   }
-
 
   @action
   setSelectedTeam(selectedTeam) {
@@ -64,7 +54,6 @@ export default class FolderForm extends BaseFormComponent {
       this.changeset.team = selectedTeam;
     }
   }
-
 
   async beforeSubmit() {
     await this.changeset.validate();

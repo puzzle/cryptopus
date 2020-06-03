@@ -33,6 +33,8 @@ class ListController < ApplicationController
     model_class.name.underscore
   end
 
+
+
   class << self
     # The ActiveRecord class of the model.
     def model_class

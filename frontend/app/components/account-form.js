@@ -4,11 +4,10 @@ import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
-import BaseFormComponent from "./base-form-component";
-import { bind } from "@ember/runloop";
+import ModalForm from "./modal-form";
 import { isPresent } from "@ember/utils";
 
-export default class AccountForm extends BaseFormComponent {
+export default class AccountForm extends ModalForm {
   @service store;
   @service router;
 
@@ -44,12 +43,7 @@ export default class AccountForm extends BaseFormComponent {
   }
 
   setupModal(element, args) {
-    var context = args[0];
-    context.modalElement = element;
-    /* eslint-disable no-undef  */
-    $(element).on("hidden.bs.modal", bind(context, context.abort));
-    $(element).modal("show");
-    /* eslint-enable no-undef  */
+    super.setupModal(element, args)
   }
 
   abort() {

@@ -13,21 +13,26 @@ export default ApplicationAdapter.extend({
     return super.urlForQuery(query, modelName);
   },
 
-
-  /* eslint-disable no-unused-vars */
-  urlForFindRecord(id, modelName, snapshot) {
-    return `/api/${this.pathForType()}/${id}`;
+  urlForQueryRecord(query, modelName) {
+    if(query.teamId) {
+      let url = `/${this.namespace}/${query.teamId}/${this.pathForType()}/${query.id}`;
+      delete query.teamId;
+      return url
+    }
+    return super.urlForQueryRecord(query, modelName);
   },
 
   urlForCreateRecord(modelName, snapshot) {
-    return `/api/${this.pathForType()}`;
+    return `/${this.namespace}/${snapshot.belongsTo("team", {
+      id: true
+    })}/${this.pathForType()}`;
   },
 
   urlForUpdateRecord(id, modelName, snapshot) {
-    return `/api/${this.pathForType()}/${id}`;
+    return `/${this.namespace}/${snapshot.belongsTo("team", {
+      id: true
+    })}/${this.pathForType()}/${id}`;
   },
-  /* eslint-enable no-unused-vars */
-
 
   pathForType: function() {
     return "folders";

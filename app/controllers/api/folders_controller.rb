@@ -15,7 +15,7 @@ class Api::FoldersController < ApiController
 
   # GET /api/folders
   def index
-    authorize Folder
+    authorize ::Folder
     folders = current_user.folders
     render_json find_folders(folders)
   end
@@ -23,24 +23,22 @@ class Api::FoldersController < ApiController
   # GET /api/folders/:id
   def show
     authorize folder
+    super
+  end
+
+  # POST /api/teams/:team_id/folders
+  def create
+    @folder = team.folders.new(model_params)
+    authorize folder
+    folder.save!
     render_json folder
   end
 
-  # POST /api/folders
-  def create
-    folder = Folder.new(model_params)
-    authorize folder
-    folder.save
-    render_json folder
-  end
 
   # PATCH /api/folders/:id
   def update
     authorize folder
     folder.attributes = model_params
-
-    # Re-Encrypt accounts & items
-    # folder.encrypt(decrypted_team_password(folder.team))
 
     folder.save!
     render_json folder
@@ -64,7 +62,16 @@ class Api::FoldersController < ApiController
   end
 
   def folder
-    @folder ||= ::Folder.find(params[:id])
+    @folder ||= model_class.find(params[:id])
   end
 
+  def entry_url
+    '#/folders'
+  end
+
+  class << self
+    def model_class
+      @model_class ||= ::Folder
+    end
+  end
 end

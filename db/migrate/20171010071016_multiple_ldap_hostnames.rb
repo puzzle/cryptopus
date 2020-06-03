@@ -6,6 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class MultipleLdapHostnames < ActiveRecord::Migration[5.1]
+=begin
 
   def up
     value = hostname
@@ -29,5 +30,6 @@ class MultipleLdapHostnames < ActiveRecord::Migration[5.1]
   def hostname
     ldap_hostname_setting.value
   end
+=end
 
 end

@@ -6,7 +6,7 @@ describe LegacyRoutes::RedirectUrl do
   include IntegrationHelpers::DefaultHelper
 
   # /de/teams/1/folders/1 -> /teams/1/folders/1/
-  it 'redirects to folders without folders in url' do
+  it 'redirects to team show without folders in url' do
     team1 = teams(:team1)
     folder1 = folders(:folder1)
 
@@ -31,11 +31,11 @@ describe LegacyRoutes::RedirectUrl do
     assert_redirected_to team_folder_path(teams(:team1).id, folders(:folder1).id)
   end
 
-  # /de/teams/1/folders -> /teams/1/
-  it 'redirects to folders with folders in url' do
+  # /de/teams/1/groups -> /teams/1/
+  it 'redirects to folders with groups in url' do
     team1 = teams(:team1)
 
-    legacy_team_url = "/de/teams/#{team1.id}/folders"
+    legacy_team_url = "/de/teams/#{team1.id}/groups"
     login_as('bob')
 
     get legacy_team_url
@@ -142,7 +142,7 @@ describe LegacyRoutes::RedirectUrl do
     assert_redirected_to admin_settings_path
   end
 
-  # /de/teams/1/folders/1/accountes -> RoutingError
+  # /de/teams/1/folders/1/accounts -> RoutingError
   it 'raises RoutingError when user accesses non valid route' do
     team1 = teams(:team1)
     folder1 = folders(:folder1)
@@ -171,5 +171,18 @@ describe LegacyRoutes::RedirectUrl do
     login_as('bob')
 
     assert_redirected_to root_path
+  end
+
+  # /teams/1/groups/1 -> /teams/1/folders/1
+  it 'redirects group to folder' do
+    login_as('bob')
+
+    team1 = teams(:team1)
+    folder1 = folders(:folder1)
+    legacy_folder_url = "/teams/#{team1.id}/groups/#{folder1.id}"
+
+    get legacy_folder_url
+
+    assert_redirected_to team_folder_path(team1, folder1)
   end
 end
