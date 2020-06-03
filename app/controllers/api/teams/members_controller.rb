@@ -12,8 +12,7 @@ module Api
       # GET /api/teams/:team_id/members
       def index
         authorize team, :list_members?
-        members = team.teammembers.list
-        render_json members
+        super({ render_options: { include: '*', current_user_id: current_user.id } })
       end
 
       # POST /api/teams/:team_id/members
@@ -41,16 +40,19 @@ module Api
 
       private
 
+      def fetch_entries
+        team.teammembers.list
+      end
+
       def teammember
         @teammember ||= Teammember.find(params[:id])
       end
 
       class << self
-        def model_identifier
-          'teammember'
+        def model_class
+          Teammember
         end
       end
     end
-
   end
 end

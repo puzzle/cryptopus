@@ -29,6 +29,19 @@ describe Api::Teams::MembersController do
       expect(data.none? { |c| c['attributes']['label'] == api_user.label }).to be true
     end
 
+    it 'returns team members for given team with member of current user flagged' do
+      login_as(:alice)
+
+      team = teams(:team1)
+
+      get :index, params: { team_id: team }, xhr: true
+
+      own_team_member = data.select { |member| member['attributes']['current_user'] }.first
+
+      expect(own_team_member).not_to be_nil
+      expect(own_team_member['attributes']['label']).to eq('Alice test')
+    end
+
     it 'does not return team members for given team without team membership' do
       login_as(:alice)
 

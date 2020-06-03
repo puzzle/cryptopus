@@ -30,7 +30,10 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
   }
 
   loadCandidates() {
-    this.candidates = this.store.query('user-human', { teamId: this.args.teamId, candidates: true })
+    this.candidates = this.store.query("user-human", {
+      teamId: this.args.teamId,
+      candidates: true
+    });
   }
 
   abort() {
@@ -53,19 +56,24 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
   deleteMember(member) {
     member.teamId = this.args.teamId;
     member.destroyRecord().then(() => {
-      this.members = this.store.query("teammember", {
-        teamId: this.args.teamId
-      });
-      this.loadCandidates();
+      if (member.currentUser) {
+        this.router.transitionTo("index");
+        window.location.replace("/teams");
+      } else {
+        this.members = this.store.query("teammember", {
+          teamId: this.args.teamId
+        });
+        this.loadCandidates();
+      }
     });
   }
 
   @action
   addMember(member) {
-    let team = this.store.peekRecord('team', this.args.teamId)
+    let team = this.store.peekRecord("team", this.args.teamId);
     let newMember = this.store.createRecord("teammember", {
       user: member,
-      team 
+      team
     });
     this.submit(newMember);
   }
