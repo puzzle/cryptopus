@@ -19,7 +19,7 @@
 # https://github.com/puzzle/cryptopus.
 
 class TeammemberSerializer < ActiveModel::Serializer
-  attributes :id, :label, :deletable, :admin
+  attributes :id, :label, :deletable, :admin, :current_user
 
   belongs_to :user
   belongs_to :team
@@ -35,6 +35,10 @@ class TeammemberSerializer < ActiveModel::Serializer
     return false if private_team?
 
     user_object.admin?
+  end
+
+  def current_user
+    user_object.id == @instance_options[:current_user_id]
   end
 
   private

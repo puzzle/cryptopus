@@ -6,4 +6,5 @@ export default class Teammember extends Model {
   @belongsTo("user-human") user;
   @attr("boolean") deletable;
   @attr("boolean") admin;
+  @attr("boolean") currentUser;
 }
