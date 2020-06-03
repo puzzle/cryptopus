@@ -76,8 +76,14 @@ class app.Search
 
   deserializeJSON = (data) ->
     for d in data.data
-      relationship_group_ids = d.relationships.groups.data.map (group) -> group.id
-      group = data.included.find (element) -> relationship_group_ids.includes(element.id)
+      if d.type != 'groups'
+        if d.relationships.groups
+          relationship_group_ids = d.relationships.groups.data.map (group) -> group.id
+        else
+          relationship_group_ids = [d.relationships.group.data.id]
+        group = data.included.find (element) -> relationship_group_ids.includes(element.id)
+      else
+        group = d
       d.attributes.group_name = group.attributes.name
       d.attributes.team_name = group.attributes.team_name
 
