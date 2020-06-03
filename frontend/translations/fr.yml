@@ -42,7 +42,7 @@ fr:
   here: Ici
   new: Nouveau
   save: Sauvegarder
-  close: fermer
+  close: Fermer
 
   i18n:
     language:
@@ -343,13 +343,13 @@ fr:
     label:
       user:
         username: Nom d'utilisateur
-        account_name: Nom du compte
         password: Mot de passe
         admin: Admin
         givenname: Prénom
         surname: Nom de famille
       account:
         account: Compte
+        account_name: Nom du compte
         username: Nom d'utilisateur
         password: Mot de passe
         description: Description

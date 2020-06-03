@@ -2,9 +2,14 @@ import { module, test } from "qunit";
 import { setupRenderingTest } from "ember-qunit";
 import { render } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
+import { setLocale } from 'ember-intl/test-support';
 
 module("Integration | Component | team-member-configure", function(hooks) {
   setupRenderingTest(hooks);
+
+  hooks.beforeEach(function() {
+    setLocale("en")
+  });
 
   test("it renders without data", async function(assert) {
     await render(hbs`<TeamMemberConfigure />`);
