@@ -18,7 +18,7 @@ class app.ApiUserRenew
       type: "GET",
       url: '/api/api_users/' + id + '/token',
       success: (data) ->
-        api_user = data['data']['user/api']
+        api_user = data['data']['attributes']
         row = $('.api-user-row#' + id)
         timestamp = validUntil(api_user)
         updateTimestamp(row, timestamp)
