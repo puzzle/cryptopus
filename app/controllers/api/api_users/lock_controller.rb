@@ -14,7 +14,7 @@ class Api::ApiUsers::LockController < ApiController
     authorize api_user, :lock?
     api_user.lock
     add_info(t('flashes.api.api-users.lock', username: api_user.username))
-    render_json ''
+    render_json
   end
 
   # GET /api/api_users/1/unlock
@@ -22,7 +22,7 @@ class Api::ApiUsers::LockController < ApiController
     authorize api_user, :unlock?
     api_user.unlock
     add_info(t('flashes.api.api-users.unlock', username: api_user.username))
-    render_json ''
+    render_json
   end
 
   private
