@@ -21,7 +21,7 @@
             <div class="columns members">
               <div class="row justify-content-end">
                 <div class="col-sm-4 float-right">
-                  <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{this.addMember}} as |candidate|>
+                  <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{this.addMember}} @placeholder={{t "teammembers.new.title"}} as |candidate|>
                     {{candidate.label}}
                   </PowerSelectTypeahead>
                 </div>

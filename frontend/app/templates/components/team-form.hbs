@@ -14,12 +14,12 @@
               <div class="form-group">
                 <label name="name">{{t "helpers.label.team.name"}}</label>
                 <div>
-                  <Input class="form-control" @value={{this.changeset.name}} @name="name" />
+                  <Input class={{concat "form-control" (if this.changeset.error.name.validation " invalid-input")}} @value={{this.changeset.name}} @name="name" />
                   <ValidationErrorsList @errors={{this.changeset.error.name.validation}}/>
                 </div>
               </div>
               <div class="checkbox">
-                <label for="checkbox-private" class="" name="private">{{t "teams.form.private"}}</label>
+                <label for="checkbox-private" name="private">{{t "teams.form.private"}}</label>
                 <span data-toggle="private-info-tooltip" data-html="true" data-placement="top" title="<b>{{t "teams.description.private"}}</b>">
                   <img src="/ember/assets/images/info.svg" alt="info" class="info-icon" >
                 </span>
@@ -32,7 +32,7 @@
               <div class="form-group">
                 <label name="description">{{t "helpers.label.team.description"}}</label>
                 <div>
-                  <Textarea class="form-control vertical-resize" @value={{this.changeset.description}} @name="description"/>
+                  <Textarea class={{concat "form-control vertical-resize" (if this.changeset.error.description.validation " invalid-input")}} @value={{this.changeset.description}} @name="description"/>
                   <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
                 </div>
               </div>

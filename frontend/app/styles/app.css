@@ -1,3 +1,23 @@
+.ember-power-select-typeahead-trigger {
+  border: none;
+  border-radius: 0;
+}
+
+.ember-power-select-typeahead-input {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  border: 1px solid #aaaaaa !default;
+  outline: none;
+}
+
+.ember-power-select-typeahead-input:focus {
+  border: 1px solid #aaaaaa !default;
+}
+
 .float-right {
   float: right !important;
 }
@@ -20,8 +40,15 @@ li a {
 
 /* Validation-errors */
 .validation-errors {
-  color: red;
-  font-size: small;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 90%;
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.invalid-input {
+  border: 1px solid red !important;
 }
 
 .ember-power-select-trigger {
@@ -49,20 +76,20 @@ li a {
   min-width: 220px;
 }
 
-.private-description{
+.private-description {
   background-color: #eee;
   position: absolute;
   padding: 2px;
   margin-left: 4px;
 }
 
-.info-icon{
+.info-icon {
   width: 18px;
   height: 18px;
   display: inline;
 }
 
-.info-icon:hover{
+.info-icon:hover {
   cursor: help;
 }
 
@@ -70,7 +97,13 @@ li a {
   margin-left: 5px;
 }
 
-.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+.checkbox label {
+  padding-left: 0 !important;
+}
+
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {
   background-color: #2988bc !important;
   border-color: #2479a7 !important;
 }
