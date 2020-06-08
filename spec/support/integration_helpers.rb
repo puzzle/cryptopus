@@ -15,7 +15,7 @@ module IntegrationHelpers
           }
         }
       }
-      post '/api/teams', params: team_params
+      post api_teams_path, params: team_params
 
       # New Folder
       team = Team.find_by(name: 'Web')
@@ -41,7 +41,7 @@ module IntegrationHelpers
 
       # New Account
       folder = team.folders.find_by(name: 'Default')
-      account_path = accounts_path
+      account_path = api_accounts_path
 
       account_params = {
         data: {

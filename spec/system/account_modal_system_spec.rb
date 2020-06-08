@@ -57,7 +57,7 @@ describe 'AccountModal', type: :system, js: true do
     account = Account.find_by(accountname: account_attrs[:accountname])
     folder = Folder.find(account.folder_id)
     team = Team.find(folder.team_id)
-    visit("/accounts/#{account.id}")
+    visit(account_path(account.id))
 
     expect(page).to have_link(id: 'edit_account_button')
     click_link(id: 'edit_account_button')
