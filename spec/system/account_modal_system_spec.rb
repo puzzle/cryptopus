@@ -29,8 +29,8 @@ describe 'AccountModal', type: :system, js: true do
     login_as_user(:bob)
 
     # Create Account
-    expect(page).to have_link('new Account')
-    click_link 'new Account'
+    expect(page).to have_link('New Account')
+    click_link 'New Account'
 
     expect(find('.modal-content')).to be_present
     expect(page).to have_text('New Account')
@@ -63,7 +63,7 @@ describe 'AccountModal', type: :system, js: true do
     click_link(id: 'edit_account_button')
 
     expect(find('.modal-content')).to be_present
-    expect(page).to have_text('Edit Account')
+    expect(page).to have_text('Edit account')
     expect(page).to have_button('Save')
 
     expect_filled_fields_in_modal_with(account_attrs)

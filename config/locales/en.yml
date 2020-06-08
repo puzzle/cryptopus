@@ -63,7 +63,7 @@ en:
     show_menu:
       add_attachment: Add attachment
     edit:
-      title: Editing account
+      title: Edit account
       random_password: Random password
       edit_password_placeholder: Click or focus to set ...
       team_placeholder: Select a team
@@ -154,12 +154,13 @@ en:
 
   folders:
     title: Folders
+    name: Folder name
     index_menu:
       create: Create folder
     edit:
       title: Editing folder
     new:
-      title: New folder
+      title: New Folder
     show:
       move: Move account to other folder
       title: "Accounts in folder %{folder_name} for team %{team_name}"
@@ -212,7 +213,9 @@ en:
       title: "You are member of the following teams:"
       team: Team
     new:
-      title: Create a new team
+      title: New Team
+    edit:
+      title: Edit team
     description:
       private: admins have no access if checked
     show:

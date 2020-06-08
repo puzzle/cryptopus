@@ -52,16 +52,21 @@ const storeStub = Service.extend({
 module("Integration | Component | folder-form", function(hooks) {
   setupRenderingTest(hooks);
 
+  let service;
+
   hooks.beforeEach(function() {
     this.owner.unregister("service:store");
     this.owner.register("service:store", storeStub);
+
+    service = this.owner.lookup('service:intl');
+    service.setLocale('en');
   });
 
   test("it renders without input data", async function(assert) {
 
     await render(hbs`<FolderForm />`);
 
-    assert.ok(this.element.textContent.trim().includes("Name"));
+    assert.ok(this.element.textContent.trim().includes("Folder name"));
     assert.ok(this.element.textContent.trim().includes("Description"));
     assert.ok(this.element.textContent.trim().includes("Save"));
     assert.ok(this.element.textContent.trim().includes("Close"));

@@ -14,7 +14,7 @@ describe Api::FoldersController do
 
       team1 = teams(:team1)
 
-      get :index, params: {team_id: team1, 'q': 'folder' }, xhr: true
+      get :index, params: { team_id: team1, 'q': 'folder' }, xhr: true
 
       folder_json = data.first
       attributes = folder_json['attributes']
@@ -47,7 +47,7 @@ describe Api::FoldersController do
       login_as(:alice)
       team1 = teams(:team1)
 
-      get :index, params: {team_id: team1}, xhr: true
+      get :index, params: { team_id: team1 }, xhr: true
 
       folder_json = data.first
       attributes = folder_json['attributes']

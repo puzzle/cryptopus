@@ -153,6 +153,7 @@ de:
 
   folders:
     title: Ordner
+    name: Ordner Namen
     index_menu:
       create: Gruppe erstellen
     edit:

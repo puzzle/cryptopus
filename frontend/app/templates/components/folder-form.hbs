@@ -29,8 +29,8 @@
             <div class="col-md-5">
               <div class="row">
                 <div class="col-md-12" id="team-power-select">
-                  <label name="team">{{t "team.team"}}</label>
-                  <PowerSelect class="mb-1" @disabled={{false}} @options={{this.assignableTeams}} @selected={{this.selectedTeam}} @onChange={{this.setSelectedTeam}} @renderInPlace={{true}} @allowClear={{true}} @placeholder={{t "account.form.teamPlaceholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |team|>
+                  <label name="team">{{t "team"}}</label>
+                  <PowerSelect class="mb-1" @disabled={{false}} @options={{this.assignableTeams}} @selected={{this.selectedTeam}} @onChange={{this.setSelectedTeam}} @renderInPlace={{true}} @allowClear={{true}} @placeholder={{t "accounts.edit.team_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |team|>
                     {{team.name}}
                   </PowerSelect>
                   <ValidationErrorsList @errors={{this.changeset.error.team.validation}}/>

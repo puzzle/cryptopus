@@ -35,7 +35,7 @@ class LegacyRoutes::RedirectUrl
     LEGACY_PATHS.each do |model, path|
       if @url.match(path)
         @url = send("new_#{model}_path")
-        return
+        break
       end
     end
   end

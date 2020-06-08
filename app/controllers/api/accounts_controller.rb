@@ -21,24 +21,24 @@ class Api::AccountsController < ApiController
   # GET /api/accounts/:id
   def show
     authorize account
-    account.decrypt(decrypted_team_password(account.folder.team))
+    account.decrypt(decrypted_team_password(team))
     render_json account
   end
 
   # POST /api/accounts
   def create
-    account = Account.new(model_params)
-    authorize account
-    account.encrypt(plaintext_team_password(account.folder.team))
-    account.save
-    render_json account
+    @account = Account.new(model_params)
+    authorize @account
+    account.encrypt(plaintext_team_password(team))
+    @account.save
+    render_json @account
   end
 
   # PATCH /api/accounts/:id?Query
   def update
     authorize account
     account.attributes = model_params
-    account.encrypt(decrypted_team_password(account.folder.team))
+    account.encrypt(decrypted_team_password(team))
     account_move_handler.move if account.folder_id_changed?
     account.save!
     render_json account
@@ -57,6 +57,10 @@ class Api::AccountsController < ApiController
 
   def account
     @account ||= Account.find(params[:id])
+  end
+
+  def team
+    @team ||= account.folder.team
   end
 
   def finder(accounts, query)

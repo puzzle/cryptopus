@@ -34,7 +34,6 @@ class Api::FoldersController < ApiController
     render_json folder
   end
 
-
   # PATCH /api/folders/:id
   def update
     authorize folder
