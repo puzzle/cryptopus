@@ -12,7 +12,7 @@ describe 'AjaxHook', type: :system, js: true do
 
   it 'show user has role user message' do
     login_as_user('root')
-    visit '/admin/users'
+    visit admin_users_path
     all(:button, 'role-dropdown')[4].click
     click_link('User')
     expect(page).to have_content('tux is now a user')

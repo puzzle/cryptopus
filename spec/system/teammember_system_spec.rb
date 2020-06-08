@@ -21,11 +21,11 @@ describe 'Teammember', type: :system, js: true do
     team1 = teams(:team1)
 
     # Make Api-User, as modal doesn't work yet without.
-    visit '/profile'
+    visit profile_path
     click_link 'Api Users'
     click_button 'New'
 
-    visit("/teams/#{team1.id}")
+    visit(team_path(team1.id))
 
     edit_button = page.find_link(id: 'config_team_button')
     expect(edit_button).to be_present

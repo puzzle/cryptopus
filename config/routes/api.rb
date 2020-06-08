@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  scope '/api', module: 'api' do
+  scope '/api', module: 'api', as: 'api' do
 
     resources :teams, only: [:index] do
       resources :folders, only: [:show, :index, :update, :create]
@@ -47,7 +47,5 @@ Rails.application.routes.draw do
       resources :members, except: [:new, :edit], module: 'teams'
       resources :candidates, only:[:index], module: 'teams'
     end
-
-
   end
 end

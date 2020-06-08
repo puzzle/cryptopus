@@ -15,7 +15,7 @@ module IntegrationHelpers
           }
         }
       }
-      post '/api/teams', params: team_params
+      post api_teams_path, params: team_params
 
       # New Folder
       team = Team.find_by(name: 'Web')
