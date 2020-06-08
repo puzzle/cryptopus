@@ -3,7 +3,8 @@
   "dependencies": {
     "@rails/webpacker": "5.0.1",
     "less": "^3.11.1",
-    "node-sass": "^4.14.1"
+    "node-sass": "^4.14.1",
+    "text-security": "^3.1.1"
   },
   "devDependencies": {
     "less-loader": "^5.0.0",

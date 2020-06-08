@@ -70,6 +70,11 @@ de:
       team_placeholder: Wählen Sie ein Team aus
       folder_placeholder: Wählen Sie ein Ordner aus
       password_strength: Passwort Stärke
+      password_strengths:
+        weak: Schwach
+        fair: Angemessen
+        good: Gut
+        strong: Stark
     show:
       title: "Account: %{account_name}"
       last_change: "Letzte Änderung vor %{time_ago}"

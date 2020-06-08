@@ -11,16 +11,59 @@ module("Integration | Component | password-strength-meter", function(hooks) {
     setLocale("en");
   });
 
-  test("it renders", async function(assert) {
-    this.set("password", "red");
+  test("it renders with weak password", async function(assert) {
+    this.set("password", "gree");
 
-    await render(hbs`<PasswordStrengthMeter @password=this.password/>`);
+    await render(hbs`<PasswordStrengthMeter @password={{this.password}}/>`);
 
-    assert.equal(this.element.textContent.trim(), "Password Strength");
+    assert.ok(this.element.textContent.trim().includes("Password Strength"));
+    assert.ok(this.element.textContent.trim().includes("Weak"));
+
+    assert.equal(
+      this.element.querySelector(".progress-bar").getAttribute("class"),
+      "progress-bar progress-bar-25"
+    );
+  });
+
+  test("it renders with fair password", async function(assert) {
+    this.set("password", "weweojdf");
+
+    await render(hbs`<PasswordStrengthMeter @password={{this.password}}/>`);
+
+    assert.ok(this.element.textContent.trim().includes("Password Strength"));
+    assert.ok(this.element.textContent.trim().includes("Fair"));
 
     assert.equal(
       this.element.querySelector(".progress-bar").getAttribute("class"),
       "progress-bar progress-bar-50"
+    );
+  });
+
+  test("it renders with good password", async function(assert) {
+    this.set("password", "weweojdfdth");
+
+    await render(hbs`<PasswordStrengthMeter @password={{this.password}}/>`);
+
+    assert.ok(this.element.textContent.trim().includes("Password Strength"));
+    assert.ok(this.element.textContent.trim().includes("Good"));
+
+    assert.equal(
+      this.element.querySelector(".progress-bar").getAttribute("class"),
+      "progress-bar progress-bar-75"
+    );
+  });
+
+  test("it renders with strong password", async function(assert) {
+    this.set("password", "weweojdfdthfew");
+
+    await render(hbs`<PasswordStrengthMeter @password={{this.password}}/>`);
+
+    assert.ok(this.element.textContent.trim().includes("Password Strength"));
+    assert.ok(this.element.textContent.trim().includes("Strong"));
+
+    assert.equal(
+      this.element.querySelector(".progress-bar").getAttribute("class"),
+      "progress-bar progress-bar-100"
     );
   });
 });
