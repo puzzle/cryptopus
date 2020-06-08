@@ -69,6 +69,11 @@ en:
       team_placeholder: Select a team
       folder_placeholder: Select a folder
       password_strength: Password Strength
+      password_strengths:
+        weak: Weak
+        fair: Fair
+        good: Good
+        strong: Strong
     show:
       title: "Account: %{account_name}"
       last_change: "Last change was %{time_ago} ago"

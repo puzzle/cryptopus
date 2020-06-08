@@ -67,6 +67,12 @@ fr:
       random_password: Mot de passe aléatoire
       team_placeholder: Choisissez une équipe
       folder_placeholder: Choisissez un dossier
+      password_strength: Force du mot de passe
+      password_strengths:
+        weak: Faible
+        fair: Approprié
+        good: Bien
+        strong: Fort
     show:
       title: "Compte: %{account_name}"
       last_change: "Dernière mise à jour il ya %{time_ago}"

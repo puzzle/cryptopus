@@ -6986,6 +6986,11 @@ terser@^4.1.2, terser@^4.4.3:
     source-map "~0.6.1"
     source-map-support "~0.5.12"
 
+text-security@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/text-security/-/text-security-3.1.1.tgz#855c827b747d3cf1bc160be60dd012f75a29181f"
+  integrity sha512-o8mIakiAYU3NcELbpB48j4Owatk3Fp/L6blWn4+F2RKB5+56VDfSAYfOZ5ulyeQjZJlQzBSvDBC+2XwdP7UowA==
+
 through2@^2.0.0:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.5.tgz#01c1e39eb31d07cb7d03a96a70823260b23132cd"
