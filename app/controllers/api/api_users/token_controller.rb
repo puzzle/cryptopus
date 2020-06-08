@@ -14,7 +14,7 @@ class Api::ApiUsers::TokenController < ApiController
     authorize api_user
     username = api_user.username
     add_info(t('flashes.api.api-users.token.renew', username: username, token: renew_token))
-    render_json api_user
+    render_json
   end
 
   # DELETE /api/api_users/:id/token
@@ -22,7 +22,7 @@ class Api::ApiUsers::TokenController < ApiController
     authorize api_user
     api_user.update!(locked: true)
     add_info(t('flashes.api.api-users.token.invalidated', username: api_user.username))
-    render_json ''
+    render_json
   end
 
   private
