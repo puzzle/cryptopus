@@ -1,7 +1,5 @@
 <div class="validation-errors">
-  <ul>
-    {{#each @errors as |error|}}
-      <li>{{error}}.</li>
-    {{/each}}
-  </ul>
+  {{#each @errors as |error|}}
+    <div>{{error}}.</div>
+  {{/each}}
 </div>

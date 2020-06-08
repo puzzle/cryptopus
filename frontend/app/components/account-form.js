@@ -40,9 +40,6 @@ export default class AccountForm extends BaseFormComponent {
       this.selectedTeam = teams.find(
         team => team.id === this.changeset.group.get("team.id")
       );
-      // this.availableGroups = this.store.query("group", {
-      //   teamId: this.selectedTeam.id
-      // });
     });
   }
 
