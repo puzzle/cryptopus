@@ -36,7 +36,7 @@ describe 'TeamModal', type: :system, js: true do
     click_link 'new Team'
 
     expect(find('.modal-content')).to be_present
-    expect(page).to have_text('New Team')
+    expect(page).to have_text('Create a new team')
     expect(page).to have_button('Save')
 
     expect do
@@ -54,7 +54,7 @@ describe 'TeamModal', type: :system, js: true do
     click_link(id: 'edit_team_button')
 
     expect(find('.modal-content')).to be_present
-    expect(page).to have_text('Edit Team')
+    expect(page).to have_text('Edit an existing team')
     expect(page).to have_button('Save')
 
     expect_filled_fields_in_modal_with(team_attrs)

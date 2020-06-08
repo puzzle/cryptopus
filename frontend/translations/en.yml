@@ -208,6 +208,8 @@ en:
       team: Team
     new:
       title: Create a new team
+    edit:
+      title: Edit an existing team
     description:
       private: admins have no access if checked
     show:
