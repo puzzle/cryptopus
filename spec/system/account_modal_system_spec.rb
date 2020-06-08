@@ -57,13 +57,13 @@ describe 'AccountModal', type: :system, js: true do
     account = Account.find_by(accountname: account_attrs[:accountname])
     group = Group.find(account.group_id)
     team = Team.find(group.team_id)
-    visit("/accounts/#{account.id}")
+    visit(account_path(account.id))
 
     expect(page).to have_link(id: 'edit_account_button')
     click_link(id: 'edit_account_button')
 
     expect(find('.modal-content')).to be_present
-    expect(page).to have_text('Edit Account')
+    expect(page).to have_text('Editing account')
     expect(page).to have_button('Save')
 
     expect_filled_fields_in_modal_with(account_attrs)

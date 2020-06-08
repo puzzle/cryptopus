@@ -15,7 +15,7 @@ module IntegrationHelpers
           }
         }
       }
-      post '/api/teams', params: team_params
+      post api_teams_path, params: team_params
 
       # New Group
       team = Team.find_by(name: 'Web')
@@ -25,7 +25,7 @@ module IntegrationHelpers
 
       # New Account
       group = team.groups.find_by(name: 'Default')
-      account_path = accounts_path
+      account_path = api_accounts_path
       account_params = { data: { attributes: { accountname: 'puzzle',
                                                group_id: group.id,
                                                description: 'account_description',
