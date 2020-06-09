@@ -3,15 +3,15 @@
 Rails.application.routes.draw do
   scope '/api', module: 'api', as: 'api' do
 
-    resources :teams, only: [:index] do
-      resources :folders, only: [:show, :index, :update, :create]
+    resources :teams, except: [:new, :edit] do
+      resources :folders, except: [:new, :edit, :destroy]
     end
 
     resources :all_folders, only: [:index]
 
     get 'env_settings', to: 'env_settings#index'
 
-    resources :accounts, only: [:show, :index, :update, :create] do
+    resources :accounts, except: [:new, :edit, :destroy] do
       resources :file_entries, only: [:create]
     end
 

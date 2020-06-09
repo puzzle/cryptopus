@@ -28,7 +28,7 @@ describe 'DeleteUser', type: :system, js: true do
 
   it "can delete user if he isn't last teammember in any teams" do
     login_as_user(:admin)
-    visit(admin_users_path())
+    visit(admin_users_path)
 
     all('a.delete_user_link')[0].click
 
