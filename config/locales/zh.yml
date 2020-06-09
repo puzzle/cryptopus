@@ -35,7 +35,7 @@ zh:
   last_login_date_and_from_country: "上次登陆时间： %{last_login_at} 位置 %{last_login_from} (国家：%{last_login_country})"
   last_login_date: "上次登陆时间：%{last_login_at}"
   unencrypted_field_caption: 未加密
-  group: "组"
+  folder: "组"
   team: "团队"
   move: "移动"
 
@@ -54,7 +54,7 @@ zh:
     title: "帐户"
     index_menu:
       create: "创建帐户"
-      group: "组"
+      folder: "组"
     show_menu:
       add_attachment: "添加附件"
     edit:
@@ -126,7 +126,7 @@ zh:
       new:
         title: "新用户"
 
-  groups:
+  folders:
     title: "组"
     index_menu:
       create: "创建组"
@@ -136,7 +136,7 @@ zh:
       title: "新的组"
     show:
       move: "移动帐户到其他组"
-      title: "%{team_name} 团队中 %{group_name} 组的成员帐户"
+      title: "%{team_name} 团队中 %{folder_name} 组的成员帐户"
   items:
     new:
       title: "添加附件到帐户"
@@ -185,7 +185,7 @@ zh:
       private: 如果选中管理员将无访问权限
     show:
       title: "%{team_name} 团队中的组"
-      group: "组"
+      folder: "组"
       members: "成员"
       add_member: "添加成员"
       admins: "管理员"
@@ -232,7 +232,7 @@ zh:
       moved: "帐户被成功删除。"
     application:
       wait: "请等待你的团队密码被重新加密。"
-    groups:
+    folders:
       created: "成功创建一个新的组。"
       updated: "成功更新一个新的组。"
     items:

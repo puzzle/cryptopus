@@ -34,7 +34,7 @@ ch_be:
   last_login_date_and_from_country: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from} (%{last_login_country})"
   last_login_date: "Ds letschtä Login isch am %{last_login_at} gsi"
   unencrypted_field_caption: nid verschlüsslet
-  group: Gruppä
+  folder: Ordner
   team: Team
   move: Bewegä
   here: hiä
@@ -85,7 +85,7 @@ ch_be:
     title: 'Accounts'
     index_menu:
       create: Account ersteuä
-      group: Gruppä
+      folder: Ordner
     show_menu:
       add_attachment: Anhang hinzufüegä
     edit:
@@ -159,17 +159,17 @@ ch_be:
       new:
         title: Nöie Benutzer
 
-  groups:
-    title: Gruppe
+  folders:
+    title: Ordner
     index_menu:
-      create: Gruppe ersteue
+      create: Ordner ersteue
     edit:
-      title: Gruppe bearbeite
+      title: Ordner bearbeite
     new:
-      title: Gruppe ersteue
+      title: Ordner ersteue
     show:
-      move: Account zure angere Gruppe verschiebe
-      title: "Accounts vo dr Gruppe %{group_name} vom Team %{team_name}"
+      move: Account zumnä angere Ordner verschiebe
+      title: "Accounts vom Ordner %{folder_name} vom Team %{team_name}"
   items:
     new:
       title: Ahang zum Account hinzuefüege
@@ -222,8 +222,8 @@ ch_be:
     description:
       private: Admins hei ke Zuegriff we si agwäut si
     show:
-      title: "Gruppä vom Team %{team_name}"
-      group: Gruppä
+      title: "Ordner vom Team %{team_name}"
+      folder: Ordner
       members: Mitglider
       add_member: Mitglied hinzuefüege
       admins: Admins
@@ -293,9 +293,9 @@ ch_be:
       moved: Der Account isch erfougrich verschobe worde.
     application:
       wait: Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde.
-    groups:
-      created: Di nöii Gruppe isch erfougrich ersteut worde.
-      updated: D Gruppe isch erfougrich bearbeitet worde.
+    folders:
+      created: Dr nöii Ordner isch erfougrich ersteut worde.
+      updated: Dr Ordner isch erfougrich bearbeitet worde.
     items:
       uploaded: D Datei isch erfougrich ufeglade worde.
       uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
@@ -342,7 +342,7 @@ ch_be:
       team:
         name: Name
         description: Beschribig
-      group:
+      folder:
         name: Name
         description: Beschribig
       ldapsetting:
@@ -371,7 +371,7 @@ ch_be:
             accountname:
               blank: 'cha nid läär si'
               taken: 'isch bereit vergä'
-        group:
+        folder:
           attributes:
             name:
               blank: 'cha nid läär si'

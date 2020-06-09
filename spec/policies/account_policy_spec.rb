@@ -6,7 +6,7 @@ describe AccountPolicy do
 
   let(:account1) { accounts(:account1) }
   let(:account2) { accounts(:account2) }
-  let(:group2) { groups(:group2) }
+  let(:folder2) { folders(:folder2) }
   let(:team1) { teams(:team1) }
   let(:team2) { teams(:team2) }
 

@@ -4,18 +4,17 @@ import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
-import BaseFormComponent from "./base-form-component";
-import { bind } from "@ember/runloop";
+import ModalForm from "./modal-form";
 import { isPresent } from "@ember/utils";
 
-export default class AccountForm extends BaseFormComponent {
+export default class AccountForm extends ModalForm {
   @service store;
   @service router;
 
   @tracked selectedTeam;
-  @tracked selectedGroup;
+  @tracked selectedFolder;
   @tracked assignableTeams;
-  @tracked availableGroups;
+  @tracked availableFolders;
 
   AccountValidations = AccountValidations;
 
@@ -38,18 +37,13 @@ export default class AccountForm extends BaseFormComponent {
       }
 
       this.selectedTeam = teams.find(
-        team => team.id === this.changeset.group.get("team.id")
+        team => team.id === this.changeset.folder.get("team.id")
       );
     });
   }
 
   setupModal(element, args) {
-    var context = args[0];
-    context.modalElement = element;
-    /* eslint-disable no-undef  */
-    $(element).on("hidden.bs.modal", bind(context, context.abort));
-    $(element).modal("show");
-    /* eslint-enable no-undef  */
+    super.setupModal(element, args)
   }
 
   abort() {
@@ -74,17 +68,17 @@ export default class AccountForm extends BaseFormComponent {
       this.selectedTeam = selectedTeam;
 
       this.store
-        .query("group", { teamId: this.selectedTeam.id })
-        .then(groups => {
-          this.availableGroups = groups;
-          this.setGroup(null);
+        .query("folder", { teamId: this.selectedTeam.id })
+        .then(folders => {
+          this.availableFolders = folders;
+          this.setFolder(null);
         });
     }
   }
 
   @action
-  setGroup(group) {
-    this.changeset.group = group;
+  setFolder(folder) {
+    this.changeset.folder = folder;
   }
 
   async beforeSubmit() {

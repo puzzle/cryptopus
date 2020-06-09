@@ -7,7 +7,7 @@
 
 class AccountMoveHandler < AccountHandler
 
-  attr_accessor :new_group
+  attr_accessor :new_folder
 
   def move
     ApplicationRecord.transaction do
@@ -45,10 +45,10 @@ class AccountMoveHandler < AccountHandler
   end
 
   def new_team
-    @new_team ||= account.group.team
+    @new_team ||= account.folder.team
   end
 
   def old_team
-    @old_team ||= Group.find(account.group_id_was).team
+    @old_team ||= Folder.find(account.folder_id_was).team
   end
 end

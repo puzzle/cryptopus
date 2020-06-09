@@ -5,5 +5,5 @@ export default class Account extends Model {
   @attr("string") cleartextUsername;
   @attr("string") cleartextPassword;
   @attr("string") description;
-  @belongsTo("group") group;
+  @belongsTo("folder") folder;
 }

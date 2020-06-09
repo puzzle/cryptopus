@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_12_071004) do
+ActiveRecord::Schema.define(version: 2020_06_02_170103) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "accountname", limit: 70, default: "", null: false
-    t.integer "group_id", default: 0, null: false
+    t.integer "folder_id", default: 0, null: false
     t.text "description"
     t.binary "username"
     t.binary "password"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_02_12_071004) do
     t.index ["tag"], name: "index_accounts_on_tag"
   end
 
-  create_table "groups", force: :cascade do |t|
+  create_table "folders", force: :cascade do |t|
     t.string "name", limit: 40, default: "", null: false
     t.text "description"
     t.datetime "created_at", null: false

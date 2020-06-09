@@ -35,7 +35,7 @@ ru:
   last_login_date_and_from_country: "Последний вход был %{last_login_at} с %{last_login_from} (%{last_login_country})"
   last_login_date: "Последний вход был %{last_login_at}"
   unencrypted_field_caption: "не зашифровано"
-  group: "Группа"
+  folder: "Группа"
   team: "Команда"
   move: "Переместить"
   executed_at: "Выполнено"
@@ -58,7 +58,7 @@ ru:
     title: "Аккаунты"
     index_menu:
       create: "Создать аккаунт"
-      group: "Группы"
+      folder: "Группы"
     show_menu:
       add_attachment: "Прикрепить файл"
     edit:
@@ -132,7 +132,7 @@ ru:
       new:
         title: "Новый пользователь"
 
-  groups:
+  folders:
     title: "Группы"
     index_menu:
       create: "Создать группу"
@@ -142,7 +142,7 @@ ru:
       title: "Новая группа"
     show:
       move: "Переместить аккаунт в другую группу"
-      title: "Аккаунты в группе %{group_name} для команды %{team_name}"
+      title: "Аккаунты в группе %{folder_name} для команды %{team_name}"
   items:
     new:
       title: "Добавить вложение к аккаунту"
@@ -191,7 +191,7 @@ ru:
       private: "Запретить доступ администраторам"
     show:
       title: "Группы для команды %{team_name}"
-      group: "Группа"
+      folder: "Группа"
       members: "Участники группы"
       add_member: "Добавить участника"
       admins: "Администраторы"
@@ -238,7 +238,7 @@ ru:
       moved: "Аккаунт перемещён"
     application:
       wait: "Подождите окончания перешифрования ваших командных паролей."
-    groups:
+    folders:
       created: "Новая группа создана."
       updated: "Группа обновлена."
     items:

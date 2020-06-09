@@ -29,8 +29,8 @@ describe 'AccountModal', type: :system, js: true do
     login_as_user(:bob)
 
     # Create Account
-    expect(page).to have_link('new Account')
-    click_link 'new Account'
+    expect(page).to have_link('New Account')
+    click_link 'New Account'
 
     expect(find('.modal-content')).to be_present
     expect(page).to have_text('New Account')
@@ -55,15 +55,15 @@ describe 'AccountModal', type: :system, js: true do
 
     # Edit Account
     account = Account.find_by(accountname: account_attrs[:accountname])
-    group = Group.find(account.group_id)
-    team = Team.find(group.team_id)
+    folder = Folder.find(account.folder_id)
+    team = Team.find(folder.team_id)
     visit("/accounts/#{account.id}")
 
     expect(page).to have_link(id: 'edit_account_button')
     click_link(id: 'edit_account_button')
 
     expect(find('.modal-content')).to be_present
-    expect(page).to have_text('Edit Account')
+    expect(page).to have_text('Edit account')
     expect(page).to have_button('Save')
 
     expect_filled_fields_in_modal_with(account_attrs)
@@ -74,8 +74,8 @@ describe 'AccountModal', type: :system, js: true do
     expect_account_page_with(updated_attrs)
 
     # Delete Account
-    find(:xpath, "//a[@href='/teams/#{group.team_id}/groups/#{account.group_id}']").click
-    expect(find('h1')).to have_text("Accounts in group #{group.name} for team #{team.name}")
+    find(:xpath, "//a[@href='/teams/#{folder.team_id}/folders/#{account.folder_id}']").click
+    expect(find('h1')).to have_text("Accounts in folder #{folder.name} for team #{team.name}")
 
     expect do
       del_button = find(:xpath, "//a[@href='/accounts/#{account.id}' and @data-method='delete']")
@@ -85,7 +85,7 @@ describe 'AccountModal', type: :system, js: true do
         del_button.click
       end
 
-      expect(find('h1')).to have_text("Accounts in group #{group.name} for team #{team.name}")
+      expect(find('h1')).to have_text("Accounts in folder #{folder.name} for team #{team.name}")
     end.to change { Account.count }.by(-1)
 
     logout
@@ -104,7 +104,7 @@ describe 'AccountModal', type: :system, js: true do
       find('#team-power-select').find('.ember-power-select-trigger').click # Open trigger
       find_all('ul.ember-power-select-options > li')[0].click
 
-      find('#group-power-select').find('.ember-power-select-trigger').click # Open trigger
+      find('#folder-power-select').find('.ember-power-select-trigger').click # Open trigger
       find_all('ul.ember-power-select-options > li')[0].click
     end
   end

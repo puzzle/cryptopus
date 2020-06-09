@@ -9,7 +9,7 @@ import { setLocale } from "ember-intl/test-support";
 
 const storeStub = Service.extend({
   findAll(modelName) {
-    if (modelName === "group") {
+    if (modelName === "folder") {
       return Promise.all([
         {
           id: 1,
@@ -26,17 +26,17 @@ const storeStub = Service.extend({
         {
           id: 1,
           name: "supporting",
-          description: "supporting groups",
-          group: [1]
+          description: "supporting folders",
+          folder: [1]
         }
       ]);
     }
   },
   createRecord() {
-    return { group: null, isNew: true };
+    return { folder: null, isNew: true };
   },
   query(modelName) {
-    if (modelName === "group") {
+    if (modelName === "folder") {
       return Promise.all([
         {
           id: 1,
@@ -69,7 +69,7 @@ module("Integration | Component | account-form", function(hooks) {
       "supporting"
     );
 
-    await clickTrigger("#group-power-select");
+    await clickTrigger("#folder-power-select");
 
     assert.equal(
       this.element.querySelector(".ember-power-select-dropdown").innerText,
@@ -87,7 +87,7 @@ module("Integration | Component | account-form", function(hooks) {
   });
 
   test("it renders with input data", async function(assert) {
-    this.set("group", {
+    this.set("folder", {
       id: 1,
       name: "bbt",
       get() {
@@ -100,7 +100,7 @@ module("Integration | Component | account-form", function(hooks) {
       cleartextUsername: "mail@ember.com",
       cleartextPassword: "lol",
       description: "The ember email",
-      group: this.get("group")
+      folder: this.get("folder")
     });
     await render(hbs`<AccountForm \@account\=\{{this.account}}/>`);
 

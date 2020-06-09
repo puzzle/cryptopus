@@ -12,17 +12,17 @@
     %li#accounts.tab.active
       %a{"data-toggle" => "tab", href: "#accounts-result"}
         = t('accounts.title')
-    %li#groups.tab
-      %a{"data-toggle" => "tab", href: "#groups-result"}
-        = t('groups.title')
+    %li#folders.tab
+      %a{"data-toggle" => "tab", href: "#folders-result"}
+        = t('folders.title')
     %li#teams.tab
       %a{"data-toggle" => "tab", href: "#teams-result"}
         = t('teams.title')
   .tab-content
     #accounts-result.tab-pane.fade.in.active
       %ul.search-result.result-list.accounts
-    #groups-result.tab-pane.fade
-      %ul.search-result.result-list.groups
+    #folders-result.tab-pane.fade
+      %ul.search-result.result-list.folders
     #teams-result.tab-pane.fade
       %ul.search-result.result-list.teams
 %br

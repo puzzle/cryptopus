@@ -5,34 +5,34 @@ require 'rails_helper'
 describe LegacyRoutes::RedirectUrl do
   include IntegrationHelpers::DefaultHelper
 
-  # /de/teams/1/groups/1 -> /teams/1/groups/1/
-  it 'redirects to groups without groups in url' do
+  # /de/teams/1/folders/1 -> /teams/1/folders/1/
+  it 'redirects to team show without folders in url' do
     team1 = teams(:team1)
-    group1 = groups(:group1)
+    folder1 = folders(:folder1)
 
-    legacy_account_url = "/de/teams/#{team1.id}/groups/#{group1.id}"
+    legacy_account_url = "/de/teams/#{team1.id}/folders/#{folder1.id}"
     login_as('bob')
 
     get legacy_account_url
 
-    assert_redirected_to team_group_path(team1.id, group1.id)
+    assert_redirected_to team_folder_path(team1.id, folder1.id)
   end
 
-  # /de/teams/1/groups/1/accounts -> /teams/1/groups/1/
+  # /de/teams/1/folders/1/accounts -> /teams/1/folders/1/
   it 'redirects to accounts url with accounts in legacy url' do
     team1 = teams(:team1)
-    group1 = groups(:group1)
+    folder1 = folders(:folder1)
 
-    legacy_account_url = "/de/teams/#{team1.id}/groups/#{group1.id}/accounts"
+    legacy_account_url = "/de/teams/#{team1.id}/folders/#{folder1.id}/accounts"
     login_as('bob')
 
     get legacy_account_url
 
-    assert_redirected_to team_group_path(teams(:team1).id, groups(:group1).id)
+    assert_redirected_to team_folder_path(teams(:team1).id, folders(:folder1).id)
   end
 
   # /de/teams/1/groups -> /teams/1/
-  it 'redirects to groups with groups in url' do
+  it 'redirects to folders with groups in url' do
     team1 = teams(:team1)
 
     legacy_team_url = "/de/teams/#{team1.id}/groups"
@@ -43,7 +43,7 @@ describe LegacyRoutes::RedirectUrl do
     assert_redirected_to team_path(teams(:team1).id)
   end
 
-  # /de/teams/1/groups/1/ -> /teams/1/groups/1/
+  # /de/teams/1/folders/1/ -> /teams/1/folders/1/
   it 'redirects to teams url with locale in url' do
     team1 = teams(:team1)
 
@@ -56,14 +56,14 @@ describe LegacyRoutes::RedirectUrl do
     assert_redirected_to redirect_url
   end
 
-  # /de/teams/1/groups/1/accounts/1/ -> /accounts/1/
+  # /de/teams/1/folders/1/accounts/1/ -> /accounts/1/
   it 'redirects to team1 url without locale' do
     team1 = teams(:team1)
-    group1 = groups(:group1)
+    folder1 = folders(:folder1)
     account1 = accounts(:account1)
 
-    legacy_account_url = "/de/teams/#{team1.id}/groups/" \
-    "#{group1.id}/accounts/#{account1.id}/"
+    legacy_account_url = "/de/teams/#{team1.id}/folders/" \
+    "#{folder1.id}/accounts/#{account1.id}/"
     login_as('bob')
 
     get legacy_account_url
@@ -105,17 +105,17 @@ describe LegacyRoutes::RedirectUrl do
     assert_redirected_to session_new_path
   end
 
-  # /de/teams/1/groups/1/accounts -> /accounts
+  # /de/teams/1/folders/1/accounts -> /accounts
   it 'redirects to account url without locale' do
     team1 = teams(:team1)
-    group1 = groups(:group1)
+    folder1 = folders(:folder1)
 
-    legacy_accounts_url = "/de/teams/#{team1.id}/groups/#{group1.id}/accounts"
+    legacy_accounts_url = "/de/teams/#{team1.id}/folders/#{folder1.id}/accounts"
     login_as('bob')
 
     get legacy_accounts_url
 
-    assert_redirected_to team_group_path(team1, group1)
+    assert_redirected_to team_folder_path(team1, folder1)
   end
 
   # /de/profile -> /profile
@@ -142,18 +142,18 @@ describe LegacyRoutes::RedirectUrl do
     assert_redirected_to admin_settings_path
   end
 
-  # /de/teams/1/groups/1/accountes -> RoutingError
+  # /de/teams/1/folders/1/accounts -> RoutingError
   it 'raises RoutingError when user accesses non valid route' do
     team1 = teams(:team1)
-    group1 = groups(:group1)
+    folder1 = folders(:folder1)
 
-    invalid_account_url = "/teams/#{team1.id}/groups/#{group1.id}/accountes"
+    invalid_account_url = "/teams/#{team1.id}/folders/#{folder1.id}/accountes"
     login_as('bob')
 
     expect { get invalid_account_url }.to raise_error(ActionController::RoutingError)
   end
 
-  # /ch_vs/teams/1/groups/1/accounts -> RoutingError
+  # /ch_vs/teams/1/folders/1/accounts -> RoutingError
   it 'raises RoutingError when user accesses non valid route with unknown locale' do
 
     invalid_teams_url = '/ch_vs/teams'
@@ -171,5 +171,18 @@ describe LegacyRoutes::RedirectUrl do
     login_as('bob')
 
     assert_redirected_to root_path
+  end
+
+  # /teams/1/groups/1 -> /teams/1/folders/1
+  it 'redirects group to folder' do
+    login_as('bob')
+
+    team1 = teams(:team1)
+    folder1 = folders(:folder1)
+    legacy_folder_url = "/teams/#{team1.id}/groups/#{folder1.id}"
+
+    get legacy_folder_url
+
+    assert_redirected_to team_folder_path(team1, folder1)
   end
 end

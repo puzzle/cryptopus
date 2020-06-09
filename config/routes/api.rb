@@ -3,8 +3,10 @@
 Rails.application.routes.draw do
   scope '/api', module: 'api' do
 
-    resources :groups, only: [:index]
-    resources :teams, only: [:index]
+    resources :teams, only: [:index] do
+      resources :folders, only: [:show, :index, :update, :create]
+    end
+
     resources :accounts, only: [:show, :index, :update, :create]
 
     resources :api_users do
@@ -18,7 +20,7 @@ Rails.application.routes.draw do
 
     scope '/search', module: 'search' do
       get :accounts
-      get :groups
+      get :folders
       get :teams
     end
 
@@ -39,7 +41,7 @@ Rails.application.routes.draw do
       end
       
       resources :api_users, only: [:create, :destroy, :index], module: 'teams'
-      resources :groups, only: ['index'], module: 'teams'
+      resources :folders, only: ['index'], module: 'teams'
       resources :members, except: [:new, :edit], module: 'teams'
       resources :candidates, only:[:index], module: 'teams'
     end

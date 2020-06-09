@@ -172,8 +172,8 @@ class User::Human < User
     password.match('sha512').nil?
   end
 
-  def groups
-    Group.joins('INNER JOIN teammembers ON groups.team_id = teammembers.team_id').
+  def folders
+    Folder.joins('INNER JOIN teammembers ON folders.team_id = teammembers.team_id').
       where(teammembers: { user_id: id })
   end
 

@@ -21,6 +21,5 @@
 class TeamSerializer < ActiveModel::Serializer
   attributes :id, :name, :description, :private
 
-  has_many :groups
-
+  has_many :folders
 end

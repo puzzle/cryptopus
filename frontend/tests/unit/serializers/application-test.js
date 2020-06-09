@@ -11,15 +11,15 @@ module("Unit | Serializer | application", function(hooks) {
     assert.ok(serializer);
   });
 
-  test("it serializes group", function(assert) {
+  test("it serializes folder", function(assert) {
     let store = this.owner.lookup("service:store");
     let team = store.createRecord("team", { id: 2 });
-    let group = store.createRecord("group", {
+    let folder = store.createRecord("folder", {
       name: "bbt",
       team: team
     });
 
-    let serializedRecord = group.serialize();
+    let serializedRecord = folder.serialize();
 
     assert.equal(serializedRecord.data.attributes.name, "bbt");
   });

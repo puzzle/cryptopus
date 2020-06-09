@@ -30,6 +30,7 @@
               </div>
             </div>
             <div class="row">
+
               <div class="col-md-6">
                 <div class="form-group col-md-12">
                   <label name="username">{{t "username"}}</label>
@@ -39,12 +40,12 @@
                 </div>
               </div>
               <div class="col-md-5">
-                <div id="group-power-select" class="col-md-12">
+                <div id="folder-power-select" class="col-md-12">
                   <label name="folder">{{t "folder"}}</label>
-                  <PowerSelect @options={{this.availableGroups}} @selected={{this.changeset.group}} @disabled={{this.isGroupDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setGroup}} @allowClear={{true}} @placeholder={{t "accounts.edit.folder_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} @triggerClass={{if this.changeset.error.group.validation "invalid-input"}} @tabindex="6" as |group|>
-                    {{group.name}}
+                  <PowerSelect @options={{this.availableFolders}} @selected={{this.changeset.folder}} @disabled={{this.isFolderDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setFolder}} @allowClear={{true}} @placeholder={{t "accounts.edit.folder_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} @triggerClass={{if this.changeset.error.folder.validation "invalid-input"}} @tabindex="6" as |folder|>
+                    {{folder.name}}
                   </PowerSelect>
-                  <ValidationErrorsList @errors={{this.changeset.error.group.validation}}/>
+                  <ValidationErrorsList @errors={{this.changeset.error.folder.validation}}/>
                 </div>
               </div>
             </div>

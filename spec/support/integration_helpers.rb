@@ -2,7 +2,7 @@
 
 module IntegrationHelpers
   module AccountTeamSetupHelper
-    def create_team_group_account(username, user_password = 'password', private = false)
+    def create_team_folder_account(username, user_password = 'password', private = false)
       login_as(username.to_s, user_password)
 
       # New Team
@@ -17,28 +17,52 @@ module IntegrationHelpers
       }
       post '/api/teams', params: team_params
 
-      # New Group
+      # New Folder
       team = Team.find_by(name: 'Web')
-      post team_groups_path(team_id: team.id),
-           params: { group: { name: 'Default',
-                              description: 'group_description' } }
+
+      folder_params = {
+        data: {
+          attributes: {
+            name: 'Default',
+            description: 'yeah'
+          },
+          relationships: {
+            team: {
+              data: {
+                id: team.id,
+                type: 'teams'
+              }
+            }
+          }
+        }
+      }
+
+      post "/api/teams/#{team.id}/folders", params: folder_params
 
       # New Account
-      group = team.groups.find_by(name: 'Default')
+      folder = team.folders.find_by(name: 'Default')
       account_path = accounts_path
-      account_params = { data: { attributes: { accountname: 'puzzle',
-                                               group_id: group.id,
-                                               description: 'account_description',
-                                               cleartext_username: 'account_username',
-                                               cleartext_password: 'account_password' } } }
+
+      account_params = {
+        data: {
+          attributes: {
+            accountname: 'puzzle',
+            folder_id: folder.id,
+            description: 'account_description',
+            cleartext_username: 'account_username',
+            cleartext_password: 'account_password'
+          }
+        }
+      }
+
       post account_path, params: account_params
 
       logout
-      group.accounts.find_by(accountname: 'puzzle')
+      folder.accounts.find_by(accountname: 'puzzle')
     end
 
-    def create_team_group_account_private(username, user_password = 'password')
-      create_team_group_account(username, user_password, true)
+    def create_team_folder_account_private(username, user_password = 'password')
+      create_team_folder_account(username, user_password, true)
     end
 
     def create_team(user, teamname, private_team)
@@ -54,8 +78,8 @@ module IntegrationHelpers
       Teammember.create(team_id: team.id, password: crypted_team_password)
     end
 
-    def create_group(team, groupname)
-      Group.create(team_id: team.id, name: groupname, description: 'group_description')
+    def create_folder(team, foldername)
+      Folder.create(team_id: team.id, name: foldername, description: 'folder_description')
     end
   end
 

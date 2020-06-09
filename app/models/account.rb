@@ -6,7 +6,7 @@
 #
 #  id          :integer          not null, primary key
 #  accountname :string(70)       default(""), not null
-#  group_id    :integer          default(0), not null
+#  folder_id    :integer          default(0), not null
 #  description :text
 #  username    :binary
 #  password    :binary
@@ -22,11 +22,11 @@
 
 class Account < ApplicationRecord
 
-  belongs_to :group
+  belongs_to :folder
   has_many :items, dependent: :destroy
 
   validates :accountname, presence: true
-  validates :accountname, uniqueness: { scope: :group }
+  validates :accountname, uniqueness: { scope: :folder }
   validates :accountname, length: { maximum: 70 }
   validates :description, length: { maximum: 4000 }
 

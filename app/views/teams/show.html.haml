@@ -7,7 +7,4 @@
   = t '.title', team_name: team.name
   - if team.private?
     =image_pack_tag('encrypted_small.svg')
-%br
-  
-.tab-content.teams-content
-  = render 'groups'
+= render 'folders'

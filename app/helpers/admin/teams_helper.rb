@@ -6,14 +6,14 @@
 #  https://github.com/puzzle/cryptopus.
 
 module Admin::TeamsHelper
-  def number_of_groups
-    @team.groups.count
+  def number_of_folders
+    @team.folders.count
   end
 
   def number_of_accounts
     accounts = 0
-    @team.groups.each do |group|
-      accounts += group.accounts.count
+    @team.folders.each do |folder|
+      accounts += folder.accounts.count
     end
     accounts
   end

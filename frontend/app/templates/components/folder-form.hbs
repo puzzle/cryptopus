@@ -1,0 +1,59 @@
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="folderFormModalLabel" aria-hidden="true" {{did-insert this.setupModal this}}>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title align-middle" id="folderFormModalLabel">{{@title}}</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label={{t "close"}}>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label name="name">{{t "folders.name"}}</label>
+                  <div>
+                    <Input class="form-control" @value={{this.changeset.name}} @name="name" />
+                    <ValidationErrorsList @errors={{this.changeset.error.name.validation}}/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-1">
+
+            </div>
+
+            <div class="col-md-5">
+              <div class="row">
+                <div class="col-md-12" id="team-power-select">
+                  <label name="team">{{t "team"}}</label>
+                  <PowerSelect class="mb-1" @disabled={{false}} @options={{this.assignableTeams}} @selected={{this.selectedTeam}} @onChange={{this.setSelectedTeam}} @renderInPlace={{true}} @allowClear={{true}} @placeholder={{t "accounts.edit.team_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |team|>
+                    {{team.name}}
+                  </PowerSelect>
+                  <ValidationErrorsList @errors={{this.changeset.error.team.validation}}/>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-12">
+              <label name="description">{{t "description"}}</label>
+              <div>
+                <Textarea class="form-control vertical-resize" @value={{this.changeset.description}} @name="description"/>
+                <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" {{on "click" (fn this.submit this.changeset)}}>{{t "save"}}</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{t "close"}}</button>
+      </div>
+    </div>
+  </div>
+</div>

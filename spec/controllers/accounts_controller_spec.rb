@@ -43,7 +43,7 @@ describe AccountsController do
 
         expect(response.body).to match(/Teams/)
         expect(response.body).to match(/team1/)
-        expect(response.body).to match(/group1/)
+        expect(response.body).to match(/folder1/)
         expect(response.body).to match(/account1/)
       end
     end
@@ -55,13 +55,13 @@ describe AccountsController do
 
       alice = users(:alice)
       team2 = teams(:team2)
-      account = team2.groups.first.accounts.first
+      account = team2.folders.first.accounts.first
 
       expect(team2.teammember?(alice)).to eq false
 
       expect do
-        delete :destroy, params: { id: account.id, group_id: account.group.id,
-                                   team_id: account.group.team.id }
+        delete :destroy, params: { id: account.id, folder_id: account.folder.id,
+                                   team_id: account.folder.team.id }
       end.to change { Account.count }.by(0)
     end
 
@@ -71,8 +71,8 @@ describe AccountsController do
       login_as(:bob)
 
       expect do
-        delete :destroy, params: { id: account.id, group_id: account.group.id,
-                                   team_id: account.group.team.id }
+        delete :destroy, params: { id: account.id, folder_id: account.folder.id,
+                                   team_id: account.folder.team.id }
       end.to change { Account.count }.by(-1)
     end
   end
