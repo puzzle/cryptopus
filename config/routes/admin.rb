@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :maintenance_tasks, only: :index
     post '/maintenance_tasks/:id/execute', to: 'maintenance_tasks#execute', as: 'maintenance_tasks_execute'
 
-    resource :settings, except: [:new, :edit, :show, :update, :destroy, :create] do
+    resource :settings, only: [:index, :update_all] do
       post 'update_all'
       get 'index'
     end
@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :recryptrequests, except: [:create, :new, :edit, :show, :update] do
+    resources :recryptrequests, only: [:index, :destroy, :resetpassword] do
       collection do
         post 'resetpassword'
       end
