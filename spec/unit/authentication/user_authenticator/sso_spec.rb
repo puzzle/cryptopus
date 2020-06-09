@@ -46,12 +46,6 @@ describe Authentication::UserAuthenticator::Sso do
       expect(user.provider_uid).to eq('aw123')
     end
 
-    it 'authenticates root' do
-      @username = 'root'
-      @password = 'password'
-      expect(authenticator.root_authenticate!).to be true
-    end
-
     it 'doesn\'t authenticate root' do
       @username = 'root'
       @password = 'password'

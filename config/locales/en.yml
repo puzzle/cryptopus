@@ -180,9 +180,10 @@ en:
       description: Please enter your username and password to access cryptopus
       submit: Login
     local:
-      title: Log in
-      description: Please enter your username and password to access cryptopus
-      submit: Login
+      new:
+        title: Log in
+        description: Please enter your username and password to access cryptopus
+        submit: Login
     destroy:
       title: Logout
       message: Bye

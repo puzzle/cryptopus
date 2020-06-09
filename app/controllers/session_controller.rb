@@ -17,7 +17,6 @@ class SessionController < ApplicationController
   before_action :authorize_action
   before_action :skip_authorization, only: [:create, :new, :destroy, :sso]
   before_action :keycloak_cookie, only: :sso
-  before_action :check_root_source_ip, only: [:local, :root]
 
   def create
     unless user_authenticator.authenticate!
@@ -34,34 +33,7 @@ class SessionController < ApplicationController
     redirect_after_sucessful_login
   end
 
-  def root
-    unless user_authenticator.root_authenticate!
-      flash[:error] = t('flashes.session.auth_failed')
-      return redirect_to session_local_path
-    end
-
-    unless create_session(params[:password])
-      return redirect_to recryptrequests_new_ldap_password_path
-    end
-
-    last_login_message
-    check_password_strength
-    redirect_after_sucessful_login
-  end
-
-  def sso
-    cookies.permanent[:keycloak_token] = user_authenticator.token(params) if params[:code].present?
-    unless user_authenticator.authenticate!
-      return redirect_to user_authenticator.keycloak_login
-    end
-
-    create_session(keycloak_client.user_pk_secret)
-    last_login_message
-    redirect_after_sucessful_login
-  end
-
   def destroy
-    user_authenticator.logout
     flash_notice = params[:autologout] ? t('session.destroy.expired') : flash[:notice]
     jumpto = params[:jumpto]
     reset_session
@@ -140,6 +112,8 @@ class SessionController < ApplicationController
   end
 
   def password_params_valid?
+    return if current_user.is_a?(User::Api)
+
     unless current_user.authenticate_db(params[:old_password])
       flash[:error] = t('flashes.session.wrong_password')
       return false

@@ -12,15 +12,16 @@ describe 'Keycloak user login' do
 
   it 'logins as new keycloak user' do
     enable_keycloak
+    Rails.application.reload_routes!
     pk_secret_base = SecureRandom.base64(32)
     # Mock
     expect(Keycloak::Client)
       .to receive(:url_login_redirect)
-      .with(session_sso_url, 'code')
-      .and_return(session_sso_path(code: 'asd'))
+      .with(sso_url, 'code')
+      .and_return(sso_path(code: 'asd'))
     expect(Keycloak::Client)
       .to receive(:get_token_by_code)
-      .with('asd', session_sso_url)
+      .with('asd', sso_url)
       .and_return('token')
     expect(Keycloak::Client).to receive(:get_attribute)
       .with('sub')
@@ -43,13 +44,15 @@ describe 'Keycloak user login' do
       .at_least(:once)
       .and_return(pk_secret_base)
     expect(Keycloak::Client).to receive(:user_signed_in?)
-      .and_return(false, true, true, true, true)
+      .and_return(false, true, true)
 
     # login
     expect do
       get search_path
       follow_redirect!
+      expect(request.fullpath).to eq('/session/sso')
       follow_redirect!
+      expect(request.fullpath).to eq('/session/sso?code=asd')
       follow_redirect!
       user = User.find_by(username: 'ben')
       expect(request.fullpath).to eq(search_path)

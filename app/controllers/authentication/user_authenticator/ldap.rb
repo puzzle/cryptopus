@@ -3,12 +3,26 @@
 class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticator
 
   def authenticate!
+    return false if username == 'root'
     return false unless preconditions?
     return false if brute_force_detector.locked?
 
     authenticated = ldap_connection.authenticate!(username, password)
 
     authenticated
+  end
+
+  def authenticate_by_headers!
+    return false if username == 'root'
+    return false unless preconditions?
+    return false if brute_force_detector.locked?
+
+
+    if user.is_a?(User::Human)
+      ldap_connection.authenticate!(username, password)
+    else
+      user.authenticate_db(password)
+    end
   end
 
   def update_user_info(remote_ip)
@@ -24,10 +38,10 @@ class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticato
   private
 
   def find_or_create_user
-    return unless username == 'root' || ldap_connection.authenticate!(username, password)
+    return unless params_present? && valid_username?
 
     user = User.find_by(username: username.strip)
-    return create_user if user.nil?
+    return create_user if user.nil? && ldap_connection.authenticate!(username, password)
 
     user
   end

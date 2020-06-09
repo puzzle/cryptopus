@@ -168,7 +168,7 @@ describe Authentication::UserAuthenticator::Db do
     it 'authenticates root' do
       @username = 'root'
       @password = 'password'
-      expect(authenticator.root_authenticate!).to be true
+      expect(db_authenticator.authenticate!(allow_root: true)).to be true
     end
 
     it 'doesn\'t authenticate root' do
@@ -182,6 +182,12 @@ describe Authentication::UserAuthenticator::Db do
 
   def authenticate!
     authenticator.authenticate!
+  end
+
+  def db_authenticator
+    @authenticator ||= Authentication::UserAuthenticator::Db.new(
+      username: @username, password: @password
+    )
   end
 
   def authenticator

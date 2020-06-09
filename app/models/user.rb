@@ -55,7 +55,7 @@ class User < ApplicationRecord
   end
 
   def authenticate_db(cleartext_password)
-    raise Exceptions::AuthenticationFailed if cleartext_password.blank?
+    raise Exceptions::AuthenticationFailed unless cleartext_password.present? && auth_db?
 
     salt = password.split('$')[1]
     password.split('$')[2] == Digest::SHA512.hexdigest(salt + cleartext_password)

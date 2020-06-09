@@ -34,7 +34,6 @@ describe 'User provides new Ldap Pw' do
 
       expect(ldap).to receive(:authenticate!)
         .with('bob', 'password')
-        .exactly(4).times
         .and_return(true)
       expect(ldap).to receive(:authenticate!)
         .with('bob', 'newPassword')
@@ -75,7 +74,7 @@ describe 'User provides new Ldap Pw' do
 
       expect(ldap).to receive(:authenticate!)
         .with('bob', /newPassword|password/)
-        .exactly(10).times
+        .exactly(3).times
         .and_return(true)
 
       # Calls login method
@@ -119,7 +118,7 @@ describe 'User provides new Ldap Pw' do
 
       expect(ldap).to receive(:authenticate!)
         .with('bob', /newPassword|password/)
-        .exactly(8).times
+        .exactly(3).times
         .and_return(true)
 
       # Calls login method
@@ -149,7 +148,6 @@ describe 'User provides new Ldap Pw' do
 
       expect(ldap).to receive(:authenticate!)
         .with('bob', /newPassword|password/)
-        .exactly(4).times
         .and_return(true)
 
       #  do if Bob can see his account (should not)
@@ -177,13 +175,12 @@ describe 'User provides new Ldap Pw' do
       bob.update(provider_uid: '42')
 
       # Method call expectations
-      expect(LdapConnection).to receive(:new).exactly(4).times.and_return(ldap)
-      expect(ldap).to receive(:ldap_info)
-        .exactly(:twice)
+      expect(LdapConnection).to receive(:new).exactly(3).times.and_return(ldap)
+      expect(ldap).to receive(:ldap_info).twice
 
       expect(ldap).to receive(:authenticate!)
         .with('bob', 'password')
-        .exactly(4).times
+        .exactly(3).times
         .and_return(true)
 
       #  do if Bob can see his account (should not)

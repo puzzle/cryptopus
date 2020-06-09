@@ -25,7 +25,6 @@ describe 'Ldap user login' do
     expect(ldap).to receive(:ldap_info).exactly(:twice)
     expect(ldap).to receive(:authenticate!)
       .with('bob', 'password')
-      .exactly(4).times
       .and_return(true)
 
     # login

@@ -27,6 +27,10 @@ class Authentication::UserAuthenticator
     raise NotImplementedError, 'implement in subclass'
   end
 
+  def authenticate_by_headers!
+    raise NotImplementedError, 'implement in subclass'
+  end
+
   def find_or_create_user
     raise NotImplementedError, 'implement in subclass'
   end
@@ -36,24 +40,12 @@ class Authentication::UserAuthenticator
     user.update(params.compact)
   end
 
-  def root_authenticate!
-    return false unless root_preconditions?
-
-    authenticated = user.authenticate_db(password)
-
-    brute_force_detector.update(authenticated)
-    authenticated
-  end
-
   def user
     @user ||= find_or_create_user
   end
 
   def login_path
     raise NotImplementedError, 'implement in subclass'
-  end
-
-  def logout
   end
 
   private
@@ -66,12 +58,8 @@ class Authentication::UserAuthenticator
   end
 
   def preconditions?
-    params_present? && valid_username? && username != 'root' && user.present? &&
+    params_present? && valid_username? && user.present? &&
       !brute_force_detector.locked?
-  end
-
-  def root_preconditions?
-    username.present? && password.present? && username == 'root' && !brute_force_detector.locked?
   end
 
   def params_present?

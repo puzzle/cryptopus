@@ -88,7 +88,7 @@ module IntegrationHelpers
     end
 
     def login_as_root
-      post session_root_path, params: { username: 'root', password: 'password' }
+      post local_path, params: { username: 'root', password: 'password' }
       follow_redirect!
     end
 

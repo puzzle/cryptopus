@@ -10,82 +10,37 @@ require 'rails_helper'
 describe 'Root login' do
   include IntegrationHelpers::DefaultHelper
 
-  context 'Db as provider' do
-    it 'lets root login via local ip' do
-      post session_root_path, params: { username: 'root', password: 'password' }
-      follow_redirect!
-      expect(request.fullpath).to eq(search_path)
-      expect(response.body).to match(/Hi  Root! Want to recover a password?/)
-    end
-
-    it 'does not let root login via external ip' do
-      expect_any_instance_of(Authentication::SourceIpChecker)
-        .to receive(:root_ip_authorized?)
-        .and_return(false)
-      post session_root_path, params: { username: 'root', password: 'password' }
-      follow_redirect!
-      follow_redirect!
-      expect(request.fullpath).to eq(session_new_path)
-      expect(response.body).to match(/Login as root only from private IP accessible/)
-    end
-
-    it 'does not let non root User login' do
-      post session_root_path, params: { username: 'bob', password: 'password' }
-      follow_redirect!
-      expect(request.fullpath).to eq(session_local_path)
-      expect(response.body)
-        .to match(/Authentication failed! Enter a correct username and password./)
-    end
-
-    it 'does not let root login with wrong password' do
-      post session_root_path, params: { username: 'bob', password: 'wrong_password' }
-      follow_redirect!
-      expect(request.fullpath).to eq(session_local_path)
-      expect(response.body)
-        .to match(/Authentication failed! Enter a correct username and password./)
-    end
+  it 'lets root login via local ip' do
+    post local_path, params: { username: 'root', password: 'password' }
+    follow_redirect!
+    expect(request.fullpath).to eq(search_path)
+    expect(response.body).to match(/Hi  Root! Want to recover a password?/)
   end
 
-  context 'Ldap as provider' do
-    it 'lets root login via local ip' do
-      enable_ldap
-      post session_root_path, params: { username: 'root', password: 'password' }
-      follow_redirect!
-      expect(request.fullpath).to eq(search_path)
-      expect(response.body).to match(/Hi  Root! Want to recover a password?/)
-    end
-
-    it 'does not let root login via external ip' do
-      enable_ldap
-      expect_any_instance_of(Authentication::SourceIpChecker)
-        .to receive(:root_ip_authorized?)
-        .and_return(false)
-      post session_root_path, params: { username: 'root', password: 'password' }
-      follow_redirect!
-      follow_redirect!
-      expect(request.fullpath).to eq(session_new_path)
-      expect(response.body).to match(/Login as root only from private IP accessible/)
-    end
+  it 'does not let root login via external ip' do
+    expect_any_instance_of(Authentication::SourceIpChecker)
+      .to receive(:private_ip?)
+      .and_return(false)
+    post local_path, params: { username: 'root', password: 'password' }
+    follow_redirect!
+    follow_redirect!
+    expect(request.fullpath).to eq(session_new_path)
+    expect(response.body).to match(/Login as root only from private IP accessible/)
   end
 
-  context 'Keycloak as provider' do
-    it 'lets root login via local ip' do
-      enable_keycloak
-      post session_root_path, params: { username: 'root', password: 'password' }
-      follow_redirect!
-      expect(request.fullpath).to eq(search_path)
-      expect(response.body).to match(/Hi  Root! Want to recover a password?/)
-    end
+  it 'does not let non root User login' do
+    post local_path, params: { username: 'bob', password: 'password' }
+    follow_redirect!
+    expect(request.fullpath).to eq(local_path)
+    expect(response.body)
+      .to match(/Authentication failed! Enter a correct username and password./)
+  end
 
-    it 'does not let root login via external ip' do
-      enable_keycloak
-      expect_any_instance_of(Authentication::SourceIpChecker)
-        .to receive(:root_ip_authorized?)
-        .and_return(false)
-      post session_root_path, params: { username: 'root', password: 'password' }
-      follow_redirect!
-      expect(request.fullpath).to eq(teams_path)
-      expect(response).to redirect_to session_sso_path
-    end
+  it 'does not let root login with wrong password' do
+    post local_path, params: { username: 'bob', password: 'wrong_password' }
+    follow_redirect!
+    expect(request.fullpath).to eq(local_path)
+    expect(response.body)
+      .to match(/Authentication failed! Enter a correct username and password./)
   end
 end

@@ -23,9 +23,6 @@ describe Api::ApiUsers::TokenController do
       api_user.reload
 
       expect(api_user).to_not be_locked
-      expect(authenticate!).to be false
-      @token = api_user.send(:decrypt_token, private_key)
-      expect(authenticate!).to be true
     end
 
     it 'user cannot renew token of foreign_api_user' do
@@ -44,7 +41,6 @@ describe Api::ApiUsers::TokenController do
       @token = api_user.send(:decrypt_token, private_key)
       @username = api_user.username
       expect(api_user).to be_locked
-      expect(authenticate!).to be false
     end
 
     it 'user cannot invalidate token of foreign_api_user' do
@@ -52,15 +48,5 @@ describe Api::ApiUsers::TokenController do
 
       expect(response).to have_http_status(403)
     end
-  end
-
-  private
-
-  def authenticate!
-    authenticator.authenticate!
-  end
-
-  def authenticator
-    Authentication::UserAuthenticator::Db.new(username: @username, password: @token)
   end
 end

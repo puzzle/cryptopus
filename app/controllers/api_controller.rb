@@ -80,7 +80,7 @@ class ApiController < CrudController
   end
 
   def authorize_with_headers
-    if user_authenticator.authenticate!
+    if user_authenticator.authenticate_by_headers!
       @current_user = user_authenticator.user
     else
       authentification_failed_message
@@ -95,7 +95,7 @@ class ApiController < CrudController
   end
 
   def user_authenticator
-    Authentication::UserAuthenticator::Db.new(username: username, password: password_header)
+    Authentication::UserAuthenticator.init(username: username, password: password_header)
   end
 
   def users_private_key

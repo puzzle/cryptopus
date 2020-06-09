@@ -8,13 +8,15 @@ describe Authentication::UserAuthenticator::Ldap do
     enable_ldap
   end
 
-  context 'ldap' do
+  let(:private_key) { users(:bob).decrypt_private_key('password') }
+
+  context 'authenticate' do
     it 'creates user from ldap' do
       ldap_mock = double
       @username = 'ben'
       @password = 'password'
 
-      expect(LdapConnection).to receive(:new).exactly(1).times.and_return(ldap_mock)
+      expect(LdapConnection).to receive(:new).and_return(ldap_mock)
       expect(ldap_mock).to receive(:uidnumber_by_username).and_return('42')
       expect(ldap_mock).to receive(:ldap_info).with('42', 'givenname').and_return('Ben')
       expect(ldap_mock).to receive(:ldap_info).with('42', 'sn').and_return('test')
@@ -39,7 +41,6 @@ describe Authentication::UserAuthenticator::Ldap do
 
       expect_any_instance_of(LdapConnection)
         .to receive(:authenticate!)
-        .twice
         .with('bob', 'ldappw')
         .and_return(true)
       expect(authenticate!).to be true
@@ -61,7 +62,6 @@ describe Authentication::UserAuthenticator::Ldap do
     it 'returns user if exists in db' do
       mock_ldap_settings
       expect_any_instance_of(LdapConnection).to receive(:authenticate!)
-        .twice
         .with('bob', 'ldappw')
         .and_return(true)
 
@@ -77,7 +77,6 @@ describe Authentication::UserAuthenticator::Ldap do
 
       expect_any_instance_of(LdapConnection)
         .to receive(:authenticate!)
-        .twice
         .with('nobody', 'password')
         .and_return(false)
       @username = 'nobody'
@@ -86,16 +85,63 @@ describe Authentication::UserAuthenticator::Ldap do
       expect(authenticator.user).to be_nil
     end
 
-    it 'authenticates root' do
+    it 'doesn\'t authenticate root' do
       @username = 'root'
       @password = 'password'
-      expect(authenticator.root_authenticate!).to be true
+
+      expect(authenticate!).to be false
+    end
+  end
+
+  context 'api authenticate' do
+    it 'succeeds ldap authentication with correct credentials' do
+      mock_ldap_settings
+
+      @username = 'bob'
+      @password = 'ldappw'
+      bob.update!(auth: 'ldap')
+
+      expect_any_instance_of(LdapConnection)
+        .to receive(:authenticate!)
+        .with('bob', 'ldappw')
+        .and_return(true)
+      expect(authenticate_by_headers!).to be true
+    end
+
+    it 'fails ldap authentication if wrong password' do
+      mock_ldap_settings
+
+      @username = 'bob'
+      @password = 'wrongldappw'
+      bob.update!(auth: 'ldap')
+
+      expect_any_instance_of(LdapConnection).to receive(:authenticate!)
+        .with('bob', 'wrongldappw')
+        .and_return(false)
+      expect(authenticate_by_headers!).to be false
     end
 
     it 'doesn\'t authenticate root' do
       @username = 'root'
       @password = 'password'
-      expect(authenticate!).to be false
+
+      expect(authenticate_by_headers!).to be false
+    end
+
+    it 'authenticates api users' do
+      @username = api_user.username
+      @password = api_user.send(:decrypt_token, private_key)
+      api_user.update!(valid_until: Time.zone.now + 5.minutes)
+
+      expect(authenticate_by_headers!).to be true
+    end
+
+    it 'fails authentication if wrong password' do
+      @username = api_user.username
+      @password = 'wrong_token'
+      api_user.update!(valid_until: Time.zone.now + 5.minutes)
+
+      expect(authenticate_by_headers!).to be false
     end
   end
 
@@ -103,6 +149,10 @@ describe Authentication::UserAuthenticator::Ldap do
 
   def authenticate!
     authenticator.authenticate!
+  end
+
+  def authenticate_by_headers!
+    authenticator.authenticate_by_headers!
   end
 
   def authenticator

@@ -37,5 +37,4 @@ class SessionPolicy < ApplicationPolicy
   def changelocale?
     user.present?
   end
-
 end

@@ -166,10 +166,6 @@ describe Api::AccountsController do
 
     context 'api_user' do
       it 'authenticates with valid api user and returns account details' do
-        expect_any_instance_of(AuthConfig)
-          .to receive(:settings_file)
-          .never
-
         api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
         teams(:team1).add_user(api_user, plaintext_team_password)

@@ -2,13 +2,18 @@
 
 class Authentication::UserAuthenticator::Db < Authentication::UserAuthenticator
 
-  def authenticate!
+  def authenticate!(allow_root: false)
+    return false if username == 'root' && !allow_root
     return false unless preconditions?
 
     authenticated = user.authenticate_db(password)
 
     brute_force_detector.update(authenticated)
     authenticated
+  end
+
+  def authenticate_by_headers!
+    authenticate!
   end
 
   def update_user_info(remote_ip)
