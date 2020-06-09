@@ -18,19 +18,27 @@ class app.ApiUserToggle
       unlockApiUser(user_id)
       toggle.removeClass(selected)
     else
+      console.log("befor")
       lockApiUser(user_id)
       toggle.addClass(selected)
 
   lockApiUser = (id) ->
     $.ajax({
       method: 'POST',
-      url: '../api/api_users/' + id + '/lock'
-    })
+      data: {},
+      url: '../api/api_users/' + id + '/lock',
+      error: (jqXHR, textStatus, errorThrown) ->
+        console.log(jqXHR)
+        console.log(textStatus)
+        console.log(errorThrown)
+      success: (data, textStatus, jqXHR) ->
+        console.log(data)
+    });
 
   unlockApiUser = (id) ->
     $.ajax({
       method: 'DELETE',
-      url: '../api/api_users/' + id + '/lock'
+      url: '../api/api_users/' + id + '/lock',
     })
 
   id = (elem) ->
