@@ -23,10 +23,7 @@ class app.ApiUsers
     appendRow(row)
 
   apiUsersData = (data) ->
-    apiUsers = data['data']
-    if(!apiUsers)
-      apiUsers = [data['data']]
-    apiUsers
+    data['data']
 
   apiUsersContent = (apiUsers) ->
     HandlebarsTemplates['api_users'](api_users: apiUsers)
@@ -65,6 +62,7 @@ class app.ApiUsers
       }
       success: (data) ->
         if(isFirst())
+          data = { data: data }
           initialize(data)
         else
           initializeRow(data)
