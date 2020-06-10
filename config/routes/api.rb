@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
     resources :accounts, except: [:new, :edit]
 
-    resources :api_users do
+    resources :api_users, except: [:new, :edit] do
       member do
         get :token, to: 'api_users/token#show'
         delete :token, to: 'api_users/token#destroy'

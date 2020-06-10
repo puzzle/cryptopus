@@ -41,7 +41,6 @@ module IntegrationHelpers
 
       # New Account
       folder = team.folders.find_by(name: 'Default')
-      account_path = accounts_path
 
       account_params = {
         data: {
@@ -55,7 +54,7 @@ module IntegrationHelpers
         }
       }
 
-      post account_path, params: account_params
+      post api_accounts_path, params: account_params
 
       logout
       folder.accounts.find_by(accountname: 'puzzle')
