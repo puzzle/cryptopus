@@ -9,6 +9,6 @@ export default Helper.extend({
   },
 
   translationKeyPrefix() {
-    return this.intl.locale[0].split("-")[0];
+    return this.intl.locale[0].replace("-", "_");
   }
 });
