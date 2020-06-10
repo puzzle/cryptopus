@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     post 'recrypt'
   end
 
-  resources :teams, only: [:show, :index] do
+  resources :teams, only: [:show, :index, :destroy] do
     resources :folders, only: [:show, :index, :destroy]
   end
 

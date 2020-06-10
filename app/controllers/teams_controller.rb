@@ -32,6 +32,14 @@ class TeamsController < ApplicationController
     end
   end
 
+  # DELETE /teams/1
+  def destroy
+    authorize team
+    team.destroy
+    flash[:notice] = t('flashes.teams.deleted')
+    redirect_to teams_path
+  end
+
   private
 
   def folders_breadcrumbs
