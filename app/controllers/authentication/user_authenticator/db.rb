@@ -3,8 +3,7 @@
 class Authentication::UserAuthenticator::Db < Authentication::UserAuthenticator
 
   def authenticate!(allow_root: false)
-    return false if allow_root && username != 'root'
-    return false if !allow_root && username == 'root'
+    return false if allow_root && username != 'root' || !allow_root && username == 'root'
     return false unless preconditions?
 
     authenticated = user.authenticate_db(password)

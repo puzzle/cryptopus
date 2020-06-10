@@ -11,8 +11,7 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
   end
 
   def authenticate_by_headers!
-    return false if username == 'root'
-    # return false unless preconditions?
+    return false unless header_preconditions?
     return false unless user.is_a?(User::Api)
 
     authenticated = user.authenticate_db(password)
@@ -52,9 +51,14 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
     user
   end
 
+  def header_preconditions?
+    username.present? && password.present? && valid_username? && user.present? &&
+          !brute_force_detector.locked? && username != 'root'
+  end
+
   def keycloak_login_url
     protocol = Rails.application.config.force_ssl ? 'https://' : 'http://'
-    protocol + (ENV['HOSTNAME'] || 'localhost:3000') + sso_path
+    protocol + (ENV['RAILS_HOST_NAME'] || 'localhost:3000') + sso_path
   end
 
   def keycloak_params
