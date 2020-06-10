@@ -17,7 +17,6 @@ module UserSession
   def validate_user
     handle_pending_recrypt_request
     if current_user.nil?
-      binding.pry
       session[:jumpto] = request.fullpath
       redirect_to user_authenticator.login_path
     end

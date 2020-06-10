@@ -22,18 +22,7 @@ describe 'Root login' do
       .to receive(:private_ip?)
       .and_return(false)
     post local_path, params: { username: 'root', password: 'password' }
-    follow_redirect!
-    follow_redirect!
-    expect(request.fullpath).to eq(session_new_path)
-    expect(response.body).to match(/Login as root only from private IP accessible/)
-  end
-
-  it 'does not let non root User login' do
-    post local_path, params: { username: 'bob', password: 'password' }
-    follow_redirect!
-    expect(request.fullpath).to eq(local_path)
-    expect(response.body)
-      .to match(/Authentication failed! Enter a correct username and password./)
+    expect(response).to have_http_status 401
   end
 
   it 'does not let root login with wrong password' do

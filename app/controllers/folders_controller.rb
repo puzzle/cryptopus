@@ -41,6 +41,10 @@ class FoldersController < ApplicationController
     add_breadcrumb folder.label
   end
 
+  def team
+    @team ||= Team.find(params[:team_id])
+  end
+
   def folder
     @folder ||= team.folders.find(params[:id])
   end

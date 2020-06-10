@@ -152,7 +152,7 @@ class User::Human < User
   end
 
   def legacy_password?
-    return false if ldap?
+    return false unless auth_db?
 
     password.match('sha512').nil?
   end

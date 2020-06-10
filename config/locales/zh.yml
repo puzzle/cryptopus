@@ -221,7 +221,7 @@ zh:
           root: "Root不能被删除"
         update:
           root: "Root不能被更新"
-          ldap: "不能更新Ldap用户"
+          not_db: "不能更新Ldap用户"
       maintenance_tasks:
         succeed: "成功的执行任务。"
         failed: "任务失败。请查看日志了解更多信息。"

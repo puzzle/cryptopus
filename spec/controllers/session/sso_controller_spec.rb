@@ -9,6 +9,7 @@ describe Session::SsoController do
     it 'logs in User with Keycloak' do
       enable_keycloak
       Rails.application.reload_routes!
+
       expect(Keycloak::Client).to receive(:get_token_by_code)
         .and_return('asd')
         .at_least(:once)
@@ -36,7 +37,7 @@ describe Session::SsoController do
         .and_return(true)
         .at_least(:once)
 
-      get :sso, params: { code: 'asd' }
+      get :create, params: { code: 'asd' }
       expect(response).to redirect_to search_path
       user = User.find_by(username: 'ben')
       expect(user.username).to eq('ben')
@@ -46,6 +47,8 @@ describe Session::SsoController do
 
     it 'redirects to keycloak if not logged in' do
       enable_keycloak
+      Rails.application.reload_routes!
+
       expect(Keycloak::Client)
         .to receive(:get_token_by_code)
         .and_return('asd')
@@ -57,14 +60,15 @@ describe Session::SsoController do
         .with('http://www.example.com' + sso_path, 'code')
         .and_return(sso_path)
         .at_least(:once)
-      get :sso, params: { code: 'asd' }
+      get :create, params: { code: 'asd' }
       expect(response).to redirect_to sso_path
     end
 
     it 'redirects to normal login if keycloak disabled' do
       Rails.application.reload_routes!
+
       expect do
-        get :sso, params: { code: 'asd' }
+        get :create, params: { code: 'asd' }
       end.to raise_error(ActionController::UrlGenerationError)
     end
   end

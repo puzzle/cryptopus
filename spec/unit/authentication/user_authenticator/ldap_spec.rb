@@ -78,6 +78,7 @@ describe Authentication::UserAuthenticator::Ldap do
       expect_any_instance_of(LdapConnection)
         .to receive(:authenticate!)
         .with('nobody', 'password')
+        .exactly(2).times
         .and_return(false)
       @username = 'nobody'
       @password = 'password'

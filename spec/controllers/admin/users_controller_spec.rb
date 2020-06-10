@@ -113,7 +113,7 @@ describe Admin::UsersController do
         expect(admin2.givenname).to eq 'new_givenname'
       end
 
-      it 'cannot update ldap-users attributes as admin' do
+      it 'cannot update non db-users attributes as admin' do
         bob = users(:bob)
         bob.update!(auth: 'ldap')
 
@@ -125,7 +125,7 @@ describe Admin::UsersController do
         expect(bob.username).to_not be('new_username')
         expect(bob.givenname).to_not be('new_givenname')
         expect(bob.surname).to_not be('new_surname')
-        expect(flash[:error]).to match(/Ldap user cannot be updated/)
+        expect(flash[:error]).to match(/Non Db user cannot be updated/)
       end
 
       it 'cannot update roots attributes as admin' do
@@ -186,7 +186,7 @@ describe Admin::UsersController do
         expect(flash[:error]).to match(/Access denied/)
       end
 
-      it 'cannot update ldap-users attributes as conf admin' do
+      it 'cannot update non db-users attributes as conf admin' do
         bob = users(:bob)
         bob.update!(auth: 'ldap')
 
@@ -198,7 +198,7 @@ describe Admin::UsersController do
         expect(bob.username).to_not be('new_username')
         expect(bob.givenname).to_not be('new_givenname')
         expect(bob.surname).to_not be('new_surname')
-        expect(flash[:error]).to match(/Ldap user cannot be updated/)
+        expect(flash[:error]).to match(/Non Db user cannot be updated/)
       end
 
       it 'cannot update roots attributes as conf admin' do

@@ -6,7 +6,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Admin::UsersController < ApplicationController
-  before_action :redirect_if_ldap_user, only: [:update, :edit]
+  before_action :redirect_if_non_db_user, only: [:update, :edit]
   before_action :authorize_user_class, only: [:index, :new, :create]
   before_action :authorize_user, only: [:update, :unlock, :edit]
 
@@ -63,10 +63,10 @@ class Admin::UsersController < ApplicationController
 
   private
 
-  def redirect_if_ldap_user
-    return unless user.ldap?
+  def redirect_if_non_db_user
+    return if user.auth_db?
 
-    flash[:error] = t('flashes.admin.users.update.ldap')
+    flash[:error] = t('flashes.admin.users.update.not_db')
 
     respond_to do |format|
       format.html { redirect_to admin_users_path }

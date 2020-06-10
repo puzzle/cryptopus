@@ -319,7 +319,7 @@ en:
           root: Root cannot be deleted
         update:
           root: Root cannot be updated
-          ldap: Ldap user cannot be updated
+          not_db: Non Db user cannot be updated
       maintenance_tasks:
         succeed: Task was executed successfully.
         failed: Task failed. See logs for more information.

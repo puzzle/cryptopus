@@ -303,7 +303,7 @@ ch_be:
           root: Dr Root cha nid glösche werde
         update:
           root: Dr Root cha nid aktualisiert werde
-          ldap: Dr Ldap User cha nid aktualisiert werde
+          ldap: Nume Db User chöi aktualisiert werde
       maintenance_tasks:
         succeed: D Wartigsufgab isch erfougrich düregfüehrt worde
         failed: D Wartigsufgab isch gschiteret. Lueg i de Logs für me Details nache.

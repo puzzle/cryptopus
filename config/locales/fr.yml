@@ -299,7 +299,7 @@ fr:
           root: Root ne peut pas être supprimé
         update:
           root: Root ne peuvent pas être mis à jour
-          ldap: Ldap utilisateur ne peuvent pas être mis à jour
+          not_db: Utilisateur non Db ne peut pas être mis à jour
       maintenance_tasks:
         succeed: La tâche a été exécutée avec succès..
         failed: La tâche a échoué. Consultez les journaux pour plus d'informations.

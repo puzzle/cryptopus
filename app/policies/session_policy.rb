@@ -27,11 +27,11 @@ class SessionPolicy < ApplicationPolicy
   end
 
   def show_update_password?
-    user.present? && !user.ldap?
+    user.present? && user.auth_db?
   end
 
   def update_password?
-    user.present? && !user.ldap?
+    user.present? && user.auth_db?
   end
 
   def changelocale?

@@ -37,7 +37,7 @@ describe 'User provides new Ldap Pw' do
         .and_return(true)
       expect(ldap).to receive(:authenticate!)
         .with('bob', 'newPassword')
-        .exactly(8).times
+        .exactly(3).times
         .and_return(true)
 
       # Calls login method
@@ -180,7 +180,6 @@ describe 'User provides new Ldap Pw' do
 
       expect(ldap).to receive(:authenticate!)
         .with('bob', 'password')
-        .exactly(3).times
         .and_return(true)
 
       #  do if Bob can see his account (should not)

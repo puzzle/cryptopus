@@ -157,7 +157,6 @@ describe User::Human do
       expect(LdapConnection).to receive(:new).exactly(1).times.and_return(ldap)
       expect(ldap).to receive(:authenticate!)
         .with('bob', 'new_password')
-        .exactly(2).times
         .and_return(true)
 
       expect(bob.recrypt_private_key!('new_password', 'wrong_old_password')).to eq false

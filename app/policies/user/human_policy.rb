@@ -71,7 +71,7 @@ class User::HumanPolicy < ApplicationPolicy
   end
 
   def permitted_attributes_for_update
-    return if user.ldap? || user.root?
+    return if !user.auth_db? || user.root?
 
     attrs = [:givenname, :surname]
 
