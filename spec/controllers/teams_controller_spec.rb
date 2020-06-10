@@ -52,4 +52,53 @@ describe TeamsController do
     end
   end
 
-end
+  context 'DELETE destroy' do
+    it 'can delete team as admin if in team' do
+      login_as(:admin)
+
+      expect do
+        delete :destroy, params: { id: teams(:team1).id }
+      end.to change { Team.count }.by(-1)
+
+      expect(response).to redirect_to teams_path
+      expect(flash[:notice]).to match(/deleted/)
+    end
+
+    it 'cannot delete team as normal teammember' do
+      login_as(:bob)
+
+      expect do
+        delete :destroy, params: { id: teams(:team1).id }
+      end.to change { Team.count }.by(0)
+
+      expect(response).to redirect_to teams_path
+      expect(flash[:error]).to match(/Only admin/)
+    end
+
+    it 'cannot delete team as normal user if not in team' do
+      login_as(:bob)
+
+      teammembers(:team1_bob).delete
+
+      expect do
+        delete :destroy, params: { id: teams(:team1).id }
+      end.to change { Team.count }.by(0)
+
+      expect(response).to redirect_to teams_path
+      expect(flash[:error]).to match(/Only admin/)
+    end
+
+    it 'can delete team as admin if not in team' do
+      login_as(:admin)
+
+      teammembers(:team1_admin).delete
+
+      expect do
+        delete :destroy, params: { id: teams(:team1).id }
+      end.to change { Team.count }.by(-1)
+
+      expect(response).to redirect_to teams_path
+      expect(flash[:notice]).to match(/deleted/)
+    end
+    end
+  end
