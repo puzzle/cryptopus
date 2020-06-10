@@ -50,12 +50,12 @@ describe 'FolderModal', type: :system, js: true do
     folder = Folder.find_by(name: folder_attrs[:foldername])
     team = Team.find(folder.team_id)
 
-    visit("/teams/#{team.id}")
+    visit(team_path(team.id))
 
     expect_teams_page_with(folder_attrs, team)
 
     # Edit Folder
-    visit("/teams/#{team.id}")
+    visit(team_path(team.id))
     expect(page).to have_link(href: "#/teams/#{team.id}/folders/#{folder.id}/edit")
     click_link(href: "#/teams/#{team.id}/folders/#{folder.id}/edit")
 
@@ -72,11 +72,11 @@ describe 'FolderModal', type: :system, js: true do
 
 
     # Delete Folder
-    visit("/teams/#{folder.team_id}")
+    visit(team_path(folder.team_id))
     expect(page).to have_text("Team #{team.name}")
 
     expect do
-      href = "/teams/#{team.id}/folders/#{folder.id}"
+      href = team_folder_path(team.id, folder.id)
       del_button = find(:xpath, "//a[@href='#{href}' and @data-method='delete']")
       expect(del_button).to be_present
 

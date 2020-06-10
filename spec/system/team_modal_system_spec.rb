@@ -48,7 +48,7 @@ describe 'TeamModal', type: :system, js: true do
 
     # Edit Account
     team = Team.find_by(name: team_attrs[:name])
-    visit("/teams/#{team.id}")
+    visit(team_path(team.id))
 
     expect(page).to have_link(id: 'edit_team_button')
     click_link(id: 'edit_team_button')
