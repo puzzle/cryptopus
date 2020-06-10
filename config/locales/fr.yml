@@ -144,6 +144,7 @@ fr:
 
   folders:
     title: Dossiers
+    name: Nom du dossier
     index_menu:
       create: Créer groupe
     edit:
@@ -198,6 +199,8 @@ fr:
     index:
       title: 'Vous êtes membre des équipes suivantes:'
       team: Équipe
+    edit:
+      title: Modifier l'équipe
     new:
       title: Créer une nouvelle équipe
     description:

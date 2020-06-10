@@ -155,13 +155,13 @@ de:
     title: Ordner
     name: Ordner Namen
     index_menu:
-      create: Gruppe erstellen
+      create: Ordner erstellen
     edit:
-      title: Gruppe bearbeiten
+      title: Ordner bearbeiten
     new:
-      title: Gruppe erstellen
+      title: Ordner erstellen
     show:
-      move: Account zu einer anderen Gruppe verschieben
+      move: Account zu einem anderen Ordner verschieben
       title: "Accounts der Gruppe %{folder_name} des Teams %{team_name}"
   items:
     new:

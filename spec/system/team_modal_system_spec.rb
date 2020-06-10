@@ -32,11 +32,11 @@ describe 'TeamModal', type: :system, js: true do
     expect(dropdown).to be_present
     dropdown.click
 
-    expect(page).to have_link('New Team')
-    click_link 'New Team'
+    expect(page).to have_link('New team')
+    click_link 'New team'
 
     expect(find('.modal-content')).to be_present
-    expect(page).to have_text('New Team')
+    expect(page).to have_text('New team')
     expect(page).to have_button('Save')
 
     expect do
