@@ -7,11 +7,11 @@
 module SystemHelpers
 
   def login_as_user(username, password = 'password')
-    visit('/session/new')
+    visit(session_new_path)
     fill_in('username', with: username)
     fill_in('password', with: password)
     find('input[name="commit"]').click
-    visit('/search')
+    visit(search_path)
   end
 
   def logout

@@ -37,7 +37,7 @@ module IntegrationHelpers
         }
       }
 
-      post "/api/teams/#{team.id}/folders", params: folder_params
+      post api_team_folders_path(team.id), params: folder_params
 
       # New Account
       folder = team.folders.find_by(name: 'Default')
