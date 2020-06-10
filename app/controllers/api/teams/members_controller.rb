@@ -12,7 +12,10 @@ module Api
       # GET /api/teams/:team_id/members
       def index
         authorize team, :list_members?
-        super({ render_options: { include: '*', current_user_id: current_user.id } })
+        render({ json: fetch_entries,
+                 each_serializer: list_serializer,
+                 root: model_root_key.pluralize }
+          .merge(include: '*', current_user_id: current_user.id))
       end
 
       # POST /api/teams/:team_id/members
