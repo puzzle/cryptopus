@@ -6,7 +6,25 @@ describe Session::LocalController do
   include ControllerHelpers
 
   context 'GET new' do
-    it '' do
+    it 'can be accesed from private ip' do
+      expect_any_instance_of(Authentication::SourceIpChecker)
+        .to receive(:private_ip?)
+        .and_return(true)
+
+      get :new
+
+      expect(response).to have_http_status 200
+    end
+
+    it 'can\'t be accesed from non private ip' do
+      expect_any_instance_of(Authentication::SourceIpChecker)
+        .to receive(:private_ip?)
+        .and_return(false)
+
+      get :new
+
+      expect(response).to have_http_status(401)
+      expect(response.body).to match(/You are not allowed to access this Page from your country/)
     end
   end
 

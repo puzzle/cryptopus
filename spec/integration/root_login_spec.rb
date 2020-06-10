@@ -23,6 +23,7 @@ describe 'Root login' do
       .and_return(false)
     post local_path, params: { username: 'root', password: 'password' }
     expect(response).to have_http_status 401
+    expect(response.body).to match(/You are not allowed to access this Page from your country/)
   end
 
   it 'does not let root login with wrong password' do

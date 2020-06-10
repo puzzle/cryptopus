@@ -312,7 +312,7 @@ de:
           root: Root kann nicht gelöscht werden
         update:
           root: Root kann nicht aktualisiert werden
-          ldap: Nur Db User können aktualisiert werden
+          not_db: Nur Db User können aktualisiert werden
       maintenance_tasks:
         succeed: Wartungsaufgabe wurde erfolgreich durchgeführt
         failed: Wartungsaufgabe ist gescheitert. Siehe Logs für mehr Details.
