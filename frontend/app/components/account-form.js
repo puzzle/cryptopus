@@ -43,7 +43,7 @@ export default class AccountForm extends ModalForm {
   }
 
   setupModal(element, args) {
-    super.setupModal(element, args)
+    super.setupModal(element, args);
   }
 
   abort() {
@@ -91,11 +91,11 @@ export default class AccountForm extends ModalForm {
     $(this.modalElement).modal("hide");
     /* eslint-enable no-undef  */
 
-    if (this.isEditView) {
+    if (this.isNewRecord) {
+      window.location.replace("/accounts/" + savedRecords[0].id);
+    } else {
       let href = window.location.href;
       window.location.replace(href.substring(0, href.search("#")));
-    } else {
-      window.location.replace("/accounts/" + savedRecords[0].id);
     }
   }
 }

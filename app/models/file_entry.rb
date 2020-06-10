@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: items
+# Table name: file_entries
 #
 #  id           :integer          not null, primary key
 #  account_id   :integer          default(0), not null
@@ -19,9 +19,13 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Item < ApplicationRecord
+class FileEntry < ApplicationRecord
   belongs_to :account
-  validates :filename, uniqueness: { scope: :account }
+  validates :filename,
+            uniqueness: {
+              scope: :account,
+              message: I18n.t('flashes.file_entries.uploaded_filename_already_exists')
+            }
   validates :description, length: { maximum: 300 }
   validate :uploaded_file_exist
   validate :valid_file_size
@@ -31,11 +35,11 @@ class Item < ApplicationRecord
 
   class << self
     def create(account, params, plaintext_team_password)
-      item = account.items.new
-      item.attributes = item.new_attributes(params) unless params[:file].nil?
-      item.encrypt(plaintext_team_password)
-      item.save
-      item
+      file_entry = account.file_entries.new
+      file_entry.attributes = file_entry.new_attributes(params) unless params[:file].nil?
+      file_entry.encrypt(plaintext_team_password)
+      file_entry.save
+      file_entry
     end
   end
 
@@ -55,7 +59,7 @@ class Item < ApplicationRecord
     { description: params[:description],
       filename: params[:file].original_filename,
       content_type: params[:file].content_type,
-      cleartext_file: params[:file].read }
+      cleartext_file: params[:file].read.force_encoding('UTF-8') }
   end
 
 
@@ -66,19 +70,19 @@ class Item < ApplicationRecord
     return if cleartext_file.nil?
 
     if cleartext_file.size > 10_000_000 # 10MB
-      errors[:base] << I18n.t('flashes.items.uploaded_size_to_high')
+      errors[:base] << I18n.t('flashes.file_entries.uploaded_size_to_high')
     end
   end
 
   def uploaded_file_exist
-    if file.nil? && cleartext_file.empty?
-      errors[:base] << I18n.t('flashes.items.uploaded_file_inexistent')
+    if file.nil? && cleartext_file.blank?
+      errors[:base] << I18n.t('flashes.file_entries.uploaded_file_inexistent')
     end
   end
 
   def filename_is_not_blank_or_nil
     if filename.nil? || filename.blank?
-      errors[:base] << I18n.t('flashes.items.uploaded_filename_is_empty')
+      errors[:base] << I18n.t('flashes.file_entries.uploaded_filename_is_empty')
     end
   end
 
@@ -89,10 +93,12 @@ class Item < ApplicationRecord
     CryptUtils.decrypt_blob(crypted_file, team_password)
   end
 
+  # rubocop:disable Rails/Blank
   def encrypt_file(team_password)
-    return if cleartext_file.empty?
+    return if cleartext_file.nil? || cleartext_file.empty?
 
     crypted_file = CryptUtils.encrypt_blob(cleartext_file, team_password)
     self.file = crypted_file
   end
+  # rubocop:enable Rails/Blank
 end

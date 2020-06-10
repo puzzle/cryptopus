@@ -1,4 +1,4 @@
-import Model, { attr, belongsTo } from "@ember-data/model";
+import Model, { attr, hasMany, belongsTo } from "@ember-data/model";
 
 export default class Account extends Model {
   @attr("string") accountname;
@@ -6,4 +6,5 @@ export default class Account extends Model {
   @attr("string") cleartextPassword;
   @attr("string") description;
   @belongsTo("folder") folder;
+  @hasMany("file-entry") fileEntries;
 }

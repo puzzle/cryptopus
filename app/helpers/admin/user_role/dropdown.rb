@@ -60,7 +60,7 @@ module Admin
       end
 
       def render_item(role)
-        content_tag(:li, id: 'dropdown-role', class: 'dropdown-item', val: role) do
+        content_tag(:li, id: 'dropdown-role', class: 'dropdown-file_entry', val: role) do
           role_option(role)
         end
       end

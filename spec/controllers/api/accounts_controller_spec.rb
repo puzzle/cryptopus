@@ -347,12 +347,12 @@ describe Api::AccountsController do
 
       plaintext_team2_password = teams(:team2).decrypt_team_password(bob, private_key)
       account.decrypt(plaintext_team2_password)
-      item = account.items.first
-      item.decrypt(plaintext_team2_password)
+      file_entry = account.file_entries.first
+      file_entry.decrypt(plaintext_team2_password)
 
       expect(account.cleartext_username).to eq 'globi'
       expect(account.cleartext_password).to eq 'petzi'
-      expect(item.cleartext_file).to eq 'Das ist ein test File'
+      expect(file_entry.cleartext_file).to eq 'Das ist ein test File'
 
       expect(response).to have_http_status(200)
     end
@@ -386,9 +386,9 @@ describe Api::AccountsController do
         account.decrypt(plaintext_team2_password)
       end.to raise_error(OpenSSL::Cipher::CipherError, 'bad decrypt')
 
-      item = account.items.first
+      file_entry = account.file_entries.first
       expect do
-        item.decrypt(plaintext_team2_password)
+        file_entry.decrypt(plaintext_team2_password)
       end.to raise_error(OpenSSL::Cipher::CipherError, 'bad decrypt')
     end
 

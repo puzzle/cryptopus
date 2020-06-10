@@ -24,16 +24,16 @@ class AccountMoveHandler < AccountHandler
     raise 'user is not member of new team' unless new_team.teammember?(user.id)
 
     old_team_password = old_team.decrypt_team_password(user, private_key)
-    move_items(old_team_password)
+    move_file_entries(old_team_password)
     account.encrypt(old_team_password)
     account.decrypt(old_team_password)
     account.encrypt(new_team.decrypt_team_password(user, private_key))
   end
   # rubocop:enable Metrics/AbcSize
 
-  def move_items(old_team_password)
+  def move_file_entries(old_team_password)
     new_team_password = new_team.decrypt_team_password(user, private_key)
-    account.items.each do |i|
+    account.file_entries.each do |i|
       i.decrypt(old_team_password)
       i.file = i.encrypt(new_team_password)
       i.save!

@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
     get 'env_settings', to: 'env_settings#index'
 
-    resources :accounts, only: [:show, :index, :update, :create]
+    resources :accounts, only: [:show, :index, :update, :create] do
+      resources :file_entries, only: [:create]
+    end
 
     resources :api_users do
       member do
