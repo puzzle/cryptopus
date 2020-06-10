@@ -100,5 +100,5 @@ describe TeamsController do
       expect(response).to redirect_to teams_path
       expect(flash[:notice]).to match(/deleted/)
     end
-    end
   end
+end
