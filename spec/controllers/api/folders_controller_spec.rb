@@ -8,22 +8,22 @@ describe Api::FoldersController do
   let(:alice) { users(:alice) }
 
   context 'GET index' do
-    it 'returns matching folders' do
+    it 'returns matching folder' do
 
       login_as(:alice)
 
       team1 = teams(:team1)
 
-      get :index, params: { team_id: team1, 'q': 'folder' }, xhr: true
+      get :index, params: { team_id: team1, 'q': 'folder1' }, xhr: true
 
       folder_json = data.first
       attributes = folder_json['attributes']
 
       folder = folders(:folder1)
 
+      expect(data.size).to eq(1)
       expect(attributes['name']).to eq folder.name
       expect(folder_json['id']).to eq folder.id.to_s
-
     end
 
     it 'returns all folders if empty query param given' do
@@ -38,6 +38,7 @@ describe Api::FoldersController do
 
       folder = folders(:folder1)
 
+      expect(data.size).to eq(3)
       expect(attributes['name']).to eq folder.name
       expect(folder_json['id']).to eq folder.id.to_s
     end
@@ -54,6 +55,7 @@ describe Api::FoldersController do
 
       folder = folders(:folder1)
 
+      expect(data.size).to eq(3)
       expect(attributes['name']).to eq folder.name
       expect(folder_json['id']).to eq folder.id.to_s
     end

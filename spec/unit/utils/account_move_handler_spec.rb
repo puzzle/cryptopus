@@ -75,7 +75,7 @@ describe AccountMoveHandler do
   it 'moves account to folder from same team' do
     account = accounts(:account1)
     private_key = decrypt_private_key(bob)
-    new_folder = Fabricate(:folder, name: 'folder3', team_id: teams(:team1).id)
+    new_folder = Fabricate(:folder, name: 'folder5', team_id: teams(:team1).id)
 
     account.folder = new_folder
     AccountMoveHandler.new(account, private_key, bob).move
