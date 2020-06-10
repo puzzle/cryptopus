@@ -64,7 +64,7 @@ class Api::AccountsController < ApiController
   end
 
   def finder(accounts, query)
-    Finders::AccountsFinder.new(accounts, query)
+    ::Finders::AccountsFinder.new(accounts, query)
   end
 
   def query_param

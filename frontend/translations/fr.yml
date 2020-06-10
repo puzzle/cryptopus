@@ -6,7 +6,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 fr:
-  fallback: 'ATTENTION! Ça c’est l’environment Fallback de Cryptopus. Ne créez pas des nouvelles données parce qu’elles ne seront pas sauvées!'
+  fallback: "ATTENTION! Ça c’est l’environment Fallback de Cryptopus. Ne créez pas des nouvelles données parce qu’elles ne seront pas sauvées!"
   confirmation: Etes-vous sûr?
   show: Montrer
   edit: Modifier
@@ -73,6 +73,7 @@ fr:
       attachments: Attachements
       file: Fichier
       show_password: Afficher le mot de passe
+      add_attachment: Ajouter un attachement
     new:
       title: Nouveau compte
 
@@ -154,11 +155,14 @@ fr:
     show:
       move: Déplacer compte à un autre groupe
       title: "Comptes du dossier %{folder_name} de l'équipe %{team_name}"
-  items:
+  file_entries:
     new:
       title: Ajouter un attachement au compte
-      upload: Fichier de téléchargement
-      upload_file: Télécharge le fichier
+      upload: Télécharger
+      upload_file: Fichier à télécharger
+      choose_file: Choisir un fichier
+      reupload: Choisir un autre fichier
+      selected_file: Le fichier sélectionné
 
   session:
     new:
@@ -197,7 +201,7 @@ fr:
     index_menu:
       create: Créer équipe
     index:
-      title: 'Vous êtes membre des équipes suivantes:'
+      title: "Vous êtes membre des équipes suivantes:"
       team: Équipe
     edit:
       title: Modifier l'équipe
@@ -311,11 +315,12 @@ fr:
     folders:
       created: Dossier créé avec succès.
       updated: Dossier modifiée avec succès
-    items:
+    file_entry:
       uploaded: Fichier téléchargé avec succès.
       uploaded_size_to_high: Fichier est trop volumineux pour tèlècharger. (max. 10MB)
       uploaded_filename_is_empty: Le fichier n'a pas été nommé
       uploaded_file_inexistent: Fichier est inexistant
+      uploaded_filename_already_exists: Le nom de fichier existe déjà
     session:
       welcome: Bienvenue à Cryptopus, vous devez d'abord créer un nouveau compte. S'il vous plaît entrez un nouveau mot de passe.
       auth_failed: L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe.
@@ -372,15 +377,15 @@ fr:
     changeAdmin: donner/enlever les droits de l'administrateur?
     deleteWithTeams: "Supprimer toutes les équipe où %{username} est le dernier."
 
-#Validation Errors
+  #Validation Errors
   activerecord:
     attributes:
       user:
         username: Nom d'utilisateur
     errors:
       template:
-        body: ''
-        header: ''
+        body: ""
+        header: ""
       models:
         account:
           attributes:
@@ -399,12 +404,11 @@ fr:
             username:
               blank: ne peut pas être vide
               taken: est déjà pris
-        item:
+        file_entry:
           attributes:
             filename:
               blank: Filename ne peut pas être vide
               taken: Filename est déjà pris
-
 
   datetime:
     distance_in_words:

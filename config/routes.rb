@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :accounts, only: [:show, :destroy] do
-    resources :items
+    resources :file_entries, only: [:show, :destroy]
   end
 
   get 'session/new', to: 'session#new'

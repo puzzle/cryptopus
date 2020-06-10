@@ -60,7 +60,7 @@ li a {
   resize: vertical;
 }
 
-.modal-title {
+#accountFormModalLabel {
   display: inline;
 }
 
@@ -133,4 +133,31 @@ li a {
 .progress-bar-100 {
   width: 100% !important;
   background-color: #4dd100 !important;
+}
+
+/* FileUpload */
+
+.dropzone-upload-area {
+  border: 4px dotted #bbb;
+  border-radius: 10px;
+  height: 100px;
+}
+
+.dropzone-upload-area.active {
+  border-color: #2988bc;
+}
+
+.dropzone-text {
+  font-size: 16px;
+  margin: auto;
+}
+
+.vertical-center {
+  min-height: 92px;
+  display: flex;
+}
+
+.modal-alert {
+  width: 100% !important;
+  margin-bottom: 15px !important;
 }

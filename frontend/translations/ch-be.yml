@@ -109,6 +109,7 @@ ch_be:
       attachments: Ahäng
       file: Datei
       show_password: Passwort ahzeigä
+      add_attachment: Anhang hinzufüegä
     new:
       title: Nöie Account
 
@@ -182,11 +183,14 @@ ch_be:
     show:
       move: Account zumnä angere Ordner verschiebe
       title: "Accounts vom Ordner %{folder_name} vom Team %{team_name}"
-  items:
+  file_entries:
     new:
       title: Ahang zum Account hinzuefüege
-      upload: Datei zum Ufeladä
-      upload_file: Datei ufeladä
+      upload: Ufeladä
+      upload_file: Datei zum ufeladä
+      choose_file: Suech e Datei us
+      reupload: Wähl e angeri Datei
+      selected_file: Usgwählti Datei
 
   session:
     new:
@@ -313,11 +317,12 @@ ch_be:
     folders:
       created: Dr nöii Ordner isch erfougrich ersteut worde.
       updated: Dr Ordner isch erfougrich bearbeitet worde.
-    items:
+    file_entries:
       uploaded: D Datei isch erfougrich ufeglade worde.
       uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
       uploaded_filename_is_empty: D Datei muess e Name ha
       uploaded_file_inexistent: Die Datei existiert gar nid
+      uploaded_filename_already_exists: D Dateiname existiert äuä scho
     session:
       welcome: Willkomme bim Cryptopus. Zerscht muesch e nöie Account ersteue. Bitte wäu es sicheres Passwort.
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
@@ -401,7 +406,7 @@ ch_be:
             username:
               blank: 'cha nid läär si'
               taken: 'isch bereits vergä'
-        item:
+        file_entry:
           attributes:
             filename:
               blank: 'Dr Dateinamä cha nid läär si'

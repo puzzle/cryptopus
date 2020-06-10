@@ -6,7 +6,7 @@
 %h1
   = t '.title'
   ( #{@account.accountname} )
-= form_for [@account, @item], html: { multipart: true } do |f|
+= form_for [@account, @file_entry], html: { multipart: true } do |f|
   = f.error_messages
   .form-group
     = f.label t('.upload')

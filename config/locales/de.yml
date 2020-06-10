@@ -81,6 +81,7 @@ de:
       attachments: Anhänge
       file: Datei
       show_password: Passwort anzeigen
+      add_attachment: Anhang hinzufügen
     new:
       title: Neuer Account
 
@@ -162,12 +163,15 @@ de:
       title: Ordner erstellen
     show:
       move: Account zu einem anderen Ordner verschieben
-      title: "Accounts der Gruppe %{folder_name} des Teams %{team_name}"
-  items:
+      title: "Accounts des Ordners %{folder_name} des Teams %{team_name}"
+  file_entries:
     new:
       title: Anhang zum Account hinzufügen
-      upload: Datei für das Hochladen
       upload_file: Datei hochladen
+      upload: Hochladen
+      choose_file: Wählen Sie eine Datei
+      reupload: Wählen Sie eine andere Datei
+      selected_file: Ausgewählte Datei
 
   session:
     new:
@@ -324,11 +328,12 @@ de:
     folders:
       created: Die neue Gruppe wurde erfolgreich erstellt.
       updated: Die Gruppe wurde erfolgreich bearbeitet.
-    items:
+    file_entries:
       uploaded: Die Datei wurde erfolgreich hochgeladen.
       uploaded_size_to_high: Die Datei ist zu gross zum hochladen. (Max. 10MB)
       uploaded_filename_is_empty: Die Datei muss benannt sein
       uploaded_file_inexistent: Datei ist inexistent
+      uploaded_filename_already_exists: Dateiname existiert bereits
     session:
       welcome: Willkommen bei Cryptopus. Zuerst müssen Sie einen Account erstellen. Bitte wählen Sie ein sicheres Passwort.
       auth_failed: Ungültiger Benutzername / Passwort.
@@ -413,7 +418,7 @@ de:
             username:
               blank: kann nicht leer sein
               taken: ist bereits vergeben
-        item:
+        file_entry:
           attributes:
             filename:
               blank: Filename kann nicht leer sein

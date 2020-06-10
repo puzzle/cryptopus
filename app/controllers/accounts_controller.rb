@@ -13,7 +13,7 @@ class AccountsController < ApplicationController
   # GET /accounts/1
   def show
     authorize account
-    @items = account.items.load
+    @file_entries = account.file_entries.load
 
     accounts_breadcrumbs
 

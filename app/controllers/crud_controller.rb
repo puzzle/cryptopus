@@ -12,9 +12,9 @@ class CrudController < ListController
   # POST /entries
   def create(options = {})
     build_entry
+    authorize entry
     if entry.save
-      render_entry({ status: :created,
-                     location: entry_url }
+      render_entry({ status: :created }
                    .merge(options[:render_options] || {}))
     else
       render_errors

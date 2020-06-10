@@ -40,7 +40,7 @@ describe AccountMoveHandler do
     expect(new_folder.id).to eq(account.folder_id)
   end
 
-  it 'moves account with items to new team' do
+  it 'moves account with file_entries to new team' do
     account = accounts(:account1)
     private_key = decrypt_private_key(bob)
     new_folder = folders(:folder2)
@@ -50,14 +50,14 @@ describe AccountMoveHandler do
     AccountMoveHandler.new(account, private_key, bob).move
     account.save!
 
-    expect(account).to eq(items(:item2).account)
-    expect(teams(:team2)).to eq(items(:item2).account.folder.team)
+    expect(account).to eq(file_entries(:file_entry2).account)
+    expect(teams(:team2)).to eq(file_entries(:file_entry2).account.folder.team)
 
-    decrypted_file_item1 = items(:item1).decrypt(new_team_password)
-    decrypted_file_item2 = items(:item2).decrypt(new_team_password)
+    decrypted_file_file_entry1 = file_entries(:file_entry1).decrypt(new_team_password)
+    decrypted_file_file_entry2 = file_entries(:file_entry2).decrypt(new_team_password)
 
-    expect(decrypted_file_item1).to eq('Das ist ein test File')
-    expect(decrypted_file_item2).to eq('Das ist ein test File')
+    expect(decrypted_file_file_entry1).to eq('Das ist ein test File')
+    expect(decrypted_file_file_entry2).to eq('Das ist ein test File')
   end
 
   it 'cannot move account to a team user is not a member of' do
@@ -92,18 +92,18 @@ describe AccountMoveHandler do
     team1 = teams(:team1)
     bobs_private_key = decrypt_private_key(bob)
     new_folder = folders(:folder2)
-    item1 = items(:item1)
-    item2 = items(:item2)
+    file_entry1 = file_entries(:file_entry1)
+    file_entry2 = file_entries(:file_entry2)
 
     account.folder = new_folder
     begin
       AccountMoveHandler.new(account, bobs_private_key, bob).move
     rescue StandardError
       team1_password = team1.decrypt_team_password(bob, bobs_private_key)
-      item1.reload.decrypt(team1_password)
-      expect(item1.cleartext_file).to eq('Das ist ein test File')
-      item2.reload.decrypt(team1_password)
-      expect(item2.cleartext_file).to eq('Das ist ein test File')
+      file_entry1.reload.decrypt(team1_password)
+      expect(file_entry1.cleartext_file).to eq('Das ist ein test File')
+      file_entry2.reload.decrypt(team1_password)
+      expect(file_entry2.cleartext_file).to eq('Das ist ein test File')
 
       expect(account.reload.folder.team).to eq(team1)
     end

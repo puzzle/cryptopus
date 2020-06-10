@@ -1,7 +1,7 @@
-import Route from '@ember/routing/route';
+import Route from "@ember/routing/route";
 
-export default Route.extend({
- model(params) {
-    return this.store.findRecord('account', params.id)
+export default class AccountEditRoute extends Route {
+  model(params) {
+    return this.store.findRecord("account", params.id);
   }
-});
+}

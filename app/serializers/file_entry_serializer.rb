@@ -1,7 +1,8 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 # == Schema Information
 #
-# Table name: items
+# Table name: file_entries
 #
 #  id           :integer          not null, primary key
 #  account_id   :integer          default(0), not null
@@ -18,19 +19,10 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
+class FileEntrySerializer < ApplicationSerializer
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
+  attributes :id, :filename, :description
 
-item1:
-  account: account1
-  filename: item1
-  content_type: text
-  file: <%= "!!binary \"#{FixturesHelper.read_item_file('team1', 'account1', 'item1')}\"" %>
-item2:
-  account: account1
-  filename: item2
-  content_type: text
-  file: <%= "!!binary \"#{FixturesHelper.read_item_file('team1', 'account1', 'item2')}\"" %>
+  belongs_to :account
+
+end

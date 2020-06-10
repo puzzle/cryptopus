@@ -23,7 +23,7 @@
 class Account < ApplicationRecord
 
   belongs_to :folder
-  has_many :items, dependent: :destroy
+  has_many :file_entries, dependent: :destroy
 
   validates :accountname, presence: true
   validates :accountname, uniqueness: { scope: :folder }
