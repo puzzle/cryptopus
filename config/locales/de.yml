@@ -178,6 +178,11 @@ de:
       title: Anmelden
       description: Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein um Cryptopus zu verwenden.
       submit: Anmelden
+    local:
+      new:
+        title: Anmelden
+        description: Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein um Cryptopus zu verwenden.
+        submit: Anmelden
     destroy:
       title: Abmelden
       message: Aufwiedersehen

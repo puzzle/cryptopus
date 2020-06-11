@@ -169,6 +169,11 @@ fr:
       title: Identifiez-vous
       description: S'il vous plaît entrer un nom d'utilisateur valide et mot de passe.
       submit: S'identifier
+    local:
+      new:
+        title: Identifiez-vous
+        description: S'il vous plaît entrer un nom d'utilisateur valide et mot de passe.
+        submit: S'identifier
     destroy:
       title: Déconnexion
       message: Au revoir

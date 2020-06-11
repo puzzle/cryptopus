@@ -197,6 +197,11 @@ ch_be:
       title: Amäudä
       description: Bitte gib di Benutzername u dis Passwort i zum z'Cryptopus chönne z bruche.
       submit: Amäudä
+    local:
+      new:
+        title: Amäudä
+        description: Bitte gib di Benutzername u dis Passwort i zum z'Cryptopus chönne z bruche.
+        submit: Amäudä
     destroy:
       title: Abmäudä
       message: Ufwiderluege
