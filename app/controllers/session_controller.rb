@@ -6,25 +6,25 @@
 #  https://github.com/puzzle/cryptopus.
 
 class SessionController < ApplicationController
-
-  before_action :authorize_action
-
   # it's save to disable this for authenticate since there is no logged in session active
   # in this case.
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
   skip_before_action :verify_authenticity_token, only: :create
-  skip_before_action :validate_user, only: [:new, :create, :destroy]
+  skip_before_action :validate_user, expect: [:update_password, :changelocale]
   skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
-  before_action :skip_authorization, only: [:create, :new, :destroy]
+
+  before_action :authorize_action
+  before_action :skip_authorization, only: [:create, :new, :destroy, :sso]
+  before_action :keycloak_cookie, only: :sso
 
   def create
-    unless authenticator.auth!
+    unless user_authenticator.authenticate!
       flash[:error] = t('flashes.session.auth_failed')
-      return redirect_to session_new_path
+      return redirect_to user_authenticator.login_path
     end
 
-    unless create_session(authenticator.user, params[:password])
+    unless create_session(params[:password])
       return redirect_to recryptrequests_new_ldap_password_path
     end
 
@@ -34,7 +34,12 @@ class SessionController < ApplicationController
   end
 
   def destroy
-    logout
+    flash_notice = params[:autologout] ? t('session.destroy.expired') : flash[:notice]
+    jumpto = params[:jumpto]
+    reset_session
+    session[:jumpto] = jumpto
+    flash[:notice] = flash_notice
+    redirect_to user_authenticator.login_path
   end
 
   def show_update_password
@@ -77,11 +82,11 @@ class SessionController < ApplicationController
     end
   end
 
-  def create_session(user, password)
+  def create_session(password)
     begin
+      user = user_authenticator.user
       set_session_attributes(user, password)
-      user.update_info
-      user.update_last_login_ip(request.remote_ip)
+      user_authenticator.update_user_info(request.remote_ip)
       CryptUtils.validate_keypair(session[:private_key], user.public_key)
     rescue Exceptions::DecryptFailed
       return false
@@ -90,46 +95,46 @@ class SessionController < ApplicationController
   end
 
   def redirect_after_sucessful_login
-    if session[:jumpto].blank?
-      redirect_to search_path
-    else
-      jump_to = session[:jumpto]
-      session[:jumpto] = nil
-      redirect_to jump_to
-    end
+    jump_to = session[:jumpto] || search_path
+    session[:jumpto] = nil
+    redirect_to jump_to
   end
 
-  def set_session_attributes(user, password)
+  def set_session_attributes(user, pk_secret)
     jumpto = session[:jumpto]
     reset_session
     session[:jumpto] = jumpto
     session[:username] = user.username
     session[:user_id] = user.id.to_s
-    session[:private_key] = user.decrypt_private_key(password)
+    session[:private_key] = user.decrypt_private_key(pk_secret)
     session[:last_login_at] = user.last_login_at
     session[:last_login_from] = user.last_login_from
   end
 
   def password_params_valid?
-    unless current_user.authenticate(params[:old_password])
+    return if current_user.is_a?(User::Api)
+
+    unless current_user.authenticate_db(params[:old_password])
       flash[:error] = t('flashes.session.wrong_password')
       return false
     end
 
     if params[:new_password1] != params[:new_password2]
-      flash[:error] = t('flashes.session.new_passwords.not_equal')
+      flash[:error] = t('flashes.session.new_passwords_not_equal')
       return false
     end
     true
   end
 
-  def authenticator
-    username = params[:username]
-    password = params[:password]
-    Authentication::UserAuthenticator.new(username: username, password: password)
-  end
-
   def authorize_action
     authorize :session
+  end
+
+  def keycloak_cookie
+    Keycloak.proc_cookie_token = -> { cookies.permanent[:keycloak_token] }
+  end
+
+  def keycloak_client
+    @keycloak_client ||= KeycloakClient.new
   end
 end

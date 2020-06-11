@@ -112,7 +112,7 @@ zh:
         title: "列举所有Cryptopus用户"
         username: "用户名"
         name: "名字"
-        ldap_uid: "LDAP UID"
+        provider_uid: "PROVIDER UID"
         last_login_at: "上次登陆于"
         last_login_from: "上次登陆位置"
         admin: "管理员"
@@ -148,6 +148,11 @@ zh:
       title: "登陆"
       description: "请输入用户名和密码访问cryptopus"
       submit: "登陆"
+    local:
+      new:
+        title: "登陆"
+        description: "请输入用户名和密码访问cryptopus"
+        submit: "登陆"
     destroy:
       title: "注销"
       message: "再见"
@@ -221,7 +226,7 @@ zh:
           root: "Root不能被删除"
         update:
           root: "Root不能被更新"
-          ldap: "不能更新Ldap用户"
+          not_db: "不能更新Ldap用户"
       maintenance_tasks:
         succeed: "成功的执行任务。"
         failed: "任务失败。请查看日志了解更多信息。"

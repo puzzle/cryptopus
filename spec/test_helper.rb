@@ -13,8 +13,18 @@ def legacy_encrypt_private_key(private_key, password)
   encrypted_private_key
 end
 
+def enable_keycloak
+  expect_any_instance_of(AuthConfig)
+    .to receive(:settings_file)
+    .at_least(:once)
+    .and_return(provider: 'keycloak')
+end
+
 def enable_ldap
-  expect(AuthConfig).to receive(:ldap_enabled?).and_return(true).at_least(:once)
+  expect_any_instance_of(AuthConfig)
+    .to receive(:settings_file)
+    .at_least(:once)
+    .and_return(provider: 'ldap')
 end
 
 def stub_geo_ip

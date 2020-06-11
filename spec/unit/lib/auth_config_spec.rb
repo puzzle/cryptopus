@@ -32,13 +32,13 @@ describe AuthConfig do
       expect_any_instance_of(AuthConfig)
         .to receive(:settings_file)
         .and_return(settings_file('auth.yml.test'))
-      expect(auth).to be_ldap_enabled
+      expect(auth).to be_ldap
     end
 
     it 'returns false for empty authfile' do
       expect_any_instance_of(AuthConfig).to receive(:settings_file).and_return({})
 
-      expect(auth).to_not be_ldap_enabled
+      expect(auth).to_not be_ldap
     end
   end
 
@@ -48,7 +48,7 @@ describe AuthConfig do
         .to receive(:settings_file)
         .and_return(settings_file('auth.yml.test'))
 
-      expect(auth).to be_ldap_enabled
+      expect(auth).to be_ldap
     end
 
     it 'returns db as provider with default file' do

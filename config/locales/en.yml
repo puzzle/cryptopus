@@ -132,7 +132,7 @@ en:
         title: List of all Cryptopus users
         username: Username
         name: Name
-        ldap_uid: LDAP UID
+        provider_uid: PROVIDER UID
         last_login_at: Last login at
         last_login_from: Last login from
         admin: Admin
@@ -179,6 +179,11 @@ en:
       title: Log in
       description: Please enter your username and password to access cryptopus
       submit: Login
+    local:
+      new:
+        title: Log in
+        description: Please enter your username and password to access cryptopus
+        submit: Login
     destroy:
       title: Logout
       message: Bye
@@ -314,7 +319,7 @@ en:
           root: Root cannot be deleted
         update:
           root: Root cannot be updated
-          ldap: Ldap user cannot be updated
+          not_db: Non Db user cannot be updated
       maintenance_tasks:
         succeed: Task was executed successfully.
         failed: Task failed. See logs for more information.
@@ -344,6 +349,7 @@ en:
       new_password_set: You successfully set the new password
       new_passwords_not_equal: New passwords not equal
       wrong_password: Invalid user / password
+      wrong_root: Login as root only from private IP accessible
       not_local: You are not a local user!
       locked: User is currently locked. Please try to login again a bit later or contact the administrator if your user has been locked permanently
     recryptrequests:

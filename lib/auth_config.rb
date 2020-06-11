@@ -13,8 +13,16 @@ class AuthConfig
       auth_config.ldap.dup
     end
 
+    def keycloak_enabled?
+      auth_config.keycloak?
+    end
+
     def ldap_enabled?
-      auth_config.ldap_enabled?
+      auth_config.ldap?
+    end
+
+    def db_enabled?
+      auth_config.db?
     end
 
     def provider
@@ -26,8 +34,16 @@ class AuthConfig
     settings_file[:provider]
   end
 
-  def ldap_enabled?
+  def keycloak?
+    provider == 'keycloak'
+  end
+
+  def ldap?
     provider == 'ldap'
+  end
+
+  def db?
+    provider == 'db'
   end
 
   def ldap

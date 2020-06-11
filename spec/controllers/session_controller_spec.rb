@@ -178,7 +178,7 @@ describe SessionController do
                                        new_password2: 'test' }
 
       expect(flash[:notice]).to match(/new password/)
-      expect(users(:bob).authenticate('test')).to eq true
+      expect(users(:bob).authenticate_db('test')).to eq true
     end
 
     it 'updates password, error if oldpassword not match' do
@@ -187,7 +187,7 @@ describe SessionController do
                                        new_password2: 'test' }
 
       expect(flash[:error]).to match(/Invalid user \/ password/)
-      expect(users(:bob).authenticate('test')).to eq false
+      expect(users(:bob).authenticate_db('test')).to be false
     end
 
     it 'updates password, error if new passwords not match' do
@@ -195,8 +195,8 @@ describe SessionController do
       post :update_password, params: { old_password: 'password', new_password1: 'test',
                                        new_password2: 'wrong_password' }
 
-      expect(flash[:error]).to match(/equal/)
-      expect(users(:bob).authenticate('test')).to eq false
+      expect(flash[:error]).to match(/New passwords not equal/)
+      expect(users(:bob).authenticate_db('test')).to eq false
     end
 
     it 'redirects if ldap user tries to update password' do
@@ -204,7 +204,14 @@ describe SessionController do
       login_as(:bob)
       post :update_password, params: { old_password: 'password', new_password1: 'test',
                                        new_password2: 'test' }
+      expect(response).to redirect_to teams_path
+    end
 
+    it 'redirects if keycloak user tries to update password' do
+      users(:bob).update!(auth: 'keycloak')
+      login_as(:bob)
+      post :update_password, params: { old_password: 'password', new_password1: 'test',
+                                       new_password2: 'test' }
       expect(response).to redirect_to teams_path
     end
   end

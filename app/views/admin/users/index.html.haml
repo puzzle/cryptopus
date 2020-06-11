@@ -13,7 +13,7 @@
     %th= t '.name'
     %th= t '.last_login_at'
     %th= t '.last_login_from'
-    %th= t '.ldap_uid'
+    %th= t '.provider_uid'
     %th= t '.admin'
     %th{colspan: "3"}= t :actions
   - @users.each do |user|
@@ -24,7 +24,7 @@
         - if user.last_login_at
           = user.last_login_at.strftime('%d.%m.%Y, %H:%M')
       %td= user.last_login_from
-      %td= user.ldap_uid.to_s
+      %td= user.provider_uid
 
       %td
         = Admin::UserRole::Dropdown.new(user, current_user).render

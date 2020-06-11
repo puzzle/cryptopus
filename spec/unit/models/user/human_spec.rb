@@ -10,6 +10,7 @@ require 'rails_helper'
 describe User::Human do
 
   let(:bob) { users(:bob) }
+  let(:root) { users(:root) }
   let(:alice) { users(:alice) }
   let(:conf_admin) { users(:conf_admin) }
 
@@ -33,8 +34,10 @@ describe User::Human do
       decrypted_private_key = bob.decrypt_private_key('password')
       bob.update_password('password', 'new')
 
-      expect(bob.authenticate('password')).to eq(false)
-      expect(bob.authenticate('new')).to eq(true)
+      expect(Authentication::UserAuthenticator.init(username: bob.username, password: 'password')
+                                         .authenticate!).to eq(false)
+      expect(Authentication::UserAuthenticator.init(username: bob.username, password: 'new')
+                                         .authenticate!).to eq(true)
       expect(bob.decrypt_private_key('new')).to eq(decrypted_private_key)
     end
   end
@@ -50,7 +53,6 @@ describe User::Human do
   end
 
   context 'legacy password' do
-
     it 'has legacy password if password is updated' do
       hash = Digest::MD5.hexdigest('password')
       bob.update(password: hash)
@@ -69,11 +71,9 @@ describe User::Human do
   end
 
   context 'locking' do
-
     it 'unlocks user' do
       bob.update(locked: true)
       bob.update(failed_login_attempts: 3)
-
       bob.unlock
 
       expect(bob.locked?).to eq(false)
@@ -91,93 +91,14 @@ describe User::Human do
 
       expect(bob.locked?).to eq(false)
     end
-
   end
 
   context 'accounts' do
-
     it 'only returns accounts where bob is member' do
       accounts = alice.accounts
       expect(accounts.count).to eq(1)
       expect(accounts.first.accountname).to eq('account1')
     end
-
-  end
-
-  context 'ldap' do
-
-    it 'creates user from ldap' do
-      enable_ldap
-      ldap_mock = double
-
-      expect(LdapConnection).to receive(:new).exactly(3).times.and_return(ldap_mock)
-      expect(ldap_mock).to receive(:uidnumber_by_username).and_return(42)
-      expect(ldap_mock).to receive(:ldap_info).with(42, 'givenname').and_return('bob')
-      expect(ldap_mock).to receive(:ldap_info).with(42, 'sn').and_return('test')
-
-      user = User::Human.send(:create_from_ldap, 'bob', 'password')
-
-      expect(user.username).to eq('bob')
-      expect(user.ldap_uid).to eq(42)
-      expect(user.givenname).to eq('bob')
-      expect(user.surname).to eq('test')
-      expect(user.auth).to eq('ldap')
-    end
-
-    it 'cannot auth against ldap if ldap disabled' do
-      bob.update(auth: 'ldap')
-
-      expect_any_instance_of(LdapConnection).to receive(:authenticate!).never
-
-      expect do
-        bob.authenticate('password')
-      end.to raise_error('cannot authenticate against ldap since ldap auth is disabled')
-    end
-
-  end
-
-  context '#find_or_create_from_ldap' do
-
-    it 'returns user if exists in db' do
-      user = User::Human.find_or_import_from_ldap('bob', 'password')
-      expect(user).to_not be_nil
-      expect(user.username).to eq('bob')
-    end
-
-    it 'does not return user if user not exists in db and ldap' do
-      enable_ldap
-      mock_ldap_settings
-
-      expect_any_instance_of(LdapConnection)
-        .to receive(:authenticate!)
-        .with('nobody', 'password').and_return(false)
-      expect(User::Human).to receive(:create_from_ldap).never
-
-      user = User::Human.find_or_import_from_ldap('nobody', 'password')
-      expect(user).to be_nil
-    end
-
-    it 'does not return user if user not exists in db and ldap disabled' do
-      expect_any_instance_of(LdapConnection).to receive(:authenticate!).never
-
-      user = User::Human.find_or_import_from_ldap('nobody', 'password')
-      expect(user).to be_nil
-    end
-
-    it 'imports and creates user from ldap' do
-      enable_ldap
-      mock_ldap_settings
-
-      expect_any_instance_of(LdapConnection)
-        .to receive(:authenticate!)
-        .with('nobody', 'password').and_return(true)
-      expect(User::Human).to receive(:create_from_ldap)
-
-      user = User::Human.find_or_import_from_ldap('nobody', 'password')
-
-      expect(user).to be_nil
-    end
-
   end
 
   context '#update_role' do
@@ -229,14 +150,15 @@ describe User::Human do
   end
 
   context '#recrypt_private_key' do
-
     it 'shows new error on user if wrong old password at private_key recryption' do
       enable_ldap
-      mock_ldap_settings
-
+      ldap = double
       bob.update(auth: 'ldap')
 
-      expect_any_instance_of(LdapConnection).to receive(:authenticate!).and_return(true)
+      expect(LdapConnection).to receive(:new).exactly(1).times.and_return(ldap)
+      expect(ldap).to receive(:authenticate!)
+        .with('bob', 'new_password')
+        .and_return(true)
 
       expect(bob.recrypt_private_key!('new_password', 'wrong_old_password')).to eq false
 
@@ -244,9 +166,37 @@ describe User::Human do
     end
 
     it 'shows new error on user if wrong new password at private_key recryption' do
+      enable_ldap
+      mock_ldap_settings
+      ldap = double
+
+      expect(LdapConnection).to receive(:new).at_least(:once).and_return(ldap)
+      expect(ldap).to receive(:authenticate!).at_least(:once).times.and_return(false)
+
       expect(bob.recrypt_private_key!('worong_new_password', 'password')).to eq false
 
       expect(bob.errors.messages[:base][0]).to match(/Your NEW password was wrong/)
+    end
+  end
+
+  context '#authenticate_db' do
+    it 'authenticates db user' do
+      expect(bob.authenticate_db('password')).to be true
+    end
+
+    it 'doesn\'t authenticates db user with ldap enabled' do
+      enable_ldap
+      expect(bob.authenticate_db('password')).to be false
+    end
+
+    it 'authenticates root with ldap enabled' do
+      enable_ldap
+      expect(root.authenticate_db('password')).to be true
+    end
+
+    it 'doesn\'t authenticate non db user' do
+      bob.update(auth: 'ldap')
+      expect(bob.authenticate_db('password')).to be false
     end
   end
 end

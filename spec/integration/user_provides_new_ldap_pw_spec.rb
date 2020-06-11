@@ -26,15 +26,18 @@ describe 'User provides new Ldap Pw' do
 
       # Prepare for do
       bob.update(auth: 'ldap')
-      bob.update(ldap_uid: 42)
+      bob.update(provider_uid: '42')
 
       # Method call expectations
       expect(LdapConnection).to receive(:new).at_least(:once).and_return(ldap)
       expect(ldap).to receive(:ldap_info).exactly(4).times
 
       expect(ldap).to receive(:authenticate!)
-        .with('bob', /newPassword|password/)
-        .exactly(4).times
+        .with('bob', 'password')
+        .and_return(true)
+      expect(ldap).to receive(:authenticate!)
+        .with('bob', 'newPassword')
+        .exactly(3).times
         .and_return(true)
 
       # Calls login method
@@ -63,7 +66,7 @@ describe 'User provides new Ldap Pw' do
       expect(GeoIp).to receive(:activated?).at_least(:once).and_return(false)
       # Prepare for  do
       bob.update!(auth: 'ldap')
-      bob.update!(ldap_uid: 42)
+      bob.update!(provider_uid: '42')
 
       # Method call expectations
       expect(LdapConnection).to receive(:new).at_least(:once).and_return(ldap)
@@ -86,7 +89,7 @@ describe 'User provides new Ldap Pw' do
 
       get session_destroy_path
 
-      login_as('admin')
+      login_as_root
       bobs_user_id = bob.id
       recrypt_id = Recryptrequest.find_by(user_id: bobs_user_id).id
       post admin_recryptrequest_path(recrypt_id), params: { _method: :delete }
@@ -107,7 +110,7 @@ describe 'User provides new Ldap Pw' do
 
       # Prepare for  do
       bob.update(auth: 'ldap')
-      bob.update(ldap_uid: 42)
+      bob.update(provider_uid: '42')
 
       # Method call expectations
       expect(LdapConnection).to receive(:new).at_least(:once).and_return(ldap)
@@ -137,7 +140,7 @@ describe 'User provides new Ldap Pw' do
 
       # Prepare for  do
       bob.update(auth: 'ldap')
-      bob.update(ldap_uid: 42)
+      bob.update(provider_uid: '42')
 
       # Method call expectations
       expect(LdapConnection).to receive(:new).at_least(:twice).and_return(ldap)
@@ -155,10 +158,10 @@ describe 'User provides new Ldap Pw' do
       # Recrypt
 
       expect(ldap).to receive(:authenticate!)
-        .with('bob', 'wrong_password')
+        .with('bob', 'wrong')
         .and_return(false)
 
-      post recryptrequests_recrypt_path, params: { new_password: 'wrong_password' }
+      post recryptrequests_recrypt_path, params: { new_password: 'wrong' }
 
       #  do if user got error messages
       expect(flash[:error]).to match(/Your NEW password was wrong/)
@@ -169,12 +172,11 @@ describe 'User provides new Ldap Pw' do
 
       # Prepare for  do
       bob.update(auth: 'ldap')
-      bob.update(ldap_uid: 42)
+      bob.update(provider_uid: '42')
 
       # Method call expectations
-      expect(LdapConnection).to receive(:new).exactly(4).times.and_return(ldap)
-      expect(ldap).to receive(:ldap_info)
-        .exactly(:twice)
+      expect(LdapConnection).to receive(:new).exactly(3).times.and_return(ldap)
+      expect(ldap).to receive(:ldap_info).twice
 
       expect(ldap).to receive(:authenticate!)
         .with('bob', 'password')

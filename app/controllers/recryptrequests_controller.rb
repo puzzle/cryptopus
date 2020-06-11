@@ -17,7 +17,7 @@ class RecryptrequestsController < ApplicationController
   def recrypt
     authorize Recryptrequest
 
-    unless current_user.authenticate(params[:new_password])
+    unless user_authenticator.authenticate!
       flash[:error] = t('activerecord.errors.models.user.new_password_invalid')
       return redirect_to recryptrequests_new_ldap_password_path
     end
@@ -41,16 +41,23 @@ class RecryptrequestsController < ApplicationController
     end
 
     flash[:notice] = t('flashes.recryptrequests.wait')
-    logout
+    redirect_to session_destroy_path
   end
 
   def recrypt_private_key
     if current_user.recrypt_private_key!(params[:new_password], params[:old_password])
       flash[:notice] = t('flashes.recryptrequests.recrypted')
-      return logout
+      return redirect_to session_destroy_path
     end
 
     flash[:error] = current_user.errors.full_messages.join
     redirect_to recryptrequests_new_ldap_password_path
+  end
+
+  def user_authenticator
+    Authentication::UserAuthenticator.init(
+      username: current_user.username,
+      password: params[:new_password]
+    )
   end
 end

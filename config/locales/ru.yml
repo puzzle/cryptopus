@@ -118,7 +118,7 @@ ru:
         title: "Список пользователей"
         username: "Имя пользователя"
         name: "Имя"
-        ldap_uid: "LDAP UID"
+        provider_uid: "PROVIDER UID"
         last_login_at: "Последний вход"
         last_login_from: "Последний вход с"
         admin: "Администратор"
@@ -154,6 +154,11 @@ ru:
       title: "Вход"
       description: "Введите имя пользователя и пароль для входа в cryptopus"
       submit: "Войти"
+    local:
+      new:
+        title: "Вход"
+        description: "Введите имя пользователя и пароль для входа в cryptopus"
+        submit: "Войти"
     destroy:
       title: "Выйти"
       message: "До свидания"
@@ -227,7 +232,7 @@ ru:
           root: "Пользователь Root не может быть удалён"
         update:
           root: "Пользователь Root не может быть изменён"
-          ldap: "Ldap-пользователь не может быть изменён"
+          not_db: "Ldap-пользователь не может быть изменён"
       maintenance_tasks:
         succeed: "Задача успешно выполнена."
         failed: "Задача не выполнена. Детали в логах."

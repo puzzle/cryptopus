@@ -23,6 +23,12 @@ Rails.application.routes.draw do
     resources :file_entries, only: [:show, :destroy]
   end
 
+  scope '/session', module: 'session' do
+    get 'sso', to: 'sso#create' if AuthConfig.keycloak_enabled?
+    post 'local', to: 'local#create'
+    get 'local', to: 'local#new'
+  end
+
   get 'session/new', to: 'session#new'
   post 'session', to: 'session#create'
   get 'session/destroy', to: 'session#destroy'

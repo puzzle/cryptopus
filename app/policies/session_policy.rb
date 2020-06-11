@@ -3,6 +3,18 @@
 class SessionPolicy < ApplicationPolicy
 
   def new?
+    user.nil? && !AuthConfig.keycloak_enabled?
+  end
+
+  def sso?
+    user.nil? && AuthConfig.keycloak_enabled?
+  end
+
+  def local?
+    user.nil?
+  end
+
+  def root?
     user.nil?
   end
 
@@ -15,15 +27,14 @@ class SessionPolicy < ApplicationPolicy
   end
 
   def show_update_password?
-    user.present? && !user.ldap?
+    user.present? && user.auth_db?
   end
 
   def update_password?
-    user.present? && !user.ldap?
+    user.present? && user.auth_db?
   end
 
   def changelocale?
     user.present?
   end
-
 end

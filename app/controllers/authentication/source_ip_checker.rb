@@ -27,6 +27,11 @@ class Authentication::SourceIpChecker
     private_ip? || ip_whitelisted? || GeoIp.activated? && country_authorized?
   end
 
+  def private_ip?
+    ip = IPAddr.new(remote_ip)
+    self.class.private_ip_ranges.any? { |range| range.include?(ip) }
+  end
+
   def previously_authorized?(authorized_ip)
     authorized_ip == remote_ip if authorized_ip.present?
   end
@@ -60,11 +65,6 @@ class Authentication::SourceIpChecker
 
   def whitelisted_country_codes
     @whitelisted_country_codes ||= Setting.value(:general, :country_source_whitelist)
-  end
-
-  def private_ip?
-    ip = IPAddr.new(remote_ip)
-    self.class.private_ip_ranges.any? { |range| range.include?(ip) }
   end
 
   def geo_ip

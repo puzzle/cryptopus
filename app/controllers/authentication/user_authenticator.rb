@@ -1,13 +1,21 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
-require 'user/api'
+include Rails.application.routes.url_helpers
 
 class Authentication::UserAuthenticator
+
+  class << self
+    def init(params)
+      case AuthConfig.provider
+      when 'db'
+        Authentication::UserAuthenticator::Db.new(params)
+      when 'ldap'
+        Authentication::UserAuthenticator::Ldap.new(params)
+      when 'keycloak'
+        Authentication::UserAuthenticator::Sso.new(params)
+      end
+    end
+  end
 
   def initialize(username: nil, password: nil)
     @authenticated = false
@@ -15,26 +23,33 @@ class Authentication::UserAuthenticator
     @password = password
   end
 
-  def auth!
-    return false unless preconditions?
-    return false if user_locked?
-
-    authenticated = user_auth!
-
-    unless authenticated
-      add_error('flashes.session.wrong_password')
-    end
-
-    brute_force_detector.update(authenticated)
-    authenticated
+  def authenticate!
+    raise NotImplementedError, 'implement in subclass'
   end
 
-  def errors
-    @errors ||= []
+  def authenticate_by_headers!
+    raise NotImplementedError, 'implement in subclass'
+  end
+
+  def find_or_create_user
+    raise NotImplementedError, 'implement in subclass'
+  end
+
+  def update_user_info(params)
+    params[:last_login_at] = Time.zone.now
+    user.update(params.compact)
   end
 
   def user
-    @user ||= User.find_user(username, password)
+    @user ||= find_or_create_user
+  end
+
+  def login_path
+    raise NotImplementedError, 'implement in subclass'
+  end
+
+  def user_logged_in?
+    raise NotImplementedError, 'implement in subclass'
   end
 
   private
@@ -42,18 +57,17 @@ class Authentication::UserAuthenticator
   attr_accessor :authenticated
   attr_reader :username, :password
 
+  def root_user?
+    username == 'root'
+  end
+
   def brute_force_detector
-    @brute_force_detector ||=
-      Authentication::BruteForceDetector.new(user)
+    @brute_force_detector ||= Authentication::BruteForceDetector.new(user)
   end
 
   def preconditions?
-    if params_present? && valid_username? && user.present?
-      return true
-    end
-
-    add_error('flashes.session.wrong_password')
-    false
+    params_present? && valid_username? && user.present? &&
+      !brute_force_detector.locked?
   end
 
   def params_present?
@@ -62,22 +76,5 @@ class Authentication::UserAuthenticator
 
   def valid_username?
     username.strip =~ /^([a-zA-Z]|\d)+[-]?([a-zA-Z]|\d)*[^-]$/
-  end
-
-  def user_locked?
-    unless brute_force_detector.locked?
-      return false
-    end
-
-    add_error('flashes.session.locked')
-    true
-  end
-
-  def add_error(msg_key)
-    errors << I18n.t(msg_key)
-  end
-
-  def user_auth!
-    user.authenticate(password)
   end
 end

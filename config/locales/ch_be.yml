@@ -157,7 +157,7 @@ ch_be:
         title: Lischtä vo aune Cryptopus Benutzer
         username: Benutzernamä
         name: Namä
-        ldap_uid: LDAP UID
+        provider_uid: PROVIDER UID
         last_login_at: Letschti Ameudig am
         last_login_from: Letschti Ameudig vo
         admin: Admin
@@ -197,6 +197,11 @@ ch_be:
       title: Amäudä
       description: Bitte gib di Benutzername u dis Passwort i zum z'Cryptopus chönne z bruche.
       submit: Amäudä
+    local:
+      new:
+        title: Amäudä
+        description: Bitte gib di Benutzername u dis Passwort i zum z'Cryptopus chönne z bruche.
+        submit: Amäudä
     destroy:
       title: Abmäudä
       message: Ufwiderluege
@@ -303,7 +308,7 @@ ch_be:
           root: Dr Root cha nid glösche werde
         update:
           root: Dr Root cha nid aktualisiert werde
-          ldap: Dr Ldap User cha nid aktualisiert werde
+          not_db: Nume Db User chöi aktualisiert werde
       maintenance_tasks:
         succeed: D Wartigsufgab isch erfougrich düregfüehrt worde
         failed: D Wartigsufgab isch gschiteret. Lueg i de Logs für me Details nache.

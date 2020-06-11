@@ -8,7 +8,7 @@
 #  public_key                   :text             not null
 #  private_key                  :binary           not null
 #  password                     :binary
-#  ldap_uid                     :integer
+#  provider_uid                 :string
 #  last_login_at                :datetime
 #  username                     :string
 #  givenname                    :string
@@ -36,15 +36,8 @@ class User < ApplicationRecord
   validates :username, uniqueness: :username
   validates :username, presence: true
 
-  def self.find_user(username, password)
-    user = find_by(username: username.strip)
-    return user if user.present?
-
-    User::Human.find_or_import_from_ldap(username.strip, password) if User::Human.ldap_enabled?
-  end
-
   def update_password(old, new)
-    return if ldap?
+    return unless auth_db?
 
     if authenticate_db(old)
       self.password = CryptUtils.one_way_crypt(new)
@@ -62,10 +55,14 @@ class User < ApplicationRecord
   end
 
   def authenticate_db(cleartext_password)
-    raise Exceptions::AuthenticationFailed if cleartext_password.blank?
+    authenticated = false
 
-    salt = password.split('$')[1]
-    password.split('$')[2] == Digest::SHA512.hexdigest(salt + cleartext_password)
+    if user_is_allowed? && cleartext_password.present? && auth_db?
+      salt = password.split('$')[1]
+      authenticated = password.split('$')[2] == Digest::SHA512.hexdigest(salt + cleartext_password)
+    end
+
+    authenticated
   end
 
   def label
@@ -88,5 +85,11 @@ class User < ApplicationRecord
     Account.joins(:folder).
       joins('INNER JOIN teammembers ON folders.team_id = teammembers.team_id').
       where(teammembers: { user_id: id })
+  end
+
+  private
+
+  def user_is_allowed?
+    AuthConfig.db_enabled? || !AuthConfig.db_enabled? && (username == 'root' || is_a?(User::Api))
   end
 end

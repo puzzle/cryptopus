@@ -8,9 +8,7 @@
 
 class ApplicationController < ActionController::Base
   before_action :set_sentry_request_context
-  before_action :validate_user, except: :wizard
   before_action :message_if_fallback
-  before_action :redirect_if_no_private_key
   before_action :prepare_menu
   before_action :set_locale
 
@@ -25,13 +23,6 @@ class ApplicationController < ActionController::Base
   class_attribute :permitted_attrs
 
   delegate :model_identifier, to: :class
-
-  # redirect if its not possible to decrypt user's private key
-  def redirect_if_no_private_key
-    if current_user.is_a?(User::Human) && !active_session?
-      redirect_to recryptrequests_new_ldap_password_path
-    end
-  end
 
   def set_locale
     locale = I18n.default_locale
@@ -53,55 +44,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  private
+
   def set_sentry_request_context
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 
-  private
-
-  def logout
-    flash_notice = params[:autologout] ? t('session.destroy.expired') : flash[:notice]
-    jumpto = params[:jumpto]
-    reset_session
-    session[:jumpto] = jumpto
-    flash[:notice] = flash_notice
-
-    redirect_to session_new_path
-  end
-
-  def handle_pending_recrypt_request
-    if pending_recrypt_request?
-      pending_recrypt_request_message
-      logout
-    end
-  end
-
-  def check_if_user_logged_in
-    if current_user.nil?
-      session[:jumpto] = request.parameters
-      redirect_to session_new_path
-    end
-  end
-
-  def validate_user
-    handle_pending_recrypt_request
-    check_if_user_logged_in
-  end
-
   def model_params
     params.require(model_identifier).permit(permitted_attrs)
-  end
-
-  def active_session?
-    session[:private_key].present?
-  end
-
-  def team
-    @team ||= Team.find(params[:team_id])
-  end
-
-  def team_id
-    params[:team_id]
   end
 
   class << self

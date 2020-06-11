@@ -24,6 +24,12 @@ describe 'User login' do
     expect(request.fullpath).to eq(session_new_path)
   end
 
+  it 'does not login root' do
+    login_as('root')
+    expect(flash[:error]).to include('Authentication failed')
+    expect(request.fullpath).to eq(session_new_path)
+  end
+
   it 'logs bob out' do
     login_as('bob')
     get session_destroy_path

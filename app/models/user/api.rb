@@ -8,7 +8,7 @@
 #  public_key                   :text             not null
 #  private_key                  :binary           not null
 #  password                     :binary
-#  ldap_uid                     :integer
+#  provider_uid                 :string
 #  last_login_at                :datetime
 #  username                     :string
 #  givenname                    :string
@@ -76,18 +76,12 @@ class User::Api < User
     new_token
   end
 
-  def authenticate(cleartext_password)
-    return false if locked?
-
-    authenticate_db(cleartext_password)
-  end
-
   def valid_for
     options.valid_for || 1.minute.seconds
   end
 
-  def ldap?
-    false
+  def auth_db?
+    true
   end
 
   def decrypt_private_key(token)

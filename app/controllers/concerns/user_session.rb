@@ -10,15 +10,16 @@ module UserSession
 
   included do
     helper_method :current_user
+    before_action :redirect_if_no_private_key
+    before_action :validate_user, except: :wizard
   end
 
-  def pending_recrypt_request?
-    return false unless current_user.is_a?(User::Human)
-    if current_user.recryptrequests.first
-      return true
+  def validate_user
+    handle_pending_recrypt_request
+    unless user_authenticator.user_logged_in?(session)
+      session[:jumpto] = request.fullpath
+      redirect_to user_authenticator.login_path
     end
-
-    false
   end
 
   def current_user
@@ -33,5 +34,35 @@ module UserSession
     raise 'Failed to decrypt the team password' unless plaintext_team_password
 
     plaintext_team_password
+  end
+
+  # redirect if its not possible to decrypt user's private key
+  def redirect_if_no_private_key
+    if current_user.is_a?(User::Human) && !active_session?
+      redirect_to recryptrequests_new_ldap_password_path
+    end
+  end
+
+  def user_authenticator
+    Authentication::UserAuthenticator.init(
+      username: params['username'], password: params['password']
+    )
+  end
+
+  private
+
+  def handle_pending_recrypt_request
+    if pending_recrypt_request?
+      pending_recrypt_request_message
+      redirect_to session_destroy_path
+    end
+  end
+
+  def pending_recrypt_request?
+    current_user.is_a?(User::Human) && current_user.recryptrequests.first
+  end
+
+  def active_session?
+    session[:private_key].present?
   end
 end

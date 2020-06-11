@@ -8,7 +8,7 @@
 #  public_key                   :text             not null
 #  private_key                  :binary           not null
 #  password                     :binary
-#  ldap_uid                     :integer
+#  provider_uid                 :string
 #  last_login_at                :datetime
 #  username                     :string
 #  givenname                    :string
@@ -32,10 +32,6 @@
 
 class User::Human < User
   require 'ipaddr'
-  autoload 'Authentication', 'user/human/authenticator'
-  include User::Human::Authenticator
-  autoload 'Ldap', 'user/human/ldap'
-  include User::Human::Ldap
 
   validates :username, length: { maximum: 20 }
   validate :must_be_valid_ip
@@ -48,8 +44,8 @@ class User::Human < User
 
   scope :locked, -> { where(locked: true) }
   scope :unlocked, -> { where(locked: false) }
-  scope :ldap, -> { where(auth: 'ldap') }
   scope :admins, (-> { where(role: :admin) })
+  scope :ldap, -> { where(auth: 'ldap') }
 
   default_scope { order('username') }
 
@@ -60,7 +56,6 @@ class User::Human < User
   enum role: [:user, :conf_admin, :admin]
 
   class << self
-
     def create_db_user(password, user_params)
       user = new(user_params)
       user.auth = 'db'
@@ -70,7 +65,7 @@ class User::Human < User
     end
 
     def create_root(password)
-      user = new(ldap_uid: 0,
+      user = new(provider_uid: '0',
                  username: 'root',
                  givenname: 'root',
                  surname: '',
@@ -99,16 +94,6 @@ class User::Human < User
       joins(:members).where('users.id = ?', id)
   end
 
-  # Updates Information about the user
-  def update_info
-    update_info_from_ldap if ldap?
-    update(last_login_at: Time.zone.now)
-  end
-
-  def update_last_login_ip(last_login_ip)
-    update!(last_login_from: last_login_ip)
-  end
-
   def update_role(actor, role, private_key)
     was_admin = admin?
     update!(role: role)
@@ -122,7 +107,7 @@ class User::Human < User
 
   # rubocop:disable Metrics/MethodLength
   def recrypt_private_key!(new_password, old_password)
-    unless authenticate(new_password)
+    unless user_authenticator(new_password).authenticate!
       errors.add(:base,
                  I18n.t('activerecord.errors.models.user.new_password_invalid'))
       return false
@@ -167,7 +152,7 @@ class User::Human < User
   end
 
   def legacy_password?
-    return false if ldap?
+    return false unless auth_db?
 
     password.match('sha512').nil?
   end
@@ -213,5 +198,9 @@ class User::Human < User
         errors.add(last_login_from, "invalid ip address: #{last_login_from}")
       end
     end
+  end
+
+  def user_authenticator(password)
+    Authentication::UserAuthenticator.init(username: username, password: password)
   end
 end

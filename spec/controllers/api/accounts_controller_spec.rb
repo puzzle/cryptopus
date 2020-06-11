@@ -186,6 +186,50 @@ describe Api::AccountsController do
         expect(folder_attributes['name']).to eq 'folder1'
       end
 
+      it 'authenticates with valid api user and returns account details with keycloak enabled' do
+        enable_keycloak
+        api_user.update!(valid_until: Time.zone.now + 5.minutes)
+
+        teams(:team1).add_user(api_user, plaintext_team_password)
+
+        request.headers['Authorization-User'] = api_user.username
+        request.headers['Authorization-Password'] = token
+        account = accounts(:account1)
+        get :show, params: { id: account }, xhr: true
+
+        account1_json_attributes = data['attributes']
+        account1_json_relationships = data['relationships']
+        folder_attributes = json['included'].first['attributes']
+
+        expect(account1_json_attributes['accountname']).to eq 'account1'
+        expect(account1_json_attributes['cleartext_username']).to eq 'test'
+        expect(account1_json_attributes['cleartext_password']).to eq 'password'
+        expect_json_object_includes_keys(account1_json_relationships, nested_models)
+        expect(folder_attributes['name']).to eq 'folder1'
+      end
+
+      it 'authenticates with valid api user and returns account details with ldap enabled' do
+        enable_ldap
+        api_user.update!(valid_until: Time.zone.now + 5.minutes)
+
+        teams(:team1).add_user(api_user, plaintext_team_password)
+
+        request.headers['Authorization-User'] = api_user.username
+        request.headers['Authorization-Password'] = token
+        account = accounts(:account1)
+        get :show, params: { id: account }, xhr: true
+
+        account1_json_attributes = data['attributes']
+        account1_json_relationships = data['relationships']
+        folder_attributes = json['included'].first['attributes']
+
+        expect(account1_json_attributes['accountname']).to eq 'account1'
+        expect(account1_json_attributes['cleartext_username']).to eq 'test'
+        expect(account1_json_attributes['cleartext_password']).to eq 'password'
+        expect_json_object_includes_keys(account1_json_relationships, nested_models)
+        expect(folder_attributes['name']).to eq 'folder1'
+      end
+
       it 'does not authenticate with invalid api token and does not show account details' do
         api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
