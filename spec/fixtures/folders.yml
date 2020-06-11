@@ -22,3 +22,11 @@ folder1:
 folder2:
   name: folder2
   team: team2
+
+folder3:
+  name: folder3
+  team: team1
+
+folder4:
+  name: folder4
+  team: team1

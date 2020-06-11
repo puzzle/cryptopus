@@ -15,12 +15,12 @@ Rails.application.routes.draw do
     post 'recrypt'
   end
 
-  resources :teams, only: [:show, :index] do
+  resources :teams, only: [:show, :index, :destroy] do
     resources :folders, only: [:show, :index, :destroy]
   end
 
   resources :accounts, only: [:show, :destroy] do
-    resources :items
+    resources :file_entries, only: [:show, :destroy]
   end
 
   get 'session/new', to: 'session#new'

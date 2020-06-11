@@ -24,15 +24,7 @@ ActiveRecord::Schema.define(version: 2020_06_02_170103) do
     t.index ["tag"], name: "index_accounts_on_tag"
   end
 
-  create_table "folders", force: :cascade do |t|
-    t.string "name", limit: 40, default: "", null: false
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "team_id", default: 0, null: false
-  end
-
-  create_table "items", force: :cascade do |t|
+  create_table "file_entries", force: :cascade do |t|
     t.integer "account_id", default: 0, null: false
     t.text "description"
     t.binary "file"
@@ -40,6 +32,14 @@ ActiveRecord::Schema.define(version: 2020_06_02_170103) do
     t.datetime "updated_at", null: false
     t.text "filename", null: false
     t.text "content_type", null: false
+  end
+
+  create_table "folders", force: :cascade do |t|
+    t.string "name", limit: 40, default: "", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "team_id", default: 0, null: false
   end
 
   create_table "logs", force: :cascade do |t|

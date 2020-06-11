@@ -10,6 +10,7 @@ class ListController < ApplicationController
 
   # GET /entries
   def index(options = {})
+    authorize model_class
     render({ json: fetch_entries,
              each_serializer: list_serializer,
              root: model_root_key.pluralize }

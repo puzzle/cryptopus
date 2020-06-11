@@ -89,7 +89,6 @@ describe 'AccountModal', type: :system, js: true do
     end.to change { Account.count }.by(-1)
 
     logout
-
   end
 
   private

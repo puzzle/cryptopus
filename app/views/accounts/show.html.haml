@@ -28,15 +28,15 @@
   %br/
   %br/
   %h1= t '.attachments'
-  = link_to 'New', new_account_item_path(@account), class: 'btn btn-primary pull-right'
+  = link_to (t '.add_attachment'), "#/accounts/#{@account.id}/file-entries/new", class: 'btn btn-primary pull-right', 'data-turbolinks': 'false'
   %table.table.table-striped
     %tr
       %th{style: "width: 200px;"}= t '.file'
       %th= t :description
       %th= t :actions
-    - for item in @items
+    - for file_entry in @file_entries
       %tr{class: "#{cycle( 'odd', 'even' )}"}
         %td
-          = link_to image_pack_tag("file.svg") + item.filename, account_item_path(@account, item)
-        %td{valign: "top"}= simple_format item.description
-        %td.action_icon= link_to_destroy account_item_path(@account, item), item
+          = link_to image_pack_tag("file.svg") + file_entry.filename, account_file_entry_path(@account, file_entry)
+        %td{valign: "top"}= simple_format file_entry.description
+        %td.action_icon= link_to_destroy account_file_entry_path(@account, file_entry), file_entry

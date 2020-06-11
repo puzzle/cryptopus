@@ -11,25 +11,32 @@ describe 'Account attachement' do
   it 'adds and removes attachment to account1' do
     account = accounts(:account1)
     login_as('bob')
-    file_path = 'spec/fixtures/files/test_file.txt'
-    items_path = account_items_path(account_id: account.id)
+    file = fixture_file_upload('files/test_file.txt', 'text/plain')
+
+    file_entry_path = account_file_entries_path(account_id: account.id)
+    file_entry_params = {
+      account_id: account.id,
+      file: file,
+      description: 'test'
+    }
     expect do
-      post items_path, params: { item: { file: fixture_file_upload(file_path, 'text/plain') } }
-    end.to change { Item.count }.by(1)
+      post file_entry_path,
+           params: file_entry_params
+    end.to change { FileEntry.count }.by(1)
     logout
 
     login_as('alice')
-    file = account.items.find_by(filename: 'test_file.txt')
-    item_path = account_item_path(account, file)
-    get item_path
+    file = account.file_entries.find_by(filename: 'test_file.txt')
+    file_entry_path = account_file_entry_path(account, file)
+    get file_entry_path
     expect(response.body).to eq('certificate')
     expect(response.header['Content-Type']).to eq('text/plain')
     expect(response.header['Content-Disposition']).to include('test_file.txt')
     expect do
-      delete item_path
-    end.to change { Item.count }.by(-1)
+      delete file_entry_path
+    end.to change { FileEntry.count }.by(-1)
     logout
 
-    expect(Item.exists?(file.id)).to be false
+    expect(FileEntry.exists?(file.id)).to be false
   end
 end

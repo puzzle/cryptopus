@@ -3,6 +3,7 @@ import { setupRenderingTest } from "ember-qunit";
 import { render } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 import Service from "@ember/service";
+import { setLocale } from "ember-intl/test-support";
 
 const storeStub = Service.extend({
   findAll(modelName) {
@@ -52,14 +53,10 @@ const storeStub = Service.extend({
 module("Integration | Component | folder-form", function(hooks) {
   setupRenderingTest(hooks);
 
-  let service;
-
   hooks.beforeEach(function() {
     this.owner.unregister("service:store");
     this.owner.register("service:store", storeStub);
-
-    service = this.owner.lookup('service:intl');
-    service.setLocale('en');
+    setLocale('en');
   });
 
   test("it renders without input data", async function(assert) {

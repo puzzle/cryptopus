@@ -6,9 +6,9 @@ export default class IndexRoute extends Route {
 
   beforeModel() {
     /* eslint-disable no-undef */
-    let selectedLocale =
-      $(".container form option[selected='selected']")[0].value || "en";
+    let localeDropdown = $(".container form option[selected='selected']");
     /* eslint-enable no-undef */
+    let selectedLocale = (localeDropdown[0] && localeDropdown[0].value) || "en";
     this.intl.setLocale(selectedLocale);
   }
 }

@@ -80,6 +80,7 @@ en:
       attachments: Attachments
       file: File
       show_password: Show password
+      add_attachment: Add attachment
     new:
       title: New Account
 
@@ -164,11 +165,14 @@ en:
     show:
       move: Move account to other folder
       title: "Accounts in folder %{folder_name} for team %{team_name}"
-  items:
+  file_entries:
     new:
       title: Add new attachment to account
-      upload: File to upload
-      upload_file: Upload file
+      upload: Upload
+      upload_file: File to upload
+      choose_file: Choose a file
+      reupload: Select a different file
+      selected_file: Selected file
 
   session:
     new:
@@ -213,7 +217,7 @@ en:
       title: "You are member of the following teams:"
       team: Team
     new:
-      title: New Team
+      title: New team
     edit:
       title: Edit team
     description:
@@ -326,11 +330,12 @@ en:
     folders:
       created: Successfully created a new folder.
       updated: Folder was successfully updated.
-    items:
+    file_entries:
       uploaded: File was successfully uploaded.
       uploaded_size_to_high: The file is too big to upload. (max. 10MB)
       uploaded_filename_is_empty: The file has to be named
       uploaded_file_inexistent: File is inexistent
+      uploaded_filename_already_exists: Filename already exists
     session:
       weak_password: To improve security you should change your login password to a more complex one.
       welcome: Welcome to Cryptopus, first you have to create a new account. Please enter a new password
@@ -372,7 +377,7 @@ en:
         user:
           new_password_invalid: Your NEW password was wrong
           old_password_invalid: Your OLD password was wrong
-        item:
+        file_entry:
           attributes:
             filename:
               blank: Filename does not exist

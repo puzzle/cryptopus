@@ -143,7 +143,7 @@ ru:
     show:
       move: "Переместить аккаунт в другую группу"
       title: "Аккаунты в группе %{folder_name} для команды %{team_name}"
-  items:
+  file_entries:
     new:
       title: "Добавить вложение к аккаунту"
       upload: "Файл для загрузки"
@@ -241,7 +241,7 @@ ru:
     folders:
       created: "Новая группа создана."
       updated: "Группа обновлена."
-    items:
+    file_entries:
       uploaded: "Файл загружен."
       uploaded_size_to_high: "Файл слишком большой (макс. 10 МБ)"
       uploaded_filename_is_empty: "Файл должен иметь имя"
@@ -286,7 +286,7 @@ ru:
         user:
           new_password_invalid: "Ваш новый пароль неверен"
           old_password_invalid: "Ваш старый пароль неверен"
-        item:
+        file_entry:
           attributes:
             filename:
               blank: 'Имя файла не задано'

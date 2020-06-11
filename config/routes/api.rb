@@ -7,7 +7,11 @@ Rails.application.routes.draw do
       resources :folders, only: [:show, :index, :update, :create]
     end
 
-    resources :accounts, only: [:show, :index, :update, :create]
+    get 'env_settings', to: 'env_settings#index'
+
+    resources :accounts, only: [:show, :index, :update, :create] do
+      resources :file_entries, only: [:create]
+    end
 
     resources :api_users do
       member do
@@ -35,11 +39,11 @@ Rails.application.routes.draw do
 
     # INFO don't mix scopes and resources in routes
     resources :teams, only: [:show, :index, :update, :create, :destroy]  do
-      
+
       collection do
         resources :last_member_teams, only: [:index], module: 'teams'
       end
-      
+
       resources :api_users, only: [:create, :destroy, :index], module: 'teams'
       resources :folders, only: ['index'], module: 'teams'
       resources :members, except: [:new, :edit], module: 'teams'

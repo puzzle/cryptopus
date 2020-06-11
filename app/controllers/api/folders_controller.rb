@@ -13,13 +13,6 @@ class Api::FoldersController < ApiController
     FolderPolicy
   end
 
-  # GET /api/folders
-  def index
-    authorize ::Folder
-    folders = current_user.folders
-    render_json find_folders(folders)
-  end
-
   # GET /api/folders/:id
   def show
     authorize folder
@@ -45,11 +38,10 @@ class Api::FoldersController < ApiController
 
   private
 
-  def find_folders(folders)
-    if query_param.present?
-      folders = finder(folders, query_param).apply
-    end
-    folders
+  def fetch_entries
+    return team.folders if query_param.blank?
+
+    finder(team.folders, query_param).apply
   end
 
   def finder(folders, query)
