@@ -45,7 +45,6 @@ Rails.application.routes.draw do
       resources :folders, except: [:new, :edit, :destroy]
 
       resources :api_users, only: [:create, :destroy, :index], module: 'teams'
-      # resources :folders, only: ['index'], module: 'teams'
       resources :members, except: [:new, :edit], module: 'teams'
       resources :candidates, only:[:index], module: 'teams'
     end

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :recryptrequests, only: [:index, :destroy, :resetpassword] do
+    resources :recryptrequests, only: [:index, :destroy] do
       collection do
         post 'resetpassword'
       end
