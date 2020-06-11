@@ -28,9 +28,9 @@ class Api::AllFoldersController < ApiController
     folders
   end
 
-
   def fetch_entries
     return current_user.folders if query_param.blank?
+
     finder(current_user.folders, query_param).apply
   end
 
