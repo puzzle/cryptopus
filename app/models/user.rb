@@ -55,10 +55,14 @@ class User < ApplicationRecord
   end
 
   def authenticate_db(cleartext_password)
-    raise Exceptions::AuthenticationFailed unless cleartext_password.present? && auth_db?
+    authenticated = false
 
-    salt = password.split('$')[1]
-    password.split('$')[2] == Digest::SHA512.hexdigest(salt + cleartext_password)
+    if user_is_allowed? && cleartext_password.present? && auth_db?
+      salt = password.split('$')[1]
+      authenticated = password.split('$')[2] == Digest::SHA512.hexdigest(salt + cleartext_password)
+    end
+
+    authenticated
   end
 
   def label
@@ -81,5 +85,11 @@ class User < ApplicationRecord
     Account.joins(:folder).
       joins('INNER JOIN teammembers ON folders.team_id = teammembers.team_id').
       where(teammembers: { user_id: id })
+  end
+
+  private
+
+  def user_is_allowed?
+    AuthConfig.db_enabled? || !AuthConfig.db_enabled? && (username == 'root' || is_a?(User::Api))
   end
 end

@@ -14,6 +14,14 @@ module SystemHelpers
     visit(search_path)
   end
 
+  def login_as_root(username = 'root', password = 'password')
+    visit('/session/local')
+    fill_in('username', with: username)
+    fill_in('password', with: password)
+    find('input[name="commit"]').click
+    visit('/search')
+  end
+
   def logout
     find('a[data-method="get"][href="/session/destroy"]').click
   end

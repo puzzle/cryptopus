@@ -143,10 +143,31 @@ describe User::Api do
     end
   end
 
+  context '#authenticate_db' do
+    it 'authenticates api user' do
+      api_user = bob.api_users.create!(description: 'firefox plugin')
+      api_user.update!(valid_until: Time.zone.now + 5.minutes)
+
+      token = decrypted_token(api_user)
+      expect(api_user.authenticate_db(token)).to be true
+    end
+
+    it 'authenticates api user even with ldap enabled' do
+      enable_ldap
+      api_user = bob.api_users.create!(description: 'firefox plugin')
+      api_user.update!(valid_until: Time.zone.now + 5.minutes)
+
+      token = decrypted_token(api_user)
+      expect(api_user.authenticate_db(token)).to be true
+    end
+  end
+
   private
 
   def authenticate(username, token)
-    Authentication::UserAuthenticator::Db.new(username: username, password: token).authenticate!
+    Authentication::UserAuthenticator.init(
+      username: username, password: token
+    ).authenticate_by_headers!
   end
 
   def decrypted_token(api_user)

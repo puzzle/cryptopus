@@ -12,17 +12,17 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
 
   def authenticate_by_headers!
     return false unless header_preconditions?
-    return false unless user.is_a?(User::Api)
 
-    authenticated = user.authenticate_db(password)
-
+    if user.is_a?(User::Api)
+      authenticated = user.authenticate_db(password)
+    end
     brute_force_detector.update(authenticated)
     authenticated
   end
 
   def update_user_info(remote_ip)
     params = { last_login_from: remote_ip }
-    params.merge(keycloak_params) unless username == 'root'
+    params.merge(keycloak_params) unless root_user?
     super(params)
   end
 
@@ -31,7 +31,7 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
   end
 
   def user_logged_in?(session)
-    session[:user_id].present? && session[:private_key].present? && Keycloak::Client.user_signed_in?
+    session[:user_id].present? && session[:private_key].present? && user_allowed?(session)
   end
 
   def keycloak_login
@@ -44,6 +44,10 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
 
   private
 
+  def user_allowed?(session)
+    Keycloak::Client.user_signed_in? || session[:username] == 'root'
+  end
+
   def find_or_create_user
     user = User.find_by(username: username.strip)
     return create_user if user.nil? && Keycloak::Client.user_signed_in?
@@ -52,8 +56,15 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
   end
 
   def header_preconditions?
-    username.present? && password.present? && valid_username? && user.present? &&
-          !brute_force_detector.locked? && username != 'root'
+    headers_present? && user_valid? && !root_user?
+  end
+
+  def headers_present?
+    username.present? && password.present?
+  end
+
+  def user_valid?
+    valid_username? && user.present? && !brute_force_detector.locked?
   end
 
   def keycloak_login_url
@@ -85,7 +96,7 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
 
   def params_present?
     Keycloak::Client.get_attribute('preferred_username').present?
-  rescue StandardError
+  rescue JSON::ParserError
     false
   end
 

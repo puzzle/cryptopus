@@ -10,6 +10,7 @@ require 'rails_helper'
 describe User::Human do
 
   let(:bob) { users(:bob) }
+  let(:root) { users(:root) }
   let(:alice) { users(:alice) }
   let(:conf_admin) { users(:conf_admin) }
 
@@ -175,6 +176,27 @@ describe User::Human do
       expect(bob.recrypt_private_key!('worong_new_password', 'password')).to eq false
 
       expect(bob.errors.messages[:base][0]).to match(/Your NEW password was wrong/)
+    end
+  end
+
+  context '#authenticate_db' do
+    it 'authenticates db user' do
+      expect(bob.authenticate_db('password')).to be true
+    end
+
+    it 'doesn\'t authenticates db user with ldap enabled' do
+      enable_ldap
+      expect(bob.authenticate_db('password')).to be false
+    end
+
+    it 'authenticates root with ldap enabled' do
+      enable_ldap
+      expect(root.authenticate_db('password')).to be true
+    end
+
+    it 'doesn\'t authenticate non db user' do
+      bob.update(auth: 'ldap')
+      expect(bob.authenticate_db('password')).to be false
     end
   end
 end

@@ -7,9 +7,6 @@
 
 class Session::LocalController < SessionController
 
-  before_action :permit_local_ip_only
-  skip_before_action :check_source_ip
-
   def create
     unless user_authenticator.authenticate!(allow_root: true)
       flash[:error] = t('flashes.session.auth_failed')
@@ -27,7 +24,7 @@ class Session::LocalController < SessionController
 
   private
 
-  def permit_local_ip_only
+  def check_source_ip
     unless ip_checker.private_ip?
       flash[:error] = t('flashes.session.wrong_root')
       render layout: false, file: 'public/401.html', status: :unauthorized

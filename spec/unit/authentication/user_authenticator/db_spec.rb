@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Authentication::UserAuthenticator::Db do
-  context 'db' do
+  context 'human user' do
     it 'authenticates bob' do
       @username = 'bob'
       @password = 'password'
@@ -93,14 +93,16 @@ describe Authentication::UserAuthenticator::Db do
         expect(last_failed_login_time.to_i).to be <= bob.last_failed_login_attempt_at.to_i
       end
     end
+  end
 
+  context 'api user' do
     it 'succeeds authentication if valid api token' do
       token = api_user.send(:decrypt_token, private_key)
       api_user.update!(valid_until: Time.now.utc + 5.minutes)
       @username = api_user.username
       @password = token
 
-      expect(authenticate!).to be true
+      expect(authenticate_by_headers!).to be true
     end
 
     it 'fails authentication if api token is expired' do
@@ -112,7 +114,7 @@ describe Authentication::UserAuthenticator::Db do
       @username = api_user.username
       @password = token
 
-      expect(authenticate!).to be false
+      expect(authenticate_by_headers!).to be false
     end
 
     it 'succeeds authentication if api token is valid for infinite' do
@@ -123,7 +125,7 @@ describe Authentication::UserAuthenticator::Db do
       @username = api_user.username
       @password = token
 
-      expect(authenticate!).to be true
+      expect(authenticate_by_headers!).to be true
     end
 
     it 'fails authentication if api token invalid' do
@@ -131,7 +133,7 @@ describe Authentication::UserAuthenticator::Db do
       @username = api_user.username
       @password = 'abcd'
 
-      expect(authenticate!).to be false
+      expect(authenticate_by_headers!).to be false
     end
 
     it 'fails authentication if api token blank' do
@@ -139,7 +141,7 @@ describe Authentication::UserAuthenticator::Db do
       @username = api_user.username
       @password = ''
 
-      expect(authenticate!).to be false
+      expect(authenticate_by_headers!).to be false
     end
 
     it 'fails authentication if api user is locked' do
@@ -150,7 +152,7 @@ describe Authentication::UserAuthenticator::Db do
       @username = api_user.username
       @password = token
 
-      expect(authenticate!).to be false
+      expect(authenticate_by_headers!).to be false
     end
 
     it 'fails authentication if api users human user is locked' do
@@ -162,7 +164,7 @@ describe Authentication::UserAuthenticator::Db do
       @password = token
 
       expect(api_user.locked?).to be true
-      expect(authenticate!).to be false
+      expect(authenticate_by_headers!).to be false
     end
 
     it 'authenticates root' do
@@ -182,6 +184,10 @@ describe Authentication::UserAuthenticator::Db do
 
   def authenticate!
     authenticator.authenticate!
+  end
+
+  def authenticate_by_headers!
+    authenticator.authenticate_by_headers!
   end
 
   def db_authenticator

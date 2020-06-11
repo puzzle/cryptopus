@@ -3,36 +3,41 @@
 class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticator
 
   def authenticate!
-    return false if username == 'root'
+    return false if root_user?
     return false unless preconditions?
     return false if brute_force_detector.locked?
 
     authenticated = ldap_connection.authenticate!(username, password)
-
+    brute_force_detector.update(authenticated)
     authenticated
   end
 
   def authenticate_by_headers!
-    return false if username == 'root'
+    return false if root_user?
     return false unless preconditions?
     return false if brute_force_detector.locked?
 
 
     if user.is_a?(User::Human)
-      ldap_connection.authenticate!(username, password)
-    else
-      user.authenticate_db(password)
+      authenticated = ldap_connection.authenticate!(username, password)
+    elsif user.is_a?(User::Api)
+      authenticated = user.authenticate_db(password)
     end
+    authenticated
   end
 
   def update_user_info(remote_ip)
     params = { last_login_from: remote_ip }
-    params.merge(ldap_params) unless username == 'root'
+    params.merge(ldap_params) unless root_user?
     super(params)
   end
 
   def login_path
     session_new_path
+  end
+
+  def user_logged_in?(session)
+    session[:user_id].present? && session[:private_key].present?
   end
 
   private

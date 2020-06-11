@@ -11,7 +11,7 @@ describe 'AjaxHook', type: :system, js: true do
   include SystemHelpers
 
   it 'show user has role user message' do
-    login_as_user('root')
+    login_as_root
     visit admin_users_path
     all(:button, 'role-dropdown')[4].click
     click_link('User')

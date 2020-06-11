@@ -16,7 +16,7 @@ module UserSession
 
   def validate_user
     handle_pending_recrypt_request
-    if current_user.nil?
+    unless user_authenticator.user_logged_in?(session)
       session[:jumpto] = request.fullpath
       redirect_to user_authenticator.login_path
     end

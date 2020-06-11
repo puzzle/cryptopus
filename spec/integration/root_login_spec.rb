@@ -33,4 +33,13 @@ describe 'Root login' do
     expect(response.body)
       .to match(/Authentication failed! Enter a correct username and password./)
   end
+
+  it 'lets root login with keycloak enabled' do
+    enable_keycloak
+    expect(Keycloak::Client).to receive(:user_signed_in?).and_return(false)
+    post local_path, params: { username: 'root', password: 'password' }
+    follow_redirect!
+    expect(request.fullpath).to eq(search_path)
+    expect(response.body).to match(/Hi  Root! Want to recover a password?/)
+  end
 end

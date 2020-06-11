@@ -46,6 +46,6 @@ class WizardController < ApplicationController
   end
 
   def redirect_if_already_set_up
-    redirect_to user_authenticator.login_path if User::Human.all.count.positive?
+    redirect_to user_authenticator.login_path if User::Human.exists?
   end
 end

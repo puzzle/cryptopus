@@ -29,7 +29,7 @@ describe 'Keycloak user login' do
       .and_return('asdQW123-asdQWE')
     expect(Keycloak::Client).to receive(:get_attribute)
       .with('preferred_username')
-      .at_least(:once)
+      .exactly(4).times
       .and_return('ben')
     expect(Keycloak::Client).to receive(:get_attribute)
       .with('given_name')
@@ -44,7 +44,7 @@ describe 'Keycloak user login' do
       .at_least(:once)
       .and_return(pk_secret_base)
     expect(Keycloak::Client).to receive(:user_signed_in?)
-      .and_return(false, true, true)
+      .and_return(false, true, true, true)
 
     # login
     expect do

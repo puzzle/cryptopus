@@ -48,10 +48,18 @@ class Authentication::UserAuthenticator
     raise NotImplementedError, 'implement in subclass'
   end
 
+  def user_logged_in?
+    raise NotImplementedError, 'implement in subclass'
+  end
+
   private
 
   attr_accessor :authenticated
   attr_reader :username, :password
+
+  def root_user?
+    username == 'root'
+  end
 
   def brute_force_detector
     @brute_force_detector ||= Authentication::BruteForceDetector.new(user)

@@ -92,6 +92,45 @@ describe Authentication::UserAuthenticator::Ldap do
 
       expect(authenticate!).to be false
     end
+
+    it 'increases failed login attempts and it\'s defined time delays' do
+      mock_ldap_settings
+
+      @username = 'bob'
+      @password = 'wrong password'
+      LOCKTIMES ||= [0, 0, 0, 3, 5, 20, 30, 60, 120, 240].freeze
+      expect(10).to eq(Authentication::BruteForceDetector::LOCK_TIME_FAILED_LOGIN_ATTEMPT.length)
+      ldap = double
+      expect(LdapConnection).to receive(:new).at_least(:once).and_return(ldap)
+      expect(ldap)
+        .to receive(:authenticate!)
+        .exactly(10).times
+        .with('bob', 'wrong password')
+        .and_return(false)
+
+      LOCKTIMES.each_with_index do |_t, i|
+        attempt = i + 1
+
+        last_failed_login_time = Time.now.utc - LOCKTIMES[i].seconds
+        bob.update!(last_failed_login_attempt_at: last_failed_login_time)
+
+        expect(authenticator.send(:brute_force_detector).locked?).to be false
+
+
+
+        expect(Authentication::UserAuthenticator
+          .init(username: @username, password: @password)
+          .authenticate!).to be false
+
+        if attempt == LOCKTIMES.count
+          expect(bob.reload.locked?).to be true
+          break
+        end
+
+        expect(attempt).to eq(bob.reload.failed_login_attempts)
+        expect(last_failed_login_time.to_i).to be <= bob.last_failed_login_attempt_at.to_i
+      end
+    end
   end
 
   context 'api authenticate' do

@@ -74,7 +74,7 @@ describe Api::ApiUsers::LockController do
   private
 
   def authenticate!
-    authenticator.authenticate!
+    authenticator.authenticate_by_headers!
   end
 
   def authenticator
