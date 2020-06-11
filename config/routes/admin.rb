@@ -5,18 +5,18 @@ Rails.application.routes.draw do
     resources :maintenance_tasks, only: :index
     post '/maintenance_tasks/:id/execute', to: 'maintenance_tasks#execute', as: 'maintenance_tasks_execute'
 
-    resource :settings do
+    resource :settings, only: [:index] do
       post 'update_all'
       get 'index'
     end
 
-    resources :users, except: :destroy do
+    resources :users, except: [:destroy, :show] do
       member do
         get 'unlock'
       end
     end
 
-    resources :recryptrequests do
+    resources :recryptrequests, only: [:index, :destroy] do
       collection do
         post 'resetpassword'
       end

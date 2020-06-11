@@ -15,8 +15,6 @@ describe 'HTTP headers' do
   context 'Security' do
     it 'should return name of called api endpoint in content-disposition header' do
       login_as(:alice)
-      api_teams_path = '/api/teams'
-
       get api_teams_path
 
       expect(response.status).to equal 200

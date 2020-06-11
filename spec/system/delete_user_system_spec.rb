@@ -13,7 +13,7 @@ describe 'DeleteUser', type: :system, js: true do
   it 'lists teams where user is last teammember' do
     login_as_user(:admin)
 
-    visit('/admin/users')
+    visit(admin_users_path)
     expect(page).to have_selector('a.delete_user_link')
 
     all('a.delete_user_link')[1].click
@@ -28,7 +28,7 @@ describe 'DeleteUser', type: :system, js: true do
 
   it "can delete user if he isn't last teammember in any teams" do
     login_as_user(:admin)
-    visit('/admin/users')
+    visit(admin_users_path)
 
     all('a.delete_user_link')[0].click
 

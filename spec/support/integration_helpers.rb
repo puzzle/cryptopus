@@ -15,7 +15,7 @@ module IntegrationHelpers
           }
         }
       }
-      post '/api/teams', params: team_params
+      post api_teams_path, params: team_params
 
       # New Folder
       team = Team.find_by(name: 'Web')
@@ -37,12 +37,10 @@ module IntegrationHelpers
         }
       }
 
-      post "/api/teams/#{team.id}/folders", params: folder_params
+      post api_team_folders_path(team.id), params: folder_params
 
       # New Account
       folder = team.folders.find_by(name: 'Default')
-      account_path = accounts_path
-
       account_params = {
         data: {
           attributes: {
@@ -55,7 +53,7 @@ module IntegrationHelpers
         }
       }
 
-      post account_path, params: account_params
+      post api_accounts_path, params: account_params
 
       logout
       folder.accounts.find_by(accountname: 'puzzle')
