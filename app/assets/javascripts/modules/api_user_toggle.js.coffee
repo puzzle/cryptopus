@@ -25,7 +25,7 @@ class app.ApiUserToggle
     $.ajax({
       method: 'POST',
       url: '../api/api_users/' + id + '/lock'
-    })
+    });
 
   unlockApiUser = (id) ->
     $.ajax({

@@ -40,7 +40,7 @@ class Api::ApiUsersController < ApiController
     authorize api_user
     api_user.destroy!
     add_info(t('flashes.api.api-users.destroy', username: api_user.username))
-    render_json ''
+    render_json
   end
 
   private
