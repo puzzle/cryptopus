@@ -14,7 +14,10 @@ class app.Search
     doSearch.call()
 
   search = (term, search_type) ->
-    return $.get('/api/'+search_type, q: term).then (data) ->
+    search_end_point = search_type
+    if search_end_point == "folders"
+      search_end_point = "all_folders"
+    return $.get('/api/'+search_end_point, q: term).then (data) ->
 
       objects = deserializeJSON(data)
       HandlebarsTemplates['search/'+search_type+'_result_entries'](objects)
@@ -66,7 +69,7 @@ class app.Search
     div = $(e.target).parent()
     $.get(li.data('account-path')).then (data) ->
 
-      data.data.attributes.group_name = data.included[0].attributes.name
+      data.data.attributes.folder_name = data.included[0].attributes.name
       data.data.attributes.team_id = data.included[0].attributes.team_id
       data.data.attributes.team_name = data.included[0].attributes.team_name
 
@@ -76,16 +79,17 @@ class app.Search
 
   deserializeJSON = (data) ->
     for d in data.data
-      if d.type != 'groups'
-        if d.relationships.groups
-          relationship_group_ids = d.relationships.groups.data.map (group) -> group.id
+      if d.type != 'folders'
+        if d.relationships.folders
+          relationship_folder_ids = d.relationships.folders.data.map (folder) -> folder.id
         else
-          relationship_group_ids = [d.relationships.group.data.id]
-        group = data.included.find (element) -> relationship_group_ids.includes(element.id)
+          relationship_folder_ids = [d.relationships.folder.data.id]
+        folder = data.included.find (element) -> relationship_folder_ids.includes(element.id)
       else
-        group = d
-      d.attributes.group_name = group.attributes.name
-      d.attributes.team_name = group.attributes.team_name
+        folder = d
+      d.attributes.folder_name = folder.attributes.name
+      d.attributes.team_name = folder.attributes.team_name
+      d.attributes.team_id = folder.attributes.team_id
 
     return data.data
 
