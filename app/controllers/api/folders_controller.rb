@@ -13,6 +13,13 @@ class Api::FoldersController < ApiController
     FolderPolicy
   end
 
+  # GET /api/folders
+  def index
+    authorize team, :team_member?
+    folders = team.folders
+    render_json folders
+  end
+
   # GET /api/folders/:id
   def show
     authorize folder

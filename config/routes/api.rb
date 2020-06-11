@@ -3,10 +3,6 @@
 Rails.application.routes.draw do
   scope '/api', module: 'api', as: 'api' do
 
-    resources :teams, except: [:new, :edit] do
-      resources :folders, except: [:new, :edit, :destroy]
-    end
-
     resources :all_folders, only: [:index]
 
     get 'env_settings', to: 'env_settings#index'
@@ -24,7 +20,7 @@ Rails.application.routes.draw do
       end
     end
 
-    scope '/search', module: 'search' do
+    scope '/search', module: 'search', as: 'search' do
       get :accounts
       get :folders
       get :teams
@@ -40,14 +36,16 @@ Rails.application.routes.draw do
     end
 
     # INFO don't mix scopes and resources in routes
-    resources :teams, only: [:show, :index, :update, :create, :destroy]  do
+    resources :teams, except: [:new, :edit]  do
 
       collection do
         resources :last_member_teams, only: [:index], module: 'teams'
       end
 
+      resources :folders, except: [:new, :edit, :destroy]
+
       resources :api_users, only: [:create, :destroy, :index], module: 'teams'
-      resources :folders, only: ['index'], module: 'teams'
+      # resources :folders, only: ['index'], module: 'teams'
       resources :members, except: [:new, :edit], module: 'teams'
       resources :candidates, only:[:index], module: 'teams'
     end

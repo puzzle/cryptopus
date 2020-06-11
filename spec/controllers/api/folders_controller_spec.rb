@@ -8,56 +8,24 @@ describe Api::FoldersController do
   let(:alice) { users(:alice) }
 
   context 'GET index' do
-    it 'returns matching folder' do
+    it 'lists all folders of a given team' do
+      login_as(:bob)
+      team = teams(:team1)
 
-      login_as(:alice)
+      get :index, params: { team_id: team }, xhr: true
 
-      team1 = teams(:team1)
+      attributes = data.first['attributes']
 
-      get :index, params: { team_id: team1, 'q': 'folder1' }, xhr: true
-
-      folder_json = data.first
-      attributes = folder_json['attributes']
-
-      folder = folders(:folder1)
-
-      expect(data.size).to eq(1)
-      expect(attributes['name']).to eq folder.name
-      expect(folder_json['id']).to eq folder.id.to_s
+      expect(attributes['name']).to eq 'folder1'
     end
 
-    it 'returns all folders if empty query param given' do
-
+    it 'does not list folders without team membership' do
       login_as(:alice)
-      team1 = teams(:team1)
+      team = teams(:team2)
 
-      get :index, params: { team_id: team1, 'q': '' }, xhr: true
+      get :index, params: { team_id: team }, xhr: true
 
-      folder_json = data.first
-      attributes = folder_json['attributes']
-
-      folder = folders(:folder1)
-
-      expect(data.size).to eq(3)
-      expect(attributes['name']).to eq folder.name
-      expect(folder_json['id']).to eq folder.id.to_s
-    end
-
-    it 'returns all folders of team if no only team param given' do
-
-      login_as(:alice)
-      team1 = teams(:team1)
-
-      get :index, params: { team_id: team1 }, xhr: true
-
-      folder_json = data.first
-      attributes = folder_json['attributes']
-
-      folder = folders(:folder1)
-
-      expect(data.size).to eq(3)
-      expect(attributes['name']).to eq folder.name
-      expect(folder_json['id']).to eq folder.id.to_s
+      expect(response).to have_http_status(403)
     end
   end
 
