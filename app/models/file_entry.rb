@@ -59,7 +59,7 @@ class FileEntry < ApplicationRecord
     { description: params[:description],
       filename: params[:file].original_filename,
       content_type: params[:file].content_type,
-      cleartext_file: params[:file].read.force_encoding('UTF-8') }
+      cleartext_file: params[:file].read }
   end
 
 

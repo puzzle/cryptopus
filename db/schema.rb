@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_02_170103) do
+ActiveRecord::Schema.define(version: 2020_06_12_084506) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "accountname", limit: 70, default: "", null: false
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2020_06_02_170103) do
   create_table "file_entries", force: :cascade do |t|
     t.integer "account_id", default: 0, null: false
     t.text "description"
-    t.binary "file"
+    t.binary "file", size: :medium
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "filename", null: false
