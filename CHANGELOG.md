@@ -1,5 +1,15 @@
 # Cryptopus Changelog
 
+## Version 3.0
+* Integrated Ember into Cryptopus
+* Modal windows replace now most forms
+* Refactored authentification
+* Introduced JSON API Standard
+* Renamed Groups to Folders and Items to FileEntires
+* Added several security improvements
+* Many bug fixes
+
+
 ## Version 2.6
 * Simplified App Urls
 * Added Content Security Policy
