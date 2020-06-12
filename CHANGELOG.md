@@ -4,6 +4,7 @@
 * Integrated Ember into Cryptopus
 * Modal windows replace now most forms
 * Refactored authentification
+* Restricted root access to only local
 * Introduced JSON API Standard
 * Renamed Groups to Folders and Items to FileEntires
 * Added several security improvements
