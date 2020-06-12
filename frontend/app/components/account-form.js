@@ -30,15 +30,16 @@ export default class AccountForm extends ModalForm {
       AccountValidations
     );
 
+    if (this.isNewRecord && isPresent(this.args.folder)) {
+      this.changeset.folder = this.args.folder;
+    }
+
     this.store.findAll("team").then(teams => {
       this.assignableTeams = teams;
-      if (this.isNewRecord) {
-        return;
-      }
 
-      this.selectedTeam = teams.find(
-        team => team.id === this.changeset.folder.get("team.id")
-      );
+      if (isPresent(this.changeset.folder)) {
+        this.selectedTeam = this.changeset.folder.get("team");
+      }
     });
   }
 

@@ -4,6 +4,10 @@
 -#  https://github.com/puzzle/cryptopus.
 
 %h1= t '.title', folder_name: @folder.name, team_name: team.name
+
+= link_to t('accounts.index_menu.create'), "#/accounts/new/?team_id=#{@folder.team.id}&folder_id=#{@folder.id}", class: 'btn btn-primary pull-right', 'data-turbolinks': 'false'
+
+
 %table.table.table-striped
   %tr
     %th{style: "width: 150px;"}= t '.account'
