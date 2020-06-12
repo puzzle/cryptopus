@@ -84,12 +84,15 @@ class app.Search
           relationship_folder_ids = d.relationships.folders.data.map (folder) -> folder.id
         else
           relationship_folder_ids = [d.relationships.folder.data.id]
-        folder = data.included.find (element) -> relationship_folder_ids.includes(element.id)
+        if data.included
+          folder = data.included.find (element) -> relationship_folder_ids.includes(element.id)
       else
         folder = d
-      d.attributes.folder_name = folder.attributes.name
-      d.attributes.team_name = folder.attributes.team_name
-      d.attributes.team_id = folder.attributes.team_id
+
+      if folder
+        d.attributes.folder_name = folder.attributes.name
+        d.attributes.team_name = folder.attributes.team_name
+        d.attributes.team_id = folder.attributes.team_id
 
     return data.data
 

@@ -91,7 +91,7 @@ module("Integration | Component | account-form", function(hooks) {
       id: 1,
       name: "bbt",
       get() {
-        return 1;
+        return { name: "supporting" };
       }
     });
     this.set("account", {

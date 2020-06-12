@@ -70,7 +70,7 @@ describe 'FileEntryModal', type: :system, js: true do
   private
 
   def create_new_file_entry(description, file_path)
-    new_file_entry_button = page.find_link('Add attachment')
+    new_file_entry_button = page.find_link('Add Attachment')
     new_file_entry_button.click
 
     expect(find('.modal-content')).to be_present
