@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   scope '/session', module: 'session' do
     get 'sso', to: 'sso#create' if AuthConfig.keycloak_enabled?
+    get 'sso/inactive', to: 'sso#inactive' if AuthConfig.keycloak_enabled?
     post 'local', to: 'local#create'
     get 'local', to: 'local#new'
   end

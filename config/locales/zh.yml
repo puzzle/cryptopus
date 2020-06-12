@@ -153,6 +153,10 @@ zh:
         title: "登陆"
         description: "请输入用户名和密码访问cryptopus"
         submit: "登陆"
+    sso:
+      inactive:
+        title: "登陆"
+        submit: "登陆"
     destroy:
       title: "注销"
       message: "再见"

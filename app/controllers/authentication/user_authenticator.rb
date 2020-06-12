@@ -45,11 +45,15 @@ class Authentication::UserAuthenticator
   end
 
   def login_path
-    raise NotImplementedError, 'implement in subclass'
+    session_new_path
   end
 
   def user_logged_in?
     raise NotImplementedError, 'implement in subclass'
+  end
+
+  def logged_out_path
+    session_new_path
   end
 
   private

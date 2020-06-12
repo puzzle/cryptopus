@@ -190,6 +190,11 @@ fr:
         title: Identifiez-vous
         description: S'il vous plaît entrer un nom d'utilisateur valide et mot de passe.
         submit: S'identifier
+    sso:
+      inactive:
+        title: Identifiez-vous
+        submit: S'identifier
+        inactive: Votre session Cryptopus est inactive
     destroy:
       title: Déconnexion
       message: Au revoir
