@@ -1,4 +1,3 @@
 import Route from "@ember/routing/route";
 
-export default class AccountsRoute extends Route {
-}
+export default class TeamsRoute extends Route {}
