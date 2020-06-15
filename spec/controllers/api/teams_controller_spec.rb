@@ -7,6 +7,7 @@ describe Api::TeamsController do
 
   let(:bob) { users(:bob) }
   let(:alice) { users(:alice) }
+  let(:nested_models) { ['folder', 'account'] }
 
   context 'GET index' do
     it 'should get team for search term' do
@@ -38,7 +39,7 @@ describe Api::TeamsController do
 
       team = teams(:team1)
 
-      get :index, params: { 'team_ids': [team.id] }, xhr: true
+      get :index, params: { 'team_id': team.id }, xhr: true
 
       expect(data.count).to eq(1)
       expect(response.status).to be(200)
@@ -56,6 +57,28 @@ describe Api::TeamsController do
       expect(attributes['description']).to eq team.description
     end
 
+    it 'should get all teams without id and query' do
+      login_as(:alice)
+
+      get :index, xhr: true
+
+      expect(data).to be_a(Array)
+      expect(data).to include(teams(:team1), teams(:team2))
+      expect(response.status).to be(200)
+
+      attributes = data.first['attributes']
+
+      included_types = json['included'].map { |e| e['type'] }
+
+      nested_models.each do |model_type|
+        expect(included_types).to include(model_type.pluralize)
+      end
+
+      expect(attributes).to have(2).items
+
+      expect(attributes.first).to include(teams(:team1))
+      expect(attributes.second).to include(teams(:team2))
+    end
   end
 
   context 'PUT update' do
