@@ -39,20 +39,7 @@ export default class AccountForm extends BaseFormComponent {
   }
 
   handleSubmitSuccess(savedRecords) {
-<<<<<<< HEAD
     // FIXME: go to team show
     this.router.transitionTo("teams");
-=======
-    /* eslint-disable no-undef  */
-    $(this.modalElement).modal("hide");
-    /* eslint-enable no-undef  */
-
-    if (this.isNewRecord) {
-      window.location.replace("/teams/" + savedRecords[0].id);
-    } else {
-      let href = window.location.href;
-      window.location.replace(href.substring(0, href.search("#")));
-    }
->>>>>>> Change component calls
   }
 }
