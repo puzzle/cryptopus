@@ -3,6 +3,7 @@ import { inject as service } from "@ember/service";
 
 export default class IndexRoute extends Route {
   @service intl;
+  @service store;
 
   beforeModel() {
     /* eslint-disable no-undef */

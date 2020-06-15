@@ -37,6 +37,24 @@
                       {{/if}}
                     {{/if}}
                   </li>
+          <div class="tab-pane" id="api-users" role="tabpanel" aria-labelledby="api-users-tab">
+            <table class="table table-striped mt-3">
+              <thead>
+                <tr>
+                  <td>{{t "user"}}</td>
+                  <td>{{t "description"}}</td>
+                  <td>{{t "teams.form.enabled"}}</td>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each this.apiUsers as |user|}}
+                  <tr>
+                    <td>{{user.username}}</td>
+                    <td>{{user.description}}</td>
+                    <td>
+                      <XToggle @theme="material" @value={{user.enabled}} @onToggle={{fn this.toggleApiUser user}} />
+                    </td>
+                  </tr>
                 {{/each}}
               </ol>
             </div>

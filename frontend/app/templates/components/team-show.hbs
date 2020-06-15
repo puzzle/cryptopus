@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row mb-10">
+    <h1 class="d-inline">{{@team.name}}</h1>
+    <span class="ml-5">
+      <LinkTo @route="teams.edit" @model={{@team}}>
+        <img class="icon-button" src="/ember/assets/images/edit.svg" alt="edit">
+      </LinkTo>
+      <LinkTo @route="teams.configure" @model={{@team.id}}>
+        <img class="icon-button" src="/ember/assets/images/team_config.svg" alt="configure">
+      </LinkTo>
+    </span>
+  </div>
+  <div class="row">
+    <p>{{@team.description}}</p>
+  </div>
+  {{#each @team.folders as |folder|}}
+    <FolderShow @folder={{folder}}/>
+  {{/each}}
+</div>
