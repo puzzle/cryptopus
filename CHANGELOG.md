@@ -6,7 +6,7 @@
 * Refactored authentification
 * Restricted root access to only local
 * Introduced JSON API Standard
-* Renamed Groups to Folders and Items to FileEntires
+* Renamed Groups to Folders and Items to FileEntries
 * Added several security improvements
 * Many bug fixes
 

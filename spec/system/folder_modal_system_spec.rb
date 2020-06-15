@@ -60,7 +60,7 @@ describe 'FolderModal', type: :system, js: true do
     click_link(href: "#/teams/#{team.id}/folders/#{folder.id}/edit")
 
     expect(find('.modal-content')).to be_present
-    expect(page).to have_text('Editing folder')
+    expect(page).to have_text('Editing Folder')
     expect(page).to have_button('Save')
 
     expect_filled_fields_in_modal_with(folder_attrs)
