@@ -18,6 +18,10 @@
   border: 1px solid #aaaaaa !default;
 }
 
+.d-inline {
+  display: inline;
+}
+
 .float-right {
   float: right !important;
 }
@@ -36,6 +40,10 @@
 
 li a {
   cursor: pointer;
+}
+
+.ml-5 {
+  margin-left: 5%;
 }
 
 /* Validation-errors */
@@ -83,9 +91,9 @@ li a {
   margin-left: 4px;
 }
 
-.info-icon {
-  width: 18px;
-  height: 18px;
+.icon-button {
+  width: 18px !important;
+  height: 18px !important;
   display: inline;
 }
 

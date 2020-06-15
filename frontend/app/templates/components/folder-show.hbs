@@ -1,0 +1,6 @@
+{{@folder.name}}
+{{@folder.description}}
+
+{{#each @folder.accounts as |account|}}
+  <AccountShow @account={{account}}/>
+{{/each}}

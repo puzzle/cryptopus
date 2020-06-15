@@ -14,7 +14,11 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
 
   constructor() {
     super(...arguments);
-    this.members = this.args.members;
+    this.members = this.store.query("teammember", { teamId: this.args.teamId });
+    this.apiUsers = this.store.query("team-api-user", {
+      teamId: this.args.teamId
+    });
+
     if (this.args.teamId) {
       this.loadCandidates();
     }

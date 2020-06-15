@@ -22,7 +22,7 @@
     = javascript_pack_tag 'stylesheets', nonce: true
     = javascript_pack_tag 'application', 'data-turbolinks-track': :reload, nonce: true
   %body{"data-locale" => I18n.locale}
-    #ember
+    #ember{style: "margin-top:75px;"}
     = render 'layouts/icons'
     .container.main{role: "main"}
       = render 'layouts/navigation'

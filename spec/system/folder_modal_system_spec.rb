@@ -56,8 +56,8 @@ describe 'FolderModal', type: :system, js: true do
 
     # Edit Folder
     visit(team_path(team.id))
-    expect(page).to have_link(href: "#/teams/#{team.id}/folders/#{folder.id}/edit")
-    click_link(href: "#/teams/#{team.id}/folders/#{folder.id}/edit")
+    expect(page).to have_link(href: "#/folders/#{folder.id}/edit?team_id=#{team.id}")
+    click_link(href: "#/folders/#{folder.id}/edit?team_id=#{team.id}")
 
     expect(find('.modal-content')).to be_present
     expect(page).to have_text('Editing folder')

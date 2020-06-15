@@ -21,7 +21,7 @@
               <div class="checkbox">
                 <label for="checkbox-private" name="private">{{t "teams.form.private"}}</label>
                 <span data-toggle="private-info-tooltip" data-html="true" data-placement="top" title="<b>{{t "teams.description.private"}}</b>">
-                  <img src="/ember/assets/images/info.svg" alt="info" class="info-icon" >
+                  <img src="/ember/assets/images/info.svg" alt="info" class="icon-button info-icon" >
                 </span>
                 <Input id="checkbox-private" class="" @type="checkbox" @checked={{this.changeset.private}} @name="private" disabled={{not this.isNewRecord }}/>
               </div>
