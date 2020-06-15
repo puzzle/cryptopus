@@ -7,6 +7,7 @@ describe Api::TeamsController do
 
   let(:bob) { users(:bob) }
   let(:alice) { users(:alice) }
+  let(:nested_models) { ['folder', 'account'] }
 
   context 'GET index' do
     it 'should get team for search term' do
@@ -31,6 +32,28 @@ describe Api::TeamsController do
 
       expect(result_json['attributes']['name']).to eq team.name
       expect(result_json['id']).to eq team.id.to_s
+    end
+
+    it 'should get a single team if one team_id is given' do
+      login_as(:alice)
+
+      team = teams(:team1)
+
+      get :index, params: { 'team_ids': team.id }, xhr: true
+
+      expect(data).to be_a(Array)
+      expect(data.count).to eq (1)
+
+      attributes = data.first['attributes']
+
+      included_types = json['included'].map { |e| e['type'] }
+
+      nested_models.each do |model_type|
+        expect(included_types).to include(model_type.pluralize)
+      end
+
+      expect(attributes['name']).to eq team.name
+      expect(attributes['description']).to eq team.description
     end
   end
 
