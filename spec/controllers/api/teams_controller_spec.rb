@@ -7,7 +7,6 @@ describe Api::TeamsController do
 
   let(:bob) { users(:bob) }
   let(:alice) { users(:alice) }
-  let(:nested_models) { %w[folder account] }
 
   context 'GET index' do
     it 'should get team for search term' do
@@ -55,32 +54,6 @@ describe Api::TeamsController do
 
       expect(attributes['name']).to eq team.name
       expect(attributes['description']).to eq team.description
-    end
-
-    it 'should get multiple teams if more than one id is given' do
-      login_as(:bob)
-
-      team = teams(:team1)
-      team2 = teams(:team2)
-
-      get :index, params: { 'team_ids': [team.id, team2.id].join(',') }, xhr: true
-
-      expect(data.count).to eq(2)
-      expect(response.status).to be(200)
-
-      attributes_first_team = data.first['attributes']
-      attributes_second_team = data.second['attributes']
-
-      included_types = json['included'].map { |e| e['type'] }
-
-      expect(included_types).to include('folder'.pluralize)
-      expect(included_types).to include('account'.pluralize)
-
-      expect(attributes_first_team['name']).to eq team.name
-      expect(attributes_first_team['description']).to eq team.description
-
-      expect(attributes_second_team['name']).to eq team2.name
-      expect(attributes_second_team['description']).to eq team2.description
     end
 
   end
