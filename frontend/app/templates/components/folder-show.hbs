@@ -1,6 +1,17 @@
-{{@folder.name}}
-{{@folder.description}}
+<div class="accordion" id={{concat "folderAccordion-" @folder.id}}>
+  <div class="card-header" id={{concat "folderHeading-" @folder.id}}>
+    <h2 class="mb-0">
+      <div class="btn btn-link btn-block text-left" role="button" data-toggle="collapse" data-target={{concat "#folderAccordion-" @folder.id}} aria-expanded="true" aria-controls={{concat "#folderCollapse-" @folder.id}}>
+        <h2>{{@folder.name}}</h2>
+      </div>
+    </h2>
 
-{{#each @folder.accounts as |account|}}
-  <AccountShow @account={{account}}/>
-{{/each}}
+    <div id={{concat "folderCollapse-" @folder.id}} class="collapse show" aria-labelledby={{concat "#folderHeading-" @folder.id}} data-parent={{concat "#folderAccordion-" @folder.id}}>
+      {{@folder.description}}
+
+      {{#each @folder.accounts as |account|}}
+        <AccountShow @account={{account}}/>
+      {{/each}}
+    </div>
+  </div>
+</div>
