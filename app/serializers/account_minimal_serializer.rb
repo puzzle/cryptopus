@@ -1,5 +1,5 @@
-class AccountApiSerializer < ApplicationSerializer
-  attributes :id, :name, :description
+# frozen_string_literal: true
 
-  belongs_to :folder
+class AccountMinimalSerializer < ApplicationSerializer
+  attributes :id, :accountname, :description
 end

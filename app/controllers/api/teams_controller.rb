@@ -16,7 +16,7 @@ class Api::TeamsController < ApiController
   # GET /api/teams
   def index
     authorize ::Team
-    render_json find_teams(params)
+    super(render_options: { include: '**' })
   end
 
   # POST /api/teams/:id
@@ -71,7 +71,7 @@ class Api::TeamsController < ApiController
   end
 
   def find_teams(params)
-    ::Teams::FilteredList.new(params, teams).filter
+    ::Teams::FilteredList.new(params: params, entries: teams).filter
   end
 
   class << self

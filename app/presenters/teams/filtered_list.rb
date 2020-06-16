@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Teams
   class FilteredList < ::FilteredList
 
@@ -6,6 +7,7 @@ module Teams
       if query.present?
         return entries.where('name like ?', "%#{query}%")
       end
+
       entries
     end
 
@@ -17,8 +19,6 @@ module Teams
       @params[:team_ids]
     end
 
-    def entries
-      @entries
-    end
+    attr_reader :entries
   end
 end

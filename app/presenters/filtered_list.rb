@@ -2,7 +2,7 @@
 
 class FilteredList
 
-  def initialize(entries, params)
+  def initialize(entries:, params:)
     @entries = entries
     @params = params
   end
@@ -11,4 +11,3 @@ class FilteredList
     raise NotImplementedError, 'implement in subclass'
   end
 end
-
