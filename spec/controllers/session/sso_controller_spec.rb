@@ -71,5 +71,30 @@ describe Session::SsoController do
         get :create, params: { code: 'asd' }
       end.to raise_error(ActionController::UrlGenerationError)
     end
+
+    it 'redirects to migration if user is not keycloak' do
+      enable_keycloak
+      Rails.application.reload_routes!
+
+      expect(Keycloak::Client)
+        .to receive(:user_signed_in?)
+        .and_return(true)
+        .at_least(:once)
+      expect(Keycloak::Client)
+        .to receive(:get_token_by_code)
+        .and_return('asd')
+      expect(Keycloak::Client).to receive(:get_attribute)
+        .with('preferred_username')
+        .and_return('bob')
+        .at_least(:once)
+      expect(Keycloak::Client).to receive(:get_attribute)
+        .with('pk_secret_base')
+        .and_return('')
+        .at_least(:once)
+
+      get :create, params: { code: 'asd' }
+
+      expect(response).to redirect_to recrypt_sso_path
+    end
   end
 end

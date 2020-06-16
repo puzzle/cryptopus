@@ -104,7 +104,7 @@ describe SessionController do
 
       post :create, params: { password: 'password', username: 'bob' }
 
-      expect(response).to redirect_to recryptrequests_new_ldap_password_path
+      expect(response).to redirect_to session_new_path
     end
 
     it 'cannot login with unknown username' do

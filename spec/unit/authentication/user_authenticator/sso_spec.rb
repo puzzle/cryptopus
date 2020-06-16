@@ -25,7 +25,7 @@ describe Authentication::UserAuthenticator::Sso do
         .and_return('Meier')
       expect(Keycloak::Client).to receive(:get_attribute)
         .with('pk_secret_base')
-        .and_return(nil, 'asd')
+        .and_return(nil)
       expect(Keycloak::Admin).to receive(:update_user)
         .and_return(true)
       expect(Keycloak::Client).to receive(:user_signed_in?)

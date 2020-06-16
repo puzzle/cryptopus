@@ -236,7 +236,12 @@ ch_be:
       new: Nöis Passwort
       new_retype: Nöis Passwort (nomau)
       submit: Ändere
-
+  recrypt:
+    sso:
+      new:
+        notice: Bitte gib dis Cryptopus Passwort i für di Account zu Keycloak z migriere.
+        cryptopus_password: Dis Cryptopus Passwort
+        migrate: Migriere
   teammembers:
     new:
       title: Es nöis Teammitglied hinzuefüege
