@@ -35,6 +35,11 @@ body {
 
 /*Icons*/
 
+.icon {
+  height: 24px;
+  width: 24px;
+}
+
 [class^="icon-"],
 [class*=" icon-"] {
   height: 24px;
@@ -42,9 +47,7 @@ body {
   display: inline;
   fill: currentColor;
 }
-
 .action_icon{
-  width: 20px;
   text-align: center;
   vertical-align:middle;
 }
