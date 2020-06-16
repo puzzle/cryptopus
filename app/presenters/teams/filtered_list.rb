@@ -15,7 +15,7 @@ module Teams
       @params[:q]
     end
 
-    def ids
+    def team_ids
       @params[:team_ids]
     end
 
