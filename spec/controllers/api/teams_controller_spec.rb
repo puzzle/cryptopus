@@ -56,8 +56,8 @@ describe Api::TeamsController do
       expect(attributes['description']).to eq team.description
     end
 
-    it 'should get all teams without id and query' do
-      login_as(:alice)
+    it 'should get multiple teams if more than one id is given' do
+      login_as(:bob)
 
       get :index, xhr: true
 
