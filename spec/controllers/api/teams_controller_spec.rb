@@ -7,7 +7,6 @@ describe Api::TeamsController do
 
   let(:bob) { users(:bob) }
   let(:alice) { users(:alice) }
-  let(:nested_models) { ['folder', 'account'] }
 
   context 'GET index' do
     it 'should get team for search term' do
@@ -79,6 +78,7 @@ describe Api::TeamsController do
       expect(attributes.first).to include(teams(:team1))
       expect(attributes.second).to include(teams(:team2))
     end
+
   end
 
   context 'PUT update' do
