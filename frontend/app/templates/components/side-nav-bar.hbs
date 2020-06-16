@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" {{did-insert this.setupModal this}}>
+  <div class="container-fluid" id="nav-side-bar-container">
+    <div class="list-group list-group-root well">
+        {{#each this.teams as |team|}}
+          <a {{on "click" (fn this.setSelectedTeam team)}}
+                  class="list-group-item list-group-item-action"
+                  data-target="#nav-folders-{{team.id}}" data-toggle="collapse" data-parent="#nav-side-bar-container"
+                  aria-expanded="false" aria-controls="#nav-folders-{{team.id}}?">
+              {{team.name}}
+          </a>
+
+          <a data-target="#nav-folders-{{team.id}}" data-toggle="collapse" data-parent="#nav-side-bar-container"
+             aria-expanded="false" aria-controls="#nav-folders-{{team.id}}?" >❮</a>
+
+          <div class="collapse list-group" id="nav-folders-{{team.id}}">
+              {{#each team.folders as |folder|}}
+                  <a class="list-group-item ml-2" {{on "click" (fn this.setSelectedFolder folder)}}>
+                    {{folder.name}}
+                  </a>
+              {{/each}}
+          </div>
+
+        {{/each}}
+    </div>
+
+  </div>
+</nav>

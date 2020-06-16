@@ -5,6 +5,10 @@ export default class IndexRoute extends Route {
   @service intl;
   @service store;
 
+  model() {
+    return this.store.findAll("team");
+  }
+
   beforeModel() {
     /* eslint-disable no-undef */
     let localeDropdown = $(".container form option[selected='selected']");
