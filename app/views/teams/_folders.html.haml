@@ -4,7 +4,7 @@
 -#  https://github.com/puzzle/cryptopus.
 
 = hidden_field_tag :team_id, team.id
-= link_to image_pack_tag("team_config.svg"), "#/teams/#{team.id}/configure", id: 'config_team_button', title: t('teams.config_button.title') , class: 'edit_button btn btn-secondary pull-right','data-turbolinks': 'false'
+= link_to image_pack_tag("members.svg"), "#/teams/#{team.id}/configure", id: 'config_team_button', title: t('teams.config_button.title') , class: 'edit_button btn btn-secondary pull-right','data-turbolinks': 'false'
 = link_to image_pack_tag("edit.svg"), "#/teams/#{team.id}/edit", id: 'edit_team_button', title: t('teams.edit_button.title'), class: 'edit_button btn btn-secondary pull-right','data-turbolinks': 'false'
 = link_to t('folders.index_menu.create'), "#/folders/new/?team_id=#{@team.id}", class: 'btn btn-primary pull-right', 'data-turbolinks': 'false'
 
@@ -17,5 +17,5 @@
     %tr{class: "#{cycle('odd', 'even')}"}
       %td= link_to image_pack_tag( "folder_open.svg" ) + " " + %Q{#{folder.name}}, team_folder_path(team, folder)
       %td= h simple_format folder.description
-      %td.action_icon= link_to image_pack_tag("edit.svg"), "#/folders/#{folder.id}/edit?team_id=#{team.id}", 'data-turbolinks': 'false'
+      %td.action_icon= link_to image_pack_tag("edit.svg", class: 'icon'), "#/folders/#{folder.id}/edit?team_id=#{team.id}", 'data-turbolinks': 'false'
       %td.action_icon= link_to_destroy team_folder_path(team, folder), folder
