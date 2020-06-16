@@ -3,23 +3,29 @@
     <div class="list-group list-group-root well">
         {{#each this.teams as |team|}}
           <a {{on "click" (fn this.setSelectedTeam team)}}
-                  class="list-group-item list-group-item-action"
+                  class="list-group-item list-group-item-action {{if (eq team this.selectedTeam) "active"}}"
                   data-target="#nav-folders-{{team.id}}" data-toggle="collapse" data-parent="#nav-side-bar-container"
                   aria-expanded="false" aria-controls="#nav-folders-{{team.id}}?">
               {{team.name}}
+
+              {{#if (and (eq team this.selectedTeam) (not this.collapsed))}}
+                <img class="icon float-right" src="/ember/assets/images/angle-down.svg" alt="v">
+              {{else}}
+                <img class="icon float-right" src="/ember/assets/images/angle-left.svg" alt="<">
+              {{/if}}
           </a>
-
-          <a data-target="#nav-folders-{{team.id}}" data-toggle="collapse" data-parent="#nav-side-bar-container"
-             aria-expanded="false" aria-controls="#nav-folders-{{team.id}}?" >❮</a>
-
           <div class="collapse list-group" id="nav-folders-{{team.id}}">
               {{#each team.folders as |folder|}}
-                  <a class="list-group-item ml-2" {{on "click" (fn this.setSelectedFolder folder)}}>
+                  <a class="list-group-item ml-2 {{if (eq folder this.selectedFolder) "active"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
                     {{folder.name}}
                   </a>
               {{/each}}
+              {{#unless team.folders}}
+                <a class="list-group-item ml-2">
+                  No folders
+                </a>
+              {{/unless}}
           </div>
-
         {{/each}}
     </div>
 

@@ -15,8 +15,17 @@ export default Service.extend({
     this.selected_folder = folder
   },
 
+  selectedTeam() {
+    return this.selected_team;
+  },
+
   isSelectedTeam(team) {
     return isPresent(this.selected_team) && this.selected_team == team;
+  },
+
+  selectedFolder() {
+    return this.selected_folder;
   }
+
 
 });
