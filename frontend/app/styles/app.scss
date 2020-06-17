@@ -57,6 +57,18 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
   display: inline;
 }
 
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
 .float-right {
   float: right !important;
 }
@@ -175,6 +187,22 @@ li a {
 .modal-alert {
   width: 100% !important;
   margin-bottom: 15px !important;
+}
+
+.folder-divider {
+  border: 1px solid #238bca;
+}
+
+.folder-header {
+  font-weight: bold;
+  font-size: 18px !important;
+  color: #238bca;
+}
+
+.folder-edit-icon {
+  /* filter for #238bca color, used https://codepen.io/sosuke/pen/Pjoqqp to generate */
+  filter: invert(42%) sepia(69%) saturate(780%) hue-rotate(164deg)
+    brightness(95%) contrast(84%);
 }
 
 .folder-divider {
