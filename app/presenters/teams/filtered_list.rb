@@ -15,10 +15,6 @@ module Teams
       @params[:q]
     end
 
-    def teams
-      @current_user.teams
-    end
-
     def team_ids
       @params[:team_ids]
     end

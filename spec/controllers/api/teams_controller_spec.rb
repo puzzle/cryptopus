@@ -68,8 +68,8 @@ describe Api::TeamsController do
 
       included_types = json['included'].map { |e| e['type'] }
 
-      expect(included_types).to include(nested_models.first.pluralize)
-      expect(included_types).to include(nested_models.second.pluralize)
+      expect(included_types).to include('folder'.pluralize)
+      expect(included_types).to include('account'.pluralize)
 
       expect(attributes).to have(2).items
 
