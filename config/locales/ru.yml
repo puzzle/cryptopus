@@ -159,6 +159,10 @@ ru:
         title: "Вход"
         description: "Введите имя пользователя и пароль для входа в cryptopus"
         submit: "Войти"
+    sso:
+      inactive:
+        title: "Вход"
+        submit: "Войти"
     destroy:
       title: "Выйти"
       message: "До свидания"

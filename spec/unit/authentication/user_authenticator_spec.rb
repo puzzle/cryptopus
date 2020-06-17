@@ -19,10 +19,7 @@ describe Authentication::UserAuthenticator do
   end
 
   it 'raises implement in subclass' do
-    expect do
-      error = authenticator.login_path
-      expect(error.message).to eq('implement in subclass')
-    end.to raise_error(NotImplementedError)
+    expect(authenticator.login_path).to eq(session_new_path)
   end
 
   private

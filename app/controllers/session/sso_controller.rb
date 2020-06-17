@@ -20,6 +20,10 @@ class Session::SsoController < SessionController
     redirect_after_sucessful_login
   end
 
+  def inactive
+    flash[:notice] = t('session.sso.inactive.inactive')
+  end
+
   private
 
   def authorize_action

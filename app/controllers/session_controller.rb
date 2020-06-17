@@ -39,7 +39,7 @@ class SessionController < ApplicationController
     reset_session
     session[:jumpto] = jumpto
     flash[:notice] = flash_notice
-    redirect_to user_authenticator.login_path
+    redirect_to user_authenticator.logged_out_path
   end
 
   def show_update_password

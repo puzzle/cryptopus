@@ -42,6 +42,10 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
     Keycloak::Client.get_token_by_code(params[:code], keycloak_login_url)
   end
 
+  def logged_out_path
+    sso_inactive_path
+  end
+
   private
 
   def user_allowed?(session)

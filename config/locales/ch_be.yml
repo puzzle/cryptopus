@@ -217,6 +217,11 @@ ch_be:
         title: Amäudä
         description: Bitte gib di Benutzername u dis Passwort i zum z'Cryptopus chönne z bruche.
         submit: Amäudä
+    sso:
+      inactive:
+        title: Amäudä
+        submit: Amäudä
+        inactive: Dini Cryptopus session isch inaktiv
     destroy:
       title: Abmäudä
       message: Ufwiderluege
