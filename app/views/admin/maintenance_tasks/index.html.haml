@@ -26,10 +26,10 @@
 %h1= 'Logs'
 %table.table.table-striped
   %tr
-    %th= t :executed_at
-    %th= t :status
-    %th= t :output
-    %th= t :executer
+    %th= t '.executed_at'
+    %th= t '.status'
+    %th= t '.output'
+    %th= t '.executor'
   - @maintenance_logs.each do |ml|
     %tr{class: "#{cycle('odd', 'even')}"}
       %td= ml.created_at.to_time

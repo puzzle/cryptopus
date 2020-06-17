@@ -26,7 +26,7 @@
                   %li= nav_link t(:recrypt_requests), admin_recryptrequests_path
                 %li= nav_link t(:users), admin_users_path
                 %li= nav_link t('teams.title'), admin_teams_path
-                %li= nav_link t(:maintenance_tasks), admin_maintenance_tasks_path
+                %li= nav_link t('admin.maintenance_tasks.index.title'), admin_maintenance_tasks_path
           = nav_link image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path, :get
 
         %ul.nav.navbar-nav.navbar-right#profile-button

@@ -38,6 +38,7 @@ ch_be:
   team: Team
   move: Bewegä
   here: hiä
+  new: Nöi
   save: Spichere
   close: Schliesse
   user: Benutzer
@@ -81,7 +82,7 @@ ch_be:
     title: Suechä
     index:
       hi_user: "Hallo %{username}! Suechsch es Passwort?"
-      no_results_found: keni Ergäbniss gfunde
+      no_results_found: äuä nüt gfunde
       type_to_search: Tippe für z sueche...
 
   accounts:
@@ -95,7 +96,8 @@ ch_be:
       title: Account editiere
       random_password: Zuefäuigs Passwort
       edit_password_placeholder: Klickä oder fokusierä für Igab ...
-      team_placeholder: Wähl es Team us
+      team_placeholder: Wähl äs Team us
+      folder_placeholder: Wähl ä Ordner us
       password_strength: Passwort Sterchi
       password_strengths:
         weak: Schwach
@@ -118,9 +120,15 @@ ch_be:
     maintenance_tasks:
       index:
         title: Wartigsufgabe
-        unavailable: Keni Wartigsufgabe verfüegbar
+        unavailable: Äuä ke Wartigsufgabe verfüegbar
         maintenance_task: Wartigsufgab
         run: Usfüehre
+        prepare: Vorbereite
+        execute: Usführe
+        executed_at: Usgführt am
+        status: Status
+        output: Output
+        executor: Usführer
     settings:
       index:
         title: Istellige bearbeite
@@ -157,7 +165,7 @@ ch_be:
         title: Lischtä vo aune Cryptopus Benutzer
         username: Benutzernamä
         name: Namä
-        ldap_uid: LDAP UID
+        provider_uid: PROVIDER UID
         last_login_at: Letschti Ameudig am
         last_login_from: Letschti Ameudig vo
         admin: Admin
@@ -170,6 +178,13 @@ ch_be:
         destroy: Benutzer lösche
       new:
         title: Nöie Benutzer
+    teams:
+      index:
+        title: Teams
+        teamname: Teamname
+        num_folders: Ahzahl Ordner
+        num_accounts: Ahzahl Accounts
+        members: Mitglieder
 
   folders:
     title: Ordner
@@ -197,6 +212,11 @@ ch_be:
       title: Amäudä
       description: Bitte gib di Benutzername u dis Passwort i zum z'Cryptopus chönne z bruche.
       submit: Amäudä
+    local:
+      new:
+        title: Amäudä
+        description: Bitte gib di Benutzername u dis Passwort i zum z'Cryptopus chönne z bruche.
+        submit: Amäudä
     destroy:
       title: Abmäudä
       message: Ufwiderluege
@@ -303,7 +323,7 @@ ch_be:
           root: Dr Root cha nid glösche werde
         update:
           root: Dr Root cha nid aktualisiert werde
-          ldap: Dr Ldap User cha nid aktualisiert werde
+          not_db: Nume Db User chöi aktualisiert werde
       maintenance_tasks:
         succeed: D Wartigsufgab isch erfougrich düregfüehrt worde
         failed: D Wartigsufgab isch gschiteret. Lueg i de Logs für me Details nache.
