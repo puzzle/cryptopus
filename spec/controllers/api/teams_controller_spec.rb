@@ -67,6 +67,7 @@ describe Api::TeamsController do
       attributes = data.first['attributes']
 
       included_types = json['included'].map { |e| e['type'] }
+      require 'pry'; binding.pry;
 
       expect(included_types).to include('folder'.pluralize)
       expect(included_types).to include('account'.pluralize)
@@ -75,6 +76,43 @@ describe Api::TeamsController do
 
       expect(attributes.first).to include(teams(:team1))
       expect(attributes.second).to include(teams(:team2))
+    end
+
+    it 'should get teams, folders and accounts for query' do
+      login_as(:bob)
+
+      query = '2'
+
+      team = teams(:team1)
+      team2 = teams(:team2)
+
+      folder = folders(:folder1)
+      folder2 = folders(:folder2)
+
+      account = accounts(:account1)
+      account2 = accounts(:account2)
+
+      get :index, params: { 'q': query }, xhr: true
+
+      expect(data.count).to eq(1)
+      expect(response.status).to be(200)
+
+      attributes_first_team = data.first['attributes']
+      require 'pry'; binding.pry;
+      expect(data).to_not include(team)
+      expect(data).to include(team2)
+
+      expect(attributes_first_team['name']).to eq team2.name
+      expect(attributes_first_team['description']).to eq team2.description
+
+      folders = included.select { |element| element['type'] == 'folder'.pluralize }
+      accounts = included.select { |element| element['type'] == 'account'.pluralize }
+
+      folders.first.to eq(folder2)
+      folders.not_to include(folder)
+
+      accounts.first.to eq(account2)
+      accounts.not_to include(account)
     end
 
   end
