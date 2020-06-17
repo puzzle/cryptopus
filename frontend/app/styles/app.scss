@@ -41,6 +41,18 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
   display: inline;
 }
 
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
 .float-right {
   float: right !important;
 }
@@ -149,20 +161,18 @@ li a {
   margin-bottom: 15px !important;
 }
 
-/*Footer*/
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  height: 50px;
-  line-height: 50px;
-  background-color: #f9f9f9;
-  width: 100%;
-  border-top: 1px solid #cbc6c2;
-  z-index: 9999;
-  width: 100vw !important;
+.folder-divider {
+  border: 1px solid #238bca;
 }
 
-.footer form {
-  padding-right: 50px;
+.folder-header {
+  font-weight: bold;
+  font-size: 18px !important;
+  color: #238bca;
+}
+
+.folder-edit-icon {
+  /* filter for #238bca color, used https://codepen.io/sosuke/pen/Pjoqqp to generate */
+  filter: invert(42%) sepia(69%) saturate(780%) hue-rotate(164deg)
+    brightness(95%) contrast(84%);
 }
