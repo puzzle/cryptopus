@@ -185,4 +185,17 @@ describe LegacyRoutes::RedirectUrl do
 
     assert_redirected_to team_folder_path(team1, folder1)
   end
+
+  context 'if not logged in' do
+    it 'should set locale to default and redirect to login' do
+      team1 = teams(:team1)
+      folder1 = folders(:folder1)
+
+      invalid_account_url = "/teams/#{team1.id}/folders/#{folder1.id}/accounts"
+      get invalid_account_url
+
+      expect(I18n.locale).to eq(:en)
+      assert_redirected_to session_new_path
+    end
+  end
 end
