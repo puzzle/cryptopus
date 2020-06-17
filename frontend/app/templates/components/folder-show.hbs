@@ -1,12 +1,20 @@
-<div class="accordion" id={{concat "folderAccordion-" @folder.id}}>
-  <div class="card-header" id={{concat "folderHeading-" @folder.id}}>
-    <h2 class="mb-0">
-      <div class="btn btn-link btn-block text-left" role="button" data-toggle="collapse" data-target={{concat "#folderAccordion-" @folder.id}} aria-expanded="true" aria-controls={{concat "#folderCollapse-" @folder.id}}>
-        <h2>{{@folder.name}}</h2>
+<div class="accordion mt-3" id={{concat "folderAccordion-" @folder.id}}>
+  <div id={{concat "folderHeading-" @folder.id}}>
+    <div class="mb-0" role="button" data-toggle="collapse" data-target={{concat "#folderCollapse-" @folder.id}} aria-expanded="true" aria-controls={{concat "#folderCollapse-" @folder.id}}>
+      <div class="d-flex flex-row justify-content-between">
+        <div>
+          <h2 class="folder-header d-inline">{{@folder.name}}</h2>
+        </div>
+        <div></div>
+        <div>
+          <LinkTo @route="folders.edit" @model={{@folder}}>
+            <img class="icon-button folder-edit-icon" src="/ember/assets/images/edit.svg" alt="edit">
+          </LinkTo>
+        </div>
       </div>
-    </h2>
-
-    <div id={{concat "folderCollapse-" @folder.id}} class="collapse show" aria-labelledby={{concat "#folderHeading-" @folder.id}} data-parent={{concat "#folderAccordion-" @folder.id}}>
+      <hr class="folder-divider">
+    </div>
+    <div id={{concat "folderCollapse-" @folder.id}} class="collapse" aria-labelledby={{concat "#folderHeading-" @folder.id}} data-parent={{concat "#folderAccordion-" @folder.id}}>
       {{@folder.description}}
 
       {{#each @folder.accounts as |account|}}
