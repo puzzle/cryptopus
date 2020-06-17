@@ -61,17 +61,15 @@ describe Api::TeamsController do
 
       get :index, xhr: true
 
-      expect(data).to be_a(Array)
-      expect(data).to include(teams(:team1), teams(:team2))
+      expect(data.count).to eq(2)
       expect(response.status).to be(200)
 
       attributes = data.first['attributes']
 
       included_types = json['included'].map { |e| e['type'] }
 
-      nested_models.each do |model_type|
-        expect(included_types).to include(model_type.pluralize)
-      end
+      expect(included_types).to include(nested_models.first.pluralize)
+      expect(included_types).to include(nested_models.second.pluralize)
 
       expect(attributes).to have(2).items
 

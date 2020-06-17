@@ -20,7 +20,11 @@ module Teams
     end
 
     def team_ids
-      list_param(:team_ids)
+      @params[:team_ids]
+    end
+
+    def teams
+      @current_user.teams
     end
   end
 end
