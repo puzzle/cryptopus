@@ -38,7 +38,7 @@ describe 'AccountModal', type: :system, js: true do
 
 
     expect(page.find_field('cleartextPassword')).to be_present
-    check_password_meter('password', '10')
+    check_password_meter('password', '25')
     check_password_meter('password11', '25')
     check_password_meter('cryptopu', '50')
     check_password_meter('cryptopus1', '75')

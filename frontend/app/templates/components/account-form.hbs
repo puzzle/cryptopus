@@ -50,7 +50,7 @@
               <div class="d-flex col-sm-12">
                 <div class="form-group col-sm-6">
                   <div class="row">
-                    <Input class="form-control secret mb-10" @value={{this.changeset.cleartextPassword}} @name="cleartextPassword" @tabindex="3"/>
+                    <Input class="form-control secret mb-10" @value={{this.changeset.cleartextPassword}} @name="cleartextPassword" @tabindex="3" autocomplete="off"/>
                     <PasswordStrengthMeter @password={{this.changeset.cleartextPassword}}/>
                   </div>
                 </div>
