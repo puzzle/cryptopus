@@ -94,6 +94,10 @@ en:
         run: execute
         prepare: prepare
         execute: execute
+        executed_at: Executed At
+        status: Status
+        output: Output
+        executor: Executor
     settings:
       index:
         title: Edit Settings
@@ -148,6 +152,10 @@ en:
     teams:
       index:
         title: Teams
+        teamname: Teamname
+        num_folders: Number of Folders
+        num_accounts: Number of Accounts
+        members: Members
     user_roles:
       user: User
       conf_admin: Conf Admin

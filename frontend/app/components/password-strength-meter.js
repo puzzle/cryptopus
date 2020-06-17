@@ -16,11 +16,12 @@ export default class PasswordStrengthMeterComponent extends Component {
   }
 
   didReceiveAttrs() {
-    if (isPresent(this.password)) {
+    if (isPresent(this.password) && this.password !== "") {
       this.passwordStrength.strength(this.password).then(strength => {
         this.score = strength.score;
-
-        this.barWidth = this.score === 0 ? 10 : this.score * 25;
+        if (this.score === 0)
+          this.score = 1;
+        this.barWidth = this.score * 25;
       });
     } else {
       this.score = 0;

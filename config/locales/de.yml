@@ -93,6 +93,12 @@ de:
         unavailable: Keine Wartungsaufgaben vorhanden
         maintenance_task: Wartungsaufgabe
         run: Ausführen
+        prepare: Vorbereiten
+        execute: Ausführen
+        executed_at: Ausgeführt am
+        status: Status
+        output: Output
+        executor: Ausführer
     settings:
       index:
         title: Einstellungen bearbeiten
@@ -147,6 +153,11 @@ de:
     teams:
       index:
         title: Teams
+        teamname: Teamname
+        num_folders: Anzahl Ordner
+        num_accounts: Anzahl Accounts
+        members: Mitglieder
+
     user_roles:
       user: Benutzer
       conf_admin: Conf Admin

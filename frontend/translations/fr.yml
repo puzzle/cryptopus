@@ -67,6 +67,12 @@ fr:
       random_password: Mot de passe aléatoire
       team_placeholder: Choisissez une équipe
       folder_placeholder: Choisissez un dossier
+      password_strength: Fiabilité du mot de passe
+      password_strengths:
+        weak: Faible
+        fair: Approprié
+        good: Bien
+        strong: Fort
     show:
       title: "Compte: %{account_name}"
       last_change: "Dernière mise à jour il ya %{time_ago}"
@@ -85,6 +91,12 @@ fr:
         unavailable: Il n'y a pas de tâches de maintenance
         maintenance_task: Tâche de maintenance
         run: effectuer
+        prepare: préparer
+        execute: effectuer
+        executed_at: Effectué à
+        status: Statut
+        output: Output
+        executor: Effectueur
     settings:
       index:
         title: Modifier les paramètres
@@ -122,7 +134,7 @@ fr:
         title: La Liste de toutes les utilisateurs
         username: Nom d'utilisateur
         name: Nom
-        ldap_uid: LDAP UID
+        provider_uid: PROVIDER UID
         last_login_at: Dernière connexion à
         last_login_from: Dernière connexion de
         admin: Admin
@@ -138,6 +150,10 @@ fr:
     teams:
       index:
         title: Teams
+        teamname: Nom de l'équipe
+        num_folders: Nombre de dossiers
+        num_accounts: Nombre de comptes
+        members: Membres
     user_roles:
       user: Utilisateur
       conf_admin: Conf Admin
@@ -169,6 +185,11 @@ fr:
       title: Identifiez-vous
       description: S'il vous plaît entrer un nom d'utilisateur valide et mot de passe.
       submit: S'identifier
+    local:
+      new:
+        title: Identifiez-vous
+        description: S'il vous plaît entrer un nom d'utilisateur valide et mot de passe.
+        submit: S'identifier
     destroy:
       title: Déconnexion
       message: Au revoir
@@ -299,7 +320,7 @@ fr:
           root: Root ne peut pas être supprimé
         update:
           root: Root ne peuvent pas être mis à jour
-          ldap: Ldap utilisateur ne peuvent pas être mis à jour
+          not_db: Utilisateur non Db ne peut pas être mis à jour
       maintenance_tasks:
         succeed: La tâche a été exécutée avec succès..
         failed: La tâche a échoué. Consultez les journaux pour plus d'informations.
@@ -358,6 +379,7 @@ fr:
         surname: Nom de famille
       account:
         account: Compte
+        account_name: Nom du compte
         username: Nom d'utilisateur
         password: Mot de passe
         description: Description

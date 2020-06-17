@@ -67,6 +67,12 @@ fr:
       random_password: Mot de passe aléatoire
       team_placeholder: Choisissez une équipe
       folder_placeholder: Choisissez un dossier
+      password_strength: Fiabilité du mot de passe
+      password_strengths:
+        weak: Faible
+        fair: Approprié
+        good: Bien
+        strong: Fort
     show:
       title: "Compte: %{account_name}"
       last_change: "Dernière mise à jour il ya %{time_ago}"
@@ -85,6 +91,12 @@ fr:
         unavailable: Il n'y a pas de tâches de maintenance
         maintenance_task: Tâche de maintenance
         run: effectuer
+        prepare: préparer
+        execute: effectuer
+        executed_at: Effectué à
+        status: Statut
+        output: Output
+        executor: Effectueur
     settings:
       index:
         title: Modifier les paramètres
@@ -138,6 +150,10 @@ fr:
     teams:
       index:
         title: Teams
+        teamname: Nom de l'équipe
+        num_folders: Nombre de dossiers
+        num_accounts: Nombre de comptes
+        members: Membres
     user_roles:
       user: Utilisateur
       conf_admin: Conf Admin
@@ -363,6 +379,7 @@ fr:
         surname: Nom de famille
       account:
         account: Compte
+        account_name: Nom du compte
         username: Nom d'utilisateur
         password: Mot de passe
         description: Description

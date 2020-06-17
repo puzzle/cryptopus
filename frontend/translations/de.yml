@@ -93,6 +93,12 @@ de:
         unavailable: Keine Wartungsaufgaben vorhanden
         maintenance_task: Wartungsaufgabe
         run: Ausführen
+        prepare: Vorbereiten
+        execute: Ausführen
+        executed_at: Ausgeführt am
+        status: Status
+        output: Output
+        executor: Ausführer
     settings:
       index:
         title: Einstellungen bearbeiten
@@ -131,7 +137,7 @@ de:
         title: Liste aller Cryptopus Benutzer
         username: Benutzername
         name: Name
-        ldap_uid: LDAP UID
+        provider_uid: PROVIDER UID
         last_login_at: Letzte Anmeldung am
         last_login_from: Letzte Anmeldung von
         admin: Admin
@@ -147,6 +153,11 @@ de:
     teams:
       index:
         title: Teams
+        teamname: Teamname
+        num_folders: Anzahl Ordner
+        num_accounts: Anzahl Accounts
+        members: Mitglieder
+
     user_roles:
       user: Benutzer
       conf_admin: Conf Admin
@@ -178,6 +189,11 @@ de:
       title: Anmelden
       description: Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein um Cryptopus zu verwenden.
       submit: Anmelden
+    local:
+      new:
+        title: Anmelden
+        description: Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein um Cryptopus zu verwenden.
+        submit: Anmelden
     destroy:
       title: Abmelden
       message: Aufwiedersehen
@@ -312,7 +328,7 @@ de:
           root: Root kann nicht gelöscht werden
         update:
           root: Root kann nicht aktualisiert werden
-          ldap: Ldap User kann nicht aktualisiert werden
+          not_db: Nur Db User können aktualisiert werden
       maintenance_tasks:
         succeed: Wartungsaufgabe wurde erfolgreich durchgeführt
         failed: Wartungsaufgabe ist gescheitert. Siehe Logs für mehr Details.
