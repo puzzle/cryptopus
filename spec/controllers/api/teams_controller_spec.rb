@@ -50,8 +50,8 @@ describe Api::TeamsController do
 
       included_types = json['included'].map { |e| e['type'] }
 
-      expect(included_types).to include(nested_models.first.pluralize)
-      expect(included_types).to include(nested_models.second.pluralize)
+      expect(included_types).to include('folder'.pluralize)
+      expect(included_types).to include('account'.pluralize)
 
       expect(attributes['name']).to eq team.name
       expect(attributes['description']).to eq team.description
@@ -63,7 +63,7 @@ describe Api::TeamsController do
       team = teams(:team1)
       team2 = teams(:team2)
 
-      get :index, params: { 'team_ids': [team.id, team2.id] }, xhr: true
+      get :index, params: { 'team_ids': [team.id, team2.id].join(',') }, xhr: true
 
       expect(data.count).to eq(2)
       expect(response.status).to be(200)
@@ -73,8 +73,8 @@ describe Api::TeamsController do
 
       included_types = json['included'].map { |e| e['type'] }
 
-      expect(included_types).to include(nested_models.first.pluralize)
-      expect(included_types).to include(nested_models.second.pluralize)
+      expect(included_types).to include('folder'.pluralize)
+      expect(included_types).to include('account'.pluralize)
 
       expect(attributes_first_team['name']).to eq team.name
       expect(attributes_first_team['description']).to eq team.description

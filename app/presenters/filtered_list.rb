@@ -10,4 +10,8 @@ class FilteredList
   def fetch_entries
     raise NotImplementedError, 'implement in subclass'
   end
+
+  def list_param(key)
+    params[key].to_s.split(',').map(&:strip)
+  end
 end

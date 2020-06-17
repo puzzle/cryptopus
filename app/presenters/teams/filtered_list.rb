@@ -15,12 +15,12 @@ module Teams
       @params[:q]
     end
 
-    def team_ids
-      @params[:team_ids]
-    end
-
     def teams
       @current_user.teams
+    end
+
+    def team_ids
+      list_param(:team_ids)
     end
   end
 end
