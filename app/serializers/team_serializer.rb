@@ -21,5 +21,5 @@
 class TeamSerializer < ActiveModel::Serializer
   attributes :id, :name, :description, :private
 
-  has_many :folders
+  has_many :folders, serializer: FolderMinimalSerializer
 end

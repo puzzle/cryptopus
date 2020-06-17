@@ -16,8 +16,7 @@ class Api::TeamsController < ApiController
   # GET /api/teams
   def index
     authorize ::Team
-    teams = current_user.teams
-    render_json find_teams(teams)
+    super(render_options: { include: '**' })
   end
 
   # POST /api/teams/:id
@@ -55,6 +54,10 @@ class Api::TeamsController < ApiController
 
   private
 
+  def fetch_entries
+    ::Teams::FilteredList.new(current_user, params).fetch_entries
+  end
+
   def user
     @user ||= User.find(params['user_id'])
   end
@@ -63,18 +66,13 @@ class Api::TeamsController < ApiController
     @team ||= ::Team.find(params['id'])
   end
 
-  def find_teams(teams)
-    if query_param.present?
-      teams = finder(teams, query_param).apply
+  def teams
+    @teams ||= current_user.teams
+  end
+
+  class << self
+    def model_class
+      Team
     end
-    teams
-  end
-
-  def finder(teams, query)
-    Finders::TeamsFinder.new(teams, query)
-  end
-
-  def query_param
-    params[:q]
   end
 end
