@@ -45,6 +45,10 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
   float: right !important;
 }
 
+.mt-1 {
+  margin-top: 1%;
+}
+
 .mt-3 {
   margin-top: 3%;
 }
@@ -55,6 +59,10 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 
 .x-toggle-component {
   width: 20%;
+}
+
+[role="button"] {
+  cursor: pointer;
 }
 
 li a {
