@@ -3,12 +3,12 @@
 module Teams
   class FilteredList < ::FilteredList
 
-    def filter
+    def fetch_entries
       if query.present?
-        return entries.where('name like ?', "%#{query}%")
+        return teams.where('name like ?', "%#{query}%")
       end
 
-      entries
+      teams
     end
 
     def query
@@ -19,6 +19,8 @@ module Teams
       @params[:team_ids]
     end
 
-    attr_reader :entries
+    def teams
+      @current_user.teams
+    end
   end
 end

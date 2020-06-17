@@ -2,12 +2,12 @@
 
 class FilteredList
 
-  def initialize(entries:, params:)
-    @entries = entries
+  def initialize(current_user, params)
+    @current_user = current_user
     @params = params
   end
 
-  def filter
+  def fetch_entries
     raise NotImplementedError, 'implement in subclass'
   end
 end

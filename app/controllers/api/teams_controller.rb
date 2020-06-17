@@ -55,7 +55,7 @@ class Api::TeamsController < ApiController
   private
 
   def fetch_entries
-    find_teams(params)
+    ::Teams::FilteredList.new(current_user, params).fetch_entries
   end
 
   def user
@@ -68,10 +68,6 @@ class Api::TeamsController < ApiController
 
   def teams
     @teams ||= current_user.teams
-  end
-
-  def find_teams(params)
-    ::Teams::FilteredList.new(params: params, entries: teams).filter
   end
 
   class << self

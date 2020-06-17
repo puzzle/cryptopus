@@ -41,7 +41,6 @@ describe Api::TeamsController do
 
       get :index, params: { 'team_ids': [team.id] }, xhr: true
 
-      expect(data).to be_a(Array)
       expect(data.count).to eq(1)
       expect(response.status).to be(200)
 
@@ -51,9 +50,8 @@ describe Api::TeamsController do
 
       included_types = json['included'].map { |e| e['type'] }
 
-      nested_models.each do |model_type|
-        expect(included_types).to include(model_type.pluralize)
-      end
+      expect(included_types).to include(nested_models.first.pluralize)
+      expect(included_types).to include(nested_models.second.pluralize)
 
       expect(attributes['name']).to eq team.name
       expect(attributes['description']).to eq team.description
@@ -67,7 +65,6 @@ describe Api::TeamsController do
 
       get :index, params: { 'team_ids': [team.id, team2.id] }, xhr: true
 
-      expect(data).to be_a(Array)
       expect(data.count).to eq(2)
       expect(response.status).to be(200)
 
@@ -76,9 +73,8 @@ describe Api::TeamsController do
 
       included_types = json['included'].map { |e| e['type'] }
 
-      nested_models.each do |model_type|
-        expect(included_types).to include(model_type.pluralize)
-      end
+      expect(included_types).to include(nested_models.first.pluralize)
+      expect(included_types).to include(nested_models.second.pluralize)
 
       expect(attributes_first_team['name']).to eq team.name
       expect(attributes_first_team['description']).to eq team.description
