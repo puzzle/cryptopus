@@ -20,10 +20,6 @@ class Authentication::UserAuthenticator::Db < Authentication::UserAuthenticator
     super(last_login_from: remote_ip)
   end
 
-  def user_logged_in?(session)
-    session[:user_id].present? && session[:private_key].present?
-  end
-
   private
 
   def user_forbidden(allow_root, allow_api)

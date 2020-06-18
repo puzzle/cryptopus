@@ -31,7 +31,7 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
   end
 
   def user_logged_in?(session)
-    session[:user_id].present? && session[:private_key].present? && user_allowed?(session)
+    session[:user_id].present? && user_allowed?(session)
   end
 
   def keycloak_login

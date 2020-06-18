@@ -32,10 +32,6 @@ class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticato
     super(params)
   end
 
-  def user_logged_in?(session)
-    session[:user_id].present? && session[:private_key].present?
-  end
-
   private
 
   def find_or_create_user

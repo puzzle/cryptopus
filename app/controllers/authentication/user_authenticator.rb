@@ -48,8 +48,8 @@ class Authentication::UserAuthenticator
     session_new_path
   end
 
-  def user_logged_in?
-    raise NotImplementedError, 'implement in subclass'
+  def user_logged_in?(session)
+    session[:user_id].present?
   end
 
   def logged_out_path
