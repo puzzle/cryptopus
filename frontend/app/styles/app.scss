@@ -318,6 +318,7 @@ li a {
   > .list-group
   > .list-group-item:first-child.selected-nav-entry {
   border-top-color: #16416c;
+  border-bottom-color: #16416c;
 }
 
 .list-group.list-group-root > .list-group > .list-group-item {
@@ -326,7 +327,9 @@ li a {
   border-width: 0px;
   border-top-width: 1px;
   border-color: #1b6d9f;
-  /* #1b6d9f*/
+}
+
+.top-item {
 }
 
 .bg-blue-one {
@@ -336,6 +339,11 @@ li a {
 
 .bg-blue-two {
   background-color: #1e5a96 !important;
+  color: white !important;
+}
+
+.bg-blue-three {
+  background-color: #3b7bbe !important;
   color: white !important;
 }
 

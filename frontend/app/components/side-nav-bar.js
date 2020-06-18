@@ -2,38 +2,22 @@ import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
-import { isPresent, isNone } from "@ember/utils";
+import { not } from '@ember/object/computed';
+import { compare, isNone } from "@ember/utils";
 
 export default class SideNavBar extends Component {
   @service store;
   @service router;
-  @service navSideBar;
+  @service navService;
 
   @tracked teams;
-  @tracked selectedTeam;
-  @tracked selectedFolder;
   @tracked collapsed
 
   constructor() {
     super(...arguments);
 
     this.teams = this.args.teams;
-
-
-    this.selectedTeam = this.navSideBar.selectedTeam();
-    this.selectedFolder = this.navSideBar.selectedFolder();
-
-    this.collapsed = isPresent(this.selectedTeam);
-
-
-    /* eslint-disable no-undef  */
-    var navSideBarContainer = $('#nav-side-bar-container');
-    navSideBarContainer.on('show.bs.collapse','.collapse', function() {
-      navSideBarContainer.find('.collapse.in').collapse('hide');
-    });
-    /* eslint-enable no-undef  */
-
-
+    this.collapsed = isNone(this.navService.selectedTeam);
   }
 
   setupModal(element) {
@@ -46,24 +30,27 @@ export default class SideNavBar extends Component {
 
   @action
   setSelectedTeam(team) {
-    if(isNone(this.selectedTeam)) {
-      this.collapsed = false;
-    }
+    let already_the_same = this.navService.selectedTeam === team
 
-    if(this.selectedTeam === team) {
+    this.navService.selectedTeam = team;
+    this.navService.selectedFolder = null;
+
+    if (already_the_same)
       this.collapsed = !this.collapsed;
-    } else {
+    else
       this.collapsed = false;
-      this.navSideBar.setSelectedTeam(team);
-      this.selectedTeam = team;
-    }
-    this.selectedFolder = null;
+      this.router.transitionTo('teams', {
+        queryParams: { team_id: team.id }
+      });
   }
 
   @action
   setSelectedFolder(folder) {
-    this.navSideBar.setSelectedFolder(folder);
-    this.selectedFolder = folder;
+    this.navService.selectedFolder = folder;
+
+    this.router.transitionTo('teams',  {
+      queryParams: { folder_id: folder.id }
+    });
 
   }
 
