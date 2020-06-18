@@ -5,6 +5,17 @@
 
 .navbar-inverse {
   width: 100% !important;
+  border-radius: 0;
+  margin-bottom: 0px;
+}
+
+.navbar-header {
+  display: flex;
+  width: 250px !important;
+}
+
+.navbar-logo {
+  padding: 5px 10px 5px 5px;
 }
 
 .container {
@@ -41,6 +52,11 @@
   width: 20px;
   display: inline;
 }
+
+.logo-icon {
+  height: 40px;
+}
+
 
 /*breadcrumbs*/
 

@@ -20,8 +20,10 @@
   %body{"data-locale" => I18n.locale}
     #ember{style: "margin-top:75px;"}
     = render 'layouts/icons'
-    .container.main{role: "main"}
-      = render 'layouts/navigation'
-      = render 'layouts/flashes'
-      = yield
-    = render 'layouts/footer' if current_user
+    = render 'layouts/navigation'
+    #ember.wrapper
+    #content
+      .container.main{role: "main"}
+        = render 'layouts/flashes'
+        = yield
+      = render 'layouts/footer' if current_user

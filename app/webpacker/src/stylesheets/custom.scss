@@ -24,7 +24,6 @@ body {
 }
 
 .main {
-  margin-top: 100px;
   padding-bottom: 10px;
 }
 
@@ -194,4 +193,15 @@ body {
 }
 .edit_button img {
   height: 18px;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+}
+
+#content {
+  position: fixed;
+  left: 250px;
 }

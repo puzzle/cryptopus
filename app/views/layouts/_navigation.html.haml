@@ -4,9 +4,10 @@
 -#  https://github.com/puzzle/cryptopus.
 
 - if current_user
-  %nav.navbar.navbar-inverse.navbar-fixed-top
-    .container
+  %nav.navbar.navbar-inverse
+    .container-fluid
       .navbar-header
+        = link_to(image_pack_tag("cryptopussy_without_text.svg", class: 'logo-icon'), search_path, class:'navbar-logo')
         = link_to('Cryptopus', search_path, class: 'navbar-brand')
       .navbar-collapse.collapse
         %ul.nav.navbar-nav
