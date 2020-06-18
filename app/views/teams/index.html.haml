@@ -17,7 +17,7 @@
       - else
         %td= link_to image_pack_tag( "members.svg", class: "icon") + " #{team.name}", team_path( team )
       %td= h simple_format team.description
-      %td.action_icon= link_to image_pack_tag( "edit.svg" ), "#/teams/#{team.id}/edit", 'data-turbolinks': false
+      %td.action_icon= link_to image_pack_tag( "edit.svg", class: 'icon' ), "#/teams/#{team.id}/edit", 'data-turbolinks': false
       - if policy(team).destroy?
         %td.action_icon= link_to_destroy team_path(team), team
       - else

@@ -6,5 +6,5 @@
 %h1
   = t '.title', team_name: team.name
   - if team.private?
-    =image_pack_tag('encrypted_small.svg')
+    =image_pack_tag('encrypted_small.svg', class: 'icon')
 = render 'folders'
