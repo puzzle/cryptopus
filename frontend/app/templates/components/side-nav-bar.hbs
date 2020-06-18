@@ -1,33 +1,35 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light" {{did-insert this.setupModal this}}>
-  <div class="container-fluid" id="nav-side-bar-container">
-    <div class="list-group list-group-root well">
-        {{#each this.teams as |team|}}
-          <a {{on "click" (fn this.setSelectedTeam team)}}
-                  class="list-group-item list-group-item-action {{if (eq team this.selectedTeam) "active"}}"
-                  data-target="#nav-folders-{{team.id}}" data-toggle="collapse" data-parent="#nav-side-bar-container"
-                  aria-expanded="false" aria-controls="#nav-folders-{{team.id}}?">
-              {{team.name}}
+<div class="" id="nav-side-bar-container" {{did-insert this.setupModal this}}>
+  <div class="list-group list-group-root">
 
-              {{#if (and (eq team this.selectedTeam) (not this.collapsed))}}
-                <img class="icon float-right" src="/ember/assets/images/angle-down.svg" alt="v">
-              {{else}}
-                <img class="icon float-right" src="/ember/assets/images/angle-left.svg" alt="<">
-              {{/if}}
+    <a class="list-group-item list-group-item-action top-item bg-blue-two font-weight-bold"><strong>All Teams or something</strong></a>
+
+    {{#each this.teams as |team|}}
+      <a {{on "click" (fn this.setSelectedTeam team)}} class="list-group-item list-group-item-action {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
+        {{#if team.private}}
+          <img class="icon" src="/ember/assets/images/members.svg" alt="">
+        {{else}}
+          <img class="icon" src="/ember/assets/images/encrypted_small.svg" alt="">
+        {{/if}}
+        {{team.name}}
+        {{#if (or (not (eq team this.navService.selectedTeam)) this.collapsed)}}
+          <img class="icon float-right" src="/ember/assets/images/angle-left.svg" alt="<">
+        {{else}}
+          <img class="icon float-right" src="/ember/assets/images/angle-down.svg" alt="v">
+        {{/if}}
+      </a>
+      <BsCollapse class="list-group" id="nav-folders-{{team.id}}" @collapsed={{or (not (eq team this.navService.selectedTeam)) this.collapsed}}>
+        {{#each team.folders as |folder|}}
+          <a class="list-group-item {{if (eq folder this.navService.selectedFolder) "bg-blue-two selected-nav-entry" "bg-blue-three"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
+            <img class="icon" src="/ember/assets/images/folder.svg" alt="">
+            {{folder.name}}
           </a>
-          <div class="collapse list-group" id="nav-folders-{{team.id}}">
-              {{#each team.folders as |folder|}}
-                  <a class="list-group-item ml-2 {{if (eq folder this.selectedFolder) "active"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
-                    {{folder.name}}
-                  </a>
-              {{/each}}
-              {{#unless team.folders}}
-                <a class="list-group-item ml-2">
-                  No folders
-                </a>
-              {{/unless}}
-          </div>
         {{/each}}
-    </div>
-
+        {{#unless team.folders}}
+          <a class="list-group-item bg-blue-three">
+            <span class="font-weight-light">No folders</span>
+          </a>
+        {{/unless}}
+      </BsCollapse>
+    {{/each}}
   </div>
-</nav>
+</div>
