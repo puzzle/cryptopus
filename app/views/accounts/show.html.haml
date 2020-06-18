@@ -37,6 +37,6 @@
     - for file_entry in @file_entries
       %tr{class: "#{cycle( 'odd', 'even' )}"}
         %td
-          = link_to image_pack_tag("file.svg") + file_entry.filename, account_file_entry_path(@account, file_entry), target: "_blank"
+          = link_to image_pack_tag("file.svg", class: 'icon') + file_entry.filename, account_file_entry_path(@account, file_entry), target: "_blank"
         %td{valign: "top"}= simple_format file_entry.description
         %td.action_icon= link_to_destroy account_file_entry_path(@account, file_entry), file_entry

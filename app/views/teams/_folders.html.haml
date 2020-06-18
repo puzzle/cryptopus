@@ -15,7 +15,7 @@
     %th{colspan: "3"}= t :actions
   - for folder in @folders
     %tr{class: "#{cycle('odd', 'even')}"}
-      %td= link_to image_pack_tag( "folder_open.svg" ) + " " + %Q{#{folder.name}}, team_folder_path(team, folder)
+      %td= link_to image_pack_tag( "folder_open.svg", class: 'icon' ) + " " + %Q{#{folder.name}}, team_folder_path(team, folder)
       %td= h simple_format folder.description
       %td.action_icon= link_to image_pack_tag("edit.svg", class: 'icon'), "#/folders/#{folder.id}/edit?team_id=#{team.id}", 'data-turbolinks': 'false'
       %td.action_icon= link_to_destroy team_folder_path(team, folder), folder
