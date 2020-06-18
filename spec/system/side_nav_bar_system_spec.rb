@@ -20,10 +20,25 @@ describe 'SideNavBar', type: :system, js: true do
     expect(sidebar).to have_text('team1')
     expect(sidebar).to have_text('team2')
 
-    within(sidebar, wait: 4) do
-      puts sidebar.all('a')[1]['text']
-      sidebar.all('a')[1].click
+    within(sidebar) do
+      first_team_entry = all('a')[1]
+      second_team_entry = all('a')[2]
+
+
+      expect(first_team_entry).to have_xpath("//img[@alt='<']")
+      first_team_entry.click
+
       expect(sidebar).to have_text('folder1')
+      expect(first_team_entry).to have_xpath("//img[@alt='v']")
+      # check if page shows this team
+      first_team_entry.click
+
+      expect(first_team_entry).to have_xpath("//img[@alt='<']")
+      expect(sidebar).to_not have_text('folder1')
+
+      second_team_entry.click
+      expect(sidebar).to_not have_text('folder1')
+      expect(sidebar).to have_text('folder2')
     end
 
     logout
