@@ -213,7 +213,12 @@ de:
       new: Neues Passwort
       new_retype: Neues Passwort (wiederholen)
       submit: Ändern
-
+  recrypt:
+    sso:
+      new:
+        notice: Bitte geben Sie Ihr Cryptopus-Passwort ein, um Ihr Konto zu Keycloak zu migrieren.
+        cryptopus_password: Dein Cryptopus Passwort
+        migrate: Migrieren
   teammembers:
     new:
       title: Ein neues Teammitglied hinzufügen

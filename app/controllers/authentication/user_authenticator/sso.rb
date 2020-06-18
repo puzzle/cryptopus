@@ -5,7 +5,6 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
   def authenticate!
     return false unless Keycloak::Client.user_signed_in?
     return false unless preconditions?
-    return false if Keycloak::Client.get_attribute('pk_secret_base').nil?
 
     true
   end
@@ -44,6 +43,10 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
 
   def logged_out_path
     sso_inactive_path
+  end
+
+  def recrypt_path
+    recrypt_sso_path
   end
 
   private
@@ -87,13 +90,13 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
   end
 
   def create_user
-    pk_secret_base = Keycloak::Client.get_attribute('pk_secret_base') ||
-                      keycloak_client.create_pk_secret_base(Keycloak::Client.get_attribute('sub'))
+    provider_uid = Keycloak::Client.get_attribute('sub')
+    pk_secret_base = keycloak_client.find_or_create_pk_secret_base
     User::Human.create(
       username: username,
       givenname: Keycloak::Client.get_attribute('given_name'),
       surname: Keycloak::Client.get_attribute('family_name'),
-      provider_uid: Keycloak::Client.get_attribute('sub'),
+      provider_uid: provider_uid,
       auth: 'keycloak'
     ) { |u| u.create_keypair(keycloak_client.user_pk_secret(secret: pk_secret_base)) }
   end

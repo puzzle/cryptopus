@@ -9,14 +9,6 @@ class RecryptrequestPolicy < ApplicationPolicy
     current_user.admin?
   end
 
-  def new_ldap_password?
-    current_user.ldap?
-  end
-
-  def recrypt?
-    true
-  end
-
   private
 
   def current_user

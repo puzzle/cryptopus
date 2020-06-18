@@ -105,13 +105,8 @@ class User::Human < User
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
   def recrypt_private_key!(new_password, old_password)
-    unless user_authenticator(new_password).authenticate!
-      errors.add(:base,
-                 I18n.t('activerecord.errors.models.user.new_password_invalid'))
-      return false
-    end
+    return unauthorized unless user_authenticator(new_password).authenticate!
 
     begin
       plaintext_private_key = CryptUtils.decrypt_private_key(private_key, old_password)
@@ -123,7 +118,6 @@ class User::Human < User
     end
     save!
   end
-  # rubocop:enable Metrics/MethodLength
 
   def root?
     username == 'root'
@@ -135,6 +129,15 @@ class User::Human < User
 
   def ldap?
     auth == 'ldap'
+  end
+
+  def keycloak?
+    auth == 'keycloak'
+  end
+
+  def unauthorized
+    errors.add(:base, I18n.t('activerecord.errors.models.user.new_password_invalid'))
+    false
   end
 
   def migrate_legacy_private_key(password)

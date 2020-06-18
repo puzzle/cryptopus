@@ -25,7 +25,7 @@ class SessionController < ApplicationController
     end
 
     unless create_session(params[:password])
-      return redirect_to recryptrequests_new_ldap_password_path
+      return redirect_to user_authenticator.recrypt_path
     end
 
     last_login_message

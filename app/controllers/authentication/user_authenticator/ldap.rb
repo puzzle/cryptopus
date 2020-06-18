@@ -32,6 +32,10 @@ class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticato
     super(params)
   end
 
+  def recrypt_path
+    recrypt_ldap_path
+  end
+
   private
 
   def find_or_create_user
