@@ -1,6 +1,8 @@
 <NavBar />
-<div class="nav-side-bar">
-  <SideNavBar @teams={{this.model}} />
+<div id="sidebar">
+  <nav class="navbar navbar-inverse nav-side-bar">
+    <SideNavBar @teams={{this.model}} />
+  </nav>
 </div>
 {{outlet}}
 <div class="main" role="main">
