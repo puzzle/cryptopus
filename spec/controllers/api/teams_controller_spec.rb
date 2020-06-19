@@ -7,34 +7,40 @@ describe Api::TeamsController do
 
   let(:bob) { users(:bob) }
   let(:alice) { users(:alice) }
+  let(:team1) { teams(:team1) }
+  let(:team2) { teams(:team2) }
+  let(:nested_models) { %w[folder account] }
 
   context 'GET index' do
     it 'should get team for search term' do
-      login_as(:alice)
-      get :index, params: { 'q': 'team' }, xhr: true
+      login_as(:bob)
+      get :index, params: { 'q': '2' }, xhr: true
 
       result_json = data.first
 
-      team = teams(:team1)
-
-      expect(result_json['attributes']['name']).to eq team.name
-      expect(result_json['id']).to eq team.id.to_s
+      expect(result_json['attributes']['name']).to eq team2.name
+      expect(result_json['id']).to eq team2.id.to_s
     end
 
     it 'should get all teams for no query' do
-      login_as(:alice)
+      login_as(:bob)
       get :index, params: { 'q': '' }, xhr: true
+
+      expect(data.size).to eq(2)
 
       result_json = data.first
 
-      team = teams(:team1)
+      expect(result_json['attributes']['name']).to eq team1.name
+      expect(result_json['id']).to eq team1.id.to_s
 
-      expect(result_json['attributes']['name']).to eq team.name
-      expect(result_json['id']).to eq team.id.to_s
+      result_json = data.second
+
+      expect(result_json['attributes']['name']).to eq team2.name
+      expect(result_json['id']).to eq team2.id.to_s
     end
 
     it 'should get a single team if one team_id is given' do
-      login_as(:alice)
+      login_as(:bob)
 
       team = teams(:team1)
 
@@ -52,14 +58,14 @@ describe Api::TeamsController do
       expect(included_types).to include('folder'.pluralize)
       expect(included_types).to include('account'.pluralize)
 
-      expect(attributes['name']).to eq team.name
-      expect(attributes['description']).to eq team.description
+      expect(attributes['name']).to eq team1.name
+      expect(attributes['description']).to eq team1.description
     end
 
     it 'should get multiple teams if more than one id is given' do
       login_as(:bob)
 
-      get :index, xhr: true
+      get :index, params: { 'team_ids': [team1.id, team2.id] }, xhr: true
 
       expect(data.count).to eq(2)
       expect(response.status).to be(200)
@@ -67,11 +73,12 @@ describe Api::TeamsController do
       attributes = data.first['attributes']
 
       included_types = json['included'].map { |e| e['type'] }
-      require 'pry'; binding.pry;
 
       expect(included_types).to include('folder'.pluralize)
       expect(included_types).to include('account'.pluralize)
 
+      expect(attributes_first_team['name']).to eq team1.name
+      expect(attributes_first_team['description']).to eq team1.description
       expect(attributes).to have(2).items
 
       expect(attributes.first).to include(teams(:team1))
@@ -81,26 +88,18 @@ describe Api::TeamsController do
     it 'should get teams, folders and accounts for query' do
       login_as(:bob)
 
-      query = '2'
-
-      team = teams(:team1)
-      team2 = teams(:team2)
-
-      folder = folders(:folder1)
+      folder1 = folders(:folder1)
       folder2 = folders(:folder2)
 
-      account = accounts(:account1)
+      account1 = accounts(:account1)
       account2 = accounts(:account2)
 
-      get :index, params: { 'q': query }, xhr: true
+      get :index, params: { 'q': 'account2' }, xhr: true
 
       expect(data.count).to eq(1)
       expect(response.status).to be(200)
 
       attributes_first_team = data.first['attributes']
-      require 'pry'; binding.pry;
-      expect(data).to_not include(team)
-      expect(data).to include(team2)
 
       expect(attributes_first_team['name']).to eq team2.name
       expect(attributes_first_team['description']).to eq team2.description
@@ -108,11 +107,11 @@ describe Api::TeamsController do
       folders = included.select { |element| element['type'] == 'folder'.pluralize }
       accounts = included.select { |element| element['type'] == 'account'.pluralize }
 
-      folders.first.to eq(folder2)
-      folders.not_to include(folder)
+      expect(folders.first['attributes']['name']).to eq(folder2.name)
+      expect(folders).not_to include(folder1.name)
 
-      accounts.first.to eq(account2)
-      accounts.not_to include(account)
+      expect(accounts.first['attributes']['accountname']).to eq(account2.accountname)
+      expect(accounts).not_to include(account1.accountname)
     end
 
   end
@@ -121,24 +120,22 @@ describe Api::TeamsController do
     it 'updates team with valid params structure' do
       set_auth_headers
 
-      team = teams(:team1)
-
       update_params = {
         data: {
-          id: team.id,
+          id: team1.id,
           attributes: {
             name: 'Team Bob',
             description: 'yeah, my own team'
           }
-        }, id: team.id
+        }, id: team1.id
       }
 
       patch :update, params: update_params, xhr: true
 
-      team.reload
+      team1.reload
 
-      expect(team.name).to eq(update_params[:data][:attributes][:name])
-      expect(team.description).to eq(update_params[:data][:attributes][:description])
+      expect(team1.name).to eq(update_params[:data][:attributes][:name])
+      expect(team1.description).to eq(update_params[:data][:attributes][:description])
 
       expect(response).to have_http_status(200)
     end
@@ -147,11 +144,9 @@ describe Api::TeamsController do
       request.headers['Authorization-User'] = alice.username
       request.headers['Authorization-Password'] = Base64.encode64('password')
 
-      team = teams(:team2)
-
       team_params =
         {
-          id: team.id,
+          id: team2.id,
           team:
             {
               name: 'Team Alice',
@@ -160,10 +155,10 @@ describe Api::TeamsController do
         }
       patch :update, params: team_params, xhr: true
 
-      team.reload
+      team2.reload
 
-      expect(team.name).to eq('team2')
-      expect(team.description).to eq('public')
+      expect(team2.name).to eq('team2')
+      expect(team2.description).to eq('public')
 
       expect(response).to have_http_status(403)
     end
@@ -171,24 +166,22 @@ describe Api::TeamsController do
     it 'cannot enable private on existing team' do
       set_auth_headers
 
-      team = teams(:team1)
-
-      expect(team).to_not be_private
+      expect(team1).to_not be_private
 
       update_params = {
         data: {
-          id: team.id,
+          id: team1.id,
           attributes: {
             private: true
           }
-        }, id: team.id
+        }, id: team1.id
       }
 
       patch :update, params: update_params, xhr: true
 
-      team.reload
+      team1.reload
 
-      expect(team).to_not be_private
+      expect(team1).to_not be_private
 
       expect(response).to have_http_status(200)
     end
@@ -197,22 +190,22 @@ describe Api::TeamsController do
       set_auth_headers
 
       team_params = { name: 'foo', private: true }
-      team = Team.create(users(:bob), team_params)
+      new_team = Team.create(users(:bob), team_params)
 
       update_params = {
         data: {
-          id: team.id,
+          id: new_team.id,
           attributes: {
             private: false
           }
-        }, id: team.id
+        }, id: new_team.id
       }
 
       patch :update, params: update_params, xhr: true
 
       team.reload
 
-      expect(team).to be_private
+      expect(new_team).to be_private
 
       expect(response).to have_http_status(200)
     end
