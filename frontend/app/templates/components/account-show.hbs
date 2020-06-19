@@ -56,47 +56,5 @@
         <img class="icon-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
       </DeleteWithConfirmation>
     </div>
-
-    <!--
-    <img class="d-inline mb-2 account-detail-key" src="/ember/assets/images/key.svg" alt="key">
-    <h4 class="d-inline">{{@account.accountname}}</h4>
-    <div>
-      <div class="row p-2">
-        <div class="col-sm-8">
-          <Input @disabled="true" @value={{@account.cleartextUsername}}/>
-        </div>
-        <div class="">
-          <CopyButton @clipboardText={{@account.cleartextUsername}}>
-            <svg class="icon-clippy">
-              <use xlink:href="#icon-clippy"></use>
-            </svg>
-          </CopyButton>
-        </div>
-      </div>
-      <div class="row p-2">
-        <div class="col-sm-8">
-          <Input class="secret" @disabled="true" @value={{@account.cleartextPassword}}/>
-        </div>
-        <div class="">
-          <CopyButton @clipboardText={{@account.cleartextPassword}}>
-            <svg class="icon-clippy">
-              <use xlink:href="#icon-clippy"></use>
-            </svg>
-          </CopyButton>
-        </div>
-      </div>
-    </div>
-    <div class="mt-3 d-flex justify-content-between">
-      <a href={{concat "/accounts/" @account.id}}>
-        <img class="icon-button d-inline" src="/ember/assets/images/eye.svg" alt="show">
-      </a>
-      <a role="button" {{on "click" this.toggleAccountEdit}}>
-        <img class="icon-button d-inline" src="/ember/assets/images/edit.svg" alt="edit">
-      </a>
-      <DeleteWithConfirmation @record={{@account}} @didDelete={{this.refreshRoute}}>
-        <img class="icon-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
-      </DeleteWithConfirmation>
-    </div>
-    -->
   </div>
 {{/if}}
