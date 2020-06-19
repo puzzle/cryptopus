@@ -24,16 +24,6 @@ class AccountsController < ApplicationController
     end
   end
 
-  # DELETE /accounts/1
-  def destroy
-    authorize account
-
-    @account.destroy
-    respond_to do |format|
-      format.html { redirect_to team_folder_url(team, @folder) }
-    end
-  end
-
   private
 
   def folder

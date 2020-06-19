@@ -78,4 +78,10 @@ class Api::AccountsController < ApiController
   def account_move_handler
     AccountMoveHandler.new(account, session[:private_key], current_user)
   end
+
+  class << self
+    def model_class
+      Account
+    end
+  end
 end
