@@ -1,0 +1,17 @@
+<span role="button" data-toggle="modal" data-target={{concat "#" this.modalId}}>
+  {{yield}}
+</span>
+
+<div id={{this.modalId}} class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        {{t "confirmation"}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{t "close"}}</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" {{on "click" this.deleteRecord}}>{{t "delete"}}</button>
+      </div>
+    </div>
+  </div>
+</div>

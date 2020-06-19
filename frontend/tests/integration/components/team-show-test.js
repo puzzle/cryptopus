@@ -11,7 +11,10 @@ module("Integration | Component | team-show", function(hooks) {
       name: "BBT",
       description: "Berufsbildungsteam of Puzzle ITC",
       folders: [
-        { name: "It-Ninjas", accounts: [{ name: "Ninjas test account" }] }
+        {
+          name: "It-Ninjas",
+          accounts: [{ accountname: "Ninjas test account" }]
+        }
       ]
     });
 

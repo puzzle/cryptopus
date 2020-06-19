@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     # resources :folders, only: [:show, :destroy]
   # end
 
-  resources :accounts, only: [:show, :destroy] do
+  resources :accounts, only: [:show] do
     resources :file_entries, only: [:show, :destroy]
   end
 
