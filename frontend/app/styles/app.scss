@@ -54,7 +54,7 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 }
 
 .d-inline {
-  display: inline;
+  display: inline !important;
 }
 
 .justify-content-between {
@@ -79,6 +79,18 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 
 .mt-1 {
   margin-top: 1%;
+}
+
+.mb-2 {
+  margin-bottom: 2%;
+}
+
+.pt-10 {
+  padding-top: 10%;
+}
+
+.w-20 {
+  width: 20%;
 }
 
 .mb-2 {
@@ -219,4 +231,46 @@ li a {
   /* filter for #238bca color, used https://codepen.io/sosuke/pen/Pjoqqp to generate */
   filter: invert(42%) sepia(69%) saturate(780%) hue-rotate(164deg)
     brightness(95%) contrast(84%);
+}
+
+.account-thumbnail.account-preview:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.account-thumbnail {
+  width: 20%;
+}
+
+.account-thumbnail hr {
+  margin: 0;
+}
+
+.account-thumbnail .account-accountname {
+  min-height: 6em;
+}
+
+.account-thumbnail .account-description {
+  max-height: 3em;
+}
+
+.account-thumbnail.account-detail {
+  background-color: lightgray;
+}
+
+.account-thumbnail.account-detail > div {
+  background-color: white;
+}
+
+.account-detail .icon-clippy {
+  width: 19px;
+}
+
+.account-detail input[disabled] {
+  width: 100%;
+  height: 35px;
+}
+
+.account-detail .copy-btn {
+  height: 35px;
 }
