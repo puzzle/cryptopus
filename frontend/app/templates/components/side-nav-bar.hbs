@@ -4,7 +4,7 @@
     <a class="list-group-item list-group-item-action top-item bg-blue-two font-weight-bold"><strong>All Teams or something</strong></a>
 
     {{#each this.teams as |team|}}
-      <a {{on "click" (fn this.setSelectedTeam team)}} class="list-group-item list-group-item-action {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
+      <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
         {{#if team.private}}
           <img class="icon" src="/ember/assets/images/members.svg" alt="">
         {{else}}
@@ -19,7 +19,7 @@
       </a>
       <BsCollapse class="list-group" id="nav-folders-{{team.id}}" @collapsed={{or (not (eq team this.navService.selectedTeam)) this.collapsed}}>
         {{#each team.folders as |folder|}}
-          <a class="list-group-item {{if (eq folder this.navService.selectedFolder) "bg-blue-two selected-nav-entry" "bg-blue-three"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
+          <a role="button"  class="list-group-item {{if (eq folder this.navService.selectedFolder) "bg-blue-two selected-nav-entry" "bg-blue-three"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
             <img class="icon" src="/ember/assets/images/folder.svg" alt="">
             {{folder.name}}
           </a>

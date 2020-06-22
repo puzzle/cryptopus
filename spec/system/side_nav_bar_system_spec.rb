@@ -24,21 +24,34 @@ describe 'SideNavBar', type: :system, js: true do
       first_team_entry = all('a')[1]
       second_team_entry = all('a')[2]
 
-
       expect(first_team_entry).to have_xpath("//img[@alt='<']")
       first_team_entry.click
 
       expect(sidebar).to have_text('folder1')
       expect(first_team_entry).to have_xpath("//img[@alt='v']")
-      # check if page shows this team
-      first_team_entry.click
 
+      expect(current_path).to eq '/teams?team_id=1'
+      # TODO: check if page shows this team
+
+      first_team_entry.click
       expect(first_team_entry).to have_xpath("//img[@alt='<']")
       expect(sidebar).to_not have_text('folder1')
 
       second_team_entry.click
       expect(sidebar).to_not have_text('folder1')
       expect(sidebar).to have_text('folder2')
+
+      folder_entry = first_team_entryall('a')[1]
+      folder_entry.click
+
+      expect(current_path).to eq "#/teams?folder_id=1&team_id=2"
+      # TODO: check if page expanded correct folder
+
+      start_page = all('a')[0]
+      expect(start_page).to have_text('All Teams or something')
+      start_page.click
+      # TODO: what to expect on start page?
+
     end
 
     logout
