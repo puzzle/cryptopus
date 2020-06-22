@@ -1,17 +1,24 @@
 import Component from "@ember/component";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
+import { inject as service } from "@ember/service";
 
 export default class FolderShowComponent extends Component {
+  @service navService;
+  @service router;
+
   @tracked
   isFolderEditing = false;
 
-  @tracked
-  collapsed = true;
+  get collapsed() {
+    this.navService.selectedFolder != this.args.folder;
+  }
 
   @action
   collapse() {
-    this.collapsed = !this.collapsed;
+    this.router.transitionTo("teams.index", {
+      queryParams: { folder_id: !this.collapsed ? null : this.args.folder.id }
+    });
   }
 
   @action

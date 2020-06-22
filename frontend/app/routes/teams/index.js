@@ -21,12 +21,16 @@ export default class TeamsIndexRoute extends Route {
     let folder_id = transition.to.queryParams.folder_id;
     if (team_ids) {
       this.navService.selectedTeam = this.store.peekRecord("team", team_ids);
+    } else {
+      this.navService.selectedTeam = null;
     }
     if (folder_id) {
       this.navService.selectedFolder = this.store.peekRecord(
         "folder",
         folder_id
       );
+    } else {
+      this.navService.selectedFolder = null;
     }
   }
 
