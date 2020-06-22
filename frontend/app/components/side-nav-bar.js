@@ -33,9 +33,6 @@ export default class SideNavBar extends Component {
   setSelectedTeam(team) {
     let already_the_same = this.navService.selectedTeam === team;
 
-    this.navService.selectedTeam = team;
-    this.navService.selectedFolder = null;
-
     if (already_the_same) this.collapsed = !this.collapsed;
     else this.collapsed = false;
     this.router.transitionTo("teams.index", {
@@ -45,8 +42,6 @@ export default class SideNavBar extends Component {
 
   @action
   setSelectedFolder(folder) {
-    this.navService.selectedFolder = folder;
-
     this.router.transitionTo("teams", {
       queryParams: { folder_id: folder.id }
     });
