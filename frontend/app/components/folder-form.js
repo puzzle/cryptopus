@@ -29,8 +29,8 @@ export default class FolderForm extends BaseFormComponent {
       FolderValidations
     );
 
-    if(this.isNewRecord && isPresent(this.args.team)) {
-      this.changeset.team = this.args.team
+    if (this.isNewRecord && isPresent(this.args.team)) {
+      this.changeset.team = this.args.team;
     }
 
     this.store.findAll("team").then(teams => {
@@ -45,6 +45,10 @@ export default class FolderForm extends BaseFormComponent {
 
   @action
   abort() {
+    if (this.args.onAbort) {
+      this.args.onAbort();
+      return;
+    }
     this.router.transitionTo("index");
   }
 
@@ -66,7 +70,12 @@ export default class FolderForm extends BaseFormComponent {
     $(this.modalElement).modal("hide");
     /* eslint-enable no-undef  */
     if (this.isNewRecord) {
-      window.location.replace("/teams/"+savedRecords[0].team.get('id')+"/folders/" + savedRecords[0].id);
+      window.location.replace(
+        "/teams/" +
+          savedRecords[0].team.get("id") +
+          "/folders/" +
+          savedRecords[0].id
+      );
     } else {
       let href = window.location.href;
       window.location.replace(href.substring(0, href.search("#")));

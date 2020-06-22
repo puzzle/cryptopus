@@ -1,3 +1,6 @@
+{{#if this.isFolderEditing}}
+  <FolderForm @folder={{@folder}} @onAbort={{this.toggleFolderEdit}}/>
+{{/if}}
 <div class="accordion mt-3" id={{concat "folderAccordion-" @folder.id}}>
   <div id={{concat "folderHeading-" @folder.id}}>
     <div class="mb-0" role="button" data-toggle="collapse" data-target={{concat "#folderCollapse-" @folder.id}} aria-expanded="true" aria-controls={{concat "#folderCollapse-" @folder.id}}>
@@ -7,9 +10,9 @@
         </div>
         <div></div>
         <div>
-          <LinkTo @route="folders.edit" @model={{@folder}}>
+          <a role="button" {{on "click" this.toggleFolderEdit}}>
             <img class="icon-button folder-edit-icon" src="/ember/assets/images/edit.svg" alt="edit">
-          </LinkTo>
+          </a>
         </div>
       </div>
       <hr class="folder-divider">

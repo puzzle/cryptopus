@@ -1,15 +1,21 @@
+{{#if this.isTeamEditing}}
+  <TeamForm @team={{@team}} @onAbort={{this.toggleTeamEdit}}/>
+{{/if}}
+{{#if this.isTeamConfiguring}}
+  <TeamMemberConfigure @teamId={{@team.id}} @onAbort={{this.toggleTeamConfigure}}/>
+{{/if}}
 <div class="container mt-1">
   <div class="accordion" id={{concat "teamAccordion-" @team.id}}>
     <div class="row mb-10">
       <div role="button" data-toggle="collapse" data-target={{concat "#teamCollapse-" @team.id}} aria-expanded="true" aria-controls={{concat "teamCollapse-" @team.id}}>
         <h1 class="d-inline">{{@team.name}}</h1>
         <span class="ml-5">
-          <LinkTo @route="teams.edit" @model={{@team}}>
+          <a role="button" {{on "click" this.toggleTeamEdit}}>
             <img class="icon-button" src="/ember/assets/images/edit.svg" alt="edit">
-          </LinkTo>
-          <LinkTo @route="teams.configure" @model={{@team.id}}>
+          </a>
+          <a role="button" {{on "click" this.toggleTeamConfigure}}>
             <img class="icon-button" src="/ember/assets/images/team_config.svg" alt="configure">
-          </LinkTo>
+          </a>
         </span>
       </div>
       <hr>

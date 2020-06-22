@@ -10,6 +10,9 @@ export default class AccountShowComponent extends Component {
   @tracked
   isPreview = true;
 
+  @tracked
+  isAccountEditing = false;
+
   @action
   swapToCredentialsView() {
     this.isPreview = false;
@@ -19,5 +22,10 @@ export default class AccountShowComponent extends Component {
   @action
   refreshRoute() {
     this.router.transitionTo();
+  }
+
+  @action
+  toggleAccountEdit() {
+    this.isAccountEditing = !this.isAccountEditing;
   }
 }
