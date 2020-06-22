@@ -1,8 +1,11 @@
 import Component from "@ember/component";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
+import { inject as service } from "@ember/service";
 
 export default class TeamShowComponent extends Component {
+  @service navService;
+
   @tracked
   isTeamEditing = false;
 
@@ -10,7 +13,7 @@ export default class TeamShowComponent extends Component {
   isTeamConfiguring = false;
 
   @tracked
-  collapsed = true;
+  collapsed = this.navService.selectedTeam != this.args.team;
 
   @action
   collapse() {
