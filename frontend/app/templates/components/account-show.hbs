@@ -1,3 +1,6 @@
+{{#if this.isAccountEditing}}
+  <AccountForm @account={{@account}} @onAbort={{this.toggleAccountEdit}}/>
+{{/if}}
 {{#if this.isPreview}}
   <div class="thumbnail mt-3 account-thumbnail account-preview" {{on "click" this.swapToCredentialsView}} role="button">
     <div class="account-accountname pt-10">
@@ -43,9 +46,9 @@
       <a href={{concat "/accounts/" @account.id}}>
         <img class="icon-button d-inline" src="/ember/assets/images/eye.svg" alt="show">
       </a>
-      <LinkTo @route="accounts.edit" @model={{@account}}>
+      <a role="button" {{on "click" this.toggleAccountEdit}}>
         <img class="icon-button d-inline" src="/ember/assets/images/edit.svg" alt="edit">
-      </LinkTo>
+      </a>
       <DeleteWithConfirmation @record={{@account}} @didDelete={{this.refreshRoute}}>
         <img class="icon-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
       </DeleteWithConfirmation>

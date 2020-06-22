@@ -41,6 +41,10 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
   }
 
   abort() {
+    if (this.args.onAbort) {
+      this.args.onAbort();
+      return;
+    }
     this.router.transitionTo("index");
   }
 

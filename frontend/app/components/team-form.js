@@ -26,6 +26,10 @@ export default class AccountForm extends BaseFormComponent {
 
   @action
   abort() {
+    if (this.args.onAbort) {
+      this.args.onAbort();
+      return;
+    }
     this.router.transitionTo("index");
   }
 
