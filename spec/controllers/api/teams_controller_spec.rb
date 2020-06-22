@@ -5,10 +5,15 @@ require 'rails_helper'
 describe Api::TeamsController do
   include ControllerHelpers
 
-  let(:bob) { users(:bob) }
+  let!(:bob) { users(:bob) }
   let(:alice) { users(:alice) }
   let(:team1) { teams(:team1) }
   let(:team2) { teams(:team2) }
+  let!(:team3) { Fabricate(:non_private_team) }
+  let!(:team4) { Fabricate(:non_private_team) }
+  let(:bobs_private_key) { bob.decrypt_private_key('password') }
+  let!(:team3_user) { team3.teammembers.first.user }
+
   let(:nested_models) { %w[folder account] }
 
   context 'GET index' do
@@ -24,6 +29,7 @@ describe Api::TeamsController do
 
     it 'should get all teams for no query' do
       login_as(:bob)
+
       get :index, params: { 'q': '' }, xhr: true
 
       expect(data.size).to eq(2)
@@ -42,16 +48,12 @@ describe Api::TeamsController do
     it 'should get a single team if one team_id is given' do
       login_as(:bob)
 
-      team = teams(:team1)
-
-      get :index, params: { 'team_id': team.id }, xhr: true
+      get :index, params: { 'team_id': team1.id }, xhr: true
 
       expect(data.count).to eq(1)
       expect(response.status).to be(200)
 
-      attributes = data.first['attributes']
-
-      expect(data.second).to be(nil)
+      attributes = data['attributes']
 
       included_types = json['included'].map { |e| e['type'] }
 
@@ -60,29 +62,17 @@ describe Api::TeamsController do
 
       expect(attributes['name']).to eq team1.name
       expect(attributes['description']).to eq team1.description
+
+      expect(attributes['name']).not_to eq team3.name
+      expect(attributes['description']).not_to eq team3.description
     end
 
-    it 'should get multiple teams if more than one id is given' do
-      login_as(:bob)
+    it 'should not get team if not member' do
+      login_as(:alice)
 
-      get :index, params: { 'team_ids': [team1.id, team2.id] }, xhr: true
-
-      expect(data.count).to eq(2)
-      expect(response.status).to be(200)
-
-      attributes = data.first['attributes']
-
-      included_types = json['included'].map { |e| e['type'] }
-
-      expect(included_types).to include('folder'.pluralize)
-      expect(included_types).to include('account'.pluralize)
-
-      expect(attributes_first_team['name']).to eq team1.name
-      expect(attributes_first_team['description']).to eq team1.description
-      expect(attributes).to have(2).items
-
-      expect(attributes.first).to include(teams(:team1))
-      expect(attributes.second).to include(teams(:team2))
+      expect do
+        get :index, params: { 'team_id': team2.id }, xhr: true
+      end.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it 'should get teams, folders and accounts for query' do
@@ -112,6 +102,59 @@ describe Api::TeamsController do
 
       expect(accounts.first['attributes']['accountname']).to eq(account2.accountname)
       expect(accounts).not_to include(account1.accountname)
+    end
+
+    it 'should get team for specific team name' do
+      add_bob_to_team(team3, team3_user)
+      login_as(:bob)
+
+      get :index, params: { 'q': team3.name }, xhr: true
+
+      expect(data.count).to eq(1)
+      expect(response.status).to be(200)
+
+      attributes_team = data.first['attributes']
+
+      expect(data.first['id'].to_i).to eq team3.id
+      expect(attributes_team['name']).to eq team3.name
+      expect(attributes_team['description']).to eq team3.description
+      expect(attributes_team['private']).to eq team3.private
+    end
+
+    it 'should get folder for specific folder name' do
+      add_bob_to_team(team3, team3_user)
+      login_as(:bob)
+
+      folder = team3.folders.first
+
+      get :index, params: { 'q': team3.name }, xhr: true
+
+      expect(data.count).to eq(1)
+      expect(response.status).to be(200)
+
+      relationships_folder_team = data.first['relationships']['folders']['data'].first
+
+      expect(relationships_folder_team['id'].to_i).to eq folder.id
+      expect(relationships_folder_team['type']).to eq 'folder'.pluralize
+    end
+
+    it 'should get account for specific account name' do
+      add_bob_to_team(team3, team3_user)
+      login_as(:bob)
+
+      folder = team3.folders.first
+      account = folder.accounts.first
+
+      get :index, params: { 'q': team3.name }, xhr: true
+
+      expect(data.count).to eq(1)
+      expect(response.status).to be(200)
+
+      included_account = included.second
+
+      expect(included_account['id'].to_i).to eq account.id
+      expect(included_account['attributes']['accountname']).to eq account.accountname
+      expect(included_account['attributes']['description']).to eq account.description
     end
 
   end
@@ -305,6 +348,11 @@ describe Api::TeamsController do
   end
 
   private
+
+  def add_bob_to_team(team, user)
+    decrypted_team_password = team.decrypt_team_password(user, user.decrypt_private_key('password'))
+    team.add_user(bob, decrypted_team_password)
+  end
 
   def set_auth_headers
     request.headers['Authorization-User'] = bob.username

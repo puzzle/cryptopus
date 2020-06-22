@@ -5,7 +5,7 @@ module Teams
 
     def fetch_entries
       return teams_by_query if query.present?
-      return teams_by_ids if team_ids.present? || folder_ids.present? || account_ids.present?
+      return team_by_id if team_id.present?
 
       teams
     end
@@ -22,16 +22,8 @@ module Teams
       @current_user.teams
     end
 
-    def team_ids
-      list_param(:team_ids)
-    end
-
-    def folder_ids
-      list_param(:folder_ids)
-    end
-
-    def account_ids
-      list_param(:account_ids)
+    def team_id
+      @params[:team_id]
     end
 
     private
@@ -45,14 +37,8 @@ module Teams
       )
     end
 
-    def teams_by_ids
-      # This query works but it needs the params to be an Integer Array
-      teams.joins(:folders).joins(folders: :accounts).where(
-        'teams.id in (?) OR
-        folders.id in (?) OR
-        accounts.id in (?)',
-        team_ids, folder_ids, account_ids
-      )
+    def team_by_id
+      teams.find(team_id)
     end
   end
 end
