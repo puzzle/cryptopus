@@ -1,80 +1,73 @@
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="accountFormModalLabel" aria-hidden="true" {{did-insert this.setupModal this}}>
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title align-middle" id="accountFormModalLabel">{{@title}}</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label={{t "close"}} tabindex="10">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group col-md-12">
-                <label name="accountname">{{t "helpers.label.account.account_name"}}</label>
-                <div>
-                  <Input class={{concat "form-control" (if this.changeset.error.accountname.validation " invalid-input")}} @value={{this.changeset.accountname}} @name="accountname" @tabindex="1" />
-                  <ValidationErrorsList @errors={{this.changeset.error.accountname.validation}}/>
-                </div>
-              </div>
-              <div class="form-group col-md-12">
-                <label name="username">{{t "username"}}</label>
-                <div>
-                  <Input class="form-control" @value={{this.changeset.cleartextUsername}} @name="cleartextUsername" @tabindex="2"/>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-5">
-              <div class="form-group col-md-12" id="team-power-select">
-                <label name="team">{{t "team"}}</label>
-                <PowerSelect class="mb-1" @options={{this.assignableTeams}} @selected={{this.selectedTeam}} @onChange={{this.setSelectedTeam}} @renderInPlace={{true}} @allowClear={{true}} @placeholder={{t "accounts.edit.team_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} @tabindex="5" as |team|>
-                  {{team.name}}
-                </PowerSelect>
-                <ValidationErrorsList/>
-              </div>
-              <div class="form-group col-md-12" id="folder-power-select">
-                <label name="folder">{{t "folder"}}</label>
-                <PowerSelect @options={{this.availableFolders}} @selected={{this.changeset.folder}} @disabled={{this.isFolderDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setFolder}} @allowClear={{true}} @placeholder={{t "accounts.edit.folder_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} @triggerClass={{if this.changeset.error.folder.validation "invalid-input"}} @tabindex="6" as |folder|>
-                  {{folder.name}}
-                </PowerSelect>
-                <ValidationErrorsList @errors={{this.changeset.error.folder.validation}}/>
-              </div>
+<BsModal @onSubmit={{action "submit"}} as |Modal|>
+  <Modal.header>
+    <h3 class="modal-title">{{@title}}</h3>
+  </Modal.header>
+  <Modal.body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group col-md-12">
+            <label name="accountname">{{t "helpers.label.account.account_name"}}</label>
+            <div>
+              <Input class={{concat "form-control" (if this.changeset.error.accountname.validation " invalid-input")}} @value={{this.changeset.accountname}} @name="accountname" @tabindex="1" />
+              <ValidationErrorsList @errors={{this.changeset.error.accountname.validation}}/>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="col-md-12">
-                <label name="password">{{t "password"}}</label>
-              </div>
-              <div class="d-flex col-sm-12">
-                <div class="form-group col-sm-6">
-                  <div class="row">
-                    <Input class="form-control secret mb-10" @value={{this.changeset.cleartextPassword}} @name="cleartextPassword" @tabindex="3" autocomplete="off"/>
-                    <PasswordStrengthMeter @password={{this.changeset.cleartextPassword}}/>
-                  </div>
-                </div>
-                <div class="form-group col-xs-12 col-sm-5 pull-right">
-                  <div class="row">
-                    <button class="btn btn-secondary btn-block" {{on "click" this.setRandomPassword}} tabindex="4">{{t "accounts.edit.random_password"}}</button>
-                  </div>
-                </div>
+          <div class="form-group col-md-12">
+            <label name="username">{{t "username"}}</label>
+            <div>
+              <Input class="form-control" @value={{this.changeset.cleartextUsername}} @name="cleartextUsername" @tabindex="2"/>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="form-group col-md-12" id="team-power-select">
+            <label name="team">{{t "team"}}</label>
+            <PowerSelect class="mb-1" @options={{this.assignableTeams}} @selected={{this.selectedTeam}} @onChange={{this.setSelectedTeam}} @renderInPlace={{true}} @allowClear={{true}} @placeholder={{t "accounts.edit.team_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} @tabindex="5" as |team|>
+              {{team.name}}
+            </PowerSelect>
+            <ValidationErrorsList/>
+          </div>
+          <div class="form-group col-md-12" id="folder-power-select">
+            <label name="folder">{{t "folder"}}</label>
+            <PowerSelect @options={{this.availableFolders}} @selected={{this.changeset.folder}} @disabled={{this.isFolderDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setFolder}} @allowClear={{true}} @placeholder={{t "accounts.edit.folder_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} @triggerClass={{if this.changeset.error.folder.validation "invalid-input"}} @tabindex="6" as |folder|>
+              {{folder.name}}
+            </PowerSelect>
+            <ValidationErrorsList @errors={{this.changeset.error.folder.validation}}/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="col-md-12">
+            <label name="password">{{t "password"}}</label>
+          </div>
+          <div class="d-flex col-sm-12">
+            <div class="form-group col-sm-6">
+              <div class="row">
+                <Input class="form-control secret mb-10" @value={{this.changeset.cleartextPassword}} @name="cleartextPassword" @tabindex="3" autocomplete="off"/>
+                <PasswordStrengthMeter @password={{this.changeset.cleartextPassword}}/>
               </div>
             </div>
-            <div class="form-group col-md-12">
-              <label name="description">{{t "description"}}</label>
-              <div>
-                <Textarea class="form-control vertical-resize" @value={{this.changeset.description}} @name="description" @tabindex="7"/>
-                <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
+            <div class="form-group col-xs-12 col-sm-5 pull-right">
+              <div class="row">
+                <button class="btn btn-secondary btn-block" {{on "click" this.setRandomPassword}} tabindex="4">{{t "accounts.edit.random_password"}}</button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" {{on "click" (fn this.submit this.changeset)}} tabindex="8">{{t "save"}}</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" tabindex="9">{{t "close"}}</button>
+        <div class="form-group col-md-12">
+          <label name="description">{{t "description"}}</label>
+          <div>
+            <Textarea class="form-control vertical-resize" @value={{this.changeset.description}} @name="description" @tabindex="7"/>
+              <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  </Modal.body>
+  <Modal.footer as |footer|>
+    <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "save"}}</BsButton>
+    <BsButton @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
+  </Modal.footer>
+</BsModal>

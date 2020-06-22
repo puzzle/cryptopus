@@ -4,8 +4,8 @@ module.exports = function(environment) {
   let ENV = {
     modulePrefix: "frontend",
     environment,
-    rootURL: "/app",
-    locationType: "hash",
+    // rootURL: "/app",
+    locationType: "auto",
     sentryDsn: "",
     EmberENV: {
       FEATURES: {

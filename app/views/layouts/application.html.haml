@@ -11,10 +11,6 @@
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}/
     %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
     %link{href: "/favicon.png", rel: "shortcut icon", type: "image/png"}/
-    %link{href: "http://localhost:4200/app/assets/vendor.css", media: "all", rel: "stylesheet"}
-    %link{href: "http://localhost:4200/app/assets/frontend.css", media: "all", rel: "stylesheet"}
-    %script{src: "http://localhost:4200/app/assets/vendor.js", defer: "true"}
-    %script{src: "http://localhost:4200/app/assets/frontend.js", defer: "true"}
     = csrf_meta_tags
     %title Cryptopus
     = stylesheet_link_tag :application, media: "all", nonce: true

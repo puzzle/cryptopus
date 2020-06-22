@@ -95,7 +95,7 @@ class SessionController < ApplicationController
   end
 
   def redirect_after_sucessful_login
-    jump_to = session[:jumpto] || search_path
+    jump_to = session[:jumpto] || root_path
     session[:jumpto] = nil
     redirect_to jump_to
   end

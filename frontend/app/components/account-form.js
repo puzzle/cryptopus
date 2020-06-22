@@ -4,10 +4,10 @@ import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
-import ModalForm from "./modal-form";
+import BaseFormComponent from "./base-form-component";
 import { isPresent } from "@ember/utils";
 
-export default class AccountForm extends ModalForm {
+export default class AccountForm extends BaseFormComponent {
   @service store;
   @service router;
 
@@ -41,10 +41,6 @@ export default class AccountForm extends ModalForm {
         this.selectedTeam = this.changeset.folder.get("team");
       }
     });
-  }
-
-  setupModal(element, args) {
-    super.setupModal(element, args);
   }
 
   abort() {
@@ -88,15 +84,7 @@ export default class AccountForm extends ModalForm {
   }
 
   handleSubmitSuccess(savedRecords) {
-    /* eslint-disable no-undef  */
-    $(this.modalElement).modal("hide");
-    /* eslint-enable no-undef  */
-
-    if (this.isNewRecord) {
-      window.location.replace("/accounts/" + savedRecords[0].id);
-    } else {
-      let href = window.location.href;
-      window.location.replace(href.substring(0, href.search("#")));
-    }
+    // FIXME: go to account show
+    this.router.transitionTo("teams");
   }
 }
