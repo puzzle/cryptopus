@@ -10,7 +10,6 @@
         = link_to('Cryptopus', search_path, class: 'navbar-brand')
       .navbar-collapse.collapse
         %ul.nav.navbar-nav
-          = nav_link t('teams.title'), teams_path
           - if current_user.auth_db?
             = nav_link t(:change_password), session_show_update_password_path
           = nav_link image_pack_tag("magnifying-glass.svg", class: "search-icon", title: "search (ctrl + f)") + t('search.title'), search_path

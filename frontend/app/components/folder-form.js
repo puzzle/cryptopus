@@ -4,10 +4,10 @@ import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
-import ModalForm from "./modal-form";
+import BaseFormComponent from "./base-form-component";
 import { isPresent } from "@ember/utils";
 
-export default class FolderForm extends ModalForm {
+export default class FolderForm extends BaseFormComponent {
   @service store;
   @service router;
 

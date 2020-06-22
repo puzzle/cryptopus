@@ -7,16 +7,22 @@
 
 class LegacyRoutesController < ApplicationController
 
+  layout :false
+
   def redirect
     skip_authorization
-    raise ActionController::RoutingError, 'Not Found' if request.path == redirect_url
 
-    redirect_to redirect_url
+    if url_handler.frontend_path?
+      render 'frontend/index'
+    else
+      raise ActionController::RoutingError, 'Not Found' if request.path == url_handler.redirect_to
+      redirect_to url_handler.redirect_to
+    end
   end
 
   private
 
-  def redirect_url
-    LegacyRoutes::RedirectUrl.new(request.path).redirect_to
+  def url_handler
+    @url_handler ||= LegacyRoutes::RedirectUrl.new(request.path)
   end
 end

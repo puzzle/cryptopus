@@ -198,4 +198,14 @@ describe LegacyRoutes::RedirectUrl do
       assert_redirected_to session_new_path
     end
   end
+
+  # /teams -> /teams
+  it 'delivers frontend files' do
+    teams_url = "/teams"
+    login_as('bob')
+
+    get teams_url
+
+    assert_template 'frontend/index'
+  end
 end

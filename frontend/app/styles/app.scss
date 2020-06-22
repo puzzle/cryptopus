@@ -1,3 +1,19 @@
+$navbar-dark-brand-color: white;
+$navbar-dark-brand-hover-color: $navbar-dark-brand-color;
+
+@import "ember-bootstrap/bootstrap";
+
+.navbar-custom {
+  background: #2988bc;
+}
+
+.navbar-icon {
+  padding-right: 1px;
+  padding-bottom: 2px;
+  width: 19px;
+  display: inline;
+}
+
 .ember-power-select-typeahead-trigger {
   border: none;
   border-radius: 0;
@@ -10,12 +26,12 @@
   width: 100%;
   top: 0;
   bottom: 0;
-  border: 1px solid #aaaaaa !default;
+  border: 1px solid #aaaaaa;
   outline: none;
 }
 
 .ember-power-select-typeahead-input:focus {
-  border: 1px solid #aaaaaa !default;
+  border: 1px solid #aaaaaa;
 }
 
 .float-right {
@@ -156,4 +172,22 @@ li a {
 .modal-alert {
   width: 100% !important;
   margin-bottom: 15px !important;
+}
+
+/*Footer*/
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  line-height: 50px;
+  background-color: #f9f9f9;
+  width: 100%;
+  border-top: 1px solid #cbc6c2;
+  z-index: 9999;
+  width: 100vw !important;
+}
+
+.footer form {
+  padding-right: 50px;
 }

@@ -9,6 +9,10 @@ include Rails.application.routes.url_helpers
 
 class LegacyRoutes::RedirectUrl
 
+  FRONTEND_PATHS = {
+    teams_index: /(\/teams)$/
+  }
+
   LEGACY_PATHS = {
     teams: /(groups)$/,
     groups: /(accounts)$/,
@@ -30,6 +34,14 @@ class LegacyRoutes::RedirectUrl
     rename_group_to_folder
     @url
   end
+
+  def frontend_path?
+    FRONTEND_PATHS.values.any? do |p|
+      @url.match(p)
+    end
+  end
+
+  private
 
   def new_url
     LEGACY_PATHS.each do |model, path|
