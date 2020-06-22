@@ -2,9 +2,9 @@ import TeamValidations from "../validations/team";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
-import ModalForm from "./modal-form";
+import BaseFormComponent from "./base-form-component";
 
-export default class AccountForm extends ModalForm {
+export default class AccountForm extends BaseFormComponent {
   @service store;
   @service router;
 
@@ -23,10 +23,6 @@ export default class AccountForm extends ModalForm {
     );
   }
 
-  setupModal(element, args) {
-    super.setupModal(element, args)
-  }
-
   abort() {
     this.router.transitionTo("index");
   }
@@ -37,15 +33,7 @@ export default class AccountForm extends ModalForm {
   }
 
   handleSubmitSuccess(savedRecords) {
-    /* eslint-disable no-undef  */
-    $(this.modalElement).modal("hide");
-    /* eslint-enable no-undef  */
-
-    if (this.isNewRecord) {
-      window.location.replace("/teams/" + savedRecords[0].id);
-    } else {
-      let href = window.location.href
-      window.location.replace(href.substring(0, href.search('#')));
-    }
+    // FIXME: go to team show
+    this.router.transitionTo("teams");
   }
 }

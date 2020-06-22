@@ -7,6 +7,8 @@
 
 Rails.application.routes.draw do
 
+  root 'frontend#index'
+
   get 'status/health', to: 'status#health'
   get 'status/readiness', to: 'status#readiness'
 
@@ -19,13 +21,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :teams, only: [:show, :index, :destroy] do
-    resources :folders, only: [:show, :destroy]
-  end
+  # resources :teams, only: [:show, :index, :destroy] do
+    # resources :folders, only: [:show, :destroy]
+  # end
 
-  resources :accounts, only: [:show, :destroy] do
-    resources :file_entries, only: [:show, :destroy]
-  end
+  # resources :accounts, only: [:show, :destroy] do
+    # resources :file_entries, only: [:show, :destroy]
+  # end
 
   scope '/session', module: 'session' do
     if AuthConfig.keycloak_enabled?
@@ -47,8 +49,6 @@ Rails.application.routes.draw do
   post 'wizard/apply'
 
   get 'search', to: 'search#index'
-
-  root to: 'search#index'
 
   get 'changelog', to: 'changelog#index'
 
