@@ -5,22 +5,22 @@
   <TeamMemberConfigure @teamId={{@team.id}} @onAbort={{this.toggleTeamConfigure}}/>
 {{/if}}
 <div class="container mt-1">
-  <div class="accordion" id={{concat "teamAccordion-" @team.id}}>
-    <div class="row mb-10">
-      <div role="button" data-toggle="collapse" data-target={{concat "#teamCollapse-" @team.id}} aria-expanded="true" aria-controls={{concat "teamCollapse-" @team.id}}>
-        <h1 class="d-inline">{{@team.name}}</h1>
-        <span class="ml-5">
-          <a role="button" {{on "click" this.toggleTeamEdit}}>
-            <img class="icon-button" src="/ember/assets/images/edit.svg" alt="edit">
-          </a>
-          <a role="button" {{on "click" this.toggleTeamConfigure}}>
-            <img class="icon-button" src="/ember/assets/images/team_config.svg" alt="configure">
-          </a>
-        </span>
-      </div>
-      <hr>
+  <div class="row mb-10">
+    <div role="button" {{on "click" this.collapse}}>
+      <h1 class="d-inline">{{@team.name}}</h1>
+      <span class="ml-5">
+        <a role="button" {{on "click" this.toggleTeamEdit}}>
+          <img class="icon-button" src="/ember/assets/images/edit.svg" alt="edit">
+        </a>
+        <a role="button" {{on "click" this.toggleTeamConfigure}}>
+          <img class="icon-button" src="/ember/assets/images/team_config.svg" alt="configure">
+        </a>
+      </span>
     </div>
-    <div id={{concat "teamCollapse-" @team.id}} class="collapse" aria-labelledby={{concat "#teamHeading-" @team.id}} data-parent={{concat "#teamAccordion-" @team.id}}>
+    <hr>
+  </div>
+  <BsCollapse @collapsed={{this.collapsed}}>
+    <div>
       <div>
         <p>{{@team.description}}</p>
       </div>
@@ -28,6 +28,5 @@
         <FolderShow @folder={{folder}}/>
       {{/each}}
     </div>
-  </div>
+  </BsCollapse>
 </div>
-

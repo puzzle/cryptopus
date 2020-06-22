@@ -9,6 +9,14 @@ export default class TeamShowComponent extends Component {
   @tracked
   isTeamConfiguring = false;
 
+  @tracked
+  collapsed = true;
+
+  @action
+  collapse() {
+    this.collapsed = !this.collapsed;
+  }
+
   @action
   toggleTeamEdit() {
     this.isTeamEditing = !this.isTeamEditing;
