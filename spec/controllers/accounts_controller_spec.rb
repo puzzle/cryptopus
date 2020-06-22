@@ -48,32 +48,4 @@ describe AccountsController do
       end
     end
   end
-
-  context 'DELETE destroy' do
-    it 'cant destroy an account if not in team' do
-      login_as(:alice)
-
-      alice = users(:alice)
-      team2 = teams(:team2)
-      account = team2.folders.first.accounts.first
-
-      expect(team2.teammember?(alice)).to eq false
-
-      expect do
-        delete :destroy, params: { id: account.id, folder_id: account.folder.id,
-                                   team_id: account.folder.team.id }
-      end.to change { Account.count }.by(0)
-    end
-
-    it 'can destroy an account if human user is in his team' do
-      account = accounts(:account1)
-
-      login_as(:bob)
-
-      expect do
-        delete :destroy, params: { id: account.id, folder_id: account.folder.id,
-                                   team_id: account.folder.team.id }
-      end.to change { Account.count }.by(-1)
-    end
-  end
 end
