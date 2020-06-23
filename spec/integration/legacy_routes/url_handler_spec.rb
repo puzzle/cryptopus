@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe LegacyRoutes::RedirectUrl do
+describe LegacyRoutes::UrlHandler do
   include IntegrationHelpers::DefaultHelper
 
   # /de/teams/1/folders/1 -> /teams/1/folders/1/
@@ -15,7 +15,7 @@ describe LegacyRoutes::RedirectUrl do
 
     get legacy_account_url
 
-    assert_redirected_to team_folder_path(team1.id, folder1.id)
+    assert_redirected_to team_folder_path(team1, folder1)
   end
 
   # /de/teams/1/folders/1/accounts -> /teams/1/folders/1/
@@ -28,7 +28,7 @@ describe LegacyRoutes::RedirectUrl do
 
     get legacy_account_url
 
-    assert_redirected_to team_folder_path(teams(:team1).id, folders(:folder1).id)
+    assert_redirected_to team_folder_path(teams(:team1), folders(:folder1))
   end
 
   # /de/teams/1/groups -> /teams/1/
@@ -40,7 +40,7 @@ describe LegacyRoutes::RedirectUrl do
 
     get legacy_team_url
 
-    assert_redirected_to team_path(teams(:team1).id)
+    assert_redirected_to teams_path(teams(:team1).id)
   end
 
   # /de/teams/1/folders/1/ -> /teams/1/folders/1/
@@ -48,7 +48,7 @@ describe LegacyRoutes::RedirectUrl do
     team1 = teams(:team1)
 
     legacy_team_url = "/de/teams/#{team1.id}/"
-    redirect_url = team_path(team1.id)
+    redirect_url = teams_path(team1.id)
     login_as('bob')
 
     get legacy_team_url
@@ -68,7 +68,7 @@ describe LegacyRoutes::RedirectUrl do
 
     get legacy_account_url
 
-    assert_redirected_to account_path(account1)
+    assert_redirected_to "/accounts/#{account1.id}"
   end
 
   # /de/teams -> /teams
@@ -147,7 +147,7 @@ describe LegacyRoutes::RedirectUrl do
     team1 = teams(:team1)
     folder1 = folders(:folder1)
 
-    invalid_account_url = "/teams/#{team1.id}/folders/#{folder1.id}/accountes"
+    invalid_account_url = "/teams/#{team1.id}/folders/#{folder1.id}/accounts"
     login_as('bob')
 
     expect { get invalid_account_url }.to raise_error(ActionController::RoutingError)
@@ -191,7 +191,7 @@ describe LegacyRoutes::RedirectUrl do
       team1 = teams(:team1)
       folder1 = folders(:folder1)
 
-      invalid_account_url = "/teams/#{team1.id}/folders/#{folder1.id}/accounts"
+      invalid_account_url = team_folder_path(team1, folder1)
       get invalid_account_url
 
       expect(I18n.locale).to eq(:en)
@@ -201,11 +201,22 @@ describe LegacyRoutes::RedirectUrl do
 
   # /teams -> /teams
   it 'delivers frontend files' do
-    teams_url = "/teams"
+    teams_url = '/teams'
     login_as('bob')
 
     get teams_url
 
     assert_template 'frontend/index'
+  end
+
+  private
+
+  def team_folder_path(team, folder)
+    "/teams/#{team.id}/folders/#{folder.id}"
+  end
+
+  def teams_path(team_id=nil)
+    return '/teams' if team_id == nil
+    "/teams/#{team_id}"
   end
 end

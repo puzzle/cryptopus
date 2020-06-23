@@ -43,6 +43,7 @@ export default class FolderForm extends BaseFormComponent {
     });
   }
 
+  @action
   abort() {
     this.router.transitionTo("index");
   }

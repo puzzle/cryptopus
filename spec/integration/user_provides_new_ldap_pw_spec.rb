@@ -49,13 +49,8 @@ describe 'User provides new Ldap Pw' do
       follow_redirect!
       expect(request.fullpath).to eq(session_new_path)
 
-      login_as('bob', 'newPassword')
-
       #  do if Bob can see his account
-      account = accounts(:account1)
-      get account_path(account)
-      expect(response.body).to match(/input .* id='cleartext_username' .* value='test'/)
-      expect(response.body).to match(/input .* id='cleartext_password' .* value='password'/)
+      check_username_and_password
     end
 
     it 'provides new ldap password and doesnt remember his old password' do
@@ -95,12 +90,7 @@ describe 'User provides new Ldap Pw' do
       get session_destroy_path
 
       #  do if user could see his account(he should see now)
-      login_as('bob', 'newPassword')
-      account = accounts(:account1)
-      get account_path(account)
-
-      expect(response.body).to match(/input .* id='cleartext_username' .* value='test'/)
-      expect(response.body).to match(/input .* id='cleartext_password' .* value='password'/)
+      check_username_and_password
     end
 
     it 'provides new ldap password and entered wrong old password' do
@@ -198,4 +188,17 @@ describe 'User provides new Ldap Pw' do
     end
 
   end
+
+  private
+
+  def check_username_and_password()
+    login_as('bob', 'newPassword')
+    account = accounts(:account1)
+    get api_account_path(account)
+
+    data = JSON.parse(response.body)['data']['attributes']
+    expect(data['cleartext_username']).to eq 'test'
+    expect(data['cleartext_password']).to eq 'password'
+  end
+
 end

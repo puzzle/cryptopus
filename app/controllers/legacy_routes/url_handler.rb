@@ -7,11 +7,33 @@
 
 include Rails.application.routes.url_helpers
 
-class LegacyRoutes::RedirectUrl
+class LegacyRoutes::UrlHandler
 
   FRONTEND_PATHS = {
-    teams_index: /(\/teams)$/
-  }
+    teams_index: /(\/teams)$/,
+    teams_new: /(\/teams\/new)$/,
+    teams_edit: /(\/teams\/\d+\/edit)$/,
+    teams_configure: /(\/teams\/\d+\/configure)$/,
+    folders_new: /(\/teams\/folders\/new)$/,
+    folders_edit: /(\/teams\/\d+\/folders\/\d+\/edit)$/,
+    accounts_new: /(\/accounts\/new)$/,
+    accounts_edit: /(\/accounts\/\d+\/edit)$/,
+    file_entries: /(\/accounts\/\d+\/file_entries)$/,
+    file_entries_new: /(\/accounts\/\d+\/file_entries\/new)$/
+  }.freeze
+
+  FRONTEND_PATHS = {
+    teams_index: /(\/teams)$/,
+    teams_new: /(\/teams\/new)$/,
+    teams_edit: /(\/teams\/\d+\/edit)$/,
+    teams_configure: /(\/teams\/\d+\/configure)$/,
+    folders_new: /(\/teams\/folders\/new)$/,
+    folders_edit: /(\/teams\/\d+\/folders\/\d+\/edit)$/,
+    accounts_new: /(\/accounts\/new)$/,
+    accounts_edit: /(\/accounts\/\d+\/edit)$/,
+    file_entries: /(\/accounts\/\d+\/file_entries)$/,
+    file_entries_new: /(\/accounts\/\d+\/file_entries\/new)$/
+  }.freeze
 
   LEGACY_PATHS = {
     teams: /(groups)$/,
@@ -65,15 +87,15 @@ class LegacyRoutes::RedirectUrl
   end
 
   def new_accounts_path
-    account_path(@url.split('/').last)
+    "/accounts/#{@url.split('/').last}"
   end
 
   def new_groups_path
-    team_folder_path(@url.split('/').third, @url.split('/').second_to_last)
+    "/teams/#{@url.split('/').third}/folders/#{@url.split('/').second_to_last}"
   end
 
   def new_teams_path
-    team_path(@url.split('/').second_to_last)
+    "/teams/#{@url.split('/').second_to_last}"
   end
 
   def new_login_path

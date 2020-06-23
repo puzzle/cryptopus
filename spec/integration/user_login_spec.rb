@@ -10,12 +10,12 @@ describe 'User login' do
   include IntegrationHelpers::DefaultHelper
   it 'logs bob in' do
     login_as('bob')
-    expect(request.fullpath).to eq(search_path)
+    expect(request.fullpath).to eq(root_path)
   end
 
   it 'logs bob in with spaces in username' do
     login_as('   bob   ')
-    expect(request.fullpath).to eq(search_path)
+    expect(request.fullpath).to eq(root_path)
   end
 
   it 'logs bob in with wrong password' do
@@ -47,7 +47,7 @@ describe 'User login' do
 
   it 'goes to requested page after login' do
     account = accounts(:account1)
-    account1_path = account_path(account)
+    account1_path = "/accounts/#{account.id}"
     get account1_path
     follow_redirect!
     expect(request.fullpath).to eq(session_new_path)

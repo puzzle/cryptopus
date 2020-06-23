@@ -51,7 +51,7 @@ class SessionController < ApplicationController
       current_user.update_password(params[:old_password],
                                    params[:new_password1])
       flash[:notice] = t('flashes.session.new_password_set')
-      redirect_to teams_path
+      redirect_to root_path
     else
       render :show_update_password
     end

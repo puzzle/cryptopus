@@ -61,7 +61,7 @@ describe Admin::RecryptrequestsController do
       bob.reload
 
       expect(bob.password).to eq bob_password
-      expect(response).to redirect_to teams_path
+      expect(response).to redirect_to root_path
     end
 
     it 'cant reset password as normal user' do
@@ -85,7 +85,7 @@ describe Admin::RecryptrequestsController do
 
       get :index
 
-      expect(response).to redirect_to teams_path
+      expect(response).to redirect_to root_path
     end
 
     it 'cant access index by conf admin' do
@@ -93,7 +93,7 @@ describe Admin::RecryptrequestsController do
 
       get :index
 
-      expect(response).to redirect_to teams_path
+      expect(response).to redirect_to root_path
     end
 
     it 'can access index by root' do

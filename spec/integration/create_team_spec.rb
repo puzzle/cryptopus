@@ -16,7 +16,7 @@ describe 'Create team' do
       account = create_team_folder_account('bob', 'password')
 
       # Create account link
-      account_path = account_path(account)
+      account_path = api_account_path(account)
 
 
       # Bob can access team / accounts
@@ -34,7 +34,7 @@ describe 'Create team' do
       account = create_team_folder_account_private('bob', 'password')
 
       # Create account link
-      account_path = account_path(account)
+      account_path = api_account_path(account)
 
       # Bob can not access team / accounts
       can_access_account(account_path, 'bob')
@@ -43,4 +43,12 @@ describe 'Create team' do
       cannot_access_account(account_path, 'admin')
     end
   end
+
+  private
+
+  def account_path(account=nil)
+    return "/accounts" if account == nil
+    "/accounts/#{account.id}"
+  end
+
 end

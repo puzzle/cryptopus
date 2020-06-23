@@ -55,6 +55,7 @@ export default class BaseFormComponent extends Component {
         })
         .catch(error => {
           this.handleSubmitError(error);
+          
 
           this.afterSubmit();
         });

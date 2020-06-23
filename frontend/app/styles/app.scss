@@ -2,6 +2,9 @@ $navbar-dark-brand-color: white;
 $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 
 @import "ember-bootstrap/bootstrap";
+@import "pod-styles";
+@import "secret_input";
+@import 'ember-power-select';
 
 .navbar-custom {
   background: #2988bc;
@@ -68,7 +71,7 @@ li a {
 }
 
 .ember-power-select-trigger {
-  height: 34px;
+  height: 38px;
   line-height: 2.1;
 }
 
@@ -118,50 +121,6 @@ li a {
 .nav .open > a:focus {
   background-color: #2988bc !important;
   border-color: #2479a7 !important;
-}
-
-.progress-bar-0 {
-  width: 0% !important;
-  background-color: unset !important;
-}
-.progress-bar-10 {
-  width: 10% !important;
-  background-color: #fc0303 !important;
-}
-
-.progress-bar-25 {
-  width: 25% !important;
-  background-color: #fc0303 !important;
-}
-
-.progress-bar-50 {
-  width: 50% !important;
-  background-color: #fc6703 !important;
-}
-.progress-bar-75 {
-  width: 75% !important;
-  background-color: #fcc603 !important;
-}
-.progress-bar-100 {
-  width: 100% !important;
-  background-color: #4dd100 !important;
-}
-
-/* FileUpload */
-
-.dropzone-upload-area {
-  border: 4px dotted #bbb;
-  border-radius: 10px;
-  height: 100px;
-}
-
-.dropzone-upload-area.active {
-  border-color: #2988bc;
-}
-
-.dropzone-text {
-  font-size: 16px;
-  margin: auto;
 }
 
 .vertical-center {

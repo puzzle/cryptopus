@@ -47,7 +47,7 @@ describe 'User migrates to keycloak spec' do
       .and_return(false, true, true, true, true, true, true, true)
 
     # login
-    get search_path
+    get root_path
     follow_redirect!
     expect(request.fullpath).to eq('/session/sso')
     follow_redirect!
@@ -58,7 +58,8 @@ describe 'User migrates to keycloak spec' do
     follow_redirect!
     expect(request.fullpath).to eq('/session/sso?code=asd')
     follow_redirect!
-    expect(request.fullpath).to eq(search_path)
+    # Adjust test to new start-page:
+    expect(request.fullpath).to eq(root_path)
     expect(response.body).to match(/Hi  Bob! Want to recover a password?/)
   end
 
@@ -99,7 +100,7 @@ describe 'User migrates to keycloak spec' do
       .and_return(false, true, true, true, true, true, true, true)
 
     # login
-    get search_path
+    get root_path
     follow_redirect!
     expect(request.fullpath).to eq('/session/sso')
     follow_redirect!
@@ -110,7 +111,8 @@ describe 'User migrates to keycloak spec' do
     follow_redirect!
     expect(request.fullpath).to eq('/session/sso?code=asd')
     follow_redirect!
-    expect(request.fullpath).to eq(search_path)
+    # Adjust test to new start-page:
+    expect(request.fullpath).to eq(root_path)
     expect(response.body).to match(/Hi  Bob! Want to recover a password?/)
   end
 end
