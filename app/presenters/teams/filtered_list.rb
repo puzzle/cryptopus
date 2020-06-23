@@ -28,7 +28,9 @@ module Teams
       teams.includes(:folders, folders: [:accounts]).where('lower(teams.name) LIKE :query
         OR lower(folders.name) LIKE :query
         OR lower(accounts.accountname) LIKE :query',
-        query: "%#{query.downcase}%").references(:folders, folders: [:accounts])
+                                                           query: "%#{query.downcase}%")
+           .references(:folders,
+                       folders: [:accounts])
     end
 
     def filter_by_id
