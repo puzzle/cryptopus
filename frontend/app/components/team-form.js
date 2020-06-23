@@ -1,3 +1,4 @@
+import { action } from "@ember/object";
 import TeamValidations from "../validations/team";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
@@ -23,6 +24,7 @@ export default class AccountForm extends BaseFormComponent {
     );
   }
 
+  @action
   abort() {
     this.router.transitionTo("index");
   }

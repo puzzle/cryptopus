@@ -43,8 +43,10 @@ export default class AccountForm extends BaseFormComponent {
     });
   }
 
+  @action
   abort() {
-    this.router.transitionTo("index");
+    if (this.isNewRecord)
+      this.router.transitionTo("index");
   }
 
   @action
@@ -84,7 +86,12 @@ export default class AccountForm extends BaseFormComponent {
   }
 
   handleSubmitSuccess(savedRecords) {
-    // FIXME: go to account show
-    this.router.transitionTo("teams");
+    if (this.isNewRecord) {
+      this.router.transitionTo("accounts/"+savedRecords[0].id);
+    } else {
+      // FIXME: replace with only closing the modal
+      debugger;
+      this.router.transitionTo("teams");
+    }
   }
 }

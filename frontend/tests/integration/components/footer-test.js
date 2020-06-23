@@ -12,15 +12,8 @@ module('Integration | Component | footer', function(hooks) {
 
     await render(hbs`<Footer />`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.equal(this.element.textContent.trim(), 'Cryptopus');
 
-    // Template block usage:
-    await render(hbs`
-      <Footer>
-        template block text
-      </Footer>
-    `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
   });
 });

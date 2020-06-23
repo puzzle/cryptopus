@@ -13,7 +13,7 @@ describe Admin::TeamsController do
 
       teamlist = assigns(:teams)
 
-      expect(response).to redirect_to teams_path
+      expect(response).to redirect_to root_path
       expect(teamlist).to be_nil
     end
 

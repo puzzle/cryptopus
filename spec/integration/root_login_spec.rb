@@ -13,7 +13,8 @@ describe 'Root login' do
   it 'lets root login via local ip' do
     post local_path, params: { username: 'root', password: 'password' }
     follow_redirect!
-    expect(request.fullpath).to eq(search_path)
+    expect(request.fullpath).to eq(root_path)
+    # Adjust according to new start-page
     expect(response.body).to match(/Hi  Root! Want to recover a password?/)
   end
 
@@ -39,7 +40,8 @@ describe 'Root login' do
     expect(Keycloak::Client).to receive(:user_signed_in?).and_return(false)
     post local_path, params: { username: 'root', password: 'password' }
     follow_redirect!
-    expect(request.fullpath).to eq(search_path)
+    expect(request.fullpath).to eq(root_path)
+    # Adjust according to new start-page
     expect(response.body).to match(/Hi  Root! Want to recover a password?/)
   end
 end

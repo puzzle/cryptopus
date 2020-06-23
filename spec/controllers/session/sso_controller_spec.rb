@@ -38,7 +38,7 @@ describe Session::SsoController do
         .at_least(:once)
 
       get :create, params: { code: 'asd' }
-      expect(response).to redirect_to search_path
+      expect(response).to redirect_to root_path
       user = User.find_by(username: 'ben')
       expect(user.username).to eq('ben')
       expect(session['username']).to eq('ben')

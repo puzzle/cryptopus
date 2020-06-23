@@ -1,4 +1,4 @@
-<BsModal @onSubmit={{action "submit"}} as |Modal|>
+<BsModal @onSubmit={{action "submit"}} @onHidden={{action "abort"}} @renderInPlace="true" as |Modal|>
   <Modal.header>
     <h3 class="modal-title">{{@title}}</h3>
   </Modal.header>

@@ -12,7 +12,7 @@ describe 'Add user to team' do
     teammembers(:team1_alice).destroy
 
     account = accounts(:account1)
-    account_path = account_path(account.id)
+    account_path = api_account_path(account.id)
     cannot_access_account(account_path, 'alice')
 
     login_as('bob')

@@ -44,6 +44,7 @@ export default class FileEntryForm extends BaseFormComponent {
     /* eslint-enable no-undef  */
   }
 
+  @action
   abort() {
     this.router.transitionTo("index");
     this.fileQueue.flush();

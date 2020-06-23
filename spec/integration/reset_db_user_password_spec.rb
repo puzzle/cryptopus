@@ -11,7 +11,6 @@ describe 'Reset DB user password' do
 
   it 'resets bobs password' do
     account = accounts(:account1)
-    account_path = account_path(account.id)
     last_teammember_team = teams(:team2)
     login_as('admin')
     post resetpassword_admin_recryptrequests_path, params: { new_password: 'test',
@@ -19,7 +18,7 @@ describe 'Reset DB user password' do
                                                    headers: { 'HTTP_REFERER': 'where_i_came_from' }
     logout
 
-    can_access_account(account_path, 'bob', 'test', 'test', 'password')
+    can_access_account(api_account_path(account.id), 'bob', 'test', 'test', 'password')
     expect(Team.exists?(last_teammember_team.id)).to eq false
   end
 end

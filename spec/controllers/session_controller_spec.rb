@@ -32,7 +32,7 @@ describe SessionController do
       login_as(:bob)
       get :show_update_password
 
-      expect(response).to redirect_to teams_path
+      expect(response).to redirect_to root_path
     end
   end
 
@@ -204,7 +204,7 @@ describe SessionController do
       login_as(:bob)
       post :update_password, params: { old_password: 'password', new_password1: 'test',
                                        new_password2: 'test' }
-      expect(response).to redirect_to teams_path
+      expect(response).to redirect_to root_path
     end
 
     it 'redirects if keycloak user tries to update password' do
@@ -212,7 +212,7 @@ describe SessionController do
       login_as(:bob)
       post :update_password, params: { old_password: 'password', new_password1: 'test',
                                        new_password2: 'test' }
-      expect(response).to redirect_to teams_path
+      expect(response).to redirect_to root_path
     end
   end
 end

@@ -10,7 +10,7 @@ describe Admin::MaintenanceTasksController do
       login_as(:bob)
 
       get :index
-      expect(response).to redirect_to(teams_path)
+      expect(response).to redirect_to(root_path)
     end
 
     it 'gets all maintenance tasks without ldap' do
@@ -40,7 +40,7 @@ describe Admin::MaintenanceTasksController do
         login_as(:bob)
 
         post :execute, params: { id: 3 }
-        expect(response).to redirect_to teams_path
+        expect(response).to redirect_to root_path
       end
 
       it 'executes task' do

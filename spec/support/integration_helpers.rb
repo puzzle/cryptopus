@@ -96,23 +96,24 @@ module IntegrationHelpers
       get session_destroy_path
     end
 
-    def can_access_account(account_path, username, user_password = 'password',
+    def can_access_account(api_account_path, username, user_password = 'password',
                            account_username = 'account_username',
                            account_password = 'account_password')
       username == 'root' ? login_as_root : login_as(username, user_password)
-      get account_path
-      expect(response.body)
-        .to match(/input .* id='cleartext_username' .* value='#{account_username}'/)
-      expect(response.body)
-        .to match(/input .* id='cleartext_password' .* value='#{account_password}'/)
+      get api_account_path
+
+      data = JSON.parse(response.body)['data']['attributes']
+      expect(data['cleartext_username']).to eq account_username
+      expect(data['cleartext_password']).to eq account_password
       logout
     end
 
     def cannot_access_account(account_path, username, user_password = 'password')
       login_as(username, user_password)
       get account_path
-      expect(flash[:error]).to match(/Access denied/)
-      expect(response).to redirect_to teams_path
+      errors = JSON.parse(response.body)['errors']
+      expect(errors.first).to match(/Access denied/)
+      expect(response.status).to eq 403
       logout
     end
   end

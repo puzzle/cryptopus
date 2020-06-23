@@ -1,4 +1,4 @@
-<BsNavbar 
+<BsNavbar
   @type="dark"
   @backgroundColor="custom"
   @class="navbar-custom" as |navbar| >
@@ -26,12 +26,17 @@
           </ddm.item>
         </dd.menu>
       </nav.dropdown>
+      <div class="nav-item">
+        <a class="nav-link" href="/profile">
+          Profile
+        </a>
+      </div>
+      <div class="nav-item">
+        <a class="nav-link" href="/session/destroy">
+          <img class="navbar-icon" src="ember/assets/icons/sign_out.svg" alt="Logout"/>
+        </a>
+      </div>
     </navbar.nav>
   </navbar.content>
-  <nav.item>
-    <a data-method="get" href="/session/destroy">
-      <img class="navbar-icon" src="ember/assets/icons/sign_out.svg" />
-    </a>
-  </nav.item>
 </div>
 </BsNavbar>

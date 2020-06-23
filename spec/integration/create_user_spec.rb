@@ -49,7 +49,7 @@ describe 'Create user' do
         givenname: 'Roland',
         surname: 'Siegfried'
       } }
-      expect(response).to redirect_to teams_path
+      expect(response).to redirect_to root_path
       expect(User::Human.find_by(username: 'rsiegfried')).to be_nil
     end
   end

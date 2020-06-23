@@ -7,6 +7,7 @@ tmp
 log
 .sass-cache
 public/assets
+public/ember
 coverage
 tags
 BUILD

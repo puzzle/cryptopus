@@ -1,0 +1,21 @@
+& {
+  .dropzone-upload-area {
+    border: 4px dotted #bbb;
+    border-radius: 10px;
+    height: 100px;
+  }
+
+  .dropzone-upload-area.active {
+    border-color: #2988bc;
+  }
+
+  .dropzone-text {
+    font-size: 16px;
+    margin: auto;
+  }
+
+  .modal-alert {
+    width: 100% !important;
+    margin-bottom: 15px !important;
+  }
+}
