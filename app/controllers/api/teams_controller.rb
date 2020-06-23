@@ -15,7 +15,11 @@ class Api::TeamsController < ApiController
 
   # GET /api/teams
   def index
-    authorize ::Team
+    if team_id_present?
+      authorize fetch_entries.first, :team_member?
+    else
+      authorize ::Team
+    end
     super(render_options: { include: '**' })
   end
 
@@ -64,6 +68,10 @@ class Api::TeamsController < ApiController
 
   def team
     @team ||= ::Team.find(params['id'])
+  end
+
+  def team_id_present?
+    params['team_id'].present?
   end
 
   def teams

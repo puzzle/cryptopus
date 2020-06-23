@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Api::TeamsController do
   include ControllerHelpers
 
-  let!(:bob) { users(:bob) }
+  let(:bob) { users(:bob) }
   let(:alice) { users(:alice) }
   let(:team1) { teams(:team1) }
   let(:team2) { teams(:team2) }
@@ -17,26 +17,11 @@ describe Api::TeamsController do
   context 'GET index' do
     it 'should get team for search term' do
       login_as(:bob)
-      get :index, params: { 'q': '2' }, xhr: true
 
-      expect(data.size).to be(1)
-      expect(included.size).to be(2)
+      get :index, params: { 'q': 'mail' }, xhr: true
 
-      team = data.first
-      folder = included.first
-      account = included.second
-
-      expect(team['attributes']['name']).to eq team2.name
-      expect(team['id']).to eq team2.id.to_s
-
-      folder2 = folders(:folder2)
-      account2 = accounts(:account2)
-
-      expect(folder['attributes']['name']).to eq folder2.name
-      expect(folder['id']).to eq folder2.id.to_s
-
-      expect(account['attributes']['accountname']).to eq account2.accountname
-      expect(account['id']).to eq account2.id.to_s
+      expect(data.size).to be(0)
+      expect(included).to be(nil)
     end
 
     it 'should get all teams for no query' do
@@ -55,6 +40,11 @@ describe Api::TeamsController do
 
       expect(result_json['attributes']['name']).to eq team2.name
       expect(result_json['id']).to eq team2.id.to_s
+
+      folder_relationships_length = data.first['relationships']['folders']['data'].size
+
+      expect(included.size).to be(6)
+      expect(folder_relationships_length).to be(3)
     end
 
     it 'should get a single team if one team_id is given' do
@@ -62,29 +52,49 @@ describe Api::TeamsController do
 
       get :index, params: { 'team_id': team1.id }, xhr: true
 
-      expect(data).not_to be(Array)
       expect(response.status).to be(200)
 
-      attributes = data['attributes']
+      attributes = data.first['attributes']
 
       included_types = json['included'].map { |e| e['type'] }
 
-      expect(included_types).to include('folder'.pluralize)
-      expect(included_types).to include('account'.pluralize)
+      expect(included_types).to include('folders')
+      expect(included_types).to include('accounts')
 
       expect(attributes['name']).to eq team1.name
       expect(attributes['description']).to eq team1.description
 
       expect(attributes['name']).not_to eq team3.name
       expect(attributes['description']).not_to eq team3.description
+
+      folder_relationships_length = data.first['relationships']['folders']['data'].size
+
+      expect(included.size).to be(4)
+      expect(folder_relationships_length).to be(3)
     end
 
     it 'should not get team if not member' do
       login_as(:alice)
 
-      expect do
-        get :index, params: { 'team_id': team2.id }, xhr: true
-      end.to raise_error(ActiveRecord::RecordNotFound)
+      get :index, params: { 'team_id': team2.id }, xhr: true
+
+      expect(response.status).to be(403)
+      expect(data).to be(nil)
+      expect(included).to be(nil)
+    end
+
+    it 'should not find team by query if not team member' do
+      login_as(:alice)
+
+      get :index, params: { 'query': team2.name }, xhr: true
+
+      expect(response.status).to be(200)
+      expect(team1.attributes).to include(data.first['attributes'])
+
+      folder_relationships_length = data.first['relationships']['folders']['data'].size
+
+      expect(included.size).to be(4)
+      expect(folder_relationships_length).to be(3)
     end
 
     it 'should get teams, folders and accounts for query' do
@@ -106,14 +116,18 @@ describe Api::TeamsController do
       expect(attributes_first_team['name']).to eq team2.name
       expect(attributes_first_team['description']).to eq team2.description
 
-      folders = included.select { |element| element['type'] == 'folder'.pluralize }
-      accounts = included.select { |element| element['type'] == 'account'.pluralize }
+      folders = included.select { |element| element['type'] == 'folders' }
+      accounts = included.select { |element| element['type'] == 'accounts' }
 
       expect(folders.first['attributes']['name']).to eq(folder2.name)
       expect(folders).not_to include(folder1.name)
 
       expect(accounts.first['attributes']['accountname']).to eq(account2.accountname)
       expect(accounts).not_to include(account1.accountname)
+      folder_relationships_length = data.first['relationships']['folders']['data'].size
+
+      expect(included.size).to be(2)
+      expect(folder_relationships_length).to be(1)
     end
 
     it 'should get team for specific team name' do
@@ -127,10 +141,11 @@ describe Api::TeamsController do
 
       attributes_team = data.first['attributes']
 
-      expect(data.first['id'].to_i).to eq team3.id
-      expect(attributes_team['name']).to eq team3.name
-      expect(attributes_team['description']).to eq team3.description
-      expect(attributes_team['private']).to eq team3.private
+      expect(team3.attributes).to include(attributes_team)
+      folder_relationships_length = data.first['relationships']['folders']['data'].size
+
+      expect(included.size).to be(2)
+      expect(folder_relationships_length).to be(1)
     end
 
     it 'should get folder for specific folder name' do
@@ -147,7 +162,11 @@ describe Api::TeamsController do
       relationships_folder_team = data.first['relationships']['folders']['data'].first
 
       expect(relationships_folder_team['id'].to_i).to eq folder.id
-      expect(relationships_folder_team['type']).to eq 'folder'.pluralize
+      expect(relationships_folder_team['type']).to eq 'folders'
+      folder_relationships_length = data.first['relationships']['folders']['data'].size
+
+      expect(included.size).to be(2)
+      expect(folder_relationships_length).to be(1)
     end
 
     it 'should get account for specific account name' do
