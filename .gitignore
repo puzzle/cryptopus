@@ -20,6 +20,9 @@ BUILD
 # Ignore application configuration
 /config/application.yml
 
+# Ignore testfailure file
+spec/examples.txt
+
 /public/packs
 /public/packs-test
 /node_modules
