@@ -17,10 +17,10 @@ export default class TeamsIndexRoute extends Route {
   };
 
   afterModel(_resolvedModel, transition) {
-    let team_ids = transition.to.queryParams.team_ids;
+    let team_id = transition.to.queryParams.team_id;
     let folder_id = transition.to.queryParams.folder_id;
-    if (team_ids) {
-      this.navService.selectedTeam = this.store.peekRecord("team", team_ids);
+    if (team_id) {
+      this.navService.selectedTeam = this.store.peekRecord("team", team_id);
     } else {
       this.navService.selectedTeam = null;
     }
