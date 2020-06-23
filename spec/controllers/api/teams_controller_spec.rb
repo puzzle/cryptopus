@@ -50,7 +50,7 @@ describe Api::TeamsController do
 
       get :index, params: { 'team_id': team1.id }, xhr: true
 
-      expect(data.count).to eq(1)
+      expect(data).not_to be(Array)
       expect(response.status).to be(200)
 
       attributes = data['attributes']
@@ -246,7 +246,7 @@ describe Api::TeamsController do
 
       patch :update, params: update_params, xhr: true
 
-      team.reload
+      new_team.reload
 
       expect(new_team).to be_private
 
