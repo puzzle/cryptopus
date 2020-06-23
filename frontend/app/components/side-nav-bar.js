@@ -34,10 +34,13 @@ export default class SideNavBar extends Component {
     let already_the_same = this.navService.selectedTeam === team;
 
     if (already_the_same) this.collapsed = !this.collapsed;
-    else this.collapsed = false;
-    this.router.transitionTo("teams.index", {
-      queryParams: { team_ids: team.id }
-    });
+    else {
+      this.router.transitionTo("teams.index", {
+        queryParams: { team_id: team.id }
+      }).then(() => {
+        this.collapsed = false;
+      });
+    }
   }
 
   @action
