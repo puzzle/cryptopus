@@ -14,17 +14,29 @@ describe Api::TeamsController do
   let(:bobs_private_key) { bob.decrypt_private_key('password') }
   let!(:team3_user) { team3.teammembers.first.user }
 
-  let(:nested_models) { %w[folder account] }
-
   context 'GET index' do
     it 'should get team for search term' do
       login_as(:bob)
       get :index, params: { 'q': '2' }, xhr: true
 
-      result_json = data.first
+      expect(data.size).to be(1)
+      expect(included.size).to be(2)
 
-      expect(result_json['attributes']['name']).to eq team2.name
-      expect(result_json['id']).to eq team2.id.to_s
+      team = data.first
+      folder = included.first
+      account = included.second
+
+      expect(team['attributes']['name']).to eq team2.name
+      expect(team['id']).to eq team2.id.to_s
+
+      folder2 = folders(:folder2)
+      account2 = accounts(:account2)
+
+      expect(folder['attributes']['name']).to eq folder2.name
+      expect(folder['id']).to eq folder2.id.to_s
+
+      expect(account['attributes']['accountname']).to eq account2.accountname
+      expect(account['id']).to eq account2.id.to_s
     end
 
     it 'should get all teams for no query' do
@@ -127,7 +139,7 @@ describe Api::TeamsController do
 
       folder = team3.folders.first
 
-      get :index, params: { 'q': team3.name }, xhr: true
+      get :index, params: { 'q': folder.name }, xhr: true
 
       expect(data.count).to eq(1)
       expect(response.status).to be(200)
@@ -145,7 +157,7 @@ describe Api::TeamsController do
       folder = team3.folders.first
       account = folder.accounts.first
 
-      get :index, params: { 'q': team3.name }, xhr: true
+      get :index, params: { 'q': account.accountname }, xhr: true
 
       expect(data.count).to eq(1)
       expect(response.status).to be(200)

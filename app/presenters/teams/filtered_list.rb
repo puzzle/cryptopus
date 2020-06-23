@@ -10,12 +10,10 @@ module Teams
       teams
     end
 
+    private
+
     def query
       @params[:q]
-    end
-
-    def team_ids
-      @params[:team_ids]
     end
 
     def teams
@@ -25,8 +23,6 @@ module Teams
     def team_id
       @params[:team_id]
     end
-
-    private
 
     def teams_by_query
       teams.joins(:folders).joins(folders: :accounts).where(
