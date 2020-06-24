@@ -11,7 +11,7 @@ export default class FolderShowComponent extends Component {
   isFolderEditing = false;
 
   get collapsed() {
-    this.navService.selectedFolder != this.args.folder;
+    return this.navService.selectedFolder != this.args.folder;
   }
 
   @action
