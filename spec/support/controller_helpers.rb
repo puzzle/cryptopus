@@ -20,6 +20,10 @@ module ControllerHelpers
     json['data']
   end
 
+  def included
+    json['included']
+  end
+
   def expect_json_object_includes_keys(json, keys)
     keys.each do |k|
       expect(json).to include(k)
