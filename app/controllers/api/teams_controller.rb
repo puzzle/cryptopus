@@ -23,12 +23,6 @@ class Api::TeamsController < ApiController
     super(render_options: { include: '**' })
   end
 
-  # POST /api/teams/:id
-  def show
-    authorize team
-    render_json team
-  end
-
   # POST /api/teams
   def create
     team = Team.create(current_user, model_params)
@@ -39,27 +33,10 @@ class Api::TeamsController < ApiController
     render_json team
   end
 
-  # PATCH /api/teams/:id
-  def update
-    authorize team
-    team.update!(model_params)
-
-    add_info(t('flashes.teams.updated'))
-
-    render_json
-  end
-
-  # DELETE /api/teams/:id
-  def destroy
-    authorize team
-    team.destroy
-    render_json
-  end
-
   private
 
   def fetch_entries
-    ::Teams::FilteredList.new(current_user, params).fetch_entries
+    @entries ||= ::Teams::FilteredList.new(current_user, params).fetch_entries
   end
 
   def user
@@ -72,10 +49,6 @@ class Api::TeamsController < ApiController
 
   def team_id_present?
     params['team_id'].present?
-  end
-
-  def teams
-    @teams ||= current_user.teams
   end
 
   class << self
