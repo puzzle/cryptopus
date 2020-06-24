@@ -6,6 +6,8 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::TeamsController < ApiController
+  before_action :assert_valid_query, if: -> { params.key? :q }, only: [:index]
+  before_action :assert_valid_team, if: -> { params.key? :team_id }, only: [:index]
 
   self.permitted_attrs = [:name, :description, :private]
 
@@ -15,25 +17,36 @@ class Api::TeamsController < ApiController
 
   # GET /api/teams
   def index
-    if team_id_present?
+    if params['team_id'].present?
       authorize fetch_entries.first, :team_member?
     else
       authorize ::Team
     end
-    super(render_options: { include: '**' })
-  end
-
-  # POST /api/teams
-  def create
-    team = Team.create(current_user, model_params)
-    authorize team
-    team.save
-    add_info(t('flashes.teams.created'))
-
-    render_json team
+    super(render_options: render_options)
   end
 
   private
+
+  def build_entry
+    instance_variable_set(:"@#{ivar_name}",
+                          Team.create(current_user, model_params))
+  end
+
+  def assert_valid_query
+    raise ArgumentError, 'invalid length of query' if query.strip.blank?
+  end
+
+  def assert_valid_team
+    raise ActiveRecord::RecordNotFound if team_id.blank?
+  end
+
+  def query
+    params[:q]
+  end
+
+  def team_id
+    params[:team_id]
+  end
 
   def fetch_entries
     @entries ||= ::Teams::FilteredList.new(current_user, params).fetch_entries
@@ -47,8 +60,8 @@ class Api::TeamsController < ApiController
     @team ||= ::Team.find(params['id'])
   end
 
-  def team_id_present?
-    params['team_id'].present?
+  def render_options
+    fetch_entries == current_user.teams ? { include: '*' } : { include: '**' }
   end
 
   class << self

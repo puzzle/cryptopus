@@ -18,39 +18,55 @@ describe Api::TeamsController do
     it 'should get team for search term' do
       login_as(:bob)
 
-      get :index, params: { 'q': 'mail' }, xhr: true
+      get :index, params: { q: 'mail' }, xhr: true
 
       expect(data.size).to be(0)
       expect(included).to be(nil)
     end
 
-    it 'should get all teams for no query' do
+    it 'raises invalid argument error if query param blank' do
       login_as(:bob)
 
-      get :index, params: { 'q': '' }, xhr: true
+      expect do
+        get :index, params: { q: '' }, xhr: true
+      end.to raise_error(ArgumentError)
 
-      expect(data.size).to eq(2)
-
-      result_json = data.first
-
-      expect(result_json['attributes']['name']).to eq team1.name
-      expect(result_json['id']).to eq team1.id.to_s
-
-      result_json = data.second
-
-      expect(result_json['attributes']['name']).to eq team2.name
-      expect(result_json['id']).to eq team2.id.to_s
-
-      folder_relationships_length = data.first['relationships']['folders']['data'].size
-
-      expect(included.size).to be(6)
-      expect(folder_relationships_length).to be(3)
+      expect(response.status).to eq(200)
     end
 
-    it 'should get a single team if one team_id is given' do
+    it 'returns all teams and its folders if no query nor id is given' do
       login_as(:bob)
 
-      get :index, params: { 'team_id': team1.id }, xhr: true
+      get :index, xhr: true
+
+      expect(data.size).to be(2)
+      expect(included.size).to be(4)
+
+      data.each do |team|
+        expect(team['type']).to eq('teams')
+      end
+
+      included.each do |folder|
+        expect(folder['type']).to eq('folders')
+      end
+    end
+
+    it 'raises error if team_id doesnt exist' do
+      login_as(:bob)
+
+      inexistent_id = 11111111
+
+      expect do
+        get :index, params: { team_id: inexistent_id }, xhr: true
+      end.to raise_error(ActiveRecord::RecordNotFound)
+
+      expect(response.status).to eq(200)
+    end
+
+    it 'returns a single team if one team_id is given' do
+      login_as(:bob)
+
+      get :index, params: { team_id: team1.id }, xhr: true
 
       expect(response.status).to be(200)
 
@@ -73,31 +89,29 @@ describe Api::TeamsController do
       expect(folder_relationships_length).to be(3)
     end
 
-    it 'should not get team if not member' do
+    it 'doesnt return team if not member' do
       login_as(:alice)
 
-      get :index, params: { 'team_id': team2.id }, xhr: true
+      get :index, params: { team_id: team2.id }, xhr: true
 
       expect(response.status).to be(403)
       expect(data).to be(nil)
       expect(included).to be(nil)
     end
 
-    it 'should not find team by query if not team member' do
+    it 'doesnt return team by query if not team member' do
       login_as(:alice)
 
-      get :index, params: { 'query': team2.name }, xhr: true
+      get :index, params: { q: team2.name }, xhr: true
 
       expect(response.status).to be(200)
-      expect(team1.attributes).to include(data.first['attributes'])
 
-      folder_relationships_length = data.first['relationships']['folders']['data'].size
+      expect(data).to eq([])
+      expect(included).to be(nil)
 
-      expect(included.size).to be(4)
-      expect(folder_relationships_length).to be(3)
     end
 
-    it 'should get teams, folders and accounts for query' do
+    it 'returns teams, folders and accounts for query' do
       login_as(:bob)
 
       folder1 = folders(:folder1)
@@ -106,7 +120,7 @@ describe Api::TeamsController do
       account1 = accounts(:account1)
       account2 = accounts(:account2)
 
-      get :index, params: { 'q': 'account2' }, xhr: true
+      get :index, params: { q: 'account2' }, xhr: true
 
       expect(data.count).to eq(1)
       expect(response.status).to be(200)
@@ -130,11 +144,11 @@ describe Api::TeamsController do
       expect(folder_relationships_length).to be(1)
     end
 
-    it 'should get team for specific team name' do
+    it 'filters by team name' do
       add_bob_to_team(team3, team3_user)
       login_as(:bob)
 
-      get :index, params: { 'q': team3.name }, xhr: true
+      get :index, params: { q: team3.name }, xhr: true
 
       expect(data.count).to eq(1)
       expect(response.status).to be(200)
@@ -148,13 +162,13 @@ describe Api::TeamsController do
       expect(folder_relationships_length).to be(1)
     end
 
-    it 'should get folder for specific folder name' do
+    it 'filters by folder name' do
       add_bob_to_team(team3, team3_user)
       login_as(:bob)
 
       folder = team3.folders.first
 
-      get :index, params: { 'q': folder.name }, xhr: true
+      get :index, params: { q: folder.name }, xhr: true
 
       expect(data.count).to eq(1)
       expect(response.status).to be(200)
@@ -169,14 +183,32 @@ describe Api::TeamsController do
       expect(folder_relationships_length).to be(1)
     end
 
-    it 'should get account for specific account name' do
+    it 'filters by account name' do
       add_bob_to_team(team3, team3_user)
       login_as(:bob)
 
       folder = team3.folders.first
       account = folder.accounts.first
 
-      get :index, params: { 'q': account.accountname }, xhr: true
+      get :index, params: { q: account.accountname }, xhr: true
+
+      expect(data.count).to eq(1)
+      expect(response.status).to be(200)
+
+      included_account = included.second
+
+      expect(included_account['id'].to_i).to eq account.id
+      expect(included_account['attributes']['accountname']).to eq account.accountname
+      expect(included_account['attributes']['description']).to eq account.description
+    end
+
+    it 'filters by account description' do
+      add_bob_to_team(team3, team3_user)
+      login_as(:bob)
+
+      account = accounts(:account1)
+
+      get :index, params: { q: account.description }, xhr: true
 
       expect(data.count).to eq(1)
       expect(response.status).to be(200)
@@ -309,7 +341,7 @@ describe Api::TeamsController do
       expect(team.description).to eq(team_params[:data][:attributes][:description])
       expect(team.private).to be team_params[:data][:attributes][:private]
 
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(201)
     end
 
     it 'creates new private team as user' do
@@ -327,7 +359,7 @@ describe Api::TeamsController do
 
       expect do
         post :create, params: team_params, xhr: true
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(201)
       end.to change { Team.count }.by(1)
 
       team = Team.find_by(name: team_params[:data][:attributes][:name])
@@ -335,7 +367,7 @@ describe Api::TeamsController do
       expect(team.description).to eq(team_params[:data][:attributes][:description])
       expect(team.private).to be team_params[:data][:attributes][:private]
 
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(201)
     end
 
   end

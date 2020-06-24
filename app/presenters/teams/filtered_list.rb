@@ -4,7 +4,7 @@ module Teams
   class FilteredList < ::FilteredList
 
     def fetch_entries
-      return filter_by_query if query.present?
+      return filter_by_query if query_present?
       return filter_by_id if team_id.present?
 
       teams
@@ -13,7 +13,11 @@ module Teams
     private
 
     def query
-      @params[:q]
+      @params[:q].strip.downcase
+    end
+
+    def query_present?
+      @params[:q].present?
     end
 
     def teams
@@ -25,10 +29,13 @@ module Teams
     end
 
     def filter_by_query
-      teams.includes(:folders, folders: [:accounts]).where('lower(teams.name) LIKE :query
+      teams.includes(:folders, folders: [:accounts]).where(
+        'lower(teams.name) LIKE :query
         OR lower(folders.name) LIKE :query
-        OR lower(accounts.accountname) LIKE :query',
-                                                           query: "%#{query.downcase}%")
+        OR lower(accounts.accountname) LIKE :query
+        OR lower(accounts.description) LIKE :query',
+        query: "%#{query}%"
+      )
            .references(:folders,
                        folders: [:accounts])
     end
