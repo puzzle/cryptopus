@@ -6,6 +6,10 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 /*@import "secret_input";*/
 @import 'ember-power-select';
 
+.main {
+  margin-left: 250px;
+}
+
 .navbar-custom {
   background: #2988bc;
 }
