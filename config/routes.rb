@@ -10,9 +10,13 @@ Rails.application.routes.draw do
   get 'status/health', to: 'status#health'
   get 'status/readiness', to: 'status#readiness'
 
-  namespace :recryptrequests do
-    get 'new_ldap_password'
-    post 'recrypt'
+  namespace :recrypt do
+    get 'ldap', to: 'ldap#new'
+    post 'ldap', to: 'ldap#create'
+    if AuthConfig.keycloak_enabled?
+      get 'sso', to: 'sso#new'
+      post 'sso', to: 'sso#create'
+    end
   end
 
   resources :teams, only: [:show, :index, :destroy] do
@@ -24,8 +28,10 @@ Rails.application.routes.draw do
   end
 
   scope '/session', module: 'session' do
-    get 'sso', to: 'sso#create' if AuthConfig.keycloak_enabled?
-    get 'sso/inactive', to: 'sso#inactive' if AuthConfig.keycloak_enabled?
+    if AuthConfig.keycloak_enabled?
+      get 'sso', to: 'sso#create'
+      get 'sso/inactive', to: 'sso#inactive'
+    end
     post 'local', to: 'local#create'
     get 'local', to: 'local#new'
   end

@@ -42,25 +42,4 @@ describe RecryptrequestPolicy do
       refute_permit bob, Recryptrequest, :destroy?
     end
   end
-
-  context 'as non-ldap user' do
-    it 'cannot set a new ldap password' do
-      expect(bob).to_not be_ldap
-      refute_permit bob, Recryptrequest, :new_ldap_password?
-    end
-  end
-
-  context 'as ldap user' do
-    it 'ldap user can set a new ldap password' do
-      assert_permit ldap_user, Recryptrequest, :new_ldap_password?
-    end
-  end
-
-  context 'everyone' do
-    it 'can trigger a recrypt request' do
-      assert_permit admin, Recryptrequest, :recrypt?
-      assert_permit bob, Recryptrequest, :recrypt?
-      assert_permit alice, Recryptrequest, :recrypt?
-    end
-  end
 end

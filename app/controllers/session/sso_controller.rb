@@ -15,7 +15,10 @@ class Session::SsoController < SessionController
       return redirect_to user_authenticator.keycloak_login
     end
 
-    create_session(keycloak_client.user_pk_secret)
+    unless create_session(keycloak_client.user_pk_secret)
+      return redirect_if_decryption_error
+    end
+
     last_login_message
     redirect_after_sucessful_login
   end
@@ -26,8 +29,21 @@ class Session::SsoController < SessionController
 
   private
 
+  def redirect_if_decryption_error
+    return redirect_to user_authenticator.recrypt_path unless current_user.keycloak?
+
+    reset_session_before_redirect
+    redirect_to user_authenticator.keycloak_login
+  end
+
   def authorize_action
     authorize :sso
+  end
+
+  def reset_session_before_redirect
+    jumpto = params[:jumpto]
+    reset_session
+    session[:jumpto] = jumpto
   end
 
   def keycloak_cookie

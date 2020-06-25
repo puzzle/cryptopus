@@ -6,6 +6,7 @@ class CrudController < ListController
 
   # GET /entries/1
   def show(options = {})
+    authorize entry
     render_entry({ include: '*' }.merge(options[:render_options] || {}))
   end
 
@@ -23,6 +24,7 @@ class CrudController < ListController
 
   # PATCH/PUT /entries/1
   def update(options = {})
+    authorize entry
     entry.attributes = model_params
     if entry.save
       render_entry(options[:render_options])
@@ -33,6 +35,7 @@ class CrudController < ListController
 
   # DELETE /entries/1
   def destroy(_options = {})
+    authorize entry
     if entry.destroy
       head 204
     else

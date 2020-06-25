@@ -39,10 +39,10 @@ describe 'User provides new Ldap Pw' do
       # 2 times in recryptrequests_controller
 
       login_as('bob', 'newPassword')
-      expect(request.fullpath).to eq(recryptrequests_new_ldap_password_path)
+      expect(request.fullpath).to eq(recrypt_ldap_path)
       # Recrypt
-      post recryptrequests_recrypt_path, params: { new_password: 'newPassword',
-                                                   old_password: 'password' }
+      post recrypt_ldap_path, params: { new_password: 'newPassword',
+                                        old_password: 'password' }
 
       follow_redirect!
       expect(request.fullpath).to eq(session_destroy_path)
@@ -78,10 +78,9 @@ describe 'User provides new Ldap Pw' do
       # 1 time in recryptrequests_controller
 
       login_as('bob', 'newPassword')
-      expect(request.fullpath).to eq(recryptrequests_new_ldap_password_path)
+      expect(request.fullpath).to eq(recrypt_ldap_path)
       # Recrypt
-      post recryptrequests_recrypt_path, params: { forgot_password: true,
-                                                   new_password: 'newPassword' }
+      post recrypt_ldap_path, params: { forgot_password: true, new_password: 'newPassword' }
 
       follow_redirect!
       expect(request.fullpath).to eq(session_destroy_path)
@@ -123,13 +122,13 @@ describe 'User provides new Ldap Pw' do
       # 1 time in recryptrequests_controller
 
       login_as('bob', 'newPassword')
-      expect(request.fullpath).to eq(recryptrequests_new_ldap_password_path)
+      expect(request.fullpath).to eq(recrypt_ldap_path)
       # Recrypt
-      post recryptrequests_recrypt_path, params: { new_password: 'newPassword',
-                                                   old_password: 'wrong_password' }
+      post recrypt_ldap_path, params: { new_password: 'newPassword',
+                                        old_password: 'wrong_password' }
 
       follow_redirect!
-      expect(request.fullpath).to eq(recryptrequests_new_ldap_password_path)
+      expect(request.fullpath).to eq(recrypt_ldap_path)
 
       #  do if user got error messages
       expect(flash[:error]).to match(/Your OLD password was wrong/)
@@ -153,17 +152,17 @@ describe 'User provides new Ldap Pw' do
 
       login_as('bob', 'newPassword')
 
-      # Recryptrecryptrequests_recrypt_path
+      # Recryptrecrypt_ldap_path
 
       expect(ldap).to receive(:authenticate!)
         .with('bob', 'wrong')
         .and_return(false)
 
-      expect(request.fullpath).to eq(recryptrequests_new_ldap_password_path)
+      expect(request.fullpath).to eq(recrypt_ldap_path)
 
-      post recryptrequests_recrypt_path, params: { new_password: 'wrong' }
+      post recrypt_ldap_path, params: { new_password: 'wrong' }
       follow_redirect!
-      expect(request.fullpath).to eq(recryptrequests_new_ldap_password_path)
+      expect(request.fullpath).to eq(recrypt_ldap_path)
       #  do if user got error messages
       expect(flash[:error]).to match(/Your NEW password was wrong/)
     end
@@ -185,15 +184,14 @@ describe 'User provides new Ldap Pw' do
       # cannot_access_account(get_account_path, 'bob')
 
       login_as('bob', 'newPassword')
-      expect(request.fullpath).to eq(recryptrequests_new_ldap_password_path)
+      expect(request.fullpath).to eq(recrypt_ldap_path)
 
       # Recrypt
       expect(ldap).to receive(:authenticate!)
         .with('bob', 'wrong_password')
         .and_return(false)
 
-      post recryptrequests_recrypt_path, params: { forgot_password: true,
-                                                   new_password: 'wrong_password' }
+      post recrypt_ldap_path, params: { forgot_password: true, new_password: 'wrong_password' }
 
       #  do if user got error messages
       expect(flash[:error]).to match(/Your NEW password was wrong/)

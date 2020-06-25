@@ -4,7 +4,7 @@ class Authentication::UserAuthenticator::Db < Authentication::UserAuthenticator
 
   def authenticate!(allow_root: false, allow_api: false)
     return false unless preconditions?
-    return false if user_forbidden(allow_root, allow_api)
+    return false if user_forbidden?(allow_root, allow_api)
 
     authenticated = user.authenticate_db(password)
 
@@ -20,9 +20,13 @@ class Authentication::UserAuthenticator::Db < Authentication::UserAuthenticator
     super(last_login_from: remote_ip)
   end
 
+  def recrypt_path
+    session_new_path
+  end
+
   private
 
-  def user_forbidden(allow_root, allow_api)
+  def user_forbidden?(allow_root, allow_api)
     !allow_root && root_user? || !allow_api && user.is_a?(User::Api)
   end
 

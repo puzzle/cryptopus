@@ -115,7 +115,7 @@ en:
       uncrypterror:
         new_password: New password?!
         ldap_password_changed: Your LDAP Password has changed since your last login.
-        ldap_enter_old_password: Please enter your old LDAP Passwort to decrypt your Private_key.
+        ldap_enter_old_password: Please enter your old LDAP Password to decrypt your Private_key.
         ldap_old_password: Your old LDAP Password
         ldap_new_password: Your new LDAP Password
         ldap_password: Your LDAP Password
@@ -190,7 +190,7 @@ en:
     local:
       new:
         title: Log in
-        description: Please enter your username and password to access cryptopus
+        description: Please enter your password to access cryptopus
         submit: Login
     sso:
       inactive:
@@ -211,7 +211,12 @@ en:
       new: New password
       new_retype: New password (retype)
       submit: Change
-
+  recrypt:
+    sso:
+      new:
+        notice: Please enter your Cryptopus Password to migrate your account to Keycloak
+        cryptopus_password: Your Cryptopus Password
+        migrate: Migrate
   teammembers:
     new:
       title: Add a new teammember

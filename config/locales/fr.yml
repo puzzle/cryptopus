@@ -209,7 +209,12 @@ fr:
       new: Nouveau mot de passe
       new_retype: Nouveau mot de passe (retaper)
       submit: Change
-
+  recrypt:
+    sso:
+      new:
+        notice: Veuillez entrer votre mot de passe Cryptopus pour migrer votre compte vers Keycloak.
+        cryptopus_password: Votre mot de passe Cryptopus
+        migrate: Migrer
   teammembers:
     new:
       title: Ajouter un nouveau membre de l'équipe

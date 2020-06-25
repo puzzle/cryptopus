@@ -5,21 +5,21 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class RecryptrequestsController < ApplicationController
+class Recrypt::LdapController < ApplicationController
   skip_before_action :redirect_if_no_private_key
 
-  # GET /recryptrequests/new_ldap_password
-  def new_ldap_password
-    authorize Recryptrequest
+  # GET /recrypt/ldap
+  def new
+    authorize :recryptLdap
   end
 
-  # POST /recryptrequests/recrypt
-  def recrypt
-    authorize Recryptrequest
+  # POST /recrypt/ldap
+  def create
+    authorize :recryptLdap
 
     unless user_authenticator.authenticate!
       flash[:error] = t('activerecord.errors.models.user.new_password_invalid')
-      return redirect_to recryptrequests_new_ldap_password_path
+      return redirect_to user_authenticator.recrypt_path
     end
 
     if params[:forgot_password]
@@ -51,7 +51,7 @@ class RecryptrequestsController < ApplicationController
     end
 
     flash[:error] = current_user.errors.full_messages.join
-    redirect_to recryptrequests_new_ldap_password_path
+    redirect_to user_authenticator.recrypt_path
   end
 
   def user_authenticator

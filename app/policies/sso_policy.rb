@@ -3,7 +3,7 @@
 class SsoPolicy < ApplicationPolicy
 
   def create?
-    user.nil? && AuthConfig.keycloak_enabled?
+    AuthConfig.keycloak_enabled?
   end
 
   def inactive?
