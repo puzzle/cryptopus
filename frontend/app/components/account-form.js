@@ -90,7 +90,6 @@ export default class AccountForm extends BaseFormComponent {
       this.router.transitionTo("accounts/"+savedRecords[0].id);
     } else {
       // FIXME: replace with only closing the modal
-      debugger;
       this.router.transitionTo("teams");
     }
   }

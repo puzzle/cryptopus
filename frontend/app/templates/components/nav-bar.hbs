@@ -2,41 +2,41 @@
   @type="dark"
   @backgroundColor="custom"
   @class="navbar-custom" as |navbar| >
-<div class="container">
-  <div class="navbar-header">
-    {{navbar.toggle}}
-    {{#link-to "index" class="navbar-brand"}}Cryptopus{{/link-to}}
-  </div>
-  <navbar.content>
-    <div class="form-inline">
-      <Input @class="form-control mr-sm-2" @type="search" placeholder={{t "search.index.type_to_search"}} />
+  <div class="container">
+    <div class="navbar-header">
+      {{navbar.toggle}}
+      {{#link-to "index" class="navbar-brand"}}Cryptopus{{/link-to}}
     </div>
-    <navbar.nav @class="ml-auto" as |nav|>
-      <nav.dropdown as |dd|>
-        <div class="btn-group">
-          <LinkTo @class="nav-link" @route="accounts.new">{{t "accounts.new.title"}}</LinkTo>
-          <dd.toggle><span class="caret"></span></dd.toggle>
+    <navbar.content>
+      <div class="form-inline">
+        <Input @class="form-control mr-sm-2" @type="search" placeholder={{t "search.index.type_to_search"}} />
+      </div>
+      <navbar.nav @class="ml-auto" as |nav|>
+        <nav.dropdown as |dd|>
+          <div class="btn-group">
+            <LinkTo @class="nav-link" @route="accounts.new">{{t "accounts.new.title"}}</LinkTo>
+            <dd.toggle><span class="caret"></span></dd.toggle>
+          </div>
+          <dd.menu as |ddm|>
+            <ddm.item>
+              <ddm.link-to @route="teams.folders.new">{{t "folders.new.title"}}</ddm.link-to>
+            </ddm.item>
+            <ddm.item>
+              <ddm.link-to @route="teams.new">{{t "teams.new.title"}}</ddm.link-to>
+            </ddm.item>
+          </dd.menu>
+        </nav.dropdown>
+        <div class="nav-item">
+          <a class="nav-link" href="/profile">
+            Profile
+          </a>
         </div>
-        <dd.menu as |ddm|>
-          <ddm.item>
-            <ddm.link-to @route="teams.folders.new">{{t "folders.new.title"}}</ddm.link-to>
-          </ddm.item>
-          <ddm.item>
-            <ddm.link-to @route="teams.new">{{t "teams.new.title"}}</ddm.link-to>
-          </ddm.item>
-        </dd.menu>
-      </nav.dropdown>
-      <div class="nav-item">
-        <a class="nav-link" href="/profile">
-          Profile
-        </a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link" href="/session/destroy">
-          <img class="navbar-icon" src="ember/assets/icons/sign_out.svg" alt="Logout"/>
-        </a>
-      </div>
-    </navbar.nav>
-  </navbar.content>
-</div>
+        <div class="nav-item">
+          <a class="nav-link" href="/session/destroy">
+            <img class="navbar-icon" src="ember/assets/icons/sign_out.svg" alt="Logout">
+          </a>
+        </div>
+      </navbar.nav>
+    </navbar.content>
+  </div>
 </BsNavbar>

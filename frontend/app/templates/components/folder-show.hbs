@@ -16,7 +16,12 @@
 </div>
 <BsCollapse @collapsed={{this.collapsed}}>
   {{@folder.description}}
-  {{#each @folder.accounts as |account|}}
-    <AccountShow @account={{account}}/>
-  {{/each}}
+  <div class="row">
+    {{#each @folder.accounts as |account|}}
+        <div class="col-3">
+          <AccountShow @account={{account}}/>
+        </div>
+    {{/each}}
+  </div>
+
 </BsCollapse>
