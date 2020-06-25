@@ -12,6 +12,7 @@ class Recrypt::SsoController < ApplicationController
   # GET recrypt/sso
   def new
     authorize :recryptSso
+    render layout: false
   end
 
   # POST recrypt/sso

@@ -1,5 +1,8 @@
 # Cryptopus Changelog
 
+## Version 3.1
+* Integrated Keycloak
+
 ## Version 3.0
 * Integrated Ember into Cryptopus
 * Modal windows replace now most forms
@@ -9,7 +12,6 @@
 * Renamed Groups to Folders and Items to FileEntries
 * Added several security improvements
 * Many bug fixes
-
 
 ## Version 2.6
 * Simplified App Urls
