@@ -23,7 +23,7 @@
           </div>
           <div class="row mt-3">
             <div class="col">
-              <ol>
+              <ul>
                 {{#each this.members as |member|}}
                   <li>
                     {{member.label}}
@@ -37,26 +37,30 @@
                       {{/if}}
                     {{/if}}
                   </li>
-          <div class="tab-pane" id="api-users" role="tabpanel" aria-labelledby="api-users-tab">
-            <table class="table table-striped mt-3">
-              <thead>
-                <tr>
-                  <td>{{t "user"}}</td>
-                  <td>{{t "description"}}</td>
-                  <td>{{t "teams.form.enabled"}}</td>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each this.apiUsers as |user|}}
-                  <tr>
-                    <td>{{user.username}}</td>
-                    <td>{{user.description}}</td>
-                    <td>
-                      <XToggle @theme="material" @value={{user.enabled}} @onToggle={{fn this.toggleApiUser user}} />
-                    </td>
-                  </tr>
                 {{/each}}
-              </ol>
+                <div class="tab-pane" id="api-users" role="tabpanel" aria-labelledby="api-users-tab">
+                  <table class="table table-striped mt-3">
+                    <thead>
+                      <tr>
+                        <td>{{t "user"}}</td>
+                        <td>{{t "description"}}</td>
+                        <td>{{t "teams.form.enabled"}}</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {{#each this.apiUsers as |user|}}
+                        <tr>
+                          <td>{{user.username}}</td>
+                          <td>{{user.description}}</td>
+                          <td>
+                            <XToggle @theme="material" @value={{user.enabled}} @onToggle={{fn this.toggleApiUser user}} />
+                          </td>
+                        </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+              </ul>
             </div>
           </div>
         </div>
@@ -64,22 +68,22 @@
       <div class="tab-pane" id="api-users" role="tabpanel" aria-labelledby="api-users-tab">
         <table class="table table-striped mt-3">
           <thead>
-          <tr>
-            <td>{{t "user"}}</td>
-            <td>{{t "description"}}</td>
-            <td>{{t "teams.form.enabled"}}</td>
-          </tr>
+            <tr>
+              <td>{{t "user"}}</td>
+              <td>{{t "description"}}</td>
+              <td>{{t "teams.form.enabled"}}</td>
+            </tr>
           </thead>
           <tbody>
-          {{#each @apiUsers as |user|}}
-            <tr>
-              <td>{{user.username}}</td>
-              <td>{{user.description}}</td>
-              <td>
-                <XToggle @theme="material" @value={{user.enabled}} @onToggle={{fn this.toggleApiUser user}} />
-              </td>
-            </tr>
-          {{/each}}
+            {{#each @apiUsers as |user|}}
+              <tr>
+                <td>{{user.username}}</td>
+                <td>{{user.description}}</td>
+                <td>
+                  <XToggle @theme="material" @value={{user.enabled}} @onToggle={{fn this.toggleApiUser user}} />
+                </td>
+              </tr>
+            {{/each}}
           </tbody>
         </table>
       </div>

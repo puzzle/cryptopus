@@ -2,18 +2,62 @@
   <AccountForm @account={{@account}} @onAbort={{this.toggleAccountEdit}}/>
 {{/if}}
 {{#if this.isPreview}}
-  <div class="thumbnail mt-3 account-thumbnail account-preview" {{on "click" this.swapToCredentialsView}} role="button">
-    <div class="account-accountname pt-10">
-      <img class="d-inline w-20" src="/ember/assets/images/key.svg" alt="key">
-      {{@account.accountname}}
+  <div class="card my-3 account-card account-preview" {{on "click" this.swapToCredentialsView}} role="button">
+
+    <div class="card-body">
+      <div class="card-title">
+        <img class="img d-inline w-20 float-right" src="/ember/assets/images/key.svg" alt="key">
+        <h5>{{@account.accountname}}</h5>
+      </div>
     </div>
-    <hr>
-    <div class="account-description">
+    <div class="card-footer text-muted">
       {{truncate @account.description 40}}
     </div>
   </div>
 {{else}}
-  <div class="thumbnail mt-3 account-thumbnail account-detail">
+  <div class="card mt-3 account-card account-detail">
+
+    <div class="card-header">
+      <p class="d-inline">{{@account.accountname}}</p>
+    </div>
+
+    <div class="card-body">
+      <div class="row mb-2">
+        <div class="col pr-0">
+          <Input class="secret" @disabled="true" @value={{@account.cleartextUsername}}/>
+        </div>
+        <div class="col-2">
+          <CopyButton class="clip_button" @clipboardText={{@account.cleartextUsername}}>
+            <img class="icon-clippy img d-inline w-20" src="/ember/assets/images/clipboard.svg" alt="key">
+          </CopyButton>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col pr-0">
+          <Input class="secret" @disabled="true" @value={{@account.cleartextPassword}}/>
+        </div>
+        <div class="col-1">
+          <CopyButton class="clip_button" @clipboardText={{@account.cleartextPassword}}>
+            <img class="icon-clippy img d-inline w-20" src="/ember/assets/images/clipboard.svg" alt="key">
+          </CopyButton>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer d-flex justify-content-between">
+      <a href={{concat "/accounts/" @account.id}}>
+        <img class="icon-button d-inline" src="/ember/assets/images/eye.svg" alt="show">
+      </a>
+      <a class="mx-auto" role="button" {{on "click" this.toggleAccountEdit}}>
+        <img class="icon-button d-inline" src="/ember/assets/images/edit.svg" alt="edit">
+      </a>
+      <DeleteWithConfirmation @record={{@account}} @didDelete={{this.refreshRoute}}>
+        <img class="icon-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
+      </DeleteWithConfirmation>
+    </div>
+
+    <!--
     <img class="d-inline mb-2 account-detail-key" src="/ember/assets/images/key.svg" alt="key">
     <h4 class="d-inline">{{@account.accountname}}</h4>
     <div>
@@ -53,5 +97,6 @@
         <img class="icon-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
       </DeleteWithConfirmation>
     </div>
+    -->
   </div>
 {{/if}}

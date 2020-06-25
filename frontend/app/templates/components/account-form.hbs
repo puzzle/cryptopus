@@ -43,14 +43,13 @@
 
       <div class="row">
         <div class="col-md-6">
-            <div class="form-group col-sm-12">
-                <Input class="form-control secret mb-10" @value={{this.changeset.cleartextPassword}} @name="cleartextPassword" @tabindex="3" autocomplete="off"/>
-              <PasswordStrengthMeter class="col-6" @password={{this.changeset.cleartextPassword}}/>
-            </div>
+          <div class="form-group col-sm-12">
+            <Input class="form-control secret mb-10" @value={{this.changeset.cleartextPassword}} @name="cleartextPassword" @tabindex="3" autocomplete="off"/>
+            <PasswordStrengthMeter class="col-6" @password={{this.changeset.cleartextPassword}}/>
+          </div>
         </div>
         <div class="col-md-6">
           <button class="btn btn-secondary btn-block col-6" {{on "click" this.setRandomPassword}} tabindex="4">{{t "accounts.edit.random_password"}}</button>
-
         </div>
       </div>
       <div class="row">
