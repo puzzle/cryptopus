@@ -1,26 +1,26 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
+import { module, test } from "qunit";
+import { setupRenderingTest } from "ember-qunit";
+import { render } from "@ember/test-helpers";
+import { hbs } from "ember-cli-htmlbars";
 
-module('Integration | Component | file-entry-row', function(hooks) {
+module("Integration | Component | file-entry-row", function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  test("it renders with data", async function(assert) {
+    this.set("fileEntry", {
+      filename: "file1",
+      description: "description for file1",
+      account: {
+        get() {
+          return 1;
+        }
+      }
+    });
 
-    await render(hbs`<FileEntryRow />`);
+    await render(hbs`<FileEntryRow @fileEntry={{this.fileEntry}}/>`);
 
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      <FileEntryRow>
-        template block text
-      </FileEntryRow>
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    let text = this.element.textContent.trim();
+    assert.ok(text.includes("file1"));
+    assert.ok(text.includes("description for file1"));
   });
 });
