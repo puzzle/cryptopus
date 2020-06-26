@@ -27,7 +27,7 @@ describe 'Account attachement' do
 
     login_as('alice')
     file = account.file_entries.find_by(filename: 'test_file.txt')
-    file_entry_path = account_file_entry_path(account, file)
+    file_entry_path = api_account_file_entry_path(account, file)
     get file_entry_path
     expect(response.body).to eq('certificate')
     expect(response.header['Content-Type']).to eq('text/plain')

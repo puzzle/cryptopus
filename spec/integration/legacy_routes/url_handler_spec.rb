@@ -56,48 +56,6 @@ describe LegacyRoutes::UrlHandler do
     assert_redirected_to redirect_url
   end
 
-  # /de/teams/1/folders/1/accounts/1/ -> /accounts/1/
-  it 'redirects to team1 url without locale' do
-    team1 = teams(:team1)
-    folder1 = folders(:folder1)
-    account1 = accounts(:account1)
-
-    legacy_account_url = "/de/teams/#{team1.id}/folders/" \
-    "#{folder1.id}/accounts/#{account1.id}/"
-    login_as('bob')
-
-    get legacy_account_url
-
-    assert_redirected_to "/accounts/#{account1.id}"
-  end
-
-  # /de/teams -> /teams
-  it 'redirects to teams url with german locale' do
-    login_as('bob')
-
-    get '/de/teams'
-
-    assert_redirected_to teams_path
-  end
-
-  # /en/teams -> /teams
-  it 'redirects to teams url with english locale' do
-    login_as('bob')
-
-    get '/en/teams'
-
-    assert_redirected_to teams_path
-  end
-
-  # /fr/teams -> /teams
-  it 'redirects to teams url with french locale' do
-    login_as('bob')
-
-    get '/fr/teams'
-
-    assert_redirected_to teams_path
-  end
-
   # /de/login/login -> /login/login
   it 'redirects to login url without locale' do
     get '/de/login/login'
@@ -147,7 +105,7 @@ describe LegacyRoutes::UrlHandler do
     team1 = teams(:team1)
     folder1 = folders(:folder1)
 
-    invalid_account_url = "/teams/#{team1.id}/folders/#{folder1.id}/accounts"
+    invalid_account_url = "/teams/#{team1.id}/folders/#{folder1.id}/gibberish"
     login_as('bob')
 
     expect { get invalid_account_url }.to raise_error(ActionController::RoutingError)
@@ -155,11 +113,13 @@ describe LegacyRoutes::UrlHandler do
 
   # /ch_vs/teams/1/folders/1/accounts -> RoutingError
   it 'raises RoutingError when user accesses non valid route with unknown locale' do
+    team1 = teams(:team1)
+    folder1 = folders(:folder1)
 
-    invalid_teams_url = '/ch_vs/teams'
+    invalid_account_url = "/ch_vs/teams/#{team1.id}/folders/#{folder1.id}/gibberish"
     login_as('bob')
 
-    expect { get invalid_teams_url }.to raise_error(ActionController::RoutingError)
+    expect { get invalid_account_url }.to raise_error(ActionController::RoutingError)
   end
 
   # /en/login/login -> /
@@ -199,14 +159,69 @@ describe LegacyRoutes::UrlHandler do
     end
   end
 
-  # /teams -> /teams
-  it 'delivers frontend files' do
-    teams_url = '/teams'
-    login_as('bob')
+  context 'frontend files' do
+    # /teams -> /teams
+    it 'gets delivered on frontend route' do
+      teams_url = '/teams'
+      login_as('bob')
 
-    get teams_url
+      get teams_url
 
-    assert_template 'frontend/index'
+      assert_template 'frontend/index'
+    end
+
+    # /ch_vs/teams -> /teams
+    it 'gets delivered on frontend route with unknown locale' do
+
+      teams_url = '/ch_vs/teams'
+      login_as('bob')
+
+      get teams_url
+
+      assert_template 'frontend/index'
+    end
+
+    # /de/teams/1/folders/1/accounts/1/ -> /accounts/1/
+    it 'gets delivered when redirecting to team1 url without locale' do
+      team1 = teams(:team1)
+      folder1 = folders(:folder1)
+      account1 = accounts(:account1)
+
+      legacy_account_url = "/de/teams/#{team1.id}/folders/" \
+        "#{folder1.id}/accounts/#{account1.id}/"
+      login_as('bob')
+
+      get legacy_account_url
+
+      assert_template 'frontend/index'
+    end
+
+    # /de/teams -> /teams
+    it 'gets delivered when redirecting to teams url with german locale' do
+      login_as('bob')
+
+      get '/de/teams'
+
+      assert_template 'frontend/index'
+    end
+
+    # /en/teams -> /teams
+    it 'gets delivered when redirecting to teams url with english locale' do
+      login_as('bob')
+
+      get '/en/teams'
+
+      assert_template 'frontend/index'
+    end
+
+    # /fr/teams -> /teams
+    it 'gets delivered when redirecting to teams url with french locale' do
+      login_as('bob')
+
+      get '/fr/teams'
+
+      assert_template 'frontend/index'
+    end
   end
 
   private

@@ -71,7 +71,7 @@ class LegacyRoutes::UrlHandler
   end
 
   def legacy_locales_path?
-    @url.match(/(#{LOCALES_REGEX})\//)
+    @url.match?(/(#{LOCALES_REGEX})\//)
   end
 
   def new_accounts_path

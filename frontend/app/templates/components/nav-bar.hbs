@@ -1,3 +1,12 @@
+{{#if this.isNewAccount}}
+  <AccountForm @onAbort={{this.toggleAccountCreating}} @title={{t "accounts.new.title"}}/>
+{{/if}}
+{{#if this.isNewFolder}}
+  <FolderForm @onAbort={{this.toggleFolderCreating}} @title={{t "folders.new.title"}}/>
+{{/if}}
+{{#if this.isNewTeam}}
+  <TeamForm @onAbort={{this.toggleTeamCreating}} @title={{t "teams.new.title"}}/>
+{{/if}}
 <BsNavbar
   @type="dark"
   @backgroundColor="custom"
@@ -14,15 +23,17 @@
       <navbar.nav @class="ml-auto" as |nav|>
         <nav.dropdown as |dd|>
           <div class="btn-group">
-            <LinkTo @class="nav-link" @route="accounts.new">{{t "accounts.new.title"}}</LinkTo>
-            <dd.toggle><span class="caret"></span></dd.toggle>
+            <dd.toggle>
+              <a class="nav-link d-inline" role="button" {{on "click" this.toggleAccountCreating}}>{{t "accounts.new.title"}}</a>
+              <img class="icon icon-button float-right" src="/ember/assets/images/angle-down.svg" alt="v">
+            </dd.toggle>
           </div>
           <dd.menu as |ddm|>
             <ddm.item>
-              <ddm.link-to @route="teams.folders.new">{{t "folders.new.title"}}</ddm.link-to>
+              <a role="button" class="dropdown-item" {{on "click" this.toggleFolderCreating}}>{{t "folders.new.title"}}</a>
             </ddm.item>
             <ddm.item>
-              <ddm.link-to @route="teams.new">{{t "teams.new.title"}}</ddm.link-to>
+              <a role="button" class="dropdown-item" {{on "click" this.toggleTeamCreating}}>{{t "teams.new.title"}}</a>
             </ddm.item>
           </dd.menu>
         </nav.dropdown>

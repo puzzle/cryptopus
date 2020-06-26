@@ -1,5 +1,5 @@
 {{#if this.isAccountEditing}}
-  <AccountForm @account={{@account}} @onAbort={{this.toggleAccountEdit}}/>
+  <AccountForm @account={{@account}} @onAbort={{this.toggleAccountEdit}} @title={{t "accounts.edit.title"}}/>
 {{/if}}
 {{#if this.isFileEntryCreating}}
   <FileEntryForm @account={{@account}} @title={{t "file_entries.new.title"}} @onAbort={{this.toggleFileEntryNew}}/>
