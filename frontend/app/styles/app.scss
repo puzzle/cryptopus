@@ -4,7 +4,7 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 @import "ember-bootstrap/bootstrap";
 @import "pod-styles";
 /*@import "secret_input";*/
-@import 'ember-power-select';
+@import "ember-power-select";
 
 .main {
   margin-left: 250px;
@@ -237,32 +237,28 @@ li a {
     brightness(95%) contrast(84%);
 }
 
-.account-thumbnail.account-preview:hover {
+.account-card.account-preview:hover {
   background-color: lightgray;
   cursor: pointer;
 }
 
-.account-thumbnail {
-  width: 20%;
-}
-
-.account-thumbnail hr {
+.account-card hr {
   margin: 0;
 }
 
-.account-thumbnail .account-accountname {
+.account-card .account-accountname {
   min-height: 6em;
 }
 
-.account-thumbnail .account-description {
+.account-card .account-description {
   max-height: 3em;
 }
 
-.account-thumbnail.account-detail {
+.account-card.account-detail {
   background-color: lightgray;
 }
 
-.account-thumbnail.account-detail > div {
+.account-card.account-detail > div {
   background-color: white;
 }
 
@@ -340,7 +336,7 @@ li a {
 #sidebar {
   width: 250px;
   position: fixed;
-  top:0px;
+  top: 0px;
   left: 0;
   height: 100vh;
   z-index: 999;

@@ -1,12 +1,20 @@
-<span role="button" data-toggle="modal" data-target={{concat "#" this.modalId}}>
+<span role="button" {{on "click" this.toggleModal}}>
   {{yield}}
 </span>
 
+<BsModal @size="sm" @renderInPlace="true" @onHide={{this.toggleModal}} @open={{this.isOpen}} as |Modal|>
+  <Modal.body>
+    {{t "confirmation"}}
+  </Modal.body>
+  <Modal.footer>
+    <BsButton @onClick={{this.toggleModal}} @type="secondary">{{t "close"}}</BsButton>
+    <BsButton @onClick={{this.deleteRecord}} @type="primary">{{t "delete"}}</BsButton>
+  </Modal.footer>
+</BsModal>
 <div id={{this.modalId}} class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-body">
-        {{t "confirmation"}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">{{t "close"}}</button>

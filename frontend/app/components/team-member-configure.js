@@ -40,17 +40,18 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
     });
   }
 
+  handleSubmitSuccess() {
+    this.members = this.store.query("teammember", { teamId: this.args.teamId });
+    this.loadCandidates();
+  }
+
+  @action
   abort() {
     if (this.args.onAbort) {
       this.args.onAbort();
       return;
     }
     this.router.transitionTo("index");
-  }
-
-  handleSubmitSuccess() {
-    this.members = this.store.query("teammember", { teamId: this.args.teamId });
-    this.loadCandidates();
   }
 
   @action
