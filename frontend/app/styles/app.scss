@@ -354,3 +354,97 @@ li a {
 .logo-icon {
   height: 40px;
 }
+
+.result-password {
+  top: -51px;
+  position: relative;
+}
+
+.result-username,
+.result-password {
+  position: relative;
+}
+
+.show-password-link,
+.password-show {
+  display: block;
+  background: #c9c9c9;
+  border-radius: 3px;
+  color: black;
+  z-index: 3;
+  position: relative;
+}
+
+.show-password-link,
+.password-show,
+.result-username input,
+.result-password input {
+  padding: 6px 10px;
+  width: 205px;
+  font-size: 14px;
+  border: 1px solid #c9c9c9;
+  display: block;
+}
+
+.result-username input:hover,
+.result-password input:hover {
+  cursor: text;
+}
+
+.result-password,
+.show-password-link,
+.password-show {
+  margin-top: 1em;
+}
+
+.clip_button {
+  position: absolute;
+  left: 210px;
+  top: -2px;
+  border: 1px solid #c9c9c9;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 35px;
+  width: 50px;
+}
+
+.clip_button svg {
+  padding-right: 2px;
+  padding-bottom: 1px;
+}
+
+.copied {
+  border-radius: 3px;
+  color: white;
+  background-color: #555;
+  display: none;
+  position: absolute;
+  padding: 4px;
+  margin-left: 268px;
+  margin-top: -28px;
+}
+
+.edit_button {
+  padding: 6px;
+  border: 1px solid #c9c9c9;
+  width: 45px;
+  background-color: #ebe3df;
+  margin-left: 6px;
+}
+
+.edit_button:hover {
+  background-color: #ffffff;
+}
+
+.edit_button img {
+  height: 18px;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.show-password-link {
+  cursor: pointer;
+}

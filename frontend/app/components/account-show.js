@@ -5,27 +5,32 @@ import { inject as service } from "@ember/service";
 
 export default class AccountShowComponent extends Component {
   @service store;
-  @service router;
 
-  @tracked
-  isPreview = true;
+  fileEntries = this.store.query("file-entry", {
+    accountId: this.args.account.id
+  });
 
   @tracked
   isAccountEditing = false;
 
-  @action
-  swapToCredentialsView() {
-    this.isPreview = false;
-    this.store.findRecord("account", this.args.account.id);
-  }
+  @tracked
+  isFileEntryCreating = false;
 
-  @action
-  refreshRoute() {
-    this.router.transitionTo();
-  }
+  @tracked
+  isPasswordVisible = false;
 
   @action
   toggleAccountEdit() {
     this.isAccountEditing = !this.isAccountEditing;
+  }
+
+  @action
+  toggleFileEntryNew() {
+    this.isFileEntryCreating = !this.isFileEntryCreating;
+  }
+
+  @action
+  showPassword() {
+    this.isPasswordVisible = true;
   }
 }

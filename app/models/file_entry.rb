@@ -31,6 +31,8 @@ class FileEntry < ApplicationRecord
   validate :valid_file_size
   validate :filename_is_not_blank_or_nil
 
+  scope :list, -> {}
+
   attr_accessor :cleartext_file
 
   class << self

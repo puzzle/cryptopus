@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class FileEntryPolicy < TeamDependantPolicy
+  def index?
+    true
+  end
+
   def show
     team_member?
   end

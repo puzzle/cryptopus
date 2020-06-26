@@ -75,7 +75,7 @@ en:
         good: Good
         strong: Strong
     show:
-      title: "Account: %{account_name}"
+      account: Account
       last_change: "Last change was %{time_ago} ago"
       attachments: Attachments
       file: File

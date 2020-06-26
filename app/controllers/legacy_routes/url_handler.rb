@@ -17,19 +17,7 @@ class LegacyRoutes::UrlHandler
     folders_new: /(\/teams\/folders\/new)$/,
     folders_edit: /(\/teams\/\d+\/folders\/\d+\/edit)$/,
     accounts_new: /(\/accounts\/new)$/,
-    accounts_edit: /(\/accounts\/\d+\/edit)$/,
-    file_entries: /(\/accounts\/\d+\/file_entries)$/,
-    file_entries_new: /(\/accounts\/\d+\/file_entries\/new)$/
-  }.freeze
-
-  FRONTEND_PATHS = {
-    teams_index: /(\/teams)$/,
-    teams_new: /(\/teams\/new)$/,
-    teams_edit: /(\/teams\/\d+\/edit)$/,
-    teams_configure: /(\/teams\/\d+\/configure)$/,
-    folders_new: /(\/teams\/folders\/new)$/,
-    folders_edit: /(\/teams\/\d+\/folders\/\d+\/edit)$/,
-    accounts_new: /(\/accounts\/new)$/,
+    accounts_show: /(\/accounts\/\d+)$/,
     accounts_edit: /(\/accounts\/\d+\/edit)$/,
     file_entries: /(\/accounts\/\d+\/file_entries)$/,
     file_entries_new: /(\/accounts\/\d+\/file_entries\/new)$/

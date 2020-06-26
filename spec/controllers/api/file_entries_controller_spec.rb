@@ -23,6 +23,20 @@ describe Api::FileEntriesController do
   let(:private_key) { bob.decrypt_private_key('password') }
   let(:plaintext_team_password) { teams(:team1).decrypt_team_password(bob, private_key) }
 
+  context 'GET index' do
+    it 'shows all file_entries of account1' do
+      login_as(:bob)
+      account1 = accounts(:account1)
+
+      get :index, params: { account_id: account1.id }
+
+      expect(response).to have_http_status(200)
+      expect(data.count).to eq(2)
+      file_attributes = data.first['attributes']
+      expect(file_attributes['filename']).to eq('file_entry1')
+    end
+  end
+
   context 'POST create' do
     it 'does upload file' do
       login_as(:bob)
@@ -83,5 +97,4 @@ describe Api::FileEntriesController do
       expect(response).to have_http_status(422)
     end
   end
-
 end

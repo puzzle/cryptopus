@@ -7,6 +7,9 @@ export default class FileEntry extends Model {
   @belongsTo("account") account;
 
   async save() {
+    if (this.isDeleted) {
+      return super.save();
+    }
     let url = `/api/accounts/${this.account.get("id")}/file_entries`;
     let opts = {
       data: { description: this.description },

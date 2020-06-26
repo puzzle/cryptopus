@@ -1,0 +1,9 @@
+<tr>
+  <td><a href={{this.downloadLink}} target="_blank" rel="noopener">{{@fileEntry.filename}}</a></td>
+  <td>{{@fileEntry.description}}</td>
+  <td>
+    <DeleteWithConfirmation @record={{@fileEntry}}>
+      <img class="icon-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
+    </DeleteWithConfirmation>
+  </td>
+</tr>

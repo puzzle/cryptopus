@@ -8,15 +8,15 @@ html.turbolinks-progress-bar::before {
   height: 2px !important;
 }
 
-img{
-  vertical-align: bottom!important;
+img {
+  vertical-align: bottom !important;
 }
 
 html {
   position: relative;
   min-height: 100%;
-  width:100vw !important;
-  overflow-x:hidden !important;
+  width: 100vw !important;
+  overflow-x: hidden !important;
 }
 
 body {
@@ -46,12 +46,12 @@ body {
   display: inline;
   fill: currentColor;
 }
-.action_icon{
+.action_icon {
   text-align: center;
-  vertical-align:middle;
+  vertical-align: middle;
 }
 
-.search-icon{
+.search-icon {
   padding-right: 1px;
   padding-bottom: 2px;
   height: 17px;
@@ -59,11 +59,11 @@ body {
   display: inline;
 }
 
-.strength{
+.strength {
   padding-top: 20px;
 }
 
-#strength_status{
+#strength_status {
   padding-top: 5px;
   padding-left: 1%;
 }
@@ -75,11 +75,11 @@ body {
   bottom: 0;
   height: 50px;
   line-height: 50px;
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
   width: 100%;
-  border-top: 1px solid #CBC6C2;
+  border-top: 1px solid #cbc6c2;
   z-index: 9999;
-  width:100vw !important;
+  width: 100vw !important;
 }
 
 .footer form {
@@ -88,11 +88,11 @@ body {
 
 /*Account*/
 
-.clip_button{
+.clip_button {
   position: absolute;
   left: 210px;
   top: -2px;
-  border: 1px solid #C9C9C9;
+  border: 1px solid #c9c9c9;
   position: absolute;
   top: 0;
   right: 0;
@@ -100,27 +100,16 @@ body {
   width: 50px;
 }
 
-.clip_button svg{
+.clip_button svg {
   padding-right: 2px;
   padding-bottom: 1px;
-}
-
-.copied{
-  border-radius: 3px;
-  color: white;
-  background-color: #555;
-  display: none;
-  position: absolute;
-  padding: 4px;
-  margin-left: 268px;
-  margin-top: -28px;
 }
 /*Team*/
 
 .toggle-button {
   background-color: white;
   border-radius: 20px;
-  border: 2px solid #D0D0D0;
+  border: 2px solid #d0d0d0;
   height: 20px;
   cursor: pointer;
   width: 40px;
@@ -131,7 +120,7 @@ body {
 .toggle-button button {
   cursor: pointer;
   outline: 0;
-  display:block;
+  display: block;
   position: absolute;
   left: 0;
   top: 0;
@@ -141,13 +130,13 @@ body {
   background-color: white;
   float: left;
   margin: -1px 0 0 -3px;
-  border: 2px solid #D0D0D0;
+  border: 2px solid #d0d0d0;
   transition: left 0.3s;
 }
 
 .toggle-button-selected {
   background-color: white;
-  border: 2px solid #D0D0D0;
+  border: 2px solid #d0d0d0;
 }
 
 .toggle-button-selected button {
@@ -157,26 +146,26 @@ body {
   border: 2px solid black;
   width: 20px;
   height: 20px;
-    background-color: black;
+  background-color: black;
 }
 
 /* recryptrequest */
 
-#recrypt_description{
+#recrypt_description {
   display: none;
   width: 100%;
 }
 
-#forgot_password_checkbox{
+#forgot_password_checkbox {
   float: right;
   margin-top: -40px;
 }
 
-#old_password{
+#old_password {
   width: 65%;
 }
 
-#ldap_info{
+#ldap_info {
   background-color: rgba(217, 237, 247, 0.2);
   width: 100%;
 }

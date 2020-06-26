@@ -106,7 +106,7 @@ ch_be:
         strong: Starch
 
     show:
-      title: "Account: %{account_name}"
+      account: Account
       last_change: "Letschti Änderig vor %{time_ago}"
       attachments: Ahäng
       file: Datei

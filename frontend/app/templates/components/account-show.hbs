@@ -1,60 +1,56 @@
 {{#if this.isAccountEditing}}
   <AccountForm @account={{@account}} @onAbort={{this.toggleAccountEdit}}/>
 {{/if}}
-{{#if this.isPreview}}
-  <div class="card my-3 account-card account-preview" {{on "click" this.swapToCredentialsView}} role="button">
-
-    <div class="card-body">
-      <div class="card-title">
-        <img class="img d-inline w-20 float-right" src="/ember/assets/images/key.svg" alt="key">
-        <h5>{{@account.accountname}}</h5>
-      </div>
-    </div>
-    <div class="card-footer text-muted">
-      {{truncate @account.description 40}}
-    </div>
-  </div>
-{{else}}
-  <div class="card mt-3 account-card account-detail">
-
-    <div class="card-header">
-      <p class="d-inline">{{@account.accountname}}</p>
-    </div>
-
-    <div class="card-body">
-      <div class="row mb-2">
-        <div class="col-sm-8 pr-0">
-          <Input class="secret" @disabled="true" @value={{@account.cleartextUsername}}/>
-        </div>
-        <div class="col-sm-3">
-          <CopyButton class="clip_button btn btn-light" @clipboardText={{@account.cleartextUsername}}>
-            <img class="icon-clippy img d-inline w-20" src="/ember/assets/images/clipboard.svg" alt="clip">
-          </CopyButton>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-sm-8 pr-0">
-          <Input class="secret" @disabled="true" @type="password" @value={{@account.cleartextPassword}}/>
-        </div>
-        <div class="col-sm-3">
-          <CopyButton class="clip_button btn btn-light" @clipboardText={{@account.cleartextPassword}}>
-            <img class="icon-clippy img d-inline w-20" src="/ember/assets/images/clipboard.svg" alt="key">
-          </CopyButton>
-        </div>
-      </div>
-    </div>
-
-    <div class="card-footer d-flex justify-content-between">
-      <a href={{concat "/accounts/" @account.id}}>
-        <img class="icon-button d-inline" src="/ember/assets/images/eye.svg" alt="show">
-      </a>
-      <a class="mx-auto" role="button" {{on "click" this.toggleAccountEdit}}>
-        <img class="icon-button d-inline" src="/ember/assets/images/edit.svg" alt="edit">
-      </a>
-      <DeleteWithConfirmation @record={{@account}} @didDelete={{this.refreshRoute}}>
-        <img class="icon-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
-      </DeleteWithConfirmation>
-    </div>
-  </div>
+{{#if this.isFileEntryCreating}}
+  <FileEntryForm @account={{@account}} @title={{t "file_entries.new.title"}} @onAbort={{this.toggleFileEntryNew}}/>
 {{/if}}
+<div class="container mt-3">
+  <div class="d-flex flex-row justify-content-between">
+    <div>
+      <h1 class="d-inline">{{t "accounts.show.account"}}: {{@account.accountname}}</h1>
+    </div>
+    <div>
+      <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleAccountEdit}}>
+        <img class="icon-button" src="/ember/assets/images/edit.svg" alt="edit">
+      </a>
+    </div>
+  </div>
+  <div>
+    <p>{{@account.description}}</p>
+    <div class="result-username">
+      <Input id="cleartext_username" class="d-inline form-control" @disabled="true" @value={{@account.cleartextUsername}}/>
+        <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextUsername}}>
+          <img class="icon-clippy img d-inline w-20" src="/ember/assets/images/clipboard.svg" alt="clip">
+        </CopyButton>
+    </div>
+    <a class="show-password-link {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "accounts.show.show_password"}}</a>
+    <div class="result-password">
+      <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
+        <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextPassword}}>
+          <img class="icon-clippy img d-inline w-20" src="/ember/assets/images/clipboard.svg" alt="clip">
+        </CopyButton>
+    </div>
+  </div>
+  <div class="d-flex flex-row justify-content-between">
+    <div>
+      <h1>{{t "accounts.show.attachments"}}</h1>
+    </div>
+    <div>
+      <BsButton @type="primary" {{on "click" this.toggleFileEntryNew}}>
+        {{t "accounts.show.add_attachment"}}
+      </BsButton>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th>{{t "accounts.show.file"}}</th>
+        <th>{{t "description"}}</th>
+        <th>{{t "actions"}}</th>
+      </tr>
+      {{#each this.fileEntries as |fileEntry|}}
+        <FileEntryRow @fileEntry={{fileEntry}}/>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
