@@ -46,8 +46,12 @@ export default class FileEntryForm extends BaseFormComponent {
 
   @action
   abort() {
-    this.router.transitionTo("index");
     this.fileQueue.flush();
+    if (this.args.onAbort) {
+      this.args.onAbort();
+      return;
+    }
+    this.router.transitionTo("index");
   }
 
   async beforeSubmit() {

@@ -74,7 +74,7 @@ fr:
         good: Bien
         strong: Fort
     show:
-      title: "Compte: %{account_name}"
+      account: Compte
       last_change: "Dernière mise à jour il ya %{time_ago}"
       attachments: Attachements
       file: Fichier

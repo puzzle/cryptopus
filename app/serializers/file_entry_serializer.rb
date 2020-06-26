@@ -24,5 +24,4 @@ class FileEntrySerializer < ApplicationSerializer
   attributes :id, :filename, :description
 
   belongs_to :account
-
 end

@@ -18,9 +18,9 @@
   {{@folder.description}}
   <div class="row">
     {{#each @folder.accounts as |account|}}
-        <div class="col-3">
-          <AccountShow @account={{account}}/>
-        </div>
+      <div class="col-3">
+        <AccountCardShow @account={{account}}/>
+      </div>
     {{/each}}
   </div>
 </BsCollapse>

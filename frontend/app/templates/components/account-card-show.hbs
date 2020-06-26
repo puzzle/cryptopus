@@ -1,0 +1,58 @@
+      {{#if this.isAccountEditing}}
+  <AccountForm @account={{@account}} @onAbort={{this.toggleAccountEdit}}/>
+{{/if}}
+{{#if this.isPreview}}
+  <div class="card my-3 account-card account-preview" {{on "click" this.swapToCredentialsView}} role="button">
+
+    <div class="card-body">
+      <div class="card-title">
+        <img class="img d-inline w-20 float-right" src="/ember/assets/images/key.svg" alt="key">
+        <h5>{{@account.accountname}}</h5>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+      {{truncate @account.description 40}}
+    </div>
+  </div>
+{{else}}
+  <div class="card mt-3 account-card account-detail">
+    <div class="card-header">
+      <p class="d-inline">{{@account.accountname}}</p>
+    </div>
+    <div class="card-body">
+      <div class="row mb-2">
+        <div class="col-sm-8 pr-0">
+          <Input class="secret" @disabled="true" @value={{@account.cleartextUsername}}/>
+        </div>
+        <div class="col-sm-3">
+          <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextUsername}}>
+            <img class="icon-clippy img d-inline w-20" src="/ember/assets/images/clipboard.svg" alt="clip">
+          </CopyButton>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-8 pr-0">
+          <Input class="secret" @disabled="true" @type="password" @value={{@account.cleartextPassword}}/>
+        </div>
+        <div class="col-sm-3">
+          <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextPassword}}>
+            <img class="icon-clippy img d-inline w-20" src="/ember/assets/images/clipboard.svg" alt="clip">
+          </CopyButton>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer d-flex justify-content-between">
+      <LinkTo @route="accounts.show" @model={{@account}}>
+        <img class="icon-button d-inline" src="/ember/assets/images/eye.svg" alt="show">
+      </LinkTo>
+      <a class="mx-auto" role="button" {{on "click" this.toggleAccountEdit}}>
+        <img class="icon-button d-inline" src="/ember/assets/images/edit.svg" alt="edit">
+      </a>
+      <DeleteWithConfirmation @record={{@account}} @didDelete={{this.refreshRoute}}>
+        <img class="icon-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
+      </DeleteWithConfirmation>
+    </div>
+  </div>
+{{/if}}

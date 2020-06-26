@@ -9,6 +9,16 @@ class Api::FileEntriesController < ApiController
 
   helper_method :team
 
+  # GET /accounts/1/file_entries/1
+  def show
+    authorize entry
+
+    file = entry.decrypt(plaintext_team_password(team))
+
+    send_data file, filename: entry.filename,
+                    type: entry.content_type, disposition: 'attachment'
+  end
+
   private
 
   def build_entry
