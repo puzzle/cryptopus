@@ -23,22 +23,22 @@
 
     <div class="card-body">
       <div class="row mb-2">
-        <div class="col pr-0">
+        <div class="col-sm-8 pr-0">
           <Input class="secret" @disabled="true" @value={{@account.cleartextUsername}}/>
         </div>
-        <div class="col-2">
-          <CopyButton class="clip_button" @clipboardText={{@account.cleartextUsername}}>
-            <img class="icon-clippy img d-inline w-20" src="/ember/assets/images/clipboard.svg" alt="key">
+        <div class="col-sm-3">
+          <CopyButton class="clip_button btn btn-light" @clipboardText={{@account.cleartextUsername}}>
+            <img class="icon-clippy img d-inline w-20" src="/ember/assets/images/clipboard.svg" alt="clip">
           </CopyButton>
         </div>
       </div>
 
       <div class="row">
-        <div class="col pr-0">
-          <Input class="secret" @disabled="true" @value={{@account.cleartextPassword}}/>
+        <div class="col-sm-8 pr-0">
+          <Input class="secret" @disabled="true" @type="password" @value={{@account.cleartextPassword}}/>
         </div>
-        <div class="col-1">
-          <CopyButton class="clip_button" @clipboardText={{@account.cleartextPassword}}>
+        <div class="col-sm-3">
+          <CopyButton class="clip_button btn btn-light" @clipboardText={{@account.cleartextPassword}}>
             <img class="icon-clippy img d-inline w-20" src="/ember/assets/images/clipboard.svg" alt="key">
           </CopyButton>
         </div>
