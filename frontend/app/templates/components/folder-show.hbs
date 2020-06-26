@@ -1,5 +1,5 @@
 {{#if this.isFolderEditing}}
-  <FolderForm @folder={{@folder}} @onAbort={{this.toggleFolderEdit}}/>
+  <FolderForm @folder={{@folder}} @onAbort={{this.toggleFolderEdit}} @title={{t "folders.edit.title"}}/>
 {{/if}}
 <div class="mb-0" role="button" {{on "click" this.collapse}}>
   <div class="d-flex flex-row justify-content-between">
