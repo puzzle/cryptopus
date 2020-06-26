@@ -11074,6 +11074,11 @@ testem@^2.17.0:
     tmp "0.0.33"
     xmldom "^0.1.19"
 
+text-security@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/text-security/-/text-security-3.1.1.tgz#855c827b747d3cf1bc160be60dd012f75a29181f"
+  integrity sha512-o8mIakiAYU3NcELbpB48j4Owatk3Fp/L6blWn4+F2RKB5+56VDfSAYfOZ5ulyeQjZJlQzBSvDBC+2XwdP7UowA==
+
 text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
