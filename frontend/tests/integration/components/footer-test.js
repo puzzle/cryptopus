@@ -2,9 +2,14 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
+import { setLocale } from "ember-intl/test-support";
 
 module('Integration | Component | footer', function(hooks) {
   setupRenderingTest(hooks);
+
+  hooks.beforeEach(function() {
+    setLocale("en");
+  });
 
   test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
@@ -12,8 +17,10 @@ module('Integration | Component | footer', function(hooks) {
 
     await render(hbs`<Footer />`);
 
-    assert.equal(this.element.textContent.trim(), 'Cryptopus');
-
+    let footerText = this.element.textContent.trim();
+    assert.equal(footerText.includes('Cryptopus'), true);
+    assert.equal(footerText.includes('Help'), true);
+    assert.equal(footerText.includes('Version'), true);
 
   });
 });

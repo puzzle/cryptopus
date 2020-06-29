@@ -40,6 +40,10 @@ export default class AccountForm extends BaseFormComponent {
 
   handleSubmitSuccess(savedRecords) {
     // FIXME: go to team show
+    if(this.isNewRecord) {
+      this.router.transitionTo("teams", savedRecords[0].id);
+    }
+
     this.router.transitionTo("teams");
   }
 }

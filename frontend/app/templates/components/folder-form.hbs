@@ -41,7 +41,7 @@
       </div>
     </div>
   </Modal.body>
-  <Modal.footer as |footer|>
+  <Modal.footer>
     <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "save"}}</BsButton>
     <BsButton @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
   </Modal.footer>
