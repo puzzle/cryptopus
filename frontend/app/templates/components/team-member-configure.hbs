@@ -9,7 +9,7 @@
       </li>
     </ul>
     <BsTab as |tab|>
-      <tab.pane @title={{t "teams.show.members"}}>
+      <tab.pane id="members" @title={{t "teams.show.members"}}>
         <div class="columns members">
           <div class="row justify-content-end">
             <div class="col-sm-4 float-right">
@@ -40,7 +40,7 @@
           </div>
         </div>
       </tab.pane>
-      <tab.pane @title={{t "profile.api_users.api_users"}}>
+      <tab.pane id="api-users"  @title={{t "profile.api_users.api_users"}}>
         <table class="table table-striped mt-3">
           <thead>
             <tr>
@@ -65,6 +65,6 @@
     </BsTab>
   </Modal.body>
   <Modal.footer>
-    <BsButton @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
+    <BsButton id="close_button" @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
   </Modal.footer>
 </BsModal>
