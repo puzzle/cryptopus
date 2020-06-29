@@ -1,7 +1,7 @@
 import Component from "@glimmer/component";
+import { inject as service } from "@ember/service";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
-import { inject as service } from "@ember/service";
 
 export default class NavBarComponent extends Component {
   @service router;
@@ -32,5 +32,18 @@ export default class NavBarComponent extends Component {
   @action
   toggleTeamCreating() {
     this.isNewTeam = !this.isNewTeam;
+  }
+
+  @action
+  searchByQuery() {
+    if (this.searchQuery.trim(' ').length > 2){
+      this.router
+        .transitionTo("teams.index", {
+          queryParams: { q: this.searchQuery, team_id: undefined, folder_id: undefined }
+      })
+        .then(() => {
+          this.collapsed = false;
+        });
+    }
   }
 }

@@ -35,14 +35,18 @@ module Teams
 
     def filter_by_query
       teams.includes(:folders, folders: [:accounts]).where(
-        'lower(teams.name) LIKE :query
-        OR lower(folders.name) LIKE :query
+        'lower(accounts.description) LIKE :query
         OR lower(accounts.accountname) LIKE :query
-        OR lower(accounts.description) LIKE :query',
+        OR lower(folders.name) LIKE :query
+        OR lower(teams.name) LIKE :query',
         query: "%#{query}%"
       )
            .references(:folders,
                        folders: [:accounts])
+          .order("CASE WHEN lower(accounts.accountname) LIKE '%#{query}%' THEN 1 ELSE 2")
+
+
+
     end
 
     def filter_by_id

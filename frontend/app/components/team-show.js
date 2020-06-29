@@ -13,8 +13,9 @@ export default class TeamShowComponent extends Component {
   @tracked
   isTeamConfiguring = false;
 
-  @tracked
-  collapsed = this.navService.selectedTeam != this.args.team;
+  get collapsed() {
+    return this.navService.query !== null ? false : this.navService.selectedTeam !== this.args.team;
+  }
 
   @action
   collapse() {

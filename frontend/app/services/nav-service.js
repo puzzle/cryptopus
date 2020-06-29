@@ -2,6 +2,11 @@ import Service from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
 
+export default Service.extend({
+  @tracked selectedTeam: null,
+  @tracked selectedFolder: null,
+  @tracked query: null
+});
 export default class NavService extends Service {
   @tracked selectedTeam = null;
   @tracked selectedFolder = null;
