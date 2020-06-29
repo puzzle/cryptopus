@@ -25,16 +25,18 @@ describe 'Teammember', type: :system, js: true do
     click_link 'Api Users'
     click_button 'New'
 
-    visit(team_path(team1.id))
+    visit("/teams/#{team1.id}")
 
     edit_button = page.find_link(id: 'config_team_button')
     expect(edit_button).to be_present
     edit_button.click
 
+    sleep 10
+
     expect(find('.modal-content')).to be_present
     expect(page).to have_text('Edit Team Members and Api Users')
-    expect(page).to have_button('Close')
 
+    # expect(page).to have_button('close_button')
 
     within('#members') do
       expect(page).to have_content('Admin test')
@@ -70,7 +72,6 @@ describe 'Teammember', type: :system, js: true do
     click_link 'Api Users'
 
     within('#api-users') do
-
       expect('.tab-pane #api-users').to be_present
 
       api_user = users(:admin).api_users.first
@@ -79,7 +80,6 @@ describe 'Teammember', type: :system, js: true do
       expect do
         find('.x-toggle-btn').click
       end.to change { Teammember.count }.by(1)
-
     end
 
   end

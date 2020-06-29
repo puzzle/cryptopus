@@ -11,6 +11,7 @@ class LegacyRoutes::UrlHandler
 
   FRONTEND_PATHS = {
     teams_index: /(\/teams)$/,
+    teams_id: /(\/teams\/\d+)$/,
     teams_new: /(\/teams\/new)$/,
     teams_edit: /(\/teams\/\d+\/edit)$/,
     teams_configure: /(\/teams\/\d+\/configure)$/,

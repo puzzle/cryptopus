@@ -1,4 +1,4 @@
-<BsModal @onSubmit={{action "submit"}} @onHidden={{action "abort"}} @renderInPlace="true" @size="lg" as |Modal|>
+<BsModal class="modal_account" @open={{this.args.show}} @onSubmit={{action "submit"}} @renderInPlace="true" @size="lg" as |Modal|>
   <Modal.header>
     <h3 class="modal-title">{{@title}}</h3>
   </Modal.header>
@@ -70,6 +70,6 @@
   </Modal.body>
   <Modal.footer>
     <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "save"}}</BsButton>
-    <BsButton @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
+    <BsButton @onClick={{action Modal.close}} @type="secondary">{{t "close"}}</BsButton>
   </Modal.footer>
 </BsModal>
