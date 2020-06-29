@@ -28,16 +28,22 @@ describe 'AccountModal', type: :system, js: true do
   it 'creates, edits and deletes an account' do
     login_as_user(:bob)
 
+    visit '/teams'
+
     # Create Account
     expect(page).to have_link('New Account')
     click_link 'New Account'
 
-    expect(find('.modal-content')).to be_present
+    expect(find('.modal-content', wait: 5)).to be_present
     expect(page).to have_text('New Account')
-    expect(page).to have_button('Save')
+    expect(page).to have_content('Save')
 
+    Capybara.ignore_hidden_elements = false
 
-    expect(page.find_field('cleartextPassword')).to be_present
+    within('.modal-body.ember-view') do
+      expect(page.find_field('cleartextPassword')).to be_present
+    end
+
     check_password_meter('password', '25')
     check_password_meter('password11', '25')
     check_password_meter('cryptopu', '50')
@@ -50,19 +56,19 @@ describe 'AccountModal', type: :system, js: true do
       click_button 'Save'
     end.to change { Account.count }.by(1)
 
-
-    expect_account_page_with(account_attrs)
-
     # Edit Account
     account = Account.find_by(accountname: account_attrs[:accountname])
     folder = Folder.find(account.folder_id)
     team = Team.find(folder.team_id)
-    visit(account_path(account.id))
+
+    visit "/accounts/#{account.id}"
+
+    expect_account_page_with(account_attrs)
 
     expect(page).to have_link(id: 'edit_account_button')
     click_link(id: 'edit_account_button')
 
-    expect(find('.modal-content')).to be_present
+    expect(find('.modal.modal_account')).to be_present
     expect(page).to have_text('Edit Account')
     expect(page).to have_button('Save')
 
@@ -71,7 +77,16 @@ describe 'AccountModal', type: :system, js: true do
     fill_modal(updated_attrs)
     click_button 'Save'
 
-    expect_account_page_with(updated_attrs)
+    require 'pry'; binding.pry
+
+    visit "/teams"
+
+    visit "/teams?team_id=#{team.id}"
+
+
+
+    #expect_account_page_with(updated_attrs)
+    expect(false).to be true
 
     # Delete Account
     find(:xpath, "//a[@href='/teams/#{folder.team_id}/folders/#{account.folder_id}']").click
@@ -94,7 +109,7 @@ describe 'AccountModal', type: :system, js: true do
   private
 
   def fill_modal(acc_attrs)
-    within('div.modal-content') do
+    within("div.modal_account") do
       fill_in 'accountname', with: (acc_attrs[:accountname])
       fill_in 'cleartextUsername', with: acc_attrs[:username]
       fill_in 'cleartextPassword', with: acc_attrs[:password]

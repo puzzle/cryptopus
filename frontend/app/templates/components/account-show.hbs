@@ -1,8 +1,6 @@
-{{#if this.isAccountEditing}}
-  <AccountForm @account={{@account}} @onAbort={{this.toggleAccountEdit}} @title={{t "accounts.edit.title"}}/>
-{{/if}}
+<AccountForm @show={{this.isAccountEditing}} @account={{@account}} @title={{t "accounts.edit.title"}}/>
 {{#if this.isFileEntryCreating}}
-  <FileEntryForm @account={{@account}} @title={{t "file_entries.new.title"}} @onAbort={{this.toggleFileEntryNew}}/>
+  <FileEntryForm @class="modal_file_entry" @account={{@account}} @title={{t "file_entries.new.title"}} @onAbort={{this.toggleFileEntryNew}}/>
 {{/if}}
 <div class="container mt-3">
   <div class="d-flex flex-row justify-content-between">
@@ -10,7 +8,7 @@
       <h1 class="d-inline">{{t "accounts.show.account"}}: {{@account.accountname}}</h1>
     </div>
     <div>
-      <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleAccountEdit}}>
+      <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleAccountEdit}} href="#">
         <img class="icon-button" src="/ember/assets/images/edit.svg" alt="edit">
       </a>
     </div>
@@ -23,7 +21,7 @@
         <img class="icon-clippy img d-inline w-20" src="/ember/assets/images/clipboard.svg" alt="clip">
       </CopyButton>
     </div>
-    <a role="button" class="show-password-link {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "accounts.show.show_password"}}</a>
+    <a role="button" class="show-password-link {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "accounts.show.show_password"}}</a>
     <div class="result-password">
       <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
       <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextPassword}}>

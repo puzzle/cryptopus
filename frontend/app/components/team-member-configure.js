@@ -24,15 +24,6 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
     }
   }
 
-  setupModal(element, args) {
-    var context = args[0];
-    context.modalElement = element;
-    /* eslint-disable no-undef  */
-    $(element).on("hidden.bs.modal", bind(context, context.abort));
-    $(element).modal("show");
-    /* eslint-enable no-undef  */
-  }
-
   loadCandidates() {
     this.candidates = this.store.query("user-human", {
       teamId: this.args.teamId,

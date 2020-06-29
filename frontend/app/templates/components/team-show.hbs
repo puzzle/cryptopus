@@ -9,10 +9,10 @@
     <div role="button" {{on "click" this.collapse}}>
       <h1 class="d-inline">{{@team.name}}</h1>
       <span class="ml-5">
-        <a role="button" {{on "click" this.toggleTeamEdit}}>
+        <a href="#" role="button" {{on "click" this.toggleTeamEdit}}>
           <img class="icon-button" src="/ember/assets/images/edit.svg" alt="edit">
         </a>
-        <a role="button" {{on "click" this.toggleTeamConfigure}}>
+        <a id="config_team_button" href="#" role="button" {{on "click" this.toggleTeamConfigure}}>
           <img class="icon-button" src="/ember/assets/images/team_config.svg" alt="configure">
         </a>
       </span>

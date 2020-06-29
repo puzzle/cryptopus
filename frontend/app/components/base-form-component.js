@@ -2,6 +2,8 @@ import { action } from "@ember/object";
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
+import podNames from "ember-component-css/pod-names";
+
 
 export default class BaseFormComponent extends Component {
   @service intl;
@@ -9,6 +11,10 @@ export default class BaseFormComponent extends Component {
   @tracked
   record;
   isNewRecord = false;
+
+  get styleNamespace() {
+    return podNames["my-component-name"];
+  }
 
   /* The beforeSubmit method can be implemented by a subclass as a hook in the submit method
    * beforeSubmit can return a promise of a boolean, which decides whether or not to abort the submit.
@@ -55,8 +61,6 @@ export default class BaseFormComponent extends Component {
         })
         .catch(error => {
           this.handleSubmitError(error);
-          
-
           this.afterSubmit();
         });
     });
