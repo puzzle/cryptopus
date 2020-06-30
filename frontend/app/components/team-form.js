@@ -30,7 +30,6 @@ export default class AccountForm extends BaseFormComponent {
       this.args.onAbort();
       return;
     }
-    this.router.transitionTo("index");
   }
 
   async beforeSubmit() {
@@ -39,11 +38,9 @@ export default class AccountForm extends BaseFormComponent {
   }
 
   handleSubmitSuccess(savedRecords) {
-    // FIXME: go to team show
+    this.abort();
     if(this.isNewRecord) {
-      this.router.transitionTo("teams", savedRecords[0].id);
+      this.router.transitionTo("/teams?team_id="+savedRecords[0].id);
     }
-
-    this.router.transitionTo("teams");
   }
 }
