@@ -177,9 +177,7 @@ describe LegacyRoutes::UrlHandler do
       teams_url = '/ch_vs/teams'
       login_as('bob')
 
-      get teams_url
-
-      assert_template 'frontend/index'
+      expect { get teams_url }.to raise_error(ActionController::RoutingError)
     end
 
     # /de/teams/1/folders/1/accounts/1/ -> /accounts/1/
@@ -194,6 +192,8 @@ describe LegacyRoutes::UrlHandler do
 
       get legacy_account_url
 
+      assert_redirected_to "/accounts/#{account1.id}"
+      follow_redirect!
       assert_template 'frontend/index'
     end
 
@@ -203,6 +203,8 @@ describe LegacyRoutes::UrlHandler do
 
       get '/de/teams'
 
+      assert_redirected_to '/teams'
+      follow_redirect!
       assert_template 'frontend/index'
     end
 
@@ -212,6 +214,8 @@ describe LegacyRoutes::UrlHandler do
 
       get '/en/teams'
 
+      assert_redirected_to '/teams'
+      follow_redirect!
       assert_template 'frontend/index'
     end
 
@@ -220,7 +224,8 @@ describe LegacyRoutes::UrlHandler do
       login_as('bob')
 
       get '/fr/teams'
-
+      assert_redirected_to '/teams'
+      follow_redirect!
       assert_template 'frontend/index'
     end
   end
@@ -231,8 +236,9 @@ describe LegacyRoutes::UrlHandler do
     "/teams/#{team.id}/folders/#{folder.id}"
   end
 
-  def teams_path(team_id=nil)
-    return '/teams' if team_id == nil
+  def teams_path(team_id = nil)
+    return '/teams' if team_id.nil?
+
     "/teams/#{team_id}"
   end
 end
