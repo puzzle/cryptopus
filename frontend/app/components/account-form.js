@@ -45,8 +45,10 @@ export default class AccountForm extends BaseFormComponent {
 
   @action
   abort() {
-    if (this.isNewRecord)
-      this.router.transitionTo("index");
+    if (this.args.onAbort) {
+      this.args.onAbort();
+      return;
+    }
   }
 
   @action
@@ -86,13 +88,9 @@ export default class AccountForm extends BaseFormComponent {
   }
 
   handleSubmitSuccess(savedRecords) {
+    this.abort();
     if (this.isNewRecord) {
-      this.router.transitionTo("accounts/"+savedRecords[0].id);
-    } else {
-      // FIXME: replace with only closing the modal
-      this.router.transitionTo("accounts/"+savedRecords[0].id);
-
-      //window.location.reload(true);
+      this.router.transitionTo("/accounts/" + savedRecords[0].id);
     }
   }
 }

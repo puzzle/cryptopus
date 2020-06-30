@@ -49,7 +49,6 @@ export default class FolderForm extends BaseFormComponent {
       this.args.onAbort();
       return;
     }
-    this.router.transitionTo("index");
   }
 
   @action
@@ -66,19 +65,9 @@ export default class FolderForm extends BaseFormComponent {
   }
 
   handleSubmitSuccess(savedRecords) {
-    /* eslint-disable no-undef  */
-    $(this.modalElement).modal("hide");
-    /* eslint-enable no-undef  */
+    this.abort();
     if (this.isNewRecord) {
-      window.location.replace(
-        "/teams/" +
-          savedRecords[0].team.get("id") +
-          "/folders/" +
-          savedRecords[0].id
-      );
-    } else {
-      let href = window.location.href;
-      window.location.replace(href.substring(0, href.search("#")));
+      this.router.transitionTo("/teams?team_id=" + savedRecords[0].team.get('id')+"&folder_id="+savedRecords[0].id);
     }
   }
 }
