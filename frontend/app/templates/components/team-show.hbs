@@ -4,7 +4,7 @@
 {{#if this.isTeamConfiguring}}
   <TeamMemberConfigure @teamId={{@team.id}} @onAbort={{this.toggleTeamConfigure}}/>
 {{/if}}
-<div class="container mt-2 p-2 border">
+<div class="container ml-2 mt-2 p-2 border">
   <div class="row mb-10 d-flex">
     <div class="col" role="button" {{on "click" this.collapse}}>
       <h1 class="d-inline">{{@team.name}}</h1>

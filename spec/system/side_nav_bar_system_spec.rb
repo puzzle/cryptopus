@@ -44,7 +44,7 @@ describe 'SideNavBar', type: :system, js: true do
       folder_entry = first_team_entryall('a')[1]
       folder_entry.click
 
-      expect(current_path).to eq "#/teams?folder_id=1&team_id=2"
+      expect(current_path).to eq '#/teams?folder_id=1&team_id=2'
       # TODO: check if page expanded correct folder
 
       start_page = all('a')[0]

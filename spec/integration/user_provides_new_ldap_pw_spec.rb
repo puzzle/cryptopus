@@ -191,7 +191,7 @@ describe 'User provides new Ldap Pw' do
 
   private
 
-  def check_username_and_password()
+  def check_username_and_password
     login_as('bob', 'newPassword')
     account = accounts(:account1)
     get api_account_path(account)

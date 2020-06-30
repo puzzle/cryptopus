@@ -46,8 +46,9 @@ describe 'Create team' do
 
   private
 
-  def account_path(account=nil)
-    return "/accounts" if account == nil
+  def account_path(account = nil)
+    return '/accounts' if account.nil?
+
     "/accounts/#{account.id}"
   end
 
