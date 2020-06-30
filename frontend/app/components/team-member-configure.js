@@ -1,5 +1,4 @@
 import BaseFormComponent from "./base-form-component";
-import { bind } from "@ember/runloop";
 import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
 import fetch from "fetch";

@@ -46,13 +46,14 @@ describe LegacyRoutes::UrlHandler do
   # /de/teams/1/folders/1/ -> /teams/1/folders/1/
   it 'redirects to teams url with locale in url' do
     team1 = teams(:team1)
+    folder1 = folders(:folder1)
 
-    legacy_team_url = "/de/teams/#{team1.id}/"
-    redirect_url = teams_path(team1.id)
+
+    legacy_team_url = "/de/teams/#{team1.id}/folders/#{folder1.id}"
+    redirect_url = team_folder_path(team1, folder1)
     login_as('bob')
 
     get legacy_team_url
-
     assert_redirected_to redirect_url
   end
 

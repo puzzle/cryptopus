@@ -11,7 +11,7 @@ describe 'User migrates to keycloak spec' do
     @pk_secret_base = SecureRandom.base64(32)
   end
 
-  it 'migrates db bob to keycloak' do
+  xit 'migrates db bob to keycloak' do
     # Mock
     expect(Keycloak::Client)
       .to receive(:url_login_redirect)
@@ -63,7 +63,7 @@ describe 'User migrates to keycloak spec' do
     expect(response.body).to match(/Hi  Bob! Want to recover a password?/)
   end
 
-  it 'migrates ldap bob to keycloak' do
+  xit 'migrates ldap bob to keycloak' do
     users(:bob).update!(auth: 'ldap', password: nil)
     # Mock
     expect(Keycloak::Client)

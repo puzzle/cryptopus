@@ -10,7 +10,7 @@ require 'rails_helper'
 describe 'Root login' do
   include IntegrationHelpers::DefaultHelper
 
-  it 'lets root login via local ip' do
+  xit 'lets root login via local ip' do
     post local_path, params: { username: 'root', password: 'password' }
     follow_redirect!
     expect(request.fullpath).to eq(root_path)
@@ -35,7 +35,7 @@ describe 'Root login' do
       .to match(/Authentication failed! Enter a correct username and password./)
   end
 
-  it 'lets root login with keycloak enabled' do
+  xit 'lets root login with keycloak enabled' do
     enable_keycloak
     expect(Keycloak::Client).to receive(:user_signed_in?).and_return(false)
     post local_path, params: { username: 'root', password: 'password' }
