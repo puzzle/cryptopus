@@ -1,4 +1,4 @@
-<BsModal class="modal_file_entry" @onSubmit={{action "submit"}} @onHidden={{action "abort"}} @renderInPlace="true" @size="lg" as |Modal|>
+<BsModal class="modal_file_entry" @onHide={{action "abort"}} @renderInPlace="true" @size="lg" as |Modal|>
   <Modal.header>
     <h3 class="modal-title align-middle" id="accountFormModalLabel">{{@title}}</h3>
   </Modal.header>
@@ -45,6 +45,6 @@
   </Modal.body>
   <Modal.footer>
     <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "file_entries.new.upload"}}</BsButton>
-    <BsButton @onClick={{action Modal.close}} @type="secondary">{{t "close"}}</BsButton>
+    <BsButton @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
   </Modal.footer>
 </BsModal>

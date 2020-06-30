@@ -4,7 +4,6 @@ import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
-import { bind } from "@ember/runloop";
 import { tracked } from "@glimmer/tracking";
 
 export default class FileEntryForm extends BaseFormComponent {
@@ -35,15 +34,6 @@ export default class FileEntryForm extends BaseFormComponent {
     this.changeset.csrfToken = token;
   }
 
-  setupModal(element, args) {
-    var context = args[0];
-    context.modalElement = element;
-    /* eslint-disable no-undef  */
-    $(element).on("hidden.bs.modal", bind(context, context.abort));
-    $(element).modal("show");
-    /* eslint-enable no-undef  */
-  }
-
   @action
   abort() {
     this.fileQueue.flush();
@@ -51,7 +41,6 @@ export default class FileEntryForm extends BaseFormComponent {
       this.args.onAbort();
       return;
     }
-    this.router.transitionTo("index");
   }
 
   async beforeSubmit() {
@@ -60,11 +49,8 @@ export default class FileEntryForm extends BaseFormComponent {
   }
 
   handleSubmitSuccess() {
-    /* eslint-disable no-undef  */
-    $(this.modalElement).modal("hide");
-    /* eslint-enable no-undef  */
-
-    window.location.replace(`/accounts/${this.changeset.account.get("id")}`);
+    this.abort();
+    this.router.transitionTo('/accounts/'+this.changeset.account.get('id'))
   }
 
   handleSubmitError(response) {

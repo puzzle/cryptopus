@@ -21,6 +21,10 @@ class Api::FileEntriesController < ApiController
 
   private
 
+  def fetch_entries
+    account.file_entries
+  end
+
   def build_entry
     instance_variable_set(:"@#{ivar_name}",
                           FileEntry.create(account, model_params, plaintext_team_password(team)))
