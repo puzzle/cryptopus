@@ -198,6 +198,7 @@ ch_be:
     show:
       move: Account zumnä angere Ordner verschiebe
       title: "Accounts vom Ordner %{folder_name} vom Team %{team_name}"
+    no_folders: Ke Ordner
   file_entries:
     new:
       title: Ahang zum Account hinzuefüege

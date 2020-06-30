@@ -175,6 +175,8 @@ de:
     show:
       move: Account zu einem anderen Ordner verschieben
       title: "Accounts des Ordners %{folder_name} des Teams %{team_name}"
+    no_folders: Keine Ordner
+
   file_entries:
     new:
       title: Anhang zum Account hinzufügen
