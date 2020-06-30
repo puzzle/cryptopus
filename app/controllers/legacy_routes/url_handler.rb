@@ -10,18 +10,12 @@ include Rails.application.routes.url_helpers
 class LegacyRoutes::UrlHandler
 
   FRONTEND_PATHS = {
-    teams_index: /(\/teams)$/,
-    teams_id: /(\/teams\/\d+)$/,
-    teams_new: /(\/teams\/new)$/,
-    teams_edit: /(\/teams\/\d+\/edit)$/,
-    teams_configure: /(\/teams\/\d+\/configure)$/,
-    folders_new: /(\/teams\/folders\/new)$/,
-    folders_edit: /(\/teams\/\d+\/folders\/\d+\/edit)$/,
-    accounts_new: /(\/accounts\/new)$/,
-    accounts_show: /(\/accounts\/\d+)$/,
-    accounts_edit: /(\/accounts\/\d+\/edit)$/,
-    file_entries: /(\/accounts\/\d+\/file_entries)$/,
-    file_entries_new: /(\/accounts\/\d+\/file_entries\/new)$/
+    teams: /(^\/teams)$/,
+    teams_index: /(^\/teams)$/,
+    teams_show: /(^\/teams\/\d+)$/,
+    accounts_show: /(^\/accounts\/\d+)$/,
+    file_entries: /(^\/accounts\/\d+\/file_entries)$/,
+    file_entries_new: /(^\/accounts\/\d+\/file_entries\/new)$/
   }.freeze
 
   LEGACY_PATHS = {
