@@ -35,7 +35,7 @@
           = link_to image_pack_tag("remove.svg", class: 'icon'), '#',
             data: { last_teammember_teams_link: api_last_member_teams_path(user_id: user.id),
               user_id: user.id},
-            class: 'delete_user_link, action_icon'
+            class: 'delete_user_link action_icon'
 - if User::Human.locked.count != 0
   %h1= t '.locked'
   %table.table.table-striped
