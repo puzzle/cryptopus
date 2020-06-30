@@ -1,26 +1,46 @@
 {{#if this.isFolderEditing}}
   <FolderForm @folder={{@folder}} @onAbort={{this.toggleFolderEdit}} @title={{t "folders.edit.title"}}/>
 {{/if}}
-<div class="mb-0" role="button" {{on "click" this.collapse}}>
-  <div class="d-flex flex-row justify-content-between">
-    <div>
+<div class="mb-2" >
+  <div class="folder-divider d-flex flex-row justify-content-between">
+    <div class="col" role="button" {{on "click" this.collapse}}>
       <h2 class="folder-header d-inline">{{@folder.name}}</h2>
     </div>
-    <div>
+    <div class="col-auto d-inline">
       <a role="button" {{on "click" this.toggleFolderEdit}}>
         <img class="icon-button folder-edit-icon" src="/ember/assets/images/edit.svg" alt="edit">
       </a>
+      <span role="button" {{on "click" this.collapse}}>
+        {{#if this.collapsed}}
+          <img class="icon-big-button float-right" src="/ember/assets/images/angle-left.svg" alt="<">
+        {{else}}
+          <img class="icon-big-button float-right" src="/ember/assets/images/angle-down.svg" alt="v">
+        {{/if}}
+      </span>
     </div>
   </div>
-  <hr class="folder-divider">
 </div>
-<BsCollapse @collapsed={{this.collapsed}}>
-  {{@folder.description}}
-  <div class="row">
-    {{#each @folder.accounts as |account|}}
-      <div class="col-3">
-        <AccountCardShow @account={{account}}/>
+<BsCollapse  @collapsed={{this.collapsed}}>
+  <div class="p-15px">
+    <div class="row mb-2">
+      <div class="col">
+        {{t "description"}}:
+        {{@folder.description}}
       </div>
-    {{/each}}
+    </div>
+    <div class="row">
+      {{#each @folder.accounts as |account|}}
+        <div class="col-3">
+          <AccountCardShow @account={{account}}/>
+        </div>
+      {{/each}}
+
+      {{#if this.noFolders}}
+        <div class="col">
+          <em>{{t "folders.no_folders"}}</em>
+        </div>
+      {{/if}}
+
+    </div>
   </div>
 </BsCollapse>

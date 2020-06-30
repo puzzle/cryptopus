@@ -50,7 +50,7 @@ export default class FileEntryForm extends BaseFormComponent {
 
   handleSubmitSuccess() {
     this.abort();
-    this.router.transitionTo('/accounts/'+this.changeset.account.get('id'))
+    // FIXME: refresh page, such that new FileEntry is shown
   }
 
   handleSubmitError(response) {

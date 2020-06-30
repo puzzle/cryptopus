@@ -171,6 +171,7 @@ fr:
     show:
       move: Déplacer compte à un autre groupe
       title: "Comptes du dossier %{folder_name} de l'équipe %{team_name}"
+    no_folders: Pas de dossiers
   file_entries:
     new:
       title: Ajouter un attachement au compte
