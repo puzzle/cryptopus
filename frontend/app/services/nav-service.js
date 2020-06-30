@@ -5,7 +5,7 @@ import { inject as service } from "@ember/service";
 export default Service.extend({
   @tracked selectedTeam: null,
   @tracked selectedFolder: null,
-  @tracked query: null
+  @tracked searchQuery: null
 });
 export default class NavService extends Service {
   @tracked selectedTeam = null;

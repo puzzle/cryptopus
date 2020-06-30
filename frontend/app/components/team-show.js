@@ -14,7 +14,7 @@ export default class TeamShowComponent extends Component {
   isTeamConfiguring = false;
 
   get collapsed() {
-    return this.navService.query !== null ? false : this.navService.selectedTeam !== this.args.team;
+    return this.navService.selectedTeam !== this.args.team && this.navService.searchQuery === null;
   }
 
   @action

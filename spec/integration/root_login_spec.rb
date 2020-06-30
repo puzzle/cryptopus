@@ -15,7 +15,7 @@ describe 'Root login' do
     follow_redirect!
     expect(request.fullpath).to eq(root_path)
     # Adjust according to new start-page
-    expect(response.body).to match(/Hi  Root! Want to recover a password?/)
+    expect(response.body).to match(/<div id='ember'><\/div>/)
   end
 
   it 'does not let root login via external ip' do
@@ -42,6 +42,6 @@ describe 'Root login' do
     follow_redirect!
     expect(request.fullpath).to eq(root_path)
     # Adjust according to new start-page
-    expect(response.body).to match(/Hi  Root! Want to recover a password?/)
+    expect(response.body).to match(/<div id='ember'><\/div>/)
   end
 end

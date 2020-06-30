@@ -5,6 +5,7 @@ import { tracked } from "@glimmer/tracking";
 
 export default class NavBarComponent extends Component {
   @service router;
+  @service navService;
 
   @tracked
   isNewAccount = false;
@@ -39,11 +40,8 @@ export default class NavBarComponent extends Component {
     if (this.searchQuery.trim(' ').length > 2){
       this.router
         .transitionTo("teams.index", {
-          queryParams: { q: this.searchQuery, team_id: undefined, folder_id: undefined }
+          queryParams: { q: this.navService.searchQuery, team_id: undefined, folder_id: undefined }
       })
-        .then(() => {
-          this.collapsed = false;
-        });
     }
   }
 }

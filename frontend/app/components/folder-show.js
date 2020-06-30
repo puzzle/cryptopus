@@ -12,7 +12,7 @@ export default class FolderShowComponent extends Component {
   isFolderEditing = false;
 
   get collapsed() {
-    return this.navService.query !== null ? false : this.navService.selectedFolder !== this.args.folder;
+    return this.navService.selectedFolder !== this.args.folder && this.navService.searchQuery === null;
   }
 
   @action
