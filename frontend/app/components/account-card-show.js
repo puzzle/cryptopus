@@ -7,8 +7,7 @@ export default class AccountCardShowComponent extends Component {
   @service store;
   @service router;
 
-  @tracked
-  isPreview = true;
+  @tracked isPreview = true;
 
   @tracked
   isAccountEditing = false;
@@ -17,6 +16,11 @@ export default class AccountCardShowComponent extends Component {
   swapToCredentialsView() {
     this.isPreview = false;
     this.store.findRecord("account", this.args.account.id);
+  }
+
+  @action
+  swapToPreview() {
+    this.isPreview = true;
   }
 
   @action

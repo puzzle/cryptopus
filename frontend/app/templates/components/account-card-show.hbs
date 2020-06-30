@@ -16,7 +16,7 @@
   </div>
 {{else}}
   <div class="card mt-3 account-card account-detail">
-    <div class="card-header">
+    <div role="button" class="card-header" {{on "click" this.swapToPreview}}>
       <p class="d-inline">{{@account.accountname}}</p>
     </div>
     <div class="card-body">
