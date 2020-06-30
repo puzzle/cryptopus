@@ -34,14 +34,12 @@ describe 'AccountModal', type: :system, js: true do
     expect(page).to have_link('New Account')
     click_link 'New Account'
 
-    expect(find('.modal-content', wait: 5)).to be_present
+    expect(find('.modal-content')).to be_present
     expect(page).to have_text('New Account')
     expect(page).to have_content('Save')
 
-    Capybara.ignore_hidden_elements = false
-
     within('.modal-body.ember-view') do
-      expect(page.find_field('cleartextPassword')).to be_present
+      expect(find("input[name='cleartextPassword']", visible: false)).to be_present
     end
 
     check_password_meter('password', '25')
@@ -83,8 +81,6 @@ describe 'AccountModal', type: :system, js: true do
 
     visit "/teams?team_id=#{team.id}"
 
-
-
     #expect_account_page_with(updated_attrs)
     expect(false).to be true
 
@@ -110,36 +106,37 @@ describe 'AccountModal', type: :system, js: true do
 
   def fill_modal(acc_attrs)
     within("div.modal_account") do
-      fill_in 'accountname', with: (acc_attrs[:accountname])
-      fill_in 'cleartextUsername', with: acc_attrs[:username]
-      fill_in 'cleartextPassword', with: acc_attrs[:password]
-      fill_in 'description', with: acc_attrs[:description]
+      find("input[name='accountname']", visible: false).set acc_attrs[:accountname]
+      find("input[name='cleartextUsername']", visible: false).set acc_attrs[:username]
+      find("input[name='cleartextPassword']", visible: false).set acc_attrs[:password]
+      find("textarea[name='description']", visible: false).set acc_attrs[:description]
 
-      find('#team-power-select').find('.ember-power-select-trigger').click # Open trigger
-      find_all('ul.ember-power-select-options > li')[0].click
+      find('#team-power-select').find("div.ember-view.ember-basic-dropdown-trigger.ember-basic-dropdown-trigger--in-place.ember-power-select-trigger", visible: false).click # Open trigger
+      first('ul.ember-power-select-options > li').click
 
-      find('#folder-power-select').find('.ember-power-select-trigger').click # Open trigger
-      find_all('ul.ember-power-select-options > li')[0].click
+      find('#folder-power-select').find("div.ember-view.ember-basic-dropdown-trigger.ember-basic-dropdown-trigger--in-place.ember-power-select-trigger", visible: false).click # Open trigger
+      require 'pry'; binding.pry;
+      first('ul.ember-power-select-options > li').click
     end
   end
 
   def expect_account_page_with(acc_attrs)
     expect(first('h1')).to have_text("Account: #{acc_attrs[:accountname]}")
     expect(find('#cleartext_username').value).to eq(acc_attrs[:username])
-    expect(find('#cleartext_password').value).to eq(acc_attrs[:password])
+    expect(find("input[name='cleartextPassword']", visible: false).value).to eq(acc_attrs[:password])
     expect(page).to have_text(acc_attrs[:description])
   end
 
   def expect_filled_fields_in_modal_with(acc_attrs)
     expect(find_field('accountname').value).to eq(acc_attrs[:accountname])
-    expect(find_field('cleartextUsername').value).to eq(acc_attrs[:username])
-    expect(find_field('cleartextPassword').value).to eq(acc_attrs[:password])
+    expect(find("input[name='cleartextUsername']", visible: false).value).to eq(acc_attrs[:username])
+    expect(find("input[name='cleartextPassword']", visible: false).value).to eq(acc_attrs[:password])
     expect(find('.vertical-resize').value).to eq(acc_attrs[:description])
   end
 
   def check_password_meter(password, expected_score)
-    fill_in 'cleartextPassword', with: password
-    expect(page.find('.progress-bar')['aria-valuenow']).to eq(expected_score)
+    find("input[name='cleartextPassword']", visible: false).set password
+    expect(find("div[role='progressbar']", visible: false)['aria-valuenow']).to eq(expected_score)
   end
 
 end
