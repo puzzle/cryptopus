@@ -43,10 +43,6 @@ module Teams
       )
            .references(:folders,
                        folders: [:accounts])
-          .order("CASE WHEN lower(accounts.accountname) LIKE '%#{query}%' THEN 1 ELSE 2")
-
-
-
     end
 
     def filter_by_id
