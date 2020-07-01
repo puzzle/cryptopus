@@ -12,13 +12,13 @@
   @backgroundColor="custom"
   @class="navbar-custom" as |navbar| >
   <div class="container">
-    <div class="navbar-header">
-      {{navbar.toggle}}
-      {{#link-to "index" class="navbar-brand"}}Cryptopus{{/link-to}}
-    </div>
     <navbar.content>
       <div class="form-inline">
-        <Input @class="form-control mr-sm-2" @type="search" placeholder={{t "search.index.type_to_search"}} />
+        {{#if this.isStartpage}}
+          <Input @class="form-control mr-sm-2" @type="search" placeholder={{t "search.index.type_to_search"}} {{autofocus}} />
+        {{else}}
+          <Input @class="form-control mr-sm-2" @type="search" placeholder={{t "search.index.type_to_search"}}/>
+        {{/if}}
       </div>
       <navbar.nav @class="ml-auto" as |nav|>
         <nav.dropdown as |dd|>

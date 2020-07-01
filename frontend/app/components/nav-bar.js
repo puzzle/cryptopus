@@ -1,8 +1,11 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
+import { inject as service } from "@ember/service";
 
 export default class NavBarComponent extends Component {
+  @service router;
+
   @tracked
   isNewAccount = false;
 
@@ -11,6 +14,10 @@ export default class NavBarComponent extends Component {
 
   @tracked
   isNewTeam = false;
+
+  get isStartpage() {
+    return this.router.currentRouteName === "index";
+  }
 
   @action
   toggleAccountCreating() {

@@ -5128,6 +5128,14 @@ ember-auto-import@^1.2.13, ember-auto-import@^1.4.1, ember-auto-import@^1.5.2, e
     walk-sync "^0.3.3"
     webpack "~4.28"
 
+ember-autofocus-modifier@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ember-autofocus-modifier/-/ember-autofocus-modifier-1.0.1.tgz#c61c3c8f50b53f12c02d9db098a2557161c6251c"
+  integrity sha512-AZ24R2CkSL97glLM+6MG8emwWgHIj06p4LLUXt+ybCPJA4bvnZosoruq7hboXF319efoQZ2YqaHv0Oyjo0SEOA==
+  dependencies:
+    ember-cli-babel "^7.11.1"
+    ember-modifier "^1.0.2"
+
 ember-basic-dropdown@^2.0.13:
   version "2.0.15"
   resolved "https://registry.yarnpkg.com/ember-basic-dropdown/-/ember-basic-dropdown-2.0.15.tgz#f86600cfa22ff67de6599fcfb701ad851cc3c6a0"
@@ -6007,6 +6015,17 @@ ember-modifier-manager-polyfill@^1.0.1, ember-modifier-manager-polyfill@^1.1.0, 
     ember-cli-babel "^7.10.0"
     ember-cli-version-checker "^2.1.2"
     ember-compatibility-helpers "^1.2.0"
+
+ember-modifier@^1.0.2:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/ember-modifier/-/ember-modifier-1.0.3.tgz#ab18250666aad17c0d9170feb178e954148eb4ed"
+  integrity sha512-vWuFyvdkULUyasvEXxe5lcfuPZV/Uqe+b0IQ1yU+TY1RSJnFdVUu/CVHT8Bu4HUJInqzAihwPMTwty7fypzi5Q==
+  dependencies:
+    ember-cli-babel "^7.11.1"
+    ember-cli-is-package-missing "^1.0.0"
+    ember-cli-normalize-entity-name "^1.0.0"
+    ember-cli-string-utils "^1.1.0"
+    ember-modifier-manager-polyfill "^1.2.0"
 
 ember-named-arguments-polyfill@^1.0.0:
   version "1.0.0"

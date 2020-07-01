@@ -34,6 +34,16 @@ export default class TeamsIndexRoute extends Route {
     }
   }
 
+  beforeModel(transition) {
+    let definedParamValues = Object.values(transition.to.queryParams).filter(
+      value => !!value
+    );
+    if (definedParamValues.length == 0) {
+      transition.abort();
+      this.transitionTo("index");
+    }
+  }
+
   model(params) {
     return this.store.query("team", params);
   }

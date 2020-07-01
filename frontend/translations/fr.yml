@@ -43,6 +43,7 @@ fr:
   new: Nouveau
   save: Sauvegarder
   close: fermer
+  select_team: Veuillez sélectionner une équipe ou utiliser la recherche
 
   i18n:
     language:
