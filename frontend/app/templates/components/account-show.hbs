@@ -10,6 +10,9 @@
       <h1 class="d-inline">{{t "accounts.show.account"}}: {{@account.accountname}}</h1>
     </div>
     <div>
+       <DeleteWithConfirmation @record={{@account}} @didDelete={{this.refreshRoute}}>
+          <img class="icon-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
+       </DeleteWithConfirmation>
       <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleAccountEdit}} href="#">
         <img class="icon-button" src="/ember/assets/images/edit.svg" alt="edit">
       </a>

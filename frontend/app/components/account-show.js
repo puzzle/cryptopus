@@ -33,4 +33,9 @@ export default class AccountShowComponent extends Component {
   showPassword() {
     this.isPasswordVisible = true;
   }
+
+  @action
+  refreshRoute() {
+    this.router.transitionTo();
+  }
 }

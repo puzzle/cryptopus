@@ -7,30 +7,30 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group col-md-12">
-            <label name="accountname">{{t "helpers.label.account.account_name"}}</label>
+            <label for="accountname">{{t "helpers.label.account.account_name"}}</label>
             <div>
-              <Input class={{concat "form-control" (if this.changeset.error.accountname.validation " invalid-input")}} @value={{this.changeset.accountname}} @name="accountname" @tabindex="1" />
+              <Input class={{concat "form-control" (if this.changeset.error.accountname.validation " invalid-input")}} @value={{this.changeset.accountname}} id="accountname" @tabindex="1" />
               <ValidationErrorsList @errors={{this.changeset.error.accountname.validation}}/>
             </div>
           </div>
           <div class="form-group col-md-12">
-            <label name="username">{{t "username"}}</label>
+            <label for="username">{{t "username"}}</label>
             <div>
-              <Input class="form-control" @value={{this.changeset.cleartextUsername}} @name="cleartextUsername" @tabindex="2"/>
+              <Input id="username" class="form-control" @value={{this.changeset.cleartextUsername}} @tabindex="2"/>
             </div>
           </div>
         </div>
         <div class="col-md-6 ml-auto">
           <div class="form-group col-md-12" id="team-power-select">
-            <label name="team">{{t "team"}}</label>
-            <PowerSelect class="mb-1" @options={{this.assignableTeams}} @selected={{this.selectedTeam}} @onChange={{this.setSelectedTeam}} @renderInPlace={{true}} @allowClear={{true}} @placeholder={{t "accounts.edit.team_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} @tabindex="5" as |team|>
+            <label for="team">{{t "team"}}</label>
+            <PowerSelect id="team" class="mb-1" @options={{this.assignableTeams}} @selected={{this.selectedTeam}} @onChange={{this.setSelectedTeam}} @renderInPlace={{true}} @allowClear={{true}} @placeholder={{t "accounts.edit.team_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} @tabindex="5" as |team|>
               {{team.name}}
             </PowerSelect>
             <ValidationErrorsList/>
           </div>
           <div class="form-group col-md-12" id="folder-power-select">
-            <label name="folder">{{t "folder"}}</label>
-            <PowerSelect @options={{this.availableFolders}} @selected={{this.changeset.folder}} @disabled={{this.isFolderDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setFolder}} @allowClear={{true}} @placeholder={{t "accounts.edit.folder_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} @triggerClass={{if this.changeset.error.folder.validation "invalid-input"}} @tabindex="6" as |folder|>
+            <label for="folder">{{t "folder"}}</label>
+            <PowerSelect id="folder" @options={{this.availableFolders}} @selected={{this.changeset.folder}} @disabled={{this.isFolderDropdownDisabled}} @renderInPlace={{true}} @onChange={{this.setFolder}} @allowClear={{true}} @placeholder={{t "accounts.edit.folder_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} @triggerClass={{if this.changeset.error.folder.validation "invalid-input"}} @tabindex="6" as |folder|>
               {{folder.name}}
             </PowerSelect>
             <ValidationErrorsList @errors={{this.changeset.error.folder.validation}}/>
@@ -40,14 +40,14 @@
       <div class="row">
         <div class="col">
           <div class="col">
-            <label name="password">{{t "password"}}</label>
+            <label for="cleartext-password">{{t "password"}}</label>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <div class="form-group col-sm-12">
-            <Input class="form-control secret mb-10" @value={{this.changeset.cleartextPassword}} @name="cleartextPassword" @tabindex="3" autocomplete="off"/>
+            <Input id="cleartext-password" class="form-control secret mb-10" @value={{this.changeset.cleartextPassword}} @tabindex="3" autocomplete="off"/>
             <PasswordStrengthMeter class="col-9" @password={{this.changeset.cleartextPassword}}/>
           </div>
         </div>
@@ -58,9 +58,9 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group col-md-12">
-            <label name="description">{{t "description"}}</label>
+            <label for="description">{{t "description"}}</label>
             <div>
-              <Textarea class="form-control vertical-resize" @value={{this.changeset.description}} @name="description" @tabindex="7"/>
+              <Textarea id="description" class="form-control vertical-resize" @value={{this.changeset.description}}  @tabindex="7"/>
               <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
             </div>
           </div>
