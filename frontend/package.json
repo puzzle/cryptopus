@@ -28,6 +28,7 @@
     "bootstrap": "^4.3.1",
     "broccoli-asset-rev": "^3.0.0",
     "ember-auto-import": "^1.5.3",
+    "ember-autofocus-modifier": "^1.0.1",
     "ember-bootstrap": "^3.1.4",
     "ember-changeset": "^3.3.8",
     "ember-changeset-validations": "^3.3.2",

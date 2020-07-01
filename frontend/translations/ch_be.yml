@@ -42,6 +42,7 @@ ch_be:
   save: Spichere
   close: Schliesse
   user: Benutzer
+  select_team: Wähl bitte es team us oder benutz d suechi
   api-user:
     none: Du hesch kei Api-Benutzer. Hol dr einä
   time:
