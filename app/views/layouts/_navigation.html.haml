@@ -7,13 +7,13 @@
   %nav.navbar.navbar-inverse
     .container-fluid
       .navbar-header
-        = link_to(image_pack_tag("cryptopussy_without_text.svg", class: 'logo-icon'), search_path, class:'navbar-logo')
-        = link_to('Cryptopus', search_path, class: 'navbar-brand')
+        = link_to(image_pack_tag("cryptopussy_without_text.svg", class: 'logo-icon'), root_path, class:'navbar-logo')
+        = link_to('Cryptopus', root_path, class: 'navbar-brand')
       .navbar-collapse.collapse
         %ul.nav.navbar-nav
           - if current_user.auth_db?
             = nav_link t(:change_password), session_show_update_password_path
-          = nav_link image_pack_tag("viewmag_white.svg", class: "search-icon", title: "search (ctrl + f)") + t('search.title'), search_path
+          = nav_link image_pack_tag("viewmag_white.svg", class: "search-icon", title: "search (ctrl + f)") + t('search.title'), root_path
         %ul.nav.navbar-nav.navbar-right.logout
           - if current_user.admin? || current_user.conf_admin?
             %li.dropdown

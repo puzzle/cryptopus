@@ -21,10 +21,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # resources :teams, only: [:show, :index, :destroy] do
-    # resources :folders, only: [:show, :destroy]
-  # end
-
   scope '/session', module: 'session' do
     if AuthConfig.keycloak_enabled?
       get 'sso', to: 'sso#create'
@@ -43,8 +39,6 @@ Rails.application.routes.draw do
 
   get 'wizard', to: 'wizard#index'
   post 'wizard/apply'
-
-  get 'search', to: 'search#index'
 
   get 'changelog', to: 'changelog#index'
 

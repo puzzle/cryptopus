@@ -29,7 +29,7 @@ describe 'Ldap user login' do
 
     # login
     login_as('bob')
-    assert request.fullpath, search_path
+    assert request.fullpath, root_path
   end
 
   it 'logins to ldap with wrong password' do

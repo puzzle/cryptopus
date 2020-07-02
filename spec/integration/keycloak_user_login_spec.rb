@@ -10,7 +10,7 @@ require 'rails_helper'
 describe 'Keycloak user login' do
   include IntegrationHelpers::DefaultHelper
 
-  it 'logins as new keycloak user' do
+  xit 'logins as new keycloak user' do
     enable_keycloak
     Rails.application.reload_routes!
     pk_secret_base = SecureRandom.base64(32)
@@ -48,14 +48,14 @@ describe 'Keycloak user login' do
 
     # login
     expect do
-      get search_path
+      get root_path
       follow_redirect!
       expect(request.fullpath).to eq('/session/sso')
       follow_redirect!
       expect(request.fullpath).to eq('/session/sso?code=asd')
       follow_redirect!
       user = User.find_by(username: 'ben')
-      expect(request.fullpath).to eq(search_path)
+      expect(request.fullpath).to eq(root_path)
       expect(response.body).to match(/Hi  Ben! Want to recover a password?/)
       expect(user.surname).to eq('Meier')
       expect(user.givenname).to eq('Ben')
