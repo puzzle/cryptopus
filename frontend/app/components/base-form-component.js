@@ -2,7 +2,6 @@ import { action } from "@ember/object";
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
-import podNames from "ember-component-css/pod-names";
 
 
 export default class BaseFormComponent extends Component {
