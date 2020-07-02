@@ -31,9 +31,9 @@ export default class SideNavBar extends Component {
 
   @action
   setSelectedTeam(team) {
-    let already_the_same = this.navService.selectedTeam === team;
+    let alreadyTheSame = this.navService.selectedTeam === team;
 
-    if (already_the_same) this.collapsed = !this.collapsed;
+    if (alreadyTheSame) this.collapsed = !this.collapsed;
     else {
       this.router
         .transitionTo("teams.index", {

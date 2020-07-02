@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe LegacyRoutes::UrlHandler do
+describe RedirectedRoutes::UrlHandler do
   include IntegrationHelpers::DefaultHelper
 
   # /de/teams/1/folders/1 -> /teams/1/folders/1/
@@ -162,7 +162,7 @@ describe LegacyRoutes::UrlHandler do
 
   context 'frontend files' do
     # /teams -> /teams
-    it 'gets delivered on frontend route' do
+    it 'serves frontend when /teams requested' do
       teams_url = '/teams'
       login_as('bob')
 
@@ -172,7 +172,7 @@ describe LegacyRoutes::UrlHandler do
     end
 
     # /ch_vs/teams -> /teams
-    it 'gets delivered on frontend route with unknown locale' do
+    it 'returns 404 if unknown legacy locale requested' do
 
       teams_url = '/ch_vs/teams'
       login_as('bob')
@@ -181,7 +181,7 @@ describe LegacyRoutes::UrlHandler do
     end
 
     # /de/teams/1/folders/1/accounts/1/ -> /accounts/1/
-    it 'gets delivered when redirecting to team1 url without locale' do
+    it 'serves frontend when /de/teams/1/folders/1/accounts/1 route requested' do
       team1 = teams(:team1)
       folder1 = folders(:folder1)
       account1 = accounts(:account1)
@@ -198,7 +198,7 @@ describe LegacyRoutes::UrlHandler do
     end
 
     # /de/teams -> /teams
-    it 'gets delivered when redirecting to teams url with german locale' do
+    it 'serves frontend when /de/teams requested' do
       login_as('bob')
 
       get '/de/teams'
@@ -209,7 +209,7 @@ describe LegacyRoutes::UrlHandler do
     end
 
     # /en/teams -> /teams
-    it 'gets delivered when redirecting to teams url with english locale' do
+    it 'serves frontend when /de/teams requested' do
       login_as('bob')
 
       get '/en/teams'
@@ -220,7 +220,7 @@ describe LegacyRoutes::UrlHandler do
     end
 
     # /fr/teams -> /teams
-    it 'gets delivered when redirecting to teams url with french locale' do
+    it 'serves frontend when /de/teams requested' do
       login_as('bob')
 
       get '/fr/teams'
