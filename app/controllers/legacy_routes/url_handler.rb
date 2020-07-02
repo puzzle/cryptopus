@@ -20,7 +20,8 @@ class LegacyRoutes::UrlHandler
     teams: /(groups)$/,
     groups: /(accounts)$/,
     accounts: /(accounts)\/\d+$/,
-    login: /(\/login)$/
+    login: /(\/login)$/,
+    search: /(\/search)/
   }.freeze
 
   LOCALES_REGEX = I18n.available_locales.map do |locale|
@@ -82,4 +83,13 @@ class LegacyRoutes::UrlHandler
   def new_login_path
     root_path
   end
+
+  def new_search_path
+    if @url.include? "?q=" and @url.split('?q=').length() > 1
+      "/teams?#{@url.split('?').last}"
+    else
+      '/teams'
+    end
+  end
+
 end

@@ -85,12 +85,12 @@ describe LegacyRoutes::UrlHandler do
     assert_redirected_to profile_path
   end
 
-  # /de/search?q= -> /search?q=
+  # /de/search?q= -> /teams?q=
   it 'redirects to search url without locale' do
     login_as('bob')
     get '/de/search?q='
 
-    assert_redirected_to search_path
+    assert_redirected_to '/teams'
   end
 
   # /de/admin/settings/index -> /admin/settings/index
