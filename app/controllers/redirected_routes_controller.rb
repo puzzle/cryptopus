@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class LegacyRoutesController < ApplicationController
+class RedirectedRoutesController < ApplicationController
 
   layout false
 
@@ -24,6 +24,6 @@ class LegacyRoutesController < ApplicationController
   private
 
   def url_handler
-    @url_handler ||= LegacyRoutes::UrlHandler.new(request.path)
+    @url_handler ||= RedirectedRoutes::UrlHandler.new(request.path)
   end
 end

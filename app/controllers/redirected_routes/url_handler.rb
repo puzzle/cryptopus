@@ -7,7 +7,7 @@
 
 include Rails.application.routes.url_helpers
 
-class LegacyRoutes::UrlHandler
+class RedirectedRoutes::UrlHandler
 
   FRONTEND_PATHS = {
     teams_index: /(^\/teams)$/,

@@ -9,6 +9,16 @@ class Api::FileEntriesController < ApiController
 
   helper_method :team
 
+  # GET /accounts/1/file_entries
+  def index(options = {})
+    authorize(team, :team_member?, policy_class: TeamPolicy)
+    render({ json: fetch_entries,
+             each_serializer: list_serializer,
+             root: model_root_key.pluralize }
+           .merge(render_options)
+           .merge(options.fetch(:render_options, {})))
+  end
+
   # GET /accounts/1/file_entries/1
   def show
     authorize entry
