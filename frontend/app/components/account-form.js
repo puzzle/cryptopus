@@ -66,7 +66,6 @@ export default class AccountForm extends BaseFormComponent {
   @action
   setSelectedTeam(selectedTeam) {
     if (isPresent(selectedTeam)) {
-      debugger;
       this.selectedTeam = selectedTeam;
 
       this.store
@@ -80,7 +79,6 @@ export default class AccountForm extends BaseFormComponent {
 
   @action
   setFolder(folder) {
-    debugger;
     this.changeset.folder = folder;
   }
 
