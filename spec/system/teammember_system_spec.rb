@@ -31,8 +31,6 @@ describe 'Teammember', type: :system, js: true do
     expect(edit_button).to be_present
     edit_button.click
 
-    sleep 10
-
     expect(find('.modal-content')).to be_present
     expect(page).to have_text('Edit Team Members and Api Users')
 
