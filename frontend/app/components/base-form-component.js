@@ -3,17 +3,12 @@ import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
 
-
 export default class BaseFormComponent extends Component {
   @service intl;
 
   @tracked
   record;
   isNewRecord = false;
-
-  get styleNamespace() {
-    return podNames["my-component-name"];
-  }
 
   /* The beforeSubmit method can be implemented by a subclass as a hook in the submit method
    * beforeSubmit can return a promise of a boolean, which decides whether or not to abort the submit.
