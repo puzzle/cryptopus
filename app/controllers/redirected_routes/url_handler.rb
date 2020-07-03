@@ -85,7 +85,7 @@ class RedirectedRoutes::UrlHandler
   end
 
   def new_search_path
-    if @url.include? "?q=" and @url.split('?q=').length() > 1
+    if @url.include?('?q=') && @url.split('?q=').length > 1
       "/teams?#{@url.split('?').last}"
     else
       '/teams'
