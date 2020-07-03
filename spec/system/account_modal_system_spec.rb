@@ -72,7 +72,6 @@ describe 'AccountModal', type: :system, js: true do
     asdf
     expect_filled_fields_in_modal_with(updated_attrs)
     click_button('Save', visible: false)
-    require 'pry'; binding.pry;
 
     expect_account_page_with(updated_attrs)
 
@@ -98,16 +97,18 @@ describe 'AccountModal', type: :system, js: true do
 
   def fill_modal(acc_attrs)
     within('div.modal_account') do
-      find("input#accountname", visible: false).set('').set(acc_attrs[:accountname])
-      find("input#username", visible: false).set('').set acc_attrs[:username]
-      find("input#cleartext-password", visible: false).set('').set acc_attrs[:password]
-      find("textarea#description", visible: false).set('').set acc_attrs[:description]
+      find('input#accountname', visible: false).set('').set(acc_attrs[:accountname])
+      find('input#username', visible: false).set('').set acc_attrs[:username]
+      find('input#cleartext-password', visible: false).set('').set acc_attrs[:password]
+      find('textarea#description', visible: false).set('').set acc_attrs[:description]
 
+      # rubocop:disable Layout/LineLength
       find('#team-power-select').find('div.ember-view.ember-basic-dropdown-trigger.ember-basic-dropdown-trigger--in-place.ember-power-select-trigger', visible: false).click # Open trigger
       first('ul.ember-power-select-options > li').click
 
       find('#folder-power-select').find('div.ember-view.ember-basic-dropdown-trigger.ember-basic-dropdown-trigger--in-place.ember-power-select-trigger', visible: false).click # Open trigger
       first('ul.ember-power-select-options > li', visible: false).click
+      # rubocop:enable Layout/LineLength
     end
   end
 
@@ -122,9 +123,9 @@ describe 'AccountModal', type: :system, js: true do
   def expect_filled_fields_in_modal_with(acc_attrs)
     expect(find_field('accountname').value).to eq(acc_attrs[:accountname])
     expect(find("input[name='username']",
-visible: false).value).to eq(acc_attrs[:username])
+                visible: false).value).to eq(acc_attrs[:username])
     expect(find("input[name='cleartext-password']",
-visible: false).value).to eq(acc_attrs[:password])
+                visible: false).value).to eq(acc_attrs[:password])
     expect(find('.vertical-resize', visible: false).value).to eq(acc_attrs[:description])
   end
 
