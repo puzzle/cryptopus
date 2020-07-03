@@ -98,11 +98,10 @@ describe 'AccountModal', type: :system, js: true do
 
   def fill_modal(acc_attrs)
     within('div.modal_account') do
-      require 'pry'; binding.pry;
-      find("input[name='accountname']", visible: false).set(acc_attrs[:accountname])
-      find("input[name='username']", visible: false).set(' ').set acc_attrs[:username]
-      find("input[name='cleartext-password']", visible: false).set(' ').set acc_attrs[:password]
-      find("textarea[name='description']", visible: false).set(' ').set acc_attrs[:description]
+      find("input#accountname", visible: false).set('').set(acc_attrs[:accountname])
+      find("input#username", visible: false).set('').set acc_attrs[:username]
+      find("input#cleartext-password", visible: false).set('').set acc_attrs[:password]
+      find("textarea#description", visible: false).set('').set acc_attrs[:description]
 
       find('#team-power-select').find('div.ember-view.ember-basic-dropdown-trigger.ember-basic-dropdown-trigger--in-place.ember-power-select-trigger', visible: false).click # Open trigger
       first('ul.ember-power-select-options > li').click
