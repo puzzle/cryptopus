@@ -228,6 +228,7 @@ en:
 
   teams:
     title: Teams
+    none_available: No Teams available
     form:
       enabled: Enabled
       private: Private

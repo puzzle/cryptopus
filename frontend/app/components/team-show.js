@@ -5,6 +5,7 @@ import { inject as service } from "@ember/service";
 
 export default class TeamShowComponent extends Component {
   @service navService;
+  @service store;
 
   @tracked
   isTeamEditing = false;
@@ -28,5 +29,18 @@ export default class TeamShowComponent extends Component {
   @action
   toggleTeamConfigure() {
     this.isTeamConfiguring = !this.isTeamConfiguring;
+  }
+
+  @action
+  toggleFavourised() {
+    let httpMethod = this.args.team.favourised ? "delete" : "post";
+    /* eslint-disable no-undef  */
+    fetch(`/api/teams/${this.args.team.id}/favourite`, {
+      method: httpMethod,
+      headers: {
+        "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
+      }
+    }).then(() => (this.args.team.favourised = !this.args.team.favourised));
+    /* eslint-enable no-undef  */
   }
 }

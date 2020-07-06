@@ -17,6 +17,9 @@
         <a id="config_team_button" href="#" role="button" {{on "click" this.toggleTeamConfigure}}>
           <img class="icon-big-button" src="/ember/assets/images/team_config.svg" alt="configure">
         </a>
+        <a role="button" {{on "click" this.toggleFavourised}}>
+          <img class="icon-big-button" src="/ember/assets/images/star{{if @team.favourised "-filled"}}.svg" alt="star">
+        </a>
       </span>
       <span role="button" {{on "click" this.collapse}}>
         {{#if this.collapsed}}

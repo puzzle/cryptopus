@@ -25,6 +25,7 @@ class Teammember < ApplicationRecord
   before_destroy :protect_if_last_teammember
   before_destroy :protect_if_admin_in_non_private_team
   before_destroy :remove_api_users
+  before_destroy :remove_user_favourite_team_entry
   # TODO: -> on destroy: remove api-token user first if present
 
   validates :user_id, uniqueness: { scope: :team }
@@ -68,4 +69,11 @@ class Teammember < ApplicationRecord
     team.teammembers.where(user_id: ids).destroy_all
   end
 
+  def remove_user_favourite_team_entry
+    return unless user.is_a?(User::Human)
+
+    entry = user.user_favourite_teams.find_by(team: team)
+
+    entry&.destroy
+  end
 end

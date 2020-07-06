@@ -11,12 +11,15 @@ export default class SideNavBar extends Component {
 
   @tracked teams;
   @tracked collapsed;
+  @tracked showsFavourites = false;
 
   constructor() {
     super(...arguments);
 
     this.teams = this.args.teams;
     this.collapsed = isNone(this.navService.selectedTeam);
+    this.showsFavourites = localStorage.getItem("showsFavourites") === "true";
+    this.toggleFavourites(this.showsFavourites);
   }
 
   setupModal(element) {
@@ -50,5 +53,16 @@ export default class SideNavBar extends Component {
     this.router.transitionTo("teams", {
       queryParams: { folder_id: folder.id }
     });
+  }
+
+  @action
+  toggleFavourites(isShowing) {
+    this.showsFavourites = isShowing;
+    localStorage.setItem("showsFavourites", isShowing);
+    this.store
+      .query("team", {
+        favourite: this.showsFavourites ? this.showsFavourites : undefined
+      })
+      .then(res => (this.teams = res));
   }
 }

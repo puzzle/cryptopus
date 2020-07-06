@@ -18,8 +18,18 @@
 # See the COPYING file at the top-level directory or at
 # https://github.com/puzzle/cryptopus.
 
-class TeamSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :private
+class TeamSerializer < ApplicationSerializer
+  attributes :id, :name, :description, :private, :favourised
 
   has_many :folders, serializer: FolderMinimalSerializer
+
+  def favourised
+    user_favourite_team_ids.include?(object.id)
+  end
+
+  private
+
+  def user_favourite_team_ids
+    @user_favourite_team_ids ||= current_user.user_favourite_teams.pluck(:id)
+  end
 end

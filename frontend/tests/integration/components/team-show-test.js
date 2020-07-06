@@ -15,7 +15,8 @@ module("Integration | Component | team-show", function(hooks) {
           name: "It-Ninjas",
           accounts: [{ accountname: "Ninjas test account" }]
         }
-      ]
+      ],
+      userFavouriteTeams: [{ favourised: true }]
     });
 
     await render(hbs`<TeamShow @team={{this.team}}/>`);
