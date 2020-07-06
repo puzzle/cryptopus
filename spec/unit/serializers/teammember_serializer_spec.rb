@@ -8,6 +8,10 @@
 require 'rails_helper'
 
 describe TeammemberSerializer do
+  before(:each) do
+    expect_any_instance_of(TeamSerializer).to receive(:user_favourite_team_ids).and_return([1, 3])
+  end
+
   context 'teammember' do
     it 'serializes as not deletable if last teammember' do
       as_json = JSON.parse(TeammemberSerializer.new(teammembers(:team2_bob)).to_json)

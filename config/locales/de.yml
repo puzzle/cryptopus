@@ -231,6 +231,7 @@ de:
 
   teams:
     title: Teams
+    none_available: Keine Teams verfügbar
     show:
       title: "Gruppen des Teams %{team_name}"
       folder: Gruppe

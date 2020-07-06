@@ -253,6 +253,7 @@ ch_be:
 
   teams:
     title: Teams
+    none_available: Kener Teams verfüegbar
     edit:
       title: Team bearbeite
     configure:

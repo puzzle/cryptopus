@@ -226,6 +226,7 @@ fr:
 
   teams:
     title: Équipes
+    none_available: Aucune équipe disponible
     form:
       enabled: Activé
       private: Privé

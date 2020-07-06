@@ -7,4 +7,10 @@
 
 class ApplicationSerializer < ActiveModel::Serializer
 
+  private
+
+  def current_user
+    scope
+  end
+
 end

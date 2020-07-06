@@ -6,6 +6,7 @@ module Teams
     def fetch_entries
       return filter_by_query if query_present?
       return filter_by_id if team_id.present?
+      return filter_by_favourite if favourite.present?
 
       teams
     end
@@ -18,6 +19,10 @@ module Teams
 
     def query_present?
       @params[:q].present?
+    end
+
+    def favourite
+      @params[:favourite]
     end
 
     def teams
@@ -42,6 +47,10 @@ module Teams
 
     def filter_by_id
       [Team.find(team_id)]
+    end
+
+    def filter_by_favourite
+      @current_user.favourite_teams
     end
   end
 end

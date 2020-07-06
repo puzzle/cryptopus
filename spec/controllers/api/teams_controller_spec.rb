@@ -46,9 +46,8 @@ describe Api::TeamsController do
         expect(team['type']).to eq('teams')
       end
 
-      included.each do |folder|
-        expect(folder['type']).to eq('folders')
-      end
+      included_folders = included.select { |e| e['type'] == 'folders' }
+      expect(included_folders.size).to be(4)
     end
 
     it 'raises error if team_id doesnt exist' do
@@ -87,6 +86,31 @@ describe Api::TeamsController do
 
       expect(included.size).to be(4)
       expect(folder_relationships_length).to be(3)
+    end
+
+    it 'returns bobs favourite teams' do
+      login_as(:bob)
+
+      get :index, params: { favourite: true }, xhr: true
+
+      expect(response.status).to be(200)
+
+      expect(data.size).to be(1)
+      attributes = data.first['attributes']
+
+      included_types = json['included'].map { |e| e['type'] }
+
+      expect(included_types).to include('folders')
+      expect(included_types).to include('accounts')
+
+      expect(attributes['name']).to eq team1.name
+      expect(attributes['description']).to eq team1.description
+
+      folder_relationships_length = data.first['relationships']['folders']['data'].size
+
+      expect(included.size).to be(4)
+      expect(folder_relationships_length).to be(3)
+
     end
 
     it 'doesnt return team if not member' do
@@ -154,8 +178,9 @@ describe Api::TeamsController do
       expect(response.status).to be(200)
 
       attributes_team = data.first['attributes']
-
-      expect(team3.attributes).to include(attributes_team)
+      team3_attributes = team3.attributes
+      team3_attributes['favourised'] = false
+      expect(team3_attributes).to include(attributes_team)
       folder_relationships_length = data.first['relationships']['folders']['data'].size
 
       expect(included.size).to be(2)

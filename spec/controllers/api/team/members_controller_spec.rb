@@ -108,6 +108,14 @@ describe Api::Teams::MembersController do
       expect(teams(:team1).teammember?(api_user)).to eq false
     end
 
+    it 'removes human user and his user_favourite_team entry' do
+      login_as(:alice)
+      expect do
+        delete :destroy, params: { team_id: teams(:team1), id: teammembers(:team1_bob) }, xhr: true
+      end.to change { UserFavouriteTeam.count }.by(-1)
+      expect(teams(:team1).teammember?(bob)).to eq false
+    end
+
     it 'does not remove member from given team without team membership' do
       login_as(:alice)
 
