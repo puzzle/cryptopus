@@ -5,15 +5,14 @@ const EmberApp = require("ember-cli/lib/broccoli/ember-app");
 module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     storeConfigInMeta: false,
-
-    'ember-cli-password-strength': {
+    "ember-cli-password-strength": {
       bundleZxcvbn: true
     },
 
-    'ember-bootstrap': {
-      'bootstrapVersion': 4,
-      'importBootstrapCSS': true,
-      'importBootstrapFont': true
+    "ember-bootstrap": {
+      bootstrapVersion: 4,
+      importBootstrapCSS: true,
+      importBootstrapFont: true
     }
   });
 
