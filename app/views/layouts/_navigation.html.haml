@@ -4,57 +4,65 @@
 -#  https://github.com/puzzle/cryptopus.
 
 - if current_user
-  %nav.navbar.navbar-inverse
-    .container-fluid
+  -#%nav.navbar.navbar-inverse
+  -#  .container-fluid
+  -#    .navbar-header
+  -#      = link_to(image_pack_tag("cryptopussy_without_text.svg", class: 'logo-icon'), root_path, class:'navbar-logo')
+  -#      = link_to('Cryptopus', root_path, class: 'navbar-brand')
+  -#    .navbar-collapse.collapse
+  -#      %ul.nav.navbar-nav
+  -#        - if current_user.auth_db?
+  -#          = nav_link t(:change_password), session_show_update_password_path
+  -#        = nav_link image_pack_tag("viewmag_white.svg", class: "search-icon", title: "search (ctrl + f)") + t('search.title'), root_path
+  -#      %div.nav.navbar-nav.navbar-right.logout
+  -#        - if current_user.admin? || current_user.conf_admin?
+  -#          %div.dropdown
+  -#            <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown", role="button">
+  -#            %span=image_pack_tag("admin_settings.svg", class: "admin-settings-icon")
+  -#            </a>
+  -#            %div.dropdown-menu
+  -#              %a= nav_link t(:settings), admin_settings_path
+  -#              - if policy(Recryptrequest).index?
+  -#                %a= nav_link t(:recrypt_requests), admin_recryptrequests_path
+  -#              %a= nav_link t(:users), admin_users_path
+  -#              %a= nav_link t('teams.title'), admin_teams_path
+  -#              %a= nav_link t('admin.maintenance_tasks.index.title'), admin_maintenance_tasks_path
+  -#        = nav_link image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path, :get
+  -#
+  -#      %div.nav.navbar-nav.navbar-right#profile-button
+  -#        %li
+  -#        = nav_link current_user.username, profile_path
+  -#
+  -#      %div.nav.navbar-nav.navbar-right#add-dropdown
+  -#
+  -#        %li.nav-item
+  -#          %div.dropdown.show
+  -#            %div.btn-group
+  -#              %a.btn.btn-primary.navbar-btn#navbarDropdown{type: 'button', 'href': '#/accounts/new', 'data-turbolinks': 'false'}
+  -#                = t('accounts.new.title')
+  -#              %a.btn.navbar-btn.btn-primary.dropdown-toggle.dropdown-toggle-split{'type': 'button', 'data-toggle':'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false'}
+  -#                %span.caret
+  -#
+  -#              %ul.dropdown-menu{'aria-labelledby': 'navbarDropdown'}
+  -#                %li
+  -#                  %a.dropdown-item{'href': '#/teams/new', 'data-turbolinks': 'false'}
+  -#                    = t('teams.new.title')
+  -#                %li
+  -#                  %a.dropdown-item{'href': '#/folders/new', 'data-turbolinks': 'false'}
+  -#                    = t('folders.new.title')
+  -#
+  -#
+  -#- unless @breadcrumbs.nil?
+  -#  .bread-container
+  -#    .breadcrumb
+  -#      = render_breadcrumbs separator: '', tag: :li
+
+  %nav.navbar-custom
+    .container-fluid.h-56
       .navbar-header
         = link_to(image_pack_tag("cryptopussy_without_text.svg", class: 'logo-icon'), root_path, class:'navbar-logo')
-        = link_to('Cryptopus', root_path, class: 'navbar-brand')
-      .navbar-collapse.collapse
-        %ul.nav.navbar-nav
-          - if current_user.auth_db?
-            = nav_link t(:change_password), session_show_update_password_path
-          = nav_link image_pack_tag("viewmag_white.svg", class: "search-icon", title: "search (ctrl + f)") + t('search.title'), root_path
-        %ul.nav.navbar-nav.navbar-right.logout
-          - if current_user.admin? || current_user.conf_admin?
-            %li.dropdown
-              <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown", role="button">
-              %span=image_pack_tag("admin_settings.svg", class: "admin-settings-icon")
-              </a>
-              %ul.dropdown-menu
-                %li= nav_link t(:settings), admin_settings_path
-                - if policy(Recryptrequest).index?
-                  %li= nav_link t(:recrypt_requests), admin_recryptrequests_path
-                %li= nav_link t(:users), admin_users_path
-                %li= nav_link t('teams.title'), admin_teams_path
-                %li= nav_link t('admin.maintenance_tasks.index.title'), admin_maintenance_tasks_path
-          = nav_link image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path, :get
-
-        %ul.nav.navbar-nav.navbar-right#profile-button
-          %li 
-          = nav_link current_user.username, profile_path
-
-        %ul.nav.navbar-nav.navbar-right#add-dropdown
-
-          %li.nav-item
-            %div.dropdown.show
-              %div.btn-group
-                %a.btn.btn-primary.navbar-btn#navbarDropdown{type: 'button', 'href': '#/accounts/new', 'data-turbolinks': 'false'}
-                  = t('accounts.new.title')
-                %a.btn.navbar-btn.btn-primary.dropdown-toggle.dropdown-toggle-split{'type': 'button', 'data-toggle':'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false'}
-                  %span.caret
-
-                %ul.dropdown-menu{'aria-labelledby': 'navbarDropdown'}
-                  %li
-                    %a.dropdown-item{'href': '#/teams/new', 'data-turbolinks': 'false'}
-                      = t('teams.new.title')
-                  %li
-                    %a.dropdown-item{'href': '#/folders/new', 'data-turbolinks': 'false'}
-                      = t('folders.new.title')
-
-
-  - unless @breadcrumbs.nil?
-    .bread-container
-      .breadcrumb
-        = render_breadcrumbs separator: '', tag: :li
-
-
+        = link_to('Cryptopus', root_path, class: 'navbar-brand h-56')
+      .navbar-content
+        .dropdown
+          .btn-group
+            %a.nav-link.d-inline
