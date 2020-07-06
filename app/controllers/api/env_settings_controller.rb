@@ -6,6 +6,7 @@ class Api::EnvSettingsController < ApiController
   before_action :skip_authorization
 
   def index
-    render_json sentry: ENV['SENTRY_DSN_FRONTEND']
+    render_json(sentry: ENV['SENTRY_DSN_FRONTEND'],
+                current_user: { id: current_user.id })
   end
 end
