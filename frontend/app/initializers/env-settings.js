@@ -6,8 +6,9 @@ export function initialize(/* application */) {
     $.getJSON({
       url: "/api/env_settings",
       async: false,
-      success: function (envSettings) {
+      success: function(envSettings) {
         ENV.sentryDsn = envSettings.sentry;
+        ENV.currentUserId = envSettings.current_user.id;
       }
     });
     /* eslint-enable no-undef  */

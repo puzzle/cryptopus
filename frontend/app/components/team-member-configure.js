@@ -3,6 +3,7 @@ import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
 import fetch from "fetch";
 import { tracked } from "@glimmer/tracking";
+import ENV from "../config/environment";
 
 export default class TeamMemberConfigureComponent extends BaseFormComponent {
   @service store;
@@ -54,8 +55,9 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
   @action
   deleteMember(member) {
     member.teamId = this.args.teamId;
+    let isCurrentUser = +member.user.get("id") === ENV.currentUserId;
     member.destroyRecord().then(() => {
-      if (member.currentUser) {
+      if (isCurrentUser) {
         this.router.transitionTo("index");
         window.location.replace("/teams");
       } else {
