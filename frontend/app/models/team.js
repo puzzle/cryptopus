@@ -7,5 +7,4 @@ export default class Team extends Model {
   @attr("boolean") favourised;
   @hasMany("folder") folders;
   @hasMany("teammember") teammembers;
-  @hasMany("user-favourite-team") userFavouriteTeams;
 }
