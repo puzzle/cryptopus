@@ -47,8 +47,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group col-sm-12">
-            <Input id="cleartext-password" class="form-control secret mb-10" @value={{this.changeset.cleartextPassword}} @tabindex="3" autocomplete="off"/>
-            <PasswordStrengthMeter class="col-9" @password={{this.changeset.cleartextPassword}}/>
+            <Input id="cleartext-password" class="form-control secret mb-10" @value={{this.changeset.cleartextPassword}} @type="password" @name="cleartextPassword" @tabindex="3" autocomplete="off"/>
+            <PasswordStrengthMeter class="col-9 pl-0" @password={{this.changeset.cleartextPassword}}/>
           </div>
         </div>
         <div class="col-md-6">

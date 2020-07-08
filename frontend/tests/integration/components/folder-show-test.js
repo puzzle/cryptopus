@@ -9,13 +9,13 @@ module("Integration | Component | folder-show", function(hooks) {
   test("it renders with data", async function(assert) {
     this.set("folder", {
       name: "It-Ninjas",
-      accounts: [{ accountname: "Ninjas test account" }]
+      accounts: [{ accountname: "Ninjas account" }]
     });
 
     await render(hbs`<FolderShow @folder={{this.folder}}/>`);
 
     let text = this.element.textContent.trim();
     assert.ok(text.includes("It-Ninjas"));
-    assert.ok(text.includes("Ninjas test account"));
+    assert.ok(text.includes("Ninjas account"));
   });
 });

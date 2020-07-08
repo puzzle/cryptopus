@@ -82,9 +82,7 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
         window.location.replace("/teams");
       } else {
         this.store
-          .query("teammember", {
-            teamId: this.args.teamId
-          })
+          .query("teammember", { teamId: this.args.teamId })
           .then(res => (this.members = res));
         this.loadCandidates();
       }

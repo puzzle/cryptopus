@@ -11,7 +11,7 @@
   @type="dark"
   @backgroundColor="custom"
   @class="navbar-custom" as |navbar| >
-  <div class="container">
+  <div class="container pl-0 pr-0">
     <navbar.content>
       <div class="form-inline">
         {{#if this.isStartpage}}
@@ -23,9 +23,9 @@
       <navbar.nav @class="ml-auto" as |nav|>
         <nav.dropdown as |dd|>
           <div class="btn-group">
-            <dd.toggle>
-              <a class="nav-link d-inline" role="button" {{on "click" this.toggleAccountCreating}}>{{t "accounts.new.title"}}</a>
-              <img class="icon icon-button float-right" src="/ember/assets/images/angle-down.svg" alt="v">
+            <a class="nav-link d-inline" role="button" {{on "click" this.toggleAccountCreating}}>{{t "accounts.new.title"}}</a>
+            <dd.toggle class="dropdown-toggle-hided">
+              <span class="helper"></span><img class="icon icon-button" src="/ember/assets/images/angle-down.svg" alt="v">
             </dd.toggle>
           </div>
           <dd.menu as |ddm|>

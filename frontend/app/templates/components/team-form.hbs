@@ -14,11 +14,17 @@
             </div>
           </div>
           <div class="checkbox">
-            <label for="checkbox-private" name="private">{{t "teams.form.private"}}</label>
-            <span data-toggle="private-info-tooltip" data-html="true" data-placement="top" title="<b>{{t "teams.description.private"}}</b>">
-              <img src="/ember/assets/images/info.svg" alt="info" class="info-icon icon-button" >
-            </span>
-            <Input id="checkbox-private" class="" @type="checkbox" @checked={{this.changeset.private}} @name="private" disabled={{not this.isNewRecord }}/>
+            <div class="d-flex justify-content-start">
+              <div class="align-self-center">
+                <label for="checkbox-private" name="private">{{t "teams.form.private"}}</label>
+              </div>
+              <div class="align-self-center mb-2 ml-2">
+                <img src="/ember/assets/images/info.svg" alt="info" class="info-icon icon-button" >
+              </div>
+              <div class="align-self-center mb-2 ml-2">
+                <Input id="checkbox-private" class="" @type="checkbox" @checked={{this.changeset.private}} @name="private" disabled={{not this.isNewRecord }}/>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-md-12">

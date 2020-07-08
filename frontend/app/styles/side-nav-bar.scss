@@ -1,0 +1,52 @@
+#sidebar {
+  width: 250px;
+  position: fixed;
+  top: 0px;
+  left: 0;
+  height: 100vh;
+  z-index: 999;
+  background: #238bca;
+  color: #fff;
+  transition: all 0.3s;
+  border-right-width: 1px;
+  border-color: #1b6d9f;
+}
+
+.nav-side-bar {
+  width: 500px;
+  border-width: 0px !important;
+}
+
+.list-group.list-group-root {
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.list-group.list-group-root .list-group-item button {
+  width: 70px;
+}
+
+.list-group.list-group-root .list-group {
+  margin-bottom: 0;
+}
+
+.list-group.list-group-root .list-group-item {
+  border-radius: 0;
+  border-width: 0px;
+  border-top-width: 1px;
+  border-color: #1a4d81;
+  cursor: default;
+}
+
+.list-group.list-group-root > .list-group > .list-group-item {
+  padding-left: 45px;
+  border-width: 0px;
+  border-top-width: 1px;
+  border-color: #16416c;
+}
+
+.side-nav-bar-teams-list {
+  overflow-y: auto;
+  height: 765px;
+}

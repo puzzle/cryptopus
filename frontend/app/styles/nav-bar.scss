@@ -1,0 +1,18 @@
+.navbar-custom {
+  background: #238bca;
+}
+
+.navbar-icon {
+  padding-right: 1px;
+  padding-bottom: 2px;
+  width: 19px;
+  display: inline;
+}
+
+nav a.nav-link {
+  color: white !important;
+}
+
+.dropdown-toggle-hided::after {
+  display: none;
+}

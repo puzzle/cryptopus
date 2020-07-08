@@ -13,7 +13,7 @@ module("Integration | Component | team-show", function(hooks) {
       folders: [
         {
           name: "It-Ninjas",
-          accounts: [{ accountname: "Ninjas test account" }]
+          accounts: [{ accountname: "Ninjas account" }]
         }
       ],
       userFavouriteTeams: [{ favourised: true }]
@@ -25,6 +25,6 @@ module("Integration | Component | team-show", function(hooks) {
     assert.ok(text.includes("BBT"));
     assert.ok(text.includes("Berufsbildungsteam of Puzzle ITC"));
     assert.ok(text.includes("It-Ninjas"));
-    assert.ok(text.includes("Ninjas test account"));
+    assert.ok(text.includes("Ninjas account"));
   });
 });

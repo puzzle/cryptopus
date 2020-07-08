@@ -1,0 +1,46 @@
+.account-card.account-preview:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.account-card {
+  width: 240px;
+  max-height: 16em;
+}
+
+.account-card .account-accountname {
+  height: 6em;
+}
+
+.account-card .account-accountname {
+  height: 6em;
+}
+.account-card .account-description {
+  height: 4em;
+  overflow: hidden;
+}
+
+.account-card.account-detail {
+  background-color: lightgray;
+}
+
+.account-card.account-detail > div {
+  background-color: white;
+}
+
+.account-detail .icon-clippy {
+  width: 19px;
+}
+
+.account-detail input[disabled] {
+  width: 100%;
+  height: 35px;
+}
+
+.account-detail .copy-btn {
+  height: 35px;
+}
+
+.account-detail-key {
+  width: 20%;
+}

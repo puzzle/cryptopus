@@ -53,10 +53,8 @@ export default class FolderForm extends BaseFormComponent {
 
   @action
   setSelectedTeam(selectedTeam) {
-    if (isPresent(selectedTeam)) {
-      this.selectedTeam = selectedTeam;
-      this.changeset.team = selectedTeam;
-    }
+    this.selectedTeam = selectedTeam;
+    this.changeset.team = selectedTeam;
   }
 
   async beforeSubmit() {
@@ -67,7 +65,12 @@ export default class FolderForm extends BaseFormComponent {
   handleSubmitSuccess(savedRecords) {
     this.abort();
     if (this.isNewRecord) {
-      this.router.transitionTo("/teams?team_id=" + savedRecords[0].team.get('id')+"&folder_id="+savedRecords[0].id);
+      this.router.transitionTo(
+        "/teams?team_id=" +
+          savedRecords[0].team.get("id") +
+          "&folder_id=" +
+          savedRecords[0].id
+      );
     }
   }
 }

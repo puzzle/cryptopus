@@ -4,41 +4,54 @@
 {{#if this.isTeamConfiguring}}
   <TeamMemberConfigure @teamId={{@team.id}} @onAbort={{this.toggleTeamConfigure}}/>
 {{/if}}
-<div class="container ml-2 mt-2 p-2 border">
-  <div class="row mb-10 d-flex">
-    <div class="col" role="button" {{on "click" this.collapse}}>
-      <h1 class="d-inline">{{@team.name}}</h1>
-    </div>
-    <div class="col-auto d-inline">
-      <span>
-        <a href="#" role="button" {{on "click" this.toggleTeamEdit}}>
-          <img class="icon-big-button" src="/ember/assets/images/edit.svg" alt="edit">
-        </a>
-        <a id="config_team_button" href="#" role="button" {{on "click" this.toggleTeamConfigure}}>
-          <img class="icon-big-button" src="/ember/assets/images/team_config.svg" alt="configure">
-        </a>
-        <a role="button" {{on "click" this.toggleFavourised}}>
-          <img class="icon-big-button" src="/ember/assets/images/star{{if @team.favourised "-filled"}}.svg" alt="star">
-        </a>
-      </span>
-      <span role="button" {{on "click" this.collapse}}>
-        {{#if this.collapsed}}
-          <img class="icon-big-button float-right" src="/ember/assets/images/angle-left.svg" alt="<">
-        {{else}}
-          <img class="icon-big-button float-right" src="/ember/assets/images/angle-down.svg" alt="v">
-        {{/if}}
-      </span>
-    </div>
-    <hr>
-  </div>
-  <BsCollapse @collapsed={{this.collapsed}}>
-    <div>
-      <div>
-        <p>{{@team.description}}</p>
+<div class="container mb-4">
+  <div>
+    <div class="row py-2 d-flex border {{if this.collapsed "rounded" "rounded-top"}}">
+      <div class="col" role="button" {{on "click" this.collapse}}>
+        <h2 class="d-inline">{{@team.name}}</h2>
       </div>
-      {{#each @team.folders as |folder|}}
-        <FolderShow @folder={{folder}}/>
-      {{/each}}
+      <div class="col-auto my-auto">
+        <span>
+          <span role="button" {{on "click" this.toggleTeamEdit}}>
+            <img class="icon-big-button" src="/ember/assets/images/edit.svg" alt="edit">
+          </span>
+          <span id="config_team_button" role="button" {{on "click" this.toggleTeamConfigure}}>
+            <img class="icon-big-button" src="/ember/assets/images/members.svg" alt="configure">
+          </span>
+          <span role="button" {{on "click" this.toggleFavourised}}>
+            <img class="icon-big-button" src="/ember/assets/images/star{{if @team.favourised "-filled"}}.svg" alt="star">
+          </span>
+        </span>
+      </div>
+      <div class="col-auto ml-0 pl-0 my-auto">
+        <span role="button" {{on "click" this.collapse}}>
+          {{#if this.collapsed}}
+            <img class="icon-big-button float-right" src="/ember/assets/images/angle-left.svg" alt="<">
+          {{else}}
+            <img class="icon-big-button float-right" src="/ember/assets/images/angle-down.svg" alt="v">
+          {{/if}}
+        </span>
+      </div>
+      <hr>
     </div>
-  </BsCollapse>
+
+    <BsCollapse class="row border border-top-0 rounded-bottom" @collapsed={{this.collapsed}}>
+      <div class="col">
+        <div class="row py-2">
+          <div class="col">
+            <p class="text-muted">{{@team.description}}</p>
+          </div>
+        </div>
+        <div class="p-2">
+          {{#each @team.folders as |folder|}}
+            <div class="row border py-2">
+              <div class="col">
+                <FolderShow @folder={{folder}}/>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </BsCollapse>
+  </div>
 </div>

@@ -65,15 +65,17 @@ export default class AccountForm extends BaseFormComponent {
 
   @action
   setSelectedTeam(selectedTeam) {
-    if (isPresent(selectedTeam)) {
-      this.selectedTeam = selectedTeam;
+    this.selectedTeam = selectedTeam;
 
+    if (isPresent(selectedTeam)) {
       this.store
         .query("folder", { teamId: this.selectedTeam.id })
         .then(folders => {
           this.availableFolders = folders;
           this.setFolder(null);
         });
+    } else {
+      this.setFolder(null);
     }
   }
 
