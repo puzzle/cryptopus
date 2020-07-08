@@ -83,7 +83,10 @@ describe Api::Teams::MembersController do
         delete :destroy,
                params: { team_id: teams(:team1), id: teammembers(:team1_admin) },
                xhr: true
-      end.to raise_error(ActiveRecord::RecordNotDestroyed)
+      end.to_not(change { Teammember.count })
+
+      expect(json['errors'].first['detail']).to eq('Admin user cannot be '\
+                                                   'removed from non private team')
     end
 
     it 'removes teammember from team' do

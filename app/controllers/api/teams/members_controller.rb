@@ -8,6 +8,7 @@ module Api
   module Teams
     class MembersController < ApiController
       self.permitted_attrs = [:user_id]
+      self.custom_model_class = Teammember
 
       # GET /api/teams/:team_id/members
       def index
@@ -22,23 +23,27 @@ module Api
       def create
         authorize team, :team_member?
         new_member = ::User.find(model_params[:user_id])
-
         decrypted_team_password = team.decrypt_team_password(current_user, session[:private_key])
-
         created_member = team.add_user(new_member, decrypted_team_password)
-
-        add_info(t('flashes.api.members.added', username: new_member.username))
-        render_json created_member
+        if created_member.present?
+          @response_status = :created
+          render_json created_member
+        else
+          render_errors
+        end
       end
 
       # DELETE /api/teams/:team_id/members/:id
       def destroy
         authorize team, :team_member?
 
-        teammember.destroy!
-
-        add_info(t('flashes.api.members.removed', username: username))
-        render_json
+        if teammember.destroy
+          @response_status = 204
+          add_info('flashes.api.members.removed')
+          render_json
+        else
+          render_errors
+        end
       end
 
       private
@@ -49,12 +54,6 @@ module Api
 
       def teammember
         @teammember ||= Teammember.find(params[:id])
-      end
-
-      class << self
-        def model_class
-          Teammember
-        end
       end
     end
   end

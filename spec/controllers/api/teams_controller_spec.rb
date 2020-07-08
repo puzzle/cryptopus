@@ -27,11 +27,10 @@ describe Api::TeamsController do
     it 'raises invalid argument error if query param blank' do
       login_as(:bob)
 
-      expect do
-        get :index, params: { q: '' }, xhr: true
-      end.to raise_error(ArgumentError)
+      get :index, params: { q: '' }, xhr: true
 
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status 400
+      expect(errors).to eq(['flashes.api.errors.bad_request'])
     end
 
     it 'returns all teams and its folders if no query nor id is given' do
@@ -55,11 +54,10 @@ describe Api::TeamsController do
 
       inexistent_id = 11111111
 
-      expect do
-        get :index, params: { team_id: inexistent_id }, xhr: true
-      end.to raise_error(ActiveRecord::RecordNotFound)
+      get :index, params: { team_id: inexistent_id }, xhr: true
 
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status 404
+      expect(errors).to eq(['flashes.api.errors.record_not_found'])
     end
 
     it 'returns a single team if one team_id is given' do
@@ -119,6 +117,7 @@ describe Api::TeamsController do
       get :index, params: { team_id: team2.id }, xhr: true
 
       expect(response.status).to be(403)
+      expect(errors).to eq(['flashes.admin.admin.no_access'])
       expect(data).to be(nil)
       expect(included).to be(nil)
     end
@@ -416,7 +415,8 @@ describe Api::TeamsController do
         delete :destroy, params: { id: soloteam.id }
       end.to change { Team.count }.by(0)
 
-      expect(errors.first).to eq 'Access denied'
+      expect(errors).to eq(['flashes.admin.admin.no_access'])
+      expect(response).to have_http_status 403
       expect(user.last_teammember_teams).to be_present
     end
 

@@ -16,7 +16,7 @@ describe Api::Admin::UsersController do
       end.to change { User.count }.by(0)
 
       expect(bob.reload).to be_persisted
-      expect(errors).to include('Access denied')
+      expect(errors).to eq(['flashes.admin.admin.no_access'])
     end
 
     it 'cannot delete another user as non admin' do
@@ -28,7 +28,7 @@ describe Api::Admin::UsersController do
       end.to change { User.count }.by(0)
 
       expect(alice.reload).to be_persisted
-      expect(errors).to include('Access denied')
+      expect(errors).to eq(['flashes.admin.admin.no_access'])
       expect(response).to have_http_status(403)
     end
 

@@ -48,6 +48,13 @@ export default class FileEntryForm extends BaseFormComponent {
     return this.changeset.isValid;
   }
 
+  showSuccessMessage() {
+    let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
+    let successMsg = `${translationKeyPrefix}.flashes.file_entries.uploaded`;
+    let msg = this.intl.t(successMsg);
+    this.notify.success(msg);
+  }
+
   handleSubmitSuccess() {
     this.abort();
     // FIXME: refresh page, such that new FileEntry is shown

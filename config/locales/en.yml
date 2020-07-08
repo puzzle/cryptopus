@@ -316,8 +316,13 @@ en:
         token:
           renew: "Renewed %{username}, new token: %{token}"
       members:
-        removed: "%{username} was successfully removed from team"
-        added: "%{username} was successfully added to team"
+        removed: Member was successfully removed
+        added: Member was successfully added
+      errors:
+        auth_failed: Authentication failed
+        user_not_logged_in: User not logged in
+        invalid_request: Invalid Request
+        record_not_found: Record not found
     wizard:
       fill_password_fields: Please provide an initial password
       paswords_do_not_match: Passwords do not match
@@ -350,13 +355,18 @@ en:
     accounts:
       created: Account was successfully created.
       updated: Account was successfully updated.
+      deleted: Account was successfully deleted
       moved: Account was successfully moved
+      username_copied: Username was copied
+      password_copied: Password was copied
     application:
       wait: Wait for the recryption of your team passwords.
     folders:
       created: Successfully created a new folder.
       updated: Folder was successfully updated.
+      deleted: Folder was successfully deleted
     file_entries:
+      deleted: Attachment was successfully deleted
       uploaded: File was successfully uploaded.
       uploaded_size_to_high: The file is too big to upload. (max. 10MB)
       uploaded_filename_is_empty: The file has to be named

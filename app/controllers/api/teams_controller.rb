@@ -63,10 +63,4 @@ class Api::TeamsController < ApiController
   def render_options
     fetch_entries == current_user.teams ? { include: '*' } : { include: '**' }
   end
-
-  class << self
-    def model_class
-      Team
-    end
-  end
 end

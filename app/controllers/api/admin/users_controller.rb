@@ -5,14 +5,16 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Api::Admin::UsersController < Api::Admin::AdminController
+class Api::Admin::UsersController < ApiController
 
   # DELETE /api/admin/users/1
   def destroy
     authorize user
-    destroy_user
-    add_info(t('flashes.api.admin.users.destroy.success', username: user.username))
-    render_json
+    if destroy_user
+      head 204
+    else
+      render_errors
+    end
   end
 
   private

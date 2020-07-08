@@ -121,9 +121,10 @@ describe Api::Admin::Users::RoleController do
         teammembers(:team1_bob).destroy!
 
         login_as(:tux)
-        expect do
-          patch :update, params: { id: bob, role: :admin }, xhr: true
-        end.to raise_error(ArgumentError)
+        patch :update, params: { id: bob, role: :admin }, xhr: true
+
+        expect(response).to have_http_status 400
+        expect(errors).to eq(['flashes.api.errors.bad_request'])
       end
 
       it 'updates conf admin to user' do
@@ -143,9 +144,10 @@ describe Api::Admin::Users::RoleController do
         conf_admin2 = Fabricate(:conf_admin)
 
         login_as(:tux)
-        expect do
-          patch :update, params: { id: conf_admin2, role: :admin }, xhr: true
-        end.to raise_error ArgumentError
+        patch :update, params: { id: conf_admin2, role: :admin }, xhr: true
+
+        expect(response).to have_http_status 400
+        expect(errors).to eq(['flashes.api.errors.bad_request'])
       end
 
       it 'cannot update admin to conf admin' do

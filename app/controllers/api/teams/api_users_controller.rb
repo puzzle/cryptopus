@@ -20,15 +20,23 @@ module Api
       def create
         authorize team, :team_member?
         plaintext_team_password = team.decrypt_team_password(current_user, session[:private_key])
-        team_api_user.enable(plaintext_team_password)
-        render_json
+        added_api_user = team_api_user.enable(plaintext_team_password)
+        if added_api_user.present?
+          @response_status = :created
+          render_json
+        else
+          render_errors
+        end
       end
 
       # DELETE /api/teams/:team_id/api_users/:id
       def destroy
         authorize team, :team_member?
-        team_api_user.disable
-        render_json
+        if team_api_user.disable
+          head 204
+        else
+          render_errors
+        end
       end
 
       private

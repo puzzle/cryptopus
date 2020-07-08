@@ -112,7 +112,7 @@ module IntegrationHelpers
       login_as(username, user_password)
       get account_path
       errors = JSON.parse(response.body)['errors']
-      expect(errors.first).to match(/Access denied/)
+      expect(errors.first).to eq('flashes.admin.admin.no_access')
       expect(response.status).to eq 403
       logout
     end

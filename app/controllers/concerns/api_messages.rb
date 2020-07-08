@@ -32,22 +32,32 @@ module ApiMessages
   end
 
   def no_access_message
-    add_error t('flashes.admin.admin.no_access')
-    @response_status = 403
+    @response_status = :forbidden
+    add_error('flashes.admin.admin.no_access')
   end
 
   def pending_recrypt_request_message
-    add_error('Wait for the recryption of your users team passwords')
-    @response_status = 403
+    @response_status = :forbidden
+    add_error('flashes.recryptrequests.wait')
   end
 
   def authentification_failed_message
-    add_error('Authentification failed')
-    @response_status = 401
+    @response_status = :unauthorized
+    add_error('flashes.api.errors.auth_failed')
   end
 
   def user_not_logged_in_message
-    add_error('User not logged in')
-    @response_status = 401
+    @response_status = :unauthorized
+    add_error('flashes.api.errors.user_not_logged_in')
+  end
+
+  def bad_request_message
+    @response_status = :bad_request
+    add_error('flashes.api.errors.bad_request')
+  end
+
+  def not_found_message
+    @response_status = :not_found
+    add_error('flashes.api.errors.record_not_found')
   end
 end

@@ -318,8 +318,8 @@ de:
         token:
           renew: "%{username} wurde erneuert, neues Token: %{token}"
       members:
-        added: "%{username} wurde erfolgreich hinzugefügt"
-        removed: "%{username} wurde erfolgreich entfernt"
+        added: Mitglied wurde erfolgreich hinzugefügt
+        removed: Mitglied wurde erfolgreich entfernt
     wizard:
       fill_password_fields: Bitte füllen Sie alle Felder aus
       paswords_do_not_match: Die Passwörter stimmen nicht überein
@@ -352,14 +352,19 @@ de:
     accounts:
       created: Der neue Account wurde erfolgreich erstellt.
       updated: Der Account wurde erfolgreich aktualisiert.
+      deleted: Der Account wurde erfolgreich gelöscht.
       moved: Der Account wurde erfolgreich veschoben
+      username_copied: Benutzername wurde kopiert
+      password_copied: Passwort wurde kopiert
     application:
       wait: Bitte warten Sie, bis  Ihre Team Passwörter neu verschlüsselt wurden.
     folders:
       created: Die neue Gruppe wurde erfolgreich erstellt.
       updated: Die Gruppe wurde erfolgreich bearbeitet.
+      deleted: Die Gruppe wurde erfolgreich gelöscht.
     file_entries:
       uploaded: Die Datei wurde erfolgreich hochgeladen.
+      deleted: Die Datei wurde erfolgreich gelöscht.
       uploaded_size_to_high: Die Datei ist zu gross zum hochladen. (Max. 10MB)
       uploaded_filename_is_empty: Die Datei muss benannt sein
       uploaded_file_inexistent: Datei ist inexistent

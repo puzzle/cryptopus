@@ -3,6 +3,7 @@
 module Api
   module Teams
     class FavouriteController < ApiController
+      self.custom_model_class = UserFavouriteTeam
 
       private
 
@@ -16,12 +17,6 @@ module Api
 
       def render_entry(_options = {})
         head 201
-      end
-
-      class << self
-        def model_class
-          UserFavouriteTeam
-        end
       end
     end
   end
