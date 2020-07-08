@@ -8,12 +8,12 @@ module("Integration | Component | account-card-show", function(hooks) {
 
   test("it renders with data", async function(assert) {
     this.set("account", {
-      accountname: "Ninjas test account",
+      accountname: "Ninjas account",
       description: "Account for the ninjas"
     });
     await render(hbs`<AccountCardShow @account={{this.account}}/>`);
     let text = this.element.textContent.trim();
-    assert.ok(text.includes("Ninjas test account"));
+    assert.ok(text.includes("Ninjas account"));
     assert.ok(text.includes("Account for the ninjas"));
   });
 });

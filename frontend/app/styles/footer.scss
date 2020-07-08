@@ -1,0 +1,15 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  line-height: 50px;
+  background-color: #f9f9f9;
+  width: 100%;
+  border-top: 1px solid #cbc6c2;
+  z-index: 9999;
+  width: 100vw !important;
+}
+
+.footer form {
+  padding-right: 50px;
+}

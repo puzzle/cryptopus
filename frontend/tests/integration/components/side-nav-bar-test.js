@@ -43,7 +43,6 @@ module("Integration | Component | side-nav-bar", function(hooks) {
     await render(hbs`<SideNavBar />`);
 
     let text = this.element.textContent.trim();
-    assert.ok(text.includes("All Teams"));
     assert.ok(text.includes("team1"));
     assert.ok(text.includes("team2"));
   });

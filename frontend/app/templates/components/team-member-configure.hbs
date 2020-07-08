@@ -3,39 +3,30 @@
     <h3 class="modal-title" id="teamConfigureModalLabel">{{t "teams.configure.title"}}</h3>
   </Modal.header>
   <Modal.body>
-    <ul class="nav nav-tabs" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link" id="api-users-tab" data-toggle="tab" href="#api-users" role="tab" aria-controls="api-users" aria-selected="false"></a>
-      </li>
-    </ul>
     <BsTab as |tab|>
       <tab.pane id="members" @title={{t "teams.show.members"}}>
         <div class="columns members">
-          <div class="row justify-content-end">
+          <div class="row mt-3">
+            <div class="col">
+              {{#each this.members as |member|}}
+                <div class="d-flex">
+                  <p class="col-md-4 mb-0 pl-0">{{member.label}}</p>
+                  {{#if member.admin}}
+                    <img src="/ember/assets/images/penguin.svg" alt="admin">
+                  {{else}}
+                    {{#if member.deletable}}
+                      <a role="button" {{on "click" (fn this.deleteMember member)}}>
+                        <img src="/ember/assets/images/remove.svg" alt="remove">
+                      </a>
+                    {{/if}}
+                  {{/if}}
+                </div>
+              {{/each}}
+            </div>
             <div class="col-sm-4 float-right">
               <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{this.addMember}} @placeholder={{t "teammembers.new.title"}} as |candidate|>
                 {{candidate.label}}
               </PowerSelectTypeahead>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col">
-              <ul>
-                {{#each this.members as |member|}}
-                  <li>
-                    {{member.label}}
-                    {{#if member.admin}}
-                      <img src="/ember/assets/images/penguin.svg" alt="admin" class="float-right">
-                    {{else}}
-                      {{#if member.deletable}}
-                        <a role="button" {{on "click" (fn this.deleteMember member)}}>
-                          <img src="/ember/assets/images/remove.svg" alt="remove">
-                        </a>
-                      {{/if}}
-                    {{/if}}
-                  </li>
-                {{/each}}
-              </ul>
             </div>
           </div>
         </div>

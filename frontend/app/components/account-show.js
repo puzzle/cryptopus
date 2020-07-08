@@ -38,4 +38,9 @@ export default class AccountShowComponent extends Component {
   refreshRoute() {
     this.router.transitionTo();
   }
+
+  @action
+  transitionBack() {
+    history.back();
+  }
 }

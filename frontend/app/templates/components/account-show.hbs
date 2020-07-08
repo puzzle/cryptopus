@@ -4,6 +4,9 @@
 {{#if this.isFileEntryCreating}}
   <FileEntryForm @class="modal_file_entry" @account={{@account}} @title={{t "file_entries.new.title"}} @onAbort={{this.toggleFileEntryNew}}/>
 {{/if}}
+<BsButton id="account-show-back" @type="light" {{on "click" this.transitionBack}}>
+  <img class="icon-button" src="/ember/assets/images/arrow-left.svg" alt="back">
+</BsButton>
 <div class="container mt-3">
   <div class="d-flex flex-row justify-content-between">
     <div>

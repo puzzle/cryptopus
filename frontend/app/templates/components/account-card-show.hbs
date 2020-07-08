@@ -2,22 +2,21 @@
   <AccountForm @account={{@account}} @onAbort={{this.toggleAccountEdit}}/>
 {{/if}}
 {{#if this.isPreview}}
-  <div class="card my-3 account-card account-preview" {{on "click" this.swapToCredentialsView}} role="button">
-
-    <div class="card-body">
+  <div class="card account-card account-preview" {{on "click" this.swapToCredentialsView}} role="button">
+    <div class="card-body account-accountname">
       <div class="card-title">
         <img class="img d-inline w-20 float-right" src="/ember/assets/images/key.svg" alt="key">
-        <h5>{{@account.accountname}}</h5>
+        <h5>{{truncate @account.accountname 18}}</h5>
       </div>
     </div>
-    <div class="card-footer text-muted">
+    <div class="card-footer text-muted account-description">
       {{truncate @account.description 40}}
     </div>
   </div>
 {{else}}
-  <div class="card mt-3 account-card account-detail">
+  <div class="card account-card account-detail">
     <div role="button" class="card-header" {{on "click" this.swapToPreview}}>
-      <p class="d-inline">{{@account.accountname}}</p>
+      <p class="d-inline">{{truncate @account.accountname 29}}</p>
     </div>
     <div class="card-body">
       <div class="row mb-2">

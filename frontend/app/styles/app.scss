@@ -2,73 +2,21 @@ $navbar-dark-brand-color: white;
 $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 
 @import "ember-bootstrap/bootstrap";
-@import "pod-styles";
-/*@import "secret_input";*/
 @import "ember-power-select";
 
-// @font-face {
-//   font-family: "text-security-disc";
-//   src: url("~text-security/text-security-disc-compat.eot");
-//   src: url("~text-security/text-security-disc-compat.eot?#iefix")
-//       format("embedded-opentype"),
-//     url("~text-security/text-security-disc.woff2") format("woff2"),
-//     url("~text-security/text-security-disc-compat.ttf") format("truetype");
-// }
+/*@import "secret_input";*/
 
-// input.secret {
-//   font-family: text-security-disc;
-// }
+@import "footer";
+@import "nav-bar";
+@import "side-nav-bar";
+@import "account-card-show";
+@import "account-show";
+@import "password-strength-meter";
+@import "folder-show";
+@import "power-select";
 
 .main {
   margin-left: 250px;
-  padding: 5px;
-}
-
-.navbar-custom {
-  background: #2988bc;
-}
-
-.navbar-icon {
-  padding-right: 1px;
-  padding-bottom: 2px;
-  width: 19px;
-  display: inline;
-}
-
-.ember-power-select-typeahead-trigger {
-  border: none;
-  border-radius: 0;
-}
-
-.ember-power-select-typeahead-input {
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 100%;
-  top: 0;
-  bottom: 0;
-  border: 1px solid #aaaaaa;
-  outline: none;
-}
-
-.ember-power-select-typeahead-input:focus {
-  border: 1px solid #aaaaaa;
-}
-
-.d-inline {
-  display: inline !important;
-}
-
-.justify-content-between {
-  justify-content: space-between;
-}
-
-.d-flex {
-  display: flex;
-}
-
-.flex-row {
-  flex-direction: row;
 }
 
 .d-inline {
@@ -91,8 +39,15 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
   float: right !important;
 }
 
-.p-2 {
-  padding: 2%;
+.pt-10 {
+  padding-top: 10%;
+}
+
+.pt-10 {
+  padding-top: 10%;
+}
+.p-15px {
+  padding: 15px;
 }
 
 .m-4 {
@@ -106,33 +61,25 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 .ml-2 {
   margin-left: 2%;
 }
-
-.mb-2 {
-  margin-bottom: 2%;
-}
-
-.pt-10 {
-  padding-top: 10%;
-}
-
-.w-20 {
-  width: 20%;
+.ml-5 {
+  margin-left: 5%;
 }
 
 .mb-2 {
   margin-bottom: 2%;
 }
-
-.pt-10 {
-  padding-top: 10%;
+.mb-2 {
+  margin-bottom: 2%;
+}
+.mb-10 {
+  margin-bottom: 10px;
 }
 
 .w-20 {
   width: 20%;
 }
-
-.p-15px {
-  padding: 15px;
+.w-20 {
+  width: 20%;
 }
 
 .columns li.ember-power-select-option {
@@ -151,50 +98,10 @@ li a {
   cursor: pointer;
 }
 
-.ml-5 {
-  margin-left: 5%;
+.logo-icon {
+  height: 40px;
 }
 
-/* Validation-errors */
-.validation-errors {
-  width: 100%;
-  margin-top: 0.25rem;
-  font-size: 90%;
-  font-weight: bold;
-  color: #dc3545;
-}
-
-.invalid-input {
-  border: 1px solid red !important;
-}
-
-.ember-power-select-trigger {
-  height: 38px;
-  line-height: 2.1;
-}
-
-.vertical-resize {
-  resize: vertical;
-}
-
-#accountFormModalLabel {
-  display: inline;
-}
-
-.mb-10 {
-  margin-bottom: 10px;
-}
-
-.popover {
-  min-width: 220px;
-}
-
-.private-description {
-  background-color: #eee;
-  position: absolute;
-  padding: 2px;
-  margin-left: 4px;
-}
 .icon-big-button {
   width: 30px !important;
   height: 30px !important;
@@ -209,14 +116,6 @@ li a {
 
 .info-icon:hover {
   cursor: help;
-}
-
-#checkbox-private {
-  margin-left: 5px;
-}
-
-.checkbox label {
-  padding-left: 0 !important;
 }
 
 .nav .open > a,
@@ -236,103 +135,6 @@ li a {
   margin-bottom: 15px !important;
 }
 
-.folder-divider {
-  border-bottom: 2px solid #238bca;
-}
-
-.folder-header {
-  font-weight: bold;
-  font-size: 18px !important;
-  color: #238bca;
-}
-
-.folder-edit-icon {
-  /* filter for #238bca color, used https://codepen.io/sosuke/pen/Pjoqqp to generate */
-  filter: invert(42%) sepia(69%) saturate(780%) hue-rotate(164deg)
-    brightness(95%) contrast(84%);
-}
-
-.account-card.account-preview:hover {
-  background-color: lightgray;
-  cursor: pointer;
-}
-
-.account-card hr {
-  margin: 0;
-}
-
-.account-card .account-accountname {
-  min-height: 6em;
-}
-
-.account-card .account-description {
-  max-height: 3em;
-}
-
-.account-card.account-detail {
-  background-color: lightgray;
-}
-
-.account-card.account-detail > div {
-  background-color: white;
-}
-
-.account-detail .icon-clippy {
-  width: 19px;
-}
-
-.account-detail input[disabled] {
-  width: 100%;
-  height: 35px;
-}
-
-.account-detail .copy-btn {
-  height: 35px;
-}
-
-.account-detail-key {
-  width: 20%;
-}
-
-.nav-side-bar {
-  margin-top: 52px;
-  max-width: 300px;
-}
-
-.just-padding {
-  padding: 15px;
-}
-
-.nav-side-bar {
-  max-width: 300px;
-  border-width: 0px !important;
-}
-
-.list-group.list-group-root {
-  padding: 0;
-  overflow: hidden;
-}
-
-.list-group.list-group-root .list-group {
-  margin-bottom: 0;
-}
-
-.list-group.list-group-root .list-group-item {
-  border-radius: 0;
-  border-width: 0px;
-  border-top-width: 1px;
-  border-color: #1a4d81;
-  cursor: default;
-}
-
-.list-group.list-group-root > .list-group > .list-group-item {
-  padding-left: 45px;
-  margin-top: 1px;
-  border-width: 0px;
-  border-top-width: 1px;
-  border-color: #16416c;
-}
-
 .bg-blue-one {
   background-color: #238bca !important;
   color: white !important;
@@ -348,120 +150,9 @@ li a {
   color: white !important;
 }
 
-#sidebar {
-  width: 250px;
-  position: fixed;
-  top: 0px;
-  left: 0;
-  height: 100vh;
-  z-index: 999;
-  background: #238bca;
-  color: #fff;
-  transition: all 0.3s;
-  border-right-width: 1px;
-  border-color: #1b6d9f;
-}
-
-#teams-show-container {
-  margin-left: 27%;
-}
-
-.logo-icon {
-  height: 40px;
-}
-
-.result-password {
-  top: -51px;
-  position: relative;
-}
-
-.result-username,
-.result-password {
-  position: relative;
-}
-
-.show-password-link,
-.password-show {
-  display: block;
-  background: #c9c9c9;
-  border-radius: 3px;
-  color: black;
-  z-index: 3;
-  position: relative;
-}
-
-.show-password-link,
-.password-show,
-.result-username input,
-.result-password input {
-  padding: 6px 10px;
-  width: 205px;
-  font-size: 14px;
-  border: 1px solid #c9c9c9;
-  display: block;
-}
-
-.result-username input:hover,
-.result-password input:hover {
-  cursor: text;
-}
-
-.result-password,
-.show-password-link,
-.password-show {
-  margin-top: 1em;
-}
-
-.clip_button {
-  position: absolute;
-  left: 210px;
-  top: -2px;
-  border: 1px solid #c9c9c9;
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 35px;
-  width: 50px;
-}
-
-.clip_button svg {
-  padding-right: 2px;
-  padding-bottom: 1px;
-}
-
-.copied {
-  border-radius: 3px;
-  color: white;
-  background-color: #555;
-  display: none;
-  position: absolute;
-  padding: 4px;
-  margin-left: 268px;
-  margin-top: -28px;
-}
-
-.edit_button {
-  padding: 6px;
-  border: 1px solid #c9c9c9;
-  width: 45px;
-  background-color: #ebe3df;
-  margin-left: 6px;
-}
-
-.edit_button:hover {
-  background-color: #ffffff;
-}
-
-.edit_button img {
-  height: 18px;
-}
-
-.visibility-hidden {
-  visibility: hidden;
-}
-
-.show-password-link {
-  cursor: pointer;
+.bg-header {
+  background-color: #d1d1d1 !important;
+  border-color: #b8b8b8 !important;
 }
 
 .ember-notify-default.ember-notify-cn {
