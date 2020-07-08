@@ -5,6 +5,7 @@ import { inject as service } from "@ember/service";
 
 export default class AccountShowComponent extends Component {
   @service store;
+  @service router;
 
   fileEntries = this.store.query("file-entry", {
     accountId: this.args.account.id
@@ -36,6 +37,8 @@ export default class AccountShowComponent extends Component {
 
   @action
   refreshRoute() {
-    this.router.transitionTo();
+    history.back()
   }
+
+
 }

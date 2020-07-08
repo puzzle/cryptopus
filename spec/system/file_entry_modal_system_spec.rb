@@ -33,6 +33,7 @@ describe 'FileEntryModal', type: :system, js: true do
     file_path = "#{Rails.root}/spec/fixtures/files/#{file_name}"
     expect do
       create_new_file_entry(file_desc, file_path)
+      sleep(2)
     end.to change { FileEntry.count }.by(1)
 
     file_entry = FileEntry.find_by(filename: 'test_file.txt')
@@ -47,34 +48,32 @@ describe 'FileEntryModal', type: :system, js: true do
       create_new_file_entry(file_desc, file_path)
     end.to change { FileEntry.count }.by(0)
 
+    sleep(2)
+
     expect(page).to have_text('Filename is already taken')
     click_button('Close')
 
     expect(page).to have_text("Account: #{account.accountname}")
 
-    # Delete Account
-    expect do
-      href = "/accounts/#{account.id}/file_entries/#{file_entry.id}"
-      del_button = find(:xpath, "//a[@href='#{href}' and @data-method='delete']")
-      expect(del_button).to be_present
+    # Delete File Entry
+    del_button = all('img[alt="delete"]')[1]
+    expect(del_button).to be_present
 
-      accept_prompt(wait: 3) do
-        del_button.click
-      end
-
-      expect(page).to have_text("Account: #{account.accountname}")
-    end.to change { FileEntry.count }.by(-1)
-
+    del_button.click
+    sleep(2)
+    find('button', text: 'Delete').click
+    sleep(5)
+    expect(all('tr').count).to eq(2)
   end
 
   private
 
   def create_new_file_entry(description, file_path)
-    new_file_entry_button = page.find_link('Add Attachment')
+    new_file_entry_button = find('button.btn.btn-primary', text: 'Add Attachment', visible: false)
     new_file_entry_button.click
+    sleep(2)
 
     expect(find('.modal-content')).to be_present
-    expect(page).to have_text('Add new attachment to account')
     expect(page).to have_button('Upload')
 
     within('div.modal-content') do

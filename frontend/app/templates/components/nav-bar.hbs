@@ -21,11 +21,11 @@
         {{/if}}
       </div>
       <navbar.nav @class="ml-auto" as |nav|>
-        <nav.dropdown as |dd|>
+        <BsDropdown as |dd|>
           <div class="btn-group">
-            <dd.toggle>
-              <a class="nav-link d-inline" role="button" {{on "click" this.toggleAccountCreating}}>{{t "accounts.new.title"}}</a>
-              <img class="icon icon-button float-right" src="/ember/assets/images/angle-down.svg" alt="v">
+            <a class="nav-link d-inline" role="button" {{on "click" this.toggleAccountCreating}}>{{t "accounts.new.title"}}</a>
+            <dd.toggle class="dropdown-toggle-hided">
+              <span class="helper"></span><img class="icon icon-button" src="/ember/assets/images/angle-down.svg" alt="v">
             </dd.toggle>
           </div>
           <dd.menu as |ddm|>
@@ -36,15 +36,15 @@
               <a role="button" class="dropdown-item" {{on "click" this.toggleTeamCreating}}>{{t "teams.new.title"}}</a>
             </ddm.item>
           </dd.menu>
-        </nav.dropdown>
+        </BsDropdown>
         <div class="nav-item">
           <a class="nav-link" href="/profile">
             Profile
           </a>
         </div>
         <div class="nav-item">
-          <a class="nav-link" href="/session/destroy">
-            <img class="navbar-icon" src="ember/assets/icons/sign_out.svg" alt="Logout">
+          <a href="/session/destroy">
+            <span class="helper"></span><img class="icon icon-button" src="/ember/assets/icons/sign_out.svg" alt="Logout">
           </a>
         </div>
       </navbar.nav>

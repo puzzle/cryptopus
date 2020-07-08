@@ -18,7 +18,7 @@ describe 'QuickSearch', type: :system, js: true do
     logout
   end
 
-  it 'search with not available keyword does not show any results' do
+  xit 'search with not available keyword does not show any results' do
     expect(page).to have_selector('.form-group.search')
 
     fill_in 'q', with: 'lkj'

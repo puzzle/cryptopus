@@ -33,7 +33,7 @@ export default class DeleteWithConfirmationComponent extends Component {
   @action
   deleteRecord() {
     this.args.record.destroyRecord().then(() => {
-      if (this.didDelete) this.didDelete();
+      if (this.args.didDelete) this.args.didDelete();
       this.showDeletedMessage();
     });
   }

@@ -164,8 +164,24 @@ li a {
   color: #dc3545;
 }
 
-.invalid-input {
+.invalid-input-name > input {
   border: 1px solid red !important;
+}
+
+.invalid-input > textarea {
+  border: 1px solid red !important;
+}
+
+.invalid-input-ps > div:nth-of-type(1) {
+  border: 1px solid red !important;
+}
+
+.mt-32 {
+  margin-top: 32px;
+}
+
+.ml-15 {
+  margin-left: 15px;
 }
 
 .ember-power-select-trigger {
