@@ -37,6 +37,8 @@ describe 'DeleteUser', type: :system, js: true do
 
     expect(all('#delete_user_button')[0][:disabled]).to eq('false')
     all('#delete_user_button')[0].click
-    expect(page).to have_content('Deleted user alice')
+    within(find('table#team_table')) do
+      expect(page).not_to have_content('alice')
+    end
   end
 end

@@ -11,7 +11,7 @@ module SystemHelpers
     fill_in('username', with: username)
     fill_in('password', with: password)
     find('input[name="commit"]').click
-    visit(search_path)
+    visit('/teams')
   end
 
   def login_as_root(username = 'root', password = 'password')
@@ -23,6 +23,10 @@ module SystemHelpers
   end
 
   def logout
-    find('a[data-method="get"][href="/session/destroy"]').click
+    find('img[alt="Logout"]').click
+  end
+
+  def uri
+    URI.parse(current_url).request_uri
   end
 end
