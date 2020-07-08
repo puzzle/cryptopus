@@ -5,7 +5,9 @@ class ListController < ApplicationController
   delegate :model_class, :model_identifier, :model_serializer, :list_serializer,
            to: 'self.class'
 
+  class_attribute :custom_model_class
   class_attribute :render_options
+
   self.render_options = {}
 
   # GET /entries
@@ -37,8 +39,8 @@ class ListController < ApplicationController
   class << self
     # The ActiveRecord class of the model.
     def model_class
-      model_name = controller_path.classify.remove('::')
-      @model_class ||= model_name.constantize
+      model_name = controller_path.remove('api/').classify.remove('::')
+      @model_class ||= custom_model_class || model_name.constantize
     end
 
     # The identifier of the model used for form parameters.

@@ -16,6 +16,9 @@ class ApiController < CrudController
   before_action :set_headers
   before_action :validate_user
 
+  rescue_from ArgumentError, with: :bad_request
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+
   include ApiMessages
 
   protect_from_forgery with: :exception, unless: :header_auth?
@@ -53,6 +56,20 @@ class ApiController < CrudController
   end
 
   private
+
+  def bad_request(exception = nil)
+    if exception
+      logger.debug("#{exception}:\n\t#{exception.backtrace.join("\n\t")}")
+      @rescued_exception = exception
+    end
+    bad_request_message
+    render_json
+  end
+
+  def not_found
+    not_found_message
+    render_json
+  end
 
   def validate_user
     handle_pending_recrypt_request

@@ -63,10 +63,4 @@ class Api::FileEntriesController < ApiController
   def model_params
     params.permit(permitted_attrs)
   end
-
-  class << self
-    def model_class
-      ::FileEntry
-    end
-  end
 end

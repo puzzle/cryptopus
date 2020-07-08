@@ -8,10 +8,10 @@ import Service from "@ember/service";
 const storeStub = Service.extend({
   query(modelName, params) {
     if (params) {
-      return [
+      return Promise.all([
         { label: "Bob", admin: true, deletable: false },
         { label: "Alice", admin: false, deletable: true }
-      ];
+      ]);
     }
   }
 });
@@ -41,14 +41,9 @@ module("Integration | Component | team-member-configure", function(hooks) {
   });
 
   test("it renders with data", async function(assert) {
-    this.set("members", [
-      { label: "Bob", admin: true, deletable: false },
-      { label: "Alice", admin: false, deletable: true }
-    ]);
-
     await render(hbs`<TeamMemberConfigure @teamId="1"/>`);
 
     assert.ok(this.element.textContent.trim().includes("Bob"));
-    assert.ok(this.element.textContent.trim(), "Alice");
+    assert.ok(this.element.textContent.trim().includes("Alice"));
   });
 });

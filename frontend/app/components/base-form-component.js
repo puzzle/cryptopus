@@ -2,9 +2,12 @@ import { action } from "@ember/object";
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
+import { pluralize } from "ember-inflector";
 
 export default class BaseFormComponent extends Component {
   @service intl;
+  @service notify;
+  @service store;
 
   @tracked
   record;
@@ -35,6 +38,16 @@ export default class BaseFormComponent extends Component {
    * No matter if it was saved or not */
   afterSubmit() {}
 
+  /* The showSuccessMessage method can be implemented to adjust the success notify message */
+  showSuccessMessage() {
+    let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
+    let translationKeySuffix = this.isNewRecord ? "created" : "updated";
+    let modelName = pluralize(this.record.constructor.modelName);
+    let successMsg = `${translationKeyPrefix}.flashes.${modelName}.${translationKeySuffix}`;
+    let msg = this.intl.t(successMsg);
+    this.notify.success(msg);
+  }
+
   @action
   submit(recordsToSave) {
     this.beforeSubmit().then(continueSubmit => {
@@ -51,6 +64,7 @@ export default class BaseFormComponent extends Component {
       Promise.all(notPersistedRecords.map(record => record.save()))
         .then(savedRecords => {
           this.handleSubmitSuccess(savedRecords);
+          this.showSuccessMessage();
           this.afterSubmit();
         })
         .catch(error => {

@@ -6,6 +6,8 @@ import { inject as service } from "@ember/service";
 export default class AccountCardShowComponent extends Component {
   @service store;
   @service router;
+  @service intl;
+  @service notify;
 
   @tracked isPreview = true;
 
@@ -31,5 +33,14 @@ export default class AccountCardShowComponent extends Component {
   @action
   toggleAccountEdit() {
     this.isAccountEditing = !this.isAccountEditing;
+  }
+
+  @action
+  onCopied(attribute) {
+    let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
+    let msg = this.intl.t(
+      `${translationKeyPrefix}.flashes.accounts.${attribute}_copied`
+    );
+    this.notify.info(msg);
   }
 }

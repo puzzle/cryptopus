@@ -6,27 +6,13 @@
 #  https://github.com/puzzle/cryptopus.
 
 class Api::AllFoldersController < ApiController
+  self.custom_model_class = Folder
 
   def self.policy_class
     FolderPolicy
   end
 
-  # GET /all_folders/
-  def index
-    authorize Folder
-    folders = current_user.folders
-    render_json find_folders(folders)
-  end
-
-
   private
-
-  def find_folders(folders)
-    if query_param.present?
-      folders = finder(folders, query_param).apply
-    end
-    folders
-  end
 
   def fetch_entries
     return current_user.folders if query_param.blank?
@@ -46,9 +32,4 @@ class Api::AllFoldersController < ApiController
     '#/all_folders'
   end
 
-  class << self
-    def model_class
-      @model_class ||= ::Folder
-    end
-  end
 end

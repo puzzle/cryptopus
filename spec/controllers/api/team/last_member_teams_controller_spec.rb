@@ -52,7 +52,7 @@ describe Api::Teams::LastMemberTeamsController do
 
       get :index, params: { user_id: user.id }
 
-      expect(errors).to include 'Access denied'
+      expect(errors).to eq(['flashes.admin.admin.no_access'])
       expect(response).to have_http_status 403
     end
   end

@@ -14,26 +14,46 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
 
   constructor() {
     super(...arguments);
-    this.members = this.store.query("teammember", { teamId: this.args.teamId });
-    this.apiUsers = this.store.query("team-api-user", {
-      teamId: this.args.teamId
+    this.store.query("teammember", { teamId: this.args.teamId }).then(res => {
+      this.members = res;
     });
+    this.store
+      .query("team-api-user", {
+        teamId: this.args.teamId
+      })
+      .then(res => {
+        this.apiUsers = res;
+      });
 
     if (this.args.teamId) {
       this.loadCandidates();
     }
   }
 
+  get translationKeyPrefix() {
+    return this.intl.locale[0].replace("-", "_");
+  }
+
   loadCandidates() {
-    this.candidates = this.store.query("user-human", {
-      teamId: this.args.teamId,
-      candidates: true
-    });
+    this.store
+      .query("user-human", {
+        teamId: this.args.teamId,
+        candidates: true
+      })
+      .then(res => (this.candidates = res));
   }
 
   handleSubmitSuccess() {
-    this.members = this.store.query("teammember", { teamId: this.args.teamId });
+    this.store
+      .query("teammember", { teamId: this.args.teamId })
+      .then(res => (this.members = res));
     this.loadCandidates();
+  }
+
+  showSuccessMessage() {
+    let successMsg = `${this.translationKeyPrefix}.flashes.api.members.added`;
+    let msg = this.intl.t(successMsg);
+    this.notify.success(msg);
   }
 
   @action
@@ -61,11 +81,16 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
         this.router.transitionTo("index");
         window.location.replace("/teams");
       } else {
-        this.members = this.store.query("teammember", {
-          teamId: this.args.teamId
-        });
+        this.store
+          .query("teammember", {
+            teamId: this.args.teamId
+          })
+          .then(res => (this.members = res));
         this.loadCandidates();
       }
+      let successMsg = `${this.translationKeyPrefix}.flashes.api.members.removed`;
+      let msg = this.intl.t(successMsg);
+      this.notify.success(msg);
     });
   }
 

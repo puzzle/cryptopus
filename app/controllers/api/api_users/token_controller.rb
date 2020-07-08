@@ -12,8 +12,7 @@ class Api::ApiUsers::TokenController < ApiController
   # GET /api/api_users/:id/token
   def show
     authorize api_user
-    username = api_user.username
-    add_info(t('flashes.api.api-users.token.renew', username: username, token: renew_token))
+    add_info('flashes.api.api-users.token.renew', token: renew_token)
     render_json
   end
 
@@ -21,7 +20,7 @@ class Api::ApiUsers::TokenController < ApiController
   def destroy
     authorize api_user
     api_user.update!(locked: true)
-    add_info(t('flashes.api.api-users.token.invalidated', username: api_user.username))
+    add_info('flashes.api.api-users.token.invalidated')
     render_json
   end
 

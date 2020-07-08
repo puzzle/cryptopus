@@ -98,7 +98,7 @@ describe Api::FoldersController do
         post :create, params: new_folder_params, xhr: true
       end.to change { Folder.count }.by(1)
 
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(201)
       expect(data['attributes']['name']).to eq 'Folder Alice'
       expect(data['attributes']['description']).to eq 'yeah'
     end

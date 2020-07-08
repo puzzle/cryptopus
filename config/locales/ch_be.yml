@@ -312,8 +312,8 @@ ch_be:
             empowered: "%{username} het ab iz Admin-Rächt"
             disempowered: "Am Benutzer %{username} si d Admin-Rächt entzoge worde"
       members:
-        added: "%{username} isch erfougrich hinzuegfüegt worde"
-        removed: "%{username} isch erfougrich entfernt worde"
+        added: Mitglied isch erfougrich hinzuegfüegt worde
+        removed: Mitglied isch erfougrich entfernt worde
     wizard:
       fill_password_fields: Bitte füu aui Fäuder us
       paswords_do_not_match: D Passwörter stimme nid überi
@@ -344,14 +344,19 @@ ch_be:
     accounts:
       created: Dr nöi Account isch erfougrich ersteut worde.
       updated: Dr Account isch erfougrich aktualisiert worde.
+      deleted: Dr Account isch erfougrich glöscht worde.
       moved: Der Account isch erfougrich verschobe worde.
+      username_copied: Dr Benutzernamä isch kopiert worde
+      password_copied: Ds Passwort isch kopiert worde
     application:
       wait: Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde.
     folders:
       created: Dr nöii Ordner isch erfougrich ersteut worde.
       updated: Dr Ordner isch erfougrich bearbeitet worde.
+      deleted: Dr Ordner isch erfougrich glöscht worde.
     file_entries:
       uploaded: D Datei isch erfougrich ufeglade worde.
+      deleted: D Datei isch erfougrich glöscht worde.
       uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
       uploaded_filename_is_empty: D Datei muess e Name ha
       uploaded_file_inexistent: Die Datei existiert gar nid

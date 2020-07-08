@@ -13,7 +13,7 @@ class Api::ApiUsers::LockController < ApiController
   def create
     authorize api_user, :lock?
     api_user.lock
-    add_info(t('flashes.api.api-users.lock', username: api_user.username))
+    add_info('flashes.api.api-users.lock')
     render_json
   end
 
@@ -21,7 +21,7 @@ class Api::ApiUsers::LockController < ApiController
   def destroy
     authorize api_user, :unlock?
     api_user.unlock
-    add_info(t('flashes.api.api-users.unlock', username: api_user.username))
+    add_info('flashes.api.api-users.unlock')
     render_json
   end
 
