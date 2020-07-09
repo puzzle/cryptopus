@@ -37,7 +37,7 @@ export default class NavBarComponent extends Component {
 
   @action
   searchByQuery() {
-    if (this.searchQuery.trim(' ').length > 2){
+    if (this.navService.searchQuery.trim(' ').length > 2){
       this.router
         .transitionTo("teams.index", {
           queryParams: { q: this.navService.searchQuery, team_id: undefined, folder_id: undefined }
