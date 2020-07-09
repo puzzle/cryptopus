@@ -69,9 +69,7 @@ describe 'TeamModal', type: :system, js: true do
     find('input#search').set account1_name_first_two_chars
 
     within 'div.main' do
-      expect(page).to have_text('')
-      expect(page).to have_text(teams(:team1).name)
-      expect(page).to have_text(teams(:team2).name)
+      expect(page).to have_selector('h4', text: 'Please select a team or use the search')
     end
 
     find('input#search').set account1.accountname
@@ -86,4 +84,3 @@ describe 'TeamModal', type: :system, js: true do
   end
 
 end
-

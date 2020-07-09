@@ -18,27 +18,33 @@ describe 'QuickSearch', type: :system, js: true do
     logout
   end
 
-  xit 'search with not available keyword does not show any results' do
-    expect(page).to have_selector('.form-group.search')
+  let(:account1) { accounts(:account1) }
 
-    fill_in 'q', with: 'lkj'
+  it 'search with not available keyword does not show any results' do
+    expect(find('input#search')['placeholder']).to eq('Type to search...')
+    expect(page).to have_selector('input#search')
+
+    find('input#search').set 'lkj'
     expect(page).to have_no_css('li.result')
   end
 
-  xit 'search and access account' do
-    expect(page).to have_selector('.form-group.search')
+  it 'search and access account' do
+    expect(find('input#search')['placeholder']).to eq('Type to search...')
+    expect(page).to have_selector('input#search')
 
-    fill_in 'q', with: 'account1'
-    expect(page).to have_selector('.account-entry')
-    first('.account-entry').click
-    expect(page).to have_content('account1')
+    find('input#search').set account1.accountname
+    expect(page).to have_selector('.account-preview')
+    within('div.card-body') do
+      expect(page).to have_content(account1.accountname)
+    end
   end
 
-  xit 'search by get params' do
-    visit('/search?q=account1')
+  it 'search by get params' do
+    visit('/teams?q=account1')
 
-    expect(page).to have_selector('.account-entry')
-    first('.account-entry').click
-    expect(page).to have_content('account1')
+    expect(page).to have_selector('.account-preview')
+    within('div.card-body') do
+      expect(page).to have_content(account1.accountname)
+    end
   end
 end
