@@ -28,8 +28,6 @@ describe 'SideNavBar', type: :system, js: true do
       team2 = teams(:team2)
       folder2 = folders(:folder2)
 
-
-
       expect(team1_link).to have_xpath("//img[@alt='<']")
       team1_link.click
       expect(team1_link).to have_xpath("//img[@alt='v']")

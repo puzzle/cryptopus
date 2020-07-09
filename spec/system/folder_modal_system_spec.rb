@@ -71,6 +71,7 @@ describe 'FolderModal', type: :system, js: true do
 
     expect_teams_page_with(updated_attrs, team)
 
+    # Functionality not implemented
 
     # # Delete Folder
     # visit("/teams?team_id=#{folder.team_id}&folder_id=#{folder.id}")
@@ -101,7 +102,6 @@ describe 'FolderModal', type: :system, js: true do
   end
 
   def expect_teams_page_with(folder_attrs, team)
-    require 'pry'; binding.pry;
     expect(page).to have_text(team.name)
     expect(page).to have_text(folder_attrs[:foldername])
     expect(page).to have_text(folder_attrs[:description])
