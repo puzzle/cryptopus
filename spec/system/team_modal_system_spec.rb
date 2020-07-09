@@ -73,7 +73,7 @@ describe 'TeamModal', type: :system, js: true do
   end
 
   def expect_team_page_with(team_attrs)
-    expect(first('h1')).to have_text(team_attrs[:name])
+    expect(page).to have_text(team_attrs[:name])
     if team_attrs[:private]
       img = first('h1').first('img')
       puts img[:src]

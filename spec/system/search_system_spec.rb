@@ -18,7 +18,7 @@ describe 'TeamModal', type: :system, js: true do
     expect(find('input#search')['placeholder']).to eq('Type to search...')
     find('input#search').set account1.accountname
 
-    within 'div.main' do
+    within 'div[role="main"]' do
       expect(page).to have_text(account1.accountname)
       expect(page).to have_text(account1.description)
       expect(page).to have_text(folders(:folder1).name)
@@ -34,7 +34,7 @@ describe 'TeamModal', type: :system, js: true do
     expect(find('input#search')['placeholder']).to eq('Type to search...')
     find('input#search').set folder1.name
 
-    within 'div.main' do
+    within 'div[role="main"]' do
       expect(page).to have_text(folder1.name)
       expect(page).to have_text(teams(:team1).name)
       expect(page).to have_text(accounts(:account1).accountname)
@@ -50,7 +50,7 @@ describe 'TeamModal', type: :system, js: true do
     expect(find('input#search')['placeholder']).to eq('Type to search...')
     find('input#search').set team1.name
 
-    within 'div.main' do
+    within 'div[role="main"]' do
       expect(page).to have_text(team1.name)
       expect(page).to have_text(team1.description)
       expect(page).to have_text(folders(:folder1).name)
@@ -68,13 +68,13 @@ describe 'TeamModal', type: :system, js: true do
     expect(find('input#search')['placeholder']).to eq('Type to search...')
     find('input#search').set account1_name_first_two_chars
 
-    within 'div.main' do
+    within 'div[role="main"]' do
       expect(page).to have_selector('h4', text: 'Please select a team or use the search')
     end
 
     find('input#search').set account1.accountname
 
-    within 'div.main' do
+    within 'div[role="main"]' do
       expect(page).to have_text(account1.accountname)
       expect(page).to have_text(account1.description)
       expect(page).to have_text(folders(:folder1).name)
