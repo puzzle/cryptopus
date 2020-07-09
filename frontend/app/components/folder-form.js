@@ -65,11 +65,11 @@ export default class FolderForm extends BaseFormComponent {
   handleSubmitSuccess(savedRecords) {
     this.abort();
     if (this.isNewRecord) {
+      let folder = savedRecords[0];
       this.router.transitionTo(
-        "/teams?team_id=" +
-          savedRecords[0].team.get("id") +
-          "&folder_id=" +
-          savedRecords[0].id
+        "teams.folders-show",
+        folder.team.get("id"),
+        folder.id
       );
     }
   }

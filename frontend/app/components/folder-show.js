@@ -2,7 +2,7 @@ import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
-import { isPresent } from '@ember/utils';
+import { isPresent } from "@ember/utils";
 
 export default class FolderShowComponent extends Component {
   @service navService;
@@ -17,13 +17,22 @@ export default class FolderShowComponent extends Component {
 
   @action
   collapse() {
-    this.router.transitionTo("teams.index", {
-      queryParams: { folder_id: !this.collapsed ? null : this.args.folder.id }
-    });
+    if (this.collapsed) {
+      this.router.transitionTo(
+        "teams.folders-show",
+        this.args.folder.team.get("id"),
+        this.args.folder.id
+      );
+    } else {
+      this.router.transitionTo("teams.show", this.args.folder.team.get("id"));
+    }
   }
 
   get noFolders() {
-    return isPresent(this.navService.selectedFolder) && this.navService.selectedFolder.accounts.length === 0;
+    return (
+      isPresent(this.navService.selectedFolder) &&
+      this.navService.selectedFolder.accounts.length === 0
+    );
   }
 
   @action

@@ -38,21 +38,19 @@ export default class SideNavBar extends Component {
 
     if (alreadyTheSame) this.collapsed = !this.collapsed;
     else {
-      this.router
-        .transitionTo("teams.index", {
-          queryParams: { team_id: team.id, folder_id: null }
-        })
-        .then(() => {
-          this.collapsed = false;
-        });
+      this.router.transitionTo("teams.show", team.id).then(() => {
+        this.collapsed = false;
+      });
     }
   }
 
   @action
   setSelectedFolder(folder) {
-    this.router.transitionTo("teams", {
-      queryParams: { folder_id: folder.id }
-    });
+    this.router.transitionTo(
+      "teams.folders-show",
+      folder.team.get("id"),
+      folder.id
+    );
   }
 
   @action

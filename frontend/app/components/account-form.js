@@ -92,7 +92,7 @@ export default class AccountForm extends BaseFormComponent {
   handleSubmitSuccess(savedRecords) {
     this.abort();
     if (this.isNewRecord) {
-      this.router.transitionTo("/accounts/" + savedRecords[0].id);
+      this.router.transitionTo("accounts.show", savedRecords[0].id);
     }
   }
 }
