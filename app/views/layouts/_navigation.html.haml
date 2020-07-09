@@ -4,22 +4,21 @@
 -#  https://github.com/puzzle/cryptopus.
 
 - if current_user
-  -#%nav.navbar.navbar-inverse
-  -#  .container-fluid
-  -#    .navbar-header
+  -#%nav.h-56.navbar-custom
+  -#  .container-fluid.h-56
+  -#    .navbar-header.h-56
   -#      = link_to(image_pack_tag("cryptopussy_without_text.svg", class: 'logo-icon'), root_path, class:'navbar-logo')
   -#      = link_to('Cryptopus', root_path, class: 'navbar-brand')
-  -#    .navbar-collapse.collapse
-  -#      %ul.nav.navbar-nav
-  -#        - if current_user.auth_db?
-  -#          = nav_link t(:change_password), session_show_update_password_path
-  -#        = nav_link image_pack_tag("viewmag_white.svg", class: "search-icon", title: "search (ctrl + f)") + t('search.title'), root_path
+  -#
+  -#
+  -#    .navbar-collapse.collapse.h-56
   -#      %div.nav.navbar-nav.navbar-right.logout
   -#        - if current_user.admin? || current_user.conf_admin?
-  -#          %div.dropdown
+  -#          %div.dropdown.h-56
   -#            <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown", role="button">
-  -#            %span=image_pack_tag("admin_settings.svg", class: "admin-settings-icon")
+  -#            Toggle Dropdown
   -#            </a>
+  -#
   -#            %div.dropdown-menu
   -#              %a= nav_link t(:settings), admin_settings_path
   -#              - if policy(Recryptrequest).index?
@@ -27,7 +26,7 @@
   -#              %a= nav_link t(:users), admin_users_path
   -#              %a= nav_link t('teams.title'), admin_teams_path
   -#              %a= nav_link t('admin.maintenance_tasks.index.title'), admin_maintenance_tasks_path
-  -#        = nav_link image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path, :get
+  -#        %a= nav_link image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path, :get
   -#
   -#      %div.nav.navbar-nav.navbar-right#profile-button
   -#        %li
@@ -50,19 +49,41 @@
   -#                %li
   -#                  %a.dropdown-item{'href': '#/folders/new', 'data-turbolinks': 'false'}
   -#                    = t('folders.new.title')
-  -#
-  -#
-  -#- unless @breadcrumbs.nil?
-  -#  .bread-container
-  -#    .breadcrumb
-  -#      = render_breadcrumbs separator: '', tag: :li
 
-  %nav.navbar-custom
-    .container-fluid.h-56
+  %nav.navbar.navbar-default{:role => "navigation"}
+    .container-fluid
+
       .navbar-header
         = link_to(image_pack_tag("cryptopussy_without_text.svg", class: 'logo-icon'), root_path, class:'navbar-logo')
-        = link_to('Cryptopus', root_path, class: 'navbar-brand h-56')
-      .navbar-content
-        .dropdown
-          .btn-group
-            %a.nav-link.d-inline
+        = link_to('Cryptopus', root_path, class: 'navbar-brand')
+        %button.navbar-toggle{"data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+          %span.sr-only Toggle navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+
+      #bs-example-navbar-collapse-1.collapse.navbar-collapse
+        %ul.nav.navbar-nav.navbar-right
+          %li
+            %a.font{:href => "/teams"} Back
+          %li.dropdown
+            %a.dropdown-toggle.font.helper-img{"data-toggle" => "dropdown", :href => "#"}
+              = t(:settings)
+              %img= image_pack_tag("angle-down.svg", class: "dropdown-arrow")
+            %ul.dropdown-menu{:role => "menu"}
+              %li
+                %a= nav_link t(:settings), admin_settings_path
+              %li
+                %a{:href => "#"} Another action
+              %li
+                %a{:href => "#"} Something else here
+              %li.divider
+              %li
+                %a{:href => "#"} Separated link
+          %li
+            %img= nav_link image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path, :get
+
+  - unless @breadcrumbs.nil?
+    .bread-container
+      .breadcrumb
+        = render_breadcrumbs separator: '', tag: :li

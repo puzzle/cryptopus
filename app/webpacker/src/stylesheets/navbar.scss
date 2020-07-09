@@ -42,17 +42,36 @@
 }
 
 .logout-icon {
-  padding: 0px;
-  width: 20px;
+  width: 18px !important;
+  height: 18px !important;
   display: inline;
+  margin-left: 8px !important;
+  margin-right: 18.6px !important;
+  margin-top: 4px !important;
 }
 
 .admin-settings-icon {
-  padding: 0px;
   width: 20px;
   display: inline;
+  padding-left: 8px;
 }
 
+.w-400 {
+  min-width: 400px;
+}
+
+.font {
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.dropdown-arrow {
+  width: 18px !important;
+  height: 18px !important;
+  display: inline;
+  margin-left: 8px !important;
+}
 
 /*breadcrumbs*/
 
@@ -66,18 +85,29 @@
   z-index: 999;
 }
 
+.helper-img {
+  display: flex !important;
+  align-items: center !important;
+}
+
 .breadcrumb {
   width: 970px;
   margin: auto;
 }
 
-.navbar-custom {
-  background: #338ec5;
-  min-height: 56px;
+.navbar {
+  background: #338ec5 !important;
+  border-radius: 0px !important;
+  border: none !important;
+}
+
+.navbar-brand {
+  color: white !important;
 }
 
 .h-56 {
   min-height: 56px !important;
+  max-height: 56px !important;
 }
 
 .navbar-icon {
@@ -129,6 +159,10 @@
 
 .logo-icon {
   height: 56px;
+}
+
+.navbar-logo {
+  padding: 0 0 0 0 !important;
 }
 
 
