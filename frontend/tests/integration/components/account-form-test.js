@@ -104,13 +104,13 @@ module("Integration | Component | account-form", function(hooks) {
     });
     await render(hbs`<AccountForm @account={{this.account}}/>`);
 
-    assert.equal(this.element.querySelector("input#accountname").value, "mail");
+    assert.equal(this.element.querySelector("input[name='accountname']").value, "mail");
     assert.equal(
-      this.element.querySelector("input#username").value,
+      this.element.querySelector("input[name='cleartextUsername']").value,
       "mail@ember.com"
     );
     assert.equal(
-      this.element.querySelector("textarea#description").value,
+      this.element.querySelector("textarea").value,
       "The ember email"
     );
     assert.ok(this.element.textContent.trim().includes("supporting"));

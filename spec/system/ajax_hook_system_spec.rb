@@ -15,7 +15,7 @@ describe 'AjaxHook', type: :system, js: true do
     visit admin_users_path
     all(:button, 'role-dropdown')[4].click
     click_link('User')
-    within(find('tr', :text => 'Tux')) do
+    within(find('tr', text: 'Tux')) do
       expect(page).to have_text('User')
     end
   end
