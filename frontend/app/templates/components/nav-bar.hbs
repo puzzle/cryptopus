@@ -14,10 +14,7 @@
   <div class="container pl-0 pr-0">
     <navbar.content>
       <div class="form-inline">
-        {{#if this.isStartpage}}
-          <Input @class="form-control mr-sm-2" @type="search" placeholder={{t "search.index.type_to_search"}} {{autofocus}} />
-        {{else}}
-          <Input @class="form-control mr-sm-2" @type="search" @id="search" @value={{ this.navService.searchQuery }} placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}} />{{/if}}
+        <Input @class="form-control mr-sm-2" @type="search" @id="search" @value={{ this.navService.searchQuery }} placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}  @autofocus={{this.isStartpage}}/>
       </div>
       <navbar.nav @class="ml-auto">
         <BsDropdown as |dd|>
