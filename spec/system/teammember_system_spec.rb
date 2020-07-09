@@ -18,14 +18,16 @@ describe 'Teammember', type: :system, js: true do
   it 'lists teammembers' do
 
     login_as_user(:admin)
-    team1 = teams(:team1)
 
     # Make Api-User, as modal doesn't work yet without.
     visit profile_path
     click_link 'Api Users'
     click_button 'New'
 
-    visit("/teams/#{team1.id}")
+    visit("/teams")
+    team1_link = find('a', text: 'team1', visible: false)
+
+    team1_link.click
 
     edit_button = page.find_link(id: 'config_team_button')
     expect(edit_button).to be_present
@@ -34,7 +36,6 @@ describe 'Teammember', type: :system, js: true do
     expect(find('.modal-content')).to be_present
     expect(page).to have_text('Edit Team Members and Api Users')
 
-    # expect(page).to have_button('close_button')
 
     within('#members') do
       expect(page).to have_content('Admin test')

@@ -32,6 +32,8 @@ describe 'AccountModal', type: :system, js: true do
     expect(page).to have_css("a.nav-link.d-inline", text: "New Account")
     find('a.nav-link.d-inline', text: 'New Account').click
 
+    sleep(2)
+
     expect(page).to have_selector('.modal-content')
     expect(page).to have_text('New Account')
     expect(page).to have_content('Save')
@@ -51,7 +53,8 @@ describe 'AccountModal', type: :system, js: true do
 
     expect do
       click_button('Save', visible: false)
-      expect(page).to have_selector('h1', text: account_attrs[:accountname])
+      sleep(2)
+      expect(page).to have_text(account_attrs[:accountname])
     end.to change {Account.count}.by 1
 
     # Überprüfen der Attribute es Accounts in DB
@@ -66,6 +69,8 @@ describe 'AccountModal', type: :system, js: true do
     expect(page).to have_link(id: 'edit_account_button')
     click_link(id: 'edit_account_button')
 
+    sleep(2)
+
     expect(find('.modal.modal_account')).to be_present
     expect(page).to have_text('Edit Account')
     expect(page).to have_button('Save', visible: false)
@@ -79,9 +84,11 @@ describe 'AccountModal', type: :system, js: true do
     # Delete Account
     expect do
       find('span[role="button"]').click
+      sleep(2)
       find('button', text: 'Delete').click
       sleep(2)
-      visit("/teams?team_id=#{team.id}&folder_id=#{folder.id}")
+      visit("/teams?folder_id=#{folder.id}&team_id=#{team.id}")
+      sleep(2)
 
       expect(page).to have_text(team.name)
       expect(page).to have_text(account.accountname)
@@ -108,7 +115,7 @@ describe 'AccountModal', type: :system, js: true do
   end
 
   def expect_account_page_with(acc_attrs)
-    expect(first('h1', visible: false)).to have_text("Account: #{acc_attrs[:accountname]}")
+    expect(page).to have_text("Account: #{acc_attrs[:accountname]}")
     expect(find('#cleartext_username', visible: false).value).to eq(acc_attrs[:username])
     expect(page).to have_text(acc_attrs[:description])
   end
