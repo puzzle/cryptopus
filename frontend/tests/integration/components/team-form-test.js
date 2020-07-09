@@ -30,13 +30,13 @@ module("Integration | Component | team-form", function(hooks) {
     });
     await render(hbs`<TeamForm \@team\=\{{this.team}}/>`);
 
-    assert.equal(this.element.querySelector("input[name=name]").value, "mail");
+    assert.equal(this.element.querySelector("input[name='teamname']").value, "mail");
     assert.equal(
       this.element.querySelector("input[name=private]").checked,
       false
     );
     assert.equal(
-      this.element.querySelector("textarea[name=description]").value,
+      this.element.querySelector("textarea").value,
       "The ember email"
     );
   });

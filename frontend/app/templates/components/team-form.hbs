@@ -8,11 +8,11 @@
         <div class="row">
           <div class="col-md-12">
             <form.group>
-              <form.element @property="name" @label="{{t "helpers.label.team.name"}}"
+              <form.element @property="name" @label={{t "helpers.label.team.name"}}
                             @name="teamname" class={{if this.changeset.error.name.validation
                                                            "invalid-input-name"}}
                             id="teamname" @tabindex="1"
-                            @customError="{{this.changeset.error.name.validation}}"/>
+                            @customError={{this.changeset.error.name.validation}} />
             </form.group>
             <div class="checkbox">
               <div class="d-flex justify-content-start">
@@ -20,8 +20,8 @@
                 <label for="checkbox-private" name="private">{{t "teams.form.private"}}</label>
               </div>
               <div class="align-self-center mb-2 ml-2">
-              <img src="/ember/assets/images/info.svg" alt="info" class="info-icon icon-button">
-            </div>
+                <img src="/ember/assets/images/info.svg" alt="info" class="info-icon icon-button">
+              </div>
               <div class="align-self-center mb-2 ml-2">
               <Input id="checkbox-private" class="" @type="checkbox" @checked={{this.changeset.private}} @name="private"
                      disabled={{not this.isNewRecord }}/></div>
@@ -32,9 +32,9 @@
           </div>
           <div class="col-md-12">
             <form.group>
-              <form.element @label="{{t "helpers.label.team.description"}}" @property="description" @controlType="textarea"
-                            id="description" class="vertical-resize" class={{if
-                      this.changeset.error.description.validation "invalid-input"}}
+              <form.element @label={{t "helpers.label.team.description"}} @property="description" @controlType="textarea"
+                            id="description" class="{{if
+                      this.changeset.error.description.validation "invalid-input"}} vertical-resize"
                             @tabindex="7" @customError={{this.changeset.error.description.validation}}/>
             </form.group>
           </div>

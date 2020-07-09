@@ -29,7 +29,7 @@ describe 'AccountModal', type: :system, js: true do
     login_as_user(:bob)
 
     # Create Account
-    expect(page).to have_css("a.nav-link.d-inline", text: "New Account")
+    expect(page).to have_css('a.nav-link.d-inline', text: 'New Account')
     find('a.nav-link.d-inline', text: 'New Account').click
 
     sleep(2)
@@ -55,9 +55,7 @@ describe 'AccountModal', type: :system, js: true do
       click_button('Save', visible: false)
       sleep(2)
       expect(page).to have_text(account_attrs[:accountname])
-    end.to change {Account.count}.by 1
-
-    # Überprüfen der Attribute es Accounts in DB
+    end.to change { Account.count }.by 1
 
     # Edit Account
     account = Account.find_by(accountname: account_attrs[:accountname])
@@ -104,12 +102,14 @@ describe 'AccountModal', type: :system, js: true do
       find("input[name='cleartextPassword']", visible: false).set acc_attrs[:password]
       find("input[name='accountname']", visible: false).set(acc_attrs[:accountname])
       find("input[name='cleartextUsername']", visible: false).set acc_attrs[:username]
-      find("textarea.form-control.ember-view", visible: false).set acc_attrs[:description]
+      find('textarea.form-control.ember-view', visible: false).set acc_attrs[:description]
 
-      find('#team-power-select', visible: false).find('div.ember-power-select-trigger', visible: false).click # Open trigger
+      find('#team-power-select', visible: false).find('div.ember-power-select-trigger',
+                                                      visible: false).click
       first('ul.ember-power-select-options > li', visible: false).click
 
-      find('#folder-power-select', visible: false).find('div.ember-power-select-trigger', visible: false).click # Open trigger
+      find('#folder-power-select', visible: false).find('div.ember-power-select-trigger',
+                                                        visible: false).click
       first('ul.ember-power-select-options > li', visible: false).click
     end
   end
@@ -121,9 +121,12 @@ describe 'AccountModal', type: :system, js: true do
   end
 
   def expect_filled_fields_in_modal_with(acc_attrs)
-    expect(find("input[name='accountname']", visible: false).value).to eq(acc_attrs[:accountname])
-    expect(find("input[name='cleartextUsername']", visible: false).value).to eq(acc_attrs[:username])
-    expect(find("textarea.form-control.ember-view", visible: false).value).to eq(acc_attrs[:description])
+    expect(find("input[name='accountname']",
+                visible: false).value).to eq(acc_attrs[:accountname])
+    expect(find("input[name='cleartextUsername']",
+                visible: false).value).to eq(acc_attrs[:username])
+    expect(find('textarea.form-control.ember-view',
+                visible: false).value).to eq(acc_attrs[:description])
   end
 
   def check_password_meter(password, expected_score)

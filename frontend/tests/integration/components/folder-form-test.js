@@ -78,12 +78,12 @@ module("Integration | Component | folder-form", function(hooks) {
     await render(hbs`<FolderForm \@folder\=\{{this.folder}}/>`);
 
     assert.equal(
-      this.element.querySelector("input[name=name]").value,
+      this.element.querySelector("input[name='foldername']").value,
       "mail"
     );
 
     assert.equal(
-      this.element.querySelector("textarea[name=description]").value,
+      this.element.querySelector("textarea").value,
       "The ember email"
     );
   });

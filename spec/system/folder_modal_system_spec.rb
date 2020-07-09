@@ -40,7 +40,8 @@ describe 'FolderModal', type: :system, js: true do
     expect do
       fill_modal(folder_attrs)
 
-      find('#team-power-select').find('.ember-power-select-trigger', visible: false).click # Open trigger
+      find('#team-power-select').find('.ember-power-select-trigger',
+                                      visible: false).click # Open trigger
       find_all('ul.ember-power-select-options > li', visible: false)[0].click
 
       click_button('Save', visible: false)

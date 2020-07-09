@@ -8,20 +8,20 @@
         <div class="row">
           <div class="col-md-6">
             <form.group class="col-md-12">
-              <form.element @property="accountname" @label="{{t "helpers.label.account.account_name"}}"
+              <form.element @property="accountname" @label={{t "helpers.label.account.account_name"}}
                             @name="accountname" class={{if this.changeset.error.accountname.validation "invalid-input-name"}}
                             id="accountname" @tabindex="1"
-                            @customError="{{this.changeset.error.accountname.validation}}"/>
+                            @customError={{this.changeset.error.accountname.validation}} />
             </form.group>
             <form.group class="form-group col-md-12">
-              <form.element @label="{{t "username"}}" id="username" @name="cleartextUsername"
+              <form.element @label={{t "username"}} id="username" @name="cleartextUsername"
                             @property="cleartextUsername" @tabindex="2"/>
             </form.group>
           </div>
           <div class="col-md-6 ml-auto">
             <div class="form-group col-md-12" id="team-power-select">
-              <form.element @label="{{t "team"}}" @controlType="power-select"
-                            @placeholder="{{t "accounts.edit.team_placeholder"}}"
+              <form.element @label={{t "team"}} @controlType="power-select"
+                            @placeholder={{t "accounts.edit.team_placeholder"}}
                             @options={{this.assignableTeams}} @value={{this.selectedTeam}} as |el|>
                 <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
                   {{team.name}}
@@ -31,7 +31,7 @@
             <div class="form-group col-md-12" id="folder-power-select">
               <form.element @options={{this.availableFolders}} @label={{t "folder"}} @controlType="power-select" @value={{this.changeset.folder}}
               @placeholder={{t "accounts.edit.folder_placeholder"}} @disabled={{this.isFolderDropdownDisabled}} @customError={{this.changeset.error.folder.validation}}
-              @searchEnabled={{true}} @searchField="name" @allowClear={{true}} @searchEnabled={{true}} @searchField={{"name"}} as |el|>
+              @searchEnabled={{true}} @allowClear={{true}} @searchField={{"name"}} as |el|>
                 <el.control class={{if this.changeset.error.folder.validation "invalid-input-ps"}} @renderInPlace={{true}} @onChange={{this.setFolder}} as |folder|>
                   {{folder.name}}
                 </el.control>
@@ -49,16 +49,17 @@
             </div>
           </div>
           <div class="col-md-6">
-            <button class="btn btn-secondary btn-block col-6 mt-32 ml-15" {{on "click" this.setRandomPassword}} tabindex="4">{{t
-                    "accounts.edit.random_password"}}</button>
+            <button class="btn btn-secondary btn-block col-6 mt-32 ml-15" {{on "click" this.setRandomPassword}} tabindex="4">
+              {{t "accounts.edit.random_password"}}
+            </button>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
             <form.group class="col-md-12">
-              <form.element @label="{{t "description"}}" @property="description" @controlType="textarea"
-                            id="description" class="vertical-resize" class={{if
-                      this.changeset.error.description.validation "invalid-input"}}
+              <form.element @label={{t "description"}} @property="description" @controlType="textarea"
+                            id="description" class="{{if
+                      this.changeset.error.description.validation "invalid-input"}} vertical-resize"
                             @tabindex="7" @customError={{this.changeset.error.description.validation}}/>
             </form.group>
           </div>

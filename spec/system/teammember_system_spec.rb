@@ -24,7 +24,7 @@ describe 'Teammember', type: :system, js: true do
     click_link 'Api Users'
     click_button 'New'
 
-    visit("/teams")
+    visit('/teams')
     team1_link = find('a', text: 'team1', visible: false)
 
     team1_link.click

@@ -20,7 +20,7 @@
           <Input @class="form-control mr-sm-2" @type="search" placeholder={{t "search.index.type_to_search"}}/>
         {{/if}}
       </div>
-      <navbar.nav @class="ml-auto" as |nav|>
+      <navbar.nav @class="ml-auto">
         <BsDropdown as |dd|>
           <div class="btn-group">
             <a class="nav-link d-inline" role="button" {{on "click" this.toggleAccountCreating}}>{{t "accounts.new.title"}}</a>
