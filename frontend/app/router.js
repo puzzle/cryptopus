@@ -26,7 +26,7 @@ Router.map(function() {
     this.route("show", { path: "/:team_id" });
     this.route("edit", { path: "/:id/edit" });
     this.route("configure", { path: "/:team_id/configure" });
-    this.route("folders_show", { path: "/:team_id/folders/:folder_id" });
+    this.route("folders-show", { path: "/:team_id/folders/:folder_id" });
   });
 
   this.route("folders", function() {
