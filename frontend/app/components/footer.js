@@ -6,6 +6,8 @@ import ENV from "../config/environment";
 
 export default class FooterComponent extends Component {
   @service intl;
+import { inject as service } from "@ember/service";
+import { tracked } from "@glimmer/tracking";
 
   availableLocales = [
     { key: "en", name: "English" },

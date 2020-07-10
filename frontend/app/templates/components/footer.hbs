@@ -16,7 +16,7 @@
       <div class="d-inline">
         <small>
           {{t "auto_logout"}}
-          <span id="countdown">2m</span>
+          <span id="countdown">{{this.logoutTimerService.timeToLogoff}}</span>
         </small>
       </div>
     </div>

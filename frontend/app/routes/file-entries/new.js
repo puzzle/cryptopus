@@ -1,6 +1,6 @@
-import Route from "@ember/routing/route";
+import BaseRoute from "../base";
 
-export default class FileEntriesNewRoute extends Route {
+export default class FileEntriesNewRoute extends BaseRoute {
   model(params) {
     return this.store.findRecord("account", params.account_id);
   }
