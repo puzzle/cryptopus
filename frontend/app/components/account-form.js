@@ -10,6 +10,7 @@ import { isPresent } from "@ember/utils";
 export default class AccountForm extends BaseFormComponent {
   @service store;
   @service router;
+  @service navService;
 
   @tracked selectedTeam;
   @tracked selectedFolder;
@@ -30,6 +31,8 @@ export default class AccountForm extends BaseFormComponent {
       AccountValidations
     );
 
+    this.presetTeamAndFolder()
+
     if (this.isNewRecord && isPresent(this.args.folder)) {
       this.changeset.folder = this.args.folder;
     }
@@ -41,6 +44,19 @@ export default class AccountForm extends BaseFormComponent {
         this.selectedTeam = this.changeset.folder.get("team");
       }
     });
+  }
+
+  presetTeamAndFolder() {
+    let selectedTeam = this.navService.selectedTeam;
+    let selectedFolder = this.navService.selectedFolder;
+
+    if ((selectedTeam !== undefined) && this.isNewRecord){
+      this.selectedTeam = selectedTeam
+    }
+
+    if ((selectedFolder !== undefined) && this.isNewRecord) {
+      this.changeset.folder = selectedFolder
+    }
   }
 
   @action
@@ -81,6 +97,7 @@ export default class AccountForm extends BaseFormComponent {
 
   @action
   setFolder(folder) {
+    this.selectedFolder = folder;
     this.changeset.folder = folder;
   }
 
