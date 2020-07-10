@@ -4,52 +4,6 @@
 -#  https://github.com/puzzle/cryptopus.
 
 - if current_user
-  -#%nav.h-56.navbar-custom
-  -#  .container-fluid.h-56
-  -#    .navbar-header.h-56
-  -#      = link_to(image_pack_tag("cryptopussy_without_text.svg", class: 'logo-icon'), root_path, class:'navbar-logo')
-  -#      = link_to('Cryptopus', root_path, class: 'navbar-brand')
-  -#
-  -#
-  -#    .navbar-collapse.collapse.h-56
-  -#      %div.nav.navbar-nav.navbar-right.logout
-  -#        - if current_user.admin? || current_user.conf_admin?
-  -#          %div.dropdown.h-56
-  -#            <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown", role="button">
-  -#            Toggle Dropdown
-  -#            </a>
-  -#
-  -#            %div.dropdown-menu
-  -#              %a= nav_link t(:settings), admin_settings_path
-  -#              - if policy(Recryptrequest).index?
-  -#                %a= nav_link t(:recrypt_requests), admin_recryptrequests_path
-  -#              %a= nav_link t(:users), admin_users_path
-  -#              %a= nav_link t('teams.title'), admin_teams_path
-  -#              %a= nav_link t('admin.maintenance_tasks.index.title'), admin_maintenance_tasks_path
-  -#        %a= nav_link image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path, :get
-  -#
-  -#      %div.nav.navbar-nav.navbar-right#profile-button
-  -#        %li
-  -#        = nav_link current_user.username, profile_path
-  -#
-  -#      %div.nav.navbar-nav.navbar-right#add-dropdown
-  -#
-  -#        %li.nav-item
-  -#          %div.dropdown.show
-  -#            %div.btn-group
-  -#              %a.btn.btn-primary.navbar-btn#navbarDropdown{type: 'button', 'href': '#/accounts/new', 'data-turbolinks': 'false'}
-  -#                = t('accounts.new.title')
-  -#              %a.btn.navbar-btn.btn-primary.dropdown-toggle.dropdown-toggle-split{'type': 'button', 'data-toggle':'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false'}
-  -#                %span.caret
-  -#
-  -#              %ul.dropdown-menu{'aria-labelledby': 'navbarDropdown'}
-  -#                %li
-  -#                  %a.dropdown-item{'href': '#/teams/new', 'data-turbolinks': 'false'}
-  -#                    = t('teams.new.title')
-  -#                %li
-  -#                  %a.dropdown-item{'href': '#/folders/new', 'data-turbolinks': 'false'}
-  -#                    = t('folders.new.title')
-
   %nav.navbar.navbar-default{:role => "navigation"}
     .container-fluid
 
@@ -63,25 +17,24 @@
           %span.icon-bar
 
       #bs-example-navbar-collapse-1.collapse.navbar-collapse
-        %ul.nav.navbar-nav.navbar-right
+        %ul.nav.navbar-nav.navbar-right.ml-auto
           %li
-            %a.font{:href => "/teams"} Back
+            %a.font{href: "/teams"} Back
           %li.dropdown
-            %a.dropdown-toggle.font.helper-img{"data-toggle" => "dropdown", :href => "#"}
+            %a.dropdown-toggle.font.helper-img.pr-0{"data-toggle": "dropdown", href: "#"}
               = t(:settings)
-              %img= image_pack_tag("angle-down.svg", class: "dropdown-arrow")
+              = image_pack_tag("angle-down.svg", class: "dropdown-arrow")
             %ul.dropdown-menu{:role => "menu"}
               %li
                 %a= nav_link t(:settings), admin_settings_path
-              %li
-                %a{:href => "#"} Another action
-              %li
-                %a{:href => "#"} Something else here
-              %li.divider
-              %li
-                %a{:href => "#"} Separated link
+                - if policy(Recryptrequest).index?
+                  %a= nav_link t(:recrypt_requests), admin_recryptrequests_path
+                %a= nav_link t(:users), admin_users_path
+                %a= nav_link t('teams.title'), admin_teams_path
+                %a= nav_link t('admin.maintenance_tasks.index.title'), admin_maintenance_tasks_path
           %li
-            %img= nav_link image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path, :get
+            = link_to(current_user.username, profile_path, method: :get, class: 'font link p-8')
+          %img.a-no-p= nav_link image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path, :get
 
   - unless @breadcrumbs.nil?
     .bread-container
