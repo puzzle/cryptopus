@@ -1,11 +1,11 @@
-import { action } from "@ember/object";
+import {action} from "@ember/object";
 import FolderValidations from "../validations/folder";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
-import { inject as service } from "@ember/service";
-import { tracked } from "@glimmer/tracking";
+import {inject as service} from "@ember/service";
+import {tracked} from "@glimmer/tracking";
 import BaseFormComponent from "./base-form-component";
-import { isPresent } from "@ember/utils";
+import {isPresent} from "@ember/utils";
 
 export default class FolderForm extends BaseFormComponent {
   @service store;

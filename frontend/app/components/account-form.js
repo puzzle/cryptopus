@@ -1,11 +1,11 @@
-import { action } from "@ember/object";
+import {action} from "@ember/object";
 import AccountValidations from "../validations/account";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
-import { inject as service } from "@ember/service";
-import { tracked } from "@glimmer/tracking";
+import {inject as service} from "@ember/service";
+import {tracked} from "@glimmer/tracking";
 import BaseFormComponent from "./base-form-component";
-import { isPresent } from "@ember/utils";
+import {isPresent} from "@ember/utils";
 
 export default class AccountForm extends BaseFormComponent {
   @service store;
@@ -13,7 +13,6 @@ export default class AccountForm extends BaseFormComponent {
   @service navService;
 
   @tracked selectedTeam;
-  @tracked selectedFolder;
   @tracked assignableTeams;
   @tracked availableFolders;
 
@@ -31,7 +30,9 @@ export default class AccountForm extends BaseFormComponent {
       AccountValidations
     );
 
-    this.presetTeamAndFolder()
+    if (this.isNewRecord) {
+      this.presetTeamAndFolder()
+    }
 
     if (this.isNewRecord && isPresent(this.args.folder)) {
       this.changeset.folder = this.args.folder;
@@ -50,13 +51,8 @@ export default class AccountForm extends BaseFormComponent {
     let selectedTeam = this.navService.selectedTeam;
     let selectedFolder = this.navService.selectedFolder;
 
-    if ((selectedTeam !== undefined) && this.isNewRecord){
-      this.selectedTeam = selectedTeam
-    }
-
-    if ((selectedFolder !== undefined) && this.isNewRecord) {
-      this.changeset.folder = selectedFolder
-    }
+    this.selectedTeam = selectedTeam
+    this.changeset.folder = selectedFolder
   }
 
   @action
@@ -85,7 +81,7 @@ export default class AccountForm extends BaseFormComponent {
 
     if (isPresent(selectedTeam)) {
       this.store
-        .query("folder", { teamId: this.selectedTeam.id })
+        .query("folder", {teamId: this.selectedTeam.id})
         .then(folders => {
           this.availableFolders = folders;
           this.setFolder(null);
@@ -97,7 +93,6 @@ export default class AccountForm extends BaseFormComponent {
 
   @action
   setFolder(folder) {
-    this.selectedFolder = folder;
     this.changeset.folder = folder;
   }
 
