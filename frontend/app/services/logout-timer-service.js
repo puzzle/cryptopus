@@ -4,7 +4,7 @@ import { tracked } from "@glimmer/tracking";
 export default class LogoutTimerService extends Service {
   @tracked timeToLogoff;
 
-  AUTOLOGOFF_TIME = 298
+  AUTOLOGOFF_TIME = 8
 
   logoutTimer = new Timer();
 
@@ -39,7 +39,7 @@ export default class LogoutTimerService extends Service {
       headers: {
         "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
       }
-    }).then(() => window.location.replace('/session/new'));
+    }).then(console.log('Session deleted'));
     /* eslint-enable no-undef  */
   }
 
