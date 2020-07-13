@@ -43,6 +43,7 @@ ch_be:
   close: Schliesse
   user: Benutzer
   select_team: Wähl bitte es team us oder benutz d suechi
+  role: Rollä
   api-user:
     none: Du hesch kei Api-Benutzer. Hol dr einä
   time:
@@ -52,28 +53,28 @@ ch_be:
       short: "%d. %B, %H:%M"
   date:
     month_names:
-    -
-    - Januar
-    - Februar
-    - März
-    - April
-    - Mai
-    - Juni
-    - Juli
-    - August
-    - Septämber
-    - Oktober
-    - Novämber
-    - Dezämber
+      -
+      - Januar
+      - Februar
+      - März
+      - April
+      - Mai
+      - Juni
+      - Juli
+      - August
+      - Septämber
+      - Oktober
+      - Novämber
+      - Dezämber
 
     day_names:
-    - Sunntig
-    - Mäntig
-    - Dsischtig
-    - Mittwuch
-    - Donnstig
-    - Fritig
-    - Samstig
+      - Sunntig
+      - Mäntig
+      - Dsischtig
+      - Mittwuch
+      - Donnstig
+      - Fritig
+      - Samstig
 
   i18n:
     language:
@@ -310,6 +311,10 @@ ch_be:
     api:
       admin:
         users:
+          update:
+            user: "Aktualisierte Benutzer isch itz ä Benutzer"
+            conf_admin: "Aktualisierte Benutzer isch itz ä conf-admin"
+            admin: "Aktualisierte Benutzer isch itz ä admin"
           toggle:
             empowered: "%{username} het ab iz Admin-Rächt"
             disempowered: "Am Benutzer %{username} si d Admin-Rächt entzoge worde"
@@ -419,7 +424,7 @@ ch_be:
     deleteWithTeams: "Lösch aui Teams i dene %{username} ds letschte Teammitglied isch"
 
 
-#Validation Errors
+  #Validation Errors
   activerecord:
     attributes:
       user:

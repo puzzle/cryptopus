@@ -44,6 +44,7 @@ en:
   save: Save
   close: Close
   select_team: Please select a team or use the search
+  role: Role
 
   i18n:
     language:
@@ -288,9 +289,9 @@ en:
       admin:
         users:
           update:
-            user: "%{username} is now a user"
-            conf_admin: "%{username} is now an conf-admin"
-            admin: "%{username} is now an admin"
+            user: "Updated User is now a user"
+            conf_admin: "Updated User is now an conf-admin"
+            admin: "Updated User is now an admin"
           destroy:
             own_user: "You can't delete yourself"
             success: "Deleted user %{username}"

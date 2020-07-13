@@ -45,6 +45,7 @@ de:
   save: Speichern
   close: Schliessen
   select_team: Wählen Sie bitte ein Team aus oder nutzen Sie die Suche
+  role: Rolle
 
   i18n:
     language:
@@ -291,6 +292,10 @@ de:
     api:
       admin:
         users:
+          update:
+            user: "Aktualisierter Benutzer ist jetzt ein Benutzer"
+            conf_admin: "Aktualisierter Benutzer ist jetzt ein conf-admin"
+            admin: "Aktualisierter Benutzer ist jetzt ein admin"
           toggle:
             empowered: "%{username} hat nun Admin-Rechte"
             disempowered: "Dem Benutzer %{username} wurden die Admin-Rechte entzogen"
@@ -431,7 +436,7 @@ de:
     deleteWithTeams: "Lösche alle Teams in denen %{username} der letze Team Member ist"
 
 
-#Validation Errors
+  #Validation Errors
   activerecord:
     attributes:
       user:

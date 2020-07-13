@@ -46,6 +46,7 @@ fr:
   save: Sauvegarder
   close: fermer
   select_team: Veuillez sélectionner une équipe ou utiliser la recherche
+  role: Rôle
 
   i18n:
     language:
@@ -285,6 +286,10 @@ fr:
     api:
       admin:
         users:
+          update:
+            user: "L'utilisateur mis à jour est maintenant un utilisateur"
+            conf_admin: "L'utilisateur mis à jour est maintenant un conf-admin"
+            admin: "L'utilisateur mis à jour est maintenant un admin"
           toggle:
             empowerd: L'usutilisateur a reçu les droits d administrateur
             disempowerd: L'utilisateur a perdu les droits d'administrateur
