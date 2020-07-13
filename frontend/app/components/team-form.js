@@ -8,6 +8,7 @@ import BaseFormComponent from "./base-form-component";
 export default class AccountForm extends BaseFormComponent {
   @service store;
   @service router;
+  @service navService;
 
   TeamValidations = TeamValidations;
 
@@ -40,8 +41,9 @@ export default class AccountForm extends BaseFormComponent {
   handleSubmitSuccess(savedRecords) {
     this.abort();
     if (this.isNewRecord) {
-      let team = savedRecords[0].id;
-      this.router.transitionTo("teams.show", team);
+      let team = savedRecords[0];
+      this.navService.availableTeams.pushObject(team);
+      this.router.transitionTo("teams.show", team.id);
     }
   }
 }

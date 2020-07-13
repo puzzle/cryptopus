@@ -50,3 +50,15 @@
   overflow-y: auto;
   height: 765px;
 }
+
+.side-nav-bar-teams-list .list-group-item:hover {
+  cursor: pointer;
+}
+
+.side-nav-bar-teams-list .list-group-item.bg-blue-one:hover {
+  background-color: #3b7bbe !important;
+}
+
+.side-nav-bar-teams-list .list-group > .list-group-item.bg-blue-three:hover {
+  background-color: #1e5a96 !important;
+}

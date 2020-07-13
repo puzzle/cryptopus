@@ -21,14 +21,14 @@
           </BsButtonGroup>
         </div>
 
-        {{#if this.teams}}
+        {{#if this.navService.availableTeams}}
           <div class="side-nav-bar-teams-list">
-            {{#each this.teams as |team|}}
+            {{#each this.navService.sortedTeams as |team|}}
               <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
                 {{#if team.private}}
-                  <img class="icon icon-button" src="/ember/assets/images/members.svg" alt="">
-                {{else}}
                   <img class="icon icon-button" src="/ember/assets/images/encrypted_small.svg" alt="">
+                {{else}}
+                  <img class="icon icon-button" src="/ember/assets/images/members.svg" alt="">
                 {{/if}}
                 {{truncate team.name 13}}
                 {{#if (or (not (eq team this.navService.selectedTeam)) this.collapsed)}}

@@ -30,6 +30,6 @@ class TeamSerializer < ApplicationSerializer
   private
 
   def user_favourite_team_ids
-    @user_favourite_team_ids ||= current_user.user_favourite_teams.pluck(:id)
+    @user_favourite_team_ids ||= current_user.user_favourite_teams.pluck(:team_id)
   end
 end

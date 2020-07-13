@@ -7,7 +7,18 @@ export default class NavService extends Service {
   @tracked selectedFolder = null;
   @tracked searchQuery = null;
 
+  @tracked isShowingFavourites;
+  @tracked availableTeams = [];
+
   @service store;
+
+  get sortedTeams() {
+    return this.availableTeams.toArray().sort((a, b) => {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    });
+  }
 
   clear() {
     this.selectedTeam = null;
