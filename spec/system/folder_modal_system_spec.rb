@@ -55,7 +55,7 @@ describe 'FolderModal', type: :system, js: true do
     expect_teams_page_with(folder_attrs, team)
 
     # Edit Folder
-    visit("/teams?team_id=#{folder.team_id}&folder_id=#{folder.id}")
+    visit("/teams/#{folder.team_id}/folders/#{folder.id}")
     all('img.folder-edit-icon')[0].click
 
     expect(find('.modal-content')).to be_present
@@ -101,8 +101,8 @@ describe 'FolderModal', type: :system, js: true do
 
   def expect_teams_page_with(folder_attrs, team)
     expect(page).to have_text(team.name)
-    expect(page).to have_text(folder_attrs[:foldername])
-    expect(page).to have_text(folder_attrs[:description])
+    expect(page).to have_css('h4', visible: false, text: folder_attrs[:foldername])
+    expect(page).to have_css('p', visible: false, text: folder_attrs[:description])
   end
 
   def expect_filled_fields_in_modal_with(folder_attrs)

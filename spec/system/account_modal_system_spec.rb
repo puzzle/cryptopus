@@ -83,10 +83,10 @@ describe 'AccountModal', type: :system, js: true do
       find('span[role="button"]').click
       expect(page).to have_text('Are you sure?')
       find('button', text: 'Delete').click
-      visit("/teams?folder_id=#{folder.id}&team_id=#{team.id}")
+      visit("/teams/#{team.id}/folders/#{folder.id}")
 
       expect(page).to have_text(team.name)
-      expect(page).to have_text(account.accountname)
+      expect(page).to have_css('h5', visible: false, text: account.accountname)
     end.to change { Account.count }.by(-1)
 
     logout
