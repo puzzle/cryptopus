@@ -30,7 +30,7 @@ export default class FolderForm extends BaseFormComponent {
       FolderValidations
     );
 
-    this.presetTeam()
+    if (this.isNewRecord) this.selectedTeam = this.navService.selectedTeam
 
     if (this.isNewRecord && isPresent(this.args.team)) {
       this.changeset.team = this.args.team;
@@ -44,14 +44,6 @@ export default class FolderForm extends BaseFormComponent {
         );
       }
     });
-  }
-
-  presetTeam() {
-    let selectedTeam = this.navService.selectedTeam;
-
-    if ((selectedTeam !== undefined) && this.isNewRecord){
-      this.selectedTeam = selectedTeam
-    }
   }
 
   @action
