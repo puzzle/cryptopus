@@ -32,7 +32,7 @@ describe 'AccountModal', type: :system, js: true do
     expect(page).to have_css('a.nav-link.d-inline', text: 'New Account')
     find('a.nav-link.d-inline', text: 'New Account').click
 
-    sleep(2)
+    expect(page).to have_text('New Account')
 
     expect(page).to have_selector('.modal-content')
     expect(page).to have_text('New Account')
@@ -53,7 +53,6 @@ describe 'AccountModal', type: :system, js: true do
 
     expect do
       click_button('Save', visible: false)
-      sleep(2)
       expect(page).to have_text(account_attrs[:accountname])
     end.to change { Account.count }.by 1
 
@@ -67,7 +66,7 @@ describe 'AccountModal', type: :system, js: true do
     expect(page).to have_link(id: 'edit_account_button')
     click_link(id: 'edit_account_button')
 
-    sleep(2)
+    expect(page).to have_text('Edit Account')
 
     expect(find('.modal.modal_account')).to be_present
     expect(page).to have_text('Edit Account')
@@ -82,11 +81,9 @@ describe 'AccountModal', type: :system, js: true do
     # Delete Account
     expect do
       find('span[role="button"]').click
-      sleep(2)
+      expect(page).to have_text('Are you sure?')
       find('button', text: 'Delete').click
-      sleep(2)
       visit("/teams?folder_id=#{folder.id}&team_id=#{team.id}")
-      sleep(2)
 
       expect(page).to have_text(team.name)
       expect(page).to have_text(account.accountname)

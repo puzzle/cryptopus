@@ -45,15 +45,12 @@ describe 'FolderModal', type: :system, js: true do
       find_all('ul.ember-power-select-options > li', visible: false)[0].click
 
       click_button('Save', visible: false)
-      sleep(3)
     end.to change { Folder.count }.by(1)
 
     folder = Folder.find_by(name: folder_attrs[:foldername])
     team = Team.find(folder.team_id)
 
     visit("/teams?team_id=#{folder.team_id}&folder_id=#{folder.id}")
-
-    sleep(2)
 
     expect_teams_page_with(folder_attrs, team)
 

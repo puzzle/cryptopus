@@ -33,7 +33,7 @@ describe 'FileEntryModal', type: :system, js: true do
     file_path = "#{Rails.root}/spec/fixtures/files/#{file_name}"
     expect do
       create_new_file_entry(file_desc, file_path)
-      sleep(2)
+      expect(page).to have_text(account.accountname)
     end.to change { FileEntry.count }.by(1)
 
     file_entry = FileEntry.find_by(filename: 'test_file.txt')
@@ -48,8 +48,6 @@ describe 'FileEntryModal', type: :system, js: true do
       create_new_file_entry(file_desc, file_path)
     end.to change { FileEntry.count }.by(0)
 
-    sleep(2)
-
     expect(page).to have_text('Filename is already taken')
     click_button('Close')
 
@@ -60,9 +58,7 @@ describe 'FileEntryModal', type: :system, js: true do
     expect(del_button).to be_present
 
     del_button.click
-    sleep(2)
     find('button', text: 'Delete').click
-    sleep(5)
     expect(all('tr').count).to eq(2)
   end
 
@@ -71,7 +67,8 @@ describe 'FileEntryModal', type: :system, js: true do
   def create_new_file_entry(description, file_path)
     new_file_entry_button = find('button.btn.btn-primary', text: 'Add Attachment', visible: false)
     new_file_entry_button.click
-    sleep(2)
+
+    expect(page).to have_text('Add new attachment to account')
 
     expect(find('.modal-content')).to be_present
     expect(page).to have_button('Upload')

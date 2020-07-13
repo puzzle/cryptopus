@@ -45,7 +45,6 @@ describe 'Teammember', type: :system, js: true do
       within(page.find('div.col')) do
         expect do
           all('a[role="button"]')[0].click
-          sleep(2)
         end.to change { Teammember.count }.by(-1)
       end
 
@@ -54,7 +53,6 @@ describe 'Teammember', type: :system, js: true do
         fill_in class: 'ember-power-select-typeahead-input', with: 'A'
         within('.ember-power-select-options') do
           find('li', match: :first).click
-          sleep(2)
         end
       end.to change { Teammember.count }.by(1)
 

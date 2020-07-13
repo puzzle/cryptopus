@@ -32,13 +32,12 @@ describe 'SideNavBar', type: :system, js: true do
       team1_link.click
       expect(team1_link).to have_xpath("//img[@alt='v']")
 
-      sleep(2)
       expect(uri).to eq "/teams?team_id=#{team1.id}"
       # TODO: check if page shows this team
 
-      team2_link.click
+      expect(page).to have_text(team2.name)
 
-      sleep(2)
+      team2_link.click
 
       folder2_link = find('a', text: 'folder2', visible: false)
 
