@@ -40,7 +40,16 @@ export default class TeamShowComponent extends Component {
       headers: {
         "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
       }
-    }).then(() => (this.args.team.favourised = !this.args.team.favourised));
+    }).then(() => {
+      this.args.team.favourised = !this.args.team.favourised;
+      if (this.navService.isShowingFavourites) {
+        if (this.args.team.favourised) {
+          this.navService.availableTeams.pushObject(this.args.team);
+        } else {
+          this.navService.availableTeams.removeObject(this.args.team);
+        }
+      }
+    });
     /* eslint-enable no-undef  */
   }
 }

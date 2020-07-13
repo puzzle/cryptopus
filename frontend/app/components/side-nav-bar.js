@@ -9,7 +9,6 @@ export default class SideNavBar extends Component {
   @service router;
   @service navService;
 
-  @tracked teams;
   @tracked collapsed;
   @tracked showsFavourites = false;
 
@@ -57,10 +56,11 @@ export default class SideNavBar extends Component {
   toggleFavourites(isShowing) {
     this.showsFavourites = isShowing;
     localStorage.setItem("showsFavourites", isShowing);
+    this.navService.isShowingFavourites = isShowing;
     this.store
       .query("team", {
         favourite: this.showsFavourites ? this.showsFavourites : undefined
       })
-      .then(res => (this.teams = res));
+      .then(res => (this.navService.availableTeams = res.toArray()));
   }
 }
