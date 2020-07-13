@@ -320,6 +320,11 @@ de:
       members:
         added: Mitglied wurde erfolgreich hinzugefügt
         removed: Mitglied wurde erfolgreich entfernt
+      errors: 
+        auth_failed: Authentifizierung fehlgeschlagen
+        user_not_logged_in: Benutzer ist nicht eingeloggt
+        invalid_request: Invalide Anfrage
+        record_not_found: Eintrag nicht gefunden
     wizard:
       fill_password_fields: Bitte füllen Sie alle Felder aus
       paswords_do_not_match: Die Passwörter stimmen nicht überein

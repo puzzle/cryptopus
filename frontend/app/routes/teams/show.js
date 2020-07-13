@@ -3,6 +3,8 @@ import { inject as service } from "@ember/service";
 
 export default class TeamsShowRoute extends Route {
   @service navService;
+  @service notify;
+  @service intl;
 
   templateName = "teams/index";
 
