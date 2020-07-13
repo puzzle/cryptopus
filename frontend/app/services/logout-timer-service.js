@@ -4,13 +4,16 @@ import { tracked } from "@glimmer/tracking";
 export default class LogoutTimerService extends Service {
   @tracked timeToLogoff;
 
-  AUTOLOGOFF_TIME = 8
-
+  AUTOLOGOFF_TIME = 298
+  /* eslint-disable no-undef  */
   logoutTimer = new Timer();
+  /* eslint-enable no-undef  */
 
   reset() {
     if (this.logoutTimer.isRunning()){
+      /* eslint-disable no-undef  */
       this.logoutTimer = new Timer();
+      /* eslint-enable no-undef  */
     }
   }
 
@@ -22,7 +25,7 @@ export default class LogoutTimerService extends Service {
     this.reset()
     this.logoutTimer.start()
 
-    this.logoutTimer.addEventListener('secondsUpdated', e => {
+    this.logoutTimer.addEventListener('secondsUpdated', () => {
       let passedTime = this.logoutTimer.getTotalTimeValues().seconds
       if (passedTime === this.AUTOLOGOFF_TIME) {
         this.resetSession()
@@ -39,7 +42,7 @@ export default class LogoutTimerService extends Service {
       headers: {
         "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
       }
-    }).then(console.log('Session deleted'));
+    });
     /* eslint-enable no-undef  */
   }
 
