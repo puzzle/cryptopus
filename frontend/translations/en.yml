@@ -319,6 +319,11 @@ en:
       members:
         removed: Member was successfully removed
         added: Member was successfully added
+      errors:
+        auth_failed: Authentication failed
+        user_not_logged_in: User not logged in
+        invalid_request: Invalid Request
+        record_not_found: Record not found
     wizard:
       fill_password_fields: Please provide an initial password
       paswords_do_not_match: Passwords do not match

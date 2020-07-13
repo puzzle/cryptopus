@@ -314,6 +314,11 @@ ch_be:
       members:
         added: Mitglied isch erfougrich hinzuegfüegt worde
         removed: Mitglied isch erfougrich entfernt worde
+      errors: 
+        auth_failed: Authentifizierig fäugschlage
+        user_not_logged_in: Benutzer isch nid igloggt
+        invalid_request: Invalidi Ahfrag
+        record_not_found: Ihtrag isch nid gfunde worde
     wizard:
       fill_password_fields: Bitte füu aui Fäuder us
       paswords_do_not_match: D Passwörter stimme nid überi
