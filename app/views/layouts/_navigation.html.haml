@@ -8,8 +8,9 @@
     .container-fluid
 
       .navbar-header
+        %a.font{href: "/teams", class: "font back-link no-hover"} Leave Admin
         = link_to(image_pack_tag("cryptopussy_without_text.svg", class: 'logo-icon'), root_path, class:'navbar-logo')
-        = link_to('Cryptopus', root_path, class: 'navbar-brand')
+        = link_to('Cryptopus Admin', root_path, class: 'navbar-title font no-hover')
         %button.navbar-toggle{"data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
           %span.sr-only Toggle navigation
           %span.icon-bar
@@ -18,8 +19,6 @@
 
       #bs-example-navbar-collapse-1.collapse.navbar-collapse
         %ul.nav.navbar-nav.navbar-right.ml-auto
-          %li
-            %a.font{href: "/teams"} Back
           %li.dropdown
             %a.dropdown-toggle.font.helper-img.pr-0{"data-toggle": "dropdown", href: "#"}
               = t(:settings)
@@ -33,8 +32,9 @@
                 %a= nav_link t('teams.title'), admin_teams_path
                 %a= nav_link t('admin.maintenance_tasks.index.title'), admin_maintenance_tasks_path
           %li
-            = link_to(current_user.username, profile_path, method: :get, class: 'font link p-8')
-          %img.a-no-p= nav_link image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path, :get
+            = link_to(current_user.username, profile_path, method: :get, class: 'font link username')
+          %li
+            = link_to(image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path, class: "reduced-padding")
 
   - unless @breadcrumbs.nil?
     .bread-container

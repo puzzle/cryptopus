@@ -47,8 +47,23 @@
   margin-top: 4px !important;
 }
 
-.a-no-p > a{
-  padding-right: 0 !important;
+.reduced-padding {
+  padding: 15px 15px 15px 0 !important;
+}
+
+.back-link {
+  min-width: 120px;
+  margin-right: 100px;
+  padding: 15px 0px 15px 0 !important;
+}
+
+.username {
+  padding: 15px 15px 8px 15px !important;
+}
+
+.no-hover:hover {
+  text-decoration: none;
+  font-weight: normal;
 }
 
 .admin-settings-icon {
@@ -65,14 +80,10 @@
   padding-right: 0 !important;
 }
 
-.p-8 > a {
-  padding: 15px 8px 15px 8px !important;
-}
-
 .font {
   font-size: 16px !important;
   line-height: 1.5 !important;
-  color: rgba(255, 255, 255, 0.5) !important;
+  color: white !important;
 }
 
 .dropdown-arrow {
@@ -108,17 +119,22 @@
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
   background-color: transparent !important;
-  color: rgba(255, 255, 255, 0.5) !important;
+  color: white !important;
 }
 
 .navbar {
-  background: #2988bc !important;
+  background: #106fac !important;
   border-radius: 0px !important;
   border: none !important;
 }
 
-.navbar-brand {
+.navbar-title {
   color: white !important;
+  font-size: 18px;
+  line-height: 20px;
+  min-width: 200px;
+  height: 50px;
+  padding: 15px;
 }
 
 .h-56 {
