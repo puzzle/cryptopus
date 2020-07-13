@@ -237,7 +237,7 @@ fr:
     index:
       title: "Vous êtes membre des équipes suivantes:"
       team: Équipe
-      no_content: Rien n'a été trouvé
+      no_content: Aucune donnée trouvée
     edit:
       title: Modifier l'équipe
     new:

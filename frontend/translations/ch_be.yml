@@ -272,7 +272,7 @@ ch_be:
     index:
       title: 'Du bisch es Mitglied vo de fougende Teams:'
       team: Team
-      no_content: Nichts passendes zur Suche gefunden
+      no_content: Keni Iträg gfundä
     new:
       title: Nöis Team ersteue
     description:
