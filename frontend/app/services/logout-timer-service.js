@@ -19,27 +19,35 @@ export default class LogoutTimerService extends Service {
   }
 
   start() {
+    this.reset()
     this.logoutTimer.start()
 
     this.logoutTimer.addEventListener('secondsUpdated', e => {
       let passedTime = this.logoutTimer.getTotalTimeValues().seconds
-      this.calculateTimeToLogoff(passedTime)
+      if (passedTime === this.AUTOLOGOFF_TIME) {
+        this.resetSession()
+      } else {
+        this.calculateTimeToLogoff(passedTime)
+      }
     })
   }
 
-  redirectToNewSession() {
-    window.location.replace('/session/new');
+  resetSession() {
+    /* eslint-disable no-undef  */
+    fetch(`/session`, {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
+      }
+    }).then(() => window.location.replace('/session/new'));
+    /* eslint-enable no-undef  */
   }
 
   calculateTimeToLogoff(passedTime){
-    if (passedTime === this.AUTOLOGOFF_TIME) {
-      this.redirectToNewSession()
-    } else {
       let remainingSeconds = this.AUTOLOGOFF_TIME - passedTime;
       let remainingMinutes = Math.floor(remainingSeconds / 60);
       let remainderSecondsOfMinutes = remainingSeconds % 60;
 
       this.timeToLogoff = remainingMinutes + "m " + remainderSecondsOfMinutes + "s";
-    }
   }
 }

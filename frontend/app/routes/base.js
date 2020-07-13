@@ -7,8 +7,6 @@ export default class BaseRoute extends Route {
 
   @action
   didTransition() {
-    this.logoutTimerService.reset()
-
     this.logoutTimerService.start()
     return true; // Bubble the didTransition event
   }
