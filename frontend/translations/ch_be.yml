@@ -186,6 +186,7 @@ ch_be:
         num_folders: Ahzahl Ordner
         num_accounts: Ahzahl Accounts
         members: Mitglieder
+        no_content: Nüd passends zur suechi gfunde
 
   folders:
     title: Ordner
@@ -271,6 +272,7 @@ ch_be:
     index:
       title: 'Du bisch es Mitglied vo de fougende Teams:'
       team: Team
+      no_content: Keni Iträg gfundä
     new:
       title: Nöis Team ersteue
     description:

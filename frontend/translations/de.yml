@@ -251,6 +251,7 @@ de:
     index:
       title: 'Sie sind Mitglied der folgenden Teams:'
       team: Team
+      no_content: Keine Einträge gefunden
     new:
       title: Neues Team erstellen
     edit:

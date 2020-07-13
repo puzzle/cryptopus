@@ -28,18 +28,18 @@ describe 'AccountModal', type: :system, js: true do
   it 'creates, edits and deletes an account' do
     login_as_user(:bob)
 
-    visit '/teams'
-
     # Create Account
-    expect(page).to have_link('New Account')
-    click_link 'New Account'
+    expect(page).to have_css('a.nav-link.d-inline', text: 'New Account')
+    find('a.nav-link.d-inline', text: 'New Account').click
+
+    expect(page).to have_text('New Account')
 
     expect(page).to have_selector('.modal-content')
     expect(page).to have_text('New Account')
     expect(page).to have_content('Save')
 
     within('.modal-body.ember-view') do
-      expect(page).to have_selector('input#cleartext-password')
+      expect(page).to have_selector("input[name='cleartextPassword']", visible: false)
     end
 
     check_password_meter('password', '25')
@@ -49,10 +49,12 @@ describe 'AccountModal', type: :system, js: true do
     check_password_meter('cryptopus1,0', '100')
     check_password_meter('', '0')
 
+    fill_modal(account_attrs)
+
     expect do
-      fill_modal(account_attrs)
       click_button('Save', visible: false)
-    end.to change { Account.count }.by(1)
+      expect(page).to have_text(account_attrs[:accountname])
+    end.to change { Account.count }.by 1
 
     # Edit Account
     account = Account.find_by(accountname: account_attrs[:accountname])
@@ -64,30 +66,27 @@ describe 'AccountModal', type: :system, js: true do
     expect(page).to have_link(id: 'edit_account_button')
     click_link(id: 'edit_account_button')
 
+    expect(page).to have_text('Edit Account')
+
     expect(find('.modal.modal_account')).to be_present
     expect(page).to have_text('Edit Account')
     expect(page).to have_button('Save', visible: false)
 
     fill_modal(updated_attrs)
-    asdf
     expect_filled_fields_in_modal_with(updated_attrs)
     click_button('Save', visible: false)
 
     expect_account_page_with(updated_attrs)
 
     # Delete Account
-    find(:xpath, "//a[@href='/teams/#{folder.team_id}/folders/#{account.folder_id}']").click
-    expect(find('h1')).to have_text("Accounts in folder #{folder.name} for team #{team.name}")
-
     expect do
-      del_button = find(:xpath, "//a[@href='/accounts/#{account.id}' and @data-method='delete']")
-      expect(del_button).to be_present
+      find('span[role="button"]').click
+      expect(page).to have_text('Are you sure?')
+      find('button', text: 'Delete').click
+      visit("/teams?folder_id=#{folder.id}&team_id=#{team.id}")
 
-      accept_prompt(wait: 3) do
-        del_button.click
-      end
-
-      expect(find('h1')).to have_text("Accounts in folder #{folder.name} for team #{team.name}")
+      expect(page).to have_text(team.name)
+      expect(page).to have_text(account.accountname)
     end.to change { Account.count }.by(-1)
 
     logout
@@ -96,41 +95,39 @@ describe 'AccountModal', type: :system, js: true do
   private
 
   def fill_modal(acc_attrs)
-    within('div.modal_account') do
-      find('input#accountname', visible: false).set('').set(acc_attrs[:accountname])
-      find('input#username', visible: false).set('').set acc_attrs[:username]
-      find('input#cleartext-password', visible: false).set('').set acc_attrs[:password]
-      find('textarea#description', visible: false).set('').set acc_attrs[:description]
+    within('form.ember-view[role="form"]', visible: false) do
+      find("input[name='cleartextPassword']", visible: false).set acc_attrs[:password]
+      find("input[name='accountname']", visible: false).set(acc_attrs[:accountname])
+      find("input[name='cleartextUsername']", visible: false).set acc_attrs[:username]
+      find('textarea.form-control.ember-view', visible: false).set acc_attrs[:description]
 
-      # rubocop:disable Layout/LineLength
-      find('#team-power-select').find('div.ember-view.ember-basic-dropdown-trigger.ember-basic-dropdown-trigger--in-place.ember-power-select-trigger', visible: false).click # Open trigger
-      first('ul.ember-power-select-options > li').click
-
-      find('#folder-power-select').find('div.ember-view.ember-basic-dropdown-trigger.ember-basic-dropdown-trigger--in-place.ember-power-select-trigger', visible: false).click # Open trigger
+      find('#team-power-select', visible: false).find('div.ember-power-select-trigger',
+                                                      visible: false).click
       first('ul.ember-power-select-options > li', visible: false).click
-      # rubocop:enable Layout/LineLength
+
+      find('#folder-power-select', visible: false).find('div.ember-power-select-trigger',
+                                                        visible: false).click
+      first('ul.ember-power-select-options > li', visible: false).click
     end
   end
 
   def expect_account_page_with(acc_attrs)
-    expect(first('h1')).to have_text("Account: #{acc_attrs[:accountname]}")
-    expect(find('#cleartext_username').value).to eq(acc_attrs[:username])
-    find('a.show-password-link', visible: false).click
-    expect(find('#cleartext_password', visible: false).value).to eq(acc_attrs[:password])
+    expect(page).to have_text("Account: #{acc_attrs[:accountname]}")
+    expect(find('#cleartext_username', visible: false).value).to eq(acc_attrs[:username])
     expect(page).to have_text(acc_attrs[:description])
   end
 
   def expect_filled_fields_in_modal_with(acc_attrs)
-    expect(find_field('accountname').value).to eq(acc_attrs[:accountname])
-    expect(find("input[name='username']",
+    expect(find("input[name='accountname']",
+                visible: false).value).to eq(acc_attrs[:accountname])
+    expect(find("input[name='cleartextUsername']",
                 visible: false).value).to eq(acc_attrs[:username])
-    expect(find("input[name='cleartext-password']",
-                visible: false).value).to eq(acc_attrs[:password])
-    expect(find('.vertical-resize', visible: false).value).to eq(acc_attrs[:description])
+    expect(find('textarea.form-control.ember-view',
+                visible: false).value).to eq(acc_attrs[:description])
   end
 
   def check_password_meter(password, expected_score)
-    find("input[name='cleartext-password']", visible: false).set password
+    find("input[name='cleartextPassword']", visible: false).set password
     expect(find("div[role='progressbar']", visible: false)['aria-valuenow']).to eq(expected_score)
   end
 

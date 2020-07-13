@@ -21,36 +21,31 @@ describe 'SideNavBar', type: :system, js: true do
     expect(sidebar).to have_text('team2')
 
     within(sidebar) do
-      first_team_entry = all('a')[1]
-      second_team_entry = all('a')[2]
+      team1_link = find('a', text: 'team1', visible: false)
+      team2_link = find('a', text: 'team2', visible: false)
 
-      expect(first_team_entry).to have_xpath("//img[@alt='<']")
-      first_team_entry.click
+      team1 = teams(:team1)
+      team2 = teams(:team2)
+      folder2 = folders(:folder2)
 
-      expect(sidebar).to have_text('folder1')
-      expect(first_team_entry).to have_xpath("//img[@alt='v']")
+      expect(team1_link).to have_xpath("//img[@alt='<']")
+      team1_link.click
+      expect(team1_link).to have_xpath("//img[@alt='v']")
 
-      expect(current_path).to eq '/teams?team_id=1'
+      expect(uri).to eq "/teams?team_id=#{team1.id}"
       # TODO: check if page shows this team
 
-      first_team_entry.click
-      expect(first_team_entry).to have_xpath("//img[@alt='<']")
-      expect(sidebar).to_not have_text('folder1')
+      expect(page).to have_text(team2.name)
 
-      second_team_entry.click
-      expect(sidebar).to_not have_text('folder1')
-      expect(sidebar).to have_text('folder2')
+      team2_link.click
 
-      folder_entry = first_team_entryall('a')[1]
-      folder_entry.click
+      folder2_link = find('a', text: 'folder2', visible: false)
 
-      expect(current_path).to eq '#/teams?folder_id=1&team_id=2'
+      folder2_link.click
+
+
+      expect(uri).to eq "/teams?folder_id=#{folder2.id}&team_id=#{team2.id}"
       # TODO: check if page expanded correct folder
-
-      start_page = all('a')[0]
-      expect(start_page).to have_text('All Teams or something')
-      start_page.click
-      # TODO: what to expect on start page?
 
     end
 

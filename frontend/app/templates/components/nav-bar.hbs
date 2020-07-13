@@ -14,14 +14,10 @@
   <div class="container pl-0 pr-0">
     <navbar.content>
       <div class="form-inline">
-        {{#if this.isStartpage}}
-          <Input @class="form-control mr-sm-2" @type="search" placeholder={{t "search.index.type_to_search"}} {{autofocus}} />
-        {{else}}
-          <Input @class="form-control mr-sm-2" @type="search" placeholder={{t "search.index.type_to_search"}}/>
-        {{/if}}
+        <Input @class="form-control mr-sm-2" @type="search" @id="search" @value={{ this.navService.searchQuery }} placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}  @autofocus={{this.isStartpage}}/>
       </div>
-      <navbar.nav @class="ml-auto" as |nav|>
-        <nav.dropdown as |dd|>
+      <navbar.nav @class="ml-auto">
+        <BsDropdown as |dd|>
           <div class="btn-group">
             <a class="nav-link d-inline" role="button" {{on "click" this.toggleAccountCreating}}>{{t "accounts.new.title"}}</a>
             <dd.toggle class="dropdown-toggle-hided">
@@ -36,15 +32,15 @@
               <a role="button" class="dropdown-item" {{on "click" this.toggleTeamCreating}}>{{t "teams.new.title"}}</a>
             </ddm.item>
           </dd.menu>
-        </nav.dropdown>
+        </BsDropdown>
         <div class="nav-item">
           <a class="nav-link" href="/profile">
             Profile
           </a>
         </div>
         <div class="nav-item">
-          <a class="nav-link" href="/session/destroy">
-            <img class="navbar-icon" src="ember/assets/icons/sign_out.svg" alt="Logout">
+          <a href="/session/destroy">
+            <span class="helper"></span><img class="icon icon-button" src="/ember/assets/icons/sign_out.svg" alt="Logout">
           </a>
         </div>
       </navbar.nav>

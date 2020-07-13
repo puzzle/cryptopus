@@ -5,12 +5,14 @@ import { inject as service } from "@ember/service";
 export default class NavService extends Service {
   @tracked selectedTeam = null;
   @tracked selectedFolder = null;
+  @tracked searchQuery = null;
 
   @service store;
 
   clear() {
     this.selectedTeam = null;
     this.selectedFolder = null;
+    this.searchQuery = null;
   }
 
   setSelectedTeamById(team_id) {

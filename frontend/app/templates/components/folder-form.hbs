@@ -4,41 +4,44 @@
   </Modal.header>
   <Modal.body>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label name="name">{{t "folders.name"}}</label>
-              <div>
-                <Input class="form-control" @value={{this.changeset.name}} @name="name" />
-                <ValidationErrorsList @errors={{this.changeset.error.name.validation}}/>
+      <BsForm @model={{this.changeset}} as |form|>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <form.group class="col-md-12">
+                <form.element @property="name" @label={{t "folders.name"}}
+                              @name="foldername" class={{if this.changeset.error.name.validation
+                                                             "invalid-input-name"}}
+                              id="foldername" @tabindex="1"
+                              @customError={{this.changeset.error.name.validation}} />
+              </form.group>
+            </div>
+          </div>
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-5">
+            <div class="row">
+              <div class="form-group col-md-12" id="team-power-select">
+                <form.element @label={{t "team"}} @controlType="power-select"
+                              @placeholder={{t "accounts.edit.team_placeholder"}}
+                              @options={{this.assignableTeams}} @value={{this.selectedTeam}} as |el|>
+                  <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
+                    {{team.name}}
+                  </el.control>
+                </form.element>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-1">
+        <div class="row">
+          <form.group class="col-md-12">
+            <form.element @label={{t "description"}} @property="description" @controlType="textarea"
+                            id="description" class="{{if
+                      this.changeset.error.description.validation "invalid-input"}} vertical-resize"
+                            @tabindex="7" @customError={{this.changeset.error.description.validation}}/>
+          </form.group>
         </div>
-        <div class="col-md-5">
-          <div class="row">
-            <div class="col-md-12" id="team-power-select">
-              <label name="team">{{t "team"}}</label>
-              <PowerSelect class="mb-1" @disabled={{false}} @options={{this.assignableTeams}} @selected={{this.selectedTeam}} @onChange={{this.setSelectedTeam}} @renderInPlace={{true}} @allowClear={{true}} @placeholder={{t "accounts.edit.team_placeholder"}} @searchEnabled={{true}} @searchField={{"name"}} as |team|>
-                {{team.name}}
-              </PowerSelect>
-              <ValidationErrorsList @errors={{this.changeset.error.team.validation}}/>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-md-12">
-          <label name="description">{{t "description"}}</label>
-          <div>
-            <Textarea class="form-control vertical-resize" @value={{this.changeset.description}} @name="description"/>
-            <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
-          </div>
-        </div>
-      </div>
+      </BsForm>
     </div>
   </Modal.body>
   <Modal.footer>

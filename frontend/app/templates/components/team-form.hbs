@@ -4,41 +4,43 @@
   </Modal.header>
   <Modal.body>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label name="name">{{t "helpers.label.team.name"}}</label>
-            <div>
-              <Input class={{concat "form-control" (if this.changeset.error.name.validation " invalid-input")}} @value={{this.changeset.name}} @name="name" />
-              <ValidationErrorsList @errors={{this.changeset.error.name.validation}}/>
+      <BsForm @model={{this.changeset}} as |form|>
+        <div class="row">
+          <div class="col-md-12">
+            <form.group>
+              <form.element @property="name" @label={{t "helpers.label.team.name"}}
+                            @name="teamname" class={{if this.changeset.error.name.validation
+                                                           "invalid-input-name"}}
+                            id="teamname" @tabindex="1"
+                            @customError={{this.changeset.error.name.validation}} />
+            </form.group>
+            <div class="checkbox">
+              <div class="d-flex justify-content-start">
+                <div class="align-self-center">
+                  <label for="checkbox-private" name="private">{{t "teams.form.private"}}</label>
+                </div>
+                <div class="align-self-center mb-2 ml-2">
+                  <img src="/ember/assets/images/info.svg" alt="info" class="info-icon icon-button">
+                </div>
+                <div class="align-self-center mb-2 ml-2">
+                  <Input id="checkbox-private" class="" @type="checkbox" @checked={{this.changeset.private}} @name="private"
+                     disabled={{not this.isNewRecord }}/>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="checkbox">
-            <div class="d-flex justify-content-start">
-              <div class="align-self-center">
-                <label for="checkbox-private" name="private">{{t "teams.form.private"}}</label>
-              </div>
-              <div class="align-self-center mb-2 ml-2">
-                <img src="/ember/assets/images/info.svg" alt="info" class="info-icon icon-button" >
-              </div>
-              <div class="align-self-center mb-2 ml-2">
-                <Input id="checkbox-private" class="" @type="checkbox" @checked={{this.changeset.private}} @name="private" disabled={{not this.isNewRecord }}/>
-              </div>
-            </div>
+          <div class="col-md-12">
+          </div>
+          <div class="col-md-12">
+            <form.group>
+              <form.element @label={{t "helpers.label.team.description"}} @property="description" @controlType="textarea"
+                            id="description" class="{{if
+                      this.changeset.error.description.validation "invalid-input"}} vertical-resize"
+                            @tabindex="7" @customError={{this.changeset.error.description.validation}}/>
+            </form.group>
           </div>
         </div>
-        <div class="col-md-12">
-        </div>
-        <div class="col-md-12">
-          <div class="form-group">
-            <label name="description">{{t "helpers.label.team.description"}}</label>
-            <div>
-              <Textarea class={{concat "form-control vertical-resize" (if this.changeset.error.description.validation " invalid-input")}} @value={{this.changeset.description}} @name="description"/>
-              <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
-            </div>
-          </div>
-        </div>
-      </div>
+      </BsForm>
     </div>
   </Modal.body>
   <Modal.footer>

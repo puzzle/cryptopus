@@ -2,6 +2,11 @@ $navbar-dark-brand-color: white;
 $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 
 @import "ember-bootstrap/bootstrap";
+@import "pod-styles";
+/*@import "secret_input";*/
+
+@import "ember-power-select/themes/bootstrap";
+
 @import "ember-power-select";
 
 /*@import "secret_input";*/
@@ -100,6 +105,48 @@ li a {
 
 .logo-icon {
   height: 40px;
+}
+
+.ml-5 {
+  margin-left: 5%;
+}
+
+/* Validation-errors */
+.validation-errors {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 90%;
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.invalid-input-name > input {
+  border: 1px solid red !important;
+}
+
+.invalid-input > textarea {
+  border: 1px solid red !important;
+}
+
+.invalid-input-ps > div:nth-of-type(1) {
+  border: 1px solid red !important;
+}
+
+.mt-32 {
+  margin-top: 32px;
+}
+
+.ml-15 {
+  margin-left: 15px;
+}
+
+.ember-power-select-trigger {
+  height: 38px;
+  line-height: 2.1;
+}
+
+.vertical-resize {
+  resize: vertical;
 }
 
 .icon-big-button {

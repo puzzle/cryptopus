@@ -242,6 +242,7 @@ en:
     index:
       title: "You are member of the following teams:"
       team: Team
+      no_content: No entries Found
     new:
       title: New Team
     edit:
