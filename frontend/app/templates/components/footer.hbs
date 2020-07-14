@@ -5,27 +5,20 @@
       |
       <a href="https://github.com/puzzle/cryptopus/wiki/User-manual" target="_blank" rel="noopener">{{t "help"}}</a>
       |
-      <a href="/changelog">Version 3.0</a>
+      <a href="/changelog">{{t "version"}} {{this.version}}</a>
     </div>
-    <div class="float-right">
-      <small>
-        {{t "auto_logout"}}
-        <span id="countdown">2m</span>
-      </small>
-    </div>
-    <div class="pull-right">
-      <form action="/session/locale" accept-charset="UTF-8" method="post">
-        <input name="utf8" type="hidden" value="✓">
-        <input type="hidden" name="authenticity_token" value="">
-        <select id="submit-action" name="new_locale">
-          <option value="en">English</option>
-          <option value="de">Deutsch</option>
-          <option value="fr">Français</option>
-          <option value="zh">英文</option>
-          <option value="ru">Русский</option>
-          <option selected="selected" value="ch_be">Bärndütsch</option>
-        </select>
-      </form>
+    <div class="float-right w-50 d-flex align-items-center justify-content-end">
+      <div class="col-sm-4 d-inline-block">
+        <PowerSelect @options={{this.availableLocales}} @selected={{this.selectedLocale}} @onChange={{this.setLocale}} @verticalPosition="above" @renderInPlace={{true}} as |locale|>
+          {{locale.name}}
+        </PowerSelect>
+      </div>
+      <div class="d-inline">
+        <small>
+          {{t "auto_logout"}}
+          <span id="countdown">2m</span>
+        </small>
+      </div>
     </div>
   </div>
 </div>

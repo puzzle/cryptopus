@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
     get 'env_settings', to: 'env_settings#index'
 
+    patch 'locale', to: 'locale#update'
+
     resources :accounts, except: [:new, :edit] do
       resources :file_entries, only: [:create, :index, :destroy, :show]
     end

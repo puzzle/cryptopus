@@ -7,6 +7,7 @@ module.exports = function(environment) {
     rootURL: "/",
     locationType: "auto",
     sentryDsn: "",
+    appVersion: undefined,
     currentUserId: undefined,
     EmberENV: {
       FEATURES: {

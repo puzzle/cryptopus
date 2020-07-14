@@ -1,6 +1,7 @@
 import Route from "@ember/routing/route";
 import { inject as service } from "@ember/service";
 import { action } from "@ember/object";
+import ENV from "../config/environment";
 
 export default class IndexRoute extends Route {
   @service notify;
@@ -8,10 +9,9 @@ export default class IndexRoute extends Route {
   @service store;
 
   beforeModel() {
-    /* eslint-disable no-undef */
-    let localeDropdown = $(".container form option[selected='selected']");
-    /* eslint-enable no-undef */
-    let selectedLocale = (localeDropdown[0] && localeDropdown[0].value) || "en";
+    let selectedLocale = this.intl.locales.includes(ENV.preferredLocale)
+      ? ENV.preferredLocale
+      : "en";
     this.intl.setLocale(selectedLocale);
   }
 

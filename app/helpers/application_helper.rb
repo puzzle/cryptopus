@@ -60,12 +60,16 @@ module ApplicationHelper
   end
 
   def version_info
-    build_info = File.file?('BUILD') ? File.read('BUILD') : ''
-    I18n.t('version') + " #{File.read('VERSION')} #{build_info}"
+    "#{I18n.t('version')} #{version_number}"
   end
 
   def version_link
     link_to(version_info, '/changelog')
+  end
+
+  def version_number
+    build_info = File.file?('BUILD') ? File.read('BUILD') : ''
+    "#{File.read('VERSION')} #{build_info}"
   end
 
   private
