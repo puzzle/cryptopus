@@ -2,8 +2,6 @@ import Service from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 
 export default class LogoutTimerService extends Service {
-  @service intl;
-
   @tracked timeToLogoff;
 
   AUTOLOGOFF_TIME = 298
@@ -40,12 +38,13 @@ export default class LogoutTimerService extends Service {
   resetSession() {
     /* eslint-disable no-undef  */
     fetch(`/session/destroy`, {
-      method: "DELETE",
+      method: "GET",
       headers: {
         "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
       }
     });
     /* eslint-enable no-undef  */
+    window.location.replace('/session/new')
   }
 
   calculateTimeToLogoff(passedTime){
