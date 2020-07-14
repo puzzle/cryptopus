@@ -107,8 +107,8 @@ class User::Human < User
     end
   end
 
-  def recrypt_private_key!(new_password, old_password)
-    return unauthorized unless user_authenticator(new_password).authenticate!
+  def recrypt_private_key!(new_password, old_password, cookies = nil)
+    return unauthorized unless user_authenticator(new_password, cookies).authenticate!
 
     begin
       plaintext_private_key = CryptUtils.decrypt_private_key(private_key, old_password)
@@ -205,7 +205,7 @@ class User::Human < User
     end
   end
 
-  def user_authenticator(password)
-    Authentication::UserAuthenticator.init(username: username, password: password)
+  def user_authenticator(password, cookies = nil)
+    Authentication::UserAuthenticator.init(username: username, password: password, cookies: cookies)
   end
 end
