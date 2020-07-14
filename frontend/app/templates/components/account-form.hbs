@@ -41,10 +41,9 @@
         </div>
         <div class="row">
           <div class="col-md-6">
-            <div class="col-sm-12">
+            <div class="col-sm-12 secret">
               <form.element @label={{t "password"}} @name="cleartextPassword" id="cleartext-password"
-                            class="secret mb-10"
-                            @property="cleartextPassword" @type="password" @tabindex="3" autocomplete="off"/>
+                            @property="cleartextPassword" @tabindex="3" autocomplete="off"/>
               <PasswordStrengthMeter class="col-9 pl-0" @password={{this.changeset.cleartextPassword}}/>
             </div>
           </div>
