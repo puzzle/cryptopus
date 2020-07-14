@@ -52,7 +52,9 @@ export default class AccountForm extends BaseFormComponent {
     let selectedFolder = this.navService.selectedFolder;
 
     this.selectedTeam = selectedTeam
-    this.changeset.folder = selectedFolder
+    if (!!selectedFolder){
+      this.changeset.folder = selectedFolder
+    }
   }
 
   @action
