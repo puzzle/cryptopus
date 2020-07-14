@@ -18,16 +18,16 @@ class Recrypt::SsoController < ApplicationController
   # POST recrypt/sso
   def create
     authorize :recryptSso
-    return redirect_to user_authenticator.keycloak_login unless Keycloak::Client.user_signed_in?
+    return redirect_to user_authenticator.keycloak_login unless Keycloak::Client.user_signed_in?(JSON.parse(cookies[:keycloak_token])['access_token'])
 
-    pk_secret_base = keycloak_client.find_or_create_pk_secret_base
-    recrypt_private_key(keycloak_client.user_pk_secret(secret: pk_secret_base))
+    pk_secret_base = keycloak_client.find_or_create_pk_secret_base(cookies)
+    recrypt_private_key(keycloak_client.user_pk_secret(secret: pk_secret_base, cookies: cookies))
   end
 
   private
 
   def recrypt_private_key(new_password)
-    if current_user.recrypt_private_key!(new_password, params[:old_password])
+    if current_user.recrypt_private_key!(new_password, params[:old_password], cookies)
       user_authenticator.user.update!(auth: 'keycloak', password: nil)
 
       reset_session_before_redirect
@@ -47,7 +47,8 @@ class Recrypt::SsoController < ApplicationController
   def user_authenticator
     Authentication::UserAuthenticator.init(
       username: current_user.username,
-      password: params[:new_password]
+      password: params[:new_password],
+      cookies: cookies
     )
   end
 
