@@ -6,6 +6,7 @@ import {inject as service} from "@ember/service";
 import {tracked} from "@glimmer/tracking";
 import BaseFormComponent from "./base-form-component";
 import {isPresent} from "@ember/utils";
+import { isEmpty } from '@ember/utils';
 
 export default class AccountForm extends BaseFormComponent {
   @service store;
@@ -52,7 +53,7 @@ export default class AccountForm extends BaseFormComponent {
     let selectedFolder = this.navService.selectedFolder;
 
     this.selectedTeam = selectedTeam
-    if (!!selectedFolder){
+    if (!isEmpty(selectedFolder)){
       this.changeset.folder = selectedFolder
     }
   }
