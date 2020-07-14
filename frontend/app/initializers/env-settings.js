@@ -9,6 +9,8 @@ export function initialize(/* application */) {
       success: function(envSettings) {
         ENV.sentryDsn = envSettings.sentry;
         ENV.currentUserId = envSettings.current_user.id;
+        ENV.preferredLocale = envSettings.current_user.preferred_locale;
+        ENV.appVersion = envSettings.version;
       }
     });
     /* eslint-enable no-undef  */

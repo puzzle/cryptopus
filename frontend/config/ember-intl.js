@@ -15,7 +15,7 @@ module.exports = function(/* environment */) {
      * @type {Array?}
      * @default "null"
      */
-    locales: null,
+    locales: ["ch_be", "en", "de", "fr"],
 
     /**
      * Merges the fallback locale's translations into all other locales as a
@@ -38,7 +38,7 @@ module.exports = function(/* environment */) {
      * @type {String}
      * @default "'translations'"
      */
-    inputPath: 'translations',
+    inputPath: "translations",
 
     /**
      * Automatically inject the Intl.JS polyfill into index.html
