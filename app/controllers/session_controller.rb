@@ -18,6 +18,8 @@ class SessionController < ApplicationController
   before_action :skip_authorization, only: [:create, :new, :destroy, :sso]
   before_action :keycloak_cookie, only: :sso
 
+  layout false
+
   def create
     unless user_authenticator.authenticate!
       flash[:error] = t('flashes.session.auth_failed')

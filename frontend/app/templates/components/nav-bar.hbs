@@ -11,7 +11,7 @@
   @type="dark"
   @backgroundColor="custom"
   @class="navbar-custom" as |navbar| >
-  <div class="container pl-0 pr-0">
+  <div class="container pl-0 pr-0 ml-238">
     <navbar.content>
       <div class="form-inline">
         <Input @class="form-control mr-sm-2" @type="search" @id="search" @value={{ this.navService.searchQuery }} placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}  @autofocus={{this.isStartpage}}/>
@@ -21,7 +21,7 @@
           <div class="btn-group">
             <a class="nav-link d-inline" role="button" {{on "click" this.toggleAccountCreating}}>{{t "accounts.new.title"}}</a>
             <dd.toggle class="dropdown-toggle-hided">
-              <span class="helper"></span><img class="icon icon-button" src="/ember/assets/images/angle-down.svg" alt="v">
+              <span class="helper"></span><img class="icon-button" src="/ember/assets/images/angle-down.svg" alt="v">
             </dd.toggle>
           </div>
           <dd.menu as |ddm|>
@@ -34,8 +34,8 @@
           </dd.menu>
         </BsDropdown>
         <div class="nav-item">
-          <a class="nav-link" href="/profile">
-            Profile
+          <a href="/profile">
+            <span class="helper"></span><img class="icon-button icon mr-2 ml-1" src="/ember/assets/images/team_config.svg" alt="v">
           </a>
         </div>
         <div class="nav-item">
