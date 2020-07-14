@@ -31,7 +31,7 @@
       </div>
       <div class="row">
         <div class="col-sm-8 pr-0">
-          <Input class="secret" @disabled="true" @type="password" @value={{@account.cleartextPassword}}/>
+          <Input class="secret" @disabled="true" @value={{@account.cleartextPassword}}/>
         </div>
         <div class="col-sm-3">
           <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextPassword}} @success={{fn this.onCopied "password"}}>
