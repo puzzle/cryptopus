@@ -175,7 +175,7 @@ en:
     show:
       move: Move account to other folder
       title: "Accounts in folder %{folder_name} for team %{team_name}"
-    no_folders: No Folders
+    no_accounts: No Accounts
   file_entries:
     new:
       title: Add new attachment to account
@@ -258,6 +258,7 @@ en:
       admins: Admins
     configure:
       title: Edit Team Members and Api Users
+    no_folders: No Folders
   profile:
     index:
       title: "Profile of %{label}"

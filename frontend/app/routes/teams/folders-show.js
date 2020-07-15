@@ -1,7 +1,7 @@
-import Route from "@ember/routing/route";
 import { inject as service } from "@ember/service";
+import BaseRoute from "../base";
 
-export default class TeamsFoldersIndexRoute extends Route {
+export default class TeamsFoldersIndexRoute extends BaseRoute {
   @service navService;
 
   templateName = "teams/index";

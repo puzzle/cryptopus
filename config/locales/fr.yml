@@ -175,7 +175,7 @@ fr:
     show:
       move: Déplacer compte à un autre groupe
       title: "Comptes du dossier %{folder_name} de l'équipe %{team_name}"
-    no_folders: Pas de dossiers
+    no_accounts: Pas de comptes
   file_entries:
     new:
       title: Ajouter un attachement au compte
@@ -254,6 +254,7 @@ fr:
       admins: Admins
     configure:
       title: Adjuster les membres d'équipe et les utilisateurs d'API
+    no_folders: Pas de dossiers
   profile:
     index:
       title: "Profil de %{label}"

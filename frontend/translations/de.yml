@@ -177,7 +177,7 @@ de:
     show:
       move: Account zu einem anderen Ordner verschieben
       title: "Accounts des Ordners %{folder_name} des Teams %{team_name}"
-    no_folders: Keine Ordner
+    no_accounts: Keine Accounts
 
   file_entries:
     new:
@@ -261,6 +261,7 @@ de:
       private: Admins haben keinen Zugriff wenn angewählt
     configure:
       title: Teammitglieder und Api Nutzer anpassen
+    no_folders: Keine Ordner
 
   profile:
     index:
