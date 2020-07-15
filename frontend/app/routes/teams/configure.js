@@ -1,6 +1,6 @@
-import Route from "@ember/routing/route";
+import BaseRoute from "../base";
 
-export default class TeamsConfigureRoute extends Route {
+export default class TeamsConfigureRoute extends BaseRoute {
   async model(params) {
     return params.team_id;
   }

@@ -1,7 +1,7 @@
-import Route from "@ember/routing/route";
+import BaseRoute from "./base";
 import { inject as service } from "@ember/service";
 
-export default class IndexRoute extends Route {
+export default class IndexRoute extends BaseRoute {
   @service navService;
 
   beforeModel() {

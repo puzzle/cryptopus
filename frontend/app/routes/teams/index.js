@@ -1,6 +1,6 @@
-import Route from "@ember/routing/route";
+import BaseRoute from "../base";
 
-export default class TeamsIndexRoute extends Route {
+export default class TeamsIndexRoute extends BaseRoute {
   queryParams = {
     q: {
       refreshModel: true

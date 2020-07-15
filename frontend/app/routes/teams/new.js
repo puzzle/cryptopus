@@ -1,5 +1,5 @@
-import Route from '@ember/routing/route';
+import BaseRoute from '../base';
 
-export default Route.extend({
+export default BaseRoute.extend({
 
 });

@@ -1,0 +1,19 @@
+
+[1mFrom:[0m /home/lbruegger/cryptopus/spec/system/file_entry_modal_system_spec.rb @ line 76 RSpec::ExampleGroups::FileEntryModal#create_new_file_entry:
+
+    [1;34m73[0m: [32mdef[0m [1;34mcreate_new_file_entry[0m(description, file_path)
+    [1;34m74[0m:   new_file_entry_button = find([31m[1;31m'[0m[31mbutton.btn.btn-primary[1;31m'[0m[31m[0m, [35mtext[0m: [31m[1;31m'[0m[31mAdd Attachment[1;31m'[0m[31m[0m, [35mvisible[0m: [1;36mfalse[0m)
+    [1;34m75[0m:   new_file_entry_button.click
+ => [1;34m76[0m:   require [31m[1;31m'[0m[31mpry[1;31m'[0m[31m[0m; binding.pry;
+    [1;34m77[0m:   expect(find([31m[1;31m'[0m[31m.modal-content[1;31m'[0m[31m[0m)).to be_present
+    [1;34m78[0m:   expect(page).to have_text([31m[1;31m'[0m[31mAdd new attachment to account[1;31m'[0m[31m[0m)
+    [1;34m79[0m:   expect(page).to have_button([31m[1;31m'[0m[31mUpload[1;31m'[0m[31m[0m)
+    [1;34m80[0m: 
+    [1;34m81[0m:   within([31m[1;31m'[0m[31mdiv.modal-content[1;31m'[0m[31m[0m) [32mdo[0m
+    [1;34m82[0m:     fill_in [31m[1;31m'[0m[31mdescription[1;31m'[0m[31m[0m, [35mwith[0m: description
+    [1;34m83[0m:     find([33m:xpath[0m, [31m[1;31m"[0m[31m//input[@type='file'][1;31m"[0m[31m[0m, [35mvisible[0m: [1;36mfalse[0m).attach_file(file_path)
+    [1;34m84[0m:   [32mend[0m
+    [1;34m85[0m: 
+    [1;34m86[0m:   click_button [31m[1;31m'[0m[31mUpload[1;31m'[0m[31m[0m
+    [1;34m87[0m: [32mend[0m
+

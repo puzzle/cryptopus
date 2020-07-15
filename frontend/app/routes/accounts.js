@@ -1,4 +1,4 @@
-import Route from "@ember/routing/route";
+import BaseRoute from "./base";
 
-export default class AccountsRoute extends Route {
+export default class AccountsRoute extends BaseRoute {
 }
