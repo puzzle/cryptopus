@@ -243,7 +243,7 @@ fr:
     edit:
       title: Modifier l'équipe
     new:
-      title: Créer une nouvelle équipe
+      title: Nouvelle équipe
     description:
       private: Administrateurs auront pas accès à votre équipe.
     show:
