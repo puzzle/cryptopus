@@ -32,8 +32,11 @@ describe 'SideNavBar', type: :system, js: true do
       team1_link.click
       expect(team1_link).to have_xpath("//img[@alt='v']")
 
+      expect(page).to have_text(team1.name)
       expect(uri).to eq "/teams/#{team1.id}"
-      # TODO: check if page shows this team
+
+
+      expect(page).to have_text(team1.name)
 
       expect(page).to have_text(team2.name)
 
@@ -45,11 +48,22 @@ describe 'SideNavBar', type: :system, js: true do
 
 
       expect(uri).to eq "/teams/#{team2.id}/folders/#{folder2.id}"
-      # TODO: check if page expanded correct folder
-
     end
+    folder_expanded?
+    team_expanded?
 
     logout
   end
 
+  def folder_expanded?
+    within(all('div.row.border.py-2')[1]) do
+      expect(find('span[role="button"]')).to have_xpath("//img[@alt='v']")
+    end
+  end
+
+  def team_expanded?
+    within(find('div.row.py-2.d-flex.border.rounded-top')) do
+      expect(all('span[role="button"]')[3]).to have_xpath("//img[@alt='v']")
+    end
+  end
 end
