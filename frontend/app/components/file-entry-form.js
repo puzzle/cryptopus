@@ -57,12 +57,12 @@ export default class FileEntryForm extends BaseFormComponent {
 
   handleSubmitSuccess() {
     this.abort();
-    // FIXME: refresh page, such that new FileEntry is shown
   }
 
   handleSubmitError(response) {
     this.errors = JSON.parse(response.body).errors;
     this.changeset.file = null;
+    this.record.account = null;
   }
 
   @action

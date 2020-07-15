@@ -10,12 +10,21 @@ export default class FileEntry extends Model {
     if (this.isDeleted) {
       return super.save();
     }
+
     let url = `/api/accounts/${this.account.get("id")}/file_entries`;
     let opts = {
       data: { description: this.description },
       headers: { "X-CSRF-Token": this.csrfToken }
     };
 
-    return this.file.upload(url, opts);
+    let promise = this.file.upload(url, opts);
+    promise
+      .then( savedRecords => {
+        let data = JSON.parse(savedRecords.body).data
+        this.id = data.id;
+        this.filename = data.attributes.filename;
+      })
+
+    return promise;
   }
 }
