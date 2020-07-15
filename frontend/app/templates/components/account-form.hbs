@@ -47,8 +47,8 @@
               <PasswordStrengthMeter class="col-9 pl-0" @password={{this.changeset.cleartextPassword}}/>
             </div>
           </div>
-          <div class="col-md-6">
-            <button class="btn btn-secondary btn-block col-6 mt-32 ml-15" {{on "click" this.setRandomPassword}} tabindex="4">
+          <div class="col-md-6 d-flex align-items-center">
+            <button class="btn btn-secondary btn-block col-md-6 mb-4 ml-3" {{on "click" this.setRandomPassword}} tabindex="4">
               {{t "accounts.edit.random_password"}}
             </button>
           </div>
@@ -58,7 +58,7 @@
             <form.group class="col-md-12">
               <form.element @label={{t "description"}} @property="description" @controlType="textarea"
                             id="description" class="{{if
-                      this.changeset.error.description.validation "invalid-input"}} vertical-resize"
+                      this.changeset.error.description.validation "invalid-input"}} vertical-resize mt-3"
                             @tabindex="7" @customError={{this.changeset.error.description.validation}}/>
             </form.group>
           </div>
