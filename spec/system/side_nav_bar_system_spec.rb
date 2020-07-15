@@ -32,7 +32,7 @@ describe 'SideNavBar', type: :system, js: true do
       team1_link.click
       expect(team1_link).to have_xpath("//img[@alt='v']")
 
-      expect(uri).to eq "/teams?team_id=#{team1.id}"
+      expect(uri).to eq "/teams/#{team1.id}"
       # TODO: check if page shows this team
 
       expect(page).to have_text(team2.name)
@@ -44,7 +44,7 @@ describe 'SideNavBar', type: :system, js: true do
       folder2_link.click
 
 
-      expect(uri).to eq "/teams?folder_id=#{folder2.id}&team_id=#{team2.id}"
+      expect(uri).to eq "/teams/#{team2.id}/folders/#{folder2.id}"
       # TODO: check if page expanded correct folder
 
     end

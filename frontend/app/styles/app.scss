@@ -150,6 +150,10 @@ li a {
   display: inline;
 }
 
+.ml-254 {
+  margin-left: 254px !important;
+}
+
 .icon-button {
   width: 18px !important;
   height: 18px !important;
@@ -203,4 +207,18 @@ li a {
 
 .ember-basic-dropdown .ember-basic-dropdown-trigger {
   padding-top: 3px;
+}
+
+.dropdown-toggle-hided::after {
+  display: none;
+}
+
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.p-15 {
+  padding: 15px 15px 15px 15px !important;
 }

@@ -43,6 +43,7 @@ ch_be:
   close: Schliesse
   user: Benutzer
   select_team: Wähl bitte es team us oder benutz d suechi
+  role: Rollä
   api-user:
     none: Du hesch kei Api-Benutzer. Hol dr einä
   time:
@@ -308,6 +309,10 @@ ch_be:
     api:
       admin:
         users:
+          update:
+            user: "Aktualisierte Benutzer isch itz ä Benutzer"
+            conf_admin: "Aktualisierte Benutzer isch itz ä conf-admin"
+            admin: "Aktualisierte Benutzer isch itz ä admin"
           toggle:
             empowered: "%{username} het ab iz Admin-Rächt"
             disempowered: "Am Benutzer %{username} si d Admin-Rächt entzoge worde"

@@ -13,15 +13,13 @@ export default class TeamShowComponent extends Component {
   @tracked
   isTeamConfiguring = false;
 
-  get collapsed() {
-    return this.navService.selectedTeam !== this.args.team && this.navService.searchQuery === null;
-  }
+  @tracked
+  collapsed = this.navService.selectedTeam != this.args.team&& this.navService.searchQuery === null;
 
   @action
   collapse() {
     this.collapsed = !this.collapsed;
   }
-
   @action
   toggleTeamEdit() {
     this.isTeamEditing = !this.isTeamEditing;

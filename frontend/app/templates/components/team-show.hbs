@@ -4,7 +4,7 @@
 {{#if this.isTeamConfiguring}}
   <TeamMemberConfigure @teamId={{@team.id}} @onAbort={{this.toggleTeamConfigure}}/>
 {{/if}}
-<div class="container mb-4">
+<div class="container mb-4 ml-254">
   <div>
     <div class="row py-2 d-flex border {{if this.collapsed "rounded" "rounded-top"}}">
       <div class="col" role="button" {{on "click" this.collapse}}>

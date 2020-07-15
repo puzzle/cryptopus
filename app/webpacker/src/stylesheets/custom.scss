@@ -24,7 +24,16 @@ body {
 }
 
 .main {
+  margin-left: 250px;
   padding-bottom: 10px;
+}
+
+.navbar {
+  margin-bottom: 0px !important;
+}
+
+.m-none {
+  margin: 0 !important;
 }
 
 .alert {
@@ -191,6 +200,5 @@ body {
 }
 
 #content {
-  position: fixed;
   left: 250px;
 }

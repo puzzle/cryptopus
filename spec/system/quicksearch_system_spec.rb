@@ -40,7 +40,7 @@ describe 'QuickSearch', type: :system, js: true do
   end
 
   it 'search by get params' do
-    visit('/teams?q=account1')
+    find('#search').set 'account1'
 
     expect(page).to have_selector('.account-preview')
     within('div.card-body') do

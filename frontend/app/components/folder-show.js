@@ -11,9 +11,8 @@ export default class FolderShowComponent extends Component {
   @tracked
   isFolderEditing = false;
 
-  get collapsed() {
-    return this.navService.selectedFolder !== this.args.folder && this.navService.searchQuery === null;
-  }
+  @tracked
+  collapsed = this.navService.selectedFolder !== this.args.folder && this.navService.searchQuery === null;
 
   @action
   collapse() {
