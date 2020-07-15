@@ -32,12 +32,19 @@ describe 'TeamsPage', type: :system, js: true do
     folder1 = folders(:folder1)
 
     within('#sidebar') do
+      #Click on expand arrow in team card
       find('a', text: team1.name, visible: false).click
     end
 
     expect(page).to have_text(folder1.name)
 
-    # Check if team expanded but folder collapsed
+    # Check if Team expands and collapses on Team name click
+    all('div.col[role="button"]')[1].click
+    team_collapsed?
+    all('div.col[role="button"]')[1].click
+    team_expanded?
+
+    # Check if Team expanded but Folder collapsed
     team_expanded?
     folder_collapsed?
 
@@ -46,6 +53,12 @@ describe 'TeamsPage', type: :system, js: true do
     end
 
     expect(page).to have_selector('div.account-card')
+
+    # Check if Folder expands and collapes on Folder name click
+    all('div.col[role="button"]')[2].click
+    team_collapsed?
+    all('div.col[role="button"]')[2].click
+    team_expanded?
 
     # Check if both are expanded
     team_expanded?

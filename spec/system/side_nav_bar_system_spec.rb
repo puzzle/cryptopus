@@ -66,4 +66,16 @@ describe 'SideNavBar', type: :system, js: true do
       expect(all('span[role="button"]')[3]).to have_xpath("//img[@alt='v']")
     end
   end
+
+  def folder_collapsed?
+    within(all('div.row.border.py-2')[1]) do
+      expect(find('span[role="button"]')).to have_xpath("//img[@alt='<']")
+    end
+  end
+
+  def team_collapsed?
+    within(find('div.row.py-2.d-flex.border.rounded-top')) do
+      expect(all('span[role="button"]')[3]).to have_xpath("//img[@alt='<']")
+    end
+  end
 end
