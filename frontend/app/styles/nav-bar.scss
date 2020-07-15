@@ -24,3 +24,24 @@ nav a.nav-link {
 .vertical-center-icon {
   margin-bottom: 4px !important;
 }
+
+.dropdown .btn-group > a {
+  color: #ffffff;
+  background-color: #3b7bbe;
+  border-color: #1e5a96;
+}
+
+.dropdown .btn-group > a:hover {
+  color: #ffffff;
+  background-color: #1e5a96;
+  border-color: #195575;
+}
+
+.dropdown-menu {
+  left: -114px !important;
+  width: 155px;
+}
+
+.dropdown .dropdown-item:active {
+  background-color: #f8f9fa;
+}

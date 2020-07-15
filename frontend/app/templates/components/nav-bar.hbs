@@ -19,8 +19,8 @@
       <navbar.nav @class="ml-auto">
         <BsDropdown as |dd|>
           <div class="btn-group">
-            <a class="nav-link d-inline" role="button" {{on "click" this.toggleAccountCreating}}>{{t "accounts.new.title"}}</a>
-            <dd.toggle class="dropdown-toggle-hided">
+            <a class="btn btn-primary" role="button" {{on "click" this.toggleAccountCreating}}>{{t "accounts.new.title"}}</a>
+            <dd.toggle class="btn btn-primary dropdown-toggle-hided mr-3">
               <span class="helper"></span><img class="icon-button" src="/ember/assets/images/angle-down.svg" alt="v">
             </dd.toggle>
           </div>

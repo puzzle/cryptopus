@@ -275,7 +275,7 @@ ch_be:
       team: Team
       no_content: Keni Iträg gfundä
     new:
-      title: Nöis Team ersteue
+      title: Team ersteue
     description:
       private: Admins hei ke Zuegriff we si agwäut si
     show:

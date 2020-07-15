@@ -29,8 +29,8 @@ describe 'AccountModal', type: :system, js: true do
     login_as_user(:bob)
 
     # Create Account
-    expect(page).to have_css('a.nav-link.d-inline', text: 'New Account')
-    find('a.nav-link.d-inline', text: 'New Account').click
+    expect(page).to have_css('a.btn.btn-primary', text: 'New Account')
+    find('a.btn.btn-primary', text: 'New Account').click
 
     expect(page).to have_text('New Account')
 
