@@ -70,6 +70,23 @@ describe Api::FoldersController do
       expect(response).to have_http_status(403)
     end
 
+    it 'does not update team_id' do
+      login_as(:alice)
+
+      folder = folders(:folder2)
+      team = teams(:team2)
+      new_team = teams(:team1)
+
+      update_params = { attributes: { team_id: new_team.id } }
+      put :update, params: { team_id: team, id: folder, data: update_params }
+
+      folder.reload
+
+      expect(folder.team).to eq team
+
+      expect(response).to have_http_status(403)
+    end
+
   end
 
   context 'POST create' do

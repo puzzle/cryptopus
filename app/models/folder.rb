@@ -21,6 +21,8 @@ class Folder < ApplicationRecord
   belongs_to :team
   has_many :accounts, -> { order :accountname }, dependent: :destroy
 
+  attr_readonly :team_id
+
   validates :name, presence: true
   validates :name, uniqueness: { scope: :team }
   validates :name, length: { maximum: 70 }

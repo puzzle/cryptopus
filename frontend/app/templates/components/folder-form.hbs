@@ -23,7 +23,7 @@
             <div class="row">
               <div class="form-group col-md-12" id="team-power-select">
                 <form.element @label={{t "team"}} @controlType="power-select"
-                              @placeholder={{t "accounts.edit.team_placeholder"}}
+                              @placeholder={{t "accounts.edit.team_placeholder"}} @disabled={{not this.isNewRecord}}
                               @options={{this.assignableTeams}} @value={{this.selectedTeam}} as |el|>
                   <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
                     {{team.name}}
