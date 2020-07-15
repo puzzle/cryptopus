@@ -10,7 +10,7 @@ export default class AccountShowComponent extends Component {
   constructor() {
     super(...arguments);
 
-    this.fileEntries = this.store.query("file-entry", {
+    this.store.query("file-entry", {
       accountId: this.args.account.id
     });
   }
