@@ -43,13 +43,17 @@
           </div>
         </div>
         <div class="p-2">
-          {{#each @team.folders as |folder|}}
-            <div class="row border py-2">
-              <div class="col">
-                <FolderShow @folder={{folder}}/>
+          {{#if @team.folders}}
+            {{#each @team.folders as |folder|}}
+              <div class="row border py-2">
+                <div class="col">
+                  <FolderShow @folder={{folder}}/>
+                </div>
               </div>
-            </div>
-          {{/each}}
+            {{/each}}
+          {{else}}
+            <em>{{t "teams.no_folders"}}</em>
+          {{/if}}
         </div>
       </div>
     </BsCollapse>

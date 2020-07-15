@@ -1,7 +1,7 @@
-import Route from "@ember/routing/route";
 import { inject as service } from "@ember/service";
+import BaseRoute from "../base";
 
-export default class TeamsShowRoute extends Route {
+export default class TeamsShowRoute extends BaseRoute {
   @service navService;
   @service notify;
   @service intl;

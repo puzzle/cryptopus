@@ -6,6 +6,7 @@ import ENV from "../config/environment";
 
 export default class FooterComponent extends Component {
   @service intl;
+  @service logoutTimerService;
 
   availableLocales = [
     { key: "en", name: "English" },

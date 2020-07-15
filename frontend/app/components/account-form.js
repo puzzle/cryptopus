@@ -1,12 +1,12 @@
-import {action} from "@ember/object";
+import { action } from "@ember/object";
 import AccountValidations from "../validations/account";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
-import {inject as service} from "@ember/service";
-import {tracked} from "@glimmer/tracking";
+import { inject as service } from "@ember/service";
+import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "./base-form-component";
-import {isPresent} from "@ember/utils";
-import { isEmpty } from '@ember/utils';
+import { isPresent } from "@ember/utils";
+import { isEmpty } from "@ember/utils";
 
 export default class AccountForm extends BaseFormComponent {
   @service store;
@@ -32,7 +32,7 @@ export default class AccountForm extends BaseFormComponent {
     );
 
     if (this.isNewRecord) {
-      this.presetTeamAndFolder()
+      this.presetTeamAndFolder();
     }
 
     if (this.isNewRecord && isPresent(this.args.folder)) {
@@ -52,9 +52,9 @@ export default class AccountForm extends BaseFormComponent {
     let selectedTeam = this.navService.selectedTeam;
     let selectedFolder = this.navService.selectedFolder;
 
-    this.selectedTeam = selectedTeam
-    if (!isEmpty(selectedFolder)){
-      this.changeset.folder = selectedFolder
+    this.selectedTeam = selectedTeam;
+    if (!isEmpty(selectedFolder)) {
+      this.changeset.folder = selectedFolder;
     }
   }
 
@@ -84,7 +84,7 @@ export default class AccountForm extends BaseFormComponent {
 
     if (isPresent(selectedTeam)) {
       this.store
-        .query("folder", {teamId: this.selectedTeam.id})
+        .query("folder", { teamId: this.selectedTeam.id })
         .then(folders => {
           this.availableFolders = folders;
           this.setFolder(null);
@@ -108,6 +108,15 @@ export default class AccountForm extends BaseFormComponent {
     this.abort();
     if (this.isNewRecord) {
       this.router.transitionTo("accounts.show", savedRecords[0].id);
+    } else if (
+      !this.isNewRecord &&
+      this.router.currentRouteName === "teams.folders-show"
+    ) {
+      this.router.transitionTo(
+        "teams.folders-show",
+        savedRecords[0].folder.get("team.id"),
+        savedRecords[0].folder.get("id")
+      );
     }
   }
 }

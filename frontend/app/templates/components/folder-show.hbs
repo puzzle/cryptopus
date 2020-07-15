@@ -26,15 +26,14 @@
       </div>
     </div>
     <div class="d-flex flex-wrap">
-      {{#each @folder.accounts as |account|}}
-        <div class="p-3">
-          <AccountCardShow @account={{account}}/>
-        </div>
-      {{/each}}
-      {{#if this.noFolders}}
-        <div class="col">
-          <em>{{t "folders.no_folders"}}</em>
-        </div>
+      {{#if @folder.accounts}}
+        {{#each @folder.accounts as |account|}}
+          <div class="p-3">
+            <AccountCardShow @account={{account}}/>
+          </div>
+        {{/each}}
+      {{else}}
+        <em>{{t "folders.no_accounts"}}</em>
       {{/if}}
     </div>
   </div>
