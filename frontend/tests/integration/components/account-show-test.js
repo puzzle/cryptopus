@@ -8,26 +8,7 @@ import { setLocale } from "ember-intl/test-support";
 const storeStub = Service.extend({
   query(modelName, params) {
     if (params) {
-      return [
-        {
-          filename: "file1",
-          description: "description for file1",
-          account: {
-            get() {
-              return 1;
-            }
-          }
-        },
-        {
-          filename: "file2",
-          description: "description for file2",
-          account: {
-            get() {
-              return 2;
-            }
-          }
-        }
-      ];
+      return [];
     }
   }
 });
@@ -47,7 +28,29 @@ module("Integration | Component | account-show", function(hooks) {
       accountname: "Ninjas test account",
       description: "Account for the ninjas",
       cleartextUsername: "mail",
-      cleartextPassword: "e2jd2rh4g5io7"
+      cleartextPassword: "e2jd2rh4g5io7",
+      fileEntries: [
+        {
+          filename: "file1",
+          description: "description for file1",
+          account: {
+            get() {
+              return 1;
+            },
+            id: 1
+          }
+        },
+        {
+          filename: "file2",
+          description: "description for file2",
+          account: {
+            get() {
+              return 1;
+            },
+            id: 1
+          }
+        }
+      ]
     });
     await render(hbs`<AccountShow @account={{this.account}}/>`);
 

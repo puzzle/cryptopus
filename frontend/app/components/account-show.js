@@ -6,9 +6,14 @@ import { inject as service } from "@ember/service";
 export default class AccountShowComponent extends Component {
   @service store;
 
-  fileEntries = this.store.query("file-entry", {
-    accountId: this.args.account.id
-  });
+
+  constructor() {
+    super(...arguments);
+
+    this.fileEntries = this.store.query("file-entry", {
+      accountId: this.args.account.id
+    });
+  }
 
   @tracked
   isAccountEditing = false;

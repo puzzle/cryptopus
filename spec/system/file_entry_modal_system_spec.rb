@@ -54,12 +54,12 @@ describe 'FileEntryModal', type: :system, js: true do
     expect(page).to have_text("Account: #{account.accountname}")
 
     # Delete File Entry
-    del_button = all('img[alt="delete"]')[1]
+    del_button = all('img[alt="delete"]')[3]
     expect(del_button).to be_present
 
     del_button.click
     find('button', text: 'Delete').click
-    expect(all('tr').count).to eq(2)
+    expect(all('tr').count).to eq(3)
   end
 
   private

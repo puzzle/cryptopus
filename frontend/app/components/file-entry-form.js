@@ -57,7 +57,6 @@ export default class FileEntryForm extends BaseFormComponent {
 
   handleSubmitSuccess() {
     this.abort();
-    // FIXME: refresh page, such that new FileEntry is shown
   }
 
   handleSubmitError(response) {

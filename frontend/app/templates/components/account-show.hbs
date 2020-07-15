@@ -54,7 +54,7 @@
         <th>{{t "description"}}</th>
         <th>{{t "actions"}}</th>
       </tr>
-      {{#each this.fileEntries as |fileEntry|}}
+      {{#each @account.fileEntries as |fileEntry|}}
         <FileEntryRow @fileEntry={{fileEntry}}/>
       {{/each}}
     </tbody>
