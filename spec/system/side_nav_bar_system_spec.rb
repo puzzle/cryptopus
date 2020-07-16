@@ -30,12 +30,21 @@ describe 'SideNavBar', type: :system, js: true do
     # Click on Team and check if expands and collapses
     within(sidebar) do
       team1_collapsed_in_sidebar?
-      folder2_collapsed_in_sidebar?
+      folder2 false
 
       team1_link.click
+      expect(uri).to eq "/teams/#{team1.id}"
 
       team1_expanded_in_sidebar?
-      folder2_expanded_in_sidebar?
+      folder2 true
+
+      # Check if Team closes up again
+      team1_link.click
+      team1_collapsed_in_sidebar?
+      folder2 false
+
+      # and reopen again
+      team1_link.click
     end
 
     expect(page).to have_text(team1.name)
@@ -56,11 +65,15 @@ describe 'SideNavBar', type: :system, js: true do
     logout
   end
 
-  def folder2_expanded_in_sidebar?
+  def folder2(shown)
     folder2_div = first('div', visible: false)
     sleep(1)
     within(folder2_div) do
-      expect(folder2_div['class']).to have_text('show')
+      if shown
+        expect(folder2_div['class']).to have_text('show')
+      else
+        expect(folder2_div['class']).not_to have_text('show')
+      end
     end
   end
 
@@ -68,13 +81,6 @@ describe 'SideNavBar', type: :system, js: true do
     expect(find('a', text: 'team1', visible: false)).to have_xpath("//img[@alt='v']")
     within(all('a[role="button"]')[0]) do
       expect(find('img[alt="v"]')['src']).to include '/ember/assets/images/angle-down.svg'
-    end
-  end
-
-  def folder2_collapsed_in_sidebar?
-    folder2_div = first('div', visible: false)
-    within(folder2_div) do
-      expect(folder2_div['class']).not_to have_text('show')
     end
   end
 

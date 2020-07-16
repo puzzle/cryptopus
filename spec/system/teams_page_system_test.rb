@@ -36,7 +36,10 @@ describe 'TeamsPage', type: :system, js: true do
       find('a', text: team1.name, visible: false).click
     end
 
-    expect(page).to have_text(folder1.name)
+    # Check if visible in teams page
+    within('div.container.mb-4.ml-254') do
+      expect(page).to have_text(folder1.name)
+    end
 
     # Check if Team expands and collapses on Team name click
     all('div.col[role="button"]')[1].click
@@ -45,7 +48,6 @@ describe 'TeamsPage', type: :system, js: true do
     team_expanded?
 
     # Check if Team expanded but Folder collapsed
-    team_expanded?
     folder_collapsed?
 
     within('#sidebar') do
@@ -56,9 +58,9 @@ describe 'TeamsPage', type: :system, js: true do
 
     # Check if Folder expands and collapes on Folder name click
     all('div.col[role="button"]')[2].click
-    team_collapsed?
+    folder_collapsed?
     all('div.col[role="button"]')[2].click
-    team_expanded?
+    folder_expanded?
 
     # Check if both are expanded
     team_expanded?
