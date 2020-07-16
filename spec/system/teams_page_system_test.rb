@@ -32,7 +32,7 @@ describe 'TeamsPage', type: :system, js: true do
     folder1 = folders(:folder1)
 
     within('#sidebar') do
-      #Click on expand arrow in team card
+      # Click on expand arrow in team card
       find('a', text: team1.name, visible: false).click
     end
 

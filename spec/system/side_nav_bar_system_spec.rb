@@ -14,30 +14,34 @@ describe 'SideNavBar', type: :system, js: true do
   it 'navigate through side nav bar' do
     login_as_user(:bob)
 
-    sidebar = page.find('#sidebar')
+    sidebar = page.find('div.side-nav-bar-teams-list')
     expect(sidebar).to be_present
 
     expect(sidebar).to have_text('team1')
     expect(sidebar).to have_text('team2')
 
+    team1_link = find('a', text: 'team1', visible: false)
+    team2_link = find('a', text: 'team2', visible: false)
+
+    team1 = teams(:team1)
+    team2 = teams(:team2)
+    folder2 = folders(:folder2)
+
+    # Click on Team and check if expands and collapses
     within(sidebar) do
-      team1_link = find('a', text: 'team1', visible: false)
-      team2_link = find('a', text: 'team2', visible: false)
+      team1_collapsed_in_sidebar?
+      folder2_collapsed_in_sidebar?
 
-      team1 = teams(:team1)
-      team2 = teams(:team2)
-      folder2 = folders(:folder2)
-
-      expect(team1_link).to have_xpath("//img[@alt='<']")
       team1_link.click
-      expect(team1_link).to have_xpath("//img[@alt='v']")
 
-      expect(page).to have_text(team1.name)
-      expect(uri).to eq "/teams/#{team1.id}"
+      team1_expanded_in_sidebar?
+      folder2_expanded_in_sidebar?
+    end
 
+    expect(page).to have_text(team1.name)
+    expect(uri).to eq "/teams/#{team1.id}"
 
-      expect(page).to have_text(team1.name)
-
+    within(sidebar) do
       expect(page).to have_text(team2.name)
 
       team2_link.click
@@ -46,36 +50,38 @@ describe 'SideNavBar', type: :system, js: true do
 
       folder2_link.click
 
-
       expect(uri).to eq "/teams/#{team2.id}/folders/#{folder2.id}"
     end
-    folder_expanded?
-    team_expanded?
 
     logout
   end
 
-  def folder_expanded?
-    within(all('div.row.border.py-2')[1]) do
-      expect(find('span[role="button"]')).to have_xpath("//img[@alt='v']")
+  def folder2_expanded_in_sidebar?
+    folder2_div = first('div', visible: false)
+    sleep(1)
+    within(folder2_div) do
+      expect(folder2_div['class']).to have_text('show')
     end
   end
 
-  def team_expanded?
-    within(find('div.row.py-2.d-flex.border.rounded-top')) do
-      expect(all('span[role="button"]')[3]).to have_xpath("//img[@alt='v']")
+  def team1_expanded_in_sidebar?
+    expect(find('a', text: 'team1', visible: false)).to have_xpath("//img[@alt='v']")
+    within(all('a[role="button"]')[0]) do
+      expect(find('img[alt="v"]')['src']).to include '/ember/assets/images/angle-down.svg'
     end
   end
 
-  def folder_collapsed?
-    within(all('div.row.border.py-2')[1]) do
-      expect(find('span[role="button"]')).to have_xpath("//img[@alt='<']")
+  def folder2_collapsed_in_sidebar?
+    folder2_div = first('div', visible: false)
+    within(folder2_div) do
+      expect(folder2_div['class']).not_to have_text('show')
     end
   end
 
-  def team_collapsed?
-    within(find('div.row.py-2.d-flex.border.rounded-top')) do
-      expect(all('span[role="button"]')[3]).to have_xpath("//img[@alt='<']")
+  def team1_collapsed_in_sidebar?
+    expect(find('a', text: 'team1', visible: false)).to have_xpath("//img[@alt='<']")
+    within(all('a[role="button"]')[0]) do
+      expect(find('img[alt="<"]')['src']).to include '/ember/assets/images/angle-left.svg'
     end
   end
 end
