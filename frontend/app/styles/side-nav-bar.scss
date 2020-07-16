@@ -8,13 +8,36 @@
   background: #238bca;
   color: #fff;
   transition: all 0.3s;
-  border-right-width: 1px;
-  border-color: #1b6d9f;
 }
 
 .nav-side-bar {
-  width: 500px;
+}
+
+#nav-side-bar-container {
   border-width: 0px !important;
+}
+
+.navbar-header {
+  padding-left: 32px !important;
+}
+
+.nav-side-bar .toggle-button{
+  background-color: #3b7bbe;
+  border-color: #1e5a96;
+}
+
+.nav-side-bar .toggle-button:hover {
+  background-color: #1e5a96;
+  border-color: #195575;
+}
+
+.nav-side-bar .toggle-button.active {
+  background-color: #1e5a96 !important;
+  border-color: #195575 !important;
+}
+
+.p-0 {
+  padding: 0px !important;
 }
 
 .list-group.list-group-root {
@@ -36,20 +59,20 @@
   border-width: 0px;
   border-top-width: 1px;
   border-color: #1a4d81;
+  padding-left: 30px;
   cursor: default;
 }
 
-.list-group.list-group-root > .list-group > .list-group-item {
-  padding-left: 45px;
+.list-group.list-group-root .list-group .list-group-item {
   border-width: 0px;
   border-top-width: 1px;
   border-color: #16416c;
+  padding-left: 50px;
 }
 
 .side-nav-bar-teams-list {
   overflow-y: auto;
-  height: 765px;
-}
+  height: auto;}
 
 .side-nav-bar-teams-list .list-group-item:hover {
   cursor: pointer;

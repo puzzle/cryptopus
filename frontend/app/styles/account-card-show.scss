@@ -9,14 +9,11 @@
 }
 
 .account-card .account-accountname {
-  height: 6em;
+  /*height: 6em;*/
 }
 
-.account-card .account-accountname {
-  height: 6em;
-}
 .account-card .account-description {
-  height: 4em;
+  height: 3em;
   overflow: hidden;
 }
 
@@ -37,8 +34,10 @@
   height: 35px;
 }
 
-.account-detail .copy-btn {
+.copy-btn {
   height: 35px;
+  width: 45px;
+  border: 1px solid #c9c9c9;
 }
 
 .account-detail-key {

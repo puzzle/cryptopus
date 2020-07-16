@@ -17,10 +17,12 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 @import "password-strength-meter";
 @import "folder-show";
 @import "power-select";
+@import "background-colors";
 
-.main {
-  margin-left: 250px;
+body {
+  background-color: #e8e8e8;
 }
+
 
 .d-inline {
   display: inline !important;
@@ -84,6 +86,9 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 
 .w-20 {
   width: 20% !important;
+}
+.w-30 {
+  width: 30% !important;
 }
 
 .columns li.ember-power-select-option {
@@ -163,6 +168,20 @@ li a {
 .ml-254 {
   margin-left: 254px !important;
 }
+.ml-238 {
+  margin-left: 238px !important;
+}
+.mt-60 {
+  margin-top: 54px !important;
+}
+
+.default_button {
+  padding: 6px;
+  border: 1px solid #c9c9c9;
+  width: 45px;
+  background-color: #ebe3df;
+  margin-left: 6px;
+}
 
 .icon-button {
   width: 18px !important;
@@ -191,24 +210,8 @@ li a {
   margin-bottom: 15px !important;
 }
 
-.bg-blue-one {
-  background-color: #238bca !important;
-  color: white !important;
-}
-
-.bg-blue-two {
-  background-color: #1e5a96 !important;
-  color: white !important;
-}
-
-.bg-blue-three {
-  background-color: #3b7bbe !important;
-  color: white !important;
-}
-
-.bg-header {
-  background-color: #d1d1d1 !important;
-  border-color: #b8b8b8 !important;
+.border-darker {
+  border-color: #b1b4b8 !important;
 }
 
 .ember-notify-default.ember-notify-cn {
@@ -231,4 +234,8 @@ li a {
 
 .p-15 {
   padding: 15px 15px 15px 15px !important;
+}
+
+.description {
+  overflow: auto;
 }

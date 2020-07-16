@@ -1,6 +1,6 @@
 <div id="sidebar">
-  <nav class="navbar navbar-dark navbar-inverse">
-    <div class="navbar-header ml-3">
+  <nav class="nav-side-bar navbar navbar-dark navbar-inverse p-0">
+    <div class="navbar-header p-2">
       <LinkTo class="text-decoration-none" @route="index">
         <img src="/ember/assets/images/cryptopussy_without_text.svg" alt="logo" class="logo-icon">
         <span class="ml-1 navbar-brand">
@@ -8,54 +8,61 @@
         </span>
       </LinkTo>
     </div>
-    <div class="navbar navbar-collapse nav-side-bar" id="nav-side-bar-container" {{did-insert this.setupModal this}}>
+    <div class="navbar-collapse p-0" id="nav-side-bar-container" {{did-insert this.setupModal this}}>
       <div class="list-group list-group-root">
         <div class="d-flex justify-content-center list-group-item list-group-item-action top-item bg-blue-one border-0">
           <BsButtonGroup @type="radio" @value={{this.showsFavourites}} @onChange={{this.toggleFavourites}} as |bg|>
-            <bg.button @type="primary" @value={{false}}>
+            <bg.button class="toggle-button" @value={{false}}>
               <img class="icon icon-button" src="/ember/assets/images/members.svg" alt="">
             </bg.button>
-            <bg.button @type="primary" @value={{true}}>
+            <bg.button class="toggle-button" @value={{true}}>
               <img class="icon icon-button" src="/ember/assets/images/star{{if this.showsFavourites "-filled"}}.svg" alt="star">
             </bg.button>
           </BsButtonGroup>
         </div>
 
         {{#if this.navService.availableTeams}}
-          <div class="side-nav-bar-teams-list">
-            {{#each this.navService.sortedTeams as |team|}}
-              <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
-                {{#if team.private}}
-                  <img class="icon icon-button" src="/ember/assets/images/encrypted_small.svg" alt="">
-                {{else}}
-                  <img class="icon icon-button" src="/ember/assets/images/members.svg" alt="">
+          <div class="mb-5">
+            <div class="side-nav-bar-teams-list">
+              {{#each this.navService.sortedTeams as |team|}}
+                <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
+                  {{#if team.private}}
+                    <img class="icon icon-button" src="/ember/assets/images/encrypted_small.svg" alt="">
+                  {{else}}
+                    <img class="icon icon-button" src="/ember/assets/images/members.svg" alt="">
+                  {{/if}}
+                  {{truncate team.name 13}}
+                  {{#if (not team.folders)}}
+                  {{else if (and team.folders (or (not (eq team this.navService.selectedTeam)) this.collapsed))}}
+                    <img class="icon icon-button float-right" src="/ember/assets/images/angle-left.svg" alt="<">
+                  {{else}}
+                    <img class="icon icon-button float-right" src="/ember/assets/images/angle-down.svg" alt="v">
+                  {{/if}}
+                </a>
+                {{#if team.folders}}
+                  <BsCollapse class="list-group" id="nav-folders-{{team.id}}" @collapsed={{or (not (eq team this.navService.selectedTeam)) this.collapsed}}>
+                    {{#each team.folders as |folder|}}
+                      <a role="button"  class="list-group-item {{if (eq folder this.navService.selectedFolder) "bg-blue-two selected-nav-entry" "bg-blue-three"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
+                        <img class="icon icon-button mr-1" src="/ember/assets/images/folder.svg" alt="">
+                        {{truncate folder.name 15}}
+                      </a>
+                    {{/each}}
+                  </BsCollapse>
                 {{/if}}
-                {{truncate team.name 13}}
-                {{#if (or (not (eq team this.navService.selectedTeam)) this.collapsed)}}
-                  <img class="icon icon-button float-right" src="/ember/assets/images/angle-left.svg" alt="<">
-                {{else}}
-                  <img class="icon icon-button float-right" src="/ember/assets/images/angle-down.svg" alt="v">
-                {{/if}}
-              </a>
-              <BsCollapse class="list-group" id="nav-folders-{{team.id}}" @collapsed={{or (not (eq team this.navService.selectedTeam)) this.collapsed}}>
-                {{#each team.folders as |folder|}}
-                  <a role="button"  class="list-group-item {{if (eq folder this.navService.selectedFolder) "bg-blue-two selected-nav-entry" "bg-blue-three"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
-                    <img class="icon icon-button" src="/ember/assets/images/folder.svg" alt="">
-                    {{truncate folder.name 15}}
-                  </a>
-                {{/each}}
-                {{#unless team.folders}}
-                  <a class="list-group-item bg-blue-three">
-                    <span class="font-weight-light">No folders</span>
-                  </a>
-                {{/unless}}
-              </BsCollapse>
-            {{/each}}
+              {{/each}}
+            </div>
           </div>
+
         {{else}}
           <div class="list-group-item list-group-item-action bg-blue-one">{{t "teams.none_available"}}</div>
         {{/if}}
       </div>
+      <div class="row">
+        <div class="col">
+          <img class="icon icon-big-button" src="/ember/assets/images/puzzle_logo.svg" alt="">
+        </div>
+      </div>
+
     </div>
   </nav>
 </div>

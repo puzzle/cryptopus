@@ -1,7 +1,7 @@
 {{#if this.isFolderEditing}}
   <FolderForm @folder={{@folder}} @onAbort={{this.toggleFolderEdit}} @title={{t "folders.edit.title"}}/>
 {{/if}}
-<div class="d-flex row justify-content-between align-middle">
+<div class="d-flex row  justify-content-between">
   <div class="col-auto my-auto" role="button" {{on "click" this.collapse}}>
     <img class="icon icon-big-button py-auto" src="/ember/assets/images/folder.svg" alt="">
   </div>
@@ -25,12 +25,16 @@
 </div>
 <BsCollapse  @collapsed={{this.collapsed}}>
   <div class="">
-    <div class="row mb-2">
+
+    {{#if @folder.description}}
+    <div class="row py-3">
       <div class="col">
-        <p class="text-muted">{{@folder.description}}</p>
+        <p class="text-muted description mb-0">{{@folder.description}}</p>
       </div>
     </div>
-    <div class="d-flex flex-wrap">
+    {{/if}}
+
+    <div class="row d-flex flex-wrap">
       {{#if @folder.accounts}}
         {{#each @folder.accounts as |account|}}
           <div class="p-3">
@@ -38,7 +42,9 @@
           </div>
         {{/each}}
       {{else}}
-        <em>{{t "folders.no_accounts"}}</em>
+        <div class="col">
+          <em>{{t "folders.no_accounts"}}</em>
+        </div>
       {{/if}}
     </div>
   </div>

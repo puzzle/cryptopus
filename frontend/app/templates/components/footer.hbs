@@ -1,24 +1,27 @@
 <div class="footer">
-  <div class="container">
-    <div class="float-left">
-      <a href="https://github.com/puzzle/cryptopus" target="_blank" rel="noopener">Cryptopus</a>
-      |
-      <a href="https://github.com/puzzle/cryptopus/wiki/User-manual" target="_blank" rel="noopener">{{t "help"}}</a>
-      |
-      <a href="/changelog">{{t "version"}} {{this.version}}</a>
-    </div>
-    <div class="float-right w-50 d-flex align-items-center justify-content-end">
-      <div class="col-sm-4 d-inline-block">
-        <PowerSelect @options={{this.availableLocales}} @selected={{this.selectedLocale}} @onChange={{this.setLocale}} @verticalPosition="above" @renderInPlace={{true}} as |locale|>
-          {{locale.name}}
-        </PowerSelect>
+  <div class="ml-254">
+    <div class="container">
+      <div class="float-left">
+        <a href="https://github.com/puzzle/cryptopus" target="_blank" rel="noopener">Cryptopus</a>
+        |
+        <a href="https://github.com/puzzle/cryptopus/wiki/User-manual" target="_blank" rel="noopener">{{t "help"}}</a>
+        |
+        <a href="/changelog">{{t "version"}} {{this.version}}</a>
       </div>
-      <div class="d-inline">
-        <small>
-          {{t "auto_logout"}}
-          <span id="countdown">{{this.logoutTimerService.timeToLogoff}}</span>
-        </small>
+      <div class="float-right w-50 d-flex align-items-center justify-content-end">
+        <div class="col-sm-4 d-inline-block">
+          <PowerSelect @options={{this.availableLocales}} @selected={{this.selectedLocale}} @onChange={{this.setLocale}} @verticalPosition="above" @renderInPlace={{true}} as |locale|>
+            {{locale.name}}
+          </PowerSelect>
+        </div>
+        <div class="d-inline">
+          <small>
+            {{t "auto_logout"}}
+            <span id="countdown">{{this.logoutTimerService.timeToLogoff}}</span>
+          </small>
+        </div>
       </div>
     </div>
   </div>
+
 </div>

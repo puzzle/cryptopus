@@ -1,9 +1,9 @@
-{{#if @model}}
-  {{#each @model as |team|}}
-    <TeamShow @team={{team}} />
-  {{/each}}
-{{else}}
-  <div class="container">
-    <h1>{{t "teams.index.no_content"}}</h1>
-  </div>
-{{/if}}
+<div class="container py-2">
+  {{#if @model}}
+    {{#each @model as |team|}}
+      <TeamShow @team={{team}} />
+    {{/each}}
+  {{else}}
+      <h5>{{t "teams.index.no_content"}}</h5>
+  {{/if}}
+</div>

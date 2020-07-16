@@ -45,6 +45,7 @@ en:
   close: Close
   select_team: Please select a team or use the search
   role: Role
+  empty: empty
 
   i18n:
     language:
