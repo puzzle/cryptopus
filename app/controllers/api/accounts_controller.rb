@@ -14,7 +14,7 @@ class Api::AccountsController < ApiController
   def show
     authorize account
     account.decrypt(decrypted_team_password(team))
-    render_json account
+    render_entry
   end
 
   # POST /api/accounts
