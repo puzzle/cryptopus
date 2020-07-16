@@ -1,18 +1,17 @@
-import {action} from "@ember/object";
+import { action } from "@ember/object";
 import FolderValidations from "../validations/folder";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
-import {inject as service} from "@ember/service";
-import {tracked} from "@glimmer/tracking";
+import { inject as service } from "@ember/service";
+import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "./base-form-component";
-import {isPresent} from "@ember/utils";
+import { isPresent } from "@ember/utils";
 
 export default class FolderForm extends BaseFormComponent {
   @service store;
   @service router;
   @service navService;
 
-  @tracked selectedTeam;
   @tracked assignableTeams;
 
   FolderValidations = FolderValidations;
@@ -30,7 +29,8 @@ export default class FolderForm extends BaseFormComponent {
       FolderValidations
     );
 
-    if (this.isNewRecord) this.selectedTeam = this.navService.selectedTeam
+    if (this.isNewRecord && this.navService.selectedTeam)
+      this.changeset.team = this.navService.selectedTeam;
 
     if (this.isNewRecord && isPresent(this.args.team)) {
       this.changeset.team = this.args.team;
@@ -38,11 +38,6 @@ export default class FolderForm extends BaseFormComponent {
 
     this.store.findAll("team").then(teams => {
       this.assignableTeams = teams;
-      if (isPresent(this.changeset.team)) {
-        this.selectedTeam = teams.find(
-          team => team.id === this.changeset.get("team.id")
-        );
-      }
     });
   }
 
@@ -56,7 +51,6 @@ export default class FolderForm extends BaseFormComponent {
 
   @action
   setSelectedTeam(selectedTeam) {
-    this.selectedTeam = selectedTeam;
     this.changeset.team = selectedTeam;
   }
 
