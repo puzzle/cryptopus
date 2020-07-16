@@ -1,5 +1,8 @@
 .navbar-custom {
   background: #238bca;
+  z-index: 998;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
 
 .navbar-icon {
@@ -44,4 +47,8 @@ nav a.nav-link {
 
 .dropdown .dropdown-item:active {
   background-color: #f8f9fa;
+}
+
+#search {
+  width: 300px;
 }

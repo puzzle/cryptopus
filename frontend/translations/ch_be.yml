@@ -44,6 +44,8 @@ ch_be:
   user: Benutzer
   select_team: Wähl bitte es team us oder benutz d suechi
   role: Rollä
+  empty: läär
+
   api-user:
     none: Du hesch kei Api-Benutzer. Hol dr einä
   time:
@@ -53,28 +55,28 @@ ch_be:
       short: "%d. %B, %H:%M"
   date:
     month_names:
-      -
-      - Januar
-      - Februar
-      - März
-      - April
-      - Mai
-      - Juni
-      - Juli
-      - August
-      - Septämber
-      - Oktober
-      - Novämber
-      - Dezämber
+    -
+    - Januar
+    - Februar
+    - März
+    - April
+    - Mai
+    - Juni
+    - Juli
+    - August
+    - Septämber
+    - Oktober
+    - Novämber
+    - Dezämber
 
     day_names:
-      - Sunntig
-      - Mäntig
-      - Dsischtig
-      - Mittwuch
-      - Donnstig
-      - Fritig
-      - Samstig
+    - Sunntig
+    - Mäntig
+    - Dsischtig
+    - Mittwuch
+    - Donnstig
+    - Fritig
+    - Samstig
 
   i18n:
     language:
@@ -187,7 +189,6 @@ ch_be:
         num_folders: Ahzahl Ordner
         num_accounts: Ahzahl Accounts
         members: Mitglieder
-        no_content: Nüd passends zur suechi gfunde
 
   folders:
     title: Ordner
@@ -273,7 +274,6 @@ ch_be:
     index:
       title: 'Du bisch es Mitglied vo de fougende Teams:'
       team: Team
-      no_content: Keni Iträg gfundä
     new:
       title: Team ersteue
     description:
@@ -322,6 +322,11 @@ ch_be:
       members:
         added: Mitglied isch erfougrich hinzuegfüegt worde
         removed: Mitglied isch erfougrich entfernt worde
+      errors: 
+        auth_failed: Authentifizierig fäugschlage
+        user_not_logged_in: Benutzer isch nid igloggt
+        invalid_request: Invalidi Ahfrag
+        record_not_found: Ihtrag isch nid gfunde worde
     wizard:
       fill_password_fields: Bitte füu aui Fäuder us
       paswords_do_not_match: D Passwörter stimme nid überi
@@ -425,7 +430,7 @@ ch_be:
     deleteWithTeams: "Lösch aui Teams i dene %{username} ds letschte Teammitglied isch"
 
 
-  #Validation Errors
+#Validation Errors
   activerecord:
     attributes:
       user:

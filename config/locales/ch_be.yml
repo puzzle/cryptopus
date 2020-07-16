@@ -44,6 +44,8 @@ ch_be:
   user: Benutzer
   select_team: Wähl bitte es team us oder benutz d suechi
   role: Rollä
+  empty: läär
+
   api-user:
     none: Du hesch kei Api-Benutzer. Hol dr einä
   time:

@@ -4,11 +4,16 @@
 {{#if this.isTeamConfiguring}}
   <TeamMemberConfigure @teamId={{@team.id}} @onAbort={{this.toggleTeamConfigure}}/>
 {{/if}}
-<div class="container mt-4 mb-4">
+<div class="mt-4 mb-4">
   <div>
-    <div class="row py-2 d-flex border {{if this.collapsed "rounded" "rounded-top"}}">
+    <div class="row py-2 d-flex bg-white border border-darker {{if this.collapsed "rounded" "rounded-top"}}">
       <div class="col-auto my-auto" role="button" {{on "click" this.collapse}}>
-        <img class="icon icon-big-button py-auto" src="/ember/assets/images/members.svg" alt="">
+        {{#if this.args.team.private}}
+          <img class="icon icon-big-button py-auto" src="/ember/assets/images/encrypted_small.svg" alt="">
+
+        {{else}}
+          <img class="icon icon-big-button py-auto" src="/ember/assets/images/members.svg" alt="">
+        {{/if}}
       </div>
       <div class="col my-auto pl-0" role="button" {{on "click" this.collapse}}>
         <h2 class="d-inline">{{@team.name}}</h2>
@@ -38,17 +43,21 @@
       </div>
     </div>
 
-    <BsCollapse class="row border border-top-0 rounded-bottom" @collapsed={{this.collapsed}}>
+    <BsCollapse class="row bg-grey-1 border border-darker border-top-0 rounded-bottom" @collapsed={{this.collapsed}}>
       <div class="col">
+
+        {{#if @folder.description}}
         <div class="row py-3">
           <div class="col">
-            <p class="text-muted mb-0">{{@team.description}}</p>
+            <p class="text-muted description mb-0">{{@team.description}}</p>
           </div>
         </div>
-        <div class="p-2">
+        {{/if}}
+
+        <div class="p-3">
           {{#if @team.folders}}
             {{#each @team.folders as |folder|}}
-              <div class="row border py-2">
+              <div class="row bg-white border py-2">
                 <div class="col">
                   <FolderShow @folder={{folder}}/>
                 </div>

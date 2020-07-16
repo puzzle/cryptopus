@@ -5,7 +5,7 @@
   <FileEntryForm @class="modal_file_entry" @account={{@account}} @title={{t "file_entries.new.title"}} @onAbort={{this.toggleFileEntryNew}}/>
 {{/if}}
 
-<div class="container mt-3">
+<div class="container px-5 pt-4 h-100 bg-white">
   <div class="row mb-3">
     <div class="col">
       <a id="account-show-back" href="#" {{on "click" this.transitionBack}}>
@@ -16,11 +16,11 @@
       </a>
     </div>
   </div>
-  <div class="d-flex flex-row justify-content-between">
-    <div>
+  <div class="row pb-3 justify-content-between">
+    <div class="col">
       <h2 class="d-inline">{{t "accounts.show.account"}}: {{@account.accountname}}</h2>
     </div>
-    <div class="col-sm-1 d-flex justify-content-between align-items-center">
+    <div class="col-auto d-flex justify-content-between align-items-center">
       <DeleteWithConfirmation @class="btn btn-light edit_button" @record={{@account}} @didDelete={{this.refreshRoute}}>
         <img class="icon-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
       </DeleteWithConfirmation>
@@ -29,23 +29,30 @@
       </a>
     </div>
   </div>
+
+  {{#if @account.description}}
+    <div class="row pb-3">
+      <div class="col">
+        <p class="text-muted description">{{@account.description}}</p>
+      </div>
+    </div>
+  {{/if}}
   <div>
-    <p>{{@account.description}}</p>
     <div class="result-username">
       <Input id="cleartext_username" class="d-inline form-control" @disabled="true" @value={{@account.cleartextUsername}}/>
-      <CopyButton class="btn btn-light w-4" @clipboardText={{@account.cleartextUsername}}>
+      <CopyButton class="copy-btn btn btn-light" @clipboardText={{@account.cleartextUsername}}>
         <img class="icon-clippy img d-inline" src="/ember/assets/images/clipboard.svg" alt="clip">
       </CopyButton>
     </div>
     <a role="button" class="show-password-link {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "accounts.show.show_password"}}</a>
     <div class="result-password">
       <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
-      <CopyButton class="btn btn-light w-4" @clipboardText={{@account.cleartextPassword}}>
+      <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextPassword}}>
         <img class="icon-clippy img d-inline" src="/ember/assets/images/clipboard.svg" alt="clip">
       </CopyButton>
     </div>
   </div>
-  <div class="d-flex flex-row justify-content-between">
+  <div class="d-flex flex-row justify-content-between mb-2">
     <div>
       <h3>{{t "accounts.show.attachments"}}</h3>
     </div>
@@ -59,7 +66,7 @@
     <tbody>
       <tr>
         <th>{{t "accounts.show.file"}}</th>
-        <th>{{t "description"}}</th>
+        <th class="description">{{t "description"}}</th>
         <th>{{t "actions"}}</th>
       </tr>
       {{#each @account.fileEntries as |fileEntry|}}

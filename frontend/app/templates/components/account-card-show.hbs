@@ -5,7 +5,7 @@
   <div class="card account-card account-preview" {{on "click" this.swapToCredentialsView}} role="button">
     <div class="card-body account-accountname">
       <div class="card-title">
-        <img class="img d-inline w-20 float-right" src="/ember/assets/images/key.svg" alt="key">
+        <img class="img d-inline w-30 float-right ml-2" src="/ember/assets/images/key_horizontal.svg" alt="key">
         <h5>{{truncate @account.accountname 18}}</h5>
       </div>
     </div>
@@ -16,6 +16,8 @@
 {{else}}
   <div class="card account-card account-detail">
     <div role="button" class="card-header" {{on "click" this.swapToPreview}}>
+      <img class="img d-inline mr-2 icon-button" src="/ember/assets/images/key.svg" alt="key">
+
       <p class="d-inline">{{truncate @account.accountname 29}}</p>
     </div>
     <div class="card-body">
@@ -34,7 +36,7 @@
           <Input class="secret" @disabled="true" @value={{@account.cleartextPassword}}/>
         </div>
         <div class="col-sm-3">
-          <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextPassword}} @success={{fn this.onCopied "password"}}>
+          <CopyButton class="btn btn-light copy-btn" @clipboardText={{@account.cleartextPassword}} @success={{fn this.onCopied "password"}}>
             <img class="icon-clippy img d-inline" src="/ember/assets/images/clipboard.svg" alt="clip">
           </CopyButton>
         </div>
