@@ -4,7 +4,7 @@
   "ssl-required": "external",
   "resource": "cryptopus",
   "credentials": {
-    "secret": "0a76235d-4d98-47ba-ab31-22e4748f6fa8"
+    "secret": "90ee66cf-c90b-4630-85b0-3f2106cd74ff"
   },
   "confidential-port": 0
 }
