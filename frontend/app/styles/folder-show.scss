@@ -1,15 +1,5 @@
-
-.folder-divider {
-}
-
 .folder-header {
   font-weight: bold;
   font-size: 18px !important;
   color: #238bca;
-}
-
-.folder-edit-icon {
-  /* filter for #238bca color, used https://codepen.io/sosuke/pen/Pjoqqp to generate */
-  filter: invert(42%) sepia(69%) saturate(780%) hue-rotate(164deg)
-  brightness(95%) contrast(84%);
 }
