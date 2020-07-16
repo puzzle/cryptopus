@@ -14,10 +14,12 @@ export default ApplicationAdapter.extend({
   },
 
   urlForQueryRecord(query, modelName) {
-    if(query.teamId) {
-      let url = `/${this.namespace}/${query.teamId}/${this.pathForType()}/${query.id}`;
+    if (query.teamId) {
+      let url = `/${this.namespace}/${query.teamId}/${this.pathForType()}/${
+        query.id
+      }`;
       delete query.teamId;
-      return url
+      return url;
     }
     return super.urlForQueryRecord(query, modelName);
   },
@@ -29,6 +31,12 @@ export default ApplicationAdapter.extend({
   },
 
   urlForUpdateRecord(id, modelName, snapshot) {
+    return `/${this.namespace}/${snapshot.belongsTo("team", {
+      id: true
+    })}/${this.pathForType()}/${id}`;
+  },
+
+  urlForDeleteRecord(id, modelName, snapshot) {
     return `/${this.namespace}/${snapshot.belongsTo("team", {
       id: true
     })}/${this.pathForType()}/${id}`;
