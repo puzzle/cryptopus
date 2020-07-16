@@ -10,17 +10,18 @@
       <div class="col" role="button" {{on "click" this.collapse}}>
         <h2 class="d-inline">{{@team.name}}</h2>
       </div>
-      <div class="col-auto my-auto">
-        <span>
-          <span role="button" {{on "click" this.toggleTeamEdit}}>
-            <img class="icon-big-button" src="/ember/assets/images/edit.svg" alt="edit">
-          </span>
-          <span id="config_team_button" role="button" {{on "click" this.toggleTeamConfigure}}>
-            <img class="icon-big-button" src="/ember/assets/images/members.svg" alt="configure">
-          </span>
-          <span role="button" {{on "click" this.toggleFavourised}}>
-            <img class="icon-big-button" src="/ember/assets/images/star{{if @team.favourised "-filled"}}.svg" alt="star">
-          </span>
+      <div class="col-sm-2 d-flex justify-content-between align-items-center">
+        <DeleteWithConfirmation @record={{@team}} @didDelete={{this.transitionToIndex}}>
+          <img class="icon-big-button" src="/ember/assets/images/delete.svg" alt="delete">
+        </DeleteWithConfirmation>
+        <span role="button" {{on "click" this.toggleTeamEdit}}>
+          <img class="icon-big-button" src="/ember/assets/images/edit.svg" alt="edit">
+        </span>
+        <span id="config_team_button" role="button" {{on "click" this.toggleTeamConfigure}}>
+          <img class="icon-big-button" src="/ember/assets/images/members.svg" alt="configure">
+        </span>
+        <span role="button" {{on "click" this.toggleFavourised}}>
+          <img class="icon-big-button" src="/ember/assets/images/star{{if @team.favourised "-filled"}}.svg" alt="star">
         </span>
       </div>
       <div class="col-auto ml-0 pl-0 my-auto">

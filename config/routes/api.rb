@@ -44,7 +44,7 @@ Rails.application.routes.draw do
         resources :last_member_teams, only: [:index], module: 'teams'
       end
 
-      resources :folders, except: [:new, :edit, :destroy]
+      resources :folders, except: [:new, :edit]
       resources :api_users, only: [:create, :destroy, :index], module: 'teams'
       resources :members, except: [:new, :edit], module: 'teams'
       resource :favourite, only: [:create, :destroy], module: 'teams', controller: 'favourite'
