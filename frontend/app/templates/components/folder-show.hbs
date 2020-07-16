@@ -1,14 +1,19 @@
 {{#if this.isFolderEditing}}
   <FolderForm @folder={{@folder}} @onAbort={{this.toggleFolderEdit}} @title={{t "folders.edit.title"}}/>
 {{/if}}
-<div class="d-flex row justify-content-between">
-  <div class="col" role="button" {{on "click" this.collapse}}>
+<div class="d-flex row justify-content-between align-middle">
+  <div class="col-auto my-auto" role="button" {{on "click" this.collapse}}>
+    <img class="icon icon-big-button py-auto" src="/ember/assets/images/folder.svg" alt="">
+  </div>
+  <div class="col pl-0" role="button" {{on "click" this.collapse}}>
     <h4 class="d-inline">{{@folder.name}}</h4>
   </div>
-  <div class="col-auto d-inline">
+  <div class="col-auto d-inline my-auto">
     <a role="button" {{on "click" this.toggleFolderEdit}}>
-      <img class="icon-button folder-edit-icon" src="/ember/assets/images/edit.svg" alt="edit">
+        <img class="icon-medium-button " src="/ember/assets/images/edit.svg" alt="edit">
     </a>
+  </div>
+  <div class="col-auto ml-0 pl-0 my-auto">
     <span role="button" {{on "click" this.collapse}}>
       {{#if this.collapsed}}
         <img class="icon-big-button float-right" src="/ember/assets/images/angle-left.svg" alt="<">

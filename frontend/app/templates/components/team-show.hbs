@@ -4,21 +4,24 @@
 {{#if this.isTeamConfiguring}}
   <TeamMemberConfigure @teamId={{@team.id}} @onAbort={{this.toggleTeamConfigure}}/>
 {{/if}}
-<div class="container mb-4 ml-254">
+<div class="container mt-4 mb-4">
   <div>
     <div class="row py-2 d-flex border {{if this.collapsed "rounded" "rounded-top"}}">
-      <div class="col" role="button" {{on "click" this.collapse}}>
+      <div class="col-auto my-auto" role="button" {{on "click" this.collapse}}>
+        <img class="icon icon-big-button py-auto" src="/ember/assets/images/members.svg" alt="">
+      </div>
+      <div class="col my-auto pl-0" role="button" {{on "click" this.collapse}}>
         <h2 class="d-inline">{{@team.name}}</h2>
       </div>
       <div class="col-auto my-auto">
         <span>
-          <span role="button" {{on "click" this.toggleTeamEdit}}>
+          <span class="mx-1" role="button" {{on "click" this.toggleTeamEdit}}>
             <img class="icon-big-button" src="/ember/assets/images/edit.svg" alt="edit">
           </span>
-          <span id="config_team_button" role="button" {{on "click" this.toggleTeamConfigure}}>
+          <span class="mx-1" id="config_team_button" role="button" {{on "click" this.toggleTeamConfigure}}>
             <img class="icon-big-button" src="/ember/assets/images/members.svg" alt="configure">
           </span>
-          <span role="button" {{on "click" this.toggleFavourised}}>
+          <span class="mx-1" role="button" {{on "click" this.toggleFavourised}}>
             <img class="icon-big-button" src="/ember/assets/images/star{{if @team.favourised "-filled"}}.svg" alt="star">
           </span>
         </span>
@@ -32,14 +35,13 @@
           {{/if}}
         </span>
       </div>
-      <hr>
     </div>
 
     <BsCollapse class="row border border-top-0 rounded-bottom" @collapsed={{this.collapsed}}>
       <div class="col">
-        <div class="row py-2">
+        <div class="row py-3">
           <div class="col">
-            <p class="text-muted">{{@team.description}}</p>
+            <p class="text-muted mb-0">{{@team.description}}</p>
           </div>
         </div>
         <div class="p-2">
