@@ -135,13 +135,11 @@ describe Api::AccountsController do
 
       account1_json_attributes = data['attributes']
       account1_json_relationships = data['relationships']
-      folder_attributes = json['included'].first['attributes']
 
       expect(account1_json_attributes['accountname']).to eq 'account1'
       expect(account1_json_attributes['cleartext_username']).to eq 'test'
       expect(account1_json_attributes['cleartext_password']).to eq 'password'
       expect_json_object_includes_keys(account1_json_relationships, nested_models)
-      expect(folder_attributes['name']).to eq 'folder1'
     end
 
     it 'cannot authenticate and does not return decrypted account if recrypt requests pending' do
@@ -177,13 +175,11 @@ describe Api::AccountsController do
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
-        folder_attributes = json['included'].first['attributes']
 
         expect(account1_json_attributes['accountname']).to eq 'account1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
-        expect(folder_attributes['name']).to eq 'folder1'
       end
 
       it 'authenticates with valid api user and returns account details with keycloak enabled' do
@@ -199,13 +195,11 @@ describe Api::AccountsController do
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
-        folder_attributes = json['included'].first['attributes']
 
         expect(account1_json_attributes['accountname']).to eq 'account1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
-        expect(folder_attributes['name']).to eq 'folder1'
       end
 
       it 'authenticates with valid api user and returns account details with ldap enabled' do
@@ -221,13 +215,11 @@ describe Api::AccountsController do
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
-        folder_attributes = json['included'].first['attributes']
 
         expect(account1_json_attributes['accountname']).to eq 'account1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
-        expect(folder_attributes['name']).to eq 'folder1'
       end
 
       it 'does not authenticate with invalid api token and does not show account details' do
@@ -272,14 +264,12 @@ describe Api::AccountsController do
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
-        folder_attributes = json['included'].first['attributes']
 
         expect(response).to have_http_status(200)
         expect(account1_json_attributes['accountname']).to eq 'account1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
-        expect(folder_attributes['name']).to eq 'folder1'
       end
 
       it 'does not show account details if valid api user not teammember' do
@@ -305,14 +295,12 @@ describe Api::AccountsController do
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
-        folder_attributes = json['included'].first['attributes']
 
         expect(response).to have_http_status(200)
         expect(account1_json_attributes['accountname']).to eq 'account1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
-        expect(folder_attributes['name']).to eq 'folder1'
       end
 
       it 'shows account as human user details if headers valid' do
@@ -323,14 +311,12 @@ describe Api::AccountsController do
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
-        folder_attributes = json['included'].first['attributes']
 
         expect(response).to have_http_status(200)
         expect(account1_json_attributes['accountname']).to eq 'account1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
-        expect(folder_attributes['name']).to eq 'folder1'
       end
     end
   end
