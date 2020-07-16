@@ -15,7 +15,6 @@ export default class AccountForm extends BaseFormComponent {
 
   @tracked selectedTeam;
   @tracked assignableTeams;
-  @tracked availableFolders;
 
   AccountValidations = AccountValidations;
 
@@ -58,6 +57,16 @@ export default class AccountForm extends BaseFormComponent {
     }
   }
 
+  get availableFolders() {
+    return isPresent(this.selectedTeam)
+      ? this.store
+          .peekAll("folder")
+          .filter(
+            folder => folder.team.get("id") === this.selectedTeam.get("id")
+          )
+      : [];
+  }
+
   @action
   abort() {
     if (this.args.onAbort) {
@@ -81,17 +90,7 @@ export default class AccountForm extends BaseFormComponent {
   @action
   setSelectedTeam(selectedTeam) {
     this.selectedTeam = selectedTeam;
-
-    if (isPresent(selectedTeam)) {
-      this.store
-        .query("folder", { teamId: this.selectedTeam.id })
-        .then(folders => {
-          this.availableFolders = folders;
-          this.setFolder(null);
-        });
-    } else {
-      this.setFolder(null);
-    }
+    this.setFolder(null);
   }
 
   @action

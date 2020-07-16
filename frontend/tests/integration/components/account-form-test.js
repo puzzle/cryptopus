@@ -9,25 +9,16 @@ import { setLocale } from "ember-intl/test-support";
 
 const storeStub = Service.extend({
   findAll(modelName) {
-    if (modelName === "folder") {
-      return Promise.all([
-        {
-          id: 1,
-          name: "bbt",
-          team: {
-            get() {
-              return 1;
-            }
-          }
-        }
-      ]);
-    } else if (modelName === "team") {
+    if (modelName === "team") {
       return Promise.all([
         {
           id: 1,
           name: "supporting",
           description: "supporting folders",
-          folder: [1]
+          folder: [1],
+          get() {
+            return 1;
+          }
         }
       ]);
     }
@@ -49,6 +40,19 @@ const storeStub = Service.extend({
         }
       ]);
     }
+  },
+  peekAll() {
+    return [
+      {
+        id: 1,
+        name: "bbt",
+        team: {
+          get() {
+            return 1;
+          }
+        }
+      }
+    ];
   }
 });
 
@@ -91,7 +95,12 @@ module("Integration | Component | account-form", function(hooks) {
       id: 1,
       name: "bbt",
       get() {
-        return { name: "supporting" };
+        return {
+          name: "supporting",
+          get() {
+            return 1;
+          }
+        };
       }
     });
     this.set("account", {
@@ -104,7 +113,10 @@ module("Integration | Component | account-form", function(hooks) {
     });
     await render(hbs`<AccountForm @account={{this.account}}/>`);
 
-    assert.equal(this.element.querySelector("input[name='accountname']").value, "mail");
+    assert.equal(
+      this.element.querySelector("input[name='accountname']").value,
+      "mail"
+    );
     assert.equal(
       this.element.querySelector("input[name='cleartextUsername']").value,
       "mail@ember.com"
