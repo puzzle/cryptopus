@@ -12,7 +12,7 @@
                             @name="teamname" class={{if this.changeset.error.name.validation
                                                            "invalid-input-name"}}
                             id="teamname" @tabindex="1"
-                            @customError={{this.changeset.error.name.validation}} />
+                            @customError={{t (validation-error-key this.changeset.error.name.validation)}} />
             </form.group>
             <div class="checkbox">
               <div class="d-flex justify-content-start">
@@ -36,7 +36,7 @@
               <form.element @label={{t "helpers.label.team.description"}} @property="description" @controlType="textarea"
                             id="description" class="{{if
                       this.changeset.error.description.validation "invalid-input"}} vertical-resize"
-                            @tabindex="7" @customError={{this.changeset.error.description.validation}}/>
+                            @tabindex="7" @customError={{t (validation-error-key this.changeset.error.description.validation)}}/>
             </form.group>
           </div>
         </div>

@@ -513,3 +513,19 @@ fr:
     team_policy:
       update?: Vous n'êtes pas membre de cette équipe
       destroy?: Seul l'administrateur peut supprimer des équipes
+
+  validations:
+    name:
+      present: Le nom doit être présent
+      too_long: Le nom est trop long
+    description:
+      too_long: La description est trop longue
+    file:
+      present: Le fichier doit être présent
+    team:
+      present: L'équipe être présent
+    folder:
+      present: Le dossier doit être présent
+    accountname:
+      present: Le nom du compte doit être présent
+      too_long: Le nom du compte est trop long
