@@ -81,46 +81,46 @@ describe 'TeamsPage', type: :system, js: true do
 
   def folder_expanded?
     within(all('div.row.border.py-2')[1]) do
-      expect(find('span[role="button"]')).to have_xpath("//img[@alt='v']")
+      expect(find('span[name="folder-collapse"]')).to have_xpath("//img[@alt='v']")
     end
   end
 
   def team_expanded?
     within(find('div.row.py-2.d-flex.border.rounded-top')) do
-      expect(all('span[role="button"]')[3]).to have_xpath("//img[@alt='v']")
+      expect(find('span[name="team-collapse"]')).to have_xpath("//img[@alt='v']")
     end
   end
 
   def folder_collapsed?
     within(all('div.row.border.py-2')[1]) do
-      expect(find('span[role="button"]')).to have_xpath("//img[@alt='<']")
+      expect(find('span[name="folder-collapse"]')).to have_xpath("//img[@alt='<']")
     end
   end
 
   def team_collapsed?
     within(find('div.row.py-2.d-flex.border.rounded-top')) do
-      expect(all('span[role="button"]')[3]).to have_xpath("//img[@alt='<']")
+      expect(find('span[name="team-collapse"]')).to have_xpath("//img[@alt='<']")
     end
   end
 
   def open_and_close_team_edit
-    all('span[role="button"]')[0].click
+    all('span[role="button"]')[1].click
     expect(page).to have_text('Edit Team')
     click_button('Close')
   end
 
   def open_and_close_team_members
-    all('span[role="button"]')[1].click
+    all('span[role="button"]')[2].click
     expect(page).to have_text('Edit Team Members and Api Users')
     click_button('Close')
   end
 
   def click_team_favourites_button
-    all('span[role="button"]')[2].click
+    all('span[role="button"]')[3].click
     within(find('div.row.py-2.d-flex.border.rounded-top')) do
       expect(find('img[alt="star"]')['src']).to include '/ember/assets/images/star.svg'
     end
-    all('span[role="button"]')[2].click
+    all('span[role="button"]')[3].click
     within(find('div.row.py-2.d-flex.border.rounded-top')) do
       expect(find('img[alt="star"]')['src']).to include '/ember/assets/images/star-filled.svg'
     end
