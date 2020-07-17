@@ -11,14 +11,18 @@
   @type="dark fixed-top"
   @backgroundColor="custom"
   @class="navbar-custom" as |navbar|>
-  <div class="ml-254">
-
-  </div>
-  <div class="container pl-0 pr-0">
+  <div class="pl-0 pr-0" style="width: 66.6%; margin: 0 auto">
     <navbar.content>
+      <div style="width: 250px;">
+        <a href="/">
+          <img src="/ember/assets/images/cryptopussy_without_text.svg" alt="logo" class="logo-icon">
+          <span class="ml-1 navbar-brand">Cryptopus</span>
+        </a>
+      </div>
+
       <div class="form-inline">
         <div class="form-group">
-          <Input @class="form-control mr-sm-2" @type="search" @id="search" @value={{ this.navService.searchQuery }} placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}  @autofocus={{this.isStartpage}}/>
+          <Input @class="form-control mr-sm-2" style="margin-left: 10px !important;" @type="search" @id="search" @value={{ this.navService.searchQuery }} placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}  @autofocus={{this.isStartpage}}/>
         </div>
       </div>
 
@@ -44,12 +48,12 @@
         </span>
         <div class="nav-item mr-2">
           <a href="/profile">
-            <span class="helper"></span><img class="icon-medium-button icon mr-2 ml-1" src="/ember/assets/images/team_config.svg" alt="v">
+            <span class="helper"></span><img class="icon-medium-button icon mr-2 ml-1" src="/ember/assets/images/team_config-white.svg" alt="v">
           </a>
         </div>
         <div class="nav-item mr-2">
           <a href="/session/destroy">
-            <span class="helper"></span><img class="icon icon-medium-button" src="/ember/assets/images/sign_out.svg" alt="Logout">
+            <span class="helper"></span><img class="icon icon-medium-button" src="/ember/assets/images/sign_out-white.svg" alt="Logout">
           </a>
         </div>
       </navbar.nav>
