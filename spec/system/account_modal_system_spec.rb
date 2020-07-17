@@ -63,8 +63,8 @@ describe 'AccountModal', type: :system, js: true do
 
     expect_account_page_with(account_attrs)
 
-    expect(page).to have_link(id: 'edit_account_button')
-    click_link(id: 'edit_account_button')
+    expect(page).to have_selector('#edit_account_button')
+    find('#edit_account_button').click
 
     expect(page).to have_text('Edit Account')
 
