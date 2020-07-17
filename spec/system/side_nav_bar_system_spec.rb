@@ -30,18 +30,18 @@ describe 'SideNavBar', type: :system, js: true do
     # Click on Team and check if expands and collapses
     within(sidebar) do
       team1_collapsed_in_sidebar?
-      folder2 false
+      assert_folder2(shown: false)
 
       team1_link.click
       expect(uri).to eq "/teams/#{team1.id}"
 
       team1_expanded_in_sidebar?
-      folder2 true
+      assert_folder2(shown: true)
 
       # Check if Team closes up again
       team1_link.click
       team1_collapsed_in_sidebar?
-      folder2 false
+      assert_folder2(shown: false)
 
       # and reopen again
       team1_link.click
@@ -65,15 +65,15 @@ describe 'SideNavBar', type: :system, js: true do
     logout
   end
 
-  def folder2(shown)
+  private
+
+  def assert_folder2(shown:)
     folder2_div = first('div', visible: false)
-    sleep(1)
-    within(folder2_div) do
-      if shown
-        expect(folder2_div['class']).to have_text('show')
-      else
-        expect(folder2_div['class']).not_to have_text('show')
-      end
+    if shown
+      folder2_div.has_css?('collapsing')
+      folder2_div.has_css?('show')
+    else
+      folder2_div.has_no_css?('show')
     end
   end
 
