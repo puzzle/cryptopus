@@ -19,11 +19,6 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 @import "power-select";
 @import "background-colors";
 
-body {
-  background-color: #e8e8e8;
-}
-
-
 .d-inline {
   display: inline !important;
 }
@@ -189,6 +184,19 @@ li a {
   display: inline;
 }
 
+.icon-folder {
+  width: 22px !important;
+  height: 22px !important;
+  display: inline;
+}
+
+.icon-button-angle {
+  width: 18px !important;
+  height: 18px !important;
+  display: inline;
+  margin-top: 4px;
+}
+
 .info-icon:hover {
   cursor: help;
 }
@@ -212,6 +220,14 @@ li a {
 
 .border-darker {
   border-color: #b1b4b8 !important;
+}
+
+.team-card-header {
+  height: 47.5px !important;
+  padding-top: 5px !important;
+  background-color: #1b8dc6;
+  color: white !important;
+  border: none;
 }
 
 .ember-notify-default.ember-notify-cn {

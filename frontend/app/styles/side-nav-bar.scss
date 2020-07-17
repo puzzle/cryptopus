@@ -1,16 +1,16 @@
 #sidebar {
   width: 250px;
-  position: fixed;
   top: 0px;
   left: 0;
-  height: 100vh;
   z-index: 999;
-  background: #238bca;
   color: #fff;
   transition: all 0.3s;
 }
 
-.nav-side-bar {
+.scroll-bar {
+  overflow-y: scroll;
+  max-height: calc(100vh - 163px);
+  margin-top: 5px;
 }
 
 #nav-side-bar-container {
@@ -21,19 +21,22 @@
   padding-left: 32px !important;
 }
 
-.nav-side-bar .toggle-button{
-  background-color: #3b7bbe;
-  border-color: #1e5a96;
+.toggle-button{
+  border-bottom: 5px solid !important;
+  background-color: transparent;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-color: rgba(167, 167, 167, 0.44) !important;
+
 }
 
-.nav-side-bar .toggle-button:hover {
-  background-color: #1e5a96;
-  border-color: #195575;
+.toggle-button:hover {
+  background-color: white;
 }
 
-.nav-side-bar .toggle-button.active {
-  background-color: #1e5a96 !important;
-  border-color: #195575 !important;
+.toggle-button.active {
+  background-color: white !important;
+  border-color: #1b8dc6 !important;
 }
 
 .p-0 {
@@ -46,28 +49,50 @@
   overflow: hidden;
 }
 
+.button-group {
+  width: 250px;
+  border-radius: 0;
+}
+
+.btn {
+  border: none;
+}
+
 .list-group.list-group-root .list-group-item button {
   width: 70px;
+}
+
+.list-group-top-button {
+  margin-top: 6px;
+  height: 47.5px;
+}
+
+.list-group-top-button:hover {
+  background-color: transparent;
 }
 
 .list-group.list-group-root .list-group {
   margin-bottom: 0;
 }
 
-.list-group.list-group-root .list-group-item {
-  border-radius: 0;
-  border-width: 0px;
-  border-top-width: 1px;
-  border-color: #1a4d81;
-  padding-left: 30px;
+.list-group-item {
+  border: none;
+  padding-left: 15px;
   cursor: default;
+  margin-bottom: 5px;
+  height: 40px;
+  padding-top: 7px !important;
+}
+
+.list-group-item:last-child {
+  margin-bottom: 0;
 }
 
 .list-group.list-group-root .list-group .list-group-item {
   border-width: 0px;
   border-top-width: 1px;
   border-color: #16416c;
-  padding-left: 50px;
+  padding-left: 45px;
 }
 
 .side-nav-bar-teams-list {
@@ -78,10 +103,14 @@
   cursor: pointer;
 }
 
-.side-nav-bar-teams-list .list-group-item.bg-blue-one:hover {
-  background-color: #3b7bbe !important;
-}
-
 .side-nav-bar-teams-list .list-group > .list-group-item.bg-blue-three:hover {
   background-color: #1e5a96 !important;
+}
+
+.list-folder-item {
+  color: #3b3c3e !important;
+}
+
+.list-folder-item:last-child {
+  margin-bottom: 5px;
 }
