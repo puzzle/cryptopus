@@ -4,9 +4,9 @@
 {{#if this.isPreview}}
   <div class="card account-card account-preview" {{on "click" this.swapToCredentialsView}} role="button">
     <div class="card-body account-accountname">
+      <img class="img d-inline w-30 float-left icon-folder mr-2" src="/ember/assets/images/key.svg" alt="key">
       <div class="card-title">
-        <img class="img d-inline w-30 float-right ml-2" src="/ember/assets/images/key_horizontal.svg" alt="key">
-        <h5>{{truncate @account.accountname 18}}</h5>
+        <h5>{{@account.accountname}}</h5>
       </div>
     </div>
     <div class="card-footer text-muted account-description">
@@ -18,7 +18,7 @@
     <div role="button" class="card-header" {{on "click" this.swapToPreview}}>
       <img class="img d-inline mr-2 icon-button" src="/ember/assets/images/key.svg" alt="key">
 
-      <p class="d-inline">{{truncate @account.accountname 29}}</p>
+      <p class="d-inline">{{@account.accountname}}</p>
     </div>
     <div class="card-body">
       <div class="row mb-2">

@@ -4,7 +4,7 @@
 {{#if this.isTeamConfiguring}}
   <TeamMemberConfigure @teamId={{@team.id}} @onAbort={{this.toggleTeamConfigure}}/>
 {{/if}}
-<div class="mt-4 mb-4 ">
+<div class="mt-4 mb-4" style="border-radius: 4px">
   <div>
     <div class="row py-2 d-flex team-card-header {{if this.collapsed "rounded" "rounded-top"}}">
       <div class="col-auto my-auto" role="button" {{on "click" this.collapse}}>
@@ -57,8 +57,8 @@
         <div class="pt-2">
           {{#if @team.folders}}
             {{#each @team.folders as |folder|}}
-              <div class="row bg-white border py-2">
-                <div class="col">
+              <div class="row bg-white border" style="margin-bottom: 5px; border-radius: 4px;">
+                <div class="col folder-no-p">
                   <FolderShow @folder={{folder}}/>
                 </div>
               </div>

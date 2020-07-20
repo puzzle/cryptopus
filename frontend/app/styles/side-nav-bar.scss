@@ -1,6 +1,6 @@
 #sidebar {
   width: 250px;
-  top: 0px;
+  top: 0;
   left: 0;
   z-index: 999;
   color: #fff;
@@ -97,10 +97,12 @@
 
 .side-nav-bar-teams-list {
   overflow-y: auto;
-  height: auto;}
+  height: auto;
+}
 
 .side-nav-bar-teams-list .list-group-item:hover {
   cursor: pointer;
+  background-color: #1b8dc6 !important;
 }
 
 .side-nav-bar-teams-list .list-group > .list-group-item.bg-blue-three:hover {
