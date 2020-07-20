@@ -23,7 +23,7 @@
     <div class="card-body">
       <div class="row mb-2">
         <div class="col-sm-8 pr-0">
-          <Input class="secret" @disabled="true" @value={{@account.cleartextUsername}}/>
+          <Input class="d-inline form-control" @disabled="true" @value={{@account.cleartextUsername}}/>
         </div>
         <div class="col-sm-3">
           <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextUsername}} @success={{fn this.onCopied "username"}}>
@@ -33,13 +33,17 @@
       </div>
       <div class="row">
         <div class="col-sm-8 pr-0">
-          <Input class="secret" @disabled="true" @value={{@account.cleartextPassword}}/>
+          <Input class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
+          <div role="button" class="show-password-link show-password-link-sm {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "accounts.show.show_password"}}</div>
+
         </div>
-        <div class="col-sm-3">
-          <CopyButton class="btn btn-light copy-btn" @clipboardText={{@account.cleartextPassword}} @success={{fn this.onCopied "password"}}>
+
+        <div class=" col-sm-3">
+          <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextPassword}} @success={{fn this.onCopied "password"}}>
             <img class="icon-clippy img d-inline" src="/ember/assets/images/clipboard.svg" alt="clip">
           </CopyButton>
         </div>
+
       </div>
     </div>
     <div class="card-footer d-flex justify-content-between">
