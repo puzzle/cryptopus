@@ -43,7 +43,8 @@ en:
   new: New
   save: Save
   close: Close
-  select_team: Please select a team or use the search
+  hi_user: "Hi,"
+  intro: Looking for a password?
   role: Role
   empty: empty
 

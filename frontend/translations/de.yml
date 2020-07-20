@@ -44,6 +44,8 @@ de:
   new: Neu
   save: Speichern
   close: Schliessen
+  hi_user: "Hi, "
+  intro: Du suchst ein Passwort?
   select_team: Wählen Sie bitte ein Team aus oder nutzen Sie die Suche
   role: Rolle
   empty: leer
