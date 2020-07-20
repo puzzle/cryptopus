@@ -4,24 +4,23 @@
 -#  https://github.com/puzzle/cryptopus.
 
 - if current_user
-  %nav.navbar.navbar-default{:role => "navigation"}
-    %div.sidenav
-      %div.sidenav-header
-        = link_to(image_pack_tag("cryptopussy_without_text.svg", class: 'logo-icon'), root_path, class:'navbar-logo')
-        = link_to('Cryptopus', root_path, class: 'navbar-title no-hover')
-    .container-fluid
-      .navbar-header
-        %a.font{href: "/teams", class: "font back-link no-hover"}
-          = image_pack_tag("angle-left.svg", class: 'back-arrow')
-          = "Back"
-        %button.navbar-toggle{"data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
-          %span.sr-only Toggle navigation
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
+  %nav.navbar-custom.navbar.fixed-top.navbar-expand-lg
+    .content
+      .collapse.navbar-collapse.navbar-flex
+        %a{href: root_path, class: 'navbar-logo'}
+          = image_pack_tag("cryptopussy_without_text.svg", class: 'logo-icon')
+          %span.ml-1.navbar-brand2
+            = 'Cryptopus'
 
-      #bs-example-navbar-collapse-1.collapse.navbar-collapse.ml-500
-        %ul.nav.navbar-nav.ml-auto
+
+        %ul.nav.navbar-nav.ml-auto.navbar-right
+
+          %li
+            %a{href: "/teams", class: "font no-hover"}
+              = image_pack_tag("angle-left.svg", class: 'back-arrow')
+              = "Back"
+
+
           - if current_user.admin? || current_user.conf_admin?
             %li.dropdown
               %a.dropdown-toggle.font.helper-img.pr-0{"data-toggle": "dropdown", href: "#"}
@@ -36,9 +35,9 @@
                   %a= nav_link t('teams.title'), admin_teams_path
                   %a= nav_link t('admin.maintenance_tasks.index.title'), admin_maintenance_tasks_path
           %li
-            = link_to(current_user.username, profile_path, method: :get, class: 'font link username')
+            = link_to(current_user.username, profile_path, method: :get, class: 'font link')
           %li
-            = link_to(image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path, class: "reduced-padding")
+            = link_to(image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path)
 
   - unless @breadcrumbs.nil?
     .bread-container

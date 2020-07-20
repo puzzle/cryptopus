@@ -16,7 +16,6 @@ class app.FlashMessage
 
   render_messages = ->
     template = HandlebarsTemplates['alert_messages']
-
     compiled_html = template(app.flash.flash_messages)
     $('.message_container').html(compiled_html)
 

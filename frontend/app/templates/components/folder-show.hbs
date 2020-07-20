@@ -30,7 +30,6 @@
 </div>
 <BsCollapse  @collapsed={{this.collapsed}}>
   <div class="folder-collapse-box">
-
     {{#if @folder.description}}
     <div class="row py-3">
       <div class="col">
@@ -38,7 +37,6 @@
       </div>
     </div>
     {{/if}}
-
     <div class="row d-flex flex-wrap">
       {{#if @folder.accounts}}
         {{#each @folder.accounts as |account|}}

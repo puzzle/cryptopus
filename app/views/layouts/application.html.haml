@@ -21,8 +21,9 @@
     = render 'layouts/icons'
     = render 'layouts/navigation'
     #ember.wrapper
-    #content
-      .container.main{role: "main"}
-        = render 'layouts/flashes'
-        = yield
-      = render 'layouts/footer' if current_user
+    #content.content
+      .main{role: "main"}
+        .container-fluid
+          = render 'layouts/flashes'
+          = yield
+    = render 'layouts/footer' if current_user

@@ -14,10 +14,14 @@ export default class AccountCardShowComponent extends Component {
   @tracked
   isAccountEditing = false;
 
+  @tracked
+  isPasswordVisible = false;
+
   @action
   swapToCredentialsView() {
     this.isPreview = false;
     this.store.findRecord("account", this.args.account.id);
+    this.isPasswordVisible = false;
   }
 
   @action
@@ -33,6 +37,11 @@ export default class AccountCardShowComponent extends Component {
   @action
   toggleAccountEdit() {
     this.isAccountEditing = !this.isAccountEditing;
+  }
+
+  @action
+  showPassword() {
+    this.isPasswordVisible = true;
   }
 
   @action
