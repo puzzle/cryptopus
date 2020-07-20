@@ -16,7 +16,9 @@
             <label>{{t "file_entries.new.choose_file"}}</label>
             <div class="dropzone-text">
               {{#if this.changeset.file}}
-                {{t "file_entries.new.selected_file"}}: {{this.changeset.file.name}}
+                <div class="mb-2">
+                  {{t "file_entries.new.selected_file"}}: {{this.changeset.file.name}}
+                </div>
               {{/if}}
               <div>
                 <FileUpload @name="file"
@@ -24,7 +26,8 @@
                             @for="upload-file"
                             @multiple={{false}}
                             @onfileadd={{this.uploadFile}}
-                            @ondrop={{this.uploadFile}}>
+                            @ondrop={{this.uploadFile}}
+                            class="btn btn-primary">
                   <a id="upload-file" tabindex="0">{{t (if this.changeset.file "file_entries.new.reupload" "file_entries.new.upload_file")}}.</a>
                 </FileUpload>
               </div>

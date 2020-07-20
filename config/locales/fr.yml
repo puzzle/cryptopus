@@ -45,8 +45,11 @@ fr:
   new: Nouveau
   save: Sauvegarder
   close: fermer
+  hi_user: "Salut, "
+  intro: Vous cherchez un mot de passe?
   select_team: Veuillez sélectionner une équipe ou utiliser la recherche
   role: Rôle
+  empty: vide
 
   i18n:
     language:

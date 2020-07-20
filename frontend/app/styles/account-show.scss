@@ -29,6 +29,14 @@
   display: block;
 }
 
+.show-password-link-sm {
+  width: 137px;
+  margin-top: 0px !important;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+}
+
 .result-username input:hover,
 .result-password input:hover {
   cursor: text;
@@ -69,7 +77,6 @@
 }
 
 .edit_button {
-  padding: 6px;
   border: 1px solid #c9c9c9;
   width: 45px;
   background-color: #ebe3df;
@@ -92,7 +99,6 @@
   cursor: pointer;
 }
 
-#account-show-back {
-  left: 300px;
-  position: fixed;
+.account-show-back {
+  margin-bottom: 3px;
 }

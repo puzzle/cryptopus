@@ -24,6 +24,7 @@ export default class FileEntry extends Model {
         this.id = data.id;
         this.filename = data.attributes.filename;
       })
+      .catch( () => {})
 
     return promise;
   }

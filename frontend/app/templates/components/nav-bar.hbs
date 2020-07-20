@@ -8,14 +8,24 @@
   <TeamForm @onAbort={{this.toggleTeamCreating}} @title={{t "teams.new.title"}}/>
 {{/if}}
 <BsNavbar
-  @type="dark"
+  @type="dark fixed-top"
   @backgroundColor="custom"
-  @class="navbar-custom" as |navbar| >
-  <div class="container pl-0 pr-0 ml-238">
+  @class="navbar-custom" as |navbar|>
+  <div class="pl-0 pr-0 nav-container">
     <navbar.content>
-      <div class="form-inline">
-        <Input @class="form-control mr-sm-2" @type="search" @id="search" @value={{ this.navService.searchQuery }} placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}  @autofocus={{this.isStartpage}}/>
+      <div style="width: 250px;">
+        <a href="/">
+          <img src="/ember/assets/images/cryptopussy_without_text.svg" alt="logo" class="logo-icon">
+          <span class="ml-1 navbar-brand">Cryptopus</span>
+        </a>
       </div>
+
+      <div class="form-inline">
+        <div class="form-group search-wrapper">
+          <Input @class="form-control mr-sm-2" @type="search" @id="search" @value={{ this.navService.searchQuery }} placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}  @autofocus={{this.isStartpage}}/>
+        </div>
+      </div>
+
       <navbar.nav @class="ml-auto">
         <BsDropdown as |dd|>
           <div class="btn-group">
@@ -33,14 +43,17 @@
             </ddm.item>
           </dd.menu>
         </BsDropdown>
-        <div class="nav-item">
+        <span>
+
+        </span>
+        <div class="nav-item mr-2">
           <a href="/profile">
-            <span class="helper"></span><img class="icon-button icon mr-2 ml-1" src="/ember/assets/images/team_config.svg" alt="v">
+            <span class="helper"></span><img class="icon-medium-button icon mr-2 ml-1" src="/ember/assets/images/settings_white.svg" alt="v">
           </a>
         </div>
-        <div class="nav-item">
+        <div class="nav-item mr-2">
           <a href="/session/destroy">
-            <span class="helper"></span><img class="icon icon-button" src="/ember/assets/icons/sign_out.svg" alt="Logout">
+            <span class="helper"></span><img class="icon icon-medium-button" src="/ember/assets/images/sign_out-white.svg" alt="Logout">
           </a>
         </div>
       </navbar.nav>

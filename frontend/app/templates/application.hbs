@@ -1,9 +1,11 @@
-<EmberNotify @messageStyle="bootstrap" @closeAfter={{4000}} />
-<NavBar />
+<EmberNotify @messageStyle="bootstrap"@closeAfter={{4000}}/>
+<NavBar/>
 
-<SideNavBar />
-
-<div class="mt-1 mb-5" role="main">
-  {{outlet}}
+<div style="width: 66.6%; margin: 0 auto">
+  <SideNavBar/>
+  <div class="mb-5 mt-60 ml-254" role="main" style="margin-left: 270px !important;">
+    {{outlet}}
+  </div>
 </div>
-<Footer />
+
+<Footer/>

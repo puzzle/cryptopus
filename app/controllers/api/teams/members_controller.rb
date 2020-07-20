@@ -39,7 +39,7 @@ module Api
 
         if teammember.destroy
           @response_status = 204
-          add_info('flashes.api.members.removed')
+          add_info(t('flashes.api.members.removed'))
           render_json
         else
           render_errors

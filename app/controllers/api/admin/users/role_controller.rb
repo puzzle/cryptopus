@@ -10,7 +10,7 @@ class Api::Admin::Users::RoleController < ApiController
     authorize user, :update_role?
     user.update_role(current_user, role, session[:private_key])
 
-    add_info("flashes.api.admin.users.update.#{role}")
+    add_info(t("flashes.api.admin.users.update.#{role}"))
     render_json
   end
 

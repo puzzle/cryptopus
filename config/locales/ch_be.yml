@@ -41,9 +41,13 @@ ch_be:
   new: Nöi
   save: Spichere
   close: Schliesse
+  hi_user: "Hoi, "
+  intro: Suechsch äuä es Passwort?
   user: Benutzer
   select_team: Wähl bitte es team us oder benutz d suechi
   role: Rollä
+  empty: läär
+
   api-user:
     none: Du hesch kei Api-Benutzer. Hol dr einä
   time:
