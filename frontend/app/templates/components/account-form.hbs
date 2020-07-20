@@ -14,8 +14,8 @@
                             @customError={{t (validation-error-key this.changeset.error.accountname.validation)}} />
             </form.group>
             <form.group class="form-group col-md-12">
-              <form.element @label={{t "username"}} id="username" @name="cleartextUsername"
-                            @property="cleartextUsername" @tabindex="2"/>
+              <form.element @label={{t "username"}} id="username" @name="cleartextUsername" class={{if this.changeset.error.cleartextUsername.validation "invalid-input-name"}}
+                            @property="cleartextUsername" @tabindex="2" @customError={{this.changeset.error.cleartextUsername.validation}}/>
             </form.group>
           </div>
           <div class="col-md-6 ml-auto">
@@ -44,8 +44,10 @@
         <div class="row">
           <div class="col-md-6">
             <div class="col-sm-12 secret">
-              <form.element @label={{t "password"}} @name="cleartextPassword" id="cleartext-password"
-                            @property="cleartextPassword" @tabindex="3" autocomplete="off"/>
+              <form.element @label={{t "password"}} @name="cleartextPassword" id="cleartext-password" class={{if this.changeset.error.cleartextPassword.validation "invalid-input-name"}}
+                            @property="cleartextPassword" @tabindex="3" @customError={{this.changeset.error.cleartextPassword.validation}} as |el|>
+                <el.control autocomplete="off"></el.control>
+              </form.element>
               <PasswordStrengthMeter class="col-9 pl-0" @password={{this.changeset.cleartextPassword}}/>
             </div>
           </div>

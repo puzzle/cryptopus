@@ -49,6 +49,9 @@ describe 'AccountModal', type: :system, js: true do
     check_password_meter('cryptopus1,0', '100')
     check_password_meter('', '0')
 
+    # Prove that the Passwordfield has no autocomplete
+    expect(find("input[name='cleartextPassword']", visible: false)['autocomplete']).to eq 'off'
+
     fill_modal(account_attrs)
 
     expect do
