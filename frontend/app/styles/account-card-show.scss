@@ -33,6 +33,10 @@
   height: 35px;
 }
 
+.account-detail .password-wrapper {
+  position: absolute;
+}
+
 .copy-btn {
   height: 35px;
   width: 45px;
@@ -41,4 +45,9 @@
 
 .account-detail-key {
   width: 20%;
+}
+
+.card-description {
+  overflow: hidden;
+  height: 1.5em;
 }

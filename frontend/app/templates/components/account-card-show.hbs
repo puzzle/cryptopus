@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="card-footer text-muted account-description">
-      {{truncate @account.description 40}}
+      <div class="card-description">{{@account.description}}</div>
     </div>
   </div>
 {{else}}
@@ -33,8 +33,10 @@
       </div>
       <div class="row">
         <div class="col-sm-8 pr-0">
-          <Input class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
-          <div role="button" class="show-password-link show-password-link-sm {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "accounts.show.show_password"}}</div>
+          <div class="password-wrapper">
+            <Input class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
+            <div role="button" class="show-password-link show-password-link-sm {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "accounts.show.show_password"}}</div>
+          </div>
 
         </div>
         <div class="col-sm-3">
