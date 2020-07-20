@@ -15,7 +15,7 @@ class app.Global
     translated_messages = {info: [], errors: []}
     translated_messages.info = (I18n.t(message) for message in messages.info)
     translated_messages.errors = (I18n.t(message) for message in messages.errors)
-    compiled_html = HandlebarsTemplates['alert_messages'](translated_messages)
+    compiled_html = HandlebarsTemplates['alert_messages'](messages)
     $('.message_container').html(compiled_html)
 
   get_messages = (data) ->
