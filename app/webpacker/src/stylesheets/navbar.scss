@@ -3,19 +3,8 @@
 //  See the COPYING file at the top-level directory or at
 //  https://github.com/puzzle/cryptopus.
 
-.navbar-inverse {
-  width: 100% !important;
-  border-radius: 0;
-  margin-bottom: 0px;
-}
-
 .navbar-header {
   display: flex;
-  width: 250px !important;
-}
-
-.navbar-logo {
-  padding: 5px 10px 5px 5px;
 }
 
 .container {
@@ -45,20 +34,6 @@
   width: 18px !important;
   height: 18px !important;
   margin-top: 4px !important;
-}
-
-.reduced-padding {
-  padding: 15px 15px 15px 0 !important;
-}
-
-.back-link {
-  min-width: 120px;
-  margin-left: 238px;
-  padding: 15px 0px 15px 0 !important;
-}
-
-.username {
-  padding: 15px 15px 8px 15px !important;
 }
 
 .no-hover:hover {
@@ -122,11 +97,6 @@
   color: white !important;
 }
 
-.navbar {
-  background: #106fac !important;
-  border-radius: 0px !important;
-  border: none !important;
-}
 
 .navbar-title {
   color: white !important;
@@ -193,10 +163,6 @@
   height: 40px;
 }
 
-.navbar-logo {
-  padding: 0 0 0 0 !important;
-}
-
 .ml-500 {
   margin-left: 958px !important;
 }
@@ -212,7 +178,7 @@
   overflow-x: hidden;
 }
 
-.sidenav-header {
+.sidenav-heade2r {
   height: 54px;
   padding-left: 32px;
   display: flex;
@@ -221,4 +187,99 @@
 
 .back-arrow {
   height: 24px;
+}
+
+.navbar-custom {
+  background: #1b8dc6;
+  z-index: 998;
+}
+
+
+
+
+
+.navbar-custom {
+  background: #1b8dc6;
+  z-index: 998;
+  border-radius: 0 !important;
+}
+
+.navbar-icon {
+  padding-right: 1px;
+  padding-bottom: 2px;
+  width: 19px;
+  display: inline;
+}
+
+nav a.nav-link {
+  color: white !important;
+}
+
+.dropdown-toggle-hided::after {
+  display: none;
+}
+
+.ml-238 {
+  margin-left: 238px !important;
+}
+
+.vertical-center-icon {
+  margin-bottom: 4px !important;
+}
+
+.dropdown .btn-group > a {
+  color: #ffffff;
+  background-color: #3b7bbe;
+  border-color: #1e5a96;
+}
+
+.dropdown .btn-group > a:hover {
+  color: #ffffff;
+  background-color: #1e5a96;
+  border-color: #195575;
+}
+
+.dropdown-menu {
+  left: -114px !important;
+  width: 155px;
+}
+
+.dropdown .dropdown-item:active {
+  background-color: #f8f9fa;
+}
+
+#search {
+  width: 300px;
+}
+
+.collapse.navbar-collapse.navbar-flex {
+  display: flex !important;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+  text-decoration: none;
+  background-color: #3B7BBE;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background-color: #3B7BBE;
+  border-color: #238bca;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.navbar-brand2 {
+  display: inline-block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-right: 1rem;
+  font-size: 20px !important;
+  line-height: inherit;
+  white-space: nowrap;
+  color: white;
+}
+
+.navbar-logo {
+  padding: 6px;
 }
