@@ -5,10 +5,10 @@
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}/
     %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
     %link{href: "/favicon.png", rel: "shortcut icon", type: "image/png"}/
-    %link{href: "/ember/assets/vendor-d6d9b22533ca9c5eadcb6d1bfed62032.css", media: "all", rel: "stylesheet"}
-    %link{href: "/ember/assets/frontend-40541b3c1a6eb6af7cc16805764143ed.css", media: "all", rel: "stylesheet"}
-    %script{src: "/ember/assets/vendor-0cbeb8ac4c1b979ba676861748bd6b7b.js", defer: "true"}
-    %script{src: "/ember/assets/frontend-c1e3754ff36f6b7a53e741767400762a.js", defer: "true"}
+    %link{href: "http://localhost:4200/assets/vendor.css", media: "all", rel: "stylesheet"}
+    %link{href: "http://localhost:4200/assets/frontend.css", media: "all", rel: "stylesheet"}
+    %script{src: "http://localhost:4200/assets/vendor.js", defer: "true"}
+    %script{src: "http://localhost:4200/assets/frontend.js", defer: "true"}
     = csrf_meta_tags
     %title Cryptopus
   %body{"data-locale" => I18n.locale}
