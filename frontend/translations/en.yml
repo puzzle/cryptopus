@@ -459,3 +459,7 @@ en:
     accountname:
       present: Accountname must be present
       too_long: Accountname is too long
+    cleartext username:
+      too_long: Username is too long
+    cleartext password:
+      too_long: Password is too long
