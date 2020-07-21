@@ -10,11 +10,11 @@
       <h5 class="d-inline">{{@folder.name}}</h5>
     </div>
     <div class="col-sm-1 d-flex justify-content-between align-items-center">
-    <DeleteWithConfirmation @record={{@folder}} @didDelete={{this.refreshRoute}}>
-      <img class="icon-medium-button d-inline my-auto" src="/ember/assets/images/delete.svg" alt="delete">
-    </DeleteWithConfirmation>
+      <DeleteWithConfirmation @record={{@folder}} @didDelete={{this.refreshRoute}}>
+        <img class="icon-medium-button d-inline my-auto" src="/ember/assets/images/delete.svg" alt="delete">
+      </DeleteWithConfirmation>
       <a role="button" {{on "click" this.toggleFolderEdit}}>
-          <img class="icon-medium-button " src="/ember/assets/images/edit.svg" alt="edit">
+        <img class="icon-medium-button " src="/ember/assets/images/edit.svg" alt="edit">
       </a>
     </div>
     <div class="col-auto ml-0 pl-0 my-auto">
@@ -31,11 +31,11 @@
 <BsCollapse  @collapsed={{this.collapsed}}>
   <div class="folder-collapse-box">
     {{#if @folder.description}}
-    <div class="row py-3">
-      <div class="col">
-        <p class="text-muted description mb-0">{{@folder.description}}</p>
+      <div class="row py-3">
+        <div class="col">
+          <p class="text-muted description mb-0">{{@folder.description}}</p>
+        </div>
       </div>
-    </div>
     {{/if}}
     <div class="row d-flex flex-wrap">
       {{#if @folder.accounts}}

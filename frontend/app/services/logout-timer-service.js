@@ -4,7 +4,7 @@ import { tracked } from "@glimmer/tracking";
 export default class LogoutTimerService extends Service {
   @tracked timeToLogoff;
 
-  AUTOLOGOFF_TIME = 298
+  AUTOLOGOFF_TIME = 295
   /* eslint-disable no-undef  */
   logoutTimer = new Timer();
   /* eslint-enable no-undef  */
@@ -27,7 +27,7 @@ export default class LogoutTimerService extends Service {
 
     this.logoutTimer.addEventListener('secondsUpdated', () => {
       let passedTime = this.logoutTimer.getTotalTimeValues().seconds
-      if (passedTime === this.AUTOLOGOFF_TIME) {
+      if (passedTime >= this.AUTOLOGOFF_TIME) {
         this.resetSession()
       } else {
         this.calculateTimeToLogoff(passedTime)
