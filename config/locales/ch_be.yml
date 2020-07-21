@@ -191,7 +191,7 @@ ch_be:
         num_folders: Ahzahl Ordner
         num_accounts: Ahzahl Accounts
         members: Mitglieder
-
+        no_content: Ke Resultat
   folders:
     title: Ordner
     name: Ordner Name
@@ -506,3 +506,19 @@ ch_be:
     weak: Ds Passwort isch unsicher
     good: Ds Passwort gnüegt
     strong: Ds Passwort isch starch!
+
+  validations:
+    name:
+      present: Dr Name muess vorhande si
+      too_long: Dr Name isch zläng
+    description:
+      too_long: D Beschribig isch zläng
+    file:
+      present: D Datei muess ume si
+    team:
+      present: Ds Team muess vorhande si
+    folder:
+      present: Dr Ordner muess ume si
+    accountname:
+      present: Dr Accountname muess vorhande si
+      too_long: Dr Accountname isch zläng

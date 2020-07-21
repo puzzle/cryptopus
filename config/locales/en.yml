@@ -160,6 +160,7 @@ en:
         num_folders: Number of Folders
         num_accounts: Number of Accounts
         members: Members
+        no_content: No matches
     user_roles:
       user: User
       conf_admin: Conf Admin
@@ -442,3 +443,19 @@ en:
       team:
         name: Name
         description: Description
+
+  validations:
+    name:
+      present: Name must be present
+      too_long: Name is too long
+    description:
+      too_long: Description is too long
+    file:
+      present: File must be present
+    team:
+      present: Team must be present
+    folder:
+      present: Folder must be present
+    accountname:
+      present: Accountname must be present
+      too_long: Accountname is too long

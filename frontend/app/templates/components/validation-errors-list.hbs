@@ -1,5 +1,5 @@
 <div class="validation-errors">
   {{#each @errors as |error|}}
-    <div>{{error}}.</div>
+    <div>{{t (validation-error-key error)}}.</div>
   {{/each}}
 </div>

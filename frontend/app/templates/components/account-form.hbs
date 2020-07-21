@@ -11,18 +11,19 @@
               <form.element @property="accountname" @label={{t "helpers.label.account.account_name"}}
                             @name="accountname" class={{if this.changeset.error.accountname.validation "invalid-input-name"}}
                             id="accountname" @tabindex="1"
-                            @customError={{this.changeset.error.accountname.validation}} />
+                            @customError={{t (validation-error-key this.changeset.error.accountname.validation)}} />
             </form.group>
             <form.group class="form-group col-md-12">
-              <form.element @label={{t "username"}} id="username" @name="cleartextUsername"
-                            @property="cleartextUsername" @tabindex="2"/>
+              <form.element @label={{t "username"}} id="username" @name="cleartextUsername" class={{if this.changeset.error.cleartextUsername.validation "invalid-input-name"}}
+                            @property="cleartextUsername" @tabindex="2" @customError={{this.changeset.error.cleartextUsername.validation}}/>
             </form.group>
           </div>
           <div class="col-md-6 ml-auto">
             <div class="form-group col-md-12" id="team-power-select">
               <form.element @label={{t "team"}} @controlType="power-select"
                             @placeholder={{t "accounts.edit.team_placeholder"}}
-                            @options={{this.assignableTeams}} @value={{this.selectedTeam}} as |el|>
+                            @options={{this.assignableTeams}} @value={{this.selectedTeam}}
+                            @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>
                 <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
                   {{team.name}}
                 </el.control>
@@ -30,8 +31,9 @@
             </div>
             <div class="form-group col-md-12" id="folder-power-select">
               <form.element @options={{this.availableFolders}} @label={{t "folder"}} @controlType="power-select" @value={{this.changeset.folder}}
-              @placeholder={{t "accounts.edit.folder_placeholder"}} @disabled={{this.isFolderDropdownDisabled}} @customError={{this.changeset.error.folder.validation}}
-              @searchEnabled={{true}} @allowClear={{true}} @searchField={{"name"}} as |el|>
+              @placeholder={{t "accounts.edit.folder_placeholder"}} @disabled={{this.isFolderDropdownDisabled}}
+              @searchEnabled={{true}} @allowClear={{true}} @searchField={{"name"}}
+              @customError={{t (validation-error-key this.changeset.error.folder.validation)}} as |el|>
                 <el.control class={{if this.changeset.error.folder.validation "invalid-input-ps"}} @renderInPlace={{true}} @onChange={{this.setFolder}} as |folder|>
                   {{folder.name}}
                 </el.control>
@@ -42,8 +44,10 @@
         <div class="row">
           <div class="col-md-6">
             <div class="col-sm-12 secret">
-              <form.element @label={{t "password"}} @name="cleartextPassword" id="cleartext-password"
-                            @property="cleartextPassword" @tabindex="3" autocomplete="off"/>
+              <form.element @label={{t "password"}} @name="cleartextPassword" id="cleartext-password" class={{if this.changeset.error.cleartextPassword.validation "invalid-input-name"}}
+                            @property="cleartextPassword" @tabindex="3" @customError={{this.changeset.error.cleartextPassword.validation}} as |el|>
+                <el.control autocomplete="off"></el.control>
+              </form.element>
               <PasswordStrengthMeter class="col-9 pl-0" @password={{this.changeset.cleartextPassword}}/>
             </div>
           </div>
@@ -59,7 +63,7 @@
               <form.element @label={{t "description"}} @property="description" @controlType="textarea"
                             id="description" class="{{if
                       this.changeset.error.description.validation "invalid-input"}} vertical-resize mt-3"
-                            @tabindex="7" @customError={{this.changeset.error.description.validation}}/>
+                            @tabindex="7" @customError={{t (validation-error-key this.changeset.error.description.validation)}}/>
             </form.group>
           </div>
         </div>

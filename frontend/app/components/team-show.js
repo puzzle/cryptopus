@@ -6,6 +6,7 @@ import { inject as service } from "@ember/service";
 export default class TeamShowComponent extends Component {
   @service navService;
   @service store;
+  @service router;
 
   @tracked
   isTeamEditing = false;
@@ -14,7 +15,9 @@ export default class TeamShowComponent extends Component {
   isTeamConfiguring = false;
 
   @tracked
-  collapsed = this.navService.selectedTeam != this.args.team&& this.navService.searchQuery === null;
+  collapsed =
+    this.navService.selectedTeam != this.args.team &&
+    this.navService.searchQuery === null;
 
   @action
   collapse() {
@@ -28,6 +31,12 @@ export default class TeamShowComponent extends Component {
   @action
   toggleTeamConfigure() {
     this.isTeamConfiguring = !this.isTeamConfiguring;
+  }
+
+  @action
+  transitionToIndex() {
+    this.navService.availableTeams.removeObject(this.args.team);
+    this.router.transitionTo("index");
   }
 
   @action

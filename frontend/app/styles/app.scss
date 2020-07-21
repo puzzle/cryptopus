@@ -19,6 +19,15 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 @import "power-select";
 @import "background-colors";
 
+.content {
+  width: 66.6%;
+  margin: 0 auto;
+}
+
+.w-250 {
+  width: 250px;
+}
+
 .d-inline {
   display: inline !important;
 }
@@ -65,6 +74,10 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
   margin-left: 5%;
 }
 
+.ml-270px {
+  margin-left: 270px !important;
+}
+
 .mb-2 {
   margin-bottom: 2%;
 }
@@ -73,6 +86,9 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 }
 .mb-10 {
   margin-bottom: 10px;
+}
+.mb-5 {
+  margin-bottom: 5px;
 }
 
 .w-4 {
@@ -110,6 +126,24 @@ li a {
   margin-left: 5%;
 }
 
+.mt-32 {
+  margin-top: 32px;
+}
+
+.ml-15 {
+  margin-left: 15px;
+}
+
+.ml-254 {
+  margin-left: 254px !important;
+}
+.ml-238 {
+  margin-left: 238px !important;
+}
+.mt-60 {
+  margin-top: 54px !important;
+}
+
 /* Validation-errors */
 .validation-errors {
   width: 100%;
@@ -129,14 +163,6 @@ li a {
 
 .invalid-input-ps > div:nth-of-type(1) {
   border: 1px solid red !important;
-}
-
-.mt-32 {
-  margin-top: 32px;
-}
-
-.ml-15 {
-  margin-left: 15px;
 }
 
 .ember-power-select-trigger {
@@ -159,6 +185,7 @@ li a {
   height: 24px !important;
   display: inline;
 }
+
 
 .ml-254 {
   margin-left: 254px !important;
@@ -254,4 +281,13 @@ li a {
 
 .description {
   overflow: auto;
+}
+
+.folder-no-p {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.border-radius-4 {
+  border-radius: 4px
 }

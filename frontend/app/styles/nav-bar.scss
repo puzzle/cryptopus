@@ -28,8 +28,8 @@ nav a.nav-link {
 
 .dropdown .btn-group > a {
   color: #ffffff;
-  background-color: #3b7bbe;
-  border-color: #1e5a96;
+  background-color: #0f658b;
+  border-color: #1b8cc5;
 }
 
 .dropdown .btn-group > a:hover {
@@ -48,5 +48,23 @@ nav a.nav-link {
 }
 
 #search {
-  width: 300px;
+  width: 100%;
+  margin-left: 10px !important;
+  border-radius: 0;
+  border: none;
+  background-color: #0f658c;
+  color: #ffffff;
+}
+
+#search::placeholder {
+  color: #ffffff;
+}
+
+.search-wrapper {
+  width: 37vw;
+}
+
+.nav-container {
+  width: 66.6%;
+  margin: 0 auto;
 }

@@ -9,14 +9,16 @@ class TeamFoldersAccountsSeeder
 
   def seed_team(name, members, admin = false)
     name = name.to_s.capitalize
-    Team.seed_once(:name) do |t|
+    team = Team.seed_once(:name) do |t|
       t.name = name
       t.description = Faker::Lorem.paragraph
-      t.folders = [Folder.create(name: Faker::Lorem.word.capitalize)]
       t.private = !admin
-    end
+    end.first
 
-    team = Team.find_by(name: name)
+    Folder.seed_once(:name) do |f|
+      f.name = Faker::Lorem.word.capitalize
+      f.team_id = team.id
+    end
 
     plaintext_team_pw = CryptUtils.new_team_password
 

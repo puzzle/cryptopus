@@ -5,7 +5,7 @@ import { inject as service } from "@ember/service";
 
 export default class AccountShowComponent extends Component {
   @service store;
-
+  @service router;
 
   constructor() {
     super(...arguments);
@@ -41,11 +41,15 @@ export default class AccountShowComponent extends Component {
 
   @action
   refreshRoute() {
-    history.back()
+    this.transitionBack();
   }
 
   @action
   transitionBack() {
-    history.back();
+    this.router.transitionTo(
+      "teams.folders-show",
+      this.args.account.folder.get("team.id"),
+      this.args.account.folder.get("id")
+    );
   }
 }

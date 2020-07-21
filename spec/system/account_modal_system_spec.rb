@@ -49,6 +49,9 @@ describe 'AccountModal', type: :system, js: true do
     check_password_meter('cryptopus1,0', '100')
     check_password_meter('', '0')
 
+    # Prove that the Passwordfield has no autocomplete
+    expect(find("input[name='cleartextPassword']", visible: false)['autocomplete']).to eq 'off'
+
     fill_modal(account_attrs)
 
     expect do
@@ -63,8 +66,8 @@ describe 'AccountModal', type: :system, js: true do
 
     expect_account_page_with(account_attrs)
 
-    expect(page).to have_link(id: 'edit_account_button')
-    click_link(id: 'edit_account_button')
+    expect(page).to have_selector('#edit_account_button')
+    find('#edit_account_button').click
 
     expect(page).to have_text('Edit Account')
 

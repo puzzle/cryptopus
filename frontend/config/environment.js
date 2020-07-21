@@ -9,6 +9,7 @@ module.exports = function(environment) {
     sentryDsn: "",
     appVersion: undefined,
     currentUserId: undefined,
+    "changeset-validations": { rawOutput: true },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
