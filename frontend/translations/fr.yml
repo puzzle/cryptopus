@@ -161,7 +161,6 @@ fr:
         num_folders: Nombre de dossiers
         num_accounts: Nombre de comptes
         members: Membres
-        no_content: Aucun résultat trouvé
     user_roles:
       user: Utilisateur
       conf_admin: Conf Admin
@@ -244,6 +243,7 @@ fr:
     index:
       title: "Vous êtes membre des équipes suivantes:"
       team: Équipe
+      no_content: Aucun résultat trouvé
     edit:
       title: Modifier l'équipe
     new:

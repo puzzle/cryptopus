@@ -162,7 +162,6 @@ de:
         num_folders: Anzahl Ordner
         num_accounts: Anzahl Accounts
         members: Mitglieder
-        no_content: Keine Resultate
     user_roles:
       user: Benutzer
       conf_admin: Conf Admin
@@ -255,6 +254,7 @@ de:
     index:
       title: 'Sie sind Mitglied der folgenden Teams:'
       team: Team
+      no_content: Keine Resultate
     new:
       title: Team erstellen
     edit:

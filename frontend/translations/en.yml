@@ -160,7 +160,6 @@ en:
         num_folders: Number of Folders
         num_accounts: Number of Accounts
         members: Members
-        no_content: No matches
     user_roles:
       user: User
       conf_admin: Conf Admin
@@ -246,6 +245,7 @@ en:
     index:
       title: "You are member of the following teams:"
       team: Team
+      no_content: No matches
     new:
       title: New Team
     edit:
