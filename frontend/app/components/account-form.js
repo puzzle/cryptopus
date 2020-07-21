@@ -16,6 +16,8 @@ export default class AccountForm extends BaseFormComponent {
   @tracked selectedTeam;
   @tracked assignableTeams;
 
+  @tracked hasErrors;
+
   AccountValidations = AccountValidations;
 
   constructor() {
@@ -117,5 +119,9 @@ export default class AccountForm extends BaseFormComponent {
         savedRecords[0].folder.get("id")
       );
     }
+  }
+
+  handleSubmitError(response) {
+    this.hasErrors = response.errors.length > 0;
   }
 }

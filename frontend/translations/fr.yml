@@ -324,10 +324,10 @@ fr:
       added: Membre de l'équipe a été enlevé avec succès
       removed: Membre de l'équipe a été ajouté avec succès
     errors:
-        auth_failed: Échec de l'authentification
-        user_not_logged_in: Utilisateur non connecté
-        invalid_request: Demande non valable
-        record_not_found: Enregistrement non trouvé
+      auth_failed: Échec de l'authentification
+      user_not_logged_in: Utilisateur non connecté
+      invalid_request: Demande non valable
+      record_not_found: Enregistrement non trouvé
     wizard:
       fill_password_fields: S'il vous plaît remplir tous les champs
       paswords_do_not_match: Les mots de passe ne correspondent pas
@@ -533,6 +533,7 @@ fr:
     accountname:
       present: Le nom du compte doit être présent
       too_long: Le nom du compte est trop long
+      duplicate_name: Le compte existe déjà!
     cleartext username:
       too_long: Le nom d'utilisateur est trop long
     cleartext password:

@@ -6,6 +6,13 @@
     <div class="container-fluid">
       <BsForm @model={{this.changeset}} as |form|>
         <div class="row">
+          {{#if this.hasErrors}}
+            <div class="col-12">
+              <div class="alert alert-danger modal-alert">
+                {{t "validations.accountname.duplicate_name"}}
+              </div>
+            </div>
+          {{/if}}
           <div class="col-md-6">
             <form.group class="col-md-12">
               <form.element @property="accountname" @label={{t "helpers.label.account.account_name"}}

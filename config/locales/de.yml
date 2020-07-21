@@ -537,6 +537,7 @@ de:
     accountname:
       present: Der Accountname muss vorhanden sein
       too_long: Der Accountname ist zu lang
+      duplicate_name: Account existiert bereits!
     cleartext username:
       too_long: Der Benutzername ist zu lang
     cleartext password:
