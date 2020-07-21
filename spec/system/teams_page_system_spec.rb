@@ -37,7 +37,7 @@ describe 'TeamsPage', type: :system, js: true do
     end
 
     # Check if visible in teams page
-    within('div.container.mb-4.ml-254') do
+    within(all('div.row.bg-white.border')[0]) do
       expect(page).to have_text(folder1.name)
     end
 
@@ -80,25 +80,25 @@ describe 'TeamsPage', type: :system, js: true do
   end
 
   def folder_expanded?
-    within(all('div.row.border.py-2')[1]) do
+    within(all('div.folder-card-header.py-2', visible: false)[0]) do
       expect(find('span[name="folder-collapse"]')).to have_xpath("//img[@alt='v']")
     end
   end
 
   def team_expanded?
-    within(find('div.row.py-2.d-flex.border.rounded-top')) do
+    within(find('div.py-2.d-flex.team-card-header')) do
       expect(find('span[name="team-collapse"]')).to have_xpath("//img[@alt='v']")
     end
   end
 
   def folder_collapsed?
-    within(all('div.row.border.py-2')[1]) do
+    within(all('div.folder-card-header.py-2')[1]) do
       expect(find('span[name="folder-collapse"]')).to have_xpath("//img[@alt='<']")
     end
   end
 
   def team_collapsed?
-    within(find('div.row.py-2.d-flex.border.rounded-top')) do
+    within(find('div.py-2.d-flex.team-card-header')) do
       expect(find('span[name="team-collapse"]')).to have_xpath("//img[@alt='<']")
     end
   end
@@ -117,12 +117,12 @@ describe 'TeamsPage', type: :system, js: true do
 
   def click_team_favourites_button
     all('span[role="button"]')[3].click
-    within(find('div.row.py-2.d-flex.border.rounded-top')) do
-      expect(find('img[alt="star"]')['src']).to include '/ember/assets/images/star.svg'
+    within(find('div.py-2.d-flex.team-card-header')) do
+      expect(find('img[alt="star"]')['src']).to include '/ember/assets/images/star-white.svg'
     end
     all('span[role="button"]')[3].click
-    within(find('div.row.py-2.d-flex.border.rounded-top')) do
-      expect(find('img[alt="star"]')['src']).to include '/ember/assets/images/star-filled.svg'
+    within(find('div.py-2.d-flex.team-card-header')) do
+      expect(find('img[alt="star"]')['src']).to include '/ember/assets/images/star-white-filled.svg'
     end
   end
 end

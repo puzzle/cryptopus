@@ -45,6 +45,8 @@ describe 'FolderModal', type: :system, js: true do
       find_all('ul.ember-power-select-options > li', visible: false)[0].click
 
       click_button('Save', visible: false)
+
+      expect(page).to have_selector('div.list-group-root', visible: false)
     end.to change { Folder.count }.by(1)
 
     folder = Folder.find_by(name: folder_attrs[:foldername])
@@ -56,7 +58,7 @@ describe 'FolderModal', type: :system, js: true do
 
     # Edit Folder
     visit("/teams/#{folder.team_id}/folders/#{folder.id}")
-    all('img.folder-edit-icon')[0].click
+    all('img.icon-medium-button[alt="edit"]')[0].click
 
     expect(find('.modal-content')).to be_present
     expect(page).to have_text('Editing Folder')
@@ -69,24 +71,23 @@ describe 'FolderModal', type: :system, js: true do
 
     expect_teams_page_with(updated_attrs, team)
 
-    # Functionality not implemented
+    # Delete Folder
 
-    # # Delete Folder
-    # visit("/teams?team_id=#{folder.team_id}&folder_id=#{folder.id}")
-    # expect(page).to have_text(team.name)
-    #
-    # expect do
-    #   href = team_folder_path(team.id, folder.id)
-    #   del_button = find(:xpath, "//a[@href='#{href}' and @data-method='delete']")
-    #   expect(del_button).to be_present
-    #
-    #   accept_prompt(wait: 3) do
-    #     del_button.click
-    #   end
-    #
-    #   expect(page).to have_text("Team #{team.name}")
-    # end.to change { Folder.count }.by(-1)
-    #
+    visit("/teams?team_id=#{folder.team_id}&folder_id=#{folder.id}")
+    expect(page).to have_text(team.name)
+
+    expect do
+      find('a.list-group-item', visible: false, text: team.name).click
+      del_button = all('img.icon-medium-button.d-inline[alt="delete"]')[0]
+      expect(del_button).to be_present
+
+      del_button.click
+
+      click_button('Delete')
+
+      expect(page).to_not have_text folder.name
+    end.to change { Folder.count }.by(-1)
+
     logout
   end
 
@@ -101,7 +102,8 @@ describe 'FolderModal', type: :system, js: true do
 
   def expect_teams_page_with(folder_attrs, team)
     expect(page).to have_text(team.name)
-    expect(page).to have_css('h4', visible: false, text: folder_attrs[:foldername])
+    find('a.list-group-item', visible: false, text: team.name).click
+    expect(page).to have_css('h5', visible: false, text: folder_attrs[:foldername])
     expect(page).to have_css('p', visible: false, text: folder_attrs[:description])
   end
 
