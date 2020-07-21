@@ -34,11 +34,7 @@ export default class FolderShowComponent extends Component {
   collapse() {
     if(isPresent(this.navService.searchQuery)) {
       this.expanded_due_to_search = !this.expanded_due_to_search;
-      console.log(this.collapsed);
-
     } else {
-
-
       if (this.collapsed) {
         this.router.transitionTo(
           "teams.folders-show",
