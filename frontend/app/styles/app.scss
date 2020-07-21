@@ -122,6 +122,14 @@ li a {
   height: 40px;
 }
 
+.puzzle-icon {
+  height: 35px;
+}
+
+.mb-5-folder {
+  margin-bottom: 5px !important;
+}
+
 .ml-5 {
   margin-left: 5%;
 }
@@ -279,4 +287,15 @@ li a {
 
 .border-radius-4 {
   border-radius: 4px
+}
+
+#locale-dropdown > div {
+  width: 120px;
+  border: none !important;
+  color: #727679;
+  background-color: #eaf1f7;
+}
+
+.pl-none {
+  padding-left: 0 !important;
 }

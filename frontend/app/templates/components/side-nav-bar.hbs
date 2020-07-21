@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-center list-group-top-button list-group-item-action border-0">
           <BsButtonGroup class="button-group" @type="radio" @value={{this.showsFavourites}} @onChange={{this.toggleFavourites}} as |bg|>
             <bg.button class="toggle-button" @value={{false}}>
-              <img class="icon icon-button" src="/ember/assets/images/members.svg" alt="">
+              <img class="icon icon-button" src="/ember/assets/images/members{{unless this.showsFavourites "-filled"}}.svg" alt="">
             </bg.button>
             <bg.button class="toggle-button" @value={{true}}>
               <img class="icon icon-button" src="/ember/assets/images/star{{if this.showsFavourites "-filled"}}.svg" alt="star">
@@ -23,7 +23,7 @@
                   {{else}}
                     <img class="icon icon-button mr-2" src="/ember/assets/images/members.svg" alt="">
                   {{/if}}
-                  {{truncate team.name 13}}
+                  {{truncate team.name 18}}
                   {{#if (not team.folders)}}
                   {{else if (and team.folders (or (not (eq team this.navService.selectedTeam)) this.collapsed))}}
                     <img class="icon icon-button-angle float-right" src="/ember/assets/images/angle-left.svg" alt="<">
@@ -34,7 +34,7 @@
                 {{#if team.folders}}
                   <BsCollapse class="list-group" id="nav-folders-{{team.id}}" @collapsed={{or (not (eq team this.navService.selectedTeam)) this.collapsed}}>
                     {{#each team.folders as |folder|}}
-                      <a role="button"  class="list-group-item list-folder-item" {{on "click" (fn this.setSelectedFolder folder)}}>
+                      <a role="button"  class="list-group-item list-folder-item {{if (eq folder this.navService.selectedFolder) "bg-blue-three" "bg-blue-one"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
                         <img class="icon icon-button mr-1" src="/ember/assets/images/folder.svg" alt="">
                         {{truncate folder.name 15}}
                       </a>

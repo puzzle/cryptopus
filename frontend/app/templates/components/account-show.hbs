@@ -5,7 +5,7 @@
   <FileEntryForm @class="modal_file_entry" @account={{@account}} @title={{t "file_entries.new.title"}} @onAbort={{this.toggleFileEntryNew}}/>
 {{/if}}
 
-<div class="container px-5 pt-4 h-100 bg-white">
+<div class="container px-5 pt-4 h-100 bg-white pl-none">
   <div class="row mb-3">
     <div class="col">
       <a id="account-show-back" href="#" {{on "click" this.transitionBack}}>
@@ -15,11 +15,6 @@
         </span>
       </a>
     </div>
-  </div>
-  <div class="row pb-3 justify-content-between">
-    <div class="col">
-      <h2 class="d-inline">{{t "accounts.show.account"}}: {{@account.accountname}}</h2>
-    </div>
     <div class="col-auto d-flex justify-content-between align-items-center">
       <DeleteWithConfirmation @class="btn btn-light edit_button" @record={{@account}} @didDelete={{this.refreshRoute}}>
         <img class="icon-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
@@ -27,6 +22,11 @@
       <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleAccountEdit}} href="#">
         <img class="icon-button" src="/ember/assets/images/edit.svg" alt="edit">
       </a>
+    </div>
+  </div>
+  <div class="row pb-3 justify-content-between">
+    <div class="col">
+      <h2 class="d-inline">{{t "accounts.show.account"}}: {{@account.accountname}}</h2>
     </div>
   </div>
 

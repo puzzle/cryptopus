@@ -329,7 +329,7 @@ de:
       members:
         added: Mitglied wurde erfolgreich hinzugefügt
         removed: Mitglied wurde erfolgreich entfernt
-      errors: 
+      errors:
         auth_failed: Authentifizierung fehlgeschlagen
         user_not_logged_in: Benutzer ist nicht eingeloggt
         invalid_request: Invalide Anfrage
@@ -537,3 +537,8 @@ de:
     accountname:
       present: Der Accountname muss vorhanden sein
       too_long: Der Accountname ist zu lang
+      duplicate_name: Account existiert bereits!
+    cleartext username:
+      too_long: Der Benutzername ist zu lang
+    cleartext password:
+      too_long: Das Passwort ist zu lang

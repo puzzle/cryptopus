@@ -2,7 +2,8 @@
   <div class="content">
     <div class="w-250 float-left">
       <a href="https://www.puzzle.ch" target="_blank" rel="noopener">
-        <img src="/ember/assets/images/puzzle_classic_rgb.png" alt="logo" class="logo-icon mt-1">
+        <span class="helper"></span>
+        <img src="/ember/assets/images/puzzle_classic_rgb.png" alt="logo" class="puzzle-icon">
       </a>
     </div>
     <div class="float-left p-10">
@@ -13,17 +14,18 @@
       <a href="/changelog">{{t "version"}} {{this.version}}</a>
     </div>
     <div class="float-right w-50 d-flex align-items-center justify-content-end">
-      <div class="col-sm-4 d-inline-block">
-        <PowerSelect @options={{this.availableLocales}} @selected={{this.selectedLocale}} @onChange={{this.setLocale}}
-                     @verticalPosition="above" @renderInPlace={{true}} as |locale|>
-          {{locale.name}}
-        </PowerSelect>
-      </div>
       <div class="d-inline">
         <small>
           {{t "auto_logout"}}
           <span id="countdown">{{this.logoutTimerService.timeToLogoff}}</span>
         </small>
+      </div>
+
+      <div class="ml-4 d-inline-block pr-12">
+        <PowerSelect id="locale-dropdown" @options={{this.availableLocales}} @selected={{this.selectedLocale}} @onChange={{this.setLocale}}
+                     @verticalPosition="above" @renderInPlace={{true}} as |locale|>
+          {{locale.name}}
+        </PowerSelect>
       </div>
     </div>
   </div>

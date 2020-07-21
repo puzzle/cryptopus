@@ -57,28 +57,28 @@ ch_be:
       short: "%d. %B, %H:%M"
   date:
     month_names:
-    -
-    - Januar
-    - Februar
-    - März
-    - April
-    - Mai
-    - Juni
-    - Juli
-    - August
-    - Septämber
-    - Oktober
-    - Novämber
-    - Dezämber
+      -
+      - Januar
+      - Februar
+      - März
+      - April
+      - Mai
+      - Juni
+      - Juli
+      - August
+      - Septämber
+      - Oktober
+      - Novämber
+      - Dezämber
 
     day_names:
-    - Sunntig
-    - Mäntig
-    - Dsischtig
-    - Mittwuch
-    - Donnstig
-    - Fritig
-    - Samstig
+      - Sunntig
+      - Mäntig
+      - Dsischtig
+      - Mittwuch
+      - Donnstig
+      - Fritig
+      - Samstig
 
   i18n:
     language:
@@ -324,7 +324,7 @@ ch_be:
       members:
         added: Mitglied isch erfougrich hinzuegfüegt worde
         removed: Mitglied isch erfougrich entfernt worde
-      errors: 
+      errors:
         auth_failed: Authentifizierig fäugschlage
         user_not_logged_in: Benutzer isch nid igloggt
         invalid_request: Invalidi Ahfrag
@@ -432,7 +432,7 @@ ch_be:
     deleteWithTeams: "Lösch aui Teams i dene %{username} ds letschte Teammitglied isch"
 
 
-#Validation Errors
+  #Validation Errors
   activerecord:
     attributes:
       user:
@@ -522,3 +522,8 @@ ch_be:
     accountname:
       present: Dr Accountname muess vorhande si
       too_long: Dr Accountname isch zläng
+      duplicate_name: Dä Account giz scho!
+    cleartext username:
+      too_long: Dr Benutzername isch zläng
+    cleartext password:
+      too_long: Ds Passwort isch zläng

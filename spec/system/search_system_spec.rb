@@ -69,7 +69,7 @@ describe 'TeamModal', type: :system, js: true do
     find('input#search').set account1_name_first_two_chars
 
     within 'div[role="main"]' do
-      expect(page).to have_selector('h4', text: 'Please select a team or use the search')
+      expect(page).to have_selector('p', text: 'Looking for a password?')
     end
 
     find('input#search').set account1.accountname

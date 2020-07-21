@@ -522,3 +522,8 @@ ch_be:
     accountname:
       present: Dr Accountname muess vorhande si
       too_long: Dr Accountname isch zläng
+      duplicate_name: Dä Account giz scho!
+    cleartext username:
+      too_long: Dr Benutzername isch zläng
+    cleartext password:
+      too_long: Ds Passwort isch zläng

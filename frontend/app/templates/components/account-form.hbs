@@ -6,6 +6,13 @@
     <div class="container-fluid">
       <BsForm @model={{this.changeset}} as |form|>
         <div class="row">
+          {{#if this.hasErrors}}
+            <div class="col-12">
+              <div class="alert alert-danger modal-alert">
+                {{t "validations.accountname.duplicate_name"}}
+              </div>
+            </div>
+          {{/if}}
           <div class="col-md-6">
             <form.group class="col-md-12">
               <form.element @property="accountname" @label={{t "helpers.label.account.account_name"}}
@@ -15,7 +22,7 @@
             </form.group>
             <form.group class="form-group col-md-12">
               <form.element @label={{t "username"}} id="username" @name="cleartextUsername" class={{if this.changeset.error.cleartextUsername.validation "invalid-input-name"}}
-                            @property="cleartextUsername" @tabindex="2" @customError={{this.changeset.error.cleartextUsername.validation}}/>
+                            @property="cleartextUsername" @tabindex="2" @customError={{t (validation-error-key this.changeset.error.cleartextUsername.validation)}}/>
             </form.group>
           </div>
           <div class="col-md-6 ml-auto">
@@ -45,7 +52,7 @@
           <div class="col-md-6">
             <div class="col-sm-12 secret">
               <form.element @label={{t "password"}} @name="cleartextPassword" id="cleartext-password" class={{if this.changeset.error.cleartextPassword.validation "invalid-input-name"}}
-                            @property="cleartextPassword" @tabindex="3" @customError={{this.changeset.error.cleartextPassword.validation}} as |el|>
+                            @property="cleartextPassword" @tabindex="3" @customError={{t (validation-error-key this.changeset.error.cleartextPassword.validation)}} as |el|>
                 <el.control autocomplete="off"></el.control>
               </form.element>
               <PasswordStrengthMeter class="col-9 pl-0" @password={{this.changeset.cleartextPassword}}/>
