@@ -1,6 +1,10 @@
 import BaseRoute from "../base";
+import { isPresent } from "@ember/utils";
+import { inject as service } from "@ember/service";
 
 export default class TeamsIndexRoute extends BaseRoute {
+  @service navService;
+
   queryParams = {
     q: {
       refreshModel: true
@@ -13,6 +17,8 @@ export default class TeamsIndexRoute extends BaseRoute {
     if (definedParamValues.length === 0) {
       transition.abort();
       this.transitionTo("index");
+    } else if(isPresent(params['q'])) {
+      this.navService.searchQuery = params['q'];
     }
   }
 

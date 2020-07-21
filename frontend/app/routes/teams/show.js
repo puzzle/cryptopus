@@ -11,6 +11,7 @@ export default class TeamsShowRoute extends BaseRoute {
   afterModel(_resolvedModel, transition) {
     this.navService.setSelectedTeamById(transition.to.params.team_id);
     this.navService.selectedFolder = null;
+    this.navService.searchQuery = null;
   }
 
   model(params) {

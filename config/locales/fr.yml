@@ -244,6 +244,7 @@ fr:
       title: "Vous êtes membre des équipes suivantes:"
       team: Équipe
       no_content: Aucun résultat trouvé
+      search: Résultats pour
     edit:
       title: Modifier l'équipe
     new:
