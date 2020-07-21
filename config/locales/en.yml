@@ -458,6 +458,7 @@ en:
     accountname:
       present: Accountname must be present
       too_long: Accountname is too long
+      duplicate_name: Le compte existe déjà!
     cleartext username:
       too_long: Username is too long
     cleartext password:
