@@ -10,7 +10,6 @@
       <div class="col-auto my-auto" role="button" {{on "click" this.collapse}}>
         {{#if this.args.team.private}}
           <img class="icon icon-big-button py-auto" src="/ember/assets/images/encrypted_small-white.svg" alt="">
-
         {{else}}
           <img class="icon icon-big-button py-auto" src="/ember/assets/images/members-white.svg" alt="">
         {{/if}}
@@ -21,15 +20,19 @@
       <div class="col-sm-2 d-flex justify-content-between align-items-center">
         <DeleteWithConfirmation @record={{@team}} @didDelete={{this.transitionToIndex}}>
           <img class="icon-big-button" src="/ember/assets/images/delete-white.svg" alt="delete">
+          <BsTooltip @title={{t "teams.delete"}}/>
         </DeleteWithConfirmation>
         <span class="mx-1" role="button" {{on "click" this.toggleTeamEdit}}>
           <img class="icon-big-button" src="/ember/assets/images/edit-white.svg" alt="edit">
+          <BsTooltip @title={{t "teams.edit.title"}}/>
         </span>
         <span class="mx-1" id="config_team_button" role="button" {{on "click" this.toggleTeamConfigure}}>
-          <img class="icon-big-button" src="/ember/assets/images/members-white.svg" alt="configure">
+          <img class="icon-big-button" src="/ember/assets/images/team-configure-white.svg" alt="configure">
+          <BsTooltip @title={{t "teams.configure.title"}}/>
         </span>
         <span class="mx-1" role="button" {{on "click" this.toggleFavourised}}>
           <img class="icon-big-button" src="/ember/assets/images/star-white{{if @team.favourised "-filled"}}.svg" alt="star">
+          <BsTooltip @title={{if @team.favourised (t "teams.defavorise") (t "teams.favorise")}}/>
         </span>
       </div>
       <div class="col-auto ml-0 pl-0 my-auto">

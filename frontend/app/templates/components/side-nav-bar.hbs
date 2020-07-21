@@ -6,9 +6,11 @@
           <BsButtonGroup class="button-group" @type="radio" @value={{this.showsFavourites}} @onChange={{this.toggleFavourites}} as |bg|>
             <bg.button class="toggle-button" @value={{false}}>
               <img class="icon icon-button" src="/ember/assets/images/members{{unless this.showsFavourites "-filled"}}.svg" alt="">
+              <BsTooltip @title={{t "tooltips.all_teams"}}/>
             </bg.button>
             <bg.button class="toggle-button" @value={{true}}>
               <img class="icon icon-button" src="/ember/assets/images/star{{if this.showsFavourites "-filled"}}.svg" alt="star">
+              <BsTooltip @title={{t "tooltips.favorites"}}/>
             </bg.button>
           </BsButtonGroup>
         </div>

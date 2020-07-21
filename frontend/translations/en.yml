@@ -178,6 +178,9 @@ en:
       move: Move account to other folder
       title: "Accounts in folder %{folder_name} for team %{team_name}"
     no_accounts: No Accounts
+    tooltips:
+      delete: Delete the folder
+      edit: Edit the folder
   file_entries:
     new:
       title: Add new attachment to account
@@ -261,6 +264,9 @@ en:
       admins: Admins
     configure:
       title: Edit Team Members and Api Users
+    delete: Delete the team
+    favorise: Favorise the team
+    defavorise: Defavorise the team
     no_folders: No Folders
   profile:
     index:
@@ -430,6 +436,12 @@ en:
     weak: The password is weak
     good: The password is good
     strong: The password is strong!
+
+  tooltips:
+    all_teams: All Teams
+    favorites: Favorites
+    settings_profile: Settings & Profile
+
 
   #Pundit
   pundit:

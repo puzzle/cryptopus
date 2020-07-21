@@ -170,15 +170,18 @@ fr:
     title: Dossiers
     name: Nom du dossier
     index_menu:
-      create: Créer groupe
+      create: Créer dossier
     edit:
-      title: Modifier le groupe
+      title: Modifier le dossier
     new:
-      title: Nouveau groupe
+      title: Nouveau dossier
     show:
-      move: Déplacer compte à un autre groupe
+      move: Déplacer compte à un autre dossier
       title: "Comptes du dossier %{folder_name} de l'équipe %{team_name}"
     no_accounts: Pas de comptes
+    tooltips:
+      delete: Supprimer le dossier
+      edit: Modifier le dossier
   file_entries:
     new:
       title: Ajouter un attachement au compte
@@ -259,6 +262,9 @@ fr:
       admins: Admins
     configure:
       title: Adjuster les membres d'équipe et les utilisateurs d'API
+    delete: Supprimer l'équipe
+    favorise: Favoriser l'équipe
+    defavorise: Dé-privilégier l'équipe
     no_folders: Pas de dossiers
   profile:
     index:
@@ -511,6 +517,11 @@ fr:
     weak: Le mot de passe est faible
     good: Le mot de passe est bon
     strong: Le mot de passe est forte!
+
+  tooltips:
+    all_teams: Tous les équipes
+    favorites: Favoris
+    settings_profile: Paramètres & Profil
 
   #Pundit
   pundit:

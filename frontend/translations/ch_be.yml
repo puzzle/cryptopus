@@ -57,28 +57,28 @@ ch_be:
       short: "%d. %B, %H:%M"
   date:
     month_names:
-      -
-      - Januar
-      - Februar
-      - März
-      - April
-      - Mai
-      - Juni
-      - Juli
-      - August
-      - Septämber
-      - Oktober
-      - Novämber
-      - Dezämber
+    -
+    - Januar
+    - Februar
+    - März
+    - April
+    - Mai
+    - Juni
+    - Juli
+    - August
+    - Septämber
+    - Oktober
+    - Novämber
+    - Dezämber
 
     day_names:
-      - Sunntig
-      - Mäntig
-      - Dsischtig
-      - Mittwuch
-      - Donnstig
-      - Fritig
-      - Samstig
+    - Sunntig
+    - Mäntig
+    - Dsischtig
+    - Mittwuch
+    - Donnstig
+    - Fritig
+    - Samstig
 
   i18n:
     language:
@@ -204,6 +204,9 @@ ch_be:
       move: Account zumnä angere Ordner verschiebe
       title: "Accounts vom Ordner %{folder_name} vom Team %{team_name}"
     no_accounts: Ke Accounts
+    tooltips:
+      delete: Ordner bearbeite
+      edit: Ordner lösche
   file_entries:
     new:
       title: Ahang zum Account hinzuefüege
@@ -287,6 +290,9 @@ ch_be:
       members: Mitglider
       add_member: Mitglied hinzuefüege
       admins: Admins
+    delete: Team löschä
+    favorise: Team favorisiärä
+    defavorise: Team entfavorisiärä
     no_folders: Ke Ordner
   profile:
     index:
@@ -325,7 +331,7 @@ ch_be:
       members:
         added: Mitglied isch erfougrich hinzuegfüegt worde
         removed: Mitglied isch erfougrich entfernt worde
-      errors:
+      errors: 
         auth_failed: Authentifizierig fäugschlage
         user_not_logged_in: Benutzer isch nid igloggt
         invalid_request: Invalidi Ahfrag
@@ -507,6 +513,11 @@ ch_be:
     weak: Ds Passwort isch unsicher
     good: Ds Passwort gnüegt
     strong: Ds Passwort isch starch!
+
+  tooltips:
+    all_teams: Aui Teams
+    favorites: Favoritä
+    settings_profile: Istellige & Profil
 
   validations:
     name:
