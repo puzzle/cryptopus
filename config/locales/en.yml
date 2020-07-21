@@ -160,6 +160,7 @@ en:
         num_folders: Number of Folders
         num_accounts: Number of Accounts
         members: Members
+        no_content: No matches
     user_roles:
       user: User
       conf_admin: Conf Admin

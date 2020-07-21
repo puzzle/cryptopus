@@ -162,7 +162,7 @@ de:
         num_folders: Anzahl Ordner
         num_accounts: Anzahl Accounts
         members: Mitglieder
-
+        no_content: Keine Resultate
     user_roles:
       user: Benutzer
       conf_admin: Conf Admin

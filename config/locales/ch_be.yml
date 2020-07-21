@@ -191,7 +191,7 @@ ch_be:
         num_folders: Ahzahl Ordner
         num_accounts: Ahzahl Accounts
         members: Mitglieder
-
+        no_content: Ke Resultat
   folders:
     title: Ordner
     name: Ordner Name
