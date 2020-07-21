@@ -101,6 +101,11 @@
   overflow-y: auto;
   height: auto;
 }
+.list-group-item[aria-expanded="true"]{
+  background-color: black !important;
+  border-color: #aed248;
+
+}
 
 .side-nav-bar-teams-list .list-group-item:hover {
   cursor: pointer;
@@ -120,5 +125,21 @@
 }
 
 .list-group {
-  border-radius: 0px !important;
+  border-radius: 0 !important;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
