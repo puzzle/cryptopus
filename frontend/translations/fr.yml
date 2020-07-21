@@ -244,6 +244,7 @@ fr:
       title: "Vous êtes membre des équipes suivantes:"
       team: Équipe
       no_content: Aucun résultat trouvé
+      search: Résultats pour
     edit:
       title: Modifier l'équipe
     new:
@@ -533,8 +534,11 @@ fr:
     accountname:
       present: Le nom du compte doit être présent
       too_long: Le nom du compte est trop long
+<<<<<<< HEAD
       duplicate_name: Le compte existe déjà!
     cleartext username:
       too_long: Le nom d'utilisateur est trop long
     cleartext password:
       too_long: Le mot de passe est trop long
+=======
+>>>>>>> Add translations

@@ -255,6 +255,7 @@ de:
       title: 'Sie sind Mitglied der folgenden Teams:'
       team: Team
       no_content: Keine Resultate
+      search: Suchresultate für
     new:
       title: Team erstellen
     edit:

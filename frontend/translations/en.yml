@@ -246,6 +246,7 @@ en:
       title: "You are member of the following teams:"
       team: Team
       no_content: No matches
+      search: Search results for
     new:
       title: New Team
     edit:

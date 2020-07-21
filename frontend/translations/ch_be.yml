@@ -276,6 +276,7 @@ ch_be:
       title: 'Du bisch es Mitglied vo de fougende Teams:'
       team: Team
       no_content: Ke Resultat
+      search: Suechresultat für
     new:
       title: Team ersteue
     description:
@@ -432,7 +433,7 @@ ch_be:
     deleteWithTeams: "Lösch aui Teams i dene %{username} ds letschte Teammitglied isch"
 
 
-  #Validation Errors
+#Validation Errors
   activerecord:
     attributes:
       user:
