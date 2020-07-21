@@ -21,7 +21,7 @@
         </small>
       </div>
 
-      <div class="ml-4 d-inline-block" style="padding-right: 12px">
+      <div class="ml-4 d-inline-block pr-12">
         <PowerSelect id="locale-dropdown" @options={{this.availableLocales}} @selected={{this.selectedLocale}} @onChange={{this.setLocale}}
                      @verticalPosition="above" @renderInPlace={{true}} as |locale|>
           {{locale.name}}

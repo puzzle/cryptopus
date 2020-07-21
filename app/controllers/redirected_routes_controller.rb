@@ -15,7 +15,6 @@ class RedirectedRoutesController < ApplicationController
     if url_handler.frontend_path?
       render 'frontend/index'
     else
-      require 'pry'; binding.pry;
       raise ActionController::RoutingError, 'Not Found' if request.path == url_handler.redirect_to
 
       redirect_to url_handler.redirect_to
