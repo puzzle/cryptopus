@@ -27,11 +27,11 @@ class User::HumanPolicy < ApplicationPolicy
   end
 
   def new?
-    false
+    admin_or_conf_admin?
   end
 
   def create?
-    false
+    admin_or_conf_admin?
   end
 
   def unlock?

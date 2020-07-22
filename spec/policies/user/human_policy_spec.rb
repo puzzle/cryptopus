@@ -63,7 +63,7 @@ describe User::HumanPolicy do
     end
   end
 
-  xcontext '#new' do
+  context '#new' do
     it 'lets an admin create a new user' do
       assert_permit admin, bob, :new?
     end
@@ -77,7 +77,7 @@ describe User::HumanPolicy do
     end
   end
 
-  xcontext '#create' do
+  context '#create' do
     it 'lets an admin create a new user with keypair' do
       assert_permit admin, User::Human, :create?
     end
