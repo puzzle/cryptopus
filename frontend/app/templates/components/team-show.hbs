@@ -24,15 +24,15 @@
         </DeleteWithConfirmation>
         <span class="mx-1" role="button" {{on "click" this.toggleTeamEdit}}>
           <img class="icon-big-button" src="/ember/assets/images/edit-white.svg" alt="edit">
-          <BsTooltip @title={{t "teams.edit.title"}}/>
+          <BsTooltip @title={{t "teams.edit.title"}} @delayShow="1000" />
         </span>
         <span class="mx-1" id="config_team_button" role="button" {{on "click" this.toggleTeamConfigure}}>
           <img class="icon-big-button" src="/ember/assets/images/team-configure-white.svg" alt="configure">
-          <BsTooltip @title={{t "teams.configure.title"}}/>
+          <BsTooltip @title={{t "teams.configure.title"}} @delayShow="1000" />
         </span>
         <span class="mx-1" role="button" {{on "click" this.toggleFavourised}}>
           <img class="icon-big-button" src="/ember/assets/images/star-white{{if @team.favourised "-filled"}}.svg" alt="star">
-          <BsTooltip @title={{if @team.favourised (t "teams.defavorise") (t "teams.favorise")}}/>
+          <BsTooltip @title={{if @team.favourised (t "teams.defavorise") (t "teams.favorise")}} @delayShow="1000" />
         </span>
       </div>
       <div class="col-auto ml-0 pl-0 my-auto">
