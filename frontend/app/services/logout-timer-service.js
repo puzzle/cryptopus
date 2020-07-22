@@ -27,7 +27,7 @@ export default class LogoutTimerService extends Service {
 
     this.logoutTimer.addEventListener('secondsUpdated', () => {
       let passedTime = this.logoutTimer.getTotalTimeValues().seconds
-      if (passedTime >= this.AUTOLOGOFF_TIME) {
+      if (passedTime === this.AUTOLOGOFF_TIME) {
         this.resetSession()
       } else {
         this.calculateTimeToLogoff(passedTime)
@@ -37,7 +37,7 @@ export default class LogoutTimerService extends Service {
 
   resetSession() {
     /* eslint-disable no-undef  */
-    fetch(`/session/destroy`, {
+    fetch(`/session/destroy/?autologout=true`, {
       method: "GET",
       headers: {
         "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
