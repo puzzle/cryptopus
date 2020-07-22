@@ -23,6 +23,11 @@
   text-align: left;
   margin-top: 60px;
 }
+.container-fluid .table {
+  text-align: left;
+  margin-top: 60px;
+}
+
 
 .container form:not(.login) {
   margin: auto;
@@ -255,7 +260,6 @@ nav a.nav-link {
 }
 
 .dropdown-menu {
-  left: -114px !important;
   width: 155px;
 }
 
