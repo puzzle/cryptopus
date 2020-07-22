@@ -327,14 +327,14 @@ fr:
         unlock: "%{username} n'est plus bloqué"
         token:
           renew: "%{username} a été renouvelé, nouveau jeton: %{token}"
-    members:
-      added: Membre de l'équipe a été enlevé avec succès
-      removed: Membre de l'équipe a été ajouté avec succès
-    errors:
-        auth_failed: Échec de l'authentification
-        user_not_logged_in: Utilisateur non connecté
-        invalid_request: Demande non valable
-        record_not_found: Enregistrement non trouvé
+      members:
+        added: Membre de l'équipe a été enlevé avec succès
+        removed: Membre de l'équipe a été ajouté avec succès
+      errors:
+          auth_failed: Échec de l'authentification
+          user_not_logged_in: Utilisateur non connecté
+          invalid_request: Demande non valable
+          record_not_found: Enregistrement non trouvé
     wizard:
       fill_password_fields: S'il vous plaît remplir tous les champs
       paswords_do_not_match: Les mots de passe ne correspondent pas
