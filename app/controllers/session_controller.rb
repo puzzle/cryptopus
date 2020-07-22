@@ -30,7 +30,6 @@ class SessionController < ApplicationController
       return redirect_to user_authenticator.recrypt_path
     end
 
-    last_login_message
     check_password_strength
     redirect_after_sucessful_login
   end
