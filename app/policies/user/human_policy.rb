@@ -6,7 +6,9 @@ class User::HumanPolicy < ApplicationPolicy
   end
 
   def update?
-    return if user.ldap? || user.root?
+    return false unless AuthConfig.db_enabled?
+    return false if user.ldap? || user.root?
+
     if user.user?
       return admin_or_conf_admin?
     end
@@ -27,11 +29,11 @@ class User::HumanPolicy < ApplicationPolicy
   end
 
   def new?
-    admin_or_conf_admin?
+    AuthConfig.db_enabled? && admin_or_conf_admin?
   end
 
   def create?
-    admin_or_conf_admin?
+    AuthConfig.db_enabled? && admin_or_conf_admin?
   end
 
   def unlock?
@@ -59,6 +61,7 @@ class User::HumanPolicy < ApplicationPolicy
   end
 
   def resetpassword?
+    return false unless AuthConfig.db_enabled?
     return false if own_user?
 
     unless user.ldap?
