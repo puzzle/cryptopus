@@ -12,7 +12,10 @@ export default class TeamShowComponent extends Component {
   isTeamEditing = false;
 
   @tracked
-  isTeamConfiguring = false;
+  isNewFolder = false;
+
+  @tracked
+  isFolderAdding = false;
 
   @tracked
   collapsed =
@@ -31,6 +34,11 @@ export default class TeamShowComponent extends Component {
   @action
   toggleTeamConfigure() {
     this.isTeamConfiguring = !this.isTeamConfiguring;
+  }
+
+  @action
+  toggleFolderCreating() {
+    this.isNewFolder = !this.isNewFolder;
   }
 
   @action

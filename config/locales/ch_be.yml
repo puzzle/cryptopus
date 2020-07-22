@@ -518,6 +518,8 @@ ch_be:
     all_teams: Aui Teams
     favorites: Favoritä
     settings_profile: Istellige & Profil
+    add_folder: Erstell en neue Ordner
+    add_account: Erstell en neue Account
 
   validations:
     name:

@@ -4,6 +4,9 @@
 {{#if this.isTeamConfiguring}}
   <TeamMemberConfigure @teamId={{@team.id}} @onAbort={{this.toggleTeamConfigure}}/>
 {{/if}}
+{{#if this.isNewFolder}}
+  <FolderForm @onAbort={{this.toggleFolderCreating}} @title={{t "folders.new.title"}}/>
+{{/if}}
 <div class="mt-4 mb-4 border-radius-4">
   <div>
     <div class="row py-2 d-flex team-card-header {{if this.collapsed "rounded" "rounded-top"}}">
@@ -18,6 +21,10 @@
         <h5 class="d-inline">{{@team.name}}</h5>
       </div>
       <div class="col-sm-2 d-flex justify-content-between align-items-center">
+        <span class="mx-1" role="button" {{on "click" this.toggleFolderCreating}}>
+          <img class="icon-big-button" src="/ember/assets/images/plus-white.svg" alt="new">
+          <BsTooltip @title={{t "tooltips.add_folder"}} @delayShow="1000" />
+        </span>
         <DeleteWithConfirmation @class="mx-1" @record={{@team}} @didDelete={{this.transitionToIndex}}>
           <img class="icon-big-button" src="/ember/assets/images/delete-white.svg" alt="delete">
           <BsTooltip @title={{t "teams.delete"}} @delayShow="1000"/>

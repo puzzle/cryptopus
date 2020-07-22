@@ -522,6 +522,8 @@ fr:
     all_teams: Tous les équipes
     favorites: Favoris
     settings_profile: Paramètres & Profil
+    add_folder: Ajouter un dossier
+    add_account: Ajouter un compte
 
   #Pundit
   pundit:
