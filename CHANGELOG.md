@@ -1,5 +1,12 @@
 # Cryptopus Changelog
 
+## Version 3.3
+- Almost a SinglePageApplication now (ember)
+- New design and main view for Teams/Folders
+- Search with dynamic results
+- Added Side-Navigation-Bar
+- Favorisable Teams
+
 ## Version 3.2
 
 - Implement new UI using EmberJS
