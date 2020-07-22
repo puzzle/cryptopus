@@ -41,7 +41,7 @@ export default class AccountShowComponent extends Component {
 
   @action
   refreshRoute() {
-    this.transitionBack();
+    this.router.transitionTo("/teams")
   }
 
   @action
