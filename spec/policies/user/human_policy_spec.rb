@@ -32,6 +32,20 @@ describe User::HumanPolicy do
       it 'can update user information' do
         assert_permit admin, bob, :update?
       end
+
+      context 'auth provider NOT db' do
+        before do
+          allow(AuthConfig).to receive(:db_enabled?).and_return(false)
+        end
+        it 'is NOT possible to update any users' do
+          refute_permit root, bob, :update?
+          refute_permit bob, bob, :update?
+          refute_permit conf_admin, bob, :update?
+          refute_permit conf_admin, alice, :update?
+          refute_permit admin, alice, :update?
+        end
+      end
+
     end
 
     context 'conf_admin' do
@@ -45,6 +59,19 @@ describe User::HumanPolicy do
 
       it 'can update user information' do
         assert_permit conf_admin, bob, :update?
+      end
+
+      context 'auth provider NOT db' do
+        before do
+          allow(AuthConfig).to receive(:db_enabled?).and_return(false)
+        end
+        it 'is NOT possible to create any users' do
+          refute_permit root, bob, :create?
+          refute_permit bob, bob, :create?
+          refute_permit conf_admin, bob, :create?
+          refute_permit conf_admin, alice, :create?
+          refute_permit admin, alice, :create?
+        end
       end
     end
 
@@ -65,29 +92,57 @@ describe User::HumanPolicy do
 
   context '#new' do
     it 'lets an admin create a new user' do
-      assert_permit admin, bob, :new?
+      assert_permit admin, User::Human, :new?
     end
 
     it 'lets a conf_admin create a new user' do
-      assert_permit conf_admin, bob, :new?
+      assert_permit conf_admin, User::Human, :new?
     end
 
-    it 'lets a user create a new user' do
-      refute_permit bob, bob, :new?
+    it 'a user cannot create a new user' do
+      refute_permit bob, User::Human, :new?
+    end
+
+    context 'auth provider NOT db' do
+      before do
+        allow(AuthConfig).to receive(:db_enabled?).and_return(false)
+      end
+      it 'is NOT possible to create any users' do
+        refute_permit root, User::Human, :new?
+        refute_permit bob, User::Human, :new?
+        refute_permit conf_admin, User::Human, :new?
+        refute_permit admin, User::Human, :new?
+      end
     end
   end
 
   context '#create' do
-    it 'lets an admin create a new user with keypair' do
+    it 'lets an admin create a new user' do
       assert_permit admin, User::Human, :create?
     end
 
-    it 'lets a conf_admin create a new user with keypair' do
+    it 'lets a conf_admin create a new user' do
       assert_permit conf_admin, User::Human, :create?
     end
 
-    it 'lets a user not create a new user with keypair' do
+    it 'user cannot create a new user' do
       refute_permit bob, User::Human, :create?
+    end
+
+    context 'auth provider NOT db' do
+      before do
+        allow(AuthConfig).to receive(:db_enabled?).and_return(false)
+      end
+      it 'conf_admin cannot create new user' do
+        refute_permit conf_admin, User::Human, :create?
+      end
+      it 'admin cannot create new user' do
+        refute_permit admin, User::Human, :create?
+      end
+
+      it 'user cannot create new user' do
+        refute_permit bob, User::Human, :create?
+      end
     end
   end
 
@@ -281,6 +336,19 @@ describe User::HumanPolicy do
         refute_permit alice, bob, :resetpassword?
         refute_permit bob, admin, :resetpassword?
         refute_permit bob, conf_admin, :resetpassword?
+      end
+    end
+
+    context 'auth provider NOT db' do
+      before do
+        allow(AuthConfig).to receive(:db_enabled?).and_return(false)
+      end
+      it 'is NOT possible to reset any passwords' do
+        refute_permit root, bob, :resetpassword?
+        refute_permit bob, bob, :resetpassword?
+        refute_permit conf_admin, bob, :resetpassword?
+        refute_permit conf_admin, alice, :resetpassword?
+        refute_permit admin, alice, :resetpassword?
       end
     end
   end
