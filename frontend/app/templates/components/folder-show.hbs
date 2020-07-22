@@ -1,21 +1,21 @@
 {{#if this.isFolderEditing}}
   <FolderForm @folder={{@folder}} @onAbort={{this.toggleFolderEdit}} @title={{t "folders.edit.title"}}/>
 {{/if}}
-<div class="py-2 pl-2 pr-2 folder-card-header {{if this.collapsed "br-4"}}">
+<div class="pl-2 pr-2 folder-card-header {{if this.collapsed "br-4"}}">
   <div class="d-flex row justify-content-between folder-show-header">
     <div class="col-auto my-auto" role="button" {{on "click" this.collapse}}>
       <img class="icon icon-folder py-auto" src="/ember/assets/images/folder.svg" alt="">
     </div>
-    <div class="col pl-0" role="button" {{on "click" this.collapse}}>
-      <h5 class="d-inline">{{@folder.name}}</h5>
+    <div class="col pl-0 my-auto" role="button" {{on "click" this.collapse}}>
+      <h6 class="d-inline">{{@folder.name}}</h6>
     </div>
-    <div class="d-flex justify-content-between align-items-center reduced-padding-for-icons">
-      <DeleteWithConfirmation @record={{@folder}} @didDelete={{this.refreshRoute}}>
-        <img class="icon-medium-button d-inline my-auto" src="/ember/assets/images/delete.svg" alt="delete">
+    <div class="col-auto justify-content-between align-items-center">
+      <DeleteWithConfirmation @class="mx-1" @record={{@folder}} @didDelete={{this.refreshRoute}}>
+        <img class="icon-big-button d-inline my-auto" src="/ember/assets/images/delete.svg" alt="delete">
         <BsTooltip @title={{t "folders.tooltips.delete"}} @delayShow="1000" />
       </DeleteWithConfirmation>
-      <a class="margin-for-buttons" role="button" {{on "click" this.toggleFolderEdit}}>
-        <img class="icon-medium-button " src="/ember/assets/images/edit.svg" alt="edit">
+      <a class="margin-for-buttons mx-1" role="button" {{on "click" this.toggleFolderEdit}}>
+        <img class="icon-big-button " src="/ember/assets/images/edit.svg" alt="edit">
         <BsTooltip @title={{t "folders.tooltips.edit"}} @delayShow="1000" />
       </a>
     </div>
