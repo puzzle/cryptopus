@@ -58,7 +58,7 @@ describe 'FolderModal', type: :system, js: true do
 
     # Edit Folder
     visit("/teams/#{folder.team_id}/folders/#{folder.id}")
-    all('img.icon-medium-button[alt="edit"]')[0].click
+    all('img.icon-big-button[alt="edit folder"]')[0].click
 
     expect(find('.modal-content')).to be_present
     expect(page).to have_text('Editing Folder')
@@ -78,7 +78,7 @@ describe 'FolderModal', type: :system, js: true do
 
     expect do
       find('a.list-group-item', visible: false, text: team.name).click
-      del_button = all('img.icon-medium-button.d-inline[alt="delete"]')[0]
+      del_button = all('img.icon-big-button.d-inline[alt="delete folder"]')[0]
       expect(del_button).to be_present
 
       del_button.click
@@ -103,7 +103,7 @@ describe 'FolderModal', type: :system, js: true do
   def expect_teams_page_with(folder_attrs, team)
     expect(page).to have_text(team.name)
     find('a.list-group-item', visible: false, text: team.name).click
-    expect(page).to have_css('h5', visible: false, text: folder_attrs[:foldername])
+    expect(page).to have_css('h6', visible: false, text: folder_attrs[:foldername])
     expect(page).to have_css('p', visible: false, text: folder_attrs[:description])
   end
 

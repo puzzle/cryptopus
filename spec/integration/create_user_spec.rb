@@ -10,7 +10,7 @@ describe 'Create user' do
   include IntegrationHelpers::DefaultHelper
 
   context 'as admin' do
-    it 'creates new user' do
+    xit 'creates new user' do
       login_as('admin')
       post admin_users_path, params: { user_human: {
         username: 'simon',
@@ -25,7 +25,7 @@ describe 'Create user' do
       login_as('simon')
     end
 
-    it 'cannot create second user bob' do
+    xit 'cannot create second user bob' do
       login_as('admin')
       post admin_users_path, params: { user_human: {
         username: 'bob',
@@ -40,7 +40,7 @@ describe 'Create user' do
   end
 
   context 'as bob' do
-    it 'cannot create new user' do
+    xit 'cannot create new user' do
       login_as('bob')
       post admin_users_path, params: { user_human: {
         username: 'rsiegfried',
