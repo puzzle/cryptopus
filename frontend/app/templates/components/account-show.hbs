@@ -8,7 +8,7 @@
 <div class="container px-5 pt-4 h-100 bg-white pl-none">
   <div class="row mb-3">
     <div class="col">
-      <a id="account-show-back" href="#" {{on "click" this.transitionBack}}>
+      <a id="account-show-back" {{on "click" this.transitionBack}}>
         <span>
           <img class="icon-button account-show-back" src="/ember/assets/images/arrow-left.svg" alt="back">
           <i>Back</i>
@@ -19,7 +19,7 @@
       <DeleteWithConfirmation @class="btn btn-light edit_button" @record={{@account}} @didDelete={{this.refreshRoute}}>
         <img class="icon-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
       </DeleteWithConfirmation>
-      <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleAccountEdit}} href="#">
+      <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleAccountEdit}}>
         <img class="icon-button" src="/ember/assets/images/edit.svg" alt="edit">
       </a>
     </div>

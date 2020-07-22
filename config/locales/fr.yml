@@ -524,6 +524,9 @@ fr:
     settings_profile: Paramètres & Profil
     add_folder: Ajouter un dossier
     add_account: Ajouter un compte
+    account_details: Montrer détails du compte
+    delete_folder: Supprimer le dossier
+    delete_account: Supprimer le compte
 
   #Pundit
   pundit:

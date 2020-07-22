@@ -104,7 +104,7 @@ describe 'TeamsPage', type: :system, js: true do
   end
 
   def open_and_close_team_edit
-    all('span[role="button"]')[1].click
+    all('span[role="button"]')[2].click
     expect(page).to have_text('Edit Team')
     click_button('Close')
   end

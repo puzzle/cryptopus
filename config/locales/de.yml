@@ -528,6 +528,9 @@ de:
     settings_profile: Einstellungen & Profil
     add_folder: Erstelle einen neuen Ordner
     add_account: Erstelle einen neuen Account
+    account_details: Account Details anzeigen
+    delete_folder: Ordner löschen
+    delete_account: Account löschen
 
   #Pundit
   pundit:

@@ -443,6 +443,9 @@ en:
     settings_profile: Settings & Profile
     add_folder: Add a new Folder
     add_account: Add a new Account
+    account_details: Show Account Details
+    delete_folder: Delete the Folder
+    delete_account: Delete the Account
 
 
   #Pundit

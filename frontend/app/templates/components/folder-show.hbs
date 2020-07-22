@@ -19,7 +19,7 @@
       </a>
       <DeleteWithConfirmation @class="mx-1" @record={{@folder}} @didDelete={{this.refreshRoute}}>
         <img class="icon-big-button d-inline my-auto" src="/ember/assets/images/delete.svg" alt="delete folder">
-        <BsTooltip @title={{t "folders.tooltips.delete"}} @delayShow="1000" />
+        <BsTooltip @title={{t "tooltips.delete_folder"}} @delayShow="1000" />
       </DeleteWithConfirmation>
       <a class="margin-for-buttons mx-1" role="button" {{on "click" this.toggleFolderEdit}}>
         <img class="icon-big-button " src="/ember/assets/images/edit.svg" alt="edit folder">

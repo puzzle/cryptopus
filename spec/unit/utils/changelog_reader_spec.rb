@@ -32,10 +32,10 @@ describe ChangelogReader do
         'foo', # Invalid line
         '## Version 1.3',
         'fee', # Invalid line
-        '* change',
-        '* another change',
+        '- change',
+        '- another change',
         '## Version 1.1',
-        '* changes'
+        '- changes'
       ].join("\n")
     end
 
@@ -68,7 +68,7 @@ describe ChangelogReader do
     end
 
     it 'parses entry line' do
-      entry = changelog_reader.send(:entry_line, +'* change')
+      entry = changelog_reader.send(:entry_line, +'- change')
       expect(entry).to eq('change')
     end
 

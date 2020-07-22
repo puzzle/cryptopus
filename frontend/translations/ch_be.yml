@@ -205,8 +205,8 @@ ch_be:
       title: "Accounts vom Ordner %{folder_name} vom Team %{team_name}"
     no_accounts: Ke Accounts
     tooltips:
-      delete: Ordner bearbeite
-      edit: Ordner lösche
+      delete: Ordner lösche
+      edit: Ordner bearbeite
   file_entries:
     new:
       title: Ahang zum Account hinzuefüege
@@ -520,6 +520,9 @@ ch_be:
     settings_profile: Istellige & Profil
     add_folder: Erstell en neue Ordner
     add_account: Erstell en neue Account
+    account_details: Account Details ahzeige
+    delete_folder: Ordner lösche
+    delete_account: Account lösche
 
   validations:
     name:
