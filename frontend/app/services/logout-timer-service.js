@@ -35,16 +35,16 @@ export default class LogoutTimerService extends Service {
     })
   }
 
-  resetSession() {
+  async resetSession() {
     /* eslint-disable no-undef  */
-    fetch(`/session/destroy/?autologout=true`, {
+    await fetch(`/session/destroy/?autologout=true`, {
       method: "GET",
       headers: {
         "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
       }
     });
     /* eslint-enable no-undef  */
-    window.location.replace('/session/new')
+    window.location.replace("/session/new");
   }
 
   calculateTimeToLogoff(passedTime){
