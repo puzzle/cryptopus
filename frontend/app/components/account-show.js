@@ -46,6 +46,7 @@ export default class AccountShowComponent extends Component {
 
   @action
   transitionBack() {
+    debugger;
     this.router.transitionTo(
       "teams.folders-show",
       this.args.account.folder.get("team.id"),
