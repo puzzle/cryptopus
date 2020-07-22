@@ -25,6 +25,7 @@
                 <form.element @label={{t "team"}} @controlType="power-select"
                               @placeholder={{t "accounts.edit.team_placeholder"}} @disabled={{not this.isNewRecord}}
                               @options={{this.assignableTeams}} @value={{this.changeset.team}}
+                              @tabindex="2"
                               @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>
                   <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
                     {{team.name}}
@@ -39,14 +40,14 @@
             <form.element @label={{t "description"}} @property="description" @controlType="textarea"
                             id="description" class="{{if
                       this.changeset.error.description.validation "invalid-input"}} vertical-resize"
-                            @tabindex="7" @customError={{t (validation-error-key this.changeset.error.description.validation)}}/>
+                            @tabindex="3" @customError={{t (validation-error-key this.changeset.error.description.validation)}}/>
           </form.group>
         </div>
       </BsForm>
     </div>
   </Modal.body>
   <Modal.footer>
-    <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "save"}}</BsButton>
-    <BsButton @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
+    <BsButton @onClick={{action this.submit this.changeset}} @type="primary" @tabindex="4">{{t "save"}}</BsButton>
+    <BsButton @onClick={{action this.abort}} @type="secondary" @tabindex="5">{{t "close"}}</BsButton>
   </Modal.footer>
 </BsModal>
