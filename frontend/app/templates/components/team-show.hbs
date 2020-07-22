@@ -20,7 +20,7 @@
       <div class="col-sm-2 d-flex justify-content-between align-items-center">
         <DeleteWithConfirmation @record={{@team}} @didDelete={{this.transitionToIndex}}>
           <img class="icon-big-button" src="/ember/assets/images/delete-white.svg" alt="delete">
-          <BsTooltip @title={{t "teams.delete"}}/>
+          <BsTooltip @title={{t "teams.delete"}} @delayShow="1000"/>
         </DeleteWithConfirmation>
         <span class="mx-1" role="button" {{on "click" this.toggleTeamEdit}}>
           <img class="icon-big-button" src="/ember/assets/images/edit-white.svg" alt="edit">
