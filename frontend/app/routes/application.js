@@ -9,9 +9,10 @@ export default class IndexRoute extends Route {
   @service store;
 
   beforeModel() {
-    let selectedLocale = this.intl.locales.includes(ENV.preferredLocale)
+    let selectedLocale = this.intl.locales.includes(ENV.preferredLocale.replace("_", "-"))
       ? ENV.preferredLocale
       : "en";
+
     this.intl.setLocale(selectedLocale);
   }
 

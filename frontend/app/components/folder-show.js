@@ -12,6 +12,9 @@ export default class FolderShowComponent extends Component {
   isFolderEditing = false;
 
   @tracked
+  isNewAccount = false;
+
+  @tracked
   expanded_due_to_search = false;
 
   constructor() {
@@ -50,5 +53,10 @@ export default class FolderShowComponent extends Component {
   @action
   toggleFolderEdit() {
     this.isFolderEditing = !this.isFolderEditing;
+  }
+
+  @action
+  toggleAccountCreating() {
+    this.isNewAccount = !this.isNewAccount;
   }
 }

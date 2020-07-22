@@ -57,12 +57,15 @@
     <div class="card-footer d-flex justify-content-between">
       <LinkTo @route="accounts.show" @model={{@account}}>
         <img class="icon-button d-inline" src="/ember/assets/images/eye.svg" alt="show">
+        <BsTooltip @title={{t "tooltips.account_details"}} @delayShow="1000" />
       </LinkTo>
       <a class="mx-auto" role="button" {{on "click" this.toggleAccountEdit}}>
         <img class="icon-button d-inline" src="/ember/assets/images/edit.svg" alt="edit">
+        <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000" />
       </a>
       <DeleteWithConfirmation @record={{@account}} @didDelete={{this.refreshRoute}}>
         <img class="icon-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
+        <BsTooltip @title={{t "tooltips.delete_account"}} @delayShow="1000" />
       </DeleteWithConfirmation>
     </div>
   </div>

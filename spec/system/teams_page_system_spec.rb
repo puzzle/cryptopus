@@ -37,7 +37,7 @@ describe 'TeamsPage', type: :system, js: true do
     end
 
     # Check if visible in teams page
-    within(all('div.row.bg-white.border')[0]) do
+    within(find('div.col.px-4.py-3.list-folder-header')) do
       expect(page).to have_text(folder1.name)
     end
 
@@ -104,23 +104,23 @@ describe 'TeamsPage', type: :system, js: true do
   end
 
   def open_and_close_team_edit
-    all('span[role="button"]')[1].click
+    all('span[role="button"]')[2].click
     expect(page).to have_text('Edit Team')
-    click_button('Close')
+    find('button.btn.btn-secondary.ember-view', text: 'Close', visible: false).click
   end
 
   def open_and_close_team_members
-    all('span[role="button"]')[2].click
+    all('span[role="button"]')[3].click
     expect(page).to have_text('Edit Team Members and Api Users')
-    click_button('Close')
+    find('button.btn.btn-secondary.ember-view', text: 'Close', visible: false).click
   end
 
   def click_team_favourites_button
-    all('span[role="button"]')[3].click
+    all('span[role="button"]')[4].click
     within(find('div.py-2.d-flex.team-card-header')) do
       expect(find('img[alt="star"]')['src']).to include '/ember/assets/images/star-white.svg'
     end
-    all('span[role="button"]')[3].click
+    all('span[role="button"]')[4].click
     within(find('div.py-2.d-flex.team-card-header')) do
       expect(find('img[alt="star"]')['src']).to include '/ember/assets/images/star-white-filled.svg'
     end

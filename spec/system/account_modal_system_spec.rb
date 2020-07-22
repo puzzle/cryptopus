@@ -83,7 +83,7 @@ describe 'AccountModal', type: :system, js: true do
 
     # Delete Account
     expect do
-      find('span[role="button"]').click
+      all('span.btn.btn-light.edit_button[role="button"]')[0].click
       expect(page).to have_text('Are you sure?')
       find('button', text: 'Delete').click
       visit("/teams/#{team.id}/folders/#{folder.id}")

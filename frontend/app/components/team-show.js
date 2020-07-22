@@ -15,6 +15,9 @@ export default class TeamShowComponent extends Component {
   isTeamConfiguring = false;
 
   @tracked
+  isNewFolder = false;
+
+  @tracked
   collapsed =
     this.navService.selectedTeam != this.args.team &&
     this.navService.searchQuery === null;
@@ -31,6 +34,11 @@ export default class TeamShowComponent extends Component {
   @action
   toggleTeamConfigure() {
     this.isTeamConfiguring = !this.isTeamConfiguring;
+  }
+
+  @action
+  toggleFolderCreating() {
+    this.isNewFolder = !this.isNewFolder;
   }
 
   @action

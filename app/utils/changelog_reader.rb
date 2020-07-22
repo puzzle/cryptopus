@@ -7,7 +7,7 @@
 
 class ChangelogReader
   VERSION_REGEX = /^## [^\s]+ ((\d+\.)+(\d+))$/i.freeze
-  ENTRY_REGEX = /^\*\s*(.*)/.freeze
+  ENTRY_REGEX = /^\-\s*(.*)/.freeze
 
   class << self
     def changelog

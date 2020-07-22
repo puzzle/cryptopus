@@ -441,6 +441,11 @@ en:
     all_teams: All Teams
     favorites: Favorites
     settings_profile: Settings & Profile
+    add_folder: Add a new Folder
+    add_account: Add a new Account
+    account_details: Show Account Details
+    delete_folder: Delete the Folder
+    delete_account: Delete the Account
 
 
   #Pundit
@@ -472,7 +477,7 @@ en:
     accountname:
       present: Accountname must be present
       too_long: Accountname is too long
-      duplicate_name: Le compte existe déjà!
+      duplicate_name: Accountname exists already
     cleartext username:
       too_long: Username is too long
     cleartext password:
