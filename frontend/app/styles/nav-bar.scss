@@ -27,8 +27,14 @@ nav a.nav-link {
 }
 
 .dropdown .btn-group > a {
-  color: #ffffff;
-  background-color: rgba(15, 101, 140, 0.58);
+  color: #000000;
+  background-color: #c7d9e9;
+  border-color: #1b8cc5;
+}
+
+.dropdown .btn-group > a:last-child {
+  color: #000000;
+  background-color: rgba(199, 217, 233, 0.69);
   border-color: #1b8cc5;
 }
 
@@ -50,14 +56,14 @@ nav a.nav-link {
 #search {
   width: 70%;
   margin-left: 10px !important;
-  border-radius: 0;
+  border-radius: 8px;
   border: none;
-  background-color: rgba(15, 101, 140, 0.58);
-  color: #ffffff;
+  background-color: #c7d9e9;
+  color: #000000;
 }
 
 #search::placeholder {
-  color: #ffffff;
+  color: #000000;
 }
 
 .search-wrapper {
