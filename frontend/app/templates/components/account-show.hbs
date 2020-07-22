@@ -8,10 +8,9 @@
 <div class="container px-5 pt-4 h-100 bg-white pl-none">
   <div class="row mb-3">
     <div class="col">
-      <a id="account-show-back" {{on "click" this.transitionBack}}>
-        <span>
+      <a id="account-show-back" role="button" {{on "click" this.transitionBack}}>
+        <span class="btn btn-secondary edit_button" role="button">
           <img class="icon-button account-show-back" src="/ember/assets/images/arrow-left.svg" alt="back">
-          <i>Back</i>
         </span>
       </a>
     </div>
