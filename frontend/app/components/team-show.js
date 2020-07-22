@@ -12,10 +12,10 @@ export default class TeamShowComponent extends Component {
   isTeamEditing = false;
 
   @tracked
-  isNewFolder = false;
+  isTeamConfiguring = false;
 
   @tracked
-  isFolderAdding = false;
+  isNewFolder = false;
 
   @tracked
   collapsed =
