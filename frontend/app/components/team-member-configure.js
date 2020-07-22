@@ -11,6 +11,7 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
 
   @tracked members;
   @tracked candidates;
+  @tracked apiUsers;
 
   constructor() {
     super(...arguments);

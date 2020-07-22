@@ -1,9 +1,14 @@
 <div class="container py-2">
-  {{#if @model}}
-    {{#each @model as |team|}}
-      <TeamShow @team={{team}} />
-    {{/each}}
-  {{else}}
-    <h5>{{t "teams.index.no_content"}}</h5>
-  {{/if}}
+  <div class="mt-4">
+    {{#if @model}}
+      {{#if q}}
+        <SearchResultComponent @q={{q}}/>
+      {{/if}}
+      {{#each @model as |team|}}
+        <TeamShow @team={{team}} />
+      {{/each}}
+    {{else}}
+      <h5>{{t "teams.index.no_content"}}</h5>
+    {{/if}}
+  </div>
 </div>

@@ -162,7 +162,6 @@ de:
         num_folders: Anzahl Ordner
         num_accounts: Anzahl Accounts
         members: Mitglieder
-        no_content: Keine Resultate
     user_roles:
       user: Benutzer
       conf_admin: Conf Admin
@@ -181,6 +180,9 @@ de:
       move: Account zu einem anderen Ordner verschieben
       title: "Accounts des Ordners %{folder_name} des Teams %{team_name}"
     no_accounts: Keine Accounts
+    tooltips:
+      delete: Ordner löschen
+      edit: Ordner bearbeiten
 
   file_entries:
     new:
@@ -255,6 +257,8 @@ de:
     index:
       title: 'Sie sind Mitglied der folgenden Teams:'
       team: Team
+      no_content: Keine Resultate
+      search: Suchresultate für
     new:
       title: Team erstellen
     edit:
@@ -263,6 +267,9 @@ de:
       private: Admins haben keinen Zugriff wenn angewählt
     configure:
       title: Teammitglieder und Api Nutzer anpassen
+    delete: Team löschen
+    favorise: Team favorisieren
+    defavorise: Team entfavorisieren
     no_folders: Keine Ordner
 
   profile:
@@ -514,6 +521,11 @@ de:
     weak: Das Passwort ist unsicher
     good: Das Passwort genügt
     strong: Das Passwort ist stark!
+
+  tooltips:
+    all_teams: Alle Teams
+    favorites: Favoriten
+    settings_profile: Einstellungen & Profil
 
   #Pundit
   pundit:

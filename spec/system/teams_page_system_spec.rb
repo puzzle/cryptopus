@@ -80,7 +80,7 @@ describe 'TeamsPage', type: :system, js: true do
   end
 
   def folder_expanded?
-    within(all('div.folder-card-header.py-2', visible: false)[0]) do
+    within(all('div.folder-card-header', visible: false)[0]) do
       expect(find('span[name="folder-collapse"]')).to have_xpath("//img[@alt='v']")
     end
   end
@@ -92,7 +92,7 @@ describe 'TeamsPage', type: :system, js: true do
   end
 
   def folder_collapsed?
-    within(all('div.folder-card-header.py-2')[1]) do
+    within(all('div.folder-card-header')[1]) do
       expect(find('span[name="folder-collapse"]')).to have_xpath("//img[@alt='<']")
     end
   end
