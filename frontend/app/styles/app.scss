@@ -10,7 +10,7 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 @import "footer";
 @import "nav-bar";
 @import "side-nav-bar";
-@import "account-card-show";
+@import "account-show";
 @import "account-entry";
 @import "password-strength-meter";
 @import "folder-show";
@@ -318,13 +318,15 @@ li a {
 .no-wrap {
   white-space: nowrap;
 }
- .overflow-hidden {
+
+.overflow-hidden {
    overflow: hidden;
- }
+}
 
 .account-row:first-child {
   margin-top: 10px !important;
 }
+
 .account-row:last-child {
   margin-bottom: 10px !important;
 }
