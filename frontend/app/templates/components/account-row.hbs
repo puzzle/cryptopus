@@ -1,5 +1,5 @@
 {{#if this.isAccountEditing}}
-  <AccountForm @account={{@account}} @onAbort={{this.toggleAccountEdit}}/>
+  <AccountForm @account={{@account}} @onAbort={{this.toggleAccountEdit}}  @title={{t "accounts.edit.title"}}/>
 {{/if}}
   <div class="row d-flex align-items-center p-2 bg-grey-2 rounded account-entry">
     <div class="col-auto pr-0" role="button" {{on "click" this.transitionToAccount}}>
