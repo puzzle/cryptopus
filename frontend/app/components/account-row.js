@@ -3,7 +3,7 @@ import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
 
-export default class AccountEntryComponent extends Component {
+export default class AccountRowComponent extends Component {
   @service store;
   @service router;
   @service intl;

@@ -52,7 +52,7 @@
         {{#if @folder.accounts}}
           {{#each @folder.accounts as |account|}}
             <div class="account-row px-3 py-1">
-              <AccountEntry @account={{account}}/>
+              <AccountRow @account={{account}}/>
             </div>
           {{/each}}
         {{else}}
