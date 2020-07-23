@@ -15,12 +15,11 @@
         @onExpand={{fn this.setNavbarCollapsed false}}
         @class="navbar-custom navbar-expand-lg" as |navbar|>
   <div class="pl-0 pr-0 nav-container">
-
     <div class="navbar-header w-100 d-flex show-on-hamburgermenu">
       {{navbar.toggle}}
-      <a href="/">
+      <a href="/" class="h3 title d-flex align-items-center">
         <img src="/ember/assets/images/cryptopussy_without_text.svg" alt="logo" class="logo-icon">
-        <span class="d-none d-sm-inline-block ml-1 navbar-brand">Cryptopus</span>
+        <span class="d-none d-sm-inline-block ml-1">Cryptopus</span>
       </a>
       <div>
         <a href="/profile">

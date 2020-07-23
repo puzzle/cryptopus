@@ -10,5 +10,6 @@ export default class SearchResultComponent extends Component {
   @action
   clear_search() {
     this.navService.searchQuery = null;
+    this.router.replaceWith("index");
   }
 }
