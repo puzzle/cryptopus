@@ -16,6 +16,15 @@
   background-color: white;
 }
 
+.toggle-button.active {
+  background-color: white !important;
+  border-color: #1b8dc6 !important;
+}
+
+.toggle-button:focus {
+  box-shadow: none !important;
+}
+
 .p-0 {
   padding: 0px !important;
 }
