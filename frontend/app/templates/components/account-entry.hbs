@@ -1,0 +1,53 @@
+{{#if this.isAccountEditing}}
+  <AccountForm @account={{@account}} @onAbort={{this.toggleAccountEdit}}/>
+{{/if}}
+  <div class="row d-flex align-items-center p-2 bg-grey-2 rounded account-entry">
+    <div class="col-auto pr-0" role="button" {{on "click" this.transitionToAccount}}>
+      <img class="img d-inline w-30 float-left icon-big-button" src="/ember/assets/images/key.svg" alt="key">
+    </div>
+    <div class="col underline-hover" role="button" {{on "click" this.transitionToAccount}}>
+      {{@account.accountname}}
+    </div>
+    <div class="col-2 pr-0 d-none d-md-block">
+      <div class="hide-wrapper">
+        <Input class="d-inline form-control" @disabled="true" @value={{@account.cleartextUsername}}/>
+        <div role="button" class="show-password-link show-password-link-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isUsernameVisible "visibility-hidden"}}"{{on "click" this.showUsername}} href="#">{{t "username"}}</div>
+        {{#if (not this.isUsernameVisible)}}
+          <BsTooltip @title={{t "accounts.show.show_username"}} @delayShow="500" />
+        {{/if}}
+      </div>
+    </div>
+    <div class="col-auto px-0 d-none d-md-block">
+      <CopyButton class="btn btn-light " @clipboardText={{@account.cleartextUsername}} @success={{fn this.onCopied "username"}}>
+        <img class="icon-clippy img d-inline" src="/ember/assets/images/clipboard.svg" alt="clip">
+        <BsTooltip @title={{t "accounts.show.copy_username"}} @delayShow="500" />
+      </CopyButton>
+    </div>
+
+    <div class="col-2 pr-0 d-none d-md-block">
+      <div class="hide-wrapper">
+        <Input class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
+        <div role="button" class="show-password-link show-password-link-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isPasswordVisible "visibility-hidden"}}"{{on "click" this.showPassword}} href="#">{{t "password"}}</div>
+        {{#if (not this.isPasswordVisible)}}
+          <BsTooltip @title={{t "accounts.show.show_password"}} @delayShow="500" />
+        {{/if}}
+      </div>
+    </div>
+    <div class="col-auto pl-0 d-none d-md-block">
+      <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextPassword}} @success={{fn this.onCopied "password"}}>
+        <img class="icon-clippy img d-inline" src="/ember/assets/images/clipboard.svg" alt="clip">
+        <BsTooltip @title={{t "accounts.show.copy_password"}} @delayShow="500" />
+      </CopyButton>
+    </div>
+
+    <div class="col-auto d-none d-md-block">
+      <a class="mx-1" role="button" {{on "click" this.toggleAccountEdit}}>
+        <img class="icon-medium-button d-inline" src="/ember/assets/images/edit.svg" alt="edit">
+        <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000" />
+      </a>
+      <DeleteWithConfirmation @class="mx-1" @record={{@account}} @didDelete={{this.refreshRoute}}>
+        <img class="icon-medium-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
+        <BsTooltip @title={{t "tooltips.delete_account"}} @delayShow="1000" />
+      </DeleteWithConfirmation>
+    </div>
+  </div>

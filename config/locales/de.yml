@@ -86,6 +86,9 @@ de:
       attachments: Anhänge
       file: Datei
       show_password: Passwort anzeigen
+      show_username: Benutzname anzeigen
+      copy_password: Passwort kopieren
+      copy_username: Benutzername kopieren
       add_attachment: Anhang hinzufügen
     new:
       title: Neuer Account

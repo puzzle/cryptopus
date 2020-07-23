@@ -89,7 +89,7 @@ describe 'AccountModal', type: :system, js: true do
       visit("/teams/#{team.id}/folders/#{folder.id}")
 
       expect(page).to have_text(team.name)
-      expect(page).to have_css('h5', visible: false, text: account.accountname)
+      expect(page).to have_css('div', visible: false, text: account.accountname)
     end.to change { Account.count }.by(-1)
 
     logout

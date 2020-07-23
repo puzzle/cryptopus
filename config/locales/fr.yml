@@ -86,6 +86,9 @@ fr:
       attachments: Attachements
       file: Fichier
       show_password: Afficher le mot de passe
+      show_username: Afficher le nom d'utilisateur
+      copy_password: Copier le mot de passe
+      copy_username: Copier le nom d'utilisateur
       add_attachment: Ajouter un attachement
     new:
       title: Nouveau compte

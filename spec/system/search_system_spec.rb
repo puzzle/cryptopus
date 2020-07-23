@@ -20,7 +20,6 @@ describe 'TeamModal', type: :system, js: true do
 
     within 'div[role="main"]' do
       expect(page).to have_text(account1.accountname)
-      expect(page).to have_text(account1.description)
       expect(page).to have_text(folders(:folder1).name)
       expect(page).to have_text(teams(:team1).name)
       expect(page).not_to have_text(teams(:team2).name)
@@ -52,7 +51,6 @@ describe 'TeamModal', type: :system, js: true do
 
     within 'div[role="main"]' do
       expect(page).to have_text(team1.name)
-      expect(page).to have_text(team1.description)
       expect(page).to have_text(folders(:folder1).name)
       expect(page).to have_text(accounts(:account1).accountname)
       expect(page).not_to have_text(teams(:team2).name)
@@ -76,7 +74,6 @@ describe 'TeamModal', type: :system, js: true do
 
     within 'div[role="main"]' do
       expect(page).to have_text(account1.accountname)
-      expect(page).to have_text(account1.description)
       expect(page).to have_text(folders(:folder1).name)
       expect(page).to have_text(teams(:team1).name)
       expect(page).not_to have_text(teams(:team2).name)

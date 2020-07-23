@@ -2,8 +2,6 @@ $navbar-dark-brand-color: white;
 $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 
 @import "ember-bootstrap/bootstrap";
-@import "pod-styles";
-@import "secret-input";
 
 @import "ember-power-select/themes/bootstrap";
 
@@ -13,7 +11,7 @@ $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 @import "nav-bar";
 @import "side-nav-bar";
 @import "account-card-show";
-@import "account-show";
+@import "account-entry";
 @import "password-strength-meter";
 @import "folder-show";
 @import "power-select";
@@ -194,7 +192,7 @@ li a {
   display: inline;
 }
 
-.default_button {
+.default-button {
   padding: 6px;
   border: 1px solid #c9c9c9;
   width: 45px;
@@ -315,4 +313,22 @@ li a {
   border-top: 1px solid #dddddd;
   border-bottom: 1px solid #dddddd;
   background-color: #f5f5f5;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+ .overflow-hidden {
+   overflow: hidden;
+ }
+
+.account-row:first-child {
+  margin-top: 10px !important;
+}
+.account-row:last-child {
+  margin-bottom: 10px !important;
+}
+
+.icon-clippy {
+  width: 19px;
 }

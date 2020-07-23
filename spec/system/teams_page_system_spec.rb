@@ -54,10 +54,10 @@ describe 'TeamsPage', type: :system, js: true do
       find('a', text: folder1.name, visible: false).click
     end
 
-    expect(page).to have_selector('div.account-card')
+    expect(page).to have_selector('div.account-entry')
 
     # Check if Folder expands and collapes on Folder name click
-    all('div.col[role="button"]')[2].click
+    all('div.col[role="button"]')[1].click
     folder_collapsed?
     all('div.col[role="button"]')[2].click
     folder_expanded?
