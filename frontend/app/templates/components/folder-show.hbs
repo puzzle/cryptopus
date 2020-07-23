@@ -46,18 +46,22 @@
         </div>
       </div>
     {{/if}}
-    <div class="row d-flex flex-wrap">
-      {{#if @folder.accounts}}
-        {{#each @folder.accounts as |account|}}
-          <div class="p-3 col-4">
-            <AccountCardShow @account={{account}}/>
+
+    <div class="row">
+      <div class="col">
+        {{#if @folder.accounts}}
+          {{#each @folder.accounts as |account|}}
+            <div class="account-row px-3 py-1">
+              <AccountRow @account={{account}}/>
+            </div>
+          {{/each}}
+        {{else}}
+          <div class="col no-acc">
+            <em>{{t "folders.no_accounts"}}</em>
           </div>
-        {{/each}}
-      {{else}}
-        <div class="col no-acc">
-          <em>{{t "folders.no_accounts"}}</em>
-        </div>
-      {{/if}}
+        {{/if}}
+      </div>
     </div>
+
   </div>
 </BsCollapse>

@@ -84,6 +84,9 @@ en:
       attachments: Attachments
       file: File
       show_password: Show password
+      show_username: Show username
+      copy_password: Copy password
+      copy_username: Copy username
       add_attachment: Add Attachment
     new:
       title: New Account

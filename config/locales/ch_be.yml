@@ -117,6 +117,9 @@ ch_be:
       attachments: Ahäng
       file: Datei
       show_password: Passwort ahzeigä
+      show_username: Benutzername ahzeigä
+      copy_password: Passwort kopierä
+      copy_username: Benutzername kopierä
       add_attachment: Anhang hinzufüegä
     new:
       title: Nöie Account

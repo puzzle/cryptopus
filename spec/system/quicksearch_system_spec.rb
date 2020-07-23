@@ -33,8 +33,8 @@ describe 'QuickSearch', type: :system, js: true do
     expect(page).to have_selector('input#search')
 
     find('input#search').set account1.accountname
-    expect(page).to have_selector('.account-preview')
-    within('div.card-body') do
+    expect(page).to have_selector('.account-entry')
+    within('div.account-entry') do
       expect(page).to have_content(account1.accountname)
     end
   end
@@ -42,8 +42,8 @@ describe 'QuickSearch', type: :system, js: true do
   it 'search by get params' do
     find('#search').set 'account1'
 
-    expect(page).to have_selector('.account-preview')
-    within('div.card-body') do
+    expect(page).to have_selector('.account-entry')
+    within('div.account-entry') do
       expect(page).to have_content(account1.accountname)
     end
   end

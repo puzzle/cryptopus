@@ -13,6 +13,8 @@ export default class AccountShowComponent extends Component {
     this.store.query("file-entry", {
       accountId: this.args.account.id
     });
+
+    window.scrollTo(0, 0);
   }
 
   @tracked
