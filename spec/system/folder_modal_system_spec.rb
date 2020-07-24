@@ -77,7 +77,7 @@ describe 'FolderModal', type: :system, js: true do
     expect(page).to have_text(team.name)
 
     expect do
-      find('a.list-group-item', visible: false, text: team.name).click
+      first('div.row.py-2.d-flex.team-card-header.rounded', visible: false).click
       del_button = all('img.icon-big-button.d-inline[alt="delete folder"]')[0]
       expect(del_button).to be_present
 
@@ -102,8 +102,6 @@ describe 'FolderModal', type: :system, js: true do
 
   def expect_teams_page_with(folder_attrs, team)
     expect(page).to have_text(team.name)
-    require 'pry'; binding.pry;
-    find('a.list-group-item', visible: false, text: team.name).click
     expect(page).to have_css('h6', visible: false, text: folder_attrs[:foldername])
     expect(page).to have_css('p', visible: false, text: folder_attrs[:description])
   end
