@@ -17,10 +17,10 @@
           <img class="icon icon-big-button py-auto" src="/ember/assets/images/members-white.svg" alt="">
         {{/if}}
       </div>
-      <div class="col pl-0" role="button" {{on "click" this.collapse}}>
+      <div class="col pl-0 break-on-smartphone" role="button" {{on "click" this.collapse}}>
         <h5 class="d-inline">{{@team.name}}</h5>
       </div>
-      <div class="col-auto d-flex justify-content-between align-items-center">
+      <div class="col-auto d-flex justify-content-between align-items-center align-right-on-smartphone">
         <span class="mx-1" role="button" {{on "click" this.toggleFolderCreating}}>
           <img class="icon-big-button" src="/ember/assets/images/plus-white.svg" alt="new">
           <BsTooltip @title={{t "tooltips.add_folder"}} @delayShow="1000" />
