@@ -5,7 +5,7 @@
   <FileEntryForm @class="modal_file_entry" @account={{@account}} @title={{t "file_entries.new.title"}} @onAbort={{this.toggleFileEntryNew}}/>
 {{/if}}
 
-<div class="container px-5 pt-4 h-100 bg-white pl-none">
+<div class="container px-5 pt-4 h-100 bg-white pl-none account-container-smartphone">
   <div class="row mb-3">
     <div class="col">
       <a id="account-show-back" role="button" {{on "click" this.transitionBack}}>

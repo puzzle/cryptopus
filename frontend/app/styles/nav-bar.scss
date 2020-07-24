@@ -93,11 +93,18 @@
     width: 100%;
   }
 
+  .ignore-footer-smartphone {
+    padding-bottom: 50px !important;
+  }
+
   .dropdown {
     margin: 0 auto 15px;
   }
 
-
+  .account-container-smartphone {
+    padding-right: 0 !important;
+    height: auto !important;
+  }
 }
 
 @media (max-width: 1690px) and (min-width: 992px) {
