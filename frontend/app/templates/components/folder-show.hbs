@@ -25,8 +25,6 @@
         <img class="icon-big-button " src="/ember/assets/images/edit.svg" alt="edit folder">
         <BsTooltip @title={{t "folders.tooltips.edit"}} @delayShow="1000" />
       </a>
-    </div>
-    <div class="col-auto ml-0 pl-0 my-auto">
       <span role="button" name="folder-collapse" {{on "click" this.collapse}}>
         {{#if this.collapsed}}
           <img class="icon-big-button float-right" src="/ember/assets/images/angle-left.svg" alt="<">

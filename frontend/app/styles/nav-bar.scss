@@ -3,6 +3,20 @@
   z-index: 998;
 }
 
+.custom-button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.custom-button:focus {
+  outline: 0;
+}
+
 .dropdown .btn-group > a {
   color: #000000;
   background-color: #c7d9e9;
@@ -30,11 +44,20 @@
   background-color: #f8f9fa;
 }
 
+.accountname {
+  max-width: 100%;
+  word-break: break-word;
+}
+
 .search {
   border-radius: 8px;
   border: none;
   background-color: #c7d9e9;
   color: #000000;
+}
+
+.break-words {
+  word-break: break-word;
 }
 
 #search::placeholder {
@@ -186,6 +209,11 @@
   .search {
     width: 70% !important;
     margin-left: 10px !important;
+  }
+
+  .side-nav-bar-teams-list .list-group-item:hover {
+    cursor: pointer;
+    background-color: #1b8dc6!important;
   }
 }
 

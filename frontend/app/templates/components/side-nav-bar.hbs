@@ -16,40 +16,40 @@
         </div>
 
 
-          <div class="mb-5 d-flex flex-column teams-list">
-            <div class="side-nav-bar-teams-list scroll-bar">
-              {{#if this.navService.availableTeams}}
-                {{#each this.navService.sortedTeams as |team|}}
-                  <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}} ">
-                    {{#if team.private}}
-                      <img class="icon icon-button mr-2" src="/ember/assets/images/encrypted_small-blue.svg" alt="">
-                    {{else}}
-                      <img class="icon icon-button mr-2" src="/ember/assets/images/members.svg" alt="">
-                    {{/if}}
-                    {{truncate team.name 18}}
-                    {{#if (not team.folders)}}
-                    {{else if (and team.folders (or (not (eq team this.navService.selectedTeam)) this.collapsed))}}
-                      <img class="icon icon-button-angle float-right" src="/ember/assets/images/angle-left.svg" alt="<">
-                    {{else}}
-                      <img class="icon icon-button-angle float-right" src="/ember/assets/images/angle-down.svg" alt="v">
-                    {{/if}}
-                  </a>
-                  {{#if team.folders}}
-                    <BsCollapse class="list-group" id="nav-folders-{{team.id}}" @collapsed={{or (not (eq team this.navService.selectedTeam)) this.collapsed}}>
-                      {{#each team.folders as |folder|}}
-                        <a role="button"  class="list-group-item list-folder-item {{if (eq folder this.navService.selectedFolder) "bg-blue-three" "bg-blue-one"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
-                          <img class="icon icon-button mr-1" src="/ember/assets/images/folder.svg" alt="">
-                          {{truncate folder.name 15}}
-                        </a>
-                      {{/each}}
-                    </BsCollapse>
+        <div class="mb-5 d-flex flex-column teams-list">
+          <div class="side-nav-bar-teams-list scroll-bar">
+            {{#if this.navService.availableTeams}}
+              {{#each this.navService.sortedTeams as |team|}}
+                <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}} ">
+                  {{#if team.private}}
+                    <img class="icon icon-button mr-2" src="/ember/assets/images/encrypted_small-blue.svg" alt="">
+                  {{else}}
+                    <img class="icon icon-button mr-2" src="/ember/assets/images/members.svg" alt="">
                   {{/if}}
-                {{/each}}
-              {{else}}
-                <div class="list-group-item list-group-item-action bg-blue-one">{{t "teams.none_available"}}</div>
-              {{/if}}
-              </div>
+                  {{truncate team.name 18}}
+                  {{#if (not team.folders)}}
+                  {{else if (and team.folders (or (not (eq team this.navService.selectedTeam)) this.collapsed))}}
+                    <img class="icon icon-button-angle float-right" src="/ember/assets/images/angle-left.svg" alt="<">
+                  {{else}}
+                    <img class="icon icon-button-angle float-right" src="/ember/assets/images/angle-down.svg" alt="v">
+                  {{/if}}
+                </a>
+                {{#if team.folders}}
+                  <BsCollapse class="list-group" id="nav-folders-{{team.id}}" @collapsed={{or (not (eq team this.navService.selectedTeam)) this.collapsed}}>
+                    {{#each team.folders as |folder|}}
+                      <a role="button"  class="list-group-item list-folder-item {{if (eq folder this.navService.selectedFolder) "bg-blue-three" "bg-blue-one"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
+                        <img class="icon icon-button mr-1" src="/ember/assets/images/folder.svg" alt="">
+                        {{truncate folder.name 15}}
+                      </a>
+                    {{/each}}
+                  </BsCollapse>
+                {{/if}}
+              {{/each}}
+            {{else}}
+              <div class="list-group-item list-group-item-action bg-blue-one">{{t "teams.none_available"}}</div>
+            {{/if}}
           </div>
+        </div>
       </div>
     </div>
   </nav>

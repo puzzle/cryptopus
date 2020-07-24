@@ -41,8 +41,6 @@
           <img class="icon-big-button" src="/ember/assets/images/star-white{{if @team.favourised "-filled"}}.svg" alt="star">
           <BsTooltip @title={{if @team.favourised (t "teams.defavorise") (t "teams.favorise")}} @delayShow="1000" />
         </span>
-      </div>
-      <div class="col-auto ml-0 pl-0 my-auto">
         <span role="button" name="team-collapse" {{on "click" this.collapse}}>
           {{#if this.collapsed}}
             <img class="icon-big-button float-right" src="/ember/assets/images/angle-left-white.svg" alt="<">

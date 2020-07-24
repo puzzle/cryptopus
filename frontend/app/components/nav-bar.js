@@ -8,7 +8,7 @@ export default class NavBarComponent extends Component {
   @service navService;
 
   @tracked
-  isNavbarCollapsed = true
+  isNavbarCollapsed=true;
 
   @tracked
   isNewAccount = false;

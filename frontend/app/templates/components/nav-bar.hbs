@@ -52,8 +52,9 @@
       <navbar.nav @class="ml-auto">
         <BsDropdown as |dd|>
           <div class="btn-group">
-            <a class="btn btn-primary" role="button" {{on "click" this.toggleAccountCreating}}>{{t
-                    "accounts.new.title"}}</a>
+            <a class="btn btn-primary" role="button" {{on "click" this.toggleAccountCreating}}>
+              {{t "accounts.new.title"}}
+            </a>
             <dd.toggle class="btn btn-primary dropdown-toggle-hided mr-3">
               <span class="helper"></span><img class="icon-button" src="/ember/assets/images/angle-down-white.svg"
                                                alt="v">
@@ -61,8 +62,9 @@
           </div>
           <dd.menu as |ddm|>
             <ddm.item>
-              <a role="button" class="dropdown-item" {{on "click" this.toggleFolderCreating}}>{{t
-                      "folders.new.title"}}</a>
+              <a role="button" class="dropdown-item" {{on "click" this.toggleFolderCreating}}>
+                {{t "folders.new.title"}}
+              </a>
             </ddm.item>
             <ddm.item>
               <a role="button" class="dropdown-item" {{on "click" this.toggleTeamCreating}}>{{t "teams.new.title"}}</a>

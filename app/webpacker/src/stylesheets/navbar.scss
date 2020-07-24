@@ -11,6 +11,12 @@
   width: 970px;
 }
 
+@media screen and (max-width: 991px) {
+  .container {
+    width: auto !important;
+  }
+}
+
 .container h1 {
   font-size: 1.5em;
 }
