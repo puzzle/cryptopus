@@ -12,19 +12,19 @@ describe Authentication::UserAuthenticator::Sso do
     it 'create user from Keycloak' do
       expect(Keycloak::Client).to receive(:get_attribute)
         .twice
-        .with('sub')
+        .with('sub', 'asd')
         .and_return('aw123')
       expect(Keycloak::Client).to receive(:get_attribute)
-        .with('given_name')
+        .with('given_name', 'asd')
         .and_return('Ben')
       expect(Keycloak::Client).to receive(:get_attribute)
-        .with('preferred_username')
+        .with('preferred_username', 'asd')
         .and_return('ben')
       expect(Keycloak::Client).to receive(:get_attribute)
-        .with('family_name')
+        .with('family_name', 'asd')
         .and_return('Meier')
       expect(Keycloak::Client).to receive(:get_attribute)
-        .with('pk_secret_base')
+        .with('pk_secret_base', 'asd')
         .and_return(nil)
       expect(Keycloak::Admin).to receive(:update_user)
         .and_return(true)
@@ -34,11 +34,15 @@ describe Authentication::UserAuthenticator::Sso do
       expect(Keycloak::Admin).to receive(:get_user)
         .and_return('{}')
       expect(Keycloak::Client).to receive(:get_token_by_client_credentials)
-        .and_return('{ "acess_token": "asd" }')
+        .and_return('{ "access_token": "asd" }')
 
       @username = 'ben'
+
+      @cookies = Hash.new
+      @cookies['keycloak_token'] = "{ \"access_token\": \"asd\" }"
+
       expect(authenticate!).to be true
-      user = User.find_by(username: 'ben')
+      user = User.find_by(username: "ben")
 
       expect(user.username).to eq('ben')
       expect(user.givenname).to eq('Ben')
@@ -49,6 +53,10 @@ describe Authentication::UserAuthenticator::Sso do
     it 'doesn\'t authenticate root' do
       @username = 'root'
       @password = 'password'
+
+      @cookies = Hash.new
+      @cookies['keycloak_token'] = "{ \"access_token\": \"asd\" }"
+
       expect(Keycloak::Client).to receive(:user_signed_in?)
         .and_return(false)
       expect(authenticate!).to be false
@@ -63,7 +71,7 @@ describe Authentication::UserAuthenticator::Sso do
 
   def authenticator
     @authenticator ||= Authentication::UserAuthenticator.init(
-      username: @username, password: @password
+      username: @username, password: @password, cookies: @cookies
     )
   end
 

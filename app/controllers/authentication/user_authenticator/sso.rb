@@ -37,7 +37,7 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
     Keycloak::Client.url_login_redirect(keycloak_login_url, 'code')
   end
 
-  def token(params)
+  def   token(params)
     Keycloak::Client.get_token_by_code(params[:code], keycloak_login_url)
   end
 
