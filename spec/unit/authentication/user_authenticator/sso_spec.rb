@@ -87,3 +87,24 @@ describe Authentication::UserAuthenticator::Sso do
     bob.decrypt_private_key('password')
   end
 end
+
+describe Keycloak do
+  it 'has a version number' do
+    expect(Keycloak::VERSION).not_to be nil
+  end
+
+  describe 'Module configuration' do
+    describe '.installation_file=' do
+      it 'should raise an error if given file does not exist' do
+        expect{ Keycloak.installation_file = 'random/file.json' }.to raise_error(Keycloak::InstallationFileNotFound)
+      end
+    end
+
+    describe '.installation_file' do
+      it 'should return default installation file' do
+        expect(Keycloak.installation_file).to eq(Keycloak::KEYCLOAK_JSON_FILE)
+      end
+
+    end
+  end
+end
