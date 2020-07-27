@@ -1,4 +1,4 @@
-provider: keycloak
+provider: db
 
 # expample of ldap settings
 

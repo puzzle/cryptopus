@@ -7,6 +7,8 @@
 
 class Session::SsoController < SessionController
 
+  layout 'session', only: :inactive
+
   def create
     cookies.permanent[:keycloak_token] = user_authenticator.token(params) if params[:code].present?
     if cookies[:keycloak_token].nil?
