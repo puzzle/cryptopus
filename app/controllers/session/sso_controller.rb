@@ -11,9 +11,6 @@ class Session::SsoController < SessionController
 
   def create
     cookies.permanent[:keycloak_token] = user_authenticator.token(params) if params[:code].present?
-    if cookies[:keycloak_token].nil?
-      return redirect_to user_authenticator.keycloak_login
-    end
 
     unless user_authenticator.authenticate!
       return redirect_to user_authenticator.keycloak_login
@@ -23,7 +20,6 @@ class Session::SsoController < SessionController
       return redirect_if_decryption_error
     end
 
-    last_login_message
     redirect_after_sucessful_login
   end
 

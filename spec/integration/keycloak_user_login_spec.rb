@@ -62,40 +62,56 @@ describe 'Keycloak user login' do
     end.to change { User::Human.count }.by(1)
   end
 
-  it 'two logins', :threadsafety => true do
-    alice = login(:alice)
-    bob = login(:bob)
-    login_as(:bob)
-
-    alice.check_user('Alice')
-    bob.check_user('Bob')
-
-  end
-
-  private
-
-  module CustomDsl
-    def check_user(expected_givenname)
-      get api_env_settings_path
-      require 'pry'; binding.pry
-
-      givenname = JSON.parse(body)['current_user']['id']
-
-      expect(givenname).to be expected_givenname
+  it 'logs in for real bro' do
+    threads = 10
+    # break test if not local keycloak
+    admin_token = JSON.parse(Keycloak::Client.get_token_by_client_credentials)['access_token']
+    users = JSON.parse(Keycloak::Admin.get_users(nil, admin_token))
+    users.each do |user|
+      Keycloak::Admin.delete_user(user['id'], admin_token)
     end
-  end
-
-  def login(user)
-    open_session do |sess|
-      sess.extend(CustomDsl)
-      u = users(user)
-      sess.https!
-      sess.post "/session", params: { username: u.username, password: u.password }
-      require 'pry'; binding.pry
-      sess.follow_redirect!
-      assert_equal '/session', sess.path
-      sess.https!(false)
+    threads.times do |i|
+      Keycloak::Admin.create_user(
+        {
+          username: "user#{i}",
+          enabled: true,
+          totp: false,
+          emailVerified: false,
+          attributes: { cryptopus_pk_secret_base: ['Gur7Lk4GiUIiyY/OpAzFf+N93QDV5pwDAv+6SrBD+w='] },
+          access: {
+            view: true,
+            mapRoles: true,
+            impersonate: false,
+            manage: true
+          }
+        },
+        admin_token
+      )
     end
-  end
 
+    users = JSON.parse(Keycloak::Admin.get_users(nil, admin_token))
+    users.each do |user|
+      Keycloak::Admin.reset_password(user['id'], { type: 'password', value: 'password', temporary: false }, admin_token)
+    end
+
+    results = threads.times.map do |i|
+      Thread.new do
+        token = Keycloak::Client.get_token("user#{i}", 'password')
+        get root_path
+        expect(Keycloak::Client)
+          .to receive(:url_login_redirect)
+          .and_return(sso_path(code: 'asd'))
+        expect(Keycloak::Client)
+          .to receive(:get_token_by_code)
+          .and_return(token)
+
+        follow_redirect!
+        follow_redirect!
+        follow_redirect!
+        expect(request.fullpath).to eq(root_path)
+        expect(session[:username]).to eq("user#{i}")
+      end
+    end
+    results.map(&:join)
+  end
 end
