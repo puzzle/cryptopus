@@ -5,7 +5,7 @@ import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
 import BaseFormComponent from "./base-form-component";
 
-export default class AccountForm extends BaseFormComponent {
+export default class TeamForm extends BaseFormComponent {
   @service store;
   @service router;
   @service navService;
