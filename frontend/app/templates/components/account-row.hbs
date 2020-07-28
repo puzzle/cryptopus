@@ -10,7 +10,7 @@
     </div>
     <div class="col-2 pr-0 d-none d-md-block">
       <div class="hide-wrapper">
-        <Input class="d-inline form-control" @disabled="true" @value={{@account.cleartextUsername}}/>
+        <Input class="d-inline form-control" id="input-password-{{@account.id}}" @disabled="true" @value={{@account.cleartextUsername}}/>
         <div role="button" class="show-password-link show-password-link-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isUsernameVisible "visibility-hidden"}}"{{on "click" this.showUsername}} href="#">{{t "username"}}</div>
         {{#if (not this.isUsernameVisible)}}
           <BsTooltip @title={{t "accounts.show.show_username"}} @delayShow="500" />
@@ -18,10 +18,10 @@
       </div>
     </div>
     <div class="col-auto px-0 d-none d-md-block">
-      <CopyButton class="btn btn-light " @clipboardText={{@account.cleartextUsername}} @success={{fn this.onCopied "username"}}>
+      <button class="btn btn-light copy-btn" {{on "click" this.copyUsername}}>
         <img class="icon-clippy img d-inline" src="/ember/assets/images/clipboard.svg" alt="clip">
         <BsTooltip @title={{t "accounts.show.copy_username"}} @delayShow="500" />
-      </CopyButton>
+      </button>
     </div>
 
     <div class="col-2 pr-0 d-none d-md-block">
@@ -34,10 +34,10 @@
       </div>
     </div>
     <div class="col-auto pl-0 d-none d-md-block">
-      <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextPassword}} @success={{fn this.onCopied "password"}}>
+      <button class="btn btn-light copy-btn" {{on "click" this.copyPassword}}>
         <img class="icon-clippy img d-inline" src="/ember/assets/images/clipboard.svg" alt="clip">
         <BsTooltip @title={{t "accounts.show.copy_password"}} @delayShow="500" />
-      </CopyButton>
+      </button>
     </div>
 
     <div class="col-auto d-none d-md-block">
