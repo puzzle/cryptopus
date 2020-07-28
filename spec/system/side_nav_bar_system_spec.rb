@@ -33,8 +33,7 @@ describe 'SideNavBar', type: :system, js: true do
       assert_folder2(shown: false)
 
       team1_link.click
-      page.has_css?('div.row')
-      expect(page).to have_selector('div.row')
+      page.has_css?('div.folder-show-header')
       expect(uri).to eq "/teams/#{team1.id}"
 
       team1_expanded_in_sidebar?

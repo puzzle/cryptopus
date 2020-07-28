@@ -5,6 +5,9 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
+# As a autoload error often occurs, the file needs to be included separately
+require_relative '../../presenters/teams/filtered_list'
+
 class Api::TeamsController < ApiController
   before_action :assert_valid_query, if: -> { params.key? :q }, only: [:index]
   before_action :assert_valid_team, if: -> { params.key? :team_id }, only: [:index]
