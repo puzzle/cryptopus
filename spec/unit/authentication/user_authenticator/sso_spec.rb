@@ -38,11 +38,11 @@ describe Authentication::UserAuthenticator::Sso do
 
       @username = 'ben'
 
-      @cookies = Hash.new
-      @cookies['keycloak_token'] = "{ \"access_token\": \"asd\" }"
+      @cookies = {}
+      @cookies['keycloak_token'] = { access_token: 'asd' }.to_json
 
       expect(authenticate!).to be true
-      user = User.find_by(username: "ben")
+      user = User.find_by(username: 'ben')
 
       expect(user.username).to eq('ben')
       expect(user.givenname).to eq('Ben')
@@ -54,8 +54,8 @@ describe Authentication::UserAuthenticator::Sso do
       @username = 'root'
       @password = 'password'
 
-      @cookies = Hash.new
-      @cookies['keycloak_token'] = "{ \"access_token\": \"asd\" }"
+      @cookies = {}
+      @cookies['keycloak_token'] = { access_token: 'asd' }.to_json
 
       expect(Keycloak::Client).to receive(:user_signed_in?)
         .and_return(false)
@@ -96,7 +96,9 @@ describe Keycloak do
   describe 'Module configuration' do
     describe '.installation_file=' do
       it 'should raise an error if given file does not exist' do
-        expect{ Keycloak.installation_file = 'random/file.json' }.to raise_error(Keycloak::InstallationFileNotFound)
+        expect do
+          Keycloak.installation_file = 'random/file.json'
+        end.to raise_error(Keycloak::InstallationFileNotFound)
       end
     end
 

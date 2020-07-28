@@ -96,14 +96,14 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
 
   def create_user
     provider_uid = Keycloak::Client.get_attribute('sub', access_token)
-    pk_secret_base = keycloak_client.find_or_create_pk_secret_base(@cookies)
+    psb = keycloak_client.find_or_create_pk_secret_base(@cookies)
     User::Human.create(
       username: username,
       givenname: Keycloak::Client.get_attribute('given_name', access_token),
       surname: Keycloak::Client.get_attribute('family_name', access_token),
       provider_uid: provider_uid,
       auth: 'keycloak'
-    ) { |u| u.create_keypair(keycloak_client.user_pk_secret(secret: pk_secret_base, cookies: @cookies)) }
+    ) { |u| u.create_keypair(keycloak_client.user_pk_secret(secret: psb, cookies: @cookies)) }
   end
 
   def preconditions?

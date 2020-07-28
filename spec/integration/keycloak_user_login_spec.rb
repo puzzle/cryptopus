@@ -10,37 +10,39 @@ require 'rails_helper'
 describe 'Keycloak user login' do
   include IntegrationHelpers::DefaultHelper
 
-  xit 'logins as new keycloak user' do
+  it 'logins as new keycloak user' do
     enable_keycloak
     Rails.application.reload_routes!
     pk_secret_base = SecureRandom.base64(32)
     # Mock
     expect(Keycloak::Client)
       .to receive(:url_login_redirect)
+      .at_least(:once)
       .with(sso_url, 'code')
       .and_return(sso_path(code: 'asd'))
     expect(Keycloak::Client)
       .to receive(:get_token_by_code)
+      .at_least(:once)
       .with('asd', sso_url)
-      .and_return('token')
+      .and_return(token)
     expect(Keycloak::Client).to receive(:get_attribute)
-      .with('sub', 'asd')
+      .with('sub', 'token')
       .at_least(:once)
       .and_return('asdQW123-asdQWE')
     expect(Keycloak::Client).to receive(:get_attribute)
-      .with('preferred_username', 'asd')
+      .with('preferred_username', 'token')
       .exactly(4).times
       .and_return('ben')
     expect(Keycloak::Client).to receive(:get_attribute)
-      .with('given_name', 'asd')
+      .with('given_name', 'token')
       .at_least(:once)
       .and_return('Ben')
     expect(Keycloak::Client).to receive(:get_attribute)
-      .with('family_name', 'asd')
+      .with('family_name', 'token')
       .at_least(:once)
       .and_return('Meier')
     expect(Keycloak::Client).to receive(:get_attribute)
-      .with('pk_secret_base', 'asd')
+      .with('pk_secret_base', 'token')
       .at_least(:once)
       .and_return(pk_secret_base)
     expect(Keycloak::Client).to receive(:user_signed_in?)
@@ -54,64 +56,21 @@ describe 'Keycloak user login' do
       follow_redirect!
       expect(request.fullpath).to eq('/session/sso?code=asd')
       follow_redirect!
+      follow_redirect!
       user = User.find_by(username: 'ben')
       expect(request.fullpath).to eq(root_path)
-      expect(response.body).to match(/Hi Ben! Looking for a password?/)
       expect(user.surname).to eq('Meier')
       expect(user.givenname).to eq('Ben')
+      expect(session[:username]).to eq('ben')
     end.to change { User::Human.count }.by(1)
   end
 
-  it 'logs in for real bro' do
-    threads = 10
-    # break test if not local keycloak
-    admin_token = JSON.parse(Keycloak::Client.get_token_by_client_credentials)['access_token']
-    users = JSON.parse(Keycloak::Admin.get_users(nil, admin_token))
-    users.each do |user|
-      Keycloak::Admin.delete_user(user['id'], admin_token)
-    end
-    threads.times do |i|
-      Keycloak::Admin.create_user(
-        {
-          username: "user#{i}",
-          enabled: true,
-          totp: false,
-          emailVerified: false,
-          attributes: { cryptopus_pk_secret_base: ['Gur7Lk4GiUIiyY/OpAzFf+N93QDV5pwDAv+6SrBD+w='] },
-          access: {
-            view: true,
-            mapRoles: true,
-            impersonate: false,
-            manage: true
-          }
-        },
-        admin_token
-      )
-    end
+  private
 
-    users = JSON.parse(Keycloak::Admin.get_users(nil, admin_token))
-    users.each do |user|
-      Keycloak::Admin.reset_password(user['id'], { type: 'password', value: 'password', temporary: false }, admin_token)
-    end
-
-    results = threads.times.map do |i|
-      Thread.new do
-        token = Keycloak::Client.get_token("user#{i}", 'password')
-        get root_path
-        expect(Keycloak::Client)
-          .to receive(:url_login_redirect)
-          .and_return(sso_path(code: 'asd'))
-        expect(Keycloak::Client)
-          .to receive(:get_token_by_code)
-          .and_return(token)
-
-        follow_redirect!
-        follow_redirect!
-        follow_redirect!
-        expect(request.fullpath).to eq(root_path)
-        expect(session[:username]).to eq("user#{i}")
-      end
-    end
-    results.map(&:join)
+  def token
+    { access_token: 'token',
+      expires_in: 300,
+      refresh_expires_in: 1800,
+      refresh_token: 'refresh_token' }.to_json
   end
 end
