@@ -1,0 +1,34 @@
+-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
+-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+-#  See the COPYING file at the top-level directory or at
+-#  https://github.com/puzzle/cryptopus.
+
+
+!!!
+%html{lang: "en"}
+  %head
+    %meta{content: "text/html; charset=US-ASCII", "http-equiv" => "Content-Type"}/
+    %meta{charset: "utf-8"}/
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
+    %link{href: "/favicon.png", rel: "shortcut icon", type: "image/png"}/
+    = csrf_meta_tags
+    %title Cryptopus
+    = stylesheet_link_tag :application, media: "all", nonce: true
+    = javascript_include_tag :application, nonce: true
+    = javascript_pack_tag 'stylesheets', nonce: true
+    = javascript_pack_tag 'application', 'data-turbolinks-track': :reload, nonce: true
+  %body{"data-locale" => I18n.locale}
+    = render 'layouts/icons'
+    = render 'layouts/navigation'
+    #ember.wrapper
+    #content
+      .container{role: "main"}
+        = render 'layouts/flashes'
+        = yield
+        .version-info
+          = version_info
+      = render 'layouts/footer' if current_user
+
+
+

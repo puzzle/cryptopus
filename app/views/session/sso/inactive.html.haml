@@ -3,11 +3,11 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 
+
+!!!
 .login-form
   = form_tag(sso_path, class: 'login', method: :get) do
     %fieldset
       = image_pack_tag "cryptopussy.svg", class: 'logo'
       .form-group
       = submit_tag t('.submit'), class: 'btn btn-primary'
-.version-info
-  = version_info

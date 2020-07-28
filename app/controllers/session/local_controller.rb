@@ -7,6 +7,8 @@
 
 class Session::LocalController < SessionController
 
+  layout 'session', only: :new
+
   def create
     unless user_authenticator.authenticate!(allow_root: true)
       flash[:error] = t('flashes.session.auth_failed')

@@ -3,7 +3,8 @@
 class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
 
   def authenticate!
-    return false unless Keycloak::Client.user_signed_in?
+    return false if @cookies.to_hash['keycloak_token'].nil?
+    return false unless Keycloak::Client.user_signed_in?(access_token)
     return false unless preconditions?
 
     true
@@ -51,13 +52,17 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
 
   private
 
+  def access_token
+    JSON.parse(@cookies.to_hash['keycloak_token'])['access_token']
+  end
+
   def user_allowed?(session)
-    Keycloak::Client.user_signed_in? || session[:username] == 'root'
+    session[:username] == 'root' || Keycloak::Client.user_signed_in?(access_token)
   end
 
   def find_or_create_user
     user = User.find_by(username: username.strip)
-    return create_user if user.nil? && Keycloak::Client.user_signed_in?
+    return create_user if user.nil? && Keycloak::Client.user_signed_in?(access_token)
 
     user
   end
@@ -80,30 +85,35 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
   end
 
   def keycloak_params
-    { provider_uid: Keycloak::Client.get_attribute('sub'),
-      givenname: Keycloak::Client.get_attribute('given_name'),
-      surname: Keycloak::Client.get_attribute('family_name') }
+    { provider_uid: Keycloak::Client.get_attribute('sub', access_token),
+      givenname: Keycloak::Client.get_attribute('given_name', access_token),
+      surname: Keycloak::Client.get_attribute('family_name', access_token) }
   end
 
   def username
-    @username ||= Keycloak::Client.get_attribute('preferred_username')
+    @username ||= Keycloak::Client.get_attribute('preferred_username', access_token)
   end
 
   def create_user
-    provider_uid = Keycloak::Client.get_attribute('sub')
-    pk_secret_base = keycloak_client.find_or_create_pk_secret_base
+    provider_uid = Keycloak::Client.get_attribute('sub', access_token)
+    psb = keycloak_client.find_or_create_pk_secret_base(@cookies)
     User::Human.create(
       username: username,
-      givenname: Keycloak::Client.get_attribute('given_name'),
-      surname: Keycloak::Client.get_attribute('family_name'),
+      givenname: Keycloak::Client.get_attribute('given_name', access_token),
+      surname: Keycloak::Client.get_attribute('family_name', access_token),
       provider_uid: provider_uid,
       auth: 'keycloak'
-    ) { |u| u.create_keypair(keycloak_client.user_pk_secret(secret: pk_secret_base)) }
+    ) { |u| u.create_keypair(keycloak_client.user_pk_secret(secret: psb, cookies: @cookies)) }
+  end
+
+  def preconditions?
+    params_present? && valid_username? && user.present? &&
+      !brute_force_detector.locked?
   end
 
   def params_present?
-    Keycloak::Client.get_attribute('preferred_username').present?
-  rescue JSON::ParserError
+    Keycloak::Client.get_attribute('preferred_username', access_token).present?
+  rescue JWT::DecodeError
     false
   end
 
