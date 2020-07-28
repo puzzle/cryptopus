@@ -43,14 +43,11 @@ describe 'Teammember', type: :system, js: true do
 
       # Add Alice
       expect do
-        fill_in class: 'ember-power-select-typeahead-input', with: 'A'
+        fill_in class: 'ember-power-select-typeahead-input', visible: false, with: 'A'
+        find('.ember-power-select-typeahead-input', visible: false).click
+
         within('.ember-power-select-options', visible: false) do
           find('li', match: :first).click
-          expect(all('a[role="button"]').count).to eq 2
-        end
-        begin
-
-        rescue Selenium::WebDriver::Error::StaleElementReferenceError
         end
       end.to change { Teammember.count }.by(1)
 
