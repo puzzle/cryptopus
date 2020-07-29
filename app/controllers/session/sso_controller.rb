@@ -16,7 +16,7 @@ class Session::SsoController < SessionController
       return redirect_to user_authenticator.keycloak_login
     end
 
-    unless create_session(keycloak_client.user_pk_secret(secret: nil, cookies: cookies))
+    unless create_session(keycloak_client.user_pk_secret(nil, access_token))
       return redirect_if_decryption_error
     end
 
@@ -48,5 +48,11 @@ class Session::SsoController < SessionController
 
   def keycloak_client
     @keycloak_client ||= KeycloakClient.new
+  end
+
+  def access_token
+    return if cookies.nil? || cookies['keycloak_token'].nil?
+
+    JSON.parse(cookies['keycloak_token']).try(:[], 'access_token')
   end
 end

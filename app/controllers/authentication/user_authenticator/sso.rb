@@ -3,8 +3,8 @@
 class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
 
   def authenticate!
-    return false if @cookies.to_hash['keycloak_token'].nil?
-    return false unless Keycloak::Client.user_signed_in?(access_token)
+    return false if access_token.nil?
+    return false unless keycloak_signed_in?
     return false unless preconditions?
 
     true
@@ -31,7 +31,7 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
   end
 
   def user_logged_in?(session)
-    session[:user_id].present? && user_allowed?(session)
+    session[:user_id].present? && user_authenticated?(session)
   end
 
   def keycloak_login
@@ -50,19 +50,27 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
     recrypt_sso_path
   end
 
+  def keycloak_signed_in?
+    Keycloak::Client.user_signed_in?(access_token)
+  end
+
   private
 
   def access_token
-    JSON.parse(@cookies.to_hash['keycloak_token'])['access_token']
+    return if @cookies.nil? || @cookies['keycloak_token'].nil?
+
+    JSON.parse(@cookies['keycloak_token']).try(:[], 'access_token')
   end
 
-  def user_allowed?(session)
-    session[:username] == 'root' || Keycloak::Client.user_signed_in?(access_token)
+  def user_authenticated?(session)
+    return true if session[:username] == 'root'
+
+    keycloak_signed_in?
   end
 
   def find_or_create_user
     user = User.find_by(username: username.strip)
-    return create_user if user.nil? && Keycloak::Client.user_signed_in?(access_token)
+    return create_user if user.nil? && keycloak_signed_in?
 
     user
   end
@@ -96,14 +104,14 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
 
   def create_user
     provider_uid = Keycloak::Client.get_attribute('sub', access_token)
-    psb = keycloak_client.find_or_create_pk_secret_base(@cookies)
+    psb = keycloak_client.find_or_create_pk_secret_base(access_token)
     User::Human.create(
       username: username,
       givenname: Keycloak::Client.get_attribute('given_name', access_token),
       surname: Keycloak::Client.get_attribute('family_name', access_token),
       provider_uid: provider_uid,
       auth: 'keycloak'
-    ) { |u| u.create_keypair(keycloak_client.user_pk_secret(secret: psb, cookies: @cookies)) }
+    ) { |u| u.create_keypair(keycloak_client.user_pk_secret(psb, access_token)) }
   end
 
   def preconditions?

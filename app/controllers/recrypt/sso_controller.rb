@@ -18,12 +18,14 @@ class Recrypt::SsoController < ApplicationController
   # POST recrypt/sso
   def create
     authorize :recryptSso
-    unless Keycloak::Client.user_signed_in?(JSON.parse(cookies[:keycloak_token])['access_token'])
+    unless user_authenticator.keycloak_signed_in?
       return redirect_to user_authenticator.keycloak_login
     end
 
-    pk_secret_base = keycloak_client.find_or_create_pk_secret_base(cookies)
-    recrypt_private_key(keycloak_client.user_pk_secret(secret: pk_secret_base, cookies: cookies))
+    pk_secret_base = keycloak_client.find_or_create_pk_secret_base(access_token)
+    recrypt_private_key(
+      keycloak_client.user_pk_secret(pk_secret_base, access_token)
+    )
   end
 
   private
@@ -52,6 +54,12 @@ class Recrypt::SsoController < ApplicationController
       password: params[:new_password],
       cookies: cookies
     )
+  end
+
+  def access_token
+    return if cookies.nil? || cookies['keycloak_token'].nil?
+
+    JSON.parse(cookies['keycloak_token']).try(:[], 'access_token')
   end
 
   def keycloak_client
