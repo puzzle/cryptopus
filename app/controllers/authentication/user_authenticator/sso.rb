@@ -51,6 +51,8 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
   end
 
   def keycloak_signed_in?
+    return false if access_token.nil?
+
     Keycloak::Client.user_signed_in?(access_token)
   end
 
