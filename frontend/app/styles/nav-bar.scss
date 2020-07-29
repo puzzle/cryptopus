@@ -3,27 +3,18 @@
   z-index: 998;
 }
 
-.navbar-icon {
-  padding-right: 1px;
-  padding-bottom: 2px;
-  width: 19px;
-  display: inline;
+.custom-button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 
-nav a.nav-link {
-  color: white !important;
-}
-
-.dropdown-toggle-hided::after {
-  display: none;
-}
-
-.ml-238 {
-  margin-left: 238px !important;
-}
-
-.vertical-center-icon {
-  margin-bottom: 4px !important;
+.custom-button:focus {
+  outline: 0;
 }
 
 .dropdown .btn-group > a {
@@ -53,24 +44,177 @@ nav a.nav-link {
   background-color: #f8f9fa;
 }
 
-#search {
-  width: 70%;
-  margin-left: 10px !important;
+.accountname {
+  max-width: 100%;
+  word-break: break-word;
+}
+
+.search {
   border-radius: 8px;
   border: none;
   background-color: #c7d9e9;
   color: #000000;
 }
 
+.break-words {
+  word-break: break-word;
+}
+
 #search::placeholder {
   color: #000000;
 }
 
-.search-wrapper {
-  width: 37vw;
+@media (min-width: 470px) and (max-width: 990px) {
+  .navbar-collapse {
+    padding: 0 10% 0 10% !important;
+  }
 }
 
-.nav-container {
-  width: 66.6%;
-  margin: 0 auto;
+@media screen and (max-width: 991px) {
+  .nav-container {
+    width: 100%;
+  }
+
+  .align-right-on-smartphone {
+    margin: 0 0 0 auto;
+  }
+
+  .break-on-smartphone {
+    min-width: 60%;
+    display: inline-block;
+    word-break: break-word;
+  }
+
+  .content {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .navbar-header {
+    display: flex !important;
+  }
+
+  .show-on-hamburgermenu {
+    justify-content: space-between !important;
+  }
+
+  .show-not-on-hamburgermenu {
+    display: none !important;
+  }
+
+  .ml-270px {
+    margin-left: 0 !important;
+  }
+
+  .search {
+    margin-top: 20px;
+    margin-bottom: 12px;
+    width: 100% !important;
+  }
+
+  .search-wrapper{
+    width: 100%;
+  }
+
+  .ignore-footer-smartphone {
+    padding-bottom: 50px !important;
+  }
+
+  .dropdown {
+    margin: 0 auto 15px;
+  }
+
+  .account-container-smartphone {
+    padding-right: 0 !important;
+    height: auto !important;
+  }
 }
+
+@media (max-width: 1690px) and (min-width: 992px) {
+  .nav-container {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .content {
+    width: 90% !important;
+  }
+
+  .search {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .search-wrapper {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1691px) {
+  .nav-container {
+    width: 66.6%;
+    margin: 0 auto;
+  }
+
+  .content {
+    width: 66.6%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .show-on-hamburgermenu {
+    display: none !important;
+  }
+
+  .content {
+    width: 66.6%;
+    margin: 0 auto;
+  }
+
+  .ml-270px {
+    margin-left: 270px !important;
+  }
+
+  .navbar-header {
+    padding-left: 32px !important;
+  }
+
+  .navbar-icon {
+    padding-right: 1px;
+    padding-bottom: 2px;
+    width: 19px;
+    display: inline;
+  }
+
+  nav a.nav-link {
+    color: white !important;
+  }
+
+  .dropdown-toggle-hided::after {
+    display: none;
+  }
+
+  .ml-238 {
+    margin-left: 238px !important;
+  }
+
+  .vertical-center-icon {
+    margin-bottom: 4px !important;
+  }
+
+  .search-wrapper {
+    width: 35vw;
+  }
+
+  .search {
+    width: 70% !important;
+    margin-left: 10px !important;
+  }
+
+  .side-nav-bar-teams-list .list-group-item:hover {
+    cursor: pointer;
+    background-color: #1b8dc6!important;
+  }
+}
+
+

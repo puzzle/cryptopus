@@ -11,6 +11,12 @@
   width: 970px;
 }
 
+@media screen and (max-width: 991px) {
+  .container {
+    width: auto !important;
+  }
+}
+
 .container h1 {
   font-size: 1.5em;
 }
@@ -271,7 +277,7 @@ nav a.nav-link {
   width: 300px;
 }
 
-.collapse.navbar-collapse.navbar-flex {
+.collapse.navbar-collapse .navbar-flex {
   display: flex !important;
 }
 .nav > li > a:hover, .nav > li > a:focus {

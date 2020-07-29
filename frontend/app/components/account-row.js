@@ -2,6 +2,8 @@ import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
+import { isNone } from "@ember/utils";
+
 
 export default class AccountRowComponent extends Component {
   @service store;
@@ -38,8 +40,50 @@ export default class AccountRowComponent extends Component {
   }
 
   @action
+  copyPassword() {
+    let password = this.args.account.cleartextPassword;
+    if(isNone(password)) {
+      this.fetchAccount().then(a => {
+        this.copyToClipboard(a.cleartextPassword)
+        this.onCopied('password');
+      })
+    } else {
+      this.copyToClipboard(password)
+      this.onCopied('password');
+    }
+  }
+
+  @action copyUsername() {
+    let username = this.args.account.cleartextUsername;
+    if(isNone(username)) {
+      this.fetchAccount().then(a => {
+        this.copyToClipboard(a.cleartextUsername)
+        this.onCopied('username');
+      })
+    } else {
+      this.copyToClipboard(username)
+      this.onCopied('username');
+    }
+  }
+
+  copyToClipboard(text) {
+    // Copying to clipboard is not possible in another way. Even libraries do it with a fake element.
+    // We don't use the addon ember-cli-clipboard, as we need to wait for a async call to finish.
+    const fakeEl = document.createElement('textarea');
+    fakeEl.value = text
+    fakeEl.setAttribute('readonly', '');
+    fakeEl.style.position = 'absolute';
+    fakeEl.style.left = '-9999px';
+    document.body.appendChild(fakeEl);
+    fakeEl.select();
+    document.execCommand('copy');
+    document.body.removeChild(fakeEl);
+  }
+
+
+  @action
   fetchAccount() {
-    this.store.findRecord("account", this.args.account.id);
+    return this.store.findRecord("account", this.args.account.id, { reload: true });
   }
 
   @action

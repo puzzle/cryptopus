@@ -1,9 +1,11 @@
-<EmberNotify @messageStyle="bootstrap"@closeAfter={{4000}}/>
+<EmberNotify @messageStyle="bootstrap" @closeAfter={{4000}}/>
 <NavBar/>
 
 <div class="content">
-  <SideNavBar/>
-  <div class="mb-5 mt-60 ml-270px" role="main" >
+  <div class="show-not-on-hamburgermenu">
+    <SideNavBar/>
+  </div>
+  <div class="mb-5 mt-60 ml-270px" role="main">
     {{outlet}}
   </div>
 </div>

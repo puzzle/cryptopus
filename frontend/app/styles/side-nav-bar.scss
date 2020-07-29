@@ -1,6 +1,5 @@
-#sidebar {
-  width: 250px;
-  top: 0px;
+.sidebar {
+  top: 0;
   left: 0;
   z-index: 999;
   color: #fff;
@@ -9,36 +8,12 @@
   margin-bottom: -50px !important;
 }
 
-.scroll-bar {
-  overflow-y: scroll;
-  max-height: calc(100vh - 163px);
-  margin-top: 5px;
-}
-
 #nav-side-bar-container {
   border-width: 0px !important;
 }
 
-.navbar-header {
-  padding-left: 32px !important;
-}
-
-.toggle-button{
-  border-bottom: 5px solid !important;
-  background-color: transparent;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  border-color: rgba(167, 167, 167, 0.44) !important;
-
-}
-
 .toggle-button:hover {
   background-color: white;
-}
-
-.toggle-button.active {
-  background-color: white !important;
-  border-color: #1b8dc6 !important;
 }
 
 .p-0 {
@@ -91,7 +66,7 @@
 }
 
 .list-group.list-group-root .list-group .list-group-item {
-  border-width: 0px;
+  border-width: 0;
   border-top-width: 1px;
   border-color: #16416c;
   padding-left: 45px;
@@ -101,19 +76,10 @@
   overflow-y: auto;
   height: auto;
 }
+
 .list-group-item[aria-expanded="true"]{
   background-color: black !important;
   border-color: #aed248;
-
-}
-
-.side-nav-bar-teams-list .list-group-item:hover {
-  cursor: pointer;
-  background-color: #1b8dc6 !important;
-}
-
-.side-nav-bar-teams-list .list-group > .list-group-item.bg-blue-three:hover {
-  background-color: #1e5a96 !important;
 }
 
 .list-folder-item {
@@ -142,4 +108,87 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+@media screen and (max-width: 991px) {
+  .sidebar {
+    width: 100%;
+  }
+
+  .teams-list {
+    max-height: calc(100vh - 300px);
+    overflow-y: scroll;
+    margin-top: 10px;
+  }
+
+  .side-nav-bar-teams-list .list-group-item:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.12) !important;
+  }
+
+  .toggle-button.active {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+    border-color: #116289 !important;
+  }
+
+  .toggle-button{
+    border-bottom: 5px solid !important;
+    background-color: rgb(255, 255, 255);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-color: rgb(220, 220, 220) !important;
+  }
+}
+
+@media (max-width: 1500px) and (min-width: 992px) {
+  .toggle-button.active {
+    background-color: white !important;
+    border-color: #1b8dc6 !important;
+  }
+
+  .toggle-button{
+    border-bottom: 5px solid !important;
+    background-color: transparent !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-color: rgba(167, 167, 167, 0.44) !important;
+  }
+
+}
+
+@media screen and (min-width: 1501px) {
+  .side-nav-bar-teams-list .list-group-item:hover {
+    cursor: pointer;
+    background-color: #1b8dc6 !important;
+  }
+
+  .side-nav-bar-teams-list .list-group > .list-group-item.bg-blue-three:hover {
+    background-color: #1e5a96 !important;
+  }
+
+  .toggle-button{
+    border-bottom: 5px solid !important;
+    background-color: transparent !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-color: rgba(167, 167, 167, 0.44) !important;
+  }
+
+}
+
+@media screen and (min-width: 992px) {
+  .sidebar {
+    background-color: #ffffff;
+  }
+
+  .toggle-button.active {
+    background-color: #fff !important;
+    border-color: #1b8dc6 !important;
+  }
+
+  .scroll-bar {
+    overflow-y: scroll;
+    max-height: calc(100vh - 163px);
+    margin-top: 5px;
+  }
 }

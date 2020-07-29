@@ -4,40 +4,48 @@
 -#  https://github.com/puzzle/cryptopus.
 
 - if current_user
-  %nav.navbar-custom.navbar.fixed-top.navbar-expand-lg
+  %nav.navbar-custom.navbar.navbar-default.fixed-top.navbar-expand-lg
+
     .content
-      .collapse.navbar-collapse.navbar-flex
+
+      .navbar-header
         %a{href: root_path, class: 'navbar-logo'}
           = image_pack_tag("cryptopussy_without_text.svg", class: 'logo-icon')
           %span.ml-1.navbar-brand2
             = 'Cryptopus'
 
+        %button.navbar-toggle.collapsed.ml-auto{'type': 'button', 'data-toggle': 'collapse', 'data-target': '#navbar-toggle-target', 'aria-controls': "#navbar-toggle-target", 'aria-expanded': "false", 'aria-label': "Toggle navigation"}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
 
-        %ul.nav.navbar-nav.ml-auto.navbar-right
-
-          %li
-            %a{href: "/teams", class: "font no-hover"}
-              = image_pack_tag("angle-left.svg", class: 'back-arrow')
-              = "Back"
+      .navbar-collapse.collapse#navbar-toggle-target
+        .navbar-flex
 
 
-          - if current_user.admin? || current_user.conf_admin?
-            %li.dropdown
-              %a.dropdown-toggle.font.helper-img.pr-0{"data-toggle": "dropdown", href: "#"}
-                = t(:settings)
-                = image_pack_tag("angle-down.svg", class: "dropdown-arrow")
-              %ul.dropdown-menu{:role => "menu"}
-                %li
-                  %a= nav_link t(:settings), admin_settings_path
-                  - if policy(Recryptrequest).index?
-                    %a= nav_link t(:recrypt_requests), admin_recryptrequests_path
-                  %a= nav_link t(:users), admin_users_path
-                  %a= nav_link t('teams.title'), admin_teams_path
-                  %a= nav_link t('admin.maintenance_tasks.index.title'), admin_maintenance_tasks_path
-          %li
-            = link_to(current_user.username, profile_path, method: :get, class: 'font link')
-          %li
-            = link_to(image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path)
+          %ul.nav.navbar-nav.ml-auto.navbar-right
+            %li
+              %a{href: "/teams", class: "font no-hover"}
+                = image_pack_tag("angle-left.svg", class: 'back-arrow')
+                = "Back"
+
+            - if current_user.admin? || current_user.conf_admin?
+              %li.dropdown
+                %a.dropdown-toggle.font.helper-img.pr-0{"data-toggle": "dropdown", href: "#"}
+                  = t(:settings)
+                  = image_pack_tag("angle-down.svg", class: "dropdown-arrow")
+                %ul.dropdown-menu{:role => "menu"}
+                  %li
+                    %a= nav_link t(:settings), admin_settings_path
+                    - if policy(Recryptrequest).index?
+                      %a= nav_link t(:recrypt_requests), admin_recryptrequests_path
+                    %a= nav_link t(:users), admin_users_path
+                    %a= nav_link t('teams.title'), admin_teams_path
+                    %a= nav_link t('admin.maintenance_tasks.index.title'), admin_maintenance_tasks_path
+            %li
+              = link_to(current_user.username, profile_path, method: :get, class: 'font link')
+            %li
+              = link_to(image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path)
 
   - unless @breadcrumbs.nil?
     .bread-container

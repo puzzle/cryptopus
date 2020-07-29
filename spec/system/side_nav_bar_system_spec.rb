@@ -20,8 +20,8 @@ describe 'SideNavBar', type: :system, js: true do
     expect(sidebar).to have_text('team1')
     expect(sidebar).to have_text('team2')
 
-    team1_link = find('a', text: 'team1', visible: false)
-    team2_link = find('a', text: 'team2', visible: false)
+    team1_link = all('a.list-group-item')[0]
+    team2_link = all('a.list-group-item').last
 
     team1 = teams(:team1)
     team2 = teams(:team2)
@@ -33,6 +33,7 @@ describe 'SideNavBar', type: :system, js: true do
       assert_folder2(shown: false)
 
       team1_link.click
+      page.has_css?('div.folder-show-header')
       expect(uri).to eq "/teams/#{team1.id}"
 
       team1_expanded_in_sidebar?

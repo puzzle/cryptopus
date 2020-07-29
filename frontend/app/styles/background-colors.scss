@@ -8,11 +8,6 @@
   color: white !important;
 }
 
-.bg-blue-three {
-  background-color: #1b8dc6 !important;
-  color: white !important;
-}
-
 bg-white {
   background-color: white !important;
 }
@@ -29,6 +24,21 @@ bg-white {
   background-color: #ededed;
 }
 
+
 .bg-light-blue {
   background-color: #c7d9e9;
+}
+
+@media screen and (max-width: 991px) {
+  .bg-blue-three {
+    background-color: rgba(0, 0, 0, 0.18) !important;
+    color: white !important;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .bg-blue-three {
+    background-color: #1b8dc6 !important;
+    color: white !important;
+  }
 }

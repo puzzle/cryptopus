@@ -17,10 +17,10 @@
           <img class="icon icon-big-button py-auto" src="/ember/assets/images/members-white.svg" alt="">
         {{/if}}
       </div>
-      <div class="col pl-0" role="button" {{on "click" this.collapse}}>
+      <div class="col pl-0 break-on-smartphone" role="button" {{on "click" this.collapse}}>
         <h5 class="d-inline">{{@team.name}}</h5>
       </div>
-      <div class="col-auto d-flex justify-content-between align-items-center">
+      <div class="col-auto d-flex justify-content-between align-items-center align-right-on-smartphone">
         <span class="mx-1" role="button" {{on "click" this.toggleFolderCreating}}>
           <img class="icon-big-button" src="/ember/assets/images/plus-white.svg" alt="new">
           <BsTooltip @title={{t "tooltips.add_folder"}} @delayShow="1000" />
@@ -41,8 +41,6 @@
           <img class="icon-big-button" src="/ember/assets/images/star-white{{if @team.favourised "-filled"}}.svg" alt="star">
           <BsTooltip @title={{if @team.favourised (t "teams.defavorise") (t "teams.favorise")}} @delayShow="1000" />
         </span>
-      </div>
-      <div class="col-auto ml-0 pl-0 my-auto">
         <span role="button" name="team-collapse" {{on "click" this.collapse}}>
           {{#if this.collapsed}}
             <img class="icon-big-button float-right" src="/ember/assets/images/angle-left-white.svg" alt="<">

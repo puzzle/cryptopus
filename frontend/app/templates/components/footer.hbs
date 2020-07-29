@@ -1,24 +1,26 @@
 <div class="footer">
   <div class="content">
-    <div class="w-250 float-left">
+    <div class="w-250 w-140 float-left">
       <a href="https://www.puzzle.ch" target="_blank" rel="noopener">
         <span class="helper"></span>
         <img src="/ember/assets/images/puzzle_classic_rgb.png" alt="logo" class="puzzle-icon">
       </a>
     </div>
-    <div class="float-left p-10">
+    <div class="float-left p-10 show-not-on-hamburgermenu">
       <a href="https://github.com/puzzle/cryptopus" target="_blank" rel="noopener">Cryptopus</a>
       |
       <a href="https://github.com/puzzle/cryptopus/wiki/User-manual" target="_blank" rel="noopener">{{t "help"}}</a>
       |
       <a href="/changelog">{{t "version"}} {{this.version}}</a>
     </div>
-    <div class="float-right w-50 d-flex align-items-center justify-content-end">
-      <div class="d-inline">
-        <small>
-          {{t "auto_logout"}}
-          <span id="countdown">{{this.logoutTimerService.timeToLogoff}}</span>
-        </small>
+    <div class="float-right w-40 d-flex align-items-center justify-content-end full-height">
+      <div class="show-not-on-hamburgermenu">
+        <div class="d-inline">
+          <small>
+            {{t "auto_logout"}}
+            <span id="countdown">{{this.logoutTimerService.timeToLogoff}}</span>
+          </small>
+        </div>
       </div>
 
       <div class="ml-4 d-inline-block pr-12">

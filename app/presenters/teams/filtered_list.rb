@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Teams
+module ::Teams
   class FilteredList < ::FilteredList
 
     def fetch_entries

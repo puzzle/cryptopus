@@ -16,24 +16,16 @@ describe 'Teammember', type: :system, js: true do
   include SystemHelpers
 
   it 'lists teammembers' do
-
     login_as_user(:admin)
 
-    # Make Api-User, as modal doesn't work yet without.
-    visit profile_path
-    click_link 'Api Users'
-    click_button 'New'
-
-    visit('/teams')
-    team1_link = find('a', text: 'team1', visible: false)
-
+    expect(page).to have_css('p', visible: false, text: 'Looking for a password?')
+    team1_link = find('a.team-list-item')
     team1_link.click
 
     find('img[alt="configure"]').click
 
     expect(find('.modal-content')).to be_present
     expect(page).to have_text('Edit Team Members and Api Users')
-
 
     within('#members') do
       expect(page).to have_content('Admin test')
@@ -45,13 +37,16 @@ describe 'Teammember', type: :system, js: true do
       within(page.find('div.col')) do
         expect do
           all('a[role="button"]')[0].click
+          expect(all('a[role="button"]').count).to eq 1
         end.to change { Teammember.count }.by(-1)
       end
 
       # Add Alice
       expect do
-        fill_in class: 'ember-power-select-typeahead-input', with: 'A'
-        within('.ember-power-select-options') do
+        fill_in class: 'ember-power-select-typeahead-input', visible: false, with: 'A'
+        find('.ember-power-select-typeahead-input', visible: false).click
+
+        within('.ember-power-select-options', visible: false) do
           find('li', match: :first).click
         end
       end.to change { Teammember.count }.by(1)

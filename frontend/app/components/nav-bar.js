@@ -8,6 +8,9 @@ export default class NavBarComponent extends Component {
   @service navService;
 
   @tracked
+  isNavbarCollapsed=true;
+
+  @tracked
   isNewAccount = false;
 
   @tracked
@@ -18,6 +21,11 @@ export default class NavBarComponent extends Component {
 
   get isStartpage() {
     return this.router.currentRouteName === "index";
+  }
+
+  @action
+  setNavbarCollapsed(isCollapsed) {
+    this.isNavbarCollapsed = isCollapsed;
   }
 
   @action
