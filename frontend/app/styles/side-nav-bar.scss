@@ -16,6 +16,15 @@
   background-color: white;
 }
 
+.toggle-button.active {
+  background-color: white !important;
+  border-color: #1b8dc6 !important;
+}
+
+.toggle-button:focus {
+  box-shadow: none !important;
+}
+
 .p-0 {
   padding: 0px !important;
 }
@@ -29,6 +38,12 @@
 .button-group {
   width: 250px;
   border-radius: 0;
+}
+
+@media screen and (max-width: 991px) {
+  .button-group {
+    width: 100%;
+  }
 }
 
 .btn {

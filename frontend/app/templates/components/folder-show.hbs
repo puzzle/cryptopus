@@ -12,7 +12,7 @@
     <div class="col pl-0 my-auto break-on-smartphone" role="button" {{on "click" this.collapse}}>
       <h6 class="d-inline">{{@folder.name}}</h6>
     </div>
-    <div class="col-auto justify-content-between align-items-center align-right-on-smartphone">
+    <div class="col-auto justify-content-between d-flex align-items-center align-right-on-smartphone">
       <a class="margin-for-buttons mx-1" role="button" {{on "click" this.toggleAccountCreating}}>
         <img class="icon-big-button " src="/ember/assets/images/plus.svg" alt="new">
         <BsTooltip @title={{t "tooltips.add_account"}} @delayShow="1000" />

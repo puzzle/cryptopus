@@ -1,5 +1,11 @@
 # Cryptopus Changelog
 
+## Version 3.4
+- Responsive Design
+- Switch from AccountCards to AccountRows
+- Styling Fixes
+- CopyButton Bug Fixes
+
 ## Version 3.3
 - Almost a SinglePageApplication now (ember)
 - New design and main view for Teams/Folders

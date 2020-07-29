@@ -70,6 +70,10 @@
   }
 }
 
+@media (min-width: 576px) and (max-width: 991px) {
+
+}
+
 @media screen and (max-width: 991px) {
   .nav-container {
     width: 100%;
@@ -217,4 +221,11 @@
   }
 }
 
-
+.title {
+  color: white;
+  font-size: 1.75rem;
+}
+.title:hover {
+  text-decoration: none !important;
+  color: white;
+}
