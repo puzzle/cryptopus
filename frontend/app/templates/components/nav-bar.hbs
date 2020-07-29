@@ -35,61 +35,62 @@
     </div>
 
     <navbar.content @id="navbarSupportedContent">
-      <a href="/" class="show-not-on-hamburgermenu w-250">
-        <img src="/ember/assets/images/cryptopussy_without_text.svg" alt="logo" class="logo-icon">
-        <span class="ml-1 navbar-brand">Cryptopus</span>
-      </a>
-
-      <div class="form-inline">
-        <div class="form-group search-wrapper">
-          <Input @class="form-control mr-sm-2 search" @type="search" @id="search" @value={{ this.navService.searchQuery }}
-                 placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}
-                 @autofocus={{this.isStartpage}} maxlength="70"/>
-        </div>
-      </div>
-
-      <navbar.nav @class="ml-auto">
-        <BsDropdown as |dd|>
-          <div class="btn-group">
-            <a class="btn btn-primary" role="button" {{on "click" this.toggleAccountCreating}}>
-              {{t "accounts.new.title"}}
-            </a>
-            <dd.toggle class="btn btn-primary dropdown-toggle-hided mr-3">
-              <span class="helper"></span><img class="icon-button" src="/ember/assets/images/angle-down-white.svg"
-                                               alt="v">
-            </dd.toggle>
+      <navbar.nav @class="w-100">
+        <a href="/" class="show-not-on-hamburgermenu w-250">
+          <img src="/ember/assets/images/cryptopussy_without_text.svg" alt="logo" class="logo-icon">
+          <span class="ml-1 navbar-brand">Cryptopus</span>
+        </a>
+        <div class="form-inline">
+          <div class="form-group search-wrapper ">
+            <Input @class="form-control mr-sm-2 search " @type="search" @id="search" @value={{ this.navService.searchQuery }}
+                   placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}
+                   @autofocus={{this.isStartpage}} maxlength="70"/>
           </div>
-          <dd.menu as |ddm|>
-            <ddm.item>
-              <a role="button" class="dropdown-item" {{on "click" this.toggleFolderCreating}}>
-                {{t "folders.new.title"}}
+        </div>
+        <div class="ml-auto d-flex">
+          <BsDropdown @class="ml-auto d-flex align-items-center" as |dd|>
+            <div class="btn-group">
+              <a class="btn btn-primary" role="button" {{on "click" this.toggleAccountCreating}}>
+                {{t "accounts.new.title"}}
               </a>
-            </ddm.item>
-            <ddm.item>
-              <a role="button" class="dropdown-item" {{on "click" this.toggleTeamCreating}}>{{t "teams.new.title"}}</a>
-            </ddm.item>
-          </dd.menu>
-        </BsDropdown>
-        <span>
+              <dd.toggle class="btn btn-primary dropdown-toggle-hided mr-3">
+                <span class="helper"></span><img class="icon-button" src="/ember/assets/images/angle-down-white.svg"
+                                                 alt="v">
+              </dd.toggle>
+            </div>
+            <dd.menu as |ddm|>
+              <ddm.item>
+                <a role="button" class="dropdown-item" {{on "click" this.toggleFolderCreating}}>
+                  {{t "folders.new.title"}}
+                </a>
+              </ddm.item>
+              <ddm.item>
+                <a role="button" class="dropdown-item" {{on "click" this.toggleTeamCreating}}>{{t "teams.new.title"}}</a>
+              </ddm.item>
+            </dd.menu>
+          </BsDropdown>
+          <span></span>
 
-        </span>
-        <div class="nav-item mr-2 show-not-on-hamburgermenu">
-          <a href="/profile">
-            <span class="helper"></span><img class="icon-big-button icon mr-2 ml-1"
-                                             src="/ember/assets/images/settings_white.svg" alt="v">
-            <BsTooltip @title={{t "tooltips.settings_profile"}} @delayShow="1000"/>
-          </a>
+          <div class="nav-item mr-2 show-not-on-hamburgermenu">
+            <a href="/profile">
+              <span class="helper"></span><img class="icon-big-button icon mr-2 ml-1"
+                                               src="/ember/assets/images/settings_white.svg" alt="v">
+              <BsTooltip @title={{t "tooltips.settings_profile"}} @delayShow="1000"/>
+            </a>
+          </div>
+          <div class="nav-item mr-2 show-not-on-hamburgermenu">
+            <a href="/session/destroy">
+              <span class="helper"></span><img class="icon icon-big-button" src="/ember/assets/images/sign_out-white.svg"
+                                               alt="Logout">
+              <BsTooltip @title={{t "logout"}} @delayShow="1000"/>
+            </a>
+          </div>
         </div>
-        <div class="nav-item mr-2 show-not-on-hamburgermenu">
-          <a href="/session/destroy">
-            <span class="helper"></span><img class="icon icon-big-button" src="/ember/assets/images/sign_out-white.svg"
-                                             alt="Logout">
-            <BsTooltip @title={{t "logout"}} @delayShow="1000"/>
-          </a>
-        </div>
+
         <div class="show-on-hamburgermenu">
-          <SideNavBar></SideNavBar>
+          <SideNavBar/>
         </div>
+
       </navbar.nav>
     </navbar.content>
   </div>

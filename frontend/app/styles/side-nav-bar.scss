@@ -40,6 +40,12 @@
   border-radius: 0;
 }
 
+@media screen and (max-width: 991px) {
+  .button-group {
+    width: 100%;
+  }
+}
+
 .btn {
   border: none;
 }

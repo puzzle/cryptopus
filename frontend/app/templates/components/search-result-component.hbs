@@ -1,7 +1,7 @@
 <h5>
   <span class="my-auto">{{t "teams.index.search"}}</span>
   <div class="btn-group" role="group">
-    <span type="button" class="btn bg-blue-three">{{@q}}</span>
-    <a type="button" class="btn bg-blue-three" {{on "click" this.clear_search }}>✕</a>
+    <span type="button" class="btn bg-blue-three" role="button">{{@q}}</span>
+    <a type="button" class="btn bg-blue-three" {{on "click" this.clear_search }} role="button">✕</a>
   </div>
 </h5>
