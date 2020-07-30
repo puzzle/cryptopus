@@ -52,7 +52,7 @@ class Api::TeamsController < ApiController
   end
 
   def fetch_entries
-    @entries ||= ::Teams::FilteredList.new(current_user, params).fetch_entries
+    @entries ||= Teams::FilteredList.new(current_user, params).fetch_entries
   end
 
   def user

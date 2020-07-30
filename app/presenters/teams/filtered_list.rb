@@ -26,7 +26,7 @@ module ::Teams
     end
 
     def teams
-      @current_user.teams
+      @current_user.teams.includes(:user_favourite_teams, :folders, folders: [:accounts])
     end
 
     def team_id
