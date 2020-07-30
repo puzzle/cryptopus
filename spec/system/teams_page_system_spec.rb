@@ -7,6 +7,7 @@
 
 require 'rails_helper'
 
+require_relative '../../app/controllers/api/teams/members_controller'
 
 describe 'TeamsPage', type: :system, js: true do
   include SystemHelpers
@@ -104,23 +105,23 @@ describe 'TeamsPage', type: :system, js: true do
   end
 
   def open_and_close_team_edit
-    all('span[role="button"]')[2].click
+    all('span[role="button"]')[1].click
     expect(page).to have_text('Edit Team')
     find('button.btn.btn-secondary.ember-view', text: 'Close', visible: false).click
   end
 
   def open_and_close_team_members
-    all('span[role="button"]')[3].click
+    all('span[role="button"]')[2].click
     expect(page).to have_text('Edit Team Members and Api Users')
     find('button.btn.btn-secondary.ember-view', text: 'Close', visible: false).click
   end
 
   def click_team_favourites_button
-    all('span[role="button"]')[4].click
+    all('span[role="button"]')[3].click
     within(find('div.py-2.d-flex.team-card-header')) do
       expect(find('img[alt="star"]')['src']).to include '/assets/images/star-white-filled.svg'
     end
-    all('span[role="button"]')[4].click
+    all('span[role="button"]')[3].click
     within(find('div.py-2.d-flex.team-card-header')) do
       expect(find('img[alt="star"]')['src']).to include '/assets/images/star-white.svg'
     end

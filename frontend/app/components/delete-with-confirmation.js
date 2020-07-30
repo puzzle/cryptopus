@@ -22,6 +22,15 @@ export default class DeleteWithConfirmationComponent extends Component {
     }
   }
 
+  showErrorMessage() {
+    let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
+    let errorMsg = `${translationKeyPrefix}.flashes.api.errors.delete_failed`;
+    let msg = this.intl.t(errorMsg);
+    if (!msg.includes("Missing translation")) {
+      this.notify.error(msg);
+    }
+  }
+
   @tracked
   isOpen = false;
 
@@ -35,6 +44,9 @@ export default class DeleteWithConfirmationComponent extends Component {
     this.args.record.destroyRecord().then(() => {
       if (this.args.didDelete) this.args.didDelete();
       this.showDeletedMessage();
-    });
+    })
+      .catch(() => {
+        this.showErrorMessage();
+      });
   }
 }
