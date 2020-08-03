@@ -8,6 +8,7 @@ export default class NavService extends Service {
   @tracked searchQuery = null;
 
   @tracked isShowingFavourites;
+  @tracked isLoadingTeams = true;
   @tracked availableTeams = [];
 
   @service store;

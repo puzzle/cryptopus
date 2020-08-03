@@ -240,6 +240,7 @@ fr:
   teams:
     title: Équipes
     none_available: Aucune équipe disponible
+    loading: Chargement en cours ...
     form:
       enabled: Activé
       private: Privé

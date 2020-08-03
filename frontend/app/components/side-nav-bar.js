@@ -18,6 +18,7 @@ export default class SideNavBar extends Component {
     this.teams = this.args.teams;
     this.collapsed = isNone(this.navService.selectedTeam);
     this.showsFavourites = localStorage.getItem("showsFavourites") === "true";
+
     this.toggleFavourites(this.showsFavourites);
   }
 
@@ -61,6 +62,9 @@ export default class SideNavBar extends Component {
       .query("team", {
         favourite: this.showsFavourites ? this.showsFavourites : undefined
       })
-      .then(res => (this.navService.availableTeams = res.toArray()));
+      .then(res => {
+          this.navService.availableTeams = res.toArray();
+          this.navService.isLoadingTeams = false;
+      });
   }
 }

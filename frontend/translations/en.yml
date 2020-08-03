@@ -239,6 +239,7 @@ en:
   teams:
     title: Teams
     none_available: No Teams available
+    loading: Loading ...
     form:
       enabled: Enabled
       private: Private
