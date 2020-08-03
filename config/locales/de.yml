@@ -242,6 +242,7 @@ de:
   teams:
     title: Teams
     none_available: Keine Teams verfügbar
+    loading: Am laden ...
     show:
       title: "Gruppen des Teams %{team_name}"
       folder: Gruppe

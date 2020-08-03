@@ -45,6 +45,8 @@
                   </BsCollapse>
                 {{/if}}
               {{/each}}
+            {{else if this.navService.isLoadingTeams}}
+              <div class="list-group-item list-group-item-action bg-blue-one">{{t "teams.loading"}}</div>
             {{else}}
               <div class="list-group-item list-group-item-action bg-blue-one">{{t "teams.none_available"}}</div>
             {{/if}}
