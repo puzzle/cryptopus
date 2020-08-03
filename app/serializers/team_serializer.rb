@@ -24,7 +24,7 @@ class TeamSerializer < ApplicationSerializer
   has_many :folders, serializer: FolderMinimalSerializer
 
   def favourised
-    user_favourite_team_ids.include?(user_id)
+    users_favorised_current_team.include?(user_id)
   end
 
   private
@@ -33,7 +33,7 @@ class TeamSerializer < ApplicationSerializer
     current_user.id
   end
 
-  def user_favourite_team_ids
-    object.user_favourite_teams.map { |x| x[:team_id] }
+  def users_favorised_current_team
+    @users_favorised_current_team ||= object.user_favourite_teams.pluck(:team_id)
   end
 end
