@@ -9,7 +9,7 @@ require 'rails_helper'
 
 describe TeammemberSerializer do
   before(:each) do
-    expect_any_instance_of(TeamSerializer).to receive(:user_favourite_team_ids).and_return([1, 3])
+    expect_any_instance_of(TeamSerializer).to receive(:user_id).and_return(1)
   end
 
   context 'teammember' do
