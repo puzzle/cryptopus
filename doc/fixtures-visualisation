@@ -19,12 +19,12 @@ team2 : private = true
 }
 
 
-package "group" {
-object Group1
-object Group2
+package "folder" {
+object Folder1
+object Folder2
 
-Group1 *-- team1
-Group2 *-- team2
+Folder1 *-- team1
+Folder2 *-- team2
 
 }
 
@@ -32,8 +32,8 @@ package "account" {
 object account1
 object account2
 
-account1 *-- Group1
-account2 *-- Group2
+account1 *-- Folder1
+account2 *-- Folder2
 
 account1 : accountname = test
 account1 : password = password
