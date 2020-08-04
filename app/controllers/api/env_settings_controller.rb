@@ -11,6 +11,7 @@ class Api::EnvSettingsController < ApiController
                 current_user: { id: current_user.id,
                                 givenname: current_user.givenname,
                                 preferred_locale: current_user.preferred_locale },
-                version: version_number)
+                version: version_number,
+                csrf_token: form_authenticity_token)
   end
 end

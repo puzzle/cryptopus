@@ -58,7 +58,7 @@ describe 'User login' do
   it 'should reset session after login' do
     get session_new_path
     old_session_id = session.id
-    login_as('bob')
+    post session_path, params: { username: 'bob', password: 'password' }
     expect(old_session_id).to_not eq(session.id)
   end
 end

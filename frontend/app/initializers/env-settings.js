@@ -12,6 +12,7 @@ export function initialize(/* application */) {
         ENV.currentUserGivenname = envSettings.current_user.givenname;
         ENV.preferredLocale = envSettings.current_user.preferred_locale;
         ENV.appVersion = envSettings.version;
+        ENV.CSRFToken = envSettings.csrf_token;
       }
     });
     /* eslint-enable no-undef  */

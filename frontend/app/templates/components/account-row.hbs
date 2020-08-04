@@ -3,7 +3,7 @@
 {{/if}}
   <div class="row d-flex align-items-center p-2 bg-grey-2 rounded account-entry">
     <div class="col-auto pr-0" role="button" {{on "click" this.transitionToAccount}}>
-      <img class="img d-inline w-30 float-left icon-big-button" src="/ember/assets/images/key.svg" alt="key">
+      <img class="img d-inline w-30 float-left icon-big-button" src="/assets/images/key.svg" alt="key">
     </div>
     <div class="col underline-hover break-words" role="button" {{on "click" this.transitionToAccount}}>
       {{@account.accountname}}
@@ -19,7 +19,7 @@
     </div>
     <div class="col-auto px-0 d-none d-md-block">
       <button class="btn btn-light copy-btn" {{on "click" this.copyUsername}}>
-        <img class="icon-clippy img d-inline" src="/ember/assets/images/clipboard.svg" alt="clip">
+        <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
         <BsTooltip @title={{t "accounts.show.copy_username"}} @delayShow="500" />
       </button>
     </div>
@@ -35,18 +35,18 @@
     </div>
     <div class="col-auto pl-0 d-none d-md-block">
       <button class="btn btn-light copy-btn" {{on "click" this.copyPassword}}>
-        <img class="icon-clippy img d-inline" src="/ember/assets/images/clipboard.svg" alt="clip">
+        <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
         <BsTooltip @title={{t "accounts.show.copy_password"}} @delayShow="500" />
       </button>
     </div>
 
     <div class="col-auto d-none d-md-block">
       <a class="mx-1" role="button" {{on "click" this.toggleAccountEdit}}>
-        <img class="icon-medium-button d-inline" src="/ember/assets/images/edit.svg" alt="edit">
+        <img class="icon-medium-button d-inline" src="/assets/images/edit.svg" alt="edit">
         <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000" />
       </a>
       <DeleteWithConfirmation @class="mx-1" @record={{@account}} @didDelete={{this.refreshRoute}}>
-        <img class="icon-medium-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
+        <img class="icon-medium-button d-inline" src="/assets/images/delete.svg" alt="delete">
         <BsTooltip @title={{t "tooltips.delete_account"}} @delayShow="1000" />
       </DeleteWithConfirmation>
     </div>

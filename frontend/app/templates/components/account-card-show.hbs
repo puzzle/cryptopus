@@ -5,14 +5,13 @@
   <div class="card account-card account-preview" {{on "click" this.swapToCredentialsView}} role="button">
     <div class="card-body account-accountname">
       <div class="row">
-
         <div class="col">
           <div class="card-title">
             <h5>{{@account.accountname}}</h5>
           </div>
         </div>
         <div class="col-auto">
-          <img class="img d-inline w-30 float-left icon-big-button" src="/ember/assets/images/key.svg" alt="key">
+          <img class="img d-inline w-30 float-left icon-big-button" src="/assets/images/key.svg" alt="key">
         </div>
       </div>
     </div>
@@ -23,8 +22,7 @@
 {{else}}
   <div class="card account-card account-detail">
     <div role="button" class="card-header" {{on "click" this.swapToPreview}}>
-      <img class="img d-inline mr-2 icon-button" src="/ember/assets/images/key.svg" alt="key">
-
+      <img class="img d-inline mr-2 icon-button" src="/assets/images/key.svg" alt="key">
       <p class="d-inline">{{@account.accountname}}</p>
     </div>
     <div class="card-body">
@@ -34,7 +32,7 @@
         </div>
         <div class="col-sm-3">
           <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextUsername}} @success={{fn this.onCopied "username"}}>
-            <img class="icon-clippy img d-inline" src="/ember/assets/images/clipboard.svg" alt="clip">
+            <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
           </CopyButton>
         </div>
       </div>
@@ -48,7 +46,7 @@
         </div>
         <div class="col-sm-3">
           <CopyButton class="btn btn-light copy-btn" @clipboardText={{@account.cleartextPassword}} @success={{fn this.onCopied "password"}}>
-            <img class="icon-clippy img d-inline" src="/ember/assets/images/clipboard.svg" alt="clip">
+            <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
           </CopyButton>
         </div>
 
@@ -56,15 +54,15 @@
     </div>
     <div class="card-footer d-flex justify-content-between">
       <LinkTo @route="accounts.show" @model={{@account}}>
-        <img class="icon-button d-inline" src="/ember/assets/images/eye.svg" alt="show">
+        <img class="icon-button d-inline" src="/assets/images/eye.svg" alt="show">
         <BsTooltip @title={{t "tooltips.account_details"}} @delayShow="1000" />
       </LinkTo>
       <a class="mx-auto" role="button" {{on "click" this.toggleAccountEdit}}>
-        <img class="icon-button d-inline" src="/ember/assets/images/edit.svg" alt="edit">
+        <img class="icon-button d-inline" src="/assets/images/edit.svg" alt="edit">
         <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000" />
       </a>
       <DeleteWithConfirmation @record={{@account}} @didDelete={{this.refreshRoute}}>
-        <img class="icon-button d-inline" src="/ember/assets/images/delete.svg" alt="delete">
+        <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
         <BsTooltip @title={{t "tooltips.delete_account"}} @delayShow="1000" />
       </DeleteWithConfirmation>
     </div>

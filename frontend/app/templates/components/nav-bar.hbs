@@ -18,17 +18,17 @@
     <div class="navbar-header w-100 d-flex show-on-hamburgermenu">
       {{navbar.toggle}}
       <a href="/" class="h3 title d-flex align-items-center">
-        <img src="/ember/assets/images/cryptopussy_without_text.svg" alt="logo" class="logo-icon">
+        <img src="/assets/images/cryptopussy_without_text.svg" alt="logo" class="logo-icon">
         <span class="d-none d-sm-inline-block ml-1">Cryptopus</span>
       </a>
       <div>
         <a href="/profile">
           <span class="helper"></span><img class="icon-big-button icon mr-2 ml-1"
-                                           src="/ember/assets/images/settings_white.svg" alt="v">
+                                           src="/assets/images/settings_white.svg" alt="v">
           <BsTooltip @title={{t "tooltips.settings_profile"}} @delayShow="1000"/>
         </a>
         <a href="/session/destroy">
-          <span class="helper"></span><img class="icon icon-big-button" src="/ember/assets/images/sign_out-white.svg"
+          <span class="helper"></span><img class="icon icon-big-button" src="/assets/images/sign_out-white.svg"
                                            alt="Logout">
         </a>
       </div>
@@ -37,7 +37,7 @@
     <navbar.content @id="navbarSupportedContent">
       <navbar.nav @class="w-100">
         <a href="/" class="show-not-on-hamburgermenu w-250">
-          <img src="/ember/assets/images/cryptopussy_without_text.svg" alt="logo" class="logo-icon">
+          <img src="/assets/images/cryptopussy_without_text.svg" alt="logo" class="logo-icon">
           <span class="ml-1 navbar-brand">Cryptopus</span>
         </a>
         <div class="form-inline">
@@ -54,7 +54,7 @@
                 {{t "accounts.new.title"}}
               </a>
               <dd.toggle class="btn btn-primary dropdown-toggle-hided mr-3">
-                <span class="helper"></span><img class="icon-button" src="/ember/assets/images/angle-down-white.svg"
+                <span class="helper"></span><img class="icon-button" src="/assets/images/angle-down-white.svg"
                                                  alt="v">
               </dd.toggle>
             </div>
@@ -70,27 +70,24 @@
             </dd.menu>
           </BsDropdown>
           <span></span>
-
           <div class="nav-item mr-2 show-not-on-hamburgermenu">
             <a href="/profile">
               <span class="helper"></span><img class="icon-big-button icon mr-2 ml-1"
-                                               src="/ember/assets/images/settings_white.svg" alt="v">
+                                               src="/assets/images/settings_white.svg" alt="v">
               <BsTooltip @title={{t "tooltips.settings_profile"}} @delayShow="1000"/>
             </a>
           </div>
           <div class="nav-item mr-2 show-not-on-hamburgermenu">
             <a href="/session/destroy">
-              <span class="helper"></span><img class="icon icon-big-button" src="/ember/assets/images/sign_out-white.svg"
+              <span class="helper"></span><img class="icon icon-big-button" src="/assets/images/sign_out-white.svg"
                                                alt="Logout">
               <BsTooltip @title={{t "logout"}} @delayShow="1000"/>
             </a>
           </div>
         </div>
-
         <div class="show-on-hamburgermenu">
           <SideNavBar/>
         </div>
-
       </navbar.nav>
     </navbar.content>
   </div>

@@ -81,14 +81,14 @@ describe 'SideNavBar', type: :system, js: true do
   def team1_expanded_in_sidebar?
     expect(find('a', text: 'team1', visible: false)).to have_xpath("//img[@alt='v']")
     within(all('a[role="button"]')[0]) do
-      expect(find('img[alt="v"]')['src']).to include '/ember/assets/images/angle-down.svg'
+      expect(find('img[alt="v"]')['src']).to include '/assets/images/angle-down.svg'
     end
   end
 
   def team1_collapsed_in_sidebar?
     expect(find('a', text: 'team1', visible: false)).to have_xpath("//img[@alt='<']")
     within(all('a[role="button"]')[0]) do
-      expect(find('img[alt="<"]')['src']).to include '/ember/assets/images/angle-left.svg'
+      expect(find('img[alt="<"]')['src']).to include '/assets/images/angle-left.svg'
     end
   end
 end

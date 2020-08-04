@@ -25,7 +25,7 @@ describe 'HTTP headers' do
     end
 
     it 'should have met the same-site cookie attribute on login into the session' do
-      login_as(:alice)
+      post session_path, params: { username: 'alice', password: 'password' }
 
       expect(response.headers['Set-Cookie']).to include('SameSite=Lax')
     end
