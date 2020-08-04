@@ -14,8 +14,7 @@ describe 'Root login' do
     post local_path, params: { username: 'root', password: 'password' }
     follow_redirect!
     expect(request.fullpath).to eq(root_path)
-    # Adjust according to new start-page
-    expect(response.body).to match(/<div id='ember'><\/div>/)
+    expect_ember_frontend
   end
 
   it 'does not let root login via external ip' do
@@ -40,7 +39,6 @@ describe 'Root login' do
     post local_path, params: { username: 'root', password: 'password' }
     follow_redirect!
     expect(request.fullpath).to eq(root_path)
-    # Adjust according to new start-page
-    expect(response.body).to match(/<div id='ember'><\/div>/)
+    expect_ember_frontend
   end
 end

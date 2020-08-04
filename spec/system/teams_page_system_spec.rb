@@ -118,11 +118,11 @@ describe 'TeamsPage', type: :system, js: true do
   def click_team_favourites_button
     all('span[role="button"]')[4].click
     within(find('div.py-2.d-flex.team-card-header')) do
-      expect(find('img[alt="star"]')['src']).to include '/ember/assets/images/star-white-filled.svg'
+      expect(find('img[alt="star"]')['src']).to include '/assets/images/star-white-filled.svg'
     end
     all('span[role="button"]')[4].click
     within(find('div.py-2.d-flex.team-card-header')) do
-      expect(find('img[alt="star"]')['src']).to include '/ember/assets/images/star-white.svg'
+      expect(find('img[alt="star"]')['src']).to include '/assets/images/star-white.svg'
     end
   end
 end

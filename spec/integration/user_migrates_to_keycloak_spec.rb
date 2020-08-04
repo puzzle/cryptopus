@@ -58,9 +58,8 @@ describe 'User migrates to keycloak spec' do
     follow_redirect!
     expect(request.fullpath).to eq('/session/sso?code=asd')
     follow_redirect!
-    # Adjust test to new start-page:
     expect(request.fullpath).to eq(root_path)
-    expect(response.body).to match(/<div id='ember'><\/div>/)
+    expect_ember_frontend
   end
 
   it 'migrates ldap bob to keycloak' do
@@ -111,9 +110,8 @@ describe 'User migrates to keycloak spec' do
     follow_redirect!
     expect(request.fullpath).to eq('/session/sso?code=asd')
     follow_redirect!
-    # Adjust test to new start-page:
     expect(request.fullpath).to eq(root_path)
-    expect(response.body).to match(/<div id='ember'><\/div>/)
+    expect_ember_frontend
   end
 
   private

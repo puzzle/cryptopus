@@ -168,7 +168,7 @@ describe RedirectedRoutes::UrlHandler do
 
       get teams_url
 
-      assert_template 'frontend/index'
+      expect_ember_frontend
     end
 
     # /ch_vs/teams -> /teams
@@ -194,7 +194,7 @@ describe RedirectedRoutes::UrlHandler do
 
       assert_redirected_to "/accounts/#{account1.id}"
       follow_redirect!
-      assert_template 'frontend/index'
+      expect_ember_frontend
     end
 
     # /de/teams -> /teams
@@ -205,7 +205,7 @@ describe RedirectedRoutes::UrlHandler do
 
       assert_redirected_to '/teams'
       follow_redirect!
-      assert_template 'frontend/index'
+      expect_ember_frontend
     end
 
     # /en/teams -> /teams
@@ -216,7 +216,7 @@ describe RedirectedRoutes::UrlHandler do
 
       assert_redirected_to '/teams'
       follow_redirect!
-      assert_template 'frontend/index'
+      expect_ember_frontend
     end
 
     # /fr/teams -> /teams
@@ -226,7 +226,7 @@ describe RedirectedRoutes::UrlHandler do
       get '/fr/teams'
       assert_redirected_to '/teams'
       follow_redirect!
-      assert_template 'frontend/index'
+      expect_ember_frontend
     end
   end
 

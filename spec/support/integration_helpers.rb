@@ -116,5 +116,9 @@ module IntegrationHelpers
       expect(response.status).to eq 403
       logout
     end
+
+    def expect_ember_frontend
+      expect(response.body).to match('<div id="ember-basic-dropdown-wormhole"></div>')
+    end
   end
 end

@@ -30,16 +30,14 @@ export default class FooterComponent extends Component {
       data: { attributes: { preferred_locale: locale.key.replace("-", "_") } }
     };
 
-    /* eslint-disable no-undef  */
     this.intl.setLocale(locale.key);
     fetch(`/api/locale`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
+        "X-CSRF-Token": ENV.CSRFToken
       },
       body: JSON.stringify(data)
     });
-    /* eslint-enable no-undef  */
   }
 }

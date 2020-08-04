@@ -118,7 +118,7 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
       method: "post",
       headers: {
         "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
+        "X-CSRF-Token": ENV.CSRFToken
       },
       body: `id=${apiUser.id}`
     });
@@ -130,7 +130,7 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
     return fetch(`/api/teams/${this.args.teamId}/api_users/${apiUser.id}`, {
       method: "delete",
       headers: {
-        "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
+        "X-CSRF-Token": ENV.CSRFToken
       }
     });
     /* eslint-enable no-undef  */

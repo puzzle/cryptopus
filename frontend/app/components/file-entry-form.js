@@ -5,6 +5,7 @@ import Changeset from "ember-changeset";
 import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
+import ENV from "../config/environment";
 
 export default class FileEntryForm extends BaseFormComponent {
   @service store;
@@ -28,9 +29,7 @@ export default class FileEntryForm extends BaseFormComponent {
 
     this.changeset.account = this.args.account;
 
-    /* eslint-disable no-undef  */
-    var token = $('meta[name="csrf-token"]').attr("content");
-    /* eslint-enable no-undef  */
+    var token = ENV.CSRFToken;
     this.changeset.csrfToken = token;
   }
 

@@ -2,6 +2,7 @@ import JSONAPIAdapter from "@ember-data/adapter/json-api";
 import { computed } from "@ember/object";
 import { pluralize } from "ember-inflector";
 import { underscore } from "@ember/string";
+import ENV from "../config/environment";
 
 export default JSONAPIAdapter.extend({
   namespace: "api",
@@ -13,7 +14,7 @@ export default JSONAPIAdapter.extend({
   headers: computed(function() {
     /* eslint-disable no-undef  */
     return {
-      "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content"),
+      "X-CSRF-Token": ENV.CSRFToken,
       "content-type": "application/json"
     };
     /* eslint-enable no-undef  */
