@@ -7,6 +7,7 @@
 
 require 'rails_helper'
 
+# Rspec does load somewhat differently, to avoid a autoload error, those are included like that.
 require_relative '../../app/controllers/api/teams/members_controller'
 
 describe 'TeamsPage', type: :system, js: true do
