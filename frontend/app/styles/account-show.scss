@@ -8,7 +8,7 @@
   position: relative;
 }
 
-.show-password-link,
+.show-text,
 .password-show {
   display: block;
   background: #c9c9c9;
@@ -18,7 +18,7 @@
   position: relative;
 }
 
-.show-password-link,
+.show-text,
 .password-show,
 .result-username input,
 .result-password input {
@@ -29,7 +29,7 @@
   display: block;
 }
 
-.show-password-link-sm {
+.show-text-sm {
   margin-top: 0px !important;
   position: absolute;
   top: 0px;
@@ -43,7 +43,7 @@
 }
 
 .result-password,
-.show-password-link,
+.show-text,
 .password-show {
   margin-top: 1em;
 }
@@ -95,7 +95,7 @@
   visibility: hidden;
 }
 
-.show-password-link {
+.show-text {
   cursor: pointer;
 }
 
