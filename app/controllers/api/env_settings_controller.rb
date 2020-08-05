@@ -9,6 +9,7 @@ class Api::EnvSettingsController < ApiController
   def index
     render_json(sentry: ENV['SENTRY_DSN_FRONTEND'],
                 current_user: { id: current_user.id,
+                                role: current_user.role,
                                 givenname: current_user.givenname,
                                 preferred_locale: current_user.preferred_locale },
                 version: version_number,

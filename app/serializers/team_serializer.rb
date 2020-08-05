@@ -19,18 +19,22 @@
 # https://github.com/puzzle/cryptopus.
 
 class TeamSerializer < ApplicationSerializer
-  attributes :id, :name, :description, :private, :favourised
+  attributes :id, :name, :description, :private, :favourised, :deletable
 
   has_many :folders, serializer: FolderMinimalSerializer
 
   def favourised
-    users_favorised_current_team.include?(user_id)
+    users_favorised_current_team.include?(user.id)
+  end
+
+  def deletable
+    TeamPolicy.new(user, object).destroy?
   end
 
   private
 
-  def user_id
-    current_user.id
+  def user
+    current_user
   end
 
   def users_favorised_current_team

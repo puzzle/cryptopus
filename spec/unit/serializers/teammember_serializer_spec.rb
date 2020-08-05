@@ -8,11 +8,17 @@
 require 'rails_helper'
 
 describe TeammemberSerializer do
-  before(:each) do
-    expect_any_instance_of(TeamSerializer).to receive(:user_id).and_return(1)
-  end
+
 
   context 'teammember' do
+
+    before(:each) do
+      expect_any_instance_of(TeamSerializer)
+        .to receive(:user)
+        .exactly(:twice)
+        .and_return(users(:admin))
+    end
+
     it 'serializes as not deletable if last teammember' do
       as_json = JSON.parse(TeammemberSerializer.new(teammembers(:team2_bob)).to_json)
 
@@ -38,6 +44,14 @@ describe TeammemberSerializer do
   end
 
   context 'normal teammember' do
+
+    before(:each) do
+      expect_any_instance_of(TeamSerializer)
+        .to receive(:user)
+        .exactly(:twice)
+        .and_return(users(:bob))
+    end
+
     it 'serializes as deletable if not last teammember in non_private team' do
       as_json = JSON.parse(TeammemberSerializer.new(teammembers(:team1_bob)).to_json)
 
@@ -52,6 +66,14 @@ describe TeammemberSerializer do
   end
 
   context 'admin teammember' do
+
+    before(:each) do
+      expect_any_instance_of(TeamSerializer)
+        .to receive(:user)
+        .exactly(:twice)
+        .and_return(users(:admin))
+    end
+
     it 'serializes as not deletable in non_private team' do
       as_json = JSON.parse(TeammemberSerializer.new(teammembers(:team1_admin)).to_json)
 

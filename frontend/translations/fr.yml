@@ -339,6 +339,7 @@ fr:
           user_not_logged_in: Utilisateur non connecté
           invalid_request: Demande non valable
           record_not_found: Enregistrement non trouvé
+          delete_failed: Il n'était pas possible d'enlever l'enregistrement
     wizard:
       fill_password_fields: S'il vous plaît remplir tous les champs
       paswords_do_not_match: Les mots de passe ne correspondent pas

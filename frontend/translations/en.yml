@@ -339,6 +339,7 @@ en:
         user_not_logged_in: User not logged in
         invalid_request: Invalid Request
         record_not_found: Record not found
+        delete_failed: Could not delete the record.
     wizard:
       fill_password_fields: Please provide an initial password
       paswords_do_not_match: Passwords do not match

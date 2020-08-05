@@ -179,6 +179,7 @@ describe Api::TeamsController do
       attributes_team = data.first['attributes']
       team3_attributes = team3.attributes
       team3_attributes['favourised'] = false
+      team3_attributes['deletable'] = false
       expect(team3_attributes).to include(attributes_team)
       folder_relationships_length = data.first['relationships']['folders']['data'].size
 

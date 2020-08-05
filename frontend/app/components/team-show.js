@@ -4,8 +4,10 @@ import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
 import ENV from "../config/environment";
 
+
 export default class TeamShowComponent extends Component {
   @service navService;
+  @service userService;
   @service store;
   @service router;
 
