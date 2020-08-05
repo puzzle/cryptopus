@@ -1,4 +1,5 @@
 import Service from "@ember/service";
+import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 import ENV from "../config/environment";
 
@@ -36,16 +37,8 @@ export default class LogoutTimerService extends Service {
     });
   }
 
-  async resetSession() {
-    /* eslint-disable no-undef  */
-    await fetch(`/session/destroy/?autologout=true`, {
-      method: "GET",
-      headers: {
-        "X-CSRF-Token": ENV.CSRFToken
-      }
-    });
-    /* eslint-enable no-undef  */
-    window.location.replace("/session/new");
+  resetSession() {
+    window.location.replace("/session/destroy?autologout=true");
   }
 
   calculateTimeToLogoff(passedTime) {
