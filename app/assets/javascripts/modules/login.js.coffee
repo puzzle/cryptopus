@@ -15,10 +15,11 @@ class app.Login
     user_input = $('#username')
     stored_username = sessionStorage.getItem('username')
     input_username = user_input.val()
-
-    if stored_username != null and stored_username != ''
+    if (stored_username != null and stored_username != '')
       user_input.val stored_username
       password_input.val ''
+      password_input.focus()
+    else if (input_username == 'root')
       password_input.focus()
     else
       user_input.focus()

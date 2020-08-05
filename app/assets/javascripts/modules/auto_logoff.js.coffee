@@ -6,7 +6,7 @@
 app = window.App ||= {}
 
 class app.AutoLogoff
-  AUTO_LOGOFF_TIME = 298
+  AUTO_LOGOFF_TIME = 295
   remaining_seconds = AUTO_LOGOFF_TIME
 
   constructor: () ->

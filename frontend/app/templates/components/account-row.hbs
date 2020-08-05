@@ -11,10 +11,7 @@
     <div class="col-2 pr-0 d-none d-md-block">
       <div class="hide-wrapper">
         <Input class="d-inline form-control" id="input-password-{{@account.id}}" @disabled="true" @value={{@account.cleartextUsername}}/>
-        <div role="button" class="show-password-link show-password-link-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isUsernameVisible "visibility-hidden"}}"{{on "click" this.showUsername}} href="#">{{t "username"}}</div>
-        {{#if (not this.isUsernameVisible)}}
-          <BsTooltip @title={{t "accounts.show.show_username"}} @delayShow="500" />
-        {{/if}}
+        <a role="button" class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isUsernameVisible "visibility-hidden"}}"{{on "click" this.showUsername}} href="#">{{t "accounts.show.show_username"}}</a>
       </div>
     </div>
     <div class="col-auto px-0 d-none d-md-block">
@@ -27,10 +24,7 @@
     <div class="col-2 pr-0 d-none d-md-block">
       <div class="hide-wrapper">
         <Input class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
-        <div role="button" class="show-password-link show-password-link-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isPasswordVisible "visibility-hidden"}}"{{on "click" this.showPassword}} href="#">{{t "password"}}</div>
-        {{#if (not this.isPasswordVisible)}}
-          <BsTooltip @title={{t "accounts.show.show_password"}} @delayShow="500" />
-        {{/if}}
+        <a role="button" class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isPasswordVisible "visibility-hidden"}}"{{on "click" this.showPassword}} href="#">{{t "accounts.show.show_password"}}</a>
       </div>
     </div>
     <div class="col-auto pl-0 d-none d-md-block">

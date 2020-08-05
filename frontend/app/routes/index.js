@@ -4,6 +4,7 @@ import ENV from "../config/environment";
 
 export default class IndexRoute extends BaseRoute {
   @service navService;
+  @service notify;
 
   beforeModel() {
     this.navService.clear()
@@ -12,4 +13,5 @@ export default class IndexRoute extends BaseRoute {
   model() {
     return ENV.currentUserGivenname;
   }
+
 }

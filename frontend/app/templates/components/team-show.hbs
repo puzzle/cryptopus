@@ -25,10 +25,6 @@
           <img class="icon-big-button" src="/assets/images/plus-white.svg" alt="new">
           <BsTooltip @title={{t "tooltips.add_folder"}} @delayShow="1000" />
         </span>
-        <DeleteWithConfirmation @class="mx-1" @record={{@team}} @didDelete={{this.transitionToIndex}}>
-          <img class="icon-big-button" src="/assets/images/delete-white.svg" alt="delete">
-          <BsTooltip @title={{t "teams.delete"}} @delayShow="1000"/>
-        </DeleteWithConfirmation>
         <span class="mx-1" role="button" {{on "click" this.toggleTeamEdit}}>
           <img class="icon-big-button" src="/assets/images/edit-white.svg" alt="edit">
           <BsTooltip @title={{t "teams.edit.title"}} @delayShow="1000" />
