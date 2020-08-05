@@ -9,7 +9,8 @@ export default class LastLoginComponent extends Component {
 
   @action
   lastLoginNotify() {
-    if (document.referrer.includes('session/new')) {
+    let lastUrl = document.referrer
+    if (lastUrl.includes('session/new') || lastUrl.includes('session/local')) {
       this.notify.warning(ENV.lastLoginMessage, {closeAfter: null});
     }
   }
