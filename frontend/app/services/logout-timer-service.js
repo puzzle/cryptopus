@@ -1,7 +1,5 @@
 import Service from "@ember/service";
-import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
-import ENV from "../config/environment";
 
 export default class LogoutTimerService extends Service {
   @tracked timeToLogoff;
