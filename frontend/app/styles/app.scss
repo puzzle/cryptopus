@@ -1,6 +1,9 @@
 $navbar-dark-brand-color: white;
 $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 
+$font-family-sans-serif:      -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+
+
 @import "ember-bootstrap/bootstrap";
 
 @import "ember-power-select/themes/bootstrap";
