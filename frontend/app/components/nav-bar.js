@@ -8,9 +8,6 @@ export default class NavBarComponent extends Component {
   @service navService;
 
   @tracked
-  isNavbarCollapsed=true;
-
-  @tracked
   isNewAccount = false;
 
   @tracked
@@ -25,7 +22,7 @@ export default class NavBarComponent extends Component {
 
   @action
   setNavbarCollapsed(isCollapsed) {
-    this.isNavbarCollapsed = isCollapsed;
+    this.navService.isNavbarCollapsed = isCollapsed;
   }
 
   @action

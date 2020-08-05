@@ -2,7 +2,7 @@ import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
-import { isNone } from "@ember/utils";
+import { isNone, isPresent } from "@ember/utils";
 
 export default class SideNavBar extends Component {
   @service store;
@@ -46,6 +46,11 @@ export default class SideNavBar extends Component {
 
   @action
   setSelectedFolder(folder) {
+
+    if(isPresent(this.args.navbar)) {
+      this.args.navbar.collapse();
+    }
+
     this.router.transitionTo(
       "teams.folders-show",
       folder.team.get("id"),

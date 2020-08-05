@@ -74,19 +74,22 @@
 
 }
 
-@media screen and (max-width: 991px) {
-  .nav-container {
-    width: 100%;
-  }
 
+@media screen and (max-width: 575px) {
   .align-right-on-smartphone {
     margin: 0 0 0 auto;
   }
 
   .break-on-smartphone {
-    min-width: 60%;
+    min-width: 80%;
     display: inline-block;
     word-break: break-word;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .nav-container {
+    width: 100%;
   }
 
   .content {
@@ -111,13 +114,12 @@
   }
 
   .search {
-    margin-top: 20px;
-    margin-bottom: 12px;
     width: 100% !important;
   }
 
   .search-wrapper{
     width: 100%;
+    margin-bottom: 0 !important;
   }
 
   .ignore-footer-smartphone {
@@ -231,4 +233,8 @@
 .title:hover {
   text-decoration: none !important;
   color: white;
+}
+
+.well{
+  margin-bottom:0px !important;
 }
