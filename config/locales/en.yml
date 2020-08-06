@@ -451,6 +451,7 @@ en:
     account_details: Show Account Details
     delete_folder: Delete the Folder
     delete_account: Delete the Account
+    configure: Configure Members
 
 
   #Pundit

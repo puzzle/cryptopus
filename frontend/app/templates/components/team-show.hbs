@@ -10,17 +10,19 @@
 <div class="mt-4 mb-4 border-radius-4">
   <div>
     <div class="row py-2 d-flex team-card-header {{if this.collapsed "rounded" "rounded-top"}}">
-      <div class="col-auto my-auto" role="button" {{on "click" this.collapse}}>
+      <div class="col-auto pr-0 my-auto" role="button" {{on "click" this.collapse}}>
         {{#if this.args.team.private}}
           <img class="icon icon-big-button py-auto" src="/assets/images/encrypted_small-white.svg" alt="">
         {{else}}
           <img class="icon icon-big-button py-auto" src="/assets/images/members-white.svg" alt="">
         {{/if}}
       </div>
-      <div class="col pl-0 break-on-smartphone" role="button" {{on "click" this.collapse}}>
+      <div class="col overflow-hidden" role="button" {{on "click" this.collapse}}>
         <h5 class="d-inline">{{@team.name}}</h5>
       </div>
-      <div class="col-auto d-flex justify-content-between align-items-center align-right-on-smartphone">
+
+
+      <div class="col-auto pr-0 justify-content-between d-none d-sm-flex align-items-center ">
         <span class="mx-1" role="button" {{on "click" this.toggleFolderCreating}}>
           <img class="icon-big-button" src="/assets/images/plus-white.svg" alt="new">
           <BsTooltip @title={{t "tooltips.add_folder"}} @delayShow="1000" />
@@ -39,13 +41,41 @@
             <BsTooltip @title={{t "teams.delete"}} @delayShow="1000"/>
           </DeleteWithConfirmation>
         {{/if}}
-      </div>
-      <div class="col-auto pl-0 d-flex justify-content-between align-items-center align-right-on-smartphone">
-        <span class="mx-1" role="button" {{on "click" this.toggleFavourised}}>
+        <span class="mx-3" role="button" {{on "click" this.toggleFavourised}}>
           <img class="icon-big-button" src="/assets/images/star-white{{if @team.favourised "-filled"}}.svg" alt="star">
           <BsTooltip @title={{if @team.favourised (t "teams.defavorise") (t "teams.favorise")}} @delayShow="1000" />
         </span>
       </div>
+
+      <BsDropdown @class="d-sm-none mb-0 col-auto mobile-team-menu" as |dd|>
+        <dd.toggle>
+          <img class="icon-big-button" src="/assets/images/bars-white.svg" alt="v">
+        </dd.toggle>
+        <dd.menu as |ddm|>
+          <ddm.item>
+            <a role="button" class="dropdown-item d-flex align-items-center" {{on "click" this.toggleFolderCreating}}>
+              {{t "teams.new.title"}}
+            </a>
+          </ddm.item>
+          <ddm.item>
+            <a role="button" class="dropdown-item d-flex align-items-center" {{on "click" this.toggleTeamEdit}}>
+              {{t "teams.edit.title"}}
+            </a>
+          </ddm.item>
+          <ddm.item>
+            <a id="config_team_button" role="button" class="dropdown-item d-flex align-items-center" {{on "click" this.toggleTeamConfigure}}>
+              {{t "tooltips.configure"}}
+            </a>
+          </ddm.item>
+          <ddm.item>
+            <a role="button" class="dropdown-item d-flex align-items-center" {{on "click" this.toggleFavourised}}>
+              {{if @team.favourised (t "teams.defavorise") (t "teams.favorise")}}
+            </a>
+          </ddm.item>
+
+        </dd.menu>
+      </BsDropdown>
+
       <div class="col-auto pl-0 d-flex justify-content-between align-items-center align-right-on-smartphone">
         <span role="button" name="team-collapse" {{on "click" this.collapse}}>
           {{#if this.collapsed}}
@@ -55,6 +85,8 @@
           {{/if}}
         </span>
       </div>
+
+
     </div>
     <BsCollapse class="row bg-blue-1 border border-darker border-top-0 rounded-bottom" @collapsed={{this.collapsed}}>
       <div class="col px-4 py-3 list-folder-header">

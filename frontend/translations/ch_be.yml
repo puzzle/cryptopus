@@ -528,6 +528,7 @@ ch_be:
     account_details: Account Details ahzeige
     delete_folder: Ordner lösche
     delete_account: Account lösche
+    configure: Konfigurier d'Mitgliedr
 
   validations:
     name:

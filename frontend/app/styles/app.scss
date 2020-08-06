@@ -328,3 +328,11 @@ li a {
 .icon-clippy {
   width: 19px;
 }
+
+.mobile-team-menu .dropdown-toggle::after {
+  display: none;
+}
+
+.mobile-team-menu .dropdown-item {
+  padding-left: 0.5rem !important;
+}

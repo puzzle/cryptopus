@@ -536,6 +536,7 @@ de:
     account_details: Account Details anzeigen
     delete_folder: Ordner löschen
     delete_account: Account löschen
+    configure: Konfiguriere Mitglieder
 
   #Pundit
   pundit:
