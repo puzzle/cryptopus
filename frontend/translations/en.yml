@@ -331,6 +331,8 @@ en:
         unlock: "Unlocked %{username}"
         token:
           renew: "Renewed %{username}, new token: %{token}"
+        ccli_login:
+          copied: CCLI Login command was copied!
       members:
         removed: Member was successfully removed
         added: Member was successfully added
