@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       member do
         get :token, to: 'api_users/token#show'
         delete :token, to: 'api_users/token#destroy'
+        get :ccli_token, to: 'api_users/ccli_token#show'
         post :lock, to: 'api_users/lock#create'
         delete :lock, to: 'api_users/lock#destroy'
       end
