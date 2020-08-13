@@ -331,6 +331,8 @@ fr:
         unlock: "%{username} n'est plus bloqué"
         token:
           renew: "%{username} a été renouvelé, nouveau jeton: %{token}"
+        ccli_login:
+          copied: CCLI Login commande a été copiée
       members:
         added: Membre de l'équipe a été enlevé avec succès
         removed: Membre de l'équipe a été ajouté avec succès
