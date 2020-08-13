@@ -332,6 +332,23 @@ ch_be:
           toggle:
             empowered: "%{username} het ab iz Admin-Rächt"
             disempowered: "Am Benutzer %{username} si d Admin-Rächt entzoge worde"
+      api-users:
+        create: "%{username} isch ersteut worde"
+        update:
+          description: "%{username}'s Beschribig isch aktualisiert worde"
+          valid_for: "Benutzer %{username} wird nachem nächste Erneuere %{valid_for} gültig si"
+          time:
+            one_min: für ei Minute
+            five_mins: für füüf Minute
+            twelve_hours: für zwöuf Stunde
+            infinite: bis ads Endi vor Zit
+        destroy: "%{username} isch entfernt worde"
+        lock: "%{username} isch gsperrt worde"
+        unlock: "%{username} isch entsperrt worde"
+        token:
+          renew: "%{username} isch ernöieret worde, nöis Token: %{token}"
+        ccli_login:
+          copied: CCLI Login Befäu isch kopiert worde
       members:
         added: Mitglied isch erfougrich hinzuegfüegt worde
         removed: Mitglied isch erfougrich entfernt worde
