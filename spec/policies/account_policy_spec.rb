@@ -6,6 +6,7 @@ describe AccountPolicy do
 
   let(:account1) { accounts(:account1) }
   let(:account2) { accounts(:account2) }
+  let(:ose_secret) { accounts(:ose_secret) }
   let(:folder2) { folders(:folder2) }
   let(:team1) { teams(:team1) }
   let(:team2) { teams(:team2) }
@@ -45,6 +46,20 @@ describe AccountPolicy do
   context 'not for team' do
     it 'enabled api user is not allowed to update account' do
       refute_permit api_alice, account2, :update?
+    end
+  end
+
+  context 'openshift secret' do
+    it 'can be updated updated by api user' do
+      assert_permit api_alice, ose_secret, :update?
+    end
+
+    it 'can not be updated updated by non api user' do
+      refute_permit bob, ose_secret, :update?
+    end
+
+    it 'can not be destroyed by non api user' do
+      refute_permit bob, ose_secret, :destroy?
     end
   end
 
