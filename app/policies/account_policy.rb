@@ -15,12 +15,22 @@ class AccountPolicy < TeamDependantPolicy
   end
 
   def create?
-    team.teammember?(@user.id)
+    team.teammember?(@user.id) && !non_api_user_accesses_openshift_secret?
+  end
+
+  def update?
+    team.teammember?(@user.id) && !non_api_user_accesses_openshift_secret?
   end
 
   protected
 
   def team
     @record.folder.team
+  end
+
+  private
+
+  def non_api_user_accesses_openshift_secret?
+    @user.type != 'User::Api' && @record.openshift_secret?
   end
 end

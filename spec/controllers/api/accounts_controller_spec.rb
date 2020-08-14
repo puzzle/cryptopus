@@ -48,7 +48,7 @@ describe Api::AccountsController do
       account = accounts(:account1)
       folder = account.folder
 
-      expect(data.count).to eq 1
+      expect(data.count).to eq 2
       expect(account1_json_attributes['accountname']).to eq account.accountname
       expect(account1_json['id']).to eq account.id.to_s
       expect(account1_json_attributes['cleartext_username']).to be_nil
@@ -71,7 +71,7 @@ describe Api::AccountsController do
       account = accounts(:account1)
       folder = account.folder
 
-      expect(data.count).to eq 1
+      expect(data.count).to eq 2
       expect(account1_json_attributes['accountname']).to eq account.accountname
       expect(account1_json['id']).to eq account.id.to_s
       expect(account1_json_attributes['cleartext_username']).to be_nil
@@ -93,7 +93,7 @@ describe Api::AccountsController do
       account = accounts(:account1)
       folder = account.folder
 
-      expect(data.count).to eq 1
+      expect(data.count).to eq 2
       expect(account1_json_attributes['accountname']).to eq account.accountname
       expect(account1_json['id']).to eq account.id.to_s
       expect(account1_json_attributes['cleartext_username']).to be_nil
@@ -472,6 +472,64 @@ describe Api::AccountsController do
       expect(account.tag).to eq 'tag'
       expect(response).to have_http_status(403)
     end
+
+    it 'updates openshift secret as api user' do
+      api_user.update!(valid_until: Time.zone.now + 5.minutes)
+
+      teams(:team1).add_user(api_user, plaintext_team_password)
+
+      request.headers['Authorization-User'] = api_user.username
+      request.headers['Authorization-Password'] = token
+
+      account = accounts(:ose_secret)
+
+      account_params = {
+        data: {
+          id: account.id,
+          attributes: {
+            accountname: 'updated secret',
+            tag: 'taggy',
+            cleartext_username: 'globi',
+            cleartext_password: 'petzi'
+          },
+          relationships: { folder: { data: { id: account.folder_id, type: 'folders' } } }
+        }, id: account.id
+      }
+      patch :update, params: account_params, xhr: true
+
+      account.reload
+
+      account1_json_attributes = data['attributes']
+
+      account.decrypt(plaintext_team_password)
+      expect(account1_json_attributes['accountname']).to eq 'updated secret'
+      expect(account1_json_attributes['cleartext_username']).to eq 'globi'
+      expect(account1_json_attributes['cleartext_password']).to eq 'petzi'
+
+      expect(response).to have_http_status(200)
+    end
+
+    it 'can not update openshift secret as non api user' do
+      login_as(:bob)
+
+      account = accounts(:ose_secret)
+
+      account_params = {
+        data: {
+          id: account.id,
+          attributes: {
+            accountname: 'Bob Meyer',
+            tag: 'taggy',
+            cleartext_username: 'globi',
+            cleartext_password: 'petzi'
+          },
+          relationships: { folder: { data: { id: account.folder_id, type: 'folders' } } }
+        }, id: account.id
+      }
+      patch :update, params: account_params, xhr: true
+
+      expect(response).to have_http_status(403)
+    end
   end
 
   context 'POST create' do
@@ -513,6 +571,68 @@ describe Api::AccountsController do
         data: {
           attributes: {
             accountname: 'New Account'
+          },
+          relationships: {
+            folder: {
+              data: {
+                id: folder.id,
+                type: 'folders'
+              }
+            }
+          }
+        }
+      }
+
+      post :create, params: new_account_params, xhr: true
+
+      expect(response).to have_http_status(403)
+    end
+
+    it 'creates new openshift secret if api user' do
+      api_user.update!(valid_until: Time.zone.now + 5.minutes)
+
+      teams(:team1).add_user(api_user, plaintext_team_password)
+
+      request.headers['Authorization-User'] = api_user.username
+      request.headers['Authorization-Password'] = token
+
+      folder = folders(:folder1)
+
+      new_account_params = {
+        data: {
+          attributes: {
+            accountname: 'New Account',
+            category: 'openshift_secret'
+          },
+          relationships: {
+            folder: {
+              data: {
+                id: folder.id,
+                type: 'folders'
+              }
+            }
+          }
+        }
+      }
+
+      expect do
+        post :create, params: new_account_params, xhr: true
+      end.to change { Account.count }.by(1)
+
+      expect(response).to have_http_status(201)
+    end
+
+    it 'can not create openshift secret if not api user' do
+      set_auth_headers
+
+      login_as(:alice)
+      folder = folders(:folder1)
+
+      new_account_params = {
+        data: {
+          attributes: {
+            accountname: 'New Account',
+            category: 'openshift_secret'
           },
           relationships: {
             folder: {
