@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 class AccountMinimalSerializer < ApplicationSerializer
-  attributes :id, :accountname, :description
+  attributes :id, :accountname, :description, :category
 end
