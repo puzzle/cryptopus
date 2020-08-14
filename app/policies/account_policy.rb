@@ -22,6 +22,10 @@ class AccountPolicy < TeamDependantPolicy
     team.teammember?(@user.id) && !non_api_user_accesses_openshift_secret?
   end
 
+  def destroy?
+    team_member? && !non_api_user_accesses_openshift_secret?
+  end
+
   protected
 
   def team
