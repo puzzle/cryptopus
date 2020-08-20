@@ -2,7 +2,7 @@ import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
-import { isPresent } from "@ember/utils";
+import { isPresent, isEmpty } from "@ember/utils";
 
 export default class FolderShowComponent extends Component {
   @service navService;
@@ -26,16 +26,20 @@ export default class FolderShowComponent extends Component {
   }
 
   get collapsed() {
-    if(isPresent(this.navService.searchQuery)) {
+    if (isPresent(this.navService.searchQuery)) {
       return !this.expanded_due_to_search;
     } else {
       return this.navService.selectedFolder !== this.args.folder;
     }
   }
 
+  get shouldRenderAccounts() {
+    return !isEmpty(this.args.folder) && !this.collapsed;
+  }
+
   @action
   collapse() {
-    if(isPresent(this.navService.searchQuery)) {
+    if (isPresent(this.navService.searchQuery)) {
       this.expanded_due_to_search = !this.expanded_due_to_search;
     } else {
       if (this.collapsed) {
