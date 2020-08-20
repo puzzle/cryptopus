@@ -16,6 +16,5 @@ module("Integration | Component | folder-show", function(hooks) {
 
     let text = this.element.textContent.trim();
     assert.ok(text.includes("It-Ninjas"));
-    assert.ok(text.includes("Ninjas account"));
   });
 });

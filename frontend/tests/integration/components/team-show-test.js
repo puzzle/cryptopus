@@ -25,6 +25,5 @@ module("Integration | Component | team-show", function(hooks) {
     assert.ok(text.includes("BBT"));
     assert.ok(text.includes("Berufsbildungsteam of Puzzle ITC"));
     assert.ok(text.includes("It-Ninjas"));
-    assert.ok(text.includes("Ninjas account"));
   });
 });
