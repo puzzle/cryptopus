@@ -30,11 +30,6 @@ class Account < ApplicationRecord
   validates :accountname, length: { maximum: 70 }
   validates :description, length: { maximum: 4000 }
 
-  enum category: [
-    :regular,
-    :openshift_secret
-  ]
-
   attr_accessor :cleartext_password, :cleartext_username
 
   def label

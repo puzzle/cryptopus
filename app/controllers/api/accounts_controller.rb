@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 class Api::AccountsController < ApiController
-  self.permitted_attrs = [:accountname, :description, :cleartext_username, :category,
+  self.permitted_attrs = [:accountname, :description, :cleartext_username,
                           :folder_id, :cleartext_password, :tag]
 
   helper_method :team
@@ -21,7 +21,7 @@ class Api::AccountsController < ApiController
   def create
     @account = Account.new(model_params)
     authorize @account
-    account.encrypt(decrypted_team_password(team))
+    account.encrypt(plaintext_team_password(team))
     if @account.save
       @response_status = :created
       render_json @account

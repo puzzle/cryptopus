@@ -13,16 +13,14 @@
         </span>
       </a>
     </div>
-    {{#unless @account.isOseSecret}}
-      <div class="col-auto d-flex justify-content-between align-items-center">
-        <DeleteWithConfirmation @class="btn btn-light edit_button" @record={{@account}} @didDelete={{this.refreshRoute}}>
-          <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
-        </DeleteWithConfirmation>
-        <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleAccountEdit}}>
-          <img class="icon-button" src="/assets/images/edit.svg" alt="edit">
-        </a>
-      </div>
-    {{/unless}}
+    <div class="col-auto d-flex justify-content-between align-items-center">
+      <DeleteWithConfirmation @class="btn btn-light edit_button" @record={{@account}} @didDelete={{this.refreshRoute}}>
+        <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
+      </DeleteWithConfirmation>
+      <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleAccountEdit}}>
+        <img class="icon-button" src="/assets/images/edit.svg" alt="edit">
+      </a>
+    </div>
   </div>
   <div class="row pb-3 justify-content-between">
     <div class="col accountname">

@@ -1,41 +1,40 @@
 {{#if this.isAccountEditing}}
   <AccountForm @account={{@account}} @onAbort={{this.toggleAccountEdit}}  @title={{t "accounts.edit.title"}}/>
 {{/if}}
-<div class="row d-flex align-items-center p-2 bg-grey-2 rounded account-entry">
-  <div class="col-auto pr-0" role="button" {{on "click" this.transitionToAccount}}>
-    <img class="img d-inline w-30 float-left icon-big-button" src="/assets/images/key.svg" alt="key">
-  </div>
-  <div class="col underline-hover break-words" role="button" {{on "click" this.transitionToAccount}}>
-    {{@account.accountname}}
-  </div>
-  <div class="col-2 pr-0 d-none d-md-block">
-    <div class="hide-wrapper">
-      <Input class="d-inline form-control" id="input-password-{{@account.id}}" @disabled="true" @value={{@account.cleartextUsername}}/>
-      <a role="button" class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isUsernameVisible "visibility-hidden"}}"{{on "click" this.showUsername}} href="#">{{t "accounts.show.show_username"}}</a>
+  <div class="row d-flex align-items-center p-2 bg-grey-2 rounded account-entry">
+    <div class="col-auto pr-0" role="button" {{on "click" this.transitionToAccount}}>
+      <img class="img d-inline w-30 float-left icon-big-button" src="/assets/images/key.svg" alt="key">
     </div>
-  </div>
-  <div class="col-auto px-0 d-none d-md-block">
-    <button class="btn btn-light copy-btn" {{on "click" this.copyUsername}}>
-      <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-      <BsTooltip @title={{t "accounts.show.copy_username"}} @delayShow="500" />
-    </button>
-  </div>
-
-  <div class="col-2 pr-0 d-none d-md-block">
-    <div class="hide-wrapper">
-      <Input class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
-      <a role="button" class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isPasswordVisible "visibility-hidden"}}"{{on "click" this.showPassword}} href="#">{{t "accounts.show.show_password"}}</a>
+    <div class="col underline-hover break-words" role="button" {{on "click" this.transitionToAccount}}>
+      {{@account.accountname}}
     </div>
-  </div>
-  <div class="col-auto pl-0 d-none d-md-block">
-    <button class="btn btn-light copy-btn" {{on "click" this.copyPassword}}>
-      <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-      <BsTooltip @title={{t "accounts.show.copy_password"}} @delayShow="500" />
-    </button>
-  </div>
+    <div class="col-2 pr-0 d-none d-md-block">
+      <div class="hide-wrapper">
+        <Input class="d-inline form-control" id="input-password-{{@account.id}}" @disabled="true" @value={{@account.cleartextUsername}}/>
+        <a role="button" class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isUsernameVisible "visibility-hidden"}}"{{on "click" this.showUsername}} href="#">{{t "accounts.show.show_username"}}</a>
+      </div>
+    </div>
+    <div class="col-auto px-0 d-none d-md-block">
+      <button class="btn btn-light copy-btn" {{on "click" this.copyUsername}}>
+        <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+        <BsTooltip @title={{t "accounts.show.copy_username"}} @delayShow="500" />
+      </button>
+    </div>
 
-  <div class="col-md-2 d-none d-md-block">
-    {{#unless @account.isOseSecret}}
+    <div class="col-2 pr-0 d-none d-md-block">
+      <div class="hide-wrapper">
+        <Input class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
+        <a role="button" class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isPasswordVisible "visibility-hidden"}}"{{on "click" this.showPassword}} href="#">{{t "accounts.show.show_password"}}</a>
+      </div>
+    </div>
+    <div class="col-auto pl-0 d-none d-md-block">
+      <button class="btn btn-light copy-btn" {{on "click" this.copyPassword}}>
+        <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+        <BsTooltip @title={{t "accounts.show.copy_password"}} @delayShow="500" />
+      </button>
+    </div>
+
+    <div class="col-auto d-none d-md-block">
       <a class="mx-1" role="button" {{on "click" this.toggleAccountEdit}}>
         <img class="icon-medium-button d-inline" src="/assets/images/edit.svg" alt="edit">
         <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000" />
@@ -44,6 +43,5 @@
         <img class="icon-medium-button d-inline" src="/assets/images/delete.svg" alt="delete">
         <BsTooltip @title={{t "tooltips.delete_account"}} @delayShow="1000" />
       </DeleteWithConfirmation>
-    {{/unless}}
+    </div>
   </div>
-</div>
