@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
 class FolderPolicy < TeamDependantPolicy
+  def initialize(user, record)
+    @user = user
+    @record = record
+  end
+
   def index?
     true
   end
 
   def show?
-    team_member?
+    team.teammember?(@user.id)
   end
 
   private
