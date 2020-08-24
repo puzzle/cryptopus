@@ -37,6 +37,8 @@ Rails.application.routes.draw do
       end
       resources :ldap_connection_test, only: ['new']
     end
+    
+    resources :folders, only: [:show]
 
     # INFO don't mix scopes and resources in routes
     resources :teams, except: [:new, :edit]  do
