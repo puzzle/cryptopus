@@ -15,15 +15,15 @@ class AccountPolicy < TeamDependantPolicy
   end
 
   def create?
-    team.teammember?(@user.id) && !non_api_user_accesses_openshift_secret?
+    team.teammember?(@user.id) && !human_accesses_openshift_secret?
   end
 
   def update?
-    team.teammember?(@user.id) && !non_api_user_accesses_openshift_secret?
+    team.teammember?(@user.id) && !human_accesses_openshift_secret?
   end
 
   def destroy?
-    team_member? && !non_api_user_accesses_openshift_secret?
+    team_member? && !human_accesses_openshift_secret?
   end
 
   protected
@@ -34,7 +34,7 @@ class AccountPolicy < TeamDependantPolicy
 
   private
 
-  def non_api_user_accesses_openshift_secret?
-    @user.type != 'User::Api' && @record.openshift_secret?
+  def human_user_accesses_openshift_secret?
+    @user.human? && @record.openshift_secret?
   end
 end
