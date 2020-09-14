@@ -28,6 +28,6 @@ class Api::ApiUsers::CcliTokenController < ApiController
   end
 
   def ccli_token
-    Base64.encode64("#{api_user.username};#{renew_token}")
+    Base64.encode64("#{api_user.username}:#{renew_token}")
   end
 end
