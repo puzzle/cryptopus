@@ -51,7 +51,7 @@ class app.ApiUserRenew
       type: "GET",
       url: '/api/api_users/' + id + '/ccli_token',
       success: (data) ->
-        navigator.clipboard.writeText("ccli login #{data['base_url']} --token #{data['ccli_token']}")
+        navigator.clipboard.writeText("ccli login #{data['ccli_token']}@#{data['base_url']}")
     })
 
   bind = ->

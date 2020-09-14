@@ -3,6 +3,7 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 
+.message_container{:id => 'message_container'}
 - if flash[:error]
   .alert.alert-danger
     %button.close{"aria-label" => "Close", "data-dismiss" => "alert", type: "button"}
@@ -20,6 +21,3 @@
     %button.close{"aria-label" => "Close", "data-dismiss" => "alert", type: "button"}
       %span{"aria-hidden" => "true"} &#215;
     = flash[:alert]
-
-- else
-  .message_container{:id => 'message_container'}
