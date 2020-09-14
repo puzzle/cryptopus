@@ -83,7 +83,9 @@ export default class AccountRowComponent extends Component {
 
   @action
   fetchAccount() {
-    return this.store.findRecord("account", this.args.account.id, { reload: true });
+    return this.store.findRecord("account", this.args.account.id, { reload: true }).catch(error => {
+      if (error.message.includes("401")) window.location.replace("/session/new")
+    });
   }
 
   @action
