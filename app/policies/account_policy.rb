@@ -15,15 +15,15 @@ class AccountPolicy < TeamDependantPolicy
   end
 
   def create?
-    team.teammember?(@user.id) && !human_accesses_openshift_secret?
+    team.teammember?(@user.id) && !human_user_accesses_openshift_secret?
   end
 
   def update?
-    team.teammember?(@user.id) && !human_accesses_openshift_secret?
+    team.teammember?(@user.id) && !human_user_accesses_openshift_secret?
   end
 
   def destroy?
-    team_member? && !human_accesses_openshift_secret?
+    team_member? && !human_user_accesses_openshift_secret?
   end
 
   protected
