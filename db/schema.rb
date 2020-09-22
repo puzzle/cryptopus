@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_13_125011) do
+ActiveRecord::Schema.define(version: 2020_09_17_140436) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "accountname", limit: 70, default: "", null: false
@@ -21,7 +21,8 @@ ActiveRecord::Schema.define(version: 2020_08_13_125011) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "tag"
-    t.integer "category", default: 0, null: false
+    t.string "type", null: false
+    t.json "encrypted_data"
     t.index ["tag"], name: "index_accounts_on_tag"
   end
 

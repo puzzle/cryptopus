@@ -21,7 +21,19 @@
 #  https://github.com/puzzle/cryptopus.
 
 class AccountSerializer < ApplicationSerializer
-  attributes :id, :accountname, :description, :cleartext_password, :cleartext_username, :category
+  attributes :id, :accountname, :description, :cleartext_password, :cleartext_username, :data
 
   belongs_to :folder
+
+  def cleartext_username
+    object.is_a?(Account::Credentials) ? object.cleartext_username : ''
+  end
+
+  def cleartext_password
+    object.is_a?(Account::Credentials) ? object.cleartext_password : ''
+  end
+
+  def data
+    object.is_a?(Account::OSESecret) ? object.data : ''
+  end
 end

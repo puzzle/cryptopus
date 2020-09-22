@@ -88,7 +88,7 @@ class User < ApplicationRecord
   end
 
   def human?
-    self.is_a?(User::Human)
+    is_a?(User::Human)
   end
 
   private

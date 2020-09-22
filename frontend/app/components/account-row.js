@@ -53,7 +53,8 @@ export default class AccountRowComponent extends Component {
     }
   }
 
-  @action copyUsername() {
+  @action
+  copyUsername() {
     let username = this.args.account.cleartextUsername;
     if(isNone(username)) {
       this.fetchAccount().then(a => {

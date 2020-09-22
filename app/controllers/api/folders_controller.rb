@@ -19,8 +19,8 @@ class Api::FoldersController < ApiController
     super
   end
 
-  def show(options = {})
-    super({ render_options: { serializer: FolderMinimalSerializer }})
+  def show(_options = {})
+    super({ render_options: { serializer: FolderMinimalSerializer } })
   end
 
   private
