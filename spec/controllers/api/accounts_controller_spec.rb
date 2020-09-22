@@ -12,6 +12,7 @@ describe Api::AccountsController do
   let(:plaintext_team_password) { teams(:team1).decrypt_team_password(bob, private_key) }
   let(:nested_models) { ['folder'] }
   let(:attributes) { %w[accountname cleartext_password cleartext_username] }
+  let!(:ose_secret) { create_ose_secret }
 
   context 'GET index' do
     it 'returns account with matching name' do
@@ -93,7 +94,7 @@ describe Api::AccountsController do
       account = accounts(:account1)
       folder = account.folder
 
-      expect(data.count).to eq 2
+      expect(data.count).to eq 1
       expect(account1_json_attributes['accountname']).to eq account.accountname
       expect(account1_json['id']).to eq account.id.to_s
       expect(account1_json_attributes['cleartext_username']).to be_nil
@@ -127,7 +128,7 @@ describe Api::AccountsController do
   end
 
   context 'GET show' do
-    it 'returns decrypted account' do
+    it 'returns decrypted credentials account' do
       login_as(:bob)
       account = accounts(:account1)
 
@@ -139,6 +140,21 @@ describe Api::AccountsController do
       expect(account1_json_attributes['accountname']).to eq 'account1'
       expect(account1_json_attributes['cleartext_username']).to eq 'test'
       expect(account1_json_attributes['cleartext_password']).to eq 'password'
+      expect_json_object_includes_keys(account1_json_relationships, nested_models)
+    end
+
+    it 'returns decrypted ose_secret account' do
+      request.headers['Authorization-User'] = alice.username
+      request.headers['Authorization-Password'] = Base64.encode64('password')
+
+      get :show, params: { id: ose_secret.id }, xhr: true
+
+      account1_json_attributes = data['attributes']
+      account1_json_relationships = data['relationships']
+
+      decrypted_data = account1_json_attributes['data']
+      expect(account1_json_attributes['accountname']).to eq 'ose_secret'
+      expect(decrypted_data['ose_secret']).to eq example_private_key
       expect_json_object_includes_keys(account1_json_relationships, nested_models)
     end
 
@@ -322,7 +338,7 @@ describe Api::AccountsController do
   end
 
   context 'PATCH update' do
-    it 'updates account with valid params structure' do
+    it 'updates credentials account with valid params structure' do
       set_auth_headers
 
       account = accounts(:account1)
@@ -349,6 +365,37 @@ describe Api::AccountsController do
       expect(account1_json_attributes['accountname']).to eq 'Bob Meyer'
       expect(account1_json_attributes['cleartext_username']).to eq 'globi'
       expect(account1_json_attributes['cleartext_password']).to eq 'petzi'
+
+      expect(response).to have_http_status(200)
+    end
+
+    it 'updates ose_secret account with valid params structure and adjust data property' do
+      set_auth_headers
+
+      account = ose_secret
+      updated_ose_secret_data = {
+        name: 'example secret',
+        password: 'dvF2jc1JA'
+      }.to_yaml
+      account_params = {
+        data: {
+          id: account.id,
+          attributes: {
+            accountname: 'updated ose secret',
+            data: {
+              ose_secret: updated_ose_secret_data
+            }
+          },
+          relationships: { folder: { data: { id: account.folder_id, type: 'folders' } } }
+        }, id: account.id
+      }
+      patch :update, params: account_params, xhr: true
+
+      account.reload
+
+      account.decrypt(plaintext_team_password)
+      expect(account.accountname).to eq 'updated ose secret'
+      expect(account.data.ose_secret).to eq updated_ose_secret_data
 
       expect(response).to have_http_status(200)
     end
@@ -481,16 +528,14 @@ describe Api::AccountsController do
       request.headers['Authorization-User'] = api_user.username
       request.headers['Authorization-Password'] = token
 
-      account = accounts(:ose_secret)
+      account = ose_secret
 
       account_params = {
         data: {
           id: account.id,
           attributes: {
             accountname: 'updated secret',
-            tag: 'taggy',
-            cleartext_username: 'globi',
-            cleartext_password: 'petzi'
+            tag: 'taggy'
           },
           relationships: { folder: { data: { id: account.folder_id, type: 'folders' } } }
         }, id: account.id
@@ -503,32 +548,8 @@ describe Api::AccountsController do
 
       account.decrypt(plaintext_team_password)
       expect(account1_json_attributes['accountname']).to eq 'updated secret'
-      expect(account1_json_attributes['cleartext_username']).to eq 'globi'
-      expect(account1_json_attributes['cleartext_password']).to eq 'petzi'
 
       expect(response).to have_http_status(200)
-    end
-
-    it 'can not update openshift secret as non api user' do
-      login_as(:bob)
-
-      account = accounts(:ose_secret)
-
-      account_params = {
-        data: {
-          id: account.id,
-          attributes: {
-            accountname: 'Bob Meyer',
-            tag: 'taggy',
-            cleartext_username: 'globi',
-            cleartext_password: 'petzi'
-          },
-          relationships: { folder: { data: { id: account.folder_id, type: 'folders' } } }
-        }, id: account.id
-      }
-      patch :update, params: account_params, xhr: true
-
-      expect(response).to have_http_status(403)
     end
   end
 
@@ -542,6 +563,7 @@ describe Api::AccountsController do
       new_account_params = {
         data: {
           attributes: {
+            type: 'credentials',
             accountname: 'New Account'
           },
           relationships: {
@@ -602,7 +624,7 @@ describe Api::AccountsController do
         data: {
           attributes: {
             accountname: 'New Account',
-            category: 'openshift_secret'
+            type: 'ose_secret'
           },
           relationships: {
             folder: {
@@ -620,34 +642,6 @@ describe Api::AccountsController do
       end.to change { Account.count }.by(1)
 
       expect(response).to have_http_status(201)
-    end
-
-    it 'can not create openshift secret if not api user' do
-      set_auth_headers
-
-      login_as(:alice)
-      folder = folders(:folder1)
-
-      new_account_params = {
-        data: {
-          attributes: {
-            accountname: 'New Account',
-            category: 'openshift_secret'
-          },
-          relationships: {
-            folder: {
-              data: {
-                id: folder.id,
-                type: 'folders'
-              }
-            }
-          }
-        }
-      }
-
-      post :create, params: new_account_params, xhr: true
-
-      expect(response).to have_http_status(403)
     end
 
     context 'DELETE destroy' do
@@ -680,6 +674,22 @@ describe Api::AccountsController do
   end
 
   private
+
+  def create_ose_secret
+    secret = Account::OSESecret.new(accountname: 'ose_secret',
+                                    folder: folders(:folder1),
+                                    data: {
+                                      ose_secret: example_private_key
+                                    })
+
+    secret.encrypt(plaintext_team_password)
+    secret.save!
+    secret
+  end
+
+  def example_private_key
+    Base64.strict_decode64(FixturesHelper.read_account_file('example_secret.secret'))
+  end
 
   def token
     decrypted_token = api_user.send(:decrypt_token, private_key)

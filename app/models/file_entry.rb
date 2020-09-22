@@ -99,8 +99,7 @@ class FileEntry < ApplicationRecord
   def encrypt_file(team_password)
     return if cleartext_file.nil? || cleartext_file.empty?
 
-    crypted_file = CryptUtils.encrypt_blob(cleartext_file, team_password)
-    self.file = crypted_file
+    self.file = CryptUtils.encrypt_blob(cleartext_file, team_password)
   end
   # rubocop:enable Rails/Blank
 end

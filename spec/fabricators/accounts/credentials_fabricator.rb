@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-Fabricator(:account) do
+Fabricator(:account, from: 'Account::Credentials') do
   transient :team_password
   accountname { Faker::Team.creature }
   cleartext_username { Faker::Internet.user_name }

@@ -17,6 +17,7 @@ describe Account do
     params = {}
     params[:accountname] = 'account1'
     params[:folder_id] = folders(:folder1).id
+    params[:type] = 'Account::Credentials'
     account = Account.new(params)
     expect(account).to_not be_valid
     expect(account.errors.keys).to eq([:accountname])
@@ -26,6 +27,7 @@ describe Account do
     params = {}
     params[:accountname] = 'account1'
     params[:folder_id] = folders(:folder2).id
+    params[:type] = 'Account::Credentials'
     account = Account.new(params)
     expect(account).to be_valid
   end
@@ -76,6 +78,7 @@ describe Account do
     params[:username] = 'foo'
     params[:password] = 'foo'
     params[:description] = 'foo foo'
+    params[:type] = 'Account::Credentials'
 
     account = Account.new(params)
 
