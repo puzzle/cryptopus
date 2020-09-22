@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 class Api::AccountsController < ApiController
-  self.permitted_attrs = [:accountname, :description, :cleartext_username, :category,
+  self.permitted_attrs = [:accountname, :description, :cleartext_username, { data: :ose_secret },
                           :folder_id, :cleartext_password, :tag]
 
   helper_method :team
@@ -19,7 +19,7 @@ class Api::AccountsController < ApiController
 
   # POST /api/accounts
   def create
-    @account = Account.new(model_params)
+    build_entry
     authorize @account
     account.encrypt(decrypted_team_password(team))
     if @account.save
@@ -44,6 +44,18 @@ class Api::AccountsController < ApiController
   end
 
   private
+
+  def model_class
+    if action_name == 'create'
+      case params.dig('data', 'attributes', 'type')
+      when 'credentials' then Account::Credentials
+      when 'ose_secret' then Account::OSESecret
+      else super
+      end
+    else
+      super
+    end
+  end
 
   def fetch_entries
     accounts = current_user.accounts
@@ -77,5 +89,9 @@ class Api::AccountsController < ApiController
 
   def account_move_handler
     AccountMoveHandler.new(account, session[:private_key], current_user)
+  end
+
+  def ivar_name
+    Account.model_name.param_key
   end
 end

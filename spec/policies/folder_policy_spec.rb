@@ -60,14 +60,6 @@ describe FolderPolicy do
     end
   end
 
-  context 'as api user' do
-    it 'is not allowed to show folder' do
-      expect do
-        FolderPolicy.new(api_user, folder2)
-      end.to raise_error(Pundit::NotAuthorizedError)
-    end
-  end
-
   private
 
   def api_user

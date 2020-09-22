@@ -63,6 +63,9 @@ Layout/ClassStructure:
 Naming/MemoizedInstanceVariableName:
   Enabled: false
 
+Naming/MethodParameterName:
+  Enabled: false
+
 # We thinks that's fine
 Rails/EnumHash:
   Enabled: false

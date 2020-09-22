@@ -23,7 +23,7 @@ export default class AccountForm extends BaseFormComponent {
   constructor() {
     super(...arguments);
 
-    this.record = this.args.account || this.store.createRecord("account");
+    this.record = this.args.account || this.store.createRecord("account-credential");
     this.isNewRecord = this.record.isNew;
 
     this.changeset = new Changeset(

@@ -37,6 +37,11 @@ class FixturesHelper
       read_file(filepath)
     end
 
+    def read_account_file(item)
+      filepath = "accounts/#{item}"
+      read_file(filepath)
+    end
+
     private
 
     def read_file(filepath)

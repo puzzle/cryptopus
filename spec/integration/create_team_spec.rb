@@ -51,5 +51,4 @@ describe 'Create team' do
 
     "/accounts/#{account.id}"
   end
-
 end
