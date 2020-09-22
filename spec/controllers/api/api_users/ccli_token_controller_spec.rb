@@ -24,8 +24,7 @@ describe Api::ApiUsers::CcliTokenController do
 
       expect(api_user).to_not be_locked
       decoded_token = Base64.decode64(json['ccli_token'])
-      received_username = decoded_token.split(';').first
-      received_token = decoded_token.split(';').second
+      received_username, received_token = decoded_token.split(':')
       expect(received_username).to eq(@username)
       renewed_token = api_user.send(:decrypt_token, private_key)
       expect(received_token).to eq(renewed_token)

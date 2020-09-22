@@ -19,6 +19,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 account1:
+  type: Account::Credentials
   accountname: account1
   description: description1
   folder: folder1
@@ -26,17 +27,10 @@ account1:
   password: <%= "!!binary \"#{FixturesHelper.read_account_password('team1', 'account1')}\"" %>
 
 account2:
+  type: Account::Credentials
   accountname: account2
   description: description2
   folder: folder2
   username: <%= "!!binary \"#{FixturesHelper.read_account_username('team2', 'account2')}\"" %>
   password: <%= "!!binary \"#{FixturesHelper.read_account_password('team2', 'account2')}\"" %>
   tag: tag
-
-ose_secret:
-  accountname: ose_secret
-  accountname: secret description
-  folder: folder1
-  category: 1
-  username: <%= "!!binary \"#{FixturesHelper.read_account_username('team1', 'ose_secret')}\"" %>
-  password: <%= "!!binary \"#{FixturesHelper.read_account_password('team1', 'ose_secret')}\"" %>
