@@ -35,6 +35,14 @@ class Account < ApplicationRecord
 
   serialize :encrypted_data, EncryptedData
 
+  def encrypt
+    raise 'implement in subclass'
+  end
+
+  def decrypt
+    raise 'implement in subclass'
+  end
+
   def self.policy_class
     AccountPolicy
   end
