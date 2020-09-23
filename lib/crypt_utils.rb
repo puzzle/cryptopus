@@ -110,20 +110,21 @@ class CryptUtils
       decrypted_blob.force_encoding('UTF-8')
     end
 
-    def encrypt_base64(data, cipher_key, iv)
+    def encrypt_base64(data, encryption_key)
       cipher = OpenSSL::Cipher.new(@@cypher)
       cipher.encrypt
-      cipher.key = cipher_key
+      cipher.key = encryption_key
+      iv = random_iv
       cipher.iv = iv
       encrypted_data = cipher.update(data)
       encrypted_data << cipher.final
-      Base64.strict_encode64(encrypted_data)
+      [Base64.strict_encode64(encrypted_data), iv]
     end
 
-    def decrypt_base64(data, cipher_key, iv)
+    def decrypt_base64(data, encryption_key, iv)
       cipher = OpenSSL::Cipher.new(@@cypher)
       cipher.decrypt
-      cipher.key = cipher_key
+      cipher.key = encryption_key
       cipher.iv = iv
       decrypted_data = cipher.update(Base64.strict_decode64(data))
       decrypted_data << cipher.final
