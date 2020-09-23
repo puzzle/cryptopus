@@ -1,7 +1,6 @@
 class AddTypeAndEncryptedDataToAccount < ActiveRecord::Migration[6.0]
   def up
     add_column :accounts, :type, :string, default: 'Account::Credentials', null: false
-    change_column :accounts, :type, :string, default: nil
     add_column :accounts, :encrypted_data, :text
   end
 
