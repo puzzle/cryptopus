@@ -5,10 +5,19 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 class Api::AccountsController < ApiController
-  self.permitted_attrs = [:accountname, :description, :cleartext_username, { data: :ose_secret },
+  self.permitted_attrs = [:accountname, :description, :cleartext_username, :ose_secret,
                           :folder_id, :cleartext_password, :tag]
 
   helper_method :team
+
+  # GET /api/accounts
+  def index(options = {})
+    authorize Account
+    render({ json: fetch_entries,
+             root: model_root_key.pluralize }
+           .merge(render_options)
+           .merge(options.fetch(:render_options, {})))
+  end
 
   # GET /api/accounts/:id
   def show
@@ -45,6 +54,7 @@ class Api::AccountsController < ApiController
 
   private
 
+  # rubocop:disable Metrics/MethodLength
   def model_class
     if action_name == 'create'
       case params.dig('data', 'attributes', 'type')
@@ -52,10 +62,13 @@ class Api::AccountsController < ApiController
       when 'ose_secret' then Account::OSESecret
       else super
       end
+    elsif @account.present?
+      @account.class
     else
       super
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def fetch_entries
     accounts = current_user.accounts
@@ -93,5 +106,9 @@ class Api::AccountsController < ApiController
 
   def ivar_name
     Account.model_name.param_key
+  end
+
+  def model_serializer
+    "#{model_class.name}Serializer".constantize
   end
 end

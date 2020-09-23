@@ -110,28 +110,24 @@ class CryptUtils
       decrypted_blob.force_encoding('UTF-8')
     end
 
-    def encrypt_data(data, team_password)
+    def encrypt_base64(data, cipher_key, iv)
       cipher = OpenSSL::Cipher.new(@@cypher)
       cipher.encrypt
-      cipher.key = team_password
-      iv = random_iv
+      cipher.key = cipher_key
       cipher.iv = iv
-      encrypted_data = cipher.update(Account::Data.dump(data))
+      encrypted_data = cipher.update(data)
       encrypted_data << cipher.final
-      encrypted_data.force_encoding('UTF-8')
-      Account::EncryptedData.new(iv: Base64.strict_encode64(iv),
-                                 data: Base64.strict_encode64(encrypted_data))
+      Base64.strict_encode64(encrypted_data)
     end
 
-    def decrypt_data(data, team_password)
+    def decrypt_base64(data, cipher_key, iv)
       cipher = OpenSSL::Cipher.new(@@cypher)
       cipher.decrypt
-      cipher.key = team_password
-      cipher.iv = Base64.strict_decode64(data.iv)
-      decrypted_data = cipher.update(Base64.strict_decode64(data.data))
+      cipher.key = cipher_key
+      cipher.iv = iv
+      decrypted_data = cipher.update(Base64.strict_decode64(data))
       decrypted_data << cipher.final
       decrypted_data.force_encoding('UTF-8')
-      Account::Data.load(decrypted_data)
     end
 
     def random_iv
