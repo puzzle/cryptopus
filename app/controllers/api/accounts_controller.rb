@@ -53,21 +53,16 @@ class Api::AccountsController < ApiController
 
   private
 
-  # rubocop:disable Metrics/MethodLength
   def model_class
-    if action_name == 'create'
-      case params.dig('data', 'attributes', 'type')
-      when 'credentials' then Account::Credentials
-      when 'ose_secret' then Account::OSESecret
-      else super
-      end
+    if action_name == 'create' &&
+       params.dig('data', 'attributes', 'type') == 'ose_secret'
+      Account::OSESecret
     elsif @account.present?
       @account.class
     else
-      super
+      Account::Credentials
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def fetch_entries
     accounts = current_user.accounts
