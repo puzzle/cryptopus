@@ -5,8 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 class Api::AccountsController < ApiController
-  self.permitted_attrs = [:accountname, :description, :cleartext_username, :ose_secret,
-                          :folder_id, :cleartext_password, :tag]
+  self.permitted_attrs = [:accountname, :description, :folder_id, :tag]
 
   helper_method :team
 
@@ -110,5 +109,17 @@ class Api::AccountsController < ApiController
 
   def model_serializer
     "#{model_class.name}Serializer".constantize
+  end
+
+  def permitted_attrs
+    permitted_attrs = self.class.permitted_attrs.deep_dup
+
+    if model_class == Account::OSESecret
+      permitted_attrs << :ose_secret
+    elsif model_class == Account::Credentials
+      permitted_attrs + [:cleartext_username, :cleartext_password]
+    else
+      permitted_attrs
+    end
   end
 end
