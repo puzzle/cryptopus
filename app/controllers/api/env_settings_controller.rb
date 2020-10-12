@@ -7,6 +7,7 @@ class Api::EnvSettingsController < ApiController
   before_action :skip_authorization
 
   def index
+    base_url = ENV['RAILS_HOST_NAME'] ? "https://#{ENV['RAILS_HOST_NAME']}" : request.base_url
     render_json(sentry: ENV['SENTRY_DSN_FRONTEND'],
                 current_user: { id: current_user.id,
                                 role: current_user.role,
@@ -14,7 +15,8 @@ class Api::EnvSettingsController < ApiController
                                 preferred_locale: current_user.preferred_locale },
                 last_login_message: last_login_message,
                 version: version_number,
-                csrf_token: form_authenticity_token)
+                csrf_token: form_authenticity_token,
+                base_url: base_url)
   end
 
   private
