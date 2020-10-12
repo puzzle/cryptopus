@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
 class User::ApiPolicy < ApplicationPolicy
+  def initialize(user, record)
+    @user = user
+    @record = record
+  end
+
   def index?
-    user.is_a?(User::Human)
+    true
   end
 
   def create?
@@ -32,6 +37,6 @@ class User::ApiPolicy < ApplicationPolicy
   private
 
   def own_api_user?
-    @record.human_user_id == @user.id
+    @record.human_user_id == @user.id || @record.id == @user.id
   end
 end
