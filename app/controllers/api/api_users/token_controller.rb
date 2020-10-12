@@ -12,9 +12,12 @@ class Api::ApiUsers::TokenController < ApiController
   # GET /api/api_users/:id/token
   def show
     authorize api_user
-    add_info(t('flashes.api.api-users.token.renew',
-               username: api_user.username, token: renew_token))
-    render_json
+    renewed_token = renew_token
+    render_json(info: [t('flashes.api.api-users.token.renew',
+                         username: api_user.username, token: renewed_token)],
+                errors: [],
+                token: renewed_token,
+                username: api_user.username)
   end
 
   # DELETE /api/api_users/:id/token
