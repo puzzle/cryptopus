@@ -57,6 +57,8 @@ class Api::AccountsController < ApiController
     if action_name == 'create' &&
        params.dig('data', 'attributes', 'type') == 'ose_secret'
       Account::OSESecret
+    elsif action_name == 'destroy'
+      Account
     elsif @account.present?
       @account.class
     else
