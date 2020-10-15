@@ -1,5 +1,11 @@
 # Cryptopus Changelog
 
+## Version 3.5
+- [CCLI](https://github.com/puzzle/ccli) login command copy button
+- Reduce amount of rendered accounts to fight performance issues
+- Add openshift secrets as account type
+- Adjust policies to improve usage options as api user
+
 ## Version 3.4
 - Responsive Design
 - Switch from AccountCards to AccountRows
