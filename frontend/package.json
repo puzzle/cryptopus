@@ -81,7 +81,6 @@
     "@sentry/browser": "^5.16.1",
     "@sentry/integrations": "^5.16.1",
     "clean-css": "^4.2.3",
-    "easytimer": "^1.1.1",
     "ember-cli-shims": "^1.2.0",
     "minimist": "^1.2.5",
     "text-security": "^3.1.1"

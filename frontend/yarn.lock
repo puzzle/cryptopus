@@ -4798,11 +4798,6 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
-easytimer@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/easytimer/-/easytimer-1.1.1.tgz#1addde725646de2592430d03048a748d63354e94"
-  integrity sha1-Gt3eclZG3iWSQw0DBIp0jWM1TpQ=
-
 ecc-jsbn@~0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.2.tgz#3a83a904e54353287874c564b7549386849a98c9"

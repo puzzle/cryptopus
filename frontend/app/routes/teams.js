@@ -1,3 +1,3 @@
-import Route from "@ember/routing/route";
+import BaseRoute from "./base";
 
-export default class TeamsRoute extends Route {}
+export default class TeamsRoute extends BaseRoute {}
