@@ -5,34 +5,41 @@ export default class LogoutTimerService extends Service {
   @tracked timeToLogoff;
 
   AUTOLOGOFF_TIME = 295;
-  /* eslint-disable no-undef  */
-  logoutTimer = new Timer();
-  /* eslint-enable no-undef  */
+
+  countDownDate;
+
+  timerInterval;
 
   reset() {
-    if (this.logoutTimer.isRunning()) {
+    if (this.timerInterval) {
       /* eslint-disable no-undef  */
-      this.logoutTimer = new Timer();
+      clearInterval(this.timerInterval)
       /* eslint-enable no-undef  */
     }
   }
 
   isRunning() {
-    return this.logoutTimer.isRunning();
+    return !!this.timerInterval;
   }
 
   start() {
     this.reset();
-    this.logoutTimer.start();
+    this.countDownDate = new Date().getTime();
 
-    this.logoutTimer.addEventListener("secondsUpdated", () => {
-      let passedTime = this.logoutTimer.getTotalTimeValues().seconds;
-      if (passedTime >= this.AUTOLOGOFF_TIME) {
+    this.timerInterval = setInterval(() => {
+
+      let now = new Date().getTime();
+
+      let passedTime = now - this.countDownDate;
+
+      let passedTimeInSeconds = Math.floor(passedTime / 1000);
+
+      if (passedTimeInSeconds >= this.AUTOLOGOFF_TIME) {
         this.resetSession();
       } else {
-        this.calculateTimeToLogoff(passedTime);
+        this.calculateTimeToLogoff(passedTimeInSeconds);
       }
-    });
+    }, 1000);
   }
 
   resetSession() {
