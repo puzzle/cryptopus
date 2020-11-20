@@ -12,7 +12,10 @@ export default class AccountRowComponent extends Component {
   @service notify;
 
   HIDE_TIME = 5;
-  hideTimer;
+
+  passwordHideCountdownTime;
+
+  passwordHideTimerInterval;
 
   @tracked
   isAccountEditing = false;
@@ -22,22 +25,6 @@ export default class AccountRowComponent extends Component {
 
   @tracked
   isUsernameVisible = false;
-
-  constructor() {
-    (super(...arguments));
-
-    /* eslint-disable no-undef  */
-    this.hideTimer = new Timer();
-    /* eslint-enable no-undef  */
-
-    this.hideTimer.addEventListener('secondsUpdated', () => {
-      let passedTime = this.hideTimer.getTotalTimeValues().seconds
-      if (passedTime === this.HIDE_TIME) {
-        this.isPasswordVisible = false;
-        this.hideTimer.stop();
-      }
-    })
-  }
 
   @action
   copyPassword() {
@@ -103,7 +90,21 @@ export default class AccountRowComponent extends Component {
   showPassword() {
     this.fetchAccount();
     this.isPasswordVisible = true;
-    this.hideTimer.start()
+
+    this.passwordHideCountdownTime = new Date().getTime();
+
+    this.passwordHideTimerInterval = setInterval(() => {
+      let now = new Date().getTime();
+
+      let passedTime = now - this.passwordHideCountdownTime;
+
+      let passedTimeInSeconds = Math.floor(passedTime / 1000);
+
+      if (passedTimeInSeconds >= this.HIDE_TIME) {
+        this.isPasswordVisible = false;
+        clearInterval(this.passwordHideTimerInterval)
+      } 
+    }, 1000);
   }
 
   @action
