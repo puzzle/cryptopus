@@ -72,7 +72,7 @@ describe Api::TeamsController do
       included_types = json['included'].map { |e| e['type'] }
 
       expect(included_types).to include('folders')
-      expect(included_types).to include('accounts')
+      expect(included_types).to include('account_credentials')
 
       expect(attributes['name']).to eq team1.name
       expect(attributes['description']).to eq team1.description
@@ -99,7 +99,7 @@ describe Api::TeamsController do
       included_types = json['included'].map { |e| e['type'] }
 
       expect(included_types).to include('folders')
-      expect(included_types).to include('accounts')
+      expect(included_types).to include('account_credentials')
 
       expect(attributes['name']).to eq team1.name
       expect(attributes['description']).to eq team1.description
@@ -154,7 +154,7 @@ describe Api::TeamsController do
       expect(attributes_first_team['description']).to eq team2.description
 
       folders = included.select { |element| element['type'] == 'folders' }
-      accounts = included.select { |element| element['type'] == 'accounts' }
+      accounts = included.select { |element| element['type'] == 'account_credentials' }
 
       expect(folders.first['attributes']['name']).to eq(folder2.name)
       expect(folders).not_to include(folder1.name)

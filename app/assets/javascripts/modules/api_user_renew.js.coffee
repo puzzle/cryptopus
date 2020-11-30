@@ -46,10 +46,23 @@ class app.ApiUserRenew
     else
       api_user.valid_until
 
+  clipCcliToken = (id) ->
+    $.ajax({
+      type: "GET",
+      url: '/api/api_users/' + id + '/token',
+      success: (token) ->
+        ccli_token = btoa(token.username + ':' + token.token).toString('base64');
+        navigator.clipboard.writeText("cry login #{ccli_token}@#{window.origin}")
+    })
+
   bind = ->
     $(document).on 'click', '#renew-user', (e) ->
       e.preventDefault()
       user_id = id(this)
       renewApiUser(user_id)
+    $(document).on 'click', '#clip-ccli-token', (e) ->
+      e.preventDefault()
+      user_id = id(this)
+      clipCcliToken(user_id)
 
   new ApiUserRenew

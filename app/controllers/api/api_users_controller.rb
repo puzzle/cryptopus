@@ -13,7 +13,11 @@ class Api::ApiUsersController < ApiController
   end
 
   def fetch_entries
-    current_user.api_users
+    if current_user.is_a?(User::Human)
+      current_user.api_users
+    else
+      current_user.human_user.api_users
+    end
   end
 
   def valid_for(param)

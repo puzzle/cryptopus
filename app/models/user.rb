@@ -87,6 +87,10 @@ class User < ApplicationRecord
       where(teammembers: { user_id: id })
   end
 
+  def human?
+    is_a?(User::Human)
+  end
+
   private
 
   def user_is_allowed?

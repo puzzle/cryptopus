@@ -5,10 +5,18 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 class Api::AccountsController < ApiController
-  self.permitted_attrs = [:accountname, :description, :cleartext_username,
-                          :folder_id, :cleartext_password, :tag]
+  self.permitted_attrs = [:accountname, :description, :folder_id, :tag]
 
   helper_method :team
+
+  # GET /api/accounts
+  def index(options = {})
+    authorize Account
+    render({ json: fetch_entries,
+             root: model_root_key.pluralize }
+           .merge(render_options)
+           .merge(options.fetch(:render_options, {})))
+  end
 
   # GET /api/accounts/:id
   def show
@@ -19,9 +27,9 @@ class Api::AccountsController < ApiController
 
   # POST /api/accounts
   def create
-    @account = Account.new(model_params)
+    build_entry
     authorize @account
-    account.encrypt(plaintext_team_password(team))
+    account.encrypt(decrypted_team_password(team))
     if @account.save
       @response_status = :created
       render_json @account
@@ -44,6 +52,19 @@ class Api::AccountsController < ApiController
   end
 
   private
+
+  def model_class
+    if action_name == 'create' &&
+       params.dig('data', 'attributes', 'type') == 'ose_secret'
+      Account::OSESecret
+    elsif action_name == 'destroy'
+      Account
+    elsif @account.present?
+      @account.class
+    else
+      Account::Credentials
+    end
+  end
 
   def fetch_entries
     accounts = current_user.accounts
@@ -77,5 +98,25 @@ class Api::AccountsController < ApiController
 
   def account_move_handler
     AccountMoveHandler.new(account, session[:private_key], current_user)
+  end
+
+  def ivar_name
+    Account.model_name.param_key
+  end
+
+  def model_serializer
+    "#{model_class.name}Serializer".constantize
+  end
+
+  def permitted_attrs
+    permitted_attrs = self.class.permitted_attrs.deep_dup
+
+    if model_class == Account::OSESecret
+      permitted_attrs << :ose_secret
+    elsif model_class == Account::Credentials
+      permitted_attrs + [:cleartext_username, :cleartext_password]
+    else
+      permitted_attrs
+    end
   end
 end

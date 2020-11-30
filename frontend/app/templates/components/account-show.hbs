@@ -13,14 +13,16 @@
         </span>
       </a>
     </div>
-    <div class="col-auto d-flex justify-content-between align-items-center">
-      <DeleteWithConfirmation @class="btn btn-light edit_button" @record={{@account}} @didDelete={{this.refreshRoute}}>
-        <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
-      </DeleteWithConfirmation>
-      <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleAccountEdit}}>
-        <img class="icon-button" src="/assets/images/edit.svg" alt="edit">
-      </a>
-    </div>
+    {{#unless @account.isOseSecret}}
+      <div class="col-auto d-flex justify-content-between align-items-center">
+        <DeleteWithConfirmation @class="btn btn-light edit_button" @record={{@account}} @didDelete={{this.refreshRoute}}>
+          <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
+        </DeleteWithConfirmation>
+        <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleAccountEdit}}>
+          <img class="icon-button" src="/assets/images/edit.svg" alt="edit">
+        </a>
+      </div>
+    {{/unless}}
   </div>
   <div class="row pb-3 justify-content-between">
     <div class="col accountname">
@@ -36,19 +38,29 @@
     </div>
   {{/if}}
   <div>
-    <div class="result-username">
-      <Input id="cleartext_username" class="d-inline form-control" @disabled="true" @value={{@account.cleartextUsername}}/>
-      <CopyButton class="copy-btn btn btn-light" @clipboardText={{@account.cleartextUsername}}>
-        <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-      </CopyButton>
-    </div>
-    <a role="button" class="correct-pixel-error-omg show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "accounts.show.show_password"}}</a>
-    <div class="result-password">
-      <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
-      <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextPassword}}>
-        <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-      </CopyButton>
-    </div>
+    {{#if @account.isOseSecret}}
+      <a role="button" class="correct-pixel-error-omg show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "accounts.show.show_secret"}}</a>
+      <div class="result-password">
+        <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@account.data.ose_secret}}/>
+        <CopyButton class="btn btn-light" @clipboardText={{@account.data.ose_secret}}>
+          <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+        </CopyButton>
+      </div>
+    {{else}}
+      <div class="result-username">
+        <Input id="cleartext_username" class="d-inline form-control" @disabled="true" @value={{@account.cleartextUsername}}/>
+        <CopyButton class="copy-btn btn btn-light" @clipboardText={{@account.cleartextUsername}}>
+          <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+        </CopyButton>
+      </div>
+      <a role="button" class="correct-pixel-error-omg show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "accounts.show.show_password"}}</a>
+      <div class="result-password">
+        <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
+        <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextPassword}}>
+          <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+        </CopyButton>
+      </div> 
+    {{/if}}
   </div>
   <div class="d-flex flex-row justify-content-between mb-2">
     <div>

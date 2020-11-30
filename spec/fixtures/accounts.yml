@@ -19,6 +19,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 account1:
+  type: Account::Credentials
   accountname: account1
   description: description1
   folder: folder1
@@ -26,6 +27,7 @@ account1:
   password: <%= "!!binary \"#{FixturesHelper.read_account_password('team1', 'account1')}\"" %>
 
 account2:
+  type: Account::Credentials
   accountname: account2
   description: description2
   folder: folder2

@@ -18,6 +18,14 @@ class AccountPolicy < TeamDependantPolicy
     team.teammember?(@user.id)
   end
 
+  def update?
+    team.teammember?(@user.id)
+  end
+
+  def destroy?
+    team_member?
+  end
+
   protected
 
   def team

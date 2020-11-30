@@ -8,10 +8,6 @@ addons:
       - libqtwebkit-dev
 rvm:
  - 2.5
-branches:
- only:
-  - stable
-  - master
 before_install:
  - sudo service mysql restart
  - nvm install 10.13.0

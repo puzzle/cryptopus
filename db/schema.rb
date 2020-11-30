@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_23_220242) do
+ActiveRecord::Schema.define(version: 2020_09_17_140436) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "accountname", limit: 70, default: "", null: false
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 2020_06_23_220242) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "tag"
+    t.string "type", default: "Account::Credentials", null: false
+    t.text "encrypted_data"
     t.index ["tag"], name: "index_accounts_on_tag"
   end
 
@@ -76,8 +78,6 @@ ActiveRecord::Schema.define(version: 2020_06_23_220242) do
     t.datetime "updated_at", null: false
     t.boolean "visible", default: true, null: false
     t.boolean "private", default: false, null: false
-    t.integer "team_id"
-    t.index ["team_id"], name: "index_teams_on_team_id"
   end
 
   create_table "user_favourite_teams", force: :cascade do |t|
@@ -106,8 +106,6 @@ ActiveRecord::Schema.define(version: 2020_06_23_220242) do
     t.integer "human_user_id"
     t.text "options"
     t.integer "role", default: 0, null: false
-    t.integer "user_id"
-    t.index ["user_id"], name: "index_users_on_user_id"
   end
 
 end

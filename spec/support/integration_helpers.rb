@@ -44,6 +44,7 @@ module IntegrationHelpers
       account_params = {
         data: {
           attributes: {
+            type: 'credentials',
             accountname: 'puzzle',
             folder_id: folder.id,
             description: 'account_description',
