@@ -371,13 +371,20 @@ en:
         ldap_connection:
           failed: No configured Ldap Server could be reached.
 
-    accounts:
+    accounts: &accounts_translations
       created: Account was successfully created.
       updated: Account was successfully updated.
       deleted: Account was successfully deleted
       moved: Account was successfully moved
       username_copied: Username was copied
       password_copied: Password was copied
+
+    account-credentials:
+      << : *accounts_translations
+
+    account-secrets:
+      << : *accounts_translations
+
     application:
       wait: Wait for the recryption of your team passwords.
     folders:
