@@ -377,13 +377,20 @@ de:
         ldap_connection:
           failed: Kein konfigurierter Ldap-Server konnte erreicht werden.
 
-    accounts:
+    accounts: &accounts_translations
       created: Der neue Account wurde erfolgreich erstellt.
       updated: Der Account wurde erfolgreich aktualisiert.
       deleted: Der Account wurde erfolgreich gelöscht.
       moved: Der Account wurde erfolgreich veschoben
       username_copied: Benutzername wurde kopiert
       password_copied: Passwort wurde kopiert
+
+    account-credentials:
+      << : *accounts_translations
+
+    account-secrets:
+      << : *accounts_translations
+
     application:
       wait: Bitte warten Sie, bis  Ihre Team Passwörter neu verschlüsselt wurden.
     folders:

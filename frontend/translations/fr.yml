@@ -371,13 +371,20 @@ fr:
         ldap_connection:
           failed: Aucunt serveur LDAP configuré n'a pu être atteint.
 
-    accounts:
+    accounts: &accounts_translations
       created: Compte créé avec succès.
       updated: Compte modifiée avec succès.
       deleted: Compte a été supprimé.
       moved: Le team a été déplacé avec succès.
       username_copied: Le nom d'utilisateur a été copié
       password_copied: Le mot de passe a été copié
+
+    account-credentials:
+      << : *accounts_translations
+
+    account-secrets:
+      << : *accounts_translations
+
     application:
       wait: S'il vous plaît attendre jusqu'à ce vos mots de passe a ètè nouveau cryptées.
     folders:

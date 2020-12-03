@@ -385,13 +385,20 @@ ch_be:
         succeed: D Wartigsufgab isch erfougrich düregfüehrt worde
         failed: D Wartigsufgab isch gschiteret. Lueg i de Logs für me Details nache.
 
-    accounts:
+    accounts: &accounts_translations
       created: Dr nöi Account isch erfougrich ersteut worde.
       updated: Dr Account isch erfougrich aktualisiert worde.
       deleted: Dr Account isch erfougrich glöscht worde.
       moved: Der Account isch erfougrich verschobe worde.
       username_copied: Dr Benutzernamä isch kopiert worde
       password_copied: Ds Passwort isch kopiert worde
+
+    account-credentials:
+      << : *accounts_translations
+
+    account-secrets:
+      << : *accounts_translations
+
     application:
       wait: Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde.
     folders:

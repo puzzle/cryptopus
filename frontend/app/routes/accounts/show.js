@@ -18,6 +18,6 @@ export default class AccountShowRoute extends BaseRoute {
   }
 
   model(params) {
-    return this.store.findRecord("account", params.id);
+    return this.store.findRecord("account-credential", params.id);
   }
 }
