@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class KeycloakClient
+# OpenID Connect Client
+
+class OicdClient
 
   def user_pk_secret(secret = nil, access_token = nil)
     pk_secret_base = secret || Keycloak::Client.get_attribute('pk_secret_base', access_token)

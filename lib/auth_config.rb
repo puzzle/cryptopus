@@ -2,7 +2,7 @@
 
 class AuthConfig
 
-  PATH = Rails.root.join('config/auth.yml')
+  AUTH_CONFIG_PATH = Rails.root.join('config/auth.yml')
 
   class << self
     def auth_config
@@ -13,8 +13,8 @@ class AuthConfig
       auth_config.ldap.dup
     end
 
-    def keycloak_enabled?
-      auth_config.keycloak?
+    def oicd_enabled?
+      auth_config.oicd?
     end
 
     def ldap_enabled?
@@ -34,8 +34,12 @@ class AuthConfig
     settings_file[:provider]
   end
 
-  def keycloak?
-    provider == 'keycloak'
+  def oicd?
+    provider == 'openid-connect'
+  end
+
+  def oicd
+    settings_file[:oicd]
   end
 
   def ldap?
@@ -59,10 +63,10 @@ class AuthConfig
   def load_file
     return { provider: 'db' } unless valid_file?
 
-    YAML.safe_load(File.read(PATH)).deep_symbolize_keys
+    YAML.safe_load(File.read(AUTH_CONFIG_PATH)).deep_symbolize_keys
   end
 
   def valid_file?
-    File.exist?(PATH) && !File.zero?(PATH)
+    File.exist?(AUTH_CONFIG_PATH) && !File.zero?(AUTH_CONFIG_PATH)
   end
 end

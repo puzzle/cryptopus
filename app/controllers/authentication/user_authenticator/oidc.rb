@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
+class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticator
 
   def authenticate!
     return false if access_token.nil?
@@ -50,7 +50,7 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
     recrypt_sso_path
   end
 
-  def keycloak_signed_in?
+  def oicd_signed_in?
     return false if access_token.nil?
 
     Keycloak::Client.user_signed_in?(access_token)
@@ -127,7 +127,7 @@ class Authentication::UserAuthenticator::Sso < Authentication::UserAuthenticator
     false
   end
 
-  def keycloak_client
-    @keycloak_client ||= KeycloakClient.new
+  def oicd_client
+    @oicd_client ||= OicdClient.new
   end
 end

@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Session::SsoController < SessionController
+class Session::OicdController < SessionController
 
   layout 'session', only: :inactive
 

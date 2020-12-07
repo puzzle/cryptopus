@@ -13,11 +13,8 @@ def legacy_encrypt_private_key(private_key, password)
   encrypted_private_key
 end
 
-def enable_keycloak
-  expect_any_instance_of(AuthConfig)
-    .to receive(:settings_file)
-    .at_least(:once)
-    .and_return(provider: 'keycloak')
+def enable_openid_connect
+  allow(AuthConfig).to receive(:settings_file).and_return(oicd_settings)
 end
 
 def enable_ldap
@@ -43,5 +40,14 @@ def ldap_settings
     hostnames: ['example_hostname'],
     basename: 'ou=users,dc=acme',
     portnumber: 636
+  }
+end
+
+def oicd_settings
+  {
+    provider: 'openid-connect'
+    oicd: {
+      redirect_uri: 'https://oicd.example.com/auth'
+    }
   }
 end

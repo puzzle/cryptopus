@@ -15,9 +15,9 @@ Rails.application.routes.draw do
   namespace :recrypt do
     get 'ldap', to: 'ldap#new'
     post 'ldap', to: 'ldap#create'
-    if AuthConfig.keycloak_enabled?
-      get 'sso', to: 'sso#new'
-      post 'sso', to: 'sso#create'
+    if AuthConfig.oicd_enabled?
+      get 'oicd', to: 'oicd#new'
+      post 'oicd', to: 'oicd#create'
     end
   end
 
