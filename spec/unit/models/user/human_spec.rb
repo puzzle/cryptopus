@@ -167,7 +167,6 @@ describe User::Human do
 
     it 'shows new error on user if wrong new password at private_key recryption' do
       enable_ldap
-      mock_ldap_settings
       ldap = double
 
       expect(LdapConnection).to receive(:new).at_least(:once).and_return(ldap)

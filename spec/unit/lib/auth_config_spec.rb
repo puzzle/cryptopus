@@ -57,6 +57,22 @@ describe AuthConfig do
     end
   end
 
+  context '#oicd_settings' do
+    it 'should return all openid connect settings' do
+      enable_openid_connect
+
+      expect(auth.oicd?).to eq(true)
+      settings = auth.oicd
+
+      expect(settings[:port]).to eq(443)
+      expect(settings[:scheme]).to eq('https')
+      expect(settings[:host]).to eq('oicd.example.com')
+      expect(settings[:secret]).to eq('verysecretsecret42')
+      expect(settings[:redirect_uri]).to eq('https://oicd.example.com/auth')
+    end
+  end
+
+
   def settings_file(file)
     YAML.safe_load(File.read("spec/fixtures/files/auth/#{file}")).deep_symbolize_keys
   end

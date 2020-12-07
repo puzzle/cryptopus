@@ -14,39 +14,43 @@ def legacy_encrypt_private_key(private_key, password)
 end
 
 def enable_openid_connect
-  allow(AuthConfig).to receive(:settings_file).and_return(oicd_settings)
+  allow_any_instance_of(AuthConfig)
+    .to receive(:settings_file)
+    .and_return(oicd_settings)
 end
 
 def enable_ldap
-  expect_any_instance_of(AuthConfig)
+  allow_any_instance_of(AuthConfig)
     .to receive(:settings_file)
-    .at_least(:once)
-    .and_return(provider: 'ldap')
+    .and_return(ldap_settings)
 end
 
 def stub_geo_ip
   allow(GeoIp).to receive(:activated?).at_least(:once).and_return(nil)
 end
 
-def mock_ldap_settings
-  allow(AuthConfig).to receive(:ldap_settings).and_return(ldap_settings).at_least(:once)
-end
-
 def ldap_settings
   {
-    bind_dn: 'example_bind_dn',
-    bind_password: 'ZXhhbXBsZV9iaW5kX3Bhc3N3b3Jk',
-    encryption: 'simple_tls',
-    hostnames: ['example_hostname'],
-    basename: 'ou=users,dc=acme',
-    portnumber: 636
+    provider: 'ldap',
+    ldap: {
+      bind_dn: 'example_bind_dn',
+      bind_password: 'ZXhhbXBsZV9iaW5kX3Bhc3N3b3Jk',
+      encryption: 'simple_tls',
+      hostnames: ['ldap1.example.com'],
+      basename: 'ou=users,dc=acme',
+      portnumber: 636
+    }
   }
 end
 
 def oicd_settings
   {
-    provider: 'openid-connect'
+    provider: 'openid-connect',
     oicd: {
+      port: 443,
+      scheme: 'https',
+      host: 'oicd.example.com',
+      secret: 'verysecretsecret42',
       redirect_uri: 'https://oicd.example.com/auth'
     }
   }

@@ -1,0 +1,8 @@
+provider: openid-connect
+
+oicd:
+  port: 443
+  scheme: 'https'
+  host: 'oicd.example.com'
+  secret: 'verysecretsecret42'
+  redirect_uri: 'https://oicd.example.com/auth'

@@ -13,7 +13,6 @@ describe 'User provides new Ldap Pw' do
 
   before(:each) do
     enable_ldap
-    mock_ldap_settings
   end
 
   let(:bob) { users(:bob) }

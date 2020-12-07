@@ -30,7 +30,7 @@ describe LdapConnection do
 
   context '#authenticate' do
     it 'authenticates with valid user and password' do
-      mock_ldap_settings
+      enable_ldap
       user_entry = double
       expect(user_entry).to receive(:dn).and_return('uid=bob,ou=ldap')
 
@@ -55,7 +55,7 @@ describe LdapConnection do
     end
 
     it 'does not authenticate with valid user but invalid password' do
-      mock_ldap_settings
+      enable_ldap
       user_entry = double
       expect(user_entry).to receive(:dn)
         .and_return('uid=bob,ou=ldap')
@@ -83,7 +83,7 @@ describe LdapConnection do
     end
 
     it 'does not authenticate if user does not exist' do
-      mock_ldap_settings
+      enable_ldap
       # bind by bind_dn
       expect_any_instance_of(Net::LDAP).to receive(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -110,7 +110,7 @@ describe LdapConnection do
   context '#ldap_info' do
 
     it 'does not return info if uid does not exist' do
-      mock_ldap_settings
+      enable_ldap
       # bind by bind_dn
       expect_any_instance_of(Net::LDAP).to receive(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -133,7 +133,7 @@ describe LdapConnection do
     end
 
     it 'does not return info if attribute does not exist' do
-      mock_ldap_settings
+      enable_ldap
       # bind by bind_dn
       expect_any_instance_of(Net::LDAP).to receive(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -161,7 +161,7 @@ describe LdapConnection do
     end
 
     it 'raises exception if missing parameter' do
-      mock_ldap_settings
+      enable_ldap
       expect do
         ldap_connection.ldap_info(nil, nil)
       end.to raise_error(ArgumentError)
@@ -174,7 +174,7 @@ describe LdapConnection do
     end
 
     it 'returns ldap info' do
-      mock_ldap_settings
+      enable_ldap
       # bind by bind_dn
       expect_any_instance_of(Net::LDAP).to receive(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -202,7 +202,7 @@ describe LdapConnection do
     end
 
     it 'does not return uidnumber if username invalid' do
-      mock_ldap_settings
+      enable_ldap
       expect_any_instance_of(Net::LDAP).to receive(:bind).never
       expect_any_instance_of(Net::LDAP).to receive(:auth).never
       expect_any_instance_of(Net::LDAP).to receive(:search).never
@@ -211,7 +211,7 @@ describe LdapConnection do
     end
 
     it 'returns uidnumber by username' do
-      mock_ldap_settings
+      enable_ldap
       # bind by bind_dn
       expect_any_instance_of(Net::LDAP).to receive(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -238,7 +238,7 @@ describe LdapConnection do
     end
 
     it 'does not return uidnumber if username does not exist' do
-      mock_ldap_settings
+      enable_ldap
       # bind by bind_dn
       expect_any_instance_of(Net::LDAP).to receive(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -266,7 +266,7 @@ describe LdapConnection do
   context 'multiple ldap servers' do
 
     it 'reaches first ldap server' do
-      mock_ldap_settings
+      enable_ldap
       expect_any_instance_of(LdapConnection)
         .to receive(:ldap_hosts)
         .at_least(:once)
@@ -282,7 +282,7 @@ describe LdapConnection do
     end
 
     it 'reaches second ldap server' do
-      mock_ldap_settings
+      enable_ldap
       ldap1 = double
       ldap2 = double
       expect(ldap2).to receive(:host).and_return('ldap2.crypto.pus')
@@ -311,7 +311,7 @@ describe LdapConnection do
     end
 
     it 'cannot resolve ldap server by dns' do
-      mock_ldap_settings
+      enable_ldap
       expect_any_instance_of(Net::LDAP)
         .to receive(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -328,7 +328,7 @@ describe LdapConnection do
     end
 
     it 'cannot reach ldap server' do
-      mock_ldap_settings
+      enable_ldap
       expect_any_instance_of(Net::LDAP)
         .to receive(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -345,7 +345,7 @@ describe LdapConnection do
     end
 
     it 'gets connection refused by ldap server' do
-      mock_ldap_settings
+      enable_ldap
       expect_any_instance_of(Net::LDAP)
         .to receive(:auth)
         .with('example_bind_dn', 'example_bind_password')
@@ -361,7 +361,7 @@ describe LdapConnection do
     end
 
     it 'raises unexpected error while trying to reach first ldap server' do
-      mock_ldap_settings
+      enable_ldap
       expect_any_instance_of(Net::LDAP).to receive(:auth).with('example_bind_dn',
                                                                'example_bind_password')
 

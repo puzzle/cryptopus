@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
 Rails.application.routes.draw do
 
   root 'frontend#index'
@@ -22,9 +17,9 @@ Rails.application.routes.draw do
   end
 
   scope '/session', module: 'session' do
-    if AuthConfig.keycloak_enabled?
-      get 'sso', to: 'sso#create'
-      get 'sso/inactive', to: 'sso#inactive'
+    if AuthConfig.oicd_enabled?
+      get 'oicd', to: 'oicd#create'
+      get 'oicd/inactive', to: 'oicd#inactive'
     end
     post 'local', to: 'local#create'
     get 'local', to: 'local#new'
