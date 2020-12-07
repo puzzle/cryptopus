@@ -9,27 +9,7 @@ require Rails.root.join('db', 'seeds', 'support', 'team_folders_accounts_seeder'
 
 seeder = TeamFoldersAccountsSeeder.new
 
-[:mail, :shops, :distributors].each do |n|
-  users = [:alice, :bob]
-  seeder.seed_team(n, users)
-end
-
-[:web, :infrastructure].each do |n|
-  users = [:john, :kate, :alice, :bruce, :emily]
-  seeder.seed_team(n, users, true)
-end
-
-[:finance].each do |n|
-  users = [:kate, :alice]
-  seeder.seed_team(n, users, false)
-end
-
-[:org, :government].each do |n|
-  users = [:kate, :bruce, :emily]
-  seeder.seed_team(n, users, true)
-end
-
-[:'alice private'].each do |n|
-  users = [:alice]
-  seeder.seed_team(n, users, false)
+100.times do |index|
+  users = [:john, :kate, :alice, :bruce, :emily].sample(3)
+  seeder.seed_team("#{index}: #{Faker::Job.field}", users, [true, false].sample)
 end

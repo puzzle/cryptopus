@@ -8,16 +8,15 @@
 class TeamFoldersAccountsSeeder
 
   def seed_team(name, members, admin = false)
-    name = name.to_s.capitalize
+    name = name.capitalize
     team = Team.seed_once(:name) do |t|
       t.name = name
       t.description = Faker::Lorem.paragraph
       t.private = !admin
     end.first
 
-    Folder.seed_once(:name) do |f|
-      f.name = Faker::Lorem.word.capitalize
-      f.team_id = team.id
+    (2..10).to_a.sample.times do
+      seed_folder(team)
     end
 
     plaintext_team_pw = CryptUtils.new_team_password
@@ -37,7 +36,7 @@ class TeamFoldersAccountsSeeder
     plaintext_team_pw = team.decrypt_team_password(member, plaintext_private_key)
     team.folders.each do |g|
       unless g.accounts.present?
-        (1..15).to_a.sample.times do
+        (5..40).to_a.sample.times do
           seed_account(g, plaintext_team_pw)
         end
       end
@@ -65,12 +64,18 @@ class TeamFoldersAccountsSeeder
   end
 
   def seed_account(folder, plaintext_team_pw)
-    username = CryptUtils.encrypt_blob(Faker::Lorem.word, plaintext_team_pw)
+    username = CryptUtils.encrypt_blob("#{folder.accounts.count}: #{Faker::Lorem.word}", plaintext_team_pw)
     password = CryptUtils.encrypt_blob(Faker::Internet.password, plaintext_team_pw)
-    folder.accounts.create!(accountname: Faker::Company.name,
-                           username: username,
-                           password: password,
-                           description: Faker::Lorem.paragraph)
+    folder.accounts.create!(accountname: "#{folder.accounts.count}: #{Faker::Company.name}",
+                            username: username,
+                            password: password,
+                            description: Faker::Lorem.paragraph)
   end
 
+  def seed_folder(team)
+    Folder.seed do |f|
+      f.name = "#{team.folders.count}: #{Faker::Lorem.word.capitalize}"
+      f.team_id = team.id
+    end
+  end
 end
