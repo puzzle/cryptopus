@@ -4,10 +4,8 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
 
   def authenticate!
     return false if access_token.nil?
-    return false unless keycloak_signed_in?
-    return false unless preconditions?
 
-    true
+    preconditions? && oicd_signed_in?
   end
 
   def authenticate_by_headers!
@@ -27,15 +25,15 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
   end
 
   def login_path
-    sso_path
+    oicd_path
   end
 
   def user_logged_in?(session)
     session[:user_id].present? && user_authenticated?(session)
   end
 
-  def keycloak_login
-    Keycloak::Client.url_login_redirect(keycloak_login_url, 'code')
+  def oicd_login
+    oicd_client.oicd_login_url(after_oicd_login_url)
   end
 
   def token(params)
@@ -43,36 +41,34 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
   end
 
   def logged_out_path
-    sso_inactive_path
+    oicd_inactive_path
   end
 
   def recrypt_path
-    recrypt_sso_path
+    recrypt_oicd_path
   end
 
   def oicd_signed_in?
     return false if access_token.nil?
 
-    Keycloak::Client.user_signed_in?(access_token)
+    oicd_client.user_signed_in?(access_token)
   end
 
   private
 
   def access_token
-    return if @cookies.nil? || @cookies['keycloak_token'].nil?
-
-    JSON.parse(@cookies['keycloak_token']).try(:[], 'access_token')
+    @cookies['oicd_token'].try(:[], 'access_token')
   end
 
   def user_authenticated?(session)
     return true if session[:username] == 'root'
 
-    keycloak_signed_in?
+    oicd_signed_in?
   end
 
   def find_or_create_user
     user = User.find_by(username: username.strip)
-    return create_user if user.nil? && keycloak_signed_in?
+    return create_user if user.nil? && oicd_signed_in?
 
     user
   end
@@ -89,9 +85,9 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
     valid_username? && user.present? && !brute_force_detector.locked?
   end
 
-  def keycloak_login_url
+  def after_oicd_login_url
     protocol = Rails.application.config.force_ssl ? 'https://' : 'http://'
-    protocol + (ENV['RAILS_HOST_NAME'] || 'localhost:3000') + sso_path
+    protocol + (ENV['RAILS_HOST_NAME'] || 'localhost:3000') + oicd_path
   end
 
   def keycloak_params
@@ -101,7 +97,7 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
   end
 
   def username
-    @username ||= Keycloak::Client.get_attribute('preferred_username', access_token)
+    @username ||= oicd_client.get_attribute('preferred_username', access_token)
   end
 
   def create_user
@@ -114,11 +110,6 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
       provider_uid: provider_uid,
       auth: 'keycloak'
     ) { |u| u.create_keypair(keycloak_client.user_pk_secret(psb, access_token)) }
-  end
-
-  def preconditions?
-    params_present? && valid_username? && user.present? &&
-      !brute_force_detector.locked?
   end
 
   def params_present?

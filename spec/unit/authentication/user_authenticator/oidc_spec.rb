@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-describe Authentication::UserAuthenticator::Oicd do
+describe Authentication::UserAuthenticator::Oidc do
 
   before(:each) do
-    enable_keycloak
+    enable_openid_connect
   end
-
-  context 'openid connect' do
+  
+  context '#authenticate! on first login' do
     # it 'creates new user on first login' do
       # expect(Keycloak::Client).to receive(:get_attribute)
         # .twice
@@ -49,17 +49,32 @@ describe Authentication::UserAuthenticator::Oicd do
       # expect(user.surname).to eq('Meier')
       # expect(user.provider_uid).to eq('aw123')
     # end
+  end
 
+  context '#authenticate! existing user' do
     it 'never authenticates root' do
       @username = 'root'
       @password = 'password'
 
       @cookies = {}
-      @cookies['keycloak_token'] = { access_token: 'asd' }.to_json
+      @cookies['oicd_token'] = { access_token: 'asd' }
 
-      expect(Keycloak::Client).to receive(:user_signed_in?)
-        .and_return(false)
+      expect_any_instance_of(OicdClient)
+        .to receive(:user_signed_in?)
+        .never
+
       expect(authenticate!).to be false
+    end
+  end
+
+  context '#authenticate_by_headers!' do
+    it 'never authenticates root' do
+    end
+
+    it 'never authenticates oidc user' do
+    end
+
+    it 'authenticates api user' do
     end
   end
 
@@ -76,7 +91,7 @@ describe Authentication::UserAuthenticator::Oicd do
   end
 
   def api_user
-    @api_user ||= bob.api_users.create
+    @api_user ||= bob.api_users.create!
   end
 
   def bob
@@ -85,28 +100,5 @@ describe Authentication::UserAuthenticator::Oicd do
 
   def private_key
     bob.decrypt_private_key('password')
-  end
-end
-
-describe Keycloak do
-  it 'has a version number' do
-    expect(Keycloak::VERSION).not_to be nil
-  end
-
-  describe 'Module configuration' do
-    describe '.installation_file=' do
-      it 'should raise an error if given file does not exist' do
-        expect do
-          Keycloak.installation_file = 'random/file.json'
-        end.to raise_error(Keycloak::InstallationFileNotFound)
-      end
-    end
-
-    describe '.installation_file' do
-      it 'should return default installation file' do
-        expect(Keycloak.installation_file).to eq(Keycloak::KEYCLOAK_JSON_FILE)
-      end
-
-    end
   end
 end

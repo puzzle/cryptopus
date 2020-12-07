@@ -11,8 +11,8 @@ class Authentication::UserAuthenticator
         Authentication::UserAuthenticator::Db.new(params)
       when 'ldap'
         Authentication::UserAuthenticator::Ldap.new(params)
-      when 'keycloak'
-        Authentication::UserAuthenticator::Sso.new(params)
+      when 'openid-connect'
+        Authentication::UserAuthenticator::Oidc.new(params)
       end
     end
   end
@@ -22,9 +22,10 @@ class Authentication::UserAuthenticator
     @username = username
     @password = password
     @cookies = cookies
+    @allow_root = false
   end
 
-  def authenticate!
+  def authenticate!(allow_root: false, allow_api: false)
     raise NotImplementedError, 'implement in subclass'
   end
 
@@ -71,8 +72,19 @@ class Authentication::UserAuthenticator
   end
 
   def preconditions?
-    params_present? && valid_username? && user.present? &&
-      !brute_force_detector.locked?
+    params_present? &&
+      valid_username? &&
+      root_and_allowed? &&
+      user.present? &&
+      no_brute_force_lock?
+  end
+
+  def no_brute_force_lock?
+    !brute_force_detector.locked?
+  end
+
+  def root_and_allowed?
+    root_user? && @allow_root
   end
 
   def params_present?
