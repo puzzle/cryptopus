@@ -1,25 +1,13 @@
-provider: db
+provider: openid-connect
 
-# expample of ldap settings
-
-# provider: ldap
-#
-# ldap:
-#   bind_dn: 'example_bind_dn'
-#   bind_password: cGFzc3dvcmQ= # base64 encoded # echo -n 'password' | base64
-#   encryption: 'simple_tls'
-#   hostnames:
-#     - 'example_hostname'
-#     - 'example_hostname2'
-#   basename: 'ou=users,dc=acme'
-#   portnumber: 636
-#
-
-# expample of openid connect settings
-
-# provider: openid-connect
-#
-# oidc:
-#   provider: 'keycloak.example.com'
-#   secret: 'verysecretsecret42'
-#   authorization_path: '/auth'
+oidc:
+  client_id: cryptopus
+  host: keycloak
+  host_port: 8180
+  host_scheme: http
+  secret: '0a76235d-4d98-47ba-ab31-22e4748f6fa8'
+  authorization_endpoint: '/auth/realms/cryptopus/protocol/openid-connect/auth'
+  token_endpoint: '/auth/realms/cryptopus/protocol/openid-connect/token'
+  user_subject: preferred_username
+  certs_url: http://keycloak:8180/auth/realms/cryptopus/protocol/openid-connect/certs
+  additional_scopes:

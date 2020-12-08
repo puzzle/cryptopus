@@ -6,3 +6,6 @@ oidc:
   secret: 'verysecretsecret42'
   authorization_endpoint: '/auth/realms/cryptopus/protocol/openid-connect/auth'
   token_endpoint: '/auth/realms/cryptopus/protocol/openid-connect/token'
+  user_subject: 'preferred_username'
+  additional_scopes:
+    'custom'

@@ -45,7 +45,10 @@ module UserSession
 
   def user_authenticator
     Authentication::UserAuthenticator.init(
-      username: params['username'], password: params['password'], cookies: cookies
+      username: params['username'],
+      password: params['password'],
+      cookies: cookies,
+      session: session
     )
   end
 

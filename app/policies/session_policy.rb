@@ -6,7 +6,7 @@ class SessionPolicy < ApplicationPolicy
     user.nil? && !AuthConfig.oidc_enabled?
   end
 
-  def sso?
+  def oidc?
     user.nil? && AuthConfig.oidc_enabled?
   end
 

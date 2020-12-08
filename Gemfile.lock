@@ -104,6 +104,7 @@ GEM
       i18n_data (~> 0.8.0)
       sixarm_ruby_unaccent (~> 1.1)
       unicode_utils (~> 1.4)
+    crack (0.4.4)
     crass (1.0.6)
     database_cleaner (1.8.2)
     debug_inspector (0.0.3)
@@ -129,6 +130,7 @@ GEM
       execjs (~> 2.0)
       sprockets (>= 2.0.0)
       tilt (>= 1.2)
+    hashdiff (1.0.1)
     hirb (0.7.3)
     httpclient (2.8.3)
     i18n (1.8.5)
@@ -364,6 +366,10 @@ GEM
     webfinger (1.1.0)
       activesupport
       httpclient (>= 2.4)
+    webmock (3.10.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     webpacker (5.0.1)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
@@ -436,6 +442,7 @@ DEPENDENCIES
   twitter-bootstrap-rails (~> 3.2)
   uglifier
   webdrivers
+  webmock
   webpacker
 
 BUNDLED WITH

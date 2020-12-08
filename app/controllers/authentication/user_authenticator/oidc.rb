@@ -2,8 +2,10 @@
 
 class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticator
 
-  def authenticate!
-    return false if access_token.nil?
+  attr_writer :oidc_token
+
+  def authenticate!(_allow_root: false, _allow_api: false)
+    # never allow root nor api auth
 
     preconditions? && oidc_signed_in?
   end
@@ -25,19 +27,13 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
   end
 
   def login_path
-    oidc_path
+    url, state = oidc_client.external_login_url
+    @session[:oidc_state] = state
+    url
   end
 
   def user_logged_in?(session)
     session[:user_id].present? && user_authenticated?(session)
-  end
-
-  def oidc_login
-    oidc_client.oidc_login_url(after_oidc_login_url)
-  end
-
-  def token(params)
-    Keycloak::Client.get_token_by_code(params[:code], keycloak_login_url)
   end
 
   def logged_out_path
@@ -49,16 +45,10 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
   end
 
   def oidc_signed_in?
-    return false if access_token.nil?
-
-    oidc_client.user_signed_in?(access_token)
+    @oidc_token.present?
   end
 
   private
-
-  def access_token
-    @cookies['oidc_token'].try(:[], 'access_token')
-  end
 
   def user_authenticated?(session)
     return true if session[:username] == 'root'
@@ -85,35 +75,35 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
     valid_username? && user.present? && !brute_force_detector.locked?
   end
 
-  def keycloak_params
-    { provider_uid: Keycloak::Client.get_attribute('sub', access_token),
-      givenname: Keycloak::Client.get_attribute('given_name', access_token),
-      surname: Keycloak::Client.get_attribute('family_name', access_token) }
-  end
+  # def keycloak_params
+    # { provider_uid: Keycloak::Client.get_attribute('sub', access_token),
+      # givenname: Keycloak::Client.get_attribute('given_name', access_token),
+      # surname: Keycloak::Client.get_attribute('family_name', access_token) }
+  # end
 
   def username
-    @username ||= oidc_client.get_attribute('preferred_username', access_token)
+    @username ||= @oidc_token[oidc_client.user_subject]
   end
 
-  def create_user
-    provider_uid = Keycloak::Client.get_attribute('sub', access_token)
-    psb = keycloak_client.find_or_create_pk_secret_base(access_token)
-    User::Human.create(
-      username: username,
-      givenname: Keycloak::Client.get_attribute('given_name', access_token),
-      surname: Keycloak::Client.get_attribute('family_name', access_token),
-      provider_uid: provider_uid,
-      auth: 'keycloak'
-    ) { |u| u.create_keypair(keycloak_client.user_pk_secret(psb, access_token)) }
-  end
+  # def create_user
+    # provider_uid = Keycloak::Client.get_attribute('sub', access_token)
+    # psb = keycloak_client.find_or_create_pk_secret_base(access_token)
+    # User::Human.create(
+      # username: username,
+      # givenname: Keycloak::Client.get_attribute('given_name', access_token),
+      # surname: Keycloak::Client.get_attribute('family_name', access_token),
+      # provider_uid: provider_uid,
+      # auth: 'keycloak'
+    # ) { |u| u.create_keypair(keycloak_client.user_pk_secret(psb, access_token)) }
+  # end
 
-  def params_present?
-    Keycloak::Client.get_attribute('preferred_username', access_token).present?
-  rescue JWT::DecodeError
-    false
-  end
+  # def params_present?
+    # Keycloak::Client.get_attribute('preferred_username', access_token).present?
+  # rescue JWT::DecodeError
+    # false
+  # end
 
   def oidc_client
-    @oidc_client ||= OicdClient.new
+    @oidc_client ||= OidcClient.new
   end
 end
