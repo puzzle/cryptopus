@@ -5,7 +5,7 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
   def authenticate!
     return false if access_token.nil?
 
-    preconditions? && oicd_signed_in?
+    preconditions? && oidc_signed_in?
   end
 
   def authenticate_by_headers!
@@ -25,15 +25,15 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
   end
 
   def login_path
-    oicd_path
+    oidc_path
   end
 
   def user_logged_in?(session)
     session[:user_id].present? && user_authenticated?(session)
   end
 
-  def oicd_login
-    oicd_client.oicd_login_url(after_oicd_login_url)
+  def oidc_login
+    oidc_client.oidc_login_url(after_oidc_login_url)
   end
 
   def token(params)
@@ -41,34 +41,34 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
   end
 
   def logged_out_path
-    oicd_inactive_path
+    oidc_inactive_path
   end
 
   def recrypt_path
-    recrypt_oicd_path
+    recrypt_oidc_path
   end
 
-  def oicd_signed_in?
+  def oidc_signed_in?
     return false if access_token.nil?
 
-    oicd_client.user_signed_in?(access_token)
+    oidc_client.user_signed_in?(access_token)
   end
 
   private
 
   def access_token
-    @cookies['oicd_token'].try(:[], 'access_token')
+    @cookies['oidc_token'].try(:[], 'access_token')
   end
 
   def user_authenticated?(session)
     return true if session[:username] == 'root'
 
-    oicd_signed_in?
+    oidc_signed_in?
   end
 
   def find_or_create_user
     user = User.find_by(username: username.strip)
-    return create_user if user.nil? && oicd_signed_in?
+    return create_user if user.nil? && oidc_signed_in?
 
     user
   end
@@ -85,11 +85,6 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
     valid_username? && user.present? && !brute_force_detector.locked?
   end
 
-  def after_oicd_login_url
-    protocol = Rails.application.config.force_ssl ? 'https://' : 'http://'
-    protocol + (ENV['RAILS_HOST_NAME'] || 'localhost:3000') + oicd_path
-  end
-
   def keycloak_params
     { provider_uid: Keycloak::Client.get_attribute('sub', access_token),
       givenname: Keycloak::Client.get_attribute('given_name', access_token),
@@ -97,7 +92,7 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
   end
 
   def username
-    @username ||= oicd_client.get_attribute('preferred_username', access_token)
+    @username ||= oidc_client.get_attribute('preferred_username', access_token)
   end
 
   def create_user
@@ -118,7 +113,7 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
     false
   end
 
-  def oicd_client
-    @oicd_client ||= OicdClient.new
+  def oidc_client
+    @oidc_client ||= OicdClient.new
   end
 end

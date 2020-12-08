@@ -15,7 +15,7 @@ class SessionController < ApplicationController
   skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
 
   before_action :authorize_action
-  before_action :skip_authorization, only: [:create, :new, :destroy, :sso]
+  before_action :skip_authorization, only: [:create, :new, :destroy]
 
   layout 'session', only: :new
 
@@ -130,7 +130,7 @@ class SessionController < ApplicationController
     authorize :session
   end
 
-  def keycloak_client
-    @keycloak_client ||= KeycloakClient.new
+  def oidc_client
+    @oidc_client ||= OidcClient.new
   end
 end

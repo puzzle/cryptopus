@@ -57,7 +57,7 @@ describe Authentication::UserAuthenticator::Oidc do
       @password = 'password'
 
       @cookies = {}
-      @cookies['oicd_token'] = { access_token: 'asd' }
+      @cookies['oidc_token'] = { access_token: 'asd' }.to_json
 
       expect_any_instance_of(OicdClient)
         .to receive(:user_signed_in?)

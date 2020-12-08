@@ -8,18 +8,19 @@ Rails.application.routes.draw do
   get 'status/readiness', to: 'status#readiness'
 
   namespace :recrypt do
-    get 'ldap', to: 'ldap#new'
-    post 'ldap', to: 'ldap#create'
-    if AuthConfig.oicd_enabled?
-      get 'oicd', to: 'oicd#new'
-      post 'oicd', to: 'oicd#create'
+    if AuthConfig.ldap_enabled?
+      get 'ldap', to: 'ldap#new'
+      post 'ldap', to: 'ldap#create'
+    end
+    if AuthConfig.oidc_enabled?
+      get 'oidc', to: 'oidc#new'
+      post 'oidc', to: 'oidc#create'
     end
   end
 
   scope '/session', module: 'session' do
-    if AuthConfig.oicd_enabled?
-      get 'oicd', to: 'oicd#create'
-      get 'oicd/inactive', to: 'oicd#inactive'
+    if AuthConfig.oidc_enabled?
+      get 'oidc', to: 'oidc#create'
     end
     post 'local', to: 'local#create'
     get 'local', to: 'local#new'

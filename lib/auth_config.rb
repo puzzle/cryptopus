@@ -9,16 +9,20 @@ class AuthConfig
       @@auth_config ||= new
     end
 
-    def ldap_settings
-      auth_config.ldap.dup
+    def oidc_enabled?
+      auth_config.oidc?
     end
 
-    def oicd_enabled?
-      auth_config.oicd?
+    def oidc_settings
+      auth_config.oidc.dup
     end
 
     def ldap_enabled?
       auth_config.ldap?
+    end
+
+    def ldap_settings
+      auth_config.ldap.dup
     end
 
     def db_enabled?
@@ -34,12 +38,12 @@ class AuthConfig
     settings_file[:provider]
   end
 
-  def oicd?
+  def oidc?
     provider == 'openid-connect'
   end
 
-  def oicd
-    settings_file[:oicd]
+  def oidc
+    settings_file[:oidc]
   end
 
   def ldap?

@@ -16,7 +16,8 @@ end
 def enable_openid_connect
   allow_any_instance_of(AuthConfig)
     .to receive(:settings_file)
-    .and_return(oicd_settings)
+    .and_return(oidc_settings)
+  Rails.application.reload_routes!
 end
 
 def enable_ldap
@@ -43,15 +44,8 @@ def ldap_settings
   }
 end
 
-def oicd_settings
-  {
-    provider: 'openid-connect',
-    oicd: {
-      port: 443,
-      scheme: 'https',
-      host: 'oicd.example.com',
-      secret: 'verysecretsecret42',
-      redirect_uri: 'https://oicd.example.com/auth'
-    }
-  }
+def oidc_settings
+  YAML.safe_load(
+    File.read('spec/fixtures/files/auth/auth.yml.oidc.test')
+  ).deep_symbolize_keys
 end

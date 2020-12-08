@@ -57,18 +57,18 @@ describe AuthConfig do
     end
   end
 
-  context '#oicd_settings' do
+  context '#oidc_settings' do
     it 'should return all openid connect settings' do
       enable_openid_connect
 
-      expect(auth.oicd?).to eq(true)
-      settings = auth.oicd
+      expect(auth.oidc?).to eq(true)
+      settings = auth.oidc
 
       expect(settings[:port]).to eq(443)
       expect(settings[:scheme]).to eq('https')
-      expect(settings[:host]).to eq('oicd.example.com')
+      expect(settings[:host]).to eq('oidc.example.com')
       expect(settings[:secret]).to eq('verysecretsecret42')
-      expect(settings[:redirect_uri]).to eq('https://oicd.example.com/auth')
+      expect(settings[:redirect_uri]).to eq('https://oidc.example.com/auth')
     end
   end
 

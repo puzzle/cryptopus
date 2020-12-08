@@ -1,22 +1,15 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
 class Session::OicdController < SessionController
 
-  layout 'session', only: :inactive
-
   def create
-    cookies.permanent[:keycloak_token] = user_authenticator.token(params) if params[:code].present?
+    cookies.permanent[:oidc_token] = user_authenticator.token(params) if params[:code].present?
 
     unless user_authenticator.authenticate!
       return redirect_to user_authenticator.keycloak_login
     end
 
-    unless create_session(keycloak_client.user_pk_secret(nil, access_token))
+    unless create_session(oidc_client.user_pk_secret(nil, access_token))
       return redirect_if_decryption_error
     end
 
@@ -25,6 +18,10 @@ class Session::OicdController < SessionController
 
   def inactive
     flash[:notice] = t('session.sso.inactive.inactive')
+  end
+
+  def self.policy_class
+    Authentication::OicdPolicy
   end
 
   private
@@ -37,7 +34,7 @@ class Session::OicdController < SessionController
   end
 
   def authorize_action
-    authorize :sso
+    authorize :oidc
   end
 
   def reset_session_before_redirect

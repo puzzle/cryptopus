@@ -5,7 +5,17 @@ require 'rails_helper'
 describe Session::OicdController do
   include ControllerHelpers
 
-  context 'GET oicd' do
+  context 'GET create' do
+
+    it 'returns from external openid connect login and creates/logs in new user' do
+      # expect session reset
+    end
+
+    it 'returns from external openid connect login and logs in existing user' do
+    end
+
+    it 'does not login user if given token ' do
+    end
     # it 'logs in User with Keycloak' do
       # enable_keycloak
       # Rails.application.reload_routes!
@@ -45,7 +55,7 @@ describe Session::OicdController do
       # expect(session['private_key']).to_not be_nil
     # end
 
-    it 'redirects to oicd server if not logged in' do
+    it 'redirects to oidc server if not logged in' do
       enable_openid_connect
       Rails.application.reload_routes!
 
@@ -64,7 +74,7 @@ describe Session::OicdController do
       expect(response).to redirect_to sso_path
     end
 
-    it 'redirects to normal login if keycloak disabled' do
+    it 'redirects to normal login if oidc disabled' do
       Rails.application.reload_routes!
 
       expect do
@@ -72,7 +82,7 @@ describe Session::OicdController do
       end.to raise_error(ActionController::UrlGenerationError)
     end
 
-    it 'redirects to migration if user is not keycloak' do
+    it 'redirects to migration if user\'s auth is not oidc' do
       enable_keycloak
       Rails.application.reload_routes!
 
