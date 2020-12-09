@@ -1,8 +1,10 @@
 # Cryptopus Changelog
 
 ## Version 3.6
+<<<<<<< HEAD
 - Fix autologout
 - Improve performance via indexes in db and frontend optimizing
+- Support for OpenID Connect Single Sign On
 
 ## Version 3.5
 - [CCLI](https://github.com/puzzle/ccli) login command copy button
