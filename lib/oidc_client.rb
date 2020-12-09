@@ -21,7 +21,7 @@ class OidcClient
     config[:user_subject]
   end
 
-  def get_token_from_provider(code:, state:)
+  def get_id_token(code:, state:)
     client.authorization_code = code
     access_token = client.access_token!(state: state)
     OpenIDConnect::ResponseObject::IdToken.decode(access_token.id_token, host_public_key)

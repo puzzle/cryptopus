@@ -11,7 +11,7 @@ class SessionController < ApplicationController
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
   skip_before_action :verify_authenticity_token, only: :create
-  skip_before_action :validate_user, expect: [:update_password, :changelocale]
+  skip_before_action :validate_user, only: [:new, :create]
   skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
 
   before_action :authorize_action
@@ -39,7 +39,7 @@ class SessionController < ApplicationController
     reset_session
     session[:jumpto] = jumpto
     flash[:notice] = flash_notice
-    redirect_to user_authenticator.logged_out_path
+    redirect_to session_new_path
   end
 
   def show_update_password
@@ -95,8 +95,7 @@ class SessionController < ApplicationController
   end
 
   def redirect_after_sucessful_login
-    jump_to = session[:jumpto] || root_path
-    session[:jumpto] = nil
+    jump_to = session.delete(:jumpto) || root_path
     redirect_to jump_to
   end
 

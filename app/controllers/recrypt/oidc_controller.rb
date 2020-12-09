@@ -5,47 +5,36 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Recrypt::SsoController < ApplicationController
+class Recrypt::OidcController < ApplicationController
 
   skip_before_action :redirect_if_no_private_key
 
-  # GET recrypt/sso
+  # GET recrypt/oidc
   def new
     authorize :recryptSso
     render layout: false
   end
 
-  # POST recrypt/sso
+  # POST recrypt/oidc
   def create
     authorize :recryptSso
-    unless user_authenticator.keycloak_signed_in?
-      return redirect_to user_authenticator.keycloak_login
-    end
 
-    pk_secret_base = keycloak_client.find_or_create_pk_secret_base(access_token)
-    recrypt_private_key(
-      keycloak_client.user_pk_secret(pk_secret_base, access_token)
-    )
+    user_passphrase = session.delete(:oidc_recrypt_user_passphrase)
+    recrypt_private_key(user_passphrase)
   end
 
   private
 
   def recrypt_private_key(new_password)
-    if current_user.recrypt_private_key!(new_password, params[:old_password], cookies)
-      current_user.update!(auth: 'keycloak', password: nil)
+    if current_user.recrypt_private_key!(new_password, params[:old_password])
+      current_user.update!(auth: 'oidc', password: nil)
 
-      reset_session_before_redirect
-      return redirect_to user_authenticator.keycloak_login
+      reset_session
+      redirect_to root_path
+    else
+      flash[:error] = current_user.errors.full_messages.join
+      redirect_to recrypt_oidc_path
     end
-
-    flash[:error] = current_user.errors.full_messages.join
-    redirect_to user_authenticator.recrypt_path
-  end
-
-  def reset_session_before_redirect
-    jumpto = params[:jumpto]
-    reset_session
-    session[:jumpto] = jumpto
   end
 
   def user_authenticator

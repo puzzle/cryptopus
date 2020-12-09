@@ -26,10 +26,8 @@ class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticato
     authenticated
   end
 
-  def update_user_info(remote_ip)
-    params = { last_login_from: remote_ip }
-    params.merge(ldap_params) unless root_user?
-    super(params)
+  def updatable_user_attrs
+    ldap_attrs
   end
 
   def recrypt_path
@@ -47,7 +45,7 @@ class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticato
     user
   end
 
-  def ldap_params
+  def ldap_attrs
     { givenname: ldap_connection.ldap_info(user.provider_uid, 'givenname'),
       surname: ldap_connection.ldap_info(user.provider_uid, 'sn') }
   end

@@ -26,7 +26,7 @@ class Authentication::UserAuthenticator
     @allow_root = false
   end
 
-  def authenticate!(allow_root: false, allow_api: false)
+  def authenticate!(_allow_root: false, _allow_api: false)
     raise NotImplementedError, 'implement in subclass'
   end
 
@@ -38,11 +38,6 @@ class Authentication::UserAuthenticator
     raise NotImplementedError, 'implement in subclass'
   end
 
-  def update_user_info(params)
-    params[:last_login_at] = Time.zone.now
-    user.update(params.compact)
-  end
-
   def user
     @user ||= find_or_create_user
   end
@@ -51,12 +46,11 @@ class Authentication::UserAuthenticator
     session_new_path
   end
 
-  def user_logged_in?(session)
-    session[:user_id].present?
-  end
-
-  def logged_out_path
-    session_new_path
+  def update_user_info(remote_ip)
+    attrs = { last_login_from: remote_ip }
+    attrs[:last_login_at] = Time.zone.now
+    attrs.merge(updatable_user_attrs) unless root_user?
+    user.update(attrs)
   end
 
   private
@@ -95,4 +89,5 @@ class Authentication::UserAuthenticator
   def valid_username?
     username.strip =~ /^([a-zA-Z]|\d)+[-]?([a-zA-Z]|\d)*[^-]$/
   end
+
 end

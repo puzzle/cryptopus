@@ -3,7 +3,7 @@
 class SessionPolicy < ApplicationPolicy
 
   def new?
-    user.nil? && !AuthConfig.oidc_enabled?
+    user.nil?
   end
 
   def oidc?

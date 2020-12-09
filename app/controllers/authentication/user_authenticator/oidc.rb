@@ -2,12 +2,11 @@
 
 class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticator
 
-  attr_writer :oidc_token
+  def authenticate!(code:, state:)
+    @code = code
+    @state = state
 
-  def authenticate!(_allow_root: false, _allow_api: false)
-    # never allow root nor api auth
-
-    preconditions? && oidc_signed_in?
+    params_present? && not_root? && user.present? && no_brute_force_lock?
   end
 
   def authenticate_by_headers!
@@ -20,10 +19,8 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
     authenticated
   end
 
-  def update_user_info(remote_ip)
-    params = { last_login_from: remote_ip }
-    params.merge(keycloak_params) unless root_user?
-    super(params)
+  def updatable_user_attrs
+    oidc_user_params.slice(:givenname, :surname)
   end
 
   def login_path
@@ -32,35 +29,17 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
     url
   end
 
-  def user_logged_in?(session)
-    session[:user_id].present? && user_authenticated?(session)
-  end
-
-  def logged_out_path
-    oidc_inactive_path
-  end
-
-  def recrypt_path
-    recrypt_oidc_path
-  end
-
-  def oidc_signed_in?
-    @oidc_token.present?
+  def user_passphrase
+    user_pk_secret_base = oidc_attrs['cryptopus_pk_secret_base']
+    pk_secret_base = Rails.application.secrets.secret_key_base
+    Digest::SHA512.hexdigest(user_pk_secret_base + pk_secret_base)
   end
 
   private
 
-  def user_authenticated?(session)
-    return true if session[:username] == 'root'
-
-    oidc_signed_in?
-  end
-
   def find_or_create_user
     user = User.find_by(username: username.strip)
-    return create_user if user.nil? && oidc_signed_in?
-
-    user
+    user.presence || create_user
   end
 
   def header_preconditions?
@@ -71,37 +50,45 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
     username.present? && password.present?
   end
 
-  def user_valid?
-    valid_username? && user.present? && !brute_force_detector.locked?
+  def not_root?
+    !root_user?
   end
 
-  # def keycloak_params
-    # { provider_uid: Keycloak::Client.get_attribute('sub', access_token),
-      # givenname: Keycloak::Client.get_attribute('given_name', access_token),
-      # surname: Keycloak::Client.get_attribute('family_name', access_token) }
-  # end
+  def oidc_user_params
+    { username: username,
+      provider_uid: oidc_attrs['sub'],
+      givenname: oidc_attrs['given_name'],
+      surname: oidc_attrs['family_name'] }
+  end
+
+  def create_user
+    user_params = oidc_user_params
+    user_params[:auth] = 'oidc'
+    User::Human.create!(user_params) do |u|
+      u.create_keypair(user_passphrase)
+    end
+  end
+
+  def params_present?
+    oidc_user_params.all?(&:present?) && valid_user_pk_secret_base?
+  end
+
+  def valid_user_pk_secret_base?
+    base = oidc_attrs['cryptopus_pk_secret_base']
+    base.present? && base.length > 10
+  end
 
   def username
-    @username ||= @oidc_token[oidc_client.user_subject]
+    oidc_attrs[oidc_client.user_subject]
   end
 
-  # def create_user
-    # provider_uid = Keycloak::Client.get_attribute('sub', access_token)
-    # psb = keycloak_client.find_or_create_pk_secret_base(access_token)
-    # User::Human.create(
-      # username: username,
-      # givenname: Keycloak::Client.get_attribute('given_name', access_token),
-      # surname: Keycloak::Client.get_attribute('family_name', access_token),
-      # provider_uid: provider_uid,
-      # auth: 'keycloak'
-    # ) { |u| u.create_keypair(keycloak_client.user_pk_secret(psb, access_token)) }
-  # end
+  def oidc_attrs
+    @oidc_attrs ||= fetch_id_token.raw_attributes
+  end
 
-  # def params_present?
-    # Keycloak::Client.get_attribute('preferred_username', access_token).present?
-  # rescue JWT::DecodeError
-    # false
-  # end
+  def fetch_id_token
+    oidc_client.get_id_token(code: @code, state: @state)
+  end
 
   def oidc_client
     @oidc_client ||= OidcClient.new
