@@ -118,7 +118,7 @@ describe Authentication::UserAuthenticator::Oidc do
       @username = 'alex'
       @password = user_passphrase
 
-      expect(user.oidc?).to be true
+      expect(user.reload.oidc?).to be true
       expect(authenticate_by_headers!).to be false
     end
 

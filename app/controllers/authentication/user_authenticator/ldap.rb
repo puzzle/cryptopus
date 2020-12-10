@@ -3,8 +3,8 @@
 class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticator
 
   def authenticate!
-    raise 'openid connect auth not enabled' unless AuthConfig.oidc_enabled?
-    return false if root_user?
+    raise 'ldap auth not enabled' unless AuthConfig.ldap_enabled?
+
     return false unless preconditions?
     return false if brute_force_detector.locked?
 
@@ -14,17 +14,15 @@ class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticato
   end
 
   def authenticate_by_headers!
-    return false if root_user?
-    return false unless preconditions?
-    return false if brute_force_detector.locked?
-
+    return false unless api_preconditions?
 
     if user.is_a?(User::Human)
-      authenticated = ldap_connection.authenticate!(username, password)
+      return authenticate!
     elsif user.is_a?(User::Api)
-      authenticated = user.authenticate_db(password)
+      return db_authenticator.authenticate_by_headers!
     end
-    authenticated
+
+    false
   end
 
   def updatable_user_attrs
@@ -36,6 +34,12 @@ class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticato
   end
 
   private
+
+  def api_preconditions?
+    params_present? &&
+      valid_username? &&
+      user.present?
+  end
 
   def find_or_create_user
     return unless params_present? && valid_username?

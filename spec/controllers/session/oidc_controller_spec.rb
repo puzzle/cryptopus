@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Session::OicdController do
+describe Session::OidcController do
   include ControllerHelpers
 
   context 'GET create' do

@@ -8,22 +8,18 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
     @code = code
     @state = state
 
-    params_present? && not_root? && user.present?
+    params_present? && user.present? && !user.root?
   end
 
   # only allow api users to authenticate by headers
   def authenticate_by_headers!
-    authenticator = header_authenticator
+    authenticator = db_authenticator
     user = authenticator.user
     if user.is_a?(User::Api)
       return authenticator.authenticate_by_headers!
     end
 
     false
-  end
-
-  def header_authenticator
-    ::Authentication::UserAuthenticator::Db.new(username: username, password: password)
   end
 
   def updatable_user_attrs
@@ -49,10 +45,6 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
     return if user&.is_a?(User::Api)
 
     user.presence || create_user
-  end
-
-  def not_root?
-    oidc_username != 'root'
   end
 
   def oidc_user_params

@@ -65,7 +65,9 @@ class AuthConfig
   end
 
   def load_file
-    return { provider: 'db' } unless valid_file?
+    if Rails.env.test? || !valid_file?
+      return { provider: 'db' }
+    end
 
     YAML.safe_load(File.read(AUTH_CONFIG_PATH)).deep_symbolize_keys
   end

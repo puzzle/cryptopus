@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Authentication::UserAuthenticator::Ldap do
 
-  before(:each) do
+  before do
     enable_ldap
   end
 

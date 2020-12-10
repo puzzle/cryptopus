@@ -2,9 +2,9 @@
 
 class Authentication::UserAuthenticator::Db < Authentication::UserAuthenticator
 
-  def authenticate!(allow_root: false, allow_api: false)
+  def authenticate!(params = {})
+    super(params)
     return false unless preconditions?
-    return false if user_forbidden?(allow_root, allow_api)
 
     authenticated = user.authenticate_db(password)
 
@@ -12,25 +12,14 @@ class Authentication::UserAuthenticator::Db < Authentication::UserAuthenticator
     authenticated
   end
 
-  def authenticate_by_headers!
-    authenticate!(allow_api: true)
-  end
-
-  def update_user_info(remote_ip)
-    super(last_login_from: remote_ip)
-  end
-
-  def recrypt_path
-    session_new_path
+  # nothing to update since all attrs are in db
+  def updatable_user_attrs
+    {}
   end
 
   private
 
-  def user_forbidden?(allow_root, allow_api)
-    !allow_root && root_user? || !allow_api && user.is_a?(User::Api)
-  end
-
-  # Databse Users can't be created automatically so only find
+  # db users can't be created automatically so only find
   def find_or_create_user
     User.find_by(username: username.strip)
   end
