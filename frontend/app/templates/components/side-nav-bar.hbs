@@ -32,7 +32,7 @@
                     <img class="icon icon-button-angle float-right" src="/assets/images/angle-down.svg" alt="v">
                   {{/if}}
                 </a>
-                {{#if team.folders}}
+                {{#if (or team.folders (eq team this.navService.selectedTeam))}}
                   <BsCollapse class="list-group" id="nav-folders-{{team.id}}" @collapsed={{or (not (eq team this.navService.selectedTeam)) this.collapsed}}>
                     {{#each team.folders as |folder|}}
                       <a role="button"  class="list-group-item list-folder-item {{if (eq folder this.navService.selectedFolder) "bg-blue-three" "bg-blue-one"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
