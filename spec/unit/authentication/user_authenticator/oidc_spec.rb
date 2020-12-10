@@ -84,6 +84,24 @@ describe Authentication::UserAuthenticator::Oidc do
       user.decrypt_private_key(user_passphrase)
     end
 
+    it 'auth fails if user_pk_secret_base missing' do
+      create_oidc_user(user_passphrase)
+      id_token_attrs['cryptopus_pk_secret_base'] = nil
+
+      expect do
+        authenticate!
+      end.to raise_error(RuntimeError, 'openid connect id token: cryptopus_pk_secret_base not present or invalid')
+    end
+
+    it 'auth fails if user_pk_secret_base to short' do
+      create_oidc_user(user_passphrase)
+      id_token_attrs['cryptopus_pk_secret_base'] = 'abcd'
+
+      expect do
+        authenticate!
+      end.to raise_error(RuntimeError, 'openid connect id token: cryptopus_pk_secret_base not present or invalid')
+    end
+
     it 'never authenticates root' do
       user = User.find_by(username: 'root')
       id_token_attrs['preferred_username'] = 'root'

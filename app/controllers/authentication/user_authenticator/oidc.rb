@@ -68,7 +68,11 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
 
   def valid_user_pk_secret_base?
     base = oidc_attrs['cryptopus_pk_secret_base']
-    base.present? && base.length > 10
+    if base.present? && base.length > 10
+      true
+    else
+      raise 'openid connect id token: cryptopus_pk_secret_base not present or invalid'
+    end
   end
 
   def oidc_username
