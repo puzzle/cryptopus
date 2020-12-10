@@ -20,6 +20,7 @@ class Session::OidcController < SessionController
   private
 
   def migrate_user_to_oidc
+    session[:oidc_recrypt_user_id] = session.delete(:user_id)
     session[:oidc_recrypt_user_passphrase] = user_passphrase
     redirect_to recrypt_oidc_path
   end

@@ -8,6 +8,8 @@
 class Recrypt::OidcController < ApplicationController
 
   skip_before_action :redirect_if_no_private_key
+  skip_before_action :validate_user
+  before_action :assert_pending_recrypt
 
   # GET recrypt/oidc
   def new
@@ -19,7 +21,7 @@ class Recrypt::OidcController < ApplicationController
   def create
     authorize :recryptSso
 
-    user_passphrase = session.delete(:oidc_recrypt_user_passphrase)
+    user_passphrase = session[:oidc_recrypt_user_passphrase]
     recrypt_private_key(user_passphrase)
   end
 
@@ -37,21 +39,11 @@ class Recrypt::OidcController < ApplicationController
     end
   end
 
-  def user_authenticator
-    Authentication::UserAuthenticator.init(
-      username: current_user.username,
-      password: params[:new_password],
-      cookies: cookies
-    )
+  def current_user
+    @current_user ||= User::Human.find(session[:oidc_recrypt_user_id])
   end
 
-  def access_token
-    return if cookies.nil? || cookies['keycloak_token'].nil?
-
-    JSON.parse(cookies['keycloak_token']).try(:[], 'access_token')
-  end
-
-  def keycloak_client
-    @keycloak_client ||= KeycloakClient.new
+  def assert_pending_recrypt
+    redirect_to root_path unless current_user
   end
 end

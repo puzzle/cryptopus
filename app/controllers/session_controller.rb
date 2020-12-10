@@ -36,10 +36,19 @@ class SessionController < ApplicationController
   def destroy
     flash_notice = params[:autologout] ? t('session.destroy.expired') : flash[:notice]
     jumpto = params[:jumpto]
+    redirect_path = destroy_redirect_path
     reset_session
     session[:jumpto] = jumpto
     flash[:notice] = flash_notice
-    redirect_to session_new_path
+    redirect_to redirect_path
+  end
+
+  def destroy_redirect_path
+    if current_user.root?
+      session_local_new_path
+    else
+      session_new_path
+    end
   end
 
   def show_update_password

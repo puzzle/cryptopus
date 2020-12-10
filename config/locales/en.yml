@@ -203,11 +203,9 @@ en:
         title: Log in
         description: Please enter your password to access cryptopus
         submit: Login
-    sso:
-      inactive:
-        title: Log in
-        submit: Login
-        inactive: Your Cryptopus session is inactive
+    oidc:
+      sleep: I'm currently asleep to protect your precious data from session thieves. Feel free to wake me up any time
+      submit: Wake me up!
     destroy:
       title: Logout
       message: Bye
@@ -223,9 +221,9 @@ en:
       new_retype: New password (retype)
       submit: Change
   recrypt:
-    sso:
+    oidc:
       new:
-        notice: Please enter your Cryptopus Password to migrate your account to Keycloak
+        notice: Please enter your previous Cryptopus Password to migrate your account to OpendID connect / Keycloak
         cryptopus_password: Your Cryptopus Password
         migrate: Migrate
   teammembers:

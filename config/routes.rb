@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       get 'oidc', to: 'oidc#create'
     end
     post 'local', to: 'local#create'
-    get 'local', to: 'local#new'
+    get 'local', to: 'local#new', as: 'session_local_new'
   end
 
   get 'session/new', to: 'session#new'
