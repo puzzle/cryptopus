@@ -46,8 +46,7 @@ export default class FolderShowComponent extends Component {
         this.router.transitionTo(
           "teams.folders-show",
           this.args.folder.team.get("id"),
-          this.args.folder.id
-        );
+          this.args.folder.id);
       } else {
         this.router.transitionTo("teams.show", this.args.folder.team.get("id"));
       }
