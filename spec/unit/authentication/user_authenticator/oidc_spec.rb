@@ -44,7 +44,7 @@ describe Authentication::UserAuthenticator::Oidc do
 
   context '#authenticate!' do
     before do
-      @code = '9854fb0a-9414-4385-a35d-37e982aad4ce.7ad42cae-5b68-4e3e-ba47-09f923281224.5534245e-0041-4a42-b973-c33a58977d21'
+      @code = '9854fb0a-9414-4385-a35d-37e982aad4ce.7ad42cae-5b68-4e3e-ba47-09f923281224.5534245e-0041-4a42-b973-c33a58977d21' # rubocop:disable Layout/LineLength
       @state = SecureRandom.hex(16)
       allow_any_instance_of(OidcClient).
         to receive(:get_id_token).and_return(id_token)
@@ -90,7 +90,8 @@ describe Authentication::UserAuthenticator::Oidc do
 
       expect do
         authenticate!
-      end.to raise_error(RuntimeError, 'openid connect id token: cryptopus_pk_secret_base not present or invalid')
+      end.to raise_error(RuntimeError,
+                         'openid connect id token: cryptopus_pk_secret_base not present or invalid')
     end
 
     it 'auth fails if user_pk_secret_base to short' do
@@ -99,7 +100,8 @@ describe Authentication::UserAuthenticator::Oidc do
 
       expect do
         authenticate!
-      end.to raise_error(RuntimeError, 'openid connect id token: cryptopus_pk_secret_base not present or invalid')
+      end.to raise_error(RuntimeError,
+                         'openid connect id token: cryptopus_pk_secret_base not present or invalid')
     end
 
     it 'never authenticates root' do

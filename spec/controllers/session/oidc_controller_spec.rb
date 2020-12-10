@@ -62,7 +62,8 @@ describe Session::OidcController do
 
     it 'protects from csrf attack' do
       expect do
-        get :create, params: { code: 'asd', state: 'csrf-attacking' }, session: { oidc_state: 'haha' }
+        get :create, params: { code: 'asd',
+                               state: 'csrf-attacking' }, session: { oidc_state: 'haha' }
       end.to raise_error(RuntimeError, 'openid connect csrf protection state invalid')
     end
 
