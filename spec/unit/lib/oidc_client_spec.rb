@@ -15,6 +15,7 @@ describe OidcClient do
       base, params = redirect_url.split('?')
       params = URI.decode_www_form(params).to_h
       expect(base).to eq('https://oidc.example.com:8180/auth/realms/cryptopus/protocol/openid-connect/auth')
+      expect(params['scope']).to eq('custom openid')
       expect(params['redirect_uri']).to eq('http://cryptopus.example.com/session/oidc')
       expect(state.length).to eq(32)
     end

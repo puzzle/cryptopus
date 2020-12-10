@@ -11,4 +11,4 @@ oidc:
   user_subject: preferred_username
   certs_url: 'http://oidc.example.com/auth/realms/cryptopus/protocol/openid-connect/certs'
   additional_scopes:
-    'custom'
+    - 'custom'

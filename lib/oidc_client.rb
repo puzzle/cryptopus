@@ -7,6 +7,7 @@ class OidcClient
     state = SecureRandom.hex(16)
     nonce = SecureRandom.hex(16)
     authorization_uri = client.authorization_uri(
+      scope: config[:additional_scopes].presence,
       state: state,
       nonce: nonce
     )
