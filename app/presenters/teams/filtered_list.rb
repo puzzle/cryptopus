@@ -26,11 +26,17 @@ module ::Teams
     end
 
     def teams
-      @current_user.teams.includes(:user_favourite_teams, :folders, folders: [:accounts])
+      @current_user.teams
+                   .includes(:user_favourite_teams, :folders, folders: [:accounts])
+                   .limit(limit)
     end
 
     def team_id
       @params[:team_id]
+    end
+
+    def limit
+      @params[:limit]
     end
 
     def filter_by_query

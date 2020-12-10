@@ -24,6 +24,7 @@ export default class TeamsIndexRoute extends BaseRoute {
   }
 
   model(params) {
-    return this.store.query("team", params);
+    params["limit"] = 10
+    return this.store.query("team", params)
   }
 }
