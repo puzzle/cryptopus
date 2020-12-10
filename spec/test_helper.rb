@@ -26,6 +26,11 @@ def enable_ldap
     .and_return(ldap_settings)
 end
 
+def enable_db_auth
+  allow(AuthConfig.auth_config).to receive(:provider).and_return('db')
+  Rails.application.reload_routes!
+end
+
 def stub_geo_ip
   allow(GeoIp).to receive(:activated?).at_least(:once).and_return(nil)
 end
