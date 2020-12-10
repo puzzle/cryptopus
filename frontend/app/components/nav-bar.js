@@ -6,6 +6,7 @@ import { tracked } from "@glimmer/tracking";
 export default class NavBarComponent extends Component {
   @service router;
   @service navService;
+  @service screenWidthService;
 
   @tracked
   isNewAccount = false;

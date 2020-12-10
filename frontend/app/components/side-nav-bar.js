@@ -68,8 +68,8 @@ export default class SideNavBar extends Component {
         favourite: this.showsFavourites ? this.showsFavourites : undefined
       })
       .then(res => {
-          this.navService.availableTeams = res.toArray();
-          this.navService.isLoadingTeams = false;
+        this.navService.availableTeams = res.toArray();
+        this.navService.isLoadingTeams = false;
       });
   }
 }
