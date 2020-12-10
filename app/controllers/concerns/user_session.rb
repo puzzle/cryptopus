@@ -48,7 +48,6 @@ module UserSession
       Authentication::UserAuthenticator.init(
         username: params['username'],
         password: params['password'],
-        cookies: cookies,
         session: session
       )
   end

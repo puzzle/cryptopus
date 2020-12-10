@@ -3,20 +3,27 @@
 class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticator
 
   def authenticate!(code:, state:)
+    raise 'openid connect auth not enabled' unless AuthConfig.oidc_enabled?
+
     @code = code
     @state = state
 
-    params_present? && not_root? && user.present? && no_brute_force_lock?
+    params_present? && not_root? && user.present?
   end
 
+  # only allow api users to authenticate by headers
   def authenticate_by_headers!
-    return false unless header_preconditions?
-
+    authenticator = header_authenticator
+    user = authenticator.user
     if user.is_a?(User::Api)
-      authenticated = user.authenticate_db(password)
+      return authenticator.authenticate_by_headers!
     end
-    brute_force_detector.update(authenticated)
-    authenticated
+
+    false
+  end
+
+  def header_authenticator
+    ::Authentication::UserAuthenticator::Db.new(username: username, password: password)
   end
 
   def updatable_user_attrs
@@ -38,24 +45,18 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
   private
 
   def find_or_create_user
-    user = User.find_by(username: username.strip)
+    user = User.find_by(username: oidc_username.strip)
+    return if user&.is_a?(User::Api)
+
     user.presence || create_user
   end
 
-  def header_preconditions?
-    headers_present? && user_valid? && !root_user?
-  end
-
-  def headers_present?
-    username.present? && password.present?
-  end
-
   def not_root?
-    !root_user?
+    oidc_username != 'root'
   end
 
   def oidc_user_params
-    { username: username,
+    { username: oidc_username,
       provider_uid: oidc_attrs['sub'],
       givenname: oidc_attrs['given_name'],
       surname: oidc_attrs['family_name'] }
@@ -78,7 +79,7 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
     base.present? && base.length > 10
   end
 
-  def username
+  def oidc_username
     oidc_attrs[oidc_client.user_subject]
   end
 

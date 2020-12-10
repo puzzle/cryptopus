@@ -3,6 +3,7 @@
 class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticator
 
   def authenticate!
+    raise 'openid connect auth not enabled' unless AuthConfig.oidc_enabled?
     return false if root_user?
     return false unless preconditions?
     return false if brute_force_detector.locked?
