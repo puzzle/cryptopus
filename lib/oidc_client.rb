@@ -3,13 +3,9 @@
 # OpenID Connect Client
 class OidcClient
 
-  include Rails.application.routes.url_helpers
-
-  def external_login_url(jump_to: nil)
+  def external_login_url
     state = SecureRandom.hex(16)
     nonce = SecureRandom.hex(16)
-    return_params = { jump_to: jump_to }
-    client.redirect_uri = cryptopus_return_url(return_params)
     authorization_uri = client.authorization_uri(
       state: state,
       nonce: nonce
@@ -42,12 +38,12 @@ class OidcClient
       scheme: config[:host_scheme] || 'https',
       authorization_endpoint: config[:authorization_endpoint],
       token_endpoint: config[:token_endpoint],
-      redirect_uri: return_url
+      redirect_uri: cryptopus_return_url
     )
   end
 
   def host_public_key
-    json = JSON.parse(open(config[:certs_url]).read)
+    json = JSON.parse(URI.open(config[:certs_url]).read)
     JSON::JWK::Set.new json['keys']
   end
 
@@ -55,16 +51,9 @@ class OidcClient
     AuthConfig.oidc_settings
   end
 
-  def cryptopus_return_url(jump_to: nil)
-    params = {}
-    params[:jump_to] = jump_to if jump_to.present?
-
-    return_url(params)
-  end
-
-  def return_url(params = {})
+  def cryptopus_return_url
     protocol = Rails.application.config.force_ssl ? 'https://' : 'http://'
-    protocol + (ENV['RAILS_HOST_NAME'] || 'localhost:3000') + oidc_path(params)
+    protocol + (ENV['RAILS_HOST_NAME'] || 'localhost:3000') + '/session/oidc'
   end
 
 end

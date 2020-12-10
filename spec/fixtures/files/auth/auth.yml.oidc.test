@@ -1,11 +1,14 @@
 provider: openid-connect
 
 oidc:
-  client_id: 'cryptopus'
-  host: 'oidc.example.com'
-  secret: 'verysecretsecret42'
+  client_id: cryptopus
+  host: oidc.example.com
+  host_port: 8180
+  host_scheme: https
+  secret: verysecretsecret42
   authorization_endpoint: '/auth/realms/cryptopus/protocol/openid-connect/auth'
   token_endpoint: '/auth/realms/cryptopus/protocol/openid-connect/token'
-  user_subject: 'preferred_username'
+  user_subject: preferred_username
+  certs_url: 'http://oidc.example.com/auth/realms/cryptopus/protocol/openid-connect/certs'
   additional_scopes:
     'custom'
