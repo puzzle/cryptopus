@@ -8,6 +8,8 @@ export default class NavBarComponent extends Component {
   @service navService;
   @service screenWidthService;
 
+  searchInterval;
+
   @tracked
   isNewAccount = false;
 
@@ -43,11 +45,14 @@ export default class NavBarComponent extends Component {
 
   @action
   searchByQuery() {
-    if (this.navService.searchQuery.trim(' ').length > 2){
-      this.router
-        .transitionTo("teams.index", {
-          queryParams: { q: this.navService.searchQuery, team_id: undefined, folder_id: undefined }
-      })
-    }
+    clearInterval(this.searchInterval)
+    this.searchInterval = setInterval(() => {
+      if (this.navService.searchQuery.trim(' ').length > 2){
+        this.router
+          .transitionTo("teams.index", {
+            queryParams: { q: this.navService.searchQuery, team_id: undefined, folder_id: undefined }
+          })
+      }
+    }, 800)
   }
 }
