@@ -36,7 +36,6 @@
         </a>
       </div>
     </div>
-
     <navbar.content @id="navbarSupportedContent">
       <navbar.nav @class="w-100">
         <a href="/" class="title d-flex align-items-center show-not-on-hamburgermenu w-250">
@@ -88,9 +87,11 @@
             </a>
           </div>
         </div>
-        <div class="show-on-hamburgermenu mb-5 my-lg-0">
-          <SideNavBar @navbar={{navbar}}/>
-        </div>
+        {{#if this.screenWidthService.isShownOnHamburgermenu}}
+          <div class="show-on-hamburgermenu mb-5 my-lg-0">
+            <SideNavBar @navbar={{navbar}}/>
+          </div>
+        {{/if}}
       </navbar.nav>
     </navbar.content>
   </div>

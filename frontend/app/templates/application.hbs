@@ -2,9 +2,11 @@
 <NavBar/>
 
 <div class="content">
-  <div class="show-not-on-hamburgermenu">
-    <SideNavBar/>
-  </div>
+  {{#if (not this.screenWidthService.isShownOnHamburgermenu)}}
+    <div class="show-not-on-hamburgermenu">
+      <SideNavBar/>
+    </div>
+  {{/if}}
   <div class="mb-5 mt-60 ml-270px" role="main">
     {{outlet}}
   </div>
