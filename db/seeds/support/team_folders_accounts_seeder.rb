@@ -43,6 +43,17 @@ class TeamFoldersAccountsSeeder
     end
   end
 
+  def add_user_to_all_teams(user)
+    [:john, :kate, :alice, :bruce, :emily].each do |teammember_name|
+      teammember = User::Human.find_by(username: teammember_name)
+      teammember.teams.each do |team|
+        pk = CryptUtils.decrypt_private_key(teammember[:private_key], 'password')
+        decrypted_team_password = team.decrypt_team_password(teammember, pk)
+        team.add_user(user, decrypted_team_password) unless team.teammember?(user.id)
+      end
+    end
+  end
+
   private
   def user(username)
     User.find_by(username: username.to_s)
