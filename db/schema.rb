@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_17_140436) do
+ActiveRecord::Schema.define(version: 2020_12_11_072630) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "accountname", limit: 70, default: "", null: false
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2020_09_17_140436) do
     t.string "tag"
     t.string "type", default: "Account::Credentials", null: false
     t.text "encrypted_data"
+    t.index ["accountname"], name: "index_accounts_on_accountname"
+    t.index ["description"], name: "index_accounts_on_description"
     t.index ["tag"], name: "index_accounts_on_tag"
   end
 
@@ -42,6 +44,7 @@ ActiveRecord::Schema.define(version: 2020_09_17_140436) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "team_id", default: 0, null: false
+    t.index ["name"], name: "index_folders_on_name"
   end
 
   create_table "logs", force: :cascade do |t|
@@ -78,6 +81,7 @@ ActiveRecord::Schema.define(version: 2020_09_17_140436) do
     t.datetime "updated_at", null: false
     t.boolean "visible", default: true, null: false
     t.boolean "private", default: false, null: false
+    t.index ["name"], name: "index_teams_on_name"
   end
 
   create_table "user_favourite_teams", force: :cascade do |t|
