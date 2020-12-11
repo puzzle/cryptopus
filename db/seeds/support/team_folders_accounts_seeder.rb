@@ -64,9 +64,9 @@ class TeamFoldersAccountsSeeder
   end
 
   def seed_account(folder, plaintext_team_pw)
-    username = CryptUtils.encrypt_blob("#{folder.accounts.count}: #{Faker::Lorem.word}", plaintext_team_pw)
+    username = CryptUtils.encrypt_blob("#{Faker::Lorem.word} #{rand(999)}", plaintext_team_pw)
     password = CryptUtils.encrypt_blob(Faker::Internet.password, plaintext_team_pw)
-    folder.accounts.create!(accountname: "#{folder.accounts.count}: #{Faker::Company.name}",
+    folder.accounts.create!(accountname: "#{Faker::Company.name} #{rand(999)}",
                             username: username,
                             password: password,
                             description: Faker::Lorem.paragraph)
@@ -74,7 +74,7 @@ class TeamFoldersAccountsSeeder
 
   def seed_folder(team)
     Folder.seed do |f|
-      f.name = "#{team.folders.count}: #{Faker::Lorem.word.capitalize}"
+      f.name = "#{Faker::Lorem.word.capitalize} #{rand(999)}"
       f.team_id = team.id
     end
   end
