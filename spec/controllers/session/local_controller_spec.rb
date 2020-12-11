@@ -47,8 +47,8 @@ describe Session::LocalController do
       expect(flash[:error]).to match(/Authentication failed/)
     end
 
-    it 'cannot login with not root username with keycloak enabled' do
-      enable_keycloak
+    it 'cannot login with not root username with oidc enabled' do
+      enable_openid_connect
       expect_any_instance_of(Authentication::SourceIpChecker)
         .to receive(:private_ip?)
         .and_return(true)

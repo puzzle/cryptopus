@@ -55,9 +55,10 @@ class Recrypt::LdapController < ApplicationController
   end
 
   def user_authenticator
-    Authentication::UserAuthenticator.init(
-      username: current_user.username,
-      password: params[:new_password]
-    )
+    @user_authenticator ||=
+      Authentication::UserAuthenticator.init(
+        username: current_user.username,
+        password: params[:new_password]
+      )
   end
 end

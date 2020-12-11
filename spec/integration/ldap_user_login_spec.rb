@@ -10,7 +10,6 @@ describe 'Ldap user login' do
   include IntegrationHelpers::DefaultHelper
 
   before(:each) do
-    mock_ldap_settings
     enable_ldap
     user_bob = users(:bob)
     user_bob.update(auth: 'ldap')

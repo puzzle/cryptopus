@@ -11,11 +11,12 @@ class SessionController < ApplicationController
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
   skip_before_action :verify_authenticity_token, only: :create
-  skip_before_action :validate_user, only: [:new, :create]
+  skip_before_action :validate_user, only: [:new, :create, :destroy]
   skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
 
   before_action :authorize_action
   before_action :skip_authorization, only: [:create, :new, :destroy]
+  before_action :assert_logged_in, only: :destroy
 
   layout 'session', only: :new
 
@@ -77,6 +78,12 @@ class SessionController < ApplicationController
   end
 
   private
+
+  def assert_logged_in
+    return if user_logged_in?
+
+    redirect_to user_authenticator.login_path
+  end
 
   def last_login_message
     flash_message = Flash::LastLoginMessage.new(session)
