@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   scope '/session', module: 'session' do
     if AuthConfig.oidc_enabled?
-      get 'oidc', to: 'oidc#create'
+      get 'oidc', to: 'oidc#create', as: 'session_oidc_create'
     end
     post 'local', to: 'local#create'
     get 'local', to: 'local#new', as: 'session_local_new'
