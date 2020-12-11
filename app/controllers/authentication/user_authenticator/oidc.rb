@@ -14,8 +14,8 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
   # only allow api users to authenticate by headers
   def authenticate_by_headers!
     authenticator = db_authenticator
-    user = authenticator.user
-    if user.is_a?(User::Api)
+    @user = authenticator.user
+    if @user.is_a?(User::Api)
       return authenticator.authenticate_by_headers!
     end
 

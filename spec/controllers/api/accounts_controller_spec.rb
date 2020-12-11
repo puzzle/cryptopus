@@ -197,14 +197,15 @@ describe Api::AccountsController do
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
       end
 
-      it 'authenticates with valid api user and returns account details with keycloak enabled' do
-        enable_keycloak
+      it 'authenticates with valid api user and returns account details with oidc enabled' do
+        enable_openid_connect
         api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
         teams(:team1).add_user(api_user, plaintext_team_password)
 
         request.headers['Authorization-User'] = api_user.username
         request.headers['Authorization-Password'] = token
+
         account = accounts(:account1)
         get :show, params: { id: account }, xhr: true
 

@@ -112,7 +112,8 @@ class ApiController < CrudController
   end
 
   def user_authenticator
-    Authentication::UserAuthenticator.init(username: username, password: password_header)
+    @user_authenticator ||=
+      Authentication::UserAuthenticator.init(username: username, password: password_header)
   end
 
   def users_private_key
