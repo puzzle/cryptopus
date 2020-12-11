@@ -204,8 +204,4 @@ class User::Human < User
       end
     end
   end
-
-  def user_authenticator(password, cookies = nil)
-    Authentication::UserAuthenticator.init(username: username, password: password, cookies: cookies)
-  end
 end

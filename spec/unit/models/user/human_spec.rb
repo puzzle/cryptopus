@@ -137,7 +137,6 @@ describe User::Human do
   end
 
   context 'last teammember in team' do
-
     it 'do not destroy user if he is last teammember in any team' do
       soloteam = Fabricate(:private_team)
       user = User::Human.find(soloteam.teammembers.first.user_id)
@@ -146,35 +145,13 @@ describe User::Human do
       end.to raise_error(Exception)
       expect(User::Human.find(user.id)).to_not be_nil
     end
-
   end
 
   context '#recrypt_private_key' do
     it 'shows new error on user if wrong old password at private_key recryption' do
-      enable_ldap
-      ldap = double
-      bob.update(auth: 'ldap')
-
-      expect(LdapConnection).to receive(:new).exactly(1).times.and_return(ldap)
-      expect(ldap).to receive(:authenticate!)
-        .with('bob', 'new_password')
-        .and_return(true)
-
       expect(bob.recrypt_private_key!('new_password', 'wrong_old_password')).to eq false
 
       expect(bob.errors.messages[:base][0]).to match(/Your OLD password was wrong/)
-    end
-
-    it 'shows new error on user if wrong new password at private_key recryption' do
-      enable_ldap
-      ldap = double
-
-      expect(LdapConnection).to receive(:new).at_least(:once).and_return(ldap)
-      expect(ldap).to receive(:authenticate!).at_least(:once).times.and_return(false)
-
-      expect(bob.recrypt_private_key!('worong_new_password', 'password')).to eq false
-
-      expect(bob.errors.messages[:base][0]).to match(/Your NEW password was wrong/)
     end
   end
 
