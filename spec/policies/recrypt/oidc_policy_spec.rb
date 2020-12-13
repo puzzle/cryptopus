@@ -15,6 +15,7 @@ describe Recrypt::OidcPolicy do
 
   it 'db user can migrate to oidc if openid enabled' do
     enable_openid_connect
+
     expect(bob).not_to be_oidc
 
     expect(authorized?(bob, :new?)).to eq(true)

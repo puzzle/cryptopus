@@ -10,12 +10,12 @@ class Recrypt::LdapController < ApplicationController
 
   # GET /recrypt/ldap
   def new
-    authorize :recryptLdap
+    authorize_action :new
   end
 
   # POST /recrypt/ldap
   def create
-    authorize :recryptLdap
+    authorize_action :create
 
     unless user_authenticator.authenticate!
       flash[:error] = t('activerecord.errors.models.user.new_password_invalid')
@@ -30,6 +30,10 @@ class Recrypt::LdapController < ApplicationController
   end
 
   private
+
+  def authorize_action(action)
+    authorize action, policy_class: Recrypt::LdapPolicy
+  end
 
   def create_recrypt_request
     # Check if there's already a recryptrequest
