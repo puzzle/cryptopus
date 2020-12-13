@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RecryptSsoPolicy < ApplicationPolicy
+class Recrypt::OidcPolicy < ApplicationPolicy
   def new?
     !user.oidc? && AuthConfig.oidc_enabled?
   end

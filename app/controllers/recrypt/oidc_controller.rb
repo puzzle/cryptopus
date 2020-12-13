@@ -13,19 +13,22 @@ class Recrypt::OidcController < ApplicationController
 
   # GET recrypt/oidc
   def new
-    authorize :recryptSso
+    authorize_action :new
     render layout: false
   end
 
   # POST recrypt/oidc
   def create
-    authorize :recryptSso
-
+    authorize_action :create
     user_passphrase = session[:oidc_recrypt_user_passphrase]
     recrypt_private_key(user_passphrase)
   end
 
   private
+
+  def authorize_action(action)
+    authorize action, policy_class: Recrypt::OidcPolicy
+  end
 
   def recrypt_private_key(new_password)
     if current_user.recrypt_private_key!(new_password, params[:old_password])
