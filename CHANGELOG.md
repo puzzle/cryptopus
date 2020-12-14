@@ -1,5 +1,9 @@
 # Cryptopus Changelog
 
+## Version 3.6
+- Fix autologout
+- Improve performance via indexes in db and frontend optimizing
+
 ## Version 3.5
 - [CCLI](https://github.com/puzzle/ccli) login command copy button
 - Reduce amount of rendered accounts to fight performance issues
