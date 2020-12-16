@@ -64,11 +64,21 @@ describe AuthConfig do
       expect(auth.oidc?).to eq(true)
       settings = auth.oidc
 
-      expect(settings[:port]).to eq(443)
-      expect(settings[:scheme]).to eq('https')
+      expect(settings[:host_port]).to eq(8180)
+      expect(settings[:host_scheme]).to eq('https')
       expect(settings[:host]).to eq('oidc.example.com')
       expect(settings[:secret]).to eq('verysecretsecret42')
-      expect(settings[:redirect_uri]).to eq('https://oidc.example.com/auth')
+      expect(settings[:client_id]).to eq('cryptopus')
+      expect(settings[:authorization_endpoint])
+        .to eq('/auth/realms/cryptopus/protocol/openid-connect/auth')
+      expect(settings[:token_endpoint])
+        .to eq('/auth/realms/cryptopus/protocol/openid-connect/token')
+      expect(settings[:user_subject])
+        .to eq('preferred_username')
+      expect(settings[:certs_url])
+        .to eq('http://oidc.example.com/auth/realms/cryptopus/protocol/openid-connect/certs')
+      expect(settings[:additional_scopes])
+        .to eq(['custom'])
     end
   end
 
