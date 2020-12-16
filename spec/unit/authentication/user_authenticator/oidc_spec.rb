@@ -154,7 +154,7 @@ describe Authentication::UserAuthenticator::Oidc do
       expect(authenticate_by_headers!).to be true
     end
 
-    it 'does not authenticate api user if wrong password' do
+    it 'does not authenticate api user if wrong token' do
       oidc_user = create_oidc_user(user_passphrase)
       api_user = oidc_user.api_users.create
 

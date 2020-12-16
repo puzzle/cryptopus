@@ -17,14 +17,12 @@ def enable_openid_connect
   allow_any_instance_of(AuthConfig)
     .to receive(:settings_file)
     .and_return(oidc_settings)
-  Rails.application.reload_routes!
 end
 
 def enable_ldap
   allow_any_instance_of(AuthConfig)
     .to receive(:settings_file)
     .and_return(ldap_settings)
-  Rails.application.reload_routes!
 end
 
 def enable_db_auth

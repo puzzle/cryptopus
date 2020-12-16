@@ -8,7 +8,7 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
     @code = code
     @state = state
 
-    params_present? && user.present? && !user.root?
+    params_present? && user.present? && user_allowed?
   end
 
   # only allow api users to authenticate by headers
