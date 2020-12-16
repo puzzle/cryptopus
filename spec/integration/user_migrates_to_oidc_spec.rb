@@ -63,12 +63,16 @@ describe 'User migrates to oidc' do
     # 2. returning back from external login form to cryptopus
     get session_oidc_create_path, params: { code: 'abdc42', state: state }
 
-    # 3. redirect to recrypt form
+    # 3. redirect to recrypt form and provides wrong old password
     follow_redirect!
     expect(request.fullpath).to eq('/recrypt/oidc')
+    post recrypt_oidc_path, params: { old_password: 'wrong' }
+    expect(request.fullpath).to eq('/recrypt/oidc')
+
+    # 4. still on recrypt form and provides correct old password
     post recrypt_oidc_path, params: { old_password: 'password' }
 
-    # 4. back to root path and external openid connect login
+    # 5. back to root path and external openid connect login
     follow_redirect!
     expect(request.fullpath).to eq('/')
     redirect_url = response.location
@@ -77,10 +81,10 @@ describe 'User migrates to oidc' do
     params = URI.decode_www_form(params).to_h
     state = params['state']
 
-    # 5. returning back from external login form to cryptopus
+    # 6. returning back from external login form to cryptopus
     get session_oidc_create_path, params: { code: 'abdc42', state: state }
 
-    # 6. user logged in
+    # 7. user logged in
     follow_redirect!
     expect(request.fullpath).to eq(root_path)
 
