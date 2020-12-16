@@ -28,6 +28,7 @@ class Authentication::UserAuthenticator
   def authenticate!(allow_root: false, allow_api: false)
     @allow_root = allow_root
     @allow_api = allow_api
+    false
   end
 
   def authenticate_by_headers!
