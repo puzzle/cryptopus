@@ -36,11 +36,11 @@ class Api::ApiUsers::TokenController < ApiController
 
   def renew_token
     if active_session?
-      api_user.renew_token(session[:private_key])
+      private_key = session[:private_key]
     else
       password = password_header
       private_key = current_user.decrypt_private_key(password)
-      api_user.renew_token(private_key)
     end
+    api_user.renew_token(private_key)
   end
 end

@@ -107,6 +107,7 @@ class User::Api < User
   def init_token
     self.options = Options.new
     token = random_token
+    create_keypair(token)
     encrypt_token(token)
   end
 
@@ -122,7 +123,6 @@ class User::Api < User
   def encrypt_token(token)
     public_key = human_user.public_key
     self.encrypted_token = CryptUtils.encrypt_rsa(token, public_key)
-    create_keypair(token)
     self.password = CryptUtils.one_way_crypt(token)
   end
 
