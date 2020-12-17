@@ -5,9 +5,10 @@ require 'rails_helper'
 describe Api::ApiUsers::TokenController do
   include ControllerHelpers
 
-  let(:api_user) { users(:bob).api_users.create!(description: 'my sweet api user') }
-  let(:api_user2) { users(:bob).api_users.create!(description: 'my sweet second api user') }
-  let(:private_key) { users(:bob).decrypt_private_key('password') }
+  let(:bob) { users(:bob) }
+  let(:api_user) { bob.api_users.create!(description: 'my sweet api user') }
+  let(:api_user2) { bob.api_users.create!(description: 'my sweet second api user') }
+  let(:private_key) { bob.decrypt_private_key('password') }
   let(:foreign_api_user) { users(:alice).api_users.create! }
 
   context 'GET show' do
@@ -26,6 +27,38 @@ describe Api::ApiUsers::TokenController do
         new_token = api_user.send(:decrypt_token, private_key)
         expect(api_user).to_not be_locked
         expect(old_token).to_not eq(new_token)
+      end
+
+      it 'renews token of api user and can still decrypt team password' do
+        team = teams(:team1)
+        account = accounts(:account1)
+
+        decrypted_team_password = team.decrypt_team_password(bob, private_key)
+        team.add_user(api_user, decrypted_team_password)
+
+        old_token = api_user.send(:decrypt_token, private_key)
+        api_user_pk_before = api_user.decrypt_private_key(old_token)
+
+        get :show, params: { id: api_user.id }, xhr: true
+
+        api_user.reload
+
+        received_token = json['token']
+        token = api_user.send(:decrypt_token, private_key)
+
+        expect(received_token).to eq(token)
+        expect(api_user.authenticate_db(token)).to be true
+
+        api_user_pk = api_user.decrypt_private_key(received_token)
+
+        expect(api_user_pk_before).to eq(api_user_pk)
+
+        decrypted_team_password = team.decrypt_team_password(api_user, api_user_pk)
+
+        account.decrypt(decrypted_team_password)
+
+        expect(account.cleartext_username).to eq 'test'
+        expect(account.cleartext_password).to eq 'password'
       end
 
       it 'user cannot renew token of foreign_api_user' do
