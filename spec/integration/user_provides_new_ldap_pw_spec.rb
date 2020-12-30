@@ -13,7 +13,6 @@ describe 'User provides new Ldap Pw' do
 
   before(:each) do
     enable_ldap
-    mock_ldap_settings
   end
 
   let(:bob) { users(:bob) }
@@ -31,7 +30,7 @@ describe 'User provides new Ldap Pw' do
 
       expect(ldap).to receive(:authenticate!)
         .with('bob', 'newPassword')
-        .exactly(4).times
+        .exactly(3).times
         .and_return(true)
 
       # Calls login method
@@ -53,7 +52,7 @@ describe 'User provides new Ldap Pw' do
       check_username_and_password
     end
 
-    it 'provides new ldap password and doesnt remember his old password' do
+    it 'provides new ldap password and does not remember his old password' do
       ldap = double
 
       # Prepare for  do
@@ -104,11 +103,11 @@ describe 'User provides new Ldap Pw' do
 
       expect(ldap).to receive(:authenticate!)
         .with('bob', 'newPassword')
-        .exactly(3).times
+        .exactly(2).times
         .and_return(true)
 
       # Calls login method
-      # 2 times with login as and
+      # 1 times with login as and
       # 1 time in recryptrequests_controller
 
       login_as('bob', 'newPassword')

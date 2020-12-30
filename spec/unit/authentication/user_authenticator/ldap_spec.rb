@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Authentication::UserAuthenticator::Ldap do
 
-  before(:each) do
+  before do
     enable_ldap
   end
 
@@ -33,8 +33,6 @@ describe Authentication::UserAuthenticator::Ldap do
     end
 
     it 'succeeds ldap authentication with correct credentials' do
-      mock_ldap_settings
-
       @username = 'bob'
       @password = 'ldappw'
       bob.update!(auth: 'ldap')
@@ -47,8 +45,6 @@ describe Authentication::UserAuthenticator::Ldap do
     end
 
     it 'fails ldap authentication if wrong password' do
-      mock_ldap_settings
-
       @username = 'bob'
       @password = 'wrongldappw'
       bob.update!(auth: 'ldap')
@@ -60,7 +56,6 @@ describe Authentication::UserAuthenticator::Ldap do
     end
 
     it 'returns user if exists in db' do
-      mock_ldap_settings
       expect_any_instance_of(LdapConnection).to receive(:authenticate!)
         .with('bob', 'ldappw')
         .and_return(true)
@@ -73,7 +68,6 @@ describe Authentication::UserAuthenticator::Ldap do
     end
 
     it 'does not return user if user not exists in db and ldap' do
-      mock_ldap_settings
 
       expect_any_instance_of(LdapConnection)
         .to receive(:authenticate!)
@@ -94,7 +88,6 @@ describe Authentication::UserAuthenticator::Ldap do
     end
 
     it 'increases failed login attempts and it\'s defined time delays' do
-      mock_ldap_settings
 
       @username = 'bob'
       @password = 'wrong password'
@@ -135,8 +128,6 @@ describe Authentication::UserAuthenticator::Ldap do
 
   context 'api authenticate' do
     it 'succeeds ldap authentication with correct credentials' do
-      mock_ldap_settings
-
       @username = 'bob'
       @password = 'ldappw'
       bob.update!(auth: 'ldap')
@@ -149,8 +140,6 @@ describe Authentication::UserAuthenticator::Ldap do
     end
 
     it 'fails ldap authentication if wrong password' do
-      mock_ldap_settings
-
       @username = 'bob'
       @password = 'wrongldappw'
       bob.update!(auth: 'ldap')

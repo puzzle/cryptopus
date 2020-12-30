@@ -107,13 +107,8 @@ class User::Human < User
     end
   end
 
-  def recrypt_private_key!(new_password, old_password, cookies = nil)
-    return false if keycloak?
-    return unauthorized unless user_authenticator(new_password, cookies).authenticate!
-
-    return save! if preform_private_key_recryption!(new_password, old_password)
-
-    false
+  def recrypt_private_key!(new_password, old_password)
+    preform_private_key_recryption!(new_password, old_password) && save!
   end
 
   def root?
@@ -128,8 +123,8 @@ class User::Human < User
     auth == 'ldap'
   end
 
-  def keycloak?
-    auth == 'keycloak'
+  def oidc?
+    auth == 'oidc'
   end
 
   def unauthorized
@@ -208,9 +203,5 @@ class User::Human < User
         errors.add(last_login_from, "invalid ip address: #{last_login_from}")
       end
     end
-  end
-
-  def user_authenticator(password, cookies = nil)
-    Authentication::UserAuthenticator.init(username: username, password: password, cookies: cookies)
   end
 end

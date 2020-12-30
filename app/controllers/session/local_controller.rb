@@ -38,7 +38,7 @@ class Session::LocalController < SessionController
   end
 
   def user_authenticator
-    Authentication::UserAuthenticator::Db.new(
+    @user_authenticator ||= Authentication::UserAuthenticator::Db.new(
       username: params[:username], password: params[:password]
     )
   end

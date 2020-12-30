@@ -66,6 +66,16 @@ describe Authentication::UserAuthenticator::Db do
       expect(authenticate!).to be false
     end
 
+    it 'fails authentication if api user' do
+      token = api_user.send(:decrypt_token, private_key)
+      api_user.update!(valid_until: Time.now.utc + 5.minutes)
+      @username = api_user.username
+      @password = token
+
+      expect(api_user.authenticate_db(token)).to be true
+      expect(authenticate!).to be false
+    end
+
     it 'increases failed login attempts and it\'s defined time delays' do
       @username = 'bob'
       @password = 'wrong password'
@@ -191,7 +201,7 @@ describe Authentication::UserAuthenticator::Db do
   end
 
   def db_authenticator
-    @authenticator ||= Authentication::UserAuthenticator::Db.new(
+    @db_authenticator ||= Authentication::UserAuthenticator::Db.new(
       username: @username, password: @password
     )
   end

@@ -3,7 +3,8 @@
 class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticator
 
   def authenticate!
-    return false if root_user?
+    raise 'ldap auth not enabled' unless AuthConfig.ldap_enabled?
+
     return false unless preconditions?
     return false if brute_force_detector.locked?
 
@@ -13,23 +14,19 @@ class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticato
   end
 
   def authenticate_by_headers!
-    return false if root_user?
-    return false unless preconditions?
-    return false if brute_force_detector.locked?
-
+    return false unless api_preconditions?
 
     if user.is_a?(User::Human)
-      authenticated = ldap_connection.authenticate!(username, password)
+      return authenticate!
     elsif user.is_a?(User::Api)
-      authenticated = user.authenticate_db(password)
+      return db_authenticator.authenticate_by_headers!
     end
-    authenticated
+
+    false
   end
 
-  def update_user_info(remote_ip)
-    params = { last_login_from: remote_ip }
-    params.merge(ldap_params) unless root_user?
-    super(params)
+  def updatable_user_attrs
+    ldap_attrs
   end
 
   def recrypt_path
@@ -37,6 +34,12 @@ class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticato
   end
 
   private
+
+  def api_preconditions?
+    params_present? &&
+      valid_username? &&
+      user.present?
+  end
 
   def find_or_create_user
     return unless params_present? && valid_username?
@@ -47,7 +50,7 @@ class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticato
     user
   end
 
-  def ldap_params
+  def ldap_attrs
     { givenname: ldap_connection.ldap_info(user.provider_uid, 'givenname'),
       surname: ldap_connection.ldap_info(user.provider_uid, 'sn') }
   end

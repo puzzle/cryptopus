@@ -28,15 +28,19 @@ describe 'Root login' do
 
   it 'does not let root login with wrong password' do
     post local_path, params: { username: 'bob', password: 'wrong_password' }
+
     follow_redirect!
+
     expect(request.fullpath).to eq(local_path)
     expect(response.body)
       .to match(/Authentication failed! Enter a correct username and password./)
   end
 
   it 'lets root login with keycloak enabled' do
-    enable_keycloak
+    enable_openid_connect
+
     post local_path, params: { username: 'root', password: 'password' }
+
     follow_redirect!
     expect(request.fullpath).to eq(root_path)
     expect_ember_frontend

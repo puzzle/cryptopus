@@ -188,8 +188,8 @@ describe SessionController do
       expect(response).to redirect_to root_path
     end
 
-    it 'redirects if keycloak user tries to update password' do
-      users(:bob).update!(auth: 'keycloak')
+    it 'redirects if oidc user tries to update password' do
+      users(:bob).update!(auth: 'oidc')
       login_as(:bob)
       post :update_password, params: { old_password: 'password', new_password1: 'test',
                                        new_password2: 'test' }

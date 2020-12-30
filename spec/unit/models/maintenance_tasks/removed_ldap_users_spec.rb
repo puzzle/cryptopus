@@ -39,7 +39,6 @@ describe MaintenanceTasks::RemovedLdapUsers do
 
   it 'raises if ldap connection failed' do
     enable_ldap
-    mock_ldap_settings
 
     task = MaintenanceTask.find(3)
     task.executer = users(:admin)
@@ -50,7 +49,6 @@ describe MaintenanceTasks::RemovedLdapUsers do
 
   it 'returns removed ldap users' do
     enable_ldap
-    mock_ldap_settings
 
     bob = users(:bob)
     bob.update!(auth: 'ldap')
@@ -76,7 +74,6 @@ describe MaintenanceTasks::RemovedLdapUsers do
 
   it 'finds no removed ldap users' do
     enable_ldap
-    mock_ldap_settings
 
     expect_any_instance_of(LdapConnection).to receive(:test_connection).and_return(true)
 
@@ -90,7 +87,6 @@ describe MaintenanceTasks::RemovedLdapUsers do
 
   it 'can execute task as conf admin' do
     enable_ldap
-    mock_ldap_settings
 
     expect_any_instance_of(LdapConnection).to receive(:test_connection).and_return(true)
 

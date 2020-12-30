@@ -2,13 +2,13 @@ provider: openid-connect
 
 oidc:
   client_id: cryptopus
-  host: keycloak
+  host: oidc.example.com
   host_port: 8180
-  host_scheme: http
-  secret: '0a76235d-4d98-47ba-ab31-22e4748f6fa8'
+  host_scheme: https
+  secret: verysecretsecret42
   authorization_endpoint: '/auth/realms/cryptopus/protocol/openid-connect/auth'
   token_endpoint: '/auth/realms/cryptopus/protocol/openid-connect/token'
   user_subject: preferred_username
-  certs_url: http://keycloak:8180/auth/realms/cryptopus/protocol/openid-connect/certs
+  certs_url: 'http://oidc.example.com/auth/realms/cryptopus/protocol/openid-connect/certs'
   additional_scopes:
-    - email
+    - 'custom'

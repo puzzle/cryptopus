@@ -45,7 +45,6 @@ describe Admin::MaintenanceTasksController do
 
       it 'executes task' do
         enable_ldap
-        mock_ldap_settings
         expect_any_instance_of(LdapConnection).to receive(:test_connection).and_return(true)
 
         login_as(:admin)
@@ -82,7 +81,6 @@ describe Admin::MaintenanceTasksController do
 
       it 'executes task and renders result page' do
         enable_ldap
-        mock_ldap_settings
         login_as(:admin)
 
         expect_any_instance_of(LdapConnection).to receive(:test_connection).and_return(true)

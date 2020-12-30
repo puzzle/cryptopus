@@ -4,11 +4,8 @@ require 'rails_helper'
 
 describe Authentication::UserAuthenticator do
 
-  it 'raises implement in subclass' do
-    expect do
-      error = authenticator.authenticate!
-      expect(error.message).to eq('implement in subclass')
-    end.to raise_error(NotImplementedError)
+  it 'returns false by default' do
+    expect(authenticator.authenticate!).to be false
   end
 
   it 'raises implement in subclass' do
