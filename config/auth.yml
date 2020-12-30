@@ -1,14 +1,28 @@
-provider: openid-connect
+provider: db
 
-oidc:
-  client_id: cryptopus
-  host: keycloak
-  host_port: 8180
-  host_scheme: http
-  secret: '0a76235d-4d98-47ba-ab31-22e4748f6fa8'
-  authorization_endpoint: '/auth/realms/cryptopus/protocol/openid-connect/auth'
-  token_endpoint: '/auth/realms/cryptopus/protocol/openid-connect/token'
-  user_subject: preferred_username
-  certs_url: http://keycloak:8180/auth/realms/cryptopus/protocol/openid-connect/certs
-  additional_scopes:
-    - email
+# openid connect example
+# oidc:
+#   client_id: cryptopus
+#   host: keycloak.example.com
+#   host_port: 8180
+#   host_scheme: https
+#   secret: '0a76235d-4d98-47ba-ab31-22e4748f6fa8'
+#   authorization_endpoint: '/auth/realms/cryptopus/protocol/openid-connect/auth'
+#   token_endpoint: '/auth/realms/cryptopus/protocol/openid-connect/token'
+#   user_subject: preferred_username
+#   certs_url: http://keycloak.example.com:8180/auth/realms/cryptopus/protocol/openid-connect/certs
+#   additional_scopes:
+#     - email
+
+# ldap example
+# provider: ldap
+#
+# ldap:
+#   bind_dn: 'uid=binduser,ou=system,ou=users,dc=acme,dc=itc'
+#   bind_password: seeeecret
+#   encryption: 'simple_tls'
+#   hostnames:
+#     - 'ldap.example.com'
+#     - 'ldap-fallback.example.com'
+#   basename: 'ou=members,ou=users,dc=acme,dc=itc'
+#   portnumber: 636
