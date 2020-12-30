@@ -43,7 +43,7 @@ describe 'Openid Connect user login' do
     instance_double('IdToken', raw_attributes: id_token_attrs)
   end
 
-  it 'it logs new user in by openid connect' do
+  it 'logs new user in by openid connect' do
     # 1. redirect to external openid connect login form
     get root_path
     redirect_url = response.location

@@ -64,8 +64,9 @@ describe Authentication::UserAuthenticator::Oidc do
       expect(user.oidc?).to be true
       expect(user.password).to be_nil
 
-      # would raise an error if not working
-      user.decrypt_private_key(user_passphrase)
+      expect do
+        user.decrypt_private_key(user_passphrase)
+      end.not_to raise_error
     end
 
     it 'logs in existing user' do

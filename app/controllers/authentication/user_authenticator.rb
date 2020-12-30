@@ -48,8 +48,8 @@ class Authentication::UserAuthenticator
   end
 
   def update_user_info(remote_ip)
-    attrs = { last_login_from: remote_ip }
-    attrs[:last_login_at] = Time.zone.now
+    attrs = { last_login_from: remote_ip,
+              last_login_at: Time.zone.now }
     attrs.merge(updatable_user_attrs) unless @user.root?
     user.update(attrs)
   end
