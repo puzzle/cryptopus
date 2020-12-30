@@ -197,9 +197,8 @@ de:
       selected_file: Ausgewählte Datei
 
   session:
-    new:
+    user_password:
       title: Anmelden
-      description: Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein um Cryptopus zu verwenden.
       submit: Anmelden
     local:
       new:

@@ -144,9 +144,8 @@ zh:
       upload_file: "上传文件"
 
   session:
-    new:
+    user_password:
       title: "登陆"
-      description: "请输入用户名和密码访问cryptopus"
       submit: "登陆"
     local:
       new:

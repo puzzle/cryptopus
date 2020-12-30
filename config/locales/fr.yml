@@ -195,14 +195,12 @@ fr:
       selected_file: Le fichier sélectionné
 
   session:
-    new:
+    user_password:
       title: Identifiez-vous
-      description: S'il vous plaît entrer un nom d'utilisateur valide et mot de passe.
       submit: S'identifier
     local:
       new:
         title: Identifiez-vous
-        description: S'il vous plaît entrer un nom d'utilisateur valide et mot de passe.
         submit: S'identifier
     sso:
       inactive:
