@@ -150,14 +150,12 @@ ru:
       upload_file: "Загрузить файл"
 
   session:
-    new:
+    user_password:
       title: "Вход"
-      description: "Введите имя пользователя и пароль для входа в cryptopus"
       submit: "Войти"
     local:
       new:
         title: "Вход"
-        description: "Введите имя пользователя и пароль для входа в cryptopus"
         submit: "Войти"
     sso:
       inactive:

@@ -220,14 +220,12 @@ ch_be:
       selected_file: Usgwählti Datei
 
   session:
-    new:
+    user_password:
       title: Amäudä
-      description: Bitte gib di Benutzername u dis Passwort i zum z'Cryptopus chönne z bruche.
       submit: Amäudä
     local:
       new:
         title: Amäudä
-        description: Bitte gib di Benutzername u dis Passwort i zum z'Cryptopus chönne z bruche.
         submit: Amäudä
     sso:
       inactive:
