@@ -57,7 +57,7 @@ describe User::Api do
     end
   end
 
-  context '#renew' do
+  context '#renew_token_by_human' do
 
     it 'creates new token and updates expiring time' do
       now = Time.zone.now
@@ -67,7 +67,7 @@ describe User::Api do
 
       expect(Time).to receive(:now).at_least(:once).and_return(now)
 
-      new_token = api_user.renew_token(bob.decrypt_private_key('password'))
+      new_token = api_user.renew_token_by_human(bob.decrypt_private_key('password'))
 
       expect(api_user.valid_until.to_i).to eq(now.advance(seconds: 5.minutes.seconds).to_i)
       expect(authenticate(api_user.username, new_token)).to eq(true)
@@ -80,13 +80,39 @@ describe User::Api do
       api_user = bob.api_users.create!
       api_user.valid_for = 0
 
-      new_token = api_user.renew_token(bob.decrypt_private_key('password'))
+      new_token = api_user.renew_token_by_human(bob.decrypt_private_key('password'))
       expect(api_user.valid_until).to be_nil
       expect(decrypted_token(api_user)).to eq(new_token)
       expect(api_user).to_not be_expired
       expect(api_user).to_not be_locked
     end
 
+  end
+
+  context '#renew_token' do
+
+    it 'renews his own token and human user may decrypt token' do
+      now = Time.zone.now
+      api_user = bob.api_users.create!
+      api_user.valid_for = 5.minutes.seconds
+      api_user.valid_until = now
+
+      expect(Time).to receive(:now).at_least(:once).and_return(now)
+
+      token = api_user.renew_token_by_human(bob.decrypt_private_key('password'))
+
+      # api user renews his token
+      new_token = api_user.renew_token(token)
+      expect(decrypted_token(api_user)).to eq(new_token)
+      expect(api_user.valid_until.to_i).to eq(now.advance(seconds: 5.minutes.seconds).to_i)
+      expect(authenticate(api_user.username, new_token)).to eq(true)
+      expect(api_user).to_not be_expired
+      expect(api_user).to_not be_locked
+
+      # human user should be able to renew it again
+      new_token = api_user.renew_token_by_human(bob.decrypt_private_key('password'))
+      expect(authenticate(api_user.username, new_token)).to eq(true)
+    end
   end
 
   context '#locked' do

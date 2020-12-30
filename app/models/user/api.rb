@@ -64,9 +64,14 @@ class User::Api < User
     valid_until < Time.zone.now
   end
 
-  def renew_token(human_private_key)
+  def renew_token_by_human(human_private_key)
     self.locked = false
     old_token = decrypt_token(human_private_key)
+    renew_token(old_token)
+  end
+
+  def renew_token(old_token)
+    self.locked = false
     new_token = SecureRandom.hex(16)
 
     refresh_valid_until
