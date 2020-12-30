@@ -71,7 +71,6 @@ class User::Api < User
   end
 
   def renew_token(old_token)
-    self.locked = false
     new_token = SecureRandom.hex(16)
 
     refresh_valid_until
