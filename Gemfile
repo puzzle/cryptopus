@@ -26,9 +26,9 @@ gem 'i18n-js', '~> 3.0'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
-gem 'keycloak'
 gem 'less-rails'
 gem 'maxmind-db'
+gem 'openid_connect'
 gem 'password_strength'
 gem 'pundit'
 gem 'rails-i18n'
@@ -69,4 +69,5 @@ group :test do
   gem 'mocha'
   gem 'rails-controller-testing'
   gem 'simplecov', require: false, group: :test
+  gem 'webmock'
 end

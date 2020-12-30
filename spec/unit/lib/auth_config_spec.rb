@@ -57,6 +57,32 @@ describe AuthConfig do
     end
   end
 
+  context '#oidc_settings' do
+    it 'should return all openid connect settings' do
+      enable_openid_connect
+
+      expect(auth.oidc?).to eq(true)
+      settings = auth.oidc
+
+      expect(settings[:host_port]).to eq(8180)
+      expect(settings[:host_scheme]).to eq('https')
+      expect(settings[:host]).to eq('oidc.example.com')
+      expect(settings[:secret]).to eq('verysecretsecret42')
+      expect(settings[:client_id]).to eq('cryptopus')
+      expect(settings[:authorization_endpoint])
+        .to eq('/auth/realms/cryptopus/protocol/openid-connect/auth')
+      expect(settings[:token_endpoint])
+        .to eq('/auth/realms/cryptopus/protocol/openid-connect/token')
+      expect(settings[:user_subject])
+        .to eq('preferred_username')
+      expect(settings[:certs_url])
+        .to eq('http://oidc.example.com/auth/realms/cryptopus/protocol/openid-connect/certs')
+      expect(settings[:additional_scopes])
+        .to eq(['custom'])
+    end
+  end
+
+
   def settings_file(file)
     YAML.safe_load(File.read("spec/fixtures/files/auth/#{file}")).deep_symbolize_keys
   end

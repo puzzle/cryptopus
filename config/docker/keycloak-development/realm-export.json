@@ -570,10 +570,10 @@
           "consentRequired": false,
           "config": {
             "userinfo.token.claim": "false",
-            "user.attribute": "pk_secret_base",
-            "id.token.claim": "false",
+            "user.attribute": "cryptopus_pk_secret_base",
+            "id.token.claim": "true",
             "access.token.claim": "true",
-            "claim.name": "pk_sb",
+            "claim.name": "cryptopus_pk_secret_base",
             "jsonType.label": "String"
           }
         }

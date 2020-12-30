@@ -11,11 +11,12 @@ class SessionController < ApplicationController
   # caused problem with login form since the server side session is getting invalid after
   # configured timeout.
   skip_before_action :verify_authenticity_token, only: :create
-  skip_before_action :validate_user, expect: [:update_password, :changelocale]
+  skip_before_action :validate_user, only: [:new, :create, :destroy]
   skip_before_action :redirect_if_no_private_key, only: [:destroy, :new]
 
   before_action :authorize_action
-  before_action :skip_authorization, only: [:create, :new, :destroy, :sso]
+  before_action :skip_authorization, only: [:create, :new, :destroy]
+  before_action :assert_logged_in, only: :destroy
 
   layout 'session', only: :new
 
@@ -36,10 +37,19 @@ class SessionController < ApplicationController
   def destroy
     flash_notice = params[:autologout] ? t('session.destroy.expired') : flash[:notice]
     jumpto = params[:jumpto]
+    redirect_path = destroy_redirect_path
     reset_session
     session[:jumpto] = jumpto
     flash[:notice] = flash_notice
-    redirect_to user_authenticator.logged_out_path
+    redirect_to redirect_path
+  end
+
+  def destroy_redirect_path
+    if current_user.root?
+      session_local_new_path
+    else
+      session_new_path
+    end
   end
 
   def show_update_password
@@ -69,6 +79,12 @@ class SessionController < ApplicationController
 
   private
 
+  def assert_logged_in
+    return if user_logged_in?
+
+    redirect_to user_authenticator.login_path
+  end
+
   def last_login_message
     flash_message = Flash::LastLoginMessage.new(session)
     flash[:notice] = flash_message.message if flash_message
@@ -95,8 +111,7 @@ class SessionController < ApplicationController
   end
 
   def redirect_after_sucessful_login
-    jump_to = session[:jumpto] || root_path
-    session[:jumpto] = nil
+    jump_to = session.delete(:jumpto) || root_path
     redirect_to jump_to
   end
 
@@ -130,7 +145,7 @@ class SessionController < ApplicationController
     authorize :session
   end
 
-  def keycloak_client
-    @keycloak_client ||= KeycloakClient.new
+  def oidc_client
+    @oidc_client ||= OidcClient.new
   end
 end

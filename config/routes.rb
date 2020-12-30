@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
 Rails.application.routes.draw do
 
   root 'frontend#index'
@@ -13,21 +8,22 @@ Rails.application.routes.draw do
   get 'status/readiness', to: 'status#readiness'
 
   namespace :recrypt do
-    get 'ldap', to: 'ldap#new'
-    post 'ldap', to: 'ldap#create'
-    if AuthConfig.keycloak_enabled?
-      get 'sso', to: 'sso#new'
-      post 'sso', to: 'sso#create'
+    if AuthConfig.ldap_enabled?
+      get 'ldap', to: 'ldap#new'
+      post 'ldap', to: 'ldap#create'
+    end
+    if AuthConfig.oidc_enabled?
+      get 'oidc', to: 'oidc#new'
+      post 'oidc', to: 'oidc#create'
     end
   end
 
   scope '/session', module: 'session' do
-    if AuthConfig.keycloak_enabled?
-      get 'sso', to: 'sso#create'
-      get 'sso/inactive', to: 'sso#inactive'
+    if AuthConfig.oidc_enabled?
+      get 'oidc', to: 'oidc#create', as: 'session_oidc_create'
     end
     post 'local', to: 'local#create'
-    get 'local', to: 'local#new'
+    get 'local', to: 'local#new', as: 'session_local_new'
   end
 
   get 'session/new', to: 'session#new'

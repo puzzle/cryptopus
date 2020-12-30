@@ -1,0 +1,6 @@
+.login-form
+  = image_pack_tag "cryptopussy_oidc_sleep.svg", class: 'logo'
+  .form-group
+    .alert.alert-login-box.alert-info
+      = t('.sleep')
+    = link_to(t('.submit'), root_path, class: 'btn btn-primary')

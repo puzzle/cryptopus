@@ -2,13 +2,14 @@ version: '3'
 
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:8.0.1
+    image: quay.io/keycloak/keycloak:10.0.2
     env_file: docker.env
     command: "-Djboss.socket.binding.port-offset=100 -Dkeycloak.import=/realm-export.json -Dkeycloak.migration.strategy=IGNORE_EXISTING"
     ports:
       - 8180:8180
     volumes:
       - ${PWD}/realm-export.json:/realm-export.json
+      - ${PWD}/dump-jboss-requests.cli:/opt/jboss/startup-scripts/my-script.cli
     depends_on:
       - postgres
   postgres:

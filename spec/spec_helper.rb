@@ -48,7 +48,7 @@ RSpec.configure do |config|
     stub_geo_ip
   end
 
-  ENV['RAILS_HOST_NAME'] = 'www.example.com'
+  ENV['RAILS_HOST_NAME'] = 'cryptopus.example.com'
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

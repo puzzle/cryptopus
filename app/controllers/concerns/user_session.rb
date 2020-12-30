@@ -16,7 +16,7 @@ module UserSession
 
   def validate_user
     handle_pending_recrypt_request
-    unless user_authenticator.user_logged_in?(session)
+    unless user_logged_in?
       session[:jumpto] = request.fullpath
       redirect_to user_authenticator.login_path
     end
@@ -44,9 +44,12 @@ module UserSession
   end
 
   def user_authenticator
-    Authentication::UserAuthenticator.init(
-      username: params['username'], password: params['password'], cookies: cookies
-    )
+    @user_authenticator ||=
+      Authentication::UserAuthenticator.init(
+        username: params['username'],
+        password: params['password'],
+        session: session
+      )
   end
 
   private
@@ -65,4 +68,9 @@ module UserSession
   def active_session?
     session[:private_key].present?
   end
+
+  def user_logged_in?
+    session[:user_id].present?
+  end
+
 end

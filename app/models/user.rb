@@ -39,11 +39,15 @@ class User < ApplicationRecord
   def update_password(old, new)
     return unless auth_db?
 
+    if old.blank? || new.blank?
+      raise 'passwords cannot be blank'
+    end
+
     if authenticate_db(old)
       self.password = CryptUtils.one_way_crypt(new)
       pk = CryptUtils.decrypt_private_key(private_key, old)
       self.private_key = CryptUtils.encrypt_private_key(pk, new)
-      save
+      save!
     end
   end
 
