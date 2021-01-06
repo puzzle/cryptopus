@@ -25,7 +25,7 @@ const navServiceStub = Service.extend({
 
 const storeStub = Service.extend({
   createRecord() {
-    return { folder: null, isNew: true };
+    return { folder: null, isNew: true, isFullyLoaded: true };
   },
   query(modelName) {
     if (modelName === "folder") {
@@ -112,7 +112,8 @@ module("Integration | Component | account-form", function(hooks) {
       cleartextUsername: "mail@ember.com",
       cleartextPassword: "lol",
       description: "The ember email",
-      folder: this.get("folder")
+      folder: this.get("folder"),
+      isFullyLoaded: true
     });
     await render(hbs`<AccountForm @account={{this.account}}/>`);
 
