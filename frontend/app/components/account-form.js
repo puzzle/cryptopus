@@ -107,12 +107,12 @@ export default class AccountForm extends BaseFormComponent {
 
   handleSubmitSuccess(savedRecords) {
     this.abort();
-    if (this.isNewRecord) {
+    this.navService.clear();
+    if (this.isNewRecord || this.router.currentRouteName === "accounts.show") {
       this.router.transitionTo("accounts.show", savedRecords[0].id);
-    } else if (
-      !this.isNewRecord &&
-      this.router.currentRouteName === "teams.folders-show"
-    ) {
+    } else {
+      this.navService.setSelectedTeamById(savedRecords[0].folder.get("team.id"));
+      this.navService.setSelectedFolderById(savedRecords[0].folder.get("id"));
       this.router.transitionTo(
         "teams.folders-show",
         savedRecords[0].folder.get("team.id"),
