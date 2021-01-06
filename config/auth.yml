@@ -19,7 +19,7 @@ provider: db
 #
 # ldap:
 #   bind_dn: 'uid=binduser,ou=system,ou=users,dc=acme,dc=itc'
-#   bind_password: seeeecret
+#   bind_password: cGFzc3dvcmQ= # base64 encoded # echo -n 'password' | base64
 #   encryption: 'simple_tls'
 #   hostnames:
 #     - 'ldap.example.com'
