@@ -45,6 +45,8 @@ export default class AccountForm extends BaseFormComponent {
     if (isPresent(this.changeset.folder)) {
       this.selectedTeam = this.changeset.folder.get("team");
     }
+
+    if (!this.record.isFullyLoaded) this.store.findRecord("account-credential", this.record.id);
   }
 
   presetTeamAndFolder() {

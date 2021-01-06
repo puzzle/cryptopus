@@ -16,25 +16,28 @@
           <div class="col-md-6 order-2">
             <form.group class="col-md-12">
               <form.element @property="accountname" @label={{t "helpers.label.account.account_name"}}
-                            @name="accountname" class={{if this.changeset.error.accountname.validation
+                            class={{if this.changeset.error.accountname.validation
                                                            "invalid-input-name"}}
-                            id="accountname" @tabindex="1"
-                            @customError={{t (validation-error-key this.changeset.error.accountname.validation)}} />
+                            id="accountname"
+                            @customError={{t (validation-error-key this.changeset.error.accountname.validation)}} as |el|>
+                <el.control autocomplete="off" @name="accountname" tabindex="1"></el.control>
+              </form.element>
             </form.group>
             <form.group class="form-group col-md-12">
-              <form.element @label={{t "username"}} id="username" @name="cleartextUsername" class={{if
+              <form.element @label={{t "username"}} id="username" class={{if
                       this.changeset.error.cleartextUsername.validation "invalid-input-name"}}
-                            @property="cleartextUsername" @tabindex="2" @customError={{t
-                      (validation-error-key this.changeset.error.cleartextUsername.validation)}}/>
+                            @property="cleartextUsername" @customError={{t
+                      (validation-error-key this.changeset.error.cleartextUsername.validation)}} as |el|>
+                <el.control @name="cleartextUsername" tabindex="2"></el.control>
+              </form.element>
             </form.group>
           </div>
           <div class="col-md-6 ml-auto order-5 order-md-3">
             <div class="form-group col-md-12" id="team-power-select">
               <form.element @label={{t "team"}} @controlType="power-select"
-                            @placeholder={{t "accounts.edit.team_placeholder"}}
                             @options={{this.assignableTeams}} @value={{this.selectedTeam}}
                             @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>
-                <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}}
+                <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @placeholder={{t "accounts.edit.team_placeholder"}}
                             @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
                   {{team.name}}
                 </el.control>
@@ -43,11 +46,11 @@
             <div class="form-group col-md-12" id="folder-power-select">
               <form.element @options={{this.availableFolders}} @label={{t "folder"}} @controlType="power-select"
                             @value={{this.changeset.folder}}
-                            @placeholder={{t "accounts.edit.folder_placeholder"}}
-                            @disabled={{this.isFolderDropdownDisabled}}
                             @searchEnabled={{true}} @allowClear={{true}} @searchField={{"name"}}
                             @customError={{t (validation-error-key this.changeset.error.folder.validation)}} as |el|>
                 <el.control class={{if this.changeset.error.folder.validation "invalid-input-ps"}}
+                            @disabled={{this.isFolderDropdownDisabled}}
+                            @placeholder={{t "accounts.edit.folder_placeholder"}}
                             @renderInPlace={{true}} @onChange={{this.setFolder}} as |folder|>
                   {{folder.name}}
                 </el.control>
@@ -57,11 +60,11 @@
 
           <div class="col-md-6 order-3 order-md-4">
             <div class="col-sm-12 secret">
-              <form.element @label={{t "password"}} @name="cleartextPassword" id="cleartext-password" class={{if
+              <form.element @label={{t "password"}} id="cleartext-password" class={{if
                       this.changeset.error.cleartextPassword.validation "invalid-input-name"}}
-                            @property="cleartextPassword" @tabindex="3" @customError={{t
+                            @property="cleartextPassword" @customError={{t
                       (validation-error-key this.changeset.error.cleartextPassword.validation)}} as |el|>
-                <el.control autocomplete="off"></el.control>
+                <el.control autocomplete="off" tabindex="3" @name="cleartextPassword" ></el.control>
               </form.element>
               <PasswordStrengthMeter class="col-12 col-lg-9 px-0 mb-2 mb-md-0" @password={{this.changeset.cleartextPassword}}/>
             </div>
@@ -81,8 +84,10 @@
               <form.element @label={{t "description"}} @property="description" @controlType="textarea"
                             id="description" class="{{if
                       this.changeset.error.description.validation "invalid-input"}} vertical-resize mt-3"
-                            @tabindex="7" @customError={{t
-                      (validation-error-key this.changeset.error.description.validation)}}/>
+                            customError={{t
+                      (validation-error-key this.changeset.error.description.validation)}} as |el|>
+                <el.control tabindex="7"></el.control>
+              </form.element>
             </form.group>
           </div>
         </div>
