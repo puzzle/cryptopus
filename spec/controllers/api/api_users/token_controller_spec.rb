@@ -8,7 +8,7 @@ describe Api::ApiUsers::TokenController do
   let(:bob) { users(:bob) }
   let(:api_user) { bob.api_users.create!(description: 'my sweet api user') }
   let(:api_user2) { bob.api_users.create!(description: 'my sweet second api user') }
-  let(:private_key) { bob.decrypt_private_key('password') }
+  let(:bobs_private_key) { bob.decrypt_private_key('password') }
   let(:foreign_api_user) { users(:alice).api_users.create! }
 
   context 'GET show' do
@@ -18,13 +18,13 @@ describe Api::ApiUsers::TokenController do
       end
 
       it 'renews token of api user' do
-        old_token = api_user.send(:decrypt_token, private_key)
+        old_token = api_user.send(:decrypt_token, bobs_private_key)
 
         get :show, params: { id: api_user.id }, xhr: true
 
         api_user.reload
 
-        new_token = api_user.send(:decrypt_token, private_key)
+        new_token = api_user.send(:decrypt_token, bobs_private_key)
         expect(api_user).to_not be_locked
         expect(old_token).to_not eq(new_token)
       end
@@ -33,10 +33,10 @@ describe Api::ApiUsers::TokenController do
         team = teams(:team1)
         account = accounts(:account1)
 
-        decrypted_team_password = team.decrypt_team_password(bob, private_key)
+        decrypted_team_password = team.decrypt_team_password(bob, bobs_private_key)
         team.add_user(api_user, decrypted_team_password)
 
-        old_token = api_user.send(:decrypt_token, private_key)
+        old_token = api_user.send(:decrypt_token, bobs_private_key)
         api_user_pk_before = api_user.decrypt_private_key(old_token)
 
         get :show, params: { id: api_user.id }, xhr: true
@@ -44,7 +44,7 @@ describe Api::ApiUsers::TokenController do
         api_user.reload
 
         received_token = json['token']
-        token = api_user.send(:decrypt_token, private_key)
+        token = api_user.send(:decrypt_token, bobs_private_key)
 
         expect(received_token).to eq(token)
         expect(api_user.authenticate_db(token)).to be true
@@ -76,13 +76,13 @@ describe Api::ApiUsers::TokenController do
       end
 
       it 'renews token of himself' do
-        old_token = api_user.send(:decrypt_token, private_key)
+        old_token = api_user.send(:decrypt_token, bobs_private_key)
 
         get :show, params: { id: api_user.id }, xhr: true
 
         api_user.reload
 
-        new_token = api_user.send(:decrypt_token, private_key)
+        new_token = api_user.send(:decrypt_token, bobs_private_key)
         expect(old_token).to_not eq(new_token)
       end
 
@@ -106,7 +106,7 @@ describe Api::ApiUsers::TokenController do
 
       api_user.reload
 
-      @token = api_user.send(:decrypt_token, private_key)
+      @token = api_user.send(:decrypt_token, bobs_private_key)
       @username = api_user.username
       expect(api_user).to be_locked
     end
@@ -121,7 +121,7 @@ describe Api::ApiUsers::TokenController do
   private
 
   def token
-    decrypted_token = api_user.send(:decrypt_token, private_key)
+    decrypted_token = api_user.send(:decrypt_token, bobs_private_key)
     Base64.encode64(decrypted_token)
   end
 end
