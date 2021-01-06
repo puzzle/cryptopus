@@ -1,7 +1,6 @@
 # Cryptopus Changelog
 
 ## Version 3.6
-<<<<<<< HEAD
 - Fix autologout
 - Improve performance via indexes in db and frontend optimizing
 - Support for OpenID Connect Single Sign On
