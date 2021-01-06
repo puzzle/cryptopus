@@ -48,10 +48,6 @@ class Api::FileEntriesController < ApiController
     @team ||= account.folder.team
   end
 
-  def finder(accounts, query)
-    Finders::AccountsFinder.new(accounts, query)
-  end
-
   def query_param
     params[:q]
   end

@@ -83,28 +83,6 @@ describe Api::AccountsController do
       expect_json_object_includes_keys(account1_json_relationships, nested_models)
     end
 
-    it 'returns account for matching description without cleartext username / password' do
-      login_as(:alice)
-      get :index, params: { 'q': 'des' }, xhr: true
-
-      account1_json = data.first
-      account1_json_attributes = account1_json['attributes']
-      account1_json_relationships = account1_json['relationships']
-
-      account = accounts(:account1)
-      folder = account.folder
-
-      expect(data.count).to eq 1
-      expect(account1_json_attributes['accountname']).to eq account.accountname
-      expect(account1_json['id']).to eq account.id.to_s
-      expect(account1_json_attributes['cleartext_username']).to be_nil
-      expect(account1_json_attributes['cleartext_password']).to be_nil
-      expect(account1_json_relationships['folder']['data']['id']).to eq folder.id.to_s
-
-      expect_json_object_includes_keys(account1_json_attributes, attributes)
-      expect_json_object_includes_keys(account1_json_relationships, nested_models)
-    end
-
     it 'returns account for matching tag without cleartext username / password' do
       login_as(:bob)
 

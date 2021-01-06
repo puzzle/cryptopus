@@ -26,13 +26,7 @@ class Api::FoldersController < ApiController
   private
 
   def fetch_entries
-    return team.folders if query_param.blank?
-
-    finder(team.folders, query_param).apply
-  end
-
-  def finder(folders, query)
-    Finders::FoldersFinder.new(folders, query)
+    team.folders
   end
 
   def query_param

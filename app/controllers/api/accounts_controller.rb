@@ -68,9 +68,7 @@ class Api::AccountsController < ApiController
 
   def fetch_entries
     accounts = current_user.accounts
-    if query_param.present?
-      accounts = finder(accounts, query_param).apply
-    elsif tag_param.present?
+    if tag_param.present?
       accounts = accounts.find_by(tag: tag_param)
     end
     accounts
@@ -82,10 +80,6 @@ class Api::AccountsController < ApiController
 
   def team
     @team ||= account.folder.team
-  end
-
-  def finder(accounts, query)
-    ::Finders::AccountsFinder.new(accounts, query)
   end
 
   def query_param
