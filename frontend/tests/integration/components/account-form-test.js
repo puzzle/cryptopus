@@ -7,22 +7,23 @@ import { clickTrigger } from "ember-power-select/test-support/helpers";
 import { selectChoose } from "ember-power-select/test-support";
 import { setLocale } from "ember-intl/test-support";
 
-const storeStub = Service.extend({
-  findAll(modelName) {
-    if (modelName === "team") {
-      return Promise.all([
-        {
-          id: 1,
-          name: "supporting",
-          description: "supporting folders",
-          folder: [1],
-          get() {
-            return 1;
-          }
-        }
-      ]);
+const navServiceStub = Service.extend({
+  /* eslint-disable ember/avoid-leaking-state-in-ember-objects */
+  sortedTeams: [
+    {
+      id: 1,
+      name: "supporting",
+      description: "supporting folders",
+      folder: [1],
+      get() {
+        return 1;
+      }
     }
-  },
+  ]
+  /* eslint-enable ember/avoid-leaking-state-in-ember-objects */
+});
+
+const storeStub = Service.extend({
   createRecord() {
     return { folder: null, isNew: true };
   },
@@ -62,6 +63,8 @@ module("Integration | Component | account-form", function(hooks) {
   hooks.beforeEach(function() {
     this.owner.unregister("service:store");
     this.owner.register("service:store", storeStub);
+    this.owner.unregister("service:navService");
+    this.owner.register("service:navService", navServiceStub);
     setLocale("en");
   });
 

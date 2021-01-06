@@ -40,13 +40,11 @@ export default class AccountForm extends BaseFormComponent {
       this.changeset.folder = this.args.folder;
     }
 
-    this.store.findAll("team").then(teams => {
-      this.assignableTeams = teams;
+    this.assignableTeams = this.navService.sortedTeams;
 
-      if (isPresent(this.changeset.folder)) {
-        this.selectedTeam = this.changeset.folder.get("team");
-      }
-    });
+    if (isPresent(this.changeset.folder)) {
+      this.selectedTeam = this.changeset.folder.get("team");
+    }
   }
 
   presetTeamAndFolder() {
