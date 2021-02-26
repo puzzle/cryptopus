@@ -1,0 +1,98 @@
+name: Cryptopus CI build
+
+# Run this workflow every time a push or pull-request on master branch gets submitted
+on:
+  push:
+    branches: [ master ]
+
+  pull_request:
+    branches: [ master ]
+
+  # scheduled for 2AM UTC
+  schedule:
+    - cron: '0 2 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  # Set the job key. The key is displayed as the job name
+  # when a job name is not provided
+  build:
+    name: Build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby 2.5
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.5
+          bundler-cache: true
+
+      # Setup Node
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.13.0'
+
+      # Npm global packages caching
+      - name: Cache global npm modules
+        id: global-node-modules-cache
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-global-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux
+          path: ~/.npm
+          key: ${{ runner.os }}-global-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-global-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
+
+      # Node modules caching
+      - name: Cache node modules
+        id: node-modules-cache
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm modules cache files are stored in `./node_modules`
+          path: ./node_modules
+          key: ${{ runner.os }}-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Before Install
+        run: sudo service mysql restart
+
+      - name: Install bundler
+        run: gem install bundler:1.17.3
+
+      - name: Run yarn
+        if: steps.node-modules-cache.outputs.cache-hit != 'true' || steps.global-node-modules-cache.outputs.cache-hit != 'true'
+        run: yarn
+
+      - name: Add ember-cli
+        run: yarn global add ember-cli
+
+      - name: Add npm
+        run: yarn global add npm
+
+      - name: Set yarn prefix
+        run: yarn config set --prefix ./frontend install ./frontend
+
+      - name: Run rake ci
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        run: bundle exec rake ci --trace
+
+      # Run nightly ci tasks on schedule
+      - name: Run rake ci:nightly
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: bundle exec rake ci:nightly --trace
+
+      # Cleanup
+      - name: Run rake frontend clean
+        run: bundle exec rake frontend:clean
