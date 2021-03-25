@@ -36,6 +36,10 @@ class User < ApplicationRecord
   validates :username, uniqueness: :username
   validates :username, presence: true
 
+  def two_factor_authentication_enabled?
+    true
+  end
+
   def update_password(old, new)
     return unless auth_db?
 

@@ -26,6 +26,10 @@ module UserSession
     @current_user ||= (User::Human.find(session[:user_id]) if session[:user_id])
   end
 
+  def two_factor_authentication_pending?
+    session[:two_factor_authentication_user_id].present?
+  end
+
   def plaintext_team_password(team)
     raise 'You have no access to this team' unless team.teammember?(current_user.id)
 
@@ -70,7 +74,7 @@ module UserSession
   end
 
   def user_logged_in?
-    session[:user_id].present?
+    session[:user_id].present? && !two_factor_authentication_pending?
   end
 
 end

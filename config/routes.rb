@@ -22,6 +22,10 @@ Rails.application.routes.draw do
     if AuthConfig.oidc_enabled?
       get 'oidc', to: 'oidc#create', as: 'session_oidc_create'
     end
+
+    post 'totp', to: 'totp#create'
+    get 'totp', to: 'totp#new', as: 'session_totp_new'
+
     post 'local', to: 'local#create'
     get 'local', to: 'local#new', as: 'session_local_new'
   end

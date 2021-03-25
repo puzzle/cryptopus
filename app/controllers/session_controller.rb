@@ -30,6 +30,10 @@ class SessionController < ApplicationController
       return redirect_to user_authenticator.recrypt_path
     end
 
+    if two_factor_authentication_pending?
+      return redirect_to user_authenticator.two_factor_authentication_path
+    end
+
     check_password_strength
     redirect_after_sucessful_login
   end
@@ -117,7 +121,9 @@ class SessionController < ApplicationController
 
   def set_session_attributes(user, pk_secret)
     jumpto = session[:jumpto]
+    tfa_user_id = session[:two_factor_authentication_user_id]
     reset_session
+    session[:two_factor_authentication_user_id] = tfa_user_id
     session[:jumpto] = jumpto
     session[:username] = user.username
     session[:user_id] = user.id.to_s
