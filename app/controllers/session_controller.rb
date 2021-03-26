@@ -20,15 +20,15 @@ class SessionController < ApplicationController
 
   layout 'session', only: :new
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create
     unless user_authenticator.authenticate!
       flash[:error] = t('flashes.session.auth_failed')
+      session.delete(:two_factor_authentication_user_id)
       return redirect_to user_authenticator.login_path
     end
 
-    unless create_session(params[:password])
-      return redirect_to user_authenticator.recrypt_path
-    end
+    return redirect_to user_authenticator.recrypt_path unless create_session(params[:password])
 
     if two_factor_authentication_pending?
       return redirect_to user_authenticator.two_factor_authentication_path
@@ -37,6 +37,7 @@ class SessionController < ApplicationController
     check_password_strength
     redirect_after_sucessful_login
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def destroy
     flash_notice = params[:autologout] ? t('session.destroy.expired') : flash[:notice]
@@ -119,6 +120,7 @@ class SessionController < ApplicationController
     redirect_to jump_to
   end
 
+  # rubocop:disable Metrics/AbcSize
   def set_session_attributes(user, pk_secret)
     jumpto = session[:jumpto]
     tfa_user_id = session[:two_factor_authentication_user_id]
@@ -131,6 +133,7 @@ class SessionController < ApplicationController
     session[:last_login_at] = user.last_login_at
     session[:last_login_from] = user.last_login_from
   end
+  # rubocop:enable Metrics/AbcSize
 
   def password_params_valid?
     return if current_user.is_a?(User::Api)

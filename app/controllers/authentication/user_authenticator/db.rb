@@ -21,6 +21,6 @@ class Authentication::UserAuthenticator::Db < Authentication::UserAuthenticator
 
   # db users can't be created automatically so only find
   def find_or_create_user
-    User.find_by(username: username.strip, auth: 'db')
+    User.find_by(username: username&.strip, auth: 'db')
   end
 end

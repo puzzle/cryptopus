@@ -43,5 +43,6 @@ Rails.application.routes.draw do
   get 'changelog', to: 'changelog#index'
 
   get 'profile', to: 'profile#index'
-
+  post 'profile/totp/enable', to: 'profile#totp_enable'
+  post 'profile/totp/disable', to: 'profile#totp_disable'
 end

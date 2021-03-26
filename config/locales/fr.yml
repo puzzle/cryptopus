@@ -50,6 +50,8 @@ fr:
   select_team: Veuillez sélectionner une équipe ou utiliser la recherche
   role: Rôle
   empty: vide
+  enable: activer
+  disable: désactiver
 
   i18n:
     language:
@@ -202,6 +204,9 @@ fr:
       new:
         title: Identifiez-vous
         submit: S'identifier
+    totp:
+      new:
+        submit: Envoyer le code
     sso:
       inactive:
         title: Identifiez-vous
@@ -294,6 +299,8 @@ fr:
       delete:
         title: Supprimer Api-User
         content: "Est-ce que vous voulez supprimer l'utilisateur d'Api %{username}?"
+    totp:
+      totp: 2FA OTP
 
   flashes:
     api:

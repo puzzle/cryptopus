@@ -5,6 +5,8 @@ require 'rails_helper'
 describe Authentication::UserAuthenticator do
 
   it 'returns false by default' do
+    expect(authenticator).to receive(:find_or_create_user).and_return(nil)
+
     expect(authenticator.authenticate!).to be false
   end
 
@@ -23,7 +25,7 @@ describe Authentication::UserAuthenticator do
 
   def authenticator
     @authenticator ||= Authentication::UserAuthenticator.new(
-      username: @username, password: @password
+      username: @username, password: @password, session: {}
     )
   end
 

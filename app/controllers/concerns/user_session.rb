@@ -9,7 +9,7 @@ module UserSession
   extend ActiveSupport::Concern
 
   included do
-    helper_method :current_user
+    helper_method :current_user, :user_logged_in?
     before_action :redirect_if_no_private_key
     before_action :validate_user, except: :wizard
   end

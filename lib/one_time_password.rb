@@ -1,9 +1,10 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 class OneTimePassword
 
   def initialize(username)
-    raise 'username cant be blank' unless username.present?
+    raise 'username cant be blank' if username.blank?
+
     @username = username
   end
 
@@ -16,13 +17,9 @@ class OneTimePassword
   end
 
   def verify(token)
-    return false unless username.present?
-    authenticator.verify(token)
-  end
+    return false if username.blank?
 
-  def authenticator
-    # todo add issuer
-    ROTP::TOTP.new(secret)
+    authenticator.verify(token)
   end
 
 
@@ -36,10 +33,15 @@ class OneTimePassword
     base32_encode(sha)
   end
 
+  def authenticator
+    # TODO: add issuer
+    ROTP::TOTP.new(secret)
+  end
+
   def base32_encode(str)
     b32 = ''
     str.each_byte do |b|
-      b32 << ROTP::Base32::CHARS[b % 32]
+      b32 += ROTP::Base32::CHARS[b % 32]
     end
     b32
   end

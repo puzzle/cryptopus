@@ -29,7 +29,7 @@ class Authentication::UserAuthenticator
     @allow_root = allow_root
     @allow_api = allow_api
 
-    @session[:two_factor_authentication_user_id] = user.id if user.two_factor_authentication_enabled? 
+    @session[:two_factor_authentication_user_id] = user.id if user&.second_factor_auth?
 
     false
   end
@@ -47,11 +47,18 @@ class Authentication::UserAuthenticator
   end
 
   def two_factor_authentication_path
-    session_totp_new_path
+    case user.second_factor_auth.to_sym
+    when :totp
+      session_totp_new_path
+    end
   end
 
   def login_path
-    @session[:two_factor_authentication_user_id].present? ? two_factor_authentication_path : session_new_path
+    if @session[:two_factor_authentication_user_id].present?
+      two_factor_authentication_path
+    else
+      session_new_path
+    end
   end
 
   def update_user_info(remote_ip)

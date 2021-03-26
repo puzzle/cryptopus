@@ -3,14 +3,14 @@
 class Authentication::UserAuthenticator::Totp < Authentication::UserAuthenticator
 
   def initialize(totp_code: nil, session: nil)
-    @totp_code = totp_code
+    @totp_code = totp_code || ''
     @session = session
   end
 
   def authenticate!(params = {})
     super(params)
 
-    !!otp.verify(totp_code)
+    otp.verify(totp_code).present? && !user.locked?
   end
 
   private

@@ -1,0 +1,5 @@
+- if current_user.totp?
+  = link_to t('disable'), profile_totp_disable_path, method: :post, type: 'button', class: 'btn btn-primary pull-right'
+  %img{src: user_otp_qr_code}
+- else
+  = link_to t('enable'), profile_totp_enable_path, method: :post, type: 'button', class: 'btn btn-primary pull-right'
