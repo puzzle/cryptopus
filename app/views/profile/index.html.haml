@@ -12,11 +12,16 @@
   %li.tab#profile-api-users-tab
     %a{"data-toggle" => "tab", href: "#api_users"}
       = t 'profile.api_users.api_users'
+  %li.tab#profile-totp-tab
+    %a{"data-toggle" => "tab", href: "#totp"}
+      = t('profile.totp.totp')
 
 .tab-content.teams-content
   #info.tab-pane.fade.in.active
     = render 'info'
   #api_users.tab-pane.fade
     = render 'api_users'
+  #totp.tab-pane.fade
+    = render 'totp'
 
 

@@ -47,6 +47,8 @@ en:
   intro: Looking for a password?
   role: Role
   empty: empty
+  enable: Enable
+  disable: Disable
 
   i18n:
     language:
@@ -201,6 +203,9 @@ en:
       new:
         title: Log in
         submit: Login
+    totp:
+      new:
+        submit: Send code
     oidc:
       sleep: I'm currently asleep to protect your precious data from session thieves. Feel free to wake me up any time
       submit: Wake me up!
@@ -294,6 +299,8 @@ en:
       delete:
         title: Remove Api-User
         content: "Delete Api-User %{username}?"
+    totp:
+      totp: 2FA OTP
 
   flashes:
     api:

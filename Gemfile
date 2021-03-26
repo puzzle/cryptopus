@@ -43,6 +43,9 @@ gem 'twitter-bootstrap-rails', '~>3.2'
 gem 'uglifier'
 gem 'webpacker'
 
+gem 'rotp'
+gem 'rqrcode'
+
 group :development, :test do
   gem 'bullet'
   gem 'capybara'

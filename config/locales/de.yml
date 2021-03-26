@@ -49,6 +49,8 @@ de:
   select_team: Wählen Sie bitte ein Team aus oder nutzen Sie die Suche
   role: Rolle
   empty: leer
+  enable: Aktivieren
+  disable: Deaktivieren
 
   i18n:
     language:
@@ -205,6 +207,11 @@ de:
         title: Anmelden
         description: Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein um Cryptopus zu verwenden.
         submit: Anmelden
+
+    totp:
+      new:
+        submit: Code absenden
+
     sso:
       inactive:
         title: Anmelden
@@ -301,6 +308,8 @@ de:
       delete:
         title: Entferne Api-User
         content: "Lösche Api-User %{username}?"
+    totp:
+      totp: 2FA OTP
 
   flashes:
     api:

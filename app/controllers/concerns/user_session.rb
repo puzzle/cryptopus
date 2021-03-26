@@ -9,7 +9,7 @@ module UserSession
   extend ActiveSupport::Concern
 
   included do
-    helper_method :current_user
+    helper_method :current_user, :user_logged_in?
     before_action :redirect_if_no_private_key
     before_action :validate_user, except: :wizard
   end
@@ -24,6 +24,10 @@ module UserSession
 
   def current_user
     @current_user ||= (User::Human.find(session[:user_id]) if session[:user_id])
+  end
+
+  def two_factor_authentication_pending?
+    session[:two_factor_authentication_user_id].present?
   end
 
   def plaintext_team_password(team)
@@ -70,7 +74,7 @@ module UserSession
   end
 
   def user_logged_in?
-    session[:user_id].present?
+    session[:user_id].present? && !two_factor_authentication_pending?
   end
 
 end

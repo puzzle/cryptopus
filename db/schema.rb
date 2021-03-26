@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_11_072630) do
+ActiveRecord::Schema.define(version: 2021_03_26_080404) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "accountname", limit: 70, default: "", null: false
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 2020_12_11_072630) do
     t.integer "human_user_id"
     t.text "options"
     t.integer "role", default: 0, null: false
+    t.integer "second_factor_auth", default: 0, null: false
   end
 
 end

@@ -47,6 +47,8 @@ ch_be:
   select_team: Wähl bitte es team us oder benutz d suechi
   role: Rollä
   empty: läär
+  enable: Aktivierä
+  disable: Deaktivierä
 
   api-user:
     none: Du hesch kei Api-Benutzer. Hol dr einä
@@ -227,6 +229,9 @@ ch_be:
       new:
         title: Amäudä
         submit: Amäudä
+    totp:
+      new:
+        submit: Code absände
     sso:
       inactive:
         title: Amäudä
@@ -318,6 +323,8 @@ ch_be:
         five_mins: Füf minutä
         twelve_hours: Zwöuf Stung
         infinite: Eewigs
+    totp:
+      totp: 2FA OTP
 
   flashes:
     api:

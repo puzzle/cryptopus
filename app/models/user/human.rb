@@ -56,6 +56,7 @@ class User::Human < User
   delegate :l, to: I18n
 
   enum role: [:user, :conf_admin, :admin]
+  enum second_factor_auth: [:no_second_factor, :totp]
 
   class << self
     def create_db_user(password, user_params)
@@ -84,6 +85,10 @@ class User::Human < User
   end
 
   # Instance Methods
+
+  def second_factor_auth?
+    !no_second_factor?
+  end
 
   def last_teammember_in_any_team?
     last_teammember_teams.any?

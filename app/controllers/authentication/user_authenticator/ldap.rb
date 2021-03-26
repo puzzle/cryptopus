@@ -44,7 +44,7 @@ class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticato
   def find_or_create_user
     return unless params_present? && valid_username?
 
-    user = User.find_by(username: username.strip)
+    user = User.find_by(username: username&.strip)
     return create_user if user.nil? && ldap_connection.authenticate!(username, password)
 
     user
