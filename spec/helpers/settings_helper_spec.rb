@@ -12,7 +12,8 @@ describe Admin::SettingsHelper do
   it 'creates label and input for text' do
     setting = Setting.find_by(key: 'general_ip_whitelist')
     result = input_field_setting(setting)
-    expect(result).to match(/This would be the range between <kbd>192.0.2.0<\/kbd> and <kbd>192.0.2.255<\/kbd>/)
+    expect(result)
+      .to match(/This would be the range between <kbd>192.0.2.0<\/kbd> and <kbd>192.0.2.255<\/kbd>/)
     expect(result).to match(/<input/)
     expect(result).to match(/name="setting\[general_ip_whitelist\]\[\]"/)
     expect(result).to match(/value="#{setting.value[0]}"/)
