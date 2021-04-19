@@ -37,7 +37,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '10.13.0'
+          node-version: '10.22.0'
 
       # Npm global packages caching
       - name: Cache global npm modules
