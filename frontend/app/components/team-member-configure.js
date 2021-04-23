@@ -21,7 +21,7 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
     this.store
       .query("team-api-user", {
         teamId: this.args.teamId
-      })
+      }, { reload: true })
       .then(res => {
         this.apiUsers = res;
       });
