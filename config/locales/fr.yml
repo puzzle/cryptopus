@@ -296,6 +296,7 @@ fr:
         content: "Est-ce que vous voulez supprimer l'utilisateur d'Api %{username}?"
 
   flashes:
+    something_went_wrong: Quelque chose a mal tourné
     api:
       admin:
         users:

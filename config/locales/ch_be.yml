@@ -320,6 +320,7 @@ ch_be:
         infinite: Eewigs
 
   flashes:
+    something_went_wrong: Öppis isch fautsch gloffe
     api:
       admin:
         users:

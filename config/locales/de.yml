@@ -303,6 +303,7 @@ de:
         content: "Lösche Api-User %{username}?"
 
   flashes:
+    something_went_wrong: Etwas ist falsch gelaufen
     api:
       admin:
         users:
