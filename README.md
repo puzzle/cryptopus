@@ -1,7 +1,6 @@
 ![logo](https://github.com/puzzle/cryptopus/blob/master/app/webpacker/images/cryptopussy.svg)
 
-[![Build Status](https://travis-ci.org/puzzle/cryptopus.svg)](https://travis-ci.org/puzzle/cryptopus)
-
+[![Cryptopus CI build](https://github.com/puzzle/cryptopus/actions/workflows/build.yml/badge.svg)](https://github.com/puzzle/cryptopus/actions/workflows/build.yml)
 # Welcome to Cryptopus
 
 Cryptopus is a Ruby on Rails web application for storing and sharing

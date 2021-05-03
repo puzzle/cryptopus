@@ -296,6 +296,7 @@ en:
         content: "Delete Api-User %{username}?"
 
   flashes:
+    something_went_wrong: Something went wrong
     api:
       admin:
         users:
