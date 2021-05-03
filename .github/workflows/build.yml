@@ -1,12 +1,12 @@
 name: Cryptopus CI build
 
-# Run this workflow every time a push or pull-request on master branch gets submitted
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - stable
 
   pull_request:
-    branches: [ master ]
 
   # scheduled for 2AM UTC
   schedule:
