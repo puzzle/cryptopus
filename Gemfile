@@ -46,13 +46,19 @@ gem 'webpacker'
 group :development, :test do
   gem 'bullet'
   gem 'capybara'
+  gem 'database_cleaner'
+  gem 'fabrication'
   gem 'launchy'
+  gem 'mocha'
+  gem 'rails-controller-testing'
   gem 'rails-erd'
   gem 'rspec-rails', '~> 4.0'
   gem 'rubocop-checkstyle_formatter'
   gem 'rubocop-rails'
   gem 'selenium-webdriver'
+  gem 'simplecov', require: false, group: :test
   gem 'webdrivers'
+  gem 'webmock'
 end
 
 group :development do
@@ -61,13 +67,4 @@ group :development do
   gem 'pry'
   gem 'pry-stack_explorer'
   gem 'sextant'
-end
-
-group :test do
-  gem 'database_cleaner'
-  gem 'fabrication'
-  gem 'mocha'
-  gem 'rails-controller-testing'
-  gem 'simplecov', require: false, group: :test
-  gem 'webmock'
 end

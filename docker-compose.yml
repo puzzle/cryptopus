@@ -1,8 +1,11 @@
-version: '2'
+version: '3.4'
 
 services:
   rails:
     image: cryptopus-dev/rails
+    user: "${UID:-1000}"
+    tty: true
+    stdin_open: true
     build:
       context: ./config/docker/development
       dockerfile: Rails.dockerfile
@@ -13,8 +16,12 @@ services:
       - ./tmp/seed:/seed
       - bundler_cache:/opt/bundle
       - ./config/docker/development/frontend-index.html:/myapp/public/frontend-index.html:ro
+      - ./frontend/public/assets:/myapp/public/assets:ro
+      - ./config/docker/development/home/rails:/home/developer
   ember:
-    image: danlynn/ember-cli:latest
+    image: cryptopus-dev/ember
+    tty: true
+    stdin_open: true
     build:
       context: ./config/docker/development
       dockerfile: Ember.dockerfile
