@@ -52,6 +52,7 @@
     "ember-export-application-global": "^2.0.1",
     "ember-fetch": "^8.0.1",
     "ember-file-upload": "^3.0.4",
+    "ember-in-viewport": "^3.9.0",
     "ember-intl": "^4.4.0",
     "ember-islands": "^1.5.1",
     "ember-load-initializers": "^2.1.0",
