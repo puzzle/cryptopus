@@ -1,8 +1,7 @@
-import BaseRoute from '../base';
+import BaseRoute from "../base";
 
 export default BaseRoute.extend({
   model(params) {
-    return this.store.findRecord('team', params.id)
+    return this.store.findRecord("team", params.id);
   }
-
 });

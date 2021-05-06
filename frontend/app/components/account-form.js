@@ -23,7 +23,8 @@ export default class AccountForm extends BaseFormComponent {
   constructor() {
     super(...arguments);
 
-    this.record = this.args.account || this.store.createRecord("account-credential");
+    this.record =
+      this.args.account || this.store.createRecord("account-credential");
     this.isNewRecord = this.record.isNew;
 
     this.changeset = new Changeset(
@@ -46,7 +47,8 @@ export default class AccountForm extends BaseFormComponent {
       this.selectedTeam = this.changeset.folder.get("team");
     }
 
-    if (!this.record.isFullyLoaded) this.store.findRecord("account-credential", this.record.id);
+    if (!this.record.isFullyLoaded)
+      this.store.findRecord("account-credential", this.record.id);
   }
 
   presetTeamAndFolder() {
@@ -64,7 +66,7 @@ export default class AccountForm extends BaseFormComponent {
       ? this.store
           .peekAll("folder")
           .filter(
-            folder => folder.team.get("id") === this.selectedTeam.get("id")
+            (folder) => folder.team.get("id") === this.selectedTeam.get("id")
           )
       : [];
   }
@@ -111,7 +113,9 @@ export default class AccountForm extends BaseFormComponent {
     if (this.isNewRecord || this.router.currentRouteName === "accounts.show") {
       this.router.transitionTo("accounts.show", savedRecords[0].id);
     } else {
-      this.navService.setSelectedTeamById(savedRecords[0].folder.get("team.id"));
+      this.navService.setSelectedTeamById(
+        savedRecords[0].folder.get("team.id")
+      );
       this.navService.setSelectedFolderById(savedRecords[0].folder.get("id"));
       this.router.transitionTo(
         "teams.folders-show",

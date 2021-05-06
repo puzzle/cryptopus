@@ -45,14 +45,20 @@ export default class NavBarComponent extends Component {
 
   @action
   searchByQuery() {
-    clearInterval(this.searchInterval)
+    clearInterval(this.searchInterval);
     this.searchInterval = setInterval(() => {
-      if (this.navService.searchQuery && this.navService.searchQuery.trim(' ').length > 2){
-        this.router
-          .transitionTo("teams.index", {
-            queryParams: { q: this.navService.searchQuery, team_id: undefined, folder_id: undefined }
-          })
+      if (
+        this.navService.searchQuery &&
+        this.navService.searchQuery.trim(" ").length > 2
+      ) {
+        this.router.transitionTo("teams.index", {
+          queryParams: {
+            q: this.navService.searchQuery,
+            team_id: undefined,
+            folder_id: undefined
+          }
+        });
       }
-    }, 800)
+    }, 800);
   }
 }

@@ -13,18 +13,18 @@ export default class TeamsIndexRoute extends BaseRoute {
 
   beforeModel(transition) {
     let params = transition.to.queryParams;
-    let definedParamValues = Object.values(params).filter(value => !!value);
+    let definedParamValues = Object.values(params).filter((value) => !!value);
     if (definedParamValues.length === 0) {
       transition.abort();
       this.transitionTo("index");
-    } else if(isPresent(params['q'])) {
+    } else if (isPresent(params["q"])) {
       this.navService.clear();
-      this.navService.searchQuery = params['q'];
+      this.navService.searchQuery = params["q"];
     }
   }
 
   model(params) {
-    params["limit"] = 10
-    return this.store.query("team", params)
+    params["limit"] = 10;
+    return this.store.query("team", params);
   }
 }

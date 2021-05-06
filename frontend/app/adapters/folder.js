@@ -42,7 +42,7 @@ export default ApplicationAdapter.extend({
     })}/${this.pathForType()}/${id}`;
   },
 
-  pathForType: function() {
+  pathForType: function () {
     return "folders";
   }
 });

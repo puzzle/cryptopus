@@ -6,21 +6,21 @@ export default class Router extends EmberRouter {
   rootURL = config.rootURL;
 }
 
-Router.map(function() {
-  this.route("accounts", function() {
+Router.map(function () {
+  this.route("accounts", function () {
     this.route("new");
     this.route("edit", { path: "/edit/:id" });
     this.route("show", { path: "/:id" });
     this.route(
       "file-entries",
       { path: "/:account_id/file-entries" },
-      function() {
+      function () {
         this.route("new");
       }
     );
   });
 
-  this.route("teams", function() {
+  this.route("teams", function () {
     this.route("index", { path: "/" });
     this.route("new");
     this.route("show", { path: "/:team_id" });
@@ -29,7 +29,7 @@ Router.map(function() {
     this.route("folders-show", { path: "/:team_id/folders/:folder_id" });
   });
 
-  this.route("folders", function() {
+  this.route("folders", function () {
     this.route("new");
     this.route("edit", { path: "/:id/edit" });
   });

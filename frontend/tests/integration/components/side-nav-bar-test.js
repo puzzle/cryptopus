@@ -33,10 +33,10 @@ const storeStub = Service.extend({
   }
 });
 
-module("Integration | Component | side-nav-bar", function(hooks) {
+module("Integration | Component | side-nav-bar", function (hooks) {
   setupRenderingTest(hooks);
 
-  test("it renders", async function(assert) {
+  test("it renders", async function (assert) {
     this.owner.unregister("service:store");
     this.owner.register("service:store", storeStub);
 

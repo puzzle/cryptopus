@@ -13,7 +13,7 @@ export default class LogoutTimerService extends Service {
   reset() {
     if (this.timerInterval) {
       /* eslint-disable no-undef  */
-      clearInterval(this.timerInterval)
+      clearInterval(this.timerInterval);
       /* eslint-enable no-undef  */
     }
   }
@@ -27,7 +27,6 @@ export default class LogoutTimerService extends Service {
     this.countDownDate = new Date().getTime();
 
     this.timerInterval = setInterval(() => {
-
       let now = new Date().getTime();
 
       let passedTime = now - this.countDownDate;

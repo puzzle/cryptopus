@@ -4,14 +4,14 @@ import { render } from "@ember/test-helpers";
 import hbs from "htmlbars-inline-precompile";
 import { setLocale } from "ember-intl/test-support";
 
-module("Integration | Helper | t", function(hooks) {
+module("Integration | Helper | t", function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     setLocale("en");
   });
 
-  test("it renders create in correct locale", async function(assert) {
+  test("it renders create in correct locale", async function (assert) {
     this.set("inputValue", "create");
 
     let intl = this.owner.lookup("service:intl");

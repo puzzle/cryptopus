@@ -4,14 +4,14 @@ import { render } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 import { setLocale } from "ember-intl/test-support";
 
-module("Integration | Component | password-strength-meter", function(hooks) {
+module("Integration | Component | password-strength-meter", function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     setLocale("en");
   });
 
-  test("it renders with weak password", async function(assert) {
+  test("it renders with weak password", async function (assert) {
     this.set("password", "gree");
 
     await render(hbs`<PasswordStrengthMeter @password={{this.password}}/>`);
@@ -25,7 +25,7 @@ module("Integration | Component | password-strength-meter", function(hooks) {
     );
   });
 
-  test("it renders with fair password", async function(assert) {
+  test("it renders with fair password", async function (assert) {
     this.set("password", "weweojdf");
 
     await render(hbs`<PasswordStrengthMeter @password={{this.password}}/>`);
@@ -39,7 +39,7 @@ module("Integration | Component | password-strength-meter", function(hooks) {
     );
   });
 
-  test("it renders with good password", async function(assert) {
+  test("it renders with good password", async function (assert) {
     this.set("password", "weweojdfdth");
 
     await render(hbs`<PasswordStrengthMeter @password={{this.password}}/>`);
@@ -53,7 +53,7 @@ module("Integration | Component | password-strength-meter", function(hooks) {
     );
   });
 
-  test("it renders with strong password", async function(assert) {
+  test("it renders with strong password", async function (assert) {
     this.set("password", "weweojdfdthfew");
 
     await render(hbs`<PasswordStrengthMeter @password={{this.password}}/>`);

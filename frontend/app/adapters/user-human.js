@@ -13,5 +13,5 @@ export default ApplicationAdapter.extend({
       return url;
     }
     return super.urlForQuery(query, modelName);
-  },
-})
+  }
+});

@@ -24,10 +24,8 @@ export default class SideNavBar extends Component {
 
   setupModal(element) {
     /* eslint-disable no-undef  */
-    $(element).on("show.bs.collapse", ".collapse", function() {
-      $(element)
-        .find(".collapse.in")
-        .collapse("hide");
+    $(element).on("show.bs.collapse", ".collapse", function () {
+      $(element).find(".collapse.in").collapse("hide");
     });
     /* eslint-enable no-undef  */
   }
@@ -46,8 +44,7 @@ export default class SideNavBar extends Component {
 
   @action
   setSelectedFolder(folder) {
-
-    if(isPresent(this.args.navbar)) {
+    if (isPresent(this.args.navbar)) {
       this.args.navbar.collapse();
     }
 
@@ -67,7 +64,7 @@ export default class SideNavBar extends Component {
       .query("team", {
         favourite: this.showsFavourites ? this.showsFavourites : undefined
       })
-      .then(res => {
+      .then((res) => {
         this.navService.availableTeams = res.toArray();
         this.navService.isLoadingTeams = false;
       });

@@ -1,5 +1,5 @@
-import {helper} from "@ember/component/helper";
-import {underscore} from "@ember/string";
+import { helper } from "@ember/component/helper";
+import { underscore } from "@ember/string";
 
 function validationErrorKey(args) {
   let error = args.flat()[0];

@@ -6,6 +6,6 @@ export default class AccountCredential extends Account {
   @attr("string") cleartextPassword;
 
   get isFullyLoaded() {
-    return !this.id || !!(this.cleartextUsername || this.cleartextPassword)
+    return !this.id || !!(this.cleartextUsername || this.cleartextPassword);
   }
 }

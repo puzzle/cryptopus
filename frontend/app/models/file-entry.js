@@ -19,12 +19,12 @@ export default class FileEntry extends Model {
 
     let promise = this.file.upload(url, opts);
     promise
-      .then( savedRecords => {
-        let data = JSON.parse(savedRecords.body).data
+      .then((savedRecords) => {
+        let data = JSON.parse(savedRecords.body).data;
         this.id = data.id;
         this.filename = data.attributes.filename;
       })
-      .catch( () => {})
+      .catch(() => {});
 
     return promise;
   }

@@ -7,11 +7,10 @@ export default class IndexRoute extends BaseRoute {
   @service notify;
 
   beforeModel() {
-    this.navService.clear()
+    this.navService.clear();
   }
 
   model() {
     return ENV.currentUserGivenname;
   }
-
 }
