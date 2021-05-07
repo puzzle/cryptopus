@@ -2,7 +2,7 @@
 
 source 'http://rubygems.org'
 
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 6.1.3'
 
 gem 'figaro'
 gem 'mysql2'
@@ -10,7 +10,7 @@ gem 'net-ldap'
 gem 'puma'
 gem 'sqlite3'
 
-gem 'active_model_serializers', '0.10.0'
+gem 'active_model_serializers'
 gem 'annotate'
 gem 'bleib', '0.0.9'
 gem 'bootstrap-select-rails'
