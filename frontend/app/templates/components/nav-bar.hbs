@@ -72,6 +72,14 @@
             </dd.menu>
           </BsDropdown>
           <span></span>
+          <BsDropdown as |dd|>
+            <dd.toggle><span class="ml-3 navbar-brand settings-dropdown">Settings</span></dd.toggle>
+            <dd.menu as |ddm|>
+              <ddm.item>
+                <ddm.linkTo @route="/admin/settings">General</ddm.linkTo>
+              </ddm.item>
+            </dd.menu>
+          </BsDropdown>
           <div class="nav-item mr-2 show-not-on-hamburgermenu">
             <LinkTo @route="profile">
               <span class="helper"></span><img class="white-svg icon-big-button icon mr-2 ml-1"
