@@ -1,0 +1,22 @@
+---
+0.0.0 activesupport:>= 3,attr_required:>= 0.0.3,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:fc2ff129592ca7ab2a02501445769a38768ac59420d59dffc36b8abc500c7887
+0.0.1 activesupport:>= 3,attr_required:>= 0.0.3,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:dc42db21c3f6675e96527f98ac47f4e1d76bcf5993af293651b7b80d8b1b956c
+0.0.2 activesupport:>= 3,attr_required:>= 0.0.3,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:5c7443dc8383af45681ab1fd37d552dffa0bcc989d45244dcf11e16899fa5285
+0.0.3 activesupport:>= 3,attr_required:>= 0.0.3,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:26d82b7ea89cd575d9e625d46f7241a1a5b514cbe7a528686c280bd542424eaf
+0.0.4 activesupport:>= 3,attr_required:>= 0.0.3,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:ae0f92e40c6e684b903fa5f4fbe4bbeeed3b6a970e0a97faaf792ae7ca419591
+0.0.5 activesupport:>= 3,attr_required:>= 0.0.3,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:2a3612fa399806914410cce1d115395e8b9d5d27259f6787d09b4552f97a3f55
+0.0.6 activesupport:>= 3,attr_required:>= 0.0.3,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:9b82c2a3b906b636b1995da3e447674df38610414808f20aa1a75f74acc108d5
+0.0.7 activesupport:>= 3,attr_required:>= 0.0.3,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:579472e830301faa2d3cfba26e342dffaf7f696b526c2e6f95e093b7f9ccda3e
+0.0.8 activesupport:>= 3,attr_required:>= 0.0.3,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:157f1320aecdc18068f7a0fc063b8cdc05b9fe89bce8e4df1c7089708becf0cc
+0.0.9 activesupport:>= 3,attr_required:>= 0.0.3,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:904375870b8b323df8bb77a5f8ff071dac8e20758fec21c2c749783ea8c8635b
+0.1.0 activesupport:>= 3,attr_required:>= 0.0.3,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:61d931b6689f3f64cf41faaaa76933558ccbcd2e12212f79f6afcbf7add742e3
+0.1.1 activesupport:>= 3,attr_required:>= 0.0.3,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:9266cdf953c4b3ea1ac5dd2a521e77949c9709ce0d1dd660246384a90ce80579
+0.1.2 activesupport:>= 3,attr_required:>= 0.0.5,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:c69af1a2220c15b8dee29dad3ab9ad8b1f9aa79eb0ea9a8bd4d2bec7e9bfd800
+0.2.0 activesupport:>= 3,attr_required:>= 0.0.5,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:631fde3a1edc33feca0da03cbc2a1420098181818eb543b26c06271c286518cb
+0.2.1 activesupport:>= 3,attr_required:>= 0.0.5,httpclient:>= 2.2.1,i18n:>= 0,json:>= 1.4.3|checksum:3e8c47801c7e6a5e94284658069a94db7f5729c8ba3bb359b8ab49773a2ef41c
+1.0.0 activesupport:>= 3,attr_required:>= 0.0.5,httpclient:>= 2.4,i18n:>= 0,json:>= 1.4.3|checksum:9546799baee77e230b170abd70350d0f1f2c9be6c50da5834d4f57632b12a84e
+1.0.1 activesupport:>= 3,attr_required:>= 0.0.5,httpclient:>= 2.4,i18n:>= 0,json:>= 1.4.3|checksum:7c815b9dcd729bdc2a1ad5bd2d30c9b7429061c86cc72a619bb58d8fd88af984
+1.1.0 activesupport:>= 3,attr_required:>= 0.0.5,httpclient:>= 2.4|checksum:4ea428209417d60415e8c1e98110b56faf5e1eb332971d9bdd4d6ebb41163425
+1.1.1 activesupport:>= 3,attr_required:>= 0.0.5,httpclient:>= 2.4|checksum:4f6f05a4c01dc6dea1de2f16028aeba89761d6b0bf93b299bbc32dab3e281b17
+1.1.2 activesupport:>= 3,attr_required:>= 0.0.5,httpclient:>= 2.4|checksum:cdd3d323d6dc7a74b374c9db6e541740dcd1c6b982321fc33dea8fe0cc925be8
+1.2.0 activesupport:>= 3,attr_required:>= 0.0.5,httpclient:>= 2.4|checksum:9c0854713bd34719410d51541c532e9c5ee0d0861206805197048a3efd6dac30

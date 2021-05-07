@@ -1,0 +1,48 @@
+---
+0.10.2 peterwald-git:>= 0|checksum:13699a72f80528e86bd9c8c92de3d3156a83bc757846b23df3546f140fdc7258
+0.11.0 peterwald-git:>= 0|checksum:4c59c226770c198867c95f6056a98545e4e36e60751685c10ca9b5d8ff42e87e
+0.11.1 rubyforge:>= 0,schacon-git:>= 1.1.1|checksum:9f954c58757f106ee0c86b1d62cd99d3ba870697f61a9679d1c18bc4df6309bd
+1.0.0 git:>= 1.1.1,rubyforge:>= 0|checksum:fc1a168b5f7895225a4937757a7fcc1d64a9709af9f520c8af7a135e73d5157c
+1.0.1 git:>= 1.1.1,rubyforge:>= 0|checksum:23d95931c8f8d2d54fbfd8ed87551bfb74a0e832dab6e22beac6cbd8ebb38064
+1.0.2 git:>= 1.1.1,rubyforge:>= 0|checksum:e0789aefa92ad46a4d0cc3a96f607806698cb9491b2a0c9a52a3114b499a0c41
+1.1.0 git:>= 1.2.1,rubyforge:>= 0|checksum:e6ef8b941f9dc5bc57e0725c8dd75afd8d443b1630f40dc9877a184dcdfb2849
+1.2.0 git:>= 1.2.1,rubyforge:>= 0|checksum:e9e8d6dc73b2c7af720a49f40e78be8cce36fda282b328104433e2e5b20798a6
+1.2.1 git:>= 1.2.1,rubyforge:>= 0|checksum:1f6a9956f396902a1f8e9664bb8acf78890ac5895b7cd269c673d28d2fc7a74b
+1.3.0 gemcutter:>= 0.1.0,git:>= 1.2.5,rubyforge:>= 2.0.0|checksum:b9d3fe05f6d62fe8bd11f1b52d1c381cc5fde1d53dc2f2a36dbe09eb3ea38625
+1.4.0 gemcutter:>= 0.1.0,git:>= 1.2.5,rubyforge:>= 2.0.0|checksum:6b8ecaed558f9582610bb3af0502b124546524d65bcae0ebff619ec1381a5f43
+1.5.0.pre2 bundler:>= 1.0.0.rc.5,git:>= 1.2.5,rake:>= 0|checksum:48ba676149a44fb6668471d9e9fbff0d659a8db4447e66c420c6715c5f5e2e86,rubygems:> 1.3.1
+1.5.0.pre3 bundler:~> 1.0.0,git:>= 1.2.5,rake:>= 0|checksum:10e15f0d527cf103008c082112d72ad86dcdece33adb7b07f010a5d471eb013d,rubygems:> 1.3.1
+1.5.0.pre4 bundler:~> 1.0.0,git:>= 1.2.5,rake:>= 0|checksum:988b0ecd31ae0b6cc42cf76c72215ab31f60843ea07b1fd5b83992680c77afdf,rubygems:> 1.3.1
+1.5.0.pre5 bundler:~> 1.0.0,git:>= 1.2.5,rake:>= 0|checksum:d1869b433c06c0bc2d7401114b01cb2361947297a4d4f7a1891de7221b7ad4a4,rubygems:> 1.3.1
+1.5.0.pre6 bundler:~> 1.0.0,git:>= 1.2.5,rake:>= 0|checksum:6b3e03bf1bf49a5db90933a13c594cbe2796ff6cbb265474800e4338a4b865ca,rubygems:> 1.3.1
+1.5.0 bundler:~> 1.0.0,git:>= 1.2.5,rake:>= 0|checksum:43f7680bbf702f887df80dac0cbaef235904a271e2902cadd8df002eed4b3554
+1.5.1 bundler:~> 1.0.0,git:>= 1.2.5,rake:>= 0|checksum:d6f45fa635b97c37600d1435ceaa4fddd32a8bb30264731ee646b68c5f45a767
+1.5.2 bundler:~> 1.0.0,git:>= 1.2.5,rake:>= 0|checksum:8962e9cf8dd954f5f45274cbcf1cecf0e733002e51941ca6ed39b46554965c28
+1.6.0 bundler:~> 1.0.0,git:>= 1.2.5,rake:>= 0|checksum:600f0fee82238aa8f1ba47b2f7ddcbecea4dedb82778a7809317e41044152f35
+1.6.1 bundler:~> 1.0.0,git:>= 1.2.5,rake:>= 0|checksum:ca0feb8e880c13a9e360698949ee24d2006f32e36dd9cf5b6f3e591a42d70414
+1.6.2 bundler:~> 1.0,git:>= 1.2.5,rake:>= 0|checksum:b0092aa223d678db897687afb6e979b6100e6424bfbb81e81134319b36412f14
+1.6.3 bundler:~> 1.0,git:>= 1.2.5,rake:>= 0|checksum:715b62f934ee7398fb90a110fd2c4bd43cc78645953713a0a3ef0172520f1f99
+1.6.4 bundler:~> 1.0,git:>= 1.2.5,rake:>= 0|checksum:5b839eba42d76b82fe1d6c63895606b09e046f997b4f8a5c5c1d523e1f0b31c8
+1.7.0 bundler:~> 1.0,git:>= 1.2.5,rake:>= 0,rdoc:>= 0|checksum:da02ab29fcfd9f61ae90335d96ea61acd8d44e5969dd48fbf60481c81e6c7256
+1.8.0 bundler:~> 1.0,git:>= 1.2.5,rake:>= 0,rdoc:>= 0|checksum:fd4566b39e50027040736545989fc21372c9f2b69f7276132a6bc9f57ada6be8
+1.8.1 bundler:~> 1.0,git:>= 1.2.5,rake:>= 0,rdoc:>= 0|checksum:477b0403c66ed56bbadfab4ba6768fb8d0bdc99cc2eaa81ab857b93f886e95a2
+1.8.2 bundler:~> 1.0,git:>= 1.2.5,jeweler:>= 0,rake:>= 0,rdoc:>= 0|checksum:0474efbee5956dbe25d7acac5b8c674038f65ecc900b32fed71a5097b7fb13e7
+1.8.3 bundler:~> 1.0,git:>= 1.2.5,rake:>= 0,rdoc:>= 0|checksum:a5a0355e07d01e90bd9db8aa849a695e097ade1b68ef4287f72400520a1b53a3
+1.8.4 bundler:~> 1.0,git:>= 1.2.5,rake:>= 0,rdoc:>= 0|checksum:54efd74d68f69898a1674dbb410e5c27a5f7311b264531736f2c736cb87e043d
+1.8.5 builder:>= 0,bundler:~> 1.0,git:>= 1.2.5,github_api:>= 0.8.1,highline:>= 1.6.15,nokogiri:= 1.5.10,rake:>= 0,rdoc:>= 0|checksum:2cc4ba7028991c8b966f5822fe041d1f3d953bf0d805a1388fc92d3d9996d9f4
+1.8.6 builder:>= 0,bundler:~> 1.0,git:>= 1.2.5,github_api:= 0.10.1,highline:>= 1.6.15,nokogiri:= 1.5.10,rake:>= 0,rdoc:>= 0|checksum:f1ea41bcaae3638cbc2bc2869adb7e225204cef9618d5789b9856e846ef875cd
+1.8.7 builder:>= 0,bundler:~> 1.0,git:>= 1.2.5,github_api:= 0.10.1,highline:>= 1.6.15,nokogiri:= 1.5.10,rake:>= 0,rdoc:>= 0|checksum:0ee4636ef25f8f53ded1837ac6bc6bb0157862c6fec208cc427891853c67e192
+1.8.8 builder:>= 0,bundler:~> 1.0,git:>= 1.2.5,github_api:= 0.10.1,highline:>= 1.6.15,nokogiri:= 1.5.10,rake:>= 0,rdoc:>= 0|checksum:224b6978d5f6cce063082c0c9980565fe3ca8d09fa153809453653850c759684
+2.0.0 builder:>= 0,bundler:>= 1.0,git:>= 1.2.5,github_api:>= 0,highline:>= 1.6.15,nokogiri:>= 1.5.10,rake:>= 0,rdoc:>= 0|checksum:500e5df0f4f535dc483e9eea74c6c1b82e986b04bab2156426d73dfa007b54a2
+2.0.1 builder:>= 0,bundler:>= 1.0,git:>= 1.2.5,github_api:>= 0,highline:>= 1.6.15,nokogiri:>= 1.5.10,rake:>= 0,rdoc:>= 0|checksum:2f8c325789f9bf63d273cb040eae2f9ac4271789e5587edbc2d4d22de5ec2882
+2.1.1 builder:>= 0,bundler:>= 1.0,git:>= 1.2.5,github_api:>= 0,highline:>= 1.6.15,nokogiri:>= 1.5.10,rake:>= 0,rdoc:>= 0,semver:>= 0|checksum:796123e069b6c5656c16c4d2ccadf4e7bb7fda7c911797095f23f8d7761bd6f3
+2.1.2 builder:>= 0,bundler:>= 1.0,git:>= 1.2.5,github_api:~> 0.11.0,highline:>= 1.6.15,nokogiri:>= 1.5.10,rake:>= 0,rdoc:>= 0,semver:>= 0|checksum:9fb5af93457c6554824bd018876bb8fe023d0b8a0bd5f44420ad3c198613efa7
+2.2.1 builder:>= 0,bundler:>= 1.0,git:>= 1.2.5,github_api:~> 0.11.0,highline:>= 1.6.15,nokogiri:>= 1.5.10,psych:~> 2.2,rake:>= 0,rdoc:>= 0,semver:>= 0|checksum:e8de716c97e162a395b014b4d6522774b4d12d4b398c7332fbf2e8a25b6fcb4c,ruby:>= 2.2.2
+2.3.0 builder:>= 0,bundler:>= 1.0,git:>= 1.2.5,github_api:~> 0.11.0,highline:>= 1.6.15,nokogiri:>= 1.5.10,psych:~> 2.2,rake:>= 0,rdoc:>= 0,semver:>= 0|checksum:fdf00217d8c0869e71fcd4186e4e456d940803da0bde301e96f71e5dfcd1fe7c,ruby:>= 2.2.2
+2.3.1 builder:>= 0,bundler:>= 1.0,git:>= 1.2.5,github_api:~> 0.11.0,highline:>= 1.6.15,nokogiri:>= 1.5.10,psych:~> 2.2,rake:>= 0,rdoc:>= 0,semver:>= 0|checksum:c53eeffe3df544414c143bcf07c5017b3e3d174e743b8441db3b10273b855caa,ruby:>= 2.2.2
+2.3.2 builder:>= 0,bundler:>= 1.0,git:>= 1.2.5,github_api:~> 0.11.0,highline:>= 1.6.15,nokogiri:>= 1.5.10,psych:~> 2.2,rake:>= 0,rdoc:>= 0,semver2:>= 0|checksum:215ac9921f81b62631dd20184304c33d5229262ba42a254ac7268d6a87977975,ruby:>= 2.2.2
+2.3.3 builder:>= 0,bundler:>= 1.0,git:>= 1.2.5,github_api:~> 0.11.0,highline:>= 1.6.15,nokogiri:>= 1.5.10,psych:~> 2.2,rake:>= 0,rdoc:>= 0,semver2:>= 0|checksum:42cd144f00433217a30f29dc1877d43efdbaef5604afb5d11bc7906ad4b19925,ruby:>= 2.2.0
+2.3.5 builder:>= 0,bundler:>= 1.0,git:>= 1.2.5,github_api:~> 0.11.0,highline:>= 1.6.15,nokogiri:>= 1.5.10,psych:~> 2.2,rake:>= 0,rdoc:>= 0,semver2:>= 0|checksum:04cee43a3470c58d3ef03430c1dff0ec1c4997eb99c0f27f0d18f4937141fbb3,ruby:>= 2.2.0
+2.3.6 builder:>= 0,bundler:>= 1,git:>= 1.2.5,github_api:~> 0.16.0,highline:>= 1.6.15,nokogiri:>= 1.5.10,psych:~> 2.2,rake:>= 0,rdoc:>= 0,semver2:>= 0|checksum:631042a10006558fbba8e76b165e31ff16c27bf9f4af88bc7f3261d9adc20896,ruby:>= 2.2.0
+2.3.7 builder:>= 0,bundler:>= 1,git:>= 1.2.5,github_api:~> 0.16.0,highline:>= 1.6.15,nokogiri:>= 1.5.10,psych:~> 2.2,rake:>= 0,rdoc:>= 0,semver2:>= 0|checksum:913fcf1dbefb61b320566615b3149c5073c2722e45d96c517fd9461484ff54bc,ruby:>= 2.2.0
+2.3.9 builder:>= 0,bundler:>= 0,git:>= 1.2.5,github_api:~> 0.16.0,highline:>= 1.6.15,nokogiri:>= 1.5.10,psych:>= 0,rake:>= 0,rdoc:>= 0,semver2:>= 0|checksum:253e05ef2250a66ee3562fc96e17114f4c8fb9de8c5ac967489527b713dc7149,ruby:>= 2.2.0

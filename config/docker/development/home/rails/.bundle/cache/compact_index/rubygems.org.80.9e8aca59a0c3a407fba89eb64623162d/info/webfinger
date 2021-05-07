@@ -1,0 +1,11 @@
+---
+0.0.0 activesupport:>= 3,httpclient:>= 2.2.0.2,multi_json:>= 0|checksum:033ed09ff4511477b6c8205745ec683aaaf772c254d067a36004e73f8dbf6c7f
+0.0.1 activesupport:>= 3,httpclient:>= 2.2.0.2,multi_json:>= 0|checksum:61e826d79f93a49c619435fb02fe1f3aebda64db24e629c8791be359b4579196
+0.0.2 activesupport:>= 3,httpclient:>= 2.2.0.2,multi_json:>= 0|checksum:8b771fa199d78f05fc1dff1d6a884f050abd2e8ed084c2bd63b1924a26c20b83
+0.0.3 activesupport:>= 3,httpclient:>= 2.2.0.2,multi_json:>= 0|checksum:802d41c8cedf6c7e3ac369ab545592964af5a87c288277db01497672bccea9aa
+0.0.4 activesupport:>= 3,httpclient:>= 2.2.0.2,multi_json:>= 0|checksum:21a4b4464dcb0364b1469af2b9c27225e19de2d60d892770a161ca4437dde907
+0.0.5 activesupport:>= 0,httpclient:>= 2.2.0.2,multi_json:>= 0|checksum:5a79aa097aadb3a25c8be6de157ca771a39768c9657213e5353e0be38207f563
+1.0.0 activesupport:>= 0,httpclient:>= 2.2.0.2,multi_json:>= 0|checksum:59be050ebe8734a9d8a76bab0ee96b9850d1a8fa571bb67e4c3237d91e466b3d
+1.0.1 activesupport:>= 0,httpclient:>= 2.4,multi_json:>= 0|checksum:d1f7f8f073b7c7266408574663474c133efaa5b8b6153aca426be8fefc9151a8
+1.0.2 activesupport:>= 0,httpclient:>= 2.4,multi_json:>= 0|checksum:91c1a0a447820ce02afc095ff18e4e8d830e30372e731e61f00cbefee9c23fe5
+1.1.0 activesupport:>= 0,httpclient:>= 2.4|checksum:5949df77bb101cfffe496a53c74939d1155b3386f1d805a5802e027626821254

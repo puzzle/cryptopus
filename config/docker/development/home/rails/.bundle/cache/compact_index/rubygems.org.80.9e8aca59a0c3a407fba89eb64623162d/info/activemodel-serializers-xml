@@ -1,0 +1,4 @@
+---
+1.0.0 activemodel:> 5.x,activerecord:> 5.x,activesupport:> 5.x,builder:~> 3.1|checksum:2ffd6e840b1e67597b06eb90f3e3b7cbf2f925db808452fefd6a2db0d448d05d
+1.0.1 activemodel:> 5.x,activerecord:> 5.x,activesupport:> 5.x,builder:~> 3.1|checksum:dc4c06b1ac9d819698289d490ffd0c7386bce8f86b59237a5f1ffc35f8b4f73e
+1.0.2 activemodel:> 5.x,activesupport:> 5.x,builder:~> 3.1|checksum:228f2e36e89047634e78acc2707425a8605b009a6d6254238cb43fd87bc665de

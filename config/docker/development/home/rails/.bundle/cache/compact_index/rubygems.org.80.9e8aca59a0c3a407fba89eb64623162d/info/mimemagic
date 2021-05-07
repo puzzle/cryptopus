@@ -1,0 +1,8 @@
+---
+0.3.7 nokogiri:~> 1.11.2|checksum:576ecc7881c6c0a72c73081b5917a553e1e419df98d42393fc4180ab34a65e79
+0.4.1 nokogiri:~> 1.11.2|checksum:8e0ffa6990c5567c59053367b530001c6b69fc441e68d1e00e53ec477dd11a6d
+0.3.8 nokogiri:~> 1|checksum:3fb82ea0ddec192cf81ed799224ead953249b8e855fe0e4a9db8ad2582f2a6ca
+0.3.9 nokogiri:~> 1,rake:>= 0|checksum:217eee91c6f8e2889108f48afbfb2873f41f03bee396c01104b50fa7ee526fd2
+0.4.2 nokogiri:~> 1,rake:>= 0|checksum:28953b69c4ae19ecddcff7f127b1c067ad00a95c3c6381300c1677d607011342
+0.4.3 nokogiri:~> 1,rake:>= 0|checksum:08ac2d41e2d7cd967b00843dea8c189f91939e3f47732204944908f1ab7ecc9f
+0.3.10 nokogiri:~> 1,rake:>= 0|checksum:814063559bfe9523cdf287722a0e84fd673aec03b79a9dac9e170b11924d1533

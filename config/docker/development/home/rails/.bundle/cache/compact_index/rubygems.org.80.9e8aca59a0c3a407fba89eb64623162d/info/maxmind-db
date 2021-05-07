@@ -1,0 +1,5 @@
+---
+1.0.0.beta |checksum:8d838da27c97fb05493da4621a0f3b9d1bf2458fbff0ae33d17474828a4f6191,rubygems:> 1.3.1
+1.0.0 |checksum:a9343b8c24d8c5f57300e30c9065c07026bb0a0bdc22d1c7f4d2f668be87f843
+1.1.0 |checksum:bf575fc4c2cdc4ce0e8ac2d6cdeaf2bc9bea28a5f9b3ec134f357cc74eb45ba5,ruby:>= 2.4.0
+1.1.1 |checksum:6913191c783c498a50a794d50a08fbe1c98dd9f0318e8741a9ac34a9d9570c58,ruby:>= 2.4.0

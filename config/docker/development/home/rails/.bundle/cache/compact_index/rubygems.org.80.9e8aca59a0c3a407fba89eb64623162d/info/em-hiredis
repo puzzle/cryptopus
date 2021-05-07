@@ -1,0 +1,8 @@
+---
+0.0.1 hiredis:~> 0.2.0|checksum:5ad3daf7782c2af2815a49b9f169f1e86198e43d7e3cc77aebac4e1866b242e0
+0.1.0 hiredis:~> 0.3.0|checksum:fe5d4a3078a14cf1e6bf6ff5907f1ec9f4e7dce2d48a6fb2afccff6b989eed4f
+0.1.1 hiredis:~> 0.4.0|checksum:e9a0e948848fa69f58eccf24cb5fa812941bebd46de9b3b73e987345aefb9446
+0.2.0 hiredis:~> 0.4.0|checksum:ce67831d5968250d2851622148580d3c3b33f80ba6520d42dd9a6c9e0350040c
+0.2.1 hiredis:~> 0.4.0|checksum:6fa824265327e0ec288db88acf075561a3c17fc53dab73787893d42a3ceca95c
+0.3.0 eventmachine:~> 1.0,hiredis:~> 0.5.0|checksum:158f8b7c7ab0b48be0db14baf79b00be94b9f606974ea657a85ca9ff7ce724ff
+0.3.1 eventmachine:~> 1.0,hiredis:~> 0.6.0|checksum:df4cf8ae922844649287ecac3692f6b4551b23dbffbb727c4ff8596eba390252

@@ -1,0 +1,12 @@
+---
+0.1.1 rails:>= 3.1.0|checksum:17192f381f31039c7757cc32f116841e6793c89f433e2bfbab798ad20e0775e8
+0.2.0 rails:>= 3.1.0|checksum:2d2ae1d5f43a201ad5aff4926c317a176d17dc26dc6f43f87aa28cbfd0599122
+0.2.1 rails:>= 3.1.0|checksum:fe8d89820ffe066d6a8ff91afcdf76bc7d2651eb170db30c91f8d1ccaa40a806
+1.0.0.rc rails:>= 3.1.0,turbolinks:>= 0|checksum:9fd8edbf9695f800db50c147b26bbf20222ef35f01c9f4cfa9641575c6aa5c54,rubygems:> 1.3.1
+1.0.0.rc1 rails:>= 3.1.0,turbolinks:>= 0|checksum:d57b551e33a01d0ba2be9d15dd4234f9a242f24c53eab6acca6ab66cc62f04db,rubygems:> 1.3.1
+1.0.0.rc2 railties:>= 3.1.0,turbolinks:>= 0|checksum:cbb958eb9b25be226129abe94036a63d5579ab62f52d90bd239da5f6568004a5,rubygems:> 1.3.1
+1.0.0 railties:>= 3.1.0,turbolinks:>= 0|checksum:86e979b1d96cacf88b536a08cd94cb4378b40ca7fb606bfb4e23fd6da6611493
+2.0.0 railties:>= 3.1.0,turbolinks:>= 0|checksum:435e7b27e9f57e636a745a7b4270390fbcd4e8e40d26fffa005855409b3143a6
+2.0.1 railties:>= 3.1.0,turbolinks:>= 0|checksum:6d9a82a44ddf652f74b6181e5892860cdbda3f000eb1497fa91e3dc098d9ca34
+2.0.2 railties:>= 3.1.0,turbolinks:>= 0|checksum:03abde2361225ef7bd523389882e927ed1fd052edacb55941d7866fb4db991de
+2.1.0 railties:>= 3.1.0,turbolinks:>= 0|checksum:0cf68325f00bcc1a79bdc991db9146cd4cd6a3d8de131e7f9a553d3aa8ad43b4

@@ -1,0 +1,6 @@
+---
+3.10.4 activesupport:>= 3.2,middleware:>= 0,thor:>= 0,thread_safe:>= 0|checksum:eed941a28a3869d295bd064fac22531e79539bdbee2ae23b5c7131a02e4761f8
+3.10.5 activesupport:>= 3.2,middleware:>= 0,thor:>= 0,thread_safe:>= 0|checksum:4f8c54fca021284836d256ec7b813f282f34524d15bdb5e65307870a1640b911
+3.10.6 activesupport:>= 3.2,middleware:>= 0,thor:>= 0,thread_safe:>= 0|checksum:f4058ec0a1ac9478d8edeb94489f836b27f83d561b1d193ecfc04718f3d945c4
+3.10.7 activesupport:>= 3.2,middleware:>= 0,thor:>= 0,thread_safe:>= 0|checksum:09e1e64d9df98f17472f6cddb45a868e1f27f4047f0ddd0c1bae64f6e6492fac
+3.10.8 activesupport:>= 3.2,middleware:>= 0,thor:>= 0,thread_safe:>= 0|checksum:e2a0a8850d75bdc9992f709c8a2be89a2bc5712dd799dc4a0ccb5db894b2a6e5

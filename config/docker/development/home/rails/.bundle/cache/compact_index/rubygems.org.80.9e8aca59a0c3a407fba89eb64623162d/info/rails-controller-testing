@@ -1,0 +1,11 @@
+---
+0.0.2 rails:>= 4.2.0.beta|checksum:4236b76863f76c37e8a72ac4cc685f63235d916027d919b8168c86bcb6800e9b
+0.0.3 rails:>= 4.2|checksum:817a95dc55ef4cef3ca858cc67180e6c9b9bc9a93a213b3bdfd9e3efe2630250
+0.1.0 actionpack:~> 5.x,actionview:~> 5.x,activesupport:~> 5.x|checksum:0a4cfb5bf1a409c033a17e59de7800179250069200ec7cf6bb918e9041d839a5
+0.1.1 actionpack:~> 5.x,actionview:~> 5.x,activesupport:~> 5.x|checksum:4e597b0f4e8d04a76bd647c1e16dd276103f3adc70074ea0768bd3063fb28f11
+1.0.0 actionpack:~> 5.x,actionview:~> 5.x,activesupport:~> 5.x|checksum:59c2bfb77aeada45ab8d0a5f7954613f6260fda14aa8992d12fd08beb8e62f6a,ruby:>= 2.2.1
+1.0.1 actionpack:~> 5.x,actionview:~> 5.x,activesupport:~> 5.x|checksum:9e6ead7b8281b91a2bbb579f8b144128bcbf98035f3cee4d25a4fd25221014a5,ruby:>= 2.2.1
+1.0.2 actionpack:>= 5.0.1&~> 5.x,actionview:>= 5.0.1&~> 5.x,activesupport:~> 5.x|checksum:1e7a0912898d2904ed582720e863538da02a7d0631c4f1e3381ac23ace9c6d9a,ruby:>= 2.2.2
+1.0.3 actionpack:>= 5.0.1.x,actionview:>= 5.0.1.x,activesupport:>= 5.0.1.x|checksum:a19b5bd4a037451e8645cb22712706cbd4956aee6b8837fcda2797b2cd522d50,ruby:>= 2.2.2
+1.0.4 actionpack:>= 5.0.1.x,actionview:>= 5.0.1.x,activesupport:>= 5.0.1.x|checksum:8eca7de8e4e13b0b46e1307008e108e9b40e30d9acb2debc23f1ef6b249d39d4,ruby:>= 2.2.2
+1.0.5 actionpack:>= 5.0.1.rc1,actionview:>= 5.0.1.rc1,activesupport:>= 5.0.1.rc1|checksum:741448db59366073e86fc965ba403f881c636b79a2c39a48d0486f2607182e94,ruby:>= 2.2.2

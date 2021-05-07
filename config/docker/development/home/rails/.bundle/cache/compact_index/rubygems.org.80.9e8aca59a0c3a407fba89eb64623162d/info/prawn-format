@@ -1,0 +1,7 @@
+---
+0.1.0 prawn:>= 0.4|checksum:89cf50071b4f047181e631fa2be1e5d8b3aec4468848c37f9febc0085700f586,rubygems:>= 1.2
+0.1.1 prawn:>= 0.4|checksum:42a1c73069c72cf433afa9b789f714afd47a1c99e61ec2d90137ee390828ddf8,rubygems:>= 1.2
+0.2.0.1 prawn-core:>= 0|checksum:5f7a5e1e6a477e7937e9ac265ae75ce14f9fec81eda7bd77c95f52fa77118dcc,rubygems:>= 1.2
+0.2.1 prawn-core:>= 0|checksum:3757f9438293c4a3b1666cfd3a14cf0fe46a02cb25d123207b2a6a69c55777ff,rubygems:>= 1.2
+0.2.2 prawn-core:>= 0|checksum:55313b7d9ec8b79fec32adbb09ff7e59349577c430ee68e4cf56178198c2b5aa,rubygems:>= 1.2
+0.2.3 prawn-core:>= 0|checksum:5a4b07c0e6c16c2e9c3bd6c33836d40875567645ff315e06b73451de1156f135,rubygems:>= 1.2

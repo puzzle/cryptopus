@@ -1,0 +1,5 @@
+---
+1.0.0 faraday:~> 1.0,net-http-persistent:~> 3.1|checksum:cf34036e4e884e52a8482c3bf64d0d784d10dc588e46d2008fdab9e37c3a4243,ruby:>= 2.4.0
+1.0.1 net-http-persistent:~> 3.1|checksum:73cff2ef1fe389bd73c36e1e9407cb9385e144860701e51e4acf03798ae77f7a,ruby:>= 2.4.0
+1.0.3 net-http-persistent:>= 3.1|checksum:8844a8c344658327401f5635da833908b9f5f484c7040d751ffc325bf6783331,ruby:>= 2.4.0
+1.1.0 |checksum:6a2654cac6311421a6d218aaf104bff333425768d025723b19fb1dcacb404c50,ruby:>= 2.4.0

@@ -1,0 +1,3 @@
+---
+0.1.0 activemodel:>= 4.1.0,activesupport:>= 4.1.0|checksum:e22e438041173da87c3d4a5766abe549993ea22536a14b8e9f48679fd1a27dac,ruby:>= 1.9.3
+0.1.1 activemodel:>= 4.1.0,activesupport:>= 4.1.0|checksum:4a87ec4ff896988ba950bc21d5c2f61702f0ef296aba6bcb21027abe024615be,ruby:>= 1.9.3

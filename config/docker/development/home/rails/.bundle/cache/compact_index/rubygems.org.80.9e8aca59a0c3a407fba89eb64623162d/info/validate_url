@@ -1,0 +1,21 @@
+---
+0.1.0 |checksum:da1854e9b789d1aa3ccbe531cf1e5c72a894a997c277066b3b430acbeb5b121a
+0.1.1 |checksum:9637f3b152dcea762c6b808852b9207b15fbd732462a37cd4e80e2abd3ff5c73
+0.1.2 activemodel:>= 3.0.0|checksum:c3065b559ba1d435458e4c92615907847976288188294d20a325dbbbccef5ede
+0.1.3 activemodel:>= 3.0.0|checksum:bb991cb3539801ab344eee8ac6514c0da2cfa885c7411bab36bba4aa400b6a85
+0.1.4 activemodel:>= 3.0.0|checksum:e747900867ec99c483484a8106ec64bd955f833424fba992b6af12227f3315a1
+0.1.6 activemodel:>= 3.0.0|checksum:5d1f3be7e6dcaa1a92432dfc58ee63af7a2afb15468cb72fd29e4bccee4344e3
+0.2.0 activemodel:>= 3.0.0|checksum:68e7a8070b38c26ffcc542b916abcd1c7fb06d614d9bac35fdecd9d1e28052e8
+0.2.1 activemodel:>= 3.0.0|checksum:d4b6afe84cd8020398ed1dbf05e0a61511da0ce47354b52e475cc2a1f4ec7467
+0.2.2 activemodel:>= 3.0.0,addressable:>= 0|checksum:99b3f223e5cd168916f7b56fc4acce6f65aedb57126e55532afbf9646f32bb4b
+1.0.0 activemodel:>= 3.0.0,addressable:>= 0|checksum:67fc86854d824a0b97b817e2974479645e3779744c0a946e3fefd1170142f256
+1.0.2 activemodel:>= 3.0.0,addressable:>= 0|checksum:100b37584934babe3ee446f26fb27368f992f873bba040d7adf1c786207bc4b5
+1.0.3 activemodel:>= 3.0.0,validate_url:>= 0|checksum:5d6cd20c8118b2af31323e93bcc287dccf973dcf0e11d9cf7a7d022766875e1b
+1.0.4 activemodel:>= 3.0.0|checksum:07e2a74561892e91d8496e7c47a78e81eff8965ee9829f7dc3aeb866228a157a
+1.0.5 activemodel:>= 3.0.0,public_suffix:>= 0,validate_url:>= 0|checksum:b5ddf2bc69f0971382a9efcb870c84858b3d9026f565026d17239ee87fb8047d
+1.0.6 activemodel:>= 3.0.0,public_suffix:>= 0|checksum:edd1d7e3f2809b16f9d2a3a4813456c2ebe102392d8634faae782734c7e8c36b
+1.0.8 activemodel:>= 3.0.0,public_suffix:>= 0|checksum:f11b831c900d5d83ad070b6f4c2c4f4bf14a988cd0db0d71b6c1b1b67f770bcc
+1.0.10 activemodel:>= 3.0.0,public_suffix:>= 0,validate_url:>= 0|checksum:b063f506c585cc23e90fea524d0057c00e8b2b77a4790efbb01967ace0a7b292
+1.0.11 activemodel:>= 3.0.0,public_suffix:>= 0|checksum:5a8b2f9f49ed99a185e583c7c6cda2476a2d9dea2faee68a897c8a323cd99d2b
+1.0.12 activemodel:>= 3.0.0,public_suffix:>= 0|checksum:87ec97e9010e139ad2d4cc50504a29455702abd4551db673b0acebb75d3ef215
+1.0.13 activemodel:>= 3.0.0,public_suffix:>= 0|checksum:733d75b7e63d90652b764f9c0a58b6e13729aa01c0155268cec1a4f3331992af

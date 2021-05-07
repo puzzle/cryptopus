@@ -1,0 +1,11 @@
+---
+1.0.0 cucumber-messages:>= 12.2.0&~> 12.2,sys-uname:>= 1.2.1&~> 1.2|checksum:5cab2f0a4df889af53750a670a1ae907981054e0e9bc2ace9436cbeab31a1144,ruby:>= 2.3
+1.1.0 cucumber-messages:>= 12.3.2&~> 12.3,sys-uname:>= 1.2.1&~> 1.2|checksum:130e687e74d93b1a72dd6d3aae2aa38674d2ee0b8c1612a11e89a304041264ef,ruby:>= 2.3
+1.2.0 cucumber-messages:>= 12.4.0&~> 12.4,sys-uname:>= 1.2.1&~> 1.2|checksum:1ebed02b45d3925a68cd18c0d3d07dae7995b339451ceabfa148f8c7dd4c7318,ruby:>= 2.3
+2.0.0 cucumber-messages:>= 13.0.1&~> 13.0,sys-uname:>= 1.2.1&~> 1.2|checksum:342d4a2febf61fcc091a80368c9f4faefc3e6ad79d3be62a90c74f50ba80b25b,ruby:>= 2.3
+2.0.1 cucumber-messages:>= 13.0.1&~> 13.0,sys-uname:>= 1.2.1&~> 1.2|checksum:8027d3ee836031ba218ff787de958fdf8d6a9c3f11fb07b0de112b44c533356c,ruby:>= 2.3
+2.0.2 cucumber-messages:>= 13.0.1&~> 13.0,sys-uname:>= 1.2.1&~> 1.2|checksum:003d573da706636674c5dc06a619ee73fcfc7f0d0f5c7418d6e5abce5d4213f3,ruby:>= 2.3
+2.0.3 cucumber-messages:>= 13.1.0&~> 13.1,sys-uname:>= 1.2.1&~> 1.2|checksum:de3a4d937cfe16d8b3e11e57fcdfdcb87af4da4daac7e0e792429a40b251578c,ruby:>= 2.3
+2.0.4 cucumber-messages:>= 13.1.0&~> 13.1,sys-uname:>= 1.2.1&~> 1.2|checksum:0485c1a7f9dee699752deea927d328bbbf4bc7949636ce091bf52488be6fb0f1,ruby:>= 2.3
+3.0.0 cucumber-messages:>= 14.0.1&~> 14.0,sys-uname:>= 1.2.2&~> 1.2|checksum:af89305ed573298d3f3754e749c5b00d3bd413bae5922e320199915f2c876a1d,ruby:>= 2.3
+4.0.0 cucumber-messages:>= 15.0.0&~> 15.0,sys-uname:>= 1.2.2&~> 1.2|checksum:0f2aa7dd962c11807d88b50e527fac434ae7616b81773bde096b1bbf11b3e326,ruby:>= 2.3

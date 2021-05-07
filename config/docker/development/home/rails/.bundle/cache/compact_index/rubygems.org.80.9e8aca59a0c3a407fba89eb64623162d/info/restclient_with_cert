@@ -1,0 +1,8 @@
+---
+0.0.2 rest-client:>= 1.6|checksum:b178a73896bf7620a51dc720a6eac5dfdb6e607f8aeb8ed3c1fbfcdcbe3fb58b
+0.0.3 rest-client:>= 1.6|checksum:9cbb7dc64b0ce8733364dd5e266692e91a7546155585f9ca0e124881a1ab0454
+0.0.4 rest-client:>= 1.6|checksum:06f4509b59549c1349246fbf93d7fe169d2f7865e5a6200387d119db57199403
+0.0.5 rest-client:>= 1.6|checksum:0cf15dbb6272f077362c2fdac27060c6348a1920904f9500c9a4810ac36168ac
+0.0.6 rest-client:>= 1.6|checksum:f9b26041f601a24df3a8c55c80d25ff15f7cbb3f3f778d8e1f7a1c055e8edc0e
+0.0.7 rest-client:>= 1.6|checksum:690fba14afa5aca83dfbcce46808108a824c4d3ef32240fd74f34f463160c622
+0.0.8 rest-client:>= 1.6|checksum:3dc783360f868432ffcb8967cdc0d10a1d5a7ce6b303f582e4bd769e81a9699b

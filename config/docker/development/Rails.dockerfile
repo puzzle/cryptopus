@@ -7,8 +7,6 @@ ENV BUNDLE_PATH=/opt/bundle
 
 WORKDIR /myapp
 
-RUN bash -c 'gem install bundler -v 1.17.3'
-
 COPY ./rails-entrypoint /usr/local/bin
 #COPY ./docker/webpack-entrypoint /usr/local/bin
 

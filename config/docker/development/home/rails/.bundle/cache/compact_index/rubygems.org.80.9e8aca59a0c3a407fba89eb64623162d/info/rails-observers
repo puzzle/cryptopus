@@ -1,0 +1,6 @@
+---
+0.1.0 railties:~> 4.0.0.beta|checksum:811c3722ba8d34201a8595ab7efafa2a4981936c3a2e055b55fc25ea8f212ae0
+0.1.1 railties:~> 4.0.0.beta|checksum:b3ae6dcda9f4bc8b7bbe6b5dbacbeff546cfc87d710d931db45e98ff7b50f73c
+0.1.2 activemodel:~> 4.0|checksum:9e71de73929a9a7e8cde83c041989bbb25914f84047ce15dde37eefa650a5cd3
+0.1.4 activemodel:>= 4.0|checksum:e02e2c24ef599a6289d3f6539a3f53de151d00610f3ef33ed0474928023adbea,ruby:>= 2.2.2
+0.1.5 activemodel:>= 4.0|checksum:4ce96ae7f3e934d4d21cabdac87029b419aafd8534914940961a941b9eaf935c,ruby:>= 2.2.2
