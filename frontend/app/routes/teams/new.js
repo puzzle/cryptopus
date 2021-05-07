@@ -1,5 +1,3 @@
-import BaseRoute from '../base';
+import BaseRoute from "../base";
 
-export default BaseRoute.extend({
-
-});
+export default BaseRoute.extend({});

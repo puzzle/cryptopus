@@ -1,4 +1,3 @@
 import BaseRoute from "./base";
 
-export default class AccountsRoute extends BaseRoute {
-}
+export default class AccountsRoute extends BaseRoute {}

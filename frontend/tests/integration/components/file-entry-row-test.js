@@ -3,10 +3,10 @@ import { setupRenderingTest } from "ember-qunit";
 import { render } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 
-module("Integration | Component | file-entry-row", function(hooks) {
+module("Integration | Component | file-entry-row", function (hooks) {
   setupRenderingTest(hooks);
 
-  test("it renders with data", async function(assert) {
+  test("it renders with data", async function (assert) {
     this.set("fileEntry", {
       filename: "file1",
       description: "description for file1",

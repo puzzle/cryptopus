@@ -1,3 +1,3 @@
 import AccountSerializer from "./account";
 
-export default AccountSerializer.extend({})
+export default AccountSerializer.extend({});

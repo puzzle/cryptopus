@@ -1,6 +1,6 @@
 import { inject as service } from "@ember/service";
 import BaseRoute from "../base";
-import { action } from '@ember/object';
+import { action } from "@ember/object";
 
 export default class TeamsFoldersIndexRoute extends BaseRoute {
   @service navService;
@@ -21,5 +21,4 @@ export default class TeamsFoldersIndexRoute extends BaseRoute {
   loading() {
     return false;
   }
-
 }

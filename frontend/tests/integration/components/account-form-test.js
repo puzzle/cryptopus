@@ -57,10 +57,10 @@ const storeStub = Service.extend({
   }
 });
 
-module("Integration | Component | account-form", function(hooks) {
+module("Integration | Component | account-form", function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.owner.unregister("service:store");
     this.owner.register("service:store", storeStub);
     this.owner.unregister("service:navService");
@@ -68,7 +68,7 @@ module("Integration | Component | account-form", function(hooks) {
     setLocale("en");
   });
 
-  test("it renders without input data", async function(assert) {
+  test("it renders without input data", async function (assert) {
     await render(hbs`<AccountForm />`);
 
     await selectChoose(
@@ -93,7 +93,7 @@ module("Integration | Component | account-form", function(hooks) {
     assert.ok(this.element.textContent.trim().includes("Close"));
   });
 
-  test("it renders with input data", async function(assert) {
+  test("it renders with input data", async function (assert) {
     this.set("folder", {
       id: 1,
       name: "bbt",
@@ -112,7 +112,7 @@ module("Integration | Component | account-form", function(hooks) {
       cleartextUsername: "mail@ember.com",
       cleartextPassword: "lol",
       description: "The ember email",
-      folder: this.get("folder"),
+      folder: this.folder,
       isFullyLoaded: true
     });
     await render(hbs`<AccountForm @account={{this.account}}/>`);

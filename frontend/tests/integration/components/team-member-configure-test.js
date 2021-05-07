@@ -16,16 +16,16 @@ const storeStub = Service.extend({
   }
 });
 
-module("Integration | Component | team-member-configure", function(hooks) {
+module("Integration | Component | team-member-configure", function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.owner.unregister("service:store");
     this.owner.register("service:store", storeStub);
     setLocale("en");
   });
 
-  test("it renders without data", async function(assert) {
+  test("it renders without data", async function (assert) {
     await render(hbs`<TeamMemberConfigure />`);
 
     assert.ok(
@@ -40,7 +40,7 @@ module("Integration | Component | team-member-configure", function(hooks) {
     assert.ok(this.element.textContent.trim().includes("Enabled"));
   });
 
-  test("it renders with data", async function(assert) {
+  test("it renders with data", async function (assert) {
     await render(hbs`<TeamMemberConfigure @teamId="1"/>`);
 
     assert.ok(this.element.textContent.trim().includes("Bob"));

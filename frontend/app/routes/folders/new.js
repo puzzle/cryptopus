@@ -1,7 +1,6 @@
-import BaseRoute from '../base';
+import BaseRoute from "../base";
 
 export default BaseRoute.extend({
-
   queryParams: {
     team_id: {
       refreshModel: true
@@ -9,8 +8,6 @@ export default BaseRoute.extend({
   },
 
   model(params) {
-    if(params.team_id)
-      return this.store.findRecord("team", params.team_id );
+    if (params.team_id) return this.store.findRecord("team", params.team_id);
   }
-
 });

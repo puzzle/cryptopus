@@ -50,17 +50,16 @@ const storeStub = Service.extend({
   }
 });
 
-module("Integration | Component | folder-form", function(hooks) {
+module("Integration | Component | folder-form", function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.owner.unregister("service:store");
     this.owner.register("service:store", storeStub);
-    setLocale('en');
+    setLocale("en");
   });
 
-  test("it renders without input data", async function(assert) {
-
+  test("it renders without input data", async function (assert) {
     await render(hbs`<FolderForm />`);
 
     assert.ok(this.element.textContent.trim().includes("Folder name"));
@@ -69,11 +68,11 @@ module("Integration | Component | folder-form", function(hooks) {
     assert.ok(this.element.textContent.trim().includes("Close"));
   });
 
-  test("it renders with input data", async function(assert) {
+  test("it renders with input data", async function (assert) {
     this.set("folder", {
       id: 1,
       name: "mail",
-      description: "The ember email",
+      description: "The ember email"
     });
     await render(hbs`<FolderForm \@folder\=\{{this.folder}}/>`);
 

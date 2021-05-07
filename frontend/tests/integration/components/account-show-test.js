@@ -14,16 +14,16 @@ const storeStub = Service.extend({
   }
 });
 
-module("Integration | Component | account-show", function(hooks) {
+module("Integration | Component | account-show", function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.owner.unregister("service:store");
     this.owner.register("service:store", storeStub);
     setLocale("en");
   });
 
-  test("it renders with data and shows edit buttons for regular account", async function(assert) {
+  test("it renders with data and shows edit buttons for regular account", async function (assert) {
     this.set("account", {
       id: 1,
       accountname: "Ninjas test account",
@@ -69,7 +69,7 @@ module("Integration | Component | account-show", function(hooks) {
     assert.ok(isPresent(editButton));
   });
 
-  test("it renders with data and hides edit buttons for openshift secret", async function(assert) {
+  test("it renders with data and hides edit buttons for openshift secret", async function (assert) {
     this.set("account", {
       id: 1,
       accountname: "Ninjas test account",

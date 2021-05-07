@@ -11,7 +11,7 @@ export default JSONAPIAdapter.extend({
     return pluralize(underscore(type));
   },
 
-  headers: computed(function() {
+  headers: computed(function () {
     /* eslint-disable no-undef  */
     return {
       "X-CSRF-Token": ENV.CSRFToken,

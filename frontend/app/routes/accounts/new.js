@@ -1,7 +1,6 @@
-import BaseRoute from '../base';
+import BaseRoute from "../base";
 
 export default BaseRoute.extend({
-
   queryParams: {
     folder_id: {
       refreshModel: true
@@ -12,9 +11,10 @@ export default BaseRoute.extend({
   },
 
   model(params) {
-    if(params.folder_id && params.team_id)
-      return this.store.queryRecord("folder", {teamId: params.team_id, id: params.folder_id } );
+    if (params.folder_id && params.team_id)
+      return this.store.queryRecord("folder", {
+        teamId: params.team_id,
+        id: params.folder_id
+      });
   }
-
-
 });

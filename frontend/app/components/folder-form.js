@@ -36,7 +36,7 @@ export default class FolderForm extends BaseFormComponent {
       this.changeset.team = this.args.team;
     }
 
-    this.store.findAll("team").then(teams => {
+    this.store.findAll("team").then((teams) => {
       this.assignableTeams = teams;
     });
   }

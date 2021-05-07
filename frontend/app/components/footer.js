@@ -21,7 +21,7 @@ export default class FooterComponent extends Component {
 
   get selectedLocale() {
     let primaryLocale = this.intl.primaryLocale;
-    return this.availableLocales.find(locale => locale.key === primaryLocale);
+    return this.availableLocales.find((locale) => locale.key === primaryLocale);
   }
 
   @action

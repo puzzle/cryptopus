@@ -15,14 +15,18 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
 
   constructor() {
     super(...arguments);
-    this.store.query("teammember", { teamId: this.args.teamId }).then(res => {
+    this.store.query("teammember", { teamId: this.args.teamId }).then((res) => {
       this.members = res;
     });
     this.store
-      .query("team-api-user", {
-        teamId: this.args.teamId
-      }, { reload: true })
-      .then(res => {
+      .query(
+        "team-api-user",
+        {
+          teamId: this.args.teamId
+        },
+        { reload: true }
+      )
+      .then((res) => {
         this.apiUsers = res;
       });
 
@@ -41,13 +45,13 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
         teamId: this.args.teamId,
         candidates: true
       })
-      .then(res => (this.candidates = res));
+      .then((res) => (this.candidates = res));
   }
 
   handleSubmitSuccess() {
     this.store
       .query("teammember", { teamId: this.args.teamId })
-      .then(res => (this.members = res));
+      .then((res) => (this.members = res));
     this.loadCandidates();
   }
 
@@ -69,7 +73,7 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
   @action
   search(input) {
     return this.candidates.filter(
-      c => c.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+      (c) => c.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
     );
   }
 
@@ -84,7 +88,7 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
       } else {
         this.store
           .query("teammember", { teamId: this.args.teamId })
-          .then(res => (this.members = res));
+          .then((res) => (this.members = res));
         this.loadCandidates();
       }
       let successMsg = `${this.translationKeyPrefix}.flashes.api.members.removed`;

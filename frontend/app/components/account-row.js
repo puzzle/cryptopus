@@ -116,7 +116,7 @@ export default class AccountRowComponent extends Component {
   setupInViewport(element) {
     const viewportTolerance = { bottom: 200, top: 200 };
     const { onEnter } = this.inViewport.watchElement(element, {
-      viewportTolerance,
+      viewportTolerance
     });
     // pass the bound method to `onEnter` or `onExit`
     onEnter(this.didEnterViewport.bind(this));
