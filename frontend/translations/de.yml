@@ -278,7 +278,7 @@ de:
 
   profile:
     index:
-      title: "Profil von %{label}"
+      title: Profil
     info:
       info: Info
       last_login_at: Letztes Login um
@@ -291,8 +291,9 @@ de:
       enter_description: Geben Sie eine Beschreibung ein..
       valid_until: Gültig bis
       valid_for: Gültig für
-      last_login_at: Letztes Login um
-      last_login_from: Letztes Login von
+      last_login: Letztes Login
+      at: 'Um:'
+      from: 'Von:'
       locked: Blockiert
       options:
         one_min: Eine Minute
@@ -348,6 +349,8 @@ de:
         invalid_request: Invalide Anfrage
         record_not_found: Eintrag nicht gefunden
         delete_failed: Eintrag konnte nicht gelöscht werden
+    user_apis:
+      deleted: Api Benutzer wurde erfolgreich gelöscht
     wizard:
       fill_password_fields: Bitte füllen Sie alle Felder aus
       paswords_do_not_match: Die Passwörter stimmen nicht überein
@@ -539,7 +542,8 @@ de:
   tooltips:
     all_teams: Alle Teams
     favorites: Favoriten
-    settings_profile: Einstellungen & Profil
+    settings: Einstellungen
+    profile: Profil
     add_folder: Erstelle einen neuen Ordner
     add_account: Erstelle einen neuen Account
     account_details: Account Details anzeigen

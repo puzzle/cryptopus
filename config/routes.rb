@@ -38,6 +38,4 @@ Rails.application.routes.draw do
 
   get 'changelog', to: 'changelog#index'
 
-  get 'profile', to: 'profile#index'
-
 end

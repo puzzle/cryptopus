@@ -272,7 +272,7 @@ fr:
     no_folders: Pas de dossiers
   profile:
     index:
-      title: "Profil de %{label}"
+      title: Profil
     info:
       info: Info
       last_login_at: Dernière connexion à
@@ -285,8 +285,9 @@ fr:
       enter_description: Entrez une description..
       valid_until: Valable jusque
       valid_for: Valable
-      last_login_at: Dernière connexion à
-      last_login_from: Dernière connexion de
+      last_login: Dernière connexion
+      at: 'à:'
+      from: 'de:'
       locked: Bloqué
       options:
         one_min: Une minute
@@ -342,6 +343,8 @@ fr:
           invalid_request: Demande non valable
           record_not_found: Enregistrement non trouvé
           delete_failed: Il n'était pas possible d'enlever l'enregistrement
+    api_users:
+      deleted: Utilisateurs d'Api supprimé avec succès
     wizard:
       fill_password_fields: S'il vous plaît remplir tous les champs
       paswords_do_not_match: Les mots de passe ne correspondent pas
@@ -535,7 +538,8 @@ fr:
   tooltips:
     all_teams: Tous les équipes
     favorites: Favoris
-    settings_profile: Paramètres & Profil
+    settings: Paramètres
+    profile: Profil
     add_folder: Ajouter un dossier
     add_account: Ajouter un compte
     account_details: Montrer détails du compte

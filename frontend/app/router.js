@@ -33,4 +33,6 @@ Router.map(function () {
     this.route("new");
     this.route("edit", { path: "/:id/edit" });
   });
+
+  this.route("profile");
 });

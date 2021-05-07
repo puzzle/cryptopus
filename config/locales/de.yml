@@ -277,7 +277,7 @@ de:
 
   profile:
     index:
-      title: "Profil von %{label}"
+      title: Profil
     info:
       info: Info
       last_login_at: Letztes Login um

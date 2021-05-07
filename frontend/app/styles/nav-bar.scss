@@ -71,9 +71,7 @@
 }
 
 @media (min-width: 576px) and (max-width: 991px) {
-
 }
-
 
 @media screen and (max-width: 575px) {
   .align-right-on-smartphone {
@@ -117,7 +115,7 @@
     width: 100% !important;
   }
 
-  .search-wrapper{
+  .search-wrapper {
     width: 100%;
     margin-bottom: 0 !important;
   }
@@ -219,7 +217,7 @@
 
   .side-nav-bar-teams-list .list-group-item:hover {
     cursor: pointer;
-    background-color: #1b8dc6!important;
+    background-color: #1b8dc6 !important;
   }
 }
 
@@ -235,6 +233,11 @@
   color: white;
 }
 
-.well{
-  margin-bottom:0px !important;
+.well {
+  margin-bottom: 0px !important;
+}
+
+.white-svg {
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg)
+    brightness(102%) contrast(102%);
 }

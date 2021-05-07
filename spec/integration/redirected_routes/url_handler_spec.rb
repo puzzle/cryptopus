@@ -77,14 +77,6 @@ describe RedirectedRoutes::UrlHandler do
     assert_redirected_to team_folder_path(team1, folder1)
   end
 
-  # /de/profile -> /profile
-  it 'redirects to profile url without locale' do
-    login_as('bob')
-    get '/de/profile'
-
-    assert_redirected_to profile_path
-  end
-
   # /de/search?q= -> /teams?q=
   it 'redirects to search url without locale' do
     login_as('bob')
