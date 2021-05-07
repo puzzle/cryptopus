@@ -11,6 +11,8 @@ export function initialize(/* application */) {
         ENV.currentUserId = envSettings.current_user.id;
         ENV.currentUserRole = envSettings.current_user.role;
         ENV.currentUserGivenname = envSettings.current_user.givenname;
+        ENV.currentUserLastLoginAt = envSettings.current_user.last_login_at;
+        ENV.currentUserLastLoginFrom = envSettings.current_user.last_login_from;
         ENV.preferredLocale = envSettings.current_user.preferred_locale;
         ENV.lastLoginMessage = envSettings.last_login_message;
         ENV.appVersion = envSettings.version;

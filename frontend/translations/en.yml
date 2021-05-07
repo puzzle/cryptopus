@@ -274,7 +274,7 @@ en:
     no_folders: No Folders
   profile:
     index:
-      title: "Profile of %{label}"
+      title: Profile
     info:
       info: Info
       last_login_at: Last login at
@@ -287,8 +287,9 @@ en:
       enter_description: click to enter description..
       valid_until: Valid until
       valid_for: Valid for
-      last_login_at: Last login at
-      last_login_from: Last login from
+      last_login: Last login
+      at: 'At: '
+      from: 'From:'
       locked: Locked
       options:
         one_min: One minute
@@ -342,6 +343,8 @@ en:
         invalid_request: Invalid Request
         record_not_found: Record not found
         delete_failed: Could not delete the record.
+    api_users:
+      deleted: Api user was successfully removed
     wizard:
       fill_password_fields: Please provide an initial password
       paswords_do_not_match: Passwords do not match
@@ -454,7 +457,8 @@ en:
   tooltips:
     all_teams: All Teams
     favorites: Favorites
-    settings_profile: Settings & Profile
+    settings: Settings
+    profile: Profile
     add_folder: Add a new Folder
     add_account: Add a new Account
     account_details: Show Account Details

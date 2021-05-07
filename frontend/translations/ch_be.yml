@@ -300,7 +300,7 @@ ch_be:
     no_folders: Ke Ordner
   profile:
     index:
-      title: "S Profil vom %{label}"
+      title: Profil
     info:
       info: Info
       last_login_at: Letschts Login am
@@ -313,8 +313,10 @@ ch_be:
       enter_description: Gib e beschribig ii..
       valid_until: Güutig bis
       valid_for: Güutig für
-      last_login_at: Letschts Login am
-      last_login_from: Letschts Login vo
+      last_login: Letschts Login
+      at: 'Am:'
+      from: 'Vo:'
+      locked: Blockiert
       options:
         one_min: Ei minutä
         five_mins: Füf minutä
@@ -358,6 +360,8 @@ ch_be:
         invalid_request: Invalidi Ahfrag
         record_not_found: Ihtrag isch nid gfunde worde
         delete_failed: Ihtrag het nid chenne g'löscht wärde
+    user_apis:
+      deleted: Api Benutzer isch erfougrich glöscht worde
     wizard:
       fill_password_fields: Bitte füu aui Fäuder us
       paswords_do_not_match: D Passwörter stimme nid überi
@@ -546,7 +550,8 @@ ch_be:
   tooltips:
     all_teams: Aui Teams
     favorites: Favoritä
-    settings_profile: Istellige & Profil
+    profile: Profil
+    settings: Istellige
     add_folder: Erstell en neue Ordner
     add_account: Erstell en neue Account
     account_details: Account Details ahzeige

@@ -73,12 +73,21 @@
           </BsDropdown>
           <span></span>
           <div class="nav-item mr-2 show-not-on-hamburgermenu">
-            <a href="/profile">
-              <span class="helper"></span><img class="icon-big-button icon mr-2 ml-1"
-                                               src="/assets/images/settings_white.svg" alt="v">
-              <BsTooltip @title={{t "tooltips.settings_profile"}} @delayShow="1000"/>
-            </a>
+            <LinkTo @route="profile">
+              <span class="helper"></span><img class="white-svg icon-big-button icon mr-2 ml-1"
+                                               src="/assets/images/user.svg" alt="v">
+              <BsTooltip @title={{t "tooltips.profile"}} @delayShow="1000"/>
+            </LinkTo>
           </div>
+          {{#if this.isAllowedToAccessSettings}}
+            <div class="nav-item mr-2 show-not-on-hamburgermenu">
+              <a href="/admin/settings/index">
+                <span class="helper"></span><img class="icon-big-button icon mr-2 ml-1"
+                                                 src="/assets/images/settings_white.svg" alt="v">
+                <BsTooltip @title={{t "tooltips.settings"}} @delayShow="1000"/>
+              </a>
+            </div>
+          {{/if}}
           <div class="nav-item mr-2 show-not-on-hamburgermenu">
             <a href="/session/destroy">
               <span class="helper"></span><img class="icon icon-big-button" src="/assets/images/sign_out-white.svg"

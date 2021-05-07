@@ -43,8 +43,6 @@
                     %a= nav_link t('teams.title'), admin_teams_path
                     %a= nav_link t('admin.maintenance_tasks.index.title'), admin_maintenance_tasks_path
             %li
-              = link_to(current_user.username, profile_path, method: :get, class: 'font link')
-            %li
               = link_to(image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path)
 
   - unless @breadcrumbs.nil?
