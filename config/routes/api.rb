@@ -35,6 +35,12 @@ Rails.application.routes.draw do
           patch :update_role, to: 'users/role#update'
         end
       end
+
+      resource :settings, only: [:index] do
+        post 'update_all'
+        get 'index'
+      end
+
       resources :ldap_connection_test, only: ['new']
     end
     
