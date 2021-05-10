@@ -53,8 +53,9 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rails-erd'
   gem 'rspec-rails', '~> 4.0'
-  gem 'rubocop-checkstyle_formatter'
-  gem 'rubocop-rails'
+  gem 'rubocop', '~> 0.79.0'
+  gem 'rubocop-checkstyle_formatter', '~> 0.4.0'
+  gem 'rubocop-rails', '~> 2.4.2'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false, group: :test
   gem 'webdrivers'
