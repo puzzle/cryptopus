@@ -1,5 +1,9 @@
 # Cryptopus Changelog
 
+## Version 3.7
+- Update Ember to 3.24 LTS
+- Improve search performance by In-Viewport rendering
+
 ## Version 3.6
 - Fix autologout
 - Improve performance via indexes in db and frontend optimizing
