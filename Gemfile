@@ -52,7 +52,7 @@ group :development, :test do
   gem 'mocha'
   gem 'rails-controller-testing'
   gem 'rails-erd'
-  gem 'rspec-rails', '~> 4.0'
+  gem 'rspec-rails'
   gem 'rubocop', '~> 0.79.0'
   gem 'rubocop-checkstyle_formatter', '~> 0.4.0'
   gem 'rubocop-rails', '~> 2.4.2'
