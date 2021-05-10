@@ -8,7 +8,7 @@
   %tr
     %th= t '.user'
     %th{colspan: "3"}= t :actions
-  - for recryptrequest in @recryptrequests
+  - @recryptrequests.each do |recryptrequest|
     %tr
       %td= recryptrequest.user.label
-      %td.action_icon= link_to t('.recrypt'), admin_recryptrequest_path(recryptrequest), method: :delete
+      %td.action_icon= link_to(t('.recrypt'), admin_recryptrequest_path(recryptrequest), method: :delete)
