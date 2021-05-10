@@ -1,4 +1,5 @@
-import Route from '@ember/routing/route';
+import AdminRoute from "../admin";
 
-export default Route.extend({
-});
+export default class SettingsRoute extends AdminRoute {
+
+}
