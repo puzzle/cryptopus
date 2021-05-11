@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-require 'rails_helper'
+require 'spec_helper'
 describe Log do
   it 'cannot create log with unknown status' do
     log = Log.new(status: 'unknown', log_type: 'maintenance_task')

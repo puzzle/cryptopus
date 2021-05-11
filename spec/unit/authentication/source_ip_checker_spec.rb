@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
 
 describe Authentication::SourceIpChecker do
   it 'allows if previously authorized' do
