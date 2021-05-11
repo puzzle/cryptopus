@@ -142,6 +142,8 @@ ch_be:
       index:
         title: Istellige bearbeite
         save: Änderige spichere
+        ldap: Ldap Verbindig teste
+        whitelist_placeholder_geo_ip_deactivated: Faus keini IP's ahgäh sind wärde aui IP's erloubt
     recryptrequests:
       index:
         title: Entschlüsseligs Afrage
@@ -331,6 +333,11 @@ ch_be:
           toggle:
             empowered: "%{username} het ab iz Admin-Rächt"
             disempowered: "Am Benutzer %{username} si d Admin-Rächt entzoge worde"
+        settings:
+          test_ldap_connection:
+            successful: "Verbindig zum Ldap Server %{hostname} erfougrich"
+            failed: "Verbindig zum Ldap Server %{hostname} fäugschlage"
+            no_hostname_present: "S isch kein Hostname vorhange"
       api-users:
         create: "%{username} isch ersteut worde"
         update:

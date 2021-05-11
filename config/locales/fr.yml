@@ -112,6 +112,7 @@ fr:
         title: Modifier les paramètres
         save: Sauvegarder les modifications
         ldap: Tester la connexion LDAP
+        whitelist_placeholder_geo_ip_deactivated: Si aucune adresse IP n'est ajoutée, chaque adresse IP sera autorisée
     recryptrequests:
       index:
         title: Demandes de re crypt
