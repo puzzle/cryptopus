@@ -11,7 +11,7 @@ describe 'Account attachement' do
   it 'adds and removes attachment to account1' do
     account = accounts(:account1)
     login_as('bob')
-    file = fixture_file_upload('files/test_file.txt', 'text/plain')
+    file = fixture_file_upload('test_file.txt', 'text/plain')
 
     file_entry_path = api_account_file_entries_path(account_id: account.id)
     file_entry_params = {
