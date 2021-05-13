@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  scope '/api', module: 'api', as: 'api' do
+  namespace :api do
 
     resources :all_folders, only: [:index]
 

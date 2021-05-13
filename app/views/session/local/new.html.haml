@@ -6,7 +6,7 @@
 
 !!!
 .login-form
-  = form_tag(local_path, class: 'login') do
+  = form_tag(session_local_path, class: 'login') do
     %fieldset
       = image_pack_tag "cryptopussy.svg", class: 'logo'
       .form-group

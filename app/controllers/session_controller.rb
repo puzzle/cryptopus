@@ -67,16 +67,6 @@ class SessionController < ApplicationController
     end
   end
 
-  # POST /session/locale
-  def changelocale
-    locale = params.permit(:new_locale)[:new_locale]
-    if locale.present?
-      current_user.update!(preferred_locale: locale)
-    end
-
-    redirect_back(fallback_location: root_path)
-  end
-
   private
 
   def assert_logged_in
