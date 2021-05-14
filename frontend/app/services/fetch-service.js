@@ -8,7 +8,7 @@ export default class FetchService extends Service {
   };
 
   send(url, options) {
-    options["headers"] = this.headers;
+    options["headers"] = options["headers"] || this.headers;
 
     /* eslint-disable no-undef  */
     return fetch(url, options);

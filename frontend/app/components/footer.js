@@ -1,11 +1,11 @@
 import Component from "@glimmer/component";
 import { inject as service } from "@ember/service";
 import { action } from "@ember/object";
-import fetch from "fetch";
 import ENV from "../config/environment";
 
 export default class FooterComponent extends Component {
   @service intl;
+  @service fetchService;
   @service logoutTimerService;
 
   availableLocales = [
@@ -31,7 +31,7 @@ export default class FooterComponent extends Component {
     };
 
     this.intl.setLocale(locale.key);
-    fetch(`/api/locale`, {
+    this.fetchService.send(`/api/locale`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
