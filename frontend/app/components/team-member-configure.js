@@ -1,13 +1,13 @@
 import BaseFormComponent from "./base-form-component";
 import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
-import fetch from "fetch";
 import { tracked } from "@glimmer/tracking";
 import ENV from "../config/environment";
 
 export default class TeamMemberConfigureComponent extends BaseFormComponent {
   @service store;
   @service router;
+  @service fetchService;
 
   @tracked members;
   @tracked candidates;
@@ -117,26 +117,18 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
   }
 
   enableApiUser(apiUser) {
-    /* eslint-disable no-undef  */
-    return fetch(`/api/teams/${this.args.teamId}/api_users`, {
+    return this.fetchService.send(`/api/teams/${this.args.teamId}/api_users`, {
       method: "post",
-      headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "X-CSRF-Token": ENV.CSRFToken
-      },
       body: `id=${apiUser.id}`
     });
-    /* eslint-enable no-undef  */
   }
 
   disableApiUser(apiUser) {
-    /* eslint-disable no-undef  */
-    return fetch(`/api/teams/${this.args.teamId}/api_users/${apiUser.id}`, {
-      method: "delete",
-      headers: {
-        "X-CSRF-Token": ENV.CSRFToken
+    return this.fetchService.send(
+      `/api/teams/${this.args.teamId}/api_users/${apiUser.id}`,
+      {
+        method: "delete"
       }
-    });
-    /* eslint-enable no-undef  */
+    );
   }
 }
