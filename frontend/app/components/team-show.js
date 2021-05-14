@@ -2,13 +2,13 @@ import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
-import ENV from "../config/environment";
 
 export default class TeamShowComponent extends Component {
   @service navService;
   @service userService;
   @service store;
   @service router;
+  @service fetchService;
 
   @tracked
   isTeamEditing = false;
@@ -52,22 +52,19 @@ export default class TeamShowComponent extends Component {
   @action
   toggleFavourised() {
     let httpMethod = this.args.team.favourised ? "delete" : "post";
-    /* eslint-disable no-undef  */
-    fetch(`/api/teams/${this.args.team.id}/favourite`, {
-      method: httpMethod,
-      headers: {
-        "X-CSRF-Token": ENV.CSRFToken
-      }
-    }).then(() => {
-      this.args.team.favourised = !this.args.team.favourised;
-      if (this.navService.isShowingFavourites) {
-        if (this.args.team.favourised) {
-          this.navService.availableTeams.pushObject(this.args.team);
-        } else {
-          this.navService.availableTeams.removeObject(this.args.team);
+    this.fetchService
+      .send(`/api/teams/${this.args.team.id}/favourite`, {
+        method: httpMethod
+      })
+      .then(() => {
+        this.args.team.favourised = !this.args.team.favourised;
+        if (this.navService.isShowingFavourites) {
+          if (this.args.team.favourised) {
+            this.navService.availableTeams.pushObject(this.args.team);
+          } else {
+            this.navService.availableTeams.removeObject(this.args.team);
+          }
         }
-      }
-    });
-    /* eslint-enable no-undef  */
+      });
   }
 }

@@ -1,10 +1,10 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
-import ENV from "../config/environment";
 
 export default class ApiUsersTableRow extends Component {
   @service store;
+  @service fetchService;
 
   validityTimes = [
     { label: "profile.api_users.options.one_min", value: 60 },
@@ -22,32 +22,24 @@ export default class ApiUsersTableRow extends Component {
   @action
   toggleApiUser(user) {
     let httpMethod = user.locked ? "delete" : "post";
-    /* eslint-disable no-undef  */
-    return fetch(`/api/api_users/${user.id}/lock`, {
-      method: httpMethod,
-      headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "X-CSRF-Token": ENV.CSRFToken
-      }
-    }).then(() => (user.locked = !user.locked));
-    /* eslint-enable no-undef  */
+    return this.fetchService
+      .send(`/api/api_users/${user.id}/lock`, { method: httpMethod })
+      .then(() => (user.locked = !user.locked));
   }
 
   @action
   renewApiUser(user) {
     /* eslint-disable no-undef  */
-    return fetch(`/api/api_users/${user.id}/token`, {
-      method: "get",
-      headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "X-CSRF-Token": ENV.CSRFToken
-      }
-    }).then((response) => {
-      response.json().then((json) => {
-        if (this.args.parent.setRenewMessage)
-          this.args.parent.setRenewMessage(json.info[0]);
+    return this.fetchService
+      .send(`/api/api_users/${user.id}/token`, {
+        method: "get"
+      })
+      .then((response) => {
+        response.json().then((json) => {
+          if (this.args.parent.setRenewMessage)
+            this.args.parent.setRenewMessage(json.info[0]);
+        });
       });
-    });
     /* eslint-enable no-undef  */
   }
 
