@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     get 'new'
     get 'destroy'
     get 'show_update_password'
-    post 'update_password', to: 'session#update_password'
+    post 'update_password'
 
     if AuthConfig.oidc_enabled?
       get 'oidc', to: 'oidc#create'

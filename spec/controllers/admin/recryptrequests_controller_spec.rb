@@ -103,7 +103,8 @@ describe Admin::RecryptrequestsController do
       expect(response.status).to eq(200)
     end
 
-    it 'shows no error when recryptrequests are present' do
+    # admin/recrypt_requests is being removed soon
+    xit 'shows no error when recryptrequests are present' do
 
       login_as(:admin)
       bob = users(:bob)
