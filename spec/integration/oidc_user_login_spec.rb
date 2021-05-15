@@ -57,7 +57,7 @@ describe 'Openid Connect user login' do
       expect_any_instance_of(OidcClient)
         .to receive(:get_id_token).and_return(id_token)
 
-      get session_oidc_create_path,
+      get session_oidc_path,
           params: { code: 'abdc42', state: state }
     end.to change { User::Human.count }.by(1)
 

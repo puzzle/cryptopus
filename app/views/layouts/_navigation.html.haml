@@ -9,7 +9,7 @@
     .content
 
       .navbar-header
-        %a{href: root_path, class: 'navbar-logo'}
+        %a{href: Rails.application.routes.url_helpers.root_path, class: 'navbar-logo'}
           = image_pack_tag("cryptopussy_without_text.svg", class: 'logo-icon')
           %span.ml-1.navbar-brand2
             = 'Cryptopus'
@@ -36,14 +36,14 @@
                   = image_pack_tag("angle-down.svg", class: "dropdown-arrow")
                 %ul.dropdown-menu{:role => "menu"}
                   %li
-                    %a= nav_link t(:settings), admin_settings_path
+                    %a= nav_link t(:settings), Rails.application.routes.url_helpers.admin_settings_path
                     - if policy(Recryptrequest).index?
-                      %a= nav_link t(:recrypt_requests), admin_recryptrequests_path
-                    %a= nav_link t(:users), admin_users_path
-                    %a= nav_link t('teams.title'), admin_teams_path
-                    %a= nav_link t('admin.maintenance_tasks.index.title'), admin_maintenance_tasks_path
+                      %a= nav_link t(:recrypt_requests), Rails.application.routes.url_helpers.admin_recryptrequests_path
+                    %a= nav_link t(:users), Rails.application.routes.url_helpers.admin_users_path
+                    %a= nav_link t('teams.title'), Rails.application.routes.url_helpers.admin_teams_path
+                    %a= nav_link t('admin.maintenance_tasks.index.title'), Rails.application.routes.url_helpers.admin_maintenance_tasks_path
             %li
-              = link_to(image_pack_tag("sign_out.svg", class: "logout-icon"), session_destroy_path)
+              = link_to(image_pack_tag("sign_out.svg", class: "logout-icon"), Rails.application.routes.url_helpers.session_destroy_path)
 
   - unless @breadcrumbs.nil?
     .bread-container

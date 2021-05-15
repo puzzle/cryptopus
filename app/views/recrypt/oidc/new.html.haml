@@ -18,7 +18,7 @@
     #ember
     = render 'layouts/icons'
     .container.main{role: "main"}
-      = form_tag recrypt_oidc_path do
+      = form_tag Rails.application.routes.url_helpers.recrypt_oidc_path do
         .alert.alert-info#ldap_info
           = t '.notice'
         %br/

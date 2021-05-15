@@ -46,7 +46,7 @@ class SessionController < ApplicationController
 
   def destroy_redirect_path
     if current_user.root?
-      session_local_new_path
+      session_local_path
     else
       session_new_path
     end

@@ -61,7 +61,7 @@ describe 'User migrates to oidc' do
     state = params['state']
 
     # 2. returning back from external login form to cryptopus
-    get session_oidc_create_path, params: { code: 'abdc42', state: state }
+    get session_oidc_path, params: { code: 'abdc42', state: state }
 
     # 3. redirect to recrypt form and provides wrong old password
     follow_redirect!
@@ -82,7 +82,7 @@ describe 'User migrates to oidc' do
     state = params['state']
 
     # 6. returning back from external login form to cryptopus
-    get session_oidc_create_path, params: { code: 'abdc42', state: state }
+    get session_oidc_path, params: { code: 'abdc42', state: state }
 
     # 7. user logged in
     follow_redirect!
