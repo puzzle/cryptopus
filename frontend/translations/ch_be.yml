@@ -171,7 +171,7 @@ ch_be:
         reset_password: Passwort zrüggsetze
         warning: Z Zrüggsetze vom Benutzer-Passwort füehrt zum Verlust vom Zuegriff uf aui private Teams u d Löschig vo aune Teams, i dene er z einzige Mitglied isch
       index:
-        title: Lischtä vo aune Cryptopus Benutzer
+        title: Cryptopus Benutzer
         username: Benutzernamä
         name: Namä
         provider_uid: PROVIDER UID
@@ -180,7 +180,9 @@ ch_be:
         admin: Admin
         action: Aktion
         locked: Gsperrte Benutzer
+        unlocked: Nid gsperrti Benutzer
         unlock: Entsperre
+        role: Rolle
       last_teammember_teams:
         message: Folgendi Teams i dene dr zu löschend Benutzer ds letschte Mitglied isch müesse glöscht werde.
         delete_user: Bisch sicher, dass du dä Benutzer wosch lösche?

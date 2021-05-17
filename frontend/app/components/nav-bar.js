@@ -20,10 +20,6 @@ export default class NavBarComponent extends Component {
   @tracked
   isNewTeam = false;
 
-  get isAllowedToAccessSettings() {
-    return this.userService.isAdmin || this.userService.isConfAdmin;
-  }
-
   get isStartpage() {
     return this.router.currentRouteName === "index";
   }

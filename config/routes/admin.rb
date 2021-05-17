@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       get 'index'
     end
 
-    resources :users, except: [:destroy, :show] do
+    resources :users, only: [:update, :new, :create] do
       member do
         get 'unlock'
       end

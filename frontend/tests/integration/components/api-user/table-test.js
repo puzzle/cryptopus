@@ -12,9 +12,6 @@ module("Integration | Component | api-user/table", function (hooks) {
   });
 
   test("it renders without apiUsers", async function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
     await render(hbs`<ApiUser::Table />`);
 
     let text = this.element.textContent.trim();

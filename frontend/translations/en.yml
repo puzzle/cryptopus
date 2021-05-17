@@ -140,7 +140,7 @@ en:
         reset_password: Reset password
         warning: By resetting the password, the user loses access to all his private teams. All teams, where he is the only member will be deleted
       index:
-        title: List of all Cryptopus users
+        title: Cryptopus users
         username: Username
         name: Name
         provider_uid: PROVIDER UID
@@ -149,7 +149,9 @@ en:
         admin: Admin
         action: Action
         locked: Locked Users
+        unlocked: Unlocked Users
         unlock: Unlock
+        role: Role
       last_teammember_teams:
         message: Before you can delete this user you have to delete the following teams, because the user is the last member.
         delete_user: Are you sure you want to delete this User?

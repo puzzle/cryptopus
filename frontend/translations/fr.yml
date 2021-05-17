@@ -141,7 +141,7 @@ fr:
         reset_password: Réinitialiser mot de passe
         warning: Avec la réinitialisation du mot de passe l’utilisateur perd l’access a tout ses teams privées et tout les teams ou il est le seul membre seront supprimées
       index:
-        title: La Liste de toutes les utilisateurs
+        title: Utilisateur de Cryptopus
         username: Nom d'utilisateur
         name: Nom
         provider_uid: PROVIDER UID
@@ -150,7 +150,9 @@ fr:
         admin: Admin
         action: Action
         locked: Bloqué utilisateurs
+        unlocked: Utilisateurs activés
         unlock: déverrouillage
+        role: Rôle
       last_teammember_teams:
         message: L'équipe suivante sera supprimée, car l'utilisateur est son dernier membre.
         delete_user: Êtes-vous sûr de vouloir supprimer cet utilisateur?

@@ -23,6 +23,7 @@ module.exports = {
     "ember/require-tagless-components": "off",
     "ember/no-classic-components": "off",
     "ember/no-component-lifecycle-hooks": "off",
+    "ember/no-empty-glimmer-component-classes": "off",
     "space-before-function-paren": ["off", "always"],
     "ember/no-jquery": "off"
   },

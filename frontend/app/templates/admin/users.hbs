@@ -1,0 +1,16 @@
+<div class="pt-3">
+  <h1>{{t "admin.users.index.title"}}</h1> 
+  {{#if @model.locked}}
+    <BsTab as |tab|>
+      <tab.pane id="unlocked" @title={{t "admin.users.index.unlocked"}}>
+        <Admin::User::Table @users={{@model.unlocked}} />
+      </tab.pane>
+      
+      <tab.pane id="locked" @title={{t "admin.users.index.locked"}}>
+        <Admin::User::Table @users={{@model.locked}} />
+      </tab.pane>
+    </BsTab>
+  {{else}}
+    <Admin::User::Table @users={{@model.unlocked}} />
+  {{/if}}
+</div>

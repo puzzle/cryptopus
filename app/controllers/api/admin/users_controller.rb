@@ -7,6 +7,8 @@
 
 class Api::Admin::UsersController < ApiController
 
+  self.custom_model_class = ::User::Human
+
   # DELETE /api/admin/users/1
   def destroy
     authorize user
@@ -18,6 +20,14 @@ class Api::Admin::UsersController < ApiController
   end
 
   private
+
+  def fetch_entries
+    if true?(params[:locked])
+      User::Human.locked
+    else
+      User::Human.unlocked
+    end
+  end
 
   def user
     @user ||= User.find(params[:id])

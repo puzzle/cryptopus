@@ -142,7 +142,7 @@ de:
         reset_password: Passwort zurücksetzen
         warning: Das zurücksetzen des Passworts eines Benutzers führt zum Verlust des Zugriff auf alle Private Teams und die löschung aller Teams, in denen er der einzige Member ist
       index:
-        title: Liste aller Cryptopus Benutzer
+        title: Cryptopus Benutzer
         username: Benutzername
         name: Name
         provider_uid: PROVIDER UID
@@ -150,7 +150,9 @@ de:
         last_login_from: Letzte Anmeldung von
         admin: Admin
         action: Aktion
+        role: Rolle
         locked: Gesperrte Benutzer
+        unlocked: Nicht gesperrte Benutzer
         unlock: Entsperren
       last_teammember_teams:
         message: Folgende Teams in denen der zu löschende User der letzte Member ist müssen gelöscht werden.
