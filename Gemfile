@@ -2,7 +2,7 @@
 
 source 'http://rubygems.org'
 
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 6.1'
 
 gem 'figaro'
 gem 'mysql2'
@@ -10,7 +10,7 @@ gem 'net-ldap'
 gem 'puma'
 gem 'sqlite3'
 
-gem 'active_model_serializers', '0.10.0'
+gem 'active_model_serializers'
 gem 'annotate'
 gem 'bleib', '0.0.9'
 gem 'bootstrap-select-rails'
@@ -52,9 +52,10 @@ group :development, :test do
   gem 'mocha'
   gem 'rails-controller-testing'
   gem 'rails-erd'
-  gem 'rspec-rails', '~> 4.0'
-  gem 'rubocop-checkstyle_formatter'
-  gem 'rubocop-rails'
+  gem 'rspec-rails'
+  gem 'rubocop', '~> 0.79.0'
+  gem 'rubocop-checkstyle_formatter', '~> 0.4.0'
+  gem 'rubocop-rails', '~> 2.4.2'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false, group: :test
   gem 'webdrivers'

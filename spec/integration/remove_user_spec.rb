@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-require 'rails_helper'
+require 'spec_helper'
 describe 'Remove user' do
   include IntegrationHelpers::DefaultHelper
   it 'does not display remove button' do

@@ -27,10 +27,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Ruby 2.5
+      - name: Set up Ruby 2.7
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.5
+          ruby-version: 2.7
           bundler-cache: true
 
       # Setup Node
@@ -69,7 +69,7 @@ jobs:
         run: sudo service mysql restart
 
       - name: Install bundler
-        run: gem install bundler:1.17.3
+        run: gem install bundler:2.2.17
 
       - name: Run yarn
         if: steps.node-modules-cache.outputs.cache-hit != 'true' || steps.global-node-modules-cache.outputs.cache-hit != 'true'

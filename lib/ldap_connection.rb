@@ -117,7 +117,7 @@ class LdapConnection
     if ldap_hosts.last == host
       raise exception
     else
-      return if exception.is_a?(Net::LDAP::ConnectionRefusedError)
+      return if exception.is_a?(Net::LDAP::ConnectionError)
       raise(exception) unless expected_message(exception.message)
     end
   end

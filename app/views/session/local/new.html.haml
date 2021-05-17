@@ -6,7 +6,7 @@
 
 !!!
 .login-form
-  = form_tag(local_path, class: 'login') do
+  = form_tag(Rails.application.routes.url_helpers.session_local_path, class: 'login') do
     %fieldset
       = image_pack_tag "cryptopussy.svg", class: 'logo'
       .form-group

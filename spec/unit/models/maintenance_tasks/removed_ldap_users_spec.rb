@@ -4,7 +4,7 @@
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
-require 'rails_helper'
+require 'spec_helper'
 describe MaintenanceTasks::RemovedLdapUsers do
 
   let(:ldap_connection) { LdapConnection.new }

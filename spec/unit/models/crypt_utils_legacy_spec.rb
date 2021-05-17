@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-require 'rails_helper'
+require 'spec_helper'
 describe CryptUtilsLegacy do
   it 'decrypts legacy private key' do
     encrypted_private_key = users(:bob).private_key

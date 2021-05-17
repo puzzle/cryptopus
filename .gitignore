@@ -34,3 +34,7 @@ yarn-debug.log*
 # docker dev setup
 .bash_history
 config/docker/development/home/rails/.yarnrc
+config/docker/development/home/rails/.bundle
+config/docker/development/home/rails/.cache
+config/docker/development/home/rails/.irb_history
+config/docker/development/home/rails/.local

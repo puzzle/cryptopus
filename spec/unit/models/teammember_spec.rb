@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
 describe Teammember do
 
   let(:user) { users(:bob) }

@@ -5,5 +5,5 @@
 
 %h1= t '.title'
 - @submit_button_text = t(:create)
-- @form_url = admin_users_path
+- @form_url = Rails.application.routes.url_helpers.admin_users_path
 = render 'form'

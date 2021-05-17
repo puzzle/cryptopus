@@ -7,6 +7,21 @@ Rails.application.routes.draw do
   get 'status/health', to: 'status#health'
   get 'status/readiness', to: 'status#readiness'
 
+  namespace :session do
+    post '', action: :create
+    post 'local', to: 'local#create'
+    get 'local', to: 'local#new'
+
+    get 'new'
+    get 'destroy'
+    get 'show_update_password'
+    post 'update_password'
+
+    if AuthConfig.oidc_enabled?
+      get 'oidc', to: 'oidc#create'
+    end
+  end
+
   namespace :recrypt do
     if AuthConfig.ldap_enabled?
       get 'ldap', to: 'ldap#new'
@@ -17,21 +32,6 @@ Rails.application.routes.draw do
       post 'oidc', to: 'oidc#create'
     end
   end
-
-  scope '/session', module: 'session' do
-    if AuthConfig.oidc_enabled?
-      get 'oidc', to: 'oidc#create', as: 'session_oidc_create'
-    end
-    post 'local', to: 'local#create'
-    get 'local', to: 'local#new', as: 'session_local_new'
-  end
-
-  get 'session/new', to: 'session#new'
-  post 'session', to: 'session#create'
-  get 'session/destroy', to: 'session#destroy'
-  get 'session/show_update_password', to: 'session#show_update_password'
-  post 'session/update_password', to: 'session#update_password'
-  post 'session/locale', to: 'session#changelocale'
 
   get 'wizard', to: 'wizard#index'
   post 'wizard/apply'
