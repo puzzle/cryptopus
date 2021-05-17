@@ -1,4 +1,4 @@
-FROM centos/ruby-25-centos7
+FROM centos/ruby-27-centos7
 ENV RACK_ENV=production
 ENV RAILS_ENV=production
 ENV SECRET_KEY_BASE=cannot-be-blank-for-production-env-when-building
