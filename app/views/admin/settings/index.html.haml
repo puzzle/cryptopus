@@ -3,7 +3,7 @@
 -#  See the COPYING file at the top-level directory or at
 -#  https://github.com/puzzle/cryptopus.
 - @submit_button_text = t(:update)
-= form_tag update_all_admin_settings_path, role: 'form', class: 'm-none' do
+= form_tag Rails.application.routes.url_helpers.update_all_admin_settings_path, role: 'form', class: 'm-none' do
   .tab-content.settings-content
     #general-settings.tab-pane.fade.in.active
       = render 'general'
