@@ -13,4 +13,8 @@ export default class UserService extends Service {
   get isAdmin() {
     return this.role === "admin";
   }
+
+  get mayManageSettings() {
+    return this.isConfAdmin || this.isAdmin;
+  }
 }

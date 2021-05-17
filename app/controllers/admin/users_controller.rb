@@ -12,16 +12,6 @@ class Admin::UsersController < ApplicationController
 
   helper_method :update_role
 
-  # GET /admin/users
-  def index
-    authorize User::Human
-    @users = User::Human.all.unlocked
-
-    respond_to do |format|
-      format.html
-    end
-  end
-
   # PUT /admin/users/1
   def update
     user.update!(permitted_attributes(user))
@@ -54,7 +44,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def unlock
-    user.unlock
+    user.unlock!
 
     respond_to do |format|
       format.html { redirect_to admin_users_path }

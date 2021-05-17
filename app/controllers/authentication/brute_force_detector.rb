@@ -54,7 +54,7 @@ class Authentication::BruteForceDetector
   end
 
   def reset_failed_login_attempts
-    user.unlock if user.failed_login_attempts.positive?
+    user.unlock! if user.failed_login_attempts.positive?
   end
 
 end

@@ -32,6 +32,6 @@
 
 class User::HumanSerializer < ApplicationSerializer
 
-  attributes :id, :label
+  attributes :id, :username, :label, :last_login_at, :last_login_from, :provider_uid, :role, :auth
 
 end

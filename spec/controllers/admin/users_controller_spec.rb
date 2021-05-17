@@ -5,47 +5,6 @@ require 'spec_helper'
 describe Admin::UsersController do
   include ControllerHelpers
 
-  context 'GET index' do
-    it 'receives userlist as admin' do
-      login_as(:admin)
-      get :index
-
-      users = assigns(:users)
-
-      expect(users.size).to eq 5
-      expect(users.count).to eq(User::Human.all.count)
-      expect(users.any? { |t| t.username == 'root' }).to eq true
-    end
-
-    it 'receives userlist as conf admin' do
-      login_as(:tux)
-      get :index
-
-      users = assigns(:users)
-
-      expect(users.size).to eq 5
-      expect(users.any? { |t| t.username == 'root' }).to eq true
-    end
-
-    it 'does not list locked users' do
-      users(:bob).update!(locked: true)
-
-      login_as(:admin)
-      get :index
-
-      users = assigns(:users)
-
-      expect(users.size).to eq 4
-    end
-
-    it 'does not receive userlist as user' do
-      login_as(:bob)
-      get :index
-
-      expect(assigns(:users)).to be_nil
-    end
-  end
-
   context 'GET unlock' do
     it 'unlocks user as admin' do
       bob = users(:bob)

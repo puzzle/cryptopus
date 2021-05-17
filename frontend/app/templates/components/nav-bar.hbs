@@ -79,14 +79,20 @@
               <BsTooltip @title={{t "tooltips.profile"}} @delayShow="1000"/>
             </LinkTo>
           </div>
-          {{#if this.isAllowedToAccessSettings}}
-            <div class="nav-item mr-2 show-not-on-hamburgermenu">
-              <a href="/admin/settings/index">
-                <span class="helper"></span><img class="icon-big-button icon mr-2 ml-1"
-                                                 src="/assets/images/settings_white.svg" alt="v">
-                <BsTooltip @title={{t "tooltips.settings"}} @delayShow="1000"/>
-              </a>
-            </div>
+          {{#if this.userService.mayManageSettings}}
+            <BsDropdown @class="my-lg-0 pt-2 mr-2" as |dd|>
+              <dd.toggle @class="w-100 h-100 d-inline-block">
+                <span class="text-white">{{t "tooltips.settings"}}</span>
+              </dd.toggle>
+              <dd.menu as |ddm|>
+                <ddm.item>
+                  <ddm.linkTo @route="admin.users">{{t "users"}}</ddm.linkTo>
+                </ddm.item>
+                <ddm.item>
+                  <a class="dropdown-item" href="/admin/settings/index">{{t "tooltips.settings"}}</a>
+                </ddm.item>
+              </dd.menu>
+            </BsDropdown>
           {{/if}}
           <div class="nav-item mr-2 show-not-on-hamburgermenu">
             <a href="/session/destroy">

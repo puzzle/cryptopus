@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     end
 
     scope '/admin', module: 'admin' do
-      resources :users, only: :destroy do
+      resources :users, only: [:index, :destroy] do
         member do
           patch :update_role, to: 'users/role#update'
         end

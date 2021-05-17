@@ -56,6 +56,10 @@
   color: #000000;
 }
 
+#search {
+  width: 100% !important;
+}
+
 .break-words {
   word-break: break-word;
 }
@@ -190,7 +194,7 @@
     display: inline;
   }
 
-  nav a.nav-link {
+  nav .nav-link {
     color: white !important;
   }
 
@@ -207,7 +211,7 @@
   }
 
   .search-wrapper {
-    width: 35vw;
+    width: 28vw;
   }
 
   .search {
