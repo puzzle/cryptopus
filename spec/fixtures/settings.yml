@@ -13,12 +13,12 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-general_country_source_whitelist:
-  key: general_country_source_whitelist
-  value: ["CH"]
+country_source_whitelist:
+  key: country_source_whitelist
+  value: ["CH", "DE"]
   type: Setting::CountryCode
 
-general_ip_whitelist:
-  key: general_ip_whitelist
-  value: ["0.0.0.0"]
+ip_whitelist:
+  key: ip_whitelist
+  value: ["0.0.0.0", "192.168.10.0"]
   type: Setting::IpRange

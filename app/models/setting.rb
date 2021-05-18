@@ -19,6 +19,7 @@
 class Setting < ApplicationRecord
 
   validates :key, uniqueness: true
+  scope :list, (-> { all } )
 
   class << self
     def value(prefix, key)
