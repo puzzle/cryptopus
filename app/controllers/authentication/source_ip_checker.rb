@@ -52,7 +52,7 @@ class Authentication::SourceIpChecker
   end
 
   def collect_whitelisted_ips
-    Setting.value('general', 'ip_whitelist').collect do |i|
+    Setting.value('', 'ip_whitelist').collect do |i|
       IPAddr.new(i)
     end
   end

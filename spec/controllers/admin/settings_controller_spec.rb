@@ -8,8 +8,8 @@ describe Admin::SettingsController do
   context 'POST update_all' do
     it 'updates setting attributes' do
       login_as(:admin)
-      post :update_all, params: { setting: { general_country_source_whitelist: %w[CH UK],
-                                             general_ip_whitelist: ['192.168.1.1',
+      post :update_all, params: { setting: { country_source_whitelist: %w[CH UK],
+                                             ip_whitelist: ['192.168.1.1',
                                                                     '192.168.1.2'] } }
       expect(Setting.value(:general, :country_source_whitelist)).to eq(%w[CH UK])
       expect(Setting.value(:general, :ip_whitelist)).to eq(['192.168.1.1', '192.168.1.2'])
@@ -19,7 +19,7 @@ describe Admin::SettingsController do
     it 'shows error if one setting is invalid' do
       login_as(:admin)
 
-      post :update_all, params: { setting: { general_ip_whitelist: ['a.b.c.d/99'] } }
+      post :update_all, params: { setting: { ip_whitelist: ['a.b.c.d/99'] } }
 
       expect(flash[:error]).to eq 'invalid ip address: a.b.c.d/99'
     end
