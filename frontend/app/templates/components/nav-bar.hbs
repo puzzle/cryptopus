@@ -1,11 +1,11 @@
 {{#if this.isNewAccount}}
-  <AccountForm @onAbort={{this.toggleAccountCreating}} @title={{t "accounts.new.title"}}/>
+  <Account::Form @onAbort={{this.toggleAccountCreating}} @title={{t "accounts.new.title"}}/>
 {{/if}}
 {{#if this.isNewFolder}}
-  <FolderForm @onAbort={{this.toggleFolderCreating}} @title={{t "folders.new.title"}}/>
+  <Folder::Form @onAbort={{this.toggleFolderCreating}} @title={{t "folders.new.title"}}/>
 {{/if}}
 {{#if this.isNewTeam}}
-  <TeamForm @onAbort={{this.toggleTeamCreating}} @title={{t "teams.new.title"}}/>
+  <Team::Form @onAbort={{this.toggleTeamCreating}} @title={{t "teams.new.title"}}/>
 {{/if}}
 <BsNavbar
         @type="dark fixed-top"
