@@ -62,6 +62,25 @@ describe Api::Admin::SettingsController do
       expect(country_source_whitelist.value).to eq ["DE", "US"]
       expect(response).to have_http_status(200)
     end
+    it 'is not possible for non-admin to update setting' do
+      login_as(:alice)
+
+      settings_params = {
+        data: {
+            id: ip_whitelist.id,
+            attributes: {
+              value: ['0.0.0.0', '192.168.255.0']
+            }
+          }, id: ip_whitelist.id
+        }
+        
+        patch :update, params: settings_params, xhr: true
+        expect(response).to have_http_status(403)
+
+        ip_whitelist.reload
+        expect(ip_whitelist.value).to eq ['0.0.0.0', '192.168.10.0']
+    end
+
   end
 end
 
