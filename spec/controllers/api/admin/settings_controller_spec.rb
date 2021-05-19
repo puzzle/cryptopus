@@ -26,7 +26,28 @@ describe Api::Admin::SettingsController do
     end
   end
   context 'PUT update' do
-    it 'updates settings' do
+    it 'updates ip_whitelist' do
+      login_as(:admin)
+
+    settings_params = {
+      data: {
+          id: ip_whitelist.id,
+          attributes: {
+            value: ['0.0.0.0', '192.168.255.0']
+          }
+        }, id: ip_whitelist.id
+      }
+        
+        patch :update, params: settings_params, xhr: true
+        ip_whitelist.reload
+        
+        expect(ip_whitelist.value).to eq ['0.0.0.0', '192.168.255.0']
+    
+        expect(response).to have_http_status(200)
+    end
+
+    it 'updates country_source_whitelist' do
+
       login_as(:admin)
 
       settings_params = {
