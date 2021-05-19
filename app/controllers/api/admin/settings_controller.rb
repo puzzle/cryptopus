@@ -13,3 +13,5 @@ class Api::Admin::SettingsController < ApiController
     @setting ||= Setting.find(params[:id])
   end
 end
+
+

@@ -9,10 +9,6 @@ class Api::FoldersController < ApiController
 
   self.permitted_attrs = [:name, :description, :team_id]
 
-  def self.policy_class
-    FolderPolicy
-  end
-
   # GET /api/folders
   def index
     authorize team, :team_member?
