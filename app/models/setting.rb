@@ -27,5 +27,10 @@ class Setting < ApplicationRecord
       setting = find_by(key: key)
       setting&.value
     end
+
+    def policy_class
+      SettingPolicy
+    end
   end
+
 end

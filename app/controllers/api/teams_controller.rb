@@ -14,10 +14,6 @@ class Api::TeamsController < ApiController
 
   self.permitted_attrs = [:name, :description, :private]
 
-  def self.policy_class
-    TeamPolicy
-  end
-
   # GET /api/teams
   def index
     if params['team_id'].present?

@@ -7,10 +7,6 @@
 
 class Api::Teams::LastMemberTeamsController < ApiController
 
-  def self.policy_class
-    TeamPolicy
-  end
-
   # GET /api/teams/last_member_teams
   def index
     authorize ::Team, :last_teammember_teams?
