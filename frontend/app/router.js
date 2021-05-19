@@ -40,4 +40,7 @@ Router.map(function () {
     this.route("users");
     this.route('settings');
   });
+
+  this.route('admin-settings');
+
 });
