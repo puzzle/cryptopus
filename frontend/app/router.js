@@ -38,4 +38,7 @@ Router.map(function () {
     this.route("profile");
     this.route("users");
   });
+
+  this.route('admin-settings');
+
 });
