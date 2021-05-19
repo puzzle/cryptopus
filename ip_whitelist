@@ -1,0 +1,29 @@
+=> [32m#<ActionDispatch::TestResponse:0x00007fffe9c8fac8[0m
+ @cache_control[32m=[0m{},
+ @committed[32m=[0m[1;36mtrue[0m,
+ @cv[32m=[0m[32m#<MonitorMixin::ConditionVariable:0x00007fffe9c8f758[0m @cond[32m=[0m[32m#<Thread::ConditionVariable:0x00007fffe9c8f708[0m[32m>[0m, @monitor[32m=[0m[32m#<Monitor:0x00007fffe9c8f988[0m[32m>[0m[32m>[0m,
+ @header[32m=[0m
+  {[31m[1;31m"[0m[31mX-Frame-Options[1;31m"[0m[31m[0m=>[31m[1;31m"[0m[31mSAMEORIGIN[1;31m"[0m[31m[0m,
+   [31m[1;31m"[0m[31mX-XSS-Protection[1;31m"[0m[31m[0m=>[31m[1;31m"[0m[31m1; mode=block[1;31m"[0m[31m[0m,
+   [31m[1;31m"[0m[31mX-Content-Type-Options[1;31m"[0m[31m[0m=>[31m[1;31m"[0m[31mnosniff[1;31m"[0m[31m[0m,
+   [31m[1;31m"[0m[31mX-Download-Options[1;31m"[0m[31m[0m=>[31m[1;31m"[0m[31mnoopen[1;31m"[0m[31m[0m,
+   [31m[1;31m"[0m[31mX-Permitted-Cross-Domain-Policies[1;31m"[0m[31m[0m=>[31m[1;31m"[0m[31mnone[1;31m"[0m[31m[0m,
+   [31m[1;31m"[0m[31mReferrer-Policy[1;31m"[0m[31m[0m=>[31m[1;31m"[0m[31mstrict-origin-when-cross-origin[1;31m"[0m[31m[0m,
+   [31m[1;31m"[0m[31mCache-Control[1;31m"[0m[31m[0m=>[31m[1;31m"[0m[31mno-store[1;31m"[0m[31m[0m,
+   [31m[1;31m"[0m[31mPragma[1;31m"[0m[31m[0m=>[31m[1;31m"[0m[31mno-cache[1;31m"[0m[31m[0m,
+   [31m[1;31m"[0m[31mExpires[1;31m"[0m[31m[0m=>[31m[1;31m"[0m[31mFri, 01 Jan 1990 00:00:00 GMT[1;31m"[0m[31m[0m,
+   [31m[1;31m"[0m[31mContent-Type[1;31m"[0m[31m[0m=>[31m[1;31m"[0m[31mtext/json[1;31m"[0m[31m[0m,
+   [31m[1;31m"[0m[31mContent-Disposition[1;31m"[0m[31m[0m=>[31m[1;31m"[0m[31mattachment; filename='/api/admin/settings/1027331419.json'[1;31m"[0m[31m[0m,
+   [31m[1;31m"[0m[31mVary[1;31m"[0m[31m[0m=>[31m[1;31m"[0m[31mAccept[1;31m"[0m[31m[0m},
+ @mon_data[32m=[0m[32m#<Monitor:0x00007fffe9c8f988[0m[32m>[0m,
+ @mon_data_owner_object_id[32m=[0m[1;34m35360[0m,
+ @request[32m=[0m[32m#<ActionController::TestRequest PATCH "http://test.host/api/admin/settings/1027331419" for 0.0.0.0>[0m,
+ @sending[32m=[0m[1;36mfalse[0m,
+ @sent[32m=[0m[1;36mtrue[0m,
+ @status[32m=[0m[1;34m200[0m,
+ @stream[32m=[0m
+  [32m#<ActionDispatch::Response::Buffer:0x00007fffea54e998[0m
+   @buf[32m=[0m[[31m[1;31m"[0m[31m{[1;35m\"[0m[31mdata[1;35m\"[0m[31m:{[1;35m\"[0m[31mid[1;35m\"[0m[31m:[1;35m\"[0m[31m1027331419[1;35m\"[0m[31m,[1;35m\"[0m[31mtype[1;35m\"[0m[31m:[1;35m\"[0m[31msetting_country_codes[1;35m\"[0m[31m,[1;35m\"[0m[31mattributes[1;35m\"[0m[31m:{[1;35m\"[0m[31mkey[1;35m\"[0m[31m:[1;35m\"[0m[31mcountry_source_whitelist[1;35m\"[0m[31m,[1;35m\"[0m[31mvalue[1;35m\"[0m[31m:[[1;35m\"[0m[31mCH[1;35m\"[0m[31m,[1;35m\"[0m[31mDE[1;35m\"[0m[31m]}}}[1;31m"[0m[31m[0m],
+   @closed[32m=[0m[1;36mfalse[0m,
+   @response[32m=[0m[32m#<ActionDispatch::TestResponse:0x00007fffe9c8fac8[0m ...[32m>[0m,
+   @str_body[32m=[0m[1;36mnil[0m[32m>[0m[32m>[0m
