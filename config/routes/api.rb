@@ -36,10 +36,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resource :settings, only: [:index] do
-        post 'update_all'
-        get 'index'
-      end
+      resources :settings, only: [:index, :update]
 
       resources :ldap_connection_test, only: ['new']
     end
