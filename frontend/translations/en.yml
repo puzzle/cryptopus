@@ -27,7 +27,8 @@ en:
   version: Version
   forgot_password: Forgot your password?
   logout: Logout
-  auto_logout: auto-logout in
+  auto_logout: Automatic sign out in
+  contribute_on_github: Contribute on GitHub
   settings: Settings
   recrypt_requests: Recrypt requests
   users: Users

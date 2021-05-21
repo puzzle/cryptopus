@@ -7,107 +7,84 @@
 {{#if this.isNewTeam}}
   <Team::Form @onAbort={{this.toggleTeamCreating}} @title={{t "teams.new.title"}}/>
 {{/if}}
-<BsNavbar
-        @type="dark fixed-top"
-        @backgroundColor="custom"
-        @class="navbar-custom navbar-expand-lg " as |navbar|>
-  <div class="pl-0 pr-0 nav-container">
-    <div class="navbar-header w-100 d-flex show-on-hamburgermenu">
-      {{navbar.toggle}}
-      <a href="/" class="col-auto title align-items-center pr-0 d-none d-sm-flex">
-        <img src="/assets/images/cryptopussy_without_text.svg" alt="logo" class="logo-icon">
-      </a>
-      <div class="form-inline col pr-0">
-        <div class="form-group search-wrapper">
-          <Input @class="form-control mr-sm-2 search " @type="search" @id="search-mobile" @value={{ this.navService.searchQuery }}
-                 placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}
-                 @autofocus={{this.isStartpage}} maxlength="70"/>
+
+<pzsh-topbar>
+  <LinkTo @route="index" class="cryptopus-logo" slot="logo">
+    <img width="214" height="32" src="/assets/images/cryptopus-logo.svg" alt="cryptopus logo">
+  </LinkTo>
+  <div slot="actions" class="actions">
+    <div class="input-wrapper ml-5">
+      <Input @class="search" @type="search"
+             @value={{ this.navService.searchQuery }}
+             placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}
+             @autofocus={{this.isStartpage}} maxlength="70"/>
+
+      <BsDropdown @class="d-flex align-items-center" as |dd|>
+        <div class="action-wrapper">
+          <a class="w-100" role="button" {{on "click" this.toggleAccountCreating}}>
+            {{t "accounts.new.title"}}
+          </a>
+          <dd.toggle class="dropdown-toggle-hidden">
+            <img class="icon-dropdown-toggle-1" src="/assets/images/angle-down-white.svg" alt="v">
+          </dd.toggle>
         </div>
-      </div>
-      <div class="col-auto">
-        <a href="/profile">
-          <span class="helper"></span><img class="icon-big-button icon mr-2 ml-1"
-                                           src="/assets/images/settings_white.svg" alt="v">
-          <BsTooltip @title={{t "tooltips.settings_profile"}} @delayShow="1000"/>
-        </a>
-        <a href="/session/destroy">
-          <span class="helper"></span><img class="icon icon-big-button" src="/assets/images/sign_out-white.svg"
-                                           alt="Logout">
-        </a>
-      </div>
-    </div>
-    <navbar.content @id="navbarSupportedContent">
-      <navbar.nav @class="w-100">
-        <a href="/" class="title d-flex align-items-center show-not-on-hamburgermenu w-250">
-          <img src="/assets/images/cryptopussy_without_text.svg" alt="logo" class="logo-icon">
-          <span class="ml-3 navbar-brand title">Cryptopus</span>
-        </a>
-        <div class="form-inline">
-          <div class="form-group search-wrapper show-not-on-hamburgermenu">
-            <Input @class="form-control mr-sm-2 search " @type="search" @id="search" @value={{ this.navService.searchQuery }}
-                   placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}
-                   @autofocus={{this.isStartpage}} maxlength="70"/>
-          </div>
-        </div>
-        <div class="ml-lg-auto d-flex">
-          <BsDropdown @class="d-flex align-items-center w-100 mt-5 mb-4 my-lg-0" as |dd|>
-            <div class="btn-group w-100">
-              <a class="btn btn-primary w-100" role="button" {{on "click" this.toggleAccountCreating}}>
-                {{t "accounts.new.title"}}
-              </a>
-              <dd.toggle class="btn btn-primary dropdown-toggle-hided mr-lg-3">
-                <span class="helper"></span><img class="icon-button" src="/assets/images/angle-down-white.svg"
-                                                 alt="v">
-              </dd.toggle>
-            </div>
-            <dd.menu as |ddm|>
-              <ddm.item>
-                <a role="button" class="dropdown-item" {{on "click" this.toggleFolderCreating}}>
-                  {{t "folders.new.title"}}
-                </a>
-              </ddm.item>
-              <ddm.item>
-                <a role="button" class="dropdown-item" {{on "click" this.toggleTeamCreating}}>{{t "teams.new.title"}}</a>
-              </ddm.item>
-            </dd.menu>
-          </BsDropdown>
-          <span></span>
-          <div class="nav-item mr-2 show-not-on-hamburgermenu">
-            <LinkTo @route="profile">
-              <span class="helper"></span><img class="white-svg icon-big-button icon mr-2 ml-1"
-                                               src="/assets/images/user.svg" alt="v">
-              <BsTooltip @title={{t "tooltips.profile"}} @delayShow="1000"/>
-            </LinkTo>
-          </div>
-          {{#if this.userService.mayManageSettings}}
-            <BsDropdown @class="my-lg-0 pt-2 mr-2" as |dd|>
-              <dd.toggle @class="w-100 h-100 d-inline-block">
-                <span class="text-white">{{t "tooltips.settings"}}</span>
-              </dd.toggle>
-              <dd.menu as |ddm|>
-                <ddm.item>
-                  <ddm.linkTo @route="admin.users">{{t "users"}}</ddm.linkTo>
-                </ddm.item>
-                <ddm.item>
-                  <a class="dropdown-item" href="/admin/settings/index">{{t "tooltips.settings"}}</a>
-                </ddm.item>
-              </dd.menu>
-            </BsDropdown>
-          {{/if}}
-          <div class="nav-item mr-2 show-not-on-hamburgermenu">
-            <a href="/session/destroy">
-              <span class="helper"></span><img class="icon icon-big-button" src="/assets/images/sign_out-white.svg"
-                                               alt="Logout">
-              <BsTooltip @title={{t "logout"}} @delayShow="1000"/>
+        <dd.menu as |ddm|>
+          <ddm.item>
+            <a role="button" class="dropdown-item" {{on "click" this.toggleFolderCreating}}>
+              {{t "folders.new.title"}}
             </a>
-          </div>
-        </div>
-        {{#if this.screenWidthService.isShownOnHamburgermenu}}
-          <div class="show-on-hamburgermenu mb-5 my-lg-0">
-            <SideNavBar @navbar={{navbar}}/>
-          </div>
-        {{/if}}
-      </navbar.nav>
-    </navbar.content>
+          </ddm.item>
+          <ddm.item>
+            <a role="button" class="dropdown-item" {{on "click" this.toggleTeamCreating}}>{{t "teams.new.title"}}</a>
+          </ddm.item>
+        </dd.menu>
+      </BsDropdown>
+    </div>
+
+    <pzsh-topbar-link href="https://github.com/puzzle/cryptopus/wiki/User-manual" class="help">
+      <pzsh-icon name="question-circle"></pzsh-icon>
+      {{ t "help"}}
+    </pzsh-topbar-link>
+
+    {{#if this.userService.mayManageSettings}}
+      <LinkTo @route="admin.users" @tagName="pzsh-topbar-link" class="administration">
+        <pzsh-icon name="users-alt"></pzsh-icon>
+        Administration
+      </LinkTo>
+    {{/if}}
+
+    {{#if this.userService.mayManageSettings}}
+      <BsDropdown @class="d-flex align-items-center" as |dd|>
+        <LinkTo @route="profile" @tagName="pzsh-topbar-link">
+          <pzsh-icon name="user-circle"></pzsh-icon>
+          {{ this.givenname }}
+        </LinkTo>
+        <dd.toggle class="dropdown-toggle">
+          <img class="icon-dropdown-toggle-2" src="/assets/images/angle-down-white.svg" alt="v">
+        </dd.toggle>
+        <dd.menu as |ddm|>
+          <ddm.item>
+            <a role="button" class="dropdown-item" href="/admin/settings/index">
+              {{ t "settings" }}
+            </a>
+          </ddm.item>
+          <ddm.item>
+            <LinkTo role="button" class="dropdown-item administration-dropdown" @route="admin.users">
+              Administration
+            </LinkTo>
+          </ddm.item>
+        </dd.menu>
+      </BsDropdown>
+    {{else}}
+      <LinkTo @route="profile" @tagName="pzsh-topbar-link">
+        <pzsh-icon name="user-circle"></pzsh-icon>
+        {{ this.givenname }}
+      </LinkTo>
+    {{/if}}
+
+    <pzsh-topbar-link href="/session/destroy">
+      <img class="sign-out-icon" src="/assets/images/sign_out.svg" alt=">">
+      {{ t "logout" }}
+    </pzsh-topbar-link>
   </div>
-</BsNavbar>
+</pzsh-topbar>
