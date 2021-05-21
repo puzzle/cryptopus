@@ -18,8 +18,8 @@ module("Integration | Component | footer", function (hooks) {
     await render(hbs`<Footer />`);
 
     let footerText = this.element.textContent.trim();
-    assert.equal(footerText.includes("Cryptopus"), true);
-    assert.equal(footerText.includes("Help"), true);
+    assert.equal(footerText.includes("Automatic sign out"), true);
+    assert.equal(footerText.includes("GitHub"), true);
     assert.equal(footerText.includes("Version"), true);
   });
 });

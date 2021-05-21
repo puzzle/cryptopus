@@ -25,7 +25,8 @@ ch_be:
   version: Version
   forgot_password: Hesch z Passwort vergässä?
   logout: Abmäudä
-  auto_logout: outomatisch Abmäudä i
+  auto_logout: Outomatisch Abmäudä i
+  contribute_on_github: Mitwürke uf GitHub
   settings: Istellige
   recrypt_requests: Recrypt Afragä
   users: Benutzer
@@ -356,7 +357,7 @@ ch_be:
       members:
         added: Mitglied isch erfougrich hinzuegfüegt worde
         removed: Mitglied isch erfougrich entfernt worde
-      errors: 
+      errors:
         auth_failed: Authentifizierig fäugschlage
         user_not_logged_in: Benutzer isch nid igloggt
         invalid_request: Invalidi Ahfrag

@@ -149,6 +149,10 @@ li a {
   margin-top: 54px !important;
 }
 
+.dropdown-toggle-hidden::after {
+  display: none;
+}
+
 /* Validation-errors */
 .validation-errors {
   width: 100%;

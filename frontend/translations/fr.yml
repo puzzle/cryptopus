@@ -28,6 +28,7 @@ fr:
   forgot_password: Mot de passe oublié?
   logout: Déconnexion
   auto_logout: Déconnexion automatique en
+  contribute_on_github: Contribuez sur GitHub
   settings: Paramètres
   recrypt_requests: Demandes de re crypt
   users: Utilisateur
