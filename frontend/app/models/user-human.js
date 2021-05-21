@@ -8,4 +8,11 @@ export default class UserHuman extends Model {
   @attr("string") providerUid;
   @attr("string") role;
   @attr("string") auth;
+  @attr("string") givenname;
+  @attr("string") surname;
+  @attr("string") password;
+  @attr("boolean") deletable;
+  @attr("boolean") editable;
+
+  ROLES = ["user", "conf_admin", "admin"];
 }

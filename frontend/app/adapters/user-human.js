@@ -19,4 +19,16 @@ export default class UserHumanAdapter extends ApplicationAdapter {
     }
     return super.urlForQuery(query, modelName);
   }
+
+  urlForUpdateRecord(id) {
+    return `/${this.namespace}/admin/users/${id}`;
+  }
+
+  urlForDeleteRecord(id) {
+    return `/${this.namespace}/admin/users/${id}`;
+  }
+
+  urlForCreateRecord() {
+    return `/${this.namespace}/admin/users`;
+  }
 }

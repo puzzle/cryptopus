@@ -10,25 +10,6 @@ class Admin::UsersController < ApplicationController
   before_action :authorize_user_class, only: [:index, :new, :create]
   before_action :authorize_user, only: [:update, :unlock, :edit]
 
-  helper_method :update_role
-
-  # PUT /admin/users/1
-  def update
-    user.update!(permitted_attributes(user))
-
-    respond_to do |format|
-      format.html { redirect_to admin_users_path }
-    end
-  end
-
-  # GET /admin/users/new
-  def new
-    @user = User::Human.new
-    respond_to do |format|
-      format.html # new.html.haml
-    end
-  end
-
   # POST /admin/users
   def create
     @user = User::Human.create_db_user(password, permitted_attributes(User::Human))
@@ -40,14 +21,6 @@ class Admin::UsersController < ApplicationController
       else
         format.html { render action: 'new' }
       end
-    end
-  end
-
-  def unlock
-    user.unlock!
-
-    respond_to do |format|
-      format.html { redirect_to admin_users_path }
     end
   end
 

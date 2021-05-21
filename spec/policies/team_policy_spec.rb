@@ -90,7 +90,7 @@ describe TeamPolicy do
     end
 
     it 'can list last teammember teams' do
-      assert_permit admin, Team, :last_teammember_teams?
+      assert_permit admin, Team, :only_teammember?
     end
 
     it 'can list members of all teams' do
@@ -112,7 +112,7 @@ describe TeamPolicy do
     end
 
     it 'can list last teammember teams' do
-      assert_permit conf_admin, Team, :last_teammember_teams?
+      assert_permit conf_admin, Team, :only_teammember?
     end
 
     it 'can list members of all teams' do
@@ -126,11 +126,11 @@ describe TeamPolicy do
     end
 
     it 'cannot list last teammember teams' do
-      refute_permit alice, Team, :last_teammember_teams?
+      refute_permit alice, Team, :only_teammember?
     end
 
     it 'cannot list members of team he isnt member of' do
-      refute_permit alice, team2, :last_teammember_teams?
+      refute_permit alice, team2, :only_teammember?
     end
   end
 end

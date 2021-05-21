@@ -85,11 +85,11 @@ class User::Human < User
 
   # Instance Methods
 
-  def last_teammember_in_any_team?
-    last_teammember_teams.any?
+  def only_teammember_in_any_team?
+    only_teammember_teams.any?
   end
 
-  def last_teammember_teams
+  def only_teammember_teams
     Team.where(id: Teammember.group('team_id').
            having('count(*) = 1').
            select('team_id')).
@@ -192,7 +192,7 @@ class User::Human < User
   end
 
   def protect_if_last_teammember
-    !last_teammember_in_any_team?
+    !only_teammember_in_any_team?
   end
 
   def must_be_valid_ip

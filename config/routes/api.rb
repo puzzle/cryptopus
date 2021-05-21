@@ -30,9 +30,10 @@ Rails.application.routes.draw do
     end
 
     scope '/admin', module: 'admin' do
-      resources :users, only: [:index, :destroy] do
+      resources :users, only: [:index, :update, :create, :destroy] do
         member do
-          patch :update_role, to: 'users/role#update'
+          patch :role, to: 'users/role#update'
+          delete :lock, to: 'users/lock#destroy'
         end
       end
       resources :ldap_connection_test, only: ['new']
@@ -42,11 +43,6 @@ Rails.application.routes.draw do
 
     # INFO don't mix scopes and resources in routes
     resources :teams, except: [:new, :edit]  do
-
-      collection do
-        resources :last_member_teams, only: [:index], module: 'teams'
-      end
-
       resources :folders, except: [:new, :edit]
       resources :api_users, only: [:create, :destroy, :index], module: 'teams'
       resources :members, except: [:new, :edit], module: 'teams'

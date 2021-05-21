@@ -22,6 +22,8 @@ class Api::TeamsController < ApiController
   def index
     if params['team_id'].present?
       authorize fetch_entries.first, :team_member?
+    elsif params['only_teammember_user_id'].present?
+      authorize ::Team, :only_teammember?
     else
       authorize ::Team
     end

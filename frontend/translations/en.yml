@@ -376,6 +376,10 @@ en:
         ldap_connection:
           failed: No configured Ldap Server could be reached.
 
+    user-humen:
+      created: Successfully created a new user.
+      updated: User was successfully updated.
+
     accounts: &accounts_translations
       created: Account was successfully created.
       updated: Account was successfully updated.
@@ -477,6 +481,11 @@ en:
       destroy?: Only admin may delete teams
   helpers:
     label:
+      user:
+        username: Username
+        password: Password
+        givenname: Given name
+        surname: Surname
       account:
         account_name: Accountname
       team:
@@ -503,3 +512,12 @@ en:
       too_long: Username is too long
     cleartext password:
       too_long: Password is too long
+    username:
+      present: Username must be present
+      too_long: Username is too long
+    surname:
+      present: Surname must be present
+    givenname:
+      present: Givenname must be present
+    password:
+      present: Password must be present

@@ -19,6 +19,7 @@ class Api::EnvSettingsController < ApiController
                 last_login_message: last_login_message,
                 version: version_number,
                 csrf_token: form_authenticity_token,
+                auth_provider: AuthConfig.provider,
                 base_url: base_url)
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize

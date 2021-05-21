@@ -30,16 +30,8 @@
 #  See the COPYING file at the top-level directory or at
 # https://github.com/puzzle/cryptopus.
 
-class User::HumanSerializer < ApplicationSerializer
+class User::HumanMinimalSerializer < ApplicationSerializer
 
-  attributes :id, :username, :label, :last_login_at, :last_login_from,
-             :provider_uid, :role, :auth, :givenname, :surname, :deletable, :editable
+  attributes :id, :username, :label, :last_login_at, :last_login_from, :provider_uid, :role, :auth
 
-  def deletable
-    User::HumanPolicy.new(current_user, object).destroy?
-  end
-
-  def editable
-    User::HumanPolicy.new(current_user, object).edit?
-  end
 end
