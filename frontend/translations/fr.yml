@@ -376,6 +376,9 @@ fr:
         ldap_connection:
           failed: Aucunt serveur LDAP configuré n'a pu être atteint.
 
+    user-humen:
+      created: Utilisateur créé avec succès.
+      updated: Utilisateur modifiée avec succès.
     accounts: &accounts_translations
       created: Compte créé avec succès.
       updated: Compte modifiée avec succès.
@@ -576,3 +579,12 @@ fr:
       too_long: Le nom d'utilisateur est trop long
     cleartext password:
       too_long: Le mot de passe est trop long
+    username:
+      present: Le nom d'utilisateur doit être présent
+      too_long: Le nom d'utilisateur est trop long
+    surname:
+      present: Le nom de famille doit être présent
+    givenname:
+      present: Le prénom doit être présent
+    password:
+      present: Le mot de passe doit être présent

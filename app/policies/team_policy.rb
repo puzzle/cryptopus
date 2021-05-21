@@ -27,7 +27,7 @@ class TeamPolicy < TeamDependantPolicy
       (current_user.admin? || (current_user.conf_admin? && team.members.size == 1))
   end
 
-  def last_teammember_teams?
+  def only_teammember?
     admin_or_conf_admin?
   end
 

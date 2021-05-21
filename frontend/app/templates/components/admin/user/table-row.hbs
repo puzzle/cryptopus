@@ -1,9 +1,31 @@
+{{#if this.isEditing}}
+  <Admin::User::Form @user={{@user}} @onAbort={{this.toggleEditing}} @title={{t "admin.users.edit.title"}}/>
+{{/if}}
 <tr>
   <td>{{@user.username}}</td>
   <td>{{@user.label}}</td>
   <td>{{if @user.lastLoginAt (moment-format @user.lastLoginAt "DD.MM.YYYY hh:mm") ""}}</td>
   <td>{{@user.lastLoginFrom}}</td>
   <td>{{@user.providerUid}}</td>
-  <td>{{@user.role}}</td>
-  <td></td>
+  <td>
+    <div>
+      <PowerSelect @options={{@user.ROLES}} @onChange={{fn this.updateRole @user}} @selected={{@user.role}}
+                   @animationEnabled={{false}} @renderInPlace={{true}} as |role|>
+        {{role}}
+      </PowerSelect>
+    </div>
+  </td>
+  <td>
+    {{#if this.isEditable}}
+      <span role="button" {{on "click" this.toggleEditing}}>
+        <img class="icon-medium-button d-inline" src="/assets/images/edit.svg" alt="edit">
+        <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000" />
+      </span>
+    {{/if}}
+    {{#if this.isDeletable}}
+      <Admin::User::DeletionForm @user={{@user}}>
+        <img src="/assets/images/delete.svg" alt="delete" class="icon-button">
+      </Admin::User::DeletionForm>
+    {{/if}}
+  </td>
 </tr>

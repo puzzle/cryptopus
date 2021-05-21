@@ -11,15 +11,37 @@ class Api::Admin::UsersController < ApiController
 
   # DELETE /api/admin/users/1
   def destroy
-    authorize user
-    if destroy_user
-      head 204
-    else
-      render_errors
+    ActiveRecord::Base.transaction do
+      entry.update!(role: :user) if entry.admin?
+      super
     end
   end
 
   private
+
+  def permitted_attrs
+    return [] if non_db_human_user_or_root?
+
+
+    attrs = [:givenname, :surname]
+
+    if current_user.admin?
+      attrs += [:password] if @user_human.nil?
+      attrs + [:username]
+    end
+  end
+
+  def non_db_human_user_or_root?
+    @user_human.present? && (!entry.auth_db? || entry.root?)
+  end
+
+  def build_entry
+    @user_human = User::Human.create_db_user(password, model_params)
+  end
+
+  def password
+    model_params[:password]
+  end
 
   def fetch_entries
     if true?(params[:locked])
@@ -27,16 +49,5 @@ class Api::Admin::UsersController < ApiController
     else
       User::Human.unlocked
     end
-  end
-
-  def user
-    @user ||= User.find(params[:id])
-  end
-
-  def destroy_user
-    # admins cannot be removed from non-private teams
-    # so set admin to false first
-    user.update!(role: :user) if user.admin?
-    user.destroy!
   end
 end

@@ -382,6 +382,9 @@ de:
         ldap_connection:
           failed: Kein konfigurierter Ldap-Server konnte erreicht werden.
 
+    user-humen:
+      created: Der neue Benutzer wurde erfolgreich erstellt.
+      updated: Der Benutzer wurde erfolgreich aktualisiert.
     accounts: &accounts_translations
       created: Der neue Account wurde erfolgreich erstellt.
       updated: Der Account wurde erfolgreich aktualisiert.
@@ -580,3 +583,12 @@ de:
       too_long: Der Benutzername ist zu lang
     cleartext password:
       too_long: Das Passwort ist zu lang
+    username:
+      present: Der Benutzername muss vorhanden sein
+      too_long: Der Benutzername ist zu lang
+    surname:
+      present: Der Nachname muss vorhanden sein
+    givenname:
+      present: Der Vorname muss vorhanden sein
+    password:
+      present: Das Passwort muss vorhanden sein

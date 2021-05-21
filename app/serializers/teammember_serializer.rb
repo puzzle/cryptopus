@@ -21,7 +21,7 @@
 class TeammemberSerializer < ActiveModel::Serializer
   attributes :id, :label, :deletable, :admin, :current_user
 
-  belongs_to :user
+  belongs_to :user, serializer: User::HumanMinimalSerializer
   belongs_to :team
 
   def deletable

@@ -7,6 +7,7 @@ module ::Teams
       return filter_by_query if query_present?
       return filter_by_id if team_id.present?
       return filter_by_favourite if favourite.present?
+      return filter_by_last_teammember if only_teammember_user.present?
 
       teams
     end
@@ -23,6 +24,10 @@ module ::Teams
 
     def favourite
       @params[:favourite]
+    end
+
+    def only_teammember_user
+      User.find(@params[:only_teammember_user_id]) if @params[:only_teammember_user_id]
     end
 
     def teams
@@ -57,6 +62,10 @@ module ::Teams
 
     def filter_by_favourite
       @current_user.favourite_teams
+    end
+
+    def filter_by_last_teammember
+      only_teammember_user.only_teammember_teams
     end
   end
 end

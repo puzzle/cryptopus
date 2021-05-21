@@ -245,6 +245,54 @@ describe Api::TeamsController do
       expect(included_account['attributes']['description']).to eq account.description
     end
 
+    context 'with only_teammember_user_id param' do
+      let(:soloteam) { Fabricate(:private_team) }
+      let(:only_teammember_user) { soloteam.teammembers.first.user }
+
+      context 'as admin' do
+        before { login_as(:admin) }
+
+        it 'returns soloteam' do
+          get :index, params: { only_teammember_user_id: only_teammember_user.id }
+
+          team_data = data[0]
+          team_attributes = team_data['attributes']
+
+          expect(team_data['id'].to_i).to eq(soloteam.id)
+          expect(team_attributes['name']).to eq(soloteam.name)
+          expect(team_attributes['description']).to eq(soloteam.description)
+
+          expect(response).to have_http_status(200)
+        end
+      end
+
+      context 'as conf_admin' do
+        before { login_as(:tux) }
+
+        it 'returns soloteam' do
+          get :index, params: { only_teammember_user_id: only_teammember_user.id }
+
+          team_data = data[0]
+          team_attributes = team_data['attributes']
+
+          expect(team_data['id'].to_i).to eq(soloteam.id)
+          expect(team_attributes['name']).to eq(soloteam.name)
+          expect(team_attributes['description']).to eq(soloteam.description)
+
+          expect(response).to have_http_status(200)
+        end
+      end
+
+      context 'as user' do
+        before { login_as(:bob) }
+
+        it 'is not unauthorized' do
+          get :index, params: { only_teammember_user_id: only_teammember_user.id }
+
+          expect(response).to have_http_status(403)
+        end
+      end
+    end
   end
 
   context 'PUT update' do
@@ -418,7 +466,7 @@ describe Api::TeamsController do
 
       expect(errors).to eq(['flashes.admin.admin.no_access'])
       expect(response).to have_http_status 403
-      expect(user.last_teammember_teams).to be_present
+      expect(user.only_teammember_teams).to be_present
     end
 
     it 'cannot delete team as normal user if not in team' do

@@ -17,6 +17,7 @@ export function initialize(/* application */) {
         ENV.lastLoginMessage = envSettings.last_login_message;
         ENV.appVersion = envSettings.version;
         ENV.CSRFToken = envSettings.csrf_token;
+        ENV.authProvider = envSettings.auth_provider;
       }
     });
     /* eslint-enable no-undef  */

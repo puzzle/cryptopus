@@ -54,7 +54,7 @@ class Admin::RecryptrequestsController < ApplicationController
   end
 
   def recrypt_passwords(user, admin, private_key)
-    user.last_teammember_teams.destroy_all
+    user.only_teammember_teams.destroy_all
     user.teammembers.in_private_teams.destroy_all
 
     user.teammembers.in_non_private_teams.each do |tm|
