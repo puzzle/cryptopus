@@ -31,7 +31,7 @@ export default class FooterComponent extends Component {
     };
 
     this.intl.setLocale(locale.key);
-    this.fetchService.send(`/api/locale`, {
+    this.fetchService.send(`/api/profile`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
