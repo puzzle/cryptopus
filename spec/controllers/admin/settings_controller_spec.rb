@@ -10,7 +10,7 @@ describe Admin::SettingsController do
       login_as(:admin)
       post :update_all, params: { setting: { country_source_whitelist: %w[CH UK],
                                              ip_whitelist: ['192.168.1.1',
-                                                                    '192.168.1.2'] } }
+                                                            '192.168.1.2'] } }
       expect(Setting.value(:general, :country_source_whitelist)).to eq(%w[CH UK])
       expect(Setting.value(:general, :ip_whitelist)).to eq(['192.168.1.1', '192.168.1.2'])
       expect(flash[:notice]).to match(/successfully updated/)

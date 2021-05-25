@@ -13,12 +13,12 @@ describe Api::Admin::SettingsController do
       login_as(:admin)
 
       get :index, xhr: true
-      
-      firstAttributes = data.first['attributes']
-      expect(firstAttributes['value']).to eq ['0.0.0.0', '192.168.10.0']
 
-      secondAttributes = data.second['attributes']
-      expect(secondAttributes['value']).to eq ['CH', 'DE']
+      first_attributes = data.first['attributes']
+      expect(first_attributes['value']).to eq ['0.0.0.0', '192.168.10.0']
+
+      second_attributes = data.second['attributes']
+      expect(second_attributes['value']).to eq %w[CH DE]
 
       expect(data.size).to be(2)
       expect(included).to be(nil)
@@ -30,18 +30,18 @@ describe Api::Admin::SettingsController do
 
       settings_params = {
         data: {
-            id: ip_whitelist.id,
-            attributes: {
-              value: ['0.0.0.0', '192.168.255.0']
-            }
-          }, id: ip_whitelist.id
-        }
-        
-        patch :update, params: settings_params, xhr: true
-        expect(response).to have_http_status(200)
+          id: ip_whitelist.id,
+          attributes: {
+            value: ['0.0.0.0', '192.168.255.0']
+          }
+        }, id: ip_whitelist.id
+      }
 
-        ip_whitelist.reload
-        expect(ip_whitelist.value).to eq ['0.0.0.0', '192.168.255.0']
+      patch :update, params: settings_params, xhr: true
+      expect(response).to have_http_status(200)
+
+      ip_whitelist.reload
+      expect(ip_whitelist.value).to eq ['0.0.0.0', '192.168.255.0']
     end
 
     it 'updates country_source_whitelist' do
@@ -50,16 +50,16 @@ describe Api::Admin::SettingsController do
 
       settings_params = {
         data: {
-            id: country_source_whitelist.id,
-            attributes: {
-              value: ["DE", "US"]
-            }
+          id: country_source_whitelist.id,
+          attributes: {
+            value: %w[DE US]
+          }
         }, id: country_source_whitelist.id
       }
       patch :update, params: settings_params, xhr: true
       country_source_whitelist.reload
 
-      expect(country_source_whitelist.value).to eq ["DE", "US"]
+      expect(country_source_whitelist.value).to eq %w[DE US]
       expect(response).to have_http_status(200)
     end
     it 'is not possible for non-admin to update setting' do
@@ -67,22 +67,19 @@ describe Api::Admin::SettingsController do
 
       settings_params = {
         data: {
-            id: ip_whitelist.id,
-            attributes: {
-              value: ['0.0.0.0', '192.168.255.0']
-            }
-          }, id: ip_whitelist.id
-        }
-        
-        patch :update, params: settings_params, xhr: true
-        expect(response).to have_http_status(403)
+          id: ip_whitelist.id,
+          attributes: {
+            value: ['0.0.0.0', '192.168.255.0']
+          }
+        }, id: ip_whitelist.id
+      }
 
-        ip_whitelist.reload
-        expect(ip_whitelist.value).to eq ['0.0.0.0', '192.168.10.0']
+      patch :update, params: settings_params, xhr: true
+      expect(response).to have_http_status(403)
+
+      ip_whitelist.reload
+      expect(ip_whitelist.value).to eq ['0.0.0.0', '192.168.10.0']
     end
 
   end
 end
-
-
-

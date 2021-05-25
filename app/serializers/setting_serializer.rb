@@ -11,5 +11,5 @@
 #
 
 class SettingSerializer < ApplicationSerializer
-    attributes :id, :key, :value
+  attributes :id, :key, :value
 end

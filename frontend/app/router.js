@@ -34,23 +34,9 @@ Router.map(function () {
     this.route("edit", { path: "/:id/edit" });
   });
 
-<<<<<<< HEAD
   this.route("admin", function () {
     this.route("profile");
     this.route("users");
-=======
-  this.route("profile");
-<<<<<<< HEAD
-  this.route('admin', function() {
     this.route('settings');
->>>>>>> 90fd16b2... Move users list to ember, refs: #392
   });
-
-  this.route('admin-settings');
-=======
-
-  this.route("admin", function () {
-    this.route("users");
-  });
->>>>>>> Move users list to ember, refs: #392
 });
