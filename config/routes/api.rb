@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
     patch 'locale', to: 'locale#update'
 
+    patch 'profile', to: 'profile#update'
+
     resources :accounts, except: [:new, :edit] do
       resources :file_entries, only: [:create, :index, :destroy, :show]
     end
@@ -59,5 +61,7 @@ Rails.application.routes.draw do
       resource :favourite, only: [:create, :destroy], module: 'teams', controller: 'favourite'
       resources :candidates, only:[:index], module: 'teams'
     end
+
+    
   end
 end
