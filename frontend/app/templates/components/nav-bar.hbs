@@ -72,14 +72,6 @@
             </dd.menu>
           </BsDropdown>
           <span></span>
-          <BsDropdown as |dd|>
-            <dd.toggle><span class="ml-3 navbar-brand settings-dropdown">Settings</span></dd.toggle>
-            <dd.menu as |ddm|>
-              <ddm.item>
-                <ddm.linkTo @route="admin.settings">General</ddm.linkTo>
-              </ddm.item>
-            </dd.menu>
-          </BsDropdown>
           <div class="nav-item mr-2 show-not-on-hamburgermenu">
             <LinkTo @route="profile">
               <span class="helper"></span><img class="white-svg icon-big-button icon mr-2 ml-1"
@@ -97,7 +89,7 @@
                   <ddm.linkTo @route="admin.users">{{t "users"}}</ddm.linkTo>
                 </ddm.item>
                 <ddm.item>
-                  <a class="dropdown-item" href="/admin/settings/index">{{t "tooltips.settings"}}</a>
+                <ddm.linkTo @route="admin.settings">{{t "tooltips.settings"}}</ddm.linkTo>
                 </ddm.item>
               </dd.menu>
             </BsDropdown>
