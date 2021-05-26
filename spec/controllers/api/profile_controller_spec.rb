@@ -19,7 +19,7 @@ describe Api::ProfileController do
         }
       }
 
-      patch :update, params: preferred_locale_params
+      patch :update, params: preferred_locale_params, xhr: true
 
       expect(bob.preferred_locale).to eq('de')
     end
