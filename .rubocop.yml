@@ -1,6 +1,7 @@
 require: rubocop-rails
 
 AllCops:
+  TargetRubyVersion: 'gemfile'
   DisplayCopNames: true
   Exclude:
     - Rakefile
