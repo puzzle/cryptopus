@@ -14,10 +14,9 @@ class RedirectedRoutes::UrlHandler
     teams_show: /(^\/teams\/\d+)$/,
     folder_show: /(^\/teams\/\d+\/folders\/\d+)$/,
     accounts_show: /(^\/accounts\/\d+)$/,
-    profile_index: /(^\/profile)$/,
-    admin_users_index: /(^\/admin\/users)$/,
-    admin_settings: /(^\/admin\/settings)$/
-
+    profile: /(^\/profile)$/,
+    admin_settings: /(^\/admin\/settings)$/,
+    admin_users_index: /(^\/admin\/users)$/
   }.freeze
 
   LEGACY_PATHS = {
