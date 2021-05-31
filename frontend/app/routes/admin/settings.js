@@ -9,7 +9,7 @@ export default class AdminSettingsRoute extends AdminRoute {
       return { value: countryArray[0], label: countryArray[1] };
     });
     return RSVP.hash({
-      countries: countries
+      countries: countries,
     });
   }
 }
