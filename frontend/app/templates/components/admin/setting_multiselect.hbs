@@ -1,0 +1,9 @@
+<h5><b>{{t "admin.settings.index.whitelisted_countries"}}</b></h5>
+<PowerSelectMultiple  
+        @animationEnabled={{false}}
+        @options={{@options}}
+        @placeholder="Select some countries..."
+        @selected={{this.selectedOptions}}
+        @onChange={{fn this.updateSetting}} as |option|>
+    {{option.label}}
+</PowerSelectMultiple>

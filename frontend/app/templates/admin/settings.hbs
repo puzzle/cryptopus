@@ -1,29 +1,11 @@
 <div class="container py-2">
   <div class="mt-4">
-    <h5><b>{{t "admin.settings.index.whitelisted_countries"}}</b></h5>
-    <PowerSelectMultiple  
-            insert-newline="save"
-            @searchEnabled={{true}}
-            @options={{@model.countryCodes}}
-            @placeholder="Select some countries..."
-            @selected={{this.selectedCountries}}
-            @onChange={{fn (mut this.selectedCountries )}} as |name|>
-      {{name}}
-    </PowerSelectMultiple>
-    {{t "admin.settings.index.no_ips_selected"}}
-    <h5><b>{{t "admin.settings.index.whitelisted_ips"}}</b></h5>
-    <PowerSelectMultiple
-            @searchEnabled={{true}}
-            @options={{this.names}}
-            @selected={{this.selectedIPs}}
-            @placeholder="Select some IPs..."
-            @onChange={{fn (mut this.selectedIPs)}} as |name|>
-      {{name}}
-    </PowerSelectMultiple>
+    <Admin::SettingMultiselect @options={{@model.countries}} @key={{"country_source_whitelist"}}></Admin::SettingMultiselect>
+    <Admin::SettingMultiselect></Admin::SettingMultiselect>
     {{t "admin.settings.index.specify_single_ip"}}: <kbd class="ip-highlight">192.0.2.10</kbd>.<br>
 
     {{t "admin.settings.index.range.specify_range_of_ips"}}: <kbd>192.0.2.0/24</kbd>. {{t "admin.settings.index.range.range_between"}} <kbd>192.0.2.0</kbd> {{t "admin.settings.index.range.and"}} <kbd>192.0.2.255</kbd><br>
 
-    {{t "admin.settings.index.IPv6_allowed"}} <kbd>2001:db8::/32</kbd> <br>
+    {{t "admin.settings.index.IPv6_allowed"}} <kbd>2001:db8::/32</kbd>
   </div>
 </div>

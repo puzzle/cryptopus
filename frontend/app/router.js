@@ -34,8 +34,9 @@ Router.map(function () {
     this.route("edit", { path: "/:id/edit" });
   });
 
+  this.route("profile");
+
   this.route("admin", function () {
-    this.route("profile");
     this.route("users");
     this.route('settings');
   });

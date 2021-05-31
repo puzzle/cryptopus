@@ -20,6 +20,8 @@ describe Api::Admin::SettingsController do
       second_attributes = data.second['attributes']
       expect(second_attributes['value']).to eq %w[CH DE]
 
+      require "pry"; binding.pry
+
       expect(data.size).to be(2)
       expect(included).to be(nil)
     end

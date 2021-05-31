@@ -1,0 +1,15 @@
+
+[1mFrom:[0m /mnt/c/Users/E517589/cryptopus/spec/controllers/api/admin/settings_controller_spec.rb:23 :
+
+    [1;34m18[0m:       expect(first_attributes[[31m[1;31m'[0m[31mvalue[1;31m'[0m[31m[0m]).to eq [[31m[1;31m'[0m[31m0.0.0.0[1;31m'[0m[31m[0m, [31m[1;31m'[0m[31m192.168.10.0[1;31m'[0m[31m[0m]
+    [1;34m19[0m: 
+    [1;34m20[0m:       second_attributes = data.second[[31m[1;31m'[0m[31mattributes[1;31m'[0m[31m[0m]
+    [1;34m21[0m:       expect(second_attributes[[31m[1;31m'[0m[31mvalue[1;31m'[0m[31m[0m]).to eq [31m[1;31m%w[[0m[31mCH DE[1;31m][0m[31m[0m
+    [1;34m22[0m: 
+ => [1;34m23[0m:       require [31m[1;31m"[0m[31mpry[1;31m"[0m[31m[0m; binding.pry
+    [1;34m24[0m: 
+    [1;34m25[0m:       expect(data.size).to be([1;34m2[0m)
+    [1;34m26[0m:       expect(included).to be([1;36mnil[0m)
+    [1;34m27[0m:     [32mend[0m
+    [1;34m28[0m:   [32mend[0m
+
