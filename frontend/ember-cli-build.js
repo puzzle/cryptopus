@@ -18,6 +18,10 @@ module.exports = function (defaults) {
       bootstrapVersion: 4,
       importBootstrapCSS: true,
       importBootstrapFont: true
+    },
+
+    intl: {
+      silent: true
     }
   });
 

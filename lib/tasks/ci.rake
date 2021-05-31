@@ -5,16 +5,39 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-desc 'Runs the taks for a commit build'
-task ci: ['log:clear',
-          'rubocop',
-          'brakeman',
-          'frontend:prepare',
-          'spec:frontend',
-          'spec']
-
 namespace :ci do
-  desc 'Runs the tasks for the nightly or manual build'
-  task nightly: ['ci', 'spec:system:lenient']
+  desc 'Clear logs'
+  task clear_logs: 'log:clear'
+
+  desc 'Runs rubocop'
+  task rubocop: 'rubocop'
+
+  desc 'Runs brakeman'
+  task brakeman: 'brakeman'
+
+  desc 'Runs prepare frontend'
+  task frontend_prepare: 'frontend:prepare'
+
+  desc 'Runs frontend specs'
+  task frontend_specs: 'frontend:prepare'
+
+  desc 'Runs spec'
+  task spec: 'spec'
 
 end
+
+namespace :nightly do
+  desc 'Runs E2E'
+  task e2e: 'spec:system:lenient'
+end
+
+desc 'Runs all ci tasks'
+task ci_steps: [
+  'ci:clear_logs',
+  'ci:rubocop',
+  'ci:brakeman',
+  'ci:frontend_prepare',
+  'ci:frontend_specs',
+  'ci:spec',
+  'nightly:e2e'
+]
