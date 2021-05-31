@@ -19,7 +19,6 @@ jobs:
   # when a job name is not provided
   build:
     name: Build
-
     runs-on: ubuntu-latest
 
     steps:
@@ -84,14 +83,36 @@ jobs:
       - name: Set yarn prefix
         run: yarn config set --prefix ./frontend install ./frontend
 
-      - name: Run rake ci
+      - name: Clear Logs
         if: github.event_name == 'push' || github.event_name == 'pull_request'
-        run: bundle exec rake ci --trace
+        run: bundle exec rake ci:clear_logs --trace
 
-      # Run nightly ci tasks on schedule
-      - name: Run rake ci:nightly
+      - name: Rubocop
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        run: bundle exec rake ci:rubocop --trace
+
+      - name: Brakeman
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        run: bundle exec rake ci:brakeman --trace
+
+      # Frontend prepare
+      - name: Prepare Frontend
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        run: bundle exec rake ci:frontend_prepare --trace
+
+      # Frontend specs
+      - name: Run frontend specs
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        run: bundle exec rake ci:frontend_specs --trace
+
+      - name: Run backend specs
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        run: bundle exec rake ci:spec --trace
+
+      # Run end-to-end tests
+      - name: Run system specs
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        run: bundle exec rake ci:nightly --trace
+        run: bundle exec rake nightly:e2e --trace
 
       # Cleanup
       - name: Run rake frontend clean
