@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "less-loader": "^5.0.0",
+    "prettier": "2.3.0",
     "sass-loader": "^8.0.2",
     "webpack-dev-server": "^3.10.3"
   },

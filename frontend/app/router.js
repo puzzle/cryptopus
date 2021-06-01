@@ -36,7 +36,7 @@ Router.map(function () {
 
   this.route("profile");
 
-  this.route("admin", function() {
+  this.route("admin", function () {
     this.route("settings");
     this.route("users");
   });
