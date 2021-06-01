@@ -1,4 +1,3 @@
 import AdminRoute from "../admin";
 
-export default class SettingsRoute extends AdminRoute {
-}
+export default class SettingsRoute extends AdminRoute {}
