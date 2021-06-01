@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Api::LocaleController do
+describe Api::ProfilesController do
   include ControllerHelpers
 
   let(:bob) { users(:bob) }
