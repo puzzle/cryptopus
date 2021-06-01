@@ -37,7 +37,6 @@
                 %ul.dropdown-menu{:role => "menu"}
                   %li
                     %a= nav_link t(:settings), Rails.application.routes.url_helpers.admin_settings_path
-                    %a= nav_link t('admin.maintenance_tasks.index.title'), Rails.application.routes.url_helpers.admin_maintenance_tasks_path
             %li
               = link_to(image_tag("sign_out.svg", class: "logout-icon"), Rails.application.routes.url_helpers.session_destroy_path)
 
