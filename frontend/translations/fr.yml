@@ -112,6 +112,18 @@ fr:
         title: Modifier les paramètres
         save: Sauvegarder les modifications
         ldap: Tester la connexion LDAP
+        whitelisted_countries: Pays sur liste blanche
+        whitelisted_countries_prompt: Choisissez quelques pays...
+        whitelisted_ips: Adresses IP en liste blanche
+        whitelist_ip_prompt: Entrez des adresses IP
+        whitelist_placeholder_geo_ip_deactivated: Si aucune IP n'est ajoutée, toutes les IP seront autorisées
+        no_ips_selected: Si rien n'est sélectionné, seules les ips privées et en liste blanche sont autorisées
+        specify_single_ip: Pour spécifier une seule adresse IP, entrez-la simplement comme
+        range:
+          specify_range_of_ips: Pour spécifier une portée, vous pouvez entrer l'adresse IP avec le masque de sous-réseau
+          range_between: Ce serait la portée entre
+          and: et
+        IPv6_allowed: IPv6 est autorisé et peut être saisi comme ceci
     recryptrequests:
       index:
         title: Demandes de re crypt

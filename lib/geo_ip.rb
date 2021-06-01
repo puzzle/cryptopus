@@ -30,7 +30,7 @@ class GeoIp
     end
 
     def country_whitelist_configured?
-      Setting.value(:general, :country_source_whitelist).present?
+      Setting.value(:country_source_whitelist).present?
     end
 
     def error_message

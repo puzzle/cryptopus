@@ -1,1 +1,12 @@
-{{outlet}}
+<div class="pt-3">
+  <div class="row mb-3">
+    <div class="">
+      <LinkTo @route="index">
+        <span class="btn btn-secondary edit_button" role="button">
+          <img class="icon-button account-show-back" src="/assets/images/arrow-left.svg" alt="back">
+        </span>
+      </LinkTo>
+    </div>
+    {{outlet}}
+  </div>
+</div>

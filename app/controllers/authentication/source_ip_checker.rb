@@ -52,7 +52,7 @@ class Authentication::SourceIpChecker
   end
 
   def collect_whitelisted_ips
-    Setting.value('general', 'ip_whitelist').collect do |i|
+    Setting.value(:ip_whitelist).collect do |i|
       IPAddr.new(i)
     end
   end
@@ -64,7 +64,7 @@ class Authentication::SourceIpChecker
   end
 
   def whitelisted_country_codes
-    @whitelisted_country_codes ||= Setting.value(:general, :country_source_whitelist)
+    @whitelisted_country_codes ||= Setting.value(:country_source_whitelist)
   end
 
   def geo_ip

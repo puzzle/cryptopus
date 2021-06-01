@@ -1,0 +1,11 @@
+{{ yield }}
+<PowerSelectMultiple  
+    @animationEnabled={{false}}
+    @options={{@options}}
+    @placeholder={{@placeholder}}
+    @selected={{this.selectedOptions}}
+    @searchField="label"
+    @searchEnabled={{true}}
+    @onChange={{fn this.updateSetting}} as |option|>
+  {{option.label}}
+</PowerSelectMultiple>

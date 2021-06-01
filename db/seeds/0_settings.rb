@@ -1,13 +1,8 @@
-# encoding: utf-8
-
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
+# frozen_string_literal: true
 
 require Rails.root.join('db', 'seeds', 'support', 'setting_seeder')
 
 seeder = SettingSeeder.new
 
-seeder.seed_setting(:CountryCode,'general_country_source_whitelist', [])
-seeder.seed_setting(:IpRange, 'general_ip_whitelist', [])
+seeder.seed_setting(Setting::CountryCode, 'general_country_source_whitelist', [])
+seeder.seed_setting(Setting::IpRange, 'general_ip_whitelist', [])

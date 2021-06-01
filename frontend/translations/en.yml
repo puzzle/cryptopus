@@ -110,7 +110,19 @@ en:
         title: Edit Settings
         save: Save changes
         ldap: Test LDAP connection
+        whitelisted_countries: Whitelisted Countries
+        whitelisted_countries_prompt: Select some countries...
+        whitelisted_ips: Whitelisted ips
+        whitelist_ip_prompt: Enter IP address...
         whitelist_placeholder_geo_ip_deactivated: If no IP's are added every IP will be allowed
+        no_ips_selected: If nothing is selected, only private and whitelisted ips are authorized
+        specify_single_ip: To specify a single IP address, just enter it like
+        range:
+          specify_range_of_ips: To specify a range you can enter the IP address with the subnet mask
+          range_between: This would be the range between
+          and: and
+        ipv6_allowed: IPv6 is allowed and can be entered like this
+        geo_ip_disabled: Source IP filter is disabled. Please install geoip db
     recryptrequests:
       index:
         title: Re-encryption requests

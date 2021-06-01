@@ -112,7 +112,19 @@ de:
         title: Einstellungen bearbeiten
         save: Änderungen speichern
         ldap: Ldap Verbindung testen
+        whitelisted_countries: Länder Whitelist
+        whitelisted_countries_prompt: Wählen Sie einige Länder...
+        whitelisted_ips: IP Whitelist
+        whitelist_ip_prompt: Geben Sie einige IP Adressen an...
         whitelist_placeholder_geo_ip_deactivated: Falls keine IP's angegeben sind werden alle IP's erlaubt
+        no_ips_selected: Falls nicht weiter spezifiziert sind nur private und Whitelist IP-Adressen autorisiert
+        specify_single_ip: Einzelne IP-Adressen können wie folgt eingegeben werden
+        range:
+          specify_range_of_ips: Um eine Spannweite zu definieren kann eine IP-Adresse mit der Subnetzmaske eingegeben werden
+          range_between: Dies entspricht der Spannweite zwischen
+          and: und
+        IPv6_allowed: IPv6 ist erlaubt und kann wie folgt eingegeben werden
+        insert_ip_prompt: Geben Sie eine IP-Adresse oder Subnetzmaske ein
     recryptrequests:
       uncrypterror:
         new_password: Neues Passwort?!

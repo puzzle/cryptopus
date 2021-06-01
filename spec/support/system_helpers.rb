@@ -23,7 +23,7 @@ module SystemHelpers
   end
 
   def logout
-    find('img[alt="Logout"]').click
+    find('img.sign-out-icon').click
   end
 
   def uri
