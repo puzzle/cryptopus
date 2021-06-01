@@ -1,0 +1,10 @@
+<h5><b>{{t "admin.settings.index.whitelisted_ips"}}</b></h5>
+<PowerSelectWithCreate
+    @options={{ipAddresses}}
+    @searchField="Enter ip address..."
+    @selected={{selectedIpAddress}}
+    @onCreate={{fn this.updateSetting}}
+    @showCreateWhen={{action "hideCreateOptionOnSameName"}}
+    as |ip|>
+  {{ip.label}}
+</PowerSelectWithCreate>

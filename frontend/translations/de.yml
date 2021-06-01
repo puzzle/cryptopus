@@ -119,7 +119,7 @@ de:
         specify_single_ip: Einzelne IP-Adressen können wie folgt eingegeben werden
         range:
           specify_range_of_ips: Um eine Spannweite zu definieren kann eine IP-Adresse mit der Subnetzmaske eingegeben werden
-          range_between: Dies entspricht der Spannweite von
+          range_between: Dies entspricht der Spannweite zwischen
           and: und
         IPv6_allowed: IPv6 ist erlaubt und kann wie folgt eingegeben werden
     recryptrequests:

@@ -142,6 +142,17 @@ ch_be:
       index:
         title: Istellige bearbeite
         save: Änderige spichere
+        ldap: Ldap Verbindung testen
+        whitelisted_countries: Länder Whitelist
+        whitelisted_ips: IP Whitelist
+        whitelist_placeholder_geo_ip_deactivated: Faus keini IP's ahgäh sind wärde aui IP's erloubt
+        no_ips_selected: Fauses nit witer spezifiziert isch sind nor privati u Whitelist IP-Adrässe autorisiert
+        specify_single_ip: Einzelni IP-Adrässe chöi wie fougt ihgäh wärde
+        range:
+          specify_range_of_ips: Zum ä Spannwiiti z definiere chane IP-Adrässe mit de Subnetzmaske ihgäh wärde
+          range_between: Ds entspricht dr Spannwiiti zwösche
+          and: u
+        IPv6_allowed: IPv6 isch erloubt u cha wie fougt ihgäh wärde
     recryptrequests:
       index:
         title: Entschlüsseligs Afrage

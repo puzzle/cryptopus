@@ -1,7 +1,12 @@
 <div class="container py-2">
   <div class="mt-4">
+<<<<<<< HEAD
     <Admin::SettingMultiselect @options={{@model.countries}} @settingModel="setting-country-code"></Admin::SettingMultiselect>
     {{!-- <Admin::SettingMultiselect></Admin::SettingMultiselect> --}}
+=======
+    <Admin::SettingMultiselectWithCreate @options={{@model.countries}} @settingModel="setting-country-code"></Admin::SettingMultiselectWithCreate>
+    <Admin::SettingMultiselectWithCreate @options={{@model.ipAddresses}} @settingModel="setting-ip-range"></Admin::SettingMultiselectWithCreate>
+>>>>>>> Add component for power-select-with-create, add translations ch-de
     {{t "admin.settings.index.specify_single_ip"}}: <kbd class="ip-highlight">192.0.2.10</kbd>.<br>
 
     {{t "admin.settings.index.range.specify_range_of_ips"}}: <kbd>192.0.2.0/24</kbd>. {{t "admin.settings.index.range.range_between"}} <kbd>192.0.2.0</kbd> {{t "admin.settings.index.range.and"}} <kbd>192.0.2.255</kbd><br>

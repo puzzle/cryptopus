@@ -5912,6 +5912,39 @@ ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.0, ember-cli-babel@^7.1.2, ember-cl
     rimraf "^3.0.1"
     semver "^5.5.0"
 
+ember-cli-babel@^7.20.0:
+  version "7.26.6"
+  resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.26.6.tgz#322fbbd3baad9dd99e3276ff05bc6faef5e54b39"
+  integrity sha512-040svtfj2RC35j/WMwdWJFusZaXmNoytLAMyBDGLMSlRvznudTxZjGlPV6UupmtTBApy58cEF8Fq4a+COWoEmQ==
+  dependencies:
+    "@babel/core" "^7.12.0"
+    "@babel/helper-compilation-targets" "^7.12.0"
+    "@babel/plugin-proposal-class-properties" "^7.13.0"
+    "@babel/plugin-proposal-decorators" "^7.13.5"
+    "@babel/plugin-transform-modules-amd" "^7.13.0"
+    "@babel/plugin-transform-runtime" "^7.13.9"
+    "@babel/plugin-transform-typescript" "^7.13.0"
+    "@babel/polyfill" "^7.11.5"
+    "@babel/preset-env" "^7.12.0"
+    "@babel/runtime" "7.12.18"
+    amd-name-resolver "^1.3.1"
+    babel-plugin-debug-macros "^0.3.4"
+    babel-plugin-ember-data-packages-polyfill "^0.1.2"
+    babel-plugin-ember-modules-api-polyfill "^3.5.0"
+    babel-plugin-module-resolver "^3.2.0"
+    broccoli-babel-transpiler "^7.8.0"
+    broccoli-debug "^0.6.4"
+    broccoli-funnel "^2.0.2"
+    broccoli-source "^2.1.2"
+    clone "^2.1.2"
+    ember-cli-babel-plugin-helpers "^1.1.1"
+    ember-cli-version-checker "^4.1.0"
+    ensure-posix-path "^1.0.2"
+    fixturify-project "^1.10.0"
+    resolve-package-path "^3.1.0"
+    rimraf "^3.0.1"
+    semver "^5.5.0"
+
 ember-cli-build-config-editor@0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/ember-cli-build-config-editor/-/ember-cli-build-config-editor-0.5.0.tgz#e19a06f4da2e3e579b407964b72df9fbf3839f4b"
@@ -6004,7 +6037,7 @@ ember-cli-htmlbars@^4.0.5, ember-cli-htmlbars@^4.0.8, ember-cli-htmlbars@^4.2.0,
     strip-bom "^4.0.0"
     walk-sync "^2.0.2"
 
-ember-cli-htmlbars@^5.1.0, ember-cli-htmlbars@^5.2.0, ember-cli-htmlbars@^5.3.1, ember-cli-htmlbars@^5.3.2, ember-cli-htmlbars@^5.6.3, ember-cli-htmlbars@^5.7.0, ember-cli-htmlbars@^5.7.1:
+ember-cli-htmlbars@^5.0.0, ember-cli-htmlbars@^5.1.0, ember-cli-htmlbars@^5.2.0, ember-cli-htmlbars@^5.3.1, ember-cli-htmlbars@^5.3.2, ember-cli-htmlbars@^5.6.3, ember-cli-htmlbars@^5.7.0, ember-cli-htmlbars@^5.7.1:
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-5.7.1.tgz#eb5b88c7d9083bc27665fb5447a9b7503b32ce4f"
   integrity sha512-9laCgL4tSy48orNoQgQKEHp93MaqAs9ZOl7or5q+8iyGGJHW6sVXIYrVv5/5O9HfV6Ts8/pW1rSoaeKyLUE+oA==
@@ -6858,6 +6891,15 @@ ember-power-select-typeahead@^0.8.0:
     ember-cli-htmlbars "^3.1.0"
     ember-power-select "^3.0.3"
 
+ember-power-select-with-create@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/ember-power-select-with-create/-/ember-power-select-with-create-0.9.0.tgz#83ed037987dc5824f2bf702d278d055932ec1c87"
+  integrity sha512-AQW7N+vZHTojfKSqp/L3HlB81SW3AJtvFJYpdwHqoIcmTsW0BGfXH2z/GVWBUky6fPQLCngKs2Uv5PmpbboVYQ==
+  dependencies:
+    ember-cli-babel "^7.20.0"
+    ember-cli-htmlbars "^5.0.0"
+    ember-power-select "^4.0.0"
+
 ember-power-select@^3.0.3:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/ember-power-select/-/ember-power-select-3.0.6.tgz#97dcbaf04e6afd9bd4c75cbb150c3a8d5fe50fec"
@@ -6871,7 +6913,7 @@ ember-power-select@^3.0.3:
     ember-text-measurer "^0.5.0"
     ember-truth-helpers "^2.1.0"
 
-ember-power-select@^4.0.3:
+ember-power-select@^4.0.0, ember-power-select@^4.0.3:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/ember-power-select/-/ember-power-select-4.1.5.tgz#8bf4b77a5577972ac7793d7ac81580f79154d122"
   integrity sha512-J/WJau0fXBl6VGocctUKElK2vJYMzUfk2AqD61ezGVLF65aobo8G4BJuQoIZJr6dl2++fuNWHjO5iz8dHEAVPQ==
