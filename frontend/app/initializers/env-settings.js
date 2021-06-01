@@ -15,6 +15,7 @@ export function initialize(/* application */) {
         ENV.currentUserLastLoginFrom = envSettings.current_user.last_login_from;
         ENV.preferredLocale = envSettings.current_user.preferred_locale;
         ENV.lastLoginMessage = envSettings.last_login_message;
+        ENV.geoIP = envSettings.geo_ip;
         ENV.appVersion = envSettings.version;
         ENV.CSRFToken = envSettings.csrf_token;
         ENV.authProvider = envSettings.auth_provider;

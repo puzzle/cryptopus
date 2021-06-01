@@ -17,6 +17,7 @@ class Api::EnvSettingsController < ApiController
                                 last_login_from: current_user.last_login_from,
                                 preferred_locale: current_user.preferred_locale },
                 last_login_message: last_login_message,
+                geo_ip: GeoIp.activated?,
                 version: version_number,
                 csrf_token: form_authenticity_token,
                 auth_provider: AuthConfig.provider,

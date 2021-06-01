@@ -36,6 +36,9 @@ Rails.application.routes.draw do
           delete :lock, to: 'users/lock#destroy'
         end
       end
+
+      resources :settings, only: [:index, :update]
+
       resources :ldap_connection_test, only: ['new']
     end
     

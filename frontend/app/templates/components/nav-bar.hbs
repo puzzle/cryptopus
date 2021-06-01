@@ -47,40 +47,28 @@
     </pzsh-topbar-link>
 
     {{#if this.userService.mayManageSettings}}
-      <LinkTo @route="admin.users" @tagName="pzsh-topbar-link" class="administration">
-        <pzsh-icon name="users-alt"></pzsh-icon>
-        Administration
-      </LinkTo>
-    {{/if}}
-
-    {{#if this.userService.mayManageSettings}}
       <BsDropdown @class="d-flex align-items-center" as |dd|>
-        <LinkTo @route="profile" @tagName="pzsh-topbar-link">
-          <pzsh-icon name="user-circle"></pzsh-icon>
-          {{ this.givenname }}
+        <LinkTo @route="admin.users" @tagName="pzsh-topbar-link" class="administration">
+          <pzsh-icon name="users-alt"></pzsh-icon>
+          Administration
         </LinkTo>
         <dd.toggle class="dropdown-toggle">
           <img class="icon-dropdown-toggle-2" src="/assets/images/angle-down-white.svg" alt="v">
         </dd.toggle>
         <dd.menu as |ddm|>
           <ddm.item>
-            <a role="button" class="dropdown-item" href="/admin/settings/index">
+            <LinkTo role="button" class="dropdown-item" @route="admin.settings">
               {{ t "settings" }}
-            </a>
-          </ddm.item>
-          <ddm.item>
-            <LinkTo role="button" class="dropdown-item administration-dropdown" @route="admin.users">
-              Administration
             </LinkTo>
           </ddm.item>
         </dd.menu>
       </BsDropdown>
-    {{else}}
-      <LinkTo @route="profile" @tagName="pzsh-topbar-link">
-        <pzsh-icon name="user-circle"></pzsh-icon>
-        {{ this.givenname }}
-      </LinkTo>
     {{/if}}
+
+    <LinkTo @route="profile" @tagName="pzsh-topbar-link">
+      <pzsh-icon name="user-circle"></pzsh-icon>
+      {{ this.givenname }}
+    </LinkTo>
 
     <pzsh-topbar-link href="/session/destroy">
       <img class="sign-out-icon" src="/assets/images/sign_out.svg" alt=">">
