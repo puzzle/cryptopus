@@ -21,7 +21,5 @@ Rails.application.routes.draw do
         post 'resetpassword'
       end
     end
-
-    get  'teams', to: 'teams#index'
   end
 end
