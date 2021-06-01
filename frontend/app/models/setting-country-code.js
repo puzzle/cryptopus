@@ -1,3 +1,3 @@
 import Setting from "./setting";
 
-export default class SettingIpRange extends Setting {}
+export default class SettingCountryCode extends Setting {}
