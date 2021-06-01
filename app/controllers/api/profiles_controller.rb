@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::LocaleController < ApiController
+class Api::ProfilesController < ApiController
   skip_before_action :validate_user
   before_action :skip_authorization
 
