@@ -69,6 +69,10 @@ class User::HumanPolicy < ApplicationPolicy
     end
   end
 
+  def update_password?
+    user.auth_db?
+  end
+
   private
 
   def current_user

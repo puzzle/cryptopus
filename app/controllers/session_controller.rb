@@ -52,21 +52,6 @@ class SessionController < ApplicationController
     end
   end
 
-  def show_update_password
-    render :show_update_password
-  end
-
-  def update_password
-    if password_params_valid?
-      current_user.update_password(params[:old_password],
-                                   params[:new_password1])
-      flash[:notice] = t('flashes.session.new_password_set')
-      redirect_to root_path
-    else
-      render :show_update_password
-    end
-  end
-
   private
 
   def assert_logged_in
@@ -114,21 +99,6 @@ class SessionController < ApplicationController
     session[:private_key] = user.decrypt_private_key(pk_secret)
     session[:last_login_at] = user.last_login_at
     session[:last_login_from] = user.last_login_from
-  end
-
-  def password_params_valid?
-    return if current_user.is_a?(User::Api)
-
-    unless current_user.authenticate_db(params[:old_password])
-      flash[:error] = t('flashes.session.wrong_password')
-      return false
-    end
-
-    if params[:new_password1] != params[:new_password2]
-      flash[:error] = t('flashes.session.new_passwords_not_equal')
-      return false
-    end
-    true
   end
 
   def authorize_action

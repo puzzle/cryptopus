@@ -1,6 +1,12 @@
 <div class="pt-3">
-  <h2>{{t "profile.index.title"}}</h2>
-  
+  <div class="row justify-content-between">
+    <div class="col-lg-auto">
+      <h2>{{t "profile.index.title"}}</h2>
+    </div>
+    <div class="col-md-auto">
+      <Profile::PasswordUpdate></Profile::PasswordUpdate>
+    </div>
+  </div>
   <BsTab as |tab|>
     <tab.pane id="info" @title={{t "profile.info.info"}}>
       <table class="table table-striped mt-20">
