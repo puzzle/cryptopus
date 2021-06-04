@@ -60,11 +60,10 @@ describe 'User provides new Ldap Pw' do
 
       # Method call expectations
       expect(LdapConnection).to receive(:new).at_least(:once).and_return(ldap)
-      expect(ldap).to receive(:ldap_info).exactly(2).times
 
       expect(ldap).to receive(:authenticate!)
         .with('bob', 'newPassword')
-        .exactly(3).times
+        .exactly(2).times
         .and_return(true)
 
       # Calls login method
