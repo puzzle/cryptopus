@@ -391,6 +391,11 @@ en:
         failed: Task failed. See logs for more information.
         ldap_connection:
           failed: No configured Ldap Server could be reached.
+ 
+    profile:
+      changePassword:
+        success: Successfully changed password.
+        new_passwords_not_equal: New passwords not equal
 
     user-humen:
       created: Successfully created a new user.
@@ -429,7 +434,6 @@ en:
       auth_failed: Authentication failed! Enter a correct username and password.
       only_local: Only local users are allowed to change their password.
       new_password_set: You successfully set the new password
-      new_passwords_not_equal: New passwords not equal
       wrong_password: Invalid user / password
       wrong_root: Login as root only from private IP accessible
       not_local: You are not a local user!
@@ -500,8 +504,16 @@ en:
       user:
         username: Username
         password: Password
+        admin: Admin
         givenname: Given name
         surname: Surname
+        submit: Submit
+        managePassword: Manage password
+        updatePassword: Update password
+        oldPassword: "Enter old password:"
+        newPassword1: "Enter new password:"
+        newPassword2: "Confirm new password:"
+        wrongPassword: Wrong password
       account:
         account_name: Accountname
       team:
@@ -537,3 +549,10 @@ en:
       present: Givenname must be present
     password:
       present: Password must be present
+    "old password":
+      present: Please enter current password
+    "new password1":
+      present: Please enter new password
+    "new password2":
+        present: Please confirm new password
+        confirmation: New passwords don't match

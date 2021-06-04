@@ -393,6 +393,11 @@ de:
         ldap_connection:
           failed: Kein konfigurierter Ldap-Server konnte erreicht werden.
 
+    profile:
+      changePassword:
+        success: Das Passwort wurde erfolgreich geändert.
+        new_passwords_not_equal: Die neuen Passwörter sind nicht gleich.
+
     user-humen:
       created: Der neue Benutzer wurde erfolgreich erstellt.
       updated: Der Benutzer wurde erfolgreich aktualisiert.
@@ -428,7 +433,6 @@ de:
       auth_failed: Ungültiger Benutzername / Passwort.
       only_local: Nur lokale Benutzer dürfen ihr Passwort ändern.
       new_password_set: Das neue Passwort wurde erfolgreich gesetzt.
-      new_passwords_not_equal: Die neuen Passwörter sind nicht gleich.
       not_local: Sie sind kein lokaler Benutzer!
       locked: Der Benutzer ist momentan gesperrt. Bitte versuchen Sie es später nocheinmal oder kontaktiern Sie den Administrator.
       weak_password: Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen
@@ -457,6 +461,12 @@ de:
         givenname: Vorname
         surname: Nachname
         submit: Erstellen
+        managePassword: Passwort verwalten
+        updatePassword: Passwort erneuern
+        oldPassword: "Altes Passwort:"
+        newPassword1: "Neues Passwort:"
+        newPassword2: "Neues Passwort bestätigen:"
+        wrongPassword: Falsches Passwort
       account:
         account: Account
         account_name: Accountname
@@ -603,3 +613,10 @@ de:
       present: Der Vorname muss vorhanden sein
     password:
       present: Das Passwort muss vorhanden sein
+    "old password":
+      present: Aktuelles Passwort eingeben
+    "new password1":
+      present: Neues Passwort eingeben
+    "new password2":
+        present: Neues Passwort bestätigen
+        confirmation: Die Passwörter stimmen nicht überein

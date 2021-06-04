@@ -25,16 +25,4 @@ class SessionPolicy < ApplicationPolicy
   def destroy?
     user.present?
   end
-
-  def show_update_password?
-    user.present? && user.auth_db?
-  end
-
-  def update_password?
-    user.present? && user.auth_db?
-  end
-
-  def changelocale?
-    user.present?
-  end
 end

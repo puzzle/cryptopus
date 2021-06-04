@@ -394,6 +394,11 @@ fr:
         ldap_connection:
           failed: Aucunt serveur LDAP configuré n'a pu être atteint.
 
+    profile:
+      changePassword:
+        success: Le mot de passe a été modifié avec succès. 
+        new_passwords_not_equal: Nouveaux mots de passe n'est pas égal.
+
     user-humen:
       created: Utilisateur créé avec succès.
       updated: Utilisateur modifiée avec succès.
@@ -429,7 +434,6 @@ fr:
       auth_failed: L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe.
       only_local: Only local users are allowed to change their password.
       new_password_set: Vous mis à jour avec succès le nouveau mot de passe.
-      new_passwords_not_equal: Nouveaux mots de passe n'est pas égal.
       wrong_password: Mot de passe incorrect.
       weak_password: Pour améliorer la sécurité vous devez déterminer un mot de passe utilisateur plus complexe.
       not_local: Vous n'êtes pas un utilisateur local!
@@ -459,6 +463,13 @@ fr:
         admin: Admin
         givenname: Prénom
         surname: Nom de famille
+        submit: Soumettre
+        managePassword: Gérer le mot de passe
+        updatePassword: Changer le mot de passe
+        oldPassword: "Entrez le mot de passe actuel:"
+        newPassword1: "Entrez un nouveau mot de passe:"
+        newPassword2: "Confirmer le nouveau mot de passe:"
+        wrongPassword: Mauvais mot de passe
       account:
         account: Compte
         account_name: Nom du compte
@@ -606,3 +617,10 @@ fr:
       present: Le prénom doit être présent
     password:
       present: Le mot de passe doit être présent
+    "old password":
+      present: Entrer le mot de passe actuel 
+    "new password1":
+      present: Entrer le nouveau mot de passe
+    "new password2":
+        present: Confirmer le nouveau mot de passe
+        confirmation: Les mots de passe ne correspondent pas

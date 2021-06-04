@@ -413,6 +413,11 @@ ch_be:
         succeed: D Wartigsufgab isch erfougrich düregfüehrt worde
         failed: D Wartigsufgab isch gschiteret. Lueg i de Logs für me Details nache.
 
+    profile:
+      changePassword:
+        success: Ds Passwort isch erfougrich gänderet worde.
+        new_passwords_not_equal: Di nöie Passwörter si nid glich.
+
     user-humen:
       created: Dr nöi Benutzer isch erfougrich ersteut worde.
       updated: Dr Benutzer isch erfougrich aktualisiert worde.
@@ -448,7 +453,6 @@ ch_be:
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
       only_local: Nume lokali Benutzer dörfe ires Passwort ändere.
       new_password_set: Ds nöie Passwort isch erfougrich gsetzt worde.
-      new_passwords_not_equal: Di nöie Passwörter si nid glich.
       not_local: Du bisch ke lokale Benutzer!
       locked: Dr Benutzer isch momentan gsperrt. Bitte probiers speter nomau oder kontaktier dr Administrator.
       weak_password: Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle
@@ -476,6 +480,12 @@ ch_be:
         givenname: Vorname
         surname: Nachname
         submit: Ersteue
+        managePassword: Passwortverwautig
+        updatePassword: Ds Passwort ernöiere
+        oldPassword: "Ds aute Passwort:"
+        newPassword1: "Ds nöie Passwort:"
+        newPassword2: "Ds nöie Passwort bestätige:"
+        wrongPassword: Fautsches passwort
       account:
         account: Account
         account_name: Accountname
@@ -615,3 +625,10 @@ ch_be:
       present: Dr Vorname muess vorhande si
     password:
       present: Ds Passwort muess vorhande si
+    "old password":
+      present: Ds aktuelle Passwort ihgäh
+    "new password1":
+      present: Ds nöie Passwort ihgäh
+    "new password2":
+        present: Ds nöie Passwort bestätige
+        confirmation: Di nöie Passwörter stimme nid überiih

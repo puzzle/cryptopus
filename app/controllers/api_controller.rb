@@ -25,8 +25,8 @@ class ApiController < CrudController
 
   protected
 
-  def render_json(data = nil)
-    render status: response_status, json: data || messages, include: '*'
+  def render_json(data = nil, status = nil)
+    render status: status || response_status, json: data || messages, include: '*'
   end
 
   def team
