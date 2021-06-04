@@ -143,13 +143,6 @@ ch_be:
         title: Istellige bearbeite
         save: Änderige spichere
     recryptrequests:
-      index:
-        title: Entschlüsseligs Afrage
-        user: Benutzer
-        admin_required: Admin erforderläch
-        recrypt: Entschlüssle
-      request:
-        request_sent: Es isch e Recrypt Ahfrag gsändet worde. Bitte wart, bis si oder er d Passwörter nöi verschlüsslet hei.
       uncrypterror:
         new_password: Nöis Passwort?!
         ldap_password_changed: Dis LDAP Passwort het sech sit dim letschte Login gänderet.

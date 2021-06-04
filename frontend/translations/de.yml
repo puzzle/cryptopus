@@ -115,13 +115,6 @@ de:
         ldap: Ldap Verbindung testen
         whitelist_placeholder_geo_ip_deactivated: Falls keine IP's angegeben sind werden alle IP's erlaubt
     recryptrequests:
-      index:
-        title: Entschlüsselungs Anfragen
-        user: Benutzer
-        admin_required: Admin erforderlich
-        recrypt: Entschlüsseln
-      request:
-        request_sent: Es wurde eine Recrypt Anfrage gesendet. Bitte warten Sie, bis sie oder er Ihre Passwörter neu verschlüsselt hat.
       uncrypterror:
         new_password: Neues Passwort?!
         ldap_password_changed: Ihr LDAP Passwort hat sich seit Ihrem letzten Login geändert.

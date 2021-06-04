@@ -36,21 +36,13 @@ class Recrypt::LdapController < ApplicationController
   end
 
   def create_recrypt_request
-    # Check if there's already a recryptrequest
-    if current_user.recryptrequests.empty?
-      current_user.create_keypair(params[:new_password])
-      current_user.save!
-
-      current_user.recryptrequests.create
-    end
-
-    flash[:notice] = t('flashes.recryptrequests.wait')
+    current_user.create_keypair(params[:new_password])
+    current_user.save!
     redirect_to session_destroy_path
   end
 
   def recrypt_private_key
     if current_user.recrypt_private_key!(params[:new_password], params[:old_password])
-      flash[:notice] = t('flashes.recryptrequests.recrypted')
       return redirect_to session_destroy_path
     end
 

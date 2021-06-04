@@ -40,7 +40,6 @@ class User::Human < User
   has_many :teams, -> { order :name }, through: :teammembers
   has_many :user_favourite_teams, dependent: :destroy, foreign_key: :user_id
   has_many :favourite_teams, -> { order :name }, through: :user_favourite_teams, source: :team
-  has_many :recryptrequests, dependent: :destroy, foreign_key: :user_id
   has_many :api_users, class_name: 'User::Api', dependent: :destroy,
                        foreign_key: :human_user_id
 

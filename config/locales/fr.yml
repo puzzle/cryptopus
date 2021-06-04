@@ -113,13 +113,6 @@ fr:
         save: Sauvegarder les modifications
         ldap: Tester la connexion LDAP
     recryptrequests:
-      index:
-        title: Demandes de re crypt
-        user: Utilisateur
-        admin_required: Admin requis
-        recrypt: re crypt
-      request:
-        request_sent: Une demande de re crypt vos mots de passe de groupe a été envoyée. S'il vous plaît attendre jusqu'à ce qu'elle re crypté vos nouveaux mots de passe.
       uncrypterror:
         new_password: Nouveau mot de passe?!
         ldap_password_changed: Votre mot de passe de LDAP a changé depuis votre dernière connexion.
