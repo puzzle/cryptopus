@@ -17,6 +17,7 @@ class Recrypt::LdapController < ApplicationController
   def create
     authorize_action :create
 
+    set_params_for_user_auth
     unless user_authenticator.authenticate!
       flash[:error] = t('activerecord.errors.models.user.new_password_invalid')
       return redirect_to user_authenticator.recrypt_path
@@ -26,6 +27,12 @@ class Recrypt::LdapController < ApplicationController
   end
 
   private
+
+  def set_params_for_user_auth
+    # set password param for authenticator
+    params[:username] = current_user.username
+    params[:password] = params[:new_password]
+  end
 
   def authorize_action(action)
     authorize action, policy_class: Recrypt::LdapPolicy
