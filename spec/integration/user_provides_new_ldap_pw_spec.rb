@@ -112,7 +112,35 @@ describe 'User provides new Ldap Pw' do
       expect(flash[:error]).to match(/Your OLD password was wrong/)
     end
 
-    it 'provides new ldap password over recryptrequest and entered wrong new password' do
+    it 'provides new ldap password and entered wrong new password' do
+    ldap = double
+
+    # Prepare for  do
+    bob.update!(auth: 'ldap', provider_uid: '42')
+
+    # Method call expectations
+    expect(LdapConnection).to receive(:new).at_least(:once).and_return(ldap)
+
+    expect(ldap).to receive(:authenticate!)
+                      .with('bob', 'newPassword')
+                      .and_return(true)
+
+    #  do if Bob can see his account (should not)
+    # cannot_access_account(get_account_path, 'bob')
+
+    login_as('bob', 'newPassword')
+
+    expect(request.fullpath).to eq(recrypt_ldap_path)
+
+    post recrypt_ldap_path, params: { new_password: 'wrong' }
+    follow_redirect!
+    expect(request.fullpath).to eq(recrypt_ldap_path)
+    #  do if user got error messages
+    expect(flash[:error]).to match(/Your NEW password was wrong/)
+  end
+
+
+  it 'provides new ldap password over recryptrequest and entered wrong new password' do
       ldap = double
 
       # Prepare for  do

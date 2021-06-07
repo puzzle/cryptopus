@@ -22,23 +22,13 @@ class Recrypt::LdapController < ApplicationController
       return redirect_to user_authenticator.recrypt_path
     end
 
-    if params[:forgot_password]
-      create_recrypt_request
-    else
-      recrypt_private_key
-    end
+    recrypt_private_key
   end
 
   private
 
   def authorize_action(action)
     authorize action, policy_class: Recrypt::LdapPolicy
-  end
-
-  def create_recrypt_request
-    current_user.create_keypair(params[:new_password])
-    current_user.save!
-    redirect_to session_destroy_path
   end
 
   def recrypt_private_key
@@ -50,11 +40,4 @@ class Recrypt::LdapController < ApplicationController
     redirect_to user_authenticator.recrypt_path
   end
 
-  def user_authenticator
-    @user_authenticator ||=
-      Authentication::UserAuthenticator.init(
-        username: current_user.username,
-        password: params[:new_password]
-      )
-  end
 end
