@@ -13,6 +13,7 @@ COPY ./rails-entrypoint /usr/local/bin
 RUN apt-get update
 RUN apt-get install nodejs yarnpkg -y && ln -s /usr/bin/yarnpkg /usr/bin/yarn
 RUN apt-get install direnv -y
+RUN apt-get install firefox-esr -y
 
 RUN mkdir /opt/bundle && chmod 777 /opt/bundle
 RUN mkdir /seed && chmod 777 /seed
