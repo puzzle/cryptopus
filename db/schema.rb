@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_11_072630) do
+ActiveRecord::Schema.define(version: 2021_06_04_065657) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "accountname", limit: 70, default: "", null: false
@@ -54,10 +54,6 @@ ActiveRecord::Schema.define(version: 2020_12_11_072630) do
     t.integer "executer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "recryptrequests", force: :cascade do |t|
-    t.integer "user_id", default: 0, null: false
   end
 
   create_table "settings", force: :cascade do |t|

@@ -135,18 +135,6 @@ describe Api::AccountsController do
       expect_json_object_includes_keys(account1_json_relationships, nested_models)
     end
 
-    it 'cannot authenticate and does not return decrypted account if recrypt requests pending' do
-      bob.recryptrequests.create!
-
-      login_as(:bob)
-      account = accounts(:account1)
-
-      get :show, params: { id: account }, xhr: true
-
-      expect(errors).to eq(['flashes.recryptrequests.wait'])
-      expect(response).to have_http_status 403
-    end
-
     it 'cannot authenticate and does not return decrypted account if user not logged in' do
       account = accounts(:account1)
       get :show, params: { id: account }, xhr: true
@@ -241,29 +229,6 @@ describe Api::AccountsController do
 
         expect(response).to have_http_status 401
         expect(errors).to eq(['flashes.api.errors.user_not_logged_in'])
-      end
-
-      it 'authenticates and shows account details even if recryptrequests of human user pending' do
-        api_user.update!(valid_until: Time.zone.now + 5.minutes)
-
-        bob.recryptrequests.create!
-
-        request.headers['Authorization-User'] = api_user.username
-        request.headers['Authorization-Password'] = token
-
-        teams(:team1).add_user(api_user, plaintext_team_password)
-
-        account = accounts(:account1)
-        get :show, params: { id: account }, xhr: true
-
-        account1_json_attributes = data['attributes']
-        account1_json_relationships = data['relationships']
-
-        expect(response).to have_http_status(200)
-        expect(account1_json_attributes['accountname']).to eq 'account1'
-        expect(account1_json_attributes['cleartext_username']).to eq 'test'
-        expect(account1_json_attributes['cleartext_password']).to eq 'password'
-        expect_json_object_includes_keys(account1_json_relationships, nested_models)
       end
 
       it 'does not show account details if valid api user not teammember' do

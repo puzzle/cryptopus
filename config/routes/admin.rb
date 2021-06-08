@@ -11,11 +11,5 @@ Rails.application.routes.draw do
       post 'update_all'
       get 'index'
     end
-
-    resources :recryptrequests, only: [:index, :destroy] do
-      collection do
-        post 'resetpassword'
-      end
-    end
   end
 end

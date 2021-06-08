@@ -72,15 +72,7 @@ class ApiController < CrudController
   end
 
   def validate_user
-    handle_pending_recrypt_request
     header_auth? ? authorize_with_headers : check_if_user_logged_in
-  end
-
-  def handle_pending_recrypt_request
-    if pending_recrypt_request?
-      pending_recrypt_request_message
-      render_json
-    end
   end
 
   def check_if_user_logged_in

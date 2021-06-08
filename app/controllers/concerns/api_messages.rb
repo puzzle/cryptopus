@@ -36,11 +36,6 @@ module ApiMessages
     add_error('flashes.admin.admin.no_access')
   end
 
-  def pending_recrypt_request_message
-    @response_status = :forbidden
-    add_error('flashes.recryptrequests.wait')
-  end
-
   def authentification_failed_message
     @response_status = :unauthorized
     add_error('flashes.api.errors.auth_failed')

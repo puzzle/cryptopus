@@ -17,40 +17,29 @@ class Recrypt::LdapController < ApplicationController
   def create
     authorize_action :create
 
+    set_params_for_user_auth
     unless user_authenticator.authenticate!
       flash[:error] = t('activerecord.errors.models.user.new_password_invalid')
       return redirect_to user_authenticator.recrypt_path
     end
 
-    if params[:forgot_password]
-      create_recrypt_request
-    else
-      recrypt_private_key
-    end
+    recrypt_private_key
   end
 
   private
+
+  def set_params_for_user_auth
+    # set password param for authenticator
+    params[:username] = current_user.username
+    params[:password] = params[:new_password]
+  end
 
   def authorize_action(action)
     authorize action, policy_class: Recrypt::LdapPolicy
   end
 
-  def create_recrypt_request
-    # Check if there's already a recryptrequest
-    if current_user.recryptrequests.empty?
-      current_user.create_keypair(params[:new_password])
-      current_user.save!
-
-      current_user.recryptrequests.create
-    end
-
-    flash[:notice] = t('flashes.recryptrequests.wait')
-    redirect_to session_destroy_path
-  end
-
   def recrypt_private_key
     if current_user.recrypt_private_key!(params[:new_password], params[:old_password])
-      flash[:notice] = t('flashes.recryptrequests.recrypted')
       return redirect_to session_destroy_path
     end
 
@@ -58,11 +47,4 @@ class Recrypt::LdapController < ApplicationController
     redirect_to user_authenticator.recrypt_path
   end
 
-  def user_authenticator
-    @user_authenticator ||=
-      Authentication::UserAuthenticator.init(
-        username: current_user.username,
-        password: params[:new_password]
-      )
-  end
 end
