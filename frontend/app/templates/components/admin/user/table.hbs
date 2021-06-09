@@ -1,15 +1,12 @@
 {{#if this.isUserNew}}
   <Admin::User::Form @onAbort={{this.toggleUserNew}} @onSuccess={{this.addUser}} @title={{t "admin.users.new.title"}} />
 {{/if}}
-<div class="container my-2">
-  <div class="row justify-content-end">
-    <div class="col-auto">
-      <LinkTo @route="index">
-        <button class="btn btn-primary">{{t "back"}}</button>
-      </LinkTo>
-      <button class="btn btn-primary" {{on "click" this.toggleUserNew}}>{{t "new"}}</button>
-    </div>
-  </div>
+<div class="row justify-content-end">
+      {{!-- <button class="btn btn-primary" {{on "click" this.toggleUserNew}}>{{t "new"}}</button> --}}
+        <span class="mx-2" role="button" {{on "click" this.toggleUserNew}}>
+          <img class="icon-big-button" src="/assets/images/plus.svg" alt="new">
+          <BsTooltip @title={{t "tooltips.add_folder"}} @delayShow="1000" />
+        </span>
 </div>
 
 <table class="table table-striped">
@@ -20,7 +17,7 @@
       <th>{{t "admin.users.index.last_login_at"}}</th>
       <th>{{t "admin.users.index.last_login_from"}}</th>
       <th>{{t "admin.users.index.auth"}}: {{t "admin.users.index.provider_uid"}}</th>
-      <th>{{t "admin.users.index.role"}}</th>
+      <th width="200">{{t "admin.users.index.role"}}</th>
       <th>{{t "admin.users.index.action"}}</th>
     </tr>
   </thead>

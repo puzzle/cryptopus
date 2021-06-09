@@ -1,5 +1,12 @@
 <div class="pt-3">
-  <h1>{{t "admin.users.index.title"}}</h1> 
+  <div class="justify-content-end">
+    <LinkTo @route="index">
+      <button type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </LinkTo>
+  </div>
+  <h1>{{t "admin.users.index.title"}}</h1>
   {{#if @model.locked}}
     <BsTab as |tab|>
       <tab.pane id="unlocked" @title={{t "admin.users.index.unlocked"}}>
