@@ -12,8 +12,7 @@
     %link{href: "/favicon.png", rel: "shortcut icon", type: "image/png"}/
     = csrf_meta_tags
     %title Cryptopus
-    = stylesheet_link_tag :application, media: "all", nonce: true
-    = javascript_pack_tag 'stylesheets', nonce: true
+    %link{href: "/styles.css", rel: "stylesheet"}/
   %body{"data-locale" => I18n.locale}
     #ember
     = render 'layouts/icons'

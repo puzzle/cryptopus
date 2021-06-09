@@ -15,7 +15,7 @@
       %td= user.label
       %td= user.provider_uid
       %td.action_icon
-        = link_to image_pack_tag("remove.svg", class: 'icon'), '#',
+        = link_to image_tag("remove.svg", class: 'icon'), '#',
           data: { last_teammember_teams_link: last_member_teams_path(user_id: user.id),
             user_id: user.id},
           class: 'delete_user_link'
