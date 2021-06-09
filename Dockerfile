@@ -2,6 +2,8 @@ FROM centos/ruby-27-centos7
 ENV RACK_ENV=production
 ENV RAILS_ENV=production
 ENV SECRET_KEY_BASE=cannot-be-blank-for-production-env-when-building
+ENV DISABLE_ASSET_COMPILATION=true
+
 USER root
 
 # Install yarn

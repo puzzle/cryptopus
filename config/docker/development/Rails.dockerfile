@@ -8,7 +8,6 @@ ENV BUNDLE_PATH=/opt/bundle
 WORKDIR /myapp
 
 COPY ./rails-entrypoint /usr/local/bin
-#COPY ./docker/webpack-entrypoint /usr/local/bin
 
 RUN apt-get update
 RUN apt-get install nodejs yarnpkg -y && ln -s /usr/bin/yarnpkg /usr/bin/yarn

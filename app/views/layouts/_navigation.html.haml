@@ -10,7 +10,7 @@
 
       .navbar-header
         %a{href: Rails.application.routes.url_helpers.root_path, class: 'navbar-logo'}
-          = image_pack_tag("cryptopussy_without_text.svg", class: 'logo-icon')
+          = image_tag("cryptopussy_without_text.svg", class: 'logo-icon')
           %span.ml-1.navbar-brand2
             = 'Cryptopus'
 
@@ -26,7 +26,7 @@
           %ul.nav.navbar-nav.ml-auto.navbar-right
             %li
               %a{href: "/teams", class: "font no-hover"}
-                = image_pack_tag("angle-left.svg", class: 'back-arrow')
+                = image_tag("angle-left.svg", class: 'back-arrow')
                 = "Back"
 
             - if current_user.admin? || current_user.conf_admin?
@@ -39,7 +39,7 @@
                     %a= nav_link t(:settings), Rails.application.routes.url_helpers.admin_settings_path
                     %a= nav_link t('admin.maintenance_tasks.index.title'), Rails.application.routes.url_helpers.admin_maintenance_tasks_path
             %li
-              = link_to(image_pack_tag("sign_out.svg", class: "logout-icon"), Rails.application.routes.url_helpers.session_destroy_path)
+              = link_to(image_tag("sign_out.svg", class: "logout-icon"), Rails.application.routes.url_helpers.session_destroy_path)
 
   - unless @breadcrumbs.nil?
     .bread-container
