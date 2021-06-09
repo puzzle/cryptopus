@@ -1,0 +1,27 @@
+<svg width="175" height="70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <defs>
+  <symbol id="svg_4" height="15" width="24">
+   <g>
+    <title>background</title>
+    <rect x="-1" y="-1" width="26" height="17" id="svg_3" fill="none"/>
+   </g>
+   <g>
+    <title>Layer 1</title>
+    <path fill="#000000" d="m18.64701,1.38621l0.56183,-0.55391a0.7913,0.7913 0 1 0 -1.12365,-1.12365l-1.10783,1.11574l0,0l-2.23939,2.23939l0,0l-4.99313,4.98522a3.95652,3.95652 0 1 0 1.12365,1.12365l4.42339,-4.43131l1.67757,1.68548a0.7913,0.7913 0 1 0 1.11574,-1.12365l-1.67757,-1.67756l1.12366,-1.11574l0.55391,0.55391a0.7913,0.7913 0 1 0 1.12365,-1.11574l-0.56183,-0.56182l0,-0.00001zm-11.07826,12.33644a2.37391,2.37391 0 1 1 2.37391,-2.37391a2.37391,2.37391 0 0 1 -2.37391,2.37391z" id="svg_2" transform="rotate(45 11.52572250366211,7.391769886016845) " stroke="null"/>
+    <rect fill="#000000" stroke="null" stroke-width="null" stroke-opacity="null" fill-opacity="null" x="-24.917897" y="7.534632" width="9.30809" height="8.930735" id="svg_1"/>
+   </g>
+  </symbol>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="72" width="177" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <use x="-1.792346" y="-3.232533" transform="matrix(8.333333015441895,0,0,8.333333015441895,0,0) " xlink:href="#svg_4" id="svg_5"/>
+ </g>
+</svg>

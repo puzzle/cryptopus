@@ -14,14 +14,14 @@ describe 'AccountModal', type: :system, js: true do
   let(:account_attrs) do
     { accountname: 'acc',
       username: 'username',
-      password: 'password',
+      password: 'strong-pass3roeedd-1§23',
       description: 'desc' }
   end
 
   let(:updated_attrs) do
     { accountname: 'acc2',
       username: 'username2',
-      password: 'password2',
+      password: 'strong-pass3roeedd-1§23-zzeu',
       description: 'desc2' }
   end
 
@@ -29,8 +29,8 @@ describe 'AccountModal', type: :system, js: true do
     login_as_user(:bob)
 
     # Create Account
-    expect(page).to have_css('a.btn.btn-primary', text: 'New Account')
-    find('a.btn.btn-primary', text: 'New Account').click
+    expect(page).to have_css('a.w-100', text: 'New Account')
+    find('a.w-100', text: 'New Account').click
 
     expect(page).to have_text('New Account')
 
@@ -54,6 +54,8 @@ describe 'AccountModal', type: :system, js: true do
 
     fill_modal(account_attrs)
 
+    require "pry"; binding.pry
+    
     expect do
       click_button('Save', visible: false)
       expect(page).to have_text(account_attrs[:accountname])

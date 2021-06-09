@@ -11,7 +11,6 @@ module SystemHelpers
     fill_in('username', with: username)
     fill_in('password', with: password)
     find('input[name="commit"]').click
-    visit('/teams')
   end
 
   def login_as_root(username = 'root', password = 'password')
