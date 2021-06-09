@@ -8,22 +8,31 @@ export default class AdminUserTableRowComponent extends Component {
   @service fetchService;
   @service store;
 
-  @tracked
-  isEditing = false;
+  @tracked isEditing = false;
+
+  ROLES = [
+    { key: 'user', name: 'User'}, 
+    { key: 'conf_admin', name: 'Conf Admin'}, 
+    { key: 'admin', name: 'Admin'}
+  ]
 
   @action
   updateRole(user, role) {
     this.fetchService
       .send(`/api/admin/users/${user.id}/role`, {
         method: "PATCH",
-        body: `role=${role}`
+        body: `role=${role.key}`
       })
-      .then(() => (user.role = role));
+      .then(() => (user.role = role.key));
   }
 
   @action
   toggleEditing() {
     this.isEditing = !this.isEditing;
+  }
+
+  get selectedRole() {
+    return this.ROLES.find((role) => role.key === this.args.user.role);
   }
 
   get isEditable() {

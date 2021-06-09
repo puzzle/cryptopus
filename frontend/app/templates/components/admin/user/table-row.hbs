@@ -6,12 +6,12 @@
   <td>{{@user.label}}</td>
   <td>{{if @user.lastLoginAt (moment-format @user.lastLoginAt "DD.MM.YYYY hh:mm") ""}}</td>
   <td>{{@user.lastLoginFrom}}</td>
-  <td>{{@user.providerUid}}</td>
+  <td>{{@user.auth}}{{#if @user.providerUid}}:{{/if}} {{@user.providerUid}}</td>
   <td>
     <div>
-      <PowerSelect @options={{@user.ROLES}} @onChange={{fn this.updateRole @user}} @selected={{@user.role}}
+      <PowerSelect @options={{ROLES}} @onChange={{fn this.updateRole @user}} @selected={{this.selectedRole}}
                    @animationEnabled={{false}} @renderInPlace={{true}} as |role|>
-        {{role}}
+        {{role.name}}
       </PowerSelect>
     </div>
   </td>

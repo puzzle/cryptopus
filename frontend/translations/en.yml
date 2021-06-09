@@ -155,6 +155,7 @@ en:
         title: Cryptopus users
         username: Username
         name: Name
+        auth: AUTH
         provider_uid: PROVIDER UID
         last_login_at: Last login at
         last_login_from: Last login from
