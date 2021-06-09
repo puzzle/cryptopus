@@ -152,7 +152,7 @@ de:
         username: Benutzername
         name: Name
         auth: AUTH
-        provider_uid: PROVIDER UID
+        provider_uid: "PROVIDER: UID"
         last_login_at: Letzte Anmeldung am
         last_login_from: Letzte Anmeldung von
         admin: Admin

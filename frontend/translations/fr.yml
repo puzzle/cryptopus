@@ -158,7 +158,7 @@ fr:
         username: Nom d'utilisateur
         name: Nom
         auth: AUTH
-        provider_uid: PROVIDER UID
+        provider_uid: "PROVIDER: UID"
         last_login_at: Dernière connexion à
         last_login_from: Dernière connexion de
         admin: Admin
