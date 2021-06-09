@@ -150,6 +150,7 @@ de:
         title: Cryptopus Benutzer
         username: Benutzername
         name: Name
+        auth: AUTH
         provider_uid: PROVIDER UID
         last_login_at: Letzte Anmeldung am
         last_login_from: Letzte Anmeldung von
@@ -324,6 +325,7 @@ de:
             disempowered: "Dem Benutzer %{username} wurden die Admin-Rechte entzogen"
           destroy:
             own_user: "Eigener Benutzer kann nicht gelöscht werden"
+            success: "Benutzer wurde erfolgreich gelöscht"
           no_access: "Zugriff verweigert"
         settings:
           test_ldap_connection:

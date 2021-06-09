@@ -187,6 +187,7 @@ ch_be:
         title: Cryptopus Benutzer
         username: Benutzernamä
         name: Namä
+        auth: AUTH
         provider_uid: PROVIDER UID
         last_login_at: Letschti Ameudig am
         last_login_from: Letschti Ameudig vo
@@ -349,6 +350,10 @@ ch_be:
           toggle:
             empowered: "%{username} het ab iz Admin-Rächt"
             disempowered: "Am Benutzer %{username} si d Admin-Rächt entzoge worde"
+          destroy:
+            own_user: "Dr eigend Benutzer cha nid glöscht werde"
+            success: "Benutzer isch erfolgrich glöscht worde"
+          no_access: "Zugriff verweigert"
       api-users:
         create: "%{username} isch ersteut worde"
         update:

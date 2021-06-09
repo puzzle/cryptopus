@@ -7,6 +7,8 @@ import ENV from "../../../config/environment";
 export default class AdminUserTableRowComponent extends Component {
   @service fetchService;
   @service store;
+  @service intl;
+  @service notify;
 
   @tracked isEditing = false;
 
@@ -23,7 +25,13 @@ export default class AdminUserTableRowComponent extends Component {
         method: "PATCH",
         body: `role=${role.key}`
       })
-      .then(() => (user.role = role.key));
+      .then(() => {
+        user.role = role.key;
+        let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
+        let successMsg = `${translationKeyPrefix}.flashes.api.admin.users.update.${role.key}`;
+        let msg = this.intl.t(successMsg);
+        this.notify.success(msg);
+      });
   }
 
   @action
