@@ -38,11 +38,12 @@ class FixAutoUidBug < ActiveRecord::Migration[4.2]
       new_user.save
     end
 
-    Recryptrequest.find_each do |recryptrequest|
-      user = User.where("uid = ?", recryptrequest.user_id).first
-      recryptrequest.user_id = user.id
-      recryptrequest.save
-    end
+    # Recryptrequest is not present anymore
+    # Recryptrequest.find_each do |recryptrequest|
+      # user = User.where("uid = ?", recryptrequest.user_id).first
+      # recryptrequest.user_id = user.id
+      # recryptrequest.save
+    # end
 
     Teammember.find_each do |teammember|
       user = User.where("uid = ?", teammember.user_id).first
@@ -59,11 +60,11 @@ class FixAutoUidBug < ActiveRecord::Migration[4.2]
       teammember.save
     end
 
-    Recryptrequest.find_each do |recryptrequest|
-      user = User.find(recryptrequest.user_id)
-      recryptrequest.user_id = user.uid
-      recryptrequest.save
-    end
+    # Recryptrequest.find_each do |recryptrequest|
+      # user = User.find(recryptrequest.user_id)
+      # recryptrequest.user_id = user.uid
+      # recryptrequest.save
+    # end
 
     remove_column :users, :id
     rename_column :users, :uid, :id
