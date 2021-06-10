@@ -1,6 +1,12 @@
+{{#if this.isChangelogOpen}}
+  <Changelog @onAbort={{this.toggleChangelogModal}} @title="Changelog"/>
+{{/if}}
 <pzsh-footer class="footer">
   <div slot="start">
-    <pzsh-footer-link href="/changelog">{{ t "version"}} {{this.version}}</pzsh-footer-link>
+    <pzsh-footer-link {{on "click" this.toggleChangelogModal}}>
+      {{ t "version"}} {{this.version}}
+    </pzsh-footer-link>
+
     <pzsh-footer-link href="https://github.com/puzzle/cryptopus">
       <pzsh-icon name="github"></pzsh-icon>
       {{t "contribute_on_github"}}
