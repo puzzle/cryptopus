@@ -13,7 +13,7 @@ describe 'Changelog', type: :system, js: true do
   it 'opens modal and renders content' do
     login_as_root
 
-    within(".footer") do
+    within('.footer') do
       all('pzsh-footer-link').first.click
     end
 
