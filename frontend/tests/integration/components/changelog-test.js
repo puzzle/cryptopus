@@ -3,15 +3,20 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
-module('Integration | Component | changelog', function(hooks) {
+module('Integration | Component | changelog', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
+  test('it renders', async function (assert) {
     await render(hbs`<Changelog />`);
 
-    assert.contains(this.element.textContent.trim(), 'Cryptopus Changelog');
+    assert.ok(this.element.textContent.trim(), 'non-empty content');
+
+    // Template block usage:
+    await render(hbs`
+      <Changelog>
+      </Changelog>
+    `);
+
+    assert.equal(this.element.textContent.trim().match("Cryptopus Changelog").length === 1, true);
   });
 });
