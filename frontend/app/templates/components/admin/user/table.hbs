@@ -1,14 +1,3 @@
-{{#if this.isUserNew}}
-  <Admin::User::Form @onAbort={{this.toggleUserNew}} @onSuccess={{this.addUser}} @title={{t "admin.users.new.title"}} />
-{{/if}}
-<div class="row justify-content-end">
-      {{!-- <button class="btn btn-primary" {{on "click" this.toggleUserNew}}>{{t "new"}}</button> --}}
-        <span class="mx-2" role="button" {{on "click" this.toggleUserNew}}>
-          <img class="icon-big-button" src="/assets/images/plus.svg" alt="new">
-          <BsTooltip @title={{t "tooltips.add_folder"}} @delayShow="1000" />
-        </span>
-</div>
-
 <table class="table table-striped">
   <thead>
     <tr>

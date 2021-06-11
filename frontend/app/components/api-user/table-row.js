@@ -15,7 +15,7 @@ export default class TableRow extends Component {
 
   get selectedValidFor() {
     return this.validityTimes.find(
-      (t) => t.value == this.args.apiUser.validFor
+      (t) => t.value === this.args.apiUser.validFor
     );
   }
 

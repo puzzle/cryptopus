@@ -1,0 +1,34 @@
+<div class="pt-3">
+  <div class="row mb-3">
+    <div class="col">
+      <LinkTo @route="index">
+        <span class="btn btn-secondary edit_button" role="button">
+          <img class="icon-button account-show-back" src="/assets/images/arrow-left.svg" alt="back">
+        </span>
+      </LinkTo>
+    </div>
+  </div>
+
+  <div style="display: flex; align-items: center">
+    <h1>
+      {{t "admin.users.index.title"}}
+    </h1>
+    <a class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleUserNew}} style="max-height: 38px; margin-left: auto">
+      <img class="icon-button" src="/assets/images/plus.svg" alt="edit">
+      <BsTooltip @title={{t "tooltips.add_folder"}} @delayShow="1000"/>
+    </a>
+  </div>
+  {{#if @model.locked}}
+    <BsTab as |tab|>
+      <tab.pane id="unlocked" @title={{t "admin.users.index.unlocked"}}>
+        <Admin::User::Table @users={{@model.unlocked_users}} />
+      </tab.pane>
+
+      <tab.pane id="locked" @title={{t "admin.users.index.locked"}}>
+        <Admin::User::Table @users={{@model.locked_users}} />
+      </tab.pane>
+    </BsTab>
+  {{else}}
+    <Admin::User::Table @users={{@model.unlocked_users}} />
+  {{/if}}
+</div>
