@@ -15,7 +15,7 @@
   <td>
     <div>
       <PowerSelect @options={{ROLES}} @onChange={{fn this.updateRole @user}} @selected={{this.selectedRole}}
-                   @animationEnabled={{false}} @renderInPlace={{true}} as |role|>
+                   @disabled={{roleEditDisabled}} @animationEnabled={{false}} @renderInPlace={{true}} as |role|>
         {{role.name}}
       </PowerSelect>
     </div>

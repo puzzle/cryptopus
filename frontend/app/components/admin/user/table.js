@@ -6,17 +6,12 @@ export default class AdminUsersTable extends Component {
   @tracked
   isUserNew = false;
 
-  @tracked
-  users = [];
-
   constructor() {
     super(...arguments);
-
-    if (this.args.users) this.users = this.args.users.toArray();
   }
 
   get sortedUsers() {
-    return this.users
+    return this.args.users
       .filter((user) => {
         return !user.isDeleted;
       })

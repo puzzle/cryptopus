@@ -1,3 +1,7 @@
+{{#if this.isUserNew}}
+  <Admin::User::Form @onAbort={{this.toggleUserNew}} @onSuccess={{this.addUser}} @title={{t "admin.users.new.title"}} />
+{{/if}}
+
 <div class="pt-3">
   <div class="row mb-3">
     <div class="col">
@@ -13,22 +17,27 @@
     <h1>
       {{t "admin.users.index.title"}}
     </h1>
-    <a class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleUserNew}} style="max-height: 38px; margin-left: auto">
-      <img class="icon-button" src="/assets/images/plus.svg" alt="edit">
-      <BsTooltip @title={{t "tooltips.add_folder"}} @delayShow="1000"/>
-    </a>
+
+    {{#if this.isDeletable}}
+      <a class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleUserNew}}
+         style="max-height: 38px; margin-left: auto">
+        <img class="icon-button" src="/assets/images/plus.svg" alt="edit">
+        <BsTooltip @title={{t "admin.users.index_menu.create"}} @delayShow="1000"/>
+      </a>
+    {{/if}}
   </div>
-  {{#if @model.locked}}
+
+  {{#if @lockedUsers}}
     <BsTab as |tab|>
       <tab.pane id="unlocked" @title={{t "admin.users.index.unlocked"}}>
-        <Admin::User::Table @users={{@model.unlocked_users}} />
+        <Admin::User::Table @users={{this.unlockedUsers}} />
       </tab.pane>
 
       <tab.pane id="locked" @title={{t "admin.users.index.locked"}}>
-        <Admin::User::Table @users={{@model.locked_users}} />
+        <Admin::User::Table @users={{@lockedUsers}} />
       </tab.pane>
     </BsTab>
   {{else}}
-    <Admin::User::Table @users={{@model.unlocked_users}} />
+    <Admin::User::Table @users={{this.unlockedUsers}} />
   {{/if}}
 </div>
