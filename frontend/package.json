@@ -47,7 +47,6 @@
     "ember-cli-moment-shim": "^3.4.0",
     "ember-cli-password-strength": "^2.0.0",
     "ember-cli-sass": "^10.0.1",
-    "ember-cli-showdown": "^4.5.0",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-string-helpers": "^5.0.0",
     "ember-cli-template-lint": "^1.0.0-beta.3",
