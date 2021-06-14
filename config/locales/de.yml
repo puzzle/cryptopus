@@ -357,9 +357,6 @@ de:
         invalid_request: Invalide Anfrage
         record_not_found: Eintrag nicht gefunden
         delete_failed: Eintrag konnte nicht gelöscht werden
-    wizard:
-      fill_password_fields: Bitte füllen Sie alle Felder aus
-      paswords_do_not_match: Die Passwörter stimmen nicht überein
     admin:
       admin:
         no_access: Zugriff verweigert

@@ -363,9 +363,6 @@ de:
         delete_failed: Eintrag konnte nicht gelöscht werden
     user_apis:
       deleted: Api Benutzer wurde erfolgreich gelöscht
-    wizard:
-      fill_password_fields: Bitte füllen Sie alle Felder aus
-      paswords_do_not_match: Die Passwörter stimmen nicht überein
     admin:
       admin:
         no_access: Zugriff verweigert

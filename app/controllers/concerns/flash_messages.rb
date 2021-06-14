@@ -10,18 +10,10 @@ module FlashMessages
 
   included do
     before_action :message_if_fallback
-    before_action :redirect_to_wizard_if_new_setup
   end
 
   def message_if_fallback
     flash[:error] = t('fallback') if ENV['CRYPTOPUS_FALLBACK'] == 'true'
-  end
-
-  def redirect_to_wizard_if_new_setup
-    if User.all.count <= 0
-      redirect_to wizard_path
-      flash[:notice] = t('flashes.session.welcome')
-    end
   end
 
   def team_not_existing_message(id)

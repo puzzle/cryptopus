@@ -362,9 +362,6 @@ en:
         delete_failed: Could not delete the record.
     api_users:
       deleted: Api user was successfully removed
-    wizard:
-      fill_password_fields: Please provide an initial password
-      paswords_do_not_match: Passwords do not match
     admin:
       admin:
         no_access: Access denied

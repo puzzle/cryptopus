@@ -385,9 +385,6 @@ ch_be:
         delete_failed: Ihtrag het nid chenne g'löscht wärde
     user_apis:
       deleted: Api Benutzer isch erfougrich glöscht worde
-    wizard:
-      fill_password_fields: Bitte füu aui Fäuder us
-      paswords_do_not_match: D Passwörter stimme nid überi
     admin:
       admin:
         no_access: Zuegriff verweigeret

@@ -11,7 +11,7 @@ module UserSession
   included do
     helper_method :current_user
     before_action :redirect_if_no_private_key
-    before_action :validate_user, except: :wizard
+    before_action :validate_user
   end
 
   def validate_user
