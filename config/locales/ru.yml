@@ -206,9 +206,6 @@ ru:
       members:
         removed: "%{username} был удалён из команды"
         added: "%{username} был добавлен в команду"
-    wizard:
-      fill_password_fields: "Пожалуйста, введите начальный пароль"
-      paswords_do_not_match: "Пароли не совпадают"
     admin:
       admin:
         no_access: "В доступе отказано"

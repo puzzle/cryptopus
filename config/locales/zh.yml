@@ -207,9 +207,6 @@ zh:
       members:
         removed: "%{username} 被成功的从团队中删除"
         added: "%{username} 被成功的加入团队"
-    wizard:
-      fill_password_fields: "请提供出示密码"
-      paswords_do_not_match: "密码不匹配"
     admin:
       admin:
         no_access: "访问拒绝"
