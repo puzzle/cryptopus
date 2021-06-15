@@ -14,11 +14,7 @@ class UserSeeder
       u.givenname = 'root'
       u.auth = 'db'
       u.role = :admin
-      if password == 'password'
-        u.password = CryptUtils.one_way_crypt('password')   
-      else
-        u.password = password
-      end
+      u.password = CryptUtils.one_way_crypt(password)
       create_keypair(u)
     end
   end
