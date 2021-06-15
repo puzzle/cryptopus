@@ -363,9 +363,6 @@ fr:
           delete_failed: Il n'était pas possible d'enlever l'enregistrement
     api_users:
       deleted: Utilisateurs d'Api supprimé avec succès
-    wizard:
-      fill_password_fields: S'il vous plaît remplir tous les champs
-      paswords_do_not_match: Les mots de passe ne correspondent pas
     admin:
       admin:
         no_access: Accès refusé

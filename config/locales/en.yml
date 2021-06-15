@@ -349,9 +349,6 @@ en:
         invalid_request: Invalid Request
         record_not_found: Record not found
         delete_failed: Could not delete the record.
-    wizard:
-      fill_password_fields: Please provide an initial password
-      paswords_do_not_match: Passwords do not match
     admin:
       admin:
         no_access: Access denied

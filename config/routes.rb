@@ -33,9 +33,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'wizard', to: 'wizard#index'
-  post 'wizard/apply'
-
   get 'changelog', to: 'changelog#index'
 
 end
