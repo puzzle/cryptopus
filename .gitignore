@@ -34,3 +34,4 @@ yarn-debug.log*
 # docker dev setup
 .bash_history
 config/docker/development/home/rails/
+public/frontend-index-test.html

@@ -14,10 +14,10 @@ services:
     volumes:
       - ./:/myapp
       - ./tmp/seed:/seed
-      - bundler_cache:/opt/bundle
       - ./config/docker/development/frontend-index.html:/myapp/public/frontend-index.html:ro
-      - ./frontend/public/assets:/myapp/public/assets:ro
+      - ./config/docker/development/rails/bin/prepare-frontend.sh:/myapp/bin/prepare-frontend.sh:ro
       - ./config/docker/development/home/rails:/home/developer
+      - bundler_cache:/opt/bundle
   ember:
     image: cryptopus-dev/ember
     tty: true

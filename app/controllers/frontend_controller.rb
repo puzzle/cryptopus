@@ -6,7 +6,8 @@ class FrontendController < ApplicationController
 
   def index
     skip_authorization
-    render file: Rails.root.join('public/frontend-index.html')
+    index_file = Rails.env.test? ? 'index-test' : 'index'
+    render file: Rails.root.join("public/frontend-#{index_file}.html")
   end
 
 end
