@@ -13,7 +13,6 @@ class RedirectedRoutesController < ApplicationController
     skip_authorization
 
     if url_handler.frontend_path?
-      index_file = Rails.env.test? ? 'index-test' : 'index'
       render file: frontend_file
     else
       raise ActionController::RoutingError, 'Not Found' if request.path == url_handler.redirect_to
