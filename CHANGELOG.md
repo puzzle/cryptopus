@@ -1,5 +1,8 @@
 # Cryptopus Changelog
 
+## Version 4.0
+- Introduction to Puzzle-Shell
+
 ## Version 3.7
 - Update Ember to 3.24 LTS
 - Improve search performance by In-Viewport rendering

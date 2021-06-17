@@ -1,5 +1,3 @@
-import Component from '@glimmer/component';
+import Component from "@glimmer/component";
 
-export default class Changelog extends Component {
-
-}
+export default class Changelog extends Component {}

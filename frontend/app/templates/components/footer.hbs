@@ -3,9 +3,11 @@
 {{/if}}
 <pzsh-footer class="footer">
   <div slot="start">
-    <pzsh-footer-link {{on "click" this.toggleChangelogModal}}>
-      {{ t "version"}} {{this.version}}
-    </pzsh-footer-link>
+    <a role="button" {{on "click" this.toggleChangelogModal}}>
+      <pzsh-footer-link>
+        {{ t "version"}} {{this.version}}
+      </pzsh-footer-link>
+    </a>
 
     <pzsh-footer-link href="https://github.com/puzzle/cryptopus">
       <pzsh-icon name="github"></pzsh-icon>
