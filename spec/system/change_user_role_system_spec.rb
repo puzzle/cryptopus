@@ -7,15 +7,17 @@
 
 require 'spec_helper'
 
-describe 'AjaxHook', type: :system, js: true do
+describe 'ChangeUserRole', type: :system, js: true do
   include SystemHelpers
 
-  it 'show user has role user message' do
+  it 'is able to update user role' do
     login_as_root
-    visit admin_users_path
-    all(:button, 'role-dropdown')[4].click
-    click_link('User')
-    within(find('tr', text: 'Tux')) do
+    visit('/admin/users')
+    within(find('tr', text: 'tux')) do
+      expect(page).to have_text('Conf Admin')
+      find('div.ember-basic-dropdown-trigger').click
+      find('li.ember-power-select-option[data-option-index="0"]').click
+
       expect(page).to have_text('User')
     end
   end

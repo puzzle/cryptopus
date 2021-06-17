@@ -13,32 +13,28 @@ describe 'DeleteUser', type: :system, js: true do
   it 'lists teams where user is last teammember' do
     login_as_user(:admin)
 
-    visit(admin_users_path)
+    visit('/admin/users')
 
-    expect(page).to have_selector('a.delete_user_link.action_icon')
+    expect(page).to have_selector('span img.icon-button[alt="delete"]')
 
-    all('a.delete_user_link.action_icon')[1].click
+    all('span img.icon-button[alt="delete"]')[1].click
 
-    expect(page).to have_selector('#delete_user_button')
-    expect(all('#delete_user_button')[0][:disabled]).to eq('true')
+    expect(page).to have_selector('span img.icon-button')
+    expect(find('button.btn-danger', exact_text: 'Delete')[:disabled]).to eq('true')
     expect(page).to have_content('Before you can delete this user you have to delete ' \
                            'the following teams, because the user is the last member.')
-    expect(page).to have_selector('#last_teammember_teams_table')
+    expect(page).to have_selector('div.modal table')
     expect(page).to have_content('team2')
   end
 
   it "can delete user if he isn't last teammember in any teams" do
     login_as_user(:admin)
-    visit(admin_users_path)
+    visit('/admin/users')
 
-    all('a.delete_user_link.action_icon')[0].click
+    all('span img.icon-button[alt="delete"]')[0].click
 
-    expect(page).to have_content('Are you sure you want to delete this User?')
+    expect(find('button.btn-danger', exact_text: 'Delete')[:disabled]).to eq('false')
 
-    expect(all('#delete_user_button')[0][:disabled]).to eq('false')
-    all('#delete_user_button')[0].click
-    within(find('table#team_table')) do
-      expect(page).not_to have_content('alice')
-    end
+    expect(page).to_not have_selector('div.modal table')
   end
 end

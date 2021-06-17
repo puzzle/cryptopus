@@ -11,7 +11,7 @@ describe 'Changelog', type: :system, js: true do
     expect(page).to have_selector('.footer', visible: true)
 
     within('.footer') do
-      all('pzsh-footer-link').first.click
+      all('a[role="button"]').first.click
     end
 
     expect(page).to have_selector('div.modal-dialog', visible: true)

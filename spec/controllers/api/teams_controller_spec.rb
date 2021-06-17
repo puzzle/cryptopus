@@ -50,7 +50,7 @@ describe Api::TeamsController do
     end
 
     it 'raises error if team_id doesnt exist' do
-      login_as(:bob)
+      login_as(:alice)
 
       inexistent_id = 11111111
 

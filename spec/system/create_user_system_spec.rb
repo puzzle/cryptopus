@@ -24,8 +24,8 @@ describe 'Create Human User', type: :system, js: true do
     visit('/admin/users')
 
     # Create User
-    expect(page).to have_css('button.btn.btn-primary', exact_text: 'New')
-    find('button.btn.btn-primary', exact_text: 'New').click
+    expect(page).to have_css('a.edit_button.add-user')
+    find('a.edit_button.add-user').click
 
     expect(page).to have_text('New User')
 
