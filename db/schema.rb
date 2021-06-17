@@ -47,15 +47,6 @@ ActiveRecord::Schema.define(version: 2021_06_04_065657) do
     t.index ["name"], name: "index_folders_on_name"
   end
 
-  create_table "logs", force: :cascade do |t|
-    t.string "output"
-    t.string "status"
-    t.string "log_type"
-    t.integer "executer_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "settings", force: :cascade do |t|
     t.string "key", null: false
     t.string "value"
