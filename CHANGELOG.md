@@ -1,5 +1,3 @@
-# Cryptopus Changelog
-
 ## Version 4.0
 - Introduction to Puzzle-Shell
 
