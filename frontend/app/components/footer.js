@@ -2,11 +2,15 @@ import Component from "@glimmer/component";
 import { inject as service } from "@ember/service";
 import { action } from "@ember/object";
 import ENV from "../config/environment";
+import { tracked } from "@glimmer/tracking";
 
 export default class FooterComponent extends Component {
   @service intl;
   @service fetchService;
   @service logoutTimerService;
+
+  @tracked
+  isChangelogOpen = false;
 
   availableLocales = [
     { key: "en", name: "English" },
@@ -14,6 +18,11 @@ export default class FooterComponent extends Component {
     { key: "fr", name: "Français" },
     { key: "ch-be", name: "Bärndütsch" }
   ];
+
+  @action
+  toggleChangelogModal() {
+    this.isChangelogOpen = !this.isChangelogOpen;
+  }
 
   get version() {
     return ENV.appVersion;

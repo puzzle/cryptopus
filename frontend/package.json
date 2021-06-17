@@ -62,6 +62,7 @@
     "ember-intl": "^4.4.0",
     "ember-islands": "^1.5.1",
     "ember-load-initializers": "^2.1.2",
+    "ember-markdown-html": "^0.0.1",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-moment": "^8.0.1",
     "ember-notify": "^6.0.0",
