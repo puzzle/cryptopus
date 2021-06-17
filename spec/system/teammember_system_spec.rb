@@ -50,25 +50,6 @@ describe 'Teammember', type: :system, js: true do
           find('li', match: :first).click
         end
       end.to change { Teammember.count }.by(1)
-
     end
-
-    # Functionality not implemented
-
-    # # Enable an Api-User
-    # click_link 'Api Users'
-    #
-    # within('#api-users') do
-    #   require 'pry'; binding.pry;
-    #   expect('.tab-pane #api-users').to be_present
-    #
-    #   api_user = users(:admin).api_users.first
-    #   expect(page).to have_content(api_user.username)
-    #
-    #   expect do
-    #     find('.x-toggle-btn').click
-    #   end.to change { Teammember.count }.by(1)
-    # end
-
   end
 end
