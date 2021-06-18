@@ -6,7 +6,6 @@ import ENV from "../config/environment";
 export default class IndexRoute extends Route {
   @service notify;
   @service intl;
-  @service store;
 
   beforeModel() {
     let selectedLocale = this.intl.locales.includes(

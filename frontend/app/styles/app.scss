@@ -207,6 +207,7 @@ li a {
 .icon-button {
   width: 18px !important;
   height: 18px !important;
+  margin-top: -3px;
   display: inline;
 }
 
@@ -349,4 +350,25 @@ li a {
 
 .lh-2 {
   line-height: 2;
+}
+
+.users-table-header {
+  display: flex;
+  align-items: center;
+}
+
+.add-user {
+  max-height: 38px;
+  margin-left: auto;
+}
+
+[readonly=""],
+[aria-disabled="true"] {
+  cursor: default;
+}
+
+.admin-back-button {
+  border: 1px solid #c9c9c9;
+  width: 45px;
+  background-color: #ebe3df;
 }

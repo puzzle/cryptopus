@@ -46,6 +46,9 @@ body {
 
 .form-group {
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .form-control {

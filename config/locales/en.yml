@@ -310,9 +310,9 @@ en:
       admin:
         users:
           update:
-            user: "Updated User is now a user"
-            conf_admin: "Updated User is now an conf-admin"
-            admin: "Updated User is now an admin"
+            user: " Updated user is now a user"
+            conf_admin: "Updated user is now a conf admin"
+            admin: "Updated user is now an admin"
           destroy:
             own_user: "You can't delete yourself"
             success: "Deleted user %{username}"

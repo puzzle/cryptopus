@@ -4,10 +4,13 @@ import UserHumanEditValidations from "../../../validations/user-human/edit";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { action } from "@ember/object";
+import { inject as service } from "@ember/service";
 
 export default class AdminUserFormComponent extends BaseFormComponent {
   UserHumanNewValidations = UserHumanNewValidations;
   UserHumanEditValidations = UserHumanEditValidations;
+
+  @service userService;
 
   constructor() {
     super(...arguments);

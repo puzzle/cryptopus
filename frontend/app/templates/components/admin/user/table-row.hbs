@@ -6,12 +6,18 @@
   <td>{{@user.label}}</td>
   <td>{{if @user.lastLoginAt (moment-format @user.lastLoginAt "DD.MM.YYYY hh:mm") ""}}</td>
   <td>{{@user.lastLoginFrom}}</td>
-  <td>{{@user.providerUid}}</td>
+  <td>
+    {{@user.auth}}
+    {{#if @user.providerUid}}
+      :
+    {{/if}}
+    {{@user.providerUid}}
+  </td>
   <td>
     <div>
-      <PowerSelect @options={{@user.ROLES}} @onChange={{fn this.updateRole @user}} @selected={{@user.role}}
-                   @animationEnabled={{false}} @renderInPlace={{true}} as |role|>
-        {{role}}
+      <PowerSelect @options={{ROLES}} @onChange={{fn this.updateRole @user}} @selected={{this.selectedRole}}
+                   @disabled={{roleEditDisabled}} @animationEnabled={{false}} @renderInPlace={{true}} as |role|>
+        {{role.name}}
       </PowerSelect>
     </div>
   </td>
@@ -19,7 +25,7 @@
     {{#if this.isEditable}}
       <span role="button" {{on "click" this.toggleEditing}}>
         <img class="icon-medium-button d-inline" src="/assets/images/edit.svg" alt="edit">
-        <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000" />
+        <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000"/>
       </span>
     {{/if}}
     {{#if this.isDeletable}}

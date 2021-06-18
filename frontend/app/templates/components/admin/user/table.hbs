@@ -1,14 +1,3 @@
-{{#if this.isUserNew}}
-  <Admin::User::Form @onAbort={{this.toggleUserNew}} @onSuccess={{this.addUser}} @title={{t "admin.users.new.title"}} />
-{{/if}}
-<div class="container my-2">
-  <div class="row justify-content-end">
-    <div class="col-auto">
-      <button class="btn btn-primary" {{on "click" this.toggleUserNew}}>{{t "new"}}</button>
-    </div>
-  </div>
-</div>
-
 <table class="table table-striped">
   <thead>
     <tr>
@@ -16,8 +5,8 @@
       <th>{{t "admin.users.index.name"}}</th>
       <th>{{t "admin.users.index.last_login_at"}}</th>
       <th>{{t "admin.users.index.last_login_from"}}</th>
-      <th>{{t "admin.users.index.provider_uid"}}</th>
-      <th>{{t "admin.users.index.role"}}</th>
+      <th>{{t "admin.users.index.auth"}} {{t "admin.users.index.provider_uid"}}</th>
+      <th width="200">{{t "admin.users.index.role"}}</th>
       <th>{{t "admin.users.index.action"}}</th>
     </tr>
   </thead>

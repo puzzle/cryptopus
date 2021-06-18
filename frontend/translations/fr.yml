@@ -43,6 +43,7 @@ fr:
   move: Mouvoir
   here: Ici
   new: Nouveau
+  back: Retour
   save: Sauvegarder
   close: fermer
   hi_user: "Salut, "
@@ -156,7 +157,8 @@ fr:
         title: Utilisateur de Cryptopus
         username: Nom d'utilisateur
         name: Nom
-        provider_uid: PROVIDER UID
+        auth: AUTH
+        provider_uid: "PROVIDER: UID"
         last_login_at: Dernière connexion à
         last_login_from: Dernière connexion de
         admin: Admin
@@ -325,6 +327,7 @@ fr:
             disempowerd: L'utilisateur a perdu les droits d'administrateur
           destroy:
             own_user: Actuel de l'utilisateur ne peut pas être supprimé
+            success: "L'utilisateur d'Api supprimé avec succès"
           no_access: Accès refusé
         settings:
           test_ldap_connection:
