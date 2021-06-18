@@ -28,7 +28,7 @@
             <img class="icon-dropdown-toggle-1" src="/assets/images/angle-down-white.svg" alt="v">
           </dd.toggle>
         </div>
-        <dd.menu as |ddm|>
+        <dd.menu @align="right" as |ddm|>
           <ddm.item>
             <a role="button" class="dropdown-item" {{on "click" this.toggleFolderCreating}}>
               {{t "folders.new.title"}}
@@ -55,7 +55,7 @@
         <dd.toggle class="dropdown-toggle">
           <img class="icon-dropdown-toggle-2" src="/assets/images/angle-down-white.svg" alt="v">
         </dd.toggle>
-        <dd.menu as |ddm|>
+        <dd.menu @align="right" as |ddm|>
           <ddm.item>
             <LinkTo role="button" class="dropdown-item" @route="admin.settings">
               {{ t "settings" }}

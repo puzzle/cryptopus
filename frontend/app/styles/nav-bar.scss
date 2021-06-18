@@ -21,7 +21,7 @@
 }
 
 .action-wrapper > a {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .actions {
@@ -34,7 +34,11 @@
   height: 100%;
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
-  padding: 2px 10px 2px 10px;
+  padding: 2px 0px 2px 10px;
+}
+
+.action-wrapper .dropdown-toggle {
+  padding-right: 10px;
 }
 
 .dropdown-toggle::after {
