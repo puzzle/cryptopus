@@ -16,17 +16,16 @@ export default class AdminUserTableRowComponent extends Component {
   roleEditDisabled = false;
 
   ROLES = [
-    { key: 'user', name: 'User'},
-    { key: 'conf_admin', name: 'Conf Admin'},
-    { key: 'admin', name: 'Admin'}
-  ]
+    { key: "user", name: "User" },
+    { key: "conf_admin", name: "Conf Admin" },
+    { key: "admin", name: "Admin" }
+  ];
 
   constructor() {
     super(...arguments);
 
     this.restrictRoleEditing();
   }
-
 
   @action
   updateRole(user, role) {
@@ -50,7 +49,7 @@ export default class AdminUserTableRowComponent extends Component {
   }
 
   restrictRoleEditing() {
-    if (this.isCurrentUser() || this.userService.isConfAdmin){
+    if (this.isCurrentUser() || this.userService.isConfAdmin) {
       this.roleEditDisabled = true;
     }
   }

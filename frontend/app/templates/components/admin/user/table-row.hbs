@@ -6,7 +6,8 @@
   <td>{{@user.label}}</td>
   <td>{{if @user.lastLoginAt (moment-format @user.lastLoginAt "DD.MM.YYYY hh:mm") ""}}</td>
   <td>{{@user.lastLoginFrom}}</td>
-  <td>{{@user.auth}}
+  <td>
+    {{@user.auth}}
     {{#if @user.providerUid}}
       :
     {{/if}}
@@ -24,7 +25,7 @@
     {{#if this.isEditable}}
       <span role="button" {{on "click" this.toggleEditing}}>
         <img class="icon-medium-button d-inline" src="/assets/images/edit.svg" alt="edit">
-        <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000" />
+        <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000"/>
       </span>
     {{/if}}
     {{#if this.isDeletable}}

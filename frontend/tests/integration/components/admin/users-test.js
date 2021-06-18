@@ -1,26 +1,23 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
+import { module, test } from "qunit";
+import { setupRenderingTest } from "ember-qunit";
+import { render } from "@ember/test-helpers";
+import { hbs } from "ember-cli-htmlbars";
+import { setLocale } from "ember-intl/test-support";
 
-module('Integration | Component | admin/users', function(hooks) {
+module("Integration | Component | admin/users", function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  hooks.beforeEach(function () {
+    setLocale("en");
+  });
 
-    await render(hbs`<Admin::Users />`);
-
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
+  test("it renders", async function (assert) {
     await render(hbs`
       <Admin::Users>
-        template block text
       </Admin::Users>
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    const text = this.element.textContent.trim();
+    assert.ok(text.includes("Cryptopus users"));
   });
 });

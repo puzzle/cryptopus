@@ -351,3 +351,13 @@ li a {
 .lh-2 {
   line-height: 2;
 }
+
+.users-table-header {
+  display: flex;
+  align-items: center;
+}
+
+.add-user {
+  max-height: 38px;
+  margin-left: auto;
+}

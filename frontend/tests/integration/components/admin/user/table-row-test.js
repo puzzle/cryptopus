@@ -1,10 +1,19 @@
 import { module, test } from "qunit";
+import ENV from "../../../../../config/environment";
 import { setupRenderingTest } from "ember-qunit";
 import { render } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 
 module("Integration | Component | admin/user/table-row", function (hooks) {
   setupRenderingTest(hooks);
+
+  hooks.beforeEach(function () {
+    ENV.currentUserGivenname = "Alice";
+  });
+
+  hooks.afterEach(function () {
+    ENV.currentUserGivenname = null;
+  });
 
   test("it renders with data", async function (assert) {
     let now = new Date();
@@ -27,6 +36,6 @@ module("Integration | Component | admin/user/table-row", function (hooks) {
     /* eslint-enable no-undef  */
     assert.ok(text.includes("127.0.0.1"));
     assert.ok(text.includes("123456"));
-    assert.ok(text.includes("user"));
+    assert.ok(text.includes("User"));
   });
 });

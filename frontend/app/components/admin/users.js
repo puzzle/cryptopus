@@ -12,7 +12,8 @@ export default class UsersComponent extends Component {
   constructor() {
     super(...arguments);
 
-    if (this.args.unlockedUsers) this.unlockedUsers = this.args.unlockedUsers.toArray();
+    if (this.args.unlockedUsers)
+      this.unlockedUsers = this.args.unlockedUsers.toArray();
   }
 
   @action
