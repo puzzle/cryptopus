@@ -93,7 +93,7 @@ module("Integration | Component | account/form", function (hooks) {
     assert.ok(this.element.textContent.trim().includes("Close"));
   });
 
-  test("it renders with input data", async function (assert) {
+  test("it renders with input data with username and password", async function (assert) {
     this.set("folder", {
       id: 1,
       name: "bbt",
@@ -124,6 +124,114 @@ module("Integration | Component | account/form", function (hooks) {
     assert.equal(
       this.element.querySelector("input[name='cleartextUsername']").value,
       "mail@ember.com"
+    );
+    assert.equal(
+      this.element.querySelector("textarea").value,
+      "The ember email"
+    );
+    assert.ok(this.element.textContent.trim().includes("supporting"));
+    assert.ok(this.element.textContent.trim().includes("bbt"));
+  });
+
+  test("it renders with input data without password", async function (assert) {
+    this.set("folder", {
+      id: 1,
+      name: "bbt",
+      get() {
+        return {
+          name: "supporting",
+          get() {
+            return 1;
+          }
+        };
+      }
+    });
+    this.set("account", {
+      id: 1,
+      accountname: "mail",
+      cleartextUsername: "mail@ember.com",
+      description: "The ember email",
+      folder: this.folder,
+      isFullyLoaded: true
+    });
+    await render(hbs`<Account::Form @account={{this.account}}/>`);
+
+    assert.equal(
+      this.element.querySelector("input[name='accountname']").value,
+      "mail"
+    );
+    assert.equal(
+      this.element.querySelector("input[name='cleartextUsername']").value,
+      "mail@ember.com"
+    );
+    assert.equal(
+      this.element.querySelector("textarea").value,
+      "The ember email"
+    );
+    assert.ok(this.element.textContent.trim().includes("supporting"));
+    assert.ok(this.element.textContent.trim().includes("bbt"));
+  });
+
+  test("it renders with input data without username", async function (assert) {
+    this.set("folder", {
+      id: 1,
+      name: "bbt",
+      get() {
+        return {
+          name: "supporting",
+          get() {
+            return 1;
+          }
+        };
+      }
+    });
+    this.set("account", {
+      id: 1,
+      accountname: "mail",
+      cleartextPassword: "lol",
+      description: "The ember email",
+      folder: this.folder,
+      isFullyLoaded: true
+    });
+    await render(hbs`<Account::Form @account={{this.account}}/>`);
+
+    assert.equal(
+      this.element.querySelector("input[name='accountname']").value,
+      "mail"
+    );
+    assert.equal(
+      this.element.querySelector("textarea").value,
+      "The ember email"
+    );
+    assert.ok(this.element.textContent.trim().includes("supporting"));
+    assert.ok(this.element.textContent.trim().includes("bbt"));
+  });
+
+  test("it renders with input data without username and password", async function (assert) {
+    this.set("folder", {
+      id: 1,
+      name: "bbt",
+      get() {
+        return {
+          name: "supporting",
+          get() {
+            return 1;
+          }
+        };
+      }
+    });
+    this.set("account", {
+      id: 1,
+      accountname: "mail",
+      description: "The ember email",
+      folder: this.folder,
+      isFullyLoaded: true
+    });
+    await render(hbs`<Account::Form @account={{this.account}}/>`);
+
+    assert.equal(
+      this.element.querySelector("input[name='accountname']").value,
+      "mail"
     );
     assert.equal(
       this.element.querySelector("textarea").value,
