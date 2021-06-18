@@ -26,9 +26,11 @@ class Api::Admin::UsersController < ApiController
     attrs = [:givenname, :surname]
 
     if current_user.admin?
+      attrs += [:username]
+
       attrs += [:password] if @user_human.nil?
-      attrs + [:username]
     end
+    attrs
   end
 
   def non_db_human_user_or_root?

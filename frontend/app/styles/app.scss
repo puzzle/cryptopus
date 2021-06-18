@@ -361,3 +361,8 @@ li a {
   max-height: 38px;
   margin-left: auto;
 }
+
+[readonly=""],
+[aria-disabled="true"] {
+  cursor: default;
+}

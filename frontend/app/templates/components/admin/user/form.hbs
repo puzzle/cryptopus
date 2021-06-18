@@ -13,7 +13,7 @@
                                                            "invalid-input-name"}}
                             id="username"
                             @customError={{t (validation-error-key this.changeset.error.username.validation)}} as |el|>
-                <el.control autocomplete="off" @name="username" tabindex="1"></el.control>
+                <el.control autocomplete="off" @name="username" tabindex="1" readonly={{if this.userService.isConfAdmin ""}}></el.control>
               </form.element>
             </form.group>
             <form.group class="col-md-12">
