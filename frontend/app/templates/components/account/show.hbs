@@ -39,7 +39,7 @@
   {{/if}}
   <div>
     {{#if @account.isOseSecret}}
-      <a role="button" class="correct-pixel-error-omg show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "accounts.show.show_secret"}}</a>
+      <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "accounts.show.show_secret"}}</a>
       <div class="result-password">
         <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@account.data.ose_secret}}/>
         <CopyButton class="btn btn-light" @clipboardText={{@account.data.ose_secret}}>
@@ -53,7 +53,7 @@
           <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
         </CopyButton>
       </div>
-      <a role="button" class="correct-pixel-error-omg show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "accounts.show.show_password"}}</a>
+      <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "accounts.show.show_password"}}</a>
       <div class="result-password">
         <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
         <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextPassword}}>
