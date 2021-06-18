@@ -3,23 +3,13 @@
 {{/if}}
 
 <div class="pt-3">
-  <div class="row mb-3">
-    <div class="col">
-      <LinkTo @route="index">
-        <span class="btn btn-secondary edit_button" role="button">
-          <img class="icon-button account-show-back" src="/assets/images/arrow-left.svg" alt="back">
-        </span>
-      </LinkTo>
-    </div>
-  </div>
-
   <div class="users-table-header">
     <h1>
       {{t "admin.users.index.title"}}
     </h1>
 
-    {{#if this.isDeletable}}
-      <a class="btn btn-secondary edit_button add-user" role="button" {{on "click" this.toggleUserNew}}>
+    {{#if this.isUserAllowedToCreateUser}}
+      <a class="btn edit_button add-user" role="button" {{on "click" this.toggleUserNew}}>
         <img class="icon-button" src="/assets/images/plus.svg" alt="edit">
         <BsTooltip @title={{t "admin.users.index_menu.create"}} @delayShow="1000"/>
       </a>
