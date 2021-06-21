@@ -16,39 +16,48 @@
 
 <pzsh-banner>
   <!-- prettier-ignore -->
-  <svg slot="tangram" xmlns="http://www.w3.org/2000/svg" width="95" height="100" fill="none"><path fill="#2C97A6" fill-rule="evenodd" d="M95 0v66.7L61.7 33.3 95 0z" clip-rule="evenodd"/><path fill="#3B7BBE" fill-rule="evenodd" d="M47.9 47.1L.7 0H95L47.9 47.1z" clip-rule="evenodd"/><path fill="#69B978" d="M61.635 33.367L28.331 66.671l33.304 33.305L94.939 66.67 61.635 33.367z"/></svg>
+  <svg slot="tangram" xmlns="http://www.w3.org/2000/svg" width="95" height="100" fill="none">
+    <path fill="#2C97A6" fill-rule="evenodd" d="M95 0v66.7L61.7 33.3 95 0z" clip-rule="evenodd"/>
+    <path fill="#3B7BBE" fill-rule="evenodd" d="M47.9 47.1L.7 0H95L47.9 47.1z" clip-rule="evenodd"/>
+    <path fill="#69B978" d="M61.635 33.367L28.331 66.671l33.304 33.305L94.939 66.67 61.635 33.367z"/>
+  </svg>
   <div slot="content" class="search">
     <div class="search-field">
       <Input @class="search" @type="search"
              @value={{ this.navService.searchQuery }}
              placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}
              @autofocus={{this.isStartpage}} maxlength="70"/>
-      <button><pzsh-icon name="search" /></button>
+      <button>
+        <pzsh-icon name="search"/>
+      </button>
     </div>
+
     <BsDropdown @class="d-flex align-items-center" as |dd|>
-      <div class="action-wrapper">
-        <a class="w-100" role="button" {{on "click" this.toggleAccountCreating}}>
-          {{t "accounts.new.title"}}
-        </a>
-        <dd.toggle class="dropdown-toggle-hidden">
-          <img class="icon-dropdown-toggle-1" src="/assets/images/angle-down-white.svg" alt="v">
-        </dd.toggle>
-      </div>
+      <dd.toggle class="dropdown-toggle">
+        <pzsh-icon name="plus-circle"></pzsh-icon>
+        <div class="dropdown-toggle-text">
+          <span>{{t "add"}}</span>
+          <img class="icon-dropdown-toggle-1" src="/assets/images/angle-down-blue.svg" alt="v">
+        </div>
+      </dd.toggle>
       <dd.menu @align="right" as |ddm|>
+        <ddm.item>
+          <a role="button" class="dropdown-item" {{on "click" this.toggleAccountCreating}}>
+            {{t "accounts.new.title"}}
+          </a>
+        </ddm.item>
         <ddm.item>
           <a role="button" class="dropdown-item" {{on "click" this.toggleFolderCreating}}>
             {{t "folders.new.title"}}
           </a>
         </ddm.item>
         <ddm.item>
-          <a role="button" class="dropdown-item" {{on "click" this.toggleTeamCreating}}>{{t "teams.new.title"}}</a>
+          <a role="button" class="dropdown-item" {{on "click" this.toggleTeamCreating}}>
+            {{t "teams.new.title"}}
+          </a>
         </ddm.item>
       </dd.menu>
     </BsDropdown>
-    <button class="add" aria-label="Add" title="Add">
-      <pzsh-icon name="plus-circle"></pzsh-icon>
-      <span>Add</span>
-    </button>
   </div>
 </pzsh-banner>
 
@@ -70,34 +79,34 @@
       </LinkTo>
     {{/if}}
 
-    {{#if this.userService.mayManageSettings}}
-      <BsDropdown @class="d-flex align-items-center" as |dd|>
-        <dd.toggle class="dropdown-toggle navbar-dropdown-toggle">
-          <div class="navbar-dropdown-toggle-content">
-            <pzsh-icon name="user"></pzsh-icon>
-            {{ this.givenname }}
-          </div>
-          <img class="icon-dropdown-toggle-2" src="/assets/images/angle-down-white.svg" alt="v">
-        </dd.toggle>
-        <dd.menu @align="right" as |ddm|>
-          <ddm.item>
-            <LinkTo role="button" class="dropdown-item" @route="profile">
-              {{ t "profile_title" }}
-            </LinkTo>
-          </ddm.item>
+    <BsDropdown @class="d-flex align-items-center" as |dd|>
+      <dd.toggle class="dropdown-toggle navbar-dropdown-toggle">
+        <div class="navbar-dropdown-toggle-content">
+          <pzsh-icon name="user"></pzsh-icon>
+          {{ this.givenname }}
+        </div>
+        <img class="icon-dropdown-toggle-2" src="/assets/images/angle-down-white.svg" alt="v">
+      </dd.toggle>
+      <dd.menu @align="right" as |ddm|>
+        <ddm.item>
+          <LinkTo role="button" class="dropdown-item" @route="profile">
+            {{ t "profile_title" }}
+          </LinkTo>
+        </ddm.item>
+        {{#if this.userService.mayManageSettings}}
           <ddm.item>
             <LinkTo role="button" class="dropdown-item" @route="admin.settings">
               {{ t "settings" }}
             </LinkTo>
           </ddm.item>
-          <ddm.item>
-            <a role="button" class="dropdown-item" href="/session/destroy">
-              {{ t "logout" }}
-            </a>
-          </ddm.item>
-        </dd.menu>
-      </BsDropdown>
-    {{/if}}
+        {{/if}}
+        <ddm.item>
+          <a role="button" class="dropdown-item" href="/session/destroy">
+            {{ t "logout" }}
+          </a>
+        </ddm.item>
+      </dd.menu>
+    </BsDropdown>
   </div>
 </pzsh-menu>
 

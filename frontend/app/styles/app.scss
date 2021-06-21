@@ -151,10 +151,6 @@ li a {
   margin-top: 54px !important;
 }
 
-.dropdown-toggle-hidden::after {
-  display: none;
-}
-
 /* Validation-errors */
 .validation-errors {
   width: 100%;
@@ -391,4 +387,5 @@ li a {
   display: flex;
   color: #ffffff;
   gap: 4px;
+  align-items: center;
 }
