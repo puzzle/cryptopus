@@ -72,12 +72,4 @@ export default class AdminUserTableRowComponent extends Component {
   get selectedRole() {
     return this.ROLES.find((role) => role.key === this.args.user.role);
   }
-
-  get isEditable() {
-    return ENV.authProvider === "db" && this.args.user.editable;
-  }
-
-  get isDeletable() {
-    return ENV.authProvider === "db" && this.args.user.deletable;
-  }
 }

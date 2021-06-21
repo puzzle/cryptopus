@@ -19,7 +19,7 @@ class User::HumanPolicy < ApplicationPolicy
   def edit?
     return false if own_user?
 
-    unless user.ldap?
+    if user.auth_db?
       if user.user?
         return admin_or_conf_admin?
       end

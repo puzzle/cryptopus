@@ -22,13 +22,13 @@
     </div>
   </td>
   <td>
-    {{#if this.isEditable}}
+    {{#if @user.editable}}
       <span role="button" {{on "click" this.toggleEditing}}>
         <img class="icon-medium-button d-inline" src="/assets/images/edit.svg" alt="edit">
         <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000"/>
       </span>
     {{/if}}
-    {{#if this.isDeletable}}
+    {{#if @user.deletable}}
       <Admin::User::DeletionForm @user={{@user}}>
         <img src="/assets/images/delete.svg" alt="delete" class="icon-button">
       </Admin::User::DeletionForm>
