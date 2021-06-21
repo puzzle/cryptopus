@@ -13,8 +13,6 @@ export default class AdminUserTableRowComponent extends Component {
 
   @tracked isEditing = false;
 
-  roleEditDisabled = false;
-
   ROLES = [
     { key: "user", name: "User" },
     { key: "conf_admin", name: "Conf Admin" },
@@ -23,8 +21,31 @@ export default class AdminUserTableRowComponent extends Component {
 
   constructor() {
     super(...arguments);
+  }
 
-    this.restrictRoleEditing();
+  get isRoleEditingDisabled() {
+    if (
+      ENV.currentUserId == this.args.user.id ||
+      this.args.user.username === "root"
+    )
+      return true;
+
+    if (
+      this.userService.isAdmin ||
+      (this.userService.isConfAdmin && this.args.user.role !== "admin")
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  get availableRoles() {
+    if (this.userService.isAdmin) {
+      return this.ROLES;
+    } else {
+      return this.ROLES.filter((r) => r.key !== "admin");
+    }
   }
 
   @action
@@ -48,16 +69,6 @@ export default class AdminUserTableRowComponent extends Component {
     this.isEditing = !this.isEditing;
   }
 
-  restrictRoleEditing() {
-    if (this.isCurrentUser() || this.userService.isConfAdmin) {
-      this.roleEditDisabled = true;
-    }
-  }
-
-  isCurrentUser() {
-    return this.currentUserGivennameLowercase === this.args.user.givenname;
-  }
-
   get selectedRole() {
     return this.ROLES.find((role) => role.key === this.args.user.role);
   }
@@ -68,9 +79,5 @@ export default class AdminUserTableRowComponent extends Component {
 
   get isDeletable() {
     return ENV.authProvider === "db" && this.args.user.deletable;
-  }
-
-  get currentUserGivennameLowercase() {
-    return ENV.currentUserGivenname.toLowerCase();
   }
 }
