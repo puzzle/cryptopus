@@ -12,6 +12,7 @@ $font-family-sans-serif: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI",
 @import "ember-power-select";
 
 @import "footer";
+@import "theme";
 @import "nav-bar";
 @import "changelog";
 @import "side-nav-bar";
@@ -207,7 +208,6 @@ li a {
 .icon-button {
   width: 18px !important;
   height: 18px !important;
-  margin-top: -3px;
   display: inline;
 }
 
@@ -250,9 +250,7 @@ li a {
 }
 
 .team-card-header {
-  /*height: 47.5px !important;
-  padding-top: 5px !important;*/
-  background-color: #1b8dc6;
+  background-color: #1e5a96;
   color: white !important;
   border: none;
 }
@@ -296,7 +294,7 @@ li a {
   width: 120px;
   border: none !important;
   color: #727679;
-  background-color: #eaf1f7;
+  background-color: #f8f8f8;
 }
 
 .pl-none {
@@ -352,6 +350,18 @@ li a {
   line-height: 2;
 }
 
+.team-border {
+  border: 1px solid #dfdfdf;
+}
+
+.team-border {
+  border: 1px solid #dfdfdf;
+}
+
+.team-border {
+  border: 1px solid #dfdfdf;
+}
+
 .users-table-header {
   display: flex;
   align-items: center;
@@ -371,4 +381,14 @@ li a {
   border: 1px solid #c9c9c9;
   width: 45px;
   background-color: #ebe3df;
+}
+
+.navbar-dropdown-toggle {
+  display: flex;
+}
+
+.navbar-dropdown-toggle-content {
+  display: flex;
+  color: #ffffff;
+  gap: 4px;
 }

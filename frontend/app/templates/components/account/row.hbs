@@ -34,7 +34,7 @@
           <BsTooltip @title={{t "accounts.show.copy_username"}} @delayShow="500" />
         </button>
       </div>
-  
+
       <div class="col-2 pr-0 d-none d-md-block">
         <div class="hide-wrapper">
           <Input class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
@@ -48,7 +48,7 @@
         </button>
       </div>
     {{/unless}}
-  
+
     <div class="col-md-auto d-none d-md-block">
       {{#unless @account.isOseSecret}}
         <a class="mx-1" role="button" {{on "click" this.toggleAccountEdit}}>

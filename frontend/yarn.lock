@@ -1749,9 +1749,9 @@
     read-package-json-fast "^2.0.1"
 
 "@puzzleitc/puzzle-shell@^1.0.0-alpha.3":
-  version "1.0.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@puzzleitc/puzzle-shell/-/puzzle-shell-1.0.0-alpha.3.tgz#7e476b15f63bdb34eba4953f583e85293b989496"
-  integrity sha512-c/e4CZFfzx0Tc4Pb7+yhEdcVG2VjEdfpcOoBGG7Y371mTRg985PSt+2WBVEdiuiYfSicAR5UqOHruq7gH14vqA==
+  version "1.0.0-alpha.7"
+  resolved "https://registry.yarnpkg.com/@puzzleitc/puzzle-shell/-/puzzle-shell-1.0.0-alpha.7.tgz#66bbd66233460dccf1dc4593a8d8fc6bb55e04bf"
+  integrity sha512-Az5091daV6GhDV240Kvtf1+b+uV1cDSZrGe8PEFgvIm84nMz/NJa951nTEXpJfGi/VWP/Xw4j6w3VvIjNOZlVw==
   dependencies:
     lit-element "^2.5.1"
     lit-html "^1.4.1"
@@ -11032,6 +11032,7 @@ minipass-fetch@^1.3.0, minipass-fetch@^1.3.2:
   resolved "https://registry.yarnpkg.com/minipass-fetch/-/minipass-fetch-1.3.3.tgz#34c7cea038c817a8658461bf35174551dce17a0a"
   integrity sha512-akCrLDWfbdAWkMLBxJEeWTdNsjML+dt5YgOI4gJ53vuO0vrmYQkUPxa6j6V65s9CcePIr2SSWqjT2EcrNseryQ==
   dependencies:
+    encoding "^0.1.12"
     minipass "^3.1.0"
     minipass-sized "^1.0.3"
     minizlib "^2.0.0"

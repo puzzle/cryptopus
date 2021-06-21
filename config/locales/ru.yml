@@ -30,6 +30,7 @@ ru:
   recrypt_requests: "Перешифровать запросы"
   maintenance_tasks: "Задачи обслуживания"
   users: "Пользователи"
+  profile_title: "профиль"
   change_password: "Сменить пароль"
   last_login_date_and_from: "Последний вход был %{last_login_at} с %{last_login_from}"
   last_login_date_and_from_country: "Последний вход был %{last_login_at} с %{last_login_from} (%{last_login_country})"
