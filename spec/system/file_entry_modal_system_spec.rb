@@ -84,7 +84,7 @@ describe 'FileEntryModal', type: :system, js: true do
   def expect_account_page_with(account)
     expect(first('h2')).to have_text("Account: #{account.accountname}")
     expect(find('#cleartext_username').value).to eq(account.cleartext_username)
-    expect(find('#cleartext_password').value).to eq(account.cleartext_password)
+    expect(find('#cleartext_password', visible: false).value).to eq(account.cleartext_password)
     expect(page).to have_text(account.description)
   end
 
