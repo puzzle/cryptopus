@@ -389,3 +389,7 @@ li a {
   gap: 4px;
   align-items: center;
 }
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #1E5A96;
+}
