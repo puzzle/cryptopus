@@ -155,7 +155,7 @@ fr:
         reset_password: Réinitialiser mot de passe
         warning: Avec la réinitialisation du mot de passe l’utilisateur perd l’access a tout ses teams privées et tout les teams ou il est le seul membre seront supprimées
       index:
-        title: Utilisateur de Cryptopus
+        title: Des utilisateurs
         username: Nom d'utilisateur
         name: Nom
         auth: AUTH
