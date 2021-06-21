@@ -2,15 +2,6 @@
   word-break: break-word;
 }
 
-.search {
-  border: none;
-  border-bottom-left-radius: 3px;
-  border-top-left-radius: 3px;
-  line-height: 1.8;
-  min-width: 52%;
-  padding-left: 10px;
-}
-
 .search:focus {
   outline: none !important;
 }
@@ -20,25 +11,29 @@
   margin-right: 8px;
 }
 
-.action-wrapper > a {
-  color: #ffffff;
-}
-
 .actions {
   align-items: center;
 }
 
-.action-wrapper {
-  background-color: #40a3d8;
-  align-content: center;
-  height: 100%;
-  border-bottom-right-radius: 3px;
-  border-top-right-radius: 3px;
-  padding: 2px 0px 2px 10px;
+.action-wrapper .dropdown-toggle {
+  display: flex;
+  padding-right: 10px;
+  align-items: center;
+  gap: 7px;
 }
 
-.action-wrapper .dropdown-toggle {
-  padding-right: 10px;
+.dropdown-toggle {
+  color: #1E5A96;
+  display: flex;
+  margin-left: 10px;
+}
+
+.dropdown-toggle span {
+  margin-left: 5px;
+}
+
+.dropdown-toggle::after {
+  display: none;
 }
 
 .dropdown-toggle::after {
@@ -70,10 +65,6 @@
     display: none;
   }
 
-  .search {
-    flex: 1;
-  }
-
   .administration {
     display: none;
   }
@@ -82,16 +73,6 @@
 @media screen and (min-width: 1201px) {
   .administration-dropdown {
     display: none;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .input-wrapper {
-    flex-direction: column;
-    padding: 0 20px 0 20px;
-    margin-bottom: 60px;
-    align-items: center;
-    gap: 20px;
   }
 }
 
@@ -110,9 +91,6 @@
     flex-direction: column;
   }
 
-  .action-wrapper {
-    border-radius: 3px;
-  }
 }
 
 @media screen and (max-width: 991px) {
@@ -212,7 +190,13 @@
 
   .side-nav-bar-teams-list .list-group-item:hover {
     cursor: pointer;
-    background-color: #1b8dc6 !important;
+    background-color: #1E5A96 !important;
+  }
+}
+
+@media screen and (max-width: 799px){
+  .dropdown-toggle-text {
+    display: none;
   }
 }
 
@@ -241,4 +225,8 @@
   display: block;
   min-width: 214px;
   min-height: 32px;
+}
+
+div.dropdown-menu.dropdown-menu-right {
+  top: 10px !important;
 }

@@ -88,8 +88,8 @@
 
 
     </div>
-    <BsCollapse class="row bg-blue-1 border border-darker border-top-0 rounded-bottom" @collapsed={{this.collapsed}}>
-      <div class="col px-4 py-3 list-folder-header">
+    <BsCollapse class="row team-border border-top-0 rounded-bottom" @collapsed={{this.collapsed}}>
+      <div class="col px-4 list-folder-header">
         {{#if @team.description}}
           <div class="row">
             <div class="col">
@@ -100,7 +100,7 @@
         {{#if @team.folders}}
           <div class="pt-2">
             {{#each @team.folders as |folder|}}
-              <div class="row bg-white border border-radius-4 mb-5-folder">
+              <div class="row bg-white border-radius-4 mb-5-folder">
                 <div class="col folder-no-p">
                   <Folder::Show @folder={{folder}}/>
                 </div>
