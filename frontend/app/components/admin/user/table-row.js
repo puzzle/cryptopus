@@ -71,6 +71,26 @@ export default class AdminUserTableRowComponent extends Component {
     return ENV.currentUserId == this.args.user.id || this.args.user.username === "root";
   }
 
+  @action
+  toggleLocked(user) {
+    this.fetchService
+    .send(`/api/admin/users/${user.id}/lock`, {
+      method: "DELETE"
+    })
+    .then(() =>{
+      user.locked = false;
+      if(this.args.onRemove)this.args.onRemove(user);
+    });
+  }
+
+  get isLocked() {
+    return ENV.authProvider === "db" && this.args.user.locked;
+  }
+
+  get isEditable() {
+    return ENV.authProvider === "db" && this.args.user.editable;
+  }
+
   isConfAdminChangingAdmin() {
     return this.userService.isConfAdmin && this.args.user.role !== "admin";
   }

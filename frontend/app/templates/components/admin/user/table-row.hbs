@@ -33,5 +33,10 @@
         <img src="/assets/images/delete.svg" alt="delete" class="icon-button">
       </Admin::User::DeletionForm>
     {{/if}}
+    {{#if this.isLocked}}
+      <span role="button" {{on "click" this.toggleLocked}}>
+        <img class="icon-medium-button d-inline" src="/assets/images/locked.svg" alt="locked">
+      </span>
+    {{/if}}
   </td>
 </tr>
