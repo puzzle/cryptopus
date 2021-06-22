@@ -67,16 +67,35 @@
 
     </div>
 
-    <pzsh-menu-action href="https://github.com/puzzle/cryptopus/wiki/User-manual">
-      <pzsh-icon name="question-circle"></pzsh-icon>
-      {{ t "help"}}
+    <pzsh-menu-action>
+      <a class="link-new-tab" href="https://github.com/puzzle/cryptopus/wiki/User-manual" target="_blank" rel="noreferrer noopener">
+        <pzsh-icon name="question-circle"></pzsh-icon>
+        {{ t "help"}}
+      </a>
     </pzsh-menu-action>
 
     {{#if this.userService.mayManageSettings}}
-      <LinkTo @route="admin.users" @tagName="pzsh-menu-action">
-        <pzsh-icon name="sliders-v-alt"></pzsh-icon>
-        Admin
-      </LinkTo>
+      <BsDropdown @class="d-flex align-items-center" as |dd|>
+        <dd.toggle class="dropdown-toggle navbar-dropdown-toggle">
+          <div class="navbar-dropdown-toggle-content">
+            <pzsh-icon name="sliders-v-alt"></pzsh-icon>
+            Admin
+          </div>
+          <img class="icon-dropdown-toggle-2" src="/assets/images/angle-down-white.svg" alt="v">
+        </dd.toggle>
+        <dd.menu @align="right" as |ddm|>
+          <ddm.item>
+            <LinkTo role="button" class="dropdown-item" @route="admin.users">
+              {{ t "users" }}
+            </LinkTo>
+          </ddm.item>
+          <ddm.item>
+            <LinkTo role="button" class="dropdown-item" @route="admin.settings">
+              {{ t "settings" }}
+            </LinkTo>
+          </ddm.item>
+        </dd.menu>
+      </BsDropdown>
     {{/if}}
 
     <BsDropdown @class="d-flex align-items-center" as |dd|>
@@ -92,15 +111,6 @@
           <LinkTo role="button" class="dropdown-item" @route="profile">
             {{ t "profile_title" }}
           </LinkTo>
-        </ddm.item>
-        {{#if this.userService.mayManageSettings}}
-          <ddm.item>
-            <LinkTo role="button" class="dropdown-item" @route="admin.settings">
-              {{ t "settings" }}
-            </LinkTo>
-          </ddm.item>
-        {{/if}}
-        <ddm.item>
           <a role="button" class="dropdown-item" href="/session/destroy">
             {{ t "logout" }}
           </a>
