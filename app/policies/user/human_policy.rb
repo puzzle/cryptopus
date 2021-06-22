@@ -28,10 +28,6 @@ class User::HumanPolicy < ApplicationPolicy
     end
   end
 
-  def new?
-    AuthConfig.db_enabled? && admin_or_conf_admin?
-  end
-
   def create?
     AuthConfig.db_enabled? && admin_or_conf_admin?
   end

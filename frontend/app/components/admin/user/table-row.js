@@ -24,16 +24,10 @@ export default class AdminUserTableRowComponent extends Component {
   }
 
   get isRoleEditingDisabled() {
-    if (
-      ENV.currentUserId == this.args.user.id ||
-      this.args.user.username === "root"
-    )
+    if (this.isUserChangingSelfOrRoot())
       return true;
 
-    if (
-      this.userService.isAdmin ||
-      (this.userService.isConfAdmin && this.args.user.role !== "admin")
-    ) {
+    if (this.userService.isAdmin || this.isConfAdminChangingAdmin()) {
       return false;
     } else {
       return true;
@@ -50,7 +44,7 @@ export default class AdminUserTableRowComponent extends Component {
 
   @action
   updateRole(user, role) {
-    this.fetchService
+    this.fetch
       .send(`/api/admin/users/${user.id}/role`, {
         method: "PATCH",
         body: `role=${role.key}`
@@ -71,5 +65,13 @@ export default class AdminUserTableRowComponent extends Component {
 
   get selectedRole() {
     return this.ROLES.find((role) => role.key === this.args.user.role);
+  }
+
+  isUserChangingSelfOrRoot() {
+    return ENV.currentUserId == this.args.user.id || this.args.user.username === "root";
+  }
+
+  isConfAdminChangingAdmin() {
+    return this.userService.isConfAdmin && this.args.user.role !== "admin";
   }
 }
