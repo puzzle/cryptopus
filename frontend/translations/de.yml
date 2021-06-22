@@ -84,6 +84,8 @@ de:
         strong: Stark
     show:
       account: Account
+      created_at: "Erstellt am"
+      last_update: "Letzte Änderung am"
       last_change: "Letzte Änderung vor %{time_ago}"
       attachments: Anhänge
       file: Datei

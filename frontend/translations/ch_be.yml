@@ -115,6 +115,8 @@ ch_be:
 
     show:
       account: Account
+      created_at: "Ersteut am"
+      last_update: "Letschti Änderig am"
       last_change: "Letschti Änderig vor %{time_ago}"
       attachments: Ahäng
       file: Datei
