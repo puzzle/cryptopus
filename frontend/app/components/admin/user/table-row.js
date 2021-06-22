@@ -24,7 +24,7 @@ export default class AdminUserTableRowComponent extends Component {
   }
 
   get isRoleEditingDisabled() {
-    if (this.isUserChangingSelfOrRoot())
+    if (this.isOwnUserOrRoot())
       return true;
 
     if (this.userService.isAdmin || this.isConfAdminChangingAdmin()) {
@@ -67,7 +67,7 @@ export default class AdminUserTableRowComponent extends Component {
     return this.ROLES.find((role) => role.key === this.args.user.role);
   }
 
-  isUserChangingSelfOrRoot() {
+  isOwnUserOrRoot() {
     return ENV.currentUserId == this.args.user.id || this.args.user.username === "root";
   }
 
