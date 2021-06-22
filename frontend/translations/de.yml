@@ -149,11 +149,11 @@ de:
         reset_password: Passwort zurücksetzen
         warning: Das zurücksetzen des Passworts eines Benutzers führt zum Verlust des Zugriff auf alle Private Teams und die löschung aller Teams, in denen er der einzige Member ist
       index:
-        title: Cryptopus Benutzer
+        title: Benutzer
         username: Benutzername
         name: Name
-        auth: AUTH
-        provider_uid: "PROVIDER: UID"
+        auth: Auth
+        provider_uid: "provider: UID"
         last_login_at: Letzte Anmeldung am
         last_login_from: Letzte Anmeldung von
         admin: Admin

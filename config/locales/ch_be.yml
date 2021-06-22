@@ -175,7 +175,7 @@ ch_be:
         reset_password: Passwort zrüggsetze
         warning: Z Zrüggsetze vom Benutzer-Passwort füehrt zum Verlust vom Zuegriff uf aui private Teams u d Löschig vo aune Teams, i dene er z einzige Mitglied isch
       index:
-        title: Lischtä vo aune Cryptopus Benutzer
+        title: Benutzer
         username: Benutzernamä
         name: Namä
         provider_uid: PROVIDER UID

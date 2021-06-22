@@ -18,6 +18,6 @@ module("Integration | Component | admin/users", function (hooks) {
     `);
 
     const text = this.element.textContent.trim();
-    assert.ok(text.includes("Cryptopus users"));
+    assert.ok(text.includes("Users"));
   });
 });

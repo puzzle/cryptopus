@@ -2,6 +2,7 @@ import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
+import ENV from "../../config/environment";
 
 export default class UsersComponent extends Component {
   @service userService;
@@ -30,6 +31,6 @@ export default class UsersComponent extends Component {
   }
 
   get isUserAllowedToCreateUser() {
-    return this.userService.isAdmin;
+    return this.userService.isAdmin && ENV.authProvider === "db";
   }
 }

@@ -13,8 +13,6 @@ export default class AdminUserTableRowComponent extends Component {
 
   @tracked isEditing = false;
 
-  roleEditDisabled = false;
-
   ROLES = [
     { key: "user", name: "User" },
     { key: "conf_admin", name: "Conf Admin" },
@@ -23,13 +21,30 @@ export default class AdminUserTableRowComponent extends Component {
 
   constructor() {
     super(...arguments);
+  }
 
-    this.restrictRoleEditing();
+  get isRoleEditingDisabled() {
+    if (this.isOwnUserOrRoot())
+      return true;
+
+    if (this.userService.isAdmin || this.isConfAdminChangingAdmin()) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  get availableRoles() {
+    if (this.userService.isAdmin) {
+      return this.ROLES;
+    } else {
+      return this.ROLES.filter((r) => r.key !== "admin");
+    }
   }
 
   @action
   updateRole(user, role) {
-    this.fetchService
+    this.fetch
       .send(`/api/admin/users/${user.id}/role`, {
         method: "PATCH",
         body: `role=${role.key}`
@@ -48,29 +63,15 @@ export default class AdminUserTableRowComponent extends Component {
     this.isEditing = !this.isEditing;
   }
 
-  restrictRoleEditing() {
-    if (this.isCurrentUser() || this.userService.isConfAdmin) {
-      this.roleEditDisabled = true;
-    }
-  }
-
-  isCurrentUser() {
-    return this.currentUserGivennameLowercase === this.args.user.givenname;
-  }
-
   get selectedRole() {
     return this.ROLES.find((role) => role.key === this.args.user.role);
   }
 
-  get isEditable() {
-    return ENV.authProvider === "db" && this.args.user.editable;
+  isOwnUserOrRoot() {
+    return ENV.currentUserId == this.args.user.id || this.args.user.username === "root";
   }
 
-  get isDeletable() {
-    return ENV.authProvider === "db" && this.args.user.deletable;
-  }
-
-  get currentUserGivennameLowercase() {
-    return ENV.currentUserGivenname.toLowerCase();
+  isConfAdminChangingAdmin() {
+    return this.userService.isConfAdmin && this.args.user.role !== "admin";
   }
 }
