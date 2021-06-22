@@ -109,6 +109,7 @@ describe Api::AccountsController do
     it 'returns decrypted credentials account' do
       login_as(:bob)
       account = accounts(:account1)
+      rgx_date = /^(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2}).(\d{3})[+-](\d{2})\:(\d{2})/
 
       get :show, params: { id: account }, xhr: true
 
@@ -118,6 +119,8 @@ describe Api::AccountsController do
       expect(account1_json_attributes['accountname']).to eq 'account1'
       expect(account1_json_attributes['cleartext_username']).to eq 'test'
       expect(account1_json_attributes['cleartext_password']).to eq 'password'
+      expect(account1_json_attributes['created_at']).to match(rgx_date)
+      expect(account1_json_attributes['updated_at']).to match(rgx_date)
       expect_json_object_includes_keys(account1_json_relationships, nested_models)
     end
 

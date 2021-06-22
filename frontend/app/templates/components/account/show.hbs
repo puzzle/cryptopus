@@ -25,8 +25,13 @@
     {{/unless}}
   </div>
   <div class="row pb-3 justify-content-between">
-    <div class="col accountname">
+    <div class="col-lg-7 accountname">
       <h2 class="d-inline">{{t "accounts.show.account"}}: {{@account.accountname}}</h2>
+    </div>
+    <div class="col-sm-5 accountname">
+      <p class="d-inline">{{t "accounts.show.created_at"}}: {{moment-format @account.createdAt "DD.MM.YYYY hh:mm"}}</p>
+      <br>
+      <p class="d-inline">{{t "accounts.show.last_update"}}: {{moment-format @account.updatedAt "DD.MM.YYYY hh:mm"}}</p>
     </div>
   </div>
 

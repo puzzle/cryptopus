@@ -30,6 +30,8 @@ module("Integration | Component | account/show", function (hooks) {
       description: "Account for the ninjas",
       cleartextUsername: "mail",
       cleartextPassword: "e2jd2rh4g5io7",
+      createdAt: "2021-06-14 09:23:02.750627",
+      updatedAt: "2021-06-22 11:33:13.766879",
       fileEntries: [
         {
           filename: "file1",
@@ -58,6 +60,8 @@ module("Integration | Component | account/show", function (hooks) {
     let text = this.element.textContent.trim();
     assert.ok(text.includes("Ninjas test account"));
     assert.ok(text.includes("Account for the ninjas"));
+    assert.ok(text.includes("14.06.2021 09:23"));
+    assert.ok(text.includes("22.06.2021 11:33"));
     assert.ok(text.includes("file1"));
     assert.ok(text.includes("description for file1"));
     assert.ok(text.includes("file2"));
@@ -76,6 +80,8 @@ module("Integration | Component | account/show", function (hooks) {
       description: "Account for the ninjas",
       cleartextUsername: "mail",
       cleartextPassword: "e2jd2rh4g5io7",
+      createdAt: "2021-06-14 09:23:02.750627",
+      updatedAt: "2021-06-22 11:33:13.766879",
       category: "openshift_secret",
       isOseSecret: true,
       fileEntries: [
@@ -102,6 +108,16 @@ module("Integration | Component | account/show", function (hooks) {
       ]
     });
     await render(hbs`<Account::Show @account={{this.account}}/>`);
+
+    let text = this.element.textContent.trim();
+    assert.ok(text.includes("Ninjas test account"));
+    assert.ok(text.includes("Account for the ninjas"));
+    assert.ok(text.includes("14.06.2021 09:23"));
+    assert.ok(text.includes("22.06.2021 11:33"));
+    assert.ok(text.includes("file1"));
+    assert.ok(text.includes("description for file1"));
+    assert.ok(text.includes("file2"));
+    assert.ok(text.includes("description for file2"));
 
     let deleteButton = this.element.querySelector(
       '.align-items-center .icon-button[alt="delete"]'
