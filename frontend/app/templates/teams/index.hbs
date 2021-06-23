@@ -5,7 +5,7 @@
     {{/if}}
     {{#if @model}}
       {{#each this.model as |team|}}
-        <TeamShow @team={{team}} />
+        <Team::Show @team={{team}} />
       {{/each}}
     {{else}}
       <h5>{{t "teams.index.no_content"}}</h5>

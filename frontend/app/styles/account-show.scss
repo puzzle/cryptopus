@@ -14,7 +14,6 @@
   background: #c9c9c9;
   border-radius: 3px;
   color: black;
-  z-index: 3;
   position: relative;
 }
 
@@ -101,4 +100,8 @@
 
 .correct-pixel-error-omg {
   margin-bottom: -1px;
+}
+
+.show-password-button {
+  z-index: 5;
 }

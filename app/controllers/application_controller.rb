@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   include UserSession
   include Caching
   include FlashMessages
+  include ParamConverters
 
   protect_from_forgery with: :exception
 

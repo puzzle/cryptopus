@@ -25,13 +25,14 @@ fr:
   "no": Non
   help: Aide
   version: Version
-  forgot_password: Mot de passe oublié?
   logout: Déconnexion
   auto_logout: Déconnexion automatique en
+  contribute_on_github: Contribuez sur GitHub
   settings: Paramètres
   recrypt_requests: Demandes de re crypt
   users: Utilisateur
   user: Utilisateur
+  profile_title: Profilé
   change_password: Changer le mot de passe
   last_login_date_and_from: "La dernière connexion était le %{last_login_at} de %{last_login_from}"
   last_login_date_and_from_country: "La dernière connexion était le %{last_login_at} de %{last_login_from} (%{last_login_country})"
@@ -43,6 +44,7 @@ fr:
   move: Mouvoir
   here: Ici
   new: Nouveau
+  back: Retour
   save: Sauvegarder
   close: fermer
   hi_user: "Salut, "
@@ -112,6 +114,19 @@ fr:
         title: Modifier les paramètres
         save: Sauvegarder les modifications
         ldap: Tester la connexion LDAP
+        whitelisted_countries: Pays sur liste blanche
+        whitelisted_countries_prompt: Choisissez quelques pays...
+        whitelisted_ips: Adresses IP en liste blanche
+        whitelist_ip_prompt: Entrez des adresses IP
+        whitelist_placeholder_geo_ip_deactivated: Si aucune IP n'est ajoutée, toutes les IP seront autorisées
+        no_ips_selected: Si rien n'est sélectionné, seules les ips privées et en liste blanche sont autorisées
+        specify_single_ip: Pour spécifier une seule adresse IP, entrez-la simplement comme
+        range:
+          specify_range_of_ips: Pour spécifier une portée, vous pouvez entrer l'adresse IP avec le masque de sous-réseau
+          range_between: Ce serait la portée entre
+          and: et
+        ipv6_allowed: IPv6 est autorisé et peut être saisi comme ceci
+        geo_ip_disabled: Le filtre IP source est désactivé. Veuillez installer GeoIP DB
     recryptrequests:
       index:
         title: Demandes de re crypt
@@ -141,16 +156,19 @@ fr:
         reset_password: Réinitialiser mot de passe
         warning: Avec la réinitialisation du mot de passe l’utilisateur perd l’access a tout ses teams privées et tout les teams ou il est le seul membre seront supprimées
       index:
-        title: La Liste de toutes les utilisateurs
+        title: Des utilisateurs
         username: Nom d'utilisateur
         name: Nom
-        provider_uid: PROVIDER UID
+        auth: AUTH
+        provider_uid: "PROVIDER: UID"
         last_login_at: Dernière connexion à
         last_login_from: Dernière connexion de
         admin: Admin
         action: Action
         locked: Bloqué utilisateurs
+        unlocked: Utilisateurs activés
         unlock: déverrouillage
+        role: Rôle
       last_teammember_teams:
         message: L'équipe suivante sera supprimée, car l'utilisateur est son dernier membre.
         delete_user: Êtes-vous sûr de vouloir supprimer cet utilisateur?
@@ -272,7 +290,7 @@ fr:
     no_folders: Pas de dossiers
   profile:
     index:
-      title: "Profil de %{label}"
+      title: Profil
     info:
       info: Info
       last_login_at: Dernière connexion à
@@ -285,8 +303,9 @@ fr:
       enter_description: Entrez une description..
       valid_until: Valable jusque
       valid_for: Valable
-      last_login_at: Dernière connexion à
-      last_login_from: Dernière connexion de
+      last_login: Dernière connexion
+      at: 'à:'
+      from: 'de:'
       locked: Bloqué
       options:
         one_min: Une minute
@@ -310,6 +329,7 @@ fr:
             disempowerd: L'utilisateur a perdu les droits d'administrateur
           destroy:
             own_user: Actuel de l'utilisateur ne peut pas être supprimé
+            success: "L'utilisateur d'Api supprimé avec succès"
           no_access: Accès refusé
         settings:
           test_ldap_connection:
@@ -342,9 +362,8 @@ fr:
           invalid_request: Demande non valable
           record_not_found: Enregistrement non trouvé
           delete_failed: Il n'était pas possible d'enlever l'enregistrement
-    wizard:
-      fill_password_fields: S'il vous plaît remplir tous les champs
-      paswords_do_not_match: Les mots de passe ne correspondent pas
+    api_users:
+      deleted: Utilisateurs d'Api supprimé avec succès
     admin:
       admin:
         no_access: Accès refusé
@@ -371,6 +390,9 @@ fr:
         ldap_connection:
           failed: Aucunt serveur LDAP configuré n'a pu être atteint.
 
+    user-humen:
+      created: Utilisateur créé avec succès.
+      updated: Utilisateur modifiée avec succès.
     accounts: &accounts_translations
       created: Compte créé avec succès.
       updated: Compte modifiée avec succès.
@@ -535,7 +557,8 @@ fr:
   tooltips:
     all_teams: Tous les équipes
     favorites: Favoris
-    settings_profile: Paramètres & Profil
+    settings: Paramètres
+    profile: Profil
     add_folder: Ajouter un dossier
     add_account: Ajouter un compte
     account_details: Montrer détails du compte
@@ -570,3 +593,12 @@ fr:
       too_long: Le nom d'utilisateur est trop long
     cleartext password:
       too_long: Le mot de passe est trop long
+    username:
+      present: Le nom d'utilisateur doit être présent
+      too_long: Le nom d'utilisateur est trop long
+    surname:
+      present: Le nom de famille doit être présent
+    givenname:
+      present: Le prénom doit être présent
+    password:
+      present: Le mot de passe doit être présent

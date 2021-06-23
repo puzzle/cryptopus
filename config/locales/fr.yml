@@ -25,13 +25,13 @@ fr:
   "no": Non
   help: Aide
   version: Version
-  forgot_password: Mot de passe oublié?
   logout: Déconnexion
   auto_logout: Déconnexion automatique en
   settings: Paramètres
   recrypt_requests: Demandes de re crypt
   users: Utilisateur
   user: Utilisateur
+  profile_title: Profilé
   change_password: Changer le mot de passe
   last_login_date_and_from: "La dernière connexion était le %{last_login_at} de %{last_login_from}"
   last_login_date_and_from_country: "La dernière connexion était le %{last_login_at} de %{last_login_from} (%{last_login_country})"
@@ -112,14 +112,8 @@ fr:
         title: Modifier les paramètres
         save: Sauvegarder les modifications
         ldap: Tester la connexion LDAP
+        whitelist_placeholder_geo_ip_deactivated: Si aucune adresse IP n'est ajoutée, chaque adresse IP sera autorisée
     recryptrequests:
-      index:
-        title: Demandes de re crypt
-        user: Utilisateur
-        admin_required: Admin requis
-        recrypt: re crypt
-      request:
-        request_sent: Une demande de re crypt vos mots de passe de groupe a été envoyée. S'il vous plaît attendre jusqu'à ce qu'elle re crypté vos nouveaux mots de passe.
       uncrypterror:
         new_password: Nouveau mot de passe?!
         ldap_password_changed: Votre mot de passe de LDAP a changé depuis votre dernière connexion.
@@ -341,9 +335,6 @@ fr:
           invalid_request: Demande non valable
           record_not_found: Enregistrement non trouvé
           delete_failed: Il n'était pas possible d'enlever l'enregistrement
-    wizard:
-      fill_password_fields: S'il vous plaît remplir tous les champs
-      paswords_do_not_match: Les mots de passe ne correspondent pas
     admin:
       admin:
         no_access: Accès refusé

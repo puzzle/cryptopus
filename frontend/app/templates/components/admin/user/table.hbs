@@ -1,0 +1,18 @@
+<table class="table table-striped mb-15">
+  <thead>
+    <tr>
+      <th>{{t "admin.users.index.username"}}</th>
+      <th>{{t "admin.users.index.name"}}</th>
+      <th>{{t "admin.users.index.last_login_at"}}</th>
+      <th>{{t "admin.users.index.last_login_from"}}</th>
+      <th>{{t "admin.users.index.auth"}} {{t "admin.users.index.provider_uid"}}</th>
+      <th width="200">{{t "admin.users.index.role"}}</th>
+      <th>{{t "admin.users.index.action"}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.sortedUsers as |user|}}
+      <Admin::User::TableRow @user={{user}} />
+    {{/each}}
+  </tbody>
+</table>

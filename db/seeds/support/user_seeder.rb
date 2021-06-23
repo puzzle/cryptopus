@@ -7,14 +7,14 @@
 
 class UserSeeder
 
-  def seed_root
+  def seed_root(password = 'password')
     User::Human.seed_once(:username) do |u|
       u.provider_uid = '0'
       u.username = 'root'
       u.givenname = 'root'
       u.auth = 'db'
       u.role = :admin
-      u.password = CryptUtils.one_way_crypt('password')
+      u.password = CryptUtils.one_way_crypt(password)
       create_keypair(u)
     end
   end

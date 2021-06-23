@@ -1,35 +1,17 @@
 .footer {
   position: fixed;
+  left: 0;
   bottom: 0;
-  height: 50px;
-  line-height: 50px;
-  background-color: #f9f9f9;
-  border-top: 1px solid #cbc6c2;
-  z-index: 9999;
-  width: 100vw !important;
+  width: 100%;
+  z-index: 1000;
 }
 
-
-@media screen and (max-width: 991px) {
-  .w-140 {
-    width: 140px !important;
-  }
-
-  .full-height {
-    height: 100%;
-  }
+#locale-dropdown > div {
+  width: 120px;
+  border: none !important;
 }
 
-@media screen and (min-width: 992px) {
-  .footer form {
-    padding-right: 50px;
-  }
-
-  .p-10 {
-    padding-left: 18px !important;
-  }
-
-  pr-12 {
-    padding-right: 12px;
-  }
+.ember-power-select-trigger {
+  height: auto !important;
+  line-height: 1.7 !important;
 }

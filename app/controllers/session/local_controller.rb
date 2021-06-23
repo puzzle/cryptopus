@@ -12,7 +12,7 @@ class Session::LocalController < SessionController
   def create
     unless user_authenticator.authenticate!(allow_root: true)
       flash[:error] = t('flashes.session.auth_failed')
-      return redirect_to local_path
+      return redirect_to session_local_path
     end
 
     unless create_session(params[:password])

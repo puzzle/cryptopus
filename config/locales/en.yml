@@ -25,13 +25,13 @@ en:
   "no": "No"
   help: Help
   version: Version
-  forgot_password: Forgot your password?
   logout: Logout
   auto_logout: auto-logout in
   settings: Settings
   recrypt_requests: Recrypt requests
   users: Users
   user: User
+  profile_title: Profile
   change_password: Change password
   last_login_date_and_from: "The last login was on %{last_login_at} from %{last_login_from}"
   last_login_date_and_from_country: "The last login was on %{last_login_at} from %{last_login_from} (%{last_login_country})"
@@ -110,7 +110,17 @@ en:
         title: Edit Settings
         save: Save changes
         ldap: Test LDAP connection
+        whitelisted_countries: Whitelisted Countries
+        whitelisted_ips: Whitelisted IP Addresses
         whitelist_placeholder_geo_ip_deactivated: If no IP's are added every IP will be allowed
+        no_ips_selected: If nothing is selected, only private and whitelisted ips are authorized
+        specify_single_ip: To specify a single IP address, just enter it like
+        range:
+          specify_range_of_ips: To specify a range you can enter the IP address with the subnet mask
+          range_between: This would be the range between
+          and: and
+        ipv6_allowed: IPv6 is allowed and can be entered like this
+        geo_ip_disabled: Source IP filter is disabled. Please install geoip db
     recryptrequests:
       index:
         title: Re-encryption requests
@@ -301,9 +311,9 @@ en:
       admin:
         users:
           update:
-            user: "Updated User is now a user"
-            conf_admin: "Updated User is now an conf-admin"
-            admin: "Updated User is now an admin"
+            user: " Updated user is now a user"
+            conf_admin: "Updated user is now a conf admin"
+            admin: "Updated user is now an admin"
           destroy:
             own_user: "You can't delete yourself"
             success: "Deleted user %{username}"
@@ -339,9 +349,6 @@ en:
         invalid_request: Invalid Request
         record_not_found: Record not found
         delete_failed: Could not delete the record.
-    wizard:
-      fill_password_fields: Please provide an initial password
-      paswords_do_not_match: Passwords do not match
     admin:
       admin:
         no_access: Access denied

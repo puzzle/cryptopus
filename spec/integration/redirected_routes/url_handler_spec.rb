@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
 
 describe RedirectedRoutes::UrlHandler do
   include IntegrationHelpers::DefaultHelper
@@ -77,28 +77,12 @@ describe RedirectedRoutes::UrlHandler do
     assert_redirected_to team_folder_path(team1, folder1)
   end
 
-  # /de/profile -> /profile
-  it 'redirects to profile url without locale' do
-    login_as('bob')
-    get '/de/profile'
-
-    assert_redirected_to profile_path
-  end
-
   # /de/search?q= -> /teams?q=
   it 'redirects to search url without locale' do
     login_as('bob')
     get '/de/search?q='
 
     assert_redirected_to '/teams'
-  end
-
-  # /de/admin/settings/index -> /admin/settings/index
-  it 'redirects to admin settings url without locale' do
-    login_as('bob')
-    get '/de/admin/settings/index'
-
-    assert_redirected_to admin_settings_path
   end
 
   # /de/teams/1/folders/1/accounts -> RoutingError

@@ -42,11 +42,6 @@ class User::ApiSerializer < ApplicationSerializer
              :last_login_from,
              :locked
 
-  def valid_until
-    valid_until = object.valid_until
-    l(valid_until, format: :short) if valid_until
-  end
-
   def last_login_at
     object.formatted_last_login_at
   end

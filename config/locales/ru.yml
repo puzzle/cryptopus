@@ -30,6 +30,7 @@ ru:
   recrypt_requests: "Перешифровать запросы"
   maintenance_tasks: "Задачи обслуживания"
   users: "Пользователи"
+  profile_title: "профиль"
   change_password: "Сменить пароль"
   last_login_date_and_from: "Последний вход был %{last_login_at} с %{last_login_from}"
   last_login_date_and_from_country: "Последний вход был %{last_login_at} с %{last_login_from} (%{last_login_country})"
@@ -86,13 +87,6 @@ ru:
         title: "Редактировать настройки"
         save: "Сохранить настройки"
     recryptrequests:
-      index:
-        title: "Запросы на перешифрование"
-        user: "Пользователь"
-        admin_required: "Необходимы права администратора"
-        recrypt: "Перешифровать"
-      request:
-        request_sent: "Запрос на перешифрование ваших групповых паролей был отправлен. Подождите, пока администратор не перешифрует ваши пароли."
       uncrypterror:
         new_password: "Новый пароль?!"
         ldap_password_changed: "Ваш LDAP пароль был изменен с момента вашего последнего входа."
@@ -212,9 +206,6 @@ ru:
       members:
         removed: "%{username} был удалён из команды"
         added: "%{username} был добавлен в команду"
-    wizard:
-      fill_password_fields: "Пожалуйста, введите начальный пароль"
-      paswords_do_not_match: "Пароли не совпадают"
     admin:
       admin:
         no_access: "В доступе отказано"

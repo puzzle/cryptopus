@@ -46,7 +46,7 @@ class SessionController < ApplicationController
 
   def destroy_redirect_path
     if current_user.root?
-      session_local_new_path
+      session_local_path
     else
       session_new_path
     end
@@ -65,16 +65,6 @@ class SessionController < ApplicationController
     else
       render :show_update_password
     end
-  end
-
-  # POST /session/locale
-  def changelocale
-    locale = params.permit(:new_locale)[:new_locale]
-    if locale.present?
-      current_user.update!(preferred_locale: locale)
-    end
-
-    redirect_back(fallback_location: root_path)
   end
 
   private

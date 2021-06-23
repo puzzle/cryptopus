@@ -23,12 +23,13 @@ ch_be:
   no: Nei
   help: Hiuf
   version: Version
-  forgot_password: Hesch z Passwort vergässä?
   logout: Abmäudä
-  auto_logout: outomatisch Abmäudä i
+  auto_logout: Outomatisch Abmäudä i
+  contribute_on_github: Mitwürke uf GitHub
   settings: Istellige
   recrypt_requests: Recrypt Afragä
   users: Benutzer
+  profile_title: Profiu
   change_password: Passwort wächslä
   last_login_date_and_from: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}"
   last_login_date_and_from_country: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from} (%{last_login_country})"
@@ -39,6 +40,7 @@ ch_be:
   move: Bewegä
   here: hiä
   new: Nöi
+  back: Zrügg
   save: Spichere
   close: Schliesse
   hi_user: "Hoi, "
@@ -142,6 +144,20 @@ ch_be:
       index:
         title: Istellige bearbeite
         save: Änderige spichere
+        ldap: Ldap Verbindung testen
+        whitelisted_countries: Länder Whitelist
+        whitelisted_countries_prompt: Wähl es paar Länder us...
+        whitelisted_ips: IP Whitelist
+        whitelist_ip_prompt: Gib es paar IPs ah...
+        whitelist_placeholder_geo_ip_deactivated: Faus keini IP's ahgäh sind wärde aui IP's erloubt
+        no_ips_selected: Fauses nit witer spezifiziert isch sind nor privati u Whitelist IP-Adrässe autorisiert
+        specify_single_ip: Einzelni IP-Adrässe chöi wie fougt ihgäh wärde
+        range:
+          specify_range_of_ips: Zum ä Spannwiiti z definiere chane IP-Adrässe mit de Subnetzmaske ihgäh wärde
+          range_between: Ds entspricht dr Spannwiiti zwösche
+          and: u
+        ipv6_allowed: IPv6 isch erloubt u cha wie fougt ihgäh wärde
+        geo_ip_disabled: Source IP Filter isch deaktiviert. Bitte installier d GeoIP DB
     recryptrequests:
       index:
         title: Entschlüsseligs Afrage
@@ -171,16 +187,19 @@ ch_be:
         reset_password: Passwort zrüggsetze
         warning: Z Zrüggsetze vom Benutzer-Passwort füehrt zum Verlust vom Zuegriff uf aui private Teams u d Löschig vo aune Teams, i dene er z einzige Mitglied isch
       index:
-        title: Lischtä vo aune Cryptopus Benutzer
+        title: Cryptopus Benutzer
         username: Benutzernamä
         name: Namä
-        provider_uid: PROVIDER UID
+        auth: AUTH
+        provider_uid: "PROVIDER: UID"
         last_login_at: Letschti Ameudig am
         last_login_from: Letschti Ameudig vo
         admin: Admin
         action: Aktion
         locked: Gsperrte Benutzer
+        unlocked: Nid gsperrti Benutzer
         unlock: Entsperre
+        role: Rolle
       last_teammember_teams:
         message: Folgendi Teams i dene dr zu löschend Benutzer ds letschte Mitglied isch müesse glöscht werde.
         delete_user: Bisch sicher, dass du dä Benutzer wosch lösche?
@@ -300,7 +319,7 @@ ch_be:
     no_folders: Ke Ordner
   profile:
     index:
-      title: "S Profil vom %{label}"
+      title: Profil
     info:
       info: Info
       last_login_at: Letschts Login am
@@ -313,8 +332,10 @@ ch_be:
       enter_description: Gib e beschribig ii..
       valid_until: Güutig bis
       valid_for: Güutig für
-      last_login_at: Letschts Login am
-      last_login_from: Letschts Login vo
+      last_login: Letschts Login
+      at: 'Am:'
+      from: 'Vo:'
+      locked: Blockiert
       options:
         one_min: Ei minutä
         five_mins: Füf minutä
@@ -332,6 +353,10 @@ ch_be:
           toggle:
             empowered: "%{username} het ab iz Admin-Rächt"
             disempowered: "Am Benutzer %{username} si d Admin-Rächt entzoge worde"
+          destroy:
+            own_user: "Dr eigend Benutzer cha nid glöscht werde"
+            success: "Benutzer isch erfolgrich glöscht worde"
+          no_access: "Zugriff verweigert"
       api-users:
         create: "%{username} isch ersteut worde"
         update:
@@ -352,15 +377,14 @@ ch_be:
       members:
         added: Mitglied isch erfougrich hinzuegfüegt worde
         removed: Mitglied isch erfougrich entfernt worde
-      errors: 
+      errors:
         auth_failed: Authentifizierig fäugschlage
         user_not_logged_in: Benutzer isch nid igloggt
         invalid_request: Invalidi Ahfrag
         record_not_found: Ihtrag isch nid gfunde worde
         delete_failed: Ihtrag het nid chenne g'löscht wärde
-    wizard:
-      fill_password_fields: Bitte füu aui Fäuder us
-      paswords_do_not_match: D Passwörter stimme nid überi
+    user_apis:
+      deleted: Api Benutzer isch erfougrich glöscht worde
     admin:
       admin:
         no_access: Zuegriff verweigeret
@@ -385,6 +409,9 @@ ch_be:
         succeed: D Wartigsufgab isch erfougrich düregfüehrt worde
         failed: D Wartigsufgab isch gschiteret. Lueg i de Logs für me Details nache.
 
+    user-humen:
+      created: Dr nöi Benutzer isch erfougrich ersteut worde.
+      updated: Dr Benutzer isch erfougrich aktualisiert worde.
     accounts: &accounts_translations
       created: Dr nöi Account isch erfougrich ersteut worde.
       updated: Dr Account isch erfougrich aktualisiert worde.
@@ -546,7 +573,8 @@ ch_be:
   tooltips:
     all_teams: Aui Teams
     favorites: Favoritä
-    settings_profile: Istellige & Profil
+    profile: Profil
+    settings: Istellige
     add_folder: Erstell en neue Ordner
     add_account: Erstell en neue Account
     account_details: Account Details ahzeige
@@ -574,3 +602,12 @@ ch_be:
       too_long: Dr Benutzername isch zläng
     cleartext password:
       too_long: Ds Passwort isch zläng
+    username:
+      present: Dr Benutzername muess vorhande si
+      too_long: Dr Benutzername isch zläng
+    surname:
+      present: Dr Nachname muess vorhande si
+    givenname:
+      present: Dr Vorname muess vorhande si
+    password:
+      present: Ds Passwort muess vorhande si

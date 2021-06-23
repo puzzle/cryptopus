@@ -1,15 +1,40 @@
-version: '2'
+version: '3.4'
 
 services:
-  cryptopus:
-    image: puzzle/cryptopus:latest
-    container_name: cryptopus-sqlite
-    environment:
-      RAILS_LOG_TO_STDOUT: 1
-      SECRET_KEY_BASE: d7220ce1111af18af11c4d93897c74e283ec2d1c6dee93965fd8d9d104724720e281ed54486844551329faca574e99f509e19f9af6ff3455c88ed10337780ccf
+  rails:
+    image: cryptopus-dev/rails
+    user: "${UID:-1000}"
+    tty: true
+    stdin_open: true
+    build:
+      context: ./config/docker/development
+      dockerfile: Rails.dockerfile
     ports:
-      - 8080:3000
+      - 3000:3000
     volumes:
-      - cryptopus-sqlite:/opt/app-root/src/db
+      - ./:/myapp
+      - ./tmp/seed:/seed
+      - ./config/docker/development/frontend-index.html:/myapp/public/frontend-index.html:ro
+      - ./config/docker/development/rails/bin/prepare-frontend.sh:/myapp/bin/prepare-frontend.sh:ro
+      - ./config/docker/development/home/rails:/home/developer
+      - bundler_cache:/opt/bundle
+  ember:
+    image: cryptopus-dev/ember
+    tty: true
+    stdin_open: true
+    build:
+      context: ./config/docker/development
+      dockerfile: Ember.dockerfile
+    volumes:
+      - ./frontend:/myapp
+      - ./tmp/bash_history:/root/.bash_history
+      - yarn_cache:/myapp/node_modules
+    tmpfs:
+      - /myapp/tmp
+    ports:
+      - "4200:4200"
+      - "7020:7020"
+      - "7357:7357"
 volumes:
-  cryptopus-sqlite:
+  bundler_cache:
+  yarn_cache:

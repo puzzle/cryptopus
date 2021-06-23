@@ -4,7 +4,7 @@
 -#  https://github.com/puzzle/cryptopus.
 
 %br/
-= form_tag recrypt_ldap_path do
+= form_tag Rails.application.routes.url_helpers.recrypt_ldap_path do
   .alert.alert-info#ldap_info
     = t 'admin.recryptrequests.uncrypterror.ldap_password_changed'
     %br/
@@ -19,10 +19,6 @@
     %b.ldap_old_password
       = t 'admin.recryptrequests.uncrypterror.ldap_old_password'
     = password_field_tag :old_password, params[:old_password], class: 'form-control'
-
-  %label{for: "recrypt_request", id: "forgot_password_checkbox"}
-    = check_box_tag :forgot_password
-    = t :forgot_password
 
   .alert.alert-danger#recrypt_description
     =simple_format t 'admin.recryptrequests.uncrypterror.forgot_password_recrypt'

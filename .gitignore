@@ -30,3 +30,8 @@ spec/examples.txt
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# docker dev setup
+.bash_history
+config/docker/development/home/rails/
+public/frontend-index-test.html

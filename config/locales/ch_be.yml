@@ -23,12 +23,12 @@ ch_be:
   no: Nei
   help: Hiuf
   version: Version
-  forgot_password: Hesch z Passwort vergässä?
   logout: Abmäudä
   auto_logout: outomatisch Abmäudä i
   settings: Istellige
   recrypt_requests: Recrypt Afragä
   users: Benutzer
+  profile_title: Profiu
   change_password: Passwort wächslä
   last_login_date_and_from: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}"
   last_login_date_and_from_country: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from} (%{last_login_country})"
@@ -142,14 +142,18 @@ ch_be:
       index:
         title: Istellige bearbeite
         save: Änderige spichere
+        ldap: Ldap Verbindung testen
+        whitelisted_countries: Länder Whitelist
+        whitelisted_ips: IP Whitelist
+        whitelist_placeholder_geo_ip_deactivated: Faus keini IP's ahgäh sind wärde aui IP's erloubt
+        no_ips_selected: Fauses nit witer spezifiziert isch sind nor privati u Whitelist IP-Adrässe autorisiert
+        specify_single_ip: Einzelni IP-Adrässe chöi wie fougt ihgäh wärde
+        range:
+          specify_range_of_ips: Zum ä Spannwiiti z definiere chane IP-Adrässe mit de Subnetzmaske ihgäh wärde
+          range_between: Ds entspricht dr Spannwiiti zwösche
+          and: u
+        IPv6_allowed: IPv6 isch erloubt u cha wie fougt ihgäh wärde
     recryptrequests:
-      index:
-        title: Entschlüsseligs Afrage
-        user: Benutzer
-        admin_required: Admin erforderläch
-        recrypt: Entschlüssle
-      request:
-        request_sent: Es isch e Recrypt Ahfrag gsändet worde. Bitte wart, bis si oder er d Passwörter nöi verschlüsslet hei.
       uncrypterror:
         new_password: Nöis Passwort?!
         ldap_password_changed: Dis LDAP Passwort het sech sit dim letschte Login gänderet.
@@ -171,7 +175,7 @@ ch_be:
         reset_password: Passwort zrüggsetze
         warning: Z Zrüggsetze vom Benutzer-Passwort füehrt zum Verlust vom Zuegriff uf aui private Teams u d Löschig vo aune Teams, i dene er z einzige Mitglied isch
       index:
-        title: Lischtä vo aune Cryptopus Benutzer
+        title: Benutzer
         username: Benutzernamä
         name: Namä
         provider_uid: PROVIDER UID
@@ -331,6 +335,11 @@ ch_be:
           toggle:
             empowered: "%{username} het ab iz Admin-Rächt"
             disempowered: "Am Benutzer %{username} si d Admin-Rächt entzoge worde"
+        settings:
+          test_ldap_connection:
+            successful: "Verbindig zum Ldap Server %{hostname} erfougrich"
+            failed: "Verbindig zum Ldap Server %{hostname} fäugschlage"
+            no_hostname_present: "S isch kein Hostname vorhange"
       api-users:
         create: "%{username} isch ersteut worde"
         update:
@@ -357,7 +366,6 @@ ch_be:
         invalid_request: Invalidi Ahfrag
         record_not_found: Ihtrag isch nid gfunde worde
         delete_failed: Ihtrag het nid chenne g'löscht wärde
-    wizard:
       fill_password_fields: Bitte füu aui Fäuder us
       paswords_do_not_match: D Passwörter stimme nid überi
     admin:

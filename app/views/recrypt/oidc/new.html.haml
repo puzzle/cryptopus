@@ -12,13 +12,12 @@
     %link{href: "/favicon.png", rel: "shortcut icon", type: "image/png"}/
     = csrf_meta_tags
     %title Cryptopus
-    = stylesheet_link_tag :application, media: "all", nonce: true
-    = javascript_pack_tag 'stylesheets', nonce: true
+    %link{href: "/styles.css", rel: "stylesheet"}/
   %body{"data-locale" => I18n.locale}
     #ember
     = render 'layouts/icons'
     .container.main{role: "main"}
-      = form_tag recrypt_oidc_path do
+      = form_tag Rails.application.routes.url_helpers.recrypt_oidc_path do
         .alert.alert-info#ldap_info
           = t '.notice'
         %br/

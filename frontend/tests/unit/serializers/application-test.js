@@ -1,17 +1,17 @@
 import { module, test } from "qunit";
 import { setupTest } from "ember-qunit";
 
-module("Unit | Serializer | application", function(hooks) {
+module("Unit | Serializer | application", function (hooks) {
   setupTest(hooks);
 
-  test("it exists", function(assert) {
+  test("it exists", function (assert) {
     let store = this.owner.lookup("service:store");
     let serializer = store.serializerFor("application");
 
     assert.ok(serializer);
   });
 
-  test("it serializes folder", function(assert) {
+  test("it serializes folder", function (assert) {
     let store = this.owner.lookup("service:store");
     let team = store.createRecord("team", { id: 2 });
     let folder = store.createRecord("folder", {

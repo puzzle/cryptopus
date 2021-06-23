@@ -1,79 +1,80 @@
-.navbar-custom {
-  background: #1b8dc6;
-  z-index: 998;
-}
-
-.custom-button {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-}
-
-.custom-button:focus {
-  outline: 0;
-}
-
-.dropdown .btn-group > a {
-  color: #000000;
-  background-color: #c7d9e9;
-  border-color: #1b8cc5;
-}
-
-.dropdown .btn-group > a:last-child {
-  color: #000000;
-  background-color: rgba(199, 217, 233, 0.69);
-  border-color: #1b8cc5;
-}
-
-.dropdown .btn-group > a:hover {
-  color: #ffffff;
-  background-color: rgba(15, 101, 139, 0.89) !important;
-  border-color: #195575;
-}
-
-.dropdown-menu {
-  left: -114px !important;
-  width: 155px;
-}
-
-.dropdown .dropdown-item:active {
-  background-color: #f8f9fa;
-}
-
-.accountname {
-  max-width: 100%;
-  word-break: break-word;
-}
-
-.search {
-  border-radius: 8px;
-  border: none;
-  background-color: #c7d9e9;
-  color: #000000;
-}
-
 .break-words {
   word-break: break-word;
 }
 
-#search::placeholder {
-  color: #000000;
+.search:focus {
+  outline: none !important;
 }
 
-@media (min-width: 470px) and (max-width: 990px) {
-  .navbar-collapse {
-    padding: 0 10% 0 10% !important;
+.sign-out-icon {
+  width: 24px;
+  margin-right: 8px;
+}
+
+.actions {
+  align-items: center;
+}
+
+.action-wrapper .dropdown-toggle {
+  display: flex;
+  padding-right: 10px;
+  align-items: center;
+  gap: 7px;
+}
+
+.dropdown-toggle {
+  color: #1E5A96;
+  display: flex;
+  margin-left: 10px;
+}
+
+.dropdown-toggle span {
+  margin-left: 5px;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.input-wrapper {
+  display: flex;
+  width: 100%;
+  max-height: 32px;
+}
+
+.icon-dropdown-toggle-1 {
+  width: 24px;
+  padding-bottom: 1px;
+}
+
+.icon-dropdown-toggle-2 {
+  width: 24px;
+  padding-bottom: 2px;
+}
+
+.content {
+  min-height: 100%;
+}
+
+@media screen and (max-width: 1200px) {
+  .help {
+    display: none;
+  }
+
+  .administration {
+    display: none;
   }
 }
 
-@media (min-width: 576px) and (max-width: 991px) {
-
+@media screen and (min-width: 1201px) {
+  .administration-dropdown {
+    display: none;
+  }
 }
-
 
 @media screen and (max-width: 575px) {
   .align-right-on-smartphone {
@@ -85,6 +86,11 @@
     display: inline-block;
     word-break: break-word;
   }
+
+  .input-wrapper {
+    flex-direction: column;
+  }
+
 }
 
 @media screen and (max-width: 991px) {
@@ -105,7 +111,7 @@
     justify-content: space-between !important;
   }
 
-  .show-not-on-hamburgermenu {
+  .sidebar-wrapper {
     display: none !important;
   }
 
@@ -113,21 +119,8 @@
     margin-left: 0 !important;
   }
 
-  .search {
-    width: 100% !important;
-  }
-
-  .search-wrapper{
-    width: 100%;
-    margin-bottom: 0 !important;
-  }
-
   .ignore-footer-smartphone {
     padding-bottom: 50px !important;
-  }
-
-  .dropdown {
-    margin: 0 auto 15px;
   }
 
   .account-container-smartphone {
@@ -144,15 +137,6 @@
 
   .content {
     width: 90% !important;
-  }
-
-  .search {
-    width: 100% !important;
-    margin: 0 !important;
-  }
-
-  .search-wrapper {
-    width: 100%;
   }
 }
 
@@ -192,12 +176,8 @@
     display: inline;
   }
 
-  nav a.nav-link {
+  nav .nav-link {
     color: white !important;
-  }
-
-  .dropdown-toggle-hided::after {
-    display: none;
   }
 
   .ml-238 {
@@ -208,18 +188,15 @@
     margin-bottom: 4px !important;
   }
 
-  .search-wrapper {
-    width: 35vw;
-  }
-
-  .search {
-    width: 70% !important;
-    margin-left: 10px !important;
-  }
-
   .side-nav-bar-teams-list .list-group-item:hover {
     cursor: pointer;
-    background-color: #1b8dc6!important;
+    background-color: #1E5A96 !important;
+  }
+}
+
+@media screen and (max-width: 799px){
+  .dropdown-toggle-text {
+    display: none;
   }
 }
 
@@ -235,6 +212,21 @@
   color: white;
 }
 
-.well{
-  margin-bottom:0px !important;
+.well {
+  margin-bottom: 0 !important;
+}
+
+.white-svg {
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg)
+    brightness(102%) contrast(102%);
+}
+
+.cryptopus-logo {
+  display: block;
+  min-width: 214px;
+  min-height: 32px;
+}
+
+div.dropdown-menu.dropdown-menu-right {
+  top: 10px !important;
 }

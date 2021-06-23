@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-require 'rails_helper'
+require 'spec_helper'
 describe 'User login' do
   include IntegrationHelpers::DefaultHelper
   it 'logs bob in' do
@@ -39,10 +39,10 @@ describe 'User login' do
 
   it 'jumps to is set when autologout' do
     login_as('bob')
-    get session_destroy_path(jumpto: admin_users_path)
+    get session_destroy_path(jumpto: '/teams')
     follow_redirect!
     expect(request.fullpath).to eq(session_new_path)
-    expect(admin_users_path).to eq(session[:jumpto])
+    expect('/teams').to eq(session[:jumpto])
   end
 
   it 'goes to requested page after login' do

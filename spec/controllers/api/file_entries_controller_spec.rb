@@ -14,7 +14,7 @@
 #  content_type :text             not null
 #
 
-require 'rails_helper'
+require 'spec_helper'
 
 describe Api::FileEntriesController do
   include ControllerHelpers
@@ -42,7 +42,7 @@ describe Api::FileEntriesController do
       login_as(:bob)
       account1 = accounts(:account1)
 
-      file = fixture_file_upload('files/test_file.txt', 'text/plain')
+      file = fixture_file_upload('test_file.txt', 'text/plain')
       file_entry_params = {
         account_id: account1.id,
         content_type: 'application/zip',
@@ -59,7 +59,7 @@ describe Api::FileEntriesController do
       expect(response).to have_http_status(201)
       expect(file_entry.description).to eq file_entry_params[:description]
       file_entry.decrypt(plaintext_team_password)
-      file_content = fixture_file_upload('files/test_file.txt', 'text/plain').read
+      file_content = fixture_file_upload('test_file.txt', 'text/plain').read
       expect(file_entry.cleartext_file).to eq file_content
     end
 
@@ -67,7 +67,7 @@ describe Api::FileEntriesController do
       login_as(:bob)
       account1 = accounts(:account1)
 
-      file = fixture_file_upload('files/empty.txt', 'text/plain')
+      file = fixture_file_upload('empty.txt', 'text/plain')
       file_entry_params = {
         account_id: account1.id,
         content_type: 'application/zip',

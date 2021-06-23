@@ -1,9 +1,7 @@
 import Service from "@ember/service";
 import ENV from "../config/environment";
 
-
 export default class UserService extends Service {
-
   get role() {
     return ENV.currentUserRole;
   }
@@ -16,4 +14,7 @@ export default class UserService extends Service {
     return this.role === "admin";
   }
 
+  get mayManageSettings() {
+    return this.isConfAdmin || this.isAdmin;
+  }
 }

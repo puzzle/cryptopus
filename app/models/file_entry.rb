@@ -72,19 +72,19 @@ class FileEntry < ApplicationRecord
     return if cleartext_file.nil?
 
     if cleartext_file.size > 10_000_000 # 10MB
-      errors[:base] << I18n.t('flashes.file_entries.uploaded_size_to_high')
+      errors.add(:base, I18n.t('flashes.file_entries.uploaded_size_to_high'))
     end
   end
 
   def uploaded_file_exist
     if file.nil? && cleartext_file.blank?
-      errors[:base] << I18n.t('flashes.file_entries.uploaded_file_inexistent')
+      errors.add(:base, I18n.t('flashes.file_entries.uploaded_file_inexistent'))
     end
   end
 
   def filename_is_not_blank_or_nil
     if filename.nil? || filename.blank?
-      errors[:base] << I18n.t('flashes.file_entries.uploaded_filename_is_empty')
+      errors.add(:base, I18n.t('flashes.file_entries.uploaded_filename_is_empty'))
     end
   end
 

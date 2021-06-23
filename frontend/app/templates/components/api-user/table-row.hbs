@@ -1,0 +1,36 @@
+<tr class="api-user-row">
+  <td> {{@apiUser.username}} </td>
+  <td>
+    <Input @class={{"vw-8"}} @enter={{fn this.updateApiUser @apiUser}} @focus-out={{fn this.updateApiUser @apiUser}} @type={{"text"}} @value={{@apiUser.description}} @placeholder={{t "profile.api_users.enter_description"}} />
+  </td>
+  <td>
+    <div>
+      {{#if @apiUser.validUntil}}
+        {{moment-format @apiUser.validUntil "DD.MM.YYYY hh:mm"}}
+      {{/if}}
+    </div>
+  </td>
+  <td>
+    <PowerSelect @options={{this.validityTimes}} @selected={{this.selectedValidFor}} @onChange={{fn this.updateValidFor @apiUser}}
+                 @renderInPlace={{true}} as |validityTime|>
+      {{t validityTime.label}}
+    </PowerSelect>
+  </td>
+  <td> 
+    {{#if @apiUser.lastLoginAt}}
+      {{t "profile.api_users.at"}} {{moment-format @apiUser.lastLoginAt "DD.MM.YYYY hh:mm"}} 
+    {{/if}}
+    {{#if @apiUser.lastLoginFrom}}
+      <br> {{t "profile.api_users.from"}} {{@apiUser.lastLoginFrom}}
+    {{/if}}
+  </td>
+  <td>
+    <XToggle @theme="material" @value={{@apiUser.locked}} @onToggle={{fn this.toggleApiUser @apiUser}} />
+  </td>
+  <td>
+    <a role="button" {{on "click" (fn this.renewApiUser @apiUser)}}><img src="/assets/images/refresh.svg" alt="refresh" class="icon-button"></a>
+    <DeleteWithConfirmation @class="" @record={{@apiUser}}>
+      <img src="/assets/images/remove.svg" alt="remove" class="icon-button">
+    </DeleteWithConfirmation>
+  </td>
+</tr>

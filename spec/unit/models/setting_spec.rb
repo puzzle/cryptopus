@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-require 'rails_helper'
+require 'spec_helper'
 describe Setting do
   it 'returns boolean' do
     setting = Setting::TrueFalse.create(key: 'bla', value: 'f')
@@ -14,7 +14,7 @@ describe Setting do
   end
 
   it 'stores country codes without blank values' do
-    setting = Setting.find_by(key: 'general_country_source_whitelist')
+    setting = Setting.find_by(key: 'country_source_whitelist')
     setting.update(value: ['CH', 'US', ''])
 
 
@@ -25,19 +25,19 @@ describe Setting do
   end
 
   it 'does not persist invalid country code' do
-    setting = Setting.find_by(key: 'general_country_source_whitelist')
+    setting = Setting.find_by(key: 'country_source_whitelist')
     setting.update(value: %w[IT ABC42])
 
     expect(setting.errors.count).to eq(1)
     expect(setting.errors[:value][0]).to eq('invalid country code: ABC42')
 
     country_codes = setting.reload.value
-    expect(country_codes.count).to eq(1)
+    expect(country_codes.count).to eq(2)
     expect(country_codes.first).to eq('CH')
   end
 
   it 'returns ips without empty values' do
-    setting = Setting.find_by(key: 'general_ip_whitelist')
+    setting = Setting.find_by(key: 'ip_whitelist')
     setting.update(value: ['123.20.123.23', '5.0.0.0/8', ''])
 
     expect(setting.errors.present?).to eq(false)
@@ -49,14 +49,14 @@ describe Setting do
   end
 
   it 'does not accept invalid ip' do
-    setting = Setting.find_by(key: 'general_ip_whitelist')
+    setting = Setting.find_by(key: 'ip_whitelist')
     setting.update(value: ['123.20.123.23', 'a.b.c.d'])
 
     expect(setting.errors[:value][0]).to eq('invalid ip address: a.b.c.d')
   end
 
   it 'does not add ips with invalid subnet' do
-    setting = Setting.find_by(key: 'general_ip_whitelist')
+    setting = Setting.find_by(key: 'ip_whitelist')
     setting.update(value: ['10.0.0.1/300'])
 
     expect(setting.errors[:value][0]).to eq('invalid ip address: 10.0.0.1/300')

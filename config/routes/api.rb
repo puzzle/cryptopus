@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  scope '/api', module: 'api', as: 'api' do
+  namespace :api do
 
     resources :all_folders, only: [:index]
 
     get 'env_settings', to: 'env_settings#index'
 
-    patch 'locale', to: 'locale#update'
+    resource :profile, only: [:update]
 
     resources :accounts, except: [:new, :edit] do
       resources :file_entries, only: [:create, :index, :destroy, :show]
@@ -30,11 +30,15 @@ Rails.application.routes.draw do
     end
 
     scope '/admin', module: 'admin' do
-      resources :users, only: :destroy do
+      resources :users, only: [:index, :update, :create, :destroy] do
         member do
-          patch :update_role, to: 'users/role#update'
+          patch :role, to: 'users/role#update'
+          delete :lock, to: 'users/lock#destroy'
         end
       end
+
+      resources :settings, only: [:index, :update]
+
       resources :ldap_connection_test, only: ['new']
     end
     
@@ -42,11 +46,6 @@ Rails.application.routes.draw do
 
     # INFO don't mix scopes and resources in routes
     resources :teams, except: [:new, :edit]  do
-
-      collection do
-        resources :last_member_teams, only: [:index], module: 'teams'
-      end
-
       resources :folders, except: [:new, :edit]
       resources :api_users, only: [:create, :destroy, :index], module: 'teams'
       resources :members, except: [:new, :edit], module: 'teams'

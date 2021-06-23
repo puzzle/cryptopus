@@ -8,10 +8,6 @@
 class Api::AllFoldersController < ApiController
   self.custom_model_class = Folder
 
-  def self.policy_class
-    FolderPolicy
-  end
-
   private
 
   def fetch_entries

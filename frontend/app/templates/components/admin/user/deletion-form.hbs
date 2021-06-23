@@ -1,0 +1,48 @@
+<span role="button" {{on "click" this.toggleDeletionForm}}>
+  {{yield}}
+</span>
+
+{{#if this.isDeletionFormShown}}
+  <BsModal class="modal_account ignore-footer-smartphone" @onHide={{action this.toggleDeletionForm}} @renderInPlace="true" @size="lg" as |Modal|>
+    <Modal.header>
+      <h3 class="modal-title">{{t "admin.users.last_teammember_teams.destroy"}}</h3>
+    </Modal.header>
+    {{#if this.isDeletionDisabled}}
+      <Modal.body>
+        <div class="container-fluid">
+          <p>{{t "admin.users.last_teammember_teams.message"}}</p>
+          <table class="table table-striped mt-20">
+            <thead>
+              <tr>
+                <th> {{t "helpers.label.team.name"}} </th>
+                <th> {{t "helpers.label.team.description" }} </th>
+                <th> {{t "delete"}} </th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each this.onlyTeammemberTeams as |team|}}
+                <tr>
+                  <td>
+                    {{team.name}}
+                  </td>
+                  <td>
+                    {{truncate team.description 20}} 
+                  </td>
+                  <td>
+                    <span role="button" {{on "click" (fn this.deleteTeam team)}}>
+                      <img src="/assets/images/delete.svg" alt="delete" class="icon-button">
+                    </span>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </Modal.body>
+    {{/if}}
+    <Modal.footer>
+      <BsButton @onClick={{action this.deleteUser}} @type="danger" @disabled={{this.isDeletionDisabled}}>{{t "delete"}}</BsButton>
+      <BsButton @onClick={{action this.toggleDeletionForm}} @type="secondary">{{t "close"}}</BsButton>
+    </Modal.footer>
+  </BsModal>
+{{/if}}

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
 
 describe User::HumanPolicy do
   include PolicyHelper
@@ -86,32 +86,6 @@ describe User::HumanPolicy do
 
       it 'cannot update user information' do
         refute_permit bob, bob, :update?
-      end
-    end
-  end
-
-  context '#new' do
-    it 'lets an admin create a new user' do
-      assert_permit admin, User::Human, :new?
-    end
-
-    it 'lets a conf_admin create a new user' do
-      assert_permit conf_admin, User::Human, :new?
-    end
-
-    it 'a user cannot create a new user' do
-      refute_permit bob, User::Human, :new?
-    end
-
-    context 'auth provider NOT db' do
-      before do
-        allow(AuthConfig).to receive(:db_enabled?).and_return(false)
-      end
-      it 'is NOT possible to create any users' do
-        refute_permit root, User::Human, :new?
-        refute_permit bob, User::Human, :new?
-        refute_permit conf_admin, User::Human, :new?
-        refute_permit admin, User::Human, :new?
       end
     end
   end

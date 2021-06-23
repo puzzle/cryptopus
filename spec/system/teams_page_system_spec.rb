@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-require 'rails_helper'
+require 'spec_helper'
 
 # Rspec does load somewhat differently, to avoid a autoload error, those are included like that.
 require_relative '../../app/controllers/api/teams/members_controller'
@@ -18,11 +18,8 @@ describe 'TeamsPage', type: :system, js: true do
 
     account1 = accounts(:account1)
 
-    visit('/teams')
-
-    # Search Account
-    expect(page).to have_selector('input#search')
-    find('input#search', visible: false).set account1.accountname
+    expect(page).to have_selector('input.search')
+    find('input.search', visible: false).set account1.accountname
     expect(page).to have_text(account1.accountname)
 
     # Look if the Nesting is expanded
@@ -78,7 +75,6 @@ describe 'TeamsPage', type: :system, js: true do
 
     # Check if Team could be favourite
     click_team_favourites_button
-
   end
 
   def folder_expanded?

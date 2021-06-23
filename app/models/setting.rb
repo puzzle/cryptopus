@@ -19,12 +19,17 @@
 class Setting < ApplicationRecord
 
   validates :key, uniqueness: true
+  scope :list, (-> { all })
 
   class << self
-    def value(prefix, key)
-      key = "#{prefix}_#{key}" if prefix.present?
+    def value(key)
       setting = find_by(key: key)
       setting&.value
     end
+
+    def policy_class
+      SettingPolicy
+    end
   end
+
 end

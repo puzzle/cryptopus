@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
 
 describe Authentication::SourceIpChecker do
   it 'allows if previously authorized' do
@@ -49,7 +49,7 @@ describe Authentication::SourceIpChecker do
 
   it 'allows whitelisted ip' do
     expect(GeoIp).to receive(:activated?).and_return(true).at_least(:once)
-    Setting.find_by(key: 'general_ip_whitelist').update!(value: ['132.120.23.21'])
+    Setting.find_by(key: 'ip_whitelist').update!(value: ['132.120.23.21'])
 
     checker = Authentication::SourceIpChecker.new('132.120.23.21')
     expect(checker.send(:ip_whitelisted?)).to eq true
@@ -59,7 +59,7 @@ describe Authentication::SourceIpChecker do
   it 'allows whitelisted ip in range' do
     expect(GeoIp).to receive(:activated?).and_return(true).at_least(:once)
     ip = "132.#{rand(254)}.#{rand(254)}.#{rand(254)}"
-    Setting.find_by(key: 'general_ip_whitelist').update!(value: ['132.0.0.0/8'])
+    Setting.find_by(key: 'ip_whitelist').update!(value: ['132.0.0.0/8'])
 
     checker = Authentication::SourceIpChecker.new(ip)
     expect(checker.send(:ip_whitelisted?)).to eq true

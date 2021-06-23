@@ -5,7 +5,7 @@ class SettingPolicy < ApplicationPolicy
     admin_or_conf_admin?
   end
 
-  def update_all?
+  def update?
     admin_or_conf_admin?
   end
 

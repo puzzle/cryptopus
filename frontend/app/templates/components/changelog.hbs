@@ -1,0 +1,13 @@
+<BsModal @renderInPlace="true" @size="lg" as |Modal|>
+  <Modal.header>
+    <h3 class="modal-title">{{@title}}</h3>
+  </Modal.header>
+  <Modal.body>
+    <div class="container-fluid">
+      {{render-markdown "CHANGELOG"}}
+    </div>
+  </Modal.body>
+  <Modal.footer>
+    <BsButton @onClick={{action Modal.close}} @type="secondary">{{t "close"}}</BsButton>
+  </Modal.footer>
+</BsModal>

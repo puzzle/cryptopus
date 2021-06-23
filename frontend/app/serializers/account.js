@@ -2,12 +2,12 @@ import ApplicationSerializer from "./application";
 
 export default ApplicationSerializer.extend({
   serialize(snapshot) {
-    let json = this._super(...arguments)
-    let type = "credentials"
+    let json = this._super(...arguments);
+    let type = "credentials";
     if (snapshot.modelName == "account-ose-secret") {
       type = "ose_secret";
     }
-    json.data.attributes.type = type
+    json.data.attributes.type = type;
     return json;
   }
-})
+});

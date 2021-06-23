@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
 
 describe SettingPolicy do
   include PolicyHelper
@@ -11,7 +11,7 @@ describe SettingPolicy do
     end
 
     it 'can update settings' do
-      assert_permit admin, Setting, :update_all?
+      assert_permit admin, Setting, :update?
     end
   end
   context 'as conf_admin' do
@@ -20,7 +20,7 @@ describe SettingPolicy do
     end
 
     it 'can update settings' do
-      assert_permit conf_admin, Setting, :update_all?
+      assert_permit conf_admin, Setting, :update?
     end
   end
   context 'as non-admin' do
@@ -29,7 +29,7 @@ describe SettingPolicy do
     end
 
     it 'cannot update settings' do
-      refute_permit bob, Setting, :update_all?
+      refute_permit bob, Setting, :update?
     end
   end
 end

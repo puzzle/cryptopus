@@ -1,6 +1,6 @@
 .login-form
-  = image_pack_tag "cryptopussy_oidc_sleep.svg", class: 'logo'
+  = image_tag "/assets/images/cryptopussy_oidc_sleep.svg", class: 'logo'
   .form-group
     .alert.alert-login-box.alert-info
       = t('.sleep')
-    = link_to(t('.submit'), root_path, class: 'btn btn-primary')
+    = link_to(t('.submit'), Rails.application.routes.url_helpers.root_path, class: 'btn btn-primary')

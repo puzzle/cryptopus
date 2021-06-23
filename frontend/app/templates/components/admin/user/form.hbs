@@ -1,0 +1,59 @@
+<BsModal class="modal_account ignore-footer-smartphone" @onHide={{action this.abort}} @renderInPlace="true" @size="lg" as |Modal|>
+  <Modal.header>
+    <h3 class="modal-title">{{@title}}</h3>
+  </Modal.header>
+  <Modal.body>
+    <div class="container-fluid">
+      <BsForm @model={{this.changeset}} as |form|>
+        <div class="row">
+          <div class="col-md-6 order-2">
+            <form.group class="col-md-12">
+              <form.element @property="username" @label={{t "helpers.label.user.username"}}
+                            class={{if this.changeset.error.username.validation
+                                                           "invalid-input-name"}}
+                            id="username"
+                            @customError={{t (validation-error-key this.changeset.error.username.validation)}} as |el|>
+                <el.control autocomplete="off" @name="username" tabindex="1" readonly={{if this.userService.isConfAdmin ""}}></el.control>
+              </form.element>
+            </form.group>
+            <form.group class="col-md-12">
+              <form.element @property="givenname" @label={{t "helpers.label.user.givenname"}}
+                            class={{if this.changeset.error.givenname.validation
+                                                           "invalid-input-name"}}
+                            id="givenname"
+                            @customError={{t (validation-error-key this.changeset.error.givenname.validation)}} as |el|>
+                <el.control autocomplete="off" @name="givenname" tabindex="1"></el.control>
+              </form.element>
+            </form.group>
+          </div>
+          <div class="col-md-6 order-2">
+            <form.group class="col-md-12">
+              <form.element @property="surname" @label={{t "helpers.label.user.surname"}}
+                            class={{if this.changeset.error.surname.validation
+                                                           "invalid-input-name"}}
+                            id="surname"
+                            @customError={{t (validation-error-key this.changeset.error.surname.validation)}} as |el|>
+                <el.control autocomplete="off" @name="surname" tabindex="1"></el.control>
+              </form.element>
+            </form.group>
+            {{#if this.isNewRecord}}
+              <form.group class="col-md-12 secret">
+                <form.element @property="password" @label={{t "helpers.label.user.password"}}
+                              class={{if this.changeset.error.password.validation
+                                                             "invalid-input-name"}}
+                              id="password"
+                              @customError={{t (validation-error-key this.changeset.error.password.validation)}} as |el|>
+                  <el.control autocomplete="off" @name="password" tabindex="1"></el.control>
+                </form.element>
+              </form.group>
+            {{/if}}
+          </div>
+        </div>
+      </BsForm>
+    </div>
+  </Modal.body>
+  <Modal.footer>
+    <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "save"}}</BsButton>
+    <BsButton @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
+  </Modal.footer>
+</BsModal>

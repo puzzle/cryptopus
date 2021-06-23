@@ -50,7 +50,7 @@ export default class BaseFormComponent extends Component {
 
   @action
   submit(recordsToSave) {
-    this.beforeSubmit().then(continueSubmit => {
+    this.beforeSubmit().then((continueSubmit) => {
       if (!continueSubmit && continueSubmit !== undefined) {
         return;
       }
@@ -59,15 +59,15 @@ export default class BaseFormComponent extends Component {
         : [recordsToSave];
 
       let notPersistedRecords = recordsToSave.filter(
-        record => record.hasDirtyAttributes || record.isDirty
+        (record) => record.hasDirtyAttributes || record.isDirty
       );
-      Promise.all(notPersistedRecords.map(record => record.save()))
-        .then(savedRecords => {
+      Promise.all(notPersistedRecords.map((record) => record.save()))
+        .then((savedRecords) => {
           this.handleSubmitSuccess(savedRecords);
           this.showSuccessMessage();
           this.afterSubmit();
         })
-        .catch(error => {
+        .catch((error) => {
           this.handleSubmitError(error);
           this.afterSubmit();
         });

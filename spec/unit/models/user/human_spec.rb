@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-require 'rails_helper'
+require 'spec_helper'
 
 describe User::Human do
 
@@ -74,7 +74,7 @@ describe User::Human do
     it 'unlocks user' do
       bob.update(locked: true)
       bob.update(failed_login_attempts: 3)
-      bob.unlock
+      bob.unlock!
 
       expect(bob.locked?).to eq(false)
       expect(bob.failed_login_attempts).to eq(0)

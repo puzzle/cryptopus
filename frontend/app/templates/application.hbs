@@ -2,16 +2,23 @@
 <NavBar/>
 
 <div class="content">
-  {{#if (not this.screenWidthService.isShownOnHamburgermenu)}}
-    <div class="show-not-on-hamburgermenu">
-      <SideNavBar/>
+  {{#if this.navService.showSideNavBar}}
+    {{#if (not this.screenWidthService.isShownOnHamburgermenu)}}
+      <div class="sidebar-wrapper">
+        <SideNavBar/>
+      </div>
+    {{/if}}
+  {{/if}}
+  {{#if this.navService.showSideNavBar}}
+    <div class="mb-5 ml-270px" role="main">
+      {{outlet}}
+    </div>
+  {{else}}
+    <div role="main">
+      {{outlet}}
     </div>
   {{/if}}
-  <div class="mb-5 mt-60 ml-270px" role="main">
-    {{outlet}}
-  </div>
 </div>
 <LastLogin/>
-
 
 <Footer/>

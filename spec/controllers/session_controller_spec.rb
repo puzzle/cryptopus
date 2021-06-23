@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
 
 describe SessionController do
   include ControllerHelpers
@@ -37,13 +37,6 @@ describe SessionController do
   end
 
   context 'GET new' do
-    it 'should redirect to wizard if new setup' do
-      User.delete_all
-
-      get :new
-
-      expect(response).to redirect_to wizard_path
-    end
 
     it 'should show 401 if ip address is unauthorized' do
       expect_any_instance_of(Authentication::SourceIpChecker)
@@ -85,10 +78,10 @@ describe SessionController do
     it 'logs in, logs out and save jumpto if set' do
       login_as(:admin)
 
-      delete :destroy, params: { jumpto: admin_users_path }
+      delete :destroy, params: { jumpto: '/teams' }
 
       expect(response).to redirect_to session_new_path
-      expect(admin_users_path).to eq session[:jumpto]
+      expect('/teams').to eq session[:jumpto]
     end
   end
 

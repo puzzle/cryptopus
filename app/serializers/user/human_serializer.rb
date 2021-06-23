@@ -32,6 +32,14 @@
 
 class User::HumanSerializer < ApplicationSerializer
 
-  attributes :id, :label
+  attributes :id, :username, :label, :last_login_at, :last_login_from,
+             :provider_uid, :role, :auth, :givenname, :surname, :deletable, :editable
 
+  def deletable
+    User::HumanPolicy.new(current_user, object).destroy?
+  end
+
+  def editable
+    User::HumanPolicy.new(current_user, object).edit?
+  end
 end

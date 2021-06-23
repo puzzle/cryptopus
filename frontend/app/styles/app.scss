@@ -1,8 +1,9 @@
 $navbar-dark-brand-color: white;
 $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 
-$font-family-sans-serif:      -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
-
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI",
+  "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
 
 @import "ember-bootstrap/bootstrap";
 
@@ -11,7 +12,9 @@ $font-family-sans-serif:      -apple-system, BlinkMacSystemFont, Roboto, "Segoe 
 @import "ember-power-select";
 
 @import "footer";
+@import "theme";
 @import "nav-bar";
+@import "changelog";
 @import "side-nav-bar";
 @import "account-show";
 @import "account-entry";
@@ -22,6 +25,10 @@ $font-family-sans-serif:      -apple-system, BlinkMacSystemFont, Roboto, "Segoe 
 
 .w-250 {
   width: 250px;
+}
+
+.vw-8 {
+  width: 8vw !important;
 }
 
 .d-inline {
@@ -73,8 +80,8 @@ $font-family-sans-serif:      -apple-system, BlinkMacSystemFont, Roboto, "Segoe 
 .mb-2 {
   margin-bottom: 2%;
 }
-.mb-2 {
-  margin-bottom: 2%;
+.mb-15 {
+  margin-bottom: 15%;
 }
 .mb-10 {
   margin-bottom: 10px;
@@ -239,9 +246,7 @@ li a {
 }
 
 .team-card-header {
-  /*height: 47.5px !important;
-  padding-top: 5px !important;*/
-  background-color: #1b8dc6;
+  background-color: #1e5a96;
   color: white !important;
   border: none;
 }
@@ -278,14 +283,14 @@ li a {
 }
 
 .border-radius-4 {
-  border-radius: 4px
+  border-radius: 4px;
 }
 
 #locale-dropdown > div {
   width: 120px;
   border: none !important;
   color: #727679;
-  background-color: #eaf1f7;
+  background-color: #f8f8f8;
 }
 
 .pl-none {
@@ -314,7 +319,7 @@ li a {
 }
 
 .overflow-hidden {
-   overflow: hidden;
+  overflow: hidden;
 }
 
 .account-row:first-child {
@@ -335,4 +340,72 @@ li a {
 
 .mobile-team-menu .dropdown-item {
   padding-left: 0.5rem !important;
+}
+
+.lh-2 {
+  line-height: 2;
+}
+
+.team-border {
+  border: 1px solid #dfdfdf;
+}
+
+.team-border {
+  border: 1px solid #dfdfdf;
+}
+
+.team-border {
+  border: 1px solid #dfdfdf;
+}
+
+.users-table-header {
+  display: flex;
+  align-items: center;
+}
+
+.add-user {
+  max-height: 38px;
+  margin-left: auto;
+}
+
+[readonly=""],
+[aria-disabled="true"] {
+  cursor: default;
+}
+
+.admin-back-button {
+  border: 1px solid #c9c9c9;
+  width: 45px;
+  background-color: #ebe3df;
+}
+
+.navbar-dropdown-toggle {
+  display: flex;
+}
+
+.navbar-dropdown-toggle-content {
+  display: flex;
+  color: #ffffff;
+  gap: 4px;
+  align-items: center;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #1E5A96;
+}
+
+.link-new-tab {
+  color: #ffffff;
+}
+
+.link-new-tab:hover {
+  color: #ffffff;
+}
+
+.link-new-tab-footer {
+  color: #325c9e;
+}
+
+.link-new-tab-footer:hover {
+  color: #325c9e;
 }

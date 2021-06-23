@@ -11,11 +11,10 @@ module UserSession
   included do
     helper_method :current_user
     before_action :redirect_if_no_private_key
-    before_action :validate_user, except: :wizard
+    before_action :validate_user
   end
 
   def validate_user
-    handle_pending_recrypt_request
     unless user_logged_in?
       session[:jumpto] = request.fullpath
       redirect_to user_authenticator.login_path
@@ -53,17 +52,6 @@ module UserSession
   end
 
   private
-
-  def handle_pending_recrypt_request
-    if pending_recrypt_request?
-      pending_recrypt_request_message
-      redirect_to session_destroy_path
-    end
-  end
-
-  def pending_recrypt_request?
-    current_user.is_a?(User::Human) && current_user.recryptrequests.first
-  end
 
   def active_session?
     session[:private_key].present?

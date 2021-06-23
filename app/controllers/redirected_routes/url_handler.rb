@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
 include Rails.application.routes.url_helpers
 
 class RedirectedRoutes::UrlHandler
@@ -13,7 +8,10 @@ class RedirectedRoutes::UrlHandler
     teams_index: /(^\/teams)$/,
     teams_show: /(^\/teams\/\d+)$/,
     folder_show: /(^\/teams\/\d+\/folders\/\d+)$/,
-    accounts_show: /(^\/accounts\/\d+)$/
+    accounts_show: /(^\/accounts\/\d+)$/,
+    profile_index: /(^\/profile)$/,
+    admin_users_index: /(^\/admin\/users)$/,
+    admin_settings: /(^\/admin\/settings)$/
   }.freeze
 
   LEGACY_PATHS = {

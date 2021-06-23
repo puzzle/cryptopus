@@ -25,13 +25,13 @@ de:
   "no": Nein
   help: Hilfe
   version: Version
-  forgot_password: Passwort vergessen?
   logout: Abmelden
   auto_logout: automatisches Abmelden in
   settings: Einstellungen
   recrypt_requests: Recrypt Anfragen
   users: Benutzer
   user: Benutzer
+  profile_title: Profil
   change_password: Passwort wechseln
   last_login_date_and_from: "Das letzte Login war am %{last_login_at} von %{last_login_from}"
   last_login_date_and_from_country: "Das letzte Login war am %{last_login_at} von %{last_login_from} (%{last_login_country})"
@@ -112,7 +112,16 @@ de:
         title: Einstellungen bearbeiten
         save: Änderungen speichern
         ldap: Ldap Verbindung testen
+        whitelisted_countries: Länder Whitelist
+        whitelisted_ips: IP Whitelist
         whitelist_placeholder_geo_ip_deactivated: Falls keine IP's angegeben sind werden alle IP's erlaubt
+        no_ips_selected: Falls nicht weiter spezifiziert sind nur private und Whitelist IP-Adressen autorisiert
+        specify_single_ip: Einzelne IP-Adressen können wie folgt eingegeben werden
+        range:
+          specify_range_of_ips: Um eine Spannweite zu definieren kann eine IP-Adresse mit der Subnetzmaske eingegeben werden
+          range_between: Dies entspricht der Spannweite von
+          and: und
+        IPv6_allowed: IPv6 ist erlaubt und kann wie folgt eingegeben werden
     recryptrequests:
       index:
         title: Entschlüsselungs Anfragen
@@ -277,7 +286,7 @@ de:
 
   profile:
     index:
-      title: "Profil von %{label}"
+      title: Profil
     info:
       info: Info
       last_login_at: Letztes Login um
@@ -348,9 +357,6 @@ de:
         invalid_request: Invalide Anfrage
         record_not_found: Eintrag nicht gefunden
         delete_failed: Eintrag konnte nicht gelöscht werden
-    wizard:
-      fill_password_fields: Bitte füllen Sie alle Felder aus
-      paswords_do_not_match: Die Passwörter stimmen nicht überein
     admin:
       admin:
         no_access: Zugriff verweigert

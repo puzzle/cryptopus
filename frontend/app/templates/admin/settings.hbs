@@ -1,0 +1,23 @@
+<div class="container py-2">
+  <div class="mt-4 lh-2">
+    {{#if @model.isGeoIPenabled }}
+      <div id="setting-countries-whitelist-dropdown">
+        <Admin::SettingMultiselect @options={{@model.countries}} @placeholder={{t "admin.settings.index.whitelisted_countries_prompt"}} @settingModel="setting-country-code">
+          <h5><b>{{t "admin.settings.index.whitelisted_countries"}}</b></h5>
+        </Admin::SettingMultiselect><br>
+      </div>
+      <div id="setting-ip-whitelist-dropdown">
+        <Admin::SettingMultiselectWithCreate @options={{@model.ipAddresses}} @placeholder={{t "admin.settings.index.whitelist_ip_prompt"}} @settingModel="setting-ip-range">
+          <h5><b>{{t "admin.settings.index.whitelisted_ips"}}</b></h5>
+        </Admin::SettingMultiselectWithCreate>
+      </div>
+      {{t "admin.settings.index.specify_single_ip"}}: <kbd class="ip-highlight">192.0.2.10</kbd>.<br>
+
+      {{t "admin.settings.index.range.specify_range_of_ips"}}: <kbd>192.0.2.0/24</kbd>. {{t "admin.settings.index.range.range_between"}} <kbd>192.0.2.0</kbd> {{t "admin.settings.index.range.and"}} <kbd>192.0.2.255</kbd><br>
+
+      {{t "admin.settings.index.ipv6_allowed"}} <kbd>2001:db8::/32</kbd>
+    {{else}}
+      {{t "admin.settings.index.geo_ip_disabled"}}: <a target="_blank" rel="noopener" href="https://github.com/puzzle/cryptopus/wiki/Source-IP-filtering">Wiki</a>
+    {{/if}}
+  </div>
+</div>

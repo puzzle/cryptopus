@@ -19,7 +19,7 @@ class User::HumanPolicy < ApplicationPolicy
   def edit?
     return false if own_user?
 
-    unless user.ldap?
+    if user.auth_db?
       if user.user?
         return admin_or_conf_admin?
       end
@@ -28,16 +28,12 @@ class User::HumanPolicy < ApplicationPolicy
     end
   end
 
-  def new?
-    AuthConfig.db_enabled? && admin_or_conf_admin?
-  end
-
   def create?
     AuthConfig.db_enabled? && admin_or_conf_admin?
   end
 
   def unlock?
-    admin_or_conf_admin?
+    !AuthConfig.oidc_enabled? && admin_or_conf_admin?
   end
 
   def update_role?
@@ -71,22 +67,6 @@ class User::HumanPolicy < ApplicationPolicy
 
       current_user.admin?
     end
-  end
-
-  def permitted_attributes_for_update
-    return if !user.auth_db? || user.root?
-
-    attrs = [:givenname, :surname]
-
-    if current_user.admin?
-      attrs + [:username]
-    elsif current_user.conf_admin?
-      attrs
-    end
-  end
-
-  def permitted_attributes_for_create
-    [:username, :givenname, :surname, :password] if current_user.admin?
   end
 
   private
