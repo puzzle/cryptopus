@@ -2,7 +2,7 @@ version: '2'
 
 services:
   cryptopus:
-    image: puzzle/cryptopus:stable
+    image: quay.io/puzzle/cryptopus:stable
     container_name: cryptopus
     env_file:
       - mysql-prod.env
