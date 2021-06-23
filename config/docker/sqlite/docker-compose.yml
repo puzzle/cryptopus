@@ -2,7 +2,7 @@ version: '2'
 
 services:
   cryptopus:
-    image: puzzle/cryptopus:latest
+    image: quay.io/puzzle/cryptopus:latest
     container_name: cryptopus-sqlite
     environment:
       RAILS_LOG_TO_STDOUT: 1
