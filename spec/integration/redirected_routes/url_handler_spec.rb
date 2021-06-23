@@ -85,14 +85,6 @@ describe RedirectedRoutes::UrlHandler do
     assert_redirected_to '/teams'
   end
 
-  # /de/admin/settings/index -> /admin/settings/index
-  it 'redirects to admin settings url without locale' do
-    login_as('bob')
-    get '/de/admin/settings/index'
-
-    assert_redirected_to admin_settings_path
-  end
-
   # /de/teams/1/folders/1/accounts -> RoutingError
   it 'raises RoutingError when user accesses non valid route' do
     team1 = teams(:team1)
