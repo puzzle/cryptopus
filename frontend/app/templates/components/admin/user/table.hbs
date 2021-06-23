@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     {{#each this.sortedUsers as |user|}}
-      <Admin::User::TableRow @user={{user}} />
+      <Admin::User::TableRow @user={{user}} @onRemove={{this.removeUser}}/>
     {{/each}}
   </tbody>
 </table>

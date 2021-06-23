@@ -38,4 +38,27 @@ module("Integration | Component | admin/user/table-row", function (hooks) {
     assert.ok(text.includes("123456"));
     assert.ok(text.includes("User"));
   });
+
+  test("user unlockes ", async function (assert){
+    let user = {
+      label: "Bob Muster",
+      username: "bob",
+      lastLoginAt: Date.now(),
+      lastLoginFrom: "127.0.0.1",
+      providerUid: "123456",
+      role: "user",
+      locked: "true"
+    };
+    let user2 = {
+      label: "Bob Muster",
+      username: "bob",
+      lastLoginAt: Date.now(),
+      lastLoginFrom: "127.0.0.1",
+      providerUid: "123456",
+      role: "user",
+      locked: "false"
+    };
+    toggleLocked(user);
+    assert.equal(toggleLocked(user), user2);
+  });
 });

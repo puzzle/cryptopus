@@ -33,9 +33,9 @@
         <img src="/assets/images/delete.svg" alt="delete" class="icon-button">
       </Admin::User::DeletionForm>
     {{/if}}
-    {{#if this.isLocked}}
-      <span role="button" {{on "click" this.toggleLocked}}>
-        <img class="icon-medium-button d-inline" src="/assets/images/locked.svg" alt="locked">
+    {{#if @user.locked}} 
+      <span role="button" {{on "click" (fn this.toggleLocked @user)}}>
+        <img class="icon-medium-button d-inline" src="/assets/images/encrypted_small.svg" alt="locked"> <!-- css farb endern frontend specs-->
       </span>
     {{/if}}
   </td>

@@ -20,4 +20,19 @@ export default class AdminUsersTable extends Component {
         return 0;
       });
   }
+
+  @action
+  toggleUserNew() {
+    this.isUserNew = !this.isUserNew;
+  }
+
+  @action
+  addUser(user) {
+    this.users.addObject(user);
+  }
+
+  @action
+  removeUser(user) {
+    this.users.removeObject(user);
+  }
 }
