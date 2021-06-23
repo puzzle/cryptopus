@@ -78,10 +78,10 @@ describe SessionController do
     it 'logs in, logs out and save jumpto if set' do
       login_as(:admin)
 
-      delete :destroy, params: { jumpto: admin_users_path }
+      delete :destroy, params: { jumpto: '/teams' }
 
       expect(response).to redirect_to session_new_path
-      expect(admin_users_path).to eq session[:jumpto]
+      expect('/teams').to eq session[:jumpto]
     end
   end
 
