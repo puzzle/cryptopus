@@ -125,7 +125,8 @@ fr:
           specify_range_of_ips: Pour spécifier une portée, vous pouvez entrer l'adresse IP avec le masque de sous-réseau
           range_between: Ce serait la portée entre
           and: et
-        IPv6_allowed: IPv6 est autorisé et peut être saisi comme ceci
+        ipv6_allowed: IPv6 est autorisé et peut être saisi comme ceci
+        geo_ip_disabled: Le filtre IP source est désactivé. Veuillez installer GeoIP DB
     recryptrequests:
       index:
         title: Demandes de re crypt

@@ -125,8 +125,9 @@ de:
           specify_range_of_ips: Um eine Spannweite zu definieren kann eine IP-Adresse mit der Subnetzmaske eingegeben werden
           range_between: Dies entspricht der Spannweite zwischen
           and: und
-        IPv6_allowed: IPv6 ist erlaubt und kann wie folgt eingegeben werden
+        ipv6_allowed: IPv6 ist erlaubt und kann wie folgt eingegeben werden
         insert_ip_prompt: Geben Sie eine IP-Adresse oder Subnetzmaske ein
+        geo_ip_disabled: Source IP Filter ist deaktiviert. Bitte installieren Sie GeoIP DB
     recryptrequests:
       uncrypterror:
         new_password: Neues Passwort?!
