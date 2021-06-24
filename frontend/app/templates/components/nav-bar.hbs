@@ -73,21 +73,21 @@
           Admin
         </div>
         <div slot="items">
-            <LinkTo role="button" @route="admin.users" @tagName="pzsh-menu-dropdown-item">
-              <pzsh-icon name="user"></pzsh-icon>
-              {{ t "users" }}
-            </LinkTo>
-            <LinkTo role="button" @route="admin.settings" @tagName="pzsh-menu-dropdown-item">
-              <pzsh-icon name="setting"></pzsh-icon>
-              {{ t "settings" }}
-            </LinkTo>
+          <LinkTo role="button" @route="admin.users" @tagName="pzsh-menu-dropdown-item">
+            <pzsh-icon name="user"></pzsh-icon>
+            {{ t "users" }}
+          </LinkTo>
+          <LinkTo role="button" @route="admin.settings" @tagName="pzsh-menu-dropdown-item">
+            <pzsh-icon name="setting"></pzsh-icon>
+            {{ t "settings" }}
+          </LinkTo>
         </div>
       </pzsh-menu-dropdown>
     {{/if}}
 
 
 
-    <pzsh-menu-dropdown href="#">
+    <pzsh-menu-dropdown>
       <div slot="toggle">
         <pzsh-icon name="user"></pzsh-icon>
         {{ this.givenname }}
