@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class FilteredList
+  include ParamConverters
 
   def initialize(current_user, params)
     @current_user = current_user
