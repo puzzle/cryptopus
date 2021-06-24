@@ -3,8 +3,6 @@
 Rails.application.routes.draw do
   namespace :api do
 
-    resources :all_folders, only: [:index]
-
     get 'env_settings', to: 'env_settings#index'
 
     resource :profile, only: [:update]
