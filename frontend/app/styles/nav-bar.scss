@@ -27,6 +27,10 @@
   display: none;
 }
 
+.search:focus {
+  outline: none !important;
+}
+
 .dropdown-toggle::after {
   display: none;
 }
