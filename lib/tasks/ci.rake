@@ -19,7 +19,7 @@ namespace :ci do
   task frontend_prepare: 'frontend:prepare'
 
   desc 'Runs frontend specs'
-  task frontend_specs: 'frontend:prepare'
+  task frontend_specs: 'spec:frontend'
 
   desc 'Runs spec'
   task spec: 'spec'
