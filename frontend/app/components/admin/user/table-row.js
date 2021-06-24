@@ -24,14 +24,9 @@ export default class AdminUserTableRowComponent extends Component {
   }
 
   get isRoleEditingDisabled() {
-    if (this.isOwnUserOrRoot())
-      return true;
+    if (this.isOwnUserOrRoot()) return true;
 
-    if (this.userService.isAdmin || this.isConfAdminChangingAdmin()) {
-      return false;
-    } else {
-      return true;
-    }
+    return !(this.userService.isAdmin || this.isConfAdminChangingAdmin());
   }
 
   get availableRoles() {
@@ -68,7 +63,15 @@ export default class AdminUserTableRowComponent extends Component {
   }
 
   isOwnUserOrRoot() {
-    return ENV.currentUserId == this.args.user.id || this.args.user.username === "root";
+    return this.isOwnUser() || this.isRoot();
+  }
+
+  isOwnUser() {
+    return ENV.currentUserId === this.args.user.id;
+  }
+
+  isRoot() {
+    return this.args.user.username === "root";
   }
 
   isConfAdminChangingAdmin() {

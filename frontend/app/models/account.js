@@ -3,6 +3,8 @@ import Model, { attr, hasMany, belongsTo } from "@ember-data/model";
 export default class Account extends Model {
   @attr("string") accountname;
   @attr("string") description;
+  @attr("string") createdAt;
+  @attr("string") updatedAt;
   @belongsTo("folder") folder;
   @hasMany("file-entry") fileEntries;
 

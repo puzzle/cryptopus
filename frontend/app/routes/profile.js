@@ -1,8 +1,11 @@
 import BaseRoute from "./base";
 import ENV from "../config/environment";
 import RSVP from "rsvp";
+import { inject as service } from "@ember/service";
 
 export default class ProfileRoute extends BaseRoute {
+  @service navService;
+
   model() {
     return RSVP.hash({
       info: {
@@ -12,5 +15,9 @@ export default class ProfileRoute extends BaseRoute {
       },
       apiUsers: this.store.findAll("user-api")
     });
+  }
+
+  afterModel() {
+    this.navService.clear();
   }
 }

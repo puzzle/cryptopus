@@ -84,6 +84,8 @@ fr:
         strong: Fort
     show:
       account: Compte
+      created_at: "Créé à"
+      last_update: "Dernie changement à"
       last_change: "Dernière mise à jour il ya %{time_ago}"
       attachments: Attachements
       file: Fichier

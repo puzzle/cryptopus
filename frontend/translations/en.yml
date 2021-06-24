@@ -82,6 +82,8 @@ en:
         strong: Strong
     show:
       account: Account
+      created_at: "Created at"
+      last_update: "Last Update at"
       last_change: "Last change was %{time_ago} ago"
       attachments: Attachments
       file: File
