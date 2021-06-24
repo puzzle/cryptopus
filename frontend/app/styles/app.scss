@@ -117,14 +117,6 @@ li a {
   cursor: pointer;
 }
 
-.logo-icon {
-  height: 40px;
-}
-
-.puzzle-icon {
-  height: 35px;
-}
-
 .mb-5-folder {
   margin-bottom: 5px !important;
 }
@@ -379,10 +371,6 @@ li a {
   background-color: #ebe3df;
 }
 
-.navbar-dropdown-toggle {
-  display: flex;
-}
-
 .navbar-dropdown-toggle-content {
   display: flex;
   color: #ffffff;
@@ -396,6 +384,8 @@ li a {
 
 .link-new-tab {
   color: #ffffff;
+  display: flex;
+  gap: 4px;
 }
 
 .link-new-tab:hover {
@@ -404,6 +394,8 @@ li a {
 
 .link-new-tab-footer {
   color: #325c9e;
+  display: flex;
+  gap: 4px;
 }
 
 .link-new-tab-footer:hover {
