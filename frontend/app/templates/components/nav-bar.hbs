@@ -23,7 +23,7 @@
              placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}
              @autofocus={{this.isStartpage}} maxlength="70"/>
       <button>
-        <pzsh-icon name="search"/>
+        <pzsh-icon name="search"></pzsh-icon>
       </button>
     </div>
 
@@ -58,61 +58,50 @@
 
 <pzsh-menu>
   <div slot="actions">
-    <div class="input-wrapper ml-5">
-
-    </div>
-
     <pzsh-menu-action>
-      <a class="link-new-tab" href="https://github.com/puzzle/cryptopus/wiki/User-manual" target="_blank" rel="noreferrer noopener">
+      <a class="link-new-tab" href="https://github.com/puzzle/cryptopus/wiki/User-manual" target="_blank"
+         rel="noreferrer noopener">
         <pzsh-icon name="question-circle"></pzsh-icon>
         {{ t "help"}}
       </a>
     </pzsh-menu-action>
 
     {{#if this.userService.mayManageSettings}}
-      <BsDropdown @class="d-flex align-items-center" as |dd|>
-        <dd.toggle class="dropdown-toggle navbar-dropdown-toggle">
-          <div class="navbar-dropdown-toggle-content">
-            <pzsh-icon name="sliders-v-alt"></pzsh-icon>
-            Admin
-          </div>
-          <img class="icon-dropdown-toggle-2" src="/assets/images/angle-down-white.svg" alt="v">
-        </dd.toggle>
-        <dd.menu @align="right" as |ddm|>
-          <ddm.item>
-            <LinkTo role="button" class="dropdown-item" @route="admin.users">
+      <pzsh-menu-dropdown>
+        <div slot="toggle">
+          <pzsh-icon name="sliders-v-alt"></pzsh-icon>
+          Admin
+        </div>
+        <div slot="items">
+            <LinkTo role="button" @route="admin.users" @tagName="pzsh-menu-dropdown-item">
+              <pzsh-icon name="user"></pzsh-icon>
               {{ t "users" }}
             </LinkTo>
-          </ddm.item>
-          <ddm.item>
-            <LinkTo role="button" class="dropdown-item" @route="admin.settings">
+            <LinkTo role="button" @route="admin.settings" @tagName="pzsh-menu-dropdown-item">
+              <pzsh-icon name="setting"></pzsh-icon>
               {{ t "settings" }}
             </LinkTo>
-          </ddm.item>
-        </dd.menu>
-      </BsDropdown>
+        </div>
+      </pzsh-menu-dropdown>
     {{/if}}
 
-    <BsDropdown @class="d-flex align-items-center" as |dd|>
-      <dd.toggle class="dropdown-toggle navbar-dropdown-toggle">
-        <div class="navbar-dropdown-toggle-content">
-          <pzsh-icon name="user"></pzsh-icon>
-          {{ this.givenname }}
-        </div>
-        <img class="icon-dropdown-toggle-2" src="/assets/images/angle-down-white.svg" alt="v">
-      </dd.toggle>
-      <dd.menu @align="right" as |ddm|>
-        <ddm.item>
-          <LinkTo role="button" class="dropdown-item" @route="profile">
-            {{ t "profile_title" }}
-          </LinkTo>
-          <a role="button" class="dropdown-item" href="/session/destroy">
-            {{ t "logout" }}
-          </a>
-        </ddm.item>
-      </dd.menu>
-    </BsDropdown>
+
+
+    <pzsh-menu-dropdown href="#">
+      <div slot="toggle">
+        <pzsh-icon name="user"></pzsh-icon>
+        {{ this.givenname }}
+      </div>
+      <div slot="items">
+        <LinkTo role="button" @route="profile" @tagName="pzsh-menu-dropdown-item">
+          <pzsh-icon name="setting"></pzsh-icon>
+          {{ t "profile_title" }}
+        </LinkTo>
+        <pzsh-menu-dropdown-item href="/session/destroy">
+          <pzsh-icon name="sign-out-alt"></pzsh-icon>
+          {{ t "logout" }}
+        </pzsh-menu-dropdown-item>
+      </div>
+    </pzsh-menu-dropdown>
   </div>
 </pzsh-menu>
-
-

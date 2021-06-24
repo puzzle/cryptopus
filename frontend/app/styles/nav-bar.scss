@@ -198,6 +198,15 @@
   .dropdown-toggle-text {
     display: none;
   }
+
+  .nav-dropdown {
+    padding: 16px 24px 16px 24px;
+  }
+
+  .nav-dropdown-toggle {
+    display: flex;
+    margin-left: 0;
+  }
 }
 
 .title {

@@ -379,10 +379,6 @@ li a {
   background-color: #ebe3df;
 }
 
-.navbar-dropdown-toggle {
-  display: flex;
-}
-
 .navbar-dropdown-toggle-content {
   display: flex;
   color: #ffffff;
@@ -396,6 +392,8 @@ li a {
 
 .link-new-tab {
   color: #ffffff;
+  display: flex;
+  gap: 4px;
 }
 
 .link-new-tab:hover {
@@ -404,6 +402,8 @@ li a {
 
 .link-new-tab-footer {
   color: #325c9e;
+  display: flex;
+  gap: 4px;
 }
 
 .link-new-tab-footer:hover {
