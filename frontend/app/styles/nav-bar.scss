@@ -2,15 +2,6 @@
   word-break: break-word;
 }
 
-.search:focus {
-  outline: none !important;
-}
-
-.sign-out-icon {
-  width: 24px;
-  margin-right: 8px;
-}
-
 .actions {
   align-items: center;
 }
@@ -60,55 +51,10 @@
   min-height: 100%;
 }
 
-@media screen and (max-width: 1200px) {
-  .help {
-    display: none;
-  }
-
-  .administration {
-    display: none;
-  }
-}
-
-@media screen and (min-width: 1201px) {
-  .administration-dropdown {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 575px) {
-  .align-right-on-smartphone {
-    margin: 0 0 0 auto;
-  }
-
-  .break-on-smartphone {
-    min-width: 80%;
-    display: inline-block;
-    word-break: break-word;
-  }
-
-  .input-wrapper {
-    flex-direction: column;
-  }
-
-}
-
 @media screen and (max-width: 991px) {
-  .nav-container {
-    width: 100%;
-  }
-
   .content {
     width: 90%;
     margin: 0 auto;
-  }
-
-  .navbar-header {
-    display: flex !important;
-  }
-
-  .show-on-hamburgermenu {
-    justify-content: space-between !important;
   }
 
   .sidebar-wrapper {
@@ -117,10 +63,6 @@
 
   .ml-270px {
     margin-left: 0 !important;
-  }
-
-  .ignore-footer-smartphone {
-    padding-bottom: 50px !important;
   }
 
   .account-container-smartphone {
@@ -152,10 +94,6 @@
 }
 
 @media screen and (min-width: 992px) {
-  .show-on-hamburgermenu {
-    display: none !important;
-  }
-
   .content {
     width: 66.6%;
     margin: 0 auto;
@@ -169,23 +107,8 @@
     padding-left: 32px !important;
   }
 
-  .navbar-icon {
-    padding-right: 1px;
-    padding-bottom: 2px;
-    width: 19px;
-    display: inline;
-  }
-
-  nav .nav-link {
-    color: white !important;
-  }
-
   .ml-238 {
     margin-left: 238px !important;
-  }
-
-  .vertical-center-icon {
-    margin-bottom: 4px !important;
   }
 
   .side-nav-bar-teams-list .list-group-item:hover {
@@ -209,27 +132,6 @@
   }
 }
 
-.title {
-  color: white;
-  font-size: 1.5rem !important;
-  padding-bottom: 0 !important;
-  padding-top: 0 !important;
-  text-decoration: none !important;
-}
-.title:hover {
-  text-decoration: none !important;
-  color: white;
-}
-
-.well {
-  margin-bottom: 0 !important;
-}
-
-.white-svg {
-  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(360deg)
-    brightness(102%) contrast(102%);
-}
-
 .cryptopus-logo {
   display: block;
   min-width: 214px;
@@ -238,4 +140,8 @@
 
 div.dropdown-menu.dropdown-menu-right {
   top: 10px !important;
+}
+
+.dropdown a {
+  text-decoration: none;
 }
