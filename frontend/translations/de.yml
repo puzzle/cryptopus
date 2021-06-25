@@ -61,7 +61,9 @@ de:
     index:
       hi_user: "Hi %{username}! Du suchst ein Passwort?"
       no_results_found: keine Resultate gefunden
-      type_to_search: Tippen um zu suchen...
+      type_to_search:
+        favourites: Tippen um in favorisierten Teams zu suchen...
+        all: Tippen um in allen Teams zu suchen...
 
   accounts:
     title: Accounts
