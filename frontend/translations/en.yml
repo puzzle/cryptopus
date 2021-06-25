@@ -59,7 +59,9 @@ en:
     index:
       hi_user: "Hi %{username}! Want to recover a password?"
       no_results_found: no results found
-      type_to_search: Type to search...
+      type_to_search:
+        favourites: Type to search in favourite teams...
+        all: Type to search in all teams...
 
   accounts:
     title: Accounts

@@ -62,7 +62,9 @@ fr:
     index:
       hi_user: "Salut %{username}! Vous cherchez un mot de passe?"
       no_results_found: Aucun résultat trouvé
-      type_to_search: Appuyez pour rechercher...
+      type_to_search:
+        favourites: Appuyez pour rechercher dans les équipes favorites...
+        all: Appuyez pour rechercher dans tout les équipes...
 
   accounts:
     title: Comptes

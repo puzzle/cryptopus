@@ -91,7 +91,9 @@ ch_be:
     index:
       hi_user: "Hallo %{username}! Suechsch es Passwort?"
       no_results_found: äuä nüt gfunde
-      type_to_search: Tippe für z sueche...
+      type_to_search:
+        favourites: Tippe um in favorisierte Teams z sueche...
+        all: Tippe um in aue Teams z sueche...
 
   accounts:
     title: 'Accounts'
