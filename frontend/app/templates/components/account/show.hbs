@@ -4,7 +4,7 @@
 {{#if this.isFileEntryCreating}}
   <FileEntry::Form @class="modal_file_entry" @account={{@account}} @title={{t "file_entries.new.title"}} @onAbort={{this.toggleFileEntryNew}}/>
 {{/if}}
-<div class="container px-5 pt-4 h-100 bg-white pl-none account-container-smartphone">
+<div class="container px-5 pt-4 h-100 bg-white pl-none account-container-smartphone mb-15">
   <div class="row mb-3">
     <div class="col">
       <a id="account-show-back" role="button" {{on "click" this.transitionBack}}>
@@ -25,12 +25,12 @@
     {{/unless}}
   </div>
   <div class="row pb-3 justify-content-between">
-    <div class="col-lg-7 accountname">
+    <div class="col-lg-9 accountname">
       <h2 class="d-inline">{{t "accounts.show.account"}}: {{@account.accountname}}</h2>
     </div>
-    <div class="col-sm-5 accountname">
-      <p class="d-inline">{{t "accounts.show.created_at"}}: {{moment-format @account.createdAt "DD.MM.YYYY hh:mm"}}</p>
-      <br>
+    <div class="col-lg-9 accountname text-muted">
+      <br><p class="d-inline">{{t "accounts.show.created_at"}}: {{moment-format @account.createdAt "DD.MM.YYYY hh:mm"}}</p>
+       / 
       <p class="d-inline">{{t "accounts.show.last_update"}}: {{moment-format @account.updatedAt "DD.MM.YYYY hh:mm"}}</p>
     </div>
   </div>
@@ -38,7 +38,7 @@
   {{#if @account.description}}
     <div class="row pb-3">
       <div class="col">
-        <p class="text-muted description">{{@account.description}}</p>
+        <br><p class="text-muted description">{{@account.description}}</p>
       </div>
     </div>
   {{/if}}
