@@ -5,37 +5,6 @@ require 'spec_helper'
 describe SessionController do
   include ControllerHelpers
 
-  context 'GET show_update_password' do
-    it 'does not authorize previously authorized source ip' do
-      source_ip = '102.20.2.1'
-      expect_any_instance_of(Authentication::SourceIpChecker)
-        .to receive(:ip_authorized?)
-        .and_return(true)
-      expect_any_instance_of(ActionController::TestRequest)
-        .to receive(:remote_ip)
-        .exactly(3).times
-        .and_return(source_ip)
-      session[:authorized_ip] = source_ip
-      session[:user_id] = users(:bob).id
-      session[:private_key] = 'fookey'
-
-      expect_any_instance_of(Authentication::SourceIpChecker).to receive(:previously_authorized?)
-      expect_any_instance_of(Authentication::SourceIpChecker).to receive(:ip_authorized?).never
-
-      get :show_update_password
-
-      expect(response).to have_http_status(200)
-    end
-
-    it 'redirects if ldap user tries to access update password site' do
-      users(:bob).update!(auth: 'ldap')
-      login_as(:bob)
-      get :show_update_password
-
-      expect(response).to redirect_to root_path
-    end
-  end
-
   context 'GET new' do
 
     it 'should show 401 if ip address is unauthorized' do
@@ -142,51 +111,6 @@ describe SessionController do
       user.update!(last_login_at: '2017-01-01 16:00:00 + 0000', last_login_from: nil)
 
       post :create, params: { password: 'password', username: 'bob' }
-    end
-  end
-
-  context 'POST update_password' do
-    it 'updates password' do
-      login_as(:bob)
-      post :update_password, params: { old_password: 'password', new_password1: 'test',
-                                       new_password2: 'test' }
-
-      expect(flash[:notice]).to match(/new password/)
-      expect(users(:bob).authenticate_db('test')).to eq true
-    end
-
-    it 'updates password, error if oldpassword not match' do
-      login_as(:bob)
-      post :update_password, params: { old_password: 'wrong_password', new_password1: 'test',
-                                       new_password2: 'test' }
-
-      expect(flash[:error]).to match(/Invalid user \/ password/)
-      expect(users(:bob).authenticate_db('test')).to be false
-    end
-
-    it 'updates password, error if new passwords not match' do
-      login_as(:bob)
-      post :update_password, params: { old_password: 'password', new_password1: 'test',
-                                       new_password2: 'wrong_password' }
-
-      expect(flash[:error]).to match(/New passwords not equal/)
-      expect(users(:bob).authenticate_db('test')).to eq false
-    end
-
-    it 'redirects if ldap user tries to update password' do
-      users(:bob).update!(auth: 'ldap')
-      login_as(:bob)
-      post :update_password, params: { old_password: 'password', new_password1: 'test',
-                                       new_password2: 'test' }
-      expect(response).to redirect_to root_path
-    end
-
-    it 'redirects if oidc user tries to update password' do
-      users(:bob).update!(auth: 'oidc')
-      login_as(:bob)
-      post :update_password, params: { old_password: 'password', new_password1: 'test',
-                                       new_password2: 'test' }
-      expect(response).to redirect_to root_path
     end
   end
 end

@@ -20,7 +20,7 @@
     <div class="search-field">
       <Input @class="search" @type="search"
              @value={{ this.navService.searchQuery }}
-             placeholder={{t "search.index.type_to_search"}} @keyUp={{this.searchByQuery}}
+             placeholder={{t (concat "search.index.type_to_search." (if this.navService.isShowingFavourites "favourites" "all"))}} @keyUp={{this.searchByQuery}}
              @autofocus={{this.isStartpage}} maxlength="70"/>
       <button>
         <pzsh-icon name="search"></pzsh-icon>

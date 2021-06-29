@@ -4,12 +4,14 @@ module ::Teams
   class FilteredList < ::FilteredList
 
     def fetch_entries
-      return filter_by_query if query_present?
-      return filter_by_id if team_id.present?
-      return filter_by_favourite if favourite.present?
-      return filter_by_last_teammember if only_teammember_user.present?
+      filtered_teams = teams
 
-      teams
+      filtered_teams = filter_by_favourite if favourite.present? && true?(favourite)
+      filtered_teams = filter_by_query(filtered_teams) if query_present?
+      filtered_teams = filter_by_id if team_id.present?
+      filtered_teams = filter_by_last_teammember if only_teammember_user.present?
+
+      filtered_teams
     end
 
     private
@@ -44,7 +46,7 @@ module ::Teams
       @params[:limit]
     end
 
-    def filter_by_query
+    def filter_by_query(teams)
       teams.includes(:folders, folders: [:accounts]).where(
         'lower(accounts.description) LIKE :query
         OR lower(accounts.accountname) LIKE :query

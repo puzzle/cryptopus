@@ -34,6 +34,10 @@ class User::ApiPolicy < ApplicationPolicy
     own_api_user?
   end
 
+  def update_password?
+    false
+  end
+
   private
 
   def own_api_user?

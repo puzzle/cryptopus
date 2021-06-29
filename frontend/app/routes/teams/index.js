@@ -25,6 +25,7 @@ export default class TeamsIndexRoute extends BaseRoute {
 
   model(params) {
     params["limit"] = 10;
+    params["favourite"] = this.navService.isShowingFavourites;
     return this.store.query("team", params);
   }
 }
