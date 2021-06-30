@@ -378,6 +378,7 @@ ch_be:
           renew: "%{username} isch ernöieret worde, nöis Token: %{token}"
         ccli_login:
           copied: CCLI Login Befäu isch kopiert worde
+          tooltip: CCLI Login
       members:
         added: Mitglied isch erfougrich hinzuegfüegt worde
         removed: Mitglied isch erfougrich entfernt worde

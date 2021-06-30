@@ -3,8 +3,11 @@ import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
 
 export default class TableRow extends Component {
+  @service intl;
+  @service notify;
   @service store;
   @service fetchService;
+  @service clipboardService;
 
   validityTimes = [
     { label: "profile.api_users.options.one_min", value: 60 },
@@ -54,5 +57,24 @@ export default class TableRow extends Component {
   updateValidFor(user, validityTime) {
     user.validFor = validityTime.value;
     this.updateApiUser(user);
+  }
+
+  @action
+  copyCcliLogin(apiUser) {
+    this.fetchService
+      .send(`/api/api_users/${apiUser.id}/token`, { method: "GET" })
+      .then((response) => {
+        response.json().then((json) => {
+          this.clipboardService.copy(
+            `cry login ${btoa(`${json.token}:${json.username}`)}@${
+              window.location.origin
+            }`
+          );
+          let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
+          let successMsg = `${translationKeyPrefix}.flashes.api.api-users.ccli_login.copied`;
+          let msg = this.intl.t(successMsg);
+          this.notify.success(msg);
+        });
+      });
   }
 }

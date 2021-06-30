@@ -32,5 +32,9 @@
     <DeleteWithConfirmation @class="" @record={{@apiUser}}>
       <img src="/assets/images/remove.svg" alt="remove" class="icon-button">
     </DeleteWithConfirmation>
+    <a role="button" {{on "click" (fn this.copyCcliLogin @apiUser)}}>
+      <img src="/assets/images/clipboard.svg" alt="clipboard" class="icon-button">
+      <BsTooltip @title={{t "flashes.api.api-users.ccli_login.tooltip"}} @delayShow="700" />
+    </a>
   </td>
 </tr>
