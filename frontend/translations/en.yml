@@ -355,6 +355,7 @@ en:
           renew: "Renewed %{username}, new token: %{token}"
         ccli_login:
           copied: CCLI Login command was copied!
+          tooltip: CCLI Login
       members:
         removed: Member was successfully removed
         added: Member was successfully added

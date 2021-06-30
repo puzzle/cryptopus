@@ -10,6 +10,7 @@ export default class RowComponent extends Component {
   @service intl;
   @service notify;
   @service inViewport;
+  @service clipboardService;
 
   HIDE_TIME = 5;
 
@@ -34,7 +35,7 @@ export default class RowComponent extends Component {
     let password = this.args.account.cleartextPassword;
     if (isNone(password)) {
       this.fetchAccount().then((a) => {
-        this.copyToClipboard(a.cleartextPassword);
+        this.clipboardService.copy(a.cleartextPassword);
         this.onCopied("password");
       });
     } else {
@@ -48,7 +49,7 @@ export default class RowComponent extends Component {
     let username = this.args.account.cleartextUsername;
     if (isNone(username)) {
       this.fetchAccount().then((a) => {
-        this.copyToClipboard(a.cleartextUsername);
+        this.clipboardService.copy(a.cleartextUsername);
         this.onCopied("username");
       });
     } else {
