@@ -3,7 +3,11 @@ db/*.sqlite3
 db/geo_ip.mmdb
 cryptopus_development
 cryptopus_test
-tmp
+tmp/bash_history
+tmp/cache
+tmp/pids
+tmp/seed
+tmp/sockets
 log
 .sass-cache
 public/assets

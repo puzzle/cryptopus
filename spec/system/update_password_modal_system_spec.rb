@@ -74,8 +74,8 @@ describe 'UpdatePasswordModal', type: :system, js: true do
   def fill_modal(password_attrs)
     within('div.modal') do
       find('input[name="oldPassword"]').set password_attrs[:old_pwd]
-      find('input[name="newPassword1"]').set password_attrs[:new_pwd1]
-      find('input[name="newPassword2"]').set password_attrs[:new_pwd2]
+      find('input#ember15492-field').set password_attrs[:new_pwd1]
+      find('input#ember15497-field').set password_attrs[:new_pwd2]
     end
   end
 

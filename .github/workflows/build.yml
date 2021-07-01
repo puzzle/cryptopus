@@ -22,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       # Checks out a copy of your repository on the ubuntu-latest machine
       - name: Checkout code
         uses: actions/checkout@v2
@@ -113,6 +114,14 @@ jobs:
       - name: Run system specs
         if: github.event_name == 'push' || github.event_name == 'pull_request'
         run: bundle exec rake nightly:e2e --trace
+              # - name: Download a Build Artifact
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          path: tmp/screenshots   
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: tmp/screenshots
 
       # Cleanup
       - name: Run rake frontend clean
