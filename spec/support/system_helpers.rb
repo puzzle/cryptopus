@@ -21,7 +21,13 @@ module SystemHelpers
   end
 
   def logout
-    find('img.sign-out-icon').click
+    expect(page).to have_css('pzsh-menu')
+    within 'pzsh-menu' do
+      expect(page).to have_css('pzsh-menu-dropdown')
+      all('pzsh-menu-dropdown').last.click
+
+      find('pzsh-menu-dropdown-item', text: 'Logout').click
+    end
   end
 
   def uri

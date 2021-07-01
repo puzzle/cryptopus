@@ -29,8 +29,14 @@ describe 'AccountModal', type: :system, js: true do
     login_as_user(:bob)
 
     # Create Account
-    expect(page).to have_css('a.w-100', text: 'New Account')
-    find('a.w-100', text: 'New Account').click
+    expect(page).to have_css('.dropdown-toggle', text: 'Add')
+    find('.dropdown-toggle', text: 'Add').click
+
+    expect(page).to have_css('div.dropdown-menu')
+    expect(page).to have_css('a.dropdown-item')
+
+    expect(page).to have_css('a.dropdown-item', text: 'New Account')
+    find('a.dropdown-item', text: 'New Account').click
 
     expect(page).to have_text('New Account')
 

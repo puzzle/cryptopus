@@ -63,7 +63,7 @@ describe 'UpdatePasswordModal', type: :system, js: true do
     expect(page).to have_text("New passwords don't match")
 
     # Try with false current password
-    find('input[name="newPassword2"]').set password_attrs[:new_pwd2]
+    all('input[name="newPassword1"]').last.set password_attrs[:new_pwd2]
     click_button('Save', visible: false)
 
     expect(page).to have_text('Wrong password')
@@ -72,10 +72,17 @@ describe 'UpdatePasswordModal', type: :system, js: true do
   private
 
   def fill_modal(password_attrs)
-    within('div.modal') do
-      find('input[name="oldPassword"]').set password_attrs[:old_pwd]
-      find('input#ember15492-field').set password_attrs[:new_pwd1]
-      find('input#ember15497-field').set password_attrs[:new_pwd2]
+    within('div.modal-body') do
+      expect(page).to have_css('input', count: 3)
+      password_inputs = all('input')
+
+      old_password_input = password_inputs.first
+      new_password_input = password_inputs[1]
+      confirm_password_input = password_inputs.last
+
+      old_password_input.set password_attrs[:old_pwd]
+      new_password_input.set password_attrs[:new_pwd1]
+      confirm_password_input.set password_attrs[:new_pwd2]
     end
   end
 

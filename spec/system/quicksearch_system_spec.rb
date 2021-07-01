@@ -21,7 +21,7 @@ describe 'QuickSearch', type: :system, js: true do
   let(:account1) { accounts(:account1) }
 
   it 'search with not available keyword does not show any results' do
-    expect(find('input.search')['placeholder']).to eq('Type to search...')
+    expect(find('input.search')['placeholder']).to eq('Type to search in all teams...')
     expect(page).to have_selector('input.search')
 
     find('input.search').set 'lkj'
@@ -29,7 +29,7 @@ describe 'QuickSearch', type: :system, js: true do
   end
 
   it 'search and access account' do
-    expect(find('input.search')['placeholder']).to eq('Type to search...')
+    expect(find('input.search')['placeholder']).to eq('Type to search in all teams...')
     expect(page).to have_selector('input.search')
 
     find('input.search').set account1.accountname

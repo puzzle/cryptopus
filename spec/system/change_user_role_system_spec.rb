@@ -12,8 +12,16 @@ describe 'ChangeUserRole', type: :system, js: true do
 
   it 'is able to update user role' do
     login_as_root
-    visit('/admin/users')
-    within(find('tr', text: 'tux')) do
+
+    within 'pzsh-menu' do
+      all('pzsh-menu-dropdown').first.click
+      all('pzsh-menu-dropdown-item').first.click
+    end
+
+    expect(page).to have_text('Users')
+    expect(page).to have_css('table')
+
+    within find('tr', text: 'tux') do
       expect(page).to have_text('Conf Admin')
       find('div.ember-basic-dropdown-trigger').click
       find('li.ember-power-select-option[data-option-index="0"]').click
