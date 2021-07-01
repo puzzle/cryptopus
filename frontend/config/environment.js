@@ -1,7 +1,5 @@
 "use strict";
 
-const {contentSecurityPolicy} = require("./content-security-policy");
-
 module.exports = function (environment) {
   let ENV = {
     modulePrefix: "frontend",
@@ -11,7 +9,7 @@ module.exports = function (environment) {
     sentryDsn: "",
     appVersion: undefined,
     currentUserId: undefined,
-    "changeset-validations": {rawOutput: true},
+    "changeset-validations": { rawOutput: true },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -21,10 +19,6 @@ module.exports = function (environment) {
         // Prevent Ember Data from overriding Date.parse.
         Date: false
       }
-    },
-
-    contentSecurityPolicy: {
-      'default-src': "'*'",
     },
 
     APP: {

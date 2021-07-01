@@ -5,12 +5,22 @@
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
 
 Rails.application.config.content_security_policy do |policy|
+  # Attributes clarification
+  # :self, only allow resources from current origin
+  # :none, won't allow loading of any resources
+  #
+  # :https, requires secure http to load resources
+  #
+  # :unsafe_eval, allows execution of eval statements
+  # :unsafe_inline, allows inline resources usage
+
   policy.default_src :self, :https
-  policy.font_src    :self, :https, :data
-  policy.img_src     :self, :https, :data
+  policy.font_src    :self, :https
+  policy.img_src     :self, :https
   policy.object_src  :none
-  policy.script_src  :self, :https, :unsafe_eval, :unsafe_inline, "http://localhost:4200"
-  policy.style_src   :unsafe_inline, :self, :https, "http://localhost:4200"
+  policy.script_src  :self, :https, :unsafe_eval, "http://localhost:4200"
+  policy.style_src   :self, :https, :unsafe_inline, "http://localhost:4200"
+
   # If you are using webpack-dev-server then specify webpack-dev-server host
   policy.connect_src :self, :https, "http://localhost:3035", "ws://localhost:3035" if Rails.env.development?
 
