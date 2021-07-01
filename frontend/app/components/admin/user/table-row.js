@@ -58,6 +58,18 @@ export default class AdminUserTableRowComponent extends Component {
     this.isEditing = !this.isEditing;
   }
 
+  @action
+  unlockUser(user) {
+    this.fetchService
+      .send(`/api/admin/users/${user.id}/lock`, {
+        method: "DELETE"
+      })
+      .then(() => {
+        user.locked = false;
+        if (this.args.onRemove) this.args.onRemove(user);
+      });
+  }
+
   get selectedRole() {
     return this.ROLES.find((role) => role.key === this.args.user.role);
   }

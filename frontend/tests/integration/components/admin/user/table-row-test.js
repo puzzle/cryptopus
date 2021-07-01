@@ -38,4 +38,23 @@ module("Integration | Component | admin/user/table-row", function (hooks) {
     assert.ok(text.includes("123456"));
     assert.ok(text.includes("User"));
   });
+
+  test("it renders locked user", async function (assert) {
+    let now = new Date();
+    this.set("user", {
+      label: "Bob Muster",
+      username: "bob",
+      lastLoginAt: now,
+      lastLoginFrom: "127.0.0.1",
+      providerUid: "123456",
+      role: "user",
+      locked: "false"
+    });
+
+    await render(hbs`<Admin::User::TableRow @user={{this.user}}/>`);
+
+    let text = this.element.className.trim();
+
+    assert.false(text.includes("locked"));
+  });
 });

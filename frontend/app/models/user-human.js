@@ -13,4 +13,5 @@ export default class UserHuman extends Model {
   @attr("string") password;
   @attr("boolean") deletable;
   @attr("boolean") editable;
+  @attr("boolean") locked;
 }
