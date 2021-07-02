@@ -3,7 +3,7 @@ import { underscore } from "@ember/string";
 
 function validationErrorKey(args) {
   let error = args.flat()[0];
-  if (!error || !error.context) return;
+  if (!error || !error.context) return "";
 
   return `validations.${error.context.description.toLowerCase()}.${underscore(
     error.type

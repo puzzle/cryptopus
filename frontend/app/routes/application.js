@@ -28,19 +28,18 @@ export default class IndexRoute extends Route {
   }
 
   getErrorMessage(error) {
-    let prefix = this.intl.locale[0].replace("-", "_");
-    let msg = this.intl.t(`${prefix}.something_went_wrong`);
+    let msg = this.intl.t("something_went_wrong");
     let error_msg = error?.errors[0];
 
     if (typeof error_msg === "string") {
-      msg = this.intl.t(`${prefix}.${error.errors[0]}`);
+      msg = this.intl.t(error.errors[0]);
     } else if (typeof error_msg === "object" && error_msg != null) {
       switch (error_msg.status) {
         case "403":
-          msg = this.intl.t(`${prefix}.flashes.admin.admin.no_access`);
+          msg = this.intl.t("flashes.admin.admin.no_access");
           break;
         case "404":
-          msg = this.intl.t(`${prefix}.flashes.api.errors.record_not_found`);
+          msg = this.intl.t("flashes.api.errors.record_not_found");
           break;
       }
     }

@@ -5,11 +5,9 @@ export default Helper.extend({
   intl: service(),
 
   compute(params) {
+    // We're still overriding the t helper from intl, since the intl t helper is not able to handle null as an argument
+    // Yet we need this functionality, especially with our form validations
     if (!params[0]) return;
-    return this.intl.t(`${this.getTranslationKeyPrefix()}.${params[0]}`);
-  },
-
-  getTranslationKeyPrefix() {
-    return this.intl.locale[0].replace("-", "_");
+    return this.intl.t(params[0]);
   }
 });

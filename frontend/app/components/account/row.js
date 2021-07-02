@@ -140,11 +140,7 @@ export default class RowComponent extends Component {
 
   @action
   onCopied(attribute) {
-    let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
-    let msg = this.intl.t(
-      `${translationKeyPrefix}.flashes.accounts.${attribute}_copied`
-    );
-    this.notify.info(msg);
+    this.notify.info(this.intl.t(`flashes.accounts.${attribute}_copied`));
   }
 
   willDestroy() {
