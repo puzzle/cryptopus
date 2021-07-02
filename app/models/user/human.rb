@@ -131,33 +131,15 @@ class User::Human < User
     false
   end
 
-  def migrate_legacy_private_key(password)
-    decrypted_legacy_private_key = CryptUtilsLegacy.decrypt_private_key(private_key, password)
-    newly_encrypted_private_key = CryptUtils.encrypt_private_key(decrypted_legacy_private_key,
-                                                                 password)
-    update!(private_key: newly_encrypted_private_key)
-  end
-
   def decrypt_private_key(password)
-    migrate_legacy_private_key(password) if legacy_private_key?
     CryptUtils.decrypt_private_key(private_key, password)
   rescue StandardError
     raise Exceptions::DecryptFailed
   end
 
-  def legacy_password?
-    return false unless auth_db?
-
-    password.match('sha512').nil?
-  end
-
   def folders
     Folder.joins('INNER JOIN teammembers ON folders.team_id = teammembers.team_id').
       where(teammembers: { user_id: id })
-  end
-
-  def legacy_private_key?
-    /^Salted/ !~ private_key
   end
 
   private
