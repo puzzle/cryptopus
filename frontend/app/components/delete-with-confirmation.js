@@ -10,22 +10,18 @@ export default class DeleteWithConfirmationComponent extends Component {
   @service notify;
 
   showDeletedMessage() {
-    let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
     let modelName = pluralize(this.args.record.constructor.modelName).replace(
       "-",
       "_"
     );
-    let deletedMsg = `${translationKeyPrefix}.flashes.${modelName}.deleted`;
-    let msg = this.intl.t(deletedMsg);
+    let msg = this.intl.t(`flashes.${modelName}.deleted`);
     if (!msg.includes("Missing translation")) {
       this.notify.success(msg);
     }
   }
 
   showErrorMessage() {
-    let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
-    let errorMsg = `${translationKeyPrefix}.flashes.api.errors.delete_failed`;
-    let msg = this.intl.t(errorMsg);
+    let msg = this.intl.t(`flashes.api.errors.delete_failed`);
     if (!msg.includes("Missing translation")) {
       this.notify.error(msg);
     }

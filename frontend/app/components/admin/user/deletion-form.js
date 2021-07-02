@@ -36,10 +36,7 @@ export default class AdminUserDeletionFormComponent extends Component {
 
   @action
   deleteUser() {
-    let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
-    let successMsg = `${translationKeyPrefix}.flashes.api.admin.users.destroy.success`;
-    let msg = this.intl.t(successMsg);
-    this.notify.success(msg);
+    this.notify.success(this.intl.t("flashes.api.admin.users.destroy.success"));
 
     this.args.user.destroyRecord();
     this.toggleDeletionForm();

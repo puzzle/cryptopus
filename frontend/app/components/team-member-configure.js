@@ -35,10 +35,6 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
     }
   }
 
-  get translationKeyPrefix() {
-    return this.intl.locale[0].replace("-", "_");
-  }
-
   loadCandidates() {
     this.store
       .query("user-human", {
@@ -56,9 +52,7 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
   }
 
   showSuccessMessage() {
-    let successMsg = `${this.translationKeyPrefix}.flashes.api.members.added`;
-    let msg = this.intl.t(successMsg);
-    this.notify.success(msg);
+    this.notify.success(this.intl.t("flashes.api.members.added"));
   }
 
   @action
@@ -91,9 +85,7 @@ export default class TeamMemberConfigureComponent extends BaseFormComponent {
           .then((res) => (this.members = res));
         this.loadCandidates();
       }
-      let successMsg = `${this.translationKeyPrefix}.flashes.api.members.removed`;
-      let msg = this.intl.t(successMsg);
-      this.notify.success(msg);
+      this.notify.success(this.intl.t("flashes.api.members.removed"));
     });
   }
 

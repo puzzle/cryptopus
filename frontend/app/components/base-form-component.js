@@ -40,12 +40,11 @@ export default class BaseFormComponent extends Component {
 
   /* The showSuccessMessage method can be implemented to adjust the success notify message */
   showSuccessMessage() {
-    let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
     let translationKeySuffix = this.isNewRecord ? "created" : "updated";
     let modelName = pluralize(this.record.constructor.modelName);
-    let successMsg = `${translationKeyPrefix}.flashes.${modelName}.${translationKeySuffix}`;
-    let msg = this.intl.t(successMsg);
-    this.notify.success(msg);
+    this.notify.success(
+      this.intl.t(`flashes.${modelName}.${translationKeySuffix}`)
+    );
   }
 
   @action

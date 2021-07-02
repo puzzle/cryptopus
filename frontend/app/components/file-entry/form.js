@@ -48,9 +48,7 @@ export default class Form extends BaseFormComponent {
   }
 
   showSuccessMessage() {
-    let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
-    let successMsg = `${translationKeyPrefix}.flashes.file_entries.uploaded`;
-    let msg = this.intl.t(successMsg);
+    let msg = this.intl.t("flashes.file_entries.uploaded");
     this.notify.success(msg);
   }
 

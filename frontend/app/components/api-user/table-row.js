@@ -70,10 +70,9 @@ export default class TableRow extends Component {
               window.location.origin
             }`
           );
-          let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
-          let successMsg = `${translationKeyPrefix}.flashes.api.api-users.ccli_login.copied`;
-          let msg = this.intl.t(successMsg);
-          this.notify.success(msg);
+          this.notify.success(
+            this.intl.t("flashes.api.api-users.ccli_login.copied")
+          );
         });
       });
   }

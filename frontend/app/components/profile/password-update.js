@@ -20,9 +20,7 @@ export default class ProfilePasswordUpdateComponent extends Component {
   oldPasswordIncorrectError = "";
 
   showSuccessMessage() {
-    let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
-    let successMsg = `${translationKeyPrefix}.flashes.profile.changePassword.success`;
-    let msg = this.intl.t(successMsg);
+    let msg = this.intl.t("flashes.profile.changePassword.success");
     this.notify.success(msg);
   }
 

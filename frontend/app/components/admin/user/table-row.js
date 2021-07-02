@@ -46,10 +46,9 @@ export default class AdminUserTableRowComponent extends Component {
       })
       .then(() => {
         user.role = role.key;
-        let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
-        let successMsg = `${translationKeyPrefix}.flashes.api.admin.users.update.${role.key}`;
-        let msg = this.intl.t(successMsg);
-        this.notify.success(msg);
+        this.notify.success(
+          this.intl.t(`flashes.api.admin.users.update.${role.key}`)
+        );
       });
   }
 
