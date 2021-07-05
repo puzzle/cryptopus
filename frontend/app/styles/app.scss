@@ -401,3 +401,22 @@ li a {
 .link-new-tab-footer:hover {
   color: #325c9e;
 }
+
+pzsh-hero > h1 {
+  margin: 0;
+  font-size: 32px;
+  color: var(--pzsh-color-brand-alt-2);
+  font-family: var(--pzsh-font-family);
+  font-weight: normal;
+  line-height: 1;
+}
+
+pzsh-hero > h2 {
+  margin-top: var(--pzsh-spacer);
+  margin-bottom: 0px;
+  font-size: 18px;
+  color: var(--pzsh-color-brand-alt-3);
+  font-family: var(--pzsh-font-family);
+  font-weight: normal;
+  line-height: 1;
+}

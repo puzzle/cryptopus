@@ -44,4 +44,9 @@ export default class NavService extends Service {
       ? this.store.peekRecord("folder", folder_id)
       : null;
   }
+
+  get isOnDashboardRoute() {
+    const DASHBOARD_ROUTE = 'dashboard';
+    return this.router.currentRouteName === DASHBOARD_ROUTE;
+  }
 }

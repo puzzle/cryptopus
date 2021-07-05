@@ -49,6 +49,7 @@ ch_be:
   select_team: Wähl bitte es team us oder benutz d suechi
   role: Rollä
   empty: läär
+  slogan: Dr Ort für Passwörter
 
   api-user:
     none: Du hesch kei Api-Benutzer. Hol dr einä
