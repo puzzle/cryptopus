@@ -9,20 +9,23 @@ Rails.application.config.content_security_policy do |policy|
   # :self, only allow resources from current origin
   # :none, won't allow loading of any resources
   #
-  # :https, requires secure http to load resources
+  # :https, allow loading resources from arbitrary hosts that are protected by https
   #
   # :unsafe_eval, allows execution of eval statements
   # :unsafe_inline, allows inline resources usage
 
-  policy.default_src :self, :https
-  policy.font_src    :self, :https
-  policy.img_src     :self, :https
-  policy.object_src  :none
-  policy.script_src  :self, :https, :unsafe_eval, "http://localhost:4200"
-  policy.style_src   :self, :https, :unsafe_inline, "http://localhost:4200"
+  policy.default_src :none
+  policy.font_src    :self
+  policy.img_src     :self
+
+  policy.script_src  :self
+  policy.script_src  :self, :unsafe_eval, "http://localhost:4200" if Rails.env.development?
+
+  policy.style_src   :self, :unsafe_inline
+  policy.style_src   :self, :unsafe_inline, "http://localhost:4200" if Rails.env.development?
 
   # If you are using webpack-dev-server then specify webpack-dev-server host
-  policy.connect_src :self, :https, "http://localhost:3035", "ws://localhost:3035" if Rails.env.development?
+  policy.connect_src :self, "http://localhost:3035", "ws://localhost:3035" if Rails.env.development?
 
   # Specify URI for violation reports
   # policy.report_uri "/csp-violation-report-endpoint"
