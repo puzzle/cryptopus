@@ -21,5 +21,9 @@ selectUsername = () => {
 
 document.addEventListener("DOMContentLoaded", function (event) {
   document.addEventListener("page:change", setFocus);
-  document.getElementById("username").addEventListener("click", selectUsername);
+  const usernameElement = document.getElementById("username");
+
+  if (typeof(usernameElement) != 'undefined' && usernameElement != null) {
+    usernameElement.addEventListener("click", selectUsername);
+  }
 });
