@@ -109,7 +109,7 @@ jobs:
 
       # Run end-to-end tests
       - name: Run system specs
-        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        if: github.event_name == 'schedule' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
         run: bundle exec rake nightly:e2e --trace
 
       # Cleanup

@@ -43,7 +43,6 @@ describe 'Create Human User', type: :system, js: true do
 
     expect do
       click_button('Save', visible: false)
-      # expect(page).to have_text(user_attrs[:username])
     end.to change { User::Human.count }.by 1
 
     logout
