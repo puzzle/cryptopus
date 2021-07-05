@@ -11,7 +11,8 @@ class RedirectedRoutes::UrlHandler
     accounts_show: /(^\/accounts\/\d+)$/,
     profile_index: /(^\/profile)$/,
     admin_users_index: /(^\/admin\/users)$/,
-    admin_settings: /(^\/admin\/settings)$/
+    admin_settings: /(^\/admin\/settings)$/,
+    dashboard: /(^\/dashboard)$/
   }.freeze
 
   LEGACY_PATHS = {
