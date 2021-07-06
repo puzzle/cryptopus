@@ -15,4 +15,3 @@ describe 'Dashboard', type: :system, js: true do
     expect(page).not_to have_selector 'div.content'
   end
 end
-
