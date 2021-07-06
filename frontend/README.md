@@ -30,8 +30,15 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Running Tests
 
+#### Without docker
+
 * `ember test`
 * `ember test --server`
+
+#### With docker
+
+Visit [localhost:4200/test](http://localhost:4200/tests)  
+Edited tests will automatically restart when saved.
 
 ### Linting
 
