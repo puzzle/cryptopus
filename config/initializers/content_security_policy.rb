@@ -17,6 +17,7 @@ Rails.application.config.content_security_policy do |policy|
   policy.default_src :none
   policy.font_src    :self
   policy.img_src     :self
+  policy.connect_src :self
 
   policy.script_src  :self
   policy.script_src  :self, :unsafe_eval, "http://localhost:4200" if Rails.env.development?
