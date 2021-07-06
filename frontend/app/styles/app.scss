@@ -1,9 +1,7 @@
 $navbar-dark-brand-color: white;
 $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 
-$font-family-sans-serif: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI",
-  "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-sans-serif: var(--pzsh-font-family) !default;
 
 @import "ember-bootstrap/bootstrap";
 
@@ -12,7 +10,6 @@ $font-family-sans-serif: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI",
 @import "ember-power-select";
 
 @import "footer";
-@import "theme";
 @import "nav-bar";
 @import "changelog";
 @import "side-nav-bar";
@@ -413,10 +410,19 @@ pzsh-hero > h1 {
 
 pzsh-hero > h2 {
   margin-top: var(--pzsh-spacer);
-  margin-bottom: 0px;
+  margin-bottom: 0;
   font-size: 18px;
   color: var(--pzsh-color-brand-alt-3);
   font-family: var(--pzsh-font-family);
   font-weight: normal;
   line-height: 1;
+}
+
+pzsh-banner {
+  overflow: initial;
+}
+
+h5, h6 {
+  font-family: var(--pzsh-font-family) !important;
+  font-weight: 400 !important;
 }

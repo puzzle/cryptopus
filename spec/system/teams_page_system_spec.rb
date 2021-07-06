@@ -15,6 +15,7 @@ describe 'TeamsPage', type: :system, js: true do
 
   it 'clicks through teams page' do
     login_as_user(:bob)
+    visit('/')
 
     account1 = accounts(:account1)
 

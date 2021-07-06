@@ -7,6 +7,7 @@ describe 'NavBar', type: :system, js: true do
 
   it 'shows admin button as admin' do
     login_as_user(:admin)
+    visit('/')
 
     within(page.find('pzsh-menu')) do
       expect(page).to have_text('Admin').twice

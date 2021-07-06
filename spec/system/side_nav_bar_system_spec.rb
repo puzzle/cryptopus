@@ -13,6 +13,7 @@ describe 'SideNavBar', type: :system, js: true do
 
   it 'navigate through side nav bar' do
     login_as_user(:bob)
+    visit('/')
 
     sidebar = page.find('div.side-nav-bar-teams-list')
     expect(sidebar).to be_present

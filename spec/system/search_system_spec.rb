@@ -13,6 +13,8 @@ describe 'TeamModal', type: :system, js: true do
 
   it 'finds matching accounts' do
     login_as_user(:bob)
+    visit('/')
+
     account1 = accounts(:account1)
 
     expect(find('pzsh-banner input.search')['placeholder']).to eq('Type to search in all teams...')
@@ -44,6 +46,8 @@ describe 'TeamModal', type: :system, js: true do
 
   it 'finds matching teams' do
     login_as_user(:bob)
+    visit('/')
+
     team1 = teams(:team1)
 
     expect(find('pzsh-banner input.search')['placeholder']).to eq('Type to search in all teams...')
@@ -59,6 +63,8 @@ describe 'TeamModal', type: :system, js: true do
 
   it 'search starts after 2 chars' do
     login_as_user(:bob)
+    visit('/')
+
     account1 = accounts(:account1)
 
     account1_name_first_two_chars = account1.accountname[0...1]

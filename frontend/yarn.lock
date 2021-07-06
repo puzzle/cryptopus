@@ -1748,10 +1748,10 @@
     node-gyp "^7.1.0"
     read-package-json-fast "^2.0.1"
 
-"@puzzleitc/puzzle-shell@^1.0.0-alpha.3":
-  version "1.0.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/@puzzleitc/puzzle-shell/-/puzzle-shell-1.0.0-alpha.7.tgz#66bbd66233460dccf1dc4593a8d8fc6bb55e04bf"
-  integrity sha512-Az5091daV6GhDV240Kvtf1+b+uV1cDSZrGe8PEFgvIm84nMz/NJa951nTEXpJfGi/VWP/Xw4j6w3VvIjNOZlVw==
+"@puzzleitc/puzzle-shell@^1.0.0-beta.3":
+  version "1.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@puzzleitc/puzzle-shell/-/puzzle-shell-1.0.0-beta.3.tgz#2c06311a3a5b251a6a2396b31ec7a55768dbb3fc"
+  integrity sha512-Ns+rLoRzezpOvFBbQ4OJoTbd2NMyrUgS8RCqwznMvs6VEIMNPNHn5x75q36QEOE1k8Q4NdgUK9YlMqFqn18EgQ==
   dependencies:
     lit-element "^2.5.1"
     lit-html "^1.4.1"
@@ -3481,7 +3481,7 @@ bn.js@^5.0.0, bn.js@^5.1.1:
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-5.2.0.tgz#358860674396c6997771a9d051fcc1b57d4ae002"
   integrity sha512-D7iWRBvnZE8ecXiLj/9wbxH7Tk79fAh8IHaTNq1RWRixsS02W+5qS+iE9yq6RYl0asXx5tw0bLhmT5pIfbSquw==
 
-body-parser@1.19.0, body-parser@^1.17.0:
+body-parser@1.19.0:
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.19.0.tgz#96b2709e57c9c4e09a6fd66a8fd979844f69f08a"
   integrity sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw==
@@ -6171,14 +6171,6 @@ ember-cli-clipboard@^0.14.0:
     ember-cli-babel "^7.13.0"
     ember-cli-htmlbars "^4.2.0"
     fastboot-transform "^0.1.3"
-
-ember-cli-content-security-policy@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-content-security-policy/-/ember-cli-content-security-policy-1.1.1.tgz#7d91a695319d8f99c317f3a594fba77bbfedf6c7"
-  integrity sha512-QgGAFt1nmsb0qF2YXI5iSM7jJVb09R2hrfX7uR+kkXMb5VyNQXdo2ZlX/DuIbePQVY4q9THpRh8Yf0UHJNbvDQ==
-  dependencies:
-    body-parser "^1.17.0"
-    chalk "^2.0.0"
 
 ember-cli-dependency-checker@^3.1.0:
   version "3.2.0"
@@ -11040,6 +11032,7 @@ minipass-fetch@^1.3.0, minipass-fetch@^1.3.2:
   resolved "https://registry.yarnpkg.com/minipass-fetch/-/minipass-fetch-1.3.3.tgz#34c7cea038c817a8658461bf35174551dce17a0a"
   integrity sha512-akCrLDWfbdAWkMLBxJEeWTdNsjML+dt5YgOI4gJ53vuO0vrmYQkUPxa6j6V65s9CcePIr2SSWqjT2EcrNseryQ==
   dependencies:
+    encoding "^0.1.12"
     minipass "^3.1.0"
     minipass-sized "^1.0.3"
     minizlib "^2.0.0"

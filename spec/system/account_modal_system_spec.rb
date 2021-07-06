@@ -27,14 +27,15 @@ describe 'AccountModal', type: :system, js: true do
 
   it 'creates, edits and deletes an account' do
     login_as_user(:bob)
+    visit('/')
 
     # Create Account
-    find('.dropdown-toggle', text: 'Add').click
+    expect(page).to have_css('div.dropdown-toggle-text span', text: 'Add')
+    find('div.dropdown-toggle-text span', text: 'Add').click
 
-    expect(page).to have_css('div.dropdown-menu')
-    expect(page).to have_css('a.dropdown-item')
-
-    find('a.dropdown-item', text: 'New Account').click
+    within('div.dropdown-menu') do
+      all('a.dropdown-item').first.click
+    end
 
     expect(page).to have_text('New Account')
 
