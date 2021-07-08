@@ -19,6 +19,8 @@ $font-family-sans-serif: var(--pzsh-font-family) !default;
 @import "folder-show";
 @import "power-select";
 @import "background-colors";
+@import "dashboard";
+@import "dashboard-card";
 
 .w-250 {
   width: 250px;

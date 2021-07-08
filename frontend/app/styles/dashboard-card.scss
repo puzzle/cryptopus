@@ -1,0 +1,46 @@
+.dashboard-grid-card {
+  height: 200px;
+  width: 200px;
+  border: 1px solid #DDDDDD;
+  border-radius: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 32px;
+
+  place-self: center;
+}
+
+.dashboard-card-icon {
+  width: 60px;
+  height: 60px;
+  background-color: var(--pzsh-color-brand-alt-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  margin-top: 34px;
+}
+
+.sub-header {
+  color: var(--pzsh-color-gray-4);
+  font-size: 14px;
+  margin-top: calc(3 * var(--pzsh-spacer));
+  display: flex;
+  flex-direction: row;
+  font-family: Roboto, sans-serif;
+  height: 16px;
+}
+
+.sub-header > svg {
+  margin-right: 5px;
+}
+
+.header {
+  font-size: 18px;
+  color: var(--pzsh-color-brand-2);
+  font-weight: normal;
+  font-family: Roboto, sans-serif;
+  margin-top: calc(3 * var(--pzsh-spacer));
+  text-align: center;
+}
