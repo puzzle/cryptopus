@@ -29,13 +29,11 @@ describe 'AccountModal', type: :system, js: true do
     login_as_user(:bob)
 
     # Create Account
-    expect(page).to have_css('.dropdown-toggle', text: 'Add')
     find('.dropdown-toggle', text: 'Add').click
 
     expect(page).to have_css('div.dropdown-menu')
     expect(page).to have_css('a.dropdown-item')
 
-    expect(page).to have_css('a.dropdown-item', text: 'New Account')
     find('a.dropdown-item', text: 'New Account').click
 
     expect(page).to have_text('New Account')
@@ -72,7 +70,6 @@ describe 'AccountModal', type: :system, js: true do
 
     expect_account_page_with(account_attrs)
 
-    expect(page).to have_selector('#edit_account_button')
     find('#edit_account_button').click
 
     expect(page).to have_text('Edit Account')
