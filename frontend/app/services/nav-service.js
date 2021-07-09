@@ -46,7 +46,7 @@ export default class NavService extends Service {
   }
 
   get isOnDashboardRoute() {
-    const DASHBOARD_ROUTE = 'dashboard';
+    const DASHBOARD_ROUTE = "dashboard";
     return this.router.currentRouteName === DASHBOARD_ROUTE;
   }
 }

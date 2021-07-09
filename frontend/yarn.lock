@@ -1748,10 +1748,10 @@
     node-gyp "^7.1.0"
     read-package-json-fast "^2.0.1"
 
-"@puzzleitc/puzzle-shell@^1.0.0-beta.3":
-  version "1.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@puzzleitc/puzzle-shell/-/puzzle-shell-1.0.0-beta.3.tgz#2c06311a3a5b251a6a2396b31ec7a55768dbb3fc"
-  integrity sha512-Ns+rLoRzezpOvFBbQ4OJoTbd2NMyrUgS8RCqwznMvs6VEIMNPNHn5x75q36QEOE1k8Q4NdgUK9YlMqFqn18EgQ==
+"@puzzleitc/puzzle-shell@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@puzzleitc/puzzle-shell/-/puzzle-shell-1.0.0.tgz#b3578ae637d4d80fc6824bcafa4c8a7b03bc6490"
+  integrity sha512-ShI+PQ1/YUAF88VyvqziQVCveDoM7U1Mw8BUiE0GiZFbghSHzj/TUXQ8YgaU1rWwr049qU7HoCjp2KnbdZ8tdA==
   dependencies:
     lit-element "^2.5.1"
     lit-html "^1.4.1"

@@ -6,9 +6,6 @@
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 32px;
-
-  place-self: center;
 }
 
 .dashboard-card-icon {
@@ -43,4 +40,15 @@
   font-family: Roboto, sans-serif;
   margin-top: calc(3 * var(--pzsh-spacer));
   text-align: center;
+}
+
+@media screen and (max-width: 799px){
+  .dashboard-grid-card {
+    height: 150px;
+    width: 150px;
+  }
+
+  .dashboard-card-icon {
+    margin-top: 14px;
+  }
 }

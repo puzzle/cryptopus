@@ -5,6 +5,8 @@
 
   padding-right: calc(15 * var(--pzsh-spacer));
   padding-left: calc(15 * var(--pzsh-spacer));
+
+  margin-bottom: 100px;
 }
 
 .show-all-btn {
@@ -38,6 +40,25 @@
 .primary-content,
 .secondary-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+  justify-items: center;
+  align-items: center;
+
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 32px;
+}
+
+@media screen and (max-width: 799px){
+  .dashboard-grid-container {
+    padding-right: calc(2 * var(--pzsh-spacer));
+    padding-left: calc(2 * var(--pzsh-spacer));
+    margin-bottom: 180px;
+  }
+
+
+  .primary-content,
+  .secondary-content {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 24px;
+  }
 }

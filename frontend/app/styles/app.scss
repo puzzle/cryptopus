@@ -243,7 +243,7 @@ li a {
 }
 
 .ember-notify-default.ember-notify-cn {
-  bottom: 3em !important;
+  bottom: 5em !important;
 }
 
 .ember-basic-dropdown .ember-basic-dropdown-trigger {
@@ -427,4 +427,28 @@ pzsh-banner {
 h5, h6 {
   font-family: var(--pzsh-font-family) !important;
   font-weight: 400 !important;
+}
+
+.ember-notify-show,
+.alert,
+.alert-warning {
+  background-color: var(--pzsh-color-brand-2);
+  color: #ffffff;
+  display: flex !important;
+  flex-direction: row-reverse;
+  width: auto !important;
+}
+
+.ember-notify-show > a.close {
+  display: flex;
+  color: #ffffff;
+  padding-left: 10px;
+  opacity: 1;
+  align-self: center;
+}
+
+@media screen and (max-width: 799px){
+  .ember-notify-default.ember-notify-cn {
+    bottom: 11em !important;
+  }
 }

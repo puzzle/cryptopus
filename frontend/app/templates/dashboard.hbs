@@ -1,22 +1,20 @@
 <div class="dashboard-grid-container">
-  <h3 class="primary-header">Favourites</h3>
-  <div class="primary-content">
-    {{#if @model}}
+  {{#unless @model.favouriteTeams}}
+    <h3 class="primary-header">Favourites</h3>
+    <div class="primary-content">
       {{#each this.model.favouriteTeams as |team|}}
-        <DashboardCard @team={{team}} />
+        <a href="/teams/{{team.id}}">
+          <DashboardCard @team={{team}} />
+        </a>
       {{/each}}
-    {{else}}
-      <h5>{{t "teams.index.no_content"}}</h5>
-    {{/if}}
-  </div>
-  <h3 class="primary-header">Teams</h3>
-  <div class="primary-content">
-    {{#if @model}}
+    </div>
+  {{/unless}}
+  {{#unless @model.teams}}
+    <h3 class="primary-header">Teams</h3>
+    <div class="primary-content">
       {{#each this.model.teams as |team|}}
         <DashboardCard @team={{team}} />
       {{/each}}
-    {{else}}
-      <h5>{{t "teams.index.no_content"}}</h5>
-    {{/if}}
-  </div>
+    </div>
+  {{/unless}}
 </div>

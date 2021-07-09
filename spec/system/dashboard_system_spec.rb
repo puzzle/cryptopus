@@ -11,6 +11,9 @@ describe 'Dashboard', type: :system, js: true do
     expect(page.current_path).to eq('/dashboard')
 
     expect(page).to have_selector('pzsh-hero', visible: true)
+    expect(page).to have_selector('pzsh-banner', visible: true)
+    expect(page).to have_text('Favourites', visible: true)
+    expect(page).to have_text('Teams', visible: true)
 
     expect(page).not_to have_selector 'div.content'
   end

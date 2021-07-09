@@ -1,26 +1,29 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
+import { module, test } from "qunit";
+import { setupRenderingTest } from "ember-qunit";
+import { render } from "@ember/test-helpers";
+import { hbs } from "ember-cli-htmlbars";
 
-module('Integration | Component | dashboard-card', function(hooks) {
+module("Integration | Component | dashboard-card", function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  const team = {
+    id: 1,
+    name: "GitHub"
+  };
+
+  test("it renders", async function (assert) {
+    this.set("team", team);
 
     await render(hbs`<DashboardCard />`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.equal(this.element.textContent.trim(), "");
 
     // Template block usage:
     await render(hbs`
-      <DashboardCard>
-        template block text
+      <DashboardCard @team={{this.team}}>
       </DashboardCard>
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.equal(this.element.textContent.trim(), "GitHub");
   });
 });
