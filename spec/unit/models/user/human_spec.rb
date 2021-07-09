@@ -42,34 +42,6 @@ describe User::Human do
     end
   end
 
-  context 'legacy encrypted private key' do
-    it 'updates private key if legacy private key' do
-      decrypted_private_key = bob.decrypt_private_key('password')
-      bob.update(private_key: legacy_encrypt_private_key(decrypted_private_key, 'password'))
-
-      expect(bob.decrypt_private_key('password')).to eq(decrypted_private_key)
-      expect(bob.legacy_private_key?).to eq(false)
-    end
-  end
-
-  context 'legacy password' do
-    it 'has legacy password if password is updated' do
-      hash = Digest::MD5.hexdigest('password')
-      bob.update(password: hash)
-
-      expect(bob.legacy_password?).to eq(true)
-    end
-
-    it 'cant have legacy password as ldap user' do
-      hash = Digest::MD5.hexdigest('password')
-      bob.update(password: hash)
-      bob.auth = 'ldap'
-
-      expect(bob.legacy_password?).to eq(false)
-    end
-
-  end
-
   context 'locking' do
     it 'unlocks user' do
       bob.update(locked: true)
