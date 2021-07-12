@@ -1,5 +1,5 @@
 <div class="dashboard-grid-container">
-  {{#unless @model.favouriteTeams}}
+  {{#if @model.favouriteTeams}}
     <h3 class="primary-header">Favourites</h3>
     <div class="primary-content">
       {{#each this.model.favouriteTeams as |team|}}
@@ -8,13 +8,15 @@
         </a>
       {{/each}}
     </div>
-  {{/unless}}
-  {{#unless @model.teams}}
+  {{/if}}
+  {{#if this.model.teams}}
     <h3 class="primary-header">Teams</h3>
     <div class="primary-content">
       {{#each this.model.teams as |team|}}
-        <DashboardCard @team={{team}} />
+        <a href="/teams/{{team.id}}">
+          <DashboardCard @team={{team}} />
+        </a>
       {{/each}}
     </div>
-  {{/unless}}
+  {{/if}}
 </div>
