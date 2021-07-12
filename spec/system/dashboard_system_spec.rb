@@ -28,7 +28,7 @@ describe 'Dashboard', type: :system, js: true do
     expect(page).to have_selector('pzsh-hero', visible: true)
     all('div.dashboard-grid-card').first.click
 
-    expect(page.current_path).to eq("/teams/235930340")
+    expect(page.current_path).to eq('/teams/235930340')
     expect(page).to have_selector 'div.content'
   end
 end
