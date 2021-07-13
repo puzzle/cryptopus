@@ -9,6 +9,11 @@ export default class TableRow extends Component {
   @service fetchService;
   @service clipboardService;
 
+  constructor() {
+    super(...arguments);
+    console.log(this.args.apiUser)
+  }
+
   validityTimes = [
     { label: "profile.api_users.options.one_min", value: 60 },
     { label: "profile.api_users.options.five_mins", value: 300 },
@@ -76,4 +81,14 @@ export default class TableRow extends Component {
         });
       });
   }
+
+  get isDefaultCcliUser() {
+    return this.args.parent.defaultCcliApiUserId === this.args.apiUser.id;
+  }
+
+  @action
+  setDefaultCcliUser(apiUser) {
+    this.args.parent.setDefaultCcliUser(apiUser);
+  }
+
 }

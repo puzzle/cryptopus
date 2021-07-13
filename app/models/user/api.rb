@@ -32,12 +32,15 @@
 
 class User::Api < User
 
+  attr_accessor :ccli_user
+
   VALID_FOR_OPTIONS = { one_min: 1.minute.seconds,
                         five_mins: 5.minutes.seconds,
                         twelve_hours: 12.hours.seconds,
                         infinite: 0 }.freeze
 
   belongs_to :human_user, class_name: 'User::Human'
+  belongs_to :human_user, class_name: 'User::Human', foreign_key: :default_ccli_user_id, primary_key: :id
 
   serialize :options, User::Api::Options
 

@@ -39,7 +39,7 @@ export default class AdminUserTableRowComponent extends Component {
 
   @action
   updateRole(user, role) {
-    this.fetch
+    this.fetchService
       .send(`/api/admin/users/${user.id}/role`, {
         method: "PATCH",
         body: `role=${role.key}`

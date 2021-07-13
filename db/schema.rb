@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_01_121708) do
+ActiveRecord::Schema.define(version: 2021_07_12_090532) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "accountname", limit: 70, default: "", null: false
@@ -97,6 +97,8 @@ ActiveRecord::Schema.define(version: 2021_07_01_121708) do
     t.integer "human_user_id"
     t.text "options"
     t.integer "role", default: 0, null: false
+    t.integer "default_ccli_user_id"
+    t.index ["default_ccli_user_id"], name: "index_users_on_default_ccli_user_id"
   end
 
 end

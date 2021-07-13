@@ -50,6 +50,8 @@ class User::Human < User
 
   default_scope { order('username') }
 
+  has_one :default_ccli_user, foreign_key: :default_ccli_user_id, primary_key: :id
+
   before_destroy :protect_if_last_teammember
 
   delegate :l, to: I18n

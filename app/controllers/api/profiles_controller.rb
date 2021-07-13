@@ -7,6 +7,8 @@ class Api::ProfilesController < ApiController
   self.permitted_attrs = [:preferred_locale]
 
   def update
+    return unless current_user.is_a?(User::Human)
+
     current_user.attributes = model_params
     if current_user.save
       head 200
