@@ -15,10 +15,10 @@ You will need the following things properly installed on your computer.
 ## Installation
 
 * `git clone <repository-url>` this repository
-* `cd frontend`
+* *`cd frontend`
 * *`npm install`
   
-\* if you're using docker, you will need to install this inside your docker container
+\* if you're using docker, these steps will not be necessary
 
 ## Running / Development
 
