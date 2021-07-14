@@ -310,6 +310,7 @@ en:
       valid_until: Valid until
       valid_for: Valid for
       last_login: Last login
+      ccli_default_user: Ccli default user
       at: 'At: '
       from: 'From:'
       locked: Locked

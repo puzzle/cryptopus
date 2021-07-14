@@ -7,12 +7,18 @@ import ENV from "../../config/environment";
 export default class Table extends Component {
   @service store;
   @service fetchService;
+  @service userService;
 
   @tracked
   renewMessage;
 
   @tracked
   defaultCcliApiUserId;
+
+  constructor() {
+    super(...arguments);
+    this.defaultCcliApiUserId = ENV.currentUserDefaultCcliUserId;
+  }
 
   @action
   createApiUser() {
@@ -29,16 +35,25 @@ export default class Table extends Component {
   }
 
   setDefaultCcliUser(apiUser) {
+    let data = {
+      data: { attributes: { default_ccli_user_id: apiUser.id } }
+    };
+
     this.fetchService
       .send(`/api/admin/users/${ENV.currentUserId}`, {
         method: "PATCH",
-        body: `default_ccli_user_id=${apiUser.id}`
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": ENV.CSRFToken
+        },
+        body: JSON.stringify(data)
       })
       .then(() => {
-        this.defaultCcliApiUserId = apiUser.id
-        this.notify.success(
-          "hat funktioniert"
-        );
+        this.defaultCcliApiUserId = apiUser.id;
       });
+  }
+
+  get isAdminAndNotRoot() {
+    return this.userService.isAdmin && ENV.currentUserGivenname !== "root";
   }
 }

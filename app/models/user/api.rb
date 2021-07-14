@@ -40,7 +40,6 @@ class User::Api < User
                         infinite: 0 }.freeze
 
   belongs_to :human_user, class_name: 'User::Human'
-  belongs_to :human_user, class_name: 'User::Human', foreign_key: :default_ccli_user_id, primary_key: :id
 
   serialize :options, User::Api::Options
 

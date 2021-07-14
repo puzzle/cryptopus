@@ -11,7 +11,6 @@ export default class TableRow extends Component {
 
   constructor() {
     super(...arguments);
-    console.log(this.args.apiUser)
   }
 
   validityTimes = [
@@ -83,11 +82,17 @@ export default class TableRow extends Component {
   }
 
   get isDefaultCcliUser() {
-    return this.args.parent.defaultCcliApiUserId === this.args.apiUser.id;
+    if (this.args.parent.isDefaultCcliUser == null)
+      return;
+
+    return this.args.parent.defaultCcliApiUserId.toString() === this.args.apiUser.id;
   }
 
   @action
   setDefaultCcliUser(apiUser) {
+    if (this.isDefaultCcliUser)
+      return;
+
     this.args.parent.setDefaultCcliUser(apiUser);
   }
 
