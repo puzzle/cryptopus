@@ -27,7 +27,7 @@
   <td>
     <XToggle @theme="material" @value={{@apiUser.locked}} @onToggle={{fn this.toggleApiUser @apiUser}} />
   </td>
-  {{#if this.args.parent.isAdminAndNotRoot}}
+  {{#if this.args.parent.isAllowedToUpdateDefaultCcliUser}}
     <td>
       <XToggle @theme="material" @value={{this.isDefaultCcliUser}} @onToggle={{fn this.setDefaultCcliUser @apiUser}} />
     </td>

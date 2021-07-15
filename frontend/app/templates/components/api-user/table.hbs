@@ -22,7 +22,7 @@
         <th> {{t "profile.api_users.valid_for"}} </th>
         <th> {{t "profile.api_users.last_login"}} </th>
         <th> {{t "profile.api_users.locked"}} </th>
-        {{#if this.isAdminAndNotRoot }}
+        {{#if this.isAllowedToUpdateDefaultCcliUser }}
           <th> {{t "profile.api_users.ccli_default_user"}} </th>
         {{/if}}
         <th> {{t "actions"}} </th>

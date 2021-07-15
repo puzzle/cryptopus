@@ -82,7 +82,7 @@ export default class TableRow extends Component {
   }
 
   get isDefaultCcliUser() {
-    if (this.args.parent.isDefaultCcliUser == null)
+    if (this.args.parent.defaultCcliApiUserId == null)
       return;
 
     return this.args.parent.defaultCcliApiUserId.toString() === this.args.apiUser.id;

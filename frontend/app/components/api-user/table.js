@@ -53,7 +53,7 @@ export default class Table extends Component {
       });
   }
 
-  get isAdminAndNotRoot() {
+  get isAllowedToUpdateDefaultCcliUser() {
     return this.userService.isAdmin && ENV.currentUserGivenname !== "root";
   }
 }
