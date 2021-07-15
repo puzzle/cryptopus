@@ -36,7 +36,7 @@ describe 'TeamsPage', type: :system, js: true do
     end
 
     # Check if visible in teams page
-    within(find('div.col.px-4.py-3.list-folder-header')) do
+    within(find('div.col.px-4.list-folder-header')) do
       expect(page).to have_text(folder1.name)
     end
 

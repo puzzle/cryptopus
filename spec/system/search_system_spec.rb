@@ -15,8 +15,8 @@ describe 'TeamModal', type: :system, js: true do
     login_as_user(:bob)
     account1 = accounts(:account1)
 
-    expect(find('pzsh-topbar input.search')['placeholder']).to eq('Type to search...')
-    find('pzsh-topbar input.search').set account1.accountname
+    expect(find('pzsh-banner input.search')['placeholder']).to eq('Type to search in all teams...')
+    find('pzsh-banner input.search').set account1.accountname
 
     within 'div[role="main"]' do
       expect(page).to have_text(account1.accountname)
@@ -30,8 +30,8 @@ describe 'TeamModal', type: :system, js: true do
     login_as_user(:bob)
     folder1 = folders(:folder1)
 
-    expect(find('pzsh-topbar input.search')['placeholder']).to eq('Type to search...')
-    find('pzsh-topbar input.search').set folder1.name
+    expect(find('pzsh-banner input.search')['placeholder']).to eq('Type to search in all teams...')
+    find('pzsh-banner input.search').set folder1.name
 
     within 'div[role="main"]' do
       expect(page).to have_text(folder1.name)
@@ -46,8 +46,8 @@ describe 'TeamModal', type: :system, js: true do
     login_as_user(:bob)
     team1 = teams(:team1)
 
-    expect(find('pzsh-topbar input.search')['placeholder']).to eq('Type to search...')
-    find('pzsh-topbar input.search').set team1.name
+    expect(find('pzsh-banner input.search')['placeholder']).to eq('Type to search in all teams...')
+    find('pzsh-banner input.search').set team1.name
 
     within 'div[role="main"]' do
       expect(page).to have_text(team1.name)
@@ -63,14 +63,14 @@ describe 'TeamModal', type: :system, js: true do
 
     account1_name_first_two_chars = account1.accountname[0...1]
 
-    expect(find('pzsh-topbar input.search')['placeholder']).to eq('Type to search...')
-    find('pzsh-topbar input.search').set account1_name_first_two_chars
+    expect(find('pzsh-banner input.search')['placeholder']).to eq('Type to search in all teams...')
+    find('pzsh-banner input.search').set account1_name_first_two_chars
 
     within 'div[role="main"]' do
       expect(page).to have_selector('p', text: 'Looking for a password?')
     end
 
-    find('pzsh-topbar input.search').set account1.accountname
+    find('pzsh-banner input.search').set account1.accountname
 
     within 'div[role="main"]' do
       expect(page).to have_text(account1.accountname)

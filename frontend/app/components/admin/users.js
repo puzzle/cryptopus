@@ -28,6 +28,7 @@ export default class UsersComponent extends Component {
   @action
   addUser(user) {
     this.unlockedUsers.addObject(user);
+    window.location.reload();
   }
 
   get isUserAllowedToCreateUser() {

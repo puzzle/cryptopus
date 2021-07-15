@@ -50,7 +50,6 @@ jobs:
           key: ${{ runner.os }}-global-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-global-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
-
       # Node modules caching
       - name: Cache node modules
         id: node-modules-cache
@@ -63,7 +62,6 @@ jobs:
           key: ${{ runner.os }}-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
-
       - name: Before Install
         run: sudo service mysql restart
 
@@ -111,7 +109,7 @@ jobs:
 
       # Run end-to-end tests
       - name: Run system specs
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'schedule' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
         run: bundle exec rake nightly:e2e --trace
 
       # Cleanup
