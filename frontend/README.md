@@ -15,14 +15,22 @@ You will need the following things properly installed on your computer.
 ## Installation
 
 * `git clone <repository-url>` this repository
-* `cd frontend`
-* `npm install`
+* *`cd frontend`
+* *`npm install`
+  
+\* if you're using docker, these steps will not be necessary
 
 ## Running / Development
+
+#### Without docker
 
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 * Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
+
+#### With docker
+
+`docker-compose up -d`
 
 ### Code Generators
 
@@ -30,8 +38,15 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Running Tests
 
+#### Without docker
+
 * `ember test`
 * `ember test --server`
+
+#### With docker
+
+Visit [localhost:4200/test](http://localhost:4200/tests)  
+Edited tests will automatically restart when saved.
 
 ### Linting
 
