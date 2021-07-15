@@ -33,24 +33,26 @@ describe 'ProfilePage', type: :system, js: true do
       last_ccli_default_user_cell = last_table_row.all('td')[6]
 
 
+      checked_toggle = 'span.x-toggle-container.medium.x-toggle-container-checked.ember-view'
+
       within first_ccli_default_user_cell do
         find('div.x-toggle-component').click
-        expect(page).to have_css('span.x-toggle-container.medium.x-toggle-container-checked.ember-view')
+        expect(page).to have_css(checked_toggle)
       end
 
       within last_ccli_default_user_cell do
-        expect(page).not_to have_css('span.x-toggle-container.medium.x-toggle-container-checked.ember-view')
+        expect(page).not_to have_css(checked_toggle)
 
         # toggle the second row toggle to check that the first row toggle gets deselected
         find('div.x-toggle-component').click
 
         # proof that it has been selected
-        expect(page).to have_css('span.x-toggle-container.medium.x-toggle-container-checked.ember-view')
+        expect(page).to have_css(checked_toggle)
       end
 
       # proof that it has been deselected
       within first_ccli_default_user_cell do
-        expect(page).not_to have_css('span.x-toggle-container.medium.x-toggle-container-checked.ember-view')
+        expect(page).not_to have_css(checked_toggle)
       end
 
       # delete created api users
