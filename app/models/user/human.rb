@@ -51,7 +51,7 @@ class User::Human < User
   default_scope { order('username') }
 
   has_one :default_ccli_user, foreign_key: :default_ccli_user_id, class_name: 'User::Api',
-                              primary_key: :id, dependent: :nullify
+                              primary_key: :id, dependent: :destroy
 
   before_destroy :protect_if_last_teammember
 

@@ -308,7 +308,7 @@ de:
       valid_until: Gültig bis
       valid_for: Gültig für
       last_login: Letztes Login
-      ccli_default_user: Ccli standart Benutzer
+      ccli_default_user: Ccli standard Benutzer
       at: 'Um:'
       from: 'Von:'
       locked: Blockiert
