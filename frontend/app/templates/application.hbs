@@ -1,24 +1,34 @@
 <EmberNotify @messageStyle="bootstrap" @closeAfter={{4000}}/>
 <NavBar/>
 
-<div class="content">
-  {{#if this.navService.showSideNavBar}}
-    {{#if (not this.screenWidthService.isShownOnHamburgermenu)}}
-      <div class="sidebar-wrapper">
-        <SideNavBar/>
+{{#if this.navService.isOnDashboardRoute}}
+  <pzsh-hero>
+    <h1 slot="title">Puzzle Cryptopus</h1>
+    <h2 slot="slogan">{{t "slogan"}}</h2>
+    <img src="/assets/images/cryptopussy.svg" alt="Cryptopus logo" slot="logo" width="99" height="126">
+  </pzsh-hero>
+  {{outlet}}
+{{else}}
+  <div class="content">
+    {{#if this.navService.showSideNavBar}}
+      {{#unless this.screenWidthService.isShownOnHamburgermenu}}
+        <div class="sidebar-wrapper">
+          <SideNavBar/>
+        </div>
+      {{/unless}}
+    {{/if}}
+
+    {{#if this.navService.showSideNavBar}}
+      <div class="mb-5 ml-270px" role="main">
+        {{outlet}}
+      </div>
+    {{else}}
+      <div role="main">
+        {{outlet}}
       </div>
     {{/if}}
-  {{/if}}
-  {{#if this.navService.showSideNavBar}}
-    <div class="mb-5 ml-270px" role="main">
-      {{outlet}}
-    </div>
-  {{else}}
-    <div role="main">
-      {{outlet}}
-    </div>
-  {{/if}}
-</div>
+  </div>
+{{/if}}
 <LastLogin/>
 
 <Footer/>

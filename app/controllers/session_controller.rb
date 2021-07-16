@@ -86,7 +86,7 @@ class SessionController < ApplicationController
   end
 
   def redirect_after_sucessful_login
-    jump_to = session.delete(:jumpto) || root_path
+    jump_to = session.delete(:jumpto) || '/dashboard'
     redirect_to jump_to
   end
 

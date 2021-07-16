@@ -49,6 +49,7 @@ en:
   intro: Looking for a password?
   role: Role
   empty: empty
+  slogan: The place for passwords
 
   i18n:
     language:
@@ -392,7 +393,7 @@ en:
         failed: Task failed. See logs for more information.
         ldap_connection:
           failed: No configured Ldap Server could be reached.
- 
+
     profile:
       changePassword:
         success: Successfully changed password.

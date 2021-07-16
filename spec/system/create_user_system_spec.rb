@@ -19,9 +19,13 @@ describe 'Create Human User', type: :system, js: true do
   end
 
   it 'creates user' do
-    login_as_user(:admin)
+    login_as_root
 
-    visit('/admin/users')
+    expect(page).to have_css('pzsh-menu')
+    within('pzsh-menu') do
+      all('pzsh-menu-dropdown').first.click
+    end
+    all('pzsh-menu-dropdown-item').first.click
 
     # Create User
     expect(page).to have_css('a.edit_button.add-user')
@@ -43,6 +47,7 @@ describe 'Create Human User', type: :system, js: true do
 
     expect do
       click_button('Save', visible: false)
+      page.driver.browser.navigate.refresh
       expect(page).to have_text(user_attrs[:username])
     end.to change { User::Human.count }.by 1
 

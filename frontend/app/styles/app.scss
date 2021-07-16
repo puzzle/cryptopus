@@ -1,9 +1,7 @@
 $navbar-dark-brand-color: white;
 $navbar-dark-brand-hover-color: $navbar-dark-brand-color;
 
-$font-family-sans-serif: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI",
-  "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-sans-serif: var(--pzsh-font-family) !default;
 
 @import "ember-bootstrap/bootstrap";
 
@@ -12,7 +10,6 @@ $font-family-sans-serif: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI",
 @import "ember-power-select";
 
 @import "footer";
-@import "theme";
 @import "nav-bar";
 @import "changelog";
 @import "side-nav-bar";
@@ -22,6 +19,8 @@ $font-family-sans-serif: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI",
 @import "folder-show";
 @import "power-select";
 @import "background-colors";
+@import "dashboard";
+@import "dashboard-card";
 
 .w-250 {
   width: 250px;
@@ -244,7 +243,7 @@ li a {
 }
 
 .ember-notify-default.ember-notify-cn {
-  bottom: 3em !important;
+  bottom: 5em !important;
 }
 
 .ember-basic-dropdown .ember-basic-dropdown-trigger {
@@ -297,9 +296,7 @@ li a {
 .columns li {
   width: 32%;
   display: inline-block;
-  padding: 3px;
-  padding-left: 8px;
-  padding-top: 5px;
+  padding: 5px 3px 3px 8px;
   margin-bottom: 4px;
   border-top: 1px solid #dddddd;
   border-bottom: 1px solid #dddddd;
@@ -400,4 +397,56 @@ li a {
 
 .link-new-tab-footer:hover {
   color: #325c9e;
+}
+
+pzsh-hero > h1 {
+  margin: 0;
+  font-size: 32px;
+  color: var(--pzsh-color-brand-alt-2);
+  font-family: var(--pzsh-font-family);
+  font-weight: normal;
+  line-height: 1;
+}
+
+pzsh-hero > h2 {
+  margin-top: var(--pzsh-spacer);
+  margin-bottom: 0;
+  font-size: 18px;
+  color: var(--pzsh-color-brand-alt-3);
+  font-family: var(--pzsh-font-family);
+  font-weight: normal;
+  line-height: 1;
+}
+
+pzsh-banner {
+  overflow: initial;
+}
+
+h5, h6 {
+  font-family: var(--pzsh-font-family) !important;
+  font-weight: 400 !important;
+}
+
+.ember-notify-show,
+.alert,
+.alert-warning {
+  background-color: var(--pzsh-color-brand-2);
+  color: #ffffff;
+  display: flex !important;
+  flex-direction: row-reverse;
+  width: auto !important;
+}
+
+.ember-notify-show > a.close {
+  display: flex;
+  color: #ffffff;
+  padding-left: 10px;
+  opacity: 1;
+  align-self: center;
+}
+
+@media screen and (max-width: 799px){
+  .ember-notify-default.ember-notify-cn {
+    bottom: 11em !important;
+  }
 }

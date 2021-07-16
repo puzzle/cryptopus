@@ -52,7 +52,7 @@ describe Session::OidcController do
         get :create, params: { code: 'asd', state: 'haha' }, session: { oidc_state: 'haha' }
       end.to change { User::Human.count }.by(1)
 
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to root_path + 'dashboard'
 
       user = User.find_by(username: 'alex')
       expect(user.givenname).to eq('Alex')
@@ -75,7 +75,7 @@ describe Session::OidcController do
         get :create, params: { code: 'asd', state: 'haha' }, session: { oidc_state: 'haha' }
       end.to change { User::Human.count }.by(0)
 
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to root_path + 'dashboard'
 
       expect(user.username).to eq('alex')
       expect(user.givenname).to eq('Alex')

@@ -52,6 +52,7 @@ fr:
   select_team: Veuillez sélectionner une équipe ou utiliser la recherche
   role: Rôle
   empty: vide
+  slogan: Le lieu pour les mots de passe
 
   i18n:
     language:
@@ -397,7 +398,7 @@ fr:
 
     profile:
       changePassword:
-        success: Le mot de passe a été modifié avec succès. 
+        success: Le mot de passe a été modifié avec succès.
         new_passwords_not_equal: Nouveaux mots de passe n'est pas égal.
 
     user-humen:
@@ -619,7 +620,7 @@ fr:
     password:
       present: Le mot de passe doit être présent
     "old password":
-      present: Entrer le mot de passe actuel 
+      present: Entrer le mot de passe actuel
     "new password1":
       present: Entrer le nouveau mot de passe
     "new password2":

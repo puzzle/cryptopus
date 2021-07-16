@@ -35,6 +35,7 @@ Router.map(function () {
   });
 
   this.route("profile");
+  this.route("dashboard");
 
   this.route("admin", function () {
     this.route("users");

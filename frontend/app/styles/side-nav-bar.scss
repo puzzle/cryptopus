@@ -212,6 +212,7 @@
 .search {
   display: flex;
   max-width: var(--pzsh-breakpoint);
+  overflow: initial;
 }
 
 .search-field {
