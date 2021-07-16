@@ -32,6 +32,8 @@
 
 class User::Api < User
 
+  attr_accessor :ccli_user
+
   VALID_FOR_OPTIONS = { one_min: 1.minute.seconds,
                         five_mins: 5.minutes.seconds,
                         twelve_hours: 12.hours.seconds,

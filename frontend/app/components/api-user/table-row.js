@@ -9,6 +9,10 @@ export default class TableRow extends Component {
   @service fetchService;
   @service clipboardService;
 
+  constructor() {
+    super(...arguments);
+  }
+
   validityTimes = [
     { label: "profile.api_users.options.one_min", value: 60 },
     { label: "profile.api_users.options.five_mins", value: 300 },
@@ -75,5 +79,20 @@ export default class TableRow extends Component {
           );
         });
       });
+  }
+
+  get isDefaultCcliUser() {
+    if (this.args.parent.defaultCcliApiUserId == null) return false;
+
+    return (
+      this.args.parent.defaultCcliApiUserId.toString() === this.args.apiUser.id
+    );
+  }
+
+  @action
+  setDefaultCcliUser(apiUser) {
+    if (this.isDefaultCcliUser) return;
+
+    this.args.parent.setDefaultCcliUser(apiUser);
   }
 }

@@ -16,6 +16,7 @@ class Api::EnvSettingsController < ApiController
                                 last_login_at: current_user.last_login_at,
                                 last_login_from: current_user.last_login_from,
                                 preferred_locale: current_user.preferred_locale,
+                                default_ccli_user_id: current_user.default_ccli_user_id,
                                 auth: current_user.auth },
                 last_login_message: last_login_message,
                 geo_ip: GeoIp.activated?,

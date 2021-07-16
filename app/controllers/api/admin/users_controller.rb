@@ -23,7 +23,7 @@ class Api::Admin::UsersController < ApiController
     return [] if non_db_human_user_or_root?
 
 
-    attrs = [:givenname, :surname]
+    attrs = [:givenname, :surname, :default_ccli_user_id]
 
     if current_user.admin?
       attrs += [:username]

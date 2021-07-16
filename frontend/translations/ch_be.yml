@@ -338,6 +338,7 @@ ch_be:
       valid_until: Güutig bis
       valid_for: Güutig für
       last_login: Letschts Login
+      ccli_default_user: Ccli standart Benutzer
       at: 'Am:'
       from: 'Vo:'
       locked: Blockiert

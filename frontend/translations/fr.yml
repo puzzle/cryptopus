@@ -309,6 +309,7 @@ fr:
       valid_until: Valable jusque
       valid_for: Valable
       last_login: Dernière connexion
+      ccli_default_user: Ccli standard utilisateur
       at: 'à:'
       from: 'de:'
       locked: Bloqué
