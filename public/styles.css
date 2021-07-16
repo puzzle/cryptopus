@@ -59,6 +59,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: #495057;
+  vertical-align: middle;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
@@ -163,7 +164,7 @@ button:not(:disabled) {
   top: 0;
   right: 0;
   z-index: 2;
-  padding: 0.75rem 1.25rem;
+  padding: 0.75rem 0.75rem;
   color: inherit;
 }
 button.close {

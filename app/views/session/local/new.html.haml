@@ -10,6 +10,7 @@
     %fieldset.bd-example
       = image_tag "/assets/images/cryptopussy.svg", class: 'logo'
       .form-group
+        %br/
         = text_field_tag :username, params[:username], id: 'username', value: 'root', class: 'form-control', readonly: true
         = password_field_tag :password, nil, id: 'password', placeholder: t(:password), class: 'form-control', autofocus: true
       = submit_tag t('.submit'), class: 'btn btn-primary'
