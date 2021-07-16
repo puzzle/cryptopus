@@ -9,6 +9,10 @@ export default class NavBarComponent extends Component {
   @service navService;
   @service screenWidthService;
   @service userService;
+  @service clipboardService;
+  @service notify;
+  @service intl;
+
 
   searchInterval;
 
@@ -66,5 +70,24 @@ export default class NavBarComponent extends Component {
         });
       }
     }, 800);
+  }
+
+  @action
+  copyCcliLogin(apiUser) {
+    this.fetchService
+      .send(`/api/api_users/${apiUser.id}/token`, { method: "GET" })
+      .then((response) => {
+        response.json().then((json) => {
+          this.clipboardService.copy(
+            `cry login ${btoa(`${json.token}:${json.username}`)}@${
+              window.location.origin
+            }`
+          );
+          let translationKeyPrefix = this.intl.locale[0].replace("-", "_");
+          let successMsg = `${translationKeyPrefix}.flashes.api.api-users.ccli_login.copied`;
+          let msg = this.intl.t(successMsg);
+          this.notify.success(msg);
+        });
+      });
   }
 }
