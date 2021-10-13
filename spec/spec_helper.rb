@@ -70,6 +70,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system, js: true) do
+    WebMock.disable!
     page.driver.browser.manage.window.resize_to(1920, 1080)
     driven_by ENV['HEAD'] ? :selenium : :selenium_headless
   end

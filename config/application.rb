@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
@@ -29,7 +29,6 @@ omitted = %w(
   action_mailer/railtie
   active_job/railtie
   rails/test_unit/railtie
-  sprockets/railtie
 ).each do |railtie|
   begin
     require railtie
@@ -78,9 +77,6 @@ module Cryptopus
     # This is necessary if your schema can't be completely dumped by the schema dumper,
     # like if you have constraints or database-specific column types
     # config.active_record.schema_format = :sql
-
-    # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
 
     config.generators do |g|
       g.test_framework      :minitest, fixture_replacement: :fabrication
