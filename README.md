@@ -15,28 +15,9 @@ Learn more about Cryptopus on our [wiki](https://github.com/puzzle/cryptopus/wik
 # Getting started
 
 ## System requirements 👩🏽‍💻
-You can take full use of the included cryptopus Docker Setup, as mentioned [over here][setup].
+Development instructions [here][setup]. 
 
 [setup]: https://github.com/puzzle/cryptopus/wiki/Development
-
-Take a look into [development](https://github.com/puzzle/cryptopus/wiki/Development).
-
-## Frontend ⚡
-To contribute for the frontend, it is recommended that you've preinstalled the [Ember CLI][ember] aswell as the [Ember Inspector for Chrome][emberinch] or [for Firefox][emberinfi].
-
-Now work your way through the [ember guides][emgui], to make even more progress.
-
-For further information, see [Frontend](https://github.com/puzzle/cryptopus/blob/master/frontend/README.md).
-
-[ember]: https://ember-cli.com/
-[emberinch]: https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi
-[emberinfi]: https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/
-[emgui]: https://guides.emberjs.com/release/tutorial/part-1/
-
-## Backend 🏢
-To get prepared for you backend contributions, make sure you've taken a closer look into how Ruby on Rails works. The fastest way you can achieve this, is by directly going ahead and doing the [Rails Tutorial][ratut].
-
-[ratut]: https://guides.rubyonrails.org/getting_started.html
 
 # Warning!
 
