@@ -95,7 +95,6 @@ jobs:
 
       # Frontend prepare
       - name: Prepare Frontend
-        if: github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
         run: bundle exec rake ci:frontend_prepare --trace
 
       # Frontend specs
