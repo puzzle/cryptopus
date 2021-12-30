@@ -21,6 +21,7 @@ services:
   ember:
     image: cryptopus-dev/ember
     tty: true
+    user: "${UID:-1000}"
     stdin_open: true
     build:
       context: ./config/docker/development
