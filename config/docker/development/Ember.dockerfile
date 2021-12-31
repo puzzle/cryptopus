@@ -1,4 +1,6 @@
-FROM danlynn/ember-cli:latest
+FROM danlynn/ember-cli:3.28.2-node_14.18
+
+RUN chown 1000:1000 /myapp
 
 USER 1000
 
