@@ -1,41 +1,49 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2008-2022, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
 require 'spec_helper'
 
 describe EncryptedData do
-  let(:json) { "{\"password\":{\"iv\":\"a2V5\\n\",\"data\":\"YXNkZg==\\n\"}}" }
 
-  it 'stores blob value as base64' do
-    loaded_data = EncryptedData.load(json)
+  let(:json) { "{\"password\":{\"iv\":\"a2V5\\n\",\"data\":\"#{blob_b64}\"}}" }
+  let(:encrypted_data) { EncryptedData.load(json) }
+  let(:blob) { SecureRandom.random_bytes(2) }
+  let(:blob_b64) { Base64.strict_encode64(blob) }
 
-    expect(loaded_data[:password]).to eq({:iv=>"key", :data=>"asdf"})
+  it 'stores values as base64' do
+    expect(encrypted_data[:password]).to eq(iv: 'key', data: blob)
 
-    # Set new values into dataset
-    loaded_data[:password] = { iv: 'iv', data: 'data' }
-    result = JSON.parse(EncryptedData.dump(loaded_data))
+    new_blob = SecureRandom.random_bytes(2)
+    encrypted_data[:password] = { iv: nil, data: new_blob }
 
-    expect(loaded_data[:password]).to eq({:data=>"data", :iv=>"iv"})
-    expect(result).to eq({ "password" => { "data" => "ZGF0YQ==\n", "iv" => "aXY=\n" }})
+    json_dump = JSON.parse(EncryptedData.dump(encrypted_data))
+
+    new_blob_b64 = Base64.strict_encode64(new_blob)
+    expect(json_dump).to eq('password' => { 'data' => new_blob_b64, 'iv' => nil })
   end
 
-  it 'rejects not present data' do
-    loaded_data = EncryptedData.load(json)
+  it 'can be initialized with empty data' do
+    [nil, '', '  '].each do |e|
+      encrypted_data = EncryptedData.load(e)
 
-    # Set new values into dataset
-    loaded_data[:password] = { iv: 'iv', data: '' }
+      new_blob = SecureRandom.random_bytes(2)
+      encrypted_data[:username] = { iv: nil, data: new_blob }
+      encrypted_data[:password] = { iv: nil, data: new_blob }
 
-    expect(EncryptedData.dump(loaded_data)).to eq("{}")
+      json_dump = JSON.parse(EncryptedData.dump(encrypted_data))
+
+      new_blob_b64 = Base64.strict_encode64(new_blob)
+      expect(json_dump).to eq('password' => { 'data' => new_blob_b64, 'iv' => nil },
+                              'username' => { 'data' => new_blob_b64, 'iv' => nil })
+    end
   end
 
-  it 'returns nil if non existent key' do
-    loaded_data = EncryptedData.load(json)
+  it 'rejects entries with blank data' do
+    encrypted_data[:password] = { iv: 'iv', data: '' }
 
-    # Try to access non existent key
-    expect(loaded_data[:name]).to eq(nil)
+    expect(EncryptedData.dump(encrypted_data)).to eq('{}')
+  end
+
+  it 'returns nil for non existing key' do
+    expect(encrypted_data[:fantasy]).to eq(nil)
   end
 end
