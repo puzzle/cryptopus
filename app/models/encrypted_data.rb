@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+#  Copyright (c) 2008-2022, Puzzle ITC GmbH. This file is part of
+#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+#  See the COPYING file at the top-level directory or at
+#  https://github.com/puzzle/cryptopus.
+
 class EncryptedData
   include JsonSerializable
 
@@ -20,8 +25,8 @@ class EncryptedData
     @data[key] = data_hash(encode(iv), encode(data))
   end
 
-  def to_json(*_args)
-    @data.reject { |_, value| value[:data].blank? }.to_json
+  def to_json
+    @data.reject{ |_, value| value[:data].blank? }.to_json
   end
 
   private
