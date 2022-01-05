@@ -25,7 +25,6 @@ class AccountMoveHandler < AccountHandler
 
     old_team_password = old_team.decrypt_team_password(user, private_key)
     move_file_entries(old_team_password)
-    account.encrypt(old_team_password)
     account.decrypt(old_team_password)
     account.encrypt(new_team.decrypt_team_password(user, private_key))
   end

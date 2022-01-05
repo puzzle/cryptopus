@@ -32,10 +32,10 @@ describe 'QuickSearch', type: :system, js: true do
     expect(find('input.search')['placeholder']).to eq('Type to search in all teams...')
     expect(page).to have_selector('input.search')
 
-    find('input.search').set account1.accountname
+    find('input.search').set account1.name
     expect(page).to have_selector('.account-entry')
     within('div.account-entry') do
-      expect(page).to have_content(account1.accountname)
+      expect(page).to have_content(account1.name)
     end
   end
 
@@ -44,7 +44,7 @@ describe 'QuickSearch', type: :system, js: true do
 
     expect(page).to have_selector('.account-entry')
     within('div.account-entry') do
-      expect(page).to have_content(account1.accountname)
+      expect(page).to have_content(account1.name)
     end
   end
 end

@@ -10,7 +10,7 @@ describe AccountMoveHandler do
 
   let(:bob) { users(:bob) }
 
-  it 'moves account to a folder where accountname already exist' do
+  it 'moves account to a folder where account name already exist' do
     account = accounts(:account1)
     private_key = decrypt_private_key(bob)
     target_folder = folders(:folder2)
@@ -18,7 +18,7 @@ describe AccountMoveHandler do
     Fabricate(:account,
               folder: target_folder,
               team_password: team_password,
-              accountname: 'account1')
+              name: 'account1')
 
     AccountMoveHandler.new(account, private_key, bob).move
     account.save!

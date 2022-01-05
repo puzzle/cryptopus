@@ -5,7 +5,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 class Api::AccountsController < ApiController
-  self.permitted_attrs = [:accountname, :description, :folder_id, :tag]
+  self.permitted_attrs = [:name, :description, :folder_id, :tag]
 
   helper_method :team
 
@@ -43,7 +43,7 @@ class Api::AccountsController < ApiController
     authorize account
     account.attributes = model_params
     account.encrypt(decrypted_team_password(team))
-    account_move_handler.move if account.folder_id_changed?
+    # account_move_handler.move if account.folder_id_changed?
     if account.save
       render_json account
     else

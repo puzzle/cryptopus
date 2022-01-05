@@ -30,7 +30,7 @@
     </div>
     <div class="col-lg-9 accountname text-muted">
       <br><p class="d-inline">{{t "accounts.show.created_at"}}: {{moment-format @account.createdAt "DD.MM.YYYY hh:mm"}}</p>
-       / 
+       /
       <p class="d-inline">{{t "accounts.show.last_update"}}: {{moment-format @account.updatedAt "DD.MM.YYYY hh:mm"}}</p>
     </div>
   </div>
@@ -64,7 +64,7 @@
         <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextPassword}}>
           <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
         </CopyButton>
-      </div> 
+      </div>
     {{/if}}
   </div>
   <div class="d-flex flex-row justify-content-between mb-2">

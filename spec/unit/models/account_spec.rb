@@ -15,17 +15,17 @@ describe Account do
 
   it 'does not create second account in same folder' do
     params = {}
-    params[:accountname] = 'account1'
+    params[:name] = 'account1'
     params[:folder_id] = folders(:folder1).id
     params[:type] = 'Account::Credentials'
     account = Account.new(params)
     expect(account).to_not be_valid
-    expect(account.errors.keys).to eq([:accountname])
+    expect(account.errors.keys).to eq([:name])
   end
 
   it 'creates second account' do
     params = {}
-    params[:accountname] = 'account1'
+    params[:name] = 'account1'
     params[:folder_id] = folders(:folder2).id
     params[:type] = 'Account::Credentials'
     account = Account.new(params)
@@ -38,22 +38,6 @@ describe Account do
     account.decrypt(team_password)
 
     expect(account.cleartext_username).to eq('test')
-    expect(account.cleartext_password).to eq('password')
-  end
-
-  it 'does not update password if blank' do
-    team_password = team.decrypt_team_password(bob, bobs_private_key)
-
-    account.cleartext_username = 'new'
-    account.cleartext_password = ''
-
-
-    account.encrypt(team_password)
-    account.save!
-    account.reload
-    account.decrypt(team_password)
-
-    expect(account.cleartext_username).to eq('new')
     expect(account.cleartext_password).to eq('password')
   end
 
@@ -74,15 +58,16 @@ describe Account do
 
   it 'does not create account if name is empty' do
     params = {}
-    params[:accountname] = ''
-    params[:username] = 'foo'
-    params[:password] = 'foo'
+    params[:name] = ''
     params[:description] = 'foo foo'
     params[:type] = 'Account::Credentials'
 
     account = Account.new(params)
 
+    account.encrypted_data[:password] = { data: 'foo', iv: nil }
+    account.encrypted_data[:username] = { data: 'foo', iv: nil }
+
     expect(account).to_not be_valid
-    expect(account.errors.full_messages.first).to match(/Accountname/)
+    expect(account.errors.full_messages.first).to match(/Name/)
   end
 end

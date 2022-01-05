@@ -35,10 +35,10 @@ object account2
 account1 *-- Folder1
 account2 *-- Folder2
 
-account1 : accountname = test
+account1 : name = test
 account1 : password = password
 
-account2 : accountname = test2
+account2 : name = test2
 account2 : password = password
 }
 

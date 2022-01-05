@@ -480,7 +480,7 @@ ch_be:
       models:
         account:
           attributes:
-            accountname:
+            name:
               blank: 'cha nid läär si'
               taken: 'isch bereit vergä'
         folder:
@@ -558,6 +558,7 @@ ch_be:
     name:
       present: Dr Name muess vorhande si
       too_long: Dr Name isch zläng
+      duplicate_name: Dä Account giz scho!
     description:
       too_long: D Beschribig isch zläng
     file:
@@ -566,10 +567,6 @@ ch_be:
       present: Ds Team muess vorhande si
     folder:
       present: Dr Ordner muess ume si
-    accountname:
-      present: Dr Accountname muess vorhande si
-      too_long: Dr Accountname isch zläng
-      duplicate_name: Dä Account giz scho!
     cleartext username:
       too_long: Dr Benutzername isch zläng
     cleartext password:
