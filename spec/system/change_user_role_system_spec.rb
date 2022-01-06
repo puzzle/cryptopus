@@ -13,10 +13,11 @@ describe 'ChangeUserRole', type: :system, js: true do
   it 'is able to update user role' do
     login_as_root
 
-    within 'pzsh-menu' do
+    expect(page).to have_css('pzsh-menu')
+    within('pzsh-menu') do
       all('pzsh-menu-dropdown').first.click
-      all('pzsh-menu-dropdown-item').first.click
     end
+    all('pzsh-menu-dropdown-item').first.click
 
     expect(page).to have_text('Users')
     expect(page).to have_css('table')

@@ -22,7 +22,6 @@ class Api::Admin::UsersController < ApiController
   def permitted_attrs
     return [] if non_db_human_user_or_root?
 
-
     attrs = [:givenname, :surname, :default_ccli_user_id]
 
     if current_user.admin?

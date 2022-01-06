@@ -396,9 +396,10 @@ describe Api::AccountsController do
           relationships: { folder: { data: { id: new_folder.id, type: 'folders' } } }
         }, id: account.id
       }
-      expect do
-        patch :update, params: account_params, xhr: true
-      end.to raise_error(RuntimeError, 'You have no access to this team')
+      patch :update, params: account_params, xhr: true
+
+      expect(response.status).to be(403)
+      expect(errors).to eq(['flashes.admin.admin.no_access'])
 
       account.reload
 
