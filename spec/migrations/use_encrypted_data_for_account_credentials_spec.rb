@@ -16,7 +16,6 @@ describe UseEncryptedDataForAccountCredentials do
   let(:account1) { accounts(:account1) }
   let(:account2) { accounts(:account2) }
 
-
   def silent
     verbose = ActiveRecord::Migration.verbose = false
 
