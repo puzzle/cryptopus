@@ -20,8 +20,11 @@ class Account::Credentials < Account
   def encrypt_attr(attr, team_password)
     cleartext_value = send(:"cleartext_#{attr}")
 
-    encrypted_blob = CryptUtils.encrypt_blob(cleartext_value, team_password)
-    encrypted_value = cleartext_value.blank? ? nil : encrypted_blob
+    if cleartext_value.blank?
+      encrypted_value = nil
+    else
+      encrypted_value = CryptUtils.encrypt_blob(cleartext_value, team_password)
+    end
 
     encrypted_data[attr] = { data: encrypted_value, iv: nil }
   end
@@ -29,10 +32,13 @@ class Account::Credentials < Account
   def decrypt_attr(attr, team_password)
     encrypted_value = encrypted_data[attr].try(:[], :data)
 
-    decrypted_blob = CryptUtils.decrypt_blob(encrypted_value, team_password)
-    cleartext_value = encrypted_value ? decrypted_blob : nil
+    if encrypted_value
+      cleartext_value = CryptUtils.decrypt_blob(encrypted_value, team_password)
+    else
+      cleartext_value = nil
+    end
 
-    self.instance_variable_set("@cleartext_#{attr}", cleartext_value)
+    instance_variable_set("@cleartext_#{attr}", cleartext_value)
   end
 
 end

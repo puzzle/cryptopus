@@ -27,10 +27,7 @@ class EncryptedData
   private
 
   def data_hash(iv, data)
-    {
-      iv: iv,
-      data: data
-    }
+    { iv: iv, data: data }
   end
 
   def encode(value)

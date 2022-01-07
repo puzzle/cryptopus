@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UseEncryptedDataForAccountCredentials < ActiveRecord::Migration[6.1]
   def up
     change_column :accounts, :encrypted_data, :text, limit: 16.megabytes - 1
@@ -31,37 +33,6 @@ class UseEncryptedDataForAccountCredentials < ActiveRecord::Migration[6.1]
 
     rename_column :accounts, :name, :accountname
     change_column :accounts, :encrypted_data, :text
-
-    # rename_table :accounts, :encryptables
-    #
-    # change_table :encryptables do |t|
-    #   t.rename :name, :name
-    # end
-  end
-
-  private
-
-  module LegacyAccount
-    class Credentials < Account
-      self.table_name = 'accounts'
-      self.inheritance_column = 'Account::Credentials'
-
-      attr_accessor :cleartext_password, :cleartext_username
-
-      def decrypt(team_password)
-        @cleartext_username = decrypt_attr(:username, team_password)
-        @cleartext_password = decrypt_attr(:password, team_password)
-      end
-
-      private
-
-      def decrypt_attr(attr, team_password)
-        crypted_value = send(attr)
-        return if crypted_value.blank?
-
-        CryptUtils.decrypt_blob(crypted_value, team_password)
-      end
-    end
   end
 
 end

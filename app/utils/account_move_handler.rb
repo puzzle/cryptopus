@@ -19,7 +19,6 @@ class AccountMoveHandler < AccountHandler
 
   private
 
-  # rubocop:disable Metrics/AbcSize
   def move_account_to_new_team
     raise 'user is not member of new team' unless new_team.teammember?(user.id)
 
@@ -27,7 +26,6 @@ class AccountMoveHandler < AccountHandler
     move_file_entries(old_team_password)
     account.encrypt(new_team.decrypt_team_password(user, private_key))
   end
-  # rubocop:enable Metrics/AbcSize
 
   def move_file_entries(old_team_password)
     new_team_password = new_team.decrypt_team_password(user, private_key)

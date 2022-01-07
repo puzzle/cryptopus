@@ -43,14 +43,7 @@ class Api::AccountsController < ApiController
     authorize account
     account.attributes = model_params
 
-    if account.folder_id_changed?
-      # if folder id changed recheck team permission
-      authorize account
-      # move handler calls encrypt implicit
-      account_move_handler.move
-    else
-      account.encrypt(decrypted_team_password(team))
-    end
+    encrypt(account)
 
     if account.save
       render_json account
@@ -80,6 +73,17 @@ class Api::AccountsController < ApiController
       accounts = accounts.find_by(tag: tag_param)
     end
     accounts
+  end
+
+  def encrypt(account)
+    if account.folder_id_changed?
+      # if folder id changed recheck team permission
+      authorize account
+      # move handler calls encrypt implicit
+      account_move_handler.move
+    else
+      account.encrypt(decrypted_team_password(team))
+    end
   end
 
   def account
