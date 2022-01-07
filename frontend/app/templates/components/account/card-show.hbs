@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col">
           <div class="card-title">
-            <h5>{{@account.accountname}}</h5>
+            <h5>{{@account.name}}</h5>
           </div>
         </div>
         <div class="col-auto">
@@ -23,7 +23,7 @@
   <div class="card account-card account-detail">
     <div role="button" class="card-header" {{on "click" this.swapToPreview}}>
       <img class="img d-inline mr-2 icon-button" src="/assets/images/key.svg" alt="key">
-      <p class="d-inline">{{@account.accountname}}</p>
+      <p class="d-inline">{{@account.name}}</p>
     </div>
     <div class="card-body">
       <div class="row mb-2">

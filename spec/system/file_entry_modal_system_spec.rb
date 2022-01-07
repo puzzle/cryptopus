@@ -33,7 +33,7 @@ describe 'FileEntryModal', type: :system, js: true do
     file_path = "#{Rails.root}/spec/fixtures/files/#{file_name}"
     expect do
       create_new_file_entry(file_desc, file_path)
-      expect(page).to have_text(account.accountname)
+      expect(page).to have_text(account.name)
     end.to change { FileEntry.count }.by(1)
 
     file_entry = FileEntry.find_by(filename: 'test_file.txt')
@@ -51,7 +51,7 @@ describe 'FileEntryModal', type: :system, js: true do
     expect(page).to have_text('Filename is already taken')
     click_button('Close')
 
-    expect(page).to have_text("Account: #{account.accountname}")
+    expect(page).to have_text("Account: #{account.name}")
 
     # Delete File Entry
     del_button = all('img[alt="delete"]')[3]
@@ -82,7 +82,7 @@ describe 'FileEntryModal', type: :system, js: true do
   end
 
   def expect_account_page_with(account)
-    expect(first('h2')).to have_text("Account: #{account.accountname}")
+    expect(first('h2')).to have_text("Account: #{account.name}")
     expect(find('#cleartext_username').value).to eq(account.cleartext_username)
     expect(find('#cleartext_password', visible: false).value).to eq(account.cleartext_password)
     expect(page).to have_text(account.description)

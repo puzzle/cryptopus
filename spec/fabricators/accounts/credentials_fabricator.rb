@@ -7,7 +7,7 @@
 
 Fabricator(:account, from: 'Account::Credentials') do
   transient :team_password
-  accountname { Faker::Team.creature }
+  name { Faker::Team.creature }
   cleartext_username { Faker::Internet.user_name }
   cleartext_password { Faker::Internet.password }
   before_save do |account, attrs|

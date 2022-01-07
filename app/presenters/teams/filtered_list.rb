@@ -49,7 +49,7 @@ module ::Teams
     def filter_by_query(teams)
       teams.includes(:folders, folders: [:accounts]).where(
         'lower(accounts.description) LIKE :query
-        OR lower(accounts.accountname) LIKE :query
+        OR lower(accounts.name) LIKE :query
         OR lower(folders.name) LIKE :query
         OR lower(teams.name) LIKE :query',
         query: "%#{query}%"

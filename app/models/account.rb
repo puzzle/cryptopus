@@ -5,7 +5,7 @@
 # Table name: accounts
 #
 #  id          :integer          not null, primary key
-#  accountname :string(70)       default(""), not null
+#  name         :string(70)       default(""), not null
 #  folder_id    :integer          default(0), not null
 #  description :text
 #  username    :binary
@@ -28,12 +28,10 @@ class Account < ApplicationRecord
   belongs_to :folder
   has_many :file_entries, dependent: :destroy
 
-  validates :accountname, presence: true
-  validates :accountname, uniqueness: { scope: :folder }
-  validates :accountname, length: { maximum: 70 }
+  validates :name, presence: true
+  validates :name, uniqueness: { scope: :folder }
+  validates :name, length: { maximum: 70 }
   validates :description, length: { maximum: 4000 }
-
-  serialize :encrypted_data, EncryptedData
 
   def encrypt
     raise 'implement in subclass'
@@ -48,6 +46,6 @@ class Account < ApplicationRecord
   end
 
   def label
-    accountname
+    name
   end
 end

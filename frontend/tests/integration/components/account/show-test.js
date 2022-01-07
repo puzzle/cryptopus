@@ -26,7 +26,7 @@ module("Integration | Component | account/show", function (hooks) {
   test("it renders with data and shows edit buttons for regular account", async function (assert) {
     this.set("account", {
       id: 1,
-      accountname: "Ninjas test account",
+      name: "Ninjas test account",
       description: "Account for the ninjas",
       cleartextUsername: "mail",
       cleartextPassword: "e2jd2rh4g5io7",
@@ -76,7 +76,7 @@ module("Integration | Component | account/show", function (hooks) {
   test("it renders with data and hides edit buttons for openshift secret", async function (assert) {
     this.set("account", {
       id: 1,
-      accountname: "Ninjas test account",
+      name: "Ninjas test account",
       description: "Account for the ninjas",
       cleartextUsername: "mail",
       cleartextPassword: "e2jd2rh4g5io7",

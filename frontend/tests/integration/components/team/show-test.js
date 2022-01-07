@@ -13,7 +13,7 @@ module("Integration | Component | team/show", function (hooks) {
       folders: [
         {
           name: "It-Ninjas",
-          accounts: [{ accountname: "Ninjas account" }]
+          accounts: [{ name: "Ninjas account" }]
         }
       ],
       userFavouriteTeams: [{ favourised: true }]

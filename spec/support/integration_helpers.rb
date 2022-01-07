@@ -45,7 +45,7 @@ module IntegrationHelpers
         data: {
           attributes: {
             type: 'credentials',
-            accountname: 'puzzle',
+            name: 'puzzle',
             folder_id: folder.id,
             description: 'account_description',
             cleartext_username: 'account_username',
@@ -57,7 +57,7 @@ module IntegrationHelpers
       post api_accounts_path, params: account_params
 
       logout
-      folder.accounts.find_by(accountname: 'puzzle')
+      folder.accounts.find_by(name: 'puzzle')
     end
 
     def create_team_folder_account_private(username, user_password = 'password')

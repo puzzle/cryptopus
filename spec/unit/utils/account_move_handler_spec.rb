@@ -10,7 +10,7 @@ describe AccountMoveHandler do
 
   let(:bob) { users(:bob) }
 
-  it 'moves account to a folder where accountname already exist' do
+  it 'moves account to a folder where account name already exist' do
     account = accounts(:account1)
     private_key = decrypt_private_key(bob)
     target_folder = folders(:folder2)
@@ -18,26 +18,33 @@ describe AccountMoveHandler do
     Fabricate(:account,
               folder: target_folder,
               team_password: team_password,
-              accountname: 'account1')
+              name: 'account1')
 
     AccountMoveHandler.new(account, private_key, bob).move
     account.save!
     expect(account.folder).to eq folders(:folder1)
   end
 
-  it 'moves account to a folder from another team' do
+  it 'moves account from team2 folder to team1 folder' do
     account = accounts(:account2)
     private_key = decrypt_private_key(bob)
-    new_folder = folders(:folder1)
+    team1_folder = folders(:folder1)
 
     expect(folders(:folder2).id).to eq(account.folder_id)
-    account.folder = new_folder
+
+    # current username, password values are set by api/accounts#update
+    account.cleartext_username = 'username'
+    account.cleartext_password = 'password'
+
+    account.folder_id = team1_folder.id
     AccountMoveHandler.new(account, private_key, bob).move
     account.save!
 
-    expect(account.decrypt(new_folder.team.decrypt_team_password(bob,
-                                                                 private_key))).to eq('password')
-    expect(new_folder.id).to eq(account.folder_id)
+    account.decrypt(team1_password)
+
+    expect(account.cleartext_username).to eq('username')
+    expect(account.cleartext_password).to eq('password')
+    expect(account.folder_id).to eq(team1_folder.id)
   end
 
   it 'moves account with file_entries to new team' do
@@ -99,7 +106,6 @@ describe AccountMoveHandler do
     begin
       AccountMoveHandler.new(account, bobs_private_key, bob).move
     rescue StandardError
-      team1_password = team1.decrypt_team_password(bob, bobs_private_key)
       file_entry1.reload.decrypt(team1_password)
       expect(file_entry1.cleartext_file).to eq('Das ist ein test File')
       file_entry2.reload.decrypt(team1_password)

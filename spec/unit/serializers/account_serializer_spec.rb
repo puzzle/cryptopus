@@ -10,7 +10,7 @@ describe AccountSerializer do
 
     as_json = JSON.parse(AccountSerializer.new(account).to_json)
 
-    attrs = %w[accountname id folder]
+    attrs = %w[name id folder]
 
     attrs.each do |attr|
       expect(as_json).to include(attr)

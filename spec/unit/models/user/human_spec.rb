@@ -69,7 +69,7 @@ describe User::Human do
     it 'only returns accounts where alice is member' do
       accounts = alice.accounts
       expect(accounts.count).to eq(1)
-      expect(accounts.first.accountname).to eq('account1')
+      expect(accounts.first.name).to eq('account1')
     end
   end
 

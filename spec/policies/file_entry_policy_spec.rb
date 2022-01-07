@@ -5,7 +5,7 @@ require 'spec_helper'
 describe FileEntryPolicy do
   include PolicyHelper
 
-  let(:account) { Account.find_by(accountname: 'account2') }
+  let(:account) { Account.find_by(name: 'account2') }
   let(:file_entry) { file_entries(:file_entry1) }
 
   context 'as teammember' do

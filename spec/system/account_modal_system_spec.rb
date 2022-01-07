@@ -12,14 +12,14 @@ describe 'AccountModal', type: :system, js: true do
   include SystemHelpers
 
   let(:account_attrs) do
-    { accountname: 'acc',
+    { name: 'acc',
       username: 'username',
       password: 'strong-pass3roeedd-1§23',
       description: 'desc' }
   end
 
   let(:updated_attrs) do
-    { accountname: 'acc2',
+    { name: 'acc2',
       username: 'username2',
       password: 'strong-pass3roeedd-1§23-zzeu',
       description: 'desc2' }
@@ -61,11 +61,11 @@ describe 'AccountModal', type: :system, js: true do
 
     expect do
       click_button('Save', visible: false)
-      expect(page).to have_text(account_attrs[:accountname])
+      expect(page).to have_text(account_attrs[:name])
     end.to change { Account.count }.by 1
 
     # Edit Account
-    account = Account.find_by(accountname: account_attrs[:accountname])
+    account = Account.find_by(name: account_attrs[:name])
     folder = Folder.find(account.folder_id)
     team = Team.find(folder.team_id)
 
@@ -93,7 +93,7 @@ describe 'AccountModal', type: :system, js: true do
       visit("/teams/#{team.id}/folders/#{folder.id}")
 
       expect(page).to have_text(team.name)
-      expect(page).to have_css('div', visible: false, text: account.accountname)
+      expect(page).to have_css('div', visible: false, text: account.name)
     end.to change { Account.count }.by(-1)
 
     logout
@@ -104,7 +104,7 @@ describe 'AccountModal', type: :system, js: true do
   def fill_modal(acc_attrs)
     within('form.ember-view[role="form"]', visible: false) do
       find("input[name='cleartextPassword']", visible: false).set acc_attrs[:password]
-      find("input[name='accountname']", visible: false).set(acc_attrs[:accountname])
+      find("input[name='name']", visible: false).set(acc_attrs[:name])
       find("input[name='cleartextUsername']", visible: false).set acc_attrs[:username]
       find('textarea.form-control.ember-view', visible: false).set acc_attrs[:description]
 
@@ -119,14 +119,14 @@ describe 'AccountModal', type: :system, js: true do
   end
 
   def expect_account_page_with(acc_attrs)
-    expect(page).to have_text("Account: #{acc_attrs[:accountname]}")
+    expect(page).to have_text("Account: #{acc_attrs[:name]}")
     expect(find('#cleartext_username', visible: false).value).to eq(acc_attrs[:username])
     expect(page).to have_text(acc_attrs[:description])
   end
 
   def expect_filled_fields_in_modal_with(acc_attrs)
-    expect(find("input[name='accountname']",
-                visible: false).value).to eq(acc_attrs[:accountname])
+    expect(find("input[name='name']",
+                visible: false).value).to eq(acc_attrs[:name])
     expect(find("input[name='cleartextUsername']",
                 visible: false).value).to eq(acc_attrs[:username])
     expect(find('textarea.form-control.ember-view',

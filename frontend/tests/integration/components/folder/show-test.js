@@ -9,7 +9,7 @@ module("Integration | Component | folder/show", function (hooks) {
   test("it renders with data", async function (assert) {
     this.set("folder", {
       name: "It-Ninjas",
-      accounts: [{ accountname: "Ninjas account" }]
+      accounts: [{ name: "Ninjas account" }]
     });
 
     await render(hbs`<Folder::Show @folder={{this.folder}}/>`);

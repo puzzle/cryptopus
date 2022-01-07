@@ -159,8 +159,8 @@ describe Api::TeamsController do
       expect(folders.first['attributes']['name']).to eq(folder2.name)
       expect(folders).not_to include(folder1.name)
 
-      expect(accounts.first['attributes']['accountname']).to eq(account2.accountname)
-      expect(accounts).not_to include(account1.accountname)
+      expect(accounts.first['attributes']['name']).to eq(account2.name)
+      expect(accounts).not_to include(account1.name)
       folder_relationships_length = data.first['relationships']['folders']['data'].size
 
       expect(included.size).to be(2)
@@ -215,7 +215,7 @@ describe Api::TeamsController do
       folder = team3.folders.first
       account = folder.accounts.first
 
-      get :index, params: { q: account.accountname }, xhr: true
+      get :index, params: { q: account.name }, xhr: true
 
       expect(data.count).to eq(1)
       expect(response.status).to be(200)
@@ -223,7 +223,7 @@ describe Api::TeamsController do
       included_account = included.second
 
       expect(included_account['id'].to_i).to eq account.id
-      expect(included_account['attributes']['accountname']).to eq account.accountname
+      expect(included_account['attributes']['name']).to eq account.name
       expect(included_account['attributes']['description']).to eq account.description
     end
 
@@ -241,7 +241,7 @@ describe Api::TeamsController do
       included_account = included.second
 
       expect(included_account['id'].to_i).to eq account.id
-      expect(included_account['attributes']['accountname']).to eq account.accountname
+      expect(included_account['attributes']['name']).to eq account.name
       expect(included_account['attributes']['description']).to eq account.description
     end
 
