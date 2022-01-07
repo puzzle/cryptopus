@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 class UseEncryptedDataForAccountCredentials < ActiveRecord::Migration[6.1]
+
+  MEDIUM_TEXT_LIMIT = (16.megabytes - 1)
+
   def up
-    change_column :accounts, :encrypted_data, :text, limit: 16.megabytes - 1
+    change_column :accounts, :encrypted_data, :text, limit: MEDIUM_TEXT_LIMIT
     rename_column :accounts, :accountname, :name
 
     Account.reset_column_information
