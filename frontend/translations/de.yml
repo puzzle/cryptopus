@@ -505,7 +505,7 @@ de:
       models:
         account:
           attributes:
-            accountname:
+            name:
               blank: kann nicht leer sein
               taken: ist bereits vergeben
         folder:
@@ -591,6 +591,7 @@ de:
     name:
       present: Der Name muss vorhanden sein
       too_long: Der Name ist zu lang
+      duplicate_name: Account existiert bereits!
     description:
       too_long: Die Beschreibung ist zu lang
     file:
@@ -599,10 +600,6 @@ de:
       present: Das Team muss vorhanden sein
     folder:
       present: Der Ordner muss vorhanden sein
-    accountname:
-      present: Der Accountname muss vorhanden sein
-      too_long: Der Accountname ist zu lang
-      duplicate_name: Account existiert bereits!
     cleartext username:
       too_long: Der Benutzername ist zu lang
     cleartext password:

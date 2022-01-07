@@ -5,7 +5,7 @@
 # Table name: accounts
 #
 #  id          :integer          not null, primary key
-#  accountname :string(70)       default(""), not null
+#  name        :string(70)       default(""), not null
 #  group_id    :integer          default(0), not null
 #  description :text
 #  username    :binary

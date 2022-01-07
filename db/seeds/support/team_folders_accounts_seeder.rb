@@ -77,10 +77,12 @@ class TeamFoldersAccountsSeeder
   def seed_account(folder, plaintext_team_pw)
     username = Crypto::Symmetric::AES256.encrypt("#{Faker::Lorem.word} #{rand(999)}", plaintext_team_pw)
     password = Crypto::Symmetric::AES256.encrypt(Faker::Internet.password, plaintext_team_pw)
-    folder.accounts.create!(accountname: "#{Faker::Company.name} #{rand(999)}",
-                            username: username,
-                            password: password,
-                            description: Faker::Lorem.paragraph)
+
+    account = folder.accounts.new(name: "#{Faker::Company.name} #{rand(999)}",
+
+    account.encrypted_data[:username] = { data: username, iv: nil }
+    account.encrypted_data[:password] = { data: password, iv: nil }
+    account.save!
   end
 
   def seed_folder(team)

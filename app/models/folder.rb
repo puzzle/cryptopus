@@ -19,7 +19,7 @@
 
 class Folder < ApplicationRecord
   belongs_to :team
-  has_many :accounts, -> { order :accountname }, dependent: :destroy
+  has_many :accounts, -> { order :name }, dependent: :destroy
 
   attr_readonly :team_id
 

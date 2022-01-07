@@ -5,8 +5,8 @@
 # Table name: accounts
 #
 #  id          :integer          not null, primary key
-#  accountname :string(70)       default(""), not null
-#  folder_id    :integer          default(0), not null
+#  name        :string(70)       default(""), not null
+#  folder_id   :integer          default(0), not null
 #  description :text
 #  username    :binary
 #  password    :binary
@@ -21,7 +21,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class AccountSerializer < ApplicationSerializer
-  attributes :id, :accountname, :description
+  attributes :id, :name, :description
 
   belongs_to :folder
 end

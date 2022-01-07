@@ -122,7 +122,7 @@ module("Integration | Component | account/form", function (hooks) {
     });
     this.set("account", {
       id: 1,
-      accountname: "mail",
+      name: "mail",
       cleartextUsername: "mail@ember.com",
       cleartextPassword: "lol",
       description: "The ember email",
@@ -132,7 +132,7 @@ module("Integration | Component | account/form", function (hooks) {
     await render(hbs`<Account::Form @account={{this.account}}/>`);
 
     assert.equal(
-      this.element.querySelector("input[name='accountname']").value,
+      this.element.querySelector("input[name='name']").value,
       "mail"
     );
     assert.equal(
@@ -162,7 +162,7 @@ module("Integration | Component | account/form", function (hooks) {
     });
     this.set("account", {
       id: 1,
-      accountname: "mail",
+      name: "mail",
       cleartextUsername: "mail@ember.com",
       description: "The ember email",
       folder: this.folder,
@@ -171,7 +171,7 @@ module("Integration | Component | account/form", function (hooks) {
     await render(hbs`<Account::Form @account={{this.account}}/>`);
 
     assert.equal(
-      this.element.querySelector("input[name='accountname']").value,
+      this.element.querySelector("input[name='name']").value,
       "mail"
     );
     assert.equal(
@@ -201,7 +201,7 @@ module("Integration | Component | account/form", function (hooks) {
     });
     this.set("account", {
       id: 1,
-      accountname: "mail",
+      name: "mail",
       cleartextPassword: "lol",
       description: "The ember email",
       folder: this.folder,
@@ -210,7 +210,7 @@ module("Integration | Component | account/form", function (hooks) {
     await render(hbs`<Account::Form @account={{this.account}}/>`);
 
     assert.equal(
-      this.element.querySelector("input[name='accountname']").value,
+      this.element.querySelector("input[name='name']").value,
       "mail"
     );
     assert.equal(
@@ -236,7 +236,7 @@ module("Integration | Component | account/form", function (hooks) {
     });
     this.set("account", {
       id: 1,
-      accountname: "mail",
+      name: "mail",
       description: "The ember email",
       folder: this.folder,
       isFullyLoaded: true
@@ -244,7 +244,7 @@ module("Integration | Component | account/form", function (hooks) {
     await render(hbs`<Account::Form @account={{this.account}}/>`);
 
     assert.equal(
-      this.element.querySelector("input[name='accountname']").value,
+      this.element.querySelector("input[name='name']").value,
       "mail"
     );
     assert.equal(

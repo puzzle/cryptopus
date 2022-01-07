@@ -20,8 +20,8 @@ describe 'TeamsPage', type: :system, js: true do
     account1 = accounts(:account1)
 
     expect(page).to have_selector('input.search')
-    find('input.search', visible: false).set account1.accountname
-    expect(page).to have_text(account1.accountname)
+    find('input.search', visible: false).set account1.name
+    expect(page).to have_text(account1.name)
 
     # Look if the Nesting is expanded
     folder_expanded?

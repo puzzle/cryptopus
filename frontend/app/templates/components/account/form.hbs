@@ -10,18 +10,18 @@
             {{#if this.hasErrors}}
               <div class="col-12 order-1">
                 <div class="alert alert-danger modal-alert">
-                  {{t "validations.accountname.duplicate_name"}}
+                  {{t "validations.name.duplicate_name"}}
                 </div>
               </div>
             {{/if}}
             <div class="col-md-6 order-2">
               <form.group class="col-md-12">
-                <form.element @property="accountname" @label={{t "helpers.label.account.account_name"}}
-                              class={{if this.changeset.error.accountname.validation
+                <form.element @property="name" @label={{t "helpers.label.account.account_name"}}
+                              class={{if this.changeset.error.name.validation
                                                              "invalid-input-name"}}
-                              id="accountname"
-                              @customError={{t (validation-error-key this.changeset.error.accountname.validation)}} as |el|>
-                  <el.control autocomplete="off" @name="accountname" tabindex="1"></el.control>
+                              id="name"
+                              @customError={{t (validation-error-key this.changeset.error.name.validation)}} as |el|>
+                  <el.control autocomplete="off" @name="name" tabindex="1"></el.control>
                 </form.element>
               </form.group>
               <form.group class="form-group col-md-12">

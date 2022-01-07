@@ -8,7 +8,7 @@ module("Integration | Component | account/card-show", function (hooks) {
 
   test("it renders with data", async function (assert) {
     this.set("account", {
-      accountname: "Ninjas account",
+      name: "Ninjas account",
       description: "Account for the ninjas"
     });
     await render(hbs`<Account::CardShow @account={{this.account}}/>`);

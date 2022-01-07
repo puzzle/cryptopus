@@ -450,7 +450,7 @@ fr:
       models:
         account:
           attributes:
-            accountname:
+            name:
               blank: ne peut pas être vide
               taken: est déjà pris
         folder:
@@ -537,6 +537,7 @@ fr:
     name:
       present: Le nom doit être présent
       too_long: Le nom est trop long
+      duplicate_name: Le compte existe déjà!
     description:
       too_long: La description est trop longue
     file:
@@ -545,10 +546,6 @@ fr:
       present: L'équipe être présent
     folder:
       present: Le dossier doit être présent
-    accountname:
-      present: Le nom du compte doit être présent
-      too_long: Le nom du compte est trop long
-      duplicate_name: Le compte existe déjà!
     cleartext username:
       too_long: Le nom d'utilisateur est trop long
     cleartext password:

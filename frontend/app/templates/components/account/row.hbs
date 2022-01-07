@@ -10,7 +10,7 @@
         <img class="img d-inline w-30 float-left icon-big-button" src="/assets/images/openshift-icon.png" alt="openshift-icon">
       </div>
       <div class="col-4 break-words">
-        Openshift-Secret: {{@account.accountname}}
+        Openshift-Secret: {{@account.name}}
       </div>
       <div class="col"></div>
     {{else}}
@@ -18,7 +18,7 @@
         <img class="img d-inline w-30 float-left icon-big-button" src="/assets/images/key.svg" alt="key">
       </LinkTo>
       <LinkTo class="col-4 underline-hover break-words account-link" @route="accounts.show" @model={{@account.id}}>
-        {{@account.accountname}}
+        {{@account.name}}
       </LinkTo>
     {{/if}}
     {{#unless @account.isOseSecret}}
