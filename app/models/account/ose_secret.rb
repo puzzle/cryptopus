@@ -3,7 +3,7 @@
 class Account::OSESecret < Account
   attr_accessor :ose_secret
 
-  serialize :encrypted_data, ::Account::EncryptedData
+  serialize :encrypted_data, ::EncryptedData
 
   def decrypt(team_password)
     decrypted_json = encrypted_data.decrypt(team_password)
