@@ -16,6 +16,7 @@ describe UseEncryptedDataForAccountCredentials do
   let(:account1) { accounts(:account1) }
   let(:account2) { accounts(:account2) }
 
+
   def silent
     verbose = ActiveRecord::Migration.verbose = false
 
@@ -29,7 +30,6 @@ describe UseEncryptedDataForAccountCredentials do
   end
 
   context 'up' do
-
     before do
       migration.down
       @account3 = LegacyAccountCredentials.create!(accountname: 'spacex', username: '',
@@ -37,7 +37,6 @@ describe UseEncryptedDataForAccountCredentials do
     end
 
     it 'migrates blob credentials to EncryptedData with base64 encoding' do
-
       migration.up
 
       # account 1
@@ -85,18 +84,16 @@ describe UseEncryptedDataForAccountCredentials do
       expect(account3.cleartext_username).to eq(nil)
       expect(account3.cleartext_password).to eq(nil)
 
-      expect(Account.attribute_names).to exclude(:username)
-      expect(Account.attribute_names).to exclude(:password)
+      Account.attribute_names.exclude?(:username)
+      Account.attribute_names.exclude?(:password)
     end
 
   end
 
   context 'down' do
-
     after { migration.up }
 
-    it 'migrates back to encrypted username, password blob fields' do
-
+    it 'reverts to previous schema' do
       account3 = Account::Credentials.create!(name: 'spacex', folder: folder1, encrypted_data: {
                                                 password: { data: '', iv: nil },
                                                 username: { data: nil, iv: nil }
@@ -107,9 +104,10 @@ describe UseEncryptedDataForAccountCredentials do
       LegacyAccountCredentials.reset_column_information
 
       # account 1
+      account1.reload
       legacy_account = LegacyAccountCredentials.find(account1.id)
 
-      raw_encrypted_data = legacy_account.read_attribute_before_type_cast(:encrypted_data)
+      raw_encrypted_data = account1.read_attribute_before_type_cast(:encrypted_data)
       expect(raw_encrypted_data).to eq('{}')
 
       legacy_account.decrypt(team1_password)
@@ -118,9 +116,10 @@ describe UseEncryptedDataForAccountCredentials do
       expect(legacy_account.cleartext_password).to eq('password')
 
       # account 2
+      account2.reload
       legacy_account = LegacyAccountCredentials.find(account2.id)
 
-      raw_encrypted_data = legacy_account.read_attribute_before_type_cast(:encrypted_data)
+      raw_encrypted_data = account2.read_attribute_before_type_cast(:encrypted_data)
       expect(raw_encrypted_data).to eq('{}')
 
       legacy_account.decrypt(team2_password)
@@ -129,9 +128,10 @@ describe UseEncryptedDataForAccountCredentials do
       expect(legacy_account.cleartext_password).to eq('password')
 
       # account 3
+      account3.reload
       legacy_account = LegacyAccountCredentials.find_by(id: account3.id)
 
-      raw_encrypted_data = legacy_account.read_attribute_before_type_cast(:encrypted_data)
+      raw_encrypted_data = account3.read_attribute_before_type_cast(:encrypted_data)
       expect(raw_encrypted_data).to eq('{}')
 
       legacy_account.decrypt(team1_password)
@@ -140,6 +140,7 @@ describe UseEncryptedDataForAccountCredentials do
       expect(legacy_account.cleartext_password).to eq(nil)
     end
   end
+
 
   private
 
