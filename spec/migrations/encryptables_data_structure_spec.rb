@@ -29,10 +29,11 @@ describe UseEncryptedDataForAccountCredentials do
   end
 
   context 'up' do
-    before {
+    before do
       migration.down
-      @account3 = LegacyAccountCredentials.create!(accountname: 'spacex', username: '', password: nil)
-    }
+      @account3 = LegacyAccountCredentials.create!(accountname: 'spacex', username: '',
+                                                   password: nil)
+    end
 
     it 'migrates blob credentials to EncryptedData with base64 encoding' do
       migration.up
@@ -43,7 +44,7 @@ describe UseEncryptedDataForAccountCredentials do
       raw_encrypted_data = account1.read_attribute_before_type_cast(:encrypted_data)
       encrypted_data_hash = {
         password: { iv: nil, data: 'pulO7xz5jDwUVQzbOqJzIw==' },
-        username: { iv: nil, data: '0CkUu2Bd9eNB4OCuXVC3TA=='}
+        username: { iv: nil, data: '0CkUu2Bd9eNB4OCuXVC3TA==' }
       }
 
       expect(raw_encrypted_data).to eq(encrypted_data_hash.to_json)
@@ -59,7 +60,7 @@ describe UseEncryptedDataForAccountCredentials do
       raw_encrypted_data = account2.read_attribute_before_type_cast(:encrypted_data)
       encrypted_data_hash = {
         password: { iv: nil, data: 'X2i8woXXwIHew6zcnBws9Q==' },
-        username: { iv: nil, data: 'Kvkd66uUiNq4Gw4Yh7PvVg=='}
+        username: { iv: nil, data: 'Kvkd66uUiNq4Gw4Yh7PvVg==' }
       }
 
       expect(raw_encrypted_data).to eq(encrypted_data_hash.to_json)
@@ -93,9 +94,9 @@ describe UseEncryptedDataForAccountCredentials do
 
     it 'reverts to previous schema' do
       account3 = Account::Credentials.create!(name: 'spacex', folder: folder1, encrypted_data: {
-        password: { data: '', iv: nil },
-        username: { data: nil, iv: nil }
-      })
+                                                password: { data: '', iv: nil },
+                                                username: { data: nil, iv: nil }
+                                              })
 
       migration.down
 
