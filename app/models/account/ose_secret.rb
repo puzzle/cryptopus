@@ -19,18 +19,21 @@ class Account::OSESecret < Account
   end
 
   def encrypt(team_password)
-    data, iv = CryptUtils.encrypt_data(self.ose_secret, team_password)
-
+    data, iv = CryptUtils.encrypt_data(ose_secret_hash(ose_secret), team_password)
     encrypted_data[:ose_secret] = { data: data, iv: iv }
   end
 
   private
 
+  def ose_secret_hash(data)
+    { ose_secret: data }.to_json
+  end
+
   def legacy_json_hash?(json)
     json = JSON.parse(json)
     json.is_a?(Hash)
-  rescue JSON::ParserError => e
-    return false
+  rescue JSON::ParserError
+    false
   end
 
   def ose_secret_from_hash(decrypted_data)

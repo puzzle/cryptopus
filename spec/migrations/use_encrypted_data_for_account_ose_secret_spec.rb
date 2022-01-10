@@ -12,9 +12,6 @@ describe UseEncryptedDataForAccountOseSecret do
   let(:migration) { described_class.new }
   let(:folder1) { folders(:folder1) }
 
-  let(:ose_secret_iv_decoded) { Base64.strict_decode64('Q1pJ4sr1X1znYUwOJ8F8UQ==') }
-  let(:ose_secret_data) {  }
-
   def silent
     verbose = ActiveRecord::Migration.verbose = false
 
@@ -31,9 +28,9 @@ describe UseEncryptedDataForAccountOseSecret do
     before do
       migration.down
       @ose_secret_account = LegacyOSESecret.create!(name: 'secret1',
-                                            folder_id: folder1.id,
-                                            type: "Account::OSESecret",
-                                            ose_secret: decoded_secret)
+                                                    folder_id: folder1.id,
+                                                    type: 'Account::OSESecret',
+                                                    ose_secret: decoded_secret)
 
       @ose_secret_account.encrypt(team1_password)
       @ose_secret_account.save
@@ -54,37 +51,26 @@ describe UseEncryptedDataForAccountOseSecret do
 
     it 'reverts to previous schema' do
       ose_secret_account = Account::OSESecret.create!(name: 'secret1',
-                                                     folder_id: folder1.id,
-                                                     ose_secret: decoded_secret)
-      legacy_secret_account = LegacyOSESecret.create!(name: 'legacy_secret1',
-                                                    folder_id: folder1.id,
-                                                    type: "Account::OSESecret",
-                                                    ose_secret: decoded_secret)
+                                                      folder_id: folder1.id,
+                                                      ose_secret: decoded_secret)
 
       ose_secret_account.encrypt(team1_password)
       ose_secret_account.save
 
-      legacy_secret_account.encrypt(team1_password)
-      legacy_secret_account.save
-
-      iv = ose_secret_account.encrypted_data[:ose_secret][:iv]
-      legacy_iv = iv_from_account(legacy_secret_account)
+      pre_mig_iv = Base64.strict_encode64(ose_secret_account.encrypted_data[:ose_secret][:iv])
 
       migration.down
 
-      LegacyOSESecret.reset_column_information
-
       ose_secret_account = LegacyOSESecret.find(ose_secret_account.id)
-      legacy_secret_account.reload
 
       ose_secret_account.decrypt(team1_password)
-      legacy_secret_account.decrypt(team1_password)
 
-      expect(ose_secret_account.decoded_secret).to eq(decoded_secret)
-      expect(legacy_secret_account.decoded_secret).to eq(decoded_secret)
+      expect(ose_secret_account.ose_secret).to eq(decoded_secret)
+
+      post_mig_iv = JSON.parse(ose_secret_account.encrypted_data, symbolize_names: true)[:iv]
+      expect(pre_mig_iv).to eq(post_mig_iv)
     end
   end
-
 
   private
 
@@ -92,8 +78,8 @@ describe UseEncryptedDataForAccountOseSecret do
     Base64.strict_decode64(FixturesHelper.read_account_file('example_secret.secret'))
   end
 
-  def iv_from_account(account)
-    iv_b64 = JSON.parse(account.encrypted_data, symbolize_names: true)[:iv]
+  def attr_from_account(account, attr)
+    iv_b64 = JSON.parse(account.encrypted_data, symbolize_names: true)[attr]
     Base64.strict_decode64(iv_b64)
   end
 
@@ -101,25 +87,39 @@ describe UseEncryptedDataForAccountOseSecret do
     self.table_name = 'accounts'
     self.inheritance_column = nil
 
-    attr_accessor :ose_secret, :iv, :value
+    attr_accessor :ose_secret
 
     def decrypt(team_password)
-      decrypted_json = CryptUtils.decrypt_data(self.value, team_password, Base64.strict_decode64(self.iv))
+      decrypted_json = CryptUtils.decrypt_data(value, team_password, iv)
       decrypted_data = JSON.parse(decrypted_json, symbolize_names: true)
 
       self.ose_secret = decrypted_data[:ose_secret]
     end
 
     def encrypt(team_password)
-      encrypted_data_hash = { ose_secret: self.ose_secret }
-      self.value, self.iv = CryptUtils.encrypt_data(encrypted_data_hash.to_json, team_password)
-      self.encrypted_data = legacy_encrypted_data_json(Base64.strict_encode64(self.iv), Base64.strict_encode64(self.value))
+      encrypted_data_hash = { ose_secret: ose_secret }
+      value, iv = CryptUtils.encrypt_data(encrypted_data_hash.to_json, team_password)
+      self.encrypted_data = legacy_encrypted_data_json(Base64.strict_encode64(iv),
+                                                       Base64.strict_encode64(value))
     end
 
     private
 
+    def iv
+      parsed(:iv)
+    end
+
+    def value
+      parsed(:value)
+    end
+
+    def parsed(attr)
+      attr_b64 = JSON.parse(encrypted_data, symbolize_names: true)[attr]
+      Base64.strict_decode64(attr_b64)
+    end
+
     def legacy_encrypted_data_json(iv, value)
-        { iv: iv, value: value }.to_json
+      { iv: iv, value: value }.to_json
     end
   end
 end

@@ -5,9 +5,11 @@ require 'spec_helper'
 describe Account::OSESecret do
 
   let(:folder1) { folders(:folder1) }
-  let(:ose_secret_account) { Account::OSESecret.create!(name: 'secret1',
-                                                folder_id: folder1.id,
-                                                ose_secret: decoded_secret) }
+  let(:ose_secret_account) do
+    Account::OSESecret.create!(name: 'secret1',
+                               folder_id: folder1.id,
+                               ose_secret: decoded_secret)
+  end
 
   context '#encrypt' do
     it 'encrypts cleartext secret' do
@@ -43,7 +45,7 @@ describe Account::OSESecret do
       expect(ose_secret_account.ose_secret).to eq(decoded_secret)
     end
 
-    it 'decrypts encrypted_data ose secret within Hash' do
+    it 'decrypts encrypted_data ose secret within Hash with old key' do
       ose_secret_account.encrypted_data = ::EncryptedData.new(encrypted_data_json(true))
 
       ose_secret_account.decrypt(team1_password)
@@ -52,8 +54,9 @@ describe Account::OSESecret do
     end
 
     # TODO: correct behaviour for legacy hash?
-    it 'raises type error when ose_secret key within legacy hash not present' do
-      ose_secret_account.encrypted_data = ::EncryptedData.new(encrypted_data_json(true, :random_key))
+    it 'returns nil when key other than ose_secret' do
+      ose_secret_account.encrypted_data = ::EncryptedData.new(encrypted_data_json(true,
+                                                                                  :random_key))
 
       ose_secret_account.decrypt(team1_password)
 
@@ -80,7 +83,7 @@ describe Account::OSESecret do
   end
 
   def legacy_ose_secret_hash_b64(key, value)
-    legacy_hash = Hash.new
+    legacy_hash = {}
     legacy_hash[key] = value
 
     legacy_hash.to_json
