@@ -6,14 +6,36 @@ class Account::OSESecret < Account
   serialize :encrypted_data, ::EncryptedData
 
   def decrypt(team_password)
-    decrypted_json = encrypted_data.decrypt(team_password)
-    decrypted_data = JSON.parse(decrypted_json, symbolize_names: true)
+    data = encrypted_data[:ose_secret].try(:[], :data)
+    iv = encrypted_data[:ose_secret].try(:[], :iv)
 
-    self.ose_secret = decrypted_data[:ose_secret]
+    data = CryptUtils.decrypt_data(data, team_password, iv)
+
+    if legacy_json_hash?(data)
+      data = ose_secret_from_hash(JSON.parse(data, symbolize_names: true))
+    end
+
+    self.ose_secret = data
   end
 
   def encrypt(team_password)
-    encrypted_data.cleartext_value = { ose_secret: ose_secret }
-    encrypted_data.encrypt(team_password)
+    data, iv = CryptUtils.encrypt_data(self.ose_secret, team_password)
+
+    encrypted_data[:ose_secret] = { data: data, iv: iv }
+  end
+
+  private
+
+  def legacy_json_hash?(json)
+    json = JSON.parse(json)
+    json.is_a?(Hash)
+  rescue JSON::ParserError => e
+    return false
+  end
+
+  def ose_secret_from_hash(decrypted_data)
+    if decrypted_data.key?(:ose_secret)
+      decrypted_data[:ose_secret]
+    end
   end
 end
