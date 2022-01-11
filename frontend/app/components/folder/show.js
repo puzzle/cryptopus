@@ -15,42 +15,22 @@ export default class ShowComponent extends Component {
   isNewAccount = false;
 
   @tracked
-  expanded_due_to_search = false;
+  isExpanded = this.isSearchQueryPresent() || this.currentFolderIsSelected();
 
   constructor() {
     super(...arguments);
-
-    if (isPresent(this.navService.searchQuery)) {
-      this.expanded_due_to_search = true;
-    }
-  }
-
-  get collapsed() {
-    if (isPresent(this.navService.searchQuery)) {
-      return !this.expanded_due_to_search;
-    } else {
-      return this.navService.selectedFolder !== this.args.folder;
-    }
   }
 
   get shouldRenderAccounts() {
-    return !isEmpty(this.args.folder) && !this.collapsed;
+    return !isEmpty(this.args.folder) && !this.isCollapsed;
   }
 
   @action
-  collapse() {
-    if (isPresent(this.navService.searchQuery)) {
-      this.expanded_due_to_search = !this.expanded_due_to_search;
+  toggleExpanded() {
+    if (this.isExpanded) {
+      this.collapseSelectedFolder();
     } else {
-      if (this.collapsed) {
-        this.router.transitionTo(
-          "teams.folders-show",
-          this.args.folder.team.get("id"),
-          this.args.folder.id
-        );
-      } else {
-        this.router.transitionTo("teams.show", this.args.folder.team.get("id"));
-      }
+      this.expandSelectedFolder();
     }
   }
 
@@ -61,6 +41,27 @@ export default class ShowComponent extends Component {
 
   @action
   toggleAccountCreating() {
+    this.navService.setSelectedFolderById(this.args.folder.id);
     this.isNewAccount = !this.isNewAccount;
+  }
+
+  expandSelectedFolder() {
+    this.router.transitionTo(
+      "teams.folders-show",
+      this.args.folder.team.get("id"),
+      this.args.folder.id
+    );
+  }
+
+  collapseSelectedFolder() {
+    this.router.transitionTo("teams.show", this.args.folder.team.get("id"));
+  }
+
+  currentFolderIsSelected() {
+    return this.navService.selectedFolder === this.args.folder;
+  }
+
+  isSearchQueryPresent() {
+    return isPresent(this.navService.searchQuery);
   }
 }
