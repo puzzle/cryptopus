@@ -118,7 +118,7 @@ class Api::AccountsController < ApiController
     permitted_attrs = self.class.permitted_attrs.deep_dup
 
     if model_class == Account::OSESecret
-      permitted_attrs << :ose_secret
+      permitted_attrs << :cleartext_ose_secret
     elsif model_class == Account::Credentials
       permitted_attrs + [:cleartext_username, :cleartext_password]
     else
