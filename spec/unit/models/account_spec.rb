@@ -100,7 +100,7 @@ describe Account do
   end
 
   def legacy_ose_secret_data
-    value = Base64.strict_decode64(FixturesHelper.read_account_file('example_secret_b64.secret'))
+    value = Base64.strict_decode64(FixturesHelper.read_account_file('legacy_ose_secret.encrypted_data'))
     { iv: 'Z2eRDQLhiIoCLgNxuunyKw==', value: value }.to_json
   end
 
