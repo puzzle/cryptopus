@@ -134,7 +134,7 @@ describe Api::AccountsController do
       account1_json_relationships = data['relationships']
 
       expect(account1_json_attributes['name']).to eq 'ose_secret'
-      expect(account1_json_attributes['ose_secret']).to eq example_private_key
+      expect(account1_json_attributes['cleartext_ose_secret']).to eq example_private_key
       expect_json_object_includes_keys(account1_json_relationships, nested_models)
     end
 
@@ -328,7 +328,7 @@ describe Api::AccountsController do
           id: account.id,
           attributes: {
             name: 'updated ose secret',
-            ose_secret: updated_ose_secret_data
+            cleartext_ose_secret: updated_ose_secret_data
           },
           relationships: { folder: { data: { id: account.folder_id, type: 'folders' } } }
         }, id: account.id
@@ -339,7 +339,7 @@ describe Api::AccountsController do
 
       account.decrypt(plaintext_team_password)
       expect(account.name).to eq 'updated ose secret'
-      expect(account.ose_secret).to eq updated_ose_secret_data
+      expect(account.cleartext_ose_secret).to eq updated_ose_secret_data
 
       expect(response).to have_http_status(200)
     end
@@ -623,7 +623,7 @@ describe Api::AccountsController do
   def create_ose_secret
     secret = Account::OSESecret.new(name: 'ose_secret',
                                     folder: folders(:folder1),
-                                    ose_secret: example_private_key)
+                                    cleartext_ose_secret: example_private_key)
 
     secret.encrypt(plaintext_team_password)
     secret.save!

@@ -22,6 +22,8 @@
 
 class Account < ApplicationRecord
 
+  serialize :encrypted_data, ::EncryptedData
+
   attr_readonly :type
   validates :type, presence: true
 
@@ -33,11 +35,11 @@ class Account < ApplicationRecord
   validates :name, length: { maximum: 70 }
   validates :description, length: { maximum: 4000 }
 
-  def encrypt
+  def encrypt(_team_password)
     raise 'implement in subclass'
   end
 
-  def decrypt
+  def decrypt(_team_password)
     raise 'implement in subclass'
   end
 
@@ -48,4 +50,29 @@ class Account < ApplicationRecord
   def label
     name
   end
+
+  private
+
+  def encrypt_attr(attr, team_password)
+    cleartext_value = send(:"cleartext_#{attr}")
+
+    encrypted_value = if cleartext_value.blank?
+                        nil
+                      else
+                        CryptUtils.encrypt_blob(cleartext_value, team_password)
+                      end
+
+    encrypted_data[attr] = { data: encrypted_value, iv: nil }
+  end
+
+  def decrypt_attr(attr, team_password)
+    encrypted_value = encrypted_data[attr].try(:[], :data)
+
+    cleartext_value = if encrypted_value
+                        CryptUtils.decrypt_blob(encrypted_value, team_password)
+                      end
+
+    instance_variable_set("@cleartext_#{attr}", cleartext_value)
+  end
+
 end
