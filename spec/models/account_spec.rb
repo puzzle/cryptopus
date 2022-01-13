@@ -70,4 +70,41 @@ describe Account do
     expect(account).to_not be_valid
     expect(account.errors.full_messages.first).to match(/Name/)
   end
+
+  context 'ose secret' do
+    let!(:legacy_ose_secret) { create_legacy_ose_secret }
+
+    it 'converts legacy ose secret during decrypt' do
+      expect(legacy_ose_secret.send(:legacy_encrypted_data?)).to eq(true)
+
+      legacy_ose_secret.decrypt(team1_password)
+
+      ose_secret = Account::OSESecret.find(legacy_ose_secret.id)
+
+      expect(ose_secret.send(:legacy_encrypted_data?)).to eq(false)
+
+      ose_secret.decrypt(team1_password)
+      expect(ose_secret.cleartext_ose_secret).to eq(cleartext_ose_secret)
+    end
+  end
+
+  private
+
+  def create_legacy_ose_secret
+    secret = Account::OSESecret.new(name: 'ose_secret',
+                                    folder: folders(:folder1))
+
+    secret.save!
+    secret.write_attribute(:encrypted_data, legacy_ose_secret_data)
+    secret
+  end
+
+  def legacy_ose_secret_data
+    value = Base64.strict_decode64(FixturesHelper.read_account_file('example_secret_b64.secret'))
+    { iv: 'Z2eRDQLhiIoCLgNxuunyKw==', value: value }.to_json
+  end
+
+  def cleartext_ose_secret
+    Base64.strict_decode64(FixturesHelper.read_account_file('example_secret.secret'))
+  end
 end
