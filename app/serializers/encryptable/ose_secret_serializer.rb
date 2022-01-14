@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class Account::OSESecretSerializer < AccountSerializer
+class Encryptable::OSESecretSerializer < EncryptableSerializer
   attributes :cleartext_ose_secret
 end

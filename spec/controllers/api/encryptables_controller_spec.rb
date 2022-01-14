@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Api::AccountsController do
+describe Api::EncryptablesController do
   include ControllerHelpers
 
   let(:bob) { users(:bob) }
@@ -24,7 +24,7 @@ describe Api::AccountsController do
       account1_json_attributes = account1_json['attributes']
       account1_json_relationships = account1_json['relationships']
 
-      account = accounts(:account1)
+      account = encryptables(:credential1)
       folder = account.folder
 
       expect(account1_json_attributes['name']).to eq account.name
@@ -46,7 +46,7 @@ describe Api::AccountsController do
       account1_json_attributes = account1_json['attributes']
       account1_json_relationships = account1_json['relationships']
 
-      account = accounts(:account1)
+      account = encryptables(:credential1)
       folder = account.folder
 
       expect(data.count).to eq 2
@@ -69,7 +69,7 @@ describe Api::AccountsController do
       account1_json_attributes = account1_json['attributes']
       account1_json_relationships = account1_json['relationships']
 
-      account = accounts(:account1)
+      account = encryptables(:credential1)
       folder = account.folder
 
       expect(data.count).to eq 2
@@ -91,7 +91,7 @@ describe Api::AccountsController do
       account2_json_attributes = data['attributes']
       account2_json_relationships = data['relationships']
 
-      account = accounts(:account2)
+      account = encryptables(:credential2)
       folder = account.folder
 
       expect(account2_json_attributes['name']).to eq account.name
@@ -108,7 +108,7 @@ describe Api::AccountsController do
   context 'GET show' do
     it 'returns decrypted credentials account' do
       login_as(:bob)
-      account = accounts(:account1)
+      account = encryptables(:credential1)
       rgx_date = /^(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2}).(\d{3})[+-](\d{2})\:(\d{2})/
 
       get :show, params: { id: account }, xhr: true
@@ -116,7 +116,7 @@ describe Api::AccountsController do
       account1_json_attributes = data['attributes']
       account1_json_relationships = data['relationships']
 
-      expect(account1_json_attributes['name']).to eq 'account1'
+      expect(account1_json_attributes['name']).to eq 'credential1'
       expect(account1_json_attributes['cleartext_username']).to eq 'test'
       expect(account1_json_attributes['cleartext_password']).to eq 'password'
       expect(account1_json_attributes['created_at']).to match(rgx_date)
@@ -139,7 +139,7 @@ describe Api::AccountsController do
     end
 
     it 'cannot authenticate and does not return decrypted account if user not logged in' do
-      account = accounts(:account1)
+      account = encryptables(:credential1)
       get :show, params: { id: account }, xhr: true
 
       expect(errors).to eq(['flashes.api.errors.user_not_logged_in'])
@@ -154,13 +154,13 @@ describe Api::AccountsController do
 
         request.headers['Authorization-User'] = api_user.username
         request.headers['Authorization-Password'] = token
-        account = accounts(:account1)
+        account = encryptables(:credential1)
         get :show, params: { id: account }, xhr: true
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
 
-        expect(account1_json_attributes['name']).to eq 'account1'
+        expect(account1_json_attributes['name']).to eq 'credential1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
@@ -175,13 +175,13 @@ describe Api::AccountsController do
         request.headers['Authorization-User'] = api_user.username
         request.headers['Authorization-Password'] = token
 
-        account = accounts(:account1)
+        account = encryptables(:credential1)
         get :show, params: { id: account }, xhr: true
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
 
-        expect(account1_json_attributes['name']).to eq 'account1'
+        expect(account1_json_attributes['name']).to eq 'credential1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
@@ -195,13 +195,13 @@ describe Api::AccountsController do
 
         request.headers['Authorization-User'] = api_user.username
         request.headers['Authorization-Password'] = token
-        account = accounts(:account1)
+        account = encryptables(:credential1)
         get :show, params: { id: account }, xhr: true
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
 
-        expect(account1_json_attributes['name']).to eq 'account1'
+        expect(account1_json_attributes['name']).to eq 'credential1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
@@ -215,7 +215,7 @@ describe Api::AccountsController do
         request.headers['Authorization-User'] = api_user.username
         request.headers['Authorization-Password'] = Base64.encode64('abcd')
 
-        account = accounts(:account1)
+        account = encryptables(:credential1)
         get :show, params: { id: account }, xhr: true
 
         expect(errors).to eq(['flashes.api.errors.auth_failed'])
@@ -227,7 +227,7 @@ describe Api::AccountsController do
 
         teams(:team1).add_user(api_user, plaintext_team_password)
 
-        account = accounts(:account1)
+        account = encryptables(:credential1)
         get :show, params: { id: account }, xhr: true
 
         expect(response).to have_http_status 401
@@ -240,7 +240,7 @@ describe Api::AccountsController do
         request.headers['Authorization-User'] = api_user.username
         request.headers['Authorization-Password'] = token
 
-        account = accounts(:account1)
+        account = encryptables(:credential1)
         get :show, params: { id: account }, xhr: true
 
         expect(errors).to eq(['flashes.admin.admin.no_access'])
@@ -252,14 +252,14 @@ describe Api::AccountsController do
 
         set_auth_headers
 
-        account = accounts(:account1)
+        account = encryptables(:credential1)
         get :show, params: { id: account }, xhr: true
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
 
         expect(response).to have_http_status(200)
-        expect(account1_json_attributes['name']).to eq 'account1'
+        expect(account1_json_attributes['name']).to eq 'credential1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
@@ -268,14 +268,14 @@ describe Api::AccountsController do
       it 'shows account as human user details if headers valid' do
         set_auth_headers
 
-        account = accounts(:account1)
+        account = encryptables(:credential1)
         get :show, params: { id: account }, xhr: true
 
         account1_json_attributes = data['attributes']
         account1_json_relationships = data['relationships']
 
         expect(response).to have_http_status(200)
-        expect(account1_json_attributes['name']).to eq 'account1'
+        expect(account1_json_attributes['name']).to eq 'credential1'
         expect(account1_json_attributes['cleartext_username']).to eq 'test'
         expect(account1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(account1_json_relationships, nested_models)
@@ -287,7 +287,7 @@ describe Api::AccountsController do
     it 'updates credentials account with valid params structure' do
       set_auth_headers
 
-      account = accounts(:account1)
+      account = encryptables(:credential1)
 
       account_params = {
         data: {
@@ -347,12 +347,12 @@ describe Api::AccountsController do
     it 'moves account to other team' do
       login_as(:bob)
 
-      account = accounts(:account1)
+      credential = encryptables(:credential1)
       target_folder = folders(:folder2)
 
-      account_params = {
+      encryptable_params = {
         data: {
-          id: account.id,
+          id: credential.id,
           attributes: {
             name: 'Bob Meyer',
             tag: 'taggy',
@@ -360,19 +360,19 @@ describe Api::AccountsController do
             cleartext_password: 'petzi'
           },
           relationships: { folder: { data: { id: target_folder.id, type: 'folders' } } }
-        }, id: account.id
+        }, id: credential.id
       }
-      patch :update, params: account_params, xhr: true
+      patch :update, params: encryptable_params, xhr: true
 
-      account.reload
+      credential.reload
 
       plaintext_team2_password = teams(:team2).decrypt_team_password(bob, private_key)
-      account.decrypt(plaintext_team2_password)
-      file_entry = account.file_entries.first
+      credential.decrypt(plaintext_team2_password)
+      file_entry = credential.file_entries.first
       file_entry.decrypt(plaintext_team2_password)
 
-      expect(account.cleartext_username).to eq 'globi'
-      expect(account.cleartext_password).to eq 'petzi'
+      expect(credential.cleartext_username).to eq 'globi'
+      expect(credential.cleartext_password).to eq 'petzi'
       expect(file_entry.cleartext_file).to eq 'Das ist ein test File'
 
       expect(response).to have_http_status(200)
@@ -381,7 +381,7 @@ describe Api::AccountsController do
     it 'updates account but does not move without team membership' do
       login_as(:alice)
 
-      account = accounts(:account1)
+      account = encryptables(:credential1)
       new_folder = folders(:folder2)
 
       account_params = {
@@ -417,7 +417,7 @@ describe Api::AccountsController do
     it 'cannot set account password and username attributes by params' do
       set_auth_headers
 
-      account = accounts(:account1)
+      account = encryptables(:credential1)
 
       account_params = {
         data: {
@@ -434,7 +434,7 @@ describe Api::AccountsController do
 
       account1_json_attributes = data['attributes']
 
-      expect(account1_json_attributes['name']).to eq 'account1'
+      expect(account1_json_attributes['name']).to eq 'credential1'
       expect(account1_json_attributes['cleartext_username']).to be_nil
       expect(account1_json_attributes['cleartext_password']).to be_nil
     end
@@ -443,7 +443,7 @@ describe Api::AccountsController do
       request.headers['Authorization-User'] = alice.username
       request.headers['Authorization-Password'] = Base64.encode64('password')
 
-      account = accounts(:account2)
+      account = encryptables(:credential2)
 
       account_params = {
         data: {
@@ -460,7 +460,7 @@ describe Api::AccountsController do
 
       account.reload
 
-      expect(account.name).to eq 'account2'
+      expect(account.name).to eq 'credential2'
       expect(account.tag).to eq 'tag'
       expect(response).to have_http_status(403)
     end
@@ -584,7 +584,7 @@ describe Api::AccountsController do
 
       expect do
         post :create, params: new_account_params, xhr: true
-      end.to change { Account.count }.by(1)
+      end.to change { Encryptable.count }.by(1)
 
       expect(response).to have_http_status(201)
     end
@@ -595,25 +595,25 @@ describe Api::AccountsController do
 
         alice = users(:alice)
         team2 = teams(:team2)
-        account = team2.folders.first.accounts.first
+        account = team2.folders.first.encryptables.first
 
         expect(team2.teammember?(alice)).to eq false
 
         expect do
           delete :destroy, params: { id: account.id, folder_id: account.folder.id,
                                      team_id: account.folder.team.id }
-        end.to change { Account.count }.by(0)
+        end.to change { Encryptable.count }.by(0)
       end
 
       it 'can destroy an account if human user is in his team' do
-        account = accounts(:account1)
+        credential = encryptables(:credential1)
 
         login_as(:bob)
 
         expect do
-          delete :destroy, params: { id: account.id, folder_id: account.folder.id,
-                                     team_id: account.folder.team.id }
-        end.to change { Account.count }.by(-1)
+          delete :destroy, params: { id: credential.id, folder_id: credential.folder.id,
+                                     team_id: credential.folder.team.id }
+        end.to change { Encryptable.count }.by(-1)
       end
     end
   end
@@ -621,9 +621,9 @@ describe Api::AccountsController do
   private
 
   def create_ose_secret
-    secret = Account::OSESecret.new(name: 'ose_secret',
-                                    folder: folders(:folder1),
-                                    cleartext_ose_secret: example_private_key)
+    secret = Encryptable::OSESecret.new(name: 'ose_secret',
+                                        folder: folders(:folder1),
+                                        cleartext_ose_secret: example_private_key)
 
     secret.encrypt(plaintext_team_password)
     secret.save!
@@ -631,7 +631,7 @@ describe Api::AccountsController do
   end
 
   def example_private_key
-    Base64.strict_decode64(FixturesHelper.read_account_file('example_secret.secret'))
+    Base64.strict_decode64(FixturesHelper.read_encryptable_file('example_secret.secret'))
   end
 
   def token

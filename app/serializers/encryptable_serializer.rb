@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: accounts
 #
 #  id          :integer          not null, primary key
 #  name        :string(70)       default(""), not null
-#  group_id    :integer          default(0), not null
+#  folder_id   :integer          default(0), not null
 #  description :text
 #  username    :binary
 #  password    :binary
@@ -18,17 +20,8 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-account1:
-  type: Account::Credentials
-  name: account1
-  description: description1
-  folder: folder1
-  encrypted_data: '{"password": {"data": "pulO7xz5jDwUVQzbOqJzIw==", "iv": "null" }, "username": {"data": "0CkUu2Bd9eNB4OCuXVC3TA==", "iv": "null"}}'
+class EncryptableSerializer < ApplicationSerializer
+  attributes :id, :name, :description
 
-account2:
-  type: Account::Credentials
-  name: account2
-  description: description2
-  folder: folder2
-  tag: tag
-  encrypted_data: '{"password": {"data": "X2i8woXXwIHew6zcnBws9Q==", "iv": "null" }, "username": {"data": "Kvkd66uUiNq4Gw4Yh7PvVg==", "iv": "null"}}'
+  belongs_to :folder
+end

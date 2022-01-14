@@ -2,13 +2,13 @@
 
 require 'spec_helper'
 
-describe AccountSerializer do
+describe EncryptableSerializer do
   it 'serializes account to json' do
-    account = accounts(:account1)
-    account.cleartext_username = 'username'
-    account.cleartext_password = 'password'
+    credential = encryptables(:credential1)
+    credential.cleartext_username = 'username'
+    credential.cleartext_password = 'password'
 
-    as_json = JSON.parse(AccountSerializer.new(account).to_json)
+    as_json = JSON.parse(described_class.new(credential).to_json)
 
     attrs = %w[name id folder]
 

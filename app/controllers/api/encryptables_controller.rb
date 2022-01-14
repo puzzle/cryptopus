@@ -4,14 +4,14 @@
 #  Cryptopus and licensed under the Affero General Public License version 3 or later.
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
-class Api::AccountsController < ApiController
+class Api::EncryptablesController < ApiController
   self.permitted_attrs = [:name, :description, :folder_id, :tag]
 
   helper_method :team
 
   # GET /api/accounts
   def index(options = {})
-    authorize Account
+    authorize Encryptable
     render({ json: fetch_entries,
              root: model_root_key.pluralize }
            .merge(render_options)
@@ -20,19 +20,19 @@ class Api::AccountsController < ApiController
 
   # GET /api/accounts/:id
   def show
-    authorize account
-    account.decrypt(decrypted_team_password(team))
+    authorize encryptable
+    encryptable.decrypt(decrypted_team_password(team))
     render_entry
   end
 
   # POST /api/accounts
   def create
     build_entry
-    authorize @account
-    account.encrypt(decrypted_team_password(team))
-    if @account.save
+    authorize @encryptable
+    encryptable.encrypt(decrypted_team_password(team))
+    if @encryptable.save
       @response_status = :created
-      render_json @account
+      render_json @encryptable
     else
       render_errors
     end
@@ -40,13 +40,13 @@ class Api::AccountsController < ApiController
 
   # PATCH /api/accounts/:id?Query
   def update
-    authorize account
-    account.attributes = model_params
+    authorize encryptable
+    encryptable.attributes = model_params
 
-    encrypt(account)
+    encrypt(encryptable)
 
-    if account.save
-      render_json account
+    if encryptable.save
+      render_json encryptable
     else
       render_errors
     end
@@ -57,13 +57,13 @@ class Api::AccountsController < ApiController
   def model_class
     if action_name == 'create' &&
        params.dig('data', 'attributes', 'type') == 'ose_secret'
-      Account::OSESecret
+      Encryptable::OSESecret
     elsif action_name == 'destroy'
-      Account
-    elsif @account.present?
-      @account.class
+      Encryptable
+    elsif @encryptable.present?
+      @encryptable.class
     else
-      Account::Credentials
+      Encryptable::Credentials
     end
   end
 
@@ -86,12 +86,12 @@ class Api::AccountsController < ApiController
     end
   end
 
-  def account
-    @account ||= Account.find(params[:id])
+  def encryptable
+    @encryptable ||= Encryptable.find(params[:id])
   end
 
   def team
-    @team ||= account.folder.team
+    @team ||= encryptable.folder.team
   end
 
   def query_param
@@ -103,11 +103,11 @@ class Api::AccountsController < ApiController
   end
 
   def account_move_handler
-    AccountMoveHandler.new(account, session[:private_key], current_user)
+    EncryptableMoveHandler.new(encryptable, session[:private_key], current_user)
   end
 
   def ivar_name
-    Account.model_name.param_key
+    Encryptable.model_name.param_key
   end
 
   def model_serializer
@@ -117,9 +117,9 @@ class Api::AccountsController < ApiController
   def permitted_attrs
     permitted_attrs = self.class.permitted_attrs.deep_dup
 
-    if model_class == Account::OSESecret
+    if model_class == Encryptable::OSESecret
       permitted_attrs << :cleartext_ose_secret
-    elsif model_class == Account::Credentials
+    elsif model_class == Encryptable::Credentials
       permitted_attrs + [:cleartext_username, :cleartext_password]
     else
       permitted_attrs

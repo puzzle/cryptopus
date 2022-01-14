@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AccountPolicy < TeamDependantPolicy
+class EncryptablePolicy < TeamDependantPolicy
   def initialize(user, record)
     @user = user
     @record = record

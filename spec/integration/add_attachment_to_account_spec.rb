@@ -9,13 +9,13 @@ require 'spec_helper'
 describe 'Account attachement' do
   include IntegrationHelpers::DefaultHelper
   it 'adds and removes attachment to account1' do
-    account = accounts(:account1)
+    credential = encryptables(:credential1)
     login_as('bob')
     file = fixture_file_upload('test_file.txt', 'text/plain')
 
-    file_entry_path = api_account_file_entries_path(account_id: account.id)
+    file_entry_path = api_encryptable_file_entries_path(encryptable_id: credential.id)
     file_entry_params = {
-      account_id: account.id,
+      encryptable_id: credential.id,
       file: file,
       description: 'test'
     }
@@ -26,8 +26,8 @@ describe 'Account attachement' do
     logout
 
     login_as('alice')
-    file = account.file_entries.find_by(filename: 'test_file.txt')
-    file_entry_path = api_account_file_entry_path(account, file)
+    file = credential.file_entries.find_by(filename: 'test_file.txt')
+    file_entry_path = api_encryptable_file_entry_path(credential, file)
     get file_entry_path
     expect(response.body).to eq('certificate')
     expect(response.header['Content-Type']).to eq('text/plain')

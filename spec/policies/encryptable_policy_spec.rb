@@ -1,50 +1,50 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-describe AccountPolicy do
+describe EncryptablePolicy do
   include PolicyHelper
 
-  let(:account1) { accounts(:account1) }
-  let(:account2) { accounts(:account2) }
+  let(:credential1) { encryptables(:credential1) }
+  let(:credential2) { encryptables(:credential2) }
   let(:folder2) { folders(:folder2) }
   let(:team1) { teams(:team1) }
   let(:team2) { teams(:team2) }
 
   context 'as teammember' do
-    it 'can show account' do
-      assert_permit bob, account2, :show?
+    it 'can show credential' do
+      assert_permit bob, credential2, :show?
     end
 
-    it 'can destroy account' do
-      assert_permit bob, account2, :destroy?
+    it 'can destroy credential' do
+      assert_permit bob, credential2, :destroy?
     end
   end
 
   context 'as non teammember' do
-    it 'non teammember cannot show account' do
-      refute_permit alice, account2, :show?
+    it 'non teammember cannot show credential' do
+      refute_permit alice, credential2, :show?
     end
 
-    it 'non teammember cannot destroy account' do
-      refute_permit alice, account2, :destroy?
+    it 'non teammember cannot destroy credential' do
+      refute_permit alice, credential2, :destroy?
     end
 
   end
 
   context 'for team' do
-    it 'enabled api user can show account' do
-      assert_permit api_bob, account2, :show?
+    it 'enabled api user can show credential' do
+      assert_permit api_bob, credential2, :show?
     end
 
-    it 'enabled api user cannot destroy account' do
-      refute_permit api_bob, account2, :destroy?
+    it 'enabled api user cannot destroy credential' do
+      refute_permit api_bob, credential2, :destroy?
     end
 
   end
 
   context 'not for team' do
-    it 'enabled api user is not allowed to update account' do
-      refute_permit api_alice, account2, :update?
+    it 'enabled api user is not allowed to update credential' do
+      refute_permit api_alice, credential2, :update?
     end
   end
 

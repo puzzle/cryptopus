@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
 require 'spec_helper'
 describe 'Create team' do
   include IntegrationHelpers::DefaultHelper
@@ -13,42 +8,34 @@ describe 'Create team' do
   context 'as bob' do
     it 'creates new normal team' do
       # Setup for test
-      account = create_team_folder_account('bob', 'password')
+      credential = create_team_folder_encryptable('bob', 'password')
 
       # Create account link
-      account_path = api_account_path(account)
-
+      encryptable_path = api_encryptable_path(credential)
 
       # Bob can access team / accounts
-      can_access_account(account_path, 'bob')
+      can_access_encryptable(encryptable_path, 'bob')
 
       # Root can access team / account
-      can_access_account(account_path, 'root')
+      can_access_encryptable(encryptable_path, 'root')
 
       # Admin can access team / account
-      can_access_account(account_path, 'admin')
+      can_access_encryptable(encryptable_path, 'admin')
     end
 
     it 'creates private team' do
       # Setup for test
-      account = create_team_folder_account_private('bob', 'password')
+      credential = create_team_folder_encryptable_private('bob', 'password')
 
-      # Create account link
-      account_path = api_account_path(account)
+      # Create encryptable link
+      encryptable_path = api_encryptable_path(credential)
 
-      # Bob can not access team / accounts
-      can_access_account(account_path, 'bob')
+      # Bob can not access team / encryptable
+      can_access_encryptable(encryptable_path, 'bob')
 
-      # Admin can not access team / account
-      cannot_access_account(account_path, 'admin')
+      # Admin can not access team / encryptable
+      cannot_access_encryptable(encryptable_path, 'admin')
     end
   end
 
-  private
-
-  def account_path(account = nil)
-    return '/accounts' if account.nil?
-
-    "/accounts/#{account.id}"
-  end
 end

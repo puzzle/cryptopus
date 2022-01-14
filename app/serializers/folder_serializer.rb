@@ -21,7 +21,7 @@ class FolderSerializer < ActiveModel::Serializer
   attributes :id, :name, :team_id, :team_name, :description
 
   belongs_to :team
-  has_many :accounts, serializer: AccountMinimalSerializer
+  has_many :encryptables, serializer: EncryptableMinimalSerializer
 
   def team_name
     object.team.name

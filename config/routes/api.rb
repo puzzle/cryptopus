@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :accounts, except: [:new, :edit] do
+    resources :encryptables, except: [:new, :edit] do
       resources :file_entries, only: [:create, :index, :destroy, :show]
     end
 
@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     end
 
     scope '/search', module: 'search', as: 'search' do
-      get :accounts
+      get :encryptables
       get :folders
       get :teams
     end

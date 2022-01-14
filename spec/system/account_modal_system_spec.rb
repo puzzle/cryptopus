@@ -62,10 +62,10 @@ describe 'AccountModal', type: :system, js: true do
     expect do
       click_button('Save', visible: false)
       expect(page).to have_text(account_attrs[:name])
-    end.to change { Account.count }.by 1
+    end.to change { Encryptable.count }.by 1
 
     # Edit Account
-    account = Account.find_by(name: account_attrs[:name])
+    account = Encryptable.find_by(name: account_attrs[:name])
     folder = Folder.find(account.folder_id)
     team = Team.find(folder.team_id)
 
@@ -94,7 +94,7 @@ describe 'AccountModal', type: :system, js: true do
 
       expect(page).to have_text(team.name)
       expect(page).to have_css('div', visible: false, text: account.name)
-    end.to change { Account.count }.by(-1)
+    end.to change { Encryptable.count }.by(-1)
 
     logout
   end

@@ -168,7 +168,7 @@ describe RedirectedRoutes::UrlHandler do
     it 'serves frontend when /de/teams/1/folders/1/accounts/1 route requested' do
       team1 = teams(:team1)
       folder1 = folders(:folder1)
-      account1 = accounts(:account1)
+      account1 = encryptables(:credential1)
 
       legacy_account_url = "/de/teams/#{team1.id}/folders/" \
         "#{folder1.id}/accounts/#{account1.id}/"

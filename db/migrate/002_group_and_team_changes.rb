@@ -46,7 +46,7 @@ class GroupAndTeamChanges < ActiveRecord::Migration[5.1]
       group.save
 
       # Accounts are now linked to their groups and not directly to the team
-      Account.where("group_id = ?", team.id).find_each do |account|
+      Encryptable.where("group_id = ?", team.id).find_each do |account|
         account.group_id = group.id
         account.save
       end
@@ -58,7 +58,7 @@ class GroupAndTeamChanges < ActiveRecord::Migration[5.1]
 
     # link accounts back to the team table
     Group.find_each do |group|
-      Account.where("group_id = ?", group.id).find_each do |account|
+      Encryptable.where("group_id = ?", group.id).find_each do |account|
         account.group_id = group.team_id
         account.save
       end

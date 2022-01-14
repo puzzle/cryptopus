@@ -31,7 +31,7 @@ describe Api::ApiUsers::TokenController do
 
       it 'renews token of api user and can still decrypt team password' do
         team = teams(:team1)
-        account = accounts(:account1)
+        account = encryptables(:credential1)
 
         decrypted_team_password = team.decrypt_team_password(bob, bobs_private_key)
         team.add_user(api_user, decrypted_team_password)

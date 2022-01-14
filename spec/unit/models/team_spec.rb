@@ -13,7 +13,7 @@ describe Team do
 
   it 'removes all assoziated folders, accounts, teammembers if team is destroyed' do
     team1 = teams(:team1)
-    account1 = accounts(:account1)
+    account1 = encryptables(:credential1)
     folder1 = folders(:folder1)
 
     team1.destroy
@@ -23,7 +23,7 @@ describe Team do
       Folder.find(folder1.id)
     end.to raise_error(ActiveRecord::RecordNotFound)
     expect do
-      Account.find(account1.id)
+      Encryptable.find(account1.id)
     end.to raise_error(ActiveRecord::RecordNotFound)
     expect(Teammember.where(team_id: team1.id)).to be_empty
   end

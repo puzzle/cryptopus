@@ -5,12 +5,14 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-Fabricator(:account, from: 'Account::Credentials') do
-  transient :team_password
-  name { Faker::Team.creature }
-  cleartext_username { Faker::Internet.user_name }
-  cleartext_password { Faker::Internet.password }
-  before_save do |account, attrs|
-    account.encrypt(attrs[:team_password])
+class EncryptableHandler
+
+  attr_accessor :encryptable, :private_key, :user
+
+  def initialize(encryptable, private_key, user)
+    @encryptable = encryptable
+    @private_key = private_key
+    @user = user
   end
+
 end

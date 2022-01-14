@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Account::OSESecret < Account
+class Encryptable::OSESecret < Encryptable
   attr_accessor :cleartext_ose_secret
 
   def decrypt(team_password)

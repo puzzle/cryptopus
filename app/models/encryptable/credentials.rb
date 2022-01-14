@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Account::Credentials < Account
+class Encryptable::Credentials < Encryptable
   attr_accessor :cleartext_password, :cleartext_username
 
   def decrypt(team_password)

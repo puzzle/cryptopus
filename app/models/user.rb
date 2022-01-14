@@ -86,7 +86,7 @@ class User < ApplicationRecord
   end
 
   def accounts
-    Account.joins(:folder).
+    Encryptable.joins(:folder).
       joins('INNER JOIN teammembers ON folders.team_id = teammembers.team_id').
       where(teammembers: { user_id: id })
   end

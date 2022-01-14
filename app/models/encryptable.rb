@@ -20,7 +20,7 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-class Account < ApplicationRecord
+class Encryptable < ApplicationRecord
 
   serialize :encrypted_data, ::EncryptedData
 
@@ -28,7 +28,7 @@ class Account < ApplicationRecord
   validates :type, presence: true
 
   belongs_to :folder
-  has_many :file_entries, dependent: :destroy
+  has_many :file_entries, foreign_key: :account_id, primary_key: :id, dependent: :destroy
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :folder }
@@ -44,7 +44,7 @@ class Account < ApplicationRecord
   end
 
   def self.policy_class
-    AccountPolicy
+    EncryptablePolicy
   end
 
   def label

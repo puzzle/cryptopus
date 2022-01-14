@@ -46,7 +46,7 @@ describe 'User login' do
   end
 
   it 'goes to requested page after login' do
-    account = accounts(:account1)
+    account = encryptables(:credential1)
     account1_path = "/accounts/#{account.id}"
     get account1_path
     follow_redirect!

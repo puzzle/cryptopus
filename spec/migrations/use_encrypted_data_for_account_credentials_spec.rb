@@ -13,7 +13,7 @@ describe UseEncryptedDataForAccountCredentials do
 
   let(:folder1) { folders(:folder1) }
 
-  let(:account1) { accounts(:account1) }
+  let(:account1) { encryptables(:credential1) }
   let(:account2) { accounts(:account2) }
 
   def silent
@@ -26,6 +26,10 @@ describe UseEncryptedDataForAccountCredentials do
 
   around do |test|
     silent { test.run }
+  end
+
+  before(:all) do
+    # rake db:migrate VERSION=20220104140658 -> rollbacks db to current migration state.
   end
 
   context 'up' do
@@ -73,7 +77,7 @@ describe UseEncryptedDataForAccountCredentials do
       expect(account2.cleartext_password).to eq('password')
 
       # account 3
-      account3 = Account::Credentials.find(@account3.id)
+      account3 = Encryptable::Credentials.find(@account3.id)
 
       raw_encrypted_data = account3.read_attribute_before_type_cast(:encrypted_data)
       encrypted_data_hash = {}
@@ -85,9 +89,9 @@ describe UseEncryptedDataForAccountCredentials do
       expect(account3.cleartext_username).to eq(nil)
       expect(account3.cleartext_password).to eq(nil)
 
-      Account.reset_column_information
-      expect(Account.attribute_names).not_to include('username')
-      expect(Account.attribute_names).not_to include('password')
+      Encryptable.reset_column_information
+      expect(Encryptable.attribute_names).not_to include('username')
+      expect(Encryptable.attribute_names).not_to include('password')
     end
 
   end
@@ -98,7 +102,7 @@ describe UseEncryptedDataForAccountCredentials do
 
     it 'migrates back to encrypted username, password blob fields' do
 
-      account3 = Account::Credentials.create!(name: 'spacex', folder: folder1, encrypted_data: {
+      account3 = Encryptable::Credentials.create!(name: 'spacex', folder: folder1, encrypted_data: {
                                                 password: { data: '', iv: nil },
                                                 username: { data: nil, iv: nil }
                                               })

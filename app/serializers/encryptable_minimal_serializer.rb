@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class AccountMinimalSerializer < ApplicationSerializer
+class EncryptableMinimalSerializer < ApplicationSerializer
   attributes :id, :name, :description
 end
