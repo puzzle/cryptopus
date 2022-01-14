@@ -11,14 +11,14 @@ export default class ShowComponent extends Component {
     super(...arguments);
 
     this.store.query("file-entry", {
-      accountId: this.args.account.id
+      encryptableId: this.args.encryptable.id
     });
 
     window.scrollTo(0, 0);
   }
 
   @tracked
-  isAccountEditing = false;
+  isEncryptableEditing = false;
 
   @tracked
   isFileEntryCreating = false;
@@ -27,8 +27,8 @@ export default class ShowComponent extends Component {
   isPasswordVisible = false;
 
   @action
-  toggleAccountEdit() {
-    this.isAccountEditing = !this.isAccountEditing;
+  toggleEncryptableEdit() {
+    this.isEncryptableEditing = !this.isEncryptableEditing;
   }
 
   @action
@@ -50,8 +50,8 @@ export default class ShowComponent extends Component {
   transitionBack() {
     this.router.transitionTo(
       "teams.folders-show",
-      this.args.account.folder.get("team.id"),
-      this.args.account.folder.get("id")
+      this.args.encryptable.folder.get("team.id"),
+      this.args.encryptable.folder.get("id")
     );
   }
 }

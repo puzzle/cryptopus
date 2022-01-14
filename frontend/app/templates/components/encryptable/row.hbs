@@ -1,5 +1,5 @@
-{{#if this.isAccountEditing}}
-  <Account::Form @account={{@account}} @onAbort={{this.toggleAccountEdit}}  @title={{t "accounts.edit.title"}}/>
+{{#if this.isEncryptableEditing}}
+  <Account::Form @account={{@account}} @onAbort={{this.toggleEncryptableEdit}}  @title={{t "accounts.edit.title"}}/>
 {{/if}}
 <div id={{concat "loader-account-" @account.id}} {{did-insert this.setupInViewport}}>
 </div>
@@ -51,7 +51,7 @@
 
     <div class="col-md-auto d-none d-md-block">
       {{#unless @account.isOseSecret}}
-        <a class="mx-1" role="button" {{on "click" this.toggleAccountEdit}}>
+        <a class="mx-1" role="button" {{on "click" this.toggleEncryptableEdit}}>
           <img class="icon-medium-button d-inline" src="/assets/images/edit.svg" alt="edit">
           <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000" />
         </a>

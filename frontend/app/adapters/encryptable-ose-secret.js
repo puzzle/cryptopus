@@ -2,6 +2,6 @@ import ApplicationAdapter from "./application";
 
 export default ApplicationAdapter.extend({
   pathForType() {
-    return "accounts";
+    return "encryptables";
   }
 });

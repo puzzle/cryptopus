@@ -19,7 +19,7 @@ export default class RowComponent extends Component {
   passwordHideTimerInterval;
 
   @tracked
-  isAccountEditing = false;
+  isEncryptableEditing = false;
 
   @tracked
   isPasswordVisible = false;
@@ -32,7 +32,7 @@ export default class RowComponent extends Component {
 
   @action
   copyPassword() {
-    let password = this.args.account.cleartextPassword;
+    let password = this.args.encryptable.cleartextPassword;
     if (isNone(password)) {
       this.fetchAccount().then((a) => {
         this.clipboardService.copy(a.cleartextPassword);
@@ -46,7 +46,7 @@ export default class RowComponent extends Component {
 
   @action
   copyUsername() {
-    let username = this.args.account.cleartextUsername;
+    let username = this.args.encryptable.cleartextUsername;
     if (isNone(username)) {
       this.fetchAccount().then((a) => {
         this.clipboardService.copy(a.cleartextUsername);
@@ -75,7 +75,7 @@ export default class RowComponent extends Component {
   @action
   fetchAccount() {
     return this.store
-      .findRecord("account-credential", this.args.account.id, { reload: true })
+      .findRecord("account-credential", this.args.encryptable.id, { reload: true })
       .catch((error) => {
         if (error.message.includes("401"))
           window.location.replace("/session/new");
@@ -88,8 +88,8 @@ export default class RowComponent extends Component {
   }
 
   @action
-  toggleAccountEdit() {
-    this.isAccountEditing = !this.isAccountEditing;
+  toggleEncryptableEdit() {
+    this.isEncryptableEditing = !this.isEncryptableEditing;
   }
 
   @action
@@ -135,7 +135,7 @@ export default class RowComponent extends Component {
 
   @action
   transitionToAccount() {
-    this.router.transitionTo("accounts.show", this.args.account.id);
+    this.router.transitionTo("accounts.show", this.args.encryptable.id);
   }
 
   @action
@@ -146,7 +146,7 @@ export default class RowComponent extends Component {
   willDestroy() {
     // need to manage cache yourself if you don't use the mixin
     const loader = document.getElementById(
-      `loader-account-${this.args.account.id}`
+      `loader-account-${this.args.encryptable.id}`
     );
     this.inViewport.stopWatching(loader);
 

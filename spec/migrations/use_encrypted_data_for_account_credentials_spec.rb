@@ -4,8 +4,12 @@ require 'spec_helper'
 
 migration_dir = 'db/migrate/'
 migration_file_name = '20220104140658_use_encrypted_data_for_account_credentials.rb'
+rollback_migration_file_name = '20220113085536_rename_accounts_to_encryptables.rb'
 mig_file = Dir[Rails.root.join(migration_dir + migration_file_name)].first
+rollback_mig_file = Dir[Rails.root.join(migration_dir + rollback_migration_file_name)].first
+
 require mig_file
+require rollback_mig_file
 
 describe UseEncryptedDataForAccountCredentials do
 
@@ -29,7 +33,13 @@ describe UseEncryptedDataForAccountCredentials do
   end
 
   before(:all) do
-    # rake db:migrate VERSION=20220104140658 -> rollbacks db to current migration state.
+    rollback_migration.down
+    Encryptable::Credentials.table_name = 'accounts'
+  end
+
+  after(:all) do
+    Encryptable::Credentials.table_name = 'encryptables'
+    rollback_migration.up
   end
 
   context 'up' do
@@ -41,7 +51,6 @@ describe UseEncryptedDataForAccountCredentials do
     end
 
     it 'migrates blob credentials to EncryptedData with base64 encoding' do
-
       migration.up
 
       # account 1
@@ -167,5 +176,9 @@ describe UseEncryptedDataForAccountCredentials do
 
       CryptUtils.decrypt_blob(crypted_value, team_password)
     end
+  end
+
+  def rollback_migration
+    ::RenameAccountsToEncryptables.new
   end
 end

@@ -1,6 +1,6 @@
 import Model, { attr, hasMany, belongsTo } from "@ember-data/model";
 
-export default class Account extends Model {
+export default class Encryptable extends Model {
   @attr("string") name;
   @attr("string") description;
   @attr("string") createdAt;
@@ -9,6 +9,6 @@ export default class Account extends Model {
   @hasMany("file-entry") fileEntries;
 
   get isOseSecret() {
-    return this.constructor.modelName === "account-ose-secret";
+    return this.constructor.modelName === "encryptable-ose-secret";
   }
 }

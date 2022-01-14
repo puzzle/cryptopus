@@ -27,17 +27,17 @@ class TeamFoldersAccountsSeeder
       add_member(team, root)
     end
 
-    seed_accounts(team)
+    seed_encryptables(team)
   end
 
-  def seed_accounts(team)
+  def seed_encryptables(team)
     member = team.teammembers.first.user
     plaintext_private_key = member.decrypt_private_key('password')
     plaintext_team_pw = team.decrypt_team_password(member, plaintext_private_key)
     team.folders.each do |g|
-      unless g.accounts.present?
+      unless g.encryptables.present?
         (5..40).to_a.sample.times do
-          seed_account(g, plaintext_team_pw)
+          seed_encryptable(g, plaintext_team_pw)
         end
       end
     end
@@ -74,15 +74,17 @@ class TeamFoldersAccountsSeeder
     team.add_user(user, plaintext_team_pw)
   end
 
-  def seed_account(folder, plaintext_team_pw)
+  def seed_encryptable(folder, plaintext_team_pw)
     username = CryptUtils.encrypt_blob("#{Faker::Lorem.word} #{rand(999)}", plaintext_team_pw)
     password = CryptUtils.encrypt_blob(Faker::Internet.password, plaintext_team_pw)
 
-    account = folder.accounts.new(name: "#{Faker::Company.name} #{rand(999)}",
-                                  description: Faker::Lorem.paragraph)
-    account.encrypted_data[:username] = { data: username, iv: nil }
-    account.encrypted_data[:password] = { data: password, iv: nil }
-    account.save!
+    credential = folder.encryptables.new(name: "#{Faker::Company.name} #{rand(999)}",
+                                  description: Faker::Lorem.paragraph,
+                                      type: "Encryptable::Credentials")
+
+    credential.encrypted_data[:username] = { data: username, iv: nil }
+    credential.encrypted_data[:password] = { data: password, iv: nil }
+    credential.save!
   end
 
   def seed_folder(team)

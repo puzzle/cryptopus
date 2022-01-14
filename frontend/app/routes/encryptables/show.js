@@ -1,11 +1,11 @@
 import BaseRoute from "../base";
 import { inject as service } from "@ember/service";
 
-export default class AccountShowRoute extends BaseRoute {
+export default class EncryptableShowRoute extends BaseRoute {
   @service navService;
 
   redirect(model) {
-    if (model.constructor.modelName === "account-ose-secret") {
+    if (model.constructor.modelName === "encryptable-ose-secret") {
       this.transitionTo("teams.folders-show", {
         team_id: model.folder.get("team.id"),
         folder_id: model.folder.get("id")
@@ -18,6 +18,6 @@ export default class AccountShowRoute extends BaseRoute {
   }
 
   model(params) {
-    return this.store.findRecord("account-credential", params.id);
+    return this.store.findRecord("encryptable-credential", params.id);
   }
 }

@@ -1,7 +1,7 @@
-import Account from "./account";
+import Encryptable from "./encryptable";
 import { attr } from "@ember-data/model";
 
-export default class AccountCredential extends Account {
+export default class EncryptableCredential extends Encryptable {
   @attr("string") cleartextUsername;
   @attr("string") cleartextPassword;
 

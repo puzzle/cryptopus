@@ -8,7 +8,7 @@ class RedirectedRoutes::UrlHandler
     teams_index: /(^\/teams)$/,
     teams_show: /(^\/teams\/\d+)$/,
     folder_show: /(^\/teams\/\d+\/folders\/\d+)$/,
-    accounts_show: /(^\/accounts\/\d+)$/,
+    encryptables_show: /(^\/encryptables\/\d+)$/,
     profile_index: /(^\/profile)$/,
     admin_users_index: /(^\/admin\/users)$/,
     admin_settings: /(^\/admin\/settings)$/,

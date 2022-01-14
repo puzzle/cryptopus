@@ -12,7 +12,7 @@ export default class CardShowComponent extends Component {
   @tracked isPreview = true;
 
   @tracked
-  isAccountEditing = false;
+  isEncryptableEditing = false;
 
   @tracked
   isPasswordVisible = false;
@@ -20,7 +20,7 @@ export default class CardShowComponent extends Component {
   @action
   swapToCredentialsView() {
     this.isPreview = false;
-    this.store.findRecord("account", this.args.account.id);
+    this.store.findRecord("encryptable", this.args.encryptable.id);
     this.isPasswordVisible = false;
   }
 
@@ -35,8 +35,8 @@ export default class CardShowComponent extends Component {
   }
 
   @action
-  toggleAccountEdit() {
-    this.isAccountEditing = !this.isAccountEditing;
+  toggleEncryptableEdit() {
+    this.isEncryptableEditing = !this.isEncryptableEditing;
   }
 
   @action

@@ -1,5 +1,5 @@
-{{#if this.isAccountEditing}}
-  <Account::Form @account={{@account}} @onAbort={{this.toggleAccountEdit}}/>
+{{#if this.isEncryptableEditing}}
+  <Encryptable::Form @encryptable={{@encryptable}} @onAbort={{this.toggleEncryptableEdit}}/>
 {{/if}}
 {{#if this.isPreview}}
   <div class="card account-card account-preview" {{on "click" this.swapToCredentialsView}} role="button">
@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col">
           <div class="card-title">
-            <h5>{{@account.name}}</h5>
+            <h5>{{@encryptable.name}}</h5>
           </div>
         </div>
         <div class="col-auto">
@@ -16,22 +16,22 @@
       </div>
     </div>
     <div class="card-footer text-muted account-description">
-      <div class="card-description">{{@account.description}}</div>
+      <div class="card-description">{{@encryptable.description}}</div>
     </div>
   </div>
 {{else}}
   <div class="card account-card account-detail">
     <div role="button" class="card-header" {{on "click" this.swapToPreview}}>
       <img class="img d-inline mr-2 icon-button" src="/assets/images/key.svg" alt="key">
-      <p class="d-inline">{{@account.name}}</p>
+      <p class="d-inline">{{@encryptable.name}}</p>
     </div>
     <div class="card-body">
       <div class="row mb-2">
         <div class="col-sm-8 pr-0">
-          <Input class="d-inline form-control" @disabled="true" @value={{@account.cleartextUsername}}/>
+          <Input class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextUsername}}/>
         </div>
         <div class="col-sm-3">
-          <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextUsername}} @success={{fn this.onCopied "username"}}>
+          <CopyButton class="btn btn-light" @clipboardText={{@encryptable.cleartextUsername}} @success={{fn this.onCopied "username"}}>
             <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
           </CopyButton>
         </div>
@@ -39,13 +39,13 @@
       <div class="row">
         <div class="col-sm-8 pr-0">
           <div class="password-wrapper">
-            <Input class="d-inline form-control" @disabled="true" @value={{@account.cleartextPassword}}/>
+            <Input class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
             <div role="button" class="show-password-link show-password-link-sm {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "accounts.show.show_password"}}</div>
           </div>
 
         </div>
         <div class="col-sm-3">
-          <CopyButton class="btn btn-light copy-btn" @clipboardText={{@account.cleartextPassword}} @success={{fn this.onCopied "password"}}>
+          <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextPassword}} @success={{fn this.onCopied "password"}}>
             <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
           </CopyButton>
         </div>
@@ -53,15 +53,15 @@
       </div>
     </div>
     <div class="card-footer d-flex justify-content-between">
-      <LinkTo @route="accounts.show" @model={{@account}}>
+      <LinkTo @route="accounts.show" @model={{@encryptable}}>
         <img class="icon-button d-inline" src="/assets/images/eye.svg" alt="show">
         <BsTooltip @title={{t "tooltips.account_details"}} @delayShow="1000" />
       </LinkTo>
-      <a class="mx-auto" role="button" {{on "click" this.toggleAccountEdit}}>
+      <a class="mx-auto" role="button" {{on "click" this.toggleEncryptableEdit}}>
         <img class="icon-button d-inline" src="/assets/images/edit.svg" alt="edit">
         <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000" />
       </a>
-      <DeleteWithConfirmation @record={{@account}} @didDelete={{this.refreshRoute}}>
+      <DeleteWithConfirmation @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
         <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
         <BsTooltip @title={{t "tooltips.delete_account"}} @delayShow="1000" />
       </DeleteWithConfirmation>
