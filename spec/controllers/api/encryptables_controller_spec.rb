@@ -134,7 +134,7 @@ describe Api::EncryptablesController do
       account1_json_relationships = data['relationships']
 
       expect(account1_json_attributes['name']).to eq 'ose_secret'
-      expect(account1_json_attributes['cleartext_ose_secret']).to eq example_private_key
+      expect(account1_json_attributes['cleartext_ose_secret']).to eq example_ose_secret_yaml
       expect_json_object_includes_keys(account1_json_relationships, nested_models)
     end
 
@@ -623,14 +623,14 @@ describe Api::EncryptablesController do
   def create_ose_secret
     secret = Encryptable::OSESecret.new(name: 'ose_secret',
                                         folder: folders(:folder1),
-                                        cleartext_ose_secret: example_private_key)
+                                        cleartext_ose_secret: example_ose_secret_yaml)
 
     secret.encrypt(plaintext_team_password)
     secret.save!
     secret
   end
 
-  def example_private_key
+  def example_ose_secret_yaml
     Base64.strict_decode64(FixturesHelper.read_encryptable_file('example_secret.secret'))
   end
 

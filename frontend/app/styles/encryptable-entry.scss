@@ -1,5 +1,5 @@
 
-.account-entry:hover {
+.encryptable-entry:hover {
   background-color: lightgray !important;
 }
 
@@ -14,20 +14,20 @@
   background-color: #ebe3df;
 }
 
-.account-detail input[disabled] {
+.encryptable-detail input[disabled] {
   width: 100%;
   height: 35px;
 }
 
-.account-entry .hide-wrapper {
+.encryptable-entry .hide-wrapper {
   position: relative;
 }
 
-.account-entry .hide-wrapper input:hover {
+.encryptable-entry .hide-wrapper input:hover {
   cursor: text;
 }
 
-.account-entry .show-password-link-sm {
+.encryptable-entry .show-password-link-sm {
   margin-top: 0 !important;
   position: absolute;
   top: 0;
@@ -35,6 +35,6 @@
   height: 100%;
 }
 
-.account-entry .underline-hover:hover {
+.encryptable-entry .underline-hover:hover {
   text-decoration: underline;
 }

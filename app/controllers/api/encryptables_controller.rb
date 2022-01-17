@@ -80,7 +80,7 @@ class Api::EncryptablesController < ApiController
       # if folder id changed recheck team permission
       authorize account
       # move handler calls encrypt implicit
-      account_move_handler.move
+      encryptable_move_handler.move
     else
       account.encrypt(decrypted_team_password(team))
     end
@@ -102,7 +102,7 @@ class Api::EncryptablesController < ApiController
     params[:tag]
   end
 
-  def account_move_handler
+  def encryptable_move_handler
     EncryptableMoveHandler.new(encryptable, session[:private_key], current_user)
   end
 

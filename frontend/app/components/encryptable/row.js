@@ -75,7 +75,9 @@ export default class RowComponent extends Component {
   @action
   fetchAccount() {
     return this.store
-      .findRecord("account-credential", this.args.encryptable.id, { reload: true })
+      .findRecord("encryptable-credential", this.args.encryptable.id, {
+        reload: true
+      })
       .catch((error) => {
         if (error.message.includes("401"))
           window.location.replace("/session/new");
@@ -135,18 +137,18 @@ export default class RowComponent extends Component {
 
   @action
   transitionToAccount() {
-    this.router.transitionTo("accounts.show", this.args.encryptable.id);
+    this.router.transitionTo("encryptables.show", this.args.encryptable.id);
   }
 
   @action
   onCopied(attribute) {
-    this.notify.info(this.intl.t(`flashes.accounts.${attribute}_copied`));
+    this.notify.info(this.intl.t(`flashes.encryptables.${attribute}_copied`));
   }
 
   willDestroy() {
     // need to manage cache yourself if you don't use the mixin
     const loader = document.getElementById(
-      `loader-account-${this.args.encryptable.id}`
+      `loader-encryptable-${this.args.encryptable.id}`
     );
     this.inViewport.stopWatching(loader);
 

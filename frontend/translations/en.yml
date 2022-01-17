@@ -64,15 +64,15 @@ en:
         favourites: Type to search in favourite teams...
         all: Type to search in all teams...
 
-  accounts:
-    title: Accounts
+  encryptables:
+    title: Encryptables
     index_menu:
-      create: Create Account
+      create: Create Encryptable
       folder: Folder
     show_menu:
       add_attachment: Add Attachment
     edit:
-      title: Edit Account
+      title: Edit Encryptable
       random_password: Random password
       edit_password_placeholder: Click or focus to set ...
       team_placeholder: Select a Team
@@ -84,7 +84,7 @@ en:
         good: Good
         strong: Strong
     show:
-      account: Account
+      encryptable: Encryptable
       created_at: "Created at"
       last_update: "Last Update at"
       last_change: "Last change was %{time_ago} ago"
@@ -96,7 +96,7 @@ en:
       copy_username: Copy username
       add_attachment: Add Attachment
     new:
-      title: New Account
+      title: New Encryptable
 
   admin:
     title: Admin
@@ -183,7 +183,7 @@ en:
         title: Teams
         teamname: Teamname
         num_folders: Number of Folders
-        num_accounts: Number of Accounts
+        num_accounts: Number of Encryptables
         members: Members
     user_roles:
       user: User
@@ -200,15 +200,15 @@ en:
     new:
       title: New Folder
     show:
-      move: Move account to other folder
-      title: "Accounts in folder %{folder_name} for team %{team_name}"
-    no_accounts: No Accounts
+      move: Move encryptable to other folder
+      title: "Encryptables in folder %{folder_name} for team %{team_name}"
+    no_accounts: No Encryptables
     tooltips:
       delete: Delete the folder
       edit: Edit the folder
   file_entries:
     new:
-      title: Add new attachment to account
+      title: Add new attachment to encryptable
       upload: Upload
       upload_file: File to upload
       choose_file: Choose a file
@@ -247,7 +247,7 @@ en:
   recrypt:
     sso:
       new:
-        notice: Please enter your Cryptopus Password to migrate your account to Keycloak
+        notice: Please enter your Cryptopus Password to migrate your encryptable to Keycloak
         cryptopus_password: Your Cryptopus Password
         migrate: Migrate
   teammembers:
@@ -404,18 +404,18 @@ en:
       created: Successfully created a new user.
       updated: User was successfully updated.
 
-    accounts: &accounts_translations
-      created: Account was successfully created.
-      updated: Account was successfully updated.
-      deleted: Account was successfully deleted
-      moved: Account was successfully moved
+    encryptables: &accounts_translations
+      created: Encryptable was successfully created.
+      updated: Encryptable was successfully updated.
+      deleted: Encryptable was successfully deleted
+      moved: Encryptable was successfully moved
       username_copied: Username was copied
       password_copied: Password was copied
 
-    account-credentials:
+    encryptable-credentials:
       << : *accounts_translations
 
-    account-secrets:
+    encryptable-secrets:
       << : *accounts_translations
 
     application:
@@ -433,7 +433,7 @@ en:
       uploaded_filename_already_exists: Filename already exists
     session:
       weak_password: To improve security you should change your login password to a more complex one.
-      welcome: Welcome to Cryptopus, first you have to create a new account. Please enter a new password
+      welcome: Welcome to Cryptopus, first you have to create a new encryptable. Please enter a new password
       auth_failed: Authentication failed! Enter a correct username and password.
       only_local: Only local users are allowed to change their password.
       new_password_set: You successfully set the new password
@@ -489,10 +489,10 @@ en:
     settings: Settings
     profile: Profile
     add_folder: Add a new Folder
-    add_account: Add a new Account
-    account_details: Show Account Details
+    add_account: Add a new Encryptable
+    account_details: Show Encryptable Details
     delete_folder: Delete the Folder
-    delete_account: Delete the Account
+    delete_account: Delete the Encryptable
     configure: Configure Members
 
 
@@ -517,7 +517,7 @@ en:
         newPassword1: "Enter new password:"
         newPassword2: "Confirm new password:"
         wrongPassword: Wrong password
-      account:
+      encryptable:
         account_name: Accountname
       team:
         name: Name

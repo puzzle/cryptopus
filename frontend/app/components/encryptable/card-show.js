@@ -46,6 +46,6 @@ export default class CardShowComponent extends Component {
 
   @action
   onCopied(attribute) {
-    this.notify.info(this.intl.t(`flashes.accounts.${attribute}_copied`));
+    this.notify.info(this.intl.t(`flashes.encryptables.${attribute}_copied`));
   }
 }

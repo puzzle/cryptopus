@@ -1,39 +1,39 @@
-.account-card.account-preview:hover {
+.encryptable-card.encryptable-preview:hover {
   background-color: lightgray;
   cursor: pointer;
 }
 
-.account-card {
+.encryptable-card {
   max-height: 16em;
 }
 
-.account-card .account-accountname {
+.encryptable-card .encryptable-accountname {
   /*height: 6em;*/
 }
 
-.account-card .account-description {
+.encryptable-card .encryptable-description {
   height: 3em;
   overflow: hidden;
 }
 
-.account-card.account-detail {
+.encryptable-card.encryptable-detail {
   background-color: lightgray;
 }
 
-.account-card.account-detail > div {
+.encryptable-card.encryptable-detail > div {
   background-color: white;
 }
 
-.account-detail .icon-clippy {
+.encryptable-detail .icon-clippy {
   width: 19px;
 }
 
-.account-detail input[disabled] {
+.encryptable-detail input[disabled] {
   width: 100%;
   height: 35px;
 }
 
-.account-detail .password-wrapper {
+.encryptable-detail .password-wrapper {
   position: absolute;
 }
 
@@ -43,7 +43,7 @@
   border: 1px solid #c9c9c9;
 }
 
-.account-detail-key {
+.encryptable-detail-key {
   width: 20%;
 }
 

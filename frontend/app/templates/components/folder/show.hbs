@@ -2,7 +2,7 @@
   <Folder::Form @folder={{@folder}} @onAbort={{this.toggleFolderEdit}} @title={{t "folders.edit.title"}}/>
 {{/if}}
 {{#if this.isNewEncryptable}}
-  <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "accounts.new.title"}}/>
+  <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "encryptables.new.title"}}/>
 {{/if}}
 <div class="pl-2 pr-2 folder-card-header {{if this.collapsed "br-4"}}">
   <div class="d-flex row justify-content-between folder-show-header">
@@ -51,13 +51,13 @@
       <div class="col">
         {{#if this.shouldRenderEncryptables}}
           {{#each @folder.encryptables as |encryptable|}}
-            <div class="account-row px-3 py-1">
-              <Encryptable::Row @account={{encryptable}}/>
+            <div class="encryptable-row px-3 py-1">
+              <Encryptable::Row @encryptable={{encryptable}}/>
             </div>
           {{/each}}
         {{else}}
           <div class="col no-acc">
-            <em>{{t "folders.no_accounts"}}</em>
+            <em>{{t "folders.no_encryptables"}}</em>
           </div>
         {{/if}}
       </div>

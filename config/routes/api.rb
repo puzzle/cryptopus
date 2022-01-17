@@ -25,12 +25,6 @@ Rails.application.routes.draw do
       end
     end
 
-    scope '/search', module: 'search', as: 'search' do
-      get :encryptables
-      get :folders
-      get :teams
-    end
-
     scope '/admin', module: 'admin' do
       resources :users, only: [:index, :update, :create, :destroy] do
         member do

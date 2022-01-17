@@ -2,8 +2,8 @@
   <Encryptable::Form @encryptable={{@encryptable}} @onAbort={{this.toggleEncryptableEdit}}/>
 {{/if}}
 {{#if this.isPreview}}
-  <div class="card account-card account-preview" {{on "click" this.swapToCredentialsView}} role="button">
-    <div class="card-body account-accountname">
+  <div class="card encryptable-card encryptable-preview" {{on "click" this.swapToCredentialsView}} role="button">
+    <div class="card-body encryptable-accountname">
       <div class="row">
         <div class="col">
           <div class="card-title">
@@ -15,12 +15,12 @@
         </div>
       </div>
     </div>
-    <div class="card-footer text-muted account-description">
+    <div class="card-footer text-muted encryptable-description">
       <div class="card-description">{{@encryptable.description}}</div>
     </div>
   </div>
 {{else}}
-  <div class="card account-card account-detail">
+  <div class="card encryptable-card encryptable-detail">
     <div role="button" class="card-header" {{on "click" this.swapToPreview}}>
       <img class="img d-inline mr-2 icon-button" src="/assets/images/key.svg" alt="key">
       <p class="d-inline">{{@encryptable.name}}</p>
@@ -40,7 +40,7 @@
         <div class="col-sm-8 pr-0">
           <div class="password-wrapper">
             <Input class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
-            <div role="button" class="show-password-link show-password-link-sm {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "accounts.show.show_password"}}</div>
+            <div role="button" class="show-password-link show-password-link-sm {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "encryptables.show.show_password"}}</div>
           </div>
 
         </div>
@@ -53,13 +53,13 @@
       </div>
     </div>
     <div class="card-footer d-flex justify-content-between">
-      <LinkTo @route="accounts.show" @model={{@encryptable}}>
+      <LinkTo @route="encryptables.show" @model={{@encryptable}}>
         <img class="icon-button d-inline" src="/assets/images/eye.svg" alt="show">
         <BsTooltip @title={{t "tooltips.account_details"}} @delayShow="1000" />
       </LinkTo>
       <a class="mx-auto" role="button" {{on "click" this.toggleEncryptableEdit}}>
         <img class="icon-button d-inline" src="/assets/images/edit.svg" alt="edit">
-        <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000" />
+        <BsTooltip @title={{t "encryptables.edit.title"}} @delayShow="1000" />
       </a>
       <DeleteWithConfirmation @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
         <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">

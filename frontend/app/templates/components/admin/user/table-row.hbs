@@ -25,7 +25,7 @@
     {{#if @user.editable}}
       <span role="button" {{on "click" this.toggleEditing}}>
         <img class="icon-medium-button d-inline" src="/assets/images/edit.svg" alt="edit">
-        <BsTooltip @title={{t "accounts.edit.title"}} @delayShow="1000"/>
+        <BsTooltip @title={{t "encryptables.edit.title"}} @delayShow="1000"/>
       </span>
     {{/if}}
     {{#if @user.deletable}}
@@ -33,7 +33,7 @@
         <img src="/assets/images/delete.svg" alt="delete" class="icon-button">
       </Admin::User::DeletionForm>
     {{/if}}
-    {{#if @user.locked}} 
+    {{#if @user.locked}}
       <span role="button" {{on "click" (fn this.unlockUser @user)}}>
         <img class="icon-medium-button d-inline" src="/assets/images/encrypted_small.svg" alt="locked">
       </span>

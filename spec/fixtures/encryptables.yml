@@ -23,7 +23,7 @@ credential1:
   name: credential1
   description: description1
   folder: folder1
-  encrypted_data: '{"password": {"data": "pulO7xz5jDwUVQzbOqJzIw==", "iv": "null" }, "username": {"data": "0CkUu2Bd9eNB4OCuXVC3TA==", "iv": "null"}}'
+  encrypted_data: '{"password":{"iv":null,"data":"pulO7xz5jDwUVQzbOqJzIw=="},"username":{"iv":null,"data":"0CkUu2Bd9eNB4OCuXVC3TA=="}}'
 
 credential2:
   type: Encryptable::Credentials
@@ -31,4 +31,4 @@ credential2:
   description: description2
   folder: folder2
   tag: tag
-  encrypted_data: '{"password": {"data": "X2i8woXXwIHew6zcnBws9Q==", "iv": "null" }, "username": {"data": "Kvkd66uUiNq4Gw4Yh7PvVg==", "iv": "null"}}'
+  encrypted_data: '{"password":{"iv":null,"data":"X2i8woXXwIHew6zcnBws9Q=="},"username":{"iv":null,"data":"Kvkd66uUiNq4Gw4Yh7PvVg=="}}'

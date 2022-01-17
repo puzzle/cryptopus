@@ -1,5 +1,5 @@
 import { action } from "@ember/object";
-import AccountValidations from "../../validations/account";
+import AccountValidations from "../../validations/encryptable";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
@@ -24,7 +24,8 @@ export default class Form extends BaseFormComponent {
     super(...arguments);
 
     this.record =
-      this.args.account || this.store.createRecord("account-credential");
+      this.args.encryptable ||
+      this.store.createRecord("encryptable-credential");
     this.isNewRecord = this.record.isNew;
 
     this.changeset = new Changeset(
@@ -48,7 +49,7 @@ export default class Form extends BaseFormComponent {
     }
 
     if (!this.record.isFullyLoaded)
-      this.store.findRecord("account-credential", this.record.id);
+      this.store.findRecord("encryptable-credential", this.record.id);
   }
 
   presetTeamAndFolder() {
@@ -110,8 +111,11 @@ export default class Form extends BaseFormComponent {
   handleSubmitSuccess(savedRecords) {
     this.abort();
     this.navService.clear();
-    if (this.isNewRecord || this.router.currentRouteName === "accounts.show") {
-      this.router.transitionTo("accounts.show", savedRecords[0].id);
+    if (
+      this.isNewRecord ||
+      this.router.currentRouteName === "encryptables.show"
+    ) {
+      this.router.transitionTo("encryptables.show", savedRecords[0].id);
     } else {
       this.navService.setSelectedTeamById(
         savedRecords[0].folder.get("team.id")

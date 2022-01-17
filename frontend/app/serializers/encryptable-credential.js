@@ -1,3 +1,3 @@
-import AccountSerializer from "./account";
+import EncryptableSerializer from "./encryptable";
 
-export default AccountSerializer.extend({});
+export default EncryptableSerializer.extend({});

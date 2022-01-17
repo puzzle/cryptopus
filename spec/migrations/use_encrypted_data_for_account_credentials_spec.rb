@@ -5,13 +5,13 @@ require 'spec_helper'
 migration_dir = 'db/migrate/'
 
 migration_file_name = '20220104140658_use_encrypted_data_for_account_credentials.rb'
-mig_file = Dir[Rails.root.join(migration_dir + migration_file_name)].first
+migration_file = Dir[Rails.root.join(migration_dir + migration_file_name)].first
 
 rename_accounts_to_enryptables = '20220113085536_rename_accounts_to_encryptables.rb'
-rename_mig_file = Dir[Rails.root.join(migration_dir + rename_accounts_to_enryptables)].first
+rename_migration_file = Dir[Rails.root.join(migration_dir + rename_accounts_to_enryptables)].first
 
-require mig_file
-require rename_mig_file
+require migration_file
+require rename_migration_file
 
 describe UseEncryptedDataForAccountCredentials do
 
@@ -84,7 +84,7 @@ describe UseEncryptedDataForAccountCredentials do
 
       raw_encrypted_data = account3.read_attribute_before_type_cast(:encrypted_data)
 
-      expect(raw_encrypted_data).to eq(nil)
+      expect(raw_encrypted_data).to eq('{}')
 
       account3.decrypt(team1_password)
 

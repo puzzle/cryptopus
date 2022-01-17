@@ -37,7 +37,7 @@ class Api::FileEntriesController < ApiController
   end
 
   def encryptable
-    @account ||= Encryptable.find(params[:encryptable_id])
+    @encryptable ||= Encryptable.find(params[:encryptable_id])
   end
 
   def team
