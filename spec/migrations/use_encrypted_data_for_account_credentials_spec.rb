@@ -41,7 +41,7 @@ describe UseEncryptedDataForAccountCredentials do
       migration.down
 
       @account3 = LegacyAccountCredentialsBefore.create!(accountname: 'spacex', username: '',
-                                                   password: nil)
+                                                         password: nil)
     end
 
     it 'migrates blob credentials to EncryptedData with base64 encoding' do

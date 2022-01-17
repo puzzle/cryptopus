@@ -33,7 +33,8 @@ class Api::FileEntriesController < ApiController
 
   def build_entry
     instance_variable_set(:"@#{ivar_name}",
-                          FileEntry.create(encryptable, model_params, plaintext_team_password(team)))
+                          FileEntry.create(encryptable, model_params,
+                                           plaintext_team_password(team)))
   end
 
   def encryptable

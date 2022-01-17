@@ -96,7 +96,8 @@ describe Encryptable do
   end
 
   def legacy_ose_secret_data
-    value = Base64.strict_decode64(FixturesHelper.read_encryptable_file('example_secret_b64.secret'))
+    encoded_value = FixturesHelper.read_encryptable_file('example_secret_b64.secret')
+    value = Base64.strict_decode64(encoded_value)
     { iv: 'Z2eRDQLhiIoCLgNxuunyKw==', value: value }.to_json
   end
 
