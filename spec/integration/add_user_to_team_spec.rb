@@ -11,7 +11,7 @@ describe 'Add user to team' do
   it 'adds alice to team as bob' do
     teammembers(:team1_alice).destroy
 
-    credential = encryptables(:credential1)
+    credential = encryptables(:credentials1)
     encryptable_path = api_encryptable_path(credential.id)
     cannot_access_encryptable(encryptable_path, 'alice')
 

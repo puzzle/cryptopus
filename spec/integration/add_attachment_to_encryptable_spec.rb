@@ -9,7 +9,7 @@ require 'spec_helper'
 describe 'Account attachement' do
   include IntegrationHelpers::DefaultHelper
   it 'adds and removes attachment to account1' do
-    credential = encryptables(:credential1)
+    credential = encryptables(:credentials1)
     login_as('bob')
     file = fixture_file_upload('test_file.txt', 'text/plain')
 
