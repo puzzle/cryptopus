@@ -235,10 +235,12 @@ describe Api::EncryptablesController do
         expect(response).to have_http_status 403
       end
 
-      it 'shows encryptable details as user and does not use user authenticator if active session' do
+      it 'prefers active session over authentication by headers' do
         login_as(:bob)
 
         set_auth_headers
+
+        expect(Authentication::UserAuthenticator).to receive(:init).never
 
         get :show, params: { id: credentials1.id }, xhr: true
 
