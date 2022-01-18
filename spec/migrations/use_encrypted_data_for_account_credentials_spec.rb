@@ -19,8 +19,8 @@ describe UseEncryptedDataForAccountCredentials do
 
   let!(:folder1) { folders(:folder1) }
 
-  let!(:encryptable_credential1) { encryptables(:credential1) }
-  let!(:encryptable_credential2) { encryptables(:credential2) }
+  let!(:credentials1) { encryptables(:credentials1) }
+  let!(:credentials2) { encryptables(:credentials2) }
 
   def silent
     verbose = ActiveRecord::Migration.verbose = false
@@ -48,7 +48,7 @@ describe UseEncryptedDataForAccountCredentials do
       migration.up
 
       # account 1
-      account1 = LegacyAccountCredentialsAfter.find(encryptable_credential1.id)
+      account1 = LegacyAccountCredentialsAfter.find(credentials1.id)
 
       raw_encrypted_data = account1.read_attribute_before_type_cast(:encrypted_data)
       encrypted_data_hash = {
@@ -64,7 +64,7 @@ describe UseEncryptedDataForAccountCredentials do
       expect(account1.cleartext_password).to eq('password')
 
       # account 2
-      account2 = LegacyAccountCredentialsAfter.find(encryptable_credential2.id)
+      account2 = LegacyAccountCredentialsAfter.find(credentials2.id)
 
       raw_encrypted_data = account2.read_attribute_before_type_cast(:encrypted_data)
       encrypted_data_hash = {
@@ -110,7 +110,7 @@ describe UseEncryptedDataForAccountCredentials do
       migration.down
 
       # account 1
-      legacy_account = LegacyAccountCredentialsBefore.find(encryptable_credential1.id)
+      legacy_account = LegacyAccountCredentialsBefore.find(credentials1.id)
 
       raw_encrypted_data = legacy_account.read_attribute_before_type_cast(:encrypted_data)
       expect(raw_encrypted_data).to eq('{}')
@@ -121,7 +121,7 @@ describe UseEncryptedDataForAccountCredentials do
       expect(legacy_account.cleartext_password).to eq('password')
 
       # account 2
-      legacy_account = LegacyAccountCredentialsBefore.find(encryptable_credential2.id)
+      legacy_account = LegacyAccountCredentialsBefore.find(credentials2.id)
 
       raw_encrypted_data = legacy_account.read_attribute_before_type_cast(:encrypted_data)
       expect(raw_encrypted_data).to eq('{}')

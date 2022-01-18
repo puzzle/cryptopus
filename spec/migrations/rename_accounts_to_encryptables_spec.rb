@@ -13,8 +13,8 @@ describe RenameAccountsToEncryptables do
 
   let(:migration) { described_class.new }
 
-  let!(:encryptable_credential1) { encryptables(:credential1) }
-  let!(:encryptable_credential2) { encryptables(:credential2) }
+  let!(:credentials1) { encryptables(:credentials1) }
+  let!(:credentials2) { encryptables(:credentials2) }
 
   let!(:ose_secret) { create_ose_secret }
 
@@ -42,8 +42,8 @@ describe RenameAccountsToEncryptables do
       ose_secret.reload
 
       expect(ose_secret.type).to eq('Encryptable::OSESecret')
-      expect(encryptable_credential1.reload.type).to eq('Encryptable::Credentials')
-      expect(encryptable_credential2.reload.type).to eq('Encryptable::Credentials')
+      expect(credentials1.reload.type).to eq('Encryptable::Credentials')
+      expect(credentials2.reload.type).to eq('Encryptable::Credentials')
     end
 
   end
@@ -54,8 +54,8 @@ describe RenameAccountsToEncryptables do
       migration.down
 
       legacy_ose_secret = LegacyAccount.find(ose_secret.id)
-      legacy_account1 = LegacyAccount.find(encryptable_credential1.id)
-      legacy_account2 = LegacyAccount.find(encryptable_credential2.id)
+      legacy_account1 = LegacyAccount.find(credentials1.id)
+      legacy_account2 = LegacyAccount.find(credentials2.id)
 
       expect(legacy_ose_secret.type).to eq('Account::OSESecret')
       expect(legacy_account1.type).to eq('Account::Credentials')
