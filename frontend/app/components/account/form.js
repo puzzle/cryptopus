@@ -74,8 +74,8 @@ export default class Form extends BaseFormComponent {
   @action
   abort() {
     if (this.args.onAbort) {
+      this.navService.setSelectedFolderById(null);
       this.args.onAbort();
-      return;
     }
   }
 

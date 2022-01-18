@@ -4,12 +4,12 @@
 {{#if this.isNewAccount}}
   <Account::Form @onAbort={{this.toggleAccountCreating}} @title={{t "accounts.new.title"}}/>
 {{/if}}
-<div class="pl-2 pr-2 folder-card-header {{if this.collapsed "br-4"}}">
+<div class="pl-2 pr-2 folder-card-header {{if this.isExpanded "br-4"}}">
   <div class="d-flex row justify-content-between folder-show-header">
-    <div class="col-auto pr-0 my-auto" role="button" {{on "click" this.collapse}}>
+    <div class="col-auto pr-0 my-auto" role="button" {{on "click" this.toggleExpanded }}>
       <img class="icon icon-folder py-auto" src="/assets/images/folder.svg" alt="">
     </div>
-    <div class="col overflow-hidden my-auto break-on-smartphone" role="button" {{on "click" this.collapse}}>
+    <div class="col overflow-hidden my-auto break-on-smartphone" role="button" {{on "click" this.toggleExpanded }}>
       <h6 class="d-inline">{{@folder.name}}</h6>
     </div>
     <div class="col-auto justify-content-between d-flex align-items-center align-right-on-smartphone">
@@ -27,8 +27,8 @@
       </DeleteWithConfirmation>
     </div>
     <div class="col-auto pl-0 justify-content-between d-flex align-items-center">
-      <span role="button" name="folder-collapse" {{on "click" this.collapse}}>
-        {{#if this.collapsed}}
+      <span role="button" name="folder-collapse" {{on "click" this.toggleExpanded }}>
+        {{#if this.isExpanded}}
           <img class="icon-big-button float-right" src="/assets/images/angle-left.svg" alt="<">
         {{else}}
           <img class="icon-big-button float-right" src="/assets/images/angle-down.svg" alt="v">
@@ -37,7 +37,7 @@
     </div>
   </div>
 </div>
-<BsCollapse  @collapsed={{this.collapsed}}>
+<BsCollapse  @collapsed={{not this.isExpanded}}>
   <div class="folder-collapse-box">
     {{#if @folder.description}}
       <div class="row pt-3">
