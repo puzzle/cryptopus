@@ -1,30 +1,32 @@
 import ApplicationAdapter from "./application";
 
 export default ApplicationAdapter.extend({
-  namespace: "api/accounts",
+  namespace: "api/encryptables",
 
   pathForType() {
     return "file_entries";
   },
 
   urlForQuery(query, modelName) {
-    if (query.accountId) {
-      let url = `/${this.namespace}/${query.accountId}/${this.pathForType()}`;
+    if (query.encryptableId) {
+      let url = `/${this.namespace}/${
+        query.encryptableId
+      }/${this.pathForType()}`;
 
-      delete query.accountId;
+      delete query.encryptableId;
       return url;
     }
     return super.urlForQuery(query, modelName);
   },
 
   urlForCreateRecord(modelName, snapshot) {
-    return `/${this.namespace}/${snapshot.belongsTo("account", {
+    return `/${this.namespace}/${snapshot.belongsTo("encryptable", {
       id: true
     })}/${this.pathForType()}`;
   },
 
   urlForDeleteRecord(id, _modelName, snapshot) {
-    return `/${this.namespace}/${snapshot.belongsTo("account", {
+    return `/${this.namespace}/${snapshot.belongsTo("encryptable", {
       id: true
     })}/${this.pathForType()}/${id}`;
   }

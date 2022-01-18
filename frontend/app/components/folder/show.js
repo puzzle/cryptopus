@@ -12,7 +12,7 @@ export default class ShowComponent extends Component {
   isFolderEditing = false;
 
   @tracked
-  isNewAccount = false;
+  isNewEncryptable = false;
 
   @tracked
   expanded_due_to_search = false;
@@ -33,7 +33,7 @@ export default class ShowComponent extends Component {
     }
   }
 
-  get shouldRenderAccounts() {
+  get shouldRenderEncryptables() {
     return !isEmpty(this.args.folder) && !this.collapsed;
   }
 
@@ -60,7 +60,7 @@ export default class ShowComponent extends Component {
   }
 
   @action
-  toggleAccountCreating() {
-    this.isNewAccount = !this.isNewAccount;
+  toggleEncryptableCreating() {
+    this.isNewEncryptable = !this.isNewEncryptable;
   }
 }

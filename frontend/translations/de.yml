@@ -66,15 +66,15 @@ de:
         favourites: Tippen um in favorisierten Teams zu suchen...
         all: Tippen um in allen Teams zu suchen...
 
-  accounts:
-    title: Accounts
+  encryptables:
+    title: Encryptables
     index_menu:
-      create: Account erstellen
+      create: Encryptable erstellen
       folder: Gruppen
     show_menu:
       add_attachment: Anhang hinzufügen
     edit:
-      title: Account editieren
+      title: Encryptable editieren
       random_password: Zufälliges Passwort
       edit_password_placeholder: Klicken oder fokusieren für Eingabe ...
       team_placeholder: Wählen Sie ein Team aus
@@ -86,7 +86,7 @@ de:
         good: Gut
         strong: Stark
     show:
-      account: Account
+      encryptable: Encryptable
       created_at: "Erstellt am"
       last_update: "Letzte Änderung am"
       last_change: "Letzte Änderung vor %{time_ago}"
@@ -98,7 +98,7 @@ de:
       copy_username: Benutzername kopieren
       add_attachment: Anhang hinzufügen
     new:
-      title: Neuer Account
+      title: Neues Encryptable
 
   admin:
     title: "Admin"
@@ -179,7 +179,7 @@ de:
         title: Teams
         teamname: Teamname
         num_folders: Anzahl Ordner
-        num_accounts: Anzahl Accounts
+        num_encryptables: Anzahl Encryptables
         members: Mitglieder
     user_roles:
       user: Benutzer
@@ -196,16 +196,16 @@ de:
     new:
       title: Ordner erstellen
     show:
-      move: Account zu einem anderen Ordner verschieben
-      title: "Accounts des Ordners %{folder_name} des Teams %{team_name}"
-    no_accounts: Keine Accounts
+      move: Encryptable zu einem anderen Ordner verschieben
+      title: "Encryptables des Ordners %{folder_name} des Teams %{team_name}"
+    no_accounts: Keine Encryptables
     tooltips:
       delete: Ordner löschen
       edit: Ordner bearbeiten
 
   file_entries:
     new:
-      title: Anhang zum Account hinzufügen
+      title: Anhang zum Encryptable hinzufügen
       upload_file: Datei hochladen
       upload: Hochladen
       choose_file: Wählen Sie eine Datei
@@ -404,18 +404,18 @@ de:
     user-humen:
       created: Der neue Benutzer wurde erfolgreich erstellt.
       updated: Der Benutzer wurde erfolgreich aktualisiert.
-    accounts: &accounts_translations
-      created: Der neue Account wurde erfolgreich erstellt.
-      updated: Der Account wurde erfolgreich aktualisiert.
-      deleted: Der Account wurde erfolgreich gelöscht.
-      moved: Der Account wurde erfolgreich veschoben
+    encryptables: &accounts_translations
+      created: Das neue Encryptable wurde erfolgreich erstellt.
+      updated: Das Encryptable wurde erfolgreich aktualisiert.
+      deleted: Das Encryptable wurde erfolgreich gelöscht.
+      moved: Das Encryptable wurde erfolgreich veschoben
       username_copied: Benutzername wurde kopiert
       password_copied: Passwort wurde kopiert
 
-    account-credentials:
+    encryptable-credentials:
       << : *accounts_translations
 
-    account-secrets:
+    encryptable-secrets:
       << : *accounts_translations
 
     application:
@@ -432,7 +432,7 @@ de:
       uploaded_file_inexistent: Datei ist inexistent
       uploaded_filename_already_exists: Dateiname existiert bereits
     session:
-      welcome: Willkommen bei Cryptopus. Zuerst müssen Sie einen Account erstellen. Bitte wählen Sie ein sicheres Passwort.
+      welcome: Willkommen bei Cryptopus. Zuerst müssen Sie ein Encryptable erstellen. Bitte wählen Sie ein sicheres Passwort.
       auth_failed: Ungültiger Benutzername / Passwort.
       only_local: Nur lokale Benutzer dürfen ihr Passwort ändern.
       new_password_set: Das neue Passwort wurde erfolgreich gesetzt.
@@ -470,8 +470,8 @@ de:
         newPassword1: "Neues Passwort:"
         newPassword2: "Neues Passwort bestätigen:"
         wrongPassword: Falsches Passwort
-      account:
-        account: Account
+      encryptable:
+        encryptable: Encryptable
         account_name: Accountname
         username: Benutzername
         password: Passwort
@@ -503,7 +503,7 @@ de:
         body: ''
         header: ''
       models:
-        account:
+        encryptable:
           attributes:
             name:
               blank: kann nicht leer sein
@@ -574,10 +574,10 @@ de:
     settings: Einstellungen
     profile: Profil
     add_folder: Erstelle einen neuen Ordner
-    add_account: Erstelle einen neuen Account
-    account_details: Account Details anzeigen
+    add_account: Erstelle ein neues Encryptable
+    account_details: Encryptable Details anzeigen
     delete_folder: Ordner löschen
-    delete_account: Account löschen
+    delete_account: Encryptable löschen
     configure: Konfiguriere Mitglieder
 
   #Pundit
@@ -591,7 +591,7 @@ de:
     name:
       present: Der Name muss vorhanden sein
       too_long: Der Name ist zu lang
-      duplicate_name: Account existiert bereits!
+      duplicate_name: Encryptable existiert bereits!
     description:
       too_long: Die Beschreibung ist zu lang
     file:

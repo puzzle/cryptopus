@@ -23,7 +23,7 @@
             <div class="row">
               <div class="form-group col-md-12" id="team-power-select">
                 <form.element @label={{t "team"}} @controlType="power-select"
-                              @placeholder={{t "accounts.edit.team_placeholder"}} @disabled={{not this.isNewRecord}}
+                              @placeholder={{t "encryptables.edit.team_placeholder"}} @disabled={{not this.isNewRecord}}
                               @options={{this.assignableTeams}} @value={{this.changeset.team}}
                               @tabindex="2"
                               @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>

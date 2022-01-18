@@ -21,7 +21,7 @@ describe 'FileEntryModal', type: :system, js: true do
     team = teams(:team1)
     team_password = team.decrypt_team_password(bob, bobs_private_key)
 
-    account = accounts(:account1)
+    account = encryptables(:credential1)
     account.decrypt(team_password)
     visit("/accounts/#{account.id}")
 

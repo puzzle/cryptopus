@@ -11,15 +11,15 @@ describe 'Add user to team' do
   it 'adds alice to team as bob' do
     teammembers(:team1_alice).destroy
 
-    account = accounts(:account1)
-    account_path = api_account_path(account.id)
-    cannot_access_account(account_path, 'alice')
+    credential = encryptables(:credentials1)
+    encryptable_path = api_encryptable_path(credential.id)
+    cannot_access_encryptable(encryptable_path, 'alice')
 
     login_as('bob')
     path = api_team_members_path(team_id: teams(:team1))
     post path, params: { data: { attributes: { user_id: users(:alice).id } } }, xhr: true
     logout
 
-    can_access_account(account_path, 'alice', 'password', 'test', 'password')
+    can_access_encryptable(encryptable_path, 'alice', 'password', 'test', 'password')
   end
 end

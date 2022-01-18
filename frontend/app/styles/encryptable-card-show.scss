@@ -1,0 +1,53 @@
+.encryptable-card.encryptable-preview:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.encryptable-card {
+  max-height: 16em;
+}
+
+.encryptable-card .encryptable-accountname {
+  /*height: 6em;*/
+}
+
+.encryptable-card .encryptable-description {
+  height: 3em;
+  overflow: hidden;
+}
+
+.encryptable-card.encryptable-detail {
+  background-color: lightgray;
+}
+
+.encryptable-card.encryptable-detail > div {
+  background-color: white;
+}
+
+.encryptable-detail .icon-clippy {
+  width: 19px;
+}
+
+.encryptable-detail input[disabled] {
+  width: 100%;
+  height: 35px;
+}
+
+.encryptable-detail .password-wrapper {
+  position: absolute;
+}
+
+.copy-btn {
+  height: 35px;
+  width: 45px;
+  border: 1px solid #c9c9c9;
+}
+
+.encryptable-detail-key {
+  width: 20%;
+}
+
+.card-description {
+  overflow: hidden;
+  height: 1.5em;
+}

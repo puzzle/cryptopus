@@ -18,7 +18,7 @@ describe 'QuickSearch', type: :system, js: true do
     logout
   end
 
-  let(:account1) { accounts(:account1) }
+  let(:encryptable_credential1) { encryptables(:credential1) }
 
   it 'search with not available keyword does not show any results' do
     expect(find('input.search')['placeholder']).to eq('Type to search in all teams...')

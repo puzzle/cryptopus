@@ -13,8 +13,8 @@ $font-family-sans-serif: var(--pzsh-font-family) !default;
 @import "nav-bar";
 @import "changelog";
 @import "side-nav-bar";
-@import "account-show";
-@import "account-entry";
+@import "encryptable-show";
+@import "encryptable-entry";
 @import "password-strength-meter";
 @import "folder-show";
 @import "power-select";
@@ -311,11 +311,11 @@ li a {
   overflow: hidden;
 }
 
-.account-row:first-child {
+.encryptable-row:first-child {
   margin-top: 10px !important;
 }
 
-.account-row:last-child {
+.encryptable-row:last-child {
   margin-bottom: 10px !important;
 }
 

@@ -15,7 +15,7 @@ describe 'TeamModal', type: :system, js: true do
     login_as_user(:bob)
     visit('/')
 
-    account1 = accounts(:account1)
+    account1 = encryptables(:credential1)
 
     expect(find('pzsh-banner input.search')['placeholder']).to eq('Type to search in all teams...')
     find('pzsh-banner input.search').set account1.name
@@ -38,7 +38,7 @@ describe 'TeamModal', type: :system, js: true do
     within 'div[role="main"]' do
       expect(page).to have_text(folder1.name)
       expect(page).to have_text(teams(:team1).name)
-      expect(page).to have_text(accounts(:account1).name)
+      expect(page).to have_text(encryptables(:credential1).name)
       expect(page).not_to have_text(folders(:folder2).name)
       expect(page).not_to have_text(teams(:team2).name)
     end
@@ -56,7 +56,7 @@ describe 'TeamModal', type: :system, js: true do
     within 'div[role="main"]' do
       expect(page).to have_text(team1.name)
       expect(page).to have_text(folders(:folder1).name)
-      expect(page).to have_text(accounts(:account1).name)
+      expect(page).to have_text(encryptables(:credential1).name)
       expect(page).not_to have_text(teams(:team2).name)
     end
   end
@@ -65,7 +65,7 @@ describe 'TeamModal', type: :system, js: true do
     login_as_user(:bob)
     visit('/')
 
-    account1 = accounts(:account1)
+    account1 = encryptables(:credential1)
 
     account1_name_first_two_chars = account1.name[0...1]
 

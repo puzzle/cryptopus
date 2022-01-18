@@ -25,12 +25,13 @@
 #  https://github.com/puzzle/cryptopus.
 
 file_entry1:
-  account: account1
+  encryptable: credentials1
   filename: file_entry1
   content_type: text
   file: <%= "!!binary \"#{FixturesHelper.read_item_file('team1', 'account1', 'file_entry1')}\"" %>
+
 file_entry2:
-  account: account1
+  encryptable: credentials1
   filename: file_entry2
   content_type: text
   file: <%= "!!binary \"#{FixturesHelper.read_item_file('team1', 'account1', 'file_entry2')}\"" %>

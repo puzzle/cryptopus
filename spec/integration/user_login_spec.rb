@@ -46,13 +46,13 @@ describe 'User login' do
   end
 
   it 'goes to requested page after login' do
-    account = accounts(:account1)
-    account1_path = "/accounts/#{account.id}"
-    get account1_path
+    credentials1 = encryptables(:credentials1)
+    credentials1_path = "/encryptables/#{credentials1.id}"
+    get credentials1_path
     follow_redirect!
     expect(request.fullpath).to eq(session_new_path)
     login_as('bob')
-    expect(request.fullpath).to eq(account1_path)
+    expect(request.fullpath).to eq(credentials1_path)
   end
 
   it 'should reset session after login' do

@@ -67,7 +67,7 @@ fr:
         favourites: Appuyez pour rechercher dans les équipes favorites...
         all: Appuyez pour rechercher dans tout les équipes...
 
-  accounts:
+  encryptables:
     title: Comptes
     index_menu:
       create: Créer compte
@@ -86,7 +86,7 @@ fr:
         good: Bien
         strong: Fort
     show:
-      account: Compte
+      encryptable: Compte
       created_at: "Créé à"
       last_update: "Dernie changement à"
       last_change: "Dernière mise à jour il ya %{time_ago}"
@@ -405,7 +405,7 @@ fr:
     user-humen:
       created: Utilisateur créé avec succès.
       updated: Utilisateur modifiée avec succès.
-    accounts: &accounts_translations
+    encryptables: &accounts_translations
       created: Compte créé avec succès.
       updated: Compte modifiée avec succès.
       deleted: Compte a été supprimé.
@@ -413,10 +413,10 @@ fr:
       username_copied: Le nom d'utilisateur a été copié
       password_copied: Le mot de passe a été copié
 
-    account-credentials:
+    encryptable-credentials:
       << : *accounts_translations
 
-    account-secrets:
+    encryptable-secrets:
       << : *accounts_translations
 
     application:
@@ -473,8 +473,8 @@ fr:
         newPassword1: "Entrez un nouveau mot de passe:"
         newPassword2: "Confirmer le nouveau mot de passe:"
         wrongPassword: Mauvais mot de passe
-      account:
-        account: Compte
+      encryptable:
+        encryptable: Compte
         account_name: Nom du compte
         username: Nom d'utilisateur
         password: Mot de passe
@@ -505,7 +505,7 @@ fr:
         body: ""
         header: ""
       models:
-        account:
+        encryptable:
           attributes:
             name:
               blank: ne peut pas être vide

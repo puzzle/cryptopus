@@ -3,5 +3,5 @@
 class FolderMinimalSerializer < ApplicationSerializer
   attributes :id, :name, :description
 
-  has_many :accounts, serializer: AccountMinimalSerializer
+  has_many :encryptables, serializer: EncryptableMinimalSerializer
 end

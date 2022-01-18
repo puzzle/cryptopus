@@ -96,15 +96,15 @@ ch_be:
         favourites: Tippe um in favorisierte Teams z sueche...
         all: Tippe um in aue Teams z sueche...
 
-  accounts:
-    title: 'Accounts'
+  encryptables:
+    title: 'Encryptables'
     index_menu:
-      create: Account ersteuä
+      create: Encryptable ersteuä
       folder: Ordner
     show_menu:
       add_attachment: Anhang hinzufüegä
     edit:
-      title: Account editiere
+      title: Encryptable editiere
       random_password: Zuefäuigs Passwort
       edit_password_placeholder: Klickä oder fokusierä für Igab ...
       team_placeholder: Wähl äs Team us
@@ -117,7 +117,7 @@ ch_be:
         strong: Starch
 
     show:
-      account: Account
+      encryptable: Encryptable
       created_at: "Ersteut am"
       last_update: "Letschti Änderig am"
       last_change: "Letschti Änderig vor %{time_ago}"
@@ -129,7 +129,7 @@ ch_be:
       copy_username: Benutzername kopierä
       add_attachment: Anhang hinzufüegä
     new:
-      title: Nöie Account
+      title: Nöie Encryptable
 
   admin:
     title: Admin
@@ -216,7 +216,7 @@ ch_be:
         title: Teams
         teamname: Teamname
         num_folders: Ahzahl Ordner
-        num_accounts: Ahzahl Accounts
+        num_encryptables: Ahzahl Encryptables
         members: Mitglieder
   folders:
     title: Ordner
@@ -228,15 +228,15 @@ ch_be:
     new:
       title: Ordner ersteue
     show:
-      move: Account zumnä angere Ordner verschiebe
-      title: "Accounts vom Ordner %{folder_name} vom Team %{team_name}"
-    no_accounts: Ke Accounts
+      move: Encryptable zumnä angere Ordner verschiebe
+      title: "Encryptables vom Ordner %{folder_name} vom Team %{team_name}"
+    no_encryptables: Ke Encryptables
     tooltips:
       delete: Ordner lösche
       edit: Ordner bearbeite
   file_entries:
     new:
-      title: Ahang zum Account hinzuefüege
+      title: Ahang zum Encryptable hinzuefüege
       upload: Ufeladä
       upload_file: Datei zum ufeladä
       choose_file: Suech e Datei us
@@ -275,7 +275,7 @@ ch_be:
   recrypt:
     sso:
       new:
-        notice: Bitte gib dis Cryptopus Passwort i für di Account zu Keycloak z migriere.
+        notice: Bitte gib dis Cryptopus Passwort i für di Encryptable zu Keycloak z migriere.
         cryptopus_password: Dis Cryptopus Passwort
         migrate: Migriere
   teammembers:
@@ -424,19 +424,19 @@ ch_be:
     user-humen:
       created: Dr nöi Benutzer isch erfougrich ersteut worde.
       updated: Dr Benutzer isch erfougrich aktualisiert worde.
-    accounts: &accounts_translations
-      created: Dr nöi Account isch erfougrich ersteut worde.
-      updated: Dr Account isch erfougrich aktualisiert worde.
-      deleted: Dr Account isch erfougrich glöscht worde.
-      moved: Der Account isch erfougrich verschobe worde.
+    encryptables: &encryptables_translations
+      created: Dr nöi Encryptable isch erfougrich ersteut worde.
+      updated: Dr Encryptable isch erfougrich aktualisiert worde.
+      deleted: Dr Encryptable isch erfougrich glöscht worde.
+      moved: Das Encryptable isch erfougrich verschobe worde.
       username_copied: Dr Benutzernamä isch kopiert worde
       password_copied: Ds Passwort isch kopiert worde
 
-    account-credentials:
-      << : *accounts_translations
+    encryptable-credentials:
+      << : *encryptables_translations
 
-    account-secrets:
-      << : *accounts_translations
+    encryptable-secrets:
+      << : *encryptables_translations
 
     application:
       wait: Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde.
@@ -452,7 +452,7 @@ ch_be:
       uploaded_file_inexistent: Die Datei existiert gar nid
       uploaded_filename_already_exists: D Dateiname existiert äuä scho
     session:
-      welcome: Willkomme bim Cryptopus. Zerscht muesch e nöie Account ersteue. Bitte wäu es sicheres Passwort.
+      welcome: Willkomme bim Cryptopus. Zerscht muesch e nöie Encryptable ersteue. Bitte wäu es sicheres Passwort.
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
       only_local: Nume lokali Benutzer dörfe ires Passwort ändere.
       new_password_set: Ds nöie Passwort isch erfougrich gsetzt worde.
@@ -489,8 +489,8 @@ ch_be:
         newPassword1: "Ds nöie Passwort:"
         newPassword2: "Ds nöie Passwort bestätige:"
         wrongPassword: Fautsches passwort
-      account:
-        account: Account
+      encryptable:
+        encryptable: Encryptable
         account_name: Accountname
         username: Benutzername
         password: Passwort
@@ -522,7 +522,7 @@ ch_be:
         body: ''
         header: ''
       models:
-        account:
+        encryptable:
           attributes:
             name:
               blank: 'cha nid läär si'
@@ -593,17 +593,17 @@ ch_be:
     profile: Profil
     settings: Istellige
     add_folder: Erstell en neue Ordner
-    add_account: Erstell en neue Account
-    account_details: Account Details ahzeige
+    add_account: Erstell en neue Encryptable
+    account_details: Encryptable Details ahzeige
     delete_folder: Ordner lösche
-    delete_account: Account lösche
+    delete_account: Encryptable lösche
     configure: Konfigurier d'Mitgliedr
 
   validations:
     name:
       present: Dr Name muess vorhande si
       too_long: Dr Name isch zläng
-      duplicate_name: Dä Account giz scho!
+      duplicate_name: Dä Encryptable giz scho!
     description:
       too_long: D Beschribig isch zläng
     file:

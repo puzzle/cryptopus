@@ -17,7 +17,7 @@ describe 'TeamsPage', type: :system, js: true do
     login_as_user(:bob)
     visit('/')
 
-    account1 = accounts(:account1)
+    account1 = encryptables(:credential1)
 
     expect(page).to have_selector('input.search')
     find('input.search', visible: false).set account1.name

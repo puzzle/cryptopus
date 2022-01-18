@@ -8,7 +8,7 @@ describe 'AccountShow', type: :system, js: true do
   it 'shows password when clicking show password button' do
     login_as_user(:bob)
 
-    visit("/accounts/#{accounts(:account1).id}")
+    visit("/accounts/#{encryptables(:credential1).id}")
     expect(page).to_not have_selector('input#cleartext_password', visible: true)
 
     find('a.show-password-button').click
