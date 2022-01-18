@@ -27,7 +27,7 @@ export default class Form extends BaseFormComponent {
       FileEntryValidations
     );
 
-    this.changeset.account = this.args.account;
+    this.changeset.encryptable = this.args.encryptable;
 
     var token = ENV.CSRFToken;
     this.changeset.csrfToken = token;
@@ -59,7 +59,7 @@ export default class Form extends BaseFormComponent {
   handleSubmitError(response) {
     this.errors = JSON.parse(response.body).errors;
     this.changeset.file = null;
-    this.record.account = null;
+    this.record.encryptable = null;
   }
 
   @action

@@ -37,8 +37,8 @@ class FixturesHelper
       read_file(filepath)
     end
 
-    def read_account_file(item)
-      file_path = "accounts/#{item}"
+    def read_encryptable_file(item)
+      file_path = "encryptables/#{item}"
       read_file(file_path)
     end
 

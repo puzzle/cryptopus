@@ -71,7 +71,7 @@ const storeStub = Service.extend({
   }
 });
 
-module("Integration | Component | account/form", function (hooks) {
+module("Integration | Component | encryptable/form", function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
@@ -83,7 +83,7 @@ module("Integration | Component | account/form", function (hooks) {
   });
 
   test("it renders without input data", async function (assert) {
-    await render(hbs`<Account::Form />`);
+    await render(hbs`<Encryptable::Form />`);
 
     await selectChoose(
       "#team-power-select .ember-power-select-trigger",
@@ -120,7 +120,7 @@ module("Integration | Component | account/form", function (hooks) {
         };
       }
     });
-    this.set("account", {
+    this.set("encryptable", {
       id: 1,
       name: "mail",
       cleartextUsername: "mail@ember.com",
@@ -129,7 +129,7 @@ module("Integration | Component | account/form", function (hooks) {
       folder: this.folder,
       isFullyLoaded: true
     });
-    await render(hbs`<Account::Form @account={{this.account}}/>`);
+    await render(hbs`<Encryptable::Form @encryptable={{this.encryptable}}/>`);
 
     assert.equal(
       this.element.querySelector("input[name='name']").value,
@@ -160,7 +160,7 @@ module("Integration | Component | account/form", function (hooks) {
         };
       }
     });
-    this.set("account", {
+    this.set("encryptable", {
       id: 1,
       name: "mail",
       cleartextUsername: "mail@ember.com",
@@ -168,7 +168,7 @@ module("Integration | Component | account/form", function (hooks) {
       folder: this.folder,
       isFullyLoaded: true
     });
-    await render(hbs`<Account::Form @account={{this.account}}/>`);
+    await render(hbs`<Encryptable::Form @encryptable={{this.encryptable}}/>`);
 
     assert.equal(
       this.element.querySelector("input[name='name']").value,
@@ -199,7 +199,7 @@ module("Integration | Component | account/form", function (hooks) {
         };
       }
     });
-    this.set("account", {
+    this.set("encryptable", {
       id: 1,
       name: "mail",
       cleartextPassword: "lol",
@@ -207,7 +207,7 @@ module("Integration | Component | account/form", function (hooks) {
       folder: this.folder,
       isFullyLoaded: true
     });
-    await render(hbs`<Account::Form @account={{this.account}}/>`);
+    await render(hbs`<Encryptable::Form @encryptable={{this.encryptable}}/>`);
 
     assert.equal(
       this.element.querySelector("input[name='name']").value,
@@ -234,14 +234,14 @@ module("Integration | Component | account/form", function (hooks) {
         };
       }
     });
-    this.set("account", {
+    this.set("encryptable", {
       id: 1,
       name: "mail",
       description: "The ember email",
       folder: this.folder,
       isFullyLoaded: true
     });
-    await render(hbs`<Account::Form @account={{this.account}}/>`);
+    await render(hbs`<Encryptable::Form @encryptable={{this.encryptable}}/>`);
 
     assert.equal(
       this.element.querySelector("input[name='name']").value,

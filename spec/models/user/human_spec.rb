@@ -65,11 +65,11 @@ describe User::Human do
     end
   end
 
-  context 'accounts' do
-    it 'only returns accounts where alice is member' do
-      accounts = alice.accounts
-      expect(accounts.count).to eq(1)
-      expect(accounts.first.name).to eq('account1')
+  context 'encryptables' do
+    it 'only returns encryptables where alice is member' do
+      encryptables = alice.encryptables
+      expect(encryptables.count).to eq(1)
+      expect(encryptables.first.name).to eq('Personal Mailbox')
     end
   end
 

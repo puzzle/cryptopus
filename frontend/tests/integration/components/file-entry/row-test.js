@@ -10,7 +10,7 @@ module("Integration | Component | file-entry/row", function (hooks) {
     this.set("fileEntry", {
       filename: "file1",
       description: "description for file1",
-      account: {
+      encryptable: {
         get() {
           return 1;
         }

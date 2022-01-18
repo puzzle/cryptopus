@@ -1,5 +1,5 @@
-{{#if this.isNewAccount}}
-  <Account::Form @onAbort={{this.toggleAccountCreating}} @title={{t "accounts.new.title"}}/>
+{{#if this.isNewEncryptable}}
+  <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "encryptables.new.title"}}/>
 {{/if}}
 {{#if this.isNewFolder}}
   <Folder::Form @onAbort={{this.toggleFolderCreating}} @title={{t "folders.new.title"}}/>
@@ -37,8 +37,8 @@
       </dd.toggle>
       <dd.menu @align="right" as |ddm|>
         <ddm.item>
-          <a role="button" class="dropdown-item" {{on "click" this.toggleAccountCreating}}>
-            {{t "accounts.new.title"}}
+          <a role="button" class="dropdown-item" {{on "click" this.toggleEncryptableCreating}}>
+            {{t "encryptables.new.title"}}
           </a>
         </ddm.item>
         <ddm.item>

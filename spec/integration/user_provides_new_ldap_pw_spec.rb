@@ -101,8 +101,8 @@ describe 'User provides new Ldap Pw' do
 
   def assert_successful_recrypt
     login_as('bob', 'newPassword')
-    account = accounts(:account1)
-    get api_account_path(account)
+    credential = encryptables(:credentials1)
+    get api_encryptable_path(credential)
 
     data = JSON.parse(response.body)['data']['attributes']
     expect(data['cleartext_username']).to eq 'test'

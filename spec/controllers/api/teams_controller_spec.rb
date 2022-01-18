@@ -18,7 +18,7 @@ describe Api::TeamsController do
     it 'should get team for search term' do
       login_as(:bob)
 
-      get :index, params: { q: 'mail' }, xhr: true
+      get :index, params: { q: 'non' }, xhr: true
 
       expect(data.size).to be(0)
       expect(included).to be(nil)
@@ -72,7 +72,7 @@ describe Api::TeamsController do
       included_types = json['included'].map { |e| e['type'] }
 
       expect(included_types).to include('folders')
-      expect(included_types).to include('account_credentials')
+      expect(included_types).to include('encryptable_credentials')
 
       expect(attributes['name']).to eq team1.name
       expect(attributes['description']).to eq team1.description
@@ -99,7 +99,7 @@ describe Api::TeamsController do
       included_types = json['included'].map { |e| e['type'] }
 
       expect(included_types).to include('folders')
-      expect(included_types).to include('account_credentials')
+      expect(included_types).to include('encryptable_credentials')
 
       expect(attributes['name']).to eq team1.name
       expect(attributes['description']).to eq team1.description
@@ -134,16 +134,16 @@ describe Api::TeamsController do
 
     end
 
-    it 'returns teams, folders and accounts for query' do
+    it 'returns teams, folders and encryptables for query' do
       login_as(:bob)
 
       folder1 = folders(:folder1)
       folder2 = folders(:folder2)
 
-      account1 = accounts(:account1)
-      account2 = accounts(:account2)
+      credentials1 = encryptables(:credentials1)
+      credentials2 = encryptables(:credentials2)
 
-      get :index, params: { q: 'account2' }, xhr: true
+      get :index, params: { q: 'twitter' }, xhr: true
 
       expect(data.count).to eq(1)
       expect(response.status).to be(200)
@@ -154,13 +154,13 @@ describe Api::TeamsController do
       expect(attributes_first_team['description']).to eq team2.description
 
       folders = included.select { |element| element['type'] == 'folders' }
-      accounts = included.select { |element| element['type'] == 'account_credentials' }
+      encryptables = included.select { |element| element['type'] == 'encryptable_credentials' }
 
       expect(folders.first['attributes']['name']).to eq(folder2.name)
       expect(folders).not_to include(folder1.name)
 
-      expect(accounts.first['attributes']['name']).to eq(account2.name)
-      expect(accounts).not_to include(account1.name)
+      expect(encryptables.first['attributes']['name']).to eq(credentials2.name)
+      expect(encryptables).not_to include(credentials1.name)
       folder_relationships_length = data.first['relationships']['folders']['data'].size
 
       expect(included.size).to be(2)
@@ -208,41 +208,41 @@ describe Api::TeamsController do
       expect(folder_relationships_length).to be(1)
     end
 
-    it 'filters by account name' do
+    it 'filters by encryptable name' do
       add_bob_to_team(team3, team3_user)
       login_as(:bob)
 
       folder = team3.folders.first
-      account = folder.accounts.first
+      credential = folder.encryptables.first
 
-      get :index, params: { q: account.name }, xhr: true
+      get :index, params: { q: credential.name }, xhr: true
 
       expect(data.count).to eq(1)
       expect(response.status).to be(200)
 
-      included_account = included.second
+      included_encryptable = included.second
 
-      expect(included_account['id'].to_i).to eq account.id
-      expect(included_account['attributes']['name']).to eq account.name
-      expect(included_account['attributes']['description']).to eq account.description
+      expect(included_encryptable['id'].to_i).to eq credential.id
+      expect(included_encryptable['attributes']['name']).to eq credential.name
+      expect(included_encryptable['attributes']['description']).to eq credential.description
     end
 
-    it 'filters by account description' do
+    it 'filters by encryptable description' do
       add_bob_to_team(team3, team3_user)
       login_as(:bob)
 
-      account = accounts(:account1)
+      credentials1 = encryptables(:credentials1)
 
-      get :index, params: { q: account.description }, xhr: true
+      get :index, params: { q: credentials1.description }, xhr: true
 
       expect(data.count).to eq(1)
       expect(response.status).to be(200)
 
-      included_account = included.second
+      included_encryptable = included.second
 
-      expect(included_account['id'].to_i).to eq account.id
-      expect(included_account['attributes']['name']).to eq account.name
-      expect(included_account['attributes']['description']).to eq account.description
+      expect(included_encryptable['id'].to_i).to eq credentials1.id
+      expect(included_encryptable['attributes']['name']).to eq credentials1.name
+      expect(included_encryptable['attributes']['description']).to eq credentials1.description
     end
 
     context 'with only_teammember_user_id param' do

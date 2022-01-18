@@ -9,7 +9,7 @@ module("Integration | Component | delete-with-confirmation", function (hooks) {
   test("it renders with data", async function (assert) {
     this.set("record", {
       constructor: {
-        modelName: "account"
+        modelName: "encryptable"
       }
     });
 

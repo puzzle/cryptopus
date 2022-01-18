@@ -1,0 +1,92 @@
+{{#if this.isEncryptableEditing}}
+  <Encryptable::Form @encryptable={{@encryptable}} @title={{t "encryptables.edit.title"}} @onAbort={{this.toggleEncryptableEdit}}/>
+{{/if}}
+{{#if this.isFileEntryCreating}}
+  <FileEntry::Form @class="modal_file_entry" @encryptable={{@encryptable}} @title={{t "file_entries.new.title"}} @onAbort={{this.toggleFileEntryNew}}/>
+{{/if}}
+<div class="container px-5 pt-4 h-100 bg-white pl-none encryptable-container-smartphone mb-15">
+  <div class="row mb-3">
+    <div class="col">
+      <a id="encryptable-show-back" role="button" {{on "click" this.transitionBack}}>
+        <span class="btn btn-secondary edit_button" role="button">
+          <img class="icon-button encryptable-show-back" src="/assets/images/arrow-left.svg" alt="back">
+        </span>
+      </a>
+    </div>
+    {{#unless @encryptable.isOseSecret}}
+      <div class="col-auto d-flex justify-content-between align-items-center">
+        <DeleteWithConfirmation @class="btn btn-light edit_button" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
+          <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
+        </DeleteWithConfirmation>
+        <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleEncryptableEdit}}>
+          <img class="icon-button" src="/assets/images/edit.svg" alt="edit">
+        </a>
+      </div>
+    {{/unless}}
+  </div>
+  <div class="row pb-3 justify-content-between">
+    <div class="col-lg-9 accountname">
+      <h2 class="d-inline">{{t "encryptables.show.encryptable"}}: {{@encryptable.name}}</h2>
+    </div>
+    <div class="col-lg-9 accountname text-muted">
+      <br><p class="d-inline">{{t "encryptables.show.created_at"}}: {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}</p>
+       /
+      <p class="d-inline">{{t "encryptables.show.last_update"}}: {{moment-format @encryptable.updatedAt "DD.MM.YYYY hh:mm"}}</p>
+    </div>
+  </div>
+
+  {{#if @encryptable.description}}
+    <div class="row pb-3">
+      <div class="col">
+        <br><p class="text-muted description">{{@encryptable.description}}</p>
+      </div>
+    </div>
+  {{/if}}
+  <div>
+    {{#if @encryptable.isOseSecret}}
+      <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptables.show.show_secret"}}</a>
+      <div class="result-password">
+        <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@encryptable.data.ose_secret}}/>
+        <CopyButton class="btn btn-light" @clipboardText={{@encryptable.data.ose_secret}}>
+          <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+        </CopyButton>
+      </div>
+    {{else}}
+      <div class="result-username">
+        <Input id="cleartext_username" class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextUsername}}/>
+        <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextUsername}} @success={{fn this.onCopied "username"}}>
+          <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+        </CopyButton>
+      </div>
+      <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptables.show.show_password"}}</a>
+      <div class="result-password">
+        <Input id="cleartext_password" class="d-inline form-control {{if this.isPasswordVisible "" "visibility-hidden"}}" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
+        <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextPassword}} @success={{fn this.onCopied "password"}}>
+          <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+        </CopyButton>
+      </div>
+    {{/if}}
+  </div>
+  <div class="d-flex flex-row justify-content-between mb-2">
+    <div>
+      <h3>{{t "encryptables.show.attachments"}}</h3>
+    </div>
+    <div>
+      <BsButton @type="primary" {{on "click" this.toggleFileEntryNew}}>
+        {{t "encryptables.show.add_attachment"}}
+      </BsButton>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th>{{t "encryptables.show.file"}}</th>
+        <th class="description">{{t "description"}}</th>
+        <th>{{t "actions"}}</th>
+      </tr>
+      {{#each @encryptable.fileEntries as |fileEntry|}}
+        <FileEntry::Row @fileEntry={{fileEntry}}/>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

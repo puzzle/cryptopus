@@ -2,7 +2,7 @@
 
 module IntegrationHelpers
   module AccountTeamSetupHelper
-    def create_team_folder_account(username, user_password = 'password', private = false)
+    def create_team_folder_encryptable(username, user_password = 'password', private = false)
       login_as(username.to_s, user_password)
 
       # New Team
@@ -39,29 +39,29 @@ module IntegrationHelpers
 
       post api_team_folders_path(team.id), params: folder_params
 
-      # New Account
+      # New Credential
       folder = team.folders.find_by(name: 'Default')
-      account_params = {
+      encryptable_params = {
         data: {
           attributes: {
-            type: 'credentials',
+            type: 'Encryptable::Credential',
             name: 'puzzle',
             folder_id: folder.id,
-            description: 'account_description',
+            description: 'credential_description',
             cleartext_username: 'account_username',
             cleartext_password: 'account_password'
           }
         }
       }
 
-      post api_accounts_path, params: account_params
+      post api_encryptables_path, params: encryptable_params
 
       logout
-      folder.accounts.find_by(name: 'puzzle')
+      folder.encryptables.find_by(name: 'puzzle')
     end
 
-    def create_team_folder_account_private(username, user_password = 'password')
-      create_team_folder_account(username, user_password, true)
+    def create_team_folder_encryptable_private(username, user_password = 'password')
+      create_team_folder_encryptable(username, user_password, true)
     end
 
     def create_team(user, teamname, private_team)
@@ -97,9 +97,9 @@ module IntegrationHelpers
       get session_destroy_path
     end
 
-    def can_access_account(api_account_path, username, user_password = 'password',
-                           account_username = 'account_username',
-                           account_password = 'account_password')
+    def can_access_encryptable(api_account_path, username, user_password = 'password',
+                               account_username = 'account_username',
+                               account_password = 'account_password')
       username == 'root' ? login_as_root : login_as(username, user_password)
       get api_account_path
 
@@ -109,7 +109,7 @@ module IntegrationHelpers
       logout
     end
 
-    def cannot_access_account(account_path, username, user_password = 'password')
+    def cannot_access_encryptable(account_path, username, user_password = 'password')
       login_as(username, user_password)
       get account_path
       errors = JSON.parse(response.body)['errors']

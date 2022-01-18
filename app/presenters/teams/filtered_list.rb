@@ -34,7 +34,7 @@ module ::Teams
 
     def teams
       @current_user.teams
-                   .includes(:user_favourite_teams, :folders, folders: [:accounts])
+                   .includes(:user_favourite_teams, :folders, folders: [:encryptables])
                    .limit(limit)
     end
 
@@ -47,15 +47,15 @@ module ::Teams
     end
 
     def filter_by_query(teams)
-      teams.includes(:folders, folders: [:accounts]).where(
-        'lower(accounts.description) LIKE :query
-        OR lower(accounts.name) LIKE :query
+      teams.includes(:folders, folders: [:encryptables]).where(
+        'lower(encryptables.description) LIKE :query
+        OR lower(encryptables.name) LIKE :query
         OR lower(folders.name) LIKE :query
         OR lower(teams.name) LIKE :query',
         query: "%#{query}%"
       )
            .references(:folders,
-                       folders: [:accounts])
+                       folders: [:encryptables])
     end
 
     def filter_by_id

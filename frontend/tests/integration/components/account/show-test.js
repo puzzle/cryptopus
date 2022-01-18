@@ -14,7 +14,7 @@ const storeStub = Service.extend({
   }
 });
 
-module("Integration | Component | account/show", function (hooks) {
+module("Integration | Component | encryptable/show", function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
@@ -23,11 +23,11 @@ module("Integration | Component | account/show", function (hooks) {
     setLocale("en");
   });
 
-  test("it renders with data and shows edit buttons for regular account", async function (assert) {
-    this.set("account", {
+  test("it renders with data and shows edit buttons for regular encryptable", async function (assert) {
+    this.set("encryptable", {
       id: 1,
-      name: "Ninjas test account",
-      description: "Account for the ninjas",
+      name: "Ninjas test encryptable",
+      description: "Encryptable for the ninjas",
       cleartextUsername: "mail",
       cleartextPassword: "e2jd2rh4g5io7",
       createdAt: "2021-06-14 09:23:02.750627",
@@ -36,7 +36,7 @@ module("Integration | Component | account/show", function (hooks) {
         {
           filename: "file1",
           description: "description for file1",
-          account: {
+          encryptable: {
             get() {
               return 1;
             },
@@ -46,7 +46,7 @@ module("Integration | Component | account/show", function (hooks) {
         {
           filename: "file2",
           description: "description for file2",
-          account: {
+          encryptable: {
             get() {
               return 1;
             },
@@ -55,11 +55,11 @@ module("Integration | Component | account/show", function (hooks) {
         }
       ]
     });
-    await render(hbs`<Account::Show @account={{this.account}}/>`);
+    await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
 
     let text = this.element.textContent.trim();
-    assert.ok(text.includes("Ninjas test account"));
-    assert.ok(text.includes("Account for the ninjas"));
+    assert.ok(text.includes("Ninjas test encryptable"));
+    assert.ok(text.includes("Encryptable for the ninjas"));
     assert.ok(text.includes("14.06.2021 09:23"));
     assert.ok(text.includes("22.06.2021 11:33"));
     assert.ok(text.includes("file1"));
@@ -74,10 +74,10 @@ module("Integration | Component | account/show", function (hooks) {
   });
 
   test("it renders with data and hides edit buttons for openshift secret", async function (assert) {
-    this.set("account", {
+    this.set("encryptable", {
       id: 1,
-      name: "Ninjas test account",
-      description: "Account for the ninjas",
+      name: "Ninjas test encryptable",
+      description: "Encryptable for the ninjas",
       cleartextUsername: "mail",
       cleartextPassword: "e2jd2rh4g5io7",
       createdAt: "2021-06-14 09:23:02.750627",
@@ -88,7 +88,7 @@ module("Integration | Component | account/show", function (hooks) {
         {
           filename: "file1",
           description: "description for file1",
-          account: {
+          encryptable: {
             get() {
               return 1;
             },
@@ -98,7 +98,7 @@ module("Integration | Component | account/show", function (hooks) {
         {
           filename: "file2",
           description: "description for file2",
-          account: {
+          encryptable: {
             get() {
               return 1;
             },
@@ -107,11 +107,11 @@ module("Integration | Component | account/show", function (hooks) {
         }
       ]
     });
-    await render(hbs`<Account::Show @account={{this.account}}/>`);
+    await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
 
     let text = this.element.textContent.trim();
-    assert.ok(text.includes("Ninjas test account"));
-    assert.ok(text.includes("Account for the ninjas"));
+    assert.ok(text.includes("Ninjas test encryptable"));
+    assert.ok(text.includes("Encryptable for the ninjas"));
     assert.ok(text.includes("14.06.2021 09:23"));
     assert.ok(text.includes("22.06.2021 11:33"));
     assert.ok(text.includes("file1"));

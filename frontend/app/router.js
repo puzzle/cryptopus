@@ -7,13 +7,13 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
-  this.route("accounts", function () {
+  this.route("encryptables", function () {
     this.route("new");
     this.route("edit", { path: "/edit/:id" });
     this.route("show", { path: "/:id" });
     this.route(
       "file-entries",
-      { path: "/:account_id/file-entries" },
+      { path: "/:encryptable_id/file-entries" },
       function () {
         this.route("new");
       }

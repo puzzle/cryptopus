@@ -13,7 +13,7 @@ export default class NavBarComponent extends Component {
   searchInterval;
 
   @tracked
-  isNewAccount = false;
+  isNewEncryptable = false;
 
   @tracked
   isNewFolder = false;
@@ -35,8 +35,8 @@ export default class NavBarComponent extends Component {
   }
 
   @action
-  toggleAccountCreating() {
-    this.isNewAccount = !this.isNewAccount;
+  toggleEncryptableCreating() {
+    this.isNewEncryptable = !this.isNewEncryptable;
   }
 
   @action
