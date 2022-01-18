@@ -42,18 +42,32 @@ const storeStub = Service.extend({
       ]);
     }
   },
-  peekAll() {
-    return [
-      {
-        id: 1,
-        name: "bbt",
-        team: {
+  peekAll(modelName) {
+    if (modelName === "folder") {
+      return [
+        {
+          id: 1,
+          name: "bbt",
+          team: {
+            get() {
+              return 1;
+            }
+          }
+        }
+      ];
+    }
+  },
+  findAll(modelName) {
+    if (modelName === "team")
+      return Promise.all([
+        {
+          id: 1,
+          name: "bbteam",
           get() {
             return 1;
           }
         }
-      }
-    ];
+      ]);
   }
 });
 
@@ -73,7 +87,7 @@ module("Integration | Component | account/form", function (hooks) {
 
     await selectChoose(
       "#team-power-select .ember-power-select-trigger",
-      "supporting"
+      "bbteam"
     );
 
     await clickTrigger("#folder-power-select");

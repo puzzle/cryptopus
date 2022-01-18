@@ -27,11 +27,7 @@ export default class Form extends BaseFormComponent {
       this.args.account || this.store.createRecord("account-credential");
     this.isNewRecord = this.record.isNew;
 
-    this.changeset = new Changeset(
-      this.record,
-      lookupValidator(AccountValidations),
-      AccountValidations
-    );
+    this.changeset = this.accountChangeset;
 
     if (this.isNewRecord) {
       this.presetTeamAndFolder();
@@ -41,11 +37,11 @@ export default class Form extends BaseFormComponent {
       this.changeset.folder = this.args.folder;
     }
 
-    this.assignableTeams = this.navService.sortedTeams;
+    this.store.findAll("team").then((teams) => {
+      this.assignableTeams = teams;
+    });
 
-    if (isPresent(this.changeset.folder)) {
-      this.selectedTeam = this.changeset.folder.get("team");
-    }
+    this.presetTeamIfFolderSelected();
 
     if (!this.record.isFullyLoaded)
       this.store.findRecord("account-credential", this.record.id);
@@ -127,5 +123,19 @@ export default class Form extends BaseFormComponent {
 
   handleSubmitError(response) {
     this.hasErrors = response.errors.length > 0;
+  }
+
+  presetTeamIfFolderSelected() {
+    if (isPresent(this.changeset.folder)) {
+      this.selectedTeam = this.changeset.folder.get("team");
+    }
+  }
+
+  get accountChangeset() {
+    return new Changeset(
+      this.record,
+      lookupValidator(AccountValidations),
+      AccountValidations
+    );
   }
 }
