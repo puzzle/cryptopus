@@ -10,15 +10,15 @@ describe EncryptableMoveHandler do
 
   let(:bob) { users(:bob) }
 
-  it 'moves credential to a folder where credential name already exist' do
-    credential = encryptables(:credential1)
+  it 'moves credentials to a folder where credential name already exist' do
+    credential = encryptables(:credentials1)
     private_key = decrypt_private_key(bob)
     target_folder = folders(:folder2)
     team_password = target_folder.team.decrypt_team_password(bob, private_key)
     Fabricate(:credential,
               folder: target_folder,
               team_password: team_password,
-              name: 'credential1')
+              name: 'credentials1')
 
     EncryptableMoveHandler.new(credential, private_key, bob).move
     credential.save!
@@ -26,7 +26,7 @@ describe EncryptableMoveHandler do
   end
 
   it 'moves credential from team2 folder to team1 folder' do
-    credential = encryptables(:credential2)
+    credential = encryptables(:credentials2)
     private_key = decrypt_private_key(bob)
     team1_folder = folders(:folder1)
 
@@ -48,7 +48,7 @@ describe EncryptableMoveHandler do
   end
 
   it 'moves credential with file_entries to new team' do
-    credential = encryptables(:credential1)
+    credential = encryptables(:credentials1)
     private_key = decrypt_private_key(bob)
     new_folder = folders(:folder2)
     new_team_password = new_folder.team.decrypt_team_password(bob, private_key)
@@ -70,7 +70,7 @@ describe EncryptableMoveHandler do
   it 'cannot move credential to a team user is not a member of' do
     alice = users(:alice)
     private_key = decrypt_private_key(alice)
-    credential = encryptables(:credential1)
+    credential = encryptables(:credentials1)
     new_folder = folders(:folder2)
 
     credential.folder = new_folder
@@ -80,7 +80,7 @@ describe EncryptableMoveHandler do
   end
 
   it 'moves credential to folder from same team' do
-    credential = encryptables(:credential1)
+    credential = encryptables(:credentials1)
     private_key = decrypt_private_key(bob)
     new_folder = Fabricate(:folder, name: 'folder5', team_id: teams(:team1).id)
 
@@ -95,7 +95,7 @@ describe EncryptableMoveHandler do
   end
 
   it 'moves is rolled back if credential can not be moved' do
-    credential = encryptables(:credential1)
+    credential = encryptables(:credentials1)
     team1 = teams(:team1)
     bobs_private_key = decrypt_private_key(bob)
     new_folder = folders(:folder2)

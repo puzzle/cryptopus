@@ -3,8 +3,8 @@
 require 'spec_helper'
 
 describe EncryptableSerializer do
-  it 'serializes account to json' do
-    credential = encryptables(:credential1)
+  it 'serializes encryptable to json' do
+    credential = encryptables(:credentials1)
     credential.cleartext_username = 'username'
     credential.cleartext_password = 'password'
 
