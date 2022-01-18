@@ -176,7 +176,7 @@ describe RedirectedRoutes::UrlHandler do
 
       get legacy_account_url
 
-      # ToDO: fix me
+      # TODO: fix me
       # assert_redirected_to "/accounts/#{encryptables1.id}"
       # follow_redirect!
       # expect_ember_frontend
