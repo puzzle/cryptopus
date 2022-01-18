@@ -9,350 +9,336 @@ describe Api::EncryptablesController do
   let(:alice) { users(:alice) }
   let(:api_user) { bob.api_users.create }
   let(:private_key) { bob.decrypt_private_key('password') }
-  let(:plaintext_team_password) { teams(:team1).decrypt_team_password(bob, private_key) }
   let(:nested_models) { ['folder'] }
   let(:attributes) { %w[name cleartext_password cleartext_username] }
   let!(:ose_secret) { create_ose_secret }
+  let(:credentials1) { encryptables(:credentials1) }
 
   context 'GET index' do
-    it 'returns account with matching name' do
+    it 'returns encryptable with matching name' do
       login_as(:alice)
 
-      get :index, params: { 'q': 'acc' }, xhr: true
+      get :index, params: { 'q': 'Personal' }, xhr: true
 
-      account1_json = data.first
-      account1_json_attributes = account1_json['attributes']
-      account1_json_relationships = account1_json['relationships']
+      credentials1_json = data.first
+      credentials1_json_attributes = credentials1_json['attributes']
+      credentials1_json_relationships = credentials1_json['relationships']
 
-      account = encryptables(:credential1)
-      folder = account.folder
+      expect(credentials1_json_attributes['name']).to eq credentials1.name
+      expect(credentials1_json['id']).to eq credentials1.id.to_s
+      expect(credentials1_json_attributes['cleartext_username']).to be_nil
+      expect(credentials1_json_attributes['cleartext_password']).to be_nil
 
-      expect(account1_json_attributes['name']).to eq account.name
-      expect(account1_json['id']).to eq account.id.to_s
-      expect(account1_json_attributes['cleartext_username']).to be_nil
-      expect(account1_json_attributes['cleartext_password']).to be_nil
-      expect(account1_json_relationships['folder']['data']['id']).to eq folder.id.to_s
+      expect(credentials1_json_relationships['folder']['data']['id'])
+        .to eq credentials1.folder_id.to_s
 
-      expect_json_object_includes_keys(account1_json_attributes, attributes)
-      expect_json_object_includes_keys(account1_json_relationships, nested_models)
+      expect_json_object_includes_keys(credentials1_json_attributes, attributes)
+      expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
     end
 
-    it 'returns all accounts if empty query param given' do
+    it 'returns all enncryptables if empty query param given' do
       login_as(:alice)
 
       get :index, params: { 'q': '' }, xhr: true
 
-      account1_json = data.first
-      account1_json_attributes = account1_json['attributes']
-      account1_json_relationships = account1_json['relationships']
-
-      account = encryptables(:credential1)
-      folder = account.folder
+      credentials1_json = data.first
+      credentials1_json_attributes = credentials1_json['attributes']
+      credentials1_json_relationships = credentials1_json['relationships']
 
       expect(data.count).to eq 2
-      expect(account1_json_attributes['name']).to eq account.name
-      expect(account1_json['id']).to eq account.id.to_s
-      expect(account1_json_attributes['cleartext_username']).to be_nil
-      expect(account1_json_attributes['cleartext_password']).to be_nil
-      expect(account1_json_relationships['folder']['data']['id']).to eq folder.id.to_s
+      expect(credentials1_json_attributes['name']).to eq credentials1.name
+      expect(credentials1_json['id']).to eq credentials1.id.to_s
+      expect(credentials1_json_attributes['cleartext_username']).to be_nil
+      expect(credentials1_json_attributes['cleartext_password']).to be_nil
+      expect(credentials1_json_relationships['folder']['data']['id'])
+        .to eq credentials1.folder_id.to_s
 
-      expect_json_object_includes_keys(account1_json_attributes, attributes)
-      expect_json_object_includes_keys(account1_json_relationships, nested_models)
+      expect_json_object_includes_keys(credentials1_json_attributes, attributes)
+      expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
     end
 
-    it 'returns all accounts if no query param given' do
+    it 'returns all encryptables if no query param given' do
       login_as(:alice)
 
       get :index, xhr: true
 
-      account1_json = data.first
-      account1_json_attributes = account1_json['attributes']
-      account1_json_relationships = account1_json['relationships']
-
-      account = encryptables(:credential1)
-      folder = account.folder
+      credentials1_json = data.first
+      credentials1_json_attributes = credentials1_json['attributes']
+      credentials1_json_relationships = credentials1_json['relationships']
 
       expect(data.count).to eq 2
-      expect(account1_json_attributes['name']).to eq account.name
-      expect(account1_json['id']).to eq account.id.to_s
-      expect(account1_json_attributes['cleartext_username']).to be_nil
-      expect(account1_json_attributes['cleartext_password']).to be_nil
-      expect(account1_json_relationships['folder']['data']['id']).to eq folder.id.to_s
+      expect(credentials1_json_attributes['name']).to eq credentials1.name
+      expect(credentials1_json['id']).to eq credentials1.id.to_s
+      expect(credentials1_json_attributes['cleartext_username']).to be_nil
+      expect(credentials1_json_attributes['cleartext_password']).to be_nil
+      expect(credentials1_json_relationships['folder']['data']['id'])
+        .to eq credentials1.folder_id.to_s
 
-      expect_json_object_includes_keys(account1_json_attributes, attributes)
-      expect_json_object_includes_keys(account1_json_relationships, nested_models)
+      expect_json_object_includes_keys(credentials1_json_attributes, attributes)
+      expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
     end
 
-    it 'returns account for matching tag without cleartext username / password' do
+    it 'returns encryptable for matching tag without cleartext username / password' do
       login_as(:bob)
 
       get :index, params: { 'tag': 'tag' }, xhr: true
 
-      account2_json_attributes = data['attributes']
-      account2_json_relationships = data['relationships']
+      credentials2_json_attributes = data['attributes']
+      credentials2_json_relationships = data['relationships']
 
-      account = encryptables(:credential2)
-      folder = account.folder
+      credentials2 = encryptables(:credentials2)
 
-      expect(account2_json_attributes['name']).to eq account.name
-      expect(data['id']).to eq account.id.to_s
-      expect(account2_json_attributes['cleartext_username']).to be_nil
-      expect(account2_json_attributes['cleartext_password']).to be_nil
-      expect(account2_json_relationships['folder']['data']['id']).to eq folder.id.to_s
+      expect(credentials2_json_attributes['name']).to eq credentials2.name
+      expect(data['id']).to eq credentials2.id.to_s
+      expect(credentials2_json_attributes['cleartext_username']).to be_nil
+      expect(credentials2_json_attributes['cleartext_password']).to be_nil
+      expect(credentials2_json_relationships['folder']['data']['id'])
+        .to eq credentials2.folder_id.to_s
 
-      expect_json_object_includes_keys(account2_json_attributes, attributes)
-      expect_json_object_includes_keys(account2_json_relationships, nested_models)
+      expect_json_object_includes_keys(credentials2_json_attributes, attributes)
+      expect_json_object_includes_keys(credentials2_json_relationships, nested_models)
     end
   end
 
   context 'GET show' do
-    it 'returns decrypted credentials account' do
+    it 'returns decrypted encryptable credentials' do
       login_as(:bob)
-      account = encryptables(:credential1)
       rgx_date = /^(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2}).(\d{3})[+-](\d{2})\:(\d{2})/
 
-      get :show, params: { id: account }, xhr: true
+      get :show, params: { id: credentials1 }, xhr: true
 
-      account1_json_attributes = data['attributes']
-      account1_json_relationships = data['relationships']
+      credentials1_json_attributes = data['attributes']
+      credentials1_json_relationships = data['relationships']
 
-      expect(account1_json_attributes['name']).to eq 'credential1'
-      expect(account1_json_attributes['cleartext_username']).to eq 'test'
-      expect(account1_json_attributes['cleartext_password']).to eq 'password'
-      expect(account1_json_attributes['created_at']).to match(rgx_date)
-      expect(account1_json_attributes['updated_at']).to match(rgx_date)
-      expect_json_object_includes_keys(account1_json_relationships, nested_models)
+      expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
+      expect(credentials1_json_attributes['cleartext_username']).to eq 'test'
+      expect(credentials1_json_attributes['cleartext_password']).to eq 'password'
+      expect(credentials1_json_attributes['created_at']).to match(rgx_date)
+      expect(credentials1_json_attributes['updated_at']).to match(rgx_date)
+      expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
     end
 
-    it 'returns decrypted ose_secret account' do
+    it 'returns decrypted ose secret' do
       request.headers['Authorization-User'] = alice.username
       request.headers['Authorization-Password'] = Base64.encode64('password')
 
       get :show, params: { id: ose_secret.id }, xhr: true
 
-      account1_json_attributes = data['attributes']
-      account1_json_relationships = data['relationships']
+      ose_secret_json_attributes = data['attributes']
+      ose_secret_json_relationships = data['relationships']
 
-      expect(account1_json_attributes['name']).to eq 'ose_secret'
-      expect(account1_json_attributes['cleartext_ose_secret']).to eq example_ose_secret_yaml
-      expect_json_object_includes_keys(account1_json_relationships, nested_models)
+      expect(ose_secret_json_attributes['name']).to eq 'Rails Secret Key Base'
+      expect(ose_secret_json_attributes['cleartext_ose_secret']).to eq example_ose_secret_yaml
+      expect_json_object_includes_keys(ose_secret_json_relationships, nested_models)
     end
 
-    it 'cannot authenticate and does not return decrypted account if user not logged in' do
-      account = encryptables(:credential1)
-      get :show, params: { id: account }, xhr: true
+    it 'cannot authenticate and does not return decrypted encryptable if user not logged in' do
+      get :show, params: { id: credentials1.id }, xhr: true
 
       expect(errors).to eq(['flashes.api.errors.user_not_logged_in'])
       expect(response).to have_http_status 401
     end
 
     context 'api_user' do
-      it 'authenticates with valid api user and returns account details' do
+      it 'authenticates with valid api user and returns encryptable details' do
         api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
-        teams(:team1).add_user(api_user, plaintext_team_password)
+        teams(:team1).add_user(api_user, team1_password)
 
         request.headers['Authorization-User'] = api_user.username
         request.headers['Authorization-Password'] = token
-        account = encryptables(:credential1)
-        get :show, params: { id: account }, xhr: true
+        get :show, params: { id: credentials1 }, xhr: true
 
-        account1_json_attributes = data['attributes']
-        account1_json_relationships = data['relationships']
+        credentials1_json_attributes = data['attributes']
+        credentials1_json_relationships = data['relationships']
 
-        expect(account1_json_attributes['name']).to eq 'credential1'
-        expect(account1_json_attributes['cleartext_username']).to eq 'test'
-        expect(account1_json_attributes['cleartext_password']).to eq 'password'
-        expect_json_object_includes_keys(account1_json_relationships, nested_models)
+        expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
+        expect(credentials1_json_attributes['cleartext_username']).to eq 'test'
+        expect(credentials1_json_attributes['cleartext_password']).to eq 'password'
+        expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
-      it 'authenticates with valid api user and returns account details with oidc enabled' do
+      it 'authenticates with valid api user and returns encryptable details with oidc enabled' do
         enable_openid_connect
         api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
-        teams(:team1).add_user(api_user, plaintext_team_password)
+        teams(:team1).add_user(api_user, team1_password)
 
         request.headers['Authorization-User'] = api_user.username
         request.headers['Authorization-Password'] = token
 
-        account = encryptables(:credential1)
-        get :show, params: { id: account }, xhr: true
+        get :show, params: { id: credentials1 }, xhr: true
 
-        account1_json_attributes = data['attributes']
-        account1_json_relationships = data['relationships']
+        credentials1_json_attributes = data['attributes']
+        credentials1_json_relationships = data['relationships']
 
-        expect(account1_json_attributes['name']).to eq 'credential1'
-        expect(account1_json_attributes['cleartext_username']).to eq 'test'
-        expect(account1_json_attributes['cleartext_password']).to eq 'password'
-        expect_json_object_includes_keys(account1_json_relationships, nested_models)
+        expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
+        expect(credentials1_json_attributes['cleartext_username']).to eq 'test'
+        expect(credentials1_json_attributes['cleartext_password']).to eq 'password'
+        expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
-      it 'authenticates with valid api user and returns account details with ldap enabled' do
+      it 'authenticates with valid api user and returns encryptable details with ldap enabled' do
         enable_ldap
         api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
-        teams(:team1).add_user(api_user, plaintext_team_password)
+        teams(:team1).add_user(api_user, team1_password)
 
         request.headers['Authorization-User'] = api_user.username
         request.headers['Authorization-Password'] = token
-        account = encryptables(:credential1)
-        get :show, params: { id: account }, xhr: true
 
-        account1_json_attributes = data['attributes']
-        account1_json_relationships = data['relationships']
+        get :show, params: { id: credentials1 }, xhr: true
 
-        expect(account1_json_attributes['name']).to eq 'credential1'
-        expect(account1_json_attributes['cleartext_username']).to eq 'test'
-        expect(account1_json_attributes['cleartext_password']).to eq 'password'
-        expect_json_object_includes_keys(account1_json_relationships, nested_models)
+        credentials1_json_attributes = data['attributes']
+        credentials1_json_relationships = data['relationships']
+
+        expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
+        expect(credentials1_json_attributes['cleartext_username']).to eq 'test'
+        expect(credentials1_json_attributes['cleartext_password']).to eq 'password'
+        expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
-      it 'does not authenticate with invalid api token and does not show account details' do
+      it 'does not authenticate with invalid api token and does not show encryptable details' do
         api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
-        teams(:team1).add_user(api_user, plaintext_team_password)
+        teams(:team1).add_user(api_user, team1_password)
 
         request.headers['Authorization-User'] = api_user.username
         request.headers['Authorization-Password'] = Base64.encode64('abcd')
 
-        account = encryptables(:credential1)
-        get :show, params: { id: account }, xhr: true
+        get :show, params: { id: credentials1.id }, xhr: true
 
         expect(errors).to eq(['flashes.api.errors.auth_failed'])
         expect(response).to have_http_status 401
       end
 
-      it 'cannot authenticate without headers and does not show account details' do
+      it 'cannot authenticate without headers and does not show encryptable details' do
         api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
-        teams(:team1).add_user(api_user, plaintext_team_password)
+        teams(:team1).add_user(api_user, team1_password)
 
-        account = encryptables(:credential1)
-        get :show, params: { id: account }, xhr: true
+        get :show, params: { id: credentials1.id }, xhr: true
 
         expect(response).to have_http_status 401
         expect(errors).to eq(['flashes.api.errors.user_not_logged_in'])
       end
 
-      it 'does not show account details if valid api user not teammember' do
+      it 'does not show encryptable details if valid api user not teammember' do
         api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
         request.headers['Authorization-User'] = api_user.username
         request.headers['Authorization-Password'] = token
 
-        account = encryptables(:credential1)
-        get :show, params: { id: account }, xhr: true
+        get :show, params: { id: credentials1 }, xhr: true
 
         expect(errors).to eq(['flashes.admin.admin.no_access'])
         expect(response).to have_http_status 403
       end
 
-      it 'shows account details as user and does not use user authenticator if active session' do
+      it 'shows encryptable details as user and does not use user authenticator if active session' do
         login_as(:bob)
 
         set_auth_headers
 
-        account = encryptables(:credential1)
-        get :show, params: { id: account }, xhr: true
+        get :show, params: { id: credentials1.id }, xhr: true
 
-        account1_json_attributes = data['attributes']
-        account1_json_relationships = data['relationships']
+        credentials1_json_attributes = data['attributes']
+        credentials1_json_relationships = data['relationships']
 
         expect(response).to have_http_status(200)
-        expect(account1_json_attributes['name']).to eq 'credential1'
-        expect(account1_json_attributes['cleartext_username']).to eq 'test'
-        expect(account1_json_attributes['cleartext_password']).to eq 'password'
-        expect_json_object_includes_keys(account1_json_relationships, nested_models)
+        expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
+        expect(credentials1_json_attributes['cleartext_username']).to eq 'test'
+        expect(credentials1_json_attributes['cleartext_password']).to eq 'password'
+        expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
-      it 'shows account as human user details if headers valid' do
+      it 'shows encryptable as human user details if headers valid' do
         set_auth_headers
 
-        account = encryptables(:credential1)
-        get :show, params: { id: account }, xhr: true
+        get :show, params: { id: credentials1.id }, xhr: true
 
-        account1_json_attributes = data['attributes']
-        account1_json_relationships = data['relationships']
+        credentials1_json_attributes = data['attributes']
+        credentials1_json_relationships = data['relationships']
 
         expect(response).to have_http_status(200)
-        expect(account1_json_attributes['name']).to eq 'credential1'
-        expect(account1_json_attributes['cleartext_username']).to eq 'test'
-        expect(account1_json_attributes['cleartext_password']).to eq 'password'
-        expect_json_object_includes_keys(account1_json_relationships, nested_models)
+        expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
+        expect(credentials1_json_attributes['cleartext_username']).to eq 'test'
+        expect(credentials1_json_attributes['cleartext_password']).to eq 'password'
+        expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
     end
   end
 
   context 'PATCH update' do
-    it 'updates credentials account with valid params structure' do
+    it 'updates credentials encryptable with valid params structure' do
       set_auth_headers
 
-      account = encryptables(:credential1)
+      credentials1 = encryptables(:credentials1)
 
-      account_params = {
+      encryptable_params = {
         data: {
-          id: account.id,
+          id: credentials1.id,
           attributes: {
             name: 'Bob Meyer',
             tag: 'taggy',
             cleartext_username: 'globi',
             cleartext_password: 'petzi'
           },
-          relationships: { folder: { data: { id: account.folder_id, type: 'folders' } } }
-        }, id: account.id
+          relationships: { folder: { data: { id: credentials1.folder_id, type: 'folders' } } }
+        }, id: credentials1.id
       }
-      patch :update, params: account_params, xhr: true
+      patch :update, params: encryptable_params, xhr: true
 
-      account.reload
+      credentials1.reload
 
-      account1_json_attributes = data['attributes']
+      credentials1_json_attributes = data['attributes']
 
-      account.decrypt(plaintext_team_password)
-      expect(account1_json_attributes['name']).to eq 'Bob Meyer'
-      expect(account1_json_attributes['cleartext_username']).to eq 'globi'
-      expect(account1_json_attributes['cleartext_password']).to eq 'petzi'
+      credentials1.decrypt(team1_password)
+      expect(credentials1_json_attributes['name']).to eq 'Bob Meyer'
+      expect(credentials1_json_attributes['cleartext_username']).to eq 'globi'
+      expect(credentials1_json_attributes['cleartext_password']).to eq 'petzi'
 
       expect(response).to have_http_status(200)
     end
 
-    it 'updates ose_secret account with valid params structure and adjust data property' do
+    it 'updates ose secret encryptable with valid params structure and adjust data property' do
       set_auth_headers
 
-      account = ose_secret
+      encryptable = ose_secret
       updated_ose_secret_data = {
         name: 'example secret',
         password: 'dvF2jc1JA'
       }.to_yaml
-      account_params = {
+      encryptable_params = {
         data: {
-          id: account.id,
+          id: encryptable.id,
           attributes: {
             name: 'updated ose secret',
             cleartext_ose_secret: updated_ose_secret_data
           },
-          relationships: { folder: { data: { id: account.folder_id, type: 'folders' } } }
-        }, id: account.id
+          relationships: { folder: { data: { id: encryptable.folder_id, type: 'folders' } } }
+        }, id: encryptable.id
       }
-      patch :update, params: account_params, xhr: true
+      patch :update, params: encryptable_params, xhr: true
 
-      account.reload
+      encryptable.reload
+      encryptable.decrypt(team1_password)
 
-      account.decrypt(plaintext_team_password)
-      expect(account.name).to eq 'updated ose secret'
-      expect(account.cleartext_ose_secret).to eq updated_ose_secret_data
+      expect(encryptable.name).to eq 'updated ose secret'
+      expect(encryptable.cleartext_ose_secret).to eq updated_ose_secret_data
 
       expect(response).to have_http_status(200)
     end
 
-    it 'moves account to other team' do
+    it 'moves encryptable to other team' do
       login_as(:bob)
 
-      credential = encryptables(:credential1)
+      credentials1 = encryptables(:credentials1)
       target_folder = folders(:folder2)
 
       encryptable_params = {
         data: {
-          id: credential.id,
+          id: credentials1.id,
           attributes: {
             name: 'Bob Meyer',
             tag: 'taggy',
@@ -360,33 +346,32 @@ describe Api::EncryptablesController do
             cleartext_password: 'petzi'
           },
           relationships: { folder: { data: { id: target_folder.id, type: 'folders' } } }
-        }, id: credential.id
+        }, id: credentials1.id
       }
       patch :update, params: encryptable_params, xhr: true
 
-      credential.reload
+      credentials1.reload
 
-      plaintext_team2_password = teams(:team2).decrypt_team_password(bob, private_key)
-      credential.decrypt(plaintext_team2_password)
-      file_entry = credential.file_entries.first
-      file_entry.decrypt(plaintext_team2_password)
+      credentials1.decrypt(team2_password)
+      file_entry = credentials1.file_entries.first
+      file_entry.decrypt(team2_password)
 
-      expect(credential.cleartext_username).to eq 'globi'
-      expect(credential.cleartext_password).to eq 'petzi'
+      expect(credentials1.cleartext_username).to eq 'globi'
+      expect(credentials1.cleartext_password).to eq 'petzi'
       expect(file_entry.cleartext_file).to eq 'Das ist ein test File'
 
       expect(response).to have_http_status(200)
     end
 
-    it 'updates account but does not move without team membership' do
+    it 'updates encryptable but does not move without team membership' do
       login_as(:alice)
 
-      account = encryptables(:credential1)
+      credentials1 = encryptables(:credentials1)
       new_folder = folders(:folder2)
 
-      account_params = {
+      encryptable_params = {
         data: {
-          id: account.id,
+          id: credentials1.id,
           attributes: {
             name: 'Bob Meyer',
             tag: 'taggy',
@@ -394,118 +379,117 @@ describe Api::EncryptablesController do
             cleartext_password: 'petzi'
           },
           relationships: { folder: { data: { id: new_folder.id, type: 'folders' } } }
-        }, id: account.id
+        }, id: credentials1.id
       }
-      patch :update, params: account_params, xhr: true
+      patch :update, params: encryptable_params, xhr: true
 
       expect(response.status).to be(403)
       expect(errors).to eq(['flashes.admin.admin.no_access'])
 
-      account.reload
+      credentials1.reload
 
-      plaintext_team2_password = teams(:team2).decrypt_team_password(bob, private_key)
       expect do
-        account.decrypt(plaintext_team2_password)
+        credentials1.decrypt(team2_password)
       end.to raise_error(OpenSSL::Cipher::CipherError, 'bad decrypt')
 
-      file_entry = account.file_entries.first
+      file_entry = credentials1.file_entries.first
       expect do
-        file_entry.decrypt(plaintext_team2_password)
+        file_entry.decrypt(team2_password)
       end.to raise_error(OpenSSL::Cipher::CipherError, 'bad decrypt')
     end
 
-    it 'cannot set account password and username attributes by params' do
+    it 'cannot set encryptable password and username attributes by params' do
       set_auth_headers
 
-      account = encryptables(:credential1)
+      credentials1 = encryptables(:credentials1)
 
-      account_params = {
+      encryptable_params = {
         data: {
-          id: account.id,
+          id: credentials1.id,
           attributes: {
             username: 'invalid username param',
             password: 'invalid password param'
           },
-          relationships: { folder: { data: { id: account.folder_id, type: 'folders' } } }
-        }, id: account.id
+          relationships: { folder: { data: { id: credentials1.folder_id, type: 'folders' } } }
+        }, id: credentials1.id
       }
 
-      patch :update, params: account_params, xhr: true
+      patch :update, params: encryptable_params, xhr: true
 
-      account1_json_attributes = data['attributes']
+      credentials1_json_attributes = data['attributes']
 
-      expect(account1_json_attributes['name']).to eq 'credential1'
-      expect(account1_json_attributes['cleartext_username']).to be_nil
-      expect(account1_json_attributes['cleartext_password']).to be_nil
+      expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
+      expect(credentials1_json_attributes['cleartext_username']).to be_nil
+      expect(credentials1_json_attributes['cleartext_password']).to be_nil
     end
 
-    it 'does not update account when user not in team' do
+    it 'does not update encryptable when user not in team' do
       request.headers['Authorization-User'] = alice.username
       request.headers['Authorization-Password'] = Base64.encode64('password')
 
-      account = encryptables(:credential2)
+      credentials2 = encryptables(:credentials2)
 
-      account_params = {
+      encryptable_params = {
         data: {
-          id: account.id,
+          id: credentials2.id,
           attributes: {
             name: 'Bob Meyer',
             tag: 'taggy'
           }
         },
-        id: account.id
+        id: credentials2.id
       }
 
-      patch :update, params: account_params, xhr: true
+      patch :update, params: encryptable_params, xhr: true
 
-      account.reload
+      credentials2.reload
 
-      expect(account.name).to eq 'credential2'
-      expect(account.tag).to eq 'tag'
+      expect(credentials2.name).to eq 'Twitter Account'
+      expect(credentials2.tag).to eq 'tag'
       expect(response).to have_http_status(403)
     end
 
     it 'updates openshift secret as api user' do
       api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
-      teams(:team1).add_user(api_user, plaintext_team_password)
+      teams(:team1).add_user(api_user, team1_password)
 
       request.headers['Authorization-User'] = api_user.username
       request.headers['Authorization-Password'] = token
 
-      account = ose_secret
+      encryptable = ose_secret
 
-      account_params = {
+      encryptable_params = {
         data: {
-          id: account.id,
+          id: encryptable.id,
           attributes: {
             name: 'updated secret',
             tag: 'taggy'
           },
-          relationships: { folder: { data: { id: account.folder_id, type: 'folders' } } }
-        }, id: account.id
+          relationships: { folder: { data: { id: encryptable.folder_id, type: 'folders' } } }
+        }, id: encryptable.id
       }
-      patch :update, params: account_params, xhr: true
+      patch :update, params: encryptable_params, xhr: true
 
-      account.reload
+      encryptable.reload
 
-      account1_json_attributes = data['attributes']
+      encryptable_json_attributes = data['attributes']
 
-      account.decrypt(plaintext_team_password)
-      expect(account1_json_attributes['name']).to eq 'updated secret'
+      encryptable.decrypt(team1_password)
+      expect(encryptable_json_attributes['name']).to eq 'updated secret'
 
       expect(response).to have_http_status(200)
     end
   end
 
   context 'POST create' do
-    it 'creates a new account if part of team' do
+    it 'creates a new encryptable if part of team' do
       set_auth_headers
 
       login_as(:alice)
       folder = folders(:folder1)
 
-      new_account_params = {
+      new_encryptable_params = {
         data: {
           attributes: {
             type: 'credentials',
@@ -522,19 +506,19 @@ describe Api::EncryptablesController do
         }
       }
 
-      post :create, params: new_account_params, xhr: true
+      post :create, params: new_encryptable_params, xhr: true
 
       expect(response).to have_http_status(201)
       expect(data['attributes']['name']).to eq 'New Account'
     end
 
-    it 'cannot create a new account if part of team' do
+    it 'cannot create a new encryptable if part of team' do
       set_auth_headers
 
       login_as(:alice)
       folder = folders(:folder2)
 
-      new_account_params = {
+      new_encryptable_params = {
         data: {
           attributes: {
             name: 'New Account'
@@ -550,7 +534,7 @@ describe Api::EncryptablesController do
         }
       }
 
-      post :create, params: new_account_params, xhr: true
+      post :create, params: new_encryptable_params, xhr: true
 
       expect(response).to have_http_status(403)
     end
@@ -558,17 +542,17 @@ describe Api::EncryptablesController do
     it 'creates new openshift secret if api user' do
       api_user.update!(valid_until: Time.zone.now + 5.minutes)
 
-      teams(:team1).add_user(api_user, plaintext_team_password)
+      teams(:team1).add_user(api_user, team1_password)
 
       request.headers['Authorization-User'] = api_user.username
       request.headers['Authorization-Password'] = token
 
       folder = folders(:folder1)
 
-      new_account_params = {
+      new_encryptable_params = {
         data: {
           attributes: {
-            name: 'New Account',
+            name: 'New OSE Secret',
             type: 'ose_secret'
           },
           relationships: {
@@ -583,36 +567,33 @@ describe Api::EncryptablesController do
       }
 
       expect do
-        post :create, params: new_account_params, xhr: true
-      end.to change { Encryptable.count }.by(1)
+        post :create, params: new_encryptable_params, xhr: true
+      end.to change { Encryptable::OSESecret.count }.by(1)
 
       expect(response).to have_http_status(201)
     end
 
     context 'DELETE destroy' do
-      it 'cant destroy an account if not in team' do
+      it 'cant destroy an encryptable if not in team' do
         login_as(:alice)
 
-        alice = users(:alice)
         team2 = teams(:team2)
-        account = team2.folders.first.encryptables.first
+        encryptable = team2.folders.first.encryptables.first
 
         expect(team2.teammember?(alice)).to eq false
 
         expect do
-          delete :destroy, params: { id: account.id, folder_id: account.folder.id,
-                                     team_id: account.folder.team.id }
+          delete :destroy, params: { id: encryptable.id, folder_id: encryptable.folder.id,
+                                     team_id: encryptable.folder.team_id }
         end.to change { Encryptable.count }.by(0)
       end
 
-      it 'can destroy an account if human user is in his team' do
-        credential = encryptables(:credential1)
-
+      it 'can destroy an encryptable if human user is in team' do
         login_as(:bob)
 
         expect do
-          delete :destroy, params: { id: credential.id, folder_id: credential.folder.id,
-                                     team_id: credential.folder.team.id }
+          delete :destroy, params: { id: credentials1.id, folder_id: credentials1.folder_id,
+                                     team_id: credentials1.folder.team_id }
         end.to change { Encryptable.count }.by(-1)
       end
     end
@@ -621,11 +602,10 @@ describe Api::EncryptablesController do
   private
 
   def create_ose_secret
-    secret = Encryptable::OSESecret.new(name: 'ose_secret',
+    secret = Encryptable::OSESecret.new(name: 'Rails Secret Key Base',
                                         folder: folders(:folder1),
                                         cleartext_ose_secret: example_ose_secret_yaml)
-
-    secret.encrypt(plaintext_team_password)
+    secret.encrypt(team1_password)
     secret.save!
     secret
   end

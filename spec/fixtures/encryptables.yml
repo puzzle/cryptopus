@@ -18,17 +18,17 @@
 #  See the COPYING file at the top-level directory or at
 #  https://github.com/puzzle/cryptopus.
 
-credential1:
+credentials1:
   type: Encryptable::Credentials
-  name: credential1
-  description: description1
+  name: Personal Mailbox
+  description: Mailprovider One
   folder: folder1
   encrypted_data: '{"password":{"iv":null,"data":"pulO7xz5jDwUVQzbOqJzIw=="},"username":{"iv":null,"data":"0CkUu2Bd9eNB4OCuXVC3TA=="}}'
 
-credential2:
+credentials2:
   type: Encryptable::Credentials
-  name: credential2
-  description: description2
+  name: Twitter Account
+  description: My personal twitter account
   folder: folder2
   tag: tag
   encrypted_data: '{"password":{"iv":null,"data":"X2i8woXXwIHew6zcnBws9Q=="},"username":{"iv":null,"data":"Kvkd66uUiNq4Gw4Yh7PvVg=="}}'

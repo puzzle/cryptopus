@@ -25,11 +25,6 @@
 #  role                         :integer          default(0), not null
 #
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
 class User < ApplicationRecord
   delegate :l, to: I18n
 
@@ -85,7 +80,7 @@ class User < ApplicationRecord
     update!(locked: true)
   end
 
-  def accounts
+  def encryptables
     Encryptable.joins(:folder).
       joins('INNER JOIN teammembers ON folders.team_id = teammembers.team_id').
       where(teammembers: { user_id: id })

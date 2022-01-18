@@ -9,7 +9,7 @@ class Api::EncryptablesController < ApiController
 
   helper_method :team
 
-  # GET /api/accounts
+  # GET /api/encryptables
   def index(options = {})
     authorize Encryptable
     render({ json: fetch_entries,
@@ -18,27 +18,27 @@ class Api::EncryptablesController < ApiController
            .merge(options.fetch(:render_options, {})))
   end
 
-  # GET /api/accounts/:id
+  # GET /api/encryptables/:id
   def show
     authorize encryptable
     encryptable.decrypt(decrypted_team_password(team))
     render_entry
   end
 
-  # POST /api/accounts
+  # POST /api/encryptables
   def create
     build_entry
-    authorize @encryptable
+    authorize encryptable
     encryptable.encrypt(decrypted_team_password(team))
-    if @encryptable.save
+    if encryptable.save
       @response_status = :created
-      render_json @encryptable
+      render_json encryptable
     else
       render_errors
     end
   end
 
-  # PATCH /api/accounts/:id?Query
+  # PATCH /api/encryptables/:id?Query
   def update
     authorize encryptable
     encryptable.attributes = model_params
@@ -61,28 +61,28 @@ class Api::EncryptablesController < ApiController
     elsif action_name == 'destroy'
       Encryptable
     elsif @encryptable.present?
-      @encryptable.class
+      encryptable.class
     else
       Encryptable::Credentials
     end
   end
 
   def fetch_entries
-    accounts = current_user.accounts
+    encryptables = current_user.encryptables
     if tag_param.present?
-      accounts = accounts.find_by(tag: tag_param)
+      encryptables = encryptables.find_by(tag: tag_param)
     end
-    accounts
+    encryptables
   end
 
-  def encrypt(account)
-    if account.folder_id_changed?
+  def encrypt(encryptable)
+    if encryptable.folder_id_changed?
       # if folder id changed recheck team permission
-      authorize account
+      authorize encryptable
       # move handler calls encrypt implicit
       encryptable_move_handler.move
     else
-      account.encrypt(decrypted_team_password(team))
+      encryptable.encrypt(decrypted_team_password(team))
     end
   end
 
