@@ -56,7 +56,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see
 [licenses](http://www.gnu.org/licenses/).
 
-Copyright (c) 2008-2017, Puzzle ITC GmbH.
+Copyright (c) 2008-2022, Puzzle ITC GmbH.
 
 # Contact Information
 
