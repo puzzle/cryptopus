@@ -1,3 +1,5 @@
+# Cryptopus Changelog
+
 ## Version 4.1
 - Introduce Puzzle-Shell hero & dashboard
 - Add default CCLI user
