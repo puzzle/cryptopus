@@ -1,3 +1,7 @@
+## Version 4.1
+- Introduce Puzzle-Shell hero & dashboard
+- Add default CCLI user
+
 ## Version 4.0
 - Introduction to Puzzle-Shell
 
