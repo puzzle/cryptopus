@@ -13,15 +13,25 @@
         Openshift-Secret: {{@encryptable.name}}
       </div>
       <div class="col"></div>
-    {{else}}
+    {{else if @encryptable.isCredential}}
       <div class="col-auto pr-0" role="button" {{on "click" this.transitionToAccount}}>
         <img class="img d-inline w-30 float-left icon-big-button" src="/assets/images/key.svg" alt="key">
       </div>
       <div class="col-4 underline-hover break-words" role="button" {{on "click" this.transitionToAccount}}>
         {{@encryptable.name}}
       </div>
+    {{else if @encryptable.isFile}}
+      <div class="col-auto pr-0" role="button" {{on "click" this.transitionToAccount}}>
+        <img class="img d-inline w-30 float-left icon-big-button" src="/assets/images/file.svg" alt="file">
+      </div>
+      <div class="col-4 break-words">
+        File: {{@encryptable.name}}
+      </div>
+      <div class="col"></div>
     {{/if}}
-    {{#unless @encryptable.isOseSecret}}
+
+
+    {{#if @encryptable.isCredential}}
       <div class="col-2 pr-0 d-none d-md-block">
         <div class="hide-wrapper">
           <Input class="d-inline form-control" id="input-password-{{@encryptable.id}}" @disabled="true" @value={{@encryptable.cleartextUsername}}/>
@@ -47,15 +57,15 @@
           <BsTooltip @title={{t "encryptables.show.copy_password"}} @delayShow="500" />
         </button>
       </div>
-    {{/unless}}
+    {{/if}}
 
     <div class="col-md-auto d-none d-md-block">
-      {{#unless @encryptable.isOseSecret}}
+      {{#if @encryptable.isCredential}}
         <a class="mx-1" role="button" {{on "click" this.toggleEncryptableEdit}}>
           <img class="icon-medium-button d-inline" src="/assets/images/edit.svg" alt="edit">
           <BsTooltip @title={{t "encryptables.edit.title"}} @delayShow="1000" />
         </a>
-      {{/unless}}
+      {{/if}}
       <DeleteWithConfirmation @class="mx-1" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
         <img class="icon-medium-button d-inline" src="/assets/images/delete.svg" alt="delete">
         <BsTooltip @title={{t "tooltips.delete_account"}} @delayShow="1000" />

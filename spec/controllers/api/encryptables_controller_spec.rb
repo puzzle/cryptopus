@@ -355,12 +355,9 @@ describe Api::EncryptablesController do
       credentials1.reload
 
       credentials1.decrypt(team2_password)
-      file_entry = credentials1.file_entries.first
-      file_entry.decrypt(team2_password)
 
       expect(credentials1.cleartext_username).to eq 'globi'
       expect(credentials1.cleartext_password).to eq 'petzi'
-      expect(file_entry.cleartext_file).to eq 'Das ist ein test File'
 
       expect(response).to have_http_status(200)
     end
@@ -392,11 +389,6 @@ describe Api::EncryptablesController do
 
       expect do
         credentials1.decrypt(team2_password)
-      end.to raise_error(OpenSSL::Cipher::CipherError, 'bad decrypt')
-
-      file_entry = credentials1.file_entries.first
-      expect do
-        file_entry.decrypt(team2_password)
       end.to raise_error(OpenSSL::Cipher::CipherError, 'bad decrypt')
     end
 

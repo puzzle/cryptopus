@@ -10,10 +10,6 @@ export default class ShowComponent extends Component {
   constructor() {
     super(...arguments);
 
-    this.store.query("file-entry", {
-      encryptableId: this.args.encryptable.id
-    });
-
     window.scrollTo(0, 0);
   }
 
@@ -21,19 +17,11 @@ export default class ShowComponent extends Component {
   isEncryptableEditing = false;
 
   @tracked
-  isFileEntryCreating = false;
-
-  @tracked
   isPasswordVisible = false;
 
   @action
   toggleEncryptableEdit() {
     this.isEncryptableEditing = !this.isEncryptableEditing;
-  }
-
-  @action
-  toggleFileEntryNew() {
-    this.isFileEntryCreating = !this.isFileEntryCreating;
   }
 
   @action
