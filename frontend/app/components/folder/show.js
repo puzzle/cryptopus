@@ -14,9 +14,6 @@ export default class ShowComponent extends Component {
   @tracked
   isNewAccount = false;
 
-  @tracked
-  isExpanded = this.isSearchQueryPresent() || this.currentFolderIsSelected();
-
   constructor() {
     super(...arguments);
   }
@@ -57,11 +54,15 @@ export default class ShowComponent extends Component {
     this.router.transitionTo("teams.show", this.args.folder.team.get("id"));
   }
 
-  currentFolderIsSelected() {
-    return this.navService.selectedFolder === this.args.folder;
+  get isExpanded() {
+    return this.isSearchQueryPresent || this.isSelectedFolder;
   }
 
-  isSearchQueryPresent() {
+  get isSearchQueryPresent() {
     return isPresent(this.navService.searchQuery);
+  }
+
+  get isSelectedFolder() {
+    return this.navService.selectedFolder === this.args.folder;
   }
 }
