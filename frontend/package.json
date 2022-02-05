@@ -52,7 +52,6 @@
     "ember-cli-template-lint": "^1.0.0-beta.3",
     "ember-cli-terser": "^4.0.1",
     "ember-cli-update": "^0.56.0",
-    "ember-component-css": "^0.7.4",
     "ember-data": "~3.24.0",
     "ember-export-application-global": "^2.0.1",
     "ember-fetch": "^8.0.2",
