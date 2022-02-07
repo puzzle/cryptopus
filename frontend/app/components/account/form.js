@@ -111,10 +111,7 @@ export default class Form extends BaseFormComponent {
 
   saveEditedData(savedRecords) {
     if (isPresent(savedRecords)) {
-      if (
-        this.isNewRecord ||
-        this.router.currentRouteName === "accounts.show"
-      ) {
+      if (this.isNewRecord || this.isAccountShowRoute) {
         this.router.transitionTo("accounts.show", savedRecords[0].id);
       } else {
         this.navService.setSelectedTeamById(
@@ -128,6 +125,10 @@ export default class Form extends BaseFormComponent {
         );
       }
     }
+  }
+
+  get isAccountShowRoute() {
+    return this.router.currentRouteName === "accounts.show";
   }
 
   handleSubmitError(response) {
