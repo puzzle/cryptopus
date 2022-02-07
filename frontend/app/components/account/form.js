@@ -106,18 +106,27 @@ export default class Form extends BaseFormComponent {
   handleSubmitSuccess(savedRecords) {
     this.abort();
     this.navService.clear();
-    if (this.isNewRecord || this.router.currentRouteName === "accounts.show") {
-      this.router.transitionTo("accounts.show", savedRecords[0].id);
-    } else {
-      this.navService.setSelectedTeamById(
-        savedRecords[0].folder.get("team.id")
-      );
-      this.navService.setSelectedFolderById(savedRecords[0].folder.get("id"));
-      this.router.transitionTo(
-        "teams.folders-show",
-        savedRecords[0].folder.get("team.id"),
-        savedRecords[0].folder.get("id")
-      );
+    this.saveEditedData(savedRecords);
+  }
+
+  saveEditedData(savedRecords) {
+    if (isPresent(savedRecords)) {
+      if (
+        this.isNewRecord ||
+        this.router.currentRouteName === "accounts.show"
+      ) {
+        this.router.transitionTo("accounts.show", savedRecords[0].id);
+      } else {
+        this.navService.setSelectedTeamById(
+          savedRecords[0].folder.get("team.id")
+        );
+        this.navService.setSelectedFolderById(savedRecords[0].folder.get("id"));
+        this.router.transitionTo(
+          "teams.folders-show",
+          savedRecords[0].folder.get("team.id"),
+          savedRecords[0].folder.get("id")
+        );
+      }
     }
   }
 
