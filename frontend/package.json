@@ -42,7 +42,7 @@
     "ember-cli-clipboard": "^0.16.0",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-eslint": "^5.1.0",
-    "ember-cli-htmlbars": "^5.3.1",
+    "ember-cli-htmlbars": "~6.0",
     "ember-cli-inject-live-reload": "^2.0.1",
     "ember-cli-moment-shim": "^3.4.0",
     "ember-cli-password-strength": "^2.0.0",
