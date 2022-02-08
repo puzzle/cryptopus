@@ -99,7 +99,7 @@ class User::Api < User
   private
 
   def decrypt_token(human_private_key)
-    CryptUtils.decrypt_rsa(encrypted_token, human_private_key)
+    Asymmetric.decrypt(encrypted_token, human_private_key)
   end
 
   delegate :description,
@@ -128,8 +128,8 @@ class User::Api < User
 
   def encrypt_token(token)
     public_key = human_user.public_key
-    self.encrypted_token = CryptUtils.encrypt_rsa(token, public_key)
-    self.password = CryptUtils.one_way_crypt(token)
+    self.encrypted_token = Asymmetric.encrypt(token, public_key)
+    self.password = Hashing.hash(token)
   end
 
   def refresh_valid_until

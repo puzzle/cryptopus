@@ -37,10 +37,10 @@ class Teammember < ApplicationRecord
 
   def recrypt_team_password(user, admin, private_key)
     teammember_admin = admin.teammembers.find_by(team_id: team_id)
-    team_password = CryptUtils.decrypt_rsa(teammember_admin.
+    team_password = Asymmetric.decrypt(teammember_admin.
       password, private_key)
 
-    self.password = CryptUtils.encrypt_rsa(team_password, user.public_key)
+    self.password = Asymmetric.encrypt(team_password, user.public_key)
     save
   end
 

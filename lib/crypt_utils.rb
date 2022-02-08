@@ -17,36 +17,6 @@ class CryptUtils
   class << self
     include OpenSSL
 
-    def one_way_crypt(plaintext_password)
-      salt = SecureRandom.hex
-      "sha512$#{salt}$" + Digest::SHA512.hexdigest(salt + plaintext_password)
-    end
-
-    def legacy_one_way_crypt(password)
-      Digest::SHA1.hexdigest(password)
-    end
-
-    def new_keypair
-      keypair = PKey::RSA.new(2048)
-      keypair
-    end
-
-    def extract_private_key(keypair)
-      keypair.to_s
-    end
-
-    def extract_public_key(keypair)
-      keypair.public_key.to_s
-    end
-
-    def decrypt_rsa(encrypted_content, private_key)
-      keypair = PKey::RSA.new(private_key)
-      decrypted_content = keypair.private_decrypt(encrypted_content)
-      decrypted_content
-    rescue StandardError
-      nil
-    end
-
     def encrypt_rsa(content, public_key)
       keypair = PKey::RSA.new(public_key)
       encrypted_content = keypair.public_encrypt(content)
@@ -82,14 +52,6 @@ class CryptUtils
       cipher.update(private_key_part) + cipher.final
     rescue StandardError
       raise Exceptions::DecryptFailed
-    end
-
-    def validate_keypair(private_key, public_key)
-      test_data = 'Test Data'
-      encrypted_test_data = CryptUtils.encrypt_rsa(test_data, public_key)
-      unless test_data == CryptUtils.decrypt_rsa(encrypted_test_data, private_key)
-        raise Exceptions::DecryptFailed
-      end
     end
 
     def encrypt_blob(blob, team_password)

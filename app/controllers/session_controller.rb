@@ -78,7 +78,7 @@ class SessionController < ApplicationController
       user = user_authenticator.user
       set_session_attributes(user, password)
       user_authenticator.update_user_info(request.remote_ip)
-      CryptUtils.validate_keypair(session[:private_key], user.public_key)
+      Asymmetric.validate_keypair(session[:private_key], user.public_key)
     rescue Exceptions::DecryptFailed
       return false
     end

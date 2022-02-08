@@ -44,7 +44,7 @@ class User < ApplicationRecord
     end
 
     if authenticate_db(old)
-      self.password = CryptUtils.one_way_crypt(new)
+      self.password = Hashing.hash(new)
       pk = CryptUtils.decrypt_private_key(private_key, old)
       self.private_key = CryptUtils.encrypt_private_key(pk, new)
       save!
@@ -52,9 +52,9 @@ class User < ApplicationRecord
   end
 
   def create_keypair(password)
-    keypair = CryptUtils.new_keypair
-    uncrypted_private_key = CryptUtils.extract_private_key(keypair)
-    self.public_key = CryptUtils.extract_public_key(keypair)
+    keypair = Asymmetric.generate_new_keypair
+    uncrypted_private_key = keypair.to_s
+    self.public_key = keypair.public_key.to_s
     self.private_key = CryptUtils.encrypt_private_key(uncrypted_private_key, password)
   end
 

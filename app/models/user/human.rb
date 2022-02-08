@@ -64,7 +64,7 @@ class User::Human < User
       user = new(user_params)
       user.auth = 'db'
       user.create_keypair password
-      user.password = CryptUtils.one_way_crypt(password)
+      user.password = Hashing.hash(password)
       user
     end
 
@@ -75,7 +75,7 @@ class User::Human < User
                  surname: '',
                  auth: 'db',
                  role: :admin,
-                 password: CryptUtils.one_way_crypt(password))
+                 password: Hashing.hash(password))
       user.create_keypair(password)
       user.save!
     end
@@ -149,7 +149,7 @@ class User::Human < User
 
   def preform_private_key_recryption!(new_password, old_password)
     plaintext_private_key = CryptUtils.decrypt_private_key(private_key, old_password)
-    CryptUtils.validate_keypair(plaintext_private_key, public_key)
+    Asymmetric.validate_keypair(plaintext_private_key, public_key)
     self.private_key = CryptUtils.encrypt_private_key(plaintext_private_key, new_password)
     true
   rescue Exceptions::DecryptFailed
@@ -164,7 +164,7 @@ class User::Human < User
       next if t.teammember?(self)
 
       active_teammember = t.teammembers.find_by user_id: actor.id
-      team_password = CryptUtils.decrypt_rsa(active_teammember.password, private_key)
+      team_password = Asymmetric.decrypt(active_teammember.password, private_key)
       t.add_user(self, team_password)
     end
   end
