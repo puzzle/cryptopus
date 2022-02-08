@@ -30,7 +30,7 @@
     </div>
     <div class="col-lg-9 accountname text-muted">
       <br><p class="d-inline">{{t "accounts.show.created_at"}}: {{moment-format @account.createdAt "DD.MM.YYYY hh:mm"}}</p>
-       / 
+       /
       <p class="d-inline">{{t "accounts.show.last_update"}}: {{moment-format @account.updatedAt "DD.MM.YYYY hh:mm"}}</p>
     </div>
   </div>
@@ -54,17 +54,17 @@
     {{else}}
       <div class="result-username">
         <Input id="cleartext_username" class="d-inline form-control" @disabled="true" @value={{@account.cleartextUsername}}/>
-        <CopyButton class="copy-btn btn btn-light" @clipboardText={{@account.cleartextUsername}}>
+        <CopyButton class="btn btn-light copy-btn" @clipboardText={{@account.cleartextUsername}} @success={{fn this.onCopied "username"}}>
           <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
         </CopyButton>
       </div>
       <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "accounts.show.show_password"}}</a>
       <div class="result-password">
         <Input id="cleartext_password" class="d-inline form-control {{if this.isPasswordVisible "" "visibility-hidden"}}" @disabled="true" @value={{@account.cleartextPassword}}/>
-        <CopyButton class="btn btn-light" @clipboardText={{@account.cleartextPassword}}>
+        <CopyButton class="btn btn-light copy-btn" @clipboardText={{@account.cleartextPassword}} @success={{fn this.onCopied "password"}}>
           <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
         </CopyButton>
-      </div> 
+      </div>
     {{/if}}
   </div>
   <div class="d-flex flex-row justify-content-between mb-2">

@@ -6,6 +6,8 @@ import { inject as service } from "@ember/service";
 export default class ShowComponent extends Component {
   @service store;
   @service router;
+  @service intl;
+  @service notify;
 
   constructor() {
     super(...arguments);
@@ -53,5 +55,10 @@ export default class ShowComponent extends Component {
       this.args.account.folder.get("team.id"),
       this.args.account.folder.get("id")
     );
+  }
+
+  @action
+  onCopied(attribute) {
+    this.notify.info(this.intl.t(`flashes.accounts.${attribute}_copied`));
   }
 }
