@@ -25,12 +25,12 @@ class Account::Credentials < Account
   def encrypt_username(team_password)
     return self.username = '' if cleartext_username.blank?
 
-    self.username = CryptUtils.encrypt_blob(cleartext_username, team_password)
+    self.username = Symmetric::AES256.encrypt(cleartext_username, team_password)
   end
 
   def encrypt_password(team_password)
     return if cleartext_password.blank?
 
-    self.password = CryptUtils.encrypt_blob(cleartext_password, team_password)
+    self.password = Symmetric::AES256.encrypt(cleartext_password, team_password)
   end
 end

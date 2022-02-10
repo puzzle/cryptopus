@@ -11,13 +11,13 @@ class Account::EncryptedData
   end
 
   def encrypt(encryption_key)
-    value, iv = CryptUtils.encrypt_base64(cleartext_value.to_json, encryption_key)
+    value, iv = Symmetric::AES256IV.encrypt(cleartext_value.to_json, encryption_key)
     self.value = value
     self.iv = Base64.strict_encode64(iv)
   end
 
   def decrypt(encryption_key)
-    CryptUtils.decrypt_base64(value, encryption_key, Base64.strict_decode64(iv))
+    Symmetric::AES256IV.decrypt(value, encryption_key, Base64.strict_decode64(iv))
   end
 
   def to_json(*_args)

@@ -50,7 +50,7 @@ class UserSeeder
     keypair = Asymmetric.generate_new_keypair
     unencrypted_private_key = keypair.to_s
     user.public_key = keypair.public_key.to_s
-    user.private_key = CryptUtils.encrypt_private_key(unencrypted_private_key, 'password')
+    user.private_key = Symmetric::AES256.encrypt_with_salt(unencrypted_private_key, 'password')
   end
 
 end

@@ -6,7 +6,7 @@ describe Asymmetric do
   let(:keypair) { Asymmetric.generate_new_keypair }
   let(:private_key) { keypair.to_s }
   let(:public_key) { keypair.public_key.to_s }
-  let(:team_password) { CryptUtils.new_team_password }
+  let(:team_password) { Symmetric::AES256.random_key }
 
   it 'should encrypt and decrypt team password' do
     encrypted_password = Asymmetric.encrypt(team_password, public_key)

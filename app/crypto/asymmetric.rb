@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'openssl'
-
 class Asymmetric
   class << self
     include OpenSSL

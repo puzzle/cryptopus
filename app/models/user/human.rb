@@ -135,7 +135,7 @@ class User::Human < User
   end
 
   def decrypt_private_key(password)
-    CryptUtils.decrypt_private_key(private_key, password)
+    Symmetric::AES256.decrypt_with_salt(private_key, password)
   rescue StandardError
     raise Exceptions::DecryptFailed
   end
@@ -148,9 +148,9 @@ class User::Human < User
   private
 
   def preform_private_key_recryption!(new_password, old_password)
-    plaintext_private_key = CryptUtils.decrypt_private_key(private_key, old_password)
+    plaintext_private_key = Symmetric::AES256.decrypt_with_salt(private_key, old_password)
     Asymmetric.validate_keypair(plaintext_private_key, public_key)
-    self.private_key = CryptUtils.encrypt_private_key(plaintext_private_key, new_password)
+    self.private_key = Symmetric::AES256.encrypt_with_salt(plaintext_private_key, new_password)
     true
   rescue Exceptions::DecryptFailed
     errors.add(:base, I18n.t('activerecord.errors.models.user.old_password_invalid'))
