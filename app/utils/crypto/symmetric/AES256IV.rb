@@ -3,7 +3,9 @@
 require 'openssl'
 require 'digest/sha1'
 
-class Symmetric::AES256IV < AES256
+require_relative './AES256'
+
+class Crypto::Symmetric::AES256IV < Crypto::Symmetric::AES256
    class << self
     def encrypt(data, key)
       cipher = OpenSSL::Cipher.new(@@cypher)

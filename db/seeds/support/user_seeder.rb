@@ -14,7 +14,7 @@ class UserSeeder
       u.givenname = 'root'
       u.auth = 'db'
       u.role = :admin
-      u.password = Hashing.hash(password)
+      u.password = Hashing.generate_salted(password)
       create_keypair(u)
     end
   end
@@ -40,14 +40,14 @@ class UserSeeder
       u.givenname = username.to_s.capitalize
       u.surname = Faker::Name.last_name
       u.auth = 'db'
-      u.password = Hashing.hash('password')
+      u.password = Hashing.generate_salted('password')
       u.role = role
       create_keypair(u)
     end
   end
 
   def create_keypair(user)
-    keypair = Asymmetric.generate_new_keypair
+    keypair = RSA.generate_new_keypair
     unencrypted_private_key = keypair.to_s
     user.public_key = keypair.public_key.to_s
     user.private_key = Symmetric::AES256.encrypt_with_salt(unencrypted_private_key, 'password')

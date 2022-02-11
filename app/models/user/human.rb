@@ -64,7 +64,7 @@ class User::Human < User
       user = new(user_params)
       user.auth = 'db'
       user.create_keypair password
-      user.password = Hashing.hash(password)
+      user.password = Hashing.generate_salted(password)
       user
     end
 
@@ -75,7 +75,7 @@ class User::Human < User
                  surname: '',
                  auth: 'db',
                  role: :admin,
-                 password: Hashing.hash(password))
+                 password: Hashing.generate_salted(password))
       user.create_keypair(password)
       user.save!
     end
@@ -149,7 +149,7 @@ class User::Human < User
 
   def preform_private_key_recryption!(new_password, old_password)
     plaintext_private_key = Symmetric::AES256.decrypt_with_salt(private_key, old_password)
-    Asymmetric.validate_keypair(plaintext_private_key, public_key)
+    RSA.validate_keypair(plaintext_private_key, public_key)
     self.private_key = Symmetric::AES256.encrypt_with_salt(plaintext_private_key, new_password)
     true
   rescue Exceptions::DecryptFailed
@@ -164,7 +164,7 @@ class User::Human < User
       next if t.teammember?(self)
 
       active_teammember = t.teammembers.find_by user_id: actor.id
-      team_password = Asymmetric.decrypt(active_teammember.password, private_key)
+      team_password = RSA.decrypt(active_teammember.password, private_key)
       t.add_user(self, team_password)
     end
   end

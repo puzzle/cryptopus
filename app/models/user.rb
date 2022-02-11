@@ -44,7 +44,7 @@ class User < ApplicationRecord
     end
 
     if authenticate_db(old)
-      self.password = Hashing.hash(new)
+      self.password = Hashing.generate_salted(new)
       pk = Symmetric::AES256.decrypt_with_salt(private_key, old)
       self.private_key = Symmetric::AES256.encrypt_with_salt(pk, new)
       save!
@@ -52,7 +52,7 @@ class User < ApplicationRecord
   end
 
   def create_keypair(password)
-    keypair = Asymmetric.generate_new_keypair
+    keypair = RSA.generate_new_keypair
     uncrypted_private_key = keypair.to_s
     self.public_key = keypair.public_key.to_s
     self.private_key = Symmetric::AES256.encrypt_with_salt(uncrypted_private_key, password)
@@ -62,8 +62,7 @@ class User < ApplicationRecord
     authenticated = false
 
     if user_is_allowed? && cleartext_password.present? && auth_db?
-      salt = password.split('$')[1]
-      authenticated = password.split('$')[2] == Digest::SHA512.hexdigest(salt + cleartext_password)
+      authenticated = Hashing.matches?(password, cleartext_password)
     end
 
     authenticated

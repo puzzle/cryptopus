@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Asymmetric
+class Crypto::RSA
   class << self
     include OpenSSL
 
@@ -20,8 +20,8 @@ class Asymmetric
 
     def validate_keypair(private_key, public_key)
       data = 'message'
-      rsa_encrypted_data = Asymmetric.encrypt(data, public_key)
-      unless data == Asymmetric.decrypt(rsa_encrypted_data, private_key)
+      rsa_encrypted_data = RSA.encrypt(data, public_key)
+      unless data == RSA.decrypt(rsa_encrypted_data, private_key)
         raise Exceptions::DecryptFailed
       end
     end

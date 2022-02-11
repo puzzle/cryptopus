@@ -2,5 +2,5 @@
 
 require 'spec_helper'
 
-describe Symmetric do
+describe Crypto::Symmetric do
 end

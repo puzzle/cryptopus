@@ -82,13 +82,13 @@ class Team < ApplicationRecord
 
   def decrypt_team_password(user, plaintext_private_key)
     crypted_team_password = teammember(user.id).password
-    Asymmetric.decrypt(crypted_team_password, plaintext_private_key)
+    RSA.decrypt(crypted_team_password, plaintext_private_key)
   end
 
   private
 
   def create_teammember(user, plaintext_team_password)
-    crypted_team_password = Asymmetric.encrypt(plaintext_team_password, user.public_key)
+    crypted_team_password = RSA.encrypt(plaintext_team_password, user.public_key)
     teammembers.create!(password: crypted_team_password, user: user)
   end
 

@@ -3,15 +3,15 @@
 require 'openssl'
 require 'digest/sha1'
 
-class Symmetric
-  @@cypher = ""
+class Crypto::Symmetric
 
   class << self
-    def encrypt(data, key)
+
+    def encrypt
       raise 'Implement in subclass'
     end
 
-    def decrypt(data, key)
+    def decrypt
       raise 'Implement in subclass'
     end
 
@@ -19,5 +19,4 @@ class Symmetric
       raise 'Implement in subclass'
     end
   end
-
 end
