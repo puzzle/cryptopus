@@ -32,14 +32,8 @@ To run the frontend tests you will have to run
 $ ember test
 ```
 
-or 
-
-```
-$ ember test --server
-```
-
 After the successful initialisation, you can visit [localhost:4200/test](http://localhost:4200/tests).  
-\* Edited tests will automatically restart when saved.
+\* Edited tests will automatically restart when saved. Not needed when using the docker setup.
 
 ### Linting
 
