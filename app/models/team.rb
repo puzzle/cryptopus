@@ -13,11 +13,6 @@
 #  private     :boolean          default(FALSE), not null
 #
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
 class Team < ApplicationRecord
   attr_readonly :private
   has_many :folders, -> { order :name }, dependent: :destroy
@@ -34,7 +29,7 @@ class Team < ApplicationRecord
       team = super(params)
       return team unless team.valid?
 
-      plaintext_team_password = CryptUtils.new_team_password
+      plaintext_team_password = Crypto::Symmetric::AES256.random_key
       team.add_user(creator, plaintext_team_password)
       unless team.private?
         User::Human.admins.each do |a|
@@ -82,13 +77,13 @@ class Team < ApplicationRecord
 
   def decrypt_team_password(user, plaintext_private_key)
     crypted_team_password = teammember(user.id).password
-    RSA.decrypt(crypted_team_password, plaintext_private_key)
+    Crypto::RSA.decrypt(crypted_team_password, plaintext_private_key)
   end
 
   private
 
   def create_teammember(user, plaintext_team_password)
-    crypted_team_password = RSA.encrypt(plaintext_team_password, user.public_key)
+    crypted_team_password = Crypto::RSA.encrypt(plaintext_team_password, user.public_key)
     teammembers.create!(password: crypted_team_password, user: user)
   end
 

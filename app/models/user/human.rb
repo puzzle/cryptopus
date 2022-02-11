@@ -23,12 +23,7 @@
 #  human_user_id                :integer
 #  options                      :text
 #  role                         :integer          default("user"), not null
-#
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
 
 class User::Human < User
   require 'ipaddr'
@@ -135,7 +130,7 @@ class User::Human < User
   end
 
   def decrypt_private_key(password)
-    Symmetric::AES256.decrypt_with_salt(private_key, password)
+    Crypto::Symmetric::AES256.decrypt_with_salt(private_key, password)
   rescue StandardError
     raise Exceptions::DecryptFailed
   end
@@ -148,9 +143,9 @@ class User::Human < User
   private
 
   def preform_private_key_recryption!(new_password, old_password)
-    plaintext_private_key = Symmetric::AES256.decrypt_with_salt(private_key, old_password)
-    RSA.validate_keypair(plaintext_private_key, public_key)
-    self.private_key = Symmetric::AES256.encrypt_with_salt(plaintext_private_key, new_password)
+    plaintext_private_key = Crypto::Symmetric::AES256.decrypt_with_salt(private_key, old_password)
+    Crypto::RSA.validate_keypair(plaintext_private_key, public_key)
+    self.private_key = Crypto::Symmetric::AES256.encrypt_with_salt(plaintext_private_key, new_password)
     true
   rescue Exceptions::DecryptFailed
     errors.add(:base, I18n.t('activerecord.errors.models.user.old_password_invalid'))
@@ -164,7 +159,7 @@ class User::Human < User
       next if t.teammember?(self)
 
       active_teammember = t.teammembers.find_by user_id: actor.id
-      team_password = RSA.decrypt(active_teammember.password, private_key)
+      team_password = Crypto::RSA.decrypt(active_teammember.password, private_key)
       t.add_user(self, team_password)
     end
   end

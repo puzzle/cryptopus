@@ -2,7 +2,7 @@
 
 require 'digest/sha1'
 
-class ::Crypto::Hashing
+class Crypto::Hashing
 
   class << self
     def generate_salted(password)

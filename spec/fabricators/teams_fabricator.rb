@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
+require_relative '../../app/utils/crypto/symmetric/AES256'
 
 Fabricator(:non_private_team, from: :team) do |t|
   t.name { Faker::App.name }
@@ -11,7 +8,7 @@ Fabricator(:non_private_team, from: :team) do |t|
   t.visible true
   t.private false
   after_save do |team|
-    team_password = CryptUtils.new_team_password
+    team_password = Crypto::Symmetric::AES256.random_key
     team.add_user(Fabricate(:user), team_password)
     User::Human.admins.each do |a|
       team.add_user(a, team_password)
@@ -27,7 +24,7 @@ Fabricator(:private_team, from: :team) do |t|
   t.visible true
   t.private true
   after_save do |team|
-    team_password = CryptUtils.new_team_password
+    team_password = Crypto::Symmetric::AES256.random_key
     team.add_user(Fabricate(:user), team_password)
     folder = Fabricate(:folder, team: team)
     Fabricate(:account, folder: folder, team_password: team_password)

@@ -23,12 +23,6 @@
 #  human_user_id                :integer
 #  options                      :text
 #  role                         :integer          default(0), not null
-#
-
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
 
 class User < ApplicationRecord
   delegate :l, to: I18n
@@ -44,25 +38,25 @@ class User < ApplicationRecord
     end
 
     if authenticate_db(old)
-      self.password = Hashing.generate_salted(new)
-      pk = Symmetric::AES256.decrypt_with_salt(private_key, old)
-      self.private_key = Symmetric::AES256.encrypt_with_salt(pk, new)
+      self.password = Crypto::Hashing.generate_salted(new)
+      pk = Crypto::Symmetric::AES256.decrypt_with_salt(private_key, old)
+      self.private_key = Crypto::Symmetric::AES256.encrypt_with_salt(pk, new)
       save!
     end
   end
 
   def create_keypair(password)
-    keypair = RSA.generate_new_keypair
+    keypair = Crypto::RSA.generate_new_keypair
     uncrypted_private_key = keypair.to_s
     self.public_key = keypair.public_key.to_s
-    self.private_key = Symmetric::AES256.encrypt_with_salt(uncrypted_private_key, password)
+    self.private_key = Crypto::Symmetric::AES256.encrypt_with_salt(uncrypted_private_key, password)
   end
 
   def authenticate_db(cleartext_password)
     authenticated = false
 
     if user_is_allowed? && cleartext_password.present? && auth_db?
-      authenticated = Hashing.matches?(password, cleartext_password)
+      authenticated = Crypto::Hashing.matches?(password, cleartext_password)
     end
 
     authenticated

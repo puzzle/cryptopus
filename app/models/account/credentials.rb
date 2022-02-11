@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../utils/crypto/symmetric/AES256'
+
 class Account::Credentials < Account
   attr_accessor :cleartext_password, :cleartext_username
 
@@ -19,18 +21,18 @@ class Account::Credentials < Account
     crypted_value = send(attr)
     return if crypted_value.blank?
 
-    CryptUtils.decrypt_blob(crypted_value, team_password)
+    Crypto::Symmetric::AES256.decrypt(crypted_value, team_password)
   end
 
   def encrypt_username(team_password)
     return self.username = '' if cleartext_username.blank?
 
-    self.username = Symmetric::AES256.encrypt(cleartext_username, team_password)
+    self.username = Crypto::Symmetric::AES256.encrypt(cleartext_username, team_password)
   end
 
   def encrypt_password(team_password)
     return if cleartext_password.blank?
 
-    self.password = Symmetric::AES256.encrypt(cleartext_password, team_password)
+    self.password = Crypto::Symmetric::AES256.encrypt(cleartext_password, team_password)
   end
 end

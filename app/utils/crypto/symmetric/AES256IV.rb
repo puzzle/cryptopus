@@ -6,31 +6,36 @@ require 'digest/sha1'
 require_relative './AES256'
 
 class Crypto::Symmetric::AES256IV < Crypto::Symmetric::AES256
+
    class << self
     def encrypt(data, key)
-      cipher = OpenSSL::Cipher.new(@@cypher)
+      cipher = OpenSSL::Cipher.new(self.cipher)
+
+      # set cipher mode to encrypt
       cipher.encrypt
+
+      # set key for decryption as well as a random iv
       cipher.key = key
-      iv = random_iv
-      cipher.iv = iv
-      encrypted_data = cipher.update(data)
-      encrypted_data << cipher.final
-      [Base64.strict_encode64(encrypted_data), iv]
+      iv = cipher.random_iv
+
+      # encrypt given data
+      encrypted_data = cipher.update(data) + cipher.final
+
+      [encrypted_data, iv]
     end
 
     def decrypt(data, key, iv)
-      cipher = OpenSSL::Cipher.new(@@cypher)
+      cipher = OpenSSL::Cipher.new(self.cipher)
+
+      # set cipher mode to decrypt
       cipher.decrypt
+
       cipher.key = key
       cipher.iv = iv
-      decrypted_data = cipher.update(Base64.strict_decode64(data))
-      decrypted_data << cipher.final
-      decrypted_data.force_encoding('UTF-8')
-    end
 
-    def random_iv
-      cipher = OpenSSL::Cipher.new(@@cypher)
-      cipher.random_iv
+      # decrypt given data
+      decrypted_data = cipher.update(data) + cipher.final
+      decrypted_data.force_encoding('UTF-8')
     end
 
   end
