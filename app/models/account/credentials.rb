@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../utils/crypto/symmetric/AES256'
+require_relative '../../utils/crypto/symmetric/aes256'
 
 class Account::Credentials < Account
   attr_accessor :cleartext_password, :cleartext_username

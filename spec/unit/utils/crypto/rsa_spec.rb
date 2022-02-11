@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-require_relative '../../../../app/utils/crypto/RSA'
-require_relative '../../../../app/utils/crypto/symmetric/AES256'
+require_relative '../../../../app/utils/crypto/rsa'
+require_relative '../../../../app/utils/crypto/symmetric/aes256'
 
 describe Crypto::RSA do
   let(:keypair) { Crypto::RSA.generate_new_keypair }

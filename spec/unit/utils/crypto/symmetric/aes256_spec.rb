@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-require_relative '../../../../../app/utils/crypto/symmetric/AES256'
-require_relative '../../../../../app/utils/crypto/RSA'
+require_relative '../../../../../app/utils/crypto/symmetric/aes256'
+require_relative '../../../../../app/utils/crypto/rsa'
 
 describe Crypto::Symmetric::AES256 do
 
@@ -14,7 +14,10 @@ describe Crypto::Symmetric::AES256 do
 
   it 'should encrypt and decrypt private key' do
     encrypted_private_key = Crypto::Symmetric::AES256.encrypt_with_salt(private_key, team_password)
-    decrypted_private_key = Crypto::Symmetric::AES256.decrypt_with_salt(encrypted_private_key, team_password)
+    decrypted_private_key = Crypto::Symmetric::AES256.decrypt_with_salt(
+      encrypted_private_key,
+      team_password
+    )
     expect(private_key).to eq(decrypted_private_key)
   end
 

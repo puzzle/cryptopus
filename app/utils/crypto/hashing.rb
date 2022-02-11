@@ -7,17 +7,17 @@ class Crypto::Hashing
   class << self
     def generate_salted(password)
       salt = SecureRandom.hex
-      "sha512$#{salt}$" + SHA512(salt, password)
+      "sha512$#{salt}$" + hexdigest(salt, password)
     end
 
     def matches?(salted_hash, password)
       salt = salted_hash.split('$')[1]
-      salted_hash.split('$')[2] == SHA512(salt, password)
+      salted_hash.split('$')[2] == hexdigest(salt, password)
     end
 
     private
 
-    def SHA512(salt, password)
+    def hexdigest(salt, password)
       Digest::SHA512.hexdigest(salt + password)
     end
   end

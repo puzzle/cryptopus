@@ -21,8 +21,8 @@ class Crypto::RSA
 
     def validate_keypair(private_key, public_key)
       data = 'message'
-      rsa_encrypted_data = self.encrypt(data, public_key)
-      unless data == self.decrypt(rsa_encrypted_data, private_key)
+      rsa_encrypted_data = encrypt(data, public_key)
+      unless data == decrypt(rsa_encrypted_data, private_key)
         raise Exceptions::DecryptFailed
       end
     end
@@ -32,4 +32,3 @@ class Crypto::RSA
     end
   end
 end
-

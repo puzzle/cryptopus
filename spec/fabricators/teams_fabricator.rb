@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../app/utils/crypto/symmetric/AES256'
+require_relative '../../app/utils/crypto/symmetric/aes256'
 
 Fabricator(:non_private_team, from: :team) do |t|
   t.name { Faker::App.name }

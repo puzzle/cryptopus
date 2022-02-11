@@ -59,7 +59,7 @@ class User::Human < User
       user = new(user_params)
       user.auth = 'db'
       user.create_keypair password
-      user.password = Hashing.generate_salted(password)
+      user.password = Crypto::Hashing.generate_salted(password)
       user
     end
 
@@ -70,7 +70,7 @@ class User::Human < User
                  surname: '',
                  auth: 'db',
                  role: :admin,
-                 password: Hashing.generate_salted(password))
+                 password: Crypto::Hashing.generate_salted(password))
       user.create_keypair(password)
       user.save!
     end
@@ -145,7 +145,10 @@ class User::Human < User
   def preform_private_key_recryption!(new_password, old_password)
     plaintext_private_key = Crypto::Symmetric::AES256.decrypt_with_salt(private_key, old_password)
     Crypto::RSA.validate_keypair(plaintext_private_key, public_key)
-    self.private_key = Crypto::Symmetric::AES256.encrypt_with_salt(plaintext_private_key, new_password)
+    self.private_key = Crypto::Symmetric::AES256.encrypt_with_salt(
+      plaintext_private_key,
+      new_password
+    )
     true
   rescue Exceptions::DecryptFailed
     errors.add(:base, I18n.t('activerecord.errors.models.user.old_password_invalid'))

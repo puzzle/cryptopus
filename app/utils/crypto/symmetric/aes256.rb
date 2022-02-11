@@ -42,23 +42,23 @@ class Crypto::Symmetric::AES256 < Crypto::Symmetric
       salt = generate_salt
 
       # generates and sets key/iv
-      cipher.pkcs5_keyivgen(key, salt, self.iteration_count)
+      cipher.pkcs5_keyivgen(key, salt, iteration_count)
 
       # encrypt data
       encrypted_private_key = cipher.update(data) + cipher.final
 
-      self.magic + salt + encrypted_private_key
+      magic + salt + encrypted_private_key
     end
 
     def decrypt_with_salt(data, key)
       cipher = cipher_decrypt_mode
-      raise 'magic does not match' unless extract_magic_from(data) == self.magic
+      raise 'magic does not match' unless extract_magic_from(data) == magic
 
       salt = extract_salt_from(data)
       encrypted_data = extract(data)
 
       # generates and sets key/iv
-      cipher.pkcs5_keyivgen(key, salt, self.iteration_count)
+      cipher.pkcs5_keyivgen(key, salt, iteration_count)
 
       # decrypt data
       cipher.update(encrypted_data) + cipher.final
@@ -85,20 +85,19 @@ class Crypto::Symmetric::AES256 < Crypto::Symmetric
     end
 
     def generate_salt
-      OpenSSL::Random.random_bytes(self.salt_length)
+      OpenSSL::Random.random_bytes(salt_length)
     end
 
     def extract_magic_from(data)
-      data.slice(0, self.magic.size)
+      data.slice(0, magic.size)
     end
 
     def extract_salt_from(data)
-      data.slice(self.magic.size, self.salt_length)
+      data.slice(magic.size, salt_length)
     end
 
     def extract(data)
-      data.slice((self.magic.size + self.salt_length)..-1)
+      data.slice((magic.size + salt_length)..-1)
     end
   end
 end
-
