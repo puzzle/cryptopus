@@ -12,13 +12,12 @@ Cryptopus combines symmetric and asymmetric encryption.
 
 Learn more about Cryptopus on our [wiki](https://github.com/puzzle/cryptopus/wiki) page.
 
-# Development
+# Getting started
 
-see [Development](https://github.com/puzzle/cryptopus/wiki/Development)
+## System requirements 👩🏽‍💻
+Development instructions [here][setup]. 
 
-# Frontend
-
-see [Frontend](https://github.com/puzzle/cryptopus/blob/master/frontend/README.md)
+[setup]: https://github.com/puzzle/cryptopus/wiki/Development
 
 # Warning!
 
