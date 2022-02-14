@@ -12,12 +12,7 @@
 #  updated_at   :datetime         not null
 #  filename     :text             not null
 #  content_type :text             not null
-#
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
 
 class FileEntry < ApplicationRecord
   belongs_to :account
@@ -92,14 +87,14 @@ class FileEntry < ApplicationRecord
     crypted_file = send(attr)
     return if crypted_file.blank?
 
-    CryptUtils.decrypt_blob(crypted_file, team_password)
+    Crypto::Symmetric::AES256.decrypt(crypted_file, team_password)
   end
 
   # rubocop:disable Rails/Blank
   def encrypt_file(team_password)
     return if cleartext_file.nil? || cleartext_file.empty?
 
-    self.file = CryptUtils.encrypt_blob(cleartext_file, team_password)
+    self.file = Crypto::Symmetric::AES256.encrypt(cleartext_file, team_password)
   end
   # rubocop:enable Rails/Blank
 end

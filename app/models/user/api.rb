@@ -23,12 +23,6 @@
 #  human_user_id                :integer
 #  options                      :text
 #  role                         :integer          default(0), not null
-#
-
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
 
 class User::Api < User
 
@@ -91,7 +85,7 @@ class User::Api < User
   end
 
   def decrypt_private_key(token)
-    CryptUtils.decrypt_private_key(private_key, token)
+    Crypto::Symmetric::AES256.decrypt_with_salt(private_key, token)
   rescue StandardError
     raise Exceptions::DecryptFailed
   end
@@ -99,7 +93,7 @@ class User::Api < User
   private
 
   def decrypt_token(human_private_key)
-    CryptUtils.decrypt_rsa(encrypted_token, human_private_key)
+    Crypto::RSA.decrypt(encrypted_token, human_private_key)
   end
 
   delegate :description,
@@ -128,8 +122,8 @@ class User::Api < User
 
   def encrypt_token(token)
     public_key = human_user.public_key
-    self.encrypted_token = CryptUtils.encrypt_rsa(token, public_key)
-    self.password = CryptUtils.one_way_crypt(token)
+    self.encrypted_token = Crypto::RSA.encrypt(token, public_key)
+    self.password = Crypto::Hashing.generate_salted(token)
   end
 
   def refresh_valid_until

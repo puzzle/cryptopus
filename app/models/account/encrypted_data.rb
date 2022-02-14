@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../utils/crypto/symmetric/aes256iv'
+
 class Account::EncryptedData
   include JsonSerializable
 
@@ -11,13 +13,16 @@ class Account::EncryptedData
   end
 
   def encrypt(encryption_key)
-    value, iv = CryptUtils.encrypt_base64(cleartext_value.to_json, encryption_key)
-    self.value = value
+    value, iv = Crypto::Symmetric::AES256IV.encrypt(cleartext_value.to_json, encryption_key)
+    self.value = Base64.strict_encode64(value)
     self.iv = Base64.strict_encode64(iv)
   end
 
   def decrypt(encryption_key)
-    CryptUtils.decrypt_base64(value, encryption_key, Base64.strict_decode64(iv))
+    b64_value = Base64.strict_decode64(value)
+    b64_iv = Base64.strict_decode64(iv)
+
+    Crypto::Symmetric::AES256IV.decrypt(b64_value, encryption_key, b64_iv)
   end
 
   def to_json(*_args)
