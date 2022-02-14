@@ -17,7 +17,7 @@ describe Crypto::Hashing do
     expect(hash).to match(/^sha512\$.*\$.*/)
   end
 
-  it 'matches salted to password to cleartext password' do
+  it 'verifies password by hash value' do
     result = Crypto::Hashing.matches?(salted_password, password)
     expect(result).to eq(true)
   end

@@ -18,10 +18,10 @@ class Account::Credentials < Account
   private
 
   def decrypt_attr(attr, team_password)
-    crypted_value = send(attr)
-    return if crypted_value.blank?
+    encrypted_value = send(attr)
+    return if encrypted_value.blank?
 
-    Crypto::Symmetric::AES256.decrypt(crypted_value, team_password)
+    Crypto::Symmetric::AES256.decrypt(encrypted_value, team_password)
   end
 
   def encrypt_username(team_password)
