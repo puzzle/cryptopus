@@ -83,8 +83,8 @@ class Team < ApplicationRecord
   private
 
   def create_teammember(user, plaintext_team_password)
-    crypted_team_password = Crypto::RSA.encrypt(plaintext_team_password, user.public_key)
-    teammembers.create!(password: crypted_team_password, user: user)
+    encrypted_team_password = Crypto::RSA.encrypt(plaintext_team_password, user.public_key)
+    teammembers.create!(password: encrypted_team_password, user: user)
   end
 
 end
