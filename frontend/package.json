@@ -95,7 +95,6 @@
     "@puzzleitc/puzzle-shell": "^1.0.0",
     "@sentry/browser": "^6.17.6",
     "@sentry/integrations": "^6.17.6",
-    "ember-cli-shims": "^1.2.0",
     "minimist": "^1.2.5",
     "text-security": "^3.1.1"
   },
