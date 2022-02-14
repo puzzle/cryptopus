@@ -17,7 +17,7 @@
       <div class="col-auto pr-0" role="button" {{on "click" this.transitionToAccount}}>
         <img class="img d-inline w-30 float-left icon-big-button" src="/assets/images/key.svg" alt="key">
       </div>
-      <LinkTo class="col-4 underline-hover break-words account-link" @route="accounts.show" @model={{@account}}>
+      <LinkTo class="col-4 underline-hover break-words account-link" @route="accounts.show" @model={{@account.id}}>
         {{@account.accountname}}
       </LinkTo>
     {{/if}}
