@@ -445,6 +445,12 @@ h5, h6 {
   align-self: center;
 }
 
+.account-link,
+.account-link:hover {
+  color: #000000;
+  text-decoration: none !important;
+}
+
 @media screen and (max-width: 799px){
   .ember-notify-default.ember-notify-cn {
     bottom: 11em !important;

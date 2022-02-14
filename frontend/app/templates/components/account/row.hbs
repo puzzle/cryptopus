@@ -17,9 +17,9 @@
       <div class="col-auto pr-0" role="button" {{on "click" this.transitionToAccount}}>
         <img class="img d-inline w-30 float-left icon-big-button" src="/assets/images/key.svg" alt="key">
       </div>
-      <div class="col-4 underline-hover break-words" role="button" {{on "click" this.transitionToAccount}}>
+      <LinkTo class="col-4 underline-hover break-words account-link" @route="accounts.show" @model={{@account}}>
         {{@account.accountname}}
-      </div>
+      </LinkTo>
     {{/if}}
     {{#unless @account.isOseSecret}}
       <div class="col-2 pr-0 d-none d-md-block">
