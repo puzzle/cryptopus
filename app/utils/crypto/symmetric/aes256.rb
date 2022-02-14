@@ -4,15 +4,10 @@ require 'openssl'
 require 'digest/sha1'
 
 class Crypto::Symmetric::AES256 < Crypto::Symmetric
-  class_attribute :cipher
-  class_attribute :magic
-  class_attribute :salt_length
-  class_attribute :iteration_count
-
-  self.cipher = 'AES-256-CBC'
-  self.magic = 'Salted__'
-  self.salt_length = 8
-  self.iteration_count = 1000
+  CIPHER = 'AES-256-CBC'
+  MAGIC = 'Salted__'
+  SALT_LENGTH = 8
+  ITERATION_COUNT = 1000
 
   class << self
 
@@ -42,23 +37,23 @@ class Crypto::Symmetric::AES256 < Crypto::Symmetric
       salt = generate_salt
 
       # generates and sets key/iv
-      cipher.pkcs5_keyivgen(key, salt, iteration_count)
+      cipher.pkcs5_keyivgen(key, salt, ITERATION_COUNT)
 
       # encrypt data
       encrypted_private_key = cipher.update(data) + cipher.final
 
-      magic + salt + encrypted_private_key
+      MAGIC + salt + encrypted_private_key
     end
 
     def decrypt_with_salt(data, key)
       cipher = cipher_decrypt_mode
-      raise 'magic does not match' unless extract_magic_from(data) == magic
+      raise 'magic does not match' unless extract_magic_from(data) == MAGIC
 
       salt = extract_salt_from(data)
       encrypted_data = extract(data)
 
       # generates and sets key/iv
-      cipher.pkcs5_keyivgen(key, salt, iteration_count)
+      cipher.pkcs5_keyivgen(key, salt, ITERATION_COUNT)
 
       # decrypt data
       cipher.update(encrypted_data) + cipher.final
@@ -73,31 +68,31 @@ class Crypto::Symmetric::AES256 < Crypto::Symmetric
     private
 
     def cipher_encrypt_mode
-      cipher = OpenSSL::Cipher.new(self.cipher)
+      cipher = OpenSSL::Cipher.new(CIPHER)
       cipher.encrypt
       cipher
     end
 
     def cipher_decrypt_mode
-      cipher = OpenSSL::Cipher.new(self.cipher)
+      cipher = OpenSSL::Cipher.new(CIPHER)
       cipher.decrypt
       cipher
     end
 
     def generate_salt
-      OpenSSL::Random.random_bytes(salt_length)
+      OpenSSL::Random.random_bytes(SALT_LENGTH)
     end
 
     def extract_magic_from(data)
-      data.slice(0, magic.size)
+      data.slice(0, MAGIC.size)
     end
 
     def extract_salt_from(data)
-      data.slice(magic.size, salt_length)
+      data.slice(MAGIC.size, SALT_LENGTH)
     end
 
     def extract(data)
-      data.slice((magic.size + salt_length)..-1)
+      data.slice((MAGIC.size + SALT_LENGTH)..-1)
     end
   end
 end

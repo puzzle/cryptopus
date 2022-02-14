@@ -1,19 +1,20 @@
 # frozen_string_literal: true
 
+require 'openssl'
+
 class Crypto::RSA
 
   class << self
-    include OpenSSL
 
     def encrypt(data, public_key)
-      keypair = PKey::RSA.new(public_key)
+      keypair = OpenSSL::PKey::RSA.new(public_key)
       keypair.public_encrypt(data)
     rescue StandardError
       nil
     end
 
     def decrypt(data, private_key)
-      keypair = PKey::RSA.new(private_key)
+      keypair = OpenSSL::PKey::RSA.new(private_key)
       keypair.private_decrypt(data)
     rescue StandardError
       nil
@@ -28,7 +29,7 @@ class Crypto::RSA
     end
 
     def generate_new_keypair
-      PKey::RSA.new(2048)
+      OpenSSL::PKey::RSA.new(2048)
     end
   end
 end

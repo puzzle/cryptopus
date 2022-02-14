@@ -10,10 +10,7 @@ class Crypto::Symmetric::AES256IV < Crypto::Symmetric::AES256
   class << self
 
     def encrypt(data, key)
-      cipher = OpenSSL::Cipher.new(self.cipher)
-
-      # set cipher mode to encrypt
-      cipher.encrypt
+      cipher = cipher_encrypt_mode
 
       # set key for decryption as well as a random iv
       cipher.key = key
@@ -26,10 +23,7 @@ class Crypto::Symmetric::AES256IV < Crypto::Symmetric::AES256
     end
 
     def decrypt(data, key, iv)
-      cipher = OpenSSL::Cipher.new(self.cipher)
-
-      # set cipher mode to decrypt
-      cipher.decrypt
+      cipher = cipher_decrypt_mode
 
       cipher.key = key
       cipher.iv = iv

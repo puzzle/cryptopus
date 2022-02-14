@@ -17,11 +17,11 @@ describe Crypto::RSA do
     expect(team_password).to eq(decrypted_password)
   end
 
-  it 'should not raise exception if valid keypair' do
+  it 'does not raise exception if valid keypair' do
     Crypto::RSA.validate_keypair(private_key, public_key)
   end
 
-  it 'should raise expection if keypair does not match' do
+  it 'raises execption if keypair does not match' do
     public_key = Crypto::RSA.generate_new_keypair.public_key.to_s
     expect do
       Crypto::RSA.validate_keypair(private_key, public_key)

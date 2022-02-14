@@ -12,7 +12,7 @@ describe Crypto::Symmetric::AES256 do
   let(:public_key) { keypair.public_key.to_s }
   let(:team_password) { Crypto::Symmetric::AES256.random_key }
 
-  it 'should encrypt and decrypt private key' do
+  it 'encrypts and decrypts private key' do
     encrypted_private_key = Crypto::Symmetric::AES256.encrypt_with_salt(private_key, team_password)
     decrypted_private_key = Crypto::Symmetric::AES256.decrypt_with_salt(
       encrypted_private_key,
@@ -21,10 +21,10 @@ describe Crypto::Symmetric::AES256 do
     expect(private_key).to eq(decrypted_private_key)
   end
 
-  it 'should encrypt and decrypt data' do
-    blob_data = Base64.decode64('test')
-    blob_data_encrypted = Crypto::Symmetric::AES256.encrypt(blob_data, team_password)
-    result = Crypto::Symmetric::AES256.decrypt(blob_data_encrypted, team_password)
-    expect(blob_data.force_encoding('UTF-8')).to eq(result)
+  it 'encrypts and decrypts data' do
+    cleartext_data = Base64.decode64('test')
+    cleartext_data_encrypted = Crypto::Symmetric::AES256.encrypt(cleartext_data, team_password)
+    result = Crypto::Symmetric::AES256.decrypt(cleartext_data_encrypted, team_password)
+    expect(cleartext_data.force_encoding('UTF-8')).to eq(result)
   end
 end
