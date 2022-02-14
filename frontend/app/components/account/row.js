@@ -134,11 +134,6 @@ export default class RowComponent extends Component {
   }
 
   @action
-  transitionToAccount() {
-    this.router.transitionTo("accounts.show", this.args.account.id);
-  }
-
-  @action
   onCopied(attribute) {
     this.notify.info(this.intl.t(`flashes.accounts.${attribute}_copied`));
   }

@@ -14,12 +14,12 @@
       </div>
       <div class="col"></div>
     {{else}}
-      <div class="col-auto pr-0" role="button" {{on "click" this.transitionToAccount}}>
+      <LinkTo class="col-auto pr-0 account-link" @route="accounts.show" @model={{@account.id}}>
         <img class="img d-inline w-30 float-left icon-big-button" src="/assets/images/key.svg" alt="key">
-      </div>
-      <div class="col-4 underline-hover break-words" role="button" {{on "click" this.transitionToAccount}}>
+      </LinkTo>
+      <LinkTo class="col-4 underline-hover break-words account-link" @route="accounts.show" @model={{@account.id}}>
         {{@account.accountname}}
-      </div>
+      </LinkTo>
     {{/if}}
     {{#unless @account.isOseSecret}}
       <div class="col-2 pr-0 d-none d-md-block">
