@@ -74,7 +74,6 @@
     "ember-source": "~3.24.0",
     "ember-toggle": "^6.0.2",
     "ember-truth-helpers": "^2.1.0",
-    "ember-validated-form": "^2.0.0",
     "eslint-plugin-ember": "^10.5.8",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
