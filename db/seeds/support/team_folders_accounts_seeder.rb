@@ -19,7 +19,7 @@ class TeamFoldersAccountsSeeder
       seed_folder(team)
     end
 
-    plaintext_team_pw = CryptUtils.new_team_password
+    plaintext_team_pw = Crypto::Symmetric::AES256.random_key
 
     members.each do |m|
       u = user(m)
@@ -47,7 +47,7 @@ class TeamFoldersAccountsSeeder
     [:john, :kate, :alice, :bruce, :emily].each do |teammember_name|
       teammember = User::Human.find_by(username: teammember_name)
       teammember.teams.each do |team|
-        pk = Symmetric::AES256.decrypt_with_salt(teammember[:private_key], 'password')
+        pk = Crypto::Symmetric::AES256.decrypt_with_salt(teammember[:private_key], 'password')
         decrypted_team_password = team.decrypt_team_password(teammember, pk)
         team.add_user(user, decrypted_team_password) unless team.teammember?(user.id)
       end
@@ -75,8 +75,8 @@ class TeamFoldersAccountsSeeder
   end
 
   def seed_account(folder, plaintext_team_pw)
-    username = Symmetric::AES256.encrypt("#{Faker::Lorem.word} #{rand(999)}", plaintext_team_pw)
-    password = Symmetric::AES256.encrypt(Faker::Internet.password, plaintext_team_pw)
+    username = Crypto::Symmetric::AES256.encrypt("#{Faker::Lorem.word} #{rand(999)}", plaintext_team_pw)
+    password = Crypto::Symmetric::AES256.encrypt(Faker::Internet.password, plaintext_team_pw)
     folder.accounts.create!(accountname: "#{Faker::Company.name} #{rand(999)}",
                             username: username,
                             password: password,
