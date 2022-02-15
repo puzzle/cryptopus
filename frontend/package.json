@@ -72,7 +72,7 @@
     "ember-qunit": "^5.1.1",
     "ember-resolver": "^8.0.2",
     "ember-source": "~3.24.0",
-    "ember-toggle": "^6.0.2",
+    "ember-toggle": "^9.0.3",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-ember": "^10.5.9",
     "eslint-plugin-node": "^11.1.0",
