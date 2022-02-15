@@ -74,7 +74,7 @@
     "ember-source": "~3.24.0",
     "ember-toggle": "^6.0.2",
     "eslint-config-prettier": "^7.1.0",
-    "eslint-plugin-ember": "^10.5.8",
+    "eslint-plugin-ember": "^10.5.9",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.1",
     "loader.js": "^4.7.0",
