@@ -7869,9 +7869,9 @@ ember-modifier@^3.0.0:
     ember-compatibility-helpers "^1.2.5"
 
 ember-moment@^8.0.1:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/ember-moment/-/ember-moment-8.0.1.tgz#3a11929efeb7fb6bc5c1cc2c9e4c43bd9c500f80"
-  integrity sha512-YmhcMkH4OUwk1ynypxgWb8/O0E+v2HaZ49rk7yPbsf7EkzAyHn2tXrQPbFW4eWCKgHl+VoRoocLU9ShSIDI7qg==
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/ember-moment/-/ember-moment-8.0.2.tgz#6e5034045e9d1447fa6c0af80983b93ee62bb1be"
+  integrity sha512-2S4byvP7sSj8vn30280EA6mA62moe9TCpg2mtuioWYQV3shAUAX4FrfC2oCzNBU+TcKw3dSXnhGi9Pt5krMhAg==
   dependencies:
     ember-cli-babel "^6.7.2"
     ember-getowner-polyfill "^2.2.0"
@@ -7885,7 +7885,7 @@ ember-named-arguments-polyfill@^1.0.0:
     ember-cli-babel "^6.6.0"
     ember-cli-version-checker "^2.1.2"
 
-ember-notify@^6.0.0:
+ember-notify@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/ember-notify/-/ember-notify-6.0.2.tgz#02e12893cc6d00e87512eb09f0fab47a6a8b503e"
   integrity sha512-8RlEkEf2wlY9bytgI318i8bancmGLuIXJm9TpXo9vJyjaf0G5sA52x+z/43dnief0n18/9E3R65nT9/82I8K6A==
