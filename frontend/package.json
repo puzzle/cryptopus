@@ -57,7 +57,7 @@
     "ember-file-upload": "^3.0.4",
     "ember-i18n-iso-countries": "^1.5.0",
     "ember-in-viewport": "^3.9.0",
-    "ember-intl": "^4.4.0",
+    "ember-intl": "^5.7.2",
     "ember-islands": "^1.5.1",
     "ember-load-initializers": "^2.1.2",
     "ember-markdown-html": "^0.0.1",
