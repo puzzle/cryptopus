@@ -2,7 +2,7 @@
 
 class MoveFilesFromCredentialToFolder < ActiveRecord::Migration[6.1]
   def up
-    add_column :encryptables, :credentials_id, :integer
+    add_column :encryptables, :credential_id, :integer
 
     LegacyFileEntry.find_each do |file_entry|
       parent_encryptable = Encryptable::Credentials.find(file_entry.account_id)
@@ -33,17 +33,18 @@ class MoveFilesFromCredentialToFolder < ActiveRecord::Migration[6.1]
     end
 
     Encryptable::File.find_each do |file|
-      parent_encryptable = file.credentials_id
+      parent_encryptable = file.encryptable_credential
 
-      filename_prefix = parent_encryptable.name + ''
+      filename_prefix = parent_encryptable.name + ' '
       filename = file.name.sub(filename_prefix, '')
-      data = file.encrypted_data[:file].data
+      data = nil
+      data = file.encrypted_data[:file][:data] unless file.encrypted_data[:file].nil?
 
-      file_entry = build_legacy_file_entry(parent_encryptable.id, data, filename)
+      file_entry = build_legacy_file_entry(parent_encryptable.id, data, filename, file.description)
       file_entry.save!
     end
 
-    remove_column :encryptables, :credentials_id
+    remove_column :encryptables, :credential_id
   end
 
   private
@@ -58,15 +59,17 @@ class MoveFilesFromCredentialToFolder < ActiveRecord::Migration[6.1]
 
   def build_encryptable_entry(parent_encryptable, description, name)
     Encryptable::File.new(folder_id: parent_encryptable.folder_id,
-                          credentials_id: parent_encryptable.id,
+                          credential_id: parent_encryptable.id,
                           description: description,
                           name: name)
   end
 
-  def build_legacy_file_entry(account_id, file, filename)
+  def build_legacy_file_entry(account_id, file, filename, description)
     LegacyFileEntry.new(account_id: account_id,
                         file: file,
-                        filename: filename)
+                        filename: filename,
+                        description: description,
+                        content_type: 'application/binary')
   end
 
   class LegacyFileEntry < ApplicationRecord
