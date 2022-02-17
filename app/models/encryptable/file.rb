@@ -38,7 +38,7 @@ class Encryptable::File < Encryptable
     end
 
     if cleartext_file.size > 10.megabytes
-      errors.add(:base, I18n.t('flashes.encryptable_files.uploaded_size_to_high'))
+      errors.add(:base, I18n.t('flashes.file_entries.uploaded_size_to_high'))
     end
   end
 
