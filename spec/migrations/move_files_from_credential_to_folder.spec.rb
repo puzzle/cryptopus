@@ -39,6 +39,8 @@ describe MoveFilesFromCredentialToFolder do
 
   context 'up' do
     before do
+      migration.down
+
       @legacy_credentials1 = LegacyCredentialsWithFileEntries.find(credentials1.id)
       @legacy_credentials2 = LegacyCredentialsWithFileEntries.find(credentials2.id)
       @legacy_credentials3 = LegacyCredentialsWithFileEntries.find(credentials3.id)
@@ -89,59 +91,50 @@ describe MoveFilesFromCredentialToFolder do
 
   context "down" do
     before do
-      migration.up
-
       @file1 = Encryptable::File.new(name: 'Personal Mailbox test_file.txt',
-                                         description: 'Description of test file')
+                                     description: 'Description of test file',
+                                     encryptable_credential: credentials1)
 
-      @file1.encrypted_data[:file] = { iv: nil, data: test_file.read }
+      @file1.cleartext_file = test_file.read
+      @file1.encrypt(team1_password)
       @file1.save!
 
       @file2 = Encryptable::File.new(name: 'Twitter Account empty.txt',
-                                         description: 'Description of empty file')
+                                     description: 'Description of empty file',
+                                     encryptable_credential: credentials2)
 
-      @file2.encrypted_data[:file] = { iv: nil, data: empty_file.read }
+      @file2.cleartext_file = empty_file.read
+      @file2.encrypt(team1_password)
       @file2.save!
 
       @file3 = Encryptable::File.new(name: 'Empty Credential test_file.txt',
-                                         description: 'Description of test file')
+                                     description: 'Description of test file',
+                                     encryptable_credential: credentials3)
 
-      @file3.encrypted_data[:file] = { iv: nil, data: test_file.read }
+      @file3.cleartext_file = test_file.read
+      @file3.encrypt(team1_password)
       @file3.save!
     end
 
     it 'moves files from folder to credentials' do
       migration.down
 
-      file_entry1 = FileEntry.find_by(
-        folder_id: folder1.id,
-        description: 'Description of test file'
-      )
+      file_entry1 = FileEntry.find_by(account_id: credentials1.id)
       expect(file_entry1.decrypt(team1_password)).to eq('certificate')
-      expect(file_entry1.name).to eq('Personal Mailbox test_file.txt')
+      expect(file_entry1.filename).to eq('test_file.txt')
       expect(file_entry1.description).to eq('Description of test file')
 
 
-      file_entry2 = FileEntry.find_by(
-        folder_id: folder2.id,
-        description: 'Description of empty file'
-      )
+      file_entry2 = FileEntry.find_by(account_id: credentials2.id)
       expect(file_entry2.decrypt(team1_password)).to eq(nil)
-      expect(file_entry2.name).to eq('Twitter Account empty.txt')
+      expect(file_entry2.filename).to eq('empty.txt')
       expect(file_entry2.description).to eq('Description of empty file')
 
 
-      file_entry3 = FileEntry.find_by(
-        folder_id: folder2.id,
-        description: 'Description of test file'
-      )
+      file_entry3 = FileEntry.find_by(account_id: credentials3.id)
       expect(file_entry3.decrypt(team1_password)).to eq('certificate')
-      expect(file_entry3.name).to eq('Empty Credential test_file.txt')
+      expect(file_entry3.filename).to eq('test_file.txt')
       expect(file_entry3.description).to eq('Description of test file')
-
-      expect do
-        @file3.reload
-      end.to raise_error(ActiveRecord::RecordNotFound)
     end
 
   end
@@ -185,6 +178,11 @@ describe MoveFilesFromCredentialToFolder do
       self.file = CryptUtils.encrypt_blob(cleartext_file, team_password)
     end
 
+    def decrypt(team_password)
+      return if self.file.blank?
+
+      self.cleartext_file = CryptUtils.decrypt_blob(self.file, team_password)
+    end
   end
 
 end
