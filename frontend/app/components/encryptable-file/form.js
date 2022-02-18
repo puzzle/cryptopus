@@ -1,10 +1,10 @@
 import BaseFormComponent from "../base-form-component";
-import FileEntryValidations from "../../validations/file-entry";
+import EncryptableFileValidations from "../../validations/encryptable-file";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
-import { action } from "@ember/object";
-import { inject as service } from "@ember/service";
-import { tracked } from "@glimmer/tracking";
+import {action} from "@ember/object";
+import {inject as service} from "@ember/service";
+import {tracked} from "@glimmer/tracking";
 import ENV from "frontend/config/environment";
 
 export default class Form extends BaseFormComponent {
@@ -14,23 +14,21 @@ export default class Form extends BaseFormComponent {
 
   @tracked errors;
 
-  FileEntryValidations = FileEntryValidations;
+  EncryptableFileValidations = EncryptableFileValidations;
 
   constructor() {
     super(...arguments);
 
-    this.record = this.args.fileEntry || this.store.createRecord("file-entry");
+    this.record = this.args.fileEntry || this.store.createRecord("encryptable-file");
 
     this.changeset = new Changeset(
       this.record,
-      lookupValidator(FileEntryValidations),
-      FileEntryValidations
+      lookupValidator(EncryptableFileValidations),
+      EncryptableFileValidations
     );
 
     this.changeset.encryptable = this.args.encryptable;
-
-    var token = ENV.CSRFToken;
-    this.changeset.csrfToken = token;
+    this.changeset.csrfToken = ENV.CSRFToken;
   }
 
   @action
@@ -57,6 +55,7 @@ export default class Form extends BaseFormComponent {
   }
 
   handleSubmitError(response) {
+    console.log(response)
     this.errors = JSON.parse(response.body).errors;
     this.changeset.file = null;
     this.record.encryptable = null;
@@ -64,6 +63,7 @@ export default class Form extends BaseFormComponent {
 
   @action
   uploadFile(file) {
+    console.log(file)
     this.changeset.file = file;
   }
 }

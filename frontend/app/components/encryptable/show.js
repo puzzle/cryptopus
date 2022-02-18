@@ -12,8 +12,8 @@ export default class ShowComponent extends Component {
   constructor() {
     super(...arguments);
 
-    this.store.query("file-entry", {
-      encryptableId: this.args.encryptable.id
+    this.store.query("encryptable-file", {
+      encryptableCredentialId: this.args.encryptable.id
     });
 
     window.scrollTo(0, 0);

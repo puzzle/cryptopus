@@ -1,9 +1,10 @@
 import Encryptable from "./encryptable";
-import { attr } from "@ember-data/model";
+import { attr, hasMany } from "@ember-data/model";
 
 export default class EncryptableCredential extends Encryptable {
   @attr("string") cleartextUsername;
   @attr("string") cleartextPassword;
+  @hasMany("encryptable-file") encryptableFiles;
 
   get isFullyLoaded() {
     return (
