@@ -2,9 +2,9 @@ import BaseFormComponent from "../base-form-component";
 import EncryptableFileValidations from "../../validations/encryptable-file";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
-import { action } from "@ember/object";
-import { inject as service } from "@ember/service";
-import { tracked } from "@glimmer/tracking";
+import {action} from "@ember/object";
+import {inject as service} from "@ember/service";
+import {tracked} from "@glimmer/tracking";
 import ENV from "frontend/config/environment";
 
 export default class Form extends BaseFormComponent {
@@ -28,9 +28,7 @@ export default class Form extends BaseFormComponent {
     );
 
     this.changeset.encryptable = this.args.encryptable;
-
-    var token = ENV.CSRFToken;
-    this.changeset.csrfToken = token;
+    this.changeset.csrfToken = ENV.CSRFToken;
   }
 
   @action
@@ -50,12 +48,11 @@ export default class Form extends BaseFormComponent {
   }
 
   showSuccessMessage() {
-    let msg = this.intl.t("flashes.encryptable_files.uploaded");
+    let msg = this.intl.t("flashes.file_entries.uploaded");
     this.notify.success(msg);
   }
 
-  handleSubmitSuccess(savedRecords) {
-    this.setRecordValues(savedRecords);
+  handleSubmitSuccess() {
     this.abort();
   }
 
