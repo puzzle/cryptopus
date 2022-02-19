@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../utils/crypto/symmetric/aes256iv'
+
 class Encryptable::OSESecret < Encryptable
   attr_accessor :cleartext_ose_secret
 
@@ -30,9 +32,9 @@ class Encryptable::OSESecret < Encryptable
 
   def convert_legacy_encrypted_data!(team_password)
     json = legacy_encrypted_data
-    value = json['value']
+    value = Base64.strict_decode64(json['value'])
     iv = json['iv']
-    decrypted_data = CryptUtils.decrypt_base64(value, team_password, Base64.strict_decode64(iv))
+    decrypted_data = Crypto::Symmetric::AES256IV.decrypt(value, team_password, Base64.strict_decode64(iv))
 
     @cleartext_ose_secret = JSON.parse(decrypted_data)['ose_secret']
     self.encrypted_data = {}
