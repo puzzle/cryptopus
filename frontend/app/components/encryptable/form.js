@@ -129,6 +129,7 @@ export default class Form extends BaseFormComponent {
         );
       }
     }
+  }
 
   get isEncryptableShowRoute() {
     return this.router.currentRouteName === "encryptables.show";
