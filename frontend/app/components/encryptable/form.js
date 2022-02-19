@@ -129,9 +129,10 @@ export default class Form extends BaseFormComponent {
         );
       }
     }
+  }
 
-  get isAccountShowRoute() {
-    return this.router.currentRouteName === "accounts.show";
+  get isEncryptableShowRoute() {
+    return this.router.currentRouteName === "encryptables.show";
   }
 
   handleSubmitError(response) {

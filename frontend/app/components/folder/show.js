@@ -37,14 +37,9 @@ export default class ShowComponent extends Component {
   }
 
   @action
-<<<<<<< HEAD
-  toggleAccountCreating() {
-    this.navService.setSelectedFolderById(this.args.folder.id);
-    this.isNewAccount = !this.isNewAccount;
-=======
   toggleEncryptableCreating() {
+    this.navService.setSelectedFolderById(this.args.folder.id);
     this.isNewEncryptable = !this.isNewEncryptable;
->>>>>>> Rename account to encryptable, closes #510
   }
 
   expandSelectedFolder() {

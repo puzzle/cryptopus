@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: accounts
+# Table name: encryptables
 #
 #  id          :integer          not null, primary key
 #  name        :string(70)       default(""), not null
