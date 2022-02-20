@@ -34,7 +34,8 @@ class Encryptable::OSESecret < Encryptable
     json = legacy_encrypted_data
     value = Base64.strict_decode64(json['value'])
     iv = json['iv']
-    decrypted_data = Crypto::Symmetric::AES256IV.decrypt(value, team_password, Base64.strict_decode64(iv))
+    decrypted_data =
+      Crypto::Symmetric::AES256IV.decrypt(value, team_password, Base64.strict_decode64(iv))
 
     @cleartext_ose_secret = JSON.parse(decrypted_data)['ose_secret']
     self.encrypted_data = {}
