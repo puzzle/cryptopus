@@ -1,17 +1,11 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
 require 'spec_helper'
 
-
-describe 'AccountModal', type: :system, js: true do
+describe 'encryptable modal', type: :system, js: true do
   include SystemHelpers
 
-  let(:account_attrs) do
+  let(:encryptable_attrs) do
     { name: 'acc',
       username: 'username',
       password: 'strong-pass3roeedd-1§23',
@@ -29,7 +23,7 @@ describe 'AccountModal', type: :system, js: true do
     login_as_user(:bob)
     visit('/')
 
-    # Create Account
+    # Create Credentials
     expect(page).to have_css('div.dropdown-toggle-text span', text: 'Add')
     find('div.dropdown-toggle-text span', text: 'Add').click
 
@@ -57,19 +51,19 @@ describe 'AccountModal', type: :system, js: true do
     # Prove that the Passwordfield has no autocomplete
     expect(find("input[name='cleartextPassword']", visible: false)['autocomplete']).to eq 'off'
 
-    fill_modal(account_attrs)
+    fill_modal(encryptable_attrs)
 
     expect do
       click_button('Save', visible: false)
-      expect(page).to have_text(account_attrs[:name])
+      expect(page).to have_text(encryptable_attrs[:name])
     end.to change { Encryptable.count }.by 1
 
     # Edit Account
-    account = Encryptable.find_by(name: account_attrs[:name])
+    account = Encryptable.find_by(name: encryptable_attrs[:name])
     folder = Folder.find(account.folder_id)
     team = Team.find(folder.team_id)
 
-    expect_account_page_with(account_attrs)
+    expect_account_page_with(encryptable_attrs)
 
     find('#edit_account_button').click
 

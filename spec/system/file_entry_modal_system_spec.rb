@@ -21,11 +21,11 @@ describe 'FileEntryModal', type: :system, js: true do
     team = teams(:team1)
     team_password = team.decrypt_team_password(bob, bobs_private_key)
 
-    account = encryptables(:credential1)
-    account.decrypt(team_password)
-    visit("/accounts/#{account.id}")
+    credentials = encryptables(:credentials1)
+    credentials.decrypt(team_password)
+    visit("/encryptables/#{credentials.id}")
 
-    expect_account_page_with(account)
+    expect_encryptable_page_with(credentials)
 
     # Create File Entry
     file_name = 'test_file.txt'
@@ -33,7 +33,7 @@ describe 'FileEntryModal', type: :system, js: true do
     file_path = "#{Rails.root}/spec/fixtures/files/#{file_name}"
     expect do
       create_new_file_entry(file_desc, file_path)
-      expect(page).to have_text(account.name)
+      expect(page).to have_text(credentials.name)
     end.to change { FileEntry.count }.by(1)
 
     file_entry = FileEntry.find_by(filename: 'test_file.txt')
@@ -41,7 +41,7 @@ describe 'FileEntryModal', type: :system, js: true do
     file_entry.decrypt(plaintext_team_password)
     expect(file_entry.cleartext_file).to eq file_content
 
-    expect_account_page_with(account)
+    expect_encryptable_page_with(credentials)
 
     # Try to upload again
     expect do
@@ -81,11 +81,11 @@ describe 'FileEntryModal', type: :system, js: true do
     click_button 'Upload'
   end
 
-  def expect_account_page_with(account)
-    expect(first('h2')).to have_text("Account: #{account.name}")
-    expect(find('#cleartext_username').value).to eq(account.cleartext_username)
-    expect(find('#cleartext_password', visible: false).value).to eq(account.cleartext_password)
-    expect(page).to have_text(account.description)
+  def expect_encryptable_page_with(credentials)
+    expect(first('h2')).to have_text("Account: #{credentials.name}")
+    expect(find('#cleartext_username').value).to eq(credentials.cleartext_username)
+    expect(find('#cleartext_password', visible: false).value).to eq(credentials.cleartext_password)
+    expect(page).to have_text(credentials.description)
   end
 
 end
