@@ -19,7 +19,7 @@ describe 'encryptable modal', type: :system, js: true do
       description: 'desc2' }
   end
 
-  it 'creates, edits and deletes an account' do
+  it 'creates, edits and deletes credentials' do
     login_as_user(:bob)
     visit('/')
 
@@ -31,10 +31,10 @@ describe 'encryptable modal', type: :system, js: true do
       all('a.dropdown-item').first.click
     end
 
-    expect(page).to have_text('New Account')
+    expect(page).to have_text('New Encryptable')
 
     expect(page).to have_selector('.modal-content')
-    expect(page).to have_text('New Account')
+    expect(page).to have_text('New Encryptable')
     expect(page).to have_content('Save')
 
     within('.modal-body.ember-view') do
@@ -59,27 +59,27 @@ describe 'encryptable modal', type: :system, js: true do
     end.to change { Encryptable.count }.by 1
 
     # Edit Account
-    account = Encryptable.find_by(name: encryptable_attrs[:name])
-    folder = Folder.find(account.folder_id)
+    credentials = Encryptable.find_by(name: encryptable_attrs[:name])
+    folder = Folder.find(credentials.folder_id)
     team = Team.find(folder.team_id)
 
-    expect_account_page_with(encryptable_attrs)
+    expect_encryptable_page_with(encryptable_attrs)
 
     find('#edit_account_button').click
 
-    expect(page).to have_text('Edit Account')
+    expect(page).to have_text('Edit Encryptable')
 
     expect(find('.modal.modal_account')).to be_present
-    expect(page).to have_text('Edit Account')
+    expect(page).to have_text('Edit Encryptable')
     expect(page).to have_button('Save', visible: false)
 
     fill_modal(updated_attrs)
     expect_filled_fields_in_modal_with(updated_attrs)
     click_button('Save', visible: false)
 
-    expect_account_page_with(updated_attrs)
+    expect_encryptable_page_with(updated_attrs)
 
-    # Delete Account
+    # Delete Credentials
     expect do
       all('span.btn.btn-light.edit_button[role="button"]')[0].click
       expect(page).to have_text('Are you sure?')
@@ -87,7 +87,7 @@ describe 'encryptable modal', type: :system, js: true do
       visit("/teams/#{team.id}/folders/#{folder.id}")
 
       expect(page).to have_text(team.name)
-      expect(page).to have_css('div', visible: false, text: account.name)
+      expect(page).not_to have_text(credentials.name)
     end.to change { Encryptable.count }.by(-1)
 
     logout
@@ -112,8 +112,8 @@ describe 'encryptable modal', type: :system, js: true do
     end
   end
 
-  def expect_account_page_with(acc_attrs)
-    expect(page).to have_text("Account: #{acc_attrs[:name]}")
+  def expect_encryptable_page_with(acc_attrs)
+    expect(page).to have_text("Encryptable: #{acc_attrs[:name]}")
     expect(find('#cleartext_username', visible: false).value).to eq(acc_attrs[:username])
     expect(page).to have_text(acc_attrs[:description])
   end
