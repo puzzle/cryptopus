@@ -51,7 +51,7 @@ describe 'FileEntryModal', type: :system, js: true do
     expect(page).to have_text('Filename is already taken')
     click_button('Close')
 
-    expect(page).to have_text("Account: #{account.name}")
+    expect(page).to have_text("Encryptable: #{credentials.name}")
 
     # Delete File Entry
     del_button = all('img[alt="delete"]')[3]
@@ -68,7 +68,7 @@ describe 'FileEntryModal', type: :system, js: true do
     new_file_entry_button = find('button.btn.btn-primary', text: 'Add Attachment', visible: false)
     new_file_entry_button.click
 
-    expect(page).to have_text('Add new attachment to account')
+    expect(page).to have_text('Add new attachment to encryptable')
 
     expect(find('.modal-content')).to be_present
     expect(page).to have_button('Upload')
@@ -82,7 +82,7 @@ describe 'FileEntryModal', type: :system, js: true do
   end
 
   def expect_encryptable_page_with(credentials)
-    expect(first('h2')).to have_text("Account: #{credentials.name}")
+    expect(first('h2')).to have_text("Encryptable: #{credentials.name}")
     expect(find('#cleartext_username').value).to eq(credentials.cleartext_username)
     expect(find('#cleartext_password', visible: false).value).to eq(credentials.cleartext_password)
     expect(page).to have_text(credentials.description)
