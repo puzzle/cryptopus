@@ -14,11 +14,7 @@ describe 'QuickSearch', type: :system, js: true do
     login_as_user(:bob)
   end
 
-  after(:each) do
-    logout
-  end
-
-  let(:encryptable_credential1) { encryptables(:credential1) }
+  let(:credentials1) { encryptables(:credentials1) }
 
   it 'search with not available keyword does not show any results' do
     expect(find('input.search')['placeholder']).to eq('Type to search in all teams...')
@@ -28,23 +24,23 @@ describe 'QuickSearch', type: :system, js: true do
     expect(page).to have_no_css('li.result')
   end
 
-  it 'search and access account' do
+  it 'search and access credentials' do
     expect(find('input.search')['placeholder']).to eq('Type to search in all teams...')
     expect(page).to have_selector('input.search')
 
-    find('input.search').set account1.name
-    expect(page).to have_selector('.account-entry')
-    within('div.account-entry') do
-      expect(page).to have_content(account1.name)
+    find('input.search').set credentials1.name
+    expect(page).to have_selector('.encryptable-entry')
+    within('div.encryptable-entry') do
+      expect(page).to have_content(credentials1.name)
     end
   end
 
   it 'search by get params' do
-    find('input.search').set 'account1'
+    find('input.search').set 'Mailbox'
 
-    expect(page).to have_selector('.account-entry')
-    within('div.account-entry') do
-      expect(page).to have_content(account1.name)
+    expect(page).to have_selector('.encryptable-entry')
+    within('div.encryptable-entry') do
+      expect(page).to have_content(credentials1.name)
     end
   end
 end
