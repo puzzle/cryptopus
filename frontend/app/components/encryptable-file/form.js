@@ -14,12 +14,11 @@ export default class Form extends BaseFormComponent {
 
   @tracked errors;
 
-  EncryptableFileValidations = EncryptableFileValidations;
-
   constructor() {
     super(...arguments);
 
-    this.record = this.args.fileEntry || this.store.createRecord("encryptable-file");
+    this.record = this.store.createRecord("encryptable-file");
+    this.record.encryptableCredential = this.args.encryptableCredential
 
     this.changeset = new Changeset(
       this.record,
@@ -55,15 +54,13 @@ export default class Form extends BaseFormComponent {
   }
 
   handleSubmitError(response) {
-    console.log(response)
     this.errors = JSON.parse(response.body).errors;
     this.changeset.file = null;
-    this.record.encryptable = null;
+    this.record.encryptableCredential = null;
   }
 
   @action
   uploadFile(file) {
-    console.log(file)
     this.changeset.file = file;
   }
 }

@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
 class Api::EncryptablesController < ApiController
+  include EncryptableFile
+
   self.permitted_attrs = [:name, :description, :folder_id, :tag]
 
   helper_method :team
@@ -27,7 +25,6 @@ class Api::EncryptablesController < ApiController
 
   # POST /api/encryptables
   def create
-    require 'pry'; binding.pry unless $pstop
     build_entry
     authorize encryptable
     encryptable.encrypt(decrypted_team_password(team))
@@ -60,7 +57,7 @@ class Api::EncryptablesController < ApiController
        params.dig('data', 'attributes', 'type') == 'ose_secret'
       Encryptable::OSESecret
     elsif action_name == 'create' &&
-      params.dig('data', 'attributes', 'type') == 'file'
+      params.dig('data', 'attributes', 'type') == 'ose_secret'
       Encryptable::File
     elsif action_name == 'destroy'
       Encryptable
@@ -124,7 +121,7 @@ class Api::EncryptablesController < ApiController
     if model_class == Encryptable::OSESecret
       permitted_attrs << :cleartext_ose_secret
     elsif model_class == Encryptable::File
-      permitted_attrs << :cleartext_file
+      permitted_attrs << [:cleartext_file, :encryptable_credentials_id]
     elsif model_class == Encryptable::Credentials
       permitted_attrs + [:cleartext_username, :cleartext_password]
     else
