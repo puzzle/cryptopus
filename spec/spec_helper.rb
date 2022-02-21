@@ -38,11 +38,21 @@ SimpleCov.start 'rails' do
   coverage_dir 'test/coverage'
 end
 
+Capybara.register_driver :firefox do |app|
+  headless = !ENV['HEADLESS'].in?(%w[n 0 no false])
+  options = Selenium::WebDriver::Firefox::Options.new
+  options.add_argument('--headless') if headless
+
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :firefox,
+    capabilities: [options]
+  )
+end
+
 Capybara.default_max_wait_time = 10
 
-Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, browser: :firefox)
-end
+Capybara.default_driver = Capybara.javascript_driver = :firefox
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -64,16 +74,6 @@ Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-
-  config.before(:each, type: :system) do
-    driven_by ENV['HEAD'] ? :selenium : :selenium_headless
-  end
-
-  config.before(:each, type: :system, js: true) do
-    WebMock.disable!
-    page.driver.browser.manage.window.resize_to(1920, 1080)
-    driven_by ENV['HEAD'] ? :selenium : :selenium_headless
-  end
 
   # Run before each testcase
   config.before(:each) do
@@ -180,4 +180,8 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.filter_rails_from_backtrace!
+
+  config.prepend_before(:each, type: :system) do
+    driven_by Capybara.javascript_driver
+  end
 end

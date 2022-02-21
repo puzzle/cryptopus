@@ -6,6 +6,8 @@ services:
     user: "${UID:-1000}"
     tty: true
     stdin_open: true
+    environment:
+      - DISPLAY=${DISPLAY}
     build:
       context: ./config/docker/development
       dockerfile: Rails.dockerfile
@@ -18,6 +20,7 @@ services:
       - ./config/docker/development/rails/bin/prepare-frontend.sh:/myapp/bin/prepare-frontend.sh:ro
       - ./config/docker/development/home/rails:/home/developer
       - bundler_cache:/opt/bundle
+      - /tmp/.X11-unix:/tmp/.X11-unix
   ember:
     image: cryptopus-dev/ember
     tty: true
