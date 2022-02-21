@@ -15299,7 +15299,7 @@ testem@^3.2.0:
     tap-parser "^7.0.0"
     tmp "0.0.33"
 
-text-security@^3.1.1:
+text-security@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/text-security/-/text-security-3.2.1.tgz#4c3e4eb3a4a1c76c27c144b8ffe0590f24feecdd"
   integrity sha512-MjDQ3lyLeLqcGqZfQCZ6kvjQiuNfJaicdgIczPJDtD4tj0vIPT8WwIOKTi8wgXCVS/F1WJmapO3SppXemrwbIA==
