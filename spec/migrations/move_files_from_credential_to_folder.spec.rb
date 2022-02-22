@@ -89,7 +89,7 @@ describe MoveFilesFromCredentialToFolder do
 
   end
 
-  context "down" do
+  context 'down' do
     before do
       @file1 = Encryptable::File.new(name: 'Personal Mailbox test_file.txt',
                                      description: 'Description of test file',
@@ -179,9 +179,9 @@ describe MoveFilesFromCredentialToFolder do
     end
 
     def decrypt(team_password)
-      return if self.file.blank?
+      return if file.blank?
 
-      self.cleartext_file = CryptUtils.decrypt_blob(self.file, team_password)
+      self.cleartext_file = CryptUtils.decrypt_blob(file, team_password)
     end
   end
 
