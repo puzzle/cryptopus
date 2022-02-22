@@ -3,6 +3,8 @@
 ## Version 4.1
 - Introduce Puzzle-Shell hero & dashboard
 - Add default CCLI user
+- Upgrade versions and remove unused frontend dependencies
+- Add wiki page with list of all dependencies
 
 ## Version 4.0
 - Introduction to Puzzle-Shell
