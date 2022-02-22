@@ -3,6 +3,9 @@
 class MoveFilesFromCredentialToFolder < ActiveRecord::Migration[6.1]
   def up
     add_column :encryptables, :credential_id, :integer
+    add_column :encryptables, :content_type, :text
+
+    Encryptable.reset_column_information
 
     LegacyFileEntry.find_each do |file_entry|
       parent_encryptable = Encryptable::Credentials.find(file_entry.account_id)
@@ -11,6 +14,7 @@ class MoveFilesFromCredentialToFolder < ActiveRecord::Migration[6.1]
       encryptable_file = build_encryptable_entry(parent_encryptable, file_entry.description, filename)
 
       encryptable_file.encrypted_data[:file] = { iv: nil, data: file_entry.file }
+      encryptable_file.content_type = file_entry.content_type
       encryptable_file.save!
 
       if empty_encryptable?(parent_encryptable)
@@ -40,11 +44,12 @@ class MoveFilesFromCredentialToFolder < ActiveRecord::Migration[6.1]
       data = nil
       data = file.encrypted_data[:file][:data] unless file.encrypted_data[:file].nil?
 
-      file_entry = build_legacy_file_entry(parent_encryptable.id, data, filename, file.description)
+      file_entry = build_legacy_file_entry(parent_encryptable.id, data, filename, file.description, file.content_type)
       file_entry.save!
     end
 
     remove_column :encryptables, :credential_id
+    remove_column :encryptables, :content_type
   end
 
   private
@@ -64,12 +69,12 @@ class MoveFilesFromCredentialToFolder < ActiveRecord::Migration[6.1]
                           name: name)
   end
 
-  def build_legacy_file_entry(account_id, file, filename, description)
+  def build_legacy_file_entry(account_id, file, filename, description, content_type)
     LegacyFileEntry.new(account_id: account_id,
                         file: file,
                         filename: filename,
                         description: description,
-                        content_type: 'application/binary')
+                        content_type: content_type)
   end
 
   class LegacyFileEntry < ApplicationRecord
