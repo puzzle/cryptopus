@@ -78,6 +78,19 @@ class Api::EncryptablesController < ApiController
     encryptables
   end
 
+  def render_entry(options = nil)
+    if encryptable.is_a?(Encryptable::File)
+      send_file
+    else
+      super
+    end
+  end
+
+  def send_file
+    send_data encryptable.cleartext_file, filename: encryptable.name,
+              type: encryptable.content_type, disposition: 'attachment'
+  end
+
   def fetch_file_entries
     Encryptable::File.where(credential_id: user_encryptables.pluck(:id)).where(credential_id: params[:credential_id])
   end
@@ -102,7 +115,15 @@ class Api::EncryptablesController < ApiController
   end
 
   def team
-    @team ||= encryptable.folder.team
+    @team ||= fetch_team
+  end
+
+  def fetch_team
+    if encryptable.is_a?(Encryptable::File)
+      encryptable.encryptable_credential.folder.team
+    else
+      encryptable.folder.team
+    end
   end
 
   def query_param

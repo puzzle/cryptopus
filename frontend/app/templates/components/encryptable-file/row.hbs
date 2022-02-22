@@ -1,8 +1,8 @@
 <tr>
-  <td><a  target="_blank" rel="noopener">{{@fileEntry.filename}}</a></td>
-  <td>{{@fileEntry.description}}</td>
+  <td><a href={{this.downloadLink}} target="_blank" rel="noopener">{{@encryptableFile.name}}</a></td>
+  <td>{{@encryptableFile.description}}</td>
   <td>
-    <DeleteWithConfirmation @record={{@fileEntry}}>
+    <DeleteWithConfirmation @record={{@encryptableFile}}>
       <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
     </DeleteWithConfirmation>
   </td>
