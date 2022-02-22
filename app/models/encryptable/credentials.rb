@@ -6,7 +6,7 @@ class Encryptable::Credentials < Encryptable
   has_many :encryptable_files,
            class_name: 'Encryptable::File',
            foreign_key: :credential_id,
-           dependent: :nullify
+           dependent: :destroy
 
   def decrypt(team_password)
     decrypt_attr(:username, team_password)
