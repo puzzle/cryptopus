@@ -13,16 +13,11 @@ export default class EncryptableFile extends Encryptable {
     let url = `/api/encryptables`;
     let opts = {
       data: {
-        // // data nesting begins here, as above data is the option
-        // data: {
-        //   attributes: {
-            description: this.description || "",
-            encryptable_credentials_id: this.encryptableCredential.get("id"),
-            type: "Encryptable::File"
-        //   }
-        // }
+        description: this.description || "",
+        encryptable_credentials_id: this.encryptableCredential.get("id"),
+        type: "Encryptable::File"
       },
-      headers: {"X-CSRF-Token": this.csrfToken}
+      headers: { "X-CSRF-Token": this.csrfToken }
     };
 
     let promise = this.file.upload(url, opts);
@@ -32,8 +27,7 @@ export default class EncryptableFile extends Encryptable {
         this.id = data.id;
         this.filename = data.attributes.filename;
       })
-      .catch(() => {
-      });
+      .catch(() => {});
 
     return promise;
   }
