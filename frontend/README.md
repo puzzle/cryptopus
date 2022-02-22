@@ -49,9 +49,6 @@ After the successful initialisation, you can visit [localhost:4200/test](http://
 
 ## Further Reading / Useful Links
 
-### Dependency list
-[List of all used frontend dependencies](https://github.com/puzzle/cryptopus/wiki/Dependencies) 
-
 * [ember.js](https://emberjs.com/)
 * [ember-cli](https://ember-cli.com/)
 * Development Browser Extensions
