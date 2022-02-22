@@ -69,11 +69,17 @@ class Api::EncryptablesController < ApiController
   end
 
   def fetch_entries
-    encryptables = current_user.encryptables
+    return fetch_file_entries if params[:credential_id].present?
+
+    encryptables = user_encryptables
     if tag_param.present?
       encryptables = encryptables.find_by(tag: tag_param)
     end
     encryptables
+  end
+
+  def fetch_file_entries
+    Encryptable::File.where(credential_id: user_encryptables.pluck(:id)).where(credential_id: params[:credential_id])
   end
 
   def encrypt(encryptable)
@@ -89,6 +95,10 @@ class Api::EncryptablesController < ApiController
 
   def encryptable
     @encryptable ||= Encryptable.find(params[:id])
+  end
+
+  def user_encryptables
+    current_user.encryptables
   end
 
   def team

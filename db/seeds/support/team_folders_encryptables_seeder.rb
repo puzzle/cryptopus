@@ -61,16 +61,16 @@ class TeamFoldersEncryptablesSeeder
   def seed_file(credentials_entry)
     file_name = "#{Faker::Company.name} #{rand(999)}.txt"
 
-    credential = credentials_entry.encryptable_files.new(name: file_name,
+    encryptable_file = credentials_entry.encryptable_files.new(name: file_name,
                                          credential_id: credentials_entry.id,
                                          description: Faker::Lorem.paragraph,
                                          type: "Encryptable::File")
 
-    credential.cleartext_file = Faker::Lorem.paragraph(sentence_count: rand(99))
-    credential.cleartext_content_type = 'text/plain'
-    credential.encrypt(team_password(credentials_entry.folder.team))
+    encryptable_file.cleartext_file = Faker::Lorem.paragraph(sentence_count: rand(99))
+    encryptable_file.content_type = 'text/plain'
+    encryptable_file.encrypt(team_password(credentials_entry.folder.team))
 
-    credential.save!
+    encryptable_file.save!
   end
 
   private

@@ -98,6 +98,30 @@ describe Api::EncryptablesController do
       expect_json_object_includes_keys(credentials2_json_attributes, attributes)
       expect_json_object_includes_keys(credentials2_json_relationships, nested_models)
     end
+
+    it 'returns encryptable files for credentials entry' do
+      login_as(:alice)
+
+      credentials1 = encryptables(:credentials1)
+      file1 = encryptables(:file1)
+
+      get :index, params: { 'credential_id': credentials1.id }, xhr: true
+
+      files_json = data.first
+      files_json_attributes = files_json['attributes']
+
+      expect(data.count).to eq 1
+      expect(files_json['id']).to eq file1.id.to_s
+      expect(files_json_attributes['name']).to eq file1.name
+      expect(files_json_attributes['description']).to eq 'One-Time access codes'
+
+      file_attributes =  %w[name description]
+      expect_json_object_includes_keys(files_json_attributes, file_attributes)
+    end
+
+    it 'does not return encryptable files without access' do
+      #  Implement
+    end
   end
 
   context 'GET show' do

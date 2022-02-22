@@ -84,8 +84,8 @@
         <th class="description">{{t "description"}}</th>
         <th>{{t "actions"}}</th>
       </tr>
-      {{#each @encryptable.fileEntries as |fileEntry|}}
-        <FileEntry::Row @fileEntry={{fileEntry}}/>
+      {{#each @encryptableFiles as |fileEntry|}}
+        <EncryptableFile::Row @fileEntry={{fileEntry}}/>
       {{/each}}
     </tbody>
   </table>
