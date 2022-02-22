@@ -12,7 +12,8 @@ describe Encryptable::File do
     # mock test_file size to be too large to save
     expect(test_file).to receive(:size).and_return(20.megabytes)
 
-    encryptable_file = Encryptable::File.new(name: 'Too large file', encryptable_credential: credentials1)
+    encryptable_file = Encryptable::File.new(name: 'Too large file',
+                                             encryptable_credential: credentials1)
     encryptable_file.cleartext_file = test_file
 
     # validate to not save if too large
@@ -33,7 +34,8 @@ describe Encryptable::File do
   end
 
   it 'encrypts and decrypts file' do
-    encryptable_file = Encryptable::File.new(name: 'Test file', encryptable_credential: credentials1)
+    encryptable_file = Encryptable::File.new(name: 'Test file',
+                                             encryptable_credential: credentials1)
     encryptable_file.cleartext_file = test_file
 
     encryptable_file.encrypt(team1_password)
