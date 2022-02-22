@@ -3,7 +3,10 @@
 class Encryptable::Credentials < Encryptable
   attr_accessor :cleartext_password, :cleartext_username
 
-  has_many :encryptable_files, class_name: 'Encryptable::File', foreign_key: :credential_id
+  has_many :encryptable_files,
+           class_name: 'Encryptable::File',
+           foreign_key: :credential_id,
+           dependent: :nullify
 
   def decrypt(team_password)
     decrypt_attr(:username, team_password)

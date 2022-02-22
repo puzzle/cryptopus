@@ -115,7 +115,7 @@ describe Api::EncryptablesController do
       expect(files_json_attributes['name']).to eq file1.name
       expect(files_json_attributes['description']).to eq 'One-Time access codes'
 
-      file_attributes =  %w[name description]
+      file_attributes = %w[name description]
       expect_json_object_includes_keys(files_json_attributes, file_attributes)
     end
 

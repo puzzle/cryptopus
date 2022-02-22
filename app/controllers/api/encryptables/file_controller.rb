@@ -5,7 +5,6 @@ class Api::Encryptables::FileController < Api::EncryptablesController
 
   def create
     build_encryptable_file
-    require 'pry'; binding.pry unless $pstop
     authorize entry
     if entry.save
       render_entry({ status: :created }
@@ -34,7 +33,6 @@ class Api::Encryptables::FileController < Api::EncryptablesController
                           name: name)
   end
 
-
   def ivar_name
     Encryptable::File.model_name.param_key
   end
@@ -48,4 +46,3 @@ class Api::Encryptables::FileController < Api::EncryptablesController
   end
 
 end
-

@@ -56,9 +56,6 @@ class Api::EncryptablesController < ApiController
     if action_name == 'create' &&
        params.dig('data', 'attributes', 'type') == 'ose_secret'
       Encryptable::OSESecret
-    elsif action_name == 'create' &&
-      params.dig('data', 'attributes', 'type') == 'ose_secret'
-      Encryptable::File
     elsif action_name == 'destroy'
       Encryptable
     elsif @encryptable.present?
@@ -88,11 +85,12 @@ class Api::EncryptablesController < ApiController
 
   def send_file
     send_data encryptable.cleartext_file, filename: encryptable.name,
-              type: encryptable.content_type, disposition: 'attachment'
+                                          type: encryptable.content_type, disposition: 'attachment'
   end
 
   def fetch_file_entries
-    Encryptable::File.where(credential_id: user_encryptables.pluck(:id)).where(credential_id: params[:credential_id])
+    Encryptable::File.where(credential_id: user_encryptables.pluck(:id))
+                     .where(credential_id: params[:credential_id])
   end
 
   def encrypt(encryptable)
