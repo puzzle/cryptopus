@@ -36,6 +36,43 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_29_122335) do
     t.index ["name"], name: "index_folders_on_name"
   end
 
+  create_table "grouppasswords", force: :cascade do |t|
+    t.integer "group_id", default: 0, null: false
+    t.binary "password", null: false
+    t.integer "user_id", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "groupname", limit: 40, default: "", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", default: 0, null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.integer "account_id", default: 0, null: false
+    t.text "description"
+    t.binary "file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "filename", null: false
+    t.text "content_type", null: false
+  end
+
+  create_table "ldapsettings", force: :cascade do |t|
+    t.string "basename", limit: 200, default: "ou=users,dc=yourdomain,dc=com", null: false
+    t.string "hostname", limit: 50, default: "yourdomain.com", null: false
+    t.string "portnumber", limit: 10, default: "636", null: false
+    t.string "encryption", limit: 30, default: "simple_tls", null: false
+  end
+
+  create_table "recryptrequests", force: :cascade do |t|
+    t.integer "user_id", default: 0, null: false
+  end
+
   create_table "settings", force: :cascade do |t|
     t.string "key", null: false
     t.string "value"
