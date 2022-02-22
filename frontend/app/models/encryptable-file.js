@@ -13,14 +13,14 @@ export default class EncryptableFile extends Encryptable {
     let url = `/api/encryptables`;
     let opts = {
       data: {
-        // data nesting begins here, as above data is the option
-        data: {
-          attributes: {
+        // // data nesting begins here, as above data is the option
+        // data: {
+        //   attributes: {
             description: this.description || "",
             encryptable_credentials_id: this.encryptableCredential.get("id"),
             type: "Encryptable::File"
-          }
-        }
+        //   }
+        // }
       },
       headers: {"X-CSRF-Token": this.csrfToken}
     };
