@@ -24,10 +24,10 @@ class EncryptableMoveHandler < EncryptableHandler
 
   def move_file_entries(old_team_password)
     new_team_password = new_team.decrypt_team_password(user, private_key)
-    encryptable.file_entries.each do |i|
-      i.decrypt(old_team_password)
-      i.file = i.encrypt(new_team_password)
-      i.save!
+    encryptable.encryptable_files.each do |f|
+      f.decrypt(old_team_password)
+      f.encrypt(new_team_password)
+      f.save!
     end
   end
 

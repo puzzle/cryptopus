@@ -38,7 +38,7 @@ file1:
   name: Access codes
   description: One-Time access codes
   encryptable_credential: credentials1
-  encrypted_data: '{"file":{"iv":null,"data":"FvJS9jooGEX1aXqB0iP7wB6h2YwO479OM+RpNmBlbORivbVPky0rR4u3lNLN+DGIL93gQAlVHDw1CZe9zDoTgSyxsQFflQwGk3DMDS9xhoQSJzTkBPBIb33j9H7WG37CQwdNNFnn/NExiBZb+9dbmHGqw8KWvRd3Xd/oSlTr6w/c0gz3UEYfhC5l6P3xnDc2"}}"'
+  encrypted_data: '{"file":{"iv":null,"data":"FvJS9jooGEX1aXqB0iP7wB6h2YwO479OM+RpNmBlbORivbVPky0rR4u3lNLN+DGIL93gQAlVHDw1CZe9zDoTgSyxsQFflQwGk3DMDS9xhoQSJzTkBPBIb33j9H7WG37CQwdNNFnn/NExiBZb+9dbmHGqw8KWvRd3Xd/oSlTr6w/c0gz3UEYfhC5l6P3xnDc2"}}'
 
 osesecret1:
   type: Encryptable::OseSecret
