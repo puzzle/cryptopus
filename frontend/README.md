@@ -54,3 +54,5 @@ After the successful initialisation, you can visit [localhost:4200/test](http://
 * Development Browser Extensions
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+* Dependency list
+  * [List of all used frontend dependencies](https://github.com/puzzle/cryptopus/wiki/Dependencies)
