@@ -63,7 +63,9 @@ describe EncryptableMoveHandler do
 
     decrypted_file_file_entry1 = encryptables(:file1).decrypt(new_team_password)
 
-    expect(decrypted_file_file_entry1).to eq('Dolorem odio id. Veniam sit eum. Earum et nesciunt. Sed modi voluptatem. Maxime qui rerum. A fugit eos. Magnam atque at. Velit quam dolores.')
+    expect(decrypted_file_file_entry1).to eq('Dolorem odio id. Veniam sit eum. Earum et nesciunt. \
+                                             Sed modi voluptatem. Maxime qui rerum. A fugit eos. \
+                                             Magnam atque at. Velit quam dolores.')
   end
 
   it 'cannot move credential to a team user is not a member of' do
@@ -105,7 +107,9 @@ describe EncryptableMoveHandler do
       EncryptableMoveHandler.new(credentials1, bobs_private_key, bob).move
     rescue StandardError
       file_entry1.reload.decrypt(team1_password)
-      expect(file_entry1.cleartext_file).to eq('Dolorem odio id. Veniam sit eum. Earum et nesciunt. Sed modi voluptatem. Maxime qui rerum. A fugit eos. Magnam atque at. Velit quam dolores.')
+      expect(file_entry1.cleartext_file).to eq('Dolorem odio id. Veniam sit eum. Earum et \
+                                               nesciunt. Sed modi voluptatem. Maxime qui rerum. \
+                                               A fugit eos. Magnam atque at. Velit quam dolores.')
       expect(credentials1.reload.folder.team).to eq(team1)
     end
   end
