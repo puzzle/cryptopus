@@ -379,12 +379,13 @@ describe Api::EncryptablesController do
       credentials1.reload
 
       credentials1.decrypt(team2_password)
-      file_entry = credentials1.file_entries.first
-      file_entry.decrypt(team2_password)
 
       expect(credentials1.cleartext_username).to eq 'globi'
       expect(credentials1.cleartext_password).to eq 'petzi'
-      expect(file_entry.cleartext_file).to eq 'Das ist ein test File'
+
+      file_entry = credentials1.encryptable_files.first
+      file_entry.decrypt(team2_password)
+      expect(file_entry.cleartext_file).to match(/Sed modi voluptatem. Maxime qui rerum/)
 
       expect(response).to have_http_status(200)
     end
@@ -418,7 +419,7 @@ describe Api::EncryptablesController do
         credentials1.decrypt(team2_password)
       end.to raise_error(OpenSSL::Cipher::CipherError, 'bad decrypt')
 
-      file_entry = credentials1.file_entries.first
+      file_entry = credentials1.encryptable_files.first
       expect do
         file_entry.decrypt(team2_password)
       end.to raise_error(OpenSSL::Cipher::CipherError, 'bad decrypt')
@@ -609,17 +610,15 @@ describe Api::EncryptablesController do
         expect(team2.teammember?(alice)).to eq false
 
         expect do
-          delete :destroy, params: { id: encryptable.id, folder_id: encryptable.folder.id,
-                                     team_id: encryptable.folder.team_id }
+          delete :destroy, params: { id: encryptable.id }
         end.to change { Encryptable.count }.by(0)
       end
 
-      it 'can destroy an encryptable if human user is in team' do
+      it 'can destroy an encryptable entry if human user is in team' do
         login_as(:bob)
 
         expect do
-          delete :destroy, params: { id: credentials1.id, folder_id: credentials1.folder_id,
-                                     team_id: credentials1.folder.team_id }
+          delete :destroy, params: { id: encryptables(:credentials2).id }
         end.to change { Encryptable.count }.by(-1)
       end
     end
