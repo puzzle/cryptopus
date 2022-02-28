@@ -44,28 +44,9 @@ describe Encryptable::File do
       encryptable_file.save!
     end.to change { Encryptable::File.count }.by(1)
 
-    encryptable_file.reload
+    encryptable_file = Encryptable::File.find(encryptable_file.id)
+    encryptable_file.decrypt(team1_password)
 
-    # expect decrypted file to be the same as file
-    decrypted_test_file = encryptable_file.decrypt(team1_password)
-    expect(decrypted_test_file).to eq(test_file)
-  end
-
-  it 'raises no credential error if no parent present' do
-    encryptable_file = Encryptable::File.new(name: 'File without parent')
-    encryptable_file.cleartext_file = test_file
-
-    encryptable_file.encrypt(team1_password)
-
-    error_msg = 'Validation failed: The file is too big to upload. (max. 10MB)'
-    expect do
-      encryptable_file.save!
-    end.to raise_error(ActiveRecord::RecordInvalid, error_msg)
-
-    encryptable_file.reload
-
-    # expect decrypted file to be the same as file
-    decrypted_test_file = encryptable_file.decrypt(team1_password)
-    expect(decrypted_test_file).to eq(test_file)
+    expect(encryptable_file.cleartext_file).to eq(test_file)
   end
 end
