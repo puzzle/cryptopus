@@ -190,24 +190,7 @@ class LegacyAccountCredentialsAfter < ApplicationRecord
     decrypt_attr(:password, team_password)
   end
 
-  def encrypt(team_password)
-    encrypt_attr(:username, team_password)
-    encrypt_attr(:password, team_password)
-  end
-
-  private
-
-  def encrypt_attr(attr, team_password)
-    cleartext_value = send(:"cleartext_#{attr}")
-
-    encrypted_value = if cleartext_value.blank?
-                        nil
-                      else
-                        require 'pry'; binding.pry unless $pstop
-                          Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
-                      end
-    encrypted_data.[]=(attr, **{ data: encrypted_value, iv: nil })
-  end
+    private
 
   def decrypt_attr(attr, team_password)
     encrypted_value = encrypted_data[attr].try(:[], :data)
