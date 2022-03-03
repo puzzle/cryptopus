@@ -18,8 +18,8 @@ describe 'Changelog', type: :system, js: true do
 
     within('div.modal') do
       expect(page).to have_selector('div.modal-header', visible: true)
-      expect(page).to have_content 'Cryptopus Changelog'
-      expect(page).to have_content 'Version 3.7'
+      expect(page).to have_content 'Changelog'
+      expect(page).to have_content 'Version 4.1'
 
       close_btn = find(:button, 'Close')
       execute_script('arguments[0].scrollIntoView(true)', close_btn)
