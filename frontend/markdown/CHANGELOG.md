@@ -1,9 +1,7 @@
-# Cryptopus Changelog
-
 ## Version 4.1
 - Introduce Puzzle-Shell hero & dashboard
 - Add default CCLI user
-- Upgrade versions and remove unused frontend dependencies
+- Upgrade frontend addons and remove unused frontend dependencies
 - Add wiki page with list of all dependencies
 
 ## Version 4.0

@@ -18,7 +18,6 @@ module("Integration | Component | changelog", function (hooks) {
     `);
 
     const text = this.element.textContent.trim();
-    assert.equal(text.match("Cryptopus Changelog").length === 1, true);
-    assert.equal(text.match("Version 3.7").length === 1, true);
+    assert.equal(text.match("Version 4.1").length === 1, true);
   });
 });
