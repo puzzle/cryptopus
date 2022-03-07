@@ -9,6 +9,10 @@ USER root
 ARG BUNDLE_WITHOUT='development:test'
 ARG BUNDLER_VERSION=2.2.17
 
+# install nodejs
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - 
+RUN apt-get install -y nodejs
+
 # yarn sources
 RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
@@ -33,10 +37,10 @@ RUN    bundle config set --local deployment 'true' \
 RUN rm -rf vendor/cache/ .git
 
 # build frontend
-RUN yarn global add ember-cli@3.27.0
+RUN yarn global add ember-cli@4.2.0
 RUN /app-src/bin/prepare-frontend.sh
 
-RUN apt-get remove -y --purge rsync yarn
+RUN apt-get remove -y --purge rsync yarn nodejs
 RUN apt-get autoremove -y
 
 # Set group permissions to app folder
