@@ -14,7 +14,7 @@ Fabricator(:non_private_team, from: :team) do |t|
       team.add_user(a, team_password)
     end
     folder = Fabricate(:folder, team: team)
-    Fabricate(:account, folder: folder, team_password: team_password)
+    Fabricate(:credential, folder: folder, team_password: team_password)
   end
 end
 
@@ -27,6 +27,6 @@ Fabricator(:private_team, from: :team) do |t|
     team_password = Crypto::Symmetric::AES256.random_key
     team.add_user(Fabricate(:user), team_password)
     folder = Fabricate(:folder, team: team)
-    Fabricate(:account, folder: folder, team_password: team_password)
+    Fabricate(:credential, folder: folder, team_password: team_password)
   end
 end

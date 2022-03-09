@@ -1,0 +1,34 @@
+# == Schema Information
+#
+# Table name: accounts
+#
+#  id          :integer          not null, primary key
+#  name        :string(70)       default(""), not null
+#  group_id    :integer          default(0), not null
+#  description :text
+#  username    :binary
+#  password    :binary
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  tag         :string
+#
+
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
+#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+#  See the COPYING file at the top-level directory or at
+#  https://github.com/puzzle/cryptopus.
+
+credentials1:
+  type: Encryptable::Credentials
+  name: Personal Mailbox
+  description: Mailprovider One
+  folder: folder1
+  encrypted_data: '{"password":{"iv":null,"data":"pulO7xz5jDwUVQzbOqJzIw=="},"username":{"iv":null,"data":"0CkUu2Bd9eNB4OCuXVC3TA=="}}'
+
+credentials2:
+  type: Encryptable::Credentials
+  name: Twitter Account
+  description: My personal twitter account
+  folder: folder2
+  tag: tag
+  encrypted_data: '{"password":{"iv":null,"data":"X2i8woXXwIHew6zcnBws9Q=="},"username":{"iv":null,"data":"Kvkd66uUiNq4Gw4Yh7PvVg=="}}'

@@ -15,10 +15,10 @@
 
 
 class FileEntry < ApplicationRecord
-  belongs_to :account
+  belongs_to :encryptable, primary_key: :id, foreign_key: :account_id
   validates :filename,
             uniqueness: {
-              scope: :account,
+              scope: :encryptable,
               message: I18n.t('flashes.file_entries.uploaded_filename_already_exists')
             }
   validates :description, length: { maximum: 300 }

@@ -20,7 +20,7 @@ class FileEntryPolicy < TeamDependantPolicy
   private
 
   def team
-    file_entry.account.folder.team
+    file_entry.encryptable.folder.team
   end
 
   def file_entry

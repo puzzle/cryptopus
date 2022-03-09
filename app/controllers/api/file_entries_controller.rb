@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
 class Api::FileEntriesController < ApiController
-  self.permitted_attrs = [:filename, :description, :account_id, :file]
+  self.permitted_attrs = [:filename, :description, :encryptable_id, :file]
 
   helper_method :team
 
-  # GET /accounts/1/file_entries
+  # GET /encryptables/:id/file_entries
   def index(options = {})
     authorize(team, :team_member?, policy_class: TeamPolicy)
     render({ json: fetch_entries,
@@ -19,7 +15,7 @@ class Api::FileEntriesController < ApiController
            .merge(options.fetch(:render_options, {})))
   end
 
-  # GET /accounts/1/file_entries/1
+  # GET /encryptables/:id/file_entries/:id
   def show
     authorize entry
 
@@ -32,20 +28,21 @@ class Api::FileEntriesController < ApiController
   private
 
   def fetch_entries
-    account.file_entries
+    encryptable.file_entries
   end
 
   def build_entry
     instance_variable_set(:"@#{ivar_name}",
-                          FileEntry.create(account, model_params, plaintext_team_password(team)))
+                          FileEntry.create(encryptable, model_params,
+                                           plaintext_team_password(team)))
   end
 
-  def account
-    @account ||= Account.find(params[:account_id])
+  def encryptable
+    @encryptable ||= Encryptable.find(params[:encryptable_id])
   end
 
   def team
-    @team ||= account.folder.team
+    @team ||= encryptable.folder.team
   end
 
   def query_param

@@ -55,3 +55,12 @@ def oidc_settings
     File.read('spec/fixtures/files/auth/auth.yml.oidc.test')
   ).deep_symbolize_keys
 end
+
+# static team passwords extracted from fixtures
+def team1_password
+  Base64.strict_decode64('LPTDTUOnL201Fn24GYP8ZRpE79m9ucBY8cF/tcCKcCs=')
+end
+
+def team2_password
+  Base64.strict_decode64('Xyj5d0yF9D/XOCIi9Iz5bsgNs9KvvcKkJAtCsoENNj4=')
+end

@@ -1,8 +1,8 @@
 {{#if this.isFolderEditing}}
   <Folder::Form @folder={{@folder}} @onAbort={{this.toggleFolderEdit}} @title={{t "folders.edit.title"}}/>
 {{/if}}
-{{#if this.isNewAccount}}
-  <Account::Form @onAbort={{this.toggleAccountCreating}} @title={{t "accounts.new.title"}}/>
+{{#if this.isNewEncryptable}}
+  <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "encryptables.new.title"}}/>
 {{/if}}
 <div class="pl-2 pr-2 folder-card-header {{if this.isExpanded "br-4"}}">
   <div class="d-flex row justify-content-between folder-show-header">
@@ -13,7 +13,7 @@
       <h6 class="d-inline">{{@folder.name}}</h6>
     </div>
     <div class="col-auto justify-content-between d-flex align-items-center align-right-on-smartphone">
-      <a class="margin-for-buttons mx-1" role="button" {{on "click" this.toggleAccountCreating}}>
+      <a class="margin-for-buttons mx-1" role="button" {{on "click" this.toggleEncryptableCreating}}>
         <img class="icon-big-button " src="/assets/images/plus-blue.svg" alt="new">
         <BsTooltip @title={{t "tooltips.add_account"}} @delayShow="1000" />
       </a>
@@ -49,15 +49,15 @@
 
     <div class="row">
       <div class="col">
-        {{#if this.shouldRenderAccounts}}
-          {{#each @folder.accounts as |account|}}
-            <div class="account-row px-3 py-1">
-              <Account::Row @account={{account}}/>
+        {{#if this.shouldRenderEncryptables}}
+          {{#each @folder.encryptables as |encryptable|}}
+            <div class="encryptable-row px-3 py-1">
+              <Encryptable::Row @encryptable={{encryptable}}/>
             </div>
           {{/each}}
         {{else}}
           <div class="col no-acc">
-            <em>{{t "folders.no_accounts"}}</em>
+            <em>{{t "folders.no_encryptables"}}</em>
           </div>
         {{/if}}
       </div>

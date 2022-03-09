@@ -1,0 +1,103 @@
+{{#if this.record.isFullyLoaded}}
+  <BsModal class="modal_account ignore-footer-smartphone" @onHide={{action this.abort}} @renderInPlace="true" @size="lg" as |Modal|>
+    <Modal.header>
+      <h3 class="modal-title">{{@title}}</h3>
+    </Modal.header>
+    <Modal.body>
+      <div class="container-fluid">
+        <BsForm @model={{this.changeset}} as |form|>
+          <div class="row">
+            {{#if this.hasErrors}}
+              <div class="col-12 order-1">
+                <div class="alert alert-danger modal-alert">
+                  {{t "validations.name.duplicate_name"}}
+                </div>
+              </div>
+            {{/if}}
+            <div class="col-md-6 order-2">
+              <form.group class="col-md-12">
+                <form.element @property="name" @label={{t "helpers.label.encryptable.account_name"}}
+                              class={{if this.changeset.error.name.validation
+                                                             "invalid-input-name"}}
+                              id="name"
+                              @customError={{t (validation-error-key this.changeset.error.name.validation)}} as |el|>
+                  <el.control autocomplete="off" @name="name" tabindex="1"></el.control>
+                </form.element>
+              </form.group>
+              <form.group class="form-group col-md-12">
+                <form.element @label={{t "username"}} id="username" class={{if
+                        this.changeset.error.cleartextUsername.validation "invalid-input-name"}}
+                              @property="cleartextUsername" @customError={{t
+                        (validation-error-key this.changeset.error.cleartextUsername.validation)}} as |el|>
+                  <el.control @name="cleartextUsername" tabindex="2"></el.control>
+                </form.element>
+              </form.group>
+            </div>
+            <div class="col-md-6 ml-auto order-5 order-md-3">
+              <div class="form-group col-md-12" id="team-power-select">
+                <form.element @label={{t "team"}} @controlType="power-select"
+                              @options={{this.assignableTeams}} @value={{this.selectedTeam}}
+                              @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>
+                  <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @placeholder={{t "encryptables.edit.team_placeholder"}}
+                              @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
+                    {{team.name}}
+                  </el.control>
+                </form.element>
+              </div>
+              <div class="form-group col-md-12" id="folder-power-select">
+                <form.element @options={{this.availableFolders}} @label={{t "folder"}} @controlType="power-select"
+                              @value={{this.changeset.folder}}
+                              @searchEnabled={{true}} @allowClear={{true}} @searchField={{"name"}}
+                              @customError={{t (validation-error-key this.changeset.error.folder.validation)}} as |el|>
+                  <el.control class={{if this.changeset.error.folder.validation "invalid-input-ps"}}
+                              @disabled={{this.isFolderDropdownDisabled}}
+                              @placeholder={{t "encryptables.edit.folder_placeholder"}}
+                              @renderInPlace={{true}} @onChange={{this.setFolder}} as |folder|>
+                    {{folder.name}}
+                  </el.control>
+                </form.element>
+              </div>
+            </div>
+
+            <div class="col-md-6 order-3 order-md-4">
+              <div class="col-sm-12 secret">
+                <form.element @label={{t "password"}} id="cleartext-password" class={{if
+                        this.changeset.error.cleartextPassword.validation "invalid-input-name"}}
+                              @property="cleartextPassword" @customError={{t
+                        (validation-error-key this.changeset.error.cleartextPassword.validation)}} as |el|>
+                  <el.control autocomplete="off" tabindex="3" @name="cleartextPassword" ></el.control>
+                </form.element>
+                <PasswordStrengthMeter class="col-12 col-lg-9 px-0 mb-2 mb-md-0" @password={{this.changeset.cleartextPassword}}/>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3 mb-md-0 d-flex align-items-center order-4 order-md-5">
+              <div class="col-md-12">
+                <button class="btn btn-secondary btn-block col-lg-7 mb-md-4" {{on "click" this.setRandomPassword}}
+                        tabindex="4">
+                  {{t "encryptables.edit.random_password"}}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <form.group class="col-md-12">
+                <form.element @label={{t "description"}} @property="description" @controlType="textarea"
+                              id="description" class="{{if
+                        this.changeset.error.description.validation "invalid-input"}} vertical-resize mt-3"
+                              customError={{t
+                        (validation-error-key this.changeset.error.description.validation)}} as |el|>
+                  <el.control tabindex="7"></el.control>
+                </form.element>
+              </form.group>
+            </div>
+          </div>
+        </BsForm>
+      </div>
+    </Modal.body>
+    <Modal.footer>
+      <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "save"}}</BsButton>
+      <BsButton @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
+    </Modal.footer>
+  </BsModal>
+{{/if}}

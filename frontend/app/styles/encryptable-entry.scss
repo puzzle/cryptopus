@@ -1,0 +1,40 @@
+
+.encryptable-entry:hover {
+  background-color: lightgray !important;
+}
+
+
+.copy-btn {
+  height: 38px;
+  width: 45px;
+  /*border: 1px solid #c9c9c9;*/
+  margin-left: 3px;
+  padding: 6px;
+  border: 1px solid #c9c9c9;
+  background-color: #ebe3df;
+}
+
+.encryptable-detail input[disabled] {
+  width: 100%;
+  height: 35px;
+}
+
+.encryptable-entry .hide-wrapper {
+  position: relative;
+}
+
+.encryptable-entry .hide-wrapper input:hover {
+  cursor: text;
+}
+
+.encryptable-entry .show-password-link-sm {
+  margin-top: 0 !important;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.encryptable-entry .underline-hover:hover {
+  text-decoration: underline;
+}

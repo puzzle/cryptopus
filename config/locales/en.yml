@@ -478,6 +478,7 @@ en:
     name:
       present: Name must be present
       too_long: Name is too long
+      duplicate_name: Accountname exists already
     description:
       too_long: Description is too long
     file:
@@ -486,10 +487,6 @@ en:
       present: Team must be present
     folder:
       present: Folder must be present
-    accountname:
-      present: Accountname must be present
-      too_long: Accountname is too long
-      duplicate_name: Accountname exists already
     cleartext username:
       too_long: Username is too long
     cleartext password:

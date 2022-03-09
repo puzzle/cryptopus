@@ -1,0 +1,62 @@
+{{#if this.isEncryptableEditing}}
+  <Encryptable::Form @encryptable={{@encryptable}} @onAbort={{this.toggleEncryptableEdit}}  @title={{t "encryptables.edit.title"}}/>
+{{/if}}
+<div id={{concat "loader-encryptable-" @encryptable.id}} {{did-insert this.setupInViewport}}>
+</div>
+{{#if this.isShown}}
+  <div class="row d-flex align-items-center p-2 bg-grey-2 rounded encryptable-entry">
+    {{#if @encryptable.isOseSecret}}
+      <div class="col-auto pr-0 my-2">
+        <img class="img d-inline w-30 float-left icon-big-button" src="/assets/images/openshift-icon.png" alt="openshift-icon">
+      </div>
+      <div class="col-4 break-words">
+        Openshift-Secret: {{@encryptable.name}}
+      </div>
+      <div class="col"></div>
+    {{else}}
+      <LinkTo class="col-4 underline-hover break-words account-link" @route="encryptables.show" @model={{@encryptable.id}}>
+        {{@encryptable.name}}
+      </LinkTo>
+    {{/if}}
+    {{#unless @encryptable.isOseSecret}}
+      <div class="col-2 pr-0 d-none d-md-block">
+        <div class="hide-wrapper">
+          <Input class="d-inline form-control" id="input-password-{{@encryptable.id}}" @disabled="true" @value={{@encryptable.cleartextUsername}}/>
+          <a role="button" class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isUsernameVisible "visibility-hidden"}}"{{on "click" this.showUsername}}>{{t "encryptables.show.show_username"}}</a>
+        </div>
+      </div>
+      <div class="col px-0 d-none d-md-block">
+        <button class="btn btn-light copy-btn" {{on "click" this.copyUsername}}>
+          <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+          <BsTooltip @title={{t "encryptables.show.copy_username"}} @delayShow="500" />
+        </button>
+      </div>
+
+      <div class="col-2 pr-0 d-none d-md-block">
+        <div class="hide-wrapper">
+          <Input class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
+          <a role="button" class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isPasswordVisible "visibility-hidden"}}"{{on "click" this.showPassword}}>{{t "encryptables.show.show_password"}}</a>
+        </div>
+      </div>
+      <div class="col pl-0 d-none d-md-block">
+        <button class="btn btn-light copy-btn" {{on "click" this.copyPassword}}>
+          <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+          <BsTooltip @title={{t "encryptables.show.copy_password"}} @delayShow="500" />
+        </button>
+      </div>
+    {{/unless}}
+
+    <div class="col-md-auto d-none d-md-block">
+      {{#unless @encryptable.isOseSecret}}
+        <a class="mx-1" role="button" {{on "click" this.toggleEncryptableEdit}}>
+          <img class="icon-medium-button d-inline" src="/assets/images/edit.svg" alt="edit">
+          <BsTooltip @title={{t "encryptables.edit.title"}} @delayShow="1000" />
+        </a>
+      {{/unless}}
+      <DeleteWithConfirmation @class="mx-1" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
+        <img class="icon-medium-button d-inline" src="/assets/images/delete.svg" alt="delete">
+        <BsTooltip @title={{t "tooltips.delete_account"}} @delayShow="1000" />
+      </DeleteWithConfirmation>
+    </div>
+  </div>
+{{/if}}

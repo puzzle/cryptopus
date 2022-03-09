@@ -1,4 +1,5 @@
 ## Version 4.2
+- Introduce Encryptables data structure
 
 ## Version 4.1
 - Introduce Puzzle-Shell hero & dashboard
@@ -20,7 +21,7 @@
 
 ## Version 3.5
 - [CCLI](https://github.com/puzzle/ccli) login command copy button
-- Reduce amount of rendered accounts to fight performance issues
+- Reduce amount of rendered encryptables to fight performance issues
 - Add openshift secrets as account type
 - Adjust policies to improve usage options as api user
 

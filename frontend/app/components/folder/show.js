@@ -12,13 +12,13 @@ export default class ShowComponent extends Component {
   isFolderEditing = false;
 
   @tracked
-  isNewAccount = false;
+  isNewEncryptable = false;
 
   constructor() {
     super(...arguments);
   }
 
-  get shouldRenderAccounts() {
+  get shouldRenderEncryptables() {
     return !isEmpty(this.args.folder) && !this.isCollapsed;
   }
 
@@ -37,9 +37,9 @@ export default class ShowComponent extends Component {
   }
 
   @action
-  toggleAccountCreating() {
+  toggleEncryptableCreating() {
     this.navService.setSelectedFolderById(this.args.folder.id);
-    this.isNewAccount = !this.isNewAccount;
+    this.isNewEncryptable = !this.isNewEncryptable;
   }
 
   expandSelectedFolder() {

@@ -23,6 +23,7 @@
 #  human_user_id                :integer
 #  options                      :text
 #  role                         :integer          default(0), not null
+#
 
 class User < ApplicationRecord
   delegate :l, to: I18n
@@ -78,8 +79,8 @@ class User < ApplicationRecord
     update!(locked: true)
   end
 
-  def accounts
-    Account.joins(:folder).
+  def encryptables
+    Encryptable.joins(:folder).
       joins('INNER JOIN teammembers ON folders.team_id = teammembers.team_id').
       where(teammembers: { user_id: id })
   end

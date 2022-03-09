@@ -31,7 +31,7 @@ describe Api::ApiUsers::TokenController do
 
       it 'renews token of api user and can still decrypt team password' do
         team = teams(:team1)
-        account = accounts(:account1)
+        credentials1 = encryptables(:credentials1)
 
         decrypted_team_password = team.decrypt_team_password(bob, bobs_private_key)
         team.add_user(api_user, decrypted_team_password)
@@ -55,10 +55,10 @@ describe Api::ApiUsers::TokenController do
 
         decrypted_team_password = team.decrypt_team_password(api_user, api_user_pk)
 
-        account.decrypt(decrypted_team_password)
+        credentials1.decrypt(decrypted_team_password)
 
-        expect(account.cleartext_username).to eq 'test'
-        expect(account.cleartext_password).to eq 'password'
+        expect(credentials1.cleartext_username).to eq 'test'
+        expect(credentials1.cleartext_password).to eq 'password'
       end
 
       it 'user cannot renew token of foreign_api_user' do

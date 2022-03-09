@@ -17,11 +17,11 @@ describe 'TeamsPage', type: :system, js: true do
     login_as_user(:bob)
     visit('/')
 
-    account1 = accounts(:account1)
+    credentials1 = encryptables(:credentials1)
 
     expect(page).to have_selector('input.search')
-    find('input.search', visible: false).set account1.accountname
-    expect(page).to have_text(account1.accountname)
+    find('input.search', visible: false).set credentials1.name
+    expect(page).to have_text(credentials1.name)
 
     # Look if the Nesting is expanded
     folder_expanded?
@@ -54,7 +54,7 @@ describe 'TeamsPage', type: :system, js: true do
       find('a', text: folder1.name, visible: false).click
     end
 
-    expect(page).to have_selector('div.account-entry')
+    expect(page).to have_selector('div.encryptable-entry')
 
     # Check if Folder expands and collapes on Folder name click
     all('div.col[role="button"]')[1].click
