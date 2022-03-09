@@ -1,4 +1,5 @@
 ## Version 4.2
+- Introduce Encryptables data structure
 
 ## Version 4.1
 - Introduce Puzzle-Shell hero & dashboard
