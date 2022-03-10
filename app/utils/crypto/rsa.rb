@@ -2,7 +2,7 @@
 
 require 'openssl'
 
-class Crypto::RSA
+class Crypto::Rsa
 
   class << self
 
