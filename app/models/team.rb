@@ -29,7 +29,7 @@ class Team < ApplicationRecord
       team = super(params)
       return team unless team.valid?
 
-      plaintext_team_password = Crypto::Symmetric::AES256.random_key
+      plaintext_team_password = Crypto::Symmetric::Aes256.random_key
       team.add_user(creator, plaintext_team_password)
       unless team.private?
         User::Human.admins.each do |a|
@@ -77,13 +77,13 @@ class Team < ApplicationRecord
 
   def decrypt_team_password(user, plaintext_private_key)
     crypted_team_password = teammember(user.id).password
-    Crypto::RSA.decrypt(crypted_team_password, plaintext_private_key)
+    Crypto::Rsa.decrypt(crypted_team_password, plaintext_private_key)
   end
 
   private
 
   def create_teammember(user, plaintext_team_password)
-    encrypted_team_password = Crypto::RSA.encrypt(plaintext_team_password, user.public_key)
+    encrypted_team_password = Crypto::Rsa.encrypt(plaintext_team_password, user.public_key)
     teammembers.create!(password: encrypted_team_password, user: user)
   end
 

@@ -3,7 +3,7 @@
 require 'openssl'
 require 'digest/sha1'
 
-class Crypto::Symmetric::AES256 < Crypto::Symmetric
+class Crypto::Symmetric::Aes256 < Crypto::Symmetric
   CIPHER = 'AES-256-CBC'
   MAGIC = 'Salted__'
   SALT_LENGTH = 8

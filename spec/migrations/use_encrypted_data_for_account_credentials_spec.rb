@@ -164,7 +164,7 @@ describe UseEncryptedDataForAccountCredentials do
       crypted_value = send(attr)
       return if crypted_value.blank?
 
-      Crypto::Symmetric::AES256.decrypt(crypted_value, team_password)
+      Crypto::Symmetric::Aes256.decrypt(crypted_value, team_password)
     end
   end
 
@@ -195,7 +195,7 @@ describe UseEncryptedDataForAccountCredentials do
       encrypted_value = if cleartext_value.blank?
                           nil
                         else
-                          Crypto::Symmetric::AES256.encrypt(cleartext_value, team_password)
+                          Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
                         end
 
       encrypted_data[attr] = { data: encrypted_value, iv: nil }
@@ -205,7 +205,7 @@ describe UseEncryptedDataForAccountCredentials do
       encrypted_value = encrypted_data[attr].try(:[], :data)
 
       cleartext_value = if encrypted_value
-                          Crypto::Symmetric::AES256.decrypt(encrypted_value, team_password)
+                          Crypto::Symmetric::Aes256.decrypt(encrypted_value, team_password)
                         end
 
       instance_variable_set("@cleartext_#{attr}", cleartext_value)

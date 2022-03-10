@@ -85,7 +85,7 @@ class User::Api < User
   end
 
   def decrypt_private_key(token)
-    Crypto::Symmetric::AES256.decrypt_with_salt(private_key, token)
+    Crypto::Symmetric::Aes256.decrypt_with_salt(private_key, token)
   rescue StandardError
     raise Exceptions::DecryptFailed
   end
@@ -93,7 +93,7 @@ class User::Api < User
   private
 
   def decrypt_token(human_private_key)
-    Crypto::RSA.decrypt(encrypted_token, human_private_key)
+    Crypto::Rsa.decrypt(encrypted_token, human_private_key)
   end
 
   delegate :description,
@@ -122,7 +122,7 @@ class User::Api < User
 
   def encrypt_token(token)
     public_key = human_user.public_key
-    self.encrypted_token = Crypto::RSA.encrypt(token, public_key)
+    self.encrypted_token = Crypto::Rsa.encrypt(token, public_key)
     self.password = Crypto::Hashing.generate_salted(token)
   end
 
