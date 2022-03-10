@@ -76,9 +76,8 @@ class TeamFoldersEncryptablesSeeder
     credential = folder.encryptables.new(name: "#{Faker::Company.name} #{rand(999)}",
                                   description: Faker::Lorem.paragraph,
                                       type: "Encryptable::Credentials")
-    credential.encrypted_data.[]=(username, **{ data: username, iv: nil })
-    binding.pry
-    credential.encrypted_data.[]=(password, **{ data: password, iv: nil })
+    credential.encrypted_data.[]=(:username, **{ data: username, iv: nil })
+    credential.encrypted_data.[]=(:password, **{ data: password, iv: nil })
     credential.save!
   end
 
