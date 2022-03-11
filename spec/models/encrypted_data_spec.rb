@@ -13,7 +13,7 @@ describe EncryptedData do
     expect(encrypted_data[:password]).to eq(iv: iv_blob, data: data_blob)
 
     new_blob = SecureRandom.random_bytes(2)
-    encrypted_data[:password] = { iv: nil, data: new_blob }
+    encrypted_data.[]=(:password, **{ iv: nil, data: new_blob })
 
     json_dump = JSON.parse(EncryptedData.dump(encrypted_data))
 
@@ -25,8 +25,8 @@ describe EncryptedData do
       encrypted_data = EncryptedData.load(e)
 
       new_blob = SecureRandom.random_bytes(2)
-      encrypted_data[:username] = { iv: nil, data: new_blob }
-      encrypted_data[:password] = { iv: nil, data: new_blob }
+      encrypted_data.[]=(:username, **{ iv: nil, data: new_blob })
+      encrypted_data.[]=(:password, **{ iv: nil, data: new_blob })
 
       json_dump = JSON.parse(EncryptedData.dump(encrypted_data))
 
@@ -36,7 +36,7 @@ describe EncryptedData do
   end
 
   it 'rejects entries with blank data' do
-    encrypted_data[:password] = { iv: iv_blob, data: nil }
+    encrypted_data.[]=(:password, **{ iv: iv_blob, data: nil })
 
     expect(EncryptedData.dump(encrypted_data)).to eq('{}')
   end
