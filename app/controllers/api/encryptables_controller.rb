@@ -53,7 +53,7 @@ class Api::EncryptablesController < ApiController
   def model_class
     if action_name == 'create' &&
        params.dig('data', 'attributes', 'type') == 'ose_secret'
-      Encryptable::OSESecret
+      Encryptable::OseSecret
     elsif action_name == 'destroy'
       Encryptable
     elsif @encryptable.present?
@@ -113,7 +113,7 @@ class Api::EncryptablesController < ApiController
   def permitted_attrs
     permitted_attrs = self.class.permitted_attrs.deep_dup
 
-    if model_class == Encryptable::OSESecret
+    if model_class == Encryptable::OseSecret
       permitted_attrs << :cleartext_ose_secret
     elsif model_class == Encryptable::Credentials
       permitted_attrs + [:cleartext_username, :cleartext_password]
