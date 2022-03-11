@@ -2,7 +2,7 @@
 
 require_relative '../../utils/crypto/symmetric/aes256iv'
 
-class Encryptable::OSESecret < Encryptable
+class Encryptable::OseSecret < Encryptable
   attr_accessor :cleartext_ose_secret
 
   def decrypt(team_password)

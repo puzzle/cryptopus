@@ -570,7 +570,7 @@ describe Api::EncryptablesController do
 
       expect do
         post :create, params: new_encryptable_params, xhr: true
-      end.to change { Encryptable::OSESecret.count }.by(1)
+      end.to change { Encryptable::OseSecret.count }.by(1)
 
       expect(response).to have_http_status(201)
     end
@@ -604,7 +604,7 @@ describe Api::EncryptablesController do
   private
 
   def create_ose_secret
-    secret = Encryptable::OSESecret.new(name: 'Rails Secret Key Base',
+    secret = Encryptable::OseSecret.new(name: 'Rails Secret Key Base',
                                         folder: folders(:folder1),
                                         cleartext_ose_secret: example_ose_secret_yaml)
     secret.encrypt(team1_password)
