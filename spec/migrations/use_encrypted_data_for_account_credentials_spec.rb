@@ -197,8 +197,7 @@ describe UseEncryptedDataForAccountCredentials do
                         else
                           Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
                         end
-
-      encrypted_data[attr] = { data: encrypted_value, iv: nil }
+      encrypted_data.[]=(attr, **{ data: encrypted_value, iv: nil})
     end
 
     def decrypt_attr(attr, team_password)
