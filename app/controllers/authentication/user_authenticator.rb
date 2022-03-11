@@ -5,14 +5,14 @@ include Rails.application.routes.url_helpers
 class Authentication::UserAuthenticator
 
   class << self
-    def init(params)
+    def init(**params)
       case AuthConfig.provider
       when 'db'
-        Authentication::UserAuthenticator::Db.new(params)
+        Authentication::UserAuthenticator::Db.new(**params)
       when 'ldap'
-        Authentication::UserAuthenticator::Ldap.new(params)
+        Authentication::UserAuthenticator::Ldap.new(**params)
       when 'openid-connect'
-        Authentication::UserAuthenticator::Oidc.new(params)
+        Authentication::UserAuthenticator::Oidc.new(**params)
       end
     end
   end
@@ -25,7 +25,7 @@ class Authentication::UserAuthenticator
     @allow_root = false
   end
 
-  def authenticate!(allow_root: false, allow_api: false)
+  def authenticate!(allow_root: false, allow_api: false, **kwargs)
     @allow_root = allow_root
     @allow_api = allow_api
     false
