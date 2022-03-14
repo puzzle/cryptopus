@@ -1,17 +1,48 @@
 <table class="table table-striped mb-15">
   <thead>
     <tr>
-      <th>{{t "admin.users.index.username"}}</th>
-      <th>{{t "admin.users.index.name"}}</th>
-      <th>{{t "admin.users.index.last_login_at"}}</th>
-      <th>{{t "admin.users.index.last_login_from"}}</th>
-      <th>{{t "admin.users.index.auth"}} {{t "admin.users.index.provider_uid"}}</th>
-      <th width="200">{{t "admin.users.index.role"}}</th>
+      <th>
+        {{t "admin.users.index.username"}}
+        <span role="button" {{action "sortBy" "username"}}>
+          <img class="icon-big-button float-right" src="/assets/images/angle-down-blue.svg" alt="v">
+        </span>
+      </th>
+      <th>
+        {{t "admin.users.index.name"}}
+        <span role="button" {{action "sortBy" "givenname"}}>
+          <img class="icon-big-button float-right" src="/assets/images/angle-down-blue.svg" alt="v">
+        </span>
+      </th>
+      <th>
+        {{t "admin.users.index.last_login_at"}}
+        <span role="button" {{action "sortBy" "last_login_at"}}>
+          <img class="icon-big-button float-right" src="/assets/images/angle-down-blue.svg" alt="v">
+        </span>
+      </th>
+      <th>
+        {{t "admin.users.index.last_login_from"}}
+        <span role="button" {{action "sortBy" "last_login_from"}}>
+          <img class="icon-big-button float-right" src="/assets/images/angle-down-blue.svg" alt="v">
+        </span>
+      </th>
+      <th>
+        {{t "admin.users.index.auth"}}
+        {{t "admin.users.index.provider_uid"}}
+        <span role="button" {{action "sortBy" "auth"}}>
+          <img class="icon-big-button float-right" src="/assets/images/angle-down-blue.svg" alt="v">
+        </span>
+      </th>
+      <th width="200">
+        {{t "admin.users.index.role"}}
+        <span role="button" {{action "sortBy" "role"}}>
+          <img class="icon-big-button float-right" src="/assets/images/angle-down-blue.svg" alt="v">
+        </span>
+      </th>
       <th>{{t "admin.users.index.action"}}</th>
     </tr>
   </thead>
   <tbody>
-    {{#each this.sortedUsers as |user|}}
+    {{#each this.users as |user|}}
       <Admin::User::TableRow @user={{user}} @onRemove={{this.removeUser}} />
     {{/each}}
   </tbody>

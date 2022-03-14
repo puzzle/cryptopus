@@ -34,15 +34,15 @@ export default class AdminUsersTable extends Component {
 
   @action
   sortBy(attribute) {
-    this.users.sort((userA, userB) => {
+    this.users = this.users.sort((userA, userB) => {
       switch (attribute.toString()) {
         case "username":
           if (userA.username < userB.username) return -1;
           if (userA.username > userB.username) return 1;
           return 0;
-        case "surname":
-          if (userA.surname < userB.surname) return -1;
-          if (userA.surname > userB.surname) return 1;
+        case "givenname":
+          if (userA.givenname < userB.givenname) return -1;
+          if (userA.givenname > userB.givenname) return 1;
           return 0;
         case "last_login_at": // works but could be prettier
           if (userA.lastLoginAt == null && userB.lastLoginAt == null) {
