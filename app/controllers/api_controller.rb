@@ -98,8 +98,7 @@ class ApiController < CrudController
 
   def set_headers
     response.headers['Content-Type'] = 'text/json'
-    response.headers['Content-Disposition'] = "attachment; filename='"\
-    + request.env['PATH_INFO'] + ".json'"
+    response.headers['Content-Disposition'] = "attachment; filename='#{request.env['PATH_INFO']}.json'"
   end
 
   def user_authenticator
