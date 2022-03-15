@@ -10,12 +10,12 @@ describe 'User login' do
   include IntegrationHelpers::DefaultHelper
   it 'logs bob in' do
     login_as('bob')
-    expect(request.fullpath).to eq(root_path + 'dashboard')
+    expect(request.fullpath).to eq("#{root_path}dashboard")
   end
 
   it 'logs bob in with spaces in username' do
     login_as('   bob   ')
-    expect(request.fullpath).to eq(root_path + 'dashboard')
+    expect(request.fullpath).to eq("#{root_path}dashboard")
   end
 
   it 'logs bob in with wrong password' do
