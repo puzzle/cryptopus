@@ -9,7 +9,7 @@ module PolicyCheck
   extend ActiveSupport::Concern
 
   # includes pundit, a scaleable authorization system
-  include Pundit
+  include Pundit::Authorization
 
   included do
     # verifies that authorize has been called in every action
