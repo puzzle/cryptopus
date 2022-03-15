@@ -34,7 +34,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rails-erd'
   gem 'rspec-rails'
-  gem 'rubocop', '~> 0.79.0'
+  gem 'rubocop', '~> 1.26'
   gem 'rubocop-checkstyle_formatter', '~> 0.4.0'
   gem 'rubocop-rails', '~> 2.4.2'
   gem 'selenium-webdriver'

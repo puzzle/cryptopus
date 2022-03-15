@@ -26,6 +26,6 @@ class Api::ApiUsersController < ApiController
       time = time.seconds
     end
     time_s = User::Api::VALID_FOR_OPTIONS.invert[time].to_s
-    t('flashes.api.api-users.update.time.' + time_s)
+    t("flashes.api.api-users.update.time.#{time_s}")
   end
 end
