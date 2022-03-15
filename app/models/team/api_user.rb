@@ -14,7 +14,6 @@ class Team::ApiUser < ActiveModelSerializers::Model
   end
 
   def initialize(api_user, team)
-    super
     @api_user = api_user
     @team = team
   end

@@ -146,72 +146,75 @@ describe UseEncryptedDataForAccountCredentials do
 
   private
 
-  # Account model as it was before migration
-  class LegacyAccountCredentialsBefore < ApplicationRecord
-    self.table_name = 'accounts'
-    self.inheritance_column = nil
-
-    attr_accessor :cleartext_password, :cleartext_username
-
-    def decrypt(team_password)
-      @cleartext_username = decrypt_attr(:username, team_password)
-      @cleartext_password = decrypt_attr(:password, team_password)
-    end
-
-    private
-
-    def decrypt_attr(attr, team_password)
-      crypted_value = send(attr)
-      return if crypted_value.blank?
-
-      Crypto::Symmetric::Aes256.decrypt(crypted_value, team_password)
-    end
-  end
 
   # Account model as it was after this migration
-  class LegacyAccountCredentialsAfter < ApplicationRecord
-    self.table_name = 'accounts'
-    self.inheritance_column = nil
-
-    serialize :encrypted_data, ::EncryptedData
-
-    attr_accessor :cleartext_password, :cleartext_username
-
-    def decrypt(team_password)
-      decrypt_attr(:username, team_password)
-      decrypt_attr(:password, team_password)
-    end
-
-    def encrypt(team_password)
-      encrypt_attr(:username, team_password)
-      encrypt_attr(:password, team_password)
-    end
-
-    private
-
-    def encrypt_attr(attr, team_password)
-      cleartext_value = send(:"cleartext_#{attr}")
-
-      encrypted_value = if cleartext_value.blank?
-                          nil
-                        else
-                          Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
-                        end
-      encrypted_data.[]=(attr, **{ data: encrypted_value, iv: nil })
-    end
-
-    def decrypt_attr(attr, team_password)
-      encrypted_value = encrypted_data[attr].try(:[], :data)
-
-      cleartext_value = if encrypted_value
-                          Crypto::Symmetric::Aes256.decrypt(encrypted_value, team_password)
-                        end
-
-      instance_variable_set("@cleartext_#{attr}", cleartext_value)
-    end
-  end
 
   def rename_accounts_to_encryptables_migration
     ::RenameAccountsToEncryptables.new
+  end
+end
+
+# Account model as it was before migration
+class LegacyAccountCredentialsBefore < ApplicationRecord
+  self.table_name = 'accounts'
+  self.inheritance_column = nil
+
+  attr_accessor :cleartext_password, :cleartext_username
+
+  def decrypt(team_password)
+    @cleartext_username = decrypt_attr(:username, team_password)
+    @cleartext_password = decrypt_attr(:password, team_password)
+  end
+
+  private
+
+  def decrypt_attr(attr, team_password)
+    crypted_value = send(attr)
+    return if crypted_value.blank?
+
+    Crypto::Symmetric::Aes256.decrypt(crypted_value, team_password)
+  end
+end
+
+# Account model as it was after this migration
+class LegacyAccountCredentialsAfter < ApplicationRecord
+  self.table_name = 'accounts'
+  self.inheritance_column = nil
+
+  serialize :encrypted_data, ::EncryptedData
+
+  attr_accessor :cleartext_password, :cleartext_username
+
+  def decrypt(team_password)
+    decrypt_attr(:username, team_password)
+    decrypt_attr(:password, team_password)
+  end
+
+  def encrypt(team_password)
+    encrypt_attr(:username, team_password)
+    encrypt_attr(:password, team_password)
+  end
+
+  private
+
+  def encrypt_attr(attr, team_password)
+    cleartext_value = send(:"cleartext_#{attr}")
+
+    encrypted_value = if cleartext_value.blank?
+                        nil
+                      else
+                        Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
+                      end
+    encrypted_data.[]=(attr, **{ data: encrypted_value, iv: nil })
+  end
+
+  def decrypt_attr(attr, team_password)
+    encrypted_value = encrypted_data[attr].try(:[], :data)
+
+    cleartext_value = if encrypted_value
+                        Crypto::Symmetric::Aes256.decrypt(encrypted_value, team_password)
+                      end
+
+    instance_variable_set("@cleartext_#{attr}", cleartext_value)
   end
 end

@@ -33,7 +33,7 @@ module Api
       def destroy
         authorize team, :team_member?
         if team_api_user.disable
-          head 204
+          head :no_content
         else
           render_errors
         end

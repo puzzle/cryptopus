@@ -18,7 +18,7 @@ class Team < ApplicationRecord
   has_many :folders, -> { order :name }, dependent: :destroy
   has_many :teammembers, dependent: :delete_all
   has_many :members, through: :teammembers, source: :user
-  has_many :user_favourite_teams, dependent: :destroy, foreign_key: :team_id
+  has_many :user_favourite_teams, dependent: :destroy
 
   validates :name, presence: true
   validates :name, length: { maximum: 40 }

@@ -17,6 +17,9 @@ AllCops:
 Rails:
   Enabled: true
 
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+
 Metrics/BlockLength:
   ExcludedMethods:
     - namespace # rake
@@ -26,8 +29,9 @@ Metrics/BlockLength:
     - draw # routes
     - configure # initializers
 
+# Adjusted to suite minimal case (cant't be refactored further) encountered in code
 Metrics/AbcSize:
-  Max: 20
+  Max: 25
   Severity: error
 
 Metrics/ClassLength:
@@ -46,6 +50,11 @@ Layout/LineLength:
   Max: 100
   Severity: warning
   AutoCorrect: true
+
+Lint/MissingSuper:
+  Exclude:
+    - 'app/policies/**/*'
+    - 'app/models/**/*'
 
 Metrics/MethodLength:
   Max: 10
@@ -72,6 +81,10 @@ Rails/EnumHash:
 
 # Keep for now, easier with superclass definitions
 Style/ClassAndModuleChildren:
+  Enabled: false
+
+# This is not necessary and disproportionately difficult to obey 
+Style/OptionalBooleanParameter:
   Enabled: false
 
 # The ones we use must exist for the entire class hierarchy.
