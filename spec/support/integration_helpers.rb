@@ -2,7 +2,7 @@
 
 module IntegrationHelpers
   module AccountTeamSetupHelper
-    def create_team_folder_encryptable(username, user_password = 'password', private = false)
+    def create_team_folder_encryptable(username, user_password = 'password', private: false)
       login_as(username.to_s, user_password)
 
       # New Team
