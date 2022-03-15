@@ -2,7 +2,6 @@
 
 class FolderPolicy < TeamDependantPolicy
   def initialize(user, record)
-    super
     @user = user
     @record = record
   end

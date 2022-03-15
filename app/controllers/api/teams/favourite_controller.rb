@@ -16,7 +16,7 @@ module Api
       end
 
       def render_entry(_options = {})
-        head 201
+        head :created
       end
     end
   end

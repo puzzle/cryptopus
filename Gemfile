@@ -36,7 +36,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop', '~> 1.26'
   gem 'rubocop-checkstyle_formatter', '~> 0.4.0'
-  gem 'rubocop-rails', '~> 2.4.2'
+  gem 'rubocop-rails', '~> 2.9', '>= 2.9.1'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false, group: :test
   gem 'webdrivers'

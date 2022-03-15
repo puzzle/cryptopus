@@ -78,11 +78,11 @@ describe RenameAccountsToEncryptables do
   def example_ose_secret_yaml
     Base64.strict_decode64(FixturesHelper.read_encryptable_file('example_secret.secret'))
   end
+end
 
-  # Account model as it was after this migration
-  class LegacyAccount < Encryptable
-    self.table_name = 'accounts'
-    self.inheritance_column = nil
+# Account model as it was after this migration
+class LegacyAccount < Encryptable
+  self.table_name = 'accounts'
+  self.inheritance_column = nil
 
-  end
 end
