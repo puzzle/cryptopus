@@ -2,6 +2,7 @@
 
 class User::ApiPolicy < ApplicationPolicy
   def initialize(user, record)
+    super
     @user = user
     @record = record
   end

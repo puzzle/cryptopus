@@ -103,7 +103,7 @@ describe Api::EncryptablesController do
   context 'GET show' do
     it 'returns decrypted encryptable credentials' do
       login_as(:bob)
-      rgx_date = /^(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2}).(\d{3})[+-](\d{2})\:(\d{2})/
+      rgx_date = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).(\d{3})[+-](\d{2}):(\d{2})/
 
       get :show, params: { id: credentials1 }, xhr: true
 
