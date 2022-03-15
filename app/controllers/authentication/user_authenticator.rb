@@ -25,7 +25,7 @@ class Authentication::UserAuthenticator
     @allow_root = false
   end
 
-  def authenticate!(allow_root: false, allow_api: false, **kwargs)
+  def authenticate!(allow_root: false, allow_api: false)
     @allow_root = allow_root
     @allow_api = allow_api
     false
@@ -100,7 +100,7 @@ class Authentication::UserAuthenticator
   end
 
   def valid_username?
-    regex = /^([a-zA-Z]|\d)+[-]?([a-zA-Z]|\d)*[^-]$/
+    regex = /^([a-zA-Z]|\d)+-?([a-zA-Z]|\d)*[^-]$/
     regex.match?(username.strip)
   end
 

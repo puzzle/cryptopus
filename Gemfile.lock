@@ -142,7 +142,6 @@ GEM
     i18n_data (0.15.0)
       simple_po_parser (~> 1.1)
     io-wait (0.2.1)
-    jaro_winkler (1.5.4)
     json-jwt (1.13.0)
       activesupport (>= 4.2)
       aes_key_wrap
@@ -281,13 +280,17 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
-    rubocop (0.79.0)
-      jaro_winkler (~> 1.5.1)
+    rubocop (1.26.0)
       parallel (~> 1.10)
-      parser (>= 2.7.0.1)
+      parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml
+      rubocop-ast (>= 1.16.0, < 2.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 1.4.0, < 1.7)
+      unicode-display_width (>= 1.4.0, < 3.0)
+    rubocop-ast (1.16.0)
+      parser (>= 3.1.1.0)
     rubocop-checkstyle_formatter (0.4.0)
       rubocop (>= 0.35.1)
     rubocop-rails (2.4.2)
@@ -329,7 +332,7 @@ GEM
     timeout (0.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (1.6.1)
+    unicode-display_width (2.1.0)
     uniform_notifier (1.14.2)
     validate_email (0.1.6)
       activemodel (>= 3.0)
@@ -389,7 +392,7 @@ DEPENDENCIES
   rails-erd
   rails-i18n
   rspec-rails
-  rubocop (~> 0.79.0)
+  rubocop (~> 1.26)
   rubocop-checkstyle_formatter (~> 0.4.0)
   rubocop-rails (~> 2.4.2)
   seed-fu
