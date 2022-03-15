@@ -12,8 +12,8 @@ class UseEncryptedDataForAccountCredentials < ActiveRecord::Migration[6.1]
 
     LegacyAccountCredentials.find_each do |a|
       # some blob values were set to "" that's why we're using .presence here
-      a.encrypted_data[:password] = { iv: nil, data: a.password.presence }
-      a.encrypted_data[:username] = { iv: nil, data: a.username.presence }
+      a.encrypted_data.[]=(:password, **{ iv: nil, data: a.password.presence })
+      a.encrypted_data.[]=(:username, **{ iv: nil, data: a.username.presence })
       a.save!
     end
 
