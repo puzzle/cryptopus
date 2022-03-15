@@ -23,6 +23,7 @@ gem 'pundit'
 gem 'rails-i18n'
 gem 'seed-fu'
 gem 'sentry-raven'
+gem 'rake', '~> 13.0.6'
 
 group :development, :test do
   gem 'bullet'
