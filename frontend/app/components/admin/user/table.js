@@ -16,14 +16,15 @@ export default class AdminUsersTable extends Component {
 
     if (this.args.users) {
       this.users = this.args.users
-      .toArray().filter((user) => {
+        .toArray()
+        .filter((user) => {
           return !user.isDeleted;
         })
         .sort((userA, userB) => {
           if (userA.username < userB.username) return -1;
           if (userA.username > userB.username) return 1;
-        return 0;
-      });
+          return 0;
+        });
     }
   }
 
