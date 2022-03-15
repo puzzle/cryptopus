@@ -18,13 +18,13 @@ describe User::Human do
     it 'does not create user without name' do
       user = User::Human.new(username: '')
       expect(user).to_not be_valid
-      expect(user.errors.keys).to eq([:username])
+      expect(user.errors.first.attribute).to eq(:username)
     end
 
     it 'does not create second user bob' do
       user = User::Human.new(username: 'bob')
       expect(user).to_not be_valid
-      expect(user.errors.keys).to eq([:username])
+      expect(user.errors.first.attribute).to eq(:username)
     end
 
   end

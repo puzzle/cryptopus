@@ -16,7 +16,7 @@ describe Encryptable do
     params[:type] = 'Encryptable::Credentials'
     credential = Encryptable::Credentials.new(params)
     expect(credential).to_not be_valid
-    expect(credential.errors.keys).to eq([:name])
+    expect(credential.errors.first.attribute).to eq(:name)
   end
 
   it 'creates second entryptable with credentials' do
