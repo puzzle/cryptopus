@@ -11,7 +11,7 @@ class Api::ProfilesController < ApiController
 
     current_user.attributes = model_params
     if current_user.save
-      head 200
+      head :ok
     else
       render_errors
     end

@@ -37,7 +37,7 @@ class CrudController < ListController
   def destroy(_options = {})
     authorize entry
     if entry.destroy
-      head 204
+      head :no_content
     else
       render_errors
     end
