@@ -8,8 +8,8 @@
 
 class ApplicationController < ActionController::Base
   before_action :set_sentry_request_context
+  before_action :set_sentry_params
   before_action :message_if_fallback
-  before_action :prepare_menu
   before_action :set_locale
 
   include PolicyCheck
@@ -33,20 +33,17 @@ class ApplicationController < ActionController::Base
     I18n.locale = locale
   end
 
-  def prepare_menu
-    if File.exist?(Rails.root.join('app',
-                                   'views',
-                                   controller_path.to_s, "_#{action_name}_menu.html.haml"))
-      @menu_to_render = "#{controller_path}/#{action_name}_menu"
-    else
-      @menu_to_render = nil
-    end
-  end
-
   private
 
   def set_sentry_request_context
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+  end
+
+  def set_sentry_params
+    Raven.user_context(
+      id: current_user.try(:id),
+      username: current_user.try(:username)
+    )
   end
 
   def model_params
