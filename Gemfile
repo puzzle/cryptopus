@@ -8,6 +8,7 @@ gem 'figaro'
 gem 'mysql2'
 gem 'net-ldap'
 gem 'puma'
+gem 'rake', '~> 13.0.6'
 gem 'sqlite3'
 
 gem 'active_model_serializers'
@@ -23,7 +24,6 @@ gem 'pundit'
 gem 'rails-i18n'
 gem 'seed-fu'
 gem 'sentry-raven'
-gem 'rake', '~> 13.0.6'
 
 group :development, :test do
   gem 'bullet'

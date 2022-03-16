@@ -1,7 +1,8 @@
 require: rubocop-rails
 
 AllCops:
-  DisplayCopNames: true
+  NewCops: disable
+  DisplayCopNames:
   Exclude:
     - Rakefile
     - db/**/*
@@ -21,7 +22,7 @@ Rails/UniqueValidationWithoutIndex:
   Enabled: false
 
 Metrics/BlockLength:
-  ExcludedMethods:
+  IgnoredMethods:
     - namespace # rake
     - task # rake
     - scope # routes
