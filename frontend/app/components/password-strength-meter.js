@@ -1,3 +1,4 @@
+
 import { inject as service } from "@ember/service";
 import Component from "@ember/component";
 import { tracked } from "@glimmer/tracking";
@@ -34,6 +35,6 @@ export default class PasswordStrengthMeterComponent extends Component {
   }
 
   get scoreRanking() {
-    return ["", "weak", "fair", "good", "strong"][this.score];
+    return ["non", "weak", "fair", "good", "strong"][this.score];
   }
 }

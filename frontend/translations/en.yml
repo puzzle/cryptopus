@@ -79,6 +79,7 @@ en:
       folder_placeholder: Select a Folder
       password_strength: Password Strength
       password_strengths:
+        non: There is no password defined
         weak: Weak
         fair: Fair
         good: Good
