@@ -8,7 +8,6 @@ gem 'figaro'
 gem 'mysql2'
 gem 'net-ldap'
 gem 'puma'
-gem 'rake', '~> 13.0.6'
 gem 'sqlite3'
 
 gem 'active_model_serializers'
