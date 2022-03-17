@@ -3,7 +3,6 @@ import { setupRenderingTest } from "ember-qunit";
 import { render } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 import { setLocale } from "ember-intl/test-support";
-
 module("Integration | Component | password-strength-meter", function (hooks) {
   setupRenderingTest(hooks);
 
@@ -66,13 +65,15 @@ module("Integration | Component | password-strength-meter", function (hooks) {
       "progress-bar progress-bar-100"
     );
   });
-  test("it renders with fair password", async function (assert) {
-    this.set("password", "");
 
+  test("it renders with non password", async function (assert) {
     await render(hbs`<PasswordStrengthMeter @password={{this.password}}/>`);
+    this.set("password", " ");
 
     assert.ok(this.element.textContent.trim().includes("Password Strength"));
-    assert.ok(this.element.textContent.trim().includes("There is no password defined"));
+    assert.ok(
+      this.element.textContent.trim().includes("There is no password defined")
+    );
 
     assert.equal(
       this.element.querySelector(".progress-bar").getAttribute("class"),
