@@ -9,7 +9,7 @@ export default class AdminUsersTable extends Component {
   @tracked
   users = [];
 
-  sortedBy = "";
+  sortedBy = "username";
 
   constructor() {
     super(...arguments);
@@ -80,8 +80,8 @@ export default class AdminUsersTable extends Component {
             } else if (userB.lastLoginAt == null) {
               return -1;
             } else {
-              if (userA.lastLoginAt < userB.lastLoginAt) return -1 * asc;
-              if (userA.lastLoginAt > userB.lastLoginAt) return 1 * asc;
+              if (userA.lastLoginAt > userB.lastLoginAt) return -1 * asc;
+              if (userA.lastLoginAt < userB.lastLoginAt) return 1 * asc;
               return 0;
             }
           case "last_login_from":
@@ -99,7 +99,15 @@ export default class AdminUsersTable extends Component {
           case "auth":
             if (userA.auth < userB.auth) return -1 * asc;
             if (userA.auth > userB.auth) return 1 * asc;
-            return 0;
+            else {
+              if (userA.providerUid == null && userB.providerUid == null)
+                return 0;
+              else if (userA.providerUid == null) return 1 * asc;
+              else if (userB.providerUid == null) return -1 * asc;
+              else if (userA.providerUid < userB.providerUid) return 1 * asc;
+              else if (userA.providerUid > userB.providerUid) return -1 * asc;
+              return 0;
+            }
           case "role":
             if (userA.role < userB.role) return -1 * asc;
             if (userA.role > userB.role) return 1 * asc;

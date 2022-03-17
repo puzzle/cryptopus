@@ -1,6 +1,6 @@
 import { module, test } from "qunit";
 import { setupRenderingTest } from "ember-qunit";
-import { render } from "@ember/test-helpers";
+import { render, click } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 import { setLocale } from "ember-intl/test-support";
 import ENV from "../../../../../config/environment";
@@ -17,22 +17,28 @@ module("Integration | Component | admin/user/table", function (hooks) {
     ENV.currentUserGivenname = null;
   });
 
-  test("it renders with data", async function (assert) {
-    const users = [
-      {
-        username: "Bob",
-        isDeleted: false
-      },
-      {
-        username: "Alice",
-        isDeleted: false
-      },
-      {
-        username: "Fred",
-        isDeleted: true
-      }
-    ];
+  const users = [
+    {
+      username: "Bob",
+      givenname: "Bobby",
+      role: "admin",
+      isDeleted: false
+    },
+    {
+      username: "Alice",
+      givenname: "Allison",
+      role: "user",
+      isDeleted: false
+    },
+    {
+      username: "Fred",
+      givenname: "Alfred",
+      role: "conf_admin",
+      isDeleted: true
+    }
+  ];
 
+  test("it renders with data", async function (assert) {
     this.set("users", users);
 
     await render(hbs`<Admin::User::Table @users={{this.users}} />`);
@@ -51,5 +57,33 @@ module("Integration | Component | admin/user/table", function (hooks) {
     assert.ok(text.includes("Alice"));
 
     assert.ok(!text.includes("Fred"));
+  });
+
+  test("sorting works", async function (assert) {
+    this.set("users", users);
+
+    await render(hbs`<Admin::User::Table @users={{this.users}} />`);
+    let text = this.element.textContent.trim();
+
+    assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
+    assert.ok(text.indexOf("Fred") == -1);
+
+    await click('span[id="sort-username"]');
+    text = this.element.textContent.trim();
+
+    assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
+    assert.ok(text.indexOf("Fred") == -1);
+
+    await click('span[id="sort-name"]');
+    text = this.element.textContent.trim();
+
+    assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
+    assert.ok(text.indexOf("Fred") == -1);
+
+    await click('span[id="sort-name"]');
+    text = this.element.textContent.trim();
+
+    assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
+    assert.ok(text.indexOf("Fred") == -1);
   });
 });
