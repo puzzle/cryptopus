@@ -23,8 +23,9 @@ module("Integration | Component | admin/user/table", function (hooks) {
       givenname: "Bobby",
       role: "admin",
       lastLoginAt: "11.03.2022 03:03",
-      lastLoginFrom: "xyz",
-      auth: "db : 2",
+      lastLoginFrom: "111.123.22.2",
+      auth: "db",
+      providerUid: 2,
       isDeleted: false
     },
     {
@@ -32,14 +33,13 @@ module("Integration | Component | admin/user/table", function (hooks) {
       givenname: "Allison",
       role: "user",
       lastLoginAt: "17.03.2022 06:56",
-      lastLoginFrom: "abc",
-      auth: "db : 1",
+      lastLoginFrom: "111.123.22.1",
+      auth: "db",
+      providerUid: 1,
       isDeleted: false
     },
     {
       username: "Fred",
-      givenname: "Alfred",
-      role: "conf_admin",
       isDeleted: true
     }
   ];

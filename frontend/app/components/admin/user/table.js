@@ -28,20 +28,6 @@ export default class AdminUsersTable extends Component {
     }
   }
 
-  /*
-  get sortedUsers() {
-    return this.users
-      .filter((user) => {
-        return !user.isDeleted;
-      })
-      .sort((userA, userB) => {
-        if (userA.username < userB.username) return -1;
-        if (userA.username > userB.username) return 1;
-        return 0;
-      });
-  }
-  */
-
   @action
   removeUser(user) {
     this.users.removeObject(user);
@@ -104,8 +90,8 @@ export default class AdminUsersTable extends Component {
                 return 0;
               else if (userA.providerUid == null) return 1 * asc;
               else if (userB.providerUid == null) return -1 * asc;
-              else if (userA.providerUid < userB.providerUid) return 1 * asc;
-              else if (userA.providerUid > userB.providerUid) return -1 * asc;
+              else if (userA.providerUid < userB.providerUid) return -1 * asc;
+              else if (userA.providerUid > userB.providerUid) return 1 * asc;
               return 0;
             }
           case "role":
