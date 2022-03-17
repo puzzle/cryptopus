@@ -22,12 +22,18 @@ module("Integration | Component | admin/user/table", function (hooks) {
       username: "Bob",
       givenname: "Bobby",
       role: "admin",
+      lastLoginAt: "11.03.2022 03:03",
+      lastLoginFrom: "xyz",
+      auth: "db : 2",
       isDeleted: false
     },
     {
       username: "Alice",
       givenname: "Allison",
       role: "user",
+      lastLoginAt: "17.03.2022 06:56",
+      lastLoginFrom: "abc",
+      auth: "db : 1",
       isDeleted: false
     },
     {
@@ -72,18 +78,65 @@ module("Integration | Component | admin/user/table", function (hooks) {
     text = this.element.textContent.trim();
 
     assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
-    assert.ok(text.indexOf("Fred") == -1);
 
     await click('span[id="sort-name"]');
     text = this.element.textContent.trim();
 
     assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
-    assert.ok(text.indexOf("Fred") == -1);
 
     await click('span[id="sort-name"]');
     text = this.element.textContent.trim();
 
     assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
-    assert.ok(text.indexOf("Fred") == -1);
+
+    await click('span[id="sort-username"]');
+    text = this.element.textContent.trim();
+
+    assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
+
+    await click('span[id="sort-username"]');
+    text = this.element.textContent.trim();
+
+    assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
+
+    await click('span[id="sort-role"]');
+    text = this.element.textContent.trim();
+
+    assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
+
+    await click('span[id="sort-role"]');
+    text = this.element.textContent.trim();
+
+    assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
+
+    await click('span[id="sort-login-at"]');
+    text = this.element.textContent.trim();
+
+    assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
+
+    await click('span[id="sort-login-at"]');
+    text = this.element.textContent.trim();
+
+    assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
+
+    await click('span[id="sort-login-from"]');
+    text = this.element.textContent.trim();
+
+    assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
+
+    await click('span[id="sort-login-from"]');
+    text = this.element.textContent.trim();
+
+    assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
+
+    await click('span[id="sort-auth"]');
+    text = this.element.textContent.trim();
+
+    assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
+
+    await click('span[id="sort-auth"]');
+    text = this.element.textContent.trim();
+
+    assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
   });
 });
