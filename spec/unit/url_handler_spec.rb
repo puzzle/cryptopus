@@ -23,7 +23,7 @@ describe RedirectedRoutes::UrlHandler do
   end
 
   it 'return redirect url without accounts when accounts in url' do
-    url = 'teams/1/groups/1/accounts/1'
+    url = '/de/teams/1/groups/1/accounts/1'
     url_without_accounts = '/encryptables/1'
 
     redirect_url = RedirectedRoutes::UrlHandler.new(url).redirect_to
