@@ -59,8 +59,8 @@ en:
       no_results_found: no results found
       type_to_search: Type to search...
 
-  accounts:
-    title: Accounts
+  encryptables:
+    title: Encryptables
     index_menu:
       create: Create Account
       folder: Folder
@@ -171,7 +171,7 @@ en:
         title: Teams
         teamname: Teamname
         num_folders: Number of Folders
-        num_accounts: Number of Accounts
+        num_encryptables: Number of Encryptables
         members: Members
     user_roles:
       user: User
@@ -189,8 +189,8 @@ en:
       title: New Folder
     show:
       move: Move account to other folder
-      title: "Accounts in folder %{folder_name} for team %{team_name}"
-    no_accounts: No Accounts
+      title: "Encryptables in folder %{folder_name} for team %{team_name}"
+    no_encryptables: No Encryptables
     tooltips:
       delete: Delete the folder
       edit: Edit the folder
@@ -375,7 +375,7 @@ en:
         ldap_connection:
           failed: No configured Ldap Server could be reached.
 
-    accounts:
+    encryptables:
       created: Account was successfully created.
       updated: Account was successfully updated.
       deleted: Account was successfully deleted

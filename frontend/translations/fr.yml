@@ -185,7 +185,7 @@ fr:
         title: Teams
         teamname: Nom de l'équipe
         num_folders: Nombre de dossiers
-        num_accounts: Nombre de comptes
+        num_encryptables: Nombre de comptes
         members: Membres
     user_roles:
       user: Utilisateur
@@ -204,7 +204,7 @@ fr:
     show:
       move: Déplacer compte à un autre dossier
       title: "Comptes du dossier %{folder_name} de l'équipe %{team_name}"
-    no_accounts: Pas de comptes
+    no_encryptables: Pas de comptes
     tooltips:
       delete: Supprimer le dossier
       edit: Modifier le dossier
@@ -405,7 +405,7 @@ fr:
     user-humen:
       created: Utilisateur créé avec succès.
       updated: Utilisateur modifiée avec succès.
-    encryptables: &accounts_translations
+    encryptables: &encryptables_translations
       created: Compte créé avec succès.
       updated: Compte modifiée avec succès.
       deleted: Compte a été supprimé.
@@ -414,10 +414,10 @@ fr:
       password_copied: Le mot de passe a été copié
 
     encryptable-credentials:
-      << : *accounts_translations
+      << : *encryptables_translations
 
     encryptable-secrets:
-      << : *accounts_translations
+      << : *encryptables_translations
 
     application:
       wait: S'il vous plaît attendre jusqu'à ce vos mots de passe a ètè nouveau cryptées.

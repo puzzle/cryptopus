@@ -61,8 +61,8 @@ de:
       no_results_found: keine Resultate gefunden
       type_to_search: Tippen um zu suchen...
 
-  accounts:
-    title: Accounts
+  encryptables:
+    title: Encryptables
     index_menu:
       create: Account erstellen
       folder: Gruppen
@@ -172,7 +172,7 @@ de:
         title: Teams
         teamname: Teamname
         num_folders: Anzahl Ordner
-        num_accounts: Anzahl Accounts
+        num_encryptables: Anzahl Encryptables
         members: Mitglieder
     user_roles:
       user: Benutzer
@@ -190,8 +190,8 @@ de:
       title: Ordner erstellen
     show:
       move: Account zu einem anderen Ordner verschieben
-      title: "Accounts des Ordners %{folder_name} des Teams %{team_name}"
-    no_accounts: Keine Accounts
+      title: "Encryptables des Ordners %{folder_name} des Teams %{team_name}"
+    no_encryptables: Keine Encryptables
     tooltips:
       delete: Ordner löschen
       edit: Ordner bearbeiten
@@ -383,7 +383,7 @@ de:
         ldap_connection:
           failed: Kein konfigurierter Ldap-Server konnte erreicht werden.
 
-    accounts:
+    encryptables:
       created: Der neue Account wurde erfolgreich erstellt.
       updated: Der Account wurde erfolgreich aktualisiert.
       deleted: Der Account wurde erfolgreich gelöscht.
