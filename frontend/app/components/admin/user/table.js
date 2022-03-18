@@ -21,8 +21,11 @@ export default class AdminUsersTable extends Component {
           return !user.isDeleted;
         })
         .sort((userA, userB) => {
-          return userA.username < userB.username ? -1 : 1
-          return 0;
+          return userA.username == userB.username
+            ? 0
+            : userA.username < userB.username
+            ? -1
+            : 1;
         });
     }
   }
