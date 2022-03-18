@@ -64,12 +64,12 @@ de:
   encryptables:
     title: Encryptables
     index_menu:
-      create: Account erstellen
+      create: Encryptable erstellen
       folder: Gruppen
     show_menu:
       add_attachment: Anhang hinzufügen
     edit:
-      title: Account editieren
+      title: Encryptable editieren
       random_password: Zufälliges Passwort
       edit_password_placeholder: Klicken oder fokusieren für Eingabe ...
       team_placeholder: Wählen Sie ein Team aus
@@ -81,7 +81,7 @@ de:
         good: Gut
         strong: Stark
     show:
-      account: Account
+      encryptable: Encryptable
       last_change: "Letzte Änderung vor %{time_ago}"
       attachments: Anhänge
       file: Datei
