@@ -57,5 +57,5 @@ describe RedirectedRoutes::UrlHandler do
     redirect_url = RedirectedRoutes::UrlHandler.new(legacy_accounts_url).redirect_to
 
     expect(redirect_url).to eq encryptables_url
-    end
+  end
 end
