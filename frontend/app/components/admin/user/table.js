@@ -53,54 +53,47 @@ export default class AdminUsersTable extends Component {
       .sort((userA, userB) => {
         switch (attribute.toString()) {
           case "username":
-            if (userA.username < userB.username) return -1 * asc;
-            if (userA.username > userB.username) return 1 * asc;
-            return 0;
+            return this.sortAttributes(userA.username, userB.username, asc);
           case "givenname":
-            if (userA.givenname < userB.givenname) return -1 * asc;
-            if (userA.givenname > userB.givenname) return 1 * asc;
-            return 0;
-          case "last_login_at": // works but could be prettier
-            if (userA.lastLoginAt == null && userB.lastLoginAt == null) {
-              return 0;
-            } else if (userA.lastLoginAt == null) {
-              return 1;
-            } else if (userB.lastLoginAt == null) {
-              return -1;
+            return this.sortAttributes(userA.givenname, userB.givenname, asc);
+          case "last_login_at":
+            if (userA.lastLoginAt == null || userB.lastLoginAt == null) {
+              return this.sortWithNull(userA.lastLoginAt, userB.lastLoginAt);
             } else {
-              if (userA.lastLoginAt > userB.lastLoginAt) return -1 * asc;
-              if (userA.lastLoginAt < userB.lastLoginAt) return 1 * asc;
-              return 0;
+              return this.sortAttributes(
+                userA.lastLoginAt,
+                userB.lastLoginAt,
+                asc * -1
+              );
             }
           case "last_login_from":
-            if (userA.lastLoginFrom == null && userB.lastLoginFrom == null) {
-              return 0;
-            } else if (userA.lastLoginFrom == null) {
-              return 1;
-            } else if (userB.lastLoginFrom == null) {
-              return -1;
+            if (userA.lastLoginFrom == null || userB.lastLoginFrom == null) {
+              return this.sortWithNull(
+                userA.lastLoginFrom,
+                userB.lastLoginFrom
+              );
             } else {
-              if (userA.lastLoginFrom < userB.lastLoginFrom) return -1 * asc;
-              if (userA.lastLoginFrom > userB.lastLoginFrom) return 1 * asc;
-              return 0;
+              return this.sortAttributes(
+                userA.lastLoginFrom,
+                userB.lastLoginFrom,
+                asc
+              );
             }
           case "auth":
-            if (userA.auth < userB.auth) return -1 * asc;
-            if (userA.auth > userB.auth) return 1 * asc;
-            else {
-              if (userA.providerUid == null && userB.providerUid == null)
-                return 0;
-              else if (userA.providerUid == null) return 1 * asc;
-              else if (userB.providerUid == null) return -1 * asc;
-              else if (userA.providerUid < userB.providerUid) return -1 * asc;
-              else if (userA.providerUid > userB.providerUid) return 1 * asc;
-              return 0;
-            }
+            return userA.auth == userB.auth
+              ? this.sortWithNull(userA.providerUid, userB.providerUid)
+              : this.sortAttributes(userA.auth, userB.auth, asc);
           case "role":
-            if (userA.role < userB.role) return -1 * asc;
-            if (userA.role > userB.role) return 1 * asc;
-            return 0;
+            return this.sortAttributes(userA.role, userB.role, asc);
         }
       });
+  }
+
+  sortAttributes(userA, userB, asc) {
+    return userA == userB ? 0 : userA < userB ? -1 * asc : 1 * asc;
+  }
+
+  sortWithNull(userA, userB) {
+    return userA == null && userB == null ? 0 : userA == null ? 1 : -1;
   }
 }
