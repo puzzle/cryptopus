@@ -81,7 +81,7 @@ de:
       folder_placeholder: Wählen Sie ein Ordner aus
       password_strength: Passwort Stärke
       password_strengths:
-        non: Es ist kein Passwort gesetzt
+        none: Es ist kein Passwort gesetzt
         weak: Schwach
         fair: Angemessen
         good: Gut
