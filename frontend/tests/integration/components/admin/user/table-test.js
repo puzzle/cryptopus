@@ -32,7 +32,7 @@ module("Integration | Component | admin/user/table", function (hooks) {
       username: "Alice",
       givenname: "Allison",
       role: "user",
-      lastLoginAt: "17.03.2022 06:56",
+      lastLoginAt: "12.03.2022 06:56",
       lastLoginFrom: "111.123.22.1",
       auth: "db",
       providerUid: 1,
@@ -72,71 +72,34 @@ module("Integration | Component | admin/user/table", function (hooks) {
     let text = this.element.textContent.trim();
 
     assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
-    assert.ok(text.indexOf("Fred") == -1);
 
-    await click('span[id="sort-username"]');
-    text = this.element.textContent.trim();
+    assert.ok(proveDescOrder("sort-username", "Alice", "Bob", this));
 
-    assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
+    assert.ok(proveAscOrder("sort-name", "Alice", "Bob", this));
+    assert.ok(proveDescOrder("sort-name", "Alice", "Bob", this));
 
-    await click('span[id="sort-name"]');
-    text = this.element.textContent.trim();
+    assert.ok(proveAscOrder("sort-role", "admin", "user", this));
+    assert.ok(proveDescOrder("sort-role", "admin", "user", this));
 
-    assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
+    assert.ok(proveAscOrder("sort-auth", "Alice", "Bob", this));
+    assert.ok(proveDescOrder("sort-auth", "Alice", "Bob", this));
 
-    await click('span[id="sort-name"]');
-    text = this.element.textContent.trim();
+    assert.ok(proveAscOrder("sort-login-at", "Alice", "Bob", this));
+    assert.ok(proveDescOrder("sort-login-at", "Alice", "Bob", this));
 
-    assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
+    assert.ok(proveAscOrder("sort-login-from", "Alice", "Bob", this));
+    assert.ok(proveDescOrder("sort-login-from", "Alice", "Bob", this));
 
-    await click('span[id="sort-username"]');
-    text = this.element.textContent.trim();
+    async function proveAscOrder(elementId, value1, value2, testObject) {
+      await click(`span[id='${elementId}']`);
+      text = testObject.element.textContent.trim();
+      return text.indexOf(value1) < text.indexOf(value2);
+    }
 
-    assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
-
-    await click('span[id="sort-username"]');
-    text = this.element.textContent.trim();
-
-    assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
-
-    await click('span[id="sort-role"]');
-    text = this.element.textContent.trim();
-
-    assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
-
-    await click('span[id="sort-role"]');
-    text = this.element.textContent.trim();
-
-    assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
-
-    await click('span[id="sort-login-at"]');
-    text = this.element.textContent.trim();
-
-    assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
-
-    await click('span[id="sort-login-at"]');
-    text = this.element.textContent.trim();
-
-    assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
-
-    await click('span[id="sort-login-from"]');
-    text = this.element.textContent.trim();
-
-    assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
-
-    await click('span[id="sort-login-from"]');
-    text = this.element.textContent.trim();
-
-    assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
-
-    await click('span[id="sort-auth"]');
-    text = this.element.textContent.trim();
-
-    assert.ok(text.indexOf("Alice") < text.indexOf("Bob"));
-
-    await click('span[id="sort-auth"]');
-    text = this.element.textContent.trim();
-
-    assert.ok(text.indexOf("Alice") > text.indexOf("Bob"));
+    async function proveDescOrder(elementId, value1, value2, testObject) {
+      await click(`span[id='${elementId}']`);
+      text = testObject.element.textContent.trim();
+      return text.indexOf(value1) > text.indexOf(value2);
+    }
   });
 });
