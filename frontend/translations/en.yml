@@ -183,7 +183,7 @@ en:
         title: Teams
         teamname: Teamname
         num_folders: Number of Folders
-        num_accounts: Number of Encryptables
+        num_encryptables: Number of Encryptables
         members: Members
     user_roles:
       user: User
@@ -202,7 +202,7 @@ en:
     show:
       move: Move encryptable to other folder
       title: "Encryptables in folder %{folder_name} for team %{team_name}"
-    no_accounts: No Encryptables
+    no_encryptables: No Encryptables
     tooltips:
       delete: Delete the folder
       edit: Edit the folder
@@ -404,7 +404,7 @@ en:
       created: Successfully created a new user.
       updated: User was successfully updated.
 
-    encryptables: &accounts_translations
+    encryptables: &encryptables_translations
       created: Encryptable was successfully created.
       updated: Encryptable was successfully updated.
       deleted: Encryptable was successfully deleted
@@ -413,10 +413,10 @@ en:
       password_copied: Password was copied
 
     encryptable-credentials:
-      << : *accounts_translations
+      << : *encryptables_translations
 
     encryptable-secrets:
-      << : *accounts_translations
+      << : *encryptables_translations
 
     application:
       wait: Wait for the recryption of your team passwords.

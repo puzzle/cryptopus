@@ -91,8 +91,8 @@ ch_be:
       no_results_found: äuä nüt gfunde
       type_to_search: Tippe für z sueche...
 
-  accounts:
-    title: 'Accounts'
+  encryptables:
+    title: 'Encryptables'
     index_menu:
       create: Account ersteuä
       folder: Ordner
@@ -196,7 +196,7 @@ ch_be:
         title: Teams
         teamname: Teamname
         num_folders: Ahzahl Ordner
-        num_accounts: Ahzahl Accounts
+        num_encryptables: Ahzahl Encryptables
         members: Mitglieder
   folders:
     title: Ordner
@@ -209,8 +209,8 @@ ch_be:
       title: Ordner ersteue
     show:
       move: Account zumnä angere Ordner verschiebe
-      title: "Accounts vom Ordner %{folder_name} vom Team %{team_name}"
-    no_accounts: Ke Accounts
+      title: "Encryptables vom Ordner %{folder_name} vom Team %{team_name}"
+    no_encryptables: Ke Encryptables
     tooltips:
       delete: Ordner lösche
       edit: Ordner bearbeite
@@ -392,7 +392,7 @@ ch_be:
         succeed: D Wartigsufgab isch erfougrich düregfüehrt worde
         failed: D Wartigsufgab isch gschiteret. Lueg i de Logs für me Details nache.
 
-    accounts:
+    encryptables:
       created: Dr nöi Account isch erfougrich ersteut worde.
       updated: Dr Account isch erfougrich aktualisiert worde.
       deleted: Dr Account isch erfougrich glöscht worde.
