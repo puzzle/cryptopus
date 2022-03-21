@@ -27,7 +27,7 @@
 
 class User::Human < User
   require 'ipaddr'
-  require_dependency './app/utils/crypto/symmetric/aes256'
+  require_dependency './app/utils/crypto/symmetric/AES256'
 
   validates :username, length: { maximum: 20 }
   validate :must_be_valid_ip
