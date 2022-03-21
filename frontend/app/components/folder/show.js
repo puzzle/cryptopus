@@ -43,6 +43,7 @@ export default class ShowComponent extends Component {
   }
 
   expandSelectedFolder() {
+    this.scrollToOpenedFolder();
     this.router.transitionTo(
       "teams.folders-show",
       this.args.folder.team.get("id"),
@@ -52,6 +53,19 @@ export default class ShowComponent extends Component {
 
   collapseSelectedFolder() {
     this.router.transitionTo("teams.show", this.args.folder.team.get("id"));
+  }
+
+  scrollToOpenedFolder() {
+      const elementId = `folder-header-${this.args.folder.id}`;
+      const posTop = document.getElementById(elementId).getBoundingClientRect().bottom;
+      window.scrollTo(0, posTop);
+  }
+
+  @action
+  scrollToFolder() {
+    if (this.isExpanded) {
+      this.scrollToOpenedFolder();
+    }
   }
 
   get isExpanded() {

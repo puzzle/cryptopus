@@ -43,7 +43,7 @@ export default class SideNavBar extends Component {
   }
 
   @action
-  setSelectedFolder(folder) {
+  setSelectedFolder(folder, event) {
     if (isPresent(this.args.navbar)) {
       this.args.navbar.collapse();
     }
@@ -53,6 +53,13 @@ export default class SideNavBar extends Component {
       folder.team.get("id"),
       folder.id
     );
+
+    this.scrollToFolder(event);
+  }
+
+  scrollToFolder(event) {
+    const pos = event.target.getBoundingClientRect().top;
+    window.scrollTo(0, pos);
   }
 
   @action
