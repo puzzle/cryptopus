@@ -85,7 +85,7 @@ class User::Api < User
   end
 
   def decrypt_private_key(token)
-    Crypto::Symmetric::Aes256.decrypt_with_salt(private_key, token)
+    Crypto::Symmetric::AES256.decrypt_with_salt(private_key, token)
   rescue StandardError
     raise Exceptions::DecryptFailed
   end

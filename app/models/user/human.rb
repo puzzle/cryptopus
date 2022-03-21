@@ -27,6 +27,7 @@
 
 class User::Human < User
   require 'ipaddr'
+  require_dependency './app/utils/crypto/symmetric/aes256'
 
   validates :username, length: { maximum: 20 }
   validate :must_be_valid_ip
@@ -130,7 +131,7 @@ class User::Human < User
   end
 
   def decrypt_private_key(password)
-    Crypto::Symmetric::Aes256.decrypt_with_salt(private_key, password)
+    Crypto::Symmetric::AES256.decrypt_with_salt(private_key, password)
   rescue StandardError
     raise Exceptions::DecryptFailed
   end
@@ -143,9 +144,9 @@ class User::Human < User
   private
 
   def preform_private_key_recryption!(new_password, old_password)
-    plaintext_private_key = Crypto::Symmetric::Aes256.decrypt_with_salt(private_key, old_password)
+    plaintext_private_key = Crypto::Symmetric::AES256.decrypt_with_salt(private_key, old_password)
     Crypto::Rsa.validate_keypair(plaintext_private_key, public_key)
-    self.private_key = Crypto::Symmetric::Aes256.encrypt_with_salt(
+    self.private_key = Crypto::Symmetric::AES256.encrypt_with_salt(
       plaintext_private_key,
       new_password
     )

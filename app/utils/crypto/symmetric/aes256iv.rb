@@ -5,7 +5,7 @@ require 'digest/sha1'
 
 require_relative './aes256'
 
-class Crypto::Symmetric::Aes256IV < Crypto::Symmetric::Aes256
+class Crypto::Symmetric::AES256IV < Crypto::Symmetric::AES256
 
   class << self
 
