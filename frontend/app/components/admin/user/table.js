@@ -53,9 +53,24 @@ export default class AdminUsersTable extends Component {
       .sort((userA, userB) => {
         switch (attribute.toString()) {
           case "username":
-            return this.sortAttributes(userA.username, userB.username, asc);
+            return this.sortAttributes(
+              userA.username.toLowerCase(),
+              userB.username.toLowerCase(),
+              asc
+            );
           case "givenname":
-            return this.sortAttributes(userA.givenname, userB.givenname, asc);
+            return userA.givenname.toLowerCase() ==
+              userB.givenname.toLowerCase()
+              ? this.sortAttributes(
+                  userA.surname.toLowerCase(),
+                  userB.surname.toLowerCase(),
+                  asc
+                )
+              : this.sortAttributes(
+                  userA.givenname.toLowerCase(),
+                  userB.givenname.toLowerCase(),
+                  asc
+                );
           case "last_login_at":
             if (userA.lastLoginAt == null || userB.lastLoginAt == null) {
               return this.sortWithNull(userA.lastLoginAt, userB.lastLoginAt);
