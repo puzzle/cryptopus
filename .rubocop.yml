@@ -76,6 +76,9 @@ Naming/MemoizedInstanceVariableName:
 Naming/MethodParameterName:
   Enabled: false
 
+Naming/FileName:
+  Enabled: false
+
 # We thinks that's fine
 Rails/EnumHash:
   Enabled: false
