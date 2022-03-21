@@ -66,11 +66,11 @@ module("Integration | Component | password-strength-meter", function (hooks) {
     );
   });
 
-  test("it renders with non password", async function (assert) {
+  test("it renders with none password", async function (assert) {
     await render(hbs`<PasswordStrengthMeter @password={{this.password}}/>`);
     this.set("password", "");
 
-    assert.ok(!this.element.textContent.trim().includes("Password Strength"));
+    assert.false(this.element.textContent.trim().includes("Password Strength"));
     assert.ok(
       this.element.textContent.trim().includes("There is no password defined")
     );
