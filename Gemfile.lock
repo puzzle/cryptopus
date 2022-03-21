@@ -356,6 +356,7 @@ GEM
     zeitwerk (2.5.4)
 
 PLATFORMS
+  universal-darwin-20
   x86_64-linux
 
 DEPENDENCIES

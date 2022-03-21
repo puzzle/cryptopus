@@ -9,7 +9,7 @@ module ControllerHelpers
   def login_as(username, password = 'password')
     user = User::Human.find_by(username: username)
     request.session[:user_id] = user.id
-    session[:private_key] = Crypto::Symmetric::Aes256.decrypt_with_salt(user.private_key, password)
+    session[:private_key] = Crypto::Symmetric::AES256.decrypt_with_salt(user.private_key, password)
   end
 
   def json

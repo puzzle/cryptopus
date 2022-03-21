@@ -72,7 +72,7 @@ module IntegrationHelpers
       )
 
       team_password = cipher.random_key
-      crypted_team_password = Symmetric::Aes256.encrypt user.public_key, team_password
+      crypted_team_password = Symmetric::AES256.encrypt user.public_key, team_password
       Teammember.attr_accessible :team_id, :password
       Teammember.create(team_id: team.id, password: crypted_team_password)
     end
