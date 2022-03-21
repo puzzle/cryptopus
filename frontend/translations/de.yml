@@ -198,7 +198,7 @@ de:
     show:
       move: Encryptable zu einem anderen Ordner verschieben
       title: "Encryptables des Ordners %{folder_name} des Teams %{team_name}"
-    no_accounts: Keine Encryptables
+    no_encryptables: Keine Encryptables
     tooltips:
       delete: Ordner löschen
       edit: Ordner bearbeiten
@@ -404,7 +404,7 @@ de:
     user-humen:
       created: Der neue Benutzer wurde erfolgreich erstellt.
       updated: Der Benutzer wurde erfolgreich aktualisiert.
-    encryptables: &accounts_translations
+    encryptables: &encryptables_translations
       created: Das neue Encryptable wurde erfolgreich erstellt.
       updated: Das Encryptable wurde erfolgreich aktualisiert.
       deleted: Das Encryptable wurde erfolgreich gelöscht.
@@ -413,10 +413,10 @@ de:
       password_copied: Passwort wurde kopiert
 
     encryptable-credentials:
-      << : *accounts_translations
+      << : *encryptables_translations
 
     encryptable-secrets:
-      << : *accounts_translations
+      << : *encryptables_translations
 
     application:
       wait: Bitte warten Sie, bis  Ihre Team Passwörter neu verschlüsselt wurden.

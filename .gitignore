@@ -17,6 +17,7 @@ BUILD
 .rake_tasks~
 .tags
 .tags_swap
+.vscode
 
 # Ignore application configuration
 /config/application.yml

@@ -50,7 +50,7 @@ zh:
       no_results_found: "未找到任何结果"
       type_to_search: "输入搜索关键字..."
 
-  accounts:
+  encryptables:
     title: "帐户"
     index_menu:
       create: "创建帐户"
@@ -231,7 +231,7 @@ zh:
         succeed: "成功的执行任务。"
         failed: "任务失败。请查看日志了解更多信息。"
 
-    accounts:
+    encryptables:
       created: "帐户被成功创建。"
       updated: "帐户被成功更新。"
       moved: "帐户被成功删除。"
