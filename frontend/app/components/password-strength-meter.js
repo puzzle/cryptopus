@@ -34,6 +34,6 @@ export default class PasswordStrengthMeterComponent extends Component {
   }
 
   get scoreRanking() {
-    return ["", "weak", "fair", "good", "strong"][this.score];
+    return ["none", "weak", "fair", "good", "strong"][this.score];
   }
 }
