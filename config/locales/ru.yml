@@ -55,7 +55,7 @@ ru:
       no_results_found: "ничего не найдено"
       type_to_search: "Поиск..."
 
-  accounts:
+  encryptables:
     title: "Аккаунты"
     index_menu:
       create: "Создать аккаунт"
@@ -230,7 +230,7 @@ ru:
         succeed: "Задача успешно выполнена."
         failed: "Задача не выполнена. Детали в логах."
 
-    accounts:
+    encryptables:
       created: "Аккаунт создан."
       updated: "Аккаунт обновлён."
       moved: "Аккаунт перемещён"
