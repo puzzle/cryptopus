@@ -40,8 +40,8 @@ class User < ApplicationRecord
 
     if authenticate_db(old)
       self.password = Crypto::Hashing.generate_salted(new)
-      pk = Crypto::Symmetric::AES256.decrypt_with_salt(private_key, old)
-      self.private_key = Crypto::Symmetric::AES256.encrypt_with_salt(pk, new)
+      pk = Crypto::Symmetric::Aes256.decrypt_with_salt(private_key, old)
+      self.private_key = Crypto::Symmetric::Aes256.encrypt_with_salt(pk, new)
       save!
     end
   end
@@ -50,7 +50,7 @@ class User < ApplicationRecord
     keypair = Crypto::Rsa.generate_new_keypair
     uncrypted_private_key = keypair.to_s
     self.public_key = keypair.public_key.to_s
-    self.private_key = Crypto::Symmetric::AES256.encrypt_with_salt(uncrypted_private_key, password)
+    self.private_key = Crypto::Symmetric::Aes256.encrypt_with_salt(uncrypted_private_key, password)
   end
 
   def authenticate_db(cleartext_password)
