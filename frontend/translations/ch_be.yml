@@ -111,6 +111,7 @@ ch_be:
       folder_placeholder: Wähl ä Ordner us
       password_strength: Passwort Sterchi
       password_strengths:
+        none: Es isch kes Passwort gsetzt
         weak: Schwach
         fair: Agmässe
         good: Guet

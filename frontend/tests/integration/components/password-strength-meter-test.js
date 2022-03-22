@@ -66,4 +66,19 @@ module("Integration | Component | password-strength-meter", function (hooks) {
       "progress-bar progress-bar-100"
     );
   });
+
+  test("it renders with none password", async function (assert) {
+    await render(hbs`<PasswordStrengthMeter @password={{this.password}}/>`);
+    this.set("password", "");
+
+    assert.false(this.element.textContent.trim().includes("Password Strength"));
+    assert.ok(
+      this.element.textContent.trim().includes("There is no password defined")
+    );
+
+    assert.equal(
+      this.element.querySelector(".progress-bar").getAttribute("class"),
+      "progress-bar progress-bar-0"
+    );
+  });
 });
