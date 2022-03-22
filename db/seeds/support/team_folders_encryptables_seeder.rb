@@ -14,7 +14,7 @@ class TeamFoldersEncryptablesSeeder
       seed_folder(team)
     end
 
-    plaintext_team_pw = Crypto::Symmetric::AES256.random_key
+    plaintext_team_pw = Crypto::Symmetric::Aes256.random_key
 
     members.each do |m|
       u = user(m)
@@ -42,7 +42,7 @@ class TeamFoldersEncryptablesSeeder
     [:john, :kate, :alice, :bruce, :emily].each do |teammember_name|
       teammember = User::Human.find_by(username: teammember_name)
       teammember.teams.each do |team|
-        pk = Crypto::Symmetric::AES256.decrypt_with_salt(teammember[:private_key], 'password')
+        pk = Crypto::Symmetric::Aes256.decrypt_with_salt(teammember[:private_key], 'password')
         decrypted_team_password = team.decrypt_team_password(teammember, pk)
         team.add_user(user, decrypted_team_password) unless team.teammember?(user.id)
       end
@@ -70,8 +70,8 @@ class TeamFoldersEncryptablesSeeder
   end
 
   def seed_encryptable(folder, plaintext_team_pw)
-    username = Crypto::Symmetric::AES256.encrypt("#{Faker::Lorem.word} #{rand(999)}", plaintext_team_pw)
-    password = Crypto::Symmetric::AES256.encrypt(Faker::Internet.password, plaintext_team_pw)
+    username = Crypto::Symmetric::Aes256.encrypt("#{Faker::Lorem.word} #{rand(999)}", plaintext_team_pw)
+    password = Crypto::Symmetric::Aes256.encrypt(Faker::Internet.password, plaintext_team_pw)
 
     credential = folder.encryptables.new(name: "#{Faker::Company.name} #{rand(999)}",
                                   description: Faker::Lorem.paragraph,

@@ -9,7 +9,7 @@ describe Crypto::Rsa do
   let(:keypair) { Crypto::Rsa.generate_new_keypair }
   let(:private_key) { keypair.to_s }
   let(:public_key) { keypair.public_key.to_s }
-  let(:team_password) { Crypto::Symmetric::AES256.random_key }
+  let(:team_password) { Crypto::Symmetric::Aes256.random_key }
 
   it 'encrypts and decrypts data' do
     encrypted_password = Crypto::Rsa.encrypt(team_password, public_key)
