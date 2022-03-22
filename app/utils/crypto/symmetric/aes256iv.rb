@@ -3,7 +3,7 @@
 require 'openssl'
 require 'digest/sha1'
 
-require_relative './AES256'
+require_relative './aes256'
 
 class Crypto::Symmetric::AES256IV < Crypto::Symmetric::AES256
 
