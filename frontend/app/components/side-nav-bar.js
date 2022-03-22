@@ -58,8 +58,9 @@ export default class SideNavBar extends Component {
   }
 
   scrollToFolder(event) {
-    const pos = event.target.getBoundingClientRect().top;
-    window.scrollTo(0, pos);
+    const posTop = event.target.getBoundingClientRect().top;
+    window.scrollTo(0, posTop);
+    console.log("side nav bar posTOP: " + posTop)
   }
 
   @action
