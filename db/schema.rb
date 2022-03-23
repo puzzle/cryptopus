@@ -91,6 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_06_091924) do
     t.text "options"
     t.integer "role", default: 0, null: false
     t.integer "default_ccli_user_id"
+    t.integer "personal_team_id"
     t.index ["default_ccli_user_id"], name: "index_users_on_default_ccli_user_id"
   end
 
