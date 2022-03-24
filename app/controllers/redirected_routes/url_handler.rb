@@ -18,7 +18,7 @@ class RedirectedRoutes::UrlHandler
   LEGACY_PATHS = {
     teams: /(groups)$/,
     groups: /(accounts)$/,
-    accounts: /(accounts)\/\d+$/,
+    encryptables: /(accounts)\/\d+$/,
     login: /(\/login)$/,
     search: /(\/search)/
   }.freeze
@@ -67,8 +67,8 @@ class RedirectedRoutes::UrlHandler
     @url.match?(/(#{LOCALES_REGEX})\//)
   end
 
-  def new_accounts_path
-    "/accounts/#{@url.split('/').last}"
+  def new_encryptables_path
+    "/encryptables/#{@url.split('/').last}"
   end
 
   def new_groups_path
