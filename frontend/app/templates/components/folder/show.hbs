@@ -4,7 +4,7 @@
 {{#if this.isNewEncryptable}}
   <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "encryptables.new.title"}}/>
 {{/if}}
-<div id="folder-header-{{@folder.id}}" class="pl-2 pr-2 folder-card-header {{if this.isExpanded "br-4"}}" {{did-insert this.scrollToFolder}}>
+<div id="folder-header-{{@folder.id}}" class="pl-2 pr-2 folder-card-header {{if this.isExpanded "br-4"}}">
   <div class="d-flex row justify-content-between folder-show-header">
     <div class="col-auto pr-0 my-auto" role="button" {{on "click" this.toggleExpanded }}>
       <img class="icon icon-folder py-auto" src="/assets/images/folder.svg" alt="">
@@ -37,7 +37,7 @@
     </div>
   </div>
 </div>
-<BsCollapse  @collapsed={{not this.isExpanded}}>
+<BsCollapse @collapsed={{not this.isExpanded}} @onShown={{action this.scrollToFolder}}>
   <div class="folder-collapse-box">
     {{#if @folder.description}}
       <div class="row pt-3">

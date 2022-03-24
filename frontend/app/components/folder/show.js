@@ -16,6 +16,12 @@ export default class ShowComponent extends Component {
 
   constructor() {
     super(...arguments);
+
+    if (this.isExpanded) {
+      $(document).ready(() => {
+        this.scrollToFolder();
+      });
+    }
   }
 
   get shouldRenderEncryptables() {
@@ -48,26 +54,24 @@ export default class ShowComponent extends Component {
       this.args.folder.team.get("id"),
       this.args.folder.id
     );
-    this.scrollToOpenedFolder();
   }
 
   collapseSelectedFolder() {
     this.router.transitionTo("teams.show", this.args.folder.team.get("id"));
   }
 
-  scrollToOpenedFolder() {
-    const elementId = `folder-header-${this.args.folder.id}`;
-    console.log(elementId + " / " + this.args.folder.id);
-    const posTop = document.getElementById(elementId).getBoundingClientRect().bottom;
-    window.scrollTo(0, posTop);
-    console.log("folder show posTOP: " + posTop)
-  }
-
   @action
   scrollToFolder() {
-    if (this.isExpanded) {
-      this.scrollToOpenedFolder();
-    }
+    const SPEED = 700;
+    const FOLDER_ID = this.args.folder.id;
+    const OFFSET = $(`#folder-header-${FOLDER_ID}`).offset().top - 15;
+
+    $("html, body").animate(
+      {
+        scrollTop: OFFSET
+      },
+      SPEED
+    );
   }
 
   get isExpanded() {
