@@ -16,7 +16,6 @@ services:
     volumes:
       - ./:/myapp
       - ./tmp/seed:/seed
-      - ./config/docker/development/frontend-index.html:/myapp/public/frontend-index.html:ro
       - ./config/docker/development/rails/bin/prepare-frontend.sh:/myapp/bin/prepare-frontend.sh:ro
       - ./config/docker/development/home/rails:/home/developer
       - bundler_cache:/opt/bundle
