@@ -24,7 +24,7 @@ describe RedirectedRoutes::UrlHandler do
 
   it 'return redirect url without accounts when accounts in url' do
     url = '/de/teams/1/groups/1/accounts/1'
-    url_without_accounts = '/accounts/1'
+    url_without_accounts = '/encryptables/1'
 
     redirect_url = RedirectedRoutes::UrlHandler.new(url).redirect_to
 
@@ -47,5 +47,15 @@ describe RedirectedRoutes::UrlHandler do
     redirect_url = RedirectedRoutes::UrlHandler.new(legacy_login_url).redirect_to
 
     expect(redirect_url).to eq root_url
+  end
+
+  it 'redirect to encryptables/id when open accounts/id' do
+    credential = encryptables(:credentials1)
+    legacy_accounts_url = "/accounts/#{credential.id}"
+    encryptables_url =  "/encryptables/#{credential.id}"
+
+    redirect_url = RedirectedRoutes::UrlHandler.new(legacy_accounts_url).redirect_to
+
+    expect(redirect_url).to eq encryptables_url
   end
 end

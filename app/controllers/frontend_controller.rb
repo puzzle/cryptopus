@@ -18,6 +18,10 @@ class FrontendController < ApplicationController
       index_name = 'index-test'
     end
 
+    if Rails.env.development?
+      index_name = 'index-development'
+    end
+
     file_path(index_name)
   end
 
