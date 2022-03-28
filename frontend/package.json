@@ -85,7 +85,7 @@
     "@puzzleitc/puzzle-shell": "^1.0.0",
     "@sentry/browser": "^6.17.6",
     "@sentry/integrations": "^6.17.6",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "text-security": "^3.2.1"
   },
   "resolutions": {
