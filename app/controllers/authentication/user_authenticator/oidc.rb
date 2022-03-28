@@ -42,6 +42,7 @@ class Authentication::UserAuthenticator::Oidc < Authentication::UserAuthenticato
 
   def find_or_create_user
     user = User.find_by(username: oidc_username.strip)
+    return if user.is_a?(User::Api)
 
     user.presence || create_user
   end
