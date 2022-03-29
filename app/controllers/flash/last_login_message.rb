@@ -19,7 +19,7 @@ module Flash
       add_last_login_from
       add_last_login_country
 
-      t(translation_key, date_ip_country_values)
+      t(translation_key, **date_ip_country_values)
     end
 
     private
