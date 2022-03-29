@@ -31,7 +31,6 @@ class SessionController < ApplicationController
     end
 
     check_password_strength
-    create_personal_team! unless personal_team_present?
     redirect_after_sucessful_login
   end
 
@@ -84,14 +83,6 @@ class SessionController < ApplicationController
       return false
     end
     true
-  end
-
-  def create_personal_team!
-    Team.create!(name: 'Personal Team', personal_team_owner: current_user)
-  end
-
-  def personal_team_present?
-    current_user.personal_team.present?
   end
 
   def redirect_after_sucessful_login
