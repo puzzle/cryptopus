@@ -27,6 +27,19 @@ describe User::Human do
       expect(user.errors.first.attribute).to eq(:username)
     end
 
+    context 'personal team' do
+      it 'creates personal team' do
+        user = users(:alice).dup
+        user.username = "Alice2"
+        user.save!
+        personal_team = user.personal_team
+        expect(user.personal_team).to be_present
+        expect(personal_team.members.include?(user))
+        expect(personal_team.private?).to eq(true)
+      end
+
+    end
+
   end
 
   context 'update_password' do

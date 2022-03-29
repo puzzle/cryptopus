@@ -38,6 +38,8 @@ class User::Human < User
   has_many :api_users, class_name: 'User::Api', dependent: :destroy,
                        foreign_key: :human_user_id
 
+  has_one :personal_team, class_name: 'Team', inverse_of: 'personal_team_owner'
+
   scope :locked, -> { where(locked: true) }
   scope :unlocked, -> { where(locked: false) }
   scope :admins, (-> { where(role: :admin) })
@@ -49,6 +51,7 @@ class User::Human < User
                               primary_key: :id, dependent: :destroy
 
   before_destroy :protect_if_last_teammember
+  after_create :create_personal_team!
 
   delegate :l, to: I18n
 
@@ -185,5 +188,9 @@ class User::Human < User
         errors.add(last_login_from, "invalid ip address: #{last_login_from}")
       end
     end
+  end
+
+  def create_personal_team!
+    Team.create(self, name: 'Personal Team', personal_team_owner: self, private: true)
   end
 end
