@@ -1,5 +1,6 @@
 ## Version 4.2
 - Introduce Encryptables data structure
+- Ruby 3.0 and Rails 7.0 upgrade
 
 ## Version 4.1
 - Introduce Puzzle-Shell hero & dashboard
