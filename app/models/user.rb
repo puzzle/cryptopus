@@ -28,8 +28,6 @@
 class User < ApplicationRecord
   delegate :l, to: I18n
 
-  belongs_to :personal_team, class_name: 'Team', inverse_of: 'personal_team_owner'
-
   validates :username, uniqueness: :username
   validates :username, presence: true
 
