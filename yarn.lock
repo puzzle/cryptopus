@@ -2,7 +2,3 @@
 # yarn lockfile v1
 
 
-ember@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/ember/-/ember-1.0.3.tgz#783670495ce15fc5f4a36534b2f50e7fec60c0b0"
-  integrity sha512-+sZwA/QhOYnHbuSShSxy3EONx2rZteZrCyMOtns3703eJsHf6b8gEEjMKjYhMUb+CdPyAgr8K9bN00kQBjllRA==
