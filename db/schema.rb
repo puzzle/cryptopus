@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_01_13_085536) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_29_122335) do
   create_table "encryptables", force: :cascade do |t|
     t.string "name", limit: 70, default: "", null: false
     t.integer "folder_id", default: 0, null: false
