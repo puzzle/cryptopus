@@ -143,6 +143,10 @@ class User::Human < User
       where(teammembers: { user_id: id })
   end
 
+  def create_personal_team!
+    Team.create(self, name: 'personal-team', personal_team_owner: self, private: true)
+  end
+
   private
 
   def preform_private_key_recryption!(new_password, old_password)
@@ -188,9 +192,5 @@ class User::Human < User
         errors.add(last_login_from, "invalid ip address: #{last_login_from}")
       end
     end
-  end
-
-  def create_personal_team!
-    Team.create(self, name: 'Personal Team', personal_team_owner: self, private: true)
   end
 end
