@@ -55,6 +55,15 @@ describe User::Api do
         expect(api_user.valid_for).to eq(v)
       end
     end
+
+    context 'personal_team' do
+
+      it 'does not create personal_team for API user' do
+        user = User::Api.new(username: "APIAlice", human_user: users(:alice).dup)
+        user.save!
+        !expect(user.personal_team_id).to eq(nil)
+      end
+    end
   end
 
   context '#renew_token_by_human' do
