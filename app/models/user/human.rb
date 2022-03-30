@@ -195,8 +195,4 @@ class User::Human < User
       end
     end
   end
-
-  def create_personal_team!
-    Team.create(self, name: 'Personal Team', personal_team_owner: self, private: true)
-  end
 end
