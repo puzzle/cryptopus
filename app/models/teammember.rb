@@ -20,7 +20,7 @@
 class Teammember < ApplicationRecord
   delegate :label, to: :user
   belongs_to :team
-  belongs_to :user, class_name: 'User', foreign_key: :user_id
+  belongs_to :user, class_name: 'User'
   belongs_to :human, class_name: 'User::Human', foreign_key: :user_id
   before_destroy :protect_if_last_teammember
   before_destroy :protect_if_admin_in_non_private_team
@@ -37,10 +37,10 @@ class Teammember < ApplicationRecord
 
   def recrypt_team_password(user, admin, private_key)
     teammember_admin = admin.teammembers.find_by(team_id: team_id)
-    team_password = Crypto::RSA.decrypt(teammember_admin.
+    team_password = Crypto::Rsa.decrypt(teammember_admin.
       password, private_key)
 
-    self.password = Crypto::RSA.encrypt(team_password, user.public_key)
+    self.password = Crypto::Rsa.encrypt(team_password, user.public_key)
     save!
   end
 

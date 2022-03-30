@@ -45,7 +45,7 @@ module ApplicationHelper
     link_to image_tag('remove.svg', class: 'icon'), path, options
   end
 
-  def labeled_check_box(form, attr, enabled = true)
+  def labeled_check_box(form, attr, enabled: true)
     options = {}
     options[:disabled] = 'disabled' unless enabled
     label_tag(attr) do

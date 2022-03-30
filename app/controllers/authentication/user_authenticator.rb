@@ -5,14 +5,14 @@ include Rails.application.routes.url_helpers
 class Authentication::UserAuthenticator
 
   class << self
-    def init(params)
+    def init(**params)
       case AuthConfig.provider
       when 'db'
-        Authentication::UserAuthenticator::Db.new(params)
+        Authentication::UserAuthenticator::Db.new(**params)
       when 'ldap'
-        Authentication::UserAuthenticator::Ldap.new(params)
+        Authentication::UserAuthenticator::Ldap.new(**params)
       when 'openid-connect'
-        Authentication::UserAuthenticator::Oidc.new(params)
+        Authentication::UserAuthenticator::Oidc.new(**params)
       end
     end
   end
@@ -100,7 +100,7 @@ class Authentication::UserAuthenticator
   end
 
   def valid_username?
-    regex = /^([a-zA-Z]|\d)+[-]?([a-zA-Z]|\d)*[^-]$/
+    regex = /^([a-zA-Z]|\d)+-?([a-zA-Z]|\d)*[^-]$/
     regex.match?(username.strip)
   end
 

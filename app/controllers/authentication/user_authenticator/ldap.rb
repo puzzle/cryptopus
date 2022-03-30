@@ -16,9 +16,10 @@ class Authentication::UserAuthenticator::Ldap < Authentication::UserAuthenticato
   def authenticate_by_headers!
     return false unless api_preconditions?
 
-    if user.is_a?(User::Human)
+    case user
+    when User::Human
       return authenticate!
-    elsif user.is_a?(User::Api)
+    when User::Api
       return db_authenticator.authenticate_by_headers!
     end
 

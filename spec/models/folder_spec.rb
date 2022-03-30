@@ -15,7 +15,7 @@ describe Folder do
     folder = Folder.new(params)
 
     expect(folder).to_not be_valid
-    expect(folder.errors.keys).to eq([:name])
+    expect(folder.errors.first.attribute).to eq(:name)
   end
 
   it 'creates second folder' do

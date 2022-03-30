@@ -3,11 +3,13 @@
 require 'openssl'
 require 'digest/sha1'
 
-class Crypto::Symmetric::AES256 < Crypto::Symmetric
-  CIPHER = 'AES-256-CBC'
-  MAGIC = 'Salted__'
-  SALT_LENGTH = 8
-  ITERATION_COUNT = 1000
+require_relative './aes256'
+
+class Crypto::Symmetric::Aes256 < Crypto::Symmetric
+  CIPHER ||= 'AES-256-CBC'
+  MAGIC ||= 'Salted__'
+  SALT_LENGTH ||= 8
+  ITERATION_COUNT ||= 1000
 
   class << self
 

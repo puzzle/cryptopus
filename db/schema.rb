@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_13_085536) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_03_29_122335) do
   create_table "encryptables", force: :cascade do |t|
     t.string "name", limit: 70, default: "", null: false
     t.integer "folder_id", default: 0, null: false
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "tag"
     t.string "type", default: "Account::Credentials", null: false
     t.text "encrypted_data", limit: 16777215
@@ -30,8 +29,8 @@ ActiveRecord::Schema.define(version: 2022_01_13_085536) do
     t.integer "account_id", default: 0, null: false
     t.text "description"
     t.binary "file"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "filename", null: false
     t.text "content_type", null: false
   end
@@ -39,8 +38,8 @@ ActiveRecord::Schema.define(version: 2022_01_13_085536) do
   create_table "folders", force: :cascade do |t|
     t.string "name", limit: 40, default: "", null: false
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "team_id", default: 0, null: false
     t.index ["name"], name: "index_folders_on_name"
   end
@@ -55,15 +54,15 @@ ActiveRecord::Schema.define(version: 2022_01_13_085536) do
     t.integer "team_id", default: 0, null: false
     t.binary "password", null: false
     t.integer "user_id", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "teams", force: :cascade do |t|
     t.string "name", limit: 40, default: "", null: false
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "visible", default: true, null: false
     t.boolean "private", default: false, null: false
     t.index ["name"], name: "index_teams_on_name"
@@ -72,8 +71,8 @@ ActiveRecord::Schema.define(version: 2022_01_13_085536) do
   create_table "user_favourite_teams", force: :cascade do |t|
     t.integer "team_id", default: 0, null: false
     t.integer "user_id", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -81,14 +80,14 @@ ActiveRecord::Schema.define(version: 2022_01_13_085536) do
     t.binary "private_key", null: false
     t.binary "password"
     t.string "provider_uid"
-    t.datetime "last_login_at"
+    t.datetime "last_login_at", precision: nil
     t.string "username"
     t.string "givenname"
     t.string "surname"
     t.string "auth", default: "db", null: false
     t.string "preferred_locale", default: "en", null: false
     t.boolean "locked", default: false
-    t.datetime "last_failed_login_attempt_at"
+    t.datetime "last_failed_login_attempt_at", precision: nil
     t.integer "failed_login_attempts", default: 0, null: false
     t.string "last_login_from"
     t.string "type"

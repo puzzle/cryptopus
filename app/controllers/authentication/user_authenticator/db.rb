@@ -3,7 +3,7 @@
 class Authentication::UserAuthenticator::Db < Authentication::UserAuthenticator
 
   def authenticate!(params = {})
-    super(params)
+    super(**params)
     return false unless preconditions?
 
     authenticated = user.authenticate_db(password)

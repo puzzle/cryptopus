@@ -79,13 +79,13 @@ describe Authentication::UserAuthenticator::Db do
     it 'increases failed login attempts and it\'s defined time delays' do
       @username = 'bob'
       @password = 'wrong password'
-      LOCKTIMES = [0, 0, 0, 3, 5, 20, 30, 60, 120, 240].freeze
+      locktimes = [0, 0, 0, 3, 5, 20, 30, 60, 120, 240].freeze
       expect(10).to eq(Authentication::BruteForceDetector::LOCK_TIME_FAILED_LOGIN_ATTEMPT.length)
 
-      LOCKTIMES.each_with_index do |_t, i|
+      locktimes.each_with_index do |_t, i|
         attempt = i + 1
 
-        last_failed_login_time = Time.now.utc - LOCKTIMES[i].seconds
+        last_failed_login_time = Time.now.utc - locktimes[i].seconds
         bob.update!(last_failed_login_attempt_at: last_failed_login_time)
 
         expect(authenticator.send(:brute_force_detector).locked?).to be false
@@ -94,7 +94,7 @@ describe Authentication::UserAuthenticator::Db do
           .init(username: @username, password: @password)
           .authenticate!
 
-        if attempt == LOCKTIMES.count
+        if attempt == locktimes.count
           expect(bob.reload.locked?).to be true
           break
         end

@@ -20,8 +20,8 @@ describe 'HTTP headers' do
       expect(response.status).to equal 200
 
       expect(response.headers['Content-Type']).to eq 'text/json'
-      expect(response.headers['Content-Disposition']).to eq "attachment; filename='"\
-      + api_teams_path + ".json'"
+      expect(response.headers['Content-Disposition']).to eq 'attachment; filename='\
+      "'#{api_teams_path}.json'"
     end
 
     it 'should have met the same-site cookie attribute on login into the session' do
