@@ -35,7 +35,7 @@ describe Session::LocalController do
         .and_return(true)
       post :create, params: { password: 'password', username: 'root' }
 
-      expect(response).to redirect_to root_path + 'dashboard'
+      expect(response).to redirect_to "#{root_path}dashboard"
     end
 
     it 'cannot login with wrong password' do

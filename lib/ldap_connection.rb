@@ -104,7 +104,7 @@ class LdapConnection
     end
   end
 
-  def ldap_connection(params, bind = true)
+  def ldap_connection(params, bind: true)
     ldap = Net::LDAP.new(params)
     if bind_dn.present?
       ldap.auth(bind_dn, bind_password)

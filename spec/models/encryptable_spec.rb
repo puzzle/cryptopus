@@ -16,7 +16,7 @@ describe Encryptable do
     params[:type] = 'Encryptable::Credentials'
     credential = Encryptable::Credentials.new(params)
     expect(credential).to_not be_valid
-    expect(credential.errors.keys).to eq([:name])
+    expect(credential.errors.first.attribute).to eq(:name)
   end
 
   it 'creates second entryptable with credentials' do
@@ -60,8 +60,8 @@ describe Encryptable do
 
     credential = Encryptable::Credentials.new(params)
 
-    credential.encrypted_data[:password] = { data: 'foo', iv: nil }
-    credential.encrypted_data[:username] = { data: 'foo', iv: nil }
+    credential.encrypted_data.[]=(:password, **{ data: 'foo', iv: nil })
+    credential.encrypted_data.[]=(:username, **{ data: 'foo', iv: nil })
 
     expect(credential).to_not be_valid
     expect(credential.errors.full_messages.first).to match(/Name/)
@@ -75,7 +75,7 @@ describe Encryptable do
 
       legacy_ose_secret.decrypt(team1_password)
 
-      ose_secret = Encryptable::OSESecret.find(legacy_ose_secret.id)
+      ose_secret = Encryptable::OseSecret.find(legacy_ose_secret.id)
 
       expect(ose_secret.send(:legacy_encrypted_data?)).to eq(false)
 
@@ -87,7 +87,7 @@ describe Encryptable do
   private
 
   def create_legacy_ose_secret
-    secret = Encryptable::OSESecret.new(name: 'ose_secret',
+    secret = Encryptable::OseSecret.new(name: 'ose_secret',
                                         folder: folders(:folder1))
 
     secret.save!

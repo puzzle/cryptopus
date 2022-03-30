@@ -44,7 +44,7 @@ class OidcClient
   end
 
   def host_public_key
-    json = JSON.parse(URI.open(config[:certs_url]).read)
+    json = JSON.parse(URI.parse(config[:certs_url]).open.read)
     JSON::JWK::Set.new json['keys']
   end
 
@@ -54,7 +54,7 @@ class OidcClient
 
   def cryptopus_return_url
     protocol = Rails.application.config.force_ssl ? 'https://' : 'http://'
-    protocol + (ENV['RAILS_HOST_NAME'] || 'localhost:3000') + '/session/oidc'
+    "#{protocol}#{ENV['RAILS_HOST_NAME'] || 'localhost:3000'}/session/oidc"
   end
 
 end

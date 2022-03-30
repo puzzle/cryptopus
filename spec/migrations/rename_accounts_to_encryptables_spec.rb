@@ -41,7 +41,7 @@ describe RenameAccountsToEncryptables do
 
       ose_secret.reload
 
-      expect(ose_secret.type).to eq('Encryptable::OSESecret')
+      expect(ose_secret.type).to eq('Encryptable::OseSecret')
       expect(credentials1.reload.type).to eq('Encryptable::Credentials')
       expect(credentials2.reload.type).to eq('Encryptable::Credentials')
     end
@@ -57,7 +57,7 @@ describe RenameAccountsToEncryptables do
       legacy_account1 = LegacyAccount.find(credentials1.id)
       legacy_account2 = LegacyAccount.find(credentials2.id)
 
-      expect(legacy_ose_secret.type).to eq('Account::OSESecret')
+      expect(legacy_ose_secret.type).to eq('Encryptable::OseSecret')
       expect(legacy_account1.type).to eq('Account::Credentials')
       expect(legacy_account2.type).to eq('Account::Credentials')
     end
@@ -66,7 +66,7 @@ describe RenameAccountsToEncryptables do
   private
 
   def create_ose_secret
-    secret = Encryptable::OSESecret.new(name: 'RSA Key',
+    secret = Encryptable::OseSecret.new(name: 'RSA Key',
                                         folder: folders(:folder1),
                                         cleartext_ose_secret: example_ose_secret_yaml)
 
@@ -78,11 +78,11 @@ describe RenameAccountsToEncryptables do
   def example_ose_secret_yaml
     Base64.strict_decode64(FixturesHelper.read_encryptable_file('example_secret.secret'))
   end
+end
 
-  # Account model as it was after this migration
-  class LegacyAccount < Encryptable
-    self.table_name = 'accounts'
-    self.inheritance_column = nil
+# Account model as it was after this migration
+class LegacyAccount < Encryptable
+  self.table_name = 'accounts'
+  self.inheritance_column = nil
 
-  end
 end
