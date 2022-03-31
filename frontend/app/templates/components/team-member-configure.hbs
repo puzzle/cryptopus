@@ -53,7 +53,7 @@
                 <td>{{user.username}}</td>
                 <td>{{user.description}}</td>
                 <td>
-                  <XToggle @theme="material" @value={{user.enabled}} @onToggle={{fn this.toggleApiUser user}} />
+                  <XToggle @theme="ios" @size="small" @variant="auto" @value={{user.enabled}} @onToggle={{fn this.toggleApiUser user}} />
                 </td>
               </tr>
             {{/each}}
