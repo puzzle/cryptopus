@@ -70,7 +70,7 @@ export default class TableRow extends Component {
       .then((response) => {
         response.json().then((json) => {
           this.clipboardService.copy(
-            `cry login ${btoa(`${json.token}:${json.username}`)}@${
+            `cry login ${btoa(`${json.username}:${json.token}`)}@${
               window.location.origin
             }`
           );
