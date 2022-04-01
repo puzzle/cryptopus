@@ -18,12 +18,12 @@ gem 'faker'
 gem 'haml'
 gem 'maxmind-db'
 gem 'openid_connect'
+gem 'paper_trail', '~> 12.3'
 gem 'password_strength'
 gem 'pundit'
 gem 'rails-i18n'
 gem 'seed-fu'
 gem 'sentry-raven'
-gem 'paper_trail', '~> 12.3'
 
 group :development, :test do
   gem 'bullet'
