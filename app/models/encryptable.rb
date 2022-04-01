@@ -17,7 +17,7 @@
 
 class Encryptable < ApplicationRecord
 
-  has_paper_trail on: [:show]
+  has_paper_trail on: [:show], ignore: [ :tag, :type, :encrypted_data ]
 
   serialize :encrypted_data, ::EncryptedData
 
