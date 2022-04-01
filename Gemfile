@@ -23,7 +23,7 @@ gem 'pundit'
 gem 'rails-i18n'
 gem 'seed-fu'
 gem 'sentry-raven'
-gem 'papertrail', '~> 0.9.16'
+gem 'paper_trail', '~> 12.3'
 
 group :development, :test do
   gem 'bullet'
