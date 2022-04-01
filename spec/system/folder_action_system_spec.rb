@@ -37,11 +37,11 @@ describe 'FolderAction', type: :system, js: true do
     login_as_user(:admin)
     visit('/teams/235930340')
     
-    within(page.first('pl-2.pr-2.folder-card-header')) do
+    within(page.first('.pl-2.pr-2.folder-card-header')) do
       expect(page).to have_text('folder1')  
     end
     
-    first('pl-2.pr-2.folder-card-header').click
+    first('.pl-2.pr-2.folder-card-header').click
     
     within(page.first('.row.d-flex.align-items-center.p-2.bg-grey-2.rounded.encryptable-entry')) do
       expect(page).to have_text('Personal Mailbox')
