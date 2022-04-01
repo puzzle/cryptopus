@@ -84,12 +84,20 @@ describe Encryptable do
     end
   end
 
-  context 'papertrail' do
+  context 'papertrail', versioning: true do
     context 'touch' do
-      it 'creates a log entry', versioning: true do
-        encryptable.touch
+      PaperTrail.request.whodunnit = 'Bob'
 
-        expect(encryptable.versions.count).to equal(1)
+      before do
+        encryptable.touch
+      end
+
+      it 'creates a log entry' do
+        expect(encryptable.versions.count).to eq(1)
+      end
+
+      it 'contains user in whodunnit' do
+        expect(encryptable.versions.last.whodunnit).to eq('Bob')
       end
     end
   end
