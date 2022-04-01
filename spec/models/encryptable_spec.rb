@@ -84,6 +84,16 @@ describe Encryptable do
     end
   end
 
+  context 'papertrail' do
+    context 'touch' do
+      it 'creates a log entry', versioning: true do
+        encryptable.touch
+
+        expect(encryptable.versions.count).to equal(1)
+      end
+    end
+  end
+
   private
 
   def create_legacy_ose_secret
