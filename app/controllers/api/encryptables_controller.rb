@@ -3,6 +3,8 @@
 class Api::EncryptablesController < ApiController
   self.permitted_attrs = [:name, :description, :folder_id, :tag]
 
+  before_action :set_paper_trail_whodunnit
+
   helper_method :team
 
   # GET /api/encryptables

@@ -17,6 +17,8 @@
 
 class Encryptable < ApplicationRecord
 
+  has_paper_trail on: [:show]
+
   serialize :encrypted_data, ::EncryptedData
 
   attr_readonly :type
