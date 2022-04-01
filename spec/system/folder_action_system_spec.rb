@@ -4,14 +4,27 @@ require 'spec_helper'
 
 describe 'FolderAction', type: :system, js: true do
   include SystemHelpers
-#ist Ordner Vorhanden und auswähl bar 
-  it 'shows folder' do
+# can select folder and team in side-navbar 
+  it 'opens folder and team in side-navbar' do
     login_as_user(:admin)
     visit('/')
 
-    within(page.find('side-bar-team-34')) do
-      expect(page).to have_text('Accounting 273')
+    within(page.find('#side-bar-team-235930340')) do
+      expect(page).to have_text('team1')
     end
+    
+    find('#side-bar-team-235930340').click
+    
+    expect_team_expanded
+    
+    within(page.first('.list-group-item.list-folder-item.bg-blue-one')) do
+      expect(page).to have_text('folder1')  
+    end
+    
+    first('.list-group-item.list-folder-item.bg-blue-one').click
+    
+    expect_folder_expanded
+
 
     logout
   end
@@ -25,10 +38,10 @@ describe 'FolderAction', type: :system, js: true do
 
     logout
     
+  end
+    
   it 'shows folder content not dropdown' do
     login_as_user(:tux)
-
-    end
 
     logout
   
@@ -37,40 +50,29 @@ describe 'FolderAction', type: :system, js: true do
   it 'shows preselected' do
     login_as_root
 
-    
-    end
-
     logout
   end
 
-  it 'sidenav click and open accouring folder' do
-    login_as_user(:bob)
 
-    end
-
-    logout
-  end
-end
-
-def folder_expanded?
+def expect_folder_expanded
     within(all('div.folder-card-header', visible: false)[0]) do
       expect(find('span[name="folder-collapse"]')).to have_xpath("//img[@alt='v']")
     end
   end
 
-  def team_expanded?
+  def expect_team_expanded
     within(find('div.py-2.d-flex.team-card-header')) do
       expect(find('span[name="team-collapse"]')).to have_xpath("//img[@alt='v']")
     end
   end
 
-  def folder_collapsed?
+  def expect_folder_collapsed
     within(all('div.folder-card-header')[1]) do
       expect(find('span[name="folder-collapse"]')).to have_xpath("//img[@alt='<']")
     end
   end
 
-  def team_collapsed?
+  def expect_team_collapsed
     within(find('div.py-2.d-flex.team-card-header')) do
       expect(find('span[name="team-collapse"]')).to have_xpath("//img[@alt='<']")
     end
