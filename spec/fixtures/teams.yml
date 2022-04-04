@@ -27,3 +27,15 @@ team2:
   description: public
   visible: true
   private: true
+
+personal_team_bob:
+  name: personal-team
+  private: true
+
+personal_team_alice:
+  name: personal-team
+  private: true
+
+personal_team_root:
+  name: personal-team
+  private: true

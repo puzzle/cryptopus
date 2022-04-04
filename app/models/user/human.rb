@@ -38,7 +38,7 @@ class User::Human < User
   has_many :api_users, class_name: 'User::Api', dependent: :destroy,
                        foreign_key: :human_user_id
 
-  has_one :personal_team, class_name: 'Team', inverse_of: 'personal_team_owner'
+  belongs_to :personal_team, class_name: 'Team'
 
   scope :locked, -> { where(locked: true) }
   scope :unlocked, -> { where(locked: false) }
@@ -144,7 +144,7 @@ class User::Human < User
   end
 
   def create_personal_team!
-    Team.create(self, name: 'personal-team', personal_team_owner: self, private: true)
+    self.personal_team = Team.create(self, name: 'personal-team', private: true)
   end
 
   private
