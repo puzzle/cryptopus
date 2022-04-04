@@ -23,6 +23,12 @@ export default class NavService extends Service {
 
   get sortedTeams() {
     return this.availableTeams.toArray().sort((a, b) => {
+      if (a.personal_team) {
+        return -1;
+      }
+      if (b.personal_team) {
+        return 1;
+      }
       return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
     });
   }

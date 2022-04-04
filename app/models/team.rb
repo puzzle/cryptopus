@@ -14,6 +14,7 @@
 #
 
 class Team < ApplicationRecord
+  attr_accessor :personal_team
   attr_readonly :private
   has_many :folders, -> { order :name }, dependent: :destroy
   has_many :teammembers, dependent: :delete_all

@@ -38,12 +38,13 @@ describe Api::TeamsController do
 
       get :index, xhr: true
 
-      expect(data.size).to be(2)
+      expect(data.size).to be(3)
       expect(included.size).to be(4)
 
       data.each do |team|
         expect(team['type']).to eq('teams')
       end
+      expect(data.first['attributes']['personal_team']).to eq(true)
 
       included_folders = included.select { |e| e['type'] == 'folders' }
       expect(included_folders.size).to be(4)

@@ -19,7 +19,7 @@
 # https://github.com/puzzle/cryptopus.
 
 class TeamSerializer < ApplicationSerializer
-  attributes :id, :name, :description, :private, :favourised, :deletable
+  attributes :id, :name, :description, :private, :favourised, :deletable, :personal_team
 
   has_many :folders, serializer: FolderMinimalSerializer
 
