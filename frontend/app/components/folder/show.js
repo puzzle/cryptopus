@@ -16,6 +16,12 @@ export default class ShowComponent extends Component {
 
   constructor() {
     super(...arguments);
+
+    if (this.isExpanded) {
+      $(document).ready(() => {
+        this.scrollToFolder();
+      });
+    }
   }
 
   get shouldRenderEncryptables() {
@@ -52,6 +58,20 @@ export default class ShowComponent extends Component {
 
   collapseSelectedFolder() {
     this.router.transitionTo("teams.show", this.args.folder.team.get("id"));
+  }
+
+  @action
+  scrollToFolder() {
+    const SPEED = 700;
+    const FOLDER_ID = this.args.folder.id;
+    const OFFSET = $(`#folder-header-${FOLDER_ID}`).offset().top - 15;
+
+    $("html, body").animate(
+      {
+        scrollTop: OFFSET
+      },
+      SPEED
+    );
   }
 
   get isExpanded() {
