@@ -9,4 +9,14 @@ class Encryptables::LogPolicy < TeamDependantPolicy
   def index?
     @user.is_a?(User::Human)
   end
+
+  def show?
+    team.teammember?(@user.id)
+  end
+
+  protected
+
+  def team
+    @record.folder.team
+  end
 end
