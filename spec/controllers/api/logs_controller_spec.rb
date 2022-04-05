@@ -8,12 +8,14 @@ describe Api::LogsController do
   let(:bob) { users(:bob) }
   let(:alice) { users(:alice) }
   let(:api_user) { bob.api_users.create }
-  let(:id_one) { encryptables(:id) }
+  let(:credentials1) { encryptables(:credentials1) }
 
   context 'GET index' do
     it 'calls index action' do
       login_as(:alice)
-      get :index, params: { encryptable_id: :id_one }
+      credentials1.touch
+      get :index, params: { encryptable_id: credentials1.id }
+      expect(data.count).to eq 1
     end
   end
 end
