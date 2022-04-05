@@ -11,7 +11,7 @@ class Api::LogsController < ApiController
   end
 
   def fetch_entries
-    logs = current_user.encryptables.find_by(id: params[:id]).versions
+    logs = current_user.encryptables.find_by!(id: params[:id]).versions
     logs.sort { |a, b| b.created_at <=> a.created_at }
   end
 end
