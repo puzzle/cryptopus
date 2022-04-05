@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-class Api::Encryptables::LogsController < ApiController
+class Api::LogsController < ApiController
 
   def index
+    # authorize ( policy_class: LogsPolicy )
     render({ json: fetch_entries,
              root: model_root_key.pluralize }
              .merge(render_options)
