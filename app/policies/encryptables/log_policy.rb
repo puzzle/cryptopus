@@ -6,13 +6,7 @@ class Encryptables::LogPolicy < TeamDependantPolicy
     @record = record
   end
 
-  def show?
-    team.teammember?(@user.id)
-  end
-
-  protected
-
-  def team
-    @record.folder.team
+  def index?
+    return true if @user.is_a?(User::Human)
   end
 end
