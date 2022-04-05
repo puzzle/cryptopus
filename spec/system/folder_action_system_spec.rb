@@ -9,13 +9,13 @@ describe 'FolderAction', type: :system, js: true do
     login_as_user(:admin)
     visit('/')
 
-    within(page.find('#side-bar-team-235930340')) do
+    within(page.find("#side-bar-team-#{Team.first.id}")) do
       expect(page).to have_text('team1')
     end
 
-    find('#side-bar-team-235930340').click
+    find("#side-bar-team-#{Team.first.id}").click
 
-    within(page.first('.list-group-item.list-folder-item.bg-blue-one')) do
+    within(page.first('.team-border')) do
       expect(page).to have_text('folder1')
     end
 
@@ -32,7 +32,7 @@ describe 'FolderAction', type: :system, js: true do
   # can select folder from team card
   it 'opens folder in team card' do
     login_as_user(:admin)
-    visit('/teams/235930340')
+    visit("/teams/#{Team.first.id}")
 
     within(page.first('.pl-2.pr-2.folder-card-header')) do
       expect(page).to have_text('folder1')
