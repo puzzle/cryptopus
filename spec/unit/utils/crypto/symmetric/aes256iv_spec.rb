@@ -4,7 +4,7 @@ require 'spec_helper'
 
 require_relative '../../../../../app/utils/crypto/symmetric/aes256iv'
 
-describe Crypto::Symmetric::Aes256IV do
+describe Crypto::Symmetric::Aes256iv do
   let(:keypair) { Crypto::Rsa.generate_new_keypair }
   let(:private_key) { keypair.to_s }
   let(:public_key) { keypair.public_key.to_s }
