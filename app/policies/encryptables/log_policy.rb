@@ -7,6 +7,6 @@ class Encryptables::LogPolicy < TeamDependantPolicy
   end
 
   def index?
-    return true if @user.is_a?(User::Human)
+    @user.is_a?(User::Human)
   end
 end
