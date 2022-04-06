@@ -29,6 +29,7 @@ ch_be:
   settings: Istellige
   recrypt_requests: Recrypt Afragä
   users: Benutzer
+  log: Protokou
   profile_title: Profiu
   change_password: Passwort wächslä
   last_login_date_and_from: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}"
