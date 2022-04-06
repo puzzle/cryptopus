@@ -21,7 +21,7 @@ module Api
 
       # POST /api/teams/:team_id/members
       def create
-        authorize team, :team_member?
+        authorize team.teammembers.new, :create?
         new_member = ::User.find(model_params[:user_id])
         decrypted_team_password = team.decrypt_team_password(current_user, session[:private_key])
         created_member = team.add_user(new_member, decrypted_team_password)
@@ -35,8 +35,7 @@ module Api
 
       # DELETE /api/teams/:team_id/members/:id
       def destroy
-        authorize team, :team_member?
-
+        authorize teammember, :destroy?
         if teammember.destroy
           @response_status = 204
           add_info(t('flashes.api.members.removed'))

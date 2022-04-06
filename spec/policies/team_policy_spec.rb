@@ -8,6 +8,7 @@ describe TeamPolicy do
   let(:team1) { teams(:team1) }
   let(:team2) { teams(:team2) }
   let(:private_team) { Fabricate(:private_team) }
+  let(:personal_team_bob) { teams(:personal_team_bob) }
 
   context 'everyone' do
     it 'can show his teams' do
@@ -35,14 +36,9 @@ describe TeamPolicy do
       refute_permit bob, team2, :destroy?
     end
 
-    it 'can add a teammember' do
-      assert team2.teammember? bob
-      assert_permit bob, team2, :team_member?
-    end
-
-    it 'can remove a teammember' do
-      expect(team2.teammember?(bob)).to eq true
-      assert_permit bob, team2, :team_member?
+    it 'cannot edit personal_team' do
+      expect(personal_team_bob.teammember?(bob)).to eq(true)
+      refute_permit bob, personal_team_bob, :update?
     end
   end
 
@@ -57,15 +53,6 @@ describe TeamPolicy do
       refute_permit alice, team2, :destroy?
     end
 
-    it 'cannot add a teammember' do
-      expect(team2.teammember?(alice)).to eq false
-      refute_permit alice, team2, :team_member?
-    end
-
-    it 'cannot remove a teammember' do
-      expect(team2.teammember?(alice)).to eq false
-      refute_permit alice, team2, :team_member?
-    end
   end
 
   context 'as admin' do

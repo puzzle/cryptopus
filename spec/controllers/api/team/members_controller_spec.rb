@@ -120,9 +120,11 @@ describe Api::Teams::MembersController do
     end
 
     it 'does not remove member from given team without team membership' do
+      teammembers(:team1_alice).destroy!
+
       login_as(:alice)
 
-      delete :destroy, params: { team_id: teams(:team2), id: users(:admin) }, xhr: true
+      delete :destroy, params: { team_id: teams(:team1), id: teammembers(:team1_bob) }, xhr: true
 
       expect(response).to have_http_status(403)
     end
