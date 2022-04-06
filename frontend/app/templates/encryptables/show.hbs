@@ -1,1 +1,21 @@
-<Encryptable::Show @encryptable={{this.model}}/>
+<div class="pt-3">
+  <IndexButton></IndexButton>
+  <div class="pt-3">
+    <div class="row justify-content-between">
+      <div class="col-lg-auto">
+        <h2>Encryptable</h2>
+      </div>
+      <div class="col-md-auto">
+        <Profile::PasswordUpdate></Profile::PasswordUpdate>
+      </div>
+    </div>
+    <BsTab as |tab|>
+      <tab.pane id="info" @title={{t "profile.info.info"}}>
+        <Encryptable::Show @encryptable={{this.model}}/>
+      </tab.pane>
+      <tab.pane id="logs" @title="Logs">
+        <Encryptable::Log @encryptable={{this.model}}/>
+      </tab.pane>
+    </BsTab>
+  </div>
+</div>

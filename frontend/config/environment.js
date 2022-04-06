@@ -9,6 +9,7 @@ module.exports = function (environment) {
     sentryDsn: "",
     appVersion: undefined,
     currentUserId: undefined,
+    encryptable_id: undefined,
     "changeset-validations": { rawOutput: true },
     EmberENV: {
       FEATURES: {
