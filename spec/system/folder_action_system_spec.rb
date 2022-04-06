@@ -4,47 +4,48 @@ require 'spec_helper'
 
 describe 'FolderAction', type: :system, js: true do
   include SystemHelpers
+
+  # Run before each testcase
+  before(:each) do
+    login_as_user(:admin)
+    @encryptable = Encryptable.first
+    @folder = Folder.find(@encryptable.folder_id)
+    @team = Team.find(@folder.team_id)
+  end
+
   # can select folder and team from side-navbar
   it 'opens folder and team in side-navbar' do
-    login_as_user(:admin)
+
     visit('/')
 
-    within(page.find("#side-bar-team-#{Team.first.id}")) do
-      expect(page).to have_text('team1')
+    within(page.find("#side-bar-team-#{@team.id}")) do
+      expect(page).to have_text(@team.name)
     end
 
-    find("#side-bar-team-#{Team.first.id}").click
+    find("#side-bar-team-#{@team.id}").click
 
-    within(page.first('.team-border')) do
-      expect(page).to have_text('folder1')
-    end
+    expect(find('.side-nav-bar-teams-list', text: @folder.name)).to be_present
+    expect(find('.team-border', text: @folder.name)).to be_present
 
-    first('.list-group-item.list-folder-item.bg-blue-one').click
+    find('.list-folder-item', text: @folder.name).click
 
-    within(page.first('.row.d-flex.align-items-center.p-2.bg-grey-2.rounded.encryptable-entry')) do
-      expect(page).to have_text('Personal Mailbox')
-    end
+    expect(find('.encryptable-entry', text: @encryptable.name)).to be_present
 
     logout
-
   end
 
   # can select folder from team card
   it 'opens folder in team card' do
-    login_as_user(:admin)
-    visit("/teams/#{Team.first.id}")
 
-    within(page.first('.pl-2.pr-2.folder-card-header')) do
-      expect(page).to have_text('folder1')
-    end
+    visit("/teams/#{@team.id}")
 
-    first('.pl-2.pr-2.folder-card-header').click
+    expect(find('.side-nav-bar-teams-list', text: @folder.name)).to be_present
+    expect(find('.team-border', text: @folder.name)).to be_present
 
-    within(page.first('.row.d-flex.align-items-center.p-2.bg-grey-2.rounded.encryptable-entry')) do
-      expect(page).to have_text('Personal Mailbox')
-    end
+    find('.folder-card-header', text: @folder.name).click
+
+    expect(find('.encryptable-entry', text: @encryptable.name)).to be_present
 
     logout
-
   end
 end
