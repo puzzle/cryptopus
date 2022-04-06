@@ -14,15 +14,15 @@ class TeamPolicy < TeamDependantPolicy
     true
   end
 
-  def new?
-    true
-  end
-
   def update?
+    return false if personal_team?
+
     (current_user.admin? && !team.private?) || team_member?
   end
 
   def destroy?
+    return false if personal_team?
+
     current_user.is_a?(User::Human) &&
       (current_user.admin? || (current_user.conf_admin? && team.members.size == 1))
   end
@@ -47,5 +47,9 @@ class TeamPolicy < TeamDependantPolicy
 
   def team
     @record
+  end
+
+  def personal_team?
+    @record.id == @user.personal_team_id
   end
 end
