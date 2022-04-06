@@ -1,0 +1,36 @@
+<div class="pt-3">
+  <IndexButton></IndexButton>
+  <div class="pt-3">
+    <div class="row justify-content-between">
+      <div class="col-lg-auto">
+        <h2>{{t "profile.index.title"}}</h2>
+      </div>
+      <div class="col-md-auto">
+        <Profile::PasswordUpdate></Profile::PasswordUpdate>
+      </div>
+    </div>
+    <BsTab as |tab|>
+      <tab.pane id="info" @title={{t "profile.info.info"}}>
+        <table class="table table-striped mt-20">
+          <thead>
+            <tr>
+              <th> {{t "profile.info.last_login_at"}}</th>
+              <th> {{t "profile.info.last_login_from"}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{moment-format @model.info.lastLoginAt "DD.MM.YYYY hh:mm"}}</td>
+              <td>{{@model.info.lastLoginFrom}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </tab.pane>
+      <tab.pane id="apiUsers" @title={{t "profile.api_users.api_users"}}>
+        <div>
+          <ApiUser::Table @apiUsers={{@model.apiUsers}} />
+        </div>
+      </tab.pane>
+    </BsTab>
+  </div>
+</div>
