@@ -4,4 +4,3 @@ class LogsSerializer < ApplicationSerializer
   attributes :id, :item_type, :event, :whodunnit, :object, :created_at
 
 end
-
