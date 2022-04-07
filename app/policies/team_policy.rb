@@ -14,6 +14,10 @@ class TeamPolicy < TeamDependantPolicy
     true
   end
 
+  def new?
+    true
+  end
+
   def update?
     return false if personal_team?
 
