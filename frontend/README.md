@@ -60,4 +60,4 @@ After the successful initialisation, you can visit [localhost:4200/test](http://
 ## Fonts 
 
 ### Icons 
-We use Open Source icons from [Eva Icons](https://akveo.github.io/eva-icons/#/).
+We use Open Source icons from [iconscout](https://iconscout.com/unicons/explore/line).
