@@ -97,14 +97,14 @@ ch_be:
         all: Tippe um in aue Teams z sueche...
 
   encryptables:
-    title: 'Encryptables'
+    title: 'Zuägangsdate'
     index_menu:
-      create: Encryptable ersteuä
+      create: Zuägangsdate ersteuä
       folder: Ordner
     show_menu:
       add_attachment: Anhang hinzufüegä
     edit:
-      title: Encryptable editiere
+      title: Zuägangsdate editiere
       random_password: Zuefäuigs Passwort
       edit_password_placeholder: Klickä oder fokusierä für Igab ...
       team_placeholder: Wähl äs Team us
@@ -118,7 +118,7 @@ ch_be:
         strong: Starch
 
     show:
-      encryptable: Encryptable
+      encryptable: Zuägangsdate
       created_at: "Ersteut am"
       last_update: "Letschti Änderig am"
       last_change: "Letschti Änderig vor %{time_ago}"
@@ -130,7 +130,7 @@ ch_be:
       copy_username: Benutzername kopierä
       add_attachment: Anhang hinzufüegä
     new:
-      title: Nöie Encryptable
+      title: Nöi Zuägangsdate
 
   admin:
     title: Admin
@@ -217,7 +217,7 @@ ch_be:
         title: Teams
         teamname: Teamname
         num_folders: Ahzahl Ordner
-        num_encryptables: Ahzahl Encryptables
+        num_encryptables: Ahzahl Zuägangsdate
         members: Mitglieder
   folders:
     title: Ordner
@@ -229,15 +229,15 @@ ch_be:
     new:
       title: Ordner ersteue
     show:
-      move: Encryptable zumnä angere Ordner verschiebe
-      title: "Encryptables vom Ordner %{folder_name} vom Team %{team_name}"
-    no_encryptables: Ke Encryptables
+      move: Zuägangsdate zumnä angere Ordner verschiebe
+      title: "Zuägangsdate vom Ordner %{folder_name} vom Team %{team_name}"
+    no_encryptables: Ke Zuägangsdate
     tooltips:
       delete: Ordner lösche
       edit: Ordner bearbeite
   encryptable_files:
     new:
-      title: Ahang zum Encryptable hinzuefüege
+      title: Ahang zu dä Zuägangsdate hinzuefüege
       upload: Ufeladä
       upload_file: Datei zum ufeladä
       choose_file: Suech e Datei us
@@ -276,7 +276,7 @@ ch_be:
   recrypt:
     sso:
       new:
-        notice: Bitte gib dis Cryptopus Passwort i für di Encryptable zu Keycloak z migriere.
+        notice: Bitte gib dis Cryptopus Passwort i für dini Zuägangsdate zu Keycloak z migriere.
         cryptopus_password: Dis Cryptopus Passwort
         migrate: Migriere
   teammembers:
@@ -426,10 +426,10 @@ ch_be:
       created: Dr nöi Benutzer isch erfougrich ersteut worde.
       updated: Dr Benutzer isch erfougrich aktualisiert worde.
     encryptables: &encryptables_translations
-      created: Dr nöi Encryptable isch erfougrich ersteut worde.
-      updated: Dr Encryptable isch erfougrich aktualisiert worde.
-      deleted: Dr Encryptable isch erfougrich glöscht worde.
-      moved: Das Encryptable isch erfougrich verschobe worde.
+      created: Di nöiä Zuägangsdate si erfougrich ersteut worde.
+      updated: Di nöiä Zuägangsdate si erfougrich aktualisiert worde.
+      deleted: Di nöiä Zuägangsdate si erfougrich glöscht worde.
+      moved: D Zuägangsdate si erfougrich verschobe worde.
       username_copied: Dr Benutzernamä isch kopiert worde
       password_copied: Ds Passwort isch kopiert worde
 
@@ -453,7 +453,7 @@ ch_be:
       uploaded_file_inexistent: Die Datei existiert gar nid
       uploaded_filename_already_exists: D Dateiname existiert äuä scho
     session:
-      welcome: Willkomme bim Cryptopus. Zerscht muesch e nöie Encryptable ersteue. Bitte wäu es sicheres Passwort.
+      welcome: Willkomme bim Cryptopus. Zerscht muesch nöi Zuägangsdate ersteue. Bitte wäu es sicheres Passwort.
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
       only_local: Nume lokali Benutzer dörfe ires Passwort ändere.
       new_password_set: Ds nöie Passwort isch erfougrich gsetzt worde.
@@ -491,8 +491,8 @@ ch_be:
         newPassword2: "Ds nöie Passwort bestätige:"
         wrongPassword: Fautsches passwort
       encryptable:
-        encryptable: Encryptable
-        name: Accountname
+        encryptable: Zuägangsdate
+        account_name: Accountname
         username: Benutzername
         password: Passwort
         description: Beschribig
@@ -594,17 +594,17 @@ ch_be:
     profile: Profil
     settings: Istellige
     add_folder: Erstell en neue Ordner
-    add_account: Erstell en neue Encryptable
-    account_details: Encryptable Details ahzeige
+    add_account: Ersteu nöi Zuägangsdate
+    account_details: Zuägangsdate Details ahzeige
     delete_folder: Ordner lösche
-    delete_account: Encryptable lösche
+    delete_account: Zuägangsdate lösche
     configure: Konfigurier d'Mitgliedr
 
   validations:
     name:
       present: Dr Name muess vorhande si
       too_long: Dr Name isch zläng
-      duplicate_name: Dä Encryptable giz scho!
+      duplicate_name: Diä Zuägangsdate giz scho!
     description:
       too_long: D Beschribig isch zläng
     file:

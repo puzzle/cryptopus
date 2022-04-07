@@ -60,7 +60,7 @@ en:
       type_to_search: Type to search...
 
   encryptables:
-    title: Encryptables
+    title: Credentials
     index_menu:
       create: Create Account
       folder: Folder
@@ -171,7 +171,7 @@ en:
         title: Teams
         teamname: Teamname
         num_folders: Number of Folders
-        num_encryptables: Number of Encryptables
+        num_encryptables: Number of Credentials
         members: Members
     user_roles:
       user: User
@@ -189,8 +189,8 @@ en:
       title: New Folder
     show:
       move: Move account to other folder
-      title: "Encryptables in folder %{folder_name} for team %{team_name}"
-    no_encryptables: No Encryptables
+      title: "Credentials in folder %{folder_name} for team %{team_name}"
+    no_encryptables: No Credentials
     tooltips:
       delete: Delete the folder
       edit: Edit the folder
