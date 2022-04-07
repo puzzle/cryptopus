@@ -65,14 +65,14 @@ en:
         all: Type to search in all teams...
 
   encryptables:
-    title: Encryptables
+    title: Credentials
     index_menu:
-      create: Create Encryptable
+      create: Create Credentials
       folder: Folder
     show_menu:
       add_attachment: Add Attachment
     edit:
-      title: Edit Encryptable
+      title: Edit Credentials
       random_password: Random password
       edit_password_placeholder: Click or focus to set ...
       team_placeholder: Select a Team
@@ -85,7 +85,7 @@ en:
         good: Good
         strong: Strong
     show:
-      encryptable: Encryptable
+      encryptable: Credentials
       created_at: "Created at"
       last_update: "Last Update at"
       last_change: "Last change was %{time_ago} ago"
@@ -97,7 +97,7 @@ en:
       copy_username: Copy username
       add_attachment: Add Attachment
     new:
-      title: New Encryptable
+      title: New Credentials
 
   admin:
     title: Admin
@@ -184,7 +184,7 @@ en:
         title: Teams
         teamname: Teamname
         num_folders: Number of Folders
-        num_encryptables: Number of Encryptables
+        num_encryptables: Number of Credentials
         members: Members
     user_roles:
       user: User
@@ -201,15 +201,15 @@ en:
     new:
       title: New Folder
     show:
-      move: Move encryptable to other folder
-      title: "Encryptables in folder %{folder_name} for team %{team_name}"
-    no_encryptables: No Encryptables
+      move: Move credentials to other folder
+      title: "Credentials in folder %{folder_name} for team %{team_name}"
+    no_encryptables: No Credentials
     tooltips:
       delete: Delete the folder
       edit: Edit the folder
   file_entries:
     new:
-      title: Add new attachment to encryptable
+      title: Add new attachment to credentials
       upload: Upload
       upload_file: File to upload
       choose_file: Choose a file
@@ -248,7 +248,7 @@ en:
   recrypt:
     sso:
       new:
-        notice: Please enter your Cryptopus Password to migrate your encryptable to Keycloak
+        notice: Please enter your Cryptopus Password to migrate your credentials to Keycloak
         cryptopus_password: Your Cryptopus Password
         migrate: Migrate
   teammembers:
@@ -406,10 +406,10 @@ en:
       updated: User was successfully updated.
 
     encryptables: &encryptables_translations
-      created: Encryptable was successfully created.
-      updated: Encryptable was successfully updated.
-      deleted: Encryptable was successfully deleted
-      moved: Encryptable was successfully moved
+      created: Credentials were successfully created.
+      updated: Credentials were successfully updated.
+      deleted: Credentials were successfully deleted
+      moved: Credentials were successfully moved
       username_copied: Username was copied
       password_copied: Password was copied
 
@@ -434,7 +434,7 @@ en:
       uploaded_filename_already_exists: Filename already exists
     session:
       weak_password: To improve security you should change your login password to a more complex one.
-      welcome: Welcome to Cryptopus, first you have to create a new encryptable. Please enter a new password
+      welcome: Welcome to Cryptopus, first you have to create new credentials. Please enter a new password
       auth_failed: Authentication failed! Enter a correct username and password.
       only_local: Only local users are allowed to change their password.
       new_password_set: You successfully set the new password
@@ -490,10 +490,10 @@ en:
     settings: Settings
     profile: Profile
     add_folder: Add a new Folder
-    add_account: Add a new Encryptable
-    account_details: Show Encryptable Details
+    add_account: Add new Credentials
+    account_details: Show Credentials Details
     delete_folder: Delete the Folder
-    delete_account: Delete the Encryptable
+    delete_account: Delete the Credentials
     configure: Configure Members
 
 

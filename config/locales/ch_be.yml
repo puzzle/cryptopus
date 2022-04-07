@@ -92,7 +92,7 @@ ch_be:
       type_to_search: Tippe für z sueche...
 
   encryptables:
-    title: 'Encryptables'
+    title: 'Zuägangsdate'
     index_menu:
       create: Account ersteuä
       folder: Ordner
@@ -196,7 +196,7 @@ ch_be:
         title: Teams
         teamname: Teamname
         num_folders: Ahzahl Ordner
-        num_encryptables: Ahzahl Encryptables
+        num_encryptables: Ahzahl Zuägangsdate
         members: Mitglieder
   folders:
     title: Ordner
@@ -209,8 +209,8 @@ ch_be:
       title: Ordner ersteue
     show:
       move: Account zumnä angere Ordner verschiebe
-      title: "Encryptables vom Ordner %{folder_name} vom Team %{team_name}"
-    no_encryptables: Ke Encryptables
+      title: "Zuägangsdate vom Ordner %{folder_name} vom Team %{team_name}"
+    no_encryptables: Ke Zuägangsdate
     tooltips:
       delete: Ordner lösche
       edit: Ordner bearbeite
