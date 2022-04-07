@@ -61,4 +61,4 @@ After the successful initialisation, you can visit [localhost:4200/test](http://
 ## Fonts 
 
 ### Icons 
-The Open Source for the icons are [iconscout](https://iconscout.com/unicons/explore/line).
+We use Open Source icons from [iconscout](https://iconscout.com/unicons/explore/line).
