@@ -62,14 +62,14 @@ de:
       type_to_search: Tippen um zu suchen...
 
   encryptables:
-    title: Encryptables
+    title: Zugangsdaten
     index_menu:
-      create: Encryptable erstellen
+      create: Zugangsdaten erstellen
       folder: Gruppen
     show_menu:
       add_attachment: Anhang hinzufügen
     edit:
-      title: Encryptable editieren
+      title: Zugangsdaten editieren
       random_password: Zufälliges Passwort
       edit_password_placeholder: Klicken oder fokusieren für Eingabe ...
       team_placeholder: Wählen Sie ein Team aus
@@ -81,7 +81,7 @@ de:
         good: Gut
         strong: Stark
     show:
-      encryptable: Encryptable
+      encryptable: Zugangsdaten
       last_change: "Letzte Änderung vor %{time_ago}"
       attachments: Anhänge
       file: Datei
@@ -172,7 +172,7 @@ de:
         title: Teams
         teamname: Teamname
         num_folders: Anzahl Ordner
-        num_encryptables: Anzahl Encryptables
+        num_encryptables: Anzahl Zugangsdaten
         members: Mitglieder
     user_roles:
       user: Benutzer
@@ -190,8 +190,8 @@ de:
       title: Ordner erstellen
     show:
       move: Account zu einem anderen Ordner verschieben
-      title: "Encryptables des Ordners %{folder_name} des Teams %{team_name}"
-    no_encryptables: Keine Encryptables
+      title: "Zugangsdaten des Ordners %{folder_name} des Teams %{team_name}"
+    no_encryptables: Keine Zugangsdaten
     tooltips:
       delete: Ordner löschen
       edit: Ordner bearbeiten
