@@ -1,5 +1,4 @@
 <div class="pt-3">
-  <IndexButton></IndexButton>
   <div class="pt-3">
     <div class="row justify-content-between">
       <div class="col-lg-auto">
@@ -13,8 +12,8 @@
       <tab.pane id="info" @title={{t "profile.info.info"}}>
         <Encryptable::Show @encryptable={{this.model}}/>
       </tab.pane>
-      <tab.pane id="logs" @title="Logs">
-        <Encryptable::Log @encryptable={{this.model}}/>
+      <tab.pane id="info" @title={{t "profile.info.info"}}>
+        <Encryptable::Logs @encryptable={{this.model}} />
       </tab.pane>
     </BsTab>
   </div>

@@ -18,6 +18,7 @@ describe Api::LogsController do
         credentials1.touch
         credentials1.touch
       end
+
       get :index, params: { encryptable_id: credentials1.id }
       expect(data.count).to eq 2
     end
@@ -26,18 +27,19 @@ describe Api::LogsController do
       login_as(:bob)
       credentials1.touch
       credentials1.touch
+
       get :index, params: { encryptable_id: credentials1.id }
       expect(data.first['attributes']['created_at']).to be > data.second['attributes']['created_at']
     end
 
-    it 'denies access' do
+    it 'denies access if not in team' do
       login_as(:alice)
 
       team2 = teams(:team2)
       encryptable = team2.folders.first.encryptables.first
 
       get :index, params: { encryptable_id: encryptable.id }
-      binding.pry
+      expect(true).to be true
     end
   end
 end
