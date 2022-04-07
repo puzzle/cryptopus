@@ -1,0 +1,39 @@
+{{#if this.renewMessage}}
+  <div class="alert alert-primary mt-2" role="alert">
+    {{this.renewMessage}}
+  </div>
+{{/if}}
+
+<div class="container my-2">
+  <div class="row justify-content-end">
+    <div class="col-auto">
+      <button class="btn btn-primary" {{on "click" this.createApiUser}}>{{t "new"}}</button>
+    </div>
+  </div>
+</div>
+
+{{#if @encryptables}}
+  <table class="table table-striped mt-20 mb-15">
+    <tbody>
+      <tr>
+        <th> {{t "username"}} </th>
+        <th> {{t "description" }} </th>
+        <th> {{t "profile.api_users.valid_until"}} </th>
+        <th> {{t "profile.api_users.valid_for"}} </th>
+        <th> {{t "profile.api_users.last_login"}} </th>
+        <th> {{t "profile.api_users.locked"}} </th>
+        {{#if this.isAllowedToUpdateDefaultCcliUser }}
+          <th> {{t "profile.api_users.ccli_default_user"}} </th>
+        {{/if}}
+        <th> {{t "actions"}} </th>
+      </tr>
+    </tbody>
+    <tbody>
+      {{#each @encryptables as |encryptable|}}
+        <Encryptable::TableRow @encryptable={{encryptable}} @parent={{this}} />
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <p> {{t "profile.api_users.no_api_users" }} </p>
+{{/if}}

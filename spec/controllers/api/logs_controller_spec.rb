@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'pry'
 
 describe Api::LogsController do
   include ControllerHelpers
@@ -39,7 +38,7 @@ describe Api::LogsController do
       encryptable = team2.folders.first.encryptables.first
 
       get :index, params: { encryptable_id: encryptable.id }
-      expect(true).to be true
+      expect(response.status).to be 403
     end
   end
 end

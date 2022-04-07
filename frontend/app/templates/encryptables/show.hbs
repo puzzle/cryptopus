@@ -9,11 +9,11 @@
       </div>
     </div>
     <BsTab as |tab|>
-      <tab.pane id="info" @title={{t "profile.info.info"}}>
+      <tab.pane id="info" @title=Credentials>
         <Encryptable::Show @encryptable={{this.model}}/>
       </tab.pane>
-      <tab.pane id="info" @title={{t "profile.info.info"}}>
-        <Encryptable::Logs @encryptable={{this.model}} />
+      <tab.pane id="info" @title=Logs>
+        <Encryptable::Table @encryptable={{this.model}} />
       </tab.pane>
     </BsTab>
   </div>
