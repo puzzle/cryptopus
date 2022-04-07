@@ -56,3 +56,8 @@ After the successful initialisation, you can visit [localhost:4200/test](http://
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
 * Dependency list
   * [List of all used frontend dependencies](https://github.com/puzzle/cryptopus/wiki/Dependencies)
+
+## Fonts 
+
+### Icons 
+We use Open Source icons from [Eva Icons](https://akveo.github.io/eva-icons/#/).
