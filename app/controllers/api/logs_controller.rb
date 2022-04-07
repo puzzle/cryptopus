@@ -4,7 +4,7 @@ class Api::LogsController < ApiController
   self.permitted_attrs = :encryptable_id
 
   def index(options = {})
-    authorize Encryptable
+    authorize(team, :team_member?, policy_class: TeamPolicy)
     render({ json: fetch_entries,
              each_serializer: list_serializer,
              root: 'Logs_'.pluralize }
@@ -22,4 +22,7 @@ class Api::LogsController < ApiController
     @model_serializer ||= 'LogsSerializer'.constantize
   end
 
+  def team
+    @team ||= Encryptable.find(params[:encryptable_id]).folder.team
+  end
 end

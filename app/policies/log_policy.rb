@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Encryptables::LogPolicy < TeamDependantPolicy
+class LogPolicy < TeamDependantPolicy
   def initialize(user, record)
     @user = user
     @record = record
