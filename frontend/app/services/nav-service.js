@@ -24,7 +24,8 @@ export default class NavService extends Service {
     const sideNavBarDisabledRoutes = [
       "admin.settings",
       "admin.users",
-      "profile"
+      "profile",
+      "log"
     ];
     return !sideNavBarDisabledRoutes.includes(this.router.currentRouteName);
   }
