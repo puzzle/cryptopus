@@ -186,6 +186,7 @@ describe Api::TeamsController do
       team3_attributes = team3.attributes
       team3_attributes['favourised'] = false
       team3_attributes['deletable'] = false
+      team3_attributes['personal_team'] = false
       expect(team3_attributes).to include(attributes_team)
       folder_relationships_length = data.first['relationships']['folders']['data'].size
 
@@ -261,7 +262,7 @@ describe Api::TeamsController do
         it 'returns soloteam' do
           get :index, params: { only_teammember_user_id: only_teammember_user.id }
 
-          team_data = data[0]
+          team_data = data[1]
           team_attributes = team_data['attributes']
 
           expect(team_data['id'].to_i).to eq(soloteam.id)
@@ -278,7 +279,7 @@ describe Api::TeamsController do
         it 'returns soloteam' do
           get :index, params: { only_teammember_user_id: only_teammember_user.id }
 
-          team_data = data[0]
+          team_data = data[1]
           team_attributes = team_data['attributes']
 
           expect(team_data['id'].to_i).to eq(soloteam.id)
