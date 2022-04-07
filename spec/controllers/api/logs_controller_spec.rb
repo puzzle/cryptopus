@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'pry'
 
 describe Api::LogsController do
   include ControllerHelpers
@@ -20,12 +21,23 @@ describe Api::LogsController do
       get :index, params: { encryptable_id: credentials1.id }
       expect(data.count).to eq 2
     end
+
     it 'returns sorted results' do
       login_as(:bob)
       credentials1.touch
       credentials1.touch
       get :index, params: { encryptable_id: credentials1.id }
       expect(data.first['attributes']['created_at']).to be > data.second['attributes']['created_at']
+    end
+
+    it 'denies access' do
+      login_as(:alice)
+
+      team2 = teams(:team2)
+      encryptable = team2.folders.first.encryptables.first
+
+      get :index, params: { encryptable_id: encryptable.id }
+      binding.pry
     end
   end
 end

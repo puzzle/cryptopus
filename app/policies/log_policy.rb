@@ -7,7 +7,7 @@ class LogPolicy < TeamDependantPolicy
   end
 
   def index?
-    @user.is_a?(User::Human)
+    @user.is_a?(User::Human) && team.teammember?(@user.id)
   end
 
   def show?
@@ -17,6 +17,6 @@ class LogPolicy < TeamDependantPolicy
   protected
 
   def team
-    @record.folder.team
+    @record
   end
 end

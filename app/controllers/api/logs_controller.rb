@@ -4,7 +4,7 @@ class Api::LogsController < ApiController
   self.permitted_attrs = :encryptable_id
 
   def index(options = {})
-    authorize(team, :team_member?, policy_class: TeamPolicy)
+    authorize(team, :index?, policy_class: LogPolicy)
     render({ json: fetch_entries,
              each_serializer: list_serializer,
              root: 'Logs_'.pluralize }
@@ -14,7 +14,7 @@ class Api::LogsController < ApiController
 
   def fetch_entries
     PaperTrail.serializer = JSON
-    logs = current_user.encryptables.find_by(id: params[:encryptable_id]).versions
+    logs = current_user.encryptables.find_by!(id: params[:encryptable_id]).versions
     logs.sort { |a, b| b.created_at <=> a.created_at }
   end
 
