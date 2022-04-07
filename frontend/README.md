@@ -56,8 +56,9 @@ After the successful initialisation, you can visit [localhost:4200/test](http://
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
 * Dependency list
   * [List of all used frontend dependencies](https://github.com/puzzle/cryptopus/wiki/Dependencies)
+  * The **pzsh** stands for the Puzzle Shell [PuzzleShell](https://github.com/puzzle/puzzle-shell)
 
 ## Fonts 
 
 ### Icons 
-We use Open Source icons from [iconscout](https://iconscout.com/unicons/explore/line).
+The Open Source for the icons are [iconscout](https://iconscout.com/unicons/explore/line).
