@@ -28,7 +28,7 @@ describe User::Human do
     end
 
     context 'personal team' do
-      it 'creates personal team' do
+      it 'creates personal team for human user' do
         user = users(:alice).dup
         user.username = "Alice2"
         user.save!

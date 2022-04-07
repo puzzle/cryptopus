@@ -39,3 +39,11 @@ personal_team_alice:
 personal_team_root:
   name: personal-team
   private: true
+
+personal_team_admin:
+  name: personal-team
+  private: true
+
+personal_team_conf_admin:
+  name: personal-team
+  private: true
