@@ -34,7 +34,8 @@
       <p class="d-inline">{{t "encryptables.show.last_update"}}: {{moment-format @encryptable.updatedAt "DD.MM.YYYY hh:mm"}}</p>
     </div>
   </div>
-
+  <BsTab as |tab|>
+    <tab.pane @title='Credentials'>
   {{#if @encryptable.description}}
     <div class="row pb-3">
       <div class="col">
@@ -89,4 +90,9 @@
       {{/each}}
     </tbody>
   </table>
+    </tab.pane>
+       <tab.pane @title='Logs'>
+          <Encryptable::Table @encryptable={{@encryptable}}/>
+       </tab.pane>
+  </BsTab>
 </div>
