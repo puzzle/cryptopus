@@ -6,54 +6,17 @@ import ENV from "../../config/environment";
 
 export default class Table extends Component {
   @service store;
-  @service fetchService;
-  @service userService;
-
-  @tracked
-  renewMessage;
-
-  @tracked
-  defaultCcliApiUserId;
+  @service router;
+  @service intl;
+  @service notify;
 
   constructor() {
     super(...arguments);
-    this.defaultCcliApiUserId = ENV.currentUserDefaultCcliUserId;
-  }
 
-  @action
-  createApiUser() {
-    this.store
-      .createRecord("user-api")
-      .save()
-      .then((apiUser) => {
-        this.apiUsers.addObject(apiUser);
+    this.store.query("logs", {
+        encryptableId: this.args.encryptable.id
       });
-  }
 
-  setRenewMessage(message) {
-    this.renewMessage = message;
-  }
-
-  setDefaultCcliUser(apiUser) {
-    let data = {
-      data: { attributes: { default_ccli_user_id: apiUser.id } }
-    };
-
-    this.fetchService
-      .send(`/api/admin/users/${ENV.currentUserId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": ENV.CSRFToken
-        },
-        body: JSON.stringify(data)
-      })
-      .then(() => {
-        this.defaultCcliApiUserId = apiUser.id;
-      });
-  }
-
-  get isAllowedToUpdateDefaultCcliUser() {
-    return this.userService.isAdmin && ENV.currentUserGivenname !== "root";
+    window.scrollTo(0, 0);
   }
 }

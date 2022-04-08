@@ -4,7 +4,6 @@
   </div>
 {{/if}}
 
-{{#if @encryptable}}
   <table class="table table-striped mt-20 mb-15">
     <tbody>
       <tr>
@@ -14,12 +13,8 @@
       </tr>
     </tbody>
     <tbody>
-      {{@encryptable.logs}}
-      {{#each @encryptable.log as |l|}}
+      {{#each @encryptable.logs as |l|}}
         <Encryptable::TableRow @logs={{l}} />
       {{/each}}
     </tbody>
   </table>
-{{else}}
-  <p> {{t "profile.api_users.no_api_users" }} </p>
-{{/if}}
