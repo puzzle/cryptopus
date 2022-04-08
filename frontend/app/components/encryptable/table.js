@@ -12,7 +12,7 @@ export default class TableComponent extends Component {
   constructor() {
     super(...arguments);
 
-    this.store.query("log", {
+    this.store.query("paper-trail-version", {
         encryptableId: this.args.encryptable.id
       });
 

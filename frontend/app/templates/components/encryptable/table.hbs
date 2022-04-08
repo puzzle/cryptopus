@@ -13,8 +13,8 @@
       </tr>
     </tbody>
     <tbody>
-      {{#each @encryptable.logs as |l|}}
-        <Encryptable::TableRow @logs={{l}} />
+      {{#each @encryptable.paperTrailVersions as |paperTrailVersion|}}
+        <Encryptable::TableRow @paperTrailVersion={{paperTrailVersion}}/>
       {{/each}}
     </tbody>
   </table>
