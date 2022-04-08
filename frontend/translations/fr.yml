@@ -462,7 +462,7 @@ fr:
     label:
       user:
         username: Nom d'utilisateur
-        name: Nom du compte
+        encryptable_name: Nom du compte
         password: Mot de passe
         admin: Admin
         givenname: Prénom
@@ -476,7 +476,7 @@ fr:
         wrongPassword: Mauvais mot de passe
       encryptable:
         encryptable: Compte
-        name: Nom du compte
+        encryptable_name: Nom du compte
         username: Nom d'utilisateur
         password: Mot de passe
         description: Description
@@ -579,10 +579,10 @@ fr:
     settings: Paramètres
     profile: Profil
     add_folder: Ajouter un dossier
-    add_account: Ajouter un compte
-    account_details: Montrer détails du compte
+    add_encryptable: Ajouter un compte
+    encryptable_details: Montrer détails du compte
     delete_folder: Supprimer le dossier
-    delete_account: Supprimer le compte
+    delete_encryptables: Supprimer le compte
     configure: Configurer les membres
 
   #Pundit

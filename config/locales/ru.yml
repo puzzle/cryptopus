@@ -31,7 +31,6 @@ ru:
   maintenance_tasks: "Задачи обслуживания"
   users: "Пользователи"
   profile_title: "профиль"
-  change_password: "Сменить пароль"
   last_login_date_and_from: "Последний вход был %{last_login_at} с %{last_login_from}"
   last_login_date_and_from_country: "Последний вход был %{last_login_at} с %{last_login_from} (%{last_login_country})"
   last_login_date: "Последний вход был %{last_login_at}"
@@ -66,7 +65,7 @@ ru:
       title: "Редактивание аккаунта"
       random_password: "Случайный пароль"
     show:
-      title: "Аккаунт: %{name}"
+      title: "Аккаунт: %{encryptable_name}"
       last_change: "Последнее изменение %{time_ago} назад"
       attachments: "Вложения"
       file: "Файл"
@@ -137,7 +136,7 @@ ru:
     show:
       move: "Переместить аккаунт в другую группу"
       title: "Аккаунты в группе %{folder_name} для команды %{team_name}"
-  encryptable_files:
+  file_entries:
     new:
       title: "Добавить вложение к аккаунту"
       upload: "Файл для загрузки"
@@ -239,7 +238,7 @@ ru:
     folders:
       created: "Новая группа создана."
       updated: "Группа обновлена."
-    encryptable_files:
+    file_entries:
       uploaded: "Файл загружен."
       uploaded_size_to_high: "Файл слишком большой (макс. 10 МБ)"
       uploaded_filename_is_empty: "Файл должен иметь имя"
@@ -272,7 +271,6 @@ ru:
   confirm:
     delete: "Удалить %{entry_class} %{entry_label} ?"
     changeAdmin: "дать/забрать права администратора?"
-    deleteWithTeams: "Удалить все команды, в которых кроме пользователя %{username} никого нет"
 
 #Validation Errors
   activerecord:

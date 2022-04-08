@@ -490,10 +490,10 @@ en:
     settings: Settings
     profile: Profile
     add_folder: Add a new Folder
-    add_account: Add new Credentials
-    account_details: Show Credentials Details
+    add_encryptable: Add new Credentials
+    encryptable_details: Show Credentials Details
     delete_folder: Delete the Folder
-    delete_account: Delete the Credentials
+    delete_encryptables: Delete the Credentials
     configure: Configure Members
 
 
@@ -519,7 +519,7 @@ en:
         newPassword2: "Confirm new password:"
         wrongPassword: Wrong password
       encryptable:
-        name: Accountname
+        encryptable_name: Accountname
       team:
         name: Name
         description: Description
