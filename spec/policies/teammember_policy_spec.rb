@@ -7,7 +7,7 @@ describe TeamDependantPolicy do
   let(:personal_team_bob) { teams(:personal_team_bob) }
 
   context 'create' do
-    it 'can add a teammember as a teammember' do
+    it 'can add additional teammember as teammember' do
       assert team2.teammember? bob
       assert_permit bob, team2, :team_member?
     end

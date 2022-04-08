@@ -12,7 +12,7 @@
     <div class="row py-2 d-flex team-card-header {{if this.collapsed "rounded" "rounded-top"}}">
       <div class="col-auto pr-0 my-auto" role="button" {{on "click" this.collapse}}>
         {{#if @team.personal_team}}
-            <img class="icon icon-big-button py-auto" src="/assets/images/member-white.svg" alt="">
+          <img class="icon icon-big-button py-auto" src="/assets/images/member-white.svg" alt="">
         {{else}}
           {{#if this.args.team.private}}
             <img class="icon icon-big-button py-auto" src="/assets/images/encrypted_small-white.svg" alt="">
