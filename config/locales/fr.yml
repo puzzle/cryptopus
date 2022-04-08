@@ -32,7 +32,6 @@ fr:
   users: Utilisateur
   user: Utilisateur
   profile_title: Profilé
-  change_password: Changer le mot de passe
   last_login_date_and_from: "La dernière connexion était le %{last_login_at} de %{last_login_from}"
   last_login_date_and_from_country: "La dernière connexion était le %{last_login_at} de %{last_login_from} (%{last_login_country})"
   last_login_date: "La dernière connexion était le %{last_login_at}"
@@ -411,14 +410,14 @@ fr:
     label:
       user:
         username: Nom d'utilisateur
-        name: Nom du compte
+        encryptable_name: Nom du compte
         password: Mot de passe
         admin: Admin
         givenname: Prénom
         surname: Nom de famille
       account:
         account: Compte
-        name: Nom du compte
+        encryptable_name: Nom du compte
         username: Nom d'utilisateur
         password: Mot de passe
         description: Description
@@ -436,7 +435,6 @@ fr:
   confirm:
     delete: "Supprimez %{entry_class} %{entry_label} ?"
     changeAdmin: donner/enlever les droits de l'administrateur?
-    deleteWithTeams: "Supprimer toutes les équipe où %{username} est le dernier."
 
   #Validation Errors
   activerecord:
@@ -448,16 +446,6 @@ fr:
         body: ""
         header: ""
       models:
-        account:
-          attributes:
-            name:
-              blank: ne peut pas être vide
-              taken: est déjà pris
-        folder:
-          attributes:
-            name:
-              blank: ne peut pas être vide
-              taken: est déjà pris
         user:
           new_password_invalid: Votre nouveau mot de passe était incorrect
           old_password_invalid: Votre ancien mot de passe était incorrect
@@ -471,45 +459,6 @@ fr:
               blank: Filename ne peut pas être vide
               taken: Filename est déjà pris
 
-  datetime:
-    distance_in_words:
-      about_x_hours:
-        one: environ une heure
-        other: "environ %{count} heures"
-      about_x_months:
-        one: environ un mois
-        other: "environ %{count} mois"
-      about_x_years:
-        one: environ un an
-        other: "environ %{count} ans"
-      almost_x_years:
-        one: presqu'un an
-        other: "presque %{count} ans"
-      half_a_minute: une demi-minute
-      less_than_x_minutes:
-        one: moins d'une minute
-        other: "moins de %{count} minutes"
-        zero: moins d'une minute
-      less_than_x_seconds:
-        one: moins d'une seconde
-        other: "moins de %{count} secondes"
-        zero: moins d'une seconde
-      over_x_years:
-        one: plus d'un an
-        other: "plus de %{count} ans"
-      x_days:
-        one: 1 jour
-        other: "%{count} jours"
-      x_minutes:
-        one: 1 minute
-        other: "%{count} minutes"
-      x_months:
-        one: 1 mois
-        other: "%{count} mois"
-      x_seconds:
-        one: 1 seconde
-        other: "%{count} secondes"
-
   password_strength:
     weak: Le mot de passe est faible
     good: Le mot de passe est bon
@@ -518,12 +467,11 @@ fr:
   tooltips:
     all_teams: Tous les équipes
     favorites: Favoris
-    settings_profile: Paramètres & Profil
     add_folder: Ajouter un dossier
-    add_account: Ajouter un compte
-    account_details: Montrer détails du compte
+    add_encryptable: Ajouter un compte
+    encryptable_details: Montrer détails du compte
     delete_folder: Supprimer le dossier
-    delete_account: Supprimer le compte
+    delete_encryptables: Supprimer le compte
     configure: Configurer les membres
 
   #Pundit
@@ -538,15 +486,15 @@ fr:
       present: Le nom doit être présent
       too_long: Le nom est trop long
       duplicate_name: Le compte existe déjà!
-    description:
-      too_long: La description est trop longue
-    file:
-      present: Le fichier doit être présent
-    team:
-      present: L'équipe être présent
-    folder:
-      present: Le dossier doit être présent
-    cleartext username:
-      too_long: Le nom d'utilisateur est trop long
-    cleartext password:
-      too_long: Le mot de passe est trop long
+      description:
+        too_long: La description est trop longue
+      file:
+        present: Le fichier doit être présent
+      team:
+        present: L'équipe être présent
+      folder:
+        present: Le dossier doit être présent
+      cleartext username:
+        too_long: Le nom d'utilisateur est trop long
+      cleartext password:
+        too_long: Le mot de passe est trop long

@@ -32,7 +32,6 @@ en:
   users: Users
   user: User
   profile_title: Profile
-  change_password: Change password
   last_login_date_and_from: "The last login was on %{last_login_at} from %{last_login_from}"
   last_login_date_and_from_country: "The last login was on %{last_login_at} from %{last_login_from} (%{last_login_country})"
   last_login_date: "The last login was on %{last_login_at}"
@@ -62,14 +61,13 @@ en:
   encryptables:
     title: Credentials
     index_menu:
-      create: Create Account
+      create: Create credentials
       folder: Folder
     show_menu:
       add_attachment: Add Attachment
     edit:
-      title: Edit Account
+      title: Edit credentials
       random_password: Random password
-      edit_password_placeholder: Click or focus to set ...
       team_placeholder: Select a Team
       folder_placeholder: Select a Folder
       password_strength: Password Strength
@@ -79,7 +77,7 @@ en:
         good: Good
         strong: Strong
     show:
-      account: Account
+      account: Credentials
       last_change: "Last change was %{time_ago} ago"
       attachments: Attachments
       file: File
@@ -89,7 +87,7 @@ en:
       copy_username: Copy username
       add_attachment: Add Attachment
     new:
-      title: New Credentials
+      title: New credentials
 
   admin:
     title: Admin
@@ -188,7 +186,7 @@ en:
     new:
       title: New Folder
     show:
-      move: Move account to other folder
+      move: Move credentials to other folder
       title: "Credentials in folder %{folder_name} for team %{team_name}"
     no_encryptables: No Credentials
     tooltips:
@@ -196,7 +194,7 @@ en:
       edit: Edit the folder
   encryptable_files:
     new:
-      title: Add new attachment to account
+      title: Add new attachment to credentials
       upload: Upload
       upload_file: File to upload
       choose_file: Choose a file
@@ -231,7 +229,7 @@ en:
   recrypt:
     oidc:
       new:
-        notice: Please enter your previous Cryptopus Password to migrate your account to OpendID connect / Keycloak
+        notice: Please enter your previous Cryptopus Password to migrate your credentials to OpendID connect / Keycloak
         cryptopus_password: Your Cryptopus Password
         migrate: Migrate
   teammembers:
@@ -376,10 +374,10 @@ en:
           failed: No configured Ldap Server could be reached.
 
     encryptables:
-      created: Account was successfully created.
-      updated: Account was successfully updated.
-      deleted: Account was successfully deleted
-      moved: Account was successfully moved
+      created: Credentials were successfully created.
+      updated: Credentials were successfully updated.
+      deleted: Credentials were successfully deleted
+      moved: Credentials were successfully moved
       username_copied: Username was copied
       password_copied: Password was copied
     application:
@@ -396,7 +394,7 @@ en:
       uploaded_file_blank: File is not allowed to be blank
     session:
       weak_password: To improve security you should change your login password to a more complex one.
-      welcome: Welcome to Cryptopus, first you have to create a new account. Please enter a new password
+      welcome: Welcome to Cryptopus, first you have to create new credentials. Please enter a new password
       auth_failed: Authentication failed! Enter a correct username and password.
       only_local: Only local users are allowed to change their password.
       new_password_set: You successfully set the new password
@@ -404,7 +402,7 @@ en:
       wrong_password: Invalid user / password
       wrong_root: Login as root only from private IP accessible
       not_local: You are not a local user!
-      locked: User is currently locked. Pleas e try to login again a bit later or contact the administrator if your user has been locked permanently
+      locked: User is currently locked. Please try to login again a bit later or contact the administrator if your user has been locked permanently
     recryptrequests:
       recrypted: You have successfully recrypted the password
       wait: Wait for the recryption of your team passwords
@@ -424,7 +422,6 @@ en:
   confirm:
     delete: "Delete %{entry_class} %{entry_label} ?"
     changeAdmin: give/remove Admin-Rights?
-    deleteWithTeams: "Delete all teams where %{username} is the last teammember"
 
   #Validation Errors
   activerecord:
@@ -449,12 +446,11 @@ en:
   tooltips:
     all_teams: All Teams
     favorites: Favorites
-    settings_profile: Settings & Profile
     add_folder: Add a new Folder
-    add_account: Add a new Account
-    account_details: Show Account Details
+    add_encryptable: Add new credentials
+    encryptable_details: Show credentials Details
     delete_folder: Delete the Folder
-    delete_account: Delete the Account
+    delete_encryptables: Delete the credentials
     configure: Configure Members
 
 
@@ -467,7 +463,7 @@ en:
   helpers:
     label:
       account:
-        name: Name
+        encryptable_name: Credentialsname
       team:
         name: Name
         description: Description

@@ -34,7 +34,6 @@ ch_be:
   last_login_date_and_from: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}"
   last_login_date_and_from_country: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from} (%{last_login_country})"
   last_login_date: "Ds letschtä Login isch am %{last_login_at} gsi"
-  unencrypted_field_caption: nid verschlüsslet
   folder: Ordner
   team: Team
   move: Bewegä
@@ -427,8 +426,8 @@ ch_be:
       updated: Dr Benutzer isch erfougrich aktualisiert worde.
     encryptables: &encryptables_translations
       created: Di nöiä Zuägangsdate si erfougrich ersteut worde.
-      updated: Di nöiä Zuägangsdate si erfougrich aktualisiert worde.
-      deleted: Di nöiä Zuägangsdate si erfougrich glöscht worde.
+      updated: D Zuägangsdate si erfougrich aktualisiert worde.
+      deleted: D Zuägangsdate si erfougrich glöscht worde.
       moved: D Zuägangsdate si erfougrich verschobe worde.
       username_copied: Dr Benutzernamä isch kopiert worde
       password_copied: Ds Passwort isch kopiert worde
@@ -492,7 +491,7 @@ ch_be:
         wrongPassword: Fautsches passwort
       encryptable:
         encryptable: Zuägangsdate
-        account_name: Accountname
+        encryptable_name: Accountname
         username: Benutzername
         password: Passwort
         description: Beschribig
@@ -594,10 +593,10 @@ ch_be:
     profile: Profil
     settings: Istellige
     add_folder: Erstell en neue Ordner
-    add_account: Ersteu nöi Zuägangsdate
-    account_details: Zuägangsdate Details ahzeige
+    add_encryptable: Ersteu nöi Zuägangsdate
+    encryptable_details: Zuägangsdate Details ahzeige
     delete_folder: Ordner lösche
-    delete_account: Zuägangsdate lösche
+    delete_encryptables: Zuägangsdate lösche
     configure: Konfigurier d'Mitgliedr
 
   validations:
