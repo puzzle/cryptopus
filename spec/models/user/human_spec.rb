@@ -61,6 +61,13 @@ describe User::Human do
         expect(Team.exists?(personal_team_id)).to eq(false)
       end
 
+      it 'deletes personal team when user is deleted' do
+        user = users(:alice).dup
+        personal_team = Team.find(user.personal_team_id)
+        user.destroy
+        expect(Team.all).not_to include personal_team
+      end
+
     end
 
   end
