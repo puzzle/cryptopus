@@ -1,5 +1,7 @@
 import Component from "@glimmer/component";
 
-export default class TableRow extends Component {
-
+export default class TableRowComponen extends Component {
+  constructor() {
+    super(...arguments);
+  }
 }
