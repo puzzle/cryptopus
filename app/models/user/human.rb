@@ -38,7 +38,7 @@ class User::Human < User
   has_many :api_users, class_name: 'User::Api', dependent: :destroy,
                        foreign_key: :human_user_id
 
-  belongs_to :personal_team, class_name: 'Team'
+  belongs_to :personal_team, class_name: 'Team', dependent: :destroy
 
   scope :locked, -> { where(locked: true) }
   scope :unlocked, -> { where(locked: false) }
