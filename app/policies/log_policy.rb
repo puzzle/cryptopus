@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-class Encryptables::LogPolicy < TeamDependantPolicy
+class LogPolicy < TeamDependantPolicy
   def initialize(user, record)
     @user = user
     @record = record
   end
 
   def index?
-    @user.is_a?(User::Human)
+    @user.is_a?(User::Human) && team.teammember?(@user.id)
   end
 
   def show?
@@ -17,6 +17,6 @@ class Encryptables::LogPolicy < TeamDependantPolicy
   protected
 
   def team
-    @record.folder.team
+    @record
   end
 end

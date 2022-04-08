@@ -1,0 +1,20 @@
+{{#if this.renewMessage}}
+  <div class="alert alert-primary mt-2" role="alert">
+    {{this.renewMessage}}
+  </div>
+{{/if}}
+
+  <table class="table table-striped mt-20 mb-15">
+    <tbody>
+      <tr>
+        <th> {{t "username"}} </th>
+        <th> {{t "description" }} </th>
+        <th> {{t "actions" }} </th>
+      </tr>
+    </tbody>
+    <tbody>
+      {{#each @encryptable.logs as |l|}}
+        <Encryptable::TableRow @logs={{l}} />
+      {{/each}}
+    </tbody>
+  </table>
