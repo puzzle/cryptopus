@@ -11,10 +11,7 @@ Router.map(function () {
     this.route("new");
     this.route("edit", { path: "/edit/:id" });
     this.route("show", { path: "/:id" });
-    this.route(
-      "logs",
-      { path: "/:encryptable_id/logs" },
-    );
+    this.route("logs", { path: "/:encryptable_id/logs" });
     this.route(
       "file-entries",
       { path: "/:encryptable_id/file-entries" },

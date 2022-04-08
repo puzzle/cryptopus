@@ -1,9 +1,9 @@
 import Model, { attr, belongsTo } from "@ember-data/model";
 
-export default class Log extends Model {
+export default class PaperTrailVersion extends Model {
   @attr("string") event;
   @attr("string") whodunnit;
   @attr("string") createdAt;
-  @attr("encryptable") object;
+  @attr() object;
   @belongsTo("encryptable") encryptable;
 }
