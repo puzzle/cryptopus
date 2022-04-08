@@ -55,7 +55,7 @@
     <div class="card-footer d-flex justify-content-between">
       <LinkTo @route="encryptables.show" @model={{@encryptable}}>
         <img class="icon-button d-inline" src="/assets/images/eye.svg" alt="show">
-        <BsTooltip @title={{t "tooltips.account_details"}} @delayShow="1000" />
+        <BsTooltip @title={{t "tooltips.encryptable_details"}} @delayShow="1000" />
       </LinkTo>
       <a class="mx-auto" role="button" {{on "click" this.toggleEncryptableEdit}}>
         <img class="icon-button d-inline" src="/assets/images/edit.svg" alt="edit">
@@ -63,7 +63,7 @@
       </a>
       <DeleteWithConfirmation @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
         <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
-        <BsTooltip @title={{t "tooltips.delete_account"}} @delayShow="1000" />
+        <BsTooltip @title={{t "tooltips.delete_encryptables"}} @delayShow="1000" />
       </DeleteWithConfirmation>
     </div>
   </div>

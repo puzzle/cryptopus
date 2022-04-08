@@ -30,7 +30,6 @@ zh:
   recrypt_requests: "加密请求"
   maintenance_tasks: "维护任务"
   users: "用户"
-  change_password: "更改密码"
   last_login_date_and_from: "上次登陆时间：%{last_login_at} 位置 %{last_login_from}"
   last_login_date_and_from_country: "上次登陆时间： %{last_login_at} 位置 %{last_login_from} (国家：%{last_login_country})"
   last_login_date: "上次登陆时间：%{last_login_at}"

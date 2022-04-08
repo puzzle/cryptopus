@@ -473,7 +473,7 @@ de:
         wrongPassword: Falsches Passwort
       encryptable:
         encryptable: Zugangsdaten
-        account_name: Accountname
+        encryptable_name: Accountname
         username: Benutzername
         password: Passwort
         description: Beschreibung
@@ -575,10 +575,10 @@ de:
     settings: Einstellungen
     profile: Profil
     add_folder: Erstelle einen neuen Ordner
-    add_account: Erstelle neue Zugangsdaten
-    account_details: Zugangsdaten Details anzeigen
+    add_encryptable: Erstelle neue Zugangsdaten
+    encryptable_details: Zugangsdaten Details anzeigen
     delete_folder: Ordner löschen
-    delete_account: Zugangsdaten löschen
+    delete_encryptables: Zugangsdaten löschen
     configure: Konfiguriere Mitglieder
 
   #Pundit

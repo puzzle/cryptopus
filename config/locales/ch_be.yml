@@ -93,12 +93,12 @@ ch_be:
   encryptables:
     title: 'Zuägangsdate'
     index_menu:
-      create: Account ersteuä
+      create: Zuägangsdate ersteuä
       folder: Ordner
     show_menu:
       add_attachment: Anhang hinzufüegä
     edit:
-      title: Account editiere
+      title: Zuägangsdate editiere
       random_password: Zuefäuigs Passwort
       team_placeholder: Wähl äs Team us
       folder_placeholder: Wähl ä Ordner us
@@ -110,7 +110,7 @@ ch_be:
         strong: Starch
 
     show:
-      account: Account
+      account: Zuägangsdate
       last_change: "Letschti Änderig vor %{time_ago}"
       attachments: Ahäng
       file: Datei
@@ -120,7 +120,7 @@ ch_be:
       copy_username: Benutzername kopierä
       add_attachment: Anhang hinzufüegä
     new:
-      title: Nöie Account
+      title: Nöi Zuägangsdate
 
   admin:
     title: Admin
@@ -206,7 +206,7 @@ ch_be:
     new:
       title: Ordner ersteue
     show:
-      move: Account zumnä angere Ordner verschiebe
+      move: Zuägangsdate zumnä angere Ordner verschiebe
       title: "Zuägangsdate vom Ordner %{folder_name} vom Team %{team_name}"
     no_encryptables: Ke Zuägangsdate
     tooltips:
@@ -214,7 +214,7 @@ ch_be:
       edit: Ordner bearbeite
   file_entries:
     new:
-      title: Ahang zum Account hinzuefüege
+      title: Ahang zu dä Zuägangsdate hinzuefüege
       upload: Ufeladä
       upload_file: Datei zum ufeladä
       choose_file: Suech e Datei us
@@ -251,7 +251,7 @@ ch_be:
   recrypt:
     sso:
       new:
-        notice: Bitte gib dis Cryptopus Passwort i für di Account zu Keycloak z migriere.
+        notice: Bitte gib dis Cryptopus Passwort i für dini Zuägangsdate zu Keycloak z migriere.
         cryptopus_password: Dis Cryptopus Passwort
         migrate: Migriere
   teammembers:
@@ -391,10 +391,10 @@ ch_be:
         failed: D Wartigsufgab isch gschiteret. Lueg i de Logs für me Details nache.
 
     encryptables:
-      created: Dr nöi Account isch erfougrich ersteut worde.
-      updated: Dr Account isch erfougrich aktualisiert worde.
-      deleted: Dr Account isch erfougrich glöscht worde.
-      moved: Der Account isch erfougrich verschobe worde.
+      created: Di nöi Zuägangsdate si erfougrich ersteut worde.
+      updated: D Zuägangsdate si erfougrich aktualisiert worde.
+      deleted: D Zuägangsdate si erfougrich glöscht worde.
+      moved: D Zuägangsdate si erfougrich verschobe worde.
       username_copied: Dr Benutzernamä isch kopiert worde
       password_copied: Ds Passwort isch kopiert worde
     application:
@@ -411,7 +411,7 @@ ch_be:
       uploaded_file_inexistent: Die Datei existiert gar nid
       uploaded_filename_already_exists: D Dateiname existiert äuä scho
     session:
-      welcome: Willkomme bim Cryptopus. Zerscht muesch e nöie Account ersteue. Bitte wäu es sicheres Passwort.
+      welcome: Willkomme bim Cryptopus. Zerscht muesch nöi Zuägangsdate ersteue. Bitte wäu es sicheres Passwort.
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
       only_local: Nume lokali Benutzer dörfe ires Passwort ändere.
       new_password_set: Ds nöie Passwort isch erfougrich gsetzt worde.
@@ -444,8 +444,8 @@ ch_be:
         surname: Nachname
         submit: Ersteue
       account:
-        account: Account
-        account_name: Accountname
+        account: Zuägangsdate
+        encryptable_name: Zuägangsdatename
         username: Benutzername
         password: Passwort
         description: Beschribig
@@ -497,12 +497,12 @@ ch_be:
     all_teams: Aui Teams
     favorites: Favoritä
     add_folder: Erstell en neue Ordner
-    add_account: Erstell en neue Account
-    account_details: Account Details ahzeige
+    add_encryptable: Ersteu nöi Zuägangsdate
+    encryptable_details: Zuägangsdate Details ahzeige
     delete_folder: Ordner lösche
-    delete_account: Account lösche
+    delete_encryptables: Zuägangsdate lösche
     configure: Konfigurier d'Mitgliedr
 
   validations:
     name:
-      duplicate_name: Dä Account giz scho!
+      duplicate_name: Diä Zuägangsdate giz scho!

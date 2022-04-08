@@ -32,7 +32,6 @@ de:
   users: Benutzer
   user: Benutzer
   profile_title: Profil
-  change_password: Passwort wechseln
   last_login_date_and_from: "Das letzte Login war am %{last_login_at} von %{last_login_from}"
   last_login_date_and_from_country: "Das letzte Login war am %{last_login_at} von %{last_login_from} (%{last_login_country})"
   last_login_date: "Das letzte Login war am %{last_login_at}"
@@ -71,7 +70,6 @@ de:
     edit:
       title: Zugangsdaten editieren
       random_password: Zufälliges Passwort
-      edit_password_placeholder: Klicken oder fokusieren für Eingabe ...
       team_placeholder: Wählen Sie ein Team aus
       folder_placeholder: Wählen Sie ein Ordner aus
       password_strength: Passwort Stärke
@@ -91,7 +89,7 @@ de:
       copy_username: Benutzername kopieren
       add_attachment: Anhang hinzufügen
     new:
-      title: Neuer Account
+      title: Neue Zugangsdaten
 
   admin:
     title: "Admin"
@@ -189,7 +187,7 @@ de:
     new:
       title: Ordner erstellen
     show:
-      move: Account zu einem anderen Ordner verschieben
+      move: Zugangsdaten zu einem anderen Ordner verschieben
       title: "Zugangsdaten des Ordners %{folder_name} des Teams %{team_name}"
     no_encryptables: Keine Zugangsdaten
     tooltips:
@@ -198,7 +196,7 @@ de:
 
   file_entries:
     new:
-      title: Anhang zum Account hinzufügen
+      title: Anhang zu den Zugangsdaten hinzufügen
       upload_file: Datei hochladen
       upload: Hochladen
       choose_file: Wählen Sie eine Datei
@@ -384,10 +382,10 @@ de:
           failed: Kein konfigurierter Ldap-Server konnte erreicht werden.
 
     encryptables:
-      created: Der neue Account wurde erfolgreich erstellt.
-      updated: Der Account wurde erfolgreich aktualisiert.
-      deleted: Der Account wurde erfolgreich gelöscht.
-      moved: Der Account wurde erfolgreich veschoben
+      created: Die neuen Zugangsdaten wurden erfolgreich erstellt.
+      updated: Die Zugangsdaten wurden erfolgreich aktualisiert.
+      deleted: Die Zugangsdaten wurden erfolgreich gelöscht.
+      moved: Die Zugangsdaten wurden erfolgreich veschoben
       username_copied: Benutzername wurde kopiert
       password_copied: Passwort wurde kopiert
     application:
@@ -404,7 +402,7 @@ de:
       uploaded_file_inexistent: Datei ist inexistent
       uploaded_filename_already_exists: Dateiname existiert bereits
     session:
-      welcome: Willkommen bei Cryptopus. Zuerst müssen Sie einen Account erstellen. Bitte wählen Sie ein sicheres Passwort.
+      welcome: Willkommen bei Cryptopus. Zuerst müssen Sie neue Zugangsdaten erstellen. Bitte wählen Sie ein sicheres Passwort.
       auth_failed: Ungültiger Benutzername / Passwort.
       only_local: Nur lokale Benutzer dürfen ihr Passwort ändern.
       new_password_set: Das neue Passwort wurde erfolgreich gesetzt.
@@ -438,8 +436,8 @@ de:
         surname: Nachname
         submit: Erstellen
       account:
-        account: Account
-        account_name: Accountname
+        account: Zugangsdaten
+        encryptable_name: Zugangsdatenname
         username: Benutzername
         password: Passwort
         description: Beschreibung
@@ -457,7 +455,6 @@ de:
   confirm:
     delete: "%{entry_class} %{entry_label} löschen?"
     change_admin: Admin-Rechte geben/entziehen?
-    deleteWithTeams: "Lösche alle Teams in denen %{username} der letze Team Member ist"
 
 
   #Validation Errors
@@ -470,16 +467,6 @@ de:
         body: ''
         header: ''
       models:
-        account:
-          attributes:
-            name:
-              blank: kann nicht leer sein
-              taken: ist bereits vergeben
-        folder:
-          attributes:
-            name:
-              blank: kann nicht leer sein
-              taken: ist bereits vergeben
         user:
           new_password_invalid: Ihr neues Passwort war falsch
           old_password_invalid: Ihr altes Passwort war falsch
@@ -493,43 +480,6 @@ de:
               blank: Filename kann nicht leer sein
               taken: Filename ist bereits vergeben
 
-  datetime:
-    distance_in_words:
-      about_x_hours:
-        one: etwa eine Stunde
-        other: "etwa %{count} Stunden"
-      about_x_months:
-        one: etwa ein Monat
-        other: "etwa %{count} Monate"
-      about_x_years:
-        one: etwa ein Jahr
-        other: "etwa %{count} Jahren"
-      almost_x_years:
-        one: fast ein Jahr
-        other: "fast %{count} Jahre"
-      half_a_minute: eine halbe Minute
-      less_than_x_minutes:
-        one: weniger als eine Minute
-        other: "weniger als %{count} Minuten"
-      less_than_x_seconds:
-        one: weniger als eine Sekunde
-        other: "weniger als %{count} Sekunden"
-      over_x_years:
-        one: mehr als ein Jahr
-        other: "mehr als %{count} Jahre"
-      x_days:
-        one: ein Tag
-        other: "%{count} Tage"
-      x_minutes:
-        one: eine Minute
-        other: "%{count} Minuten"
-      x_months:
-        one: ein Monat
-        other: "%{count} Monate"
-      x_seconds:
-        one: eine Sekunde
-        other: "%{count} Sekunden"
-
   password_strength:
     weak: Das Passwort ist unsicher
     good: Das Passwort genügt
@@ -538,12 +488,11 @@ de:
   tooltips:
     all_teams: Alle Teams
     favorites: Favoriten
-    settings_profile: Einstellungen & Profil
     add_folder: Erstelle einen neuen Ordner
-    add_account: Erstelle einen neuen Account
-    account_details: Account Details anzeigen
+    add_encryptable: Erstelle neue Zugangsdaten
+    encryptable_details: Zugangsdaten Details anzeigen
     delete_folder: Ordner löschen
-    delete_account: Account löschen
+    delete_encryptables: Zugangsdaten löschen
     configure: Konfiguriere Mitglieder
 
   #Pundit
@@ -555,18 +504,4 @@ de:
 
   validations:
     name:
-      present: Der Name muss vorhanden sein
-      too_long: Der Name ist zu lang
-      duplicate_name: Account existiert bereits!
-    description:
-      too_long: Die Beschreibung ist zu lang
-    file:
-      present: Die Datei muss vorhanden sein
-    team:
-      present: Das Team muss vorhanden sein
-    folder:
-      present: Der Ordner muss vorhanden sein
-    cleartext username:
-      too_long: Der Benutzername ist zu lang
-    cleartext password:
-      too_long: Das Passwort ist zu lang
+      duplicate_name: Zugangsdaten existiert bereits!
