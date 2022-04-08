@@ -29,7 +29,6 @@ ch_be:
   recrypt_requests: Recrypt Afragä
   users: Benutzer
   profile_title: Profiu
-  change_password: Passwort wächslä
   last_login_date_and_from: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}"
   last_login_date_and_from_country: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from} (%{last_login_country})"
   last_login_date: "Ds letschtä Login isch am %{last_login_at} gsi"
@@ -101,7 +100,6 @@ ch_be:
     edit:
       title: Account editiere
       random_password: Zuefäuigs Passwort
-      edit_password_placeholder: Klickä oder fokusierä für Igab ...
       team_placeholder: Wähl äs Team us
       folder_placeholder: Wähl ä Ordner us
       password_strength: Passwort Sterchi
@@ -360,7 +358,7 @@ ch_be:
       members:
         added: Mitglied isch erfougrich hinzuegfüegt worde
         removed: Mitglied isch erfougrich entfernt worde
-      errors: 
+      errors:
         auth_failed: Authentifizierig fäugschlage
         user_not_logged_in: Benutzer isch nid igloggt
         invalid_request: Invalidi Ahfrag
@@ -464,7 +462,6 @@ ch_be:
   confirm:
     delete: "%{entry_class} %{entry_label} lösche?"
     change_admin: Admin-Rächt gä/entzie?
-    deleteWithTeams: "Lösch aui Teams i dene %{username} ds letschte Teammitglied isch"
 
 
 #Validation Errors
@@ -477,16 +474,6 @@ ch_be:
         body: ''
         header: ''
       models:
-        account:
-          attributes:
-            name:
-              blank: 'cha nid läär si'
-              taken: 'isch bereit vergä'
-        folder:
-          attributes:
-            name:
-              blank: 'cha nid läär si'
-              taken: 'isch bereits vergä'
         user:
           new_password_invalid: Dis nöie Passwort isch fausch gsi
           old_password_invalid: Dis aute Passwort isch fausch gsi
@@ -500,43 +487,6 @@ ch_be:
               blank: 'Dr Dateinamä cha nid läär si'
               taken: 'Dr Dateinamä isch scho vergä'
 
-  datetime:
-    distance_in_words:
-      about_x_hours:
-        one: öpe ei Stund
-        other: "öpe %{count} Stunde"
-      about_x_months:
-        one: öpe ei Monet
-        other: "öpe %{count} Mönet"
-      about_x_years:
-        one: öpe eis Jahr
-        other: "öpe %{count} Jahr"
-      almost_x_years:
-        one: fasch eis Jahr
-        other: "fasch %{count} Jahr"
-      half_a_minute: ä haubi Minute
-      less_than_x_minutes:
-        one: weniger aus e Minute
-        other: "weniger aus %{count} Minute"
-      less_than_x_seconds:
-        one: weniger aus e Sekunde
-        other: "weniger aus %{count} Sekunde"
-      over_x_years:
-        one: me aus es Jahr
-        other: "me aus %{count} Jahr"
-      x_days:
-        one: ei Tag
-        other: "%{count} Täg"
-      x_minutes:
-        one: ei Minute
-        other: "%{count} Minute"
-      x_months:
-        one: ei Monet
-        other: "%{count} Mönet"
-      x_seconds:
-        one: eine Sekunde
-        other: "%{count} Sekunde"
-
   password_strength:
     weak: Ds Passwort isch unsicher
     good: Ds Passwort gnüegt
@@ -545,7 +495,6 @@ ch_be:
   tooltips:
     all_teams: Aui Teams
     favorites: Favoritä
-    settings_profile: Istellige & Profil
     add_folder: Erstell en neue Ordner
     add_account: Erstell en neue Account
     account_details: Account Details ahzeige
@@ -555,18 +504,4 @@ ch_be:
 
   validations:
     name:
-      present: Dr Name muess vorhande si
-      too_long: Dr Name isch zläng
       duplicate_name: Dä Account giz scho!
-    description:
-      too_long: D Beschribig isch zläng
-    file:
-      present: D Datei muess ume si
-    team:
-      present: Ds Team muess vorhande si
-    folder:
-      present: Dr Ordner muess ume si
-    cleartext username:
-      too_long: Dr Benutzername isch zläng
-    cleartext password:
-      too_long: Ds Passwort isch zläng
