@@ -47,8 +47,6 @@ ch_be:
   role: Rollä
   empty: läär
 
-  api-user:
-    none: Du hesch kei Api-Benutzer. Hol dr einä
   time:
     formats:
       default: "%A, %d. %B %Y, %H:%M"
@@ -83,18 +81,8 @@ ch_be:
     language:
       name: 'Bärndütsch'
 
-  search:
-    title: Suechä
-    index:
-      hi_user: "Hallo %{username}! Suechsch es Passwort?"
-      no_results_found: äuä nüt gfunde
-      type_to_search: Tippe für z sueche...
-
   encryptables:
     title: 'Zuägangsdate'
-    index_menu:
-      create: Zuägangsdate ersteuä
-      folder: Ordner
     show_menu:
       add_attachment: Anhang hinzufüegä
     edit:
@@ -111,7 +99,6 @@ ch_be:
 
     show:
       account: Zuägangsdate
-      last_change: "Letschti Änderig vor %{time_ago}"
       attachments: Ahäng
       file: Datei
       show_password: Passwort ahzeigä
@@ -124,18 +111,6 @@ ch_be:
 
   admin:
     title: Admin
-    maintenance_tasks:
-      index:
-        title: Wartigsufgabe
-        unavailable: Äuä ke Wartigsufgabe verfüegbar
-        maintenance_task: Wartigsufgab
-        run: Usfüehre
-        prepare: Vorbereite
-        execute: Usführe
-        executed_at: Usgführt am
-        status: Status
-        output: Output
-        executor: Usführer
     settings:
       index:
         title: Istellige bearbeite
@@ -170,8 +145,6 @@ ch_be:
         create: Benutzer ersteuä
       edit:
         title: Benutzer bearbeite
-        reset_password: Passwort zrüggsetze
-        warning: Z Zrüggsetze vom Benutzer-Passwort füehrt zum Verlust vom Zuegriff uf aui private Teams u d Löschig vo aune Teams, i dene er z einzige Mitglied isch
       index:
         title: Benutzer
         username: Benutzernamä
@@ -179,23 +152,14 @@ ch_be:
         provider_uid: PROVIDER UID
         last_login_at: Letschti Ameudig am
         last_login_from: Letschti Ameudig vo
-        admin: Admin
         action: Aktion
         locked: Gsperrte Benutzer
         unlock: Entsperre
       last_teammember_teams:
         message: Folgendi Teams i dene dr zu löschend Benutzer ds letschte Mitglied isch müesse glöscht werde.
-        delete_user: Bisch sicher, dass du dä Benutzer wosch lösche?
         destroy: Benutzer lösche
       new:
         title: Nöie Benutzer
-    teams:
-      index:
-        title: Teams
-        teamname: Teamname
-        num_folders: Ahzahl Ordner
-        num_encryptables: Ahzahl Zuägangsdate
-        members: Mitglieder
   folders:
     title: Ordner
     name: Ordner Name
@@ -222,45 +186,13 @@ ch_be:
       selected_file: Usgwählti Datei
 
   session:
-    user_password:
-      title: Amäudä
-      submit: Amäudä
-    local:
-      new:
-        title: Amäudä
-        submit: Amäudä
-    sso:
-      inactive:
-        title: Amäudä
-        submit: Amäudä
-        inactive: Dini Cryptopus session isch inaktiv
     destroy:
-      title: Abmäudä
-      message: Ufwiderluege
-      hint: Bitte lösch dr Cache vo dim Brauser.
       expired: Du bisch automatisch abgemeldet worde.
-    newuser:
-      title: Willkomme bim Cryptopus
-      description: Mir hei für di es nöis Schlüssupaar ersteut. Viu Spass mitem Cryptopus.
     show_update_password:
-      title: Passwort wechsle
-      old: Auts Passwort
-      new: Nöis Passwort
-      new_retype: Nöis Passwort (nomau)
       submit: Ändere
-  recrypt:
-    sso:
-      new:
-        notice: Bitte gib dis Cryptopus Passwort i für dini Zuägangsdate zu Keycloak z migriere.
-        cryptopus_password: Dis Cryptopus Passwort
-        migrate: Migriere
   teammembers:
     new:
       title: Es nöis Teammitglied hinzuefüege
-    confirm:
-      delete: "%{entry_label} vo dem Team entferne?"
-    show: Mitglider azeige
-    hide: Mitglider verstecke
 
   teams:
     title: Teams
@@ -273,27 +205,12 @@ ch_be:
     form:
       private: Privat
       enabled: Aktiviert
-    index_menu:
-      create: Team ersteue
-    edit_button:
-      title: Bearbeite Eigeschafte vom Team
-    config_button:
-      title: Füeg hinzue u lösch Mitglieder u API Benutzer
-    index:
-      title: 'Du bisch es Mitglied vo de fougende Teams:'
-      team: Team
-      no_content: Ke Resultat
-      search: Suechresultat für
     new:
       title: Team ersteue
     description:
       private: Admins hei ke Zuegriff we si agwäut si
     show:
-      title: "Ordner vom Team %{team_name}"
-      folder: Ordner
       members: Mitglider
-      add_member: Mitglied hinzuefüege
-      admins: Admins
     delete: Team löschä
     favorise: Team favorisiärä
     defavorise: Team entfavorisiärä
@@ -330,25 +247,13 @@ ch_be:
             user: "Aktualisierte Benutzer isch itz ä Benutzer"
             conf_admin: "Aktualisierte Benutzer isch itz ä conf-admin"
             admin: "Aktualisierte Benutzer isch itz ä admin"
-          toggle:
-            empowered: "%{username} het ab iz Admin-Rächt"
-            disempowered: "Am Benutzer %{username} si d Admin-Rächt entzoge worde"
-        settings:
-          test_ldap_connection:
-            successful: "Verbindig zum Ldap Server %{hostname} erfougrich"
-            failed: "Verbindig zum Ldap Server %{hostname} fäugschlage"
-            no_hostname_present: "S isch kein Hostname vorhange"
       api-users:
-        create: "%{username} isch ersteut worde"
         update:
-          description: "%{username}'s Beschribig isch aktualisiert worde"
-          valid_for: "Benutzer %{username} wird nachem nächste Erneuere %{valid_for} gültig si"
           time:
             one_min: für ei Minute
             five_mins: für füüf Minute
             twelve_hours: für zwöuf Stunde
             infinite: bis ads Endi vor Zit
-        destroy: "%{username} isch entfernt worde"
         lock: "%{username} isch gsperrt worde"
         unlock: "%{username} isch entsperrt worde"
         token:
@@ -361,34 +266,11 @@ ch_be:
       errors:
         auth_failed: Authentifizierig fäugschlage
         user_not_logged_in: Benutzer isch nid igloggt
-        invalid_request: Invalidi Ahfrag
         record_not_found: Ihtrag isch nid gfunde worde
         delete_failed: Ihtrag het nid chenne g'löscht wärde
-      fill_password_fields: Bitte füu aui Fäuder us
-      paswords_do_not_match: D Passwörter stimme nid überi
     admin:
       admin:
         no_access: Zuegriff verweigeret
-      settings:
-        example: Das si Bispiuistellige. Bitte schrib dini eigete Istellige härä.
-        successfully_updated: Dini Istellige si erfougrich apasst worde.
-      recryptrequests:
-        some: "Es paar Passwörter si erfougrich widerverschlüsslet worde für %{user_name}."
-        all: "Aui Passwörter si erfougrich widerverschlüsslet worde für %{user_name}."
-        resetpassword:
-          success: Ds Passwort isch erfougrich zrügg gsetzt worde
-          required: Ds Passwort darf nid läär si
-      users:
-        created: Dr nöi Benutzer isch erfougrich ersteut worde.
-        destroy:
-          own_user: Dr eiget Benutzer cha nid glösche werde
-          root: Dr Root cha nid glösche werde
-        update:
-          root: Dr Root cha nid aktualisiert werde
-          not_db: Nume Db User chöi aktualisiert werde
-      maintenance_tasks:
-        succeed: D Wartigsufgab isch erfougrich düregfüehrt worde
-        failed: D Wartigsufgab isch gschiteret. Lueg i de Logs für me Details nache.
 
     encryptables:
       created: Di nöi Zuägangsdate si erfougrich ersteut worde.
@@ -461,14 +343,10 @@ ch_be:
 
   confirm:
     delete: "%{entry_class} %{entry_label} lösche?"
-    change_admin: Admin-Rächt gä/entzie?
 
 
 #Validation Errors
   activerecord:
-    attributes:
-      user:
-        username: 'Benutzername'
     errors:
       template:
         body: ''
@@ -477,20 +355,6 @@ ch_be:
         user:
           new_password_invalid: Dis nöie Passwort isch fausch gsi
           old_password_invalid: Dis aute Passwort isch fausch gsi
-          attributes:
-            username:
-              blank: 'cha nid läär si'
-              taken: 'isch bereits vergä'
-        file_entry:
-          attributes:
-            filename:
-              blank: 'Dr Dateinamä cha nid läär si'
-              taken: 'Dr Dateinamä isch scho vergä'
-
-  password_strength:
-    weak: Ds Passwort isch unsicher
-    good: Ds Passwort gnüegt
-    strong: Ds Passwort isch starch!
 
   tooltips:
     all_teams: Aui Teams
