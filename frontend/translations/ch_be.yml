@@ -89,7 +89,6 @@ ch_be:
   search:
     title: Suechä
     index:
-      hi_user: "Hallo %{username}! Suechsch es Passwort?"
       no_results_found: äuä nüt gfunde
       type_to_search:
         favourites: Tippe um in favorisierte Teams z sueche...
@@ -120,7 +119,6 @@ ch_be:
       encryptable: Zuägangsdate
       created_at: "Ersteut am"
       last_update: "Letschti Änderig am"
-      last_change: "Letschti Änderig vor %{time_ago}"
       attachments: Ahäng
       file: Datei
       show_password: Passwort ahzeigä
@@ -211,13 +209,6 @@ ch_be:
         destroy: Benutzer lösche
       new:
         title: Nöie Benutzer
-    teams:
-      index:
-        title: Teams
-        teamname: Teamname
-        num_folders: Ahzahl Ordner
-        num_encryptables: Ahzahl Zuägangsdate
-        members: Mitglieder
   folders:
     title: Ordner
     name: Ordner Name
