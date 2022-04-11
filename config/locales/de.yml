@@ -107,13 +107,9 @@ de:
         executor: Ausführer
     settings:
       index:
-        title: Einstellungen bearbeiten
-        save: Änderungen speichern
         ldap: Ldap Verbindung testen
         whitelisted_countries: Länder Whitelist
         whitelisted_ips: IP Whitelist
-        whitelist_placeholder_geo_ip_deactivated: Falls keine IP's angegeben sind werden alle IP's erlaubt
-        no_ips_selected: Falls nicht weiter spezifiziert sind nur private und Whitelist IP-Adressen autorisiert
         specify_single_ip: Einzelne IP-Adressen können wie folgt eingegeben werden
         range:
           specify_range_of_ips: Um eine Spannweite zu definieren kann eine IP-Adresse mit der Subnetzmaske eingegeben werden
@@ -134,12 +130,10 @@ de:
         ldap_enter_old_password: Bitte geben Sie Ihr altes LDAP Passwort ein um Ihren privaten Schlüssel zu entschlüsseln.
         ldap_old_password: Ihr altes LDAP Passwort
         ldap_new_password: Ihr neues LDAP Passwort
-        ldap_password: Ihr LDAP Passwort
         forgot_password_recrypt: |
           Falls Sie Ihr Passwort vergessen haben, werden nur Teams entschlüsselt welche nicht privat sind.
           Sollten dadurch private Teams entstehen, auf die niemand Zugriff hat, werden diese gelöscht.
           Nachdem das Formular abgesendet wurde, müssen Sie warten, bis ein Admin die Anfrage abgearbeitet hat.
-        recrypt: Recrypt
         send: Anfrage senden
     users:
       index_menu:
@@ -171,7 +165,6 @@ de:
         teamname: Teamname
         num_folders: Anzahl Ordner
         num_encryptables: Anzahl Zugangsdaten
-        members: Mitglieder
     user_roles:
       user: Benutzer
       conf_admin: Conf Admin
@@ -462,10 +455,6 @@ de:
     attributes:
       user:
         username: Benutzername
-    errors:
-      template:
-        body: ''
-        header: ''
       models:
         user:
           new_password_invalid: Ihr neues Passwort war falsch
