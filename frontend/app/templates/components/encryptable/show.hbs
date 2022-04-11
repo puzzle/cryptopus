@@ -36,15 +36,15 @@
   </div>
   <BsTab as |tab|>
     <tab.pane @title='Credentials'>
-  {{#if @encryptable.description}}
-    <div class="row pb-3">
-      <div class="col">
+      {{#if @encryptable.description}}
+        <div class="row pb-3">
+          <div class="col">
         <br><p class="text-muted description">{{@encryptable.description}}</p>
       </div>
     </div>
-  {{/if}}
-  <div>
-    {{#if @encryptable.isOseSecret}}
+      {{/if}}
+      <div>
+      {{#if @encryptable.isOseSecret}}
       <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptables.show.show_secret"}}</a>
       <div class="result-password">
         <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@encryptable.data.ose_secret}}/>
@@ -68,7 +68,7 @@
       </div>
     {{/if}}
   </div>
-  <div class="d-flex flex-row justify-content-between mb-2">
+      <div class="d-flex flex-row justify-content-between mb-2">
     <div>
       <h3>{{t "encryptables.show.attachments"}}</h3>
     </div>
@@ -78,7 +78,7 @@
       </BsButton>
     </div>
   </div>
-  <table class="table table-striped">
+      <table class="table table-striped">
     <tbody>
       <tr>
         <th>{{t "encryptables.show.file"}}</th>
@@ -91,8 +91,10 @@
     </tbody>
   </table>
     </tab.pane>
-       <tab.pane @title='Logs'>
-          <Encryptable::Table @encryptable={{@encryptable}}/>
-       </tab.pane>
+    <tab.pane @title='Logs'>
+      <div>
+        <Encryptable::Table @encryptable={{@encryptable}}/>
+      </div>
+     </tab.pane>
   </BsTab>
 </div>
