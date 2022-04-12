@@ -5,6 +5,8 @@ ch_be:
   username: Benutzername
   password: Passwort
   version: Version
+  last_login_date_and_from: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}"
+  last_login_date_and_from_country: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from} (%{last_login_country})"
   last_login_date: "Ds letschtä Login isch am %{last_login_at} gsi"
 
   flashes:
@@ -25,7 +27,7 @@ ch_be:
         lock: "%{username} isch gsperrt worde"
         unlock: "%{username} isch entsperrt worde"
         token:
-          renew: "%{username} isch ernöieret worde, nöis Token: %{token}"
+          renew: "%{username} isch ernöieret worde, nöiä Token: %{token}"
       members:
         removed: Mitglied isch erfougrich entfernt worde
 
