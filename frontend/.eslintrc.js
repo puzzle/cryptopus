@@ -15,7 +15,8 @@ module.exports = {
     "plugin:prettier/recommended"
   ],
   env: {
-    browser: true
+    browser: true,
+    jquery: true
   },
   rules: {
     "ember/no-global-jquery": "off",
