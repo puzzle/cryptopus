@@ -31,11 +31,6 @@ de:
         title: Anmelden
         description: Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein um Cryptopus zu verwenden.
         submit: Anmelden
-    sso:
-      inactive:
-        title: Anmelden
-        submit: Anmelden
-        inactive: Deine Cryptopus session ist inaktiv
     destroy:
       expired: Du wurdest automatisch abgemeldet.
     show_update_password:
