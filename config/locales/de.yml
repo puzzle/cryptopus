@@ -11,6 +11,8 @@ de:
   password: Passwort
   version: Version
   settings: Einstellungen
+  last_login_date_and_from: "Das letzte Login war am %{last_login_at} von %{last_login_from}"
+  last_login_date_and_from_country: "Das letzte Login war am %{last_login_at} von %{last_login_from} (%{last_login_country})"
   last_login_date: "Das letzte Login war am %{last_login_at}"
   help: Hilfe
 
@@ -71,7 +73,7 @@ de:
         lock: "%{username} wurde gesperrt"
         unlock: "%{username} wurde entsperrt"
         token:
-          renew: "%{username} wurde erneuert, neues Token: %{token}"
+          renew: "%{username} wurde erneuert, neuer Token: %{token}"
       members:
         removed: Mitglied wurde erfolgreich entfernt
 
