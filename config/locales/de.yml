@@ -7,199 +7,23 @@
 
 de:
   fallback: 'ACHTUNG! Dass ist die Cryptopus Fallback Umgebung. Schreiben sie keine neuen Daten da diese nicht erhalten bleiben!'
-  confirmation: Sind Sie sicher?
-  show: Anzeigen
-  edit: Editieren
-  update: Updaten
-  create: Erstellen
-  delete: Löschen
-  cancel: Abbrechen
-  add: Hinzufügen
-  description: Beschreibung
-  tag: Tag
   username: Benutzername
   password: Passwort
-  actions: Aktionen
-  download: Herunterladen
-  "yes": Ja
-  "no": Nein
-  help: Hilfe
   version: Version
-  logout: Abmelden
-  auto_logout: automatisches Abmelden in
   settings: Einstellungen
-  recrypt_requests: Recrypt Anfragen
-  users: Benutzer
-  user: Benutzer
-  profile_title: Profil
-  last_login_date_and_from: "Das letzte Login war am %{last_login_at} von %{last_login_from}"
-  last_login_date_and_from_country: "Das letzte Login war am %{last_login_at} von %{last_login_from} (%{last_login_country})"
   last_login_date: "Das letzte Login war am %{last_login_at}"
-  unencrypted_field_caption: nicht verschlüsselt
-  folder: Ordner
-  team: Team
-  move: Bewegen"
-  here: Hier
-  new: Neu
-  save: Speichern
-  close: Schliessen
-  hi_user: "Hi, "
-  intro: Du suchst ein Passwort?
-  select_team: Wählen Sie bitte ein Team aus oder nutzen Sie die Suche
-  role: Rolle
-  empty: leer
-
-  i18n:
-    language:
-      name: Deutsch
-
-  search:
-    title: Suche
-    index:
-      hi_user: "Hi %{username}! Du suchst ein Passwort?"
-      no_results_found: keine Resultate gefunden
-      type_to_search: Tippen um zu suchen...
-
-  encryptables:
-    title: Zugangsdaten
-    index_menu:
-      create: Zugangsdaten erstellen
-      folder: Gruppen
-    show_menu:
-      add_attachment: Anhang hinzufügen
-    edit:
-      title: Zugangsdaten editieren
-      random_password: Zufälliges Passwort
-      team_placeholder: Wählen Sie ein Team aus
-      folder_placeholder: Wählen Sie ein Ordner aus
-      password_strength: Passwort Stärke
-      password_strengths:
-        weak: Schwach
-        fair: Angemessen
-        good: Gut
-        strong: Stark
-    show:
-      encryptable: Zugangsdaten
-      last_change: "Letzte Änderung vor %{time_ago}"
-      attachments: Anhänge
-      file: Datei
-      show_password: Passwort anzeigen
-      show_username: Benutzname anzeigen
-      copy_password: Passwort kopieren
-      copy_username: Benutzername kopieren
-      add_attachment: Anhang hinzufügen
-    new:
-      title: Neue Zugangsdaten
+  help: Hilfe
 
   admin:
-    title: "Admin"
-    maintenance_tasks:
-      index:
-        title: Wartungsaufgaben
-        unavailable: Keine Wartungsaufgaben vorhanden
-        maintenance_task: Wartungsaufgabe
-        run: Ausführen
-        prepare: Vorbereiten
-        execute: Ausführen
-        executed_at: Ausgeführt am
-        status: Status
-        output: Output
-        executor: Ausführer
-    settings:
-      index:
-        ldap: Ldap Verbindung testen
-        whitelisted_countries: Länder Whitelist
-        whitelisted_ips: IP Whitelist
-        specify_single_ip: Einzelne IP-Adressen können wie folgt eingegeben werden
-        range:
-          specify_range_of_ips: Um eine Spannweite zu definieren kann eine IP-Adresse mit der Subnetzmaske eingegeben werden
-          range_between: Dies entspricht der Spannweite von
-          and: und
-        IPv6_allowed: IPv6 ist erlaubt und kann wie folgt eingegeben werden
     recryptrequests:
-      index:
-        title: Entschlüsselungs Anfragen
-        user: Benutzer
-        admin_required: Admin erforderlich
-        recrypt: Entschlüsseln
-      request:
-        request_sent: Es wurde eine Recrypt Anfrage gesendet. Bitte warten Sie, bis sie oder er Ihre Passwörter neu verschlüsselt hat.
       uncrypterror:
-        new_password: Neues Passwort?!
-        ldap_password_changed: Ihr LDAP Passwort hat sich seit Ihrem letzten Login geändert.
-        ldap_enter_old_password: Bitte geben Sie Ihr altes LDAP Passwort ein um Ihren privaten Schlüssel zu entschlüsseln.
-        ldap_old_password: Ihr altes LDAP Passwort
-        ldap_new_password: Ihr neues LDAP Passwort
-        forgot_password_recrypt: |
-          Falls Sie Ihr Passwort vergessen haben, werden nur Teams entschlüsselt welche nicht privat sind.
-          Sollten dadurch private Teams entstehen, auf die niemand Zugriff hat, werden diese gelöscht.
-          Nachdem das Formular abgesendet wurde, müssen Sie warten, bis ein Admin die Anfrage abgearbeitet hat.
         send: Anfrage senden
     users:
-      index_menu:
-        create: Benutzer erstellen
-      edit:
-        title: Benutzer bearbeiten
-        reset_password: Passwort zurücksetzen
-        warning: Das zurücksetzen des Passworts eines Benutzers führt zum Verlust des Zugriff auf alle Private Teams und die löschung aller Teams, in denen er der einzige Member ist
       index:
-        title: Liste aller Cryptopus Benutzer
-        username: Benutzername
-        name: Name
-        provider_uid: PROVIDER UID
         last_login_at: Letzte Anmeldung am
         last_login_from: Letzte Anmeldung von
-        admin: Admin
-        action: Aktion
-        locked: Gesperrte Benutzer
-        unlock: Entsperren
-      last_teammember_teams:
-        message: Folgende Teams in denen der zu löschende User der letzte Member ist müssen gelöscht werden.
-        delete_user: Sind Sie sicher, dass Sie diesen Benutzer löschen möchten?
-        destroy: Benutzer löschen
-      new:
-        title: Neuer Benutzer
-    teams:
-      index:
-        title: Teams
-        teamname: Teamname
-        num_folders: Anzahl Ordner
-        num_encryptables: Anzahl Zugangsdaten
-    user_roles:
-      user: Benutzer
-      conf_admin: Conf Admin
-      admin: Admin
-
-  folders:
-    title: Ordner
-    name: Ordner Namen
-    index_menu:
-      create: Ordner erstellen
-    edit:
-      title: Ordner bearbeiten
-    new:
-      title: Ordner erstellen
-    show:
-      move: Zugangsdaten zu einem anderen Ordner verschieben
-      title: "Zugangsdaten des Ordners %{folder_name} des Teams %{team_name}"
-    no_encryptables: Keine Zugangsdaten
-    tooltips:
-      delete: Ordner löschen
-      edit: Ordner bearbeiten
-
-  encryptable_files:
-    new:
-      title: Anhang zu den Zugangsdaten hinzufügen
-      upload_file: Datei hochladen
-      upload: Hochladen
-      choose_file: Wählen Sie eine Datei
-      reupload: Wählen Sie eine andere Datei
-      selected_file: Ausgewählte Datei
 
   session:
-    user_password:
-      title: Anmelden
-      submit: Anmelden
     local:
       new:
         title: Anmelden
@@ -211,18 +35,8 @@ de:
         submit: Anmelden
         inactive: Deine Cryptopus session ist inaktiv
     destroy:
-      title: Abmelden
-      message: Aufwiedersehen
-      hint: Bitte löschen Sie den Cache Ihres Browsers.
       expired: Du wurdest automatisch abgemeldet.
-    newuser:
-      title: Willkommen bei Cryptopus
-      description: Wir haben für Sie ein neues Schlüsselpaar erstellt. Viel Vergnügen mit Cryptopus.
     show_update_password:
-      title: Passwort wechseln
-      old: Altes Passwort
-      new: Neues Passwort
-      new_retype: Neues Passwort (wiederholen)
       submit: Ändern
   recrypt:
     sso:
@@ -230,80 +44,16 @@ de:
         notice: Bitte geben Sie Ihr Cryptopus-Passwort ein, um Ihr Konto zu Keycloak zu migrieren.
         cryptopus_password: Dein Cryptopus Passwort
         migrate: Migrieren
-  teammembers:
-    new:
-      title: Ein neues Teammitglied hinzufügen
-    confirm:
-      delete: "%{entry_label} von diesem team entfernen ?"
-    show: Mitglieder anzeigen
-    hide: Mitglieder verstecken
-
-  teams:
-    title: Teams
-    none_available: Keine Teams verfügbar
-    loading: Am laden ...
-    show:
-      title: "Gruppen des Teams %{team_name}"
-      folder: Gruppe
-      members: Mitglieder
-      add_member: Mitglied hinzufügen
-      admins: Admins
-    form:
-      enabled: Aktiviert
-      private: Privat
-    index_menu:
-      create: Team erstellen
-    edit_button:
-      title: Bearbeite Team Eigenschaften.
-    config_button:
-      title: Füge hinzu oder entferne Mitglieder oder API Benutzer.
-    index:
-      title: 'Sie sind Mitglied der folgenden Teams:'
-      team: Team
-      no_content: Keine Resultate
-      search: Suchresultate für
-    new:
-      title: Team erstellen
-    edit:
-      title: Team bearbeiten
-    description:
-      private: Admins haben keinen Zugriff wenn angewählt
-    configure:
-      title: Teammitglieder und Api Nutzer anpassen
-    delete: Team löschen
-    favorise: Team favorisieren
-    defavorise: Team entfavorisieren
-    no_folders: Keine Ordner
 
   profile:
-    index:
-      title: Profil
     info:
-      info: Info
       last_login_at: Letztes Login um
       last_login_from: Letztes Login von
     api_users:
-      api_users: Api Benutzer
-      no_api_users: keine Api Benutzer
-      username: Benutzername
-      description: Beschreibung
-      enter_description: Geben Sie eine Beschreibung ein..
-      valid_until: Gültig bis
-      valid_for: Gültig für
       last_login_at: Letztes Login um
       last_login_from: Letztes Login von
-      locked: Blockiert
-      options:
-        one_min: Eine Minute
-        five_mins: Fünf Minuten
-        twelve_hours: Zwölf Stunden
-        infinite: Unbegrenzt
-      delete:
-        title: Entferne Api-User
-        content: "Lösche Api-User %{username}?"
 
   flashes:
-    something_went_wrong: Etwas ist falsch gelaufen
     api:
       admin:
         users:
@@ -311,186 +61,33 @@ de:
             user: "Aktualisierter Benutzer ist jetzt ein Benutzer"
             conf_admin: "Aktualisierter Benutzer ist jetzt ein conf-admin"
             admin: "Aktualisierter Benutzer ist jetzt ein admin"
-          toggle:
-            empowered: "%{username} hat nun Admin-Rechte"
-            disempowered: "Dem Benutzer %{username} wurden die Admin-Rechte entzogen"
-          destroy:
-            own_user: "Eigener Benutzer kann nicht gelöscht werden"
-          no_access: "Zugriff verweigert"
-        settings:
-          test_ldap_connection:
-            successful: "Verbindung zum Ldap Server %{hostname} erfolgreich"
-            failed: "Verbindung zum Ldap Server %{hostname} fehlgeschlagen"
-            no_hostname_present: "Kein Hostname vorhanden"
       api-users:
-        create: "%{username} wurde erstellt"
         update:
-          description: "%{username}'s Beschreibung wurde aktualiert"
-          valid_for: "Benutzer %{username} wird nach dem nächsten Erneuern %{valid_for} gültig sein"
           time:
             one_min: für eine Minute
             five_mins: für fünf Minuten
             twelve_hours: für zwölf Stunden
             infinite: bis zum Ende der Zeit
-        destroy: "%{username} wurde entfernt"
         lock: "%{username} wurde gesperrt"
         unlock: "%{username} wurde entsperrt"
         token:
           renew: "%{username} wurde erneuert, neues Token: %{token}"
-        ccli_login:
-          copied: CCLI Login Befehl wurde kopiert
       members:
-        added: Mitglied wurde erfolgreich hinzugefügt
         removed: Mitglied wurde erfolgreich entfernt
-      errors: 
-        auth_failed: Authentifizierung fehlgeschlagen
-        user_not_logged_in: Benutzer ist nicht eingeloggt
-        invalid_request: Invalide Anfrage
-        record_not_found: Eintrag nicht gefunden
-        delete_failed: Eintrag konnte nicht gelöscht werden
-    admin:
-      admin:
-        no_access: Zugriff verweigert
-      settings:
-        example: Dies sind Beispieleinstellungen. Bitte überschreiben Sie sie mit Ihren Einstellungen.
-        successfully_updated: Ihre Einstellungen wurden erfolgreich angepasst.
-      recryptrequests:
-        some: "Einige Passwörter wurden erfolgreich wiederverschlüsselt für %{user_name}."
-        all: "Alle Passwörter wurden erfolgreich wiederverschlüsselt für %{user_name}."
-        resetpassword:
-          success: Das Passwort wurde erfolgreich gesetzt
-          required: Das Passwort darf nicht leer sein
-      users:
-        created: Der neue Benutzer wurde erfolgreich erstellt.
-        destroy:
-          own_user: Eigener Benutzer kann nicht gelöscht werden
-          root: Root kann nicht gelöscht werden
-        update:
-          root: Root kann nicht aktualisiert werden
-          not_db: Nur Db User können aktualisiert werden
-      maintenance_tasks:
-        succeed: Wartungsaufgabe wurde erfolgreich durchgeführt
-        failed: Wartungsaufgabe ist gescheitert. Siehe Logs für mehr Details.
-        ldap_connection:
-          failed: Kein konfigurierter Ldap-Server konnte erreicht werden.
 
-    encryptables:
-      created: Die neuen Zugangsdaten wurden erfolgreich erstellt.
-      updated: Die Zugangsdaten wurden erfolgreich aktualisiert.
-      deleted: Die Zugangsdaten wurden erfolgreich gelöscht.
-      moved: Die Zugangsdaten wurden erfolgreich veschoben
-      username_copied: Benutzername wurde kopiert
-      password_copied: Passwort wurde kopiert
-    application:
-      wait: Bitte warten Sie, bis  Ihre Team Passwörter neu verschlüsselt wurden.
-    folders:
-      created: Die neue Gruppe wurde erfolgreich erstellt.
-      updated: Die Gruppe wurde erfolgreich bearbeitet.
-      deleted: Die Gruppe wurde erfolgreich gelöscht.
     encryptable_files:
       uploaded: Die Datei wurde erfolgreich hochgeladen.
-      deleted: Die Datei wurde erfolgreich gelöscht.
       uploaded_size_to_high: Die Datei ist zu gross zum hochladen. (Max. 10MB)
       uploaded_filename_is_empty: Die Datei muss benannt sein
       uploaded_file_inexistent: Datei ist inexistent
       uploaded_filename_already_exists: Dateiname existiert bereits
     session:
-      welcome: Willkommen bei Cryptopus. Zuerst müssen Sie neue Zugangsdaten erstellen. Bitte wählen Sie ein sicheres Passwort.
       auth_failed: Ungültiger Benutzername / Passwort.
-      only_local: Nur lokale Benutzer dürfen ihr Passwort ändern.
-      new_password_set: Das neue Passwort wurde erfolgreich gesetzt.
-      new_passwords_not_equal: Die neuen Passwörter sind nicht gleich.
-      not_local: Sie sind kein lokaler Benutzer!
-      locked: Der Benutzer ist momentan gesperrt. Bitte versuchen Sie es später nocheinmal oder kontaktiern Sie den Administrator.
       weak_password: Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen
-    recryptrequests:
-      recrypted: Ihr Passwort wurde erfolgreich neu verschlüsselt.
-      wait: Bitte warten Sie, bis Ihre Team Passwörter neu verschlüsselt wurden.
-      wrong_password: Das Passwort war falsch.
-    teams:
-      wrong_user_password: Geben Sie einen gültigen Benutzernamen und ein korrektes Passwort ein oder prüfen Sie Ihre LDAP Einstellungen.
-      created: Das Team wurde erfolgreich erstellt.
-      updated: Das Team wurde erfolgreich angepasst.
-      deleted: Das Team wurde erfolgreich gelöscht
-      cannot_delete: Nur Admins können das Team löschen
-      no_member: Sie sind nicht Mitglied dieses Teams
-      not_existing: "Es existiert kein Team mit der Id %{id}"
-    teammembers:
-      could_not_remove_last_teammember: Der letzte Benutzer eines Teams kann nicht entfernt werden
-      could_not_remove_admin_from_private_team: Admins können nicht aus einem privaten Team gelöscht werden
 
-  helpers:
-    label:
-      user:
-        username: Benutzername
-        password: Passwort
-        admin: Admin
-        givenname: Vorname
-        surname: Nachname
-        submit: Erstellen
-      account:
-        account: Zugangsdaten
-        encryptable_name: Zugangsdatenname
-        username: Benutzername
-        password: Passwort
-        description: Beschreibung
-      team:
-        name: Name
-        description: Beschreibung
-      folder:
-        name: Name
-        description: Beschreibung
-      ldapsetting:
-        portnumber: Port
-        bind_password: Bind Passwort
-        encryption: Verschlüsselung
+    teams:
+      not_existing: "Es existiert kein Team mit der Id %{id}"
 
   confirm:
     delete: "%{entry_class} %{entry_label} löschen?"
-    change_admin: Admin-Rechte geben/entziehen?
 
-
-  #Validation Errors
-  activerecord:
-    attributes:
-      user:
-        username: Benutzername
-      models:
-        user:
-          new_password_invalid: Ihr neues Passwort war falsch
-          old_password_invalid: Ihr altes Passwort war falsch
-          attributes:
-            username:
-              blank: kann nicht leer sein
-              taken: ist bereits vergeben
-        file_entry:
-          attributes:
-            filename:
-              blank: Filename kann nicht leer sein
-              taken: Filename ist bereits vergeben
-
-  password_strength:
-    weak: Das Passwort ist unsicher
-    good: Das Passwort genügt
-    strong: Das Passwort ist stark!
-
-  tooltips:
-    all_teams: Alle Teams
-    favorites: Favoriten
-    add_folder: Erstelle einen neuen Ordner
-    add_encryptable: Erstelle neue Zugangsdaten
-    encryptable_details: Zugangsdaten Details anzeigen
-    delete_folder: Ordner löschen
-    delete_encryptables: Zugangsdaten löschen
-    configure: Konfiguriere Mitglieder
-
-  #Pundit
-  pundit:
-    default: Zugriff verweigert
-    team_policy:
-      update?:  Du bist nicht Mitglied dieses Teams
-      destroy?: Nur Admins dürfen Teams löschen
-
-  validations:
-    name:
-      duplicate_name: Zugangsdaten existiert bereits!
