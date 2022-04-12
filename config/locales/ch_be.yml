@@ -25,6 +25,7 @@ ch_be:
   version: Version
   logout: Abmäudä
   auto_logout: outomatisch Abmäudä i
+  contribute_on_github: Mitwürke uf GitHub
   settings: Istellige
   recrypt_requests: Recrypt Afragä
   users: Benutzer
@@ -225,8 +226,6 @@ ch_be:
     api_users:
       api_users: Api Benützer
       no_api_users: Kei Api Benützer
-      username: Benutzernamä
-      description: Beschribig
       enter_description: Gib e beschribig ii..
       valid_until: Güutig bis
       valid_for: Güutig für
@@ -239,7 +238,6 @@ ch_be:
         infinite: Eewigs
 
   flashes:
-    something_went_wrong: Öppis isch fautsch gloffe
     api:
       admin:
         users:
@@ -272,48 +270,16 @@ ch_be:
       admin:
         no_access: Zuegriff verweigeret
 
-    encryptables:
-      created: Di nöi Zuägangsdate si erfougrich ersteut worde.
-      updated: D Zuägangsdate si erfougrich aktualisiert worde.
-      deleted: D Zuägangsdate si erfougrich glöscht worde.
-      moved: D Zuägangsdate si erfougrich verschobe worde.
-      username_copied: Dr Benutzernamä isch kopiert worde
-      password_copied: Ds Passwort isch kopiert worde
     application:
       wait: Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde.
-    folders:
-      created: Dr nöii Ordner isch erfougrich ersteut worde.
-      updated: Dr Ordner isch erfougrich bearbeitet worde.
-      deleted: Dr Ordner isch erfougrich glöscht worde.
     encryptable_files:
       uploaded: D Datei isch erfougrich ufeglade worde.
-      deleted: D Datei isch erfougrich glöscht worde.
       uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
       uploaded_filename_is_empty: D Datei muess e Name ha
       uploaded_file_blank: D Datei mues ä Inhaut ha
     session:
-      welcome: Willkomme bim Cryptopus. Zerscht muesch nöi Zuägangsdate ersteue. Bitte wäu es sicheres Passwort.
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
-      only_local: Nume lokali Benutzer dörfe ires Passwort ändere.
-      new_password_set: Ds nöie Passwort isch erfougrich gsetzt worde.
-      new_passwords_not_equal: Di nöie Passwörter si nid glich.
-      not_local: Du bisch ke lokale Benutzer!
-      locked: Dr Benutzer isch momentan gsperrt. Bitte probiers speter nomau oder kontaktier dr Administrator.
       weak_password: Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle
-    recryptrequests:
-      recrypted: Dis Passwort isch erfougrich nöi verschlüsslet worde.
-      wait: Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde.
-      wrong_password: Ds Passwort isch fausch gsi.
-    teams:
-      wrong_user_password: Gib e gültige Benutzername u es korrekts Passwort i oder überprüef dini LDAP Istellige.
-      created: Ds Team isch erfougrich ersteut worde.
-      updated: Ds Team isch erfougrich apasst worde.
-      deleted: Ds Team isch erfougrich glöscht worde.
-      cannot_delete: Nume Admins chöi z Team lösche.
-      no_member: Du bisch kes Mitglied vo dem Team
-    teammembers:
-      could_not_remove_last_teammember: Dr letscht Benutzer vomene Team cha nid entfernt werde
-      could_not_remove_admin_from_private_team: Admins chöi nid usemne private Team glöscht werde
 
   helpers:
     label:
