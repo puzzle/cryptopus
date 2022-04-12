@@ -88,3 +88,11 @@ de:
   confirm:
     delete: "%{entry_class} %{entry_label} löschen?"
 
+  activerecord:
+    errors:
+      models:
+        file_entry:
+          attributes:
+            filename:
+              blank: Filename kann nicht leer sein
+              taken: Filename ist bereits vergeben

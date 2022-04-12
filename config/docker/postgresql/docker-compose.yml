@@ -1,0 +1,28 @@
+version: "2"
+
+services:
+  cryptopus:
+    image: quay.io/puzzle/cryptopus:stable
+    container_name: cryptopus
+    env_file:
+      - postgres-prod.env
+    environment:
+      RAILS_DB_ADAPTER: 'postgresql'
+      RAILS_DB_HOST: 'cryptopus-postgres'
+      RAILS_DB_NAME: 'cryptopus_prod'
+      RAILS_DB_PORT: 3306
+      # RAILS_HOST_SSL: 'false' # uncomment for disabling ssl force
+    ports:
+      - 127.0.0.1:8080:3000
+    links:
+      - cryptopus-postgres:cryptopus-postgres
+  cryptopus-postgres:
+    image: postgres:12.10
+    container_name: cryptopus-postgres
+    env_file:
+      - postgres-prod.env
+    restart: always
+    volumes:
+      - cryptopus-postgres:/var/lib/postgres
+volumes:
+  cryptopus-postgres:

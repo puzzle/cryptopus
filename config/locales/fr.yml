@@ -101,3 +101,8 @@ fr:
         user:
           new_password_invalid: Votre nouveau mot de passe était incorrect
           old_password_invalid: Votre ancien mot de passe était incorrect
+        file_entry:
+          attributes:
+            filename:
+              blank: Filename ne peut pas être vide
+              taken: Filename est déjà pris

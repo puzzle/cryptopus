@@ -76,4 +76,8 @@ ch_be:
         user:
           new_password_invalid: Dis nöie Passwort isch fausch gsi
           old_password_invalid: Dis aute Passwort isch fausch gsi
-
+        file_entry:
+          attributes:
+            filename:
+              blank: Filename cha nid läär si
+              taken: Filename isch bereits vergäh

@@ -98,3 +98,8 @@ en:
         user:
           new_password_invalid: Your NEW password was wrong
           old_password_invalid: Your OLD password was wrong
+        file_entry:
+          attributes:
+            filename:
+              blank: Filename does not exist
+              taken: Filename is already taken
