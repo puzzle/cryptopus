@@ -131,6 +131,9 @@ ch_be:
       add_attachment: Anhang hinzufüegä
     new:
       title: Nöie Encryptable
+    log:
+      update: Bearbeitet
+      viewed: Aagluegt
 
   admin:
     title: Admin
