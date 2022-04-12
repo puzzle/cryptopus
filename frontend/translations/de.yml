@@ -407,9 +407,9 @@ de:
       updated: Der Benutzer wurde erfolgreich aktualisiert.
     encryptables: &encryptables_translations
       created: Die neuen Zugangsdaten wurden erfolgreich erstellt.
-      updated: Die neuen Zugangsdaten wurden erfolgreich aktualisiert.
-      deleted: Die neuen Zugangsdaten wurden erfolgreich gelöscht.
-      moved: Die neuen Zugangsdaten wurden erfolgreich veschoben
+      updated: Die Zugangsdaten wurden erfolgreich aktualisiert.
+      deleted: Die Zugangsdaten wurden erfolgreich gelöscht.
+      moved: Die Zugangsdaten wurden erfolgreich veschoben
       username_copied: Benutzername wurde kopiert
       password_copied: Passwort wurde kopiert
 

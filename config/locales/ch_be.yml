@@ -1,241 +1,11 @@
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 ch_be:
   fallback: 'ACHTUNG! Das isch d Cryptopus Fallback Umgebig. Schrib keni neue Date wöu si nid erhalte blibe!'
-  confirmation: Bisch sicher?
-  show: Ahzeigä
-  edit: Editiere
-  update: Aktualisiere
-  create: Ersteuä
-  delete: Löschä
-  add: Drzuätuä
-  description: Beschribig
+  help: Hiuf
+  settings: Istellige
   username: Benutzername
   password: Passwort
-  actions: Aktionä
-  download: Abäladä
-  yes: Ja
-  no: Nei
-  help: Hiuf
   version: Version
-  logout: Abmäudä
-  auto_logout: outomatisch Abmäudä i
-  contribute_on_github: Mitwürke uf GitHub
-  settings: Istellige
-  recrypt_requests: Recrypt Afragä
-  users: Benutzer
-  profile_title: Profiu
-  last_login_date_and_from: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}"
-  last_login_date_and_from_country: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from} (%{last_login_country})"
   last_login_date: "Ds letschtä Login isch am %{last_login_at} gsi"
-  unencrypted_field_caption: nid verschlüsslet
-  folder: Ordner
-  team: Team
-  move: Bewegä
-  here: hiä
-  new: Nöi
-  save: Spichere
-  close: Schliesse
-  hi_user: "Hoi, "
-  intro: Suechsch äuä es Passwort?
-  user: Benutzer
-  select_team: Wähl bitte es team us oder benutz d suechi
-  role: Rollä
-  empty: läär
-
-  time:
-    formats:
-      default: "%A, %d. %B %Y, %H:%M"
-      long: "%A, %d. %B %Y, %H:%M"
-      short: "%d. %B, %H:%M"
-  date:
-    month_names:
-    -
-    - Januar
-    - Februar
-    - März
-    - April
-    - Mai
-    - Juni
-    - Juli
-    - August
-    - Septämber
-    - Oktober
-    - Novämber
-    - Dezämber
-
-    day_names:
-    - Sunntig
-    - Mäntig
-    - Dsischtig
-    - Mittwuch
-    - Donnstig
-    - Fritig
-    - Samstig
-
-  i18n:
-    language:
-      name: 'Bärndütsch'
-
-  encryptables:
-    title: 'Zuägangsdate'
-    show_menu:
-      add_attachment: Anhang hinzufüegä
-    edit:
-      title: Zuägangsdate editiere
-      random_password: Zuefäuigs Passwort
-      team_placeholder: Wähl äs Team us
-      folder_placeholder: Wähl ä Ordner us
-      password_strength: Passwort Sterchi
-      password_strengths:
-        weak: Schwach
-        fair: Agmässe
-        good: Guet
-        strong: Starch
-
-    show:
-      account: Zuägangsdate
-      attachments: Ahäng
-      file: Datei
-      show_password: Passwort ahzeigä
-      show_username: Benutzername ahzeigä
-      copy_password: Passwort kopierä
-      copy_username: Benutzername kopierä
-      add_attachment: Anhang hinzufüegä
-    new:
-      title: Nöi Zuägangsdate
-
-  admin:
-    title: Admin
-    settings:
-      index:
-        title: Istellige bearbeite
-        save: Änderige spichere
-        ldap: Ldap Verbindung testen
-        whitelisted_countries: Länder Whitelist
-        whitelisted_ips: IP Whitelist
-        whitelist_placeholder_geo_ip_deactivated: Faus keini IP's ahgäh sind wärde aui IP's erloubt
-        no_ips_selected: Fauses nit witer spezifiziert isch sind nor privati u Whitelist IP-Adrässe autorisiert
-        specify_single_ip: Einzelni IP-Adrässe chöi wie fougt ihgäh wärde
-        range:
-          specify_range_of_ips: Zum ä Spannwiiti z definiere chane IP-Adrässe mit de Subnetzmaske ihgäh wärde
-          range_between: Ds entspricht dr Spannwiiti zwösche
-          and: u
-        IPv6_allowed: IPv6 isch erloubt u cha wie fougt ihgäh wärde
-    recryptrequests:
-      uncrypterror:
-        new_password: Nöis Passwort?!
-        ldap_password_changed: Dis LDAP Passwort het sech sit dim letschte Login gänderet.
-        ldap_enter_old_password: Bitte gibt dies aute LDAP Passwort i um di privat Schlüssu z entschlüssle.
-        ldap_old_password: Dis aute LDAP Passwort
-        ldap_new_password: Dis nöie LDAP Passwort
-        ldap_password: Dis LDAP Passwort
-        forgot_password_recrypt: |
-          Faus dis Passwort hesch vergässä, wärdä nur d Teams entschlüsslet wo nid privat si.
-          Entstö dür das privati Teams uf die niemer Zuegriff het, wärdä die glöscht.
-          Nachdäm z Formular isch abgsendet worde, muesch warte, bis ä Admin d Afrag abgarbeitet het.
-        recrypt: Recrypt
-        send: Ahfrag sändä
-    users:
-      index_menu:
-        create: Benutzer ersteuä
-      edit:
-        title: Benutzer bearbeite
-      index:
-        title: Benutzer
-        username: Benutzernamä
-        name: Namä
-        provider_uid: PROVIDER UID
-        last_login_at: Letschti Ameudig am
-        last_login_from: Letschti Ameudig vo
-        action: Aktion
-        locked: Gsperrte Benutzer
-        unlock: Entsperre
-      last_teammember_teams:
-        message: Folgendi Teams i dene dr zu löschend Benutzer ds letschte Mitglied isch müesse glöscht werde.
-        destroy: Benutzer lösche
-      new:
-        title: Nöie Benutzer
-  folders:
-    title: Ordner
-    name: Ordner Name
-    index_menu:
-      create: Ordner ersteue
-    edit:
-      title: Ordner bearbeite
-    new:
-      title: Ordner ersteue
-    show:
-      move: Zuägangsdate zumnä angere Ordner verschiebe
-      title: "Zuägangsdate vom Ordner %{folder_name} vom Team %{team_name}"
-    no_encryptables: Ke Zuägangsdate
-    tooltips:
-      delete: Ordner lösche
-      edit: Ordner bearbeite
-  file_entries:
-    new:
-      title: Ahang zu dä Zuägangsdate hinzuefüege
-      upload: Ufeladä
-      upload_file: Datei zum ufeladä
-      choose_file: Suech e Datei us
-      reupload: Wähl e angeri Datei
-      selected_file: Usgwählti Datei
-
-  session:
-    destroy:
-      expired: Du bisch automatisch abgemeldet worde.
-    show_update_password:
-      submit: Ändere
-  teammembers:
-    new:
-      title: Es nöis Teammitglied hinzuefüege
-
-  teams:
-    title: Teams
-    none_available: Kener Teams verfüegbar
-    loading: Am lade ...
-    edit:
-      title: Team bearbeite
-    configure:
-      title: Teammitglider u Api Benützer apasse
-    form:
-      private: Privat
-      enabled: Aktiviert
-    new:
-      title: Team ersteue
-    description:
-      private: Admins hei ke Zuegriff we si agwäut si
-    show:
-      members: Mitglider
-    delete: Team löschä
-    favorise: Team favorisiärä
-    defavorise: Team entfavorisiärä
-    no_folders: Ke Ordner
-  profile:
-    index:
-      title: "S Profil vom %{label}"
-    info:
-      info: Info
-      last_login_at: Letschts Login am
-      last_login_from: Letschts Login vo
-    api_users:
-      api_users: Api Benützer
-      no_api_users: Kei Api Benützer
-      enter_description: Gib e beschribig ii..
-      valid_until: Güutig bis
-      valid_for: Güutig für
-      last_login_at: Letschts Login am
-      last_login_from: Letschts Login vo
-      options:
-        one_min: Ei minutä
-        five_mins: Füf minutä
-        twelve_hours: Zwöuf Stung
-        infinite: Eewigs
 
   flashes:
     api:
@@ -256,19 +26,8 @@ ch_be:
         unlock: "%{username} isch entsperrt worde"
         token:
           renew: "%{username} isch ernöieret worde, nöis Token: %{token}"
-        ccli_login:
-          copied: CCLI Login Befäu isch kopiert worde
       members:
-        added: Mitglied isch erfougrich hinzuegfüegt worde
         removed: Mitglied isch erfougrich entfernt worde
-      errors:
-        auth_failed: Authentifizierig fäugschlage
-        user_not_logged_in: Benutzer isch nid igloggt
-        record_not_found: Ihtrag isch nid gfunde worde
-        delete_failed: Ihtrag het nid chenne g'löscht wärde
-    admin:
-      admin:
-        no_access: Zuegriff verweigeret
 
     application:
       wait: Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde.
@@ -282,57 +41,37 @@ ch_be:
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
       weak_password: Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle
 
-  helpers:
-    label:
-      user:
-        username: Benutzername
-        password: Passwort
-        admin: Admin
-        givenname: Vorname
-        surname: Nachname
-        submit: Ersteue
-      account:
-        account: Zuägangsdate
-        encryptable_name: Zuägangsdatename
-        username: Benutzername
-        password: Passwort
-        description: Beschribig
-      team:
-        name: Name
-        description: Beschribig
-      folder:
-        name: Name
-        description: Beschribig
-      ldapsetting:
-        portnumber: Port
-        bind_password: Bind Passwort
-        encryption: Verschlüsselig
+  session:
+    destroy:
+      expired: Du bisch automatisch abgemeldet worde.
+    show_update_password:
+      submit: Ändere
+
+  admin:
+    recryptrequests:
+      uncrypterror:
+        send: Ahfrag sändä
+    users:
+      index:
+        last_login_at: Letschti Ameudig am
+        last_login_from: Letschti Ameudig vo
+
+  profile:
+    info:
+      last_login_at: Letschts Login am
+      last_login_from: Letschts Login vo
+    api_users:
+      last_login_at: Letschts Login am
+      last_login_from: Letschts Login vo
 
   confirm:
     delete: "%{entry_class} %{entry_label} lösche?"
 
-
 #Validation Errors
   activerecord:
     errors:
-      template:
-        body: ''
-        header: ''
       models:
         user:
           new_password_invalid: Dis nöie Passwort isch fausch gsi
           old_password_invalid: Dis aute Passwort isch fausch gsi
 
-  tooltips:
-    all_teams: Aui Teams
-    favorites: Favoritä
-    add_folder: Erstell en neue Ordner
-    add_encryptable: Ersteu nöi Zuägangsdate
-    encryptable_details: Zuägangsdate Details ahzeige
-    delete_folder: Ordner lösche
-    delete_encryptables: Zuägangsdate lösche
-    configure: Konfigurier d'Mitgliedr
-
-  validations:
-    name:
-      duplicate_name: Diä Zuägangsdate giz scho!
