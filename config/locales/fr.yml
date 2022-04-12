@@ -86,7 +86,6 @@ fr:
       uploaded_filename_already_exists: Le nom de fichier existe déjà
     session:
       auth_failed: L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe.
-      wrong_password: Mot de passe incorrect.
       weak_password: Pour améliorer la sécurité vous devez déterminer un mot de passe utilisateur plus complexe.
 
     teams:

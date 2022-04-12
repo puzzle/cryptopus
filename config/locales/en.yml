@@ -27,11 +27,9 @@ en:
 
   session:
     user_password:
-      title: Log in
       submit: Login
     local:
       new:
-        title: Log in
         submit: Login
     oidc:
       sleep: I'm currently asleep to protect your precious data from session thieves. Feel free to wake me up any time
