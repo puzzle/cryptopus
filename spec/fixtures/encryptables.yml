@@ -32,3 +32,9 @@ credentials2:
   folder: folder2
   tag: tag
   encrypted_data: '{"password":{"iv":null,"data":"X2i8woXXwIHew6zcnBws9Q=="},"username":{"iv":null,"data":"Kvkd66uUiNq4Gw4Yh7PvVg=="}}'
+
+osesecret1:
+  type: Encryptable::OseSecret
+  name: postgresql-token
+  folder: folder2
+  encrypted_data: '{"ose_secret":{"iv":null, "data":"CGRwhrTh0tj+Aglr5ztEX+cRm+vjlmm5qMVyQMJs4GnbhAj41WgzNEgCmSsu/Id7coQ1F44+TYJRcCH4ypAQ5vIYQbRqf1Iyeo4a1/s6x7a8NAcGk3x1VC1YxBFeNxlJs0d1nxC39gY3BsYnk5DNfkVv1BswQRwE9Y7KWzusP2sKQleLgdfKIDOLloCiGyod"}}'
