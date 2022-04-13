@@ -100,7 +100,9 @@ de:
       add_attachment: Anhang hinzufügen
     new:
       title: Neues Encryptable
-
+    log:
+      update: Bearbeitet
+      viewed: Angesehen
   admin:
     title: "Admin"
     maintenance_tasks:
