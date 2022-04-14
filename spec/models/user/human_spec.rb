@@ -38,6 +38,7 @@ describe User::Human do
         expect(default_folder).to be_present
         expect(personal_team.teammember?(user)).to eq(true)
         expect(personal_team.private?).to eq(true)
+        expect(personal_team.name).to eq(user.username)
       end
 
       it 'deletes personal team when user is deleted' do
