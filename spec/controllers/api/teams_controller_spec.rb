@@ -39,7 +39,7 @@ describe Api::TeamsController do
       get :index, xhr: true
 
       expect(data.size).to be(3)
-      expect(included.size).to be(4)
+      expect(included.size).to be(5)
 
       data.each do |team|
         expect(team['type']).to eq('teams')
@@ -52,7 +52,7 @@ describe Api::TeamsController do
       end
 
       included_folders = included.select { |e| e['type'] == 'folders' }
-      expect(included_folders.size).to be(4)
+      expect(included_folders.size).to be(5)
     end
 
     it 'raises error if team_id doesnt exist' do
