@@ -59,7 +59,7 @@ describe User::Api do
     context 'personal_team' do
 
       it 'does not create personal_team for API user' do
-        user = User::Api.create!(username: "APIAlice", human_user: users(:alice).dup)
+        user = User::Api.create!(username: 'APIAlice', human_user: users(:alice).dup)
         expect(user.personal_team_id).to eq(nil)
       end
     end

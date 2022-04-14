@@ -30,7 +30,7 @@ describe User::Human do
     context 'personal team' do
       it 'creates personal team for human user' do
         user = users(:alice).dup
-        user.username = "Alice2"
+        user.username = 'Alice2'
         user.save!
         personal_team = user.personal_team
         default_folder = Folder.where(team_id: user.personal_team_id)
