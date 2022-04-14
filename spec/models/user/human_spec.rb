@@ -33,7 +33,9 @@ describe User::Human do
         user.username = "Alice2"
         user.save!
         personal_team = user.personal_team
+        default_folder = Folder.where(team_id: user.personal_team_id)
         expect(user.personal_team).to be_present
+        expect(default_folder).to be_present
         expect(personal_team.teammember?(user)).to eq(true)
         expect(personal_team.private?).to eq(true)
       end

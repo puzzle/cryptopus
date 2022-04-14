@@ -30,3 +30,7 @@ folder3:
 folder4:
   name: folder4
   team: team1
+
+default_folder_bob:
+  name: default
+  team: personal_team_bob
