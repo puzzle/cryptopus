@@ -15,6 +15,7 @@ export default class ShowComponent extends Component {
     this.store.query("file-entry", {
       encryptableId: this.args.encryptable.id
     });
+    this.getLogs();
 
     window.scrollTo(0, 0);
   }
@@ -60,5 +61,15 @@ export default class ShowComponent extends Component {
   @action
   onCopied(attribute) {
     this.notify.info(this.intl.t(`flashes.encryptables.${attribute}_copied`));
+  }
+
+  @action
+  getLogs() {
+    this.store
+      .query("paper-trail-version", {
+        encryptableId: this.args.encryptable.id
+      })
+      .sortBy("created_at")
+      .reverse();
   }
 }
