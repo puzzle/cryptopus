@@ -573,7 +573,9 @@ describe Api::EncryptablesController do
       end.to change { Encryptable::OseSecret.count }.by(1)
 
       expect(response).to have_http_status(201)
-    end context 'DELETE destroy' do
+    end
+
+    context 'DELETE destroy' do
       it 'cant destroy an encryptable if not in team' do
         login_as(:alice)
 
