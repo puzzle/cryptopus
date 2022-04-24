@@ -99,7 +99,7 @@ describe Api::TeamsController do
 
       expect(response.status).to be(200)
 
-      expect(data.size).to be(1)
+      expect(data.size).to be(2)
       attributes = data.first['attributes']
 
       included_types = json['included'].map { |e| e['type'] }
@@ -113,7 +113,7 @@ describe Api::TeamsController do
 
       folder_relationships_length = data.first['relationships']['folders']['data'].size
 
-      expect(included.size).to be(5)
+      expect(included.size).to be(6)
       expect(folder_relationships_length).to be(3)
 
     end
