@@ -65,7 +65,7 @@ describe User::Human do
         user = users(:alice).dup
         personal_team = Team.find(user.personal_team_id)
         user.destroy
-        expect(Team.all).not_to include personal_team
+        expect(Team.exists?(personal_team.id)).to eq(false)
       end
 
     end
