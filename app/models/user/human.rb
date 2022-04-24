@@ -38,7 +38,7 @@ class User::Human < User
   has_many :api_users, class_name: 'User::Api', dependent: :destroy,
                        foreign_key: :human_user_id
 
-  belongs_to :personal_team, class_name: 'Team', dependent: :destroy
+  has_one :personal_team, class_name: 'Team', dependent: :destroy, foreign_key: :personal_owner_id
 
   scope :locked, -> { where(locked: true) }
   scope :unlocked, -> { where(locked: false) }
@@ -144,8 +144,8 @@ class User::Human < User
   end
 
   def create_personal_team!
-    self.personal_team = Team.create(self, name: username, private: true)
-    personal_team.folders.create!(name: 'default', team_id: personal_team_id)
+    team = Team.create(self, name: username, private: true, personal_owner_id: id)
+    team.folders.create!(name: 'default')
     save!
   end
 

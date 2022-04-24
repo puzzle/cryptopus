@@ -18,7 +18,7 @@ class TeammemberPolicy < TeamDependantPolicy
   private
 
   def personal_team?
-    team.id == @user.personal_team_id
+    team.personal_team?
   end
 
   def team

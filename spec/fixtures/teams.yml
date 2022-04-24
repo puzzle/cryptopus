@@ -31,19 +31,24 @@ team2:
 personal_team_bob:
   name: bob
   private: true
+  personal_owner: bob
 
 personal_team_alice:
   name: alice
   private: true
+  personal_owner: alice
 
 personal_team_root:
   name: root
   private: true
+  personal_owner: root
 
 personal_team_admin:
   name: admin
   private: true
+  personal_owner: admin
 
 personal_team_conf_admin:
   name: conf_admin
   private: true
+  personal_owner: conf_admin

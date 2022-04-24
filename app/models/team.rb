@@ -20,8 +20,7 @@ class Team < ApplicationRecord
   has_many :folders, -> { order :name }, dependent: :destroy
   has_many :teammembers, dependent: :delete_all
   has_many :members, through: :teammembers, source: :user
-  has_one :personal_team_owner, class_name: 'User::Human', inverse_of: 'personal_team', foreign_key:
-    :personal_team_id, dependent: nil
+  belongs_to :personal_owner, class_name: 'User::Human', inverse_of: 'personal_team'
   has_many :user_favourite_teams, dependent: :destroy
 
   validates :name, presence: true
@@ -82,6 +81,10 @@ class Team < ApplicationRecord
   def decrypt_team_password(user, plaintext_private_key)
     crypted_team_password = teammember(user.id).password
     Crypto::Rsa.decrypt(crypted_team_password, plaintext_private_key)
+  end
+
+  def personal_team?
+    personal_owner_id.present?
   end
 
   private
