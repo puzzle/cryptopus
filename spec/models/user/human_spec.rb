@@ -33,7 +33,7 @@ describe User::Human do
         user.username = 'Alice2'
         user.save!
         personal_team = user.personal_team
-        default_folder = Folder.where(team_id: user.personal_team_id)
+        default_folder = personal_team.folders.first
         expect(user.personal_team).to be_present
         expect(default_folder).to be_present
         expect(personal_team.teammember?(user)).to eq(true)
@@ -43,9 +43,11 @@ describe User::Human do
 
       it 'deletes personal team when user is deleted' do
         user = users(:alice).dup
-        personal_team = Team.find(user.personal_team_id)
-        user.destroy
-        expect(Team.exists?(personal_team.id)).to eq(false)
+        user.username = 'Alice2'
+        user.save!
+        personal_team_id = user.personal_team.id
+        user.destroy!
+        expect(Team.exists?(personal_team_id)).to eq(false)
       end
 
     end

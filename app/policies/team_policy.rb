@@ -54,6 +54,6 @@ class TeamPolicy < TeamDependantPolicy
   end
 
   def personal_team?
-    @record.id == @user.personal_team_id
+    @record.personal_team?
   end
 end

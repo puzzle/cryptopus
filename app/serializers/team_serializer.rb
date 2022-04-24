@@ -13,11 +13,6 @@
 #  private     :boolean          default(FALSE), not null
 #
 
-# Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-# Cryptopus and licensed under the Affero General Public License version 3 or later.
-# See the COPYING file at the top-level directory or at
-# https://github.com/puzzle/cryptopus.
-
 class TeamSerializer < ApplicationSerializer
   attributes :id, :name, :description, :private, :favourised, :deletable, :personal_team
 
@@ -29,6 +24,10 @@ class TeamSerializer < ApplicationSerializer
 
   def deletable
     TeamPolicy.new(user, object).destroy?
+  end
+
+  def personal_team
+    object.personal_team?
   end
 
   private
