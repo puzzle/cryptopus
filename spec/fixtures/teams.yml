@@ -29,21 +29,21 @@ team2:
   private: true
 
 personal_team_bob:
-  name: personal-team
+  name: bob
   private: true
 
 personal_team_alice:
-  name: personal-team
+  name: alice
   private: true
 
 personal_team_root:
-  name: personal-team
+  name: root
   private: true
 
 personal_team_admin:
-  name: personal-team
+  name: admin
   private: true
 
 personal_team_conf_admin:
-  name: personal-team
+  name: conf_admin
   private: true

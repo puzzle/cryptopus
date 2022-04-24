@@ -6,7 +6,6 @@ describe FolderPolicy do
   include PolicyHelper
 
   let(:folder2) { folders(:folder2) }
-  let(:default_folder_bob) { folders(:default_folder_bob) }
   let(:team2) { teams(:team2) }
 
   context 'as teammember' do
@@ -32,14 +31,6 @@ describe FolderPolicy do
 
     it 'can destroy folder' do
       assert_permit bob, folder2, :destroy?
-    end
-
-    it 'cannot destroy folder when in personal-team' do
-      refute_permit bob, default_folder_bob, :destroy?
-    end
-
-    it 'cannot update folder when in personal-team' do
-      refute_permit bob, default_folder_bob, :update?
     end
   end
 
