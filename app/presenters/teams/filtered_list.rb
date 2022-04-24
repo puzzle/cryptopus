@@ -11,7 +11,7 @@ module ::Teams
       filtered_teams = filter_by_id if team_id.present?
       filtered_teams = filter_by_last_teammember if only_teammember_user.present?
 
-      assign_personal_team(filtered_teams)
+      filtered_teams
     end
 
     private
@@ -68,13 +68,6 @@ module ::Teams
 
     def filter_by_last_teammember
       only_teammember_user.only_teammember_teams
-    end
-
-    def assign_personal_team(teams)
-      teams.each do |t|
-        personal_team = t.id == @current_user.personal_team_id
-        t.personal_team = personal_team
-      end
     end
   end
 end
