@@ -36,5 +36,5 @@ credentials2:
 osesecret1:
   type: Encryptable::OseSecret
   name: postgresql-token
-  folder: folder2
+  folder: folder1
   encrypted_data: '{"ose_secret":{"iv":null, "data":"CGRwhrTh0tj+Aglr5ztEX+cRm+vjlmm5qMVyQMJs4GnbhAj41WgzNEgCmSsu/Id7coQ1F44+TYJRcCH4ypAQ5vIYQbRqf1Iyeo4a1/s6x7a8NAcGk3x1VC1YxBFeNxlJs0d1nxC39gY3BsYnk5DNfkVv1BswQRwE9Y7KWzusP2sKQleLgdfKIDOLloCiGyod"}}'
