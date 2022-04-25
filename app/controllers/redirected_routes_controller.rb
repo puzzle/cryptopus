@@ -4,11 +4,13 @@ class RedirectedRoutesController < ApplicationController
 
   layout false
 
+  include RenderFrontend
+
   def redirect
     skip_authorization
 
     if url_handler.frontend_path?
-      render file: frontend_file
+      render_frontend
     else
       raise ActionController::RoutingError, 'Not Found' if request.path == url_handler.redirect_to
 
@@ -22,17 +24,4 @@ class RedirectedRoutesController < ApplicationController
     @url_handler ||= RedirectedRoutes::UrlHandler.new(request.path)
   end
 
-  def frontend_file
-    index_name = 'index'
-
-    if Rails.env.test? && File.exist?(file_path('index-test'))
-      index_name = 'index-test'
-    end
-
-    file_path(index_name)
-  end
-
-  def file_path(index_name)
-    Rails.root.join("public/frontend-#{index_name}.html")
-  end
 end
