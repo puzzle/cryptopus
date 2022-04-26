@@ -61,8 +61,6 @@ fr:
   search:
     title: Recherche
     index:
-      hi_user: "Salut %{username}! Vous cherchez un mot de passe?"
-      no_results_found: Aucun résultat trouvé
       type_to_search:
         favourites: Appuyez pour rechercher dans les équipes favorites...
         all: Appuyez pour rechercher dans tout les équipes...
@@ -71,7 +69,6 @@ fr:
     title: Comptes
     index_menu:
       create: Créer compte
-      folder: Dossier
     show_menu:
       add_attachment: Ajouter un attachement
     edit:
@@ -90,7 +87,6 @@ fr:
       encryptable: Compte
       created_at: "Créé à"
       last_update: "Dernie changement à"
-      last_change: "Dernière mise à jour il ya %{time_ago}"
       attachments: Attachements
       file: Fichier
       show_password: Afficher le mot de passe
@@ -103,29 +99,12 @@ fr:
 
   admin:
     title: "Admin"
-    maintenance_tasks:
-      index:
-        title: Les tâches de maintenance
-        unavailable: Il n'y a pas de tâches de maintenance
-        maintenance_task: Tâche de maintenance
-        run: effectuer
-        prepare: préparer
-        execute: effectuer
-        executed_at: Effectué à
-        status: Statut
-        output: Output
-        executor: Effectueur
     settings:
       index:
-        title: Modifier les paramètres
-        save: Sauvegarder les modifications
-        ldap: Tester la connexion LDAP
         whitelisted_countries: Pays sur liste blanche
         whitelisted_countries_prompt: Choisissez quelques pays...
         whitelisted_ips: Adresses IP en liste blanche
         whitelist_ip_prompt: Entrez des adresses IP
-        whitelist_placeholder_geo_ip_deactivated: Si aucune IP n'est ajoutée, toutes les IP seront autorisées
-        no_ips_selected: Si rien n'est sélectionné, seules les ips privées et en liste blanche sont autorisées
         specify_single_ip: Pour spécifier une seule adresse IP, entrez-la simplement comme
         range:
           specify_range_of_ips: Pour spécifier une portée, vous pouvez entrer l'adresse IP avec le masque de sous-réseau
@@ -134,33 +113,21 @@ fr:
         ipv6_allowed: IPv6 est autorisé et peut être saisi comme ceci
         geo_ip_disabled: Le filtre IP source est désactivé. Veuillez installer GeoIP DB
     recryptrequests:
-      index:
-        title: Demandes de re crypt
-        user: Utilisateur
-        admin_required: Admin requis
-        recrypt: re crypt
-      request:
-        request_sent: Une demande de re crypt vos mots de passe de groupe a été envoyée. S'il vous plaît attendre jusqu'à ce qu'elle re crypté vos nouveaux mots de passe.
       uncrypterror:
-        new_password: Nouveau mot de passe?!
         ldap_password_changed: Votre mot de passe de LDAP a changé depuis votre dernière connexion.
         ldap_enter_old_password: S'il vous plaît entrez votre ancien mot de passe pour déchiffrer votre clé privée.
         ldap_old_password: Votre ancien mot de passe de LDAP
         ldap_new_password: Votre nouveau mot de passe de LDAP
-        ldap_password: Votre mot de passe de LDAP
         forgot_password_recrypt: |
           Si vous avez oublié votre mot de passe, seulement celles équipes sont décryptées qui ne sont pas privées.
           Tout les équipes sur laquelles personnes n'a accès sont supprimées.
           Après l'envoi du formulaire, vous devez attendre jusqu'à ce qu'un administrateur a traité la demande.
-        recrypt: Re crypter
         send: Envoyer la demande
     users:
       index_menu:
         create: Créer utilisateur
       edit:
         title: Modifier l'utilisatuer
-        reset_password: Réinitialiser mot de passe
-        warning: Avec la réinitialisation du mot de passe l’utilisateur perd l’access a tout ses teams privées et tout les teams ou il est le seul membre seront supprimées
       index:
         title: Des utilisateurs
         username: Nom d'utilisateur
@@ -169,45 +136,24 @@ fr:
         provider_uid: "PROVIDER: UID"
         last_login_at: Dernière connexion à
         last_login_from: Dernière connexion de
-        admin: Admin
         action: Action
         locked: Bloqué utilisateurs
         unlocked: Utilisateurs activés
-        unlock: déverrouillage
         role: Rôle
       last_teammember_teams:
         message: L'équipe suivante sera supprimée, car l'utilisateur est son dernier membre.
-        delete_user: Êtes-vous sûr de vouloir supprimer cet utilisateur?
         destroy: supprimer l'utilisateur
       new:
         title: Nouvel utilisateur
-    teams:
-      index:
-        title: Teams
-        teamname: Nom de l'équipe
-        num_folders: Nombre de dossiers
-        num_encryptables: Nombre de comptes
-        members: Membres
-    user_roles:
-      user: Utilisateur
-      conf_admin: Conf Admin
-      admin: Admin
 
   folders:
-    title: Dossiers
     name: Nom du dossier
-    index_menu:
-      create: Créer dossier
     edit:
       title: Modifier le dossier
     new:
       title: Nouveau dossier
-    show:
-      move: Déplacer compte à un autre dossier
-      title: "Comptes du dossier %{folder_name} de l'équipe %{team_name}"
     no_encryptables: Pas de comptes
     tooltips:
-      delete: Supprimer le dossier
       edit: Modifier le dossier
   encryptable_files:
     new:
@@ -219,47 +165,13 @@ fr:
       selected_file: Le fichier sélectionné
 
   session:
-    new:
-      title: Identifiez-vous
-      description: S'il vous plaît entrer un nom d'utilisateur valide et mot de passe.
-      submit: S'identifier
-    local:
-      new:
-        title: Identifiez-vous
-        description: S'il vous plaît entrer un nom d'utilisateur valide et mot de passe.
-        submit: S'identifier
-    sso:
-      inactive:
-        title: Identifiez-vous
-        submit: S'identifier
-        inactive: Votre session Cryptopus est inactive
     destroy:
-      title: Déconnexion
-      message: Au revoir
-      hint: S'il vous plaît vider le cache de votre navigateur.
       expired: Tu as été automatiquement déconnecté
-    newuser:
-      title: Bienvenue à Cryptopus
-      description: Nous avons créé une nouvelle paire de clés pour vous. Amusez-vous avec Cryptopus.
     show_update_password:
-      title: Changer le mot de passe
-      old: Ancien mot de passe
-      new: Nouveau mot de passe
-      new_retype: Nouveau mot de passe (retaper)
       submit: Change
-  recrypt:
-    sso:
-      new:
-        notice: Veuillez entrer votre mot de passe Cryptopus pour migrer votre compte vers Keycloak.
-        cryptopus_password: Votre mot de passe Cryptopus
-        migrate: Migrer
   teammembers:
     new:
       title: Ajouter un nouveau membre de l'équipe
-    confirm:
-      delete: "Supprimer %{entry_label} de cette équipe ?"
-    show: Voir les membres
-    hide: Membres masquer
 
   teams:
     title: Équipes
@@ -268,32 +180,24 @@ fr:
     form:
       enabled: Activé
       private: Privé
-      private_hint: Administrateurs n'ont pas accès à cette équipe.
-    index_menu:
-      create: Créer équipe
     index:
-      title: "Vous êtes membre des équipes suivantes:"
-      team: Équipe
       no_content: Aucun résultat trouvé
       search: Résultats pour
-    edit:
-      title: Modifier l'équipe
     new:
       title: Nouvelle équipe
+    edit:
+      title: Modifier l'équipe
     description:
       private: Administrateurs auront pas accès à votre équipe.
     show:
-      title: "Dossiers de l'équipe %{team_name}"
-      folder: Dossier
       members: Membres
-      add_member: Ajouter un membre
-      admins: Admins
     configure:
       title: Adjuster les membres d'équipe et les utilisateurs d'API
     delete: Supprimer l'équipe
     favorise: Favoriser l'équipe
     defavorise: Dé-privilégier l'équipe
     no_folders: Pas de dossiers
+
   profile:
     index:
       title: Profil
@@ -304,8 +208,6 @@ fr:
     api_users:
       api_users: Utilisateurs d'Api
       no_api_users: Il n'y a pas d'utilisateurs d'Api
-      username: Nom d'utilisateur
-      description: Description
       enter_description: Entrez une description..
       valid_until: Valable jusque
       valid_for: Valable
@@ -319,9 +221,6 @@ fr:
         five_mins: Cinq minutes
         twelve_hours: Douze heures
         infinite: Illimité
-      delete:
-        title: Supprimer Api-User
-        content: "Est-ce que vous voulez supprimer l'utilisateur d'Api %{username}?"
 
   flashes:
     api:
@@ -331,29 +230,15 @@ fr:
             user: "L'utilisateur mis à jour est maintenant un utilisateur"
             conf_admin: "L'utilisateur mis à jour est maintenant un conf-admin"
             admin: "L'utilisateur mis à jour est maintenant un admin"
-          toggle:
-            empowerd: L'usutilisateur a reçu les droits d administrateur
-            disempowerd: L'utilisateur a perdu les droits d'administrateur
           destroy:
-            own_user: Actuel de l'utilisateur ne peut pas être supprimé
             success: "L'utilisateur d'Api supprimé avec succès"
-          no_access: Accès refusé
-        settings:
-          test_ldap_connection:
-            successful: Connexion au serveur Ldap réussie
-            failed: Connexion au serveur Ldap échoué
-            no_hostname_present: Aucun nom d'hôte n'existe
       api-users:
-        create: "%{username} a été crée"
         update:
-          description: "La description de %{username} a été mis à jour"
-          valid_for: "L'Utilisateur %{username} sera valable %{valid_for} dès le prochain renouvellement"
           time:
             one_min: pour une minute
             five_mins: pour cinq minutes
             twelve_hours: pour douze heurs
             infinite: infiniment
-        destroy: "%{username} a été supprime"
         lock: "%{username} est maintenant bloqué"
         unlock: "%{username} n'est plus bloqué"
         token:
@@ -375,37 +260,12 @@ fr:
     admin:
       admin:
         no_access: Accès refusé
-      settings:
-        example: Ce sont des exemples de paramètres. S'il vous plaît écraser avec vos paramètres.
-        successfully_updated: Vos paramètres ont été modifiés avec succès.
-      recryptrequests:
-        some: "Certains mots de passe ont été re crypté pour %{user_name}."
-        all: "Tous les mots de passe ont été re crypté pour %{user_name}."
-        resetpassword:
-          success: Mot de passe réinitialisé avec succès
-          required: Le mot de passe ne peut pas être vide
-      users:
-        created: Utilisateur créé avec succès.
-        destroy:
-          own_user: Actuel de l'utilisateur ne peut pas être supprimé
-          root: Root ne peut pas être supprimé
-        update:
-          root: Root ne peuvent pas être mis à jour
-          not_db: Utilisateur non Db ne peut pas être mis à jour
-      maintenance_tasks:
-        succeed: La tâche a été exécutée avec succès..
-        failed: La tâche a échoué. Consultez les journaux pour plus d'informations.
-        ldap_connection:
-          failed: Aucunt serveur LDAP configuré n'a pu être atteint.
 
     profile:
       changePassword:
         success: Le mot de passe a été modifié avec succès.
         new_passwords_not_equal: Nouveaux mots de passe n'est pas égal.
 
-    user-humen:
-      created: Utilisateur créé avec succès.
-      updated: Utilisateur modifiée avec succès.
     encryptables: &encryptables_translations
       created: Compte créé avec succès.
       updated: Compte modifiée avec succès.
@@ -422,151 +282,33 @@ fr:
 
     application:
       wait: S'il vous plaît attendre jusqu'à ce vos mots de passe a ètè nouveau cryptées.
-    folders:
-      created: Dossier créé avec succès.
-      updated: Dossier modifiée avec succès
-      deleted: Dossier a été supprimé.
     file_entry:
       uploaded: Fichier téléchargé avec succès.
-      deleted: Fichier a été supprimé.
       uploaded_size_to_high: Fichier est trop volumineux pour tèlècharger. (max. 10MB)
       uploaded_filename_is_empty: Le fichier n'a pas été nommé
       uploaded_file_inexistent: Fichier est inexistant
       uploaded_filename_already_exists: Le nom de fichier existe déjà
     session:
-      welcome: Bienvenue à Cryptopus, vous devez d'abord créer un nouveau compte. S'il vous plaît entrez un nouveau mot de passe.
       auth_failed: L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe.
-      only_local: Only local users are allowed to change their password.
-      new_password_set: Vous mis à jour avec succès le nouveau mot de passe.
-      wrong_password: Mot de passe incorrect.
       weak_password: Pour améliorer la sécurité vous devez déterminer un mot de passe utilisateur plus complexe.
-      not_local: Vous n'êtes pas un utilisateur local!
-      locked: Votre compte est actuellement verouillé. Essayez de vous connecter à nouveau dans un instant, ou contactez l'administrateur si le verrouillage persiste
-    recryptrequests:
-      recrypted: Vous avez réussi re crypté le mot de passe.
-      wait: S'il vous plaît attendez que Racine a recrypted vos mots de passe de l'équipe.
-      wrong_password: Votre mot de passe était incorrect
+      wrong_root: Connexion en tant que root uniquement à partir d'une IP privée accessible
     teams:
-      wrong_user_password: Saisissez un nom d'utilisateur et mot de passe ou vérifier les paramètres LDAP.
-      created: Créé avec succès une nouvelle équipe.
-      updated: L'équipe a été mise à jour avec succès.
-      deleted: L'équipe a été supprimé.
-      cannot_delete: Vous pouvez seulement supprimer une équipe si vous etes un admin.
-      no_member: Vous n'êtes pas membre de cette équipe
       not_existing: "Il n'y a pas d'équipe avec l'id %{id}"
     teammembers:
       could_not_remove_last_teammember: Il n’est pas possible de supprimer le dernier utilisateur de l'équipe
       could_not_remove_admin_from_private_team: Il n’est pas possible de supprimer un admin d'une équipe privée
 
-  helpers:
-    label:
-      user:
-        username: Nom d'utilisateur
-        encryptable_name: Nom du compte
-        password: Mot de passe
-        admin: Admin
-        givenname: Prénom
-        surname: Nom de famille
-        submit: Soumettre
-        managePassword: Gérer le mot de passe
-        updatePassword: Changer le mot de passe
-        oldPassword: "Entrez le mot de passe actuel:"
-        newPassword1: "Entrez un nouveau mot de passe:"
-        newPassword2: "Confirmer le nouveau mot de passe:"
-        wrongPassword: Mauvais mot de passe
-      encryptable:
-        encryptable: Compte
-        encryptable_name: Nom du compte
-        username: Nom d'utilisateur
-        password: Mot de passe
-        description: Description
-      team:
-        name: Nom
-        description: Description
-      folder:
-        name: Nom
-        description: Description
-      ldapsetting:
-        portnumber: Port
-        bind_password: Mot de passe de Bind
-        encryption: Chiffrement
-
   confirm:
     delete: "Supprimez %{entry_class} %{entry_label} ?"
-    changeAdmin: donner/enlever les droits de l'administrateur?
-    deleteWithTeams: "Supprimer toutes les équipe où %{username} est le dernier."
 
   #Validation Errors
   activerecord:
-    attributes:
-      user:
-        username: Nom d'utilisateur
     errors:
-      template:
-        body: ""
-        header: ""
       models:
         encryptable:
-          attributes:
-            name:
-              blank: ne peut pas être vide
-              taken: est déjà pris
-        folder:
-          attributes:
-            name:
-              blank: ne peut pas être vide
-              taken: est déjà pris
         user:
           new_password_invalid: Votre nouveau mot de passe était incorrect
           old_password_invalid: Votre ancien mot de passe était incorrect
-          attributes:
-            username:
-              blank: ne peut pas être vide
-              taken: est déjà pris
-        file_entry:
-          attributes:
-            filename:
-              blank: Filename ne peut pas être vide
-              taken: Filename est déjà pris
-
-  datetime:
-    distance_in_words:
-      about_x_hours:
-        one: environ une heure
-        other: "environ %{count} heures"
-      about_x_months:
-        one: environ un mois
-        other: "environ %{count} mois"
-      about_x_years:
-        one: environ un an
-        other: "environ %{count} ans"
-      almost_x_years:
-        one: presqu'un an
-        other: "presque %{count} ans"
-      half_a_minute: une demi-minute
-      less_than_x_minutes:
-        one: moins d'une minute
-        other: "moins de %{count} minutes"
-        zero: moins d'une minute
-      less_than_x_seconds:
-        one: moins d'une seconde
-        other: "moins de %{count} secondes"
-        zero: moins d'une seconde
-      over_x_years:
-        one: plus d'un an
-        other: "plus de %{count} ans"
-      x_days:
-        one: 1 jour
-        other: "%{count} jours"
-      x_minutes:
-        one: 1 minute
-        other: "%{count} minutes"
-      x_months:
-        one: 1 mois
-        other: "%{count} mois"
-      x_seconds:
-        one: 1 seconde
-        other: "%{count} secondes"
 
   password_strength:
     weak: Le mot de passe est faible
@@ -576,8 +318,6 @@ fr:
   tooltips:
     all_teams: Tous les équipes
     favorites: Favoris
-    settings: Paramètres
-    profile: Profil
     add_folder: Ajouter un dossier
     add_encryptable: Ajouter un compte
     encryptable_details: Montrer détails du compte
@@ -585,12 +325,25 @@ fr:
     delete_encryptables: Supprimer le compte
     configure: Configurer les membres
 
-  #Pundit
-  pundit:
-    default: Accès refusé
-    team_policy:
-      update?: Vous n'êtes pas membre de cette équipe
-      destroy?: Seul l'administrateur peut supprimer des équipes
+  helpers:
+    label:
+      user:
+        username: Nom d'utilisateur
+        password: Mot de passe
+        givenname: Prénom
+        surname: Nom de famille
+        managePassword: Gérer le mot de passe
+        updatePassword: Changer le mot de passe
+        oldPassword: "Entrez le mot de passe actuel:"
+        newPassword1: "Entrez un nouveau mot de passe:"
+        newPassword2: "Confirmer le nouveau mot de passe:"
+        wrongPassword: Mauvais mot de passe
+      encryptable:
+        encryptable_name: Nom du compte
+      team:
+        name: Nom
+        description: Description
+
 
   validations:
     name:

@@ -249,6 +249,8 @@ ch_be:
         user_not_logged_in: Benutzer isch nid igloggt
         record_not_found: Ihtrag isch nid gfunde worde
         delete_failed: Ihtrag het nid chenne g'löscht wärde
+    api_users:
+      deleted: Api benutzer isch erfougrich glöscht worde
     admin:
       admin:
         no_access: Zuegriff verweigeret
