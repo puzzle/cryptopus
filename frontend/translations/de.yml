@@ -340,7 +340,6 @@ de:
         newPassword2: "Neues Passwort bestätigen:"
         wrongPassword: Falsches Passwort
       encryptable:
-        encryptable: Zugangsdaten
         encryptable_name: Accountname
         username: Benutzername
         password: Passwort
