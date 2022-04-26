@@ -194,6 +194,7 @@ en:
     favorise: Favorise the team
     defavorise: Defavorise the team
     no_folders: No Folders
+
   profile:
     index:
       title: Profile
@@ -316,7 +317,6 @@ en:
     delete_folder: Delete the Folder
     delete_encryptables: Delete the Credentials
     configure: Configure Members
-
 
   helpers:
     label:
