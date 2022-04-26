@@ -251,6 +251,8 @@ en:
         user_not_logged_in: User not logged in
         record_not_found: Record not found
         delete_failed: Could not delete the record.
+    api_users:
+      deleted: Api user was successfully removed
     admin:
       admin:
         no_access: Access denied
