@@ -99,6 +99,9 @@ en:
       add_attachment: Add Attachment
     new:
       title: New Encryptable
+    log:
+      update: edited
+      viewed: viewed
 
   admin:
     title: Admin

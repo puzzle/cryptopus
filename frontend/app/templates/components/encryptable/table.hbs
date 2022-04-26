@@ -7,7 +7,7 @@
     </tr>
   </tbody>
   <tbody>
-    {{#each @encryptable.paperTrailVersions as |paperTrailVersion|}}
+    {{#each @logs as |paperTrailVersion|}}
       <Encryptable::TableRow @paperTrailVersion={{paperTrailVersion}}/>
     {{/each}}
   </tbody>

@@ -9,11 +9,5 @@ export default class TableComponent extends Component {
 
   constructor() {
     super(...arguments);
-
-    this.store.query("paper-trail-version", {
-      encryptableId: this.args.encryptable.id
-    });
-
-    window.scrollTo(0, 0);
   }
 }

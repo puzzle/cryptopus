@@ -1,5 +1,6 @@
 ## Version 4.2
 - Introduce Encryptables data structure
+- Add scroll to folder feature
 - Ruby 3.0 and Rails 7.0 upgrade
 
 ## Version 4.1

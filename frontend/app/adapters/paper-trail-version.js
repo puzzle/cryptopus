@@ -9,7 +9,7 @@ export default ApplicationAdapter.extend({
 
   urlForQuery(query, modelName) {
     if (query.encryptableId) {
-      let url = `/${this.namespace}/${ query.encryptableId }/logs`;
+      let url = `/${this.namespace}/${query.encryptableId}/logs`;
 
       delete query.encryptableId;
       return url;

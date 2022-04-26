@@ -8,3 +8,5 @@ seeder = TeamFoldersEncryptablesSeeder.new
   users = [:john, :kate, :alice, :bruce, :emily].sample(3)
   seeder.seed_team("#{Faker::Job.field} #{rand(999)}", users, [true, false].sample)
 end
+
+seeder.seed_ose_secrets(Team.first)

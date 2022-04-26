@@ -101,6 +101,10 @@ fr:
       add_attachment: Ajouter un attachement
     new:
       title: Nouveau compte
+    log:
+      update: modifié
+      viewed: regardé
+
 
   admin:
     title: "Admin"
