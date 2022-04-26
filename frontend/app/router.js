@@ -36,7 +36,7 @@ Router.map(function () {
   });
 
   this.route("profile");
-  this.route("log");
+  this.route("log",{path: "/personal_logs"});
   this.route("dashboard");
 
   this.route("admin", function () {
