@@ -258,6 +258,8 @@ de:
         user_not_logged_in: Benutzer ist nicht eingeloggt
         record_not_found: Eintrag nicht gefunden
         delete_failed: Eintrag konnte nicht gelöscht werden
+    api_users:
+      deleted: Api benutzer wurde erfolgreich gelöscht
     admin:
       admin:
         no_access: Zugriff verweigert
