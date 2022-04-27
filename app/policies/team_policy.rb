@@ -54,6 +54,6 @@ class TeamPolicy < TeamDependantPolicy
   end
 
   def personal_team?
-    @record.personal_team?
+    @record.is_a?(Team::Personal)
   end
 end

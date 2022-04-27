@@ -4,7 +4,7 @@ class TeamFoldersEncryptablesSeeder
 
   def seed_team(name, members, admin = false)
     name = name.capitalize
-    team = Team.seed_once(:name) do |t|
+    team = Team::Shared.seed_once(:name) do |t|
       t.name = name
       t.description = Faker::Lorem.paragraph
       t.private = !admin

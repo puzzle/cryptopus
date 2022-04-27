@@ -41,11 +41,11 @@ describe Api::TeamsController do
       expect(data.size).to be(3)
       expect(included.size).to be(5)
 
-      data.each do |team|
-        expect(team['type']).to eq('teams')
-      end
+      expect(data[0]['type']).to eq('team_personals')
+      expect(data[1]['type']).to eq('team_shareds')
+      expect(data[2]['type']).to eq('team_shareds')
 
-      expect(data.first['attributes']['personal_team']).to eq(true)
+      expect(data.first['attributes']['type']).to eq("Team::Personal")
 
       data.each do |team|
         expect(team['attributes']['personal_team']).to eq(false) unless team.first
@@ -377,7 +377,7 @@ describe Api::TeamsController do
       set_auth_headers
 
       team_params = { name: 'foo', private: true }
-      new_team = Team.create(users(:bob), team_params)
+      new_team = Team::Shared.create(users(:bob), team_params)
 
       update_params = {
         data: {

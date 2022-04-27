@@ -144,7 +144,7 @@ class User::Human < User
   end
 
   def create_personal_team!
-    team = Team.create(self, name: username, private: true, personal_owner_id: id)
+    team = Team::Personal.create(self)
     team.folders.create!(name: 'default')
     save!
   end

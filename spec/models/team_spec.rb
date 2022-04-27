@@ -92,7 +92,7 @@ describe Team do
     params[:description] = 'foo foo'
     params[:private] = false
 
-    team = Team.create(bob, params)
+    team = Team::Shared.create(bob, params)
 
     expect(team.teammembers.count).to eq(3)
     user_ids = team.teammembers.pluck(:user_id)
@@ -109,7 +109,7 @@ describe Team do
     params[:description] = 'foo foo'
     params[:private] = true
 
-    team = Team.create(bob, params)
+    team = Team::Shared.create(bob, params)
 
     expect(team.teammembers.count).to eq(1)
     user_ids = team.teammembers.pluck(:user_id)
@@ -126,7 +126,7 @@ describe Team do
       private: true
     }
 
-    team = Team.create(bob, params)
+    team = Team::Shared.create(bob, params)
 
     expect(team.teammembers.count).to eq(1)
     user_ids = team.teammembers.pluck(:user_id)
@@ -143,7 +143,7 @@ describe Team do
       private: false
     }
 
-    team = Team.create(bob, params)
+    team = Team::Shared.create(bob, params)
 
     expect(team).to_not be_valid
     expect(team.errors.full_messages.first).to match(/Name/)
@@ -156,7 +156,7 @@ describe Team do
       private: false
     }
 
-    team = Team.create(bob, params)
+    team = Team::Shared.create(bob, params)
     expect(team.valid?).to eq(false)
   end
 end

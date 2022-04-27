@@ -12,16 +12,16 @@ describe TeamPolicy do
 
   context 'everyone' do
     it 'can show his teams' do
-      assert_permit alice, Team, :index?
-      assert_permit admin, Team, :index?
+      assert_permit alice, Team::Shared, :index?
+      assert_permit admin, Team::Shared, :index?
     end
 
     it 'can create a new team' do
-      assert_permit alice, Team.new, :create?
-      assert_permit admin, Team.new, :create?
+      assert_permit alice, Team::Shared.new, :create?
+      assert_permit admin, Team::Shared.new, :create?
 
-      assert_permit alice, Team.new, :new?
-      assert_permit admin, Team.new, :new?
+      assert_permit alice, Team::Shared.new, :new?
+      assert_permit admin, Team::Shared.new, :new?
     end
   end
 
@@ -34,11 +34,6 @@ describe TeamPolicy do
     it 'cannot delete a team' do
       expect(team2.teammember?(bob)).to eq true
       refute_permit bob, team2, :destroy?
-    end
-
-    it 'cannot edit personal_team' do
-      expect(personal_team_bob.teammember?(bob)).to eq(true)
-      refute_permit bob, personal_team_bob, :update?
     end
   end
 
@@ -73,11 +68,11 @@ describe TeamPolicy do
     end
 
     it 'can list all teams' do
-      assert_permit admin, Team, :index_all?
+      assert_permit admin, Team::Shared, :index_all?
     end
 
     it 'can list last teammember teams' do
-      assert_permit admin, Team, :only_teammember?
+      assert_permit admin, Team::Shared, :only_teammember?
     end
 
     it 'can list members of all teams' do
@@ -95,11 +90,11 @@ describe TeamPolicy do
     end
 
     it 'can list all teams' do
-      assert_permit conf_admin, Team, :index_all?
+      assert_permit conf_admin, Team::Shared, :index_all?
     end
 
     it 'can list last teammember teams' do
-      assert_permit conf_admin, Team, :only_teammember?
+      assert_permit conf_admin, Team::Shared, :only_teammember?
     end
 
     it 'can list members of all teams' do
@@ -109,15 +104,26 @@ describe TeamPolicy do
 
   context 'non-admin' do
     it 'cannot list all teams' do
-      refute_permit bob, Team, :index_all?
+      refute_permit bob, Team::Shared, :index_all?
     end
 
     it 'cannot list last teammember teams' do
-      refute_permit alice, Team, :only_teammember?
+      refute_permit alice, Team::Shared, :only_teammember?
     end
 
     it 'cannot list members of team he isnt member of' do
       refute_permit alice, team2, :only_teammember?
+    end
+  end
+  context 'personal-team' do
+    it 'cannot edit personal_team' do
+      expect(personal_team_bob.teammember?(bob)).to eq(true)
+      refute_permit bob, personal_team_bob, :update?
+    end
+
+    it 'cannot delete personal_team' do
+      expect(personal_team_bob.teammember?(bob)).to eq(true)
+      refute_permit bob, personal_team_bob, :destroy?
     end
   end
 end
