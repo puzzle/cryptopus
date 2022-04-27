@@ -30,7 +30,7 @@ class Api::TeamsController < ApiController
 
   def build_entry
     instance_variable_set(:"@#{ivar_name}",
-                          Team.create(current_user, model_params))
+                          Team::Shared.create(current_user, model_params))
   end
 
   def assert_valid_query

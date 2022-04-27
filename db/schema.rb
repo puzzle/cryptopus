@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_29_122335) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "visible", default: true, null: false
     t.boolean "private", default: false, null: false
+    t.string "type", null: false
     t.integer "personal_owner_id"
     t.index ["name"], name: "index_teams_on_name"
   end
@@ -88,7 +89,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_29_122335) do
     t.text "options"
     t.integer "role", default: 0, null: false
     t.integer "default_ccli_user_id"
-    t.integer "personal_team_id"
     t.index ["default_ccli_user_id"], name: "index_users_on_default_ccli_user_id"
   end
 
