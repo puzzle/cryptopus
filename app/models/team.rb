@@ -14,13 +14,10 @@
 #
 
 class Team < ApplicationRecord
-  attr_accessor :personal_team
-
   attr_readonly :private
   has_many :folders, -> { order :name }, dependent: :destroy
   has_many :teammembers, dependent: :delete_all
   has_many :members, through: :teammembers, source: :user
-  belongs_to :personal_owner, class_name: 'User::Human', inverse_of: 'personal_team'
   has_many :user_favourite_teams, dependent: :destroy
 
   validates :name, presence: true
@@ -56,10 +53,6 @@ class Team < ApplicationRecord
     raise 'user is already team member' if teammember?(user.id)
 
     create_teammember(user, plaintext_team_password)
-  end
-
-  def personal_team?
-    personal_owner_id.present?
   end
 
   private
