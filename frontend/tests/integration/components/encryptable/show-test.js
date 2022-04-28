@@ -4,6 +4,7 @@ import { render } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 import Service from "@ember/service";
 import { setLocale } from "ember-intl/test-support";
+import { isPresent } from "@ember/utils";
 
 const storeStub = Service.extend({
   query(modelName, params) {
@@ -64,11 +65,11 @@ module("Integration | Component | encryptable/show", function (hooks) {
     assert.ok(text.includes("Ninjas test encryptable"));
   });
 
-  test("shows log and credentials tabs", async function (assert) {
+  test("log and credentials tabs ase present", async function (assert) {
     await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
-
-    let text = this.element.textContent.trim();
-    assert.ok(text.includes("Credentials"));
-    assert.ok(text.includes("Logs"));
+    let credTab = document.getElementById("credentials-tab");
+    let logTab = document.getElementById("log-tab");
+    assert.ok(isPresent(credTab));
+    assert.ok(isPresent(logTab));
   });
 });

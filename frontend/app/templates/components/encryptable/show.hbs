@@ -36,7 +36,7 @@
   </div>
   <div>
     <BsTab @onChange={{action "getLogs"}} as |tab|>
-      <tab.pane @title="Credentials">
+      <tab.pane @title="Credentials" id="credentials-tab">
         {{#if @encryptable.description}}
           <div class="row pb-3">
             <div class="col">
@@ -94,7 +94,7 @@
           </table>
         </div>
       </tab.pane>
-      <tab.pane @title="Logs">
+      <tab.pane @title="Logs" id="log-tab">
         <div>
           <Encryptable::Table @logs={{@encryptable.paperTrailVersions}}/>
         </div>
