@@ -50,10 +50,6 @@ class ApplicationController < ActionController::Base
     params.require(model_identifier).permit(permitted_attrs)
   end
 
-  def user_for_paper_trail
-    current_user.username
-  end
-
   class << self
     def model_identifier
       @model_identifier ||= model_class.model_name.param_key
