@@ -16,7 +16,6 @@ export default class LogRoute extends BaseRoute {
       apiUsers: this.store.findAll("user-api")
     });
   }
-  
 
   afterModel() {
     this.navService.clear();
