@@ -7,14 +7,7 @@ export default class LogRoute extends BaseRoute {
   @service navService;
 
   model() {
-    return RSVP.hash({
-      info: {
-        lastLoginAt: ENV.currentUserLastLoginAt,
-        lastLoginFrom: ENV.currentUserLastLoginFrom,
-        currentUserLabel: ENV.currentUserLabel
-      },
-      apiUsers: this.store.findAll("user-api")
-    });
+    return this.store.findAll("paper-trail-version");
   }
 
   afterModel() {
