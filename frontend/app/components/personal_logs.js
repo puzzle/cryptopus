@@ -7,12 +7,12 @@ export default class LogComponent extends Component {
   @service intl;
   @service notify;
 
-  @tracked
   personal_log;
 
   constructor() {
     super(...arguments);
-    this.store
-      .query("paper-trail-version").then((result)=>{this.personal_log = result});
+    this.store.query("paper-trail-version").then((result) => {
+      this.personal_log = result;
+    });
   }
 }
