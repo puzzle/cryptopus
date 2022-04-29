@@ -29,11 +29,9 @@ fr:
   auto_logout: Déconnexion automatique en
   contribute_on_github: Contribuez sur GitHub
   settings: Paramètres
-  recrypt_requests: Demandes de re crypt
   users: Utilisateur
   user: Utilisateur
   profile_title: Profilé
-  change_password: Changer le mot de passe
   last_login_date_and_from: "La dernière connexion était le %{last_login_at} de %{last_login_from}"
   last_login_date_and_from_country: "La dernière connexion était le %{last_login_at} de %{last_login_from} (%{last_login_country})"
   last_login_date: "La dernière connexion était le %{last_login_at}"
@@ -49,7 +47,6 @@ fr:
   close: fermer
   hi_user: "Salut, "
   intro: Vous cherchez un mot de passe?
-  select_team: Veuillez sélectionner une équipe ou utiliser la recherche
   role: Rôle
   empty: vide
   slogan: Le lieu pour les mots de passe
