@@ -27,7 +27,6 @@ ch_be:
   auto_logout: Outomatisch Abmäudä i
   contribute_on_github: Mitwürke uf GitHub
   settings: Istellige
-  recrypt_requests: Recrypt Afragä
   users: Benutzer
   profile_title: Profiu
   last_login_date_and_from: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}"
@@ -44,7 +43,6 @@ ch_be:
   hi_user: "Hoi, "
   intro: Suechsch äuä es Passwort?
   user: Benutzer
-  select_team: Wähl bitte es team us oder benutz d suechi
   role: Rollä
   empty: läär
   slogan: Dr Ort für Passwörter
