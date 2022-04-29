@@ -10,6 +10,7 @@ class RedirectedRoutes::UrlHandler
     folder_show: /(^\/teams\/\d+\/folders\/\d+)$/,
     encryptables_show: /(^\/encryptables\/\d+)$/,
     profile_index: /(^\/profile)$/,
+    log_index: /(^\/personal_logs)$/,
     admin_users_index: /(^\/admin\/users)$/,
     admin_settings: /(^\/admin\/settings)$/,
     dashboard: /(^\/dashboard)$/

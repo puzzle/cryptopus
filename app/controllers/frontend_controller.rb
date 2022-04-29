@@ -4,28 +4,11 @@ class FrontendController < ApplicationController
 
   layout false
 
+  include RenderFrontend
+
   def index
     skip_authorization
-    render file: frontend_file
+    render_frontend
   end
 
-  private
-
-  def frontend_file
-    index_name = 'index'
-
-    if Rails.env.test? && File.exist?(file_path('index-test'))
-      index_name = 'index-test'
-    end
-
-    if Rails.env.development?
-      index_name = 'index-development'
-    end
-
-    file_path(index_name)
-  end
-
-  def file_path(index_name)
-    Rails.root.join("public/frontend-#{index_name}.html")
-  end
 end

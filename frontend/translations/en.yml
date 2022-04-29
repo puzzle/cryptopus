@@ -32,6 +32,7 @@ en:
   recrypt_requests: Recrypt requests
   users: Users
   user: User
+  log_title: Log
   profile_title: Profile
   change_password: Change password
   last_login_date_and_from: "The last login was on %{last_login_at} from %{last_login_from}"
@@ -98,6 +99,9 @@ en:
       add_attachment: Add Attachment
     new:
       title: New Encryptable
+    log:
+      update: edited
+      viewed: viewed
 
   admin:
     title: Admin
@@ -323,6 +327,12 @@ en:
       delete:
         title: Remove Api-User
         content: "Delete Api-User %{username}?"
+  
+  log:
+    info: Personal activity log
+    action: Action
+    date: Date
+    where: Change
 
   flashes:
     api:

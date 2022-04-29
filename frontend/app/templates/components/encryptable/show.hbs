@@ -34,65 +34,71 @@
       <p class="d-inline">{{t "encryptables.show.last_update"}}: {{moment-format @encryptable.updatedAt "DD.MM.YYYY hh:mm"}}</p>
     </div>
   </div>
-  <BsTab as |tab|>
-    <tab.pane @title='Credentials'>
-  {{#if @encryptable.description}}
-    <div class="row pb-3">
-      <div class="col">
-        <br><p class="text-muted description">{{@encryptable.description}}</p>
-      </div>
-    </div>
-  {{/if}}
   <div>
-    {{#if @encryptable.isOseSecret}}
-      <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptables.show.show_secret"}}</a>
-      <div class="result-password">
-        <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@encryptable.data.ose_secret}}/>
-        <CopyButton class="btn btn-light" @clipboardText={{@encryptable.data.ose_secret}}>
-          <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-        </CopyButton>
-      </div>
-    {{else}}
-      <div class="result-username">
-        <Input id="cleartext_username" class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextUsername}}/>
-        <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextUsername}} @success={{fn this.onCopied "username"}}>
-          <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-        </CopyButton>
-      </div>
-      <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptables.show.show_password"}}</a>
-      <div class="result-password">
-        <Input id="cleartext_password" class="d-inline form-control {{if this.isPasswordVisible "" "visibility-hidden"}}" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
-        <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextPassword}} @success={{fn this.onCopied "password"}}>
-          <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-        </CopyButton>
-      </div>
-    {{/if}}
+    <BsTab @onChange={{action "getLogs"}} as |tab|>
+      <tab.pane @title="Credentials">
+        {{#if @encryptable.description}}
+          <div class="row pb-3">
+            <div class="col">
+              <br><p class="text-muted description">{{@encryptable.description}}</p>
+            </div>
+          </div>
+        {{/if}}
+        <div>
+          {{#if @encryptable.isOseSecret}}
+            <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptables.show.show_secret"}}</a>
+            <div class="result-password">
+              <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@encryptable.data.ose_secret}}/>
+              <CopyButton class="btn btn-light" @clipboardText={{@encryptable.data.ose_secret}}>
+                <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+              </CopyButton>
+            </div>
+          {{else}}
+            <div class="result-username">
+              <Input id="cleartext_username" class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextUsername}}/>
+              <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextUsername}} @success={{fn this.onCopied "username"}}>
+                <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+              </CopyButton>
+            </div>
+            <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptables.show.show_password"}}</a>
+            <div class="result-password">
+              <Input id="cleartext_password" class="d-inline form-control {{if this.isPasswordVisible "" "visibility-hidden"}}" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
+              <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextPassword}} @success={{fn this.onCopied "password"}}>
+                <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+              </CopyButton>
+            </div>
+          {{/if}}
+        </div>
+        <div class="d-flex flex-row justify-content-between mb-2">
+          <div>
+            <h3>{{t "encryptables.show.attachments"}}</h3>
+          </div>
+          <div>
+            <BsButton @type="primary" {{on "click" this.toggleFileEntryNew}}>
+              {{t "encryptables.show.add_attachment"}}
+            </BsButton>
+          </div>
+        </div>
+        <div>
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <th>{{t "encryptables.show.file"}}</th>
+                <th class="description">{{t "description"}}</th>
+                <th>{{t "actions"}}</th>
+              </tr>
+              {{#each @encryptable.fileEntries as |fileEntry|}}
+                <FileEntry::Row @fileEntry={{fileEntry}}/>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </tab.pane>
+      <tab.pane @title="Logs">
+        <div>
+          <Encryptable::Table @logs={{@encryptable.paperTrailVersions}}/>
+        </div>
+      </tab.pane>
+    </BsTab>
   </div>
-  <div class="d-flex flex-row justify-content-between mb-2">
-    <div>
-      <h3>{{t "encryptables.show.attachments"}}</h3>
-    </div>
-    <div>
-      <BsButton @type="primary" {{on "click" this.toggleFileEntryNew}}>
-        {{t "encryptables.show.add_attachment"}}
-      </BsButton>
-    </div>
-  </div>
-  <table class="table table-striped">
-    <tbody>
-      <tr>
-        <th>{{t "encryptables.show.file"}}</th>
-        <th class="description">{{t "description"}}</th>
-        <th>{{t "actions"}}</th>
-      </tr>
-      {{#each @encryptable.fileEntries as |fileEntry|}}
-        <FileEntry::Row @fileEntry={{fileEntry}}/>
-      {{/each}}
-    </tbody>
-  </table>
-    </tab.pane>
-       <tab.pane @title='Logs'>
-          <Encryptable::Table @encryptable={{@encryptable}}/>
-       </tab.pane>
-  </BsTab>
 </div>

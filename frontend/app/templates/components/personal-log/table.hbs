@@ -1,0 +1,14 @@
+<table class="table table-striped mt-20">
+  <thead>
+    <tr>
+      <th> {{t "log.action"}}</th>
+      <th> {{t "log.date"}}</th>
+      <th> {{t "log.where"}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each @personal_log as |paperTrailVersion|}}
+      <Personal-Log::TableRow @paperTrailVersion={{paperTrailVersion}}/>
+    {{/each}}
+  </tbody>
+</table>

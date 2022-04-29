@@ -32,6 +32,7 @@ de:
   recrypt_requests: Recrypt Anfragen
   users: Benutzer
   user: Benutzer
+  log_title: Protokoll
   profile_title: Profil
   change_password: Passwort wechseln
   last_login_date_and_from: "Das letzte Login war am %{last_login_at} von %{last_login_from}"
@@ -100,7 +101,9 @@ de:
       add_attachment: Anhang hinzufügen
     new:
       title: Neues Encryptable
-
+    log:
+      update: Bearbeitet
+      viewed: Angesehen
   admin:
     title: "Admin"
     maintenance_tasks:
@@ -321,6 +324,12 @@ de:
       delete:
         title: Entferne Api-User
         content: "Lösche Api-User %{username}?"
+
+  log:
+    info: Persöhnliches Aktivitätsprotokoll
+    action: Aktion
+    date: Datum
+    where: Änderung
 
   flashes:
     api:

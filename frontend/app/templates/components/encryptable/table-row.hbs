@@ -1,5 +1,5 @@
 <tr>
-  <td>{{@paperTrailVersion.event}}</td>
-  <td>{{@paperTrailVersion.whodunnit}}</td>
+  <td>{{t (concat "encryptables.log." @paperTrailVersion.event)}}</td>
+  <td>{{@paperTrailVersion.username}}</td>
   <td>{{moment-format @paperTrailVersion.createdAt "DD.MM.YYYY hh:mm"}}</td>
 </tr>
