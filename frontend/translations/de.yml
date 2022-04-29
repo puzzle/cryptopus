@@ -329,7 +329,8 @@ de:
     info: Persöhnliches Aktivitätsprotokoll
     action: Aktion
     date: Datum
-    where: Änderung
+    encryptable: Team/Ordner/Encryptable
+    deleted: Dieses encryptable wurde inzwischen gelöscht.
 
   flashes:
     api:

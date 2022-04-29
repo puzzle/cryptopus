@@ -357,7 +357,8 @@ ch_be:
     info: Persöhnlechs aktivitäts Protokou
     action: Aktion
     date: Datum
-    where: Änderig
+    encryptable: Team/Ordner/Encryptable
+    deleted: Ds encryptable isch glöscht worde.
 
   flashes:
     api:

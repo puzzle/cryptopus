@@ -332,7 +332,8 @@ en:
     info: Personal activity log
     action: Action
     date: Date
-    where: Change
+    encryptable: Team/Folder/Encryptable
+    deleted: This encryptable doesn't exist anymore.
 
   flashes:
     api:

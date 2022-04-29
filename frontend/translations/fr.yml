@@ -332,7 +332,8 @@ fr:
     info: Journal d'activité personnel
     action: Action
     date: Date
-    where: Changement
+    encryptable: Team/Dossier/Encryptable
+    deleted: ce cryptable a été supprimé
 
   flashes:
     api:
