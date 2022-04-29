@@ -10,7 +10,7 @@ class LogsSerializer < ApplicationSerializer
   end
 
   def username
-    User.find_by(id: user_id).username
+    User.find_by(id: object.whodunnit).username
   end
 
   def encryptable

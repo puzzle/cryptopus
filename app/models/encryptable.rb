@@ -17,7 +17,9 @@
 
 class Encryptable < ApplicationRecord
 
-  has_paper_trail on: [:touch, :update], ignore: [:tag, :type, :encrypted_data]
+  has_paper_trail on: [:touch, :update], ignore: [:tag, :type, :encrypted_data], dependent: :destroy
+
+  before_destroy :destroy_versions
 
   serialize :encrypted_data, ::EncryptedData
 
@@ -70,6 +72,10 @@ class Encryptable < ApplicationRecord
                       end
 
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
+  end
+
+  def destroy_versions
+    self.versions.destroy_all
   end
 
 end

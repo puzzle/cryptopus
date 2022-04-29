@@ -30,8 +30,8 @@ class CreateVersions < ActiveRecord::Migration[7.0]
       # (https://github.com/rails/rails/pull/14359)
       # 
       # MySQL users should use the following line for `created_at`
-      # t.datetime :created_at, limit: 6                                        
-      t.datetime :created_at
+      t.datetime :created_at, limit: 6
+      #t.datetime :created_at
     end
     add_index :versions, %i(item_type item_id)
   end
