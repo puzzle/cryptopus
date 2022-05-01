@@ -1,0 +1,62 @@
+# == Schema Information
+#
+# Table name: versions
+#
+#  id          :integer          not null, primary key
+#  item_type   :string           
+#  item_id     :integer
+#  event       :string         
+#  whodunnit   :string         
+#  object      :text          
+#  created_at  :datetime          
+
+#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
+#  Cryptopus and licensed under the Affero General Public License version 3 or later.
+#  See the COPYING file at the top-level directory or at
+#  https://github.com/puzzle/cryptopus.
+
+version1:
+  id: 1
+  item_type: Encryptable
+  item_id: 177252022
+  event: viewed
+  whodunnit: 663665735
+  object: encryptable
+  created_at: 2022-04-29 09:10:08.311155
+
+version2:
+  id: 2
+  item_type: Encryptable
+  item_id: 351548183
+  event: viewed
+  whodunnit: 663665735
+  object: encryptable
+  created_at: 2022-04-28 09:10:08.311155
+
+version3:
+  id: 3
+  item_type: Encryptable
+  item_id: 603128706
+  event: viewed
+  whodunnit: 663665735
+  object: encryptable
+  created_at: 2022-03-25 09:10:08.311155
+
+version4:
+  id: 4
+  item_type: Encryptable
+  item_id: 989483582
+  event: viewed
+  whodunnit: 663665735
+  object: encryptable
+  created_at: 2022-02-15 09:10:08.311155
+
+version5:
+  id: 5
+  item_type: Encryptable
+  item_id: 234709679
+  event: viewed
+  whodunnit: 663665735
+  object: encryptable
+  created_at: 2022-04-13 09:10:08.311155
+

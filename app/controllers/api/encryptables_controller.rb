@@ -71,7 +71,11 @@ class Api::EncryptablesController < ApiController
   end
 
   def fetch_entries
-    Encryptables::FilteredList.new(current_user, params).fetch_entries
+    encryptables = Encryptables::FilteredList.new(current_user, params).fetch_entries
+    if tag_param.present?
+      encryptables = encryptables.find_by(tag: tag_param)
+    end
+    encryptables
   end
 
   def encrypt(encryptable)
@@ -95,6 +99,10 @@ class Api::EncryptablesController < ApiController
 
   def query_param
     params[:q]
+  end
+
+  def tag_param
+    params[:tag]
   end
 
   def encryptable_move_handler

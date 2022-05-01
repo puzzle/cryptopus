@@ -7,20 +7,11 @@ module ::Encryptables
       filtered_encryptables = encryptables
 
       filtered_encryptables = filter_by_recent if recent.present? && true?(recent)
-      filtered_encryptables = filter_by_tag_params if tag_param.present?
 
       filtered_encryptables
     end
 
     private
-
-    def filter_by_tag_params
-      encryptables.find_by(tag: tag_param)
-    end
-
-    def tag_param
-      @params[:tag]
-    end
 
     def recent
       @params[:recent]
