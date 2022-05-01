@@ -1,12 +1,14 @@
 <div class="dashboard-grid-container">
-  <h3 class="primary-header">Recent Credentials</h3>
-  <div class="primary-content">
-    {{#each this.model.recentCredentials as |encryptable|}}
-      <a href="/encryptables/{{encryptable.id}}">
-        <DashboardCard @content={{encryptable}} />
-      </a>
-    {{/each}}
-  </div>	
+  {{#if @model.recentCredentials}}  
+    <h3 class="primary-header">Recent Credentials</h3>
+    <div class="primary-content">
+      {{#each this.model.recentCredentials as |encryptable|}}
+        <a href="/encryptables/{{encryptable.id}}">
+          <DashboardCard @content={{encryptable}} />
+        </a>
+      {{/each}}
+    </div>	
+  {{/if}}
 
   {{#if @model.favouriteTeams}}
     <h3 class="primary-header">Favourites</h3>
@@ -17,7 +19,7 @@
         </a>
       {{/each}}
     </div>
-  {{/if}}	
+  {{/if}}
 
   {{#if this.model.teams}}
     <h3 class="primary-header">Teams</h3>

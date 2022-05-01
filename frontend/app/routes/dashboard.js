@@ -13,19 +13,14 @@ export default class DashboardRoute extends BaseRoute {
 
   async model(params) {
     params["limit"] = 20;
-    const recentCredentials = await this.getRecentCredentials(params);
+    const recentCredentials = this.getRecentCredentials(params);
     const favouriteTeams = await this.getFavouriteTeams(params);
     const teams = this.getTeams(params);
     return RSVP.hash({
+      recentCredentials,
       favouriteTeams,
-      teams,
-      recentCredentials
+      teams
     });
-  }
-
-  async getRecentCredentials(params) {
-    // TODO: get 5 most recently accessed encryptables
-    return await this.store.query("encryptable", params);
   }
 
   async getFavouriteTeams(params) {
@@ -36,5 +31,10 @@ export default class DashboardRoute extends BaseRoute {
   async getTeams(params) {
     params["favourite"] = false;
     return await this.store.query("team", params);
+  }
+
+  async getRecentCredentials(params) {
+    params["recent"] = true;
+    return await this.store.query("encryptable", params);
   }
 }

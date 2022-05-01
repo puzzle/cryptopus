@@ -9,13 +9,38 @@ class Api::EncryptablesController < ApiController
 
   # GET /api/encryptables
   def index(options = {})
+    if params['recent'].present?
+      authorize Encryptable
+        render({ json: fetch_recentCredentials,
+        root: model_root_key.pluralize }
+        .merge(render_options)
+        .merge(options.fetch(:render_options, {})))
+    else
     authorize Encryptable
     render({ json: fetch_entries,
              root: model_root_key.pluralize }
            .merge(render_options)
            .merge(options.fetch(:render_options, {})))
+    end
   end
 
+  def fetch_recentCredentials
+    logs = PaperTrail::Version.where(whodunnit: current_user.id)
+    logs = logs.sort { |a, b| b.created_at <=> a.created_at }
+
+    credentialIds = []
+    for log in logs do
+      credentialIds.push(log.item_id)
+    end
+    for id in credentialIds do
+      puts id
+    end
+    recentCredentialIds = credentialIds.uniq.first(5)
+
+    recentCredentials = current_user.encryptables.find(recentCredentialIds)
+    recentCredentials
+  end
+  
   # GET /api/encryptables/:id
   def show
     authorize encryptable
