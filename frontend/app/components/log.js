@@ -6,9 +6,8 @@ export default class LogComponent extends Component {
   @service router;
   @service intl;
   @service notify;
-
   @tracked
-  personal_log;
+  personal_log
 
   constructor() {
     super(...arguments);
