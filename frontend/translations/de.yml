@@ -98,6 +98,7 @@ de:
       copy_password: Passwort kopieren
       copy_username: Benutzername kopieren
       add_attachment: Anhang hinzufügen
+      load_more: Mehr anzeigen
     new:
       title: Neues Encryptable
     log:
