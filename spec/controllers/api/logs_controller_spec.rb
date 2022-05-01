@@ -20,6 +20,7 @@ describe Api::LogsController do
 
       get :index, params: { encryptable_id: credentials1.id }
       expect(data.count).to eq 2
+      expect(data.first['attributes']['username']).to eq 'alice'
     end
 
     it 'returns sorted results' do
