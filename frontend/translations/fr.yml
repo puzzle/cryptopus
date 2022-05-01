@@ -32,7 +32,7 @@ fr:
   recrypt_requests: Demandes de re crypt
   users: Utilisateur
   user: Utilisateur
-  log_title: Journal
+  log: Journal
   profile_title: Profilé
   change_password: Changer le mot de passe
   last_login_date_and_from: "La dernière connexion était le %{last_login_at} de %{last_login_from}"
@@ -327,12 +327,6 @@ fr:
       delete:
         title: Supprimer Api-User
         content: "Est-ce que vous voulez supprimer l'utilisateur d'Api %{username}?"
-  
-  log:
-    info: Journal d'activité personnel
-    action: Action
-    date: Date
-    where: Changement
 
   flashes:
     api:
