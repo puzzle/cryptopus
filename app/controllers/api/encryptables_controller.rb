@@ -9,12 +9,11 @@ class Api::EncryptablesController < ApiController
 
   # GET /api/encryptables
   def index(options = {})
-  authorize Encryptable
+    authorize Encryptable
     render({ json: fetch_entries,
              root: model_root_key.pluralize }
            .merge(render_options)
            .merge(options.fetch(:render_options, {})))
-  
   end
 
   # GET /api/encryptables/:id
@@ -72,8 +71,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def fetch_entries
-    encryptables = Encryptables::FilteredList.new(current_user, params).fetch_entries
-    encryptables
+    Encryptables::FilteredList.new(current_user, params).fetch_entries
   end
 
   def encrypt(encryptable)
@@ -97,10 +95,6 @@ class Api::EncryptablesController < ApiController
 
   def query_param
     params[:q]
-  end
-
-  def tag_param
-    params[:tag]
   end
 
   def encryptable_move_handler

@@ -35,7 +35,7 @@ describe 'Dashboard', type: :system, js: true do
     expect(page.current_path).to eq("/teams/#{team.id}")
     expect(page).to have_selector 'div.content'
   end
-  
+
   it 'navigates to encryptable on encryptable card click' do
     login_as_user(:alice)
 

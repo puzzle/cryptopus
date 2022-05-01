@@ -15,7 +15,7 @@ module ::Encryptables
     private
 
     def filter_by_tag_params
-      encryptables = encryptables.find_by(tag: tag_param)
+      encryptables.find_by(tag: tag_param)
     end
 
     def tag_param
@@ -38,15 +38,15 @@ module ::Encryptables
     def filter_by_recent
       logs = PaperTrail::Version.where(whodunnit: @current_user.id)
       logs = logs.sort { |a, b| b.created_at <=> a.created_at }
-  
-      credentialIds = []
-      for log in logs do
-        credentialIds.push(log.item_id)
+
+      credential_ids = []
+      logs.each do |log|
+        credential_ids.push(log.item_id)
       end
-  
-      recentCredentialIds = credentialIds.uniq.first(limit.to_i)
-  
-      recentCredentials = @current_user.encryptables.find(recentCredentialIds)
+
+      recent_credential_ids = credential_ids.uniq.first(limit.to_i)
+
+      @current_user.encryptables.find(recent_credential_ids)
     end
   end
 end
