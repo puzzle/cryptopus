@@ -1,5 +1,4 @@
 import Component from "@glimmer/component";
-import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
 
 export default class LogComponent extends Component {
@@ -8,7 +7,6 @@ export default class LogComponent extends Component {
   @service intl;
   @service notify;
 
-  @tracked
   personal_log;
 
   constructor() {

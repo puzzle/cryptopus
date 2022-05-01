@@ -8,8 +8,7 @@
   </thead>
   <tbody>
     {{#each @personal_log as |paperTrailVersion|}}
-      <Personal-Log::TableRow @paperTrailVersion={{paperTrailVersion}}/>
+      <Log::TableRow @paperTrailVersion={{paperTrailVersion}}/>
     {{/each}}
-    <Personal-Log::TableRow @paperTrailVersion={{paperTrailVersion}}/>
   </tbody>
 </table>

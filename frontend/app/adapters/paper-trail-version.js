@@ -1,21 +1,17 @@
 import ApplicationAdapter from "./application";
 
 export default ApplicationAdapter.extend({
-  namespace: "api",
+  namespace: "api/encryptables",
 
   pathForType() {
-    return "personal_logs";
+    return "logs";
   },
 
   urlForQuery(query, modelName) {
     if (query.encryptableId) {
-      let url = `/${this.namespace}/encryptables/${query.encryptableId}/logs`;
+      let url = `/${this.namespace}/${query.encryptableId}/logs`;
 
       delete query.encryptableId;
-      return url;
-    }
-    else {
-      let url = `/${this.namespace}/personal_logs`;
       return url;
     }
     return super.urlForQuery(query, modelName);
