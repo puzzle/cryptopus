@@ -130,6 +130,7 @@ ch_be:
       copy_password: Passwort kopierä
       copy_username: Benutzername kopierä
       add_attachment: Anhang hinzufüegä
+      load_more: Meh aazeige
     new:
       title: Nöie Encryptable
     log:

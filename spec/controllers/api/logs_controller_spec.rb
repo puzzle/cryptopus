@@ -29,7 +29,6 @@ describe Api::LogsController do
         credentials1.touch
         credentials1.touch
       end
-
       get :index, params: { encryptable_id: credentials1.id }
       expect(data.first['attributes']['created_at']).to be > data.second['attributes']['created_at']
     end

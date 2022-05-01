@@ -15,7 +15,11 @@ class Api::LogsController < ApiController
   def fetch_entries
     PaperTrail.serializer = JSON
     logs = current_user.encryptables.find_by!(id: params[:encryptable_id]).versions
-    logs.last(20).sort { |a, b| b.created_at <=> a.created_at }
+    if params[:load]
+      logs.last(params[:load]).sort { |a, b| b.created_at <=> a.created_at }
+    else
+      logs.last(10).sort { |a, b| b.created_at <=> a.created_at }
+    end
   end
 
   def list_serializer

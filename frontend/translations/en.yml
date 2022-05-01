@@ -97,6 +97,7 @@ en:
       copy_password: Copy password
       copy_username: Copy username
       add_attachment: Add Attachment
+      load_more: Load More
     new:
       title: New Encryptable
     log:
