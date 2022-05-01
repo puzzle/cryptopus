@@ -9,6 +9,8 @@ export default class ShowComponent extends Component {
   @service intl;
   @service notify;
 
+  @tracked logs;
+
   constructor() {
     super(...arguments);
 
@@ -32,6 +34,7 @@ export default class ShowComponent extends Component {
   @action
   toggleEncryptableEdit() {
     this.isEncryptableEditing = !this.isEncryptableEditing;
+    this.getLogs();
   }
 
   @action
@@ -69,7 +72,8 @@ export default class ShowComponent extends Component {
       .query("paper-trail-version", {
         encryptableId: this.args.encryptable.id
       })
-      .sortBy("created_at")
-      .reverse();
+      .then((res) => {
+        this.logs = res;
+      });
   }
 }

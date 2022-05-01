@@ -27,9 +27,12 @@ class Api::EncryptablesController < ApiController
   # GET /api/encryptables/:id
   def show
     authorize encryptable
-    encryptable.paper_trail_event = 'viewed'
-    encryptable.touch
     encryptable.decrypt(decrypted_team_password(team))
+    encryptable.paper_trail.save_with_version
+    v = encryptable.versions.last
+    v.event = 'viewed'
+    v.created_at = DateTime.now
+    v.save
     render_entry
   end
 

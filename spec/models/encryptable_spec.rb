@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-
 describe Encryptable do
 
   let(:bob) { users(:bob) }
@@ -85,6 +84,20 @@ describe Encryptable do
   end
 
   context 'papertrail', versioning: true do
+    context 'delete' do
+      it 'deletes log history if encryptable is delted' do
+        1000.times do
+          encryptable.touch
+        end
+
+        expect(encryptable.versions.size).to eq(1000)
+
+        encryptable.destroy
+
+        expect(PaperTrail::Version.all.size).to be(0)
+      end
+    end
+
     context 'touch' do
       it 'creates a log entry' do
         encryptable.touch
