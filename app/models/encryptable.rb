@@ -17,7 +17,7 @@
 
 class Encryptable < ApplicationRecord
 
-  has_paper_trail on: [:touch, :update], ignore: [:tag, :type, :encrypted_data], dependent: :destroy
+  has_paper_trail on: [:touch, :update], ignore: [:tag, :type], dependent: :destroy
 
   before_destroy :destroy_versions
 
@@ -75,7 +75,7 @@ class Encryptable < ApplicationRecord
   end
 
   def destroy_versions
-    self.versions.destroy_all
+    versions.destroy_all
   end
 
 end
