@@ -33,7 +33,7 @@ describe 'ProfilePage', type: :system, js: true do
       last_ccli_default_user_cell = last_table_row.all('td')[6]
 
 
-      checked_toggle = 'span.x-toggle-container.small.x-toggle-container-checked'
+      checked_toggle = 'span.x-toggle-container.medium.x-toggle-container-checked'
 
       within first_ccli_default_user_cell do
         find('div.x-toggle-component').click
