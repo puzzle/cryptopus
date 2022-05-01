@@ -6,6 +6,21 @@
         <h2>{{t "log.info"}}</h2>
       </div>
     </div>
-    <Log::Table @personal_log={{this.personal_log}}/>
+    <table class="table table-striped mt-20">
+      <thead>
+        <tr>
+          <th> {{t "log.action"}}</th>
+          <th> {{t "log.date"}}</th>
+          <th> {{t "log.where"}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>these are not implemented yet</td>
+          <td>this neither {{moment-format @model.info.lastLoginAt "DD.MM.YYYY hh:mm"}}</td> 
+          <td>nope just example {{@model.info.lastLoginFrom}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
