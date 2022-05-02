@@ -36,11 +36,12 @@ module ::Encryptables
       @params[:limit]
     end
 
-    def filter_by_query(teams)
+    def filter_by_query(encryptables)
       encryptables.where(
         'lower(encryptables.description) LIKE :query
         OR lower(encryptables.name) LIKE :query',
-        query: "%#{query}%")
+        query: "%#{query}%"
+      )
     end
 
     def filter_by_recent
@@ -64,15 +65,15 @@ module ::Encryptables
 
     def fetch_recent_credentials
       recent_credentials = []
-        @recent_credential_ids.each do |id|
-          entry = @current_user.encryptables.find(id)
-          if entry
-            recent_credentials.push(entry)
-          end
-          break if recent_credentials.size >= limit.to_i
+      @recent_credential_ids.each do |id|
+        entry = @current_user.encryptables.find(id)
+        if entry
+          recent_credentials.push(entry)
         end
+        break if recent_credentials.size >= limit.to_i
+      end
       recent_credentials
     end
-    
+
   end
 end

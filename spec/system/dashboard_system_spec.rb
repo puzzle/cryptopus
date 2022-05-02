@@ -53,7 +53,7 @@ describe 'Dashboard', type: :system, js: true do
 
     encryptable = Encryptable.find_by(name: 'Recent 5')
     visit("/encryptables/#{encryptable.id}")
-    visit("/dashboard")
+    visit('/dashboard')
     expect(first('div.dashboard-grid-card')).to have_text('Recent 5')
   end
 end

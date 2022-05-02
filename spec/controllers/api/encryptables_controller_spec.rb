@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'pry'
 
 describe Api::EncryptablesController do
   include ControllerHelpers
@@ -106,15 +105,14 @@ describe Api::EncryptablesController do
       login_as(:alice)
       limit = 5
 
-      get :index, params: { recent: true , limit: 5 }, xhr: true
+      get :index, params: { recent: true, limit: limit }, xhr: true
 
       expect(response.status).to be(200)
-      
-      expect(data.size).to eq(5)
+
+      expect(data.size).to eq(limit)
       attributes = data.first['attributes']
       expect(attributes['name']).to eq credentials2.name
       expect(attributes['description']).to eq credentials2.description
-      binding.pry
     end
   end
 
