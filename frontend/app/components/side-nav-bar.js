@@ -15,11 +15,8 @@ export default class SideNavBar extends Component {
   constructor() {
     super(...arguments);
 
-    this.teams = this.args.teams;
     this.collapsed = isNone(this.navService.selectedTeam);
     this.showsFavourites = localStorage.getItem("showsFavourites") === "true";
-
-    this.toggleFavourites(this.showsFavourites);
   }
 
   setupModal(element) {
@@ -57,16 +54,8 @@ export default class SideNavBar extends Component {
 
   @action
   toggleFavourites(isShowing) {
-    this.showsFavourites = isShowing;
     localStorage.setItem("showsFavourites", isShowing);
-    this.navService.isShowingFavourites = isShowing;
-    this.store
-      .query("team", {
-        favourite: this.showsFavourites ? this.showsFavourites : undefined
-      })
-      .then((res) => {
-        this.navService.availableTeams = res.toArray();
-        this.navService.isLoadingTeams = false;
-      });
+    this.showsFavourites = isShowing;
+    this.navService.fetchTeams();
   }
 }
