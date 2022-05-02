@@ -20,6 +20,7 @@ export default class TeamsIndexRoute extends BaseRoute {
     } else if (isPresent(params["q"])) {
       this.navService.clear();
       this.navService.searchQuery = params["q"];
+      this.navService.searchQueryInput = params["q"];
     }
   }
 

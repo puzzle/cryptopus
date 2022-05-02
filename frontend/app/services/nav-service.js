@@ -6,6 +6,7 @@ export default class NavService extends Service {
   @tracked selectedTeam = null;
   @tracked selectedFolder = null;
   @tracked searchQuery = null;
+  @tracked searchQueryInput = null;
 
   @tracked isShowingFavourites;
   @tracked isLoadingTeams = true;
@@ -32,6 +33,7 @@ export default class NavService extends Service {
   clear() {
     this.selectedTeam = null;
     this.selectedFolder = null;
+    this.searchQueryInput = null;
     this.searchQuery = null;
   }
 
