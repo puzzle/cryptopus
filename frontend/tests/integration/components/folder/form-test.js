@@ -5,6 +5,8 @@ import { hbs } from "ember-cli-htmlbars";
 import Service from "@ember/service";
 import { setLocale } from "ember-intl/test-support";
 
+const navServiceStub = Service.extend();
+
 const storeStub = Service.extend({
   findAll(modelName) {
     if (modelName === "folder") {
@@ -56,6 +58,8 @@ module("Integration | Component | folder/form", function (hooks) {
   hooks.beforeEach(function () {
     this.owner.unregister("service:store");
     this.owner.register("service:store", storeStub);
+    this.owner.unregister("service:navService");
+    this.owner.register("service:navService", navServiceStub);
     setLocale("en");
   });
 

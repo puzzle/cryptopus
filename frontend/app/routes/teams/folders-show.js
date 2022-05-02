@@ -10,7 +10,7 @@ export default class TeamsFoldersIndexRoute extends BaseRoute {
   afterModel(_resolvedModel, transition) {
     this.navService.setSelectedTeamById(transition.to.params.team_id);
     this.navService.setSelectedFolderById(transition.to.params.folder_id);
-    this.navService.searchQuery = null;
+    this.navService.clearSearch();
   }
 
   model(params) {
