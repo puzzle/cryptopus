@@ -44,17 +44,35 @@ module ::Encryptables
     end
 
     def filter_by_recent
-      logs = PaperTrail::Version.where(whodunnit: @current_user.id)
-      logs = logs.sort { |a, b| b.created_at <=> a.created_at }
+      fetch_logs
+      read_credential_ids
+      fetch_recent_credentials
+    end
 
+    def fetch_logs
+      @logs = PaperTrail::Version.where(whodunnit: @current_user.id)
+      @logs = @logs.sort { |a, b| b.created_at <=> a.created_at }
+    end
+
+    def read_credential_ids
       credential_ids = []
-      logs.each do |log|
+      @logs.each do |log|
         credential_ids.push(log.item_id)
       end
-
-      recent_credential_ids = credential_ids.uniq.first(limit.to_i)
-
-      @current_user.encryptables.find(recent_credential_ids)
+      @recent_credential_ids = credential_ids.uniq
     end
+
+    def fetch_recent_credentials
+      recent_credentials = []
+        @recent_credential_ids.each do |id|
+          entry = @current_user.encryptables.find(id)
+          if entry
+            recent_credentials.push(entry)
+          end
+          break if recent_credentials.size >= limit.to_i
+        end
+      recent_credentials
+    end
+    
   end
 end
