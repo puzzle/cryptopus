@@ -8,8 +8,8 @@ class Api::LogsController < ApiController
     render({ json: fetch_entries,
              each_serializer: list_serializer,
              root: 'Logs_'.pluralize }
-             .merge(render_options)
-             .merge(options.fetch(:render_options, {})))
+      .merge(render_options)
+      .merge(options.fetch(:render_options, {})))
   end
 
   def fetch_entries
