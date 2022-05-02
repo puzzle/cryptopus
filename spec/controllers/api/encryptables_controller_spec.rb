@@ -13,12 +13,13 @@ describe Api::EncryptablesController do
   let(:attributes) { %w[name cleartext_password cleartext_username] }
   let!(:ose_secret) { create_ose_secret }
   let(:credentials1) { encryptables(:credentials1) }
+  let(:credentials2) { encryptables(:recentCredentials1) }
 
   context 'GET index' do
     it 'returns encryptable with matching name' do
       login_as(:alice)
 
-      get :index, params: { 'q': 'Personal' }, xhr: true
+      get :index, params: { 'q': 'Mailbox' }, xhr: true
 
       credentials1_json = data.second
       credentials1_json_attributes = credentials1_json['attributes']
@@ -97,6 +98,20 @@ describe Api::EncryptablesController do
 
       expect_json_object_includes_keys(credentials2_json_attributes, attributes)
       expect_json_object_includes_keys(credentials2_json_relationships, nested_models)
+    end
+
+    it 'returns alices favourite teams' do
+      login_as(:alice)
+
+      get :index, params: { recent: true }, xhr: true
+
+      expect(response.status).to be(200)
+
+      expect(data.size).to be(5)
+      attributes = data.first['attributes']
+
+      expect(attributes['name']).to eq recentCredentials1.name
+      expect(attributes['description']).to eq recentCredentials1.description
     end
   end
 
