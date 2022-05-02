@@ -14,10 +14,6 @@ export default class ShowComponent extends Component {
   @tracked
   isNewEncryptable = false;
 
-  constructor() {
-    super(...arguments);
-  }
-
   get shouldRenderEncryptables() {
     return !isEmpty(this.args.folder) && !this.isCollapsed;
   }
