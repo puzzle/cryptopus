@@ -104,16 +104,17 @@ describe Api::EncryptablesController do
 
     it 'returns alices recent encryptables' do
       login_as(:alice)
+      limit = 5
 
-      get :index, params: { recent: true }, xhr: true
+      get :index, params: { recent: true , limit: 5 }, xhr: true
 
       expect(response.status).to be(200)
-
+      
       expect(data.size).to eq(5)
       attributes = data.first['attributes']
-
-      expect(attributes['name']).to eq recentCredentials1.name
-      expect(attributes['description']).to eq recentCredentials1.description
+      expect(attributes['name']).to eq credentials2.name
+      expect(attributes['description']).to eq credentials2.description
+      binding.pry
     end
   end
 
