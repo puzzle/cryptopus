@@ -36,11 +36,12 @@ module ::Encryptables
       @params[:limit]
     end
 
-    def filter_by_query(teams)
+    def filter_by_query(encryptables)
       encryptables.where(
         'lower(encryptables.description) LIKE :query
         OR lower(encryptables.name) LIKE :query',
-        query: "%#{query}%")
+        query: "%#{query}%"
+      )
     end
 
     def filter_by_recent

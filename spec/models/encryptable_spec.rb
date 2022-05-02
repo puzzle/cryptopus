@@ -86,15 +86,17 @@ describe Encryptable do
   context 'papertrail', versioning: true do
     context 'delete' do
       it 'deletes log history if encryptable is delted' do
+
         1000.times do
           encryptable.touch
         end
 
         expect(encryptable.versions.size).to eq(1000)
+        size = PaperTrail::Version.all.size
 
         encryptable.destroy
 
-        expect(PaperTrail::Version.all.size).to be(0)
+        expect(PaperTrail::Version.all.size).to be(size - 1000)
       end
     end
 
