@@ -8,7 +8,6 @@ describe 'Dashboard', type: :system, js: true do
     login_as_user(:alice)
 
     expect(page.current_path).to eq('/dashboard')
-
     expect(page).to have_selector('pzsh-hero', visible: true)
     expect(page).to have_selector('pzsh-banner', visible: true)
     expect(page).to have_text('Recent Credentials', count: 1)

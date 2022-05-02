@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'pry'
 
 describe Api::EncryptablesController do
   include ControllerHelpers
@@ -38,16 +39,16 @@ describe Api::EncryptablesController do
       expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
     end
 
-    it 'returns all enncryptables if empty query param given' do
+    it 'returns all encryptables if empty query param given' do
       login_as(:alice)
 
       get :index, params: { 'q': '' }, xhr: true
 
-      credentials1_json = data.second
+      credentials1_json = data.fourth
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
-      expect(data.count).to eq 3
+      expect(data.count).to eq 8
       expect(credentials1_json_attributes['name']).to eq credentials1.name
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil
@@ -64,11 +65,11 @@ describe Api::EncryptablesController do
 
       get :index, xhr: true
 
-      credentials1_json = data.second
+      credentials1_json = data.fourth
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
-      expect(data.count).to eq 3
+      expect(data.count).to eq 8
       expect(credentials1_json_attributes['name']).to eq credentials1.name
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil
@@ -101,14 +102,14 @@ describe Api::EncryptablesController do
       expect_json_object_includes_keys(credentials2_json_relationships, nested_models)
     end
 
-    it 'returns alices favourite teams' do
+    it 'returns alices recent encryptables' do
       login_as(:alice)
 
       get :index, params: { recent: true }, xhr: true
 
       expect(response.status).to be(200)
 
-      expect(data.size).to be(5)
+      expect(data.size).to eq(5)
       attributes = data.first['attributes']
 
       expect(attributes['name']).to eq recentCredentials1.name
