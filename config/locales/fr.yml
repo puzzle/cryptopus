@@ -1,20 +1,13 @@
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 fr:
   fallback: "ATTENTION! Ça c’est l’environment Fallback de Cryptopus. Ne créez pas des nouvelles données parce qu’elles ne seront pas sauvées!"
   username: Nom d'utilisateur
   password: Mot de passe
   help: Aide
   version: Version
-  last_login_date_and_from: "La dernière connexion était le %{last_login_at} de %{last_login_from}"
-  last_login_date_and_from_country: "La dernière connexion était le %{last_login_at} de %{last_login_from} (%{last_login_country})"
-  last_login_date: "La dernière connexion était le %{last_login_at}"
-
+  settings: Paramètres
+  last_login_date_and_from: La dernière connexion était le %{last_login_at} de %{last_login_from}'
+  last_login_date_and_from_country: La dernière connexion était le %{last_login_at} de %{last_login_from} (%{last_login_country})
+  last_login_date: La dernière connexion était le %{last_login_at}
   admin:
     recryptrequests:
       uncrypterror:
@@ -23,7 +16,6 @@ fr:
       index:
         last_login_at: Dernière connexion à
         last_login_from: Dernière connexion de
-
   session:
     user_password:
       title: Identifiez-vous
@@ -47,7 +39,6 @@ fr:
         notice: Veuillez entrer votre mot de passe Cryptopus pour migrer votre compte vers Keycloak.
         cryptopus_password: Votre mot de passe Cryptopus
         migrate: Migrer
-
   profile:
     info:
       last_login_at: Dernière connexion à
@@ -55,15 +46,14 @@ fr:
     api_users:
       last_login_at: Dernière connexion à
       last_login_from: Dernière connexion de
-
   flashes:
     api:
       admin:
         users:
           update:
-            user: "L'utilisateur mis à jour est maintenant un utilisateur"
-            conf_admin: "L'utilisateur mis à jour est maintenant un conf-admin"
-            admin: "L'utilisateur mis à jour est maintenant un admin"
+            user: L'utilisateur mis à jour est maintenant un utilisateur
+            conf_admin: L'utilisateur mis à jour est maintenant un conf-admin
+            admin: L'utilisateur mis à jour est maintenant un admin
       api-users:
         update:
           time:
@@ -71,15 +61,14 @@ fr:
             five_mins: pour cinq minutes
             twelve_hours: pour douze heurs
             infinite: infiniment
-        lock: "%{username} est maintenant bloqué"
-        unlock: "%{username} n'est plus bloqué"
+        lock: '%{username} est maintenant bloqué'
+        unlock: '%{username} n''est plus bloqué'
         token:
-          renew: "%{username} a été renouvelé, nouveau jeton: %{token}"
+          renew: '%{username} a été renouvelé, nouveau jeton: %{token}'
       members:
         removed: Membre de l'équipe a été ajouté avec succès
-
     encryptable_files:
-      uploaded: Fichier téléchargé avec succès.
+      uploaded: Fichier téléchargé avec succès
       uploaded_size_to_high: Fichier est trop volumineux pour tèlècharger. (max. 10MB)
       uploaded_filename_is_empty: Le fichier n'a pas été nommé
       uploaded_file_inexistent: Fichier est inexistant
@@ -89,10 +78,9 @@ fr:
       weak_password: Pour améliorer la sécurité vous devez déterminer un mot de passe utilisateur plus complexe.
 
     teams:
-      not_existing: "Il n'y a pas d'équipe avec l'id %{id}"
-
+      not_existing: 'Il n''y a pas d''équipe avec l''id %{id}'
   confirm:
-    delete: "Supprimez %{entry_class} %{entry_label} ?"
+    delete: 'Supprimez %{entry_class} %{entry_label} ?'
 
   #Validation Errors
   activerecord:
@@ -106,3 +94,10 @@ fr:
             filename:
               blank: Filename ne peut pas être vide
               taken: Filename est déjà pris
+
+ #Pundit
+  pundit:
+    default: Accès refusé
+    team_policy:
+      update?: Vous n'êtes pas membre de cette équipe
+      destroy?: Seul l'administrateur peut supprimer des équipes
