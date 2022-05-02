@@ -19,8 +19,9 @@ describe Api::EncryptablesController do
     it 'returns encryptable with matching name' do
       login_as(:alice)
 
-      get :index, params: { 'q': 'Mailbox' }, xhr: true
+      get :index, params: { 'q': 'Personal' }, xhr: true
 
+      expect(data.count).to eq 1
       credentials1_json = data.second
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
