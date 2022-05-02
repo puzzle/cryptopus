@@ -1,21 +1,13 @@
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  fallback: "!WARNING! This is the Fallback Cryptopus! Do not write any new data it will not persist"
+  fallback: 'WARNING! This is the Fallback Cryptopus! Do not write any new data it will not persist'
   username: Username
   password: Password
   help: Help
   version: Version
   settings: Settings
-  last_login_date_and_from: "The last login was on %{last_login_at} from %{last_login_from}"
-  last_login_date_and_from_country: "The last login was on %{last_login_at} from %{last_login_from} (%{last_login_country})"
-  last_login_date: "The last login was on %{last_login_at}"
-
+  last_login_date_and_from: 'The last login was on %{last_login_at} from %{last_login_from}'
+  last_login_date_and_from_country: 'The last login was on %{last_login_at} from %{last_login_from} (%{last_login_country})'
+  last_login_date: 'The last login was on %{last_login_at}'
   admin:
     recryptrequests:
       uncrypterror:
@@ -24,7 +16,6 @@ en:
       index:
         last_login_at: Last login at
         last_login_from: Last login from
-
   session:
     user_password:
       submit: Login
@@ -35,7 +26,7 @@ en:
       sleep: I'm currently asleep to protect your precious data from session thieves. Feel free to wake me up any time
       submit: Wake me up!
     destroy:
-      expired: You have been automatically logged out.
+      expired: You have been automatically logged out
     show_update_password:
       submit: Change
   recrypt:
@@ -44,7 +35,6 @@ en:
         notice: Please enter your previous Cryptopus Password to migrate your credentials to OpendID connect / Keycloak
         cryptopus_password: Your Cryptopus Password
         migrate: Migrate
-
   profile:
     info:
       last_login_at: Last login at
@@ -52,13 +42,12 @@ en:
     api_users:
       last_login_at: Last login at
       last_login_from: Last login from
-
   flashes:
     api:
       admin:
         users:
           update:
-            user: " Updated user is now a user"
+            user: "Updated user is now a user"
             conf_admin: "Updated user is now a conf admin"
             admin: "Updated user is now an admin"
       api-users:
@@ -68,28 +57,26 @@ en:
             five_mins: for five minutes
             twelve_hours: for twelve hours
             infinite: without limit
-        lock: "Locked %{username}"
-        unlock: "Unlocked %{username}"
+        lock: 'Locked %{username}'
+        unlock: 'Unlocked %{username}'
         token:
-          renew: "Renewed %{username}, new token: %{token}"
+          renew: 'Renewed %{username}, new token: %{token}'
       members:
         removed: Member was successfully removed
-
     encryptable_files:
-      uploaded: Die Datei wurde erfolgreich hochgeladen.
-      uploaded_size_to_high: Die Datei ist zu gross zum hochladen. (Max. 10MB)
-      uploaded_filename_is_empty: Die Datei muss benannt sein
-      uploaded_file_inexistent: Datei ist inexistent
-      uploaded_filename_already_exists: Dateiname existiert bereits
+      uploaded: File was successfully uploaded
+      uploaded_size_to_high: The file is too big to upload. (max. 10MB)
+      uploaded_filename_is_empty: The file has to be named
+      uploaded_file_inexistent: File is inexistent
+      uploaded_filename_already_exists: Filename already exists
     session:
-      auth_failed: Ungültiger Benutzername / Passwort.
-      weak_password: Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen
-
+      auth_failed: Authentication failed! Enter a correct username and password
+      weak_password: To improve security you should change your login password to a more
+        complex one
     teams:
-      not_existing: "Es existiert kein Team mit der Id %{id}"
-
+      not_existing: 'Es existiert kein Team mit der Id %{id}'
   confirm:
-    delete: "Delete %{entry_class} %{entry_label} ?"
+    delete: 'Delete %{entry_class} %{entry_label} ?'
 
   #Validation Errors
   activerecord:

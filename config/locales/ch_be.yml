@@ -1,53 +1,13 @@
 ch_be:
   fallback: 'ACHTUNG! Das isch d Cryptopus Fallback Umgebig. Schrib keni neue Date wöu si nid erhalte blibe!'
-  help: Hiuf
-  settings: Istellige
   username: Benutzername
   password: Passwort
+  help: Hiuf
   version: Version
-  last_login_date_and_from: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}"
-  last_login_date_and_from_country: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from} (%{last_login_country})"
-  last_login_date: "Ds letschtä Login isch am %{last_login_at} gsi"
-
-  flashes:
-    api:
-      admin:
-        users:
-          update:
-            user: "Aktualisierte Benutzer isch itz ä Benutzer"
-            conf_admin: "Aktualisierte Benutzer isch itz ä conf-admin"
-            admin: "Aktualisierte Benutzer isch itz ä admin"
-      api-users:
-        update:
-          time:
-            one_min: für ei Minute
-            five_mins: für füüf Minute
-            twelve_hours: für zwöuf Stunde
-            infinite: bis ads Endi vor Zit
-        lock: "%{username} isch gsperrt worde"
-        unlock: "%{username} isch entsperrt worde"
-        token:
-          renew: "%{username} isch ernöieret worde, nöiä Token: %{token}"
-      members:
-        removed: Mitglied isch erfougrich entfernt worde
-
-    application:
-      wait: Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde.
-    encryptable_files:
-      uploaded: D Datei isch erfougrich ufeglade worde.
-      uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
-      uploaded_filename_is_empty: D Datei muess e Name ha
-      uploaded_file_blank: D Datei mues ä Inhaut ha
-    session:
-      auth_failed: Irgendöppis vo dine Logindate isch fautsch
-      weak_password: Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle
-
-  session:
-    destroy:
-      expired: Du bisch automatisch abgemeldet worde.
-    show_update_password:
-      submit: Ändere
-
+  settings: Istellige
+  last_login_date_and_from: 'Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}'
+  last_login_date_and_from_country: 'Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from} (%{last_login_country})'
+  last_login_date: 'Ds letschtä Login isch am %{last_login_at} gsi'
   admin:
     recryptrequests:
       uncrypterror:
@@ -56,7 +16,11 @@ ch_be:
       index:
         last_login_at: Letschti Ameudig am
         last_login_from: Letschti Ameudig vo
-
+  session:
+    destroy:
+      expired: Du bisch automatisch abgemeldet worde
+    show_update_password:
+      submit: Ändere
   profile:
     info:
       last_login_at: Letschts Login am
@@ -64,15 +28,56 @@ ch_be:
     api_users:
       last_login_at: Letschts Login am
       last_login_from: Letschts Login vo
-
+  flashes:
+    api:
+      admin:
+        users:
+          update:
+            user: Aktualisierte Benutzer isch itz ä Benutzer
+            conf_admin: Aktualisierte Benutzer isch itz ä conf-admin
+            admin: Aktualisierte Benutzer isch itz ä admin
+      api-users:
+        update:
+          time:
+            one_min: für ei Minute
+            five_mins: für füüf Minute
+            twelve_hours: für zwöuf Stunde
+            infinite: bis ads Endi vor Zit
+        lock: '%{username} isch gsperrt worde'
+        unlock: '%{username} isch entsperrt worde'
+        token:
+          renew: '%{username} isch ernöieret worde, nöiä Token: %{token}'
+      members:
+        removed: Mitglied isch erfougrich entfernt worde
+    application:
+      wait: 'Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde'
+    encryptable_files:
+      uploaded: D Datei isch erfougrich ufeglade worde
+      uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
+      uploaded_filename_is_empty: D Datei muess e Name ha
+      uploaded_file_blank: D Datei mues ä Inhaut ha
+    session:
+      auth_failed: Irgendöppis vo dine Logindate isch fautsch
+      weak_password: 'Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle'
   confirm:
-    delete: "%{entry_class} %{entry_label} lösche?"
+    delete: '%{entry_class} %{entry_label} lösche?'
 
-#Validation Errors
+  #Validation Errors
   activerecord:
     errors:
       models:
         user:
           new_password_invalid: Dis nöie Passwort isch fausch gsi
           old_password_invalid: Dis aute Passwort isch fausch gsi
+        file_entry:
+          attributes:
+            filename:
+              blank: Filename cha nid läär si
+              taken: Filename isch bereits vergäh
 
+  #Pundit
+  pundit:
+    default: Zugriff verweigeret
+    team_policy:
+      update?: Du nid miglid vo däm team
+      destroy?: Nume admins chöi teams lösche

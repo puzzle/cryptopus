@@ -1,21 +1,13 @@
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 de:
   fallback: 'ACHTUNG! Dass ist die Cryptopus Fallback Umgebung. Schreiben sie keine neuen Daten da diese nicht erhalten bleiben!'
   username: Benutzername
   password: Passwort
+  help: Hilfe
   version: Version
   settings: Einstellungen
   last_login_date_and_from: "Das letzte Login war am %{last_login_at} von %{last_login_from}"
   last_login_date_and_from_country: "Das letzte Login war am %{last_login_at} von %{last_login_from} (%{last_login_country})"
   last_login_date: "Das letzte Login war am %{last_login_at}"
-  help: Hilfe
-
   admin:
     recryptrequests:
       uncrypterror:
@@ -24,24 +16,20 @@ de:
       index:
         last_login_at: Letzte Anmeldung am
         last_login_from: Letzte Anmeldung von
-
   session:
     local:
       new:
-        title: Anmelden
-        description: Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein um Cryptopus zu verwenden.
         submit: Anmelden
     destroy:
-      expired: Du wurdest automatisch abgemeldet.
+      expired: Du wurdest automatisch abgemeldet
     show_update_password:
       submit: Ändern
   recrypt:
     sso:
       new:
-        notice: Bitte geben Sie Ihr Cryptopus-Passwort ein, um Ihr Konto zu Keycloak zu migrieren.
+        notice: Bitte geben Sie Ihr Cryptopus-Passwort ein, um Ihr Konto zu Keycloak zu migrieren
         cryptopus_password: Dein Cryptopus Passwort
         migrate: Migrieren
-
   profile:
     info:
       last_login_at: Letztes Login um
@@ -49,7 +37,6 @@ de:
     api_users:
       last_login_at: Letztes Login um
       last_login_from: Letztes Login von
-
   flashes:
     api:
       admin:
@@ -79,12 +66,29 @@ de:
       uploaded_file_inexistent: Datei ist inexistent
       uploaded_filename_already_exists: Dateiname existiert bereits
     session:
-      auth_failed: Ungültiger Benutzername / Passwort.
+      auth_failed: Ungültiger Benutzername / Passwort
       weak_password: Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen
-
     teams:
       not_existing: "Es existiert kein Team mit der Id %{id}"
-
   confirm:
     delete: "%{entry_class} %{entry_label} löschen?"
 
+  #Validation Errors
+  activerecord:
+    errors:
+      models:
+        user:
+          new_password_invalid: Dein neues Passwort war falsch
+          old_password_invalid: Dein altes Passwort war falsch
+        file_entry:
+          attributes:
+            filename:
+              blank: Filename kann nicht leer sein
+              taken: Filename ist bereits vergeben
+
+  #Pundit
+  pundit:
+    default: Zugriff verweigert
+    team_policy:
+      update?: Du bist nicht Mitglied dieses Teams
+      destroy?: Nur Admins dürfen Teams löschen
