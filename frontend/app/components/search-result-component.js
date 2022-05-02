@@ -7,8 +7,8 @@ export default class SearchResultComponent extends Component {
   @service router;
 
   @action
-  clear_search() {
-    this.navService.searchQuery = null;
+  clearSearch() {
+    this.navService.clearSearch();
     this.router.replaceWith("index");
   }
 }
