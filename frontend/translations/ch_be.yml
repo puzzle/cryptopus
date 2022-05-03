@@ -13,8 +13,10 @@ ch_be:
   update: Aktualisiere
   create: Ersteuä
   delete: Löschä
+  cancel: Abbrächä
   add: Drzuätuä
   description: Beschribig
+  tag: Tag
   username: Benutzername
   password: Passwort
   actions: Aktionä
@@ -27,22 +29,22 @@ ch_be:
   auto_logout: Outomatisch Abmäudä i
   contribute_on_github: Mitwürke uf GitHub
   settings: Istellige
-  users: Benutzer
+  users: Benützer
+  user: Benutzer
   profile_title: Profiu
   last_login_date_and_from: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}"
   last_login_date_and_from_country: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from} (%{last_login_country})"
   last_login_date: "Ds letschtä Login isch am %{last_login_at} gsi"
+  unencrypted_field_caption: nid verschlüsslet
   folder: Ordner
   team: Team
   move: Bewegä
-  here: hiä
   new: Nöi
   back: Zrügg
   save: Spichere
   close: Schliesse
   hi_user: "Hoi, "
   intro: Suechsch äuä es Passwort?
-  user: Benutzer
   role: Rollä
   empty: läär
   slogan: Dr Ort für Passwörter
@@ -170,8 +172,6 @@ ch_be:
     title: Teams
     none_available: Kener Teams verfüegbar
     loading: Am lade ...
-    edit:
-      title: Team bearbeite
     form:
       private: Privat
       enabled: Aktiviert
@@ -180,6 +180,8 @@ ch_be:
       search: Suechresultat für
     new:
       title: Team ersteue
+    edit:
+      title: Team bearbeite
     description:
       private: Admins hei ke Zuegriff we si agwäut si
     show:
@@ -318,7 +320,6 @@ ch_be:
         password: Passwort
         givenname: Vorname
         surname: Nachname
-        submit: Ersteue
         managePassword: Passwortverwautig
         updatePassword: Ds Passwort ernöiere
         oldPassword: "Ds aute Passwort:"
