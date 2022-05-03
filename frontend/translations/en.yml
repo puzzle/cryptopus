@@ -242,8 +242,8 @@ en:
           copied: CCLI Login command was copied!
           tooltip: CCLI Login
       members:
-        removed: Member was successfully removed
         added: Member was successfully added
+        removed: Member was successfully removed
       errors:
         auth_failed: Authentication failed
         user_not_logged_in: User not logged in
@@ -283,8 +283,8 @@ en:
       uploaded_file_inexistent: File is inexistent
       uploaded_filename_already_exists: Filename already exists
     session:
-      weak_password: To improve security you should change your login password to a more complex one.
       auth_failed: Authentication failed! Enter a correct username and password.
+      weak_password: To improve security you should change your login password to a more complex one.
       wrong_root: Login as root only from private IP accessible
     teams:
       not_existing: "Team with id %{id} does not exist"
@@ -302,11 +302,6 @@ en:
         user:
           new_password_invalid: Your NEW password was wrong
           old_password_invalid: Your OLD password was wrong
-
-  password_strength:
-    weak: The password is weak
-    good: The password is good
-    strong: The password is strong!
 
   tooltips:
     all_teams: All Teams
