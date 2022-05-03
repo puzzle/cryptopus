@@ -82,6 +82,8 @@ describe MoveFilesFromCredentialToFolder do
       expect(encryptable_file3.name).to eq('Empty Credential test_file.txt')
       expect(encryptable_file3.description).to eq('Description of test file')
 
+      expect(Model.where id: @legacy_credentials3.id).not_to exist
+
       expect do
         @legacy_credentials3.reload
       end.to raise_error(ActiveRecord::RecordNotFound)
