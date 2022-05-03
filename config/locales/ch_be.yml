@@ -8,6 +8,7 @@ ch_be:
   last_login_date_and_from: 'Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}'
   last_login_date_and_from_country: 'Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from} (%{last_login_country})'
   last_login_date: 'Ds letschtä Login isch am %{last_login_at} gsi'
+
   admin:
     recryptrequests:
       uncrypterror:
@@ -16,11 +17,18 @@ ch_be:
       index:
         last_login_at: Letschti Ameudig am
         last_login_from: Letschti Ameudig vo
+
   session:
+    user_password:
+      submit: Login
+    local:
+      new:
+        submit: Login
     destroy:
       expired: Du bisch automatisch abgemeldet worde
     show_update_password:
       submit: Ändere
+
   profile:
     info:
       last_login_at: Letschts Login am
@@ -28,6 +36,7 @@ ch_be:
     api_users:
       last_login_at: Letschts Login am
       last_login_from: Letschts Login vo
+
   flashes:
     api:
       admin:
@@ -59,6 +68,9 @@ ch_be:
     session:
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
       weak_password: 'Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle'
+    teams:
+      not_existing: 'Es existiert kes Team mit dr Id %{id}'
+
   confirm:
     delete: '%{entry_class} %{entry_label} lösche?'
 

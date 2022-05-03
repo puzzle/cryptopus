@@ -8,6 +8,7 @@ fr:
   last_login_date_and_from: La dernière connexion était le %{last_login_at} de %{last_login_from}'
   last_login_date_and_from_country: La dernière connexion était le %{last_login_at} de %{last_login_from} (%{last_login_country})
   last_login_date: La dernière connexion était le %{last_login_at}
+
   admin:
     recryptrequests:
       uncrypterror:
@@ -16,13 +17,12 @@ fr:
       index:
         last_login_at: Dernière connexion à
         last_login_from: Dernière connexion de
+
   session:
     user_password:
-      title: Identifiez-vous
       submit: S'identifier
     local:
       new:
-        title: Identifiez-vous
         submit: S'identifier
     sso:
       inactive:
@@ -33,12 +33,14 @@ fr:
       expired: Tu as été automatiquement déconnecté
     show_update_password:
       submit: Change
+
   recrypt:
     sso:
       new:
         notice: Veuillez entrer votre mot de passe Cryptopus pour migrer votre compte vers Keycloak.
         cryptopus_password: Votre mot de passe Cryptopus
         migrate: Migrer
+
   profile:
     info:
       last_login_at: Dernière connexion à
@@ -46,6 +48,7 @@ fr:
     api_users:
       last_login_at: Dernière connexion à
       last_login_from: Dernière connexion de
+
   flashes:
     api:
       admin:
@@ -79,6 +82,7 @@ fr:
 
     teams:
       not_existing: 'Il n''y a pas d''équipe avec l''id %{id}'
+
   confirm:
     delete: 'Supprimez %{entry_class} %{entry_label} ?'
 
