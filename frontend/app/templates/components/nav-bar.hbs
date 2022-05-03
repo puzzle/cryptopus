@@ -19,7 +19,7 @@
   <div slot="content" class="search">
     <div class="search-field">
       <Input @class="search" @type="search"
-             @value={{ this.navService.searchQuery }}
+             @value={{ this.navService.searchQueryInput }}
              placeholder={{t (concat "search.index.type_to_search." (if this.navService.isShowingFavourites "favourites" "all"))}} @keyUp={{this.searchByQuery}}
              @autofocus={{this.isStartpage}} maxlength="70"/>
       <button>

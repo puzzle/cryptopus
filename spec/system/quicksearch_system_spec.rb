@@ -34,13 +34,4 @@ describe 'QuickSearch', type: :system, js: true do
       expect(page).to have_content(credentials1.name)
     end
   end
-
-  it 'search by get params' do
-    find('input.search').set 'Mailbox'
-
-    expect(page).to have_selector('.encryptable-entry')
-    within('div.encryptable-entry') do
-      expect(page).to have_content(credentials1.name)
-    end
-  end
 end

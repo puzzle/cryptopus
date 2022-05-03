@@ -6,6 +6,7 @@ export default class NavService extends Service {
   @tracked selectedTeam = null;
   @tracked selectedFolder = null;
   @tracked searchQuery = null;
+  @tracked searchQueryInput = null;
 
   @tracked isShowingFavourites;
   @tracked isLoadingTeams = true;
@@ -13,6 +14,12 @@ export default class NavService extends Service {
 
   @service store;
   @service router;
+
+  constructor() {
+    super(...arguments);
+
+    this.fetchTeams();
+  }
 
   get sortedTeams() {
     return this.availableTeams.toArray().sort((a, b) => {
@@ -29,10 +36,34 @@ export default class NavService extends Service {
     return !sideNavBarDisabledRoutes.includes(this.router.currentRouteName);
   }
 
+  fetchTeams() {
+    let favourites = localStorage.getItem("showsFavourites") === "true";
+    this.isShowingFavourites = favourites;
+    this.store
+      .query("team", {
+        favourite: this.isShowingFavourites
+          ? this.isShowingFavourites
+          : undefined
+      })
+      .then((res) => {
+        this.availableTeams = res.toArray();
+        this.isLoadingTeams = false;
+      });
+  }
+
   clear() {
+    this.clearNavSelection();
+    this.clearSearch();
+  }
+
+  clearSearch() {
+    this.searchQueryInput = null;
+    this.searchQuery = null;
+  }
+
+  clearNavSelection() {
     this.selectedTeam = null;
     this.selectedFolder = null;
-    this.searchQuery = null;
   }
 
   setSelectedTeamById(team_id) {
