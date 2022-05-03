@@ -45,7 +45,7 @@ module ::Encryptables
     end
 
     def filter_by_recent
-      recent_versions = PaperTrail::Version
+      PaperTrail::Version
         .where(whodunnit: @current_user)
         .order(created_at: :desc)
         .group(:item_id, :item_type)
