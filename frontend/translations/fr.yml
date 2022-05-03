@@ -40,7 +40,6 @@ fr:
   folder: Dossier
   team: Équipe
   move: Mouvoir
-  here: Ici
   new: Nouveau
   back: Retour
   save: Sauvegarder
@@ -95,7 +94,7 @@ fr:
       title: Nouveau compte
 
   admin:
-    title: "Admin"
+    title: Admin
     settings:
       index:
         whitelisted_countries: Pays sur liste blanche
@@ -302,15 +301,9 @@ fr:
   activerecord:
     errors:
       models:
-        encryptable:
         user:
           new_password_invalid: Votre nouveau mot de passe était incorrect
           old_password_invalid: Votre ancien mot de passe était incorrect
-
-  password_strength:
-    weak: Le mot de passe est faible
-    good: Le mot de passe est bon
-    strong: Le mot de passe est forte!
 
   tooltips:
     all_teams: Tous les équipes
@@ -340,7 +333,6 @@ fr:
       team:
         name: Nom
         description: Description
-
 
   validations:
     name:

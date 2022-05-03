@@ -107,7 +107,6 @@ de:
           range_between: Dies entspricht der Spannweite zwischen
           and: und
         ipv6_allowed: IPv6 ist erlaubt und kann wie folgt eingegeben werden
-        insert_ip_prompt: Geben Sie eine IP-Adresse oder Subnetzmaske ein
         geo_ip_disabled: Source IP Filter ist deaktiviert. Bitte installieren Sie GeoIP DB
     recryptrequests:
       uncrypterror:
@@ -134,9 +133,9 @@ de:
         last_login_at: Letzte Anmeldung am
         last_login_from: Letzte Anmeldung von
         action: Aktion
-        role: Rolle
         locked: Gesperrte Benutzer
         unlocked: Nicht gesperrte Benutzer
+        role: Rolle
       last_teammember_teams:
         message: Folgende Teams in denen der zu löschende User der letzte Member ist müssen gelöscht werden.
         destroy: Benutzer löschen
@@ -156,8 +155,8 @@ de:
   encryptable_files:
     new:
       title: Anhang zu den Zugangsdaten hinzufügen
-      upload_file: Datei hochladen
       upload: Hochladen
+      upload_file: Datei hochladen
       choose_file: Wählen Sie eine Datei
       reupload: Wählen Sie eine andere Datei
       selected_file: Ausgewählte Datei
@@ -175,8 +174,6 @@ de:
     title: Teams
     none_available: Keine Teams verfügbar
     loading: Am laden ...
-    show:
-      members: Mitglieder
     form:
       enabled: Aktiviert
       private: Privat
@@ -189,6 +186,8 @@ de:
       title: Team bearbeiten
     description:
       private: Admins haben keinen Zugriff wenn angewählt
+    show:
+      members: Mitglieder
     configure:
       title: Teammitglieder und Api Nutzer anpassen
     delete: Team löschen
@@ -228,9 +227,6 @@ de:
             user: "Aktualisierter Benutzer ist jetzt ein Benutzer"
             conf_admin: "Aktualisierter Benutzer ist jetzt ein conf-admin"
             admin: "Aktualisierter Benutzer ist jetzt ein admin"
-          toggle:
-            empowered: "%{username} hat nun Admin-Rechte"
-            disempowered: "Dem Benutzer %{username} wurden die Admin-Rechte entzogen"
           destroy:
             success: "Benutzer wurde erfolgreich gelöscht"
       api-users:
@@ -339,19 +335,9 @@ de:
         wrongPassword: Falsches Passwort
       encryptable:
         encryptable_name: Accountname
-        username: Benutzername
-        password: Passwort
-        description: Beschreibung
       team:
         name: Name
         description: Beschreibung
-      folder:
-        name: Name
-        description: Beschreibung
-      ldapsetting:
-        portnumber: Port
-        bind_password: Bind Passwort
-        encryption: Verschlüsselung
 
   validations:
     name:
