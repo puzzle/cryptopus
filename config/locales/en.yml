@@ -8,6 +8,7 @@ en:
   last_login_date_and_from: 'The last login was on %{last_login_at} from %{last_login_from}'
   last_login_date_and_from_country: 'The last login was on %{last_login_at} from %{last_login_from} (%{last_login_country})'
   last_login_date: 'The last login was on %{last_login_at}'
+
   admin:
     recryptrequests:
       uncrypterror:
@@ -16,6 +17,7 @@ en:
       index:
         last_login_at: Last login at
         last_login_from: Last login from
+
   session:
     user_password:
       submit: Login
@@ -29,12 +31,14 @@ en:
       expired: You have been automatically logged out
     show_update_password:
       submit: Change
+
   recrypt:
     oidc:
       new:
         notice: Please enter your previous Cryptopus Password to migrate your credentials to OpendID connect / Keycloak
         cryptopus_password: Your Cryptopus Password
         migrate: Migrate
+
   profile:
     info:
       last_login_at: Last login at
@@ -42,6 +46,7 @@ en:
     api_users:
       last_login_at: Last login at
       last_login_from: Last login from
+
   flashes:
     api:
       admin:
@@ -75,6 +80,7 @@ en:
         complex one
     teams:
       not_existing: 'Es existiert kein Team mit der Id %{id}'
+
   confirm:
     delete: 'Delete %{entry_class} %{entry_label} ?'
 
