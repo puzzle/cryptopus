@@ -15,8 +15,9 @@ class Api::PersonalLogsController < ApiController
   
     def fetch_entries
       PaperTrail.serializer = JSON
-      logs = PaperTrail::Version.find_by!(whodunnit: current_user.id)
-      # logs.sort { |a, b| b.created_at <=> a.created_at }
+      recent_version = PaperTrail::Version
+        .where(whodunnit:@current_user)
+        .order(created_at: :desc)
     end
   
     def list_serializer
