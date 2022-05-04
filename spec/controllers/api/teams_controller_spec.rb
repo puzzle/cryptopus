@@ -41,13 +41,8 @@ describe Api::TeamsController do
       expect(data.size).to be(3)
       expect(included.size).to be(5)
 
-      expect(data[0]['type']).to eq('team_personals')
-      expect(data[1]['type']).to eq('team_shareds')
-      expect(data[2]['type']).to eq('team_shareds')
-
-      expect(data.first['attributes']['type']).to eq("Team::Personal")
-
       data.each do |team|
+        expect(team['type']).to eq('teams')
         expect(team['attributes']['personal_team']).to eq(false) unless team.first
       end
 
