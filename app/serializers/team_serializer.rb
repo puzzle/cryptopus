@@ -14,7 +14,8 @@
 #
 
 class TeamSerializer < ApplicationSerializer
-  attributes :id, :name, :description, :private, :favourised, :deletable, :personal_team
+  type Team.name.pluralize
+  attributes :id, :name, :description, :private, :favourised, :deletable, :type
 
   has_many :folders, serializer: FolderMinimalSerializer
 
