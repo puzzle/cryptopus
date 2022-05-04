@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 class Api::LogsController < ApiController
-  self.permitted_attrs = :encryptable_id
 
   def index(options = {})
     authorize(team, :index?, policy_class: LogPolicy)
     render({ json: fetch_entries,
-             each_serializer: list_serializer,
-             root: 'Logs_'.pluralize }
+             each_serializer: @model_serializer ||= LogsSerializer }
       .merge(render_options)
       .merge(options.fetch(:render_options, {})))
   end
@@ -20,10 +18,6 @@ class Api::LogsController < ApiController
     else
       logs.last(10).sort { |a, b| b.created_at <=> a.created_at }
     end
-  end
-
-  def list_serializer
-    @model_serializer ||= 'LogsSerializer'.constantize
   end
 
   def team

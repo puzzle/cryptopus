@@ -7,7 +7,7 @@ class LogPolicy < TeamDependantPolicy
   end
 
   def index?
-    @user.is_a?(User::Human) && team.teammember?(@user.id)
+    team_member?
   end
 
   def show?
