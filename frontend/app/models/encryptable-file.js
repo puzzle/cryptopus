@@ -15,7 +15,6 @@ export default class EncryptableFile extends Encryptable {
       data: {
         description: this.description || "",
         encryptable_credentials_id: this.encryptableCredential.get("id"),
-        type: "Encryptable::File"
       },
       headers: { "X-CSRF-Token": this.csrfToken }
     };

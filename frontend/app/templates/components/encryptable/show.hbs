@@ -1,8 +1,8 @@
 {{#if this.isEncryptableEditing}}
   <Encryptable::Form @encryptable={{@encryptable}} @title={{t "encryptables.edit.title"}} @onAbort={{this.toggleEncryptableEdit}}/>
 {{/if}}
-{{#if this.isFileEntryCreating}}
-  <EncryptableFile::Form @class="modal_file_entry" @encryptableCredential={{@encryptable}} @title={{t "file_entries.new.title"}} @onAbort={{this.toggleFileEntryNew}}/>
+{{#if this.isFileCreating}}
+  <EncryptableFile::Form @class="modal_file_entry" @encryptableCredential={{@encryptable}} @title={{t "file_entries.new.title"}} @onAbort={{this.toggleFileNew}}/>
 {{/if}}
 <div class="container px-5 pt-4 h-100 bg-white pl-none encryptable-container-smartphone mb-15">
   <div class="row mb-3">
@@ -72,7 +72,7 @@
       <h3>{{t "encryptables.show.attachments"}}</h3>
     </div>
     <div>
-      <BsButton @type="primary" {{on "click" this.toggleFileEntryNew}}>
+      <BsButton @type="primary" {{on "click" this.toggleFileNew}}>
         {{t "encryptables.show.add_attachment"}}
       </BsButton>
     </div>

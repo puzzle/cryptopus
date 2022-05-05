@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Api::EncryptablesController < ApiController
-  include EncryptableFile
-
   self.permitted_attrs = [:name, :description, :folder_id, :tag]
 
   helper_method :team
@@ -60,6 +58,8 @@ class Api::EncryptablesController < ApiController
       Encryptable
     elsif @encryptable.present?
       encryptable.class
+    elsif params[:file].present?
+      Encryptable::File
     else
       Encryptable::Credentials
     end
@@ -150,7 +150,7 @@ class Api::EncryptablesController < ApiController
     if model_class == Encryptable::OseSecret
       permitted_attrs << :cleartext_ose_secret
     elsif model_class == Encryptable::File
-      permitted_attrs << [:cleartext_file, :encryptable_credentials_id]
+      permitted_attrs << [:filename, :encryptable_credentials_id, :file]
     elsif model_class == Encryptable::Credentials
       permitted_attrs + [:cleartext_username, :cleartext_password]
     else

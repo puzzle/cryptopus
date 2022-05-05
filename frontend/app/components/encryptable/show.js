@@ -19,7 +19,7 @@ export default class ShowComponent extends Component {
   isEncryptableEditing = false;
 
   @tracked
-  isFileEntryCreating = false;
+  isFileCreating = false;
 
   @tracked
   isPasswordVisible = false;
@@ -30,8 +30,8 @@ export default class ShowComponent extends Component {
   }
 
   @action
-  toggleFileEntryNew() {
-    this.isFileEntryCreating = !this.isFileEntryCreating;
+  toggleFileNew() {
+    this.isFileCreating = !this.isFileCreating;
   }
 
   @action
