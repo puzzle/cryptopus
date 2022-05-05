@@ -36,7 +36,6 @@ export default class DashboardRoute extends BaseRoute {
   }
 
   async getRecentCredentials(params) {
-    params["limit"] = 5;
     params["recent"] = true;
     return await this.store.query("encryptable", params);
   }

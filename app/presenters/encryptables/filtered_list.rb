@@ -6,8 +6,8 @@ module ::Encryptables
     def fetch_entries
       filtered_encryptables = encryptables
 
-      filtered_encryptables = filter_by_recent if recent.present? && true?(recent)
-      filtered_encryptables = filter_by_query(filtered_encryptables) if query_present?
+      filtered_encryptables = filter_by_recent if recent
+      filtered_encryptables = filter_by_query(filtered_encryptables) if query
 
 
       filtered_encryptables
@@ -16,11 +16,7 @@ module ::Encryptables
     private
 
     def query
-      @params[:q].strip.downcase
-    end
-
-    def query_present?
-      @params[:q].present?
+      @params[:q]&.strip&.downcase
     end
 
     def recent
@@ -29,11 +25,6 @@ module ::Encryptables
 
     def encryptables
       @current_user.encryptables
-                   .limit(limit)
-    end
-
-    def limit
-      @params[:limit]
     end
 
     def filter_by_query(encryptables)
@@ -50,7 +41,7 @@ module ::Encryptables
         .order(created_at: :desc)
         .group(:item_id, :item_type)
         .select(:item_id, :item_type)
-        .limit(limit)
+        .limit(5)
         .map(&:item)
     end
   end
