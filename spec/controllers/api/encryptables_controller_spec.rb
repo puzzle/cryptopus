@@ -43,11 +43,11 @@ describe Api::EncryptablesController do
 
       get :index, params: { 'q': '' }, xhr: true
 
-      credentials1_json = data.fourth
+      credentials1_json = data.second
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
-      expect(data.count).to eq 8
+      expect(data.count).to eq 3
       expect(credentials1_json_attributes['name']).to eq credentials1.name
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil
@@ -64,11 +64,11 @@ describe Api::EncryptablesController do
 
       get :index, xhr: true
 
-      credentials1_json = data.fourth
+      credentials1_json = data.second
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
-      expect(data.count).to eq 8
+      expect(data.count).to eq 3
       expect(credentials1_json_attributes['name']).to eq credentials1.name
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil
@@ -103,9 +103,8 @@ describe Api::EncryptablesController do
 
     it 'returns alices recent encryptables' do
       login_as(:alice)
-      limit = 5
 
-      get :index, params: { recent: true, limit: limit }, xhr: true
+      get :index, params: { recent: true }, xhr: true
 
       expect(response.status).to be(200)
 

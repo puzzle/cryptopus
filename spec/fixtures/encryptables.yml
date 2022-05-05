@@ -38,38 +38,3 @@ osesecret1:
   name: postgresql-token
   folder: folder1
   encrypted_data: '{"ose_secret":{"iv":null, "data":"CGRwhrTh0tj+Aglr5ztEX+cRm+vjlmm5qMVyQMJs4GnbhAj41WgzNEgCmSsu/Id7coQ1F44+TYJRcCH4ypAQ5vIYQbRqf1Iyeo4a1/s6x7a8NAcGk3x1VC1YxBFeNxlJs0d1nxC39gY3BsYnk5DNfkVv1BswQRwE9Y7KWzusP2sKQleLgdfKIDOLloCiGyod"}}'
-
-recentCredentials1:
-  type: Encryptable::Credentials
-  name: Recent 1
-  description: Recent 1
-  folder: folder3
-  encrypted_data: '{"password":{"iv":null,"data":"pulO7xz5jDwUVQzbOqJzIw=="},"username":{"iv":null,"data":"0CkUu2Bd9eNB4OCuXVC3TA=="}}'
-
-recentCredentials2:
-  type: Encryptable::Credentials
-  name: Recent 2
-  description: Recent 2
-  folder: folder3
-  encrypted_data: '{"password":{"iv":null,"data":"pulO7xz5jDwUVQzbOqJzIw=="},"username":{"iv":null,"data":"0CkUu2Bd9eNB4OCuXVC3TA=="}}'
-
-recentCredentials3:
-  type: Encryptable::Credentials
-  name: Recent 3
-  description: Recent 3
-  folder: folder3
-  encrypted_data: '{"password":{"iv":null,"data":"pulO7xz5jDwUVQzbOqJzIw=="},"username":{"iv":null,"data":"0CkUu2Bd9eNB4OCuXVC3TA=="}}'
-
-recentCredentials4:
-  type: Encryptable::Credentials
-  name: Recent 4
-  description: Recent 4
-  folder: folder3
-  encrypted_data: '{"password":{"iv":null,"data":"pulO7xz5jDwUVQzbOqJzIw=="},"username":{"iv":null,"data":"0CkUu2Bd9eNB4OCuXVC3TA=="}}'
-
-recentCredentials5:
-  type: Encryptable::Credentials
-  name: Recent 5
-  description: Recent 5
-  folder: folder3
-  encrypted_data: '{"password":{"iv":null,"data":"pulO7xz5jDwUVQzbOqJzIw=="},"username":{"iv":null,"data":"0CkUu2Bd9eNB4OCuXVC3TA=="}}'

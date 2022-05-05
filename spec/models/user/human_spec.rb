@@ -68,8 +68,8 @@ describe User::Human do
   context 'encryptables' do
     it 'only returns encryptables where alice is member' do
       encryptables = alice.encryptables
-      expect(encryptables.count).to eq(7)
-      expect(encryptables.fourth.name).to eq('Personal Mailbox')
+      expect(encryptables.count).to eq(2)
+      expect(encryptables.second.name).to eq('Personal Mailbox')
     end
   end
 
