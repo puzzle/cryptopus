@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::EncryptablesController < ApiController
+  include Encryptables
+
   self.permitted_attrs = [:name, :description, :folder_id, :tag]
 
   helper_method :team
@@ -22,13 +24,14 @@ class Api::EncryptablesController < ApiController
   end
 
   # POST /api/encryptables
-  def create
+  def create(options = {})
     build_entry
-    authorize encryptable
-    encryptable.encrypt(decrypted_team_password(team))
-    if encryptable.save
-      @response_status = :created
-      render_json encryptable
+    authorize entry
+    entry.encrypt(decrypted_team_password(team))
+
+    if entry.save
+      render_entry({ status: :created }
+                     .merge(options[:render_options] || {}))
     else
       render_errors
     end
@@ -65,34 +68,6 @@ class Api::EncryptablesController < ApiController
     end
   end
 
-  def fetch_entries
-    return fetch_file_entries if params[:credential_id].present?
-
-    encryptables = user_encryptables
-    if tag_param.present?
-      encryptables = encryptables.find_by(tag: tag_param)
-    end
-    encryptables
-  end
-
-  def render_entry(options = nil)
-    if encryptable.is_a?(Encryptable::File)
-      send_file
-    else
-      super
-    end
-  end
-
-  def send_file
-    send_data encryptable.cleartext_file, filename: encryptable.name,
-                                          type: encryptable.content_type, disposition: 'attachment'
-  end
-
-  def fetch_file_entries
-    Encryptable::File.where(credential_id: user_encryptables.pluck(:id))
-                     .where(credential_id: params[:credential_id])
-  end
-
   def encrypt(encryptable)
     if encryptable.folder_id_changed?
       # if folder id changed recheck team permission
@@ -104,8 +79,24 @@ class Api::EncryptablesController < ApiController
     end
   end
 
+  def build_entry
+    if is_encryptable_file?
+      return build_encryptable_file
+    end
+
+    super
+  end
+
+  def file_credential
+    @file_credential ||= Encryptable::Credentials.find(params[:credentials_id])
+  end
+
   def encryptable
     @encryptable ||= Encryptable.find(params[:id])
+  end
+
+  def is_encryptable_file?
+    model_class == Encryptable::File
   end
 
   def user_encryptables
@@ -117,8 +108,8 @@ class Api::EncryptablesController < ApiController
   end
 
   def fetch_team
-    if encryptable.is_a?(Encryptable::File)
-      encryptable.encryptable_credential.folder.team
+    if is_encryptable_file?
+      file_credential.folder.team
     else
       encryptable.folder.team
     end
@@ -137,7 +128,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def ivar_name
-    Encryptable.model_name.param_key
+    (is_encryptable_file? ? Encryptable::File : Encryptable).model_name.param_key
   end
 
   def model_serializer
@@ -150,7 +141,7 @@ class Api::EncryptablesController < ApiController
     if model_class == Encryptable::OseSecret
       permitted_attrs << :cleartext_ose_secret
     elsif model_class == Encryptable::File
-      permitted_attrs << [:filename, :encryptable_credentials_id, :file]
+      permitted_attrs + [:filename, :credentials_id, :file]
     elsif model_class == Encryptable::Credentials
       permitted_attrs + [:cleartext_username, :cleartext_password]
     else

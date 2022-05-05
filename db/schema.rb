@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_29_122335) do
     t.string "tag"
     t.string "type", default: "Account::Credentials", null: false
     t.text "encrypted_data", limit: 16777215
+    t.string "encryption_algorithm", default: "AES256", null: false
     t.integer "credential_id"
     t.text "content_type"
     t.index ["description"], name: "index_encryptables_on_description"
@@ -57,6 +58,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_29_122335) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "visible", default: true, null: false
     t.boolean "private", default: false, null: false
+    t.integer "recrypt_state", default: 1, null: false
+    t.string "encryption_algorithm", default: "AES256", null: false
     t.index ["name"], name: "index_teams_on_name"
   end
 

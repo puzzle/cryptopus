@@ -9,24 +9,27 @@ export default class EncryptableFile extends Encryptable {
     if (this.isDeleted) {
       return super.save();
     }
+    const url = `/api/encryptables`;
+    const credential_id = await this.encryptableCredential.get("id");
 
-    let url = `/api/encryptables`;
-    let opts = {
+    const opts = {
       data: {
         description: this.description || "",
-        encryptable_credentials_id: this.encryptableCredential.get("id"),
+        credential_id: credential_id
       },
-      headers: { "X-CSRF-Token": this.csrfToken }
+      headers: {
+        "X-CSRF-Token": this.csrfToken
+      }
     };
 
     let promise = this.file.upload(url, opts);
-    promise
-      .then((savedRecords) => {
-        let data = JSON.parse(savedRecords.body).data;
-        this.id = data.id;
-        this.filename = data.attributes.filename;
-      })
-      .catch(() => {});
+    promise.then((savedRecords) => {
+      let data = JSON.parse(savedRecords.body).data;
+      this.id = data.id;
+      this.filename = data.attributes.filename;
+    })
+      .catch(() => {
+      });
 
     return promise;
   }

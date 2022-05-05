@@ -19,7 +19,8 @@ export default class Form extends BaseFormComponent {
   constructor() {
     super(...arguments);
 
-    this.record = this.args.fileEntry || this.store.createRecord("encryptable-file");
+    this.record = this.store.createRecord("encryptable-file");
+    this.record.encryptableCredential = this.args.encryptableCredential;
 
     this.changeset = new Changeset(
       this.record,
