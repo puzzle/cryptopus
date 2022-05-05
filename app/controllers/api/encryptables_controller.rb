@@ -127,7 +127,7 @@ class Api::EncryptablesController < ApiController
 
   def log_read_access
     encryptable.paper_trail.save_with_version
-    v = encryptable.versions.last
+    v = encryptable.versions.first
     v.event = 'viewed'
     v.created_at = DateTime.now
     v.save!
