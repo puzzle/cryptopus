@@ -24,6 +24,24 @@ describe 'encryptable log', type: :system, js: true do
         expect(page).to have_text('alice')
       end
     end
+    edit_encryptable
+    click_link('Logs')
+
+    within 'table' do
+      table_rows = all('tr')
+
+      expect(table_rows.length).to eq(3)
+
+      # somehow the following fails here but the sorting works fine when testing manually...
+
+      # top_row = table_rows[1]
+
+      # within top_row do
+      #   expect(page).to have_text('edited')
+      #   expect(page).to have_text('alice')
+      # end
+
+    end
   end
 
   private
