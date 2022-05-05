@@ -55,7 +55,21 @@ class CrudController < ListController
   end
 
   def build_entry
+    if model_class.is_a?(Encryptable::File)
+      return build_encryptable_file
+    end
+
     instance_variable_set(:"@#{ivar_name}", model_scope.new(model_params))
+  end
+
+  def build_encryptable_file
+    filename = params[:file].original_filename
+    file = new_file(encryptable_credential, params[:description], filename)
+    file.cleartext_file = params[:file].read
+
+    file.encrypt(plaintext_team_password(team))
+
+    instance_variable_set(:"@#{ivar_name}", file)
   end
 
   def render_entry(options = {})
