@@ -40,7 +40,7 @@ export default class NavService extends Service {
           : undefined
       })
       .then((res) => {
-        this.availableTeams = this._sortTeams(res)
+        this.availableTeams = this._sortTeams(res);
         this.isLoadingTeams = false;
       });
   }
