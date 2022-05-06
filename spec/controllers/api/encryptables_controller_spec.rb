@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'pry'
 
 describe Api::EncryptablesController do
   include ControllerHelpers
@@ -104,14 +103,21 @@ describe Api::EncryptablesController do
 
     context 'recent Credentials' do
 
-      let!(:recentCredentials) { Fabricate.times(6, :credential, folder: teams(:team1).folders.first, team_password: Crypto::Symmetric::Aes256.random_key) }
+      let!(:recentCredentials) do
+        Fabricate.times(
+          6,
+          :credential,
+          folder: teams(:team1).folders.first,
+          team_password: Crypto::Symmetric::Aes256.random_key
+        )
+      end
 
       it 'returns alices recent cerdentials' do
 
         login_as(:alice)
 
         recentCredentials.each do |credential|
-          PaperTrail.request(whodunnit: alice.id) do 
+          PaperTrail.request(whodunnit: alice.id) do
             credential.touch
           end
         end

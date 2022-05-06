@@ -92,11 +92,10 @@ describe Encryptable do
         end
 
         expect(encryptable.versions.size).to eq(1000)
-        size = PaperTrail::Version.all.size
 
         encryptable.destroy
 
-        expect(PaperTrail::Version.all.size).to be(size - 1000)
+        expect(PaperTrail::Version.all.size).to be(0)
       end
     end
 
