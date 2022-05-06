@@ -45,16 +45,16 @@ describe 'NavBar', type: :system, js: true do
 
     logout
   end
-it 'does show Log Buton for bob' do
+  it 'does show Log Buton for bob' do
     login_as_user(:bob)
-    click("@User")
+    click('@User')
     within(page.find('pzsh-menu-dropdown-item')) do
       expect(page).to have_text('Log')
     end
 
     logout
   end
-it 'does show Log Button for root' do
+  it 'does show Log Button for root' do
     login_as_root
     within(page.find('pzsh-menu-dropdown-item')) do
       expect(page).to have_text('Log')
@@ -63,6 +63,3 @@ it 'does show Log Button for root' do
     logout
   end
 end
-
-#Testen das Button dort im Drop Down
-#
