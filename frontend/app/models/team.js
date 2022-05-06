@@ -11,6 +11,6 @@ export default class Team extends Model {
   @hasMany("teammember") teammembers;
 
   get isPersonalTeam() {
-    return this.type === "Team::Personal"
+    return this.type === "Team::Personal";
   }
 }
