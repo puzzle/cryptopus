@@ -7,17 +7,15 @@ export default ApplicationAdapter.extend({
     return "personal_logs";
   },
 
-  urlForQuery(query, modelName) {
+  urlForQuery(query) {
     if (query.encryptableId) {
       let url = `/${this.namespace}/encryptables/${query.encryptableId}/logs`;
 
       delete query.encryptableId;
       return url;
-    }
-    else {
+    } else {
       let url = `/${this.namespace}/personal_logs`;
       return url;
     }
-    return super.urlForQuery(query, modelName);
   }
 });
