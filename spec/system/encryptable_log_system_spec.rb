@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'pry'
 
 describe 'encryptable log', type: :system, js: true do
   include SystemHelpers
 
   it 'logs view access' do
-    login_as_user(:alice)
+    login_as_user(:bob)
     visit("/encryptables/#{encryptables(:credentials1).id}")
     expect(page).to have_text('Credentials')
     click_link('Logs')
@@ -21,7 +22,7 @@ describe 'encryptable log', type: :system, js: true do
 
       within top_row do
         expect(page).to have_text('viewed')
-        expect(page).to have_text('alice')
+        expect(page).to have_text('bob')
       end
     end
     edit_encryptable
@@ -34,12 +35,12 @@ describe 'encryptable log', type: :system, js: true do
 
       # somehow the following fails here but the sorting works fine when testing manually...
 
-      # top_row = table_rows[1]
+      top_row = table_rows[1]
 
-      # within top_row do
-      #   expect(page).to have_text('edited')
-      #   expect(page).to have_text('alice')
-      # end
+      within top_row do
+        expect(page).to have_text('edited')
+        expect(page).to have_text('bob')
+      end
 
     end
   end
