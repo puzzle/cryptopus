@@ -68,27 +68,13 @@ class Api::EncryptablesController < ApiController
     end
   end
 
-  def encrypt(encryptable)
-    if encryptable.folder_id_changed?
-      # if folder id changed recheck team permission
-      authorize encryptable
-      # move handler calls encrypt implicit
-      encryptable_move_handler.move
-    else
-      encryptable.encrypt(decrypted_team_password(team))
-    end
-  end
-
   def build_entry
-    if is_encryptable_file?
-      return build_encryptable_file
-    end
-
+    return build_encryptable_file if is_encryptable_file?
     super
   end
 
   def file_credential
-    @file_credential ||= Encryptable::Credentials.find(params[:credentials_id])
+    @file_credential ||= Encryptable::Credentials.find(params[:credential_id])
   end
 
   def encryptable
@@ -108,11 +94,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def fetch_team
-    if is_encryptable_file?
-      file_credential.folder.team
-    else
-      encryptable.folder.team
-    end
+    (is_encryptable_file? ? file_credential : encryptable).folder.team
   end
 
   def query_param

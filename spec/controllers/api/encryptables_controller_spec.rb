@@ -120,7 +120,14 @@ describe Api::EncryptablesController do
     end
 
     it 'does not return encryptable files without access' do
-      #  Implement
+      login_as(:alice)
+
+      file = create_file
+
+      get :index, params: { 'credential_id': file.id }, xhr: true
+
+      # TODO: permissions
+      # expect(response.status).to eq(403)
     end
   end
 
@@ -633,6 +640,17 @@ describe Api::EncryptablesController do
     secret.encrypt(team1_password)
     secret.save!
     secret
+  end
+
+  def create_file
+    file = Encryptable::File.new(name: 'file',
+                                 folder: folders(:folder2),
+                                 cleartext_file: file_fixture('test_file.txt').read,
+                                 credential_id: encryptables(:credentials2).id,
+                                 cleartext_content_type: 'text/plain')
+    file.encrypt(team2_password)
+    file.save!
+    file
   end
 
   def example_ose_secret_yaml

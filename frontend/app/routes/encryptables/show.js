@@ -25,7 +25,8 @@ export default class EncryptableShowRoute extends BaseRoute {
         params.id
       ),
       encryptableFiles: this.store.query("encryptable-file", {
-        credential_id: params.id
+        credential_id: params.id,
+        reload: true
       })
     });
   }

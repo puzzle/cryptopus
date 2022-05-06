@@ -11,7 +11,6 @@ module Encryptables
   ### Entries ###
 
   def fetch_entries
-    require 'pry';binding.pry
     return fetch_file_entries if params[:credential_id].present?
 
     encryptables = user_encryptables
@@ -22,11 +21,9 @@ module Encryptables
   end
 
   def render_entry(options = nil)
-    if is_encryptable_file?
-      send_file
-    else
-      super
-    end
+    return send_file if is_encryptable_file?
+
+    super
   end
 
   ### Files ###
@@ -44,7 +41,6 @@ module Encryptables
   def build_encryptable_file
     filename = params[:file].original_filename
     file = new_file(file_credential, params[:description], filename)
-
     file.cleartext_file = params[:file].read
     file.cleartext_content_type = params[:file].content_type
 
@@ -58,5 +54,17 @@ module Encryptables
                           name: name)
   end
 
+  ### Other ###
+
+  def encrypt(encryptable)
+    if encryptable.folder_id_changed?
+      # if folder id changed recheck team permission
+      authorize encryptable
+      # move handler calls encrypt implicit
+      encryptable_move_handler.move
+    else
+      encryptable.encrypt(decrypted_team_password(team))
+    end
+  end
 
 end

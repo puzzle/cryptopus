@@ -39,6 +39,7 @@ export default class Form extends BaseFormComponent {
     this.fileQueue.flush();
     if (this.args.onAbort) {
       this.args.onAbort();
+      this.args.onHidden();
       return;
     }
   }

@@ -25,7 +25,8 @@ class Encryptable < ApplicationRecord
   belongs_to :folder
 
   validates :name, presence: true
-  validates :name, uniqueness: { scope: :folder }
+  validates :name, uniqueness: { scope: :folder },
+            unless: proc { |c| c.is_a? Encryptable::File }
   validates :name, length: { maximum: 70 }
   validates :description, length: { maximum: 4000 }
 

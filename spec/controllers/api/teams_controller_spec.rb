@@ -39,14 +39,14 @@ describe Api::TeamsController do
       get :index, xhr: true
 
       expect(data.size).to be(2)
-      expect(included.size).to be(4)
+      expect(included.size).to be(2)
 
       data.each do |team|
         expect(team['type']).to eq('teams')
       end
 
       included_folders = included.select { |e| e['type'] == 'folders' }
-      expect(included_folders.size).to be(4)
+      expect(included_folders.size).to be(2)
     end
 
     it 'raises error if team_id doesnt exist' do
@@ -82,8 +82,8 @@ describe Api::TeamsController do
 
       folder_relationships_length = data.first['relationships']['folders']['data'].size
 
-      expect(included.size).to be(5)
-      expect(folder_relationships_length).to be(3)
+      expect(included.size).to be(3)
+      expect(folder_relationships_length).to be(1)
     end
 
     it 'returns bobs favourite teams' do
@@ -100,6 +100,7 @@ describe Api::TeamsController do
 
       expect(included_types).to include('folders')
       expect(included_types).to include('encryptable_credentials')
+      expect(included_types).not_to include('encryptable_file')
 
       expect(attributes['name']).to eq team1.name
       expect(attributes['description']).to eq team1.description
@@ -116,7 +117,7 @@ describe Api::TeamsController do
 
       get :index, params: { team_id: team2.id }, xhr: true
 
-      expect(response.status).to be(403)
+      expect(response.status).to be(404)
       expect(errors).to eq(['flashes.admin.admin.no_access'])
       expect(data).to be(nil)
       expect(included).to be(nil)
