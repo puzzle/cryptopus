@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'pry'
 
 describe Api::EncryptablesController do
   include ControllerHelpers
@@ -13,7 +14,7 @@ describe Api::EncryptablesController do
   let(:attributes) { %w[name cleartext_password cleartext_username] }
   let!(:ose_secret) { create_ose_secret }
   let(:credentials1) { encryptables(:credentials1) }
-  let(:credentials2) { encryptables(:recentCredentials1) }
+
 
   context 'GET index' do
     it 'returns encryptable with matching name' do
@@ -101,17 +102,29 @@ describe Api::EncryptablesController do
       expect_json_object_includes_keys(credentials2_json_relationships, nested_models)
     end
 
-    it 'returns alices recent encryptables' do
-      login_as(:alice)
+    context 'recent Credentials' do
 
-      get :index, params: { recent: true }, xhr: true
+      let!(:recentCredentials) { Fabricate.times(6, :credential, folder: teams(:team1).folders.first, team_password: Crypto::Symmetric::Aes256.random_key) }
 
-      expect(response.status).to be(200)
+      it 'returns alices recent cerdentials' do
 
-      expect(data.size).to eq(limit)
-      attributes = data.first['attributes']
-      expect(attributes['name']).to eq credentials2.name
-      expect(attributes['description']).to eq credentials2.description
+        login_as(:alice)
+
+        recentCredentials.each do |credential|
+          PaperTrail.request(whodunnit: alice.id) do 
+            credential.touch
+          end
+        end
+
+        get :index, params: { recent: true }, xhr: true
+
+        expect(response.status).to be(200)
+
+        expect(data.size).to eq(5)
+        attributes = data.first['attributes']
+        expect(attributes['name']).to eq recentCredentials.last.name
+        expect(attributes['description']).to eq recentCredentials.last.description
+      end
     end
   end
 
