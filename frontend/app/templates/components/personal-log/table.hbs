@@ -1,11 +1,11 @@
 <table class="table table-striped mt-20">
-  <thead>
+  <tbody>
     <tr>
-      <th> {{t "log.action"}}</th>
-      <th> {{t "log.date"}}</th>
-      <th> {{t "log.encryptable"}}</th>
+      <th> {{t "log.action"}} </th>
+      <th> {{t "log.date"}} </th>
+      <th> {{t "log.encryptable"}} </th>
     </tr>
-  </thead>
+  </tbody>
   <tbody>
     {{#each this.logs as |paperTrailVersion|}}
       <Personal-Log::TableRow @paperTrailVersion={{paperTrailVersion}}/>
