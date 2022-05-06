@@ -35,6 +35,7 @@ module ::Teams
     def teams
       @current_user.teams
                    .includes(:user_favourite_teams, :folders, folders: [:encryptables])
+                   .where.not(encryptables: { type: Encryptable::File.sti_name })
                    .limit(limit)
     end
 
@@ -59,7 +60,7 @@ module ::Teams
     end
 
     def filter_by_id
-      [Team.find(team_id)]
+      [teams.find(team_id)]
     end
 
     def filter_by_favourite
