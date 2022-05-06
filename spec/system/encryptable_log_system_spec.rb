@@ -6,42 +6,45 @@ require 'pry'
 describe 'encryptable log', type: :system, js: true do
   include SystemHelpers
 
-  it 'logs view access' do
-    login_as_user(:bob)
-    visit("/encryptables/#{encryptables(:credentials1).id}")
-    expect(page).to have_text('Credentials')
-    click_link('Logs')
+  describe 'logs view access' do
+    it 'contains credentials and logs table in page' do
+      login_as_user(:bob)
+      visit("/encryptables/#{encryptables(:credentials1).id}")
+      expect(page).to have_text('Credentials')
+      click_link('Logs')
 
-    expect(page).to have_css('table')
-    within 'table' do
-      table_rows = all('tr')
+      expect(page).to have_css('table')
+      within 'table' do
+        table_rows = all('tr')
 
-      # expect one but header counts as well
-      expect(table_rows.length).to eq(2)
-      top_row = table_rows[1]
+        expect(table_rows.length).to eq(2)
+        top_row = table_rows[1]
 
-      within top_row do
-        expect(page).to have_text('viewed')
-        expect(page).to have_text('bob')
+        within top_row do
+          expect(page).to have_text('viewed')
+          expect(page).to have_text('bob')
+        end
       end
     end
-    edit_encryptable
-    click_link('Logs')
 
-    within 'table' do
-      table_rows = all('tr')
+    it 'contains log for update' do
+      login_as_user(:bob)
+      visit("/encryptables/#{encryptables(:credentials1).id}")
+      edit_encryptable
+      click_link('Logs')
 
-      expect(table_rows.length).to eq(3)
+      within 'table' do
+        table_rows = all('tr')
 
-      # somehow the following fails here but the sorting works fine when testing manually...
+        expect(table_rows.length).to eq(3)
 
-      top_row = table_rows[1]
+        top_row = table_rows[1]
 
-      within top_row do
-        expect(page).to have_text('edited')
-        expect(page).to have_text('bob')
+        within top_row do
+          expect(page).to have_text('edited')
+          expect(page).to have_text('bob')
+        end
       end
-
     end
   end
 
