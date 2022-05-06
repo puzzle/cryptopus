@@ -46,5 +46,9 @@ Rails.application.routes.draw do
       resource :favourite, only: [:create, :destroy], module: 'teams', controller: 'favourite'
       resources :candidates, only:[:index], module: 'teams'
     end
+
+    resources :shared_encryptables, only: [:create]
+
   end
+
 end

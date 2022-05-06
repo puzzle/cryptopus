@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_29_122335) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_06_093121) do
   create_table "encryptables", force: :cascade do |t|
     t.string "name", limit: 70, default: "", null: false
     t.integer "folder_id", default: 0, null: false
@@ -40,6 +40,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_29_122335) do
     t.string "key", null: false
     t.string "value"
     t.string "type", null: false
+  end
+
+  create_table "shared_encryptables", force: :cascade do |t|
+    t.integer "encryptable_id", null: false
+    t.integer "sender_id", null: false
+    t.integer "receiver_id", null: false
+    t.boolean "read", default: false
+    t.binary "share_password", null: false
   end
 
   create_table "teammembers", force: :cascade do |t|
