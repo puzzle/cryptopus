@@ -32,14 +32,14 @@ class Team::Shared < Team
   end
 
   def member_candidates
-    excluded_user_ids = User::Human.
+    excluded_user_ids =
+      User::Human.
       unscoped.joins('LEFT JOIN teammembers ON users.id = teammembers.user_id').
       where('users.username = "root" OR teammembers.team_id = ?', id).
       distinct.
       pluck(:id)
     User::Human.where('id NOT IN(?)', excluded_user_ids)
   end
-
 
   def remove_user(user)
     teammember(user.id).destroy!
@@ -49,4 +49,3 @@ class Team::Shared < Team
     TeamPolicy
   end
 end
-

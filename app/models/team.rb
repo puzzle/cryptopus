@@ -46,7 +46,9 @@ class Team < ApplicationRecord
   end
 
   def personal_team?
+    # rubocop:disable Style/RedundantSelf
     self.is_a?(Team::Personal)
+    # rubocop:enable Style/RedundantSelf
   end
 
   def add_user(user, plaintext_team_password)

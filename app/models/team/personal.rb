@@ -32,4 +32,3 @@ class Team::Personal < Team
     TeamPolicy
   end
 end
-
