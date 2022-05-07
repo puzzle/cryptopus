@@ -5,6 +5,5 @@ export default class PaperTrailVersion extends Model {
   @attr("number") userId;
   @attr("string") username;
   @attr("string") createdAt;
-  @attr() object;
   @belongsTo("encryptable") encryptable;
 }
