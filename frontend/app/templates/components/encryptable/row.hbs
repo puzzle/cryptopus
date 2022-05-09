@@ -57,6 +57,10 @@
         <img class="icon-medium-button d-inline" src="/assets/images/delete.svg" alt="delete">
         <BsTooltip @title={{t "tooltips.delete_encryptables"}} @delayShow="1000" />
       </DeleteWithConfirmation>
+      <a class="mx-1" role="button" {{on "click" this.toggleEncryptableEdit}}>
+        <img class="icon-medium-button d-inline" src="/assets/images/share.svg" alt="share">
+        <BsTooltip @title={{t "encryptables.share.title"}} @delayShow="1000" />
+      </a>
     </div>
   </div>
 {{/if}}

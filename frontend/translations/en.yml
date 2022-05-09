@@ -88,6 +88,8 @@ en:
       add_attachment: Add Attachment
     new:
       title: New Credentials
+    share:
+      title: Share Encryptable
 
   admin:
     title: Admin
