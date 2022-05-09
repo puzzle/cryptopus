@@ -35,7 +35,7 @@ module ::Teams
     def teams
       @current_user.teams
                    .includes(:user_favourite_teams, :folders, folders: [:encryptables])
-                   .where.not(encryptables: { type: Encryptable::File.sti_name })
+                   .where.not(encryptables: {  })
                    .limit(limit)
     end
 
@@ -60,6 +60,7 @@ module ::Teams
     end
 
     def filter_by_id
+      # exclude encryptables of type file
       [teams.find(team_id)]
     end
 
