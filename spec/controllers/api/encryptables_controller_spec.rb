@@ -601,7 +601,7 @@ describe Api::EncryptablesController do
       end
     end
   end
-  
+
   context 'papertrail', versioning: true do
     context 'delete' do
       it 'deletes log history if encryptable is deleted' do
@@ -627,7 +627,7 @@ describe Api::EncryptablesController do
 
       it 'contains user in whodunnit' do
         login_as(:bob)
-        
+
         encryptable.touch
         expect(encryptable.versions.last.whodunnit).to eq(bob.id.to_s)
       end
@@ -637,7 +637,7 @@ describe Api::EncryptablesController do
       it 'logs show access' do
         login_as(:bob)
 
-        get :show, params: { id: encryptable.id}
+        get :show, params: { id: encryptable.id }
 
         expect(encryptable.versions.last.event).to eq('viewed')
       end
