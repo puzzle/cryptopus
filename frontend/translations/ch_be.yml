@@ -13,10 +13,8 @@ ch_be:
   update: Aktualisiere
   create: Ersteuä
   delete: Löschä
-  cancel: Abbrächä
   add: Drzuätuä
   description: Beschribig
-  tag: Tag
   username: Benutzername
   password: Passwort
   actions: Aktionä
@@ -88,6 +86,8 @@ ch_be:
       add_attachment: Anhang hinzufüegä
     new:
       title: Nöi Zuägangsdate
+    share:
+      title: Encryptable schicke
 
   admin:
     title: Admin

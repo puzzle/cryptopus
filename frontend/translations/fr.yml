@@ -88,6 +88,8 @@ fr:
       add_attachment: Ajouter un attachement
     new:
       title: Nouveau compte
+    share:
+      title: Partage Encryptable
 
   admin:
     title: Admin

@@ -88,6 +88,8 @@ de:
       add_attachment: Anhang hinzufügen
     new:
       title: Neue Zugangsdaten
+    share:
+      title: Encryptable schicken
 
   admin:
     title: Admin
