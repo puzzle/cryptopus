@@ -12,12 +12,11 @@ class Api::LogsController < ApiController
 
   def fetch_entries
     PaperTrail.serializer = JSON
-    logs = current_user.encryptables.find_by!(id: params[:encryptable_id]).versions
-    if params[:load]
-      logs.last(params[:load]).sort { |a, b| b.created_at <=> a.created_at }
-    else
-      logs.last(10).sort { |a, b| b.created_at <=> a.created_at }
-    end
+    limit = params[:load] || 20
+    PaperTrail::Version
+      .where(item_id: params[:encryptable_id])
+      .order(created_at: :desc)
+      .limit(limit)
   end
 
   def team
