@@ -9,7 +9,7 @@ describe 'Personal Team', type: :system, js: true do
     login_as_user(:bob)
     visit("/teams/#{users(:bob).personal_team.id}")
 
-    personal_team_header = find("div.row.py-2.d-flex.team-card-header.rounded-top")
+    personal_team_header = find('div.row.py-2.d-flex.team-card-header.rounded-top')
 
     expect(page).to have_selector('a.team-list-item', text: 'bob')
 
