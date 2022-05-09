@@ -394,6 +394,8 @@ en:
       uploaded_size_to_high: The file is too big to upload. (max. 10MB)
       uploaded_filename_is_empty: The file has to be named
       uploaded_file_blank: File is not allowed to be blank
+      uploaded_file_inexistent: File is inexistent
+      uploaded_filename_already_exists: Filename already exists
     session:
       weak_password: To improve security you should change your login password to a more complex one.
       welcome: Welcome to Cryptopus, first you have to create a new account. Please enter a new password
@@ -404,7 +406,7 @@ en:
       wrong_password: Invalid user / password
       wrong_root: Login as root only from private IP accessible
       not_local: You are not a local user!
-      locked: User is currently locked. Pleas e try to login again a bit later or contact the administrator if your user has been locked permanently
+      locked: User is currently locked. Please try to login again a bit later or contact the administrator if your user has been locked permanently
     recryptrequests:
       recrypted: You have successfully recrypted the password
       wait: Wait for the recryption of your team passwords
@@ -438,6 +440,8 @@ en:
           old_password_invalid: Your OLD password was wrong
         encryptable/file:
           attributes:
+            cleartext_file:
+              blank: File is not allowed to be blank
             name:
               taken: File has already been taken
 
