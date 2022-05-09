@@ -118,7 +118,7 @@ describe Api::TeamsController do
 
       get :index, params: { team_id: team2.id }, xhr: true
 
-      expect(response.status).to be(404)
+      expect(response.status).to be(403)
       expect(errors).to eq(['flashes.admin.admin.no_access'])
       expect(data).to be(nil)
       expect(included).to be(nil)

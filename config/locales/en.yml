@@ -404,7 +404,7 @@ en:
       wrong_password: Invalid user / password
       wrong_root: Login as root only from private IP accessible
       not_local: You are not a local user!
-      locked: User is currently locked. Pleas e try to login again a bit later or contact the administrator if your user has been locked permanently
+      locked: User is currently locked. Please try to login again a bit later or contact the administrator if your user has been locked permanently
     recryptrequests:
       recrypted: You have successfully recrypted the password
       wait: Wait for the recryption of your team passwords
@@ -438,6 +438,8 @@ en:
           old_password_invalid: Your OLD password was wrong
         encryptable/file:
           attributes:
+            cleartext_file:
+              blank: File is not allowed to be blank
             name:
               taken: File has already been taken
 
