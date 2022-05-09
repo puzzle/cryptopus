@@ -130,6 +130,8 @@ ch_be:
       copy_username: Benutzername kopierä
       add_attachment: Anhang hinzufüegä
       load_more: Meh aazeige
+      date_time: Datum/Zyt
+      action: Aktion
     new:
       title: Nöie Encryptable
     log:
