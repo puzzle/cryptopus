@@ -110,9 +110,9 @@ describe Api::EncryptablesController do
           folder: teams(:team1).folders.first,
           team_password: Crypto::Symmetric::Aes256.random_key
         )
-      end
+      end      
 
-      it 'returns alices recent cerdentials' do
+      it 'returns most recent cerdentials' do
 
         login_as(:alice)
 
@@ -125,12 +125,72 @@ describe Api::EncryptablesController do
         get :index, params: { recent: true }, xhr: true
 
         expect(response.status).to be(200)
-
         expect(data.size).to eq(5)
         attributes = data.first['attributes']
         expect(attributes['name']).to eq recentCredentials.last.name
         expect(attributes['description']).to eq recentCredentials.last.description
       end
+
+      it 'shows most recently used credential first in list' do
+        login_as(:alice)
+
+        PaperTrail.request(whodunnit: alice.id) do
+          recentCredentials.each do |credential|
+            credential.touch
+          end
+          credentials1.touch
+        end
+
+        get :index, params: { recent: true }, xhr: true
+
+        expect(response.status).to be(200)
+        expect(data.size).to eq(5)
+        attributes = data.first['attributes']
+        expect(attributes['name']).to eq credentials1.name
+        expect(attributes['description']).to eq credentials1.description      
+
+        
+      end
+      it 'doesn\'t show credentials with no access' do
+        login_as(:bob)
+
+        recentCredentials1 = recentCredentials.first
+
+        PaperTrail.request(whodunnit: alice.id) do
+         recentCredentials1.touch
+        end
+
+        get :index, params: { recent: true }, xhr: true
+
+        expect(response.status).to be(200)
+        expect(data.size).to eq(0)
+      end
+
+      it 'doesn\'t show deleted credentials' do
+        login_as(:alice)
+
+        recentCredentials1 = recentCredentials.first
+
+        PaperTrail.request(whodunnit: alice.id) do
+         recentCredentials1.touch
+        end
+
+        get :index, params: { recent: true }, xhr: true
+
+
+        expect(data.size).to eq(1)
+        attributes = data.first['attributes']
+        expect(attributes['name']).to eq recentCredentials1.name
+        expect(attributes['description']).to eq recentCredentials1.description
+
+        recentCredentials1.destroy
+
+        get :index, params: { recent: true }, xhr: true
+
+        expect(response.status).to be(200)
+        expect(data.size).to eq(0)
+      end
+
     end
   end
 
