@@ -4,7 +4,7 @@ class CreateSharedEncryptables < ActiveRecord::Migration[7.0]
       t.integer :encryptable_id, null: false
       t.integer :sender_id, null: false
       t.integer :receiver_id, null: false
-      t.boolean :read, default: false
+      t.boolean :is_read, default: false
       t.binary :share_password, null: false
 
     end
