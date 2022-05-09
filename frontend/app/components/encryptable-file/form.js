@@ -20,7 +20,6 @@ export default class Form extends BaseFormComponent {
     super(...arguments);
 
     this.record = this.store.createRecord("encryptable-file");
-    this.record.encryptableCredential = this.args.encryptableCredential;
 
     this.changeset = new Changeset(
       this.record,
@@ -39,13 +38,13 @@ export default class Form extends BaseFormComponent {
     this.fileQueue.flush();
     if (this.args.onAbort) {
       this.args.onAbort();
-      this.args.onHidden();
       return;
     }
   }
 
   async beforeSubmit() {
     await this.changeset.validate();
+    this.record.encryptableCredential = this.args.encryptableCredential
     return this.changeset.isValid;
   }
 
@@ -54,14 +53,16 @@ export default class Form extends BaseFormComponent {
     this.notify.success(msg);
   }
 
-  handleSubmitSuccess() {
+  handleSubmitSuccess(savedRecords) {
+    debugger
+    this.record.id = savedRecords[0].id
     this.abort();
   }
 
   handleSubmitError(response) {
     this.errors = JSON.parse(response.body).errors;
     this.changeset.file = null;
-    this.record.encryptable = null;
+    this.record.encryptableCredential = null;
   }
 
   @action

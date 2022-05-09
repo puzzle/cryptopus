@@ -89,7 +89,7 @@ en:
       copy_username: Copy username
       add_attachment: Add Attachment
     new:
-      title: New Account
+      title: New Credentials
 
   admin:
     title: Admin
@@ -437,11 +437,12 @@ en:
         user:
           new_password_invalid: Your NEW password was wrong
           old_password_invalid: Your OLD password was wrong
-        file_entry:
+        encryptable/file:
           attributes:
-            filename:
-              blank: Filename does not exist
-              taken: Filename is already taken
+            cleartext_file:
+              blank: File is not allowed to be blank
+            name:
+              taken: File has already been taken
 
   password_strength:
     weak: The password is weak

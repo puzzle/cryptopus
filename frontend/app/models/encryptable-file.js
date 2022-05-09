@@ -28,8 +28,7 @@ export default class EncryptableFile extends Encryptable {
       this.id = data.id;
       this.filename = data.attributes.filename;
     })
-      .catch(() => {
-      });
+    .catch(() => {});
 
     return promise;
   }

@@ -9,6 +9,7 @@ class Encryptable::File < Encryptable
   validate :file_size
   validates :credential_id, presence: true
   validates :name, uniqueness: { scope: :credential_id }
+  validates :cleartext_file, presence: true
 
   def decrypt(team_password)
     decrypt_attr(:file, team_password)

@@ -119,15 +119,18 @@ describe Api::EncryptablesController do
       expect_json_object_includes_keys(files_json_attributes, file_attributes)
     end
 
-    it 'does not return encryptable files without access' do
+    it 'does not return encryptable file without access' do
       login_as(:alice)
 
       file = create_file
 
-      get :index, params: { 'credential_id': file.id }, xhr: true
+      file_params = {
+        id: file.id
+      }
 
-      # TODO: permissions
-      # expect(response.status).to eq(403)
+      get :show, params: file_params, xhr: true
+
+      expect(response.status).to eq(403)
     end
   end
 
@@ -555,7 +558,7 @@ describe Api::EncryptablesController do
       new_encryptable_params = {
         data: {
           attributes: {
-            name: 'New Account'
+            name: 'New Credentials'
           },
           relationships: {
             folder: {
@@ -607,27 +610,97 @@ describe Api::EncryptablesController do
       expect(response).to have_http_status(201)
     end
 
-    context 'DELETE destroy' do
-      it 'cant destroy an encryptable if not in team' do
-        login_as(:alice)
+    it 'creates new encryptable file if part of the team' do
+      login_as(:bob)
 
-        team2 = teams(:team2)
-        encryptable = team2.folders.first.encryptables.first
+      file = fixture_file_upload('test_file.txt', 'text/plain')
+      file_params = {
+        credential_id: credentials1.id,
+        content_type: 'text/plain',
+        file: file,
+        description: 'test'
+      }
 
-        expect(team2.teammember?(alice)).to eq false
+      expect do
+        post :create, params: file_params, xhr: true
+      end.to change { Encryptable::File.count }.by(1)
 
-        expect do
-          delete :destroy, params: { id: encryptable.id }
-        end.to change { Encryptable.count }.by(0)
-      end
+      file = Encryptable::File.find_by(name: 'test_file.txt')
 
-      it 'can destroy an encryptable entry if human user is in team' do
-        login_as(:bob)
+      expect(response).to have_http_status(201)
+      expect(file.description).to eq file_params[:description]
+      file.decrypt(team1_password)
+      file_content = fixture_file_upload('test_file.txt', 'text/plain').read
+      expect(file.cleartext_file).to eq file_content
+    end
 
-        expect do
-          delete :destroy, params: { id: encryptables(:credentials2).id }
-        end.to change { Encryptable.count }.by(-1)
-      end
+    it 'doesnt upload same file twice for credentials' do
+      login_as(:bob)
+
+      file = fixture_file_upload('test_file.txt', 'text/plain')
+      file_params = {
+        credential_id: credentials1.id,
+        content_type: 'text/plain',
+        file: file,
+        description: 'test'
+      }
+
+      expect do
+        post :create, params: file_params, xhr: true
+      end.to change { Encryptable::File.count }.by(1)
+
+      expect(response).to have_http_status(201)
+
+      expect do
+        post :create, params: file_params, xhr: true
+      end.to change { Encryptable::File.count }.by(0)
+
+      expect(response).to have_http_status(422)
+
+      expect(errors.first['detail']).to eq 'File has already been taken'
+    end
+
+    it 'does not upload empty file' do
+      login_as(:bob)
+
+      file = fixture_file_upload('empty.txt', 'text/plain')
+      file_params = {
+        credential_id: credentials1.id,
+        content_type: 'text/plain',
+        file: file,
+        description: 'test'
+      }
+
+      expect do
+        post :create, params: file_params, xhr: true
+      end.to change { Encryptable::File.count }.by(0)
+
+      expect(response).to have_http_status(422)
+
+      expect(errors.first['detail']).to eq 'File is not allowed to be blank'
+    end
+  end
+
+  context 'DELETE destroy' do
+    it 'cant destroy an encryptable if not in team' do
+      login_as(:alice)
+
+      team2 = teams(:team2)
+      encryptable = team2.folders.first.encryptables.first
+
+      expect(team2.teammember?(alice)).to eq false
+
+      expect do
+        delete :destroy, params: { id: encryptable.id }
+      end.to change { Encryptable.count }.by(0)
+    end
+
+    it 'can destroy an encryptable entry if human user is in team' do
+      login_as(:bob)
+
+      expect do
+        delete :destroy, params: { id: encryptables(:credentials2).id }
+      end.to change { Encryptable.count }.by(-1)
     end
   end
 

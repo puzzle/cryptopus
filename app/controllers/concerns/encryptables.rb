@@ -21,16 +21,18 @@ module Encryptables
   end
 
   def render_entry(options = nil)
-    return send_file if is_encryptable_file?
+    return send_file(options) if is_encryptable_file?
 
-    super
+    super(options)
   end
 
   ### Files ###
 
-  def send_file
-    send_data entry.cleartext_file, filename: entry.name,
-              type: entry.cleartext_content_type, disposition: 'attachment'
+  def send_file(options)
+    send_data(entry.cleartext_file, { filename: entry.name,
+                                      type: entry.cleartext_content_type,
+                                      disposition: 'attachment' }
+                                      .merge(options || {}))
   end
 
   def fetch_file_entries

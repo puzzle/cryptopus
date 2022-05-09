@@ -70,6 +70,7 @@ class Api::EncryptablesController < ApiController
 
   def build_entry
     return build_encryptable_file if is_encryptable_file?
+
     super
   end
 

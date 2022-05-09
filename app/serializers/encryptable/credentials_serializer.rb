@@ -2,4 +2,6 @@
 
 class Encryptable::CredentialsSerializer < EncryptableSerializer
   attributes :cleartext_username, :cleartext_password, :created_at, :updated_at
+
+  has_many :encryptable_files
 end
