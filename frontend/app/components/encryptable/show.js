@@ -45,11 +45,6 @@ export default class ShowComponent extends Component {
   }
 
   @action
-  reloadFiles() {
-    this.router.refresh();
-  }
-
-  @action
   transitionBack() {
     this.router.transitionTo(
       "teams.folders-show",
