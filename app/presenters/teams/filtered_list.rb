@@ -17,7 +17,6 @@ module ::Teams
     private
 
     def query
-      require 'pry'; binding.pry unless $pstop
       @params[:q].strip.downcase
     end
 
@@ -48,7 +47,6 @@ module ::Teams
     end
 
     def filter_by_query(teams)
-      require 'pry'; binding.pry unless $pstop
       teams.includes(:folders, folders: [:encryptables]).where(
         'lower(encryptables.description) LIKE :query
         OR lower(encryptables.name) LIKE :query
