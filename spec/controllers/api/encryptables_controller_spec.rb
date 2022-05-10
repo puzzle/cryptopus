@@ -110,7 +110,7 @@ describe Api::EncryptablesController do
           folder: teams(:team1).folders.first,
           team_password: Crypto::Symmetric::Aes256.random_key
         )
-      end      
+      end
 
       it 'returns most recent cerdentials' do
 
@@ -147,17 +147,16 @@ describe Api::EncryptablesController do
         expect(data.size).to eq(5)
         attributes = data.first['attributes']
         expect(attributes['name']).to eq credentials1.name
-        expect(attributes['description']).to eq credentials1.description      
+        expect(attributes['description']).to eq credentials1.description
 
-        
       end
       it 'doesn\'t show credentials with no access' do
         login_as(:bob)
 
-        recentCredentials1 = recentCredentials.first
+        recent_credentials1 = recentCredentials.first
 
         PaperTrail.request(whodunnit: alice.id) do
-         recentCredentials1.touch
+          recent_credentials1.touch
         end
 
         get :index, params: { recent: true }, xhr: true
@@ -169,10 +168,10 @@ describe Api::EncryptablesController do
       it 'doesn\'t show deleted credentials' do
         login_as(:alice)
 
-        recentCredentials1 = recentCredentials.first
+        recent_credentials1 = recentCredentials.first
 
         PaperTrail.request(whodunnit: alice.id) do
-         recentCredentials1.touch
+          recent_credentials1.touch
         end
 
         get :index, params: { recent: true }, xhr: true
@@ -180,10 +179,10 @@ describe Api::EncryptablesController do
 
         expect(data.size).to eq(1)
         attributes = data.first['attributes']
-        expect(attributes['name']).to eq recentCredentials1.name
-        expect(attributes['description']).to eq recentCredentials1.description
+        expect(attributes['name']).to eq recent_credentials1.name
+        expect(attributes['description']).to eq recent_credentials1.description
 
-        recentCredentials1.destroy
+        recent_credentials1.destroy
 
         get :index, params: { recent: true }, xhr: true
 
