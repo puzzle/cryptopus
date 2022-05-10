@@ -30,7 +30,6 @@ en:
   contribute_on_github: Contribute on GitHub
   settings: Settings
   users: Users
-
   profile_title: Profile
   last_login_date_and_from: "The last login was on %{last_login_at} from %{last_login_from}"
   last_login_date_and_from_country: "The last login was on %{last_login_at} from %{last_login_from} (%{last_login_country})"
@@ -125,7 +124,7 @@ en:
         title: Users
         username: Username
         name: Name
-        auth: AUTH
+        auth: Auth
         provider_uid: "PROVIDER: UID"
         last_login_at: Last login at
         last_login_from: Last login from
