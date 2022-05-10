@@ -9,7 +9,7 @@ describe 'personal log', type: :system, js: true do
   it 'contains personal_logs table with right logs in page' do
     create_logs
     login_as_user(:bob)
-    visit("/personal_logs")
+    visit('/personal_logs')
 
     expect(page).to have_text('Personal activity log')
     expect(page).to have_css('table')
@@ -28,7 +28,7 @@ describe 'personal log', type: :system, js: true do
 
     logout
     login_as_user(:alice)
-    visit("/personal_logs")
+    visit('/personal_logs')
 
     expect(page).to have_text('Personal activity log')
     expect(page).to have_css('table')
@@ -58,4 +58,3 @@ describe 'personal log', type: :system, js: true do
     logout
   end
 end
-
