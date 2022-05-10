@@ -98,6 +98,8 @@ en:
       copy_username: Copy username
       add_attachment: Add Attachment
       load_more: Load More
+      date_time: Date/Time
+      action: Action
     new:
       title: New Encryptable
     log:
