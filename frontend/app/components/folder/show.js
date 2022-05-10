@@ -14,16 +14,6 @@ export default class ShowComponent extends Component {
   @tracked
   isNewEncryptable = false;
 
-  constructor() {
-    super(...arguments);
-
-    if (this.isExpanded) {
-      $(document).ready(() => {
-        this.scrollToFolder();
-      });
-    }
-  }
-
   get shouldRenderEncryptables() {
     return !isEmpty(this.args.folder) && !this.isCollapsed;
   }
@@ -62,6 +52,8 @@ export default class ShowComponent extends Component {
 
   @action
   scrollToFolder() {
+    if (!this.isSelectedFolder) return;
+
     const SPEED = 700;
     const FOLDER_ID = this.args.folder.id;
     const OFFSET = $(`#folder-header-${FOLDER_ID}`).offset().top - 15;
