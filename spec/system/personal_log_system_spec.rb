@@ -6,44 +6,42 @@ require 'pry'
 describe 'personal log', type: :system, js: true do
   include SystemHelpers
 
-  describe 'personal_log ' do
-    it 'contains personal_logs table with right logs in page' do
-      create_logs
-      login_as_user(:bob)
-      visit("/personal_logs")
+  it 'contains personal_logs table with right logs in page' do
+    create_logs
+    login_as_user(:bob)
+    visit("/personal_logs")
 
-      expect(page).to have_text('Personal activity log')
-      expect(page).to have_css('table')
+    expect(page).to have_text('Personal activity log')
+    expect(page).to have_css('table')
 
-      within 'table' do
-        table_rows = all('tr')
+    within 'table' do
+      table_rows = all('tr')
 
-        expect(table_rows.length).to eq(3)
-        top_row = table_rows[1]
+      expect(table_rows.length).to eq(3)
+      top_row = table_rows[1]
 
-        within top_row do
-          expect(page).to have_text('viewed')
-          expect(page).to have_text(encryptables(:credentials2).name)
-        end
+      within top_row do
+        expect(page).to have_text('viewed')
+        expect(page).to have_text(encryptables(:credentials2).name)
       end
+    end
 
-      logout
-      login_as_user(:alice)
-      visit("/personal_logs")
+    logout
+    login_as_user(:alice)
+    visit("/personal_logs")
 
-      expect(page).to have_text('Personal activity log')
-      expect(page).to have_css('table')
+    expect(page).to have_text('Personal activity log')
+    expect(page).to have_css('table')
 
-      within 'table' do
-        table_rows = all('tr')
+    within 'table' do
+      table_rows = all('tr')
 
-        expect(table_rows.length).to eq(2)
-        top_row = table_rows[1]
+      expect(table_rows.length).to eq(2)
+      top_row = table_rows[1]
 
-        within top_row do
-          expect(page).to have_text('viewed')
-          expect(page).to have_text(encryptables(:credentials1).name)
-        end
+      within top_row do
+        expect(page).to have_text('viewed')
+        expect(page).to have_text(encryptables(:credentials1).name)
       end
     end
   end
