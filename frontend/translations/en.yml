@@ -60,7 +60,7 @@ en:
         favourites: Type to search in favourite teams...
         all: Type to search in all teams...
 
-  encryptables:
+  encryptable/credential:
     title: Credentials
     index_menu:
       create: Create Credentials
