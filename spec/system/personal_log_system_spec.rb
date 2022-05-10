@@ -1,55 +1,63 @@
+# frozen_string_literal: true
 
 require 'spec_helper'
+require 'pry'
 
-describe 'log', type: :system, js: true do
+describe 'personal log', type: :system, js: true do
   include SystemHelpers
 
+  describe 'personal_log ' do
+    it 'contains personal_logs table with right logs in page' do
+      create_logs
+      login_as_user(:bob)
+      visit("/personal_logs")
 
-it 'as admin is there everything avaible' do
-    login_as_root
-    visit('/log')
-    expect(page).to have_text('Personal activity log') 
-    #no side bar
-    expect(page).not_to have_text('button id="ember4608"')
-    expect(page).to have_text('Action')
-    expect(page).to have_text('Date')
-    expect(page).to have_text('Change')
-#require 'pry'; binding.pry
+      expect(page).to have_text('Personal activity log')
+      expect(page).to have_css('table')
+
+      within 'table' do
+        table_rows = all('tr')
+
+        expect(table_rows.length).to eq(3)
+        top_row = table_rows[1]
+
+        within top_row do
+          expect(page).to have_text('viewed')
+          expect(page).to have_text(encryptables(:credentials2).name)
+        end
+      end
+
+      logout
+      login_as_user(:alice)
+      visit("/personal_logs")
+
+      expect(page).to have_text('Personal activity log')
+      expect(page).to have_css('table')
+
+      within 'table' do
+        table_rows = all('tr')
+
+        expect(table_rows.length).to eq(2)
+        top_row = table_rows[1]
+
+        within top_row do
+          expect(page).to have_text('viewed')
+          expect(page).to have_text(encryptables(:credentials1).name)
+        end
+      end
+    end
   end
-it 'is the Log correct' do 
-    login_as_root
-    visit('/log')
-#action 
-    expect(page).to have_text('these are not implemented yet') 
-    #Date
-    expect(page).to have_text('this neither')
-    #Change
-    expect(page).to have_text('nope just example')
+
+  private
+
+  def create_logs
+    login_as_user(:bob)
+    visit("/encryptables/#{encryptables(:credentials1).id}")
+    visit("/encryptables/#{encryptables(:credentials2).id}")
     logout
-  end
-
-it 'as user is there everything avaible' do
-      login_as_user(:tux)
-    visit('/log')
-
-    expect(page).to have_text('Personal activity log') 
-    expect(page).to have_text('Personal activity log') 
-    #no side bar
-    expect(page).not_to have_text('button id="ember4608"')
-    expect(page).to have_text('Action')
-    expect(page).to have_text('Date')
-    expect(page).to have_text('Change')    
-  end
-it 'is the Log correct' do 
-#require 'pry'; binding.pry
-      login_as_user(:tux)
-    visit('/log')
-	#action 
-    expect(page).to have_text('these are not implemented yet') 
-    #Date
-    expect(page).to have_text('this neither')
-    #Change
-    expect(page).to have_text('nope just example')
+    login_as_user(:alice)
+    visit("/encryptables/#{encryptables(:credentials1).id}")
     logout
   end
 end
+
