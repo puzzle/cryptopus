@@ -30,7 +30,6 @@ ch_be:
   contribute_on_github: Mitwürke uf GitHub
   settings: Istellige
   users: Benützer
-  user: Benutzer
   profile_title: Profiu
   last_login_date_and_from: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}"
   last_login_date_and_from_country: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from} (%{last_login_country})"
@@ -60,12 +59,10 @@ ch_be:
         favourites: Tippe um in favorisierte Teams z sueche...
         all: Tippe um in aue Teams z sueche...
 
-  encryptables:
+  encryptable/credential:
     title: Zuägangsdate
     index_menu:
       create: Zuägangsdate ersteuä
-    show_menu:
-      add_attachment: Anhang hinzufüegä
     edit:
       title: Zuägangsdate editiere
       random_password: Zuefäuigs Passwort
@@ -79,7 +76,7 @@ ch_be:
         good: Guet
         strong: Starch
     show:
-      encryptable: Zuägangsdate
+      title: Zuägangsdate
       created_at: "Ersteut am"
       last_update: "Letschti Änderig am"
       attachments: Ahäng
@@ -173,8 +170,8 @@ ch_be:
     none_available: Kener Teams verfüegbar
     loading: Am lade ...
     form:
-      private: Privat
       enabled: Aktiviert
+      private: Privat
     index:
       no_content: Ke Resultat
       search: Suechresultat für
@@ -260,6 +257,10 @@ ch_be:
         success: Ds Passwort isch erfougrich gänderet worde.
         new_passwords_not_equal: Di nöie Passwörter si nid glich.
 
+    user-humen:
+      created: Nöiä benutzer isch erfougrich ersteut worde.
+      updated: Benutzer isch erfougrich aktualisiert worde.
+
     encryptables: &encryptables_translations
       created: Di nöiä Zuägangsdate si erfougrich ersteut worde.
       updated: D Zuägangsdate si erfougrich aktualisiert worde.
@@ -283,8 +284,8 @@ ch_be:
       uploaded_file_inexistent: Die Datei existiert gar nid
       uploaded_filename_already_exists: D Dateiname existiert äuä scho
     session:
-      weak_password: Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
+      weak_password: Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle
       wrong_root: Amäudig aus root nume vo privater IP möglech
     teams:
       not_existing: "Ds Team mit dr id %{id} exischtiert nid"
@@ -327,7 +328,7 @@ ch_be:
         newPassword2: "Ds nöie Passwort bestätige:"
         wrongPassword: Fautsches passwort
       encryptable:
-        encryptable_name: Accountname
+        accountname: Accountname
       team:
         name: Name
         description: Beschribig

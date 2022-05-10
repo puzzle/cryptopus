@@ -30,7 +30,6 @@ de:
   contribute_on_github: Mitwirken auf GitHub
   settings: Einstellungen
   users: Benutzer
-  user: Benutzer
   profile_title: Profil
   last_login_date_and_from: "Das letzte Login war am %{last_login_at} von %{last_login_from}"
   last_login_date_and_from_country: "Das letzte Login war am %{last_login_at} von %{last_login_from} (%{last_login_country})"
@@ -39,7 +38,6 @@ de:
   folder: Ordner
   team: Team
   move: Bewegen"
-  here: Hier
   new: Neu
   back: Zurück
   save: Speichern
@@ -61,12 +59,10 @@ de:
         favourites: Tippen um in favorisierten Teams zu suchen...
         all: Tippen um in allen Teams zu suchen...
 
-  encryptables:
+  encryptable/credential:
     title: Zugangsdaten
     index_menu:
       create: Zugangsdaten erstellen
-    show_menu:
-      add_attachment: Anhang hinzufügen
     edit:
       title: Zugangsdaten editieren
       random_password: Zufälliges Passwort
@@ -80,7 +76,7 @@ de:
         good: Gut
         strong: Stark
     show:
-      encryptable: Zugangsdaten
+      title: Zugangsdaten
       created_at: "Erstellt am"
       last_update: "Letzte Änderung am"
       attachments: Anhänge
@@ -262,6 +258,10 @@ de:
         success: Das Passwort wurde erfolgreich geändert.
         new_passwords_not_equal: Die neuen Passwörter sind nicht gleich.
 
+    user-humen:
+      created: Neuer Benutzer erfolgreich erstellt
+      updated: Benutzer erfolgreich aktualisiert
+
     encryptables: &encryptables_translations
       created: Die neuen Zugangsdaten wurden erfolgreich erstellt.
       updated: Die Zugangsdaten wurden erfolgreich aktualisiert.
@@ -285,8 +285,8 @@ de:
       uploaded_file_inexistent: Datei ist inexistent
       uploaded_filename_already_exists: Dateiname existiert bereits
     session:
-      weak_password: Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen
       auth_failed: Ungültiger Benutzername / Passwort.
+      weak_password: Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen
       wrong_root: Anmeldung als root nur von privater IP aus möglich
     teams:
       not_existing: "Es existiert kein Team mit der Id %{id}"
@@ -304,11 +304,6 @@ de:
         user:
           new_password_invalid: Ihr neues Passwort war falsch
           old_password_invalid: Ihr altes Passwort war falsch
-
-  password_strength:
-    weak: Das Passwort ist unsicher
-    good: Das Passwort genügt
-    strong: Das Passwort ist stark!
 
   tooltips:
     all_teams: Alle Teams
@@ -334,7 +329,7 @@ de:
         newPassword2: "Neues Passwort bestätigen:"
         wrongPassword: Falsches Passwort
       encryptable:
-        encryptable_name: Accountname
+        accountname: Accountname
       team:
         name: Name
         description: Beschreibung
