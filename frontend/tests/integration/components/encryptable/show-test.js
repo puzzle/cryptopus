@@ -31,27 +31,26 @@ module("Integration | Component | encryptable/show", function (hooks) {
       cleartextUsername: "mail",
       cleartextPassword: "e2jd2rh4g5io7",
       createdAt: "2021-06-14 09:23:02.750627",
-      updatedAt: "2021-06-22 11:33:13.766879"
+      updatedAt: "2021-06-22 11:33:13.766879",
+      encryptableFiles: [
+        {
+          id: 1,
+          name: "file1.txt",
+          description: "description for file1",
+          get() {
+            return 1;
+          }
+        },
+        {
+          id: 1,
+          name: "file2.txt",
+          description: "description for file2",
+          get() {
+            return 1;
+          }
+        }
+      ]
     });
-
-    this.set("encryptableFiles", [
-      {
-        id: 1,
-        name: "file1.txt",
-        description: "description for file1",
-        get() {
-          return 1;
-        }
-      },
-      {
-        id: 1,
-        name: "file2.txt",
-        description: "description for file2",
-        get() {
-          return 1;
-        }
-      }
-    ]);
 
     await render(
       hbs`<Encryptable::Show @encryptable={{this.encryptable}} @encryptableFiles={{this.encryptableFiles}}/>`

@@ -23,12 +23,13 @@ export default class EncryptableFile extends Encryptable {
     };
 
     let promise = this.file.upload(url, opts);
-    promise.then((savedRecords) => {
-      let data = JSON.parse(savedRecords.body).data;
-      this.id = data.id;
-      this.filename = data.attributes.filename;
-    })
-    .catch(() => {});
+    promise
+      .then((savedRecords) => {
+        let data = JSON.parse(savedRecords.body).data;
+        this.id = data.id;
+        this.filename = data.attributes.filename;
+      })
+      .catch(() => {});
 
     return promise;
   }

@@ -44,7 +44,7 @@ export default class Form extends BaseFormComponent {
 
   async beforeSubmit() {
     await this.changeset.validate();
-    this.record.encryptableCredential = this.args.encryptableCredential
+    this.record.encryptableCredential = this.args.encryptableCredential;
     return this.changeset.isValid;
   }
 
@@ -54,8 +54,7 @@ export default class Form extends BaseFormComponent {
   }
 
   handleSubmitSuccess(savedRecords) {
-    debugger
-    this.record.id = savedRecords[0].id
+    this.setRecordValues(savedRecords);
     this.abort();
   }
 
@@ -68,5 +67,12 @@ export default class Form extends BaseFormComponent {
   @action
   uploadFile(file) {
     this.changeset.file = file;
+  }
+
+  setRecordValues(records) {
+    const data = JSON.parse(records[0].body).data;
+    this.record.file = this.changeset.file;
+    this.record.id = data.id;
+    this.record.name = data.attributes.name;
   }
 }

@@ -21,7 +21,7 @@ module Encryptables
   end
 
   def render_entry(options = nil)
-    return send_file(options) if encryptable_file?
+    return send_file(options) if encryptable_file? && action_name != 'create'
 
     super(options)
   end
