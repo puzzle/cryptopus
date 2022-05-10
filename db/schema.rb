@@ -20,6 +20,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_06_091924) do
     t.string "tag"
     t.string "type", default: "Account::Credentials", null: false
     t.text "encrypted_data", limit: 16777215
+    t.binary "transfer_password"
+    t.integer "receiver_id"
     t.integer "credential_id"
     t.text "content_type"
     t.index ["description"], name: "index_encryptables_on_description"
@@ -40,14 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_06_091924) do
     t.string "key", null: false
     t.string "value"
     t.string "type", null: false
-  end
-
-  create_table "shared_encryptables", force: :cascade do |t|
-    t.integer "encryptable_id", null: false
-    t.integer "sender_id", null: false
-    t.integer "receiver_id", null: false
-    t.boolean "is_read", default: false
-    t.binary "share_password", null: false
   end
 
   create_table "teammembers", force: :cascade do |t|
