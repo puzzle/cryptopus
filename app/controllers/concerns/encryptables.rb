@@ -11,7 +11,7 @@ module Encryptables
   ### Entries ###
 
   def fetch_entries
-    return fetch_file_entries if params[:credential_id].present?
+    return fetch_file_entries if credential_id.present?
 
     encryptables = user_encryptables
     if tag_param.present?
@@ -21,7 +21,7 @@ module Encryptables
   end
 
   def render_entry(options = nil)
-    return send_file(options) if is_encryptable_file?
+    return send_file(options) if encryptable_file?
 
     super(options)
   end
@@ -37,7 +37,7 @@ module Encryptables
 
   def fetch_file_entries
     Encryptable::File.where(credential_id: user_encryptables.pluck(:id))
-                     .where(credential_id: params[:credential_id])
+                     .where(credential_id: credential_id)
   end
 
   def build_encryptable_file
@@ -56,6 +56,12 @@ module Encryptables
                           name: name)
   end
 
+  def credential_id
+    return encryptable.credential_id if params[:id].present?
+
+    params[:credential_id]
+  end
+
   ### Other ###
 
   def encrypt(encryptable)
@@ -67,6 +73,11 @@ module Encryptables
     else
       encryptable.encrypt(decrypted_team_password(team))
     end
+  end
+
+  def create_ose_secret?
+    action_name == 'create' &&
+      params.dig('data', 'attributes', 'type') == 'ose_secret'
   end
 
 end

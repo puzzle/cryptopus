@@ -2,6 +2,7 @@
 
 class Encryptable::File < Encryptable
   attr_accessor :cleartext_file, :cleartext_content_type
+
   belongs_to :encryptable_credential,
              class_name: 'Encryptable::Credentials',
              foreign_key: :credential_id

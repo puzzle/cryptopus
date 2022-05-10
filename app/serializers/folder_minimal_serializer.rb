@@ -6,6 +6,6 @@ class FolderMinimalSerializer < ApplicationSerializer
   has_many :encryptables, serializer: EncryptableMinimalSerializer
 
   def encryptables
-
+    object.encryptables.without_files
   end
 end

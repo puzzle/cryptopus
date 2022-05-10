@@ -190,7 +190,7 @@ class LegacyAccountCredentialsAfter < ApplicationRecord
     decrypt_attr(:password, team_password)
   end
 
-    private
+  private
 
   def decrypt_attr(attr, team_password)
     encrypted_value = encrypted_data[attr].try(:[], :data)

@@ -18,8 +18,8 @@ class Api::EncryptablesController < ApiController
 
   # GET /api/encryptables/:id
   def show
-    authorize encryptable
-    encryptable.decrypt(decrypted_team_password(team))
+    authorize entry
+    entry.decrypt(decrypted_team_password(team))
     render_entry
   end
 
@@ -54,14 +54,13 @@ class Api::EncryptablesController < ApiController
   private
 
   def model_class
-    if action_name == 'create' &&
-       params.dig('data', 'attributes', 'type') == 'ose_secret'
+    if create_ose_secret?
       Encryptable::OseSecret
     elsif action_name == 'destroy'
       Encryptable
     elsif @encryptable.present?
       encryptable.class
-    elsif params[:file].present?
+    elsif credential_id.present?
       Encryptable::File
     else
       Encryptable::Credentials
@@ -69,20 +68,20 @@ class Api::EncryptablesController < ApiController
   end
 
   def build_entry
-    return build_encryptable_file if is_encryptable_file?
+    return build_encryptable_file if encryptable_file?
 
     super
   end
 
   def file_credential
-    @file_credential ||= Encryptable::Credentials.find(params[:credential_id])
+    @file_credential ||= Encryptable::Credentials.find(credential_id)
   end
 
   def encryptable
     @encryptable ||= Encryptable.find(params[:id])
   end
 
-  def is_encryptable_file?
+  def encryptable_file?
     model_class == Encryptable::File
   end
 
@@ -95,7 +94,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def fetch_team
-    (is_encryptable_file? ? file_credential : encryptable).folder.team
+    (encryptable_file? ? file_credential : encryptable).folder.team
   end
 
   def query_param
@@ -111,7 +110,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def ivar_name
-    (is_encryptable_file? ? Encryptable::File : Encryptable).model_name.param_key
+    (encryptable_file? ? Encryptable::File : Encryptable).model_name.param_key
   end
 
   def model_serializer
