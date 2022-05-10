@@ -63,4 +63,8 @@ class Team < ApplicationRecord
     encrypted_team_password = Crypto::Rsa.encrypt(plaintext_team_password, user.public_key)
     teammembers.create!(password: encrypted_team_password, user: user)
   end
+
+  def self.policy_class
+    TeamPolicy
+  end
 end

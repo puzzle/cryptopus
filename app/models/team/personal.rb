@@ -14,7 +14,7 @@
 #
 
 class Team::Personal < Team
-  belongs_to :personal_owner, class_name: 'User::Human', inverse_of: 'personal_team'
+  belongs_to :personal_owner, class_name: User::Human.sti_name, inverse_of: 'personal_team'
 
   class << self
     def create(owner)
@@ -26,9 +26,5 @@ class Team::Personal < Team
 
       team
     end
-  end
-
-  def self.policy_class
-    TeamPolicy
   end
 end
