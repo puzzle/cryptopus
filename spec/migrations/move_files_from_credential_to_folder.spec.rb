@@ -160,13 +160,16 @@ describe MoveFilesFromCredentialToFolder do
   end
 
   # Credentials model as it was before this migration
+  # rubocop:disable Lint/ConstantDefinitionInBlock
   class LegacyCredentialsWithFileEntries < Encryptable
     self.inheritance_column = nil
 
     has_many :file_entries, foreign_key: :account_id, primary_key: :id, dependent: :destroy
   end
+  # rubocop:enable Lint/ConstantDefinitionInBlock
 
   # Legacy FileEntry class
+  # rubocop:disable Lint/ConstantDefinitionInBlock
   class FileEntry < ApplicationRecord
     attr_accessor :cleartext_file
 
@@ -186,5 +189,6 @@ describe MoveFilesFromCredentialToFolder do
       self.cleartext_file = CryptUtils.decrypt_blob(file, team_password)
     end
   end
+  # rubocop:enable Lint/ConstantDefinitionInBlock
 
 end
