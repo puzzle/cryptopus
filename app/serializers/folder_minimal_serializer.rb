@@ -6,6 +6,8 @@ class FolderMinimalSerializer < ApplicationSerializer
   has_many :encryptables, serializer: EncryptableMinimalSerializer
 
   def encryptables
-    object.encryptables.without_files
+    object.encryptables.reject do |encryptable|
+      encryptable.type == Encryptable::File.sti_name
+    end
   end
 end
