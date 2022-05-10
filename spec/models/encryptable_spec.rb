@@ -82,40 +82,6 @@ describe Encryptable do
     end
   end
 
-<<<<<<< HEAD
-  context 'papertrail', versioning: true do
-    context 'delete' do
-      it 'deletes log history if encryptable is delted' do
-
-        1000.times do
-          encryptable.touch
-        end
-
-        expect(encryptable.versions.size).to eq(1000)
-
-        encryptable.destroy
-
-        expect(PaperTrail::Version.all.size).to be(0)
-      end
-    end
-
-    context 'touch' do
-      it 'creates a log entry' do
-        encryptable.touch
-        expect(encryptable.versions.count).to eq(1)
-      end
-
-      it 'contains user in whodunnit' do
-        PaperTrail.request.whodunnit = 'Bob'
-
-        encryptable.touch
-        expect(encryptable.versions.last.whodunnit).to eq('Bob')
-      end
-    end
-  end
-
-=======
->>>>>>> 564-LOG_encryptable_read_access
   private
 
   def create_legacy_ose_secret
