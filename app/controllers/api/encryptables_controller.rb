@@ -53,6 +53,7 @@ class Api::EncryptablesController < ApiController
 
   private
 
+  # rubocop:disable Metrics/MethodLength
   def model_class
     if create_ose_secret?
       Encryptable::OseSecret
@@ -66,6 +67,7 @@ class Api::EncryptablesController < ApiController
       Encryptable::Credentials
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def build_entry
     return build_encryptable_file if encryptable_file?
