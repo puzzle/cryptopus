@@ -17,6 +17,7 @@ module ::Teams
     private
 
     def query
+      require 'pry'; binding.pry unless $pstop
       @params[:q].strip.downcase
     end
 
@@ -35,7 +36,6 @@ module ::Teams
     def teams
       @current_user.teams
                    .includes(:user_favourite_teams, :folders, folders: [:encryptables])
-                   .where.not(encryptables: {  })
                    .limit(limit)
     end
 
@@ -48,6 +48,7 @@ module ::Teams
     end
 
     def filter_by_query(teams)
+      require 'pry'; binding.pry unless $pstop
       teams.includes(:folders, folders: [:encryptables]).where(
         'lower(encryptables.description) LIKE :query
         OR lower(encryptables.name) LIKE :query
@@ -60,8 +61,7 @@ module ::Teams
     end
 
     def filter_by_id
-      # exclude encryptables of type file
-      [teams.find(team_id)]
+      [Team.find(team_id)]
     end
 
     def filter_by_favourite
