@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LogsSerializer < ApplicationSerializer
-  attributes :id, :item_type, :event, :user_id, :username, :object, :created_at
+  attributes :id, :item_type, :event, :user_id, :username, :created_at
 
   belongs_to :encryptable
 
@@ -10,7 +10,7 @@ class LogsSerializer < ApplicationSerializer
   end
 
   def username
-    User.find_by(id: object.whodunnit.to_i).username
+    User.find(object.whodunnit).username
   end
 
   def encryptable

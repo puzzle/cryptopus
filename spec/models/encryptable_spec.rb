@@ -2,7 +2,6 @@
 
 require 'spec_helper'
 describe Encryptable do
-
   let(:bob) { users(:bob) }
   let(:bobs_private_key) { bob.decrypt_private_key('password') }
   let(:encryptable) { encryptables(:credentials1) }
@@ -83,6 +82,7 @@ describe Encryptable do
     end
   end
 
+<<<<<<< HEAD
   context 'papertrail', versioning: true do
     context 'delete' do
       it 'deletes log history if encryptable is delted' do
@@ -114,6 +114,8 @@ describe Encryptable do
     end
   end
 
+=======
+>>>>>>> 564-LOG_encryptable_read_access
   private
 
   def create_legacy_ose_secret

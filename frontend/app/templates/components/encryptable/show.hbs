@@ -95,9 +95,15 @@
         </div>
       </tab.pane>
       <tab.pane @title="Logs" id="log-tab">
+        <br>
         <div>
           <Encryptable::Table @logs={{this.logs}}/>
         </div>
+        {{#if this.canLoadMore}}
+          <BsButton @type="secondary" {{on "click" this.loadMore}}>
+            {{t "encryptables.show.load_more"}}
+          </BsButton>
+        {{/if}}
       </tab.pane>
     </BsTab>
   </div>

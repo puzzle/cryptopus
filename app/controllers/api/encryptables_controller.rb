@@ -20,11 +20,7 @@ class Api::EncryptablesController < ApiController
   def show
     authorize encryptable
     encryptable.decrypt(decrypted_team_password(team))
-    encryptable.paper_trail.save_with_version
-    v = encryptable.versions.last
-    v.event = 'viewed'
-    v.created_at = DateTime.now
-    v.save
+    log_read_access
     render_entry
   end
 
@@ -127,5 +123,12 @@ class Api::EncryptablesController < ApiController
     else
       permitted_attrs
     end
+  end
+
+  def log_read_access
+    v = encryptable.paper_trail.save_with_version
+    v.event = :viewed
+    v.created_at = DateTime.now
+    v.save!
   end
 end

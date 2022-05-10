@@ -98,6 +98,9 @@ de:
       copy_password: Passwort kopieren
       copy_username: Benutzername kopieren
       add_attachment: Anhang hinzufügen
+      load_more: Mehr anzeigen
+      date_time: Datum/Uhrzeit
+      action: Aktion
     new:
       title: Neues Encryptable
     log:

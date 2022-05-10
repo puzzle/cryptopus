@@ -13,6 +13,7 @@ describe Api::EncryptablesController do
   let(:attributes) { %w[name cleartext_password cleartext_username] }
   let!(:ose_secret) { create_ose_secret }
   let(:credentials1) { encryptables(:credentials1) }
+  let(:encryptable) { encryptables.first }
 
 
   context 'GET index' do
@@ -690,6 +691,48 @@ describe Api::EncryptablesController do
           delete :destroy, params: { id: credentials1.id, folder_id: credentials1.folder_id,
                                      team_id: credentials1.folder.team_id }
         end.to change { Encryptable.count }.by(-1)
+      end
+    end
+  end
+
+  context 'papertrail', versioning: true do
+    context 'delete' do
+      it 'deletes log history if encryptable is deleted' do
+        1000.times do
+          encryptable.touch
+        end
+
+        expect(encryptable.versions.size).to eq(1000)
+
+        encryptable.destroy
+
+        expect(PaperTrail::Version.all.size).to be(0)
+      end
+    end
+
+    context 'touch' do
+      it 'creates a log entry' do
+        login_as(:bob)
+
+        encryptable.touch
+        expect(encryptable.versions.count).to eq(1)
+      end
+
+      it 'contains user in whodunnit' do
+        login_as(:bob)
+
+        encryptable.touch
+        expect(encryptable.versions.last.whodunnit).to eq(bob.id.to_s)
+      end
+    end
+
+    context 'show' do
+      it 'logs show access' do
+        login_as(:bob)
+
+        get :show, params: { id: encryptable.id }
+
+        expect(encryptable.versions.last.event).to eq('viewed')
       end
     end
   end

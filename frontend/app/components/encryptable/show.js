@@ -9,7 +9,8 @@ export default class ShowComponent extends Component {
   @service intl;
   @service notify;
 
-  @tracked logs;
+  @tracked logs = [];
+  loadAmount = 10;
 
   constructor() {
     super(...arguments);
@@ -30,6 +31,9 @@ export default class ShowComponent extends Component {
 
   @tracked
   isPasswordVisible = false;
+
+  @tracked
+  canLoadMore = true;
 
   @action
   toggleEncryptableEdit() {
@@ -70,10 +74,22 @@ export default class ShowComponent extends Component {
   getLogs() {
     this.store
       .query("paper-trail-version", {
-        encryptableId: this.args.encryptable.id
+        encryptableId: this.args.encryptable.id,
+        load: this.loadAmount
       })
       .then((res) => {
         this.logs = res;
+        this.toggleLoadMore();
       });
+  }
+
+  @action
+  loadMore() {
+    this.loadAmount += 10;
+    this.getLogs();
+  }
+
+  toggleLoadMore() {
+    this.canLoadMore = this.loadAmount <= this.logs.length;
   }
 }
