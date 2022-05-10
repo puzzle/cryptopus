@@ -84,13 +84,15 @@ module("Integration | Component | personal-log/table", function (hooks) {
   });
   test("it renders with data", async function (assert) {
     await render(
-      hbs`<Personal-Log::TableRow @paperTrailVersion={{this.encryptable.paperTrailVersions}}/>`);
+      hbs`<Personal-Log::TableRow @paperTrailVersion={{this.encryptable.paperTrailVersions}}/>`
+    );
     let text = this.element.textContent.trim();
     assert.ok(text.includes("Ninjas test encryptable"));
   });
   test("log and credentials tabs ase present", async function (assert) {
     await render(
-            hbs` <Personal-Log::TableRow @paperTrailVersion={{this.encryptable.paperTrailVersions}}/>`);
+      hbs` <Personal-Log::TableRow @paperTrailVersion={{this.encryptable.paperTrailVersions}}/>`
+    );
     let BackTab = document.getElementById("ember192");
     assert.ok(isPresent(BackTab));
   });
