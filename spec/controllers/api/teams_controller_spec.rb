@@ -372,7 +372,7 @@ describe Api::TeamsController do
       set_auth_headers
 
       team_params = { name: 'foo', private: true }
-      new_team = Team::Shared.create!(users(:bob), team_params)
+      new_team = Team::Shared.create(users(:bob), team_params)
 
       update_params = {
         data: {
