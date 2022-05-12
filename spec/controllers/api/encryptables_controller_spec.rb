@@ -15,7 +15,6 @@ describe Api::EncryptablesController do
   let(:credentials1) { encryptables(:credentials1) }
   let(:encryptable) { encryptables.first }
 
-
   context 'GET index' do
     it 'returns encryptable with matching name' do
       login_as(:alice)
