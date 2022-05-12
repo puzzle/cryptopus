@@ -14,8 +14,10 @@ class Api::PersonalLogsController < ApiController
 
   def fetch_entries
     PaperTrail.serializer = JSON
+    limit = params[:load] || 25
     PaperTrail::Version
       .where(whodunnit: @current_user)
       .order(created_at: :desc)
+      .limit(limit)
   end
 end

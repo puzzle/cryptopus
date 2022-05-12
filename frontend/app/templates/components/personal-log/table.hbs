@@ -1,14 +1,23 @@
-<table class="table table-striped mt-20">
-  <tbody>
-    <tr>
-      <th> {{t "log.action"}} </th>
-      <th> {{t "log.date"}} </th>
-      <th> {{t "log.encryptable"}} </th>
-    </tr>
-  </tbody>
-  <tbody>
-    {{#each this.logs as |paperTrailVersion|}}
-      <Personal-Log::TableRow @paperTrailVersion={{paperTrailVersion}}/>
-    {{/each}}
-  </tbody>
-</table>
+<div class="container px-5 pt-4 h-100 bg-white pl-none encryptable-container-smartphone mb-15">
+  <table class="table table-striped mt-20">
+    <tbody>
+      <tr>
+        <th> {{t "log.action"}} </th>
+        <th> {{t "log.date"}} </th>
+        <th> {{t "log.encryptable"}} </th>
+      </tr>
+    </tbody>
+    <tbody>
+      {{#each this.logs as |paperTrailVersion|}}
+        <Personal-Log::TableRow @paperTrailVersion={{paperTrailVersion}}/>
+      {{/each}}
+    </tbody>
+  </table>
+  <div>
+    {{#if this.canLoadMore}}
+      <BsButton @type="secondary" {{on "click" this.loadMore}}>
+        {{t "encryptables.show.load_more"}}
+      </BsButton>
+    {{/if}}
+  </div>
+</div>
