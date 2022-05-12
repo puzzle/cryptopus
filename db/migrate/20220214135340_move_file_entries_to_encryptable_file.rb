@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MoveFilesFromCredentialToFolder < ActiveRecord::Migration[6.1]
+class MoveFileEntriesToEncryptableFiles < ActiveRecord::Migration[6.1]
   def up
     add_column :encryptables, :credential_id, :integer
     add_column :encryptables, :content_type, :text
