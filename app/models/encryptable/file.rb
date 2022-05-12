@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Encryptable::File < Encryptable
-  attr_accessor :cleartext_file, :cleartext_content_type
+  attr_accessor :cleartext_file
 
   belongs_to :encryptable_credential,
              class_name: 'Encryptable::Credentials',
@@ -14,14 +14,16 @@ class Encryptable::File < Encryptable
 
   def decrypt(team_password)
     decrypt_attr(:file, team_password)
-    decrypt_attr(:content_type, team_password)
   end
 
   def encrypt(team_password)
     return if cleartext_file.blank?
 
     encrypt_attr(:file, team_password)
-    encrypt_attr(:content_type, team_password)
+  end
+
+  def team
+    encryptable_credential.folder.team
   end
 
   private

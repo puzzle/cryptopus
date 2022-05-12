@@ -48,6 +48,10 @@ class Encryptable < ApplicationRecord
     name
   end
 
+  def team
+    self.folder.team
+  end
+
   private
 
   def encrypt_attr(attr, team_password)

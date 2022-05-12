@@ -10,12 +10,12 @@ export default class EncryptableFile extends Encryptable {
       return super.save();
     }
     const url = `/api/encryptables`;
-    const credential_id = await this.encryptableCredential.get("id");
+    const credentialId = await this.encryptableCredential.get("id");
 
     const opts = {
       data: {
         description: this.description || "",
-        credential_id: credential_id
+        credential_id: credentialId
       },
       headers: {
         "X-CSRF-Token": this.csrfToken

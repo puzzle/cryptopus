@@ -29,10 +29,6 @@ class EncryptablePolicy < TeamDependantPolicy
   protected
 
   def team
-    if @record.is_a?(Encryptable::File)
-      @record.encryptable_credential.folder.team
-    else
-      @record.folder.team
-    end
+    @record.team
   end
 end

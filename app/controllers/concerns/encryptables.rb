@@ -1,10 +1,3 @@
-# frozen_string_literal: true
-
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
 module Encryptables
   extend ActiveSupport::Concern
 
@@ -30,7 +23,7 @@ module Encryptables
 
   def send_file(options)
     send_data(entry.cleartext_file, { filename: entry.name,
-                                      type: entry.cleartext_content_type,
+                                      type: entry.content_type,
                                       disposition: 'attachment' }
                                       .merge(options || {}))
   end
@@ -43,8 +36,8 @@ module Encryptables
   def build_encryptable_file
     filename = params[:file].original_filename
     file = new_file(file_credential, params[:description], filename)
+    file.content_type = params[:file].content_type
     file.cleartext_file = params[:file].read
-    file.cleartext_content_type = params[:file].content_type
 
     instance_variable_set(:"@#{ivar_name}", file)
   end

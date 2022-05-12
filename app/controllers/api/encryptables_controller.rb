@@ -23,6 +23,7 @@ class Api::EncryptablesController < ApiController
     render_entry
   end
 
+  # options param is needed for render_entry method
   # POST /api/encryptables
   def create(options = {})
     build_entry
@@ -77,7 +78,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def file_credential
-    @file_credential ||= Encryptable::Credentials.find(credential_id)
+    Encryptable::Credentials.find(credential_id)
   end
 
   def encryptable
@@ -93,11 +94,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def team
-    @team ||= fetch_team
-  end
-
-  def fetch_team
-    (encryptable_file? ? file_credential : encryptable).folder.team
+    @team ||= entry.team
   end
 
   def query_param

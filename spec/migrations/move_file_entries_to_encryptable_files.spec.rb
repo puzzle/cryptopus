@@ -9,7 +9,7 @@ migration_file = Dir[Rails.root.join(migration_dir + migration_file_name)].first
 
 require migration_file
 
-describe MoveFilesFromCredentialToFolder do
+describe MoveFileEntriesToEncryptableFiles do
 
   let(:migration) { described_class.new }
 

@@ -124,11 +124,7 @@ describe Api::EncryptablesController do
 
       file = create_file
 
-      file_params = {
-        id: file.id
-      }
-
-      get :show, params: file_params, xhr: true
+      get :show, params: { id: file.id }, xhr: true
 
       expect(response.status).to eq(403)
     end
@@ -610,7 +606,7 @@ describe Api::EncryptablesController do
       expect(response).to have_http_status(201)
     end
 
-    it 'creates new encryptable file if part of the team' do
+    it 'creates new encryptable file' do
       login_as(:bob)
 
       file = fixture_file_upload('test_file.txt', 'text/plain')
@@ -720,7 +716,7 @@ describe Api::EncryptablesController do
                                  folder: folders(:folder2),
                                  cleartext_file: file_fixture('test_file.txt').read,
                                  credential_id: encryptables(:credentials2).id,
-                                 cleartext_content_type: 'text/plain')
+                                 content_type: 'text/plain')
     file.encrypt(team2_password)
     file.save!
     file
