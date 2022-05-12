@@ -209,7 +209,7 @@ fr:
     tooltips:
       delete: Supprimer le dossier
       edit: Modifier le dossier
-  file_entries:
+  encryptable_files:
     new:
       title: Ajouter un attachement au compte
       upload: Télécharger
@@ -462,7 +462,7 @@ fr:
     label:
       user:
         username: Nom d'utilisateur
-        account_name: Nom du compte
+        name: Nom du compte
         password: Mot de passe
         admin: Admin
         givenname: Prénom
@@ -476,7 +476,7 @@ fr:
         wrongPassword: Mauvais mot de passe
       encryptable:
         encryptable: Compte
-        account_name: Nom du compte
+        name: Nom du compte
         username: Nom d'utilisateur
         password: Mot de passe
         description: Description

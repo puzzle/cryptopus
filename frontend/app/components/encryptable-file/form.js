@@ -49,7 +49,7 @@ export default class Form extends BaseFormComponent {
   }
 
   showSuccessMessage() {
-    let msg = this.intl.t("flashes.file_entries.uploaded");
+    let msg = this.intl.t("flashes.encryptable_files.uploaded");
     this.notify.success(msg);
   }
 

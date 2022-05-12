@@ -7,10 +7,10 @@ class Encryptable::File < Encryptable
              class_name: 'Encryptable::Credentials',
              foreign_key: :credential_id
 
-  validate :file_size
   validates :credential_id, presence: true
   validates :name, uniqueness: { scope: :credential_id }
-  validates :cleartext_file, presence: true
+
+  validate :file_size, on: [:create, :update]
 
   def decrypt(team_password)
     decrypt_attr(:file, team_password)
@@ -29,8 +29,13 @@ class Encryptable::File < Encryptable
   def file_size
     return if cleartext_file.nil?
 
+    if cleartext_file.size == 0.byte
+      errors.add(:base, I18n.t('flashes.encryptable_files.uploaded_file_blank'))
+      return
+    end
+
     if cleartext_file.size > 10.megabytes
-      errors.add(:base, I18n.t('flashes.file_entries.uploaded_size_to_high'))
+      errors.add(:base, I18n.t('flashes.encryptable_files.uploaded_size_to_high'))
     end
   end
 

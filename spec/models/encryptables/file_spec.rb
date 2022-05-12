@@ -9,11 +9,20 @@ describe Encryptable::File do
   it 'validates cleartext_file size' do
     empty_file = FixturesHelper.read_file('empty.txt')
 
-    # mock test_file size to be too large to save
-    expect(test_file).to receive(:size).and_return(20.megabytes)
-
-    encryptable_file = Encryptable::File.new(name: 'Too large file',
+    # validate to save if normal file is allowed
+    encryptable_file = Encryptable::File.new(name: 'Acceptable file size',
                                              encryptable_credential: credentials1)
+    encryptable_file.cleartext_file = test_file
+
+    expect(encryptable_file.name).to eq('Acceptable file size')
+    expect do
+      encryptable_file.save!
+    end.to change { Encryptable::File.count }.by(1)
+
+    # mock test_file size to be too large to save
+    expect(test_file).to receive(:size).and_return(20.megabytes).twice
+
+    encryptable_file.name = 'Too large file'
     encryptable_file.cleartext_file = test_file
 
     # validate to not save if too large
@@ -23,14 +32,15 @@ describe Encryptable::File do
       encryptable_file.save!
     end.to raise_error(ActiveRecord::RecordInvalid, error_msg)
 
-    # validate to save if file size is in range
-    encryptable_file.name = 'Acceptable file size'
+    # validate to save if empty file is not allowed
+    encryptable_file.name = 'Unacceptable file size'
     encryptable_file.cleartext_file = empty_file
+    error_msg = 'Validation failed: File is not allowed to be blank'
 
-    expect(encryptable_file.name).to eq('Acceptable file size')
+    expect(encryptable_file.name).to eq('Unacceptable file size')
     expect do
       encryptable_file.save!
-    end.to change { Encryptable::File.count }.by(1)
+    end.to raise_error(ActiveRecord::RecordInvalid,  error_msg)
   end
 
   it 'encrypts and decrypts file' do

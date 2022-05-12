@@ -27,6 +27,7 @@ class Api::EncryptablesController < ApiController
   def create(options = {})
     build_entry
     authorize entry
+
     entry.encrypt(decrypted_team_password(team))
 
     if entry.save

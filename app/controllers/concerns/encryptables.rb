@@ -11,7 +11,7 @@ module Encryptables
   ### Entries ###
 
   def fetch_entries
-    return fetch_file_entries if credential_id.present?
+    return fetch_encryptable_files if credential_id.present?
 
     encryptables = user_encryptables
     if tag_param.present?
@@ -35,7 +35,7 @@ module Encryptables
                                       .merge(options || {}))
   end
 
-  def fetch_file_entries
+  def fetch_encryptable_files
     Encryptable::File.where(credential_id: user_encryptables.pluck(:id))
                      .where(credential_id: credential_id)
   end

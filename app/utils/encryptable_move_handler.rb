@@ -18,11 +18,11 @@ class EncryptableMoveHandler < EncryptableHandler
     raise 'user is not member of new team' unless new_team.teammember?(user.id)
 
     old_team_password = old_team.decrypt_team_password(user, private_key)
-    move_file_entries(old_team_password)
+    move_encryptable_files(old_team_password)
     encryptable.encrypt(new_team.decrypt_team_password(user, private_key))
   end
 
-  def move_file_entries(old_team_password)
+  def move_encryptable_files(old_team_password)
     new_team_password = new_team.decrypt_team_password(user, private_key)
     encryptable.encryptable_files.each do |f|
       f.decrypt(old_team_password)
