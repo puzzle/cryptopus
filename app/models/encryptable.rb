@@ -49,7 +49,7 @@ class Encryptable < ApplicationRecord
   end
 
   def team
-    self.folder.team
+    folder.team
   end
 
   private
