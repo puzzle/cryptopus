@@ -327,7 +327,7 @@ ch_be:
         newPassword1: "Ds nöie Passwort:"
         newPassword2: "Ds nöie Passwort bestätige:"
         wrongPassword: Fautsches passwort
-      encryptable:
+      encryptable/credential:
         accountname: Accountname
       team:
         name: Name
