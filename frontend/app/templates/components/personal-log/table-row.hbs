@@ -2,8 +2,8 @@
   <td>{{t (concat "encryptables.log." @paperTrailVersion.event)}}</td>
   <td>{{moment-format @paperTrailVersion.createdAt "DD.MM.YYYY hh:mm"}}</td>
   <td>
-    {{@paperTrailVersion.encryptable.folder.team.name}}
-    /{{@paperTrailVersion.encryptable.folder.name}}
-    /{{@paperTrailVersion.encryptable.name}} 
+    {{@paperTrailVersion.teamName}}
+    /{{@paperTrailVersion.folderName}}
+    /{{@paperTrailVersion.encryptableName}}
   </td>
 </tr>

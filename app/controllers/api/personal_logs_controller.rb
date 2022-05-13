@@ -7,7 +7,7 @@ class Api::PersonalLogsController < ApiController
 
   def index(options = {})
     render({ json: fetch_entries,
-             each_serializer: LogsSerializer }
+             each_serializer: PersonalLogsSerializer }
              .merge(render_options)
              .merge(options.fetch(:render_options, {})))
   end
@@ -18,6 +18,12 @@ class Api::PersonalLogsController < ApiController
     PaperTrail::Version
       .where(whodunnit: @current_user)
       .order(created_at: :desc)
+      .select('versions.*, users.username as username, encryptables.name as encryptable_name, folders.name as folder_name, teams.name as team_name')
+      .joins('INNER JOIN users ON versions.whodunnit = users.id
+              INNER JOIN encryptables ON encryptables.id = versions.item_id
+              INNER JOIN folders ON encryptables.folder_id = folders.id
+              INNER JOIN teams ON folders.team_id = teams.id')
       .limit(limit)
   end
+
 end
