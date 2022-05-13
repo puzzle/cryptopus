@@ -7,6 +7,6 @@ export default class PaperTrailVersion extends Model {
   @attr("string") createdAt;
   @attr("string") encryptableName;
   @attr("string") folderName;
-  @attr("string") teamName
+  @attr("string") teamName;
   @belongsTo("encryptable") encryptable;
 }

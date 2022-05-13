@@ -14,13 +14,12 @@ export default class TableComponent extends Component {
 
   constructor() {
     super(...arguments);
-    
-    this.getLogs()
+    this.getLogs();
   }
 
   @tracked
   canLoadMore = true;
-  
+
   @action
   getLogs() {
     this.store
