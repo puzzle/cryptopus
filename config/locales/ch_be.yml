@@ -20,10 +20,10 @@ ch_be:
 
   session:
     user_password:
-      submit: Login
+      submit: Ahmäudä
     local:
       new:
-        submit: Login
+        submit: Ahmäudä
     oidc:
       sleep: I schlafe grad, so dass dini wärtvouä date vor session-diäbä gschützt si. Weck mi aber eifach uf
       submit: Weck mi uf!

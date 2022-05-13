@@ -20,7 +20,7 @@ de:
 
   session:
     user_password:
-      submit: Login
+      submit: Anmelden
     local:
       new:
         submit: Anmelden
