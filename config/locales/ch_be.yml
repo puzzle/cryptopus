@@ -24,10 +24,20 @@ ch_be:
     local:
       new:
         submit: Login
+    oidc:
+      sleep: I schlafe grad, so dass dini wärtvouä date vor session-diäbä gschützt si. Weck mi aber eifach uf
+      submit: Weck mi uf!
     destroy:
       expired: Du bisch automatisch abgemeldet worde
     show_update_password:
       submit: Ändere
+
+  recrypt:
+    oidc:
+      new:
+        notice: Bitte gib dis Cryptopus-Passwort ih, um dis Konto zu OpenID connect / Keycloak z migriere
+        cryptopus_password: Dis Cryptopus Passwort
+        migrate: Migriärä
 
   profile:
     info:
@@ -51,20 +61,20 @@ ch_be:
             one_min: für ei Minute
             five_mins: für füüf Minute
             twelve_hours: für zwöuf Stunde
-            infinite: bis ads Endi vor Zit
+            infinite: ohni limit
         lock: '%{username} isch gsperrt worde'
         unlock: '%{username} isch entsperrt worde'
         token:
           renew: '%{username} isch ernöieret worde, nöiä Token: %{token}'
       members:
         removed: Mitglied isch erfougrich entfernt worde
-    application:
-      wait: 'Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde'
+
     encryptable_files:
       uploaded: D Datei isch erfougrich ufeglade worde
       uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
       uploaded_filename_is_empty: D Datei muess e Name ha
-      uploaded_file_blank: D Datei mues ä Inhaut ha
+      uploaded_file_inexistent: D Datei isch inexistänt
+      uploaded_filename_already_exists: Dr Dateiname isch scho verhandä
     session:
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
       weak_password: 'Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle'
@@ -79,17 +89,16 @@ ch_be:
     errors:
       models:
         user:
-          new_password_invalid: Dis nöie Passwort isch fausch gsi
-          old_password_invalid: Dis aute Passwort isch fausch gsi
-        file_entry:
+          new_password_invalid: Dis NÖIÄ passwort isch fausch gsi
+          old_password_invalid: Dis AUTÄ passwort isch fausch gsi
+        encryptable/file:
           attributes:
-            filename:
-              blank: Filename cha nid läär si
-              taken: Filename isch bereits vergäh
+            name:
+              taken: Datei isch schomau ufägladä wordä
 
   #Pundit
   pundit:
-    default: Zugriff verweigeret
+    default: Zuegriff verweigeret
     team_policy:
-      update?: Du nid miglid vo däm team
-      destroy?: Nume admins chöi teams lösche
+      update?: Du bisch kes Mitglied vo däm Team
+      destroy?: Numä Admin si berächtigt Teams z löschä

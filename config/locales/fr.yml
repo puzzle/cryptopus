@@ -24,18 +24,16 @@ fr:
     local:
       new:
         submit: S'identifier
-    sso:
-      inactive:
-        title: Identifiez-vous
-        submit: S'identifier
-        inactive: Votre session Cryptopus est inactive
+    oidc:
+      sleep: Je suis actuellement endormi pour protéger vos précieuses données des voleurs de session. N'hésitez pas à me réveiller à tout moment
+      submit: Réveillez-moi !
     destroy:
       expired: Tu as été automatiquement déconnecté
     show_update_password:
       submit: Change
 
   recrypt:
-    sso:
+    oidc:
       new:
         notice: Veuillez entrer votre mot de passe Cryptopus pour migrer votre compte vers Keycloak.
         cryptopus_password: Votre mot de passe Cryptopus
@@ -79,7 +77,6 @@ fr:
     session:
       auth_failed: L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe.
       weak_password: Pour améliorer la sécurité vous devez déterminer un mot de passe utilisateur plus complexe.
-
     teams:
       not_existing: 'Il n''y a pas d''équipe avec l''id %{id}'
 
@@ -91,13 +88,12 @@ fr:
     errors:
       models:
         user:
-          new_password_invalid: Votre nouveau mot de passe était incorrect
-          old_password_invalid: Votre ancien mot de passe était incorrect
-        file_entry:
+          new_password_invalid: Votre NOUVEAU mot de passe était incorrect
+          old_password_invalid: Your ancien password was wrong
+        encryptable/file:
           attributes:
-            filename:
-              blank: Filename ne peut pas être vide
-              taken: Filename est déjà pris
+            name:
+              taken: Le fichier a déjà été pris
 
  #Pundit
   pundit:
