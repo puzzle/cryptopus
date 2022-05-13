@@ -147,6 +147,7 @@ fr:
     no_encryptables: Pas de comptes
     tooltips:
       edit: Modifier le dossier
+
   encryptable_files:
     new:
       title: Ajouter un attachement au compte

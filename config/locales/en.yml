@@ -68,6 +68,7 @@ en:
           renew: 'Renewed %{username}, new token: %{token}'
       members:
         removed: Member was successfully removed
+
     encryptable_files:
       uploaded: File was successfully uploaded
       uploaded_size_to_high: The file is too big to upload. (max. 10MB)
