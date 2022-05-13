@@ -74,6 +74,7 @@ ch_be:
       uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
       uploaded_filename_is_empty: D Datei muess e Name ha
       uploaded_file_inexistent: D Datei isch inexistänt
+      uploaded_file_blank: D datei daf nid läär si
       uploaded_filename_already_exists: Dr Dateiname isch scho verhandä
     session:
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
