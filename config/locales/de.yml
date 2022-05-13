@@ -52,9 +52,9 @@ de:
       admin:
         users:
           update:
-            user: "Aktualisierter Benutzer ist jetzt ein Benutzer"
-            conf_admin: "Aktualisierter Benutzer ist jetzt ein conf-admin"
-            admin: "Aktualisierter Benutzer ist jetzt ein admin"
+            user: Aktualisierter Benutzer ist jetzt ein Benutzer
+            conf_admin: Aktualisierter Benutzer ist jetzt ein conf-admin
+            admin: Aktualisierter Benutzer ist jetzt ein admin
       api-users:
         update:
           time:
@@ -77,7 +77,7 @@ de:
       uploaded_filename_already_exists: Dateiname existiert bereits
     session:
       auth_failed: Ungültiger Benutzername / Passwort
-      weak_password: Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen
+      weak_password: "Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen"
     teams:
       not_existing: "Es existiert kein Team mit der Id %{id}"
 
