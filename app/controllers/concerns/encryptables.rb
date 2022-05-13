@@ -37,7 +37,8 @@ module Encryptables
 
   def build_encryptable_file
     filename = params[:file].original_filename
-    file = new_file(file_credential, params[:description], filename)
+    encryptable_credential = Encryptable::Credentials.find(credential_id)
+    file = new_file(encryptable_credential, params[:description], filename)
     file.content_type = params[:file].content_type
     file.cleartext_file = params[:file].read
 

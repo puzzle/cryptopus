@@ -4,6 +4,11 @@ class Api::EncryptablesController < ApiController
   include Encryptables
 
   self.permitted_attrs = [:name, :description, :folder_id, :tag]
+  types_whitelist = [
+    Encryptable::File.sti_name,
+    Encryptable::Credentials.sti_name,
+    Encryptable::OseSecret.sti_name
+  ]
 
   helper_method :team
 
@@ -26,6 +31,7 @@ class Api::EncryptablesController < ApiController
   # options param is needed for render_entry method
   # POST /api/encryptables
   def create(options = {})
+    require 'pry'; binding.pry unless $pstop
     build_entry
     authorize entry
 
@@ -41,13 +47,13 @@ class Api::EncryptablesController < ApiController
 
   # PATCH /api/encryptables/:id?Query
   def update
-    authorize encryptable
-    encryptable.attributes = model_params
+    authorize entry
+    entry.attributes = model_params
 
-    encrypt(encryptable)
+    encrypt(entry)
 
-    if encryptable.save
-      render_json encryptable
+    if entry.save
+      render_json entry
     else
       render_errors
     end
@@ -55,34 +61,30 @@ class Api::EncryptablesController < ApiController
 
   private
 
-  # rubocop:disable Metrics/MethodLength
   def model_class
-    if create_ose_secret?
-      Encryptable::OseSecret
-    elsif action_name == 'destroy'
-      Encryptable
-    elsif @encryptable.present?
-      encryptable.class
-    elsif credential_id.present?
-      Encryptable::File
+    if params[:type].present?
+      model_class_from_params
     else
-      Encryptable::Credentials
+      Encryptable
     end
   end
-  # rubocop:enable Metrics/MethodLength
+
+  def model_class_from_params
+    type = params[:type]
+    klass = type.constantize
+
+    if types_whitelist.exclude?(klass)
+      # TODO: translate
+      entry.errors.add(:base, "Type invalid")
+    end
+
+    klass
+  end
 
   def build_entry
     return build_encryptable_file if encryptable_file?
 
     super
-  end
-
-  def file_credential
-    Encryptable::Credentials.find(credential_id)
-  end
-
-  def encryptable
-    @encryptable ||= Encryptable.find(params[:id])
   end
 
   def encryptable_file?
@@ -106,7 +108,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def encryptable_move_handler
-    EncryptableMoveHandler.new(encryptable, session[:private_key], current_user)
+    EncryptableMoveHandler.new(entry, session[:private_key], current_user)
   end
 
   def ivar_name

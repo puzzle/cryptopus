@@ -13,4 +13,8 @@ export default class EncryptableCredential extends Encryptable {
       this.cleartextPassword !== undefined
     );
   }
+
+  get type() {
+    return "Encryptable::Credentials"
+  }
 }

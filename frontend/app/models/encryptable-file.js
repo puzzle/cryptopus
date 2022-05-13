@@ -33,4 +33,8 @@ export default class EncryptableFile extends Encryptable {
 
     return promise;
   }
+
+  get type() {
+    return "Encryptable::File"
+  }
 }
