@@ -331,7 +331,7 @@ fr:
         newPassword1: "Entrez un nouveau mot de passe:"
         newPassword2: "Confirmer le nouveau mot de passe:"
         wrongPassword: Mauvais mot de passe
-      encryptable:
+      encryptable/credential:
         accountname: Nom du compte
       team:
         name: Nom
