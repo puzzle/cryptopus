@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Api::Personal_LogsController do
+describe Api::PersonalLogsController do
   include ControllerHelpers
 
   let(:bob) { users(:bob) }
@@ -18,7 +18,7 @@ describe Api::Personal_LogsController do
         credentials1.touch
       end
 
-      get :index, params: { encryptable_id: credentials1.id }
+      get :index, params: {}
       expect(data.count).to eq 2
       expect(data.first['attributes']['username']).to eq 'alice'
     end
@@ -29,18 +29,31 @@ describe Api::Personal_LogsController do
         credentials1.touch
         credentials1.touch
       end
-      get :index, params: { encryptable_id: credentials1.id }
+      get :index, params: {}
       expect(data.first['attributes']['created_at']).to be > data.second['attributes']['created_at']
     end
 
-    it 'denies access if not in team' do
+    it 'only returns your logs' do
       login_as(:alice)
+      PaperTrail.request(whodunnit: alice.id) do
+        credentials1.touch
+        credentials1.touch
+      end
 
-      team2 = teams(:team2)
-      encryptable = team2.folders.first.encryptables.first
+      login_as(:bob)
+      PaperTrail.request(whodunnit: bob.id) do
+        credentials1.touch
+      end
 
-      get :index, params: { encryptable_id: encryptable.id }
-      expect(response.status).to be 403
+      get :index, params: {}
+      expect(data.count).to eq 1
+      expect(data.first['attributes']['username']).to eq 'bob'
+
+      login_as(:alice)
+      get :index, params: {}
+      expect(data.count).to eq 2
+      expect(data.first['attributes']['username']).to eq 'alice'
+      expect(data.last['attributes']['username']).to eq 'alice'
     end
   end
 end
