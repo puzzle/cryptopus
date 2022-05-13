@@ -147,6 +147,7 @@ ch_be:
     no_encryptables: Ke Zuägangsdate
     tooltips:
       edit: Ordner bearbeite
+
   encryptable_files:
     new:
       title: Ahang zu dä Zuägangsdate hinzuefüege

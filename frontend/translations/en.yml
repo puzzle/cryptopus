@@ -147,6 +147,7 @@ en:
     no_encryptables: No Credentials
     tooltips:
       edit: Edit the folder
+
   encryptable_files:
     new:
       title: Add new attachment to credentials

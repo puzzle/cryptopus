@@ -68,6 +68,7 @@ fr:
           renew: '%{username} a été renouvelé, nouveau jeton: %{token}'
       members:
         removed: Membre de l'équipe a été ajouté avec succès
+
     encryptable_files:
       uploaded: Fichier téléchargé avec succès
       uploaded_size_to_high: Fichier est trop volumineux pour tèlècharger. (max. 10MB)
