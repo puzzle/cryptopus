@@ -45,20 +45,32 @@ describe 'NavBar', type: :system, js: true do
 
     logout
   end
-  it 'does show Log Buton for bob' do
+  it 'does show Log Button for bob' do
     login_as_user(:bob)
-    click('@User')
-    within(page.find('pzsh-menu-dropdown-item')) do
-      expect(page).to have_text('Log')
+    expect(page).to have_css('pzsh-menu')
+    within('pzsh-menu') do
+      all('pzsh-menu-dropdown').first.click
     end
+    all('pzsh-menu-dropdown-item').first.click
+    expect(page).to_not have_text('Settings')
+    expect(page).to have_text('Profile')
+    expect(page).to have_text('Log')
+    expect(page).to have_text('Logout')
 
     logout
   end
-  it 'does show Log Button for root' do
+  it 'Dropdowns show intended items for admin' do
     login_as_root
-    within(page.find('pzsh-menu-dropdown-item')) do
-      expect(page).to have_text('Log')
+    expect(page).to have_css('pzsh-menu')
+    within('pzsh-menu') do
+      all('pzsh-menu-dropdown').first.click
     end
+    all('pzsh-menu-dropdown-item').first.click
+    expect(page).to have_text('Users')
+    expect(page).to have_text('Settings')
+    expect(page).to have_text('Profile')
+    expect(page).to have_text('Log')
+    expect(page).to have_text('Logout')
 
     logout
   end
