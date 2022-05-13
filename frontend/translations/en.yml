@@ -21,8 +21,8 @@ en:
   password: Password
   actions: Actions
   download: Download
-  "yes": "Yes"
-  "no": "No"
+  "yes": Yes
+  "no": No
   help: Help
   version: Version
   logout: Logout
@@ -50,7 +50,7 @@ en:
 
   i18n:
     language:
-      name: English
+      name: "English"
 
   search:
     title: Search

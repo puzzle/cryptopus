@@ -50,7 +50,7 @@ fr:
 
   i18n:
     language:
-      name: Français
+      name: "Français"
 
   search:
     title: Recherche

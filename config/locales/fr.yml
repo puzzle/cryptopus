@@ -5,9 +5,9 @@ fr:
   help: Aide
   version: Version
   settings: Paramètres
-  last_login_date_and_from: La dernière connexion était le %{last_login_at} de %{last_login_from}'
-  last_login_date_and_from_country: La dernière connexion était le %{last_login_at} de %{last_login_from} (%{last_login_country})
-  last_login_date: La dernière connexion était le %{last_login_at}
+  last_login_date_and_from: "La dernière connexion était le %{last_login_at} de %{last_login_from}"
+  last_login_date_and_from_country: "La dernière connexion était le %{last_login_at} de %{last_login_from} (%{last_login_country})"
+  last_login_date: "La dernière connexion était le %{last_login_at}"
 
   admin:
     recryptrequests:
@@ -76,7 +76,7 @@ fr:
       uploaded_filename_already_exists: Le nom de fichier existe déjà
     session:
       auth_failed: L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe.
-      weak_password: Pour améliorer la sécurité vous devez déterminer un mot de passe utilisateur plus complexe.
+      weak_password: "Pour améliorer la sécurité vous devez déterminer un mot de passe utilisateur plus complexe."
     teams:
       not_existing: 'Il n''y a pas d''équipe avec l''id %{id}'
 

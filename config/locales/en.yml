@@ -76,7 +76,7 @@ en:
       uploaded_filename_already_exists: Filename already exists
     session:
       auth_failed: Authentication failed! Enter a correct username and password
-      weak_password: To improve security you should change your login password to a more complex one
+      weak_password: "To improve security you should change your login password to a more complex one"
     teams:
       not_existing: 'Es existiert kein Team mit der Id %{id}'
 
