@@ -24,15 +24,18 @@ de:
     local:
       new:
         submit: Anmelden
+    oidc:
+      sleep: Ich schlafe gerade, damit deine wertvollen Daten vor Session-Dieben geschützt sind. Weck mich jederzeit einfach auf
+      submit: Weck mich auf!
     destroy:
       expired: Du wurdest automatisch abgemeldet
     show_update_password:
       submit: Ändern
 
   recrypt:
-    sso:
+    oidc:
       new:
-        notice: Bitte geben Sie Ihr Cryptopus-Passwort ein, um Ihr Konto zu Keycloak zu migrieren
+        notice: Bitte geben Sie Ihr Cryptopus-Passwort ein, um Ihr Konto zu OpenID conncect / Keycloak zu migrieren
         cryptopus_password: Dein Cryptopus Passwort
         migrate: Migrieren
 
@@ -86,17 +89,16 @@ de:
     errors:
       models:
         user:
-          new_password_invalid: Dein neues Passwort war falsch
-          old_password_invalid: Dein altes Passwort war falsch
-        file_entry:
+          new_password_invalid: Dein NEUES passwort war falsch
+          old_password_invalid: Dein ALTES passwort war falsch
+        encryptable/file:
           attributes:
-            filename:
-              blank: Filename kann nicht leer sein
-              taken: Filename ist bereits vergeben
+            name:
+              taken: Datei ist schon hochgeladen worden
 
   #Pundit
   pundit:
     default: Zugriff verweigert
     team_policy:
-      update?: Du bist nicht Mitglied dieses Teams
-      destroy?: Nur Admins dürfen Teams löschen
+      update?: Du bist kein Mitlied von diesem Team
+      destroy?: Nur Admins sind berechtigt Teams zu löschen

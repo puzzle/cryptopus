@@ -52,9 +52,9 @@ en:
       admin:
         users:
           update:
-            user: "Updated user is now a user"
-            conf_admin: "Updated user is now a conf admin"
-            admin: "Updated user is now an admin"
+            user: Updated user is now a user
+            conf_admin: Updated user is now a conf admin
+            admin: Updated user is now an admin
       api-users:
         update:
           time:
@@ -76,8 +76,7 @@ en:
       uploaded_filename_already_exists: Filename already exists
     session:
       auth_failed: Authentication failed! Enter a correct username and password
-      weak_password: To improve security you should change your login password to a more
-        complex one
+      weak_password: To improve security you should change your login password to a more complex one
     teams:
       not_existing: 'Es existiert kein Team mit der Id %{id}'
 
@@ -96,3 +95,9 @@ en:
             name:
               taken: File has already been taken
 
+  #Pundit
+  pundit:
+    default: Access denied
+    team_policy:
+      update?: You are not a member of this team
+      destroy?: Only admins are allowed to delete teams
