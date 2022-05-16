@@ -8,6 +8,10 @@ class Encryptable::Credentials < Encryptable
            foreign_key: :credential_id,
            dependent: :destroy
 
+  validates :name, length: { maximum: 70 }
+  validates :name, uniqueness: { scope: :folder }
+  validates :folder_id, presence: true
+
   def decrypt(team_password)
     decrypt_attr(:username, team_password)
     decrypt_attr(:password, team_password)

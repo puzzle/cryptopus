@@ -13,9 +13,6 @@ describe MoveFileEntriesToEncryptableFiles do
 
   let(:migration) { described_class.new }
 
-  let!(:folder1) { folders(:folder1) }
-  let!(:folder2) { folders(:folder2) }
-
   let!(:credentials1) { encryptables(:credentials1) }
   let!(:credentials2) { encryptables(:credentials2) }
 

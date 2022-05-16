@@ -5,6 +5,9 @@ require_relative '../../utils/crypto/symmetric/aes256iv'
 class Encryptable::OseSecret < Encryptable
   attr_accessor :cleartext_ose_secret
 
+  validates :name, uniqueness: { scope: :folder }
+  validates :folder_id, presence: true
+
   def decrypt(team_password)
     convert_legacy_encrypted_data!(team_password) if legacy_encrypted_data?
 

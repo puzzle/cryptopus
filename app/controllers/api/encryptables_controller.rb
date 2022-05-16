@@ -3,7 +3,7 @@
 class Api::EncryptablesController < ApiController
   include Encryptables
 
-  self.permitted_attrs = [:name, :description, :folder_id, :tag]
+  self.permitted_attrs = [:name, :description, :tag]
 
   helper_method :team
 
@@ -121,13 +121,13 @@ class Api::EncryptablesController < ApiController
     permitted_attrs = self.class.permitted_attrs.deep_dup
 
     if model_class == Encryptable::OseSecret
-      permitted_attrs << :cleartext_ose_secret
+      permitted_attrs + [:cleartext_ose_secret, :folder_id]
     elsif model_class == Encryptable::File
       permitted_attrs + [:filename, :credentials_id, :file]
     elsif model_class == Encryptable::Credentials
-      permitted_attrs + [:cleartext_username, :cleartext_password]
+      permitted_attrs + [:cleartext_username, :cleartext_password, :folder_id]
     else
-      permitted_attrs
+      []
     end
   end
 end
