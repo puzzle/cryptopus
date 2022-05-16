@@ -21,7 +21,7 @@ describe 'SideNavBar', type: :system, js: true do
     expect(sidebar).to have_text('team1')
     expect(sidebar).to have_text('team2')
 
-    team1_link = all('a.list-group-item')[0]
+    team1_link = all('a.list-group-item')[1]
     team2_link = all('a.list-group-item').last
 
     team1 = teams(:team1)
@@ -81,14 +81,14 @@ describe 'SideNavBar', type: :system, js: true do
 
   def team1_expanded_in_sidebar?
     expect(find('a', text: 'team1', visible: false)).to have_xpath("//img[@alt='v']")
-    within(all('a[role="button"]')[0]) do
+    within(all('a[role="button"]')[1]) do
       expect(find('img[alt="v"]')['src']).to include '/assets/images/angle-down.svg'
     end
   end
 
   def team1_collapsed_in_sidebar?
     expect(find('a', text: 'team1', visible: false)).to have_xpath("//img[@alt='<']")
-    within(all('a[role="button"]')[0]) do
+    within(all('a[role="button"]')[1]) do
       expect(find('img[alt="<"]')['src']).to include '/assets/images/angle-left.svg'
     end
   end

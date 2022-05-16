@@ -20,10 +20,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_06_091924) do
     t.string "tag"
     t.string "type", default: "Account::Credentials", null: false
     t.text "encrypted_data", limit: 16777215
-    t.binary "transfer_password"
-    t.integer "receiver_id"
     t.integer "credential_id"
     t.text "content_type"
+    t.binary "transfer_password"
+    t.integer "receiver_id"
     t.index ["description"], name: "index_encryptables_on_description"
     t.index ["name"], name: "index_encryptables_on_name"
     t.index ["tag"], name: "index_encryptables_on_tag"

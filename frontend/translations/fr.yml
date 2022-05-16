@@ -89,7 +89,7 @@ fr:
     new:
       title: Nouveau compte
     share:
-      title: Partage Encryptable
+      title: Partage fichier
 
   admin:
     title: Admin

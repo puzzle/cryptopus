@@ -12,9 +12,9 @@ describe 'TeamModal', type: :system, js: true do
   include SystemHelpers
 
   let(:team_attrs) do
-    { name: 'niceteam',
+    { name: 'bob',
       private: false,
-      description: 'desc' }
+      description: '' }
   end
 
   let(:updated_attrs) do
