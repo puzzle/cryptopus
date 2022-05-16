@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class AddPersonalOwnerToTeams < ActiveRecord::Migration[6.1]
   def up
     add_column :teams, :type, :string, null: false
 
-    execute "UPDATE teams SET type = 'Team::Shared' WHERE type = ''"
+    execute "UPDATE teams SET type = 'Team::Shared'"
 
     add_column :teams, :personal_owner_id, :integer, index: { unique: true }
 
