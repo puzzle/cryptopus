@@ -100,6 +100,7 @@ describe Api::TeamsController do
 
       expect(included_types).to include('folders')
       expect(included_types).to include('encryptable_credentials')
+      expect(included_types).not_to include('encryptable_file')
 
       expect(attributes['name']).to eq team1.name
       expect(attributes['description']).to eq team1.description

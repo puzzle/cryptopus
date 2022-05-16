@@ -9,4 +9,8 @@ seeder = TeamFoldersEncryptablesSeeder.new
   seeder.seed_team("#{Faker::Job.field} #{rand(999)}", users, [true, false].sample)
 end
 
+folder_ids = Team.order(:name).limit(1).first.folders.pluck(:id)
+Encryptable::Credentials.where(folder_id: folder_ids).each do |c|
+  seeder.seed_file(c)
+end
 seeder.seed_ose_secrets(Team.first)

@@ -23,12 +23,14 @@ class Encryptable < ApplicationRecord
   validates :type, presence: true
 
   belongs_to :folder
-  has_many :file_entries, foreign_key: :account_id, primary_key: :id, dependent: :destroy
 
   validates :name, presence: true
-  validates :name, uniqueness: { scope: :folder }
+  validates :name, uniqueness: { scope: :folder },
+                   unless: proc { |c| c.is_a? Encryptable::File }
   validates :name, length: { maximum: 70 }
   validates :description, length: { maximum: 4000 }
+
+  scope :without_files, -> { where.not(type: Encryptable::File.sti_name) }
 
   def encrypt(_team_password)
     raise 'implement in subclass'
@@ -44,6 +46,10 @@ class Encryptable < ApplicationRecord
 
   def label
     name
+  end
+
+  def team
+    folder.team
   end
 
   private

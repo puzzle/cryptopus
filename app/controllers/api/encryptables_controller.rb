@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::EncryptablesController < ApiController
+  include Encryptables
+
   self.permitted_attrs = [:name, :description, :folder_id, :tag]
 
   helper_method :team
@@ -16,19 +18,22 @@ class Api::EncryptablesController < ApiController
 
   # GET /api/encryptables/:id
   def show
-    authorize encryptable
-    encryptable.decrypt(decrypted_team_password(team))
+    authorize entry
+    entry.decrypt(decrypted_team_password(team))
     render_entry
   end
 
+  # options param is needed for render_entry method
   # POST /api/encryptables
-  def create
+  def create(options = {})
     build_entry
-    authorize encryptable
-    encryptable.encrypt(decrypted_team_password(team))
-    if encryptable.save
-      @response_status = :created
-      render_json encryptable
+    authorize entry
+
+    entry.encrypt(decrypted_team_password(team))
+
+    if entry.save
+      render_entry({ status: :created }
+                     .merge(options[:render_options] || {}))
     else
       render_errors
     end
@@ -50,44 +55,46 @@ class Api::EncryptablesController < ApiController
 
   private
 
+  # rubocop:disable Metrics/MethodLength
   def model_class
-    if action_name == 'create' &&
-       params.dig('data', 'attributes', 'type') == 'ose_secret'
+    if create_ose_secret?
       Encryptable::OseSecret
     elsif action_name == 'destroy'
       Encryptable
     elsif @encryptable.present?
       encryptable.class
+    elsif credential_id.present?
+      Encryptable::File
     else
       Encryptable::Credentials
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
-  def fetch_entries
-    encryptables = current_user.encryptables
-    if tag_param.present?
-      encryptables = encryptables.find_by(tag: tag_param)
-    end
-    encryptables
+  def build_entry
+    return build_encryptable_file if encryptable_file?
+
+    super
   end
 
-  def encrypt(encryptable)
-    if encryptable.folder_id_changed?
-      # if folder id changed recheck team permission
-      authorize encryptable
-      # move handler calls encrypt implicit
-      encryptable_move_handler.move
-    else
-      encryptable.encrypt(decrypted_team_password(team))
-    end
+  def file_credential
+    Encryptable::Credentials.find(credential_id)
   end
 
   def encryptable
     @encryptable ||= Encryptable.find(params[:id])
   end
 
+  def encryptable_file?
+    model_class == Encryptable::File
+  end
+
+  def user_encryptables
+    current_user.encryptables
+  end
+
   def team
-    @team ||= encryptable.folder.team
+    @team ||= entry.team
   end
 
   def query_param
@@ -103,7 +110,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def ivar_name
-    Encryptable.model_name.param_key
+    (encryptable_file? ? Encryptable::File : Encryptable).model_name.param_key
   end
 
   def model_serializer
@@ -115,6 +122,8 @@ class Api::EncryptablesController < ApiController
 
     if model_class == Encryptable::OseSecret
       permitted_attrs << :cleartext_ose_secret
+    elsif model_class == Encryptable::File
+      permitted_attrs + [:filename, :credentials_id, :file]
     elsif model_class == Encryptable::Credentials
       permitted_attrs + [:cleartext_username, :cleartext_password]
     else

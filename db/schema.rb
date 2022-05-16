@@ -20,19 +20,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_29_122335) do
     t.string "tag"
     t.string "type", default: "Account::Credentials", null: false
     t.text "encrypted_data", limit: 16777215
+    t.integer "credential_id"
+    t.text "content_type"
     t.index ["description"], name: "index_encryptables_on_description"
     t.index ["name"], name: "index_encryptables_on_name"
     t.index ["tag"], name: "index_encryptables_on_tag"
-  end
-
-  create_table "file_entries", force: :cascade do |t|
-    t.integer "account_id", default: 0, null: false
-    t.text "description"
-    t.binary "file"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.text "filename", null: false
-    t.text "content_type", null: false
   end
 
   create_table "folders", force: :cascade do |t|
