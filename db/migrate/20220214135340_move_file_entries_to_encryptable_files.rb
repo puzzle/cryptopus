@@ -4,6 +4,7 @@ class MoveFileEntriesToEncryptableFiles < ActiveRecord::Migration[6.1]
   def up
     add_column :encryptables, :credential_id, :integer
     add_column :encryptables, :content_type, :text
+    change_column :encryptables, :name, :string, limit: 255
 
     Encryptable.reset_column_information
 
@@ -15,10 +16,6 @@ class MoveFileEntriesToEncryptableFiles < ActiveRecord::Migration[6.1]
       encryptable_file.encrypted_data.[]=(:file, **{ data: file_entry.file, iv: nil })
       encryptable_file.content_type = file_entry.content_type
       encryptable_file.save!
-
-      if empty_encryptable?(parent_encryptable)
-        parent_encryptable.destroy
-      end
     end
 
     drop_table :file_entries
