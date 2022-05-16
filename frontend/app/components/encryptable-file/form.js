@@ -2,9 +2,9 @@ import BaseFormComponent from "../base-form-component";
 import EncryptableFileValidations from "../../validations/encryptable-file";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
-import {action} from "@ember/object";
-import {inject as service} from "@ember/service";
-import {tracked} from "@glimmer/tracking";
+import { action } from "@ember/object";
+import { inject as service } from "@ember/service";
+import { tracked } from "@glimmer/tracking";
 import ENV from "frontend/config/environment";
 
 export default class Form extends BaseFormComponent {
