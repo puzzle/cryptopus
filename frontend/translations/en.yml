@@ -278,6 +278,10 @@ en:
 
     application:
       wait: Wait for the recryption of your team passwords.
+    folders:
+      created: Successfully created a new folder.
+      updated: Folder was successfully updated.
+      deleted: Folder was successfully deleted
     encryptable_files:
       uploaded: File was successfully uploaded.
       uploaded_size_to_high: The file is too big to upload. (max. 10MB)
@@ -289,6 +293,11 @@ en:
       weak_password: To improve security you should change your login password to a more complex one.
       wrong_root: Login as root only from private IP accessible
     teams:
+      created: Successfully created a new team.
+      updated: Team was successfully updated.
+      deleted: Team was successfully deleted.
+      cannot_delete: Only admin may delete teams.
+      no_member: You are not member of this team.
       not_existing: "Team with id %{id} does not exist"
     teammembers:
       could_not_remove_last_teammember: Could not remove last teammember

@@ -278,6 +278,10 @@ ch_be:
 
     application:
       wait: Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde.
+    folders:
+      created: E nöie ordner isch erfougrich ersteut wordä.
+      updated: Dr ordner isch erfougrich aktualisiert wordä.
+      deleted: Dr ordner isch erfougrich glöscht wordä.
     encryptable_files:
       uploaded: D Datei isch erfougrich ufeglade worde.
       uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
@@ -289,6 +293,11 @@ ch_be:
       weak_password: Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle
       wrong_root: Amäudig aus root nume vo privater IP möglech
     teams:
+      created: Erfougrich es nöis team ersteut.
+      updated: Erfougrich ds team aktualisiert.
+      deleted: Erfougrich ds team glöscht.
+      cannot_delete: Nume admins chöi teams lösche.
+      no_member: Du bisch kes mitglied vo däm team.
       not_existing: "Ds Team mit dr id %{id} exischtiert nid"
     teammembers:
       could_not_remove_last_teammember: Dr letscht Benutzer vomene Team cha nid entfernt werde
