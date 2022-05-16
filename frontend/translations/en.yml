@@ -75,8 +75,6 @@ en:
         fair: Fair
         good: Good
         strong: Strong
-    share:
-      file: Share File
     show:
       title: Credentials
       created_at: "Created at"
@@ -282,6 +280,10 @@ en:
 
     application:
       wait: Wait for the recryption of your team passwords.
+    folders:
+      created: Successfully created a new folder.
+      updated: Folder was successfully updated.
+      deleted: Folder was successfully deleted
     encryptable_files:
       uploaded: File was successfully uploaded.
       uploaded_size_to_high: The file is too big to upload. (max. 10MB)

@@ -280,6 +280,10 @@ fr:
 
     application:
       wait: S'il vous plaît attendre jusqu'à ce vos mots de passe a ètè nouveau cryptées.
+    folders:
+      created: Un nouveau dossier a été créé avec succès.
+      updated: Le dossier a été mis à jour avec succès.
+      deleted: Le dossier a été supprimé avec succès
     encryptable_files:
       uploaded: Fichier téléchargé avec succès.
       uploaded_size_to_high: Fichier est trop volumineux pour tèlècharger. (max. 10MB)

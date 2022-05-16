@@ -278,6 +278,10 @@ ch_be:
 
     application:
       wait: Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde.
+    folders:
+      created: E nöie ordner isch erfougrich ersteut wordä.
+      updated: Dr ordner isch erfougrich aktualisiert wordä.
+      deleted: Dr ordner isch erfougrich glöscht wordä.
     encryptable_files:
       uploaded: D Datei isch erfougrich ufeglade worde.
       uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
