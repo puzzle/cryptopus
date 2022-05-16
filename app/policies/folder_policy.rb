@@ -25,7 +25,7 @@ class FolderPolicy < TeamDependantPolicy
   private
 
   def personal_team?
-    folder.team.id == @user.personal_team_id
+    folder.team.id == @user.personal_team.id
   end
 
   def team
