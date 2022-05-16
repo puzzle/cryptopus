@@ -9,6 +9,9 @@ export default class NavBarComponent extends Component {
   @service navService;
   @service screenWidthService;
   @service userService;
+  @service clipboardService;
+  @service notify;
+  @service intl;
 
   searchInterval;
 
