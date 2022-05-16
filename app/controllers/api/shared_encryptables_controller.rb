@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::SharedEncryptablesController < ApiController
 
   self.permitted_attrs = [:encryptable_id, :receiver_id]
