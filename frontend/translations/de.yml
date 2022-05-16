@@ -295,6 +295,11 @@ de:
       weak_password: Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen
       wrong_root: Anmeldung als root nur von privater IP aus möglich
     teams:
+      created: Erfolgreich ein neues Team erstellt.
+      updated: Erfolgreich das Team aktualisiert.
+      deleted: Erfolgreich das Team gelöscht.
+      cannot_delete: Nur Admins können Team löschen.
+      no_member: Du bist kein Mitglied von diesem Team.
       not_existing: "Es existiert kein Team mit der Id %{id}"
     teammembers:
       could_not_remove_last_teammember: Der letzte Benutzer eines Teams kann nicht entfernt werden

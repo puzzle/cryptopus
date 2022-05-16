@@ -295,6 +295,11 @@ fr:
       weak_password: Pour améliorer la sécurité vous devez déterminer un mot de passe utilisateur plus complexe.
       wrong_root: Connexion en tant que root uniquement à partir d'une IP privée accessible
     teams:
+      created: Création d'une nouvelle équipe avec succès.
+      updated: L'équipe a été mise à jour avec succès.
+      deleted: L'équipe a été supprimée avec succès.
+      cannot_delete: Seul l'administrateur peut supprimer des équipes.
+      no_member: Vous n'êtes pas membre de cette équipe.
       not_existing: "Il n'y a pas d'équipe avec l'id %{id}"
     teammembers:
       could_not_remove_last_teammember: Il n’est pas possible de supprimer le dernier utilisateur de l'équipe
