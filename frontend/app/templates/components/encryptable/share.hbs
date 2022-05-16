@@ -1,0 +1,68 @@
+<BsModal @onSubmit={{this.submit}} @onHidden={{this.abort}} @renderInPlace="true" @size="lg" as |Modal|>
+  <Modal.header>
+    <h3 class="modal-title" id="teamConfigureModalLabel">{{t "teams.configure.title"}}</h3>
+  </Modal.header>
+  <Modal.body>
+    <BsTab as |tab|>
+      <tab.pane id="members" @title={{t "teams.show.members"}}>
+        <div class="columns members">
+          <div class="row mt-1">
+            <div class="col-sm-12">
+              <div class="float-right">
+                <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{this.addMember}} @placeholder={{t "teammembers.new.title"}} as |candidate|>
+                  {{candidate.label}}
+                </PowerSelectTypeahead>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col">
+              <ol>
+                {{#each this.members as |member|}}
+                  <li>
+                    {{member.label}}
+                    {{#if member.admin}}
+                      <img class="float-right" src="/assets/images/penguin.svg" alt="admin">
+                    {{else}}
+                      {{#if member.deletable}}
+                        <a class="float-right" role="button" {{on "click" (fn this.deleteMember member)}}>
+                          <img src="/assets/images/remove.svg" alt="remove">
+                        </a>
+                      {{/if}}
+                    {{/if}}
+                  </li>
+                {{/each}}
+              </ol>
+
+            </div>
+          </div>
+        </div>
+      </tab.pane>
+      <tab.pane id="api-users"  @title={{t "profile.api_users.api_users"}}>
+        <table class="table table-striped mt-3">
+          <thead>
+            <tr>
+              <td>{{t "user"}}</td>
+              <td>{{t "description"}}</td>
+              <td>{{t "teams.form.enabled"}}</td>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each this.apiUsers as |user|}}
+              <tr>
+                <td>{{user.username}}</td>
+                <td>{{user.description}}</td>
+                <td>
+                  <XToggle @theme="ios" @size="small" @variant="auto" @value={{user.enabled}} @onToggle={{fn this.toggleApiUser user}} />
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </tab.pane>
+    </BsTab>
+  </Modal.body>
+  <Modal.footer>
+    <BsButton id="close_button" @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
+  </Modal.footer>
+</BsModal>

@@ -75,6 +75,8 @@ en:
         fair: Fair
         good: Good
         strong: Strong
+    share:
+      file: Share File
     show:
       title: Credentials
       created_at: "Created at"
