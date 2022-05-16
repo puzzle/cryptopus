@@ -66,7 +66,7 @@ class TeamFoldersEncryptablesSeeder
                                          description: Faker::Lorem.paragraph,
                                          type: "Encryptable::File")
 
-    encryptable_file.cleartext_file = Faker::Lorem.paragraph(sentence_count: rand(99))
+    encryptable_file.cleartext_file = Faker::Lorem.paragraph(sentence_count: rand(99) + 1)
     encryptable_file.content_type = 'text/plain'
     encryptable_file.encrypt(team_password(credentials_entry.folder.team))
 
