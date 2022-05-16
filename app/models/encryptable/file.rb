@@ -9,6 +9,7 @@ class Encryptable::File < Encryptable
 
   validates :credential_id, presence: true
   validates :name, uniqueness: { scope: :credential_id }
+  validates :folder_id, absence: true
 
   validate :file_size, on: [:create, :update]
 

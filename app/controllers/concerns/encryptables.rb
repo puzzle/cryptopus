@@ -45,8 +45,7 @@ module Encryptables
   end
 
   def new_file(parent_encryptable, description, name)
-    Encryptable::File.new(folder_id: parent_encryptable.folder_id,
-                          encryptable_credential: parent_encryptable,
+    Encryptable::File.new(encryptable_credential: parent_encryptable,
                           description: description,
                           name: name)
   end

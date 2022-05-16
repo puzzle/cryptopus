@@ -713,7 +713,6 @@ describe Api::EncryptablesController do
 
   def create_file
     file = Encryptable::File.new(name: 'file',
-                                 folder: folders(:folder2),
                                  cleartext_file: file_fixture('test_file.txt').read,
                                  credential_id: encryptables(:credentials2).id,
                                  content_type: 'text/plain')
