@@ -10,7 +10,7 @@ export default class TableComponent extends Component {
   @service notify;
 
   @tracked logs = [];
-  loadAmount = 25;
+  loaded = 0;
 
   constructor() {
     super(...arguments);
@@ -24,21 +24,21 @@ export default class TableComponent extends Component {
   getLogs() {
     this.store
       .query("paper-trail-version", {
-        load: this.loadAmount
+        load: this.loaded
       })
       .then((res) => {
-        this.logs = res;
+        this.logs = this.logs.concat(res.toArray());
         this.toggleLoadMore();
       });
   }
 
   @action
   loadMore() {
-    this.loadAmount += 25;
+    this.loaded += 25;
     this.getLogs();
   }
 
   toggleLoadMore() {
-    this.canLoadMore = this.loadAmount <= this.logs.length;
+    this.canLoadMore = this.loaded <= this.logs.length - 25;
   }
 }
