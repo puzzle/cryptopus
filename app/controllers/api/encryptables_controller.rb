@@ -8,12 +8,11 @@ class Api::EncryptablesController < ApiController
   helper_method :team
 
   # GET /api/encryptables
-  def index(options = {})
+  def index
     authorize Encryptable
     render({ json: fetch_entries,
              root: model_root_key.pluralize }
-           .merge(render_options)
-           .merge(options.fetch(:render_options, {})))
+           .merge(render_options))
   end
 
   # GET /api/encryptables/:id
@@ -25,15 +24,14 @@ class Api::EncryptablesController < ApiController
 
   # options param is needed for render_entry method
   # POST /api/encryptables
-  def create(options = {})
+  def create
     build_entry
     authorize entry
 
     entry.encrypt(decrypted_team_password(team))
 
     if entry.save
-      render_entry({ status: :created }
-                     .merge(options[:render_options] || {}))
+      render_entry({ status: :created })
     else
       render_errors
     end
