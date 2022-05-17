@@ -74,7 +74,7 @@ export default class NavBarComponent extends Component {
   @action
   copyCcliLogin() {
     this.fetchService
-      .send(`/api/api_users/${ENV.currentUserId}/ccli_token`, { method: "GET" })
+      .send(`/api/api_users/ccli_token`, { method: "GET" })
       .then((response) => {
         response.json().then((json) => {
           this.clipboardService.copy(

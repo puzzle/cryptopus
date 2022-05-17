@@ -26,11 +26,7 @@ class Api::ApiUsers::CcliTokenController < ApiController
   end
 
   def default_api_user
-    @default_api_user ||= User::Api.find_by id: user.default_ccli_user_id
-  end
-
-  def user
-    @user ||= User::Human.find(params[:id])
+    @default_api_user ||= User::Api.find_by id: current_user.default_ccli_user_id
   end
 
   def renew_token
@@ -42,8 +38,6 @@ class Api::ApiUsers::CcliTokenController < ApiController
     if current_user.human?
       private_key = current_user.decrypt_private_key(password_header)
       api_user.renew_token_by_human(private_key)
-    else
-      api_user.renew_token(password_header)
     end
   end
 end
