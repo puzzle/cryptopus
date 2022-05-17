@@ -27,8 +27,6 @@ class Encryptable < ApplicationRecord
   validates :name, presence: true
   validates :description, length: { maximum: 4000 }
 
-  scope :without_files, -> { where.not(type: Encryptable::File.sti_name) }
-
   def encrypt(_team_password)
     raise 'implement in subclass'
   end
