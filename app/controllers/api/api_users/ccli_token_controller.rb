@@ -18,11 +18,7 @@ class Api::ApiUsers::CcliTokenController < ApiController
   private
 
   def api_user
-    if default_api_user
-      @api_user ||= default_api_user
-    else
-      @api_user ||= current_user.api_users.create()
-    end
+    @api_user ||= default_api_user || current_user.api_users.create
   end
 
   def default_api_user

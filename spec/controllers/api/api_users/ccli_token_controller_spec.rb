@@ -72,7 +72,6 @@ describe Api::ApiUsers::CcliTokenController do
         get :show, xhr: true
 
         new_api_user = bob.api_users.last
-        token = new_api_user.send(:decrypt_token, bobs_private_key)
 
         expect(new_api_user).to_not eq(api_user)
       end
@@ -84,7 +83,7 @@ describe Api::ApiUsers::CcliTokenController do
         decrypted_team_password = team.decrypt_team_password(bob, bobs_private_key)
 
         get :show, xhr: true
- 
+
         new_api_user = bob.api_users.last
         team.add_user(new_api_user, decrypted_team_password)
 
