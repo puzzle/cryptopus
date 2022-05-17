@@ -37,13 +37,6 @@ describe Encryptable do
     expect(encryptable.cleartext_password).to eq('password')
   end
 
-  it 'does not return encryptables of type file' do
-    without_files_types = Encryptable.without_files.pluck(:type)
-
-    expect(without_files_types.count).to eq(3)
-    expect(without_files_types).not_to include(Encryptable::File.sti_name)
-  end
-
   it 'updates password and username' do
     team_password = team.decrypt_team_password(bob, bobs_private_key)
 
