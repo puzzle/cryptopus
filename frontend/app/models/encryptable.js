@@ -7,7 +7,7 @@ export default class Encryptable extends Model {
   @attr("string") updatedAt;
   @belongsTo("folder") folder;
   @hasMany("file-entry") fileEntries;
-  @hasMany("paper-trail-version") paperTrailVersions;
+  @hasMany("version") versions;
 
   get isOseSecret() {
     return this.constructor.modelName === "encryptable-ose-secret";

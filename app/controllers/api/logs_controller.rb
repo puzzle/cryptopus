@@ -13,11 +13,10 @@ class Api::LogsController < ApiController
   def fetch_entries
     PaperTrail.serializer = JSON
     limit = params[:load] || 20
-    PaperTrail::Version
+    Version
+      .includes(:user)
       .where(item_id: params[:encryptable_id])
       .order(created_at: :desc)
-      .select('versions.*, users.username as username')
-      .joins('INNER JOIN users ON users.id = versions.whodunnit')
       .limit(limit)
   end
 
