@@ -17,7 +17,7 @@ describe 'Dashboard', type: :system, js: true do
 
     expect(page).not_to have_selector 'div.content'
 
-    expect(page).to have_selector('div.dashboard-grid-card', count: 2)
+    expect(page).to have_selector('div.dashboard-grid-card', count: 3)
   end
 
   it 'navigates to team on team card click' do

@@ -8,7 +8,7 @@ describe Api::Teams::CandidatesController do
   context 'GET candidates' do
     it 'returns team member candidates for new team' do
       login_as(:admin)
-      team = Team.create(users(:admin), name: 'foo')
+      team = Team::Shared.create(users(:admin), name: 'foo')
 
       get :index, params: { team_id: team }, xhr: true
 

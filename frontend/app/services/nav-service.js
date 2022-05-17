@@ -21,12 +21,6 @@ export default class NavService extends Service {
     this.fetchTeams();
   }
 
-  get sortedTeams() {
-    return this.availableTeams.toArray().sort((a, b) => {
-      return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
-    });
-  }
-
   get showSideNavBar() {
     const sideNavBarDisabledRoutes = [
       "admin.settings",
@@ -46,9 +40,21 @@ export default class NavService extends Service {
           : undefined
       })
       .then((res) => {
-        this.availableTeams = res.toArray();
+        this.availableTeams = this._sortTeams(res);
         this.isLoadingTeams = false;
       });
+  }
+
+  _sortTeams(teams) {
+    return teams.toArray().sort((a, b) => {
+      if (a.isPersonalTeam) {
+        return -1;
+      }
+      if (b.isPersonalTeam) {
+        return 1;
+      }
+      return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+    });
   }
 
   clear() {
