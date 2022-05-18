@@ -104,11 +104,14 @@ describe Api::EncryptablesController do
     context 'recent Credentials' do
 
       let!(:recent_credentials) do
+        folder = teams(:team1).folder.first
+        private_key = decrypt_private_key(bob)
+        team_password = folder.team.decrypt_team_password(bob, private_key)
         Fabricate.times(
           6,
           :credential,
-          folder: teams(:team1).folders.first,
-          team_password: Crypto::Symmetric::Aes256.random_key
+          folder: folder,
+          team_password: team_password
         )
       end
 
