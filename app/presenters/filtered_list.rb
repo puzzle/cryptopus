@@ -17,6 +17,6 @@ class FilteredList
   end
 
   def true?(value)
-    %w(1 yes true).include?(value.to_s.downcase)
+    %w[1 yes true].include?(value.to_s.downcase)
   end
 end

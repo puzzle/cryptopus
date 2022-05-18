@@ -80,7 +80,7 @@ class Api::EncryptablesController < ApiController
     encryptables
   end
 
-    def build_entry
+  def build_entry
     return build_encryptable_file if encryptable_file?
 
     super
