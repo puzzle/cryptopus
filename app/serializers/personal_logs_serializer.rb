@@ -13,4 +13,8 @@ class PersonalLogsSerializer < ApplicationSerializer
   def encryptable
     object.item
   end
+
+  def username
+    object.user.username
+  end
 end

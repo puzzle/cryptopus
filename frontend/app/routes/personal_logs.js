@@ -5,7 +5,7 @@ export default class LogRoute extends BaseRoute {
   @service navService;
 
   model() {
-    return this.store.findAll("paper-trail-version");
+    return this.store.findAll("version");
   }
 
   afterModel() {

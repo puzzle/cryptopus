@@ -23,7 +23,7 @@ export default class TableComponent extends Component {
   @action
   getLogs() {
     this.store
-      .query("paper-trail-version", {
+      .query("version", {
         load: this.loaded
       })
       .then((res) => {

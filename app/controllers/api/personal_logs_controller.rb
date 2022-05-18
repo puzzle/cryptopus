@@ -19,7 +19,7 @@ class Api::PersonalLogsController < ApiController
   end
 
   def get_current_user_logs(offset)
-    PaperTrail::Version
+    Version
       .where(whodunnit: @current_user)
       .order(created_at: :desc)
       .select('versions.*, users.username as username, encryptables.name as encryptable_name,
