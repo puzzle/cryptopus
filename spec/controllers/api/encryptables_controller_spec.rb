@@ -103,7 +103,7 @@ describe Api::EncryptablesController do
 
     context 'recent Credentials' do
 
-      let!(:recentCredentials) do
+      let!(:recent_Credentials) do
         Fabricate.times(
           6,
           :credential,
@@ -150,7 +150,7 @@ describe Api::EncryptablesController do
         expect(attributes['description']).to eq credentials1.description
 
       end
-      it 'doesn\'t show credentials with no access' do
+      it 'does not show credentials with no access' do
         login_as(:bob)
 
         recent_credentials1 = recentCredentials.first
@@ -165,7 +165,7 @@ describe Api::EncryptablesController do
         expect(data.size).to eq(0)
       end
 
-      it 'doesn\'t show deleted credentials' do
+      it 'does not show deleted credentials' do
         login_as(:alice)
 
         recent_credentials1 = recentCredentials.first
@@ -182,7 +182,7 @@ describe Api::EncryptablesController do
         expect(attributes['name']).to eq recent_credentials1.name
         expect(attributes['description']).to eq recent_credentials1.description
 
-        recent_credentials1.destroy
+        recent_credentials1.destroy!
 
         get :index, params: { recent: true }, xhr: true
 

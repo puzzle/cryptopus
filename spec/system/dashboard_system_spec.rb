@@ -41,7 +41,7 @@ describe 'Dashboard', type: :system, js: true do
     expect(page).to have_selector 'div.content'
   end
 
-  it 'navigates to encryptable on encryptable card click' do
+  it 'lists recently accessed encryptable' do
     login_as_user(:alice)
     visit("/encryptables/#{credentials.id}")
     visit('/dashboard')
