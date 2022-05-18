@@ -6,7 +6,7 @@ module ::Encryptables
     def fetch_entries
       filtered_encryptables = encryptables
 
-      filtered_encryptables = filter_by_recent if recent
+      filtered_encryptables = filter_by_recent if recent?
       filtered_encryptables = filter_by_query(filtered_encryptables) if query
 
 
@@ -19,8 +19,12 @@ module ::Encryptables
       @params[:q]&.strip&.downcase
     end
 
-    def recent
-      @params[:recent]
+    def recent?
+      true?(@params[:recent])
+    end
+
+    def true?(value)
+      %w(1 yes true).include?(value.to_s.downcase)
     end
 
     def encryptables
