@@ -214,7 +214,7 @@ ch_be:
     tooltips:
       delete: Ordner lösche
       edit: Ordner bearbeite
-  file_entries:
+  encryptable_files:
     new:
       title: Ahang zum Account hinzuefüege
       upload: Ufeladä
@@ -405,13 +405,12 @@ ch_be:
       created: Dr nöii Ordner isch erfougrich ersteut worde.
       updated: Dr Ordner isch erfougrich bearbeitet worde.
       deleted: Dr Ordner isch erfougrich glöscht worde.
-    file_entries:
+    encryptable_files:
       uploaded: D Datei isch erfougrich ufeglade worde.
       deleted: D Datei isch erfougrich glöscht worde.
       uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
       uploaded_filename_is_empty: D Datei muess e Name ha
-      uploaded_file_inexistent: Die Datei existiert gar nid
-      uploaded_filename_already_exists: D Dateiname existiert äuä scho
+      uploaded_file_blank: D Datei mues ä Inhaut ha
     session:
       welcome: Willkomme bim Cryptopus. Zerscht muesch e nöie Account ersteue. Bitte wäu es sicheres Passwort.
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
@@ -447,7 +446,7 @@ ch_be:
         submit: Ersteue
       account:
         account: Account
-        account_name: Accountname
+        name: Accountname
         username: Benutzername
         password: Passwort
         description: Beschribig

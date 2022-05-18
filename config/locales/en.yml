@@ -89,7 +89,7 @@ en:
       copy_username: Copy username
       add_attachment: Add Attachment
     new:
-      title: New Account
+      title: New Credentials
 
   admin:
     title: Admin
@@ -194,7 +194,7 @@ en:
     tooltips:
       delete: Delete the folder
       edit: Edit the folder
-  file_entries:
+  encryptable_files:
     new:
       title: Add new attachment to account
       upload: Upload
@@ -388,13 +388,12 @@ en:
       created: Successfully created a new folder.
       updated: Folder was successfully updated.
       deleted: Folder was successfully deleted
-    file_entries:
+    encryptable_files:
       deleted: Attachment was successfully deleted
       uploaded: File was successfully uploaded.
       uploaded_size_to_high: The file is too big to upload. (max. 10MB)
       uploaded_filename_is_empty: The file has to be named
-      uploaded_file_inexistent: File is inexistent
-      uploaded_filename_already_exists: Filename already exists
+      uploaded_file_blank: File is not allowed to be blank
     session:
       weak_password: To improve security you should change your login password to a more complex one.
       welcome: Welcome to Cryptopus, first you have to create a new account. Please enter a new password
@@ -405,7 +404,7 @@ en:
       wrong_password: Invalid user / password
       wrong_root: Login as root only from private IP accessible
       not_local: You are not a local user!
-      locked: User is currently locked. Please try to login again a bit later or contact the administrator if your user has been locked permanently
+      locked: User is currently locked. Pleas e try to login again a bit later or contact the administrator if your user has been locked permanently
     recryptrequests:
       recrypted: You have successfully recrypted the password
       wait: Wait for the recryption of your team passwords
@@ -437,11 +436,10 @@ en:
         user:
           new_password_invalid: Your NEW password was wrong
           old_password_invalid: Your OLD password was wrong
-        file_entry:
+        encryptable/file:
           attributes:
-            filename:
-              blank: Filename does not exist
-              taken: Filename is already taken
+            name:
+              taken: File has already been taken
 
   password_strength:
     weak: The password is weak
@@ -469,7 +467,7 @@ en:
   helpers:
     label:
       account:
-        account_name: Accountname
+        name: Name
       team:
         name: Name
         description: Description
@@ -478,7 +476,7 @@ en:
     name:
       present: Name must be present
       too_long: Name is too long
-      duplicate_name: Accountname exists already
+      duplicate_name: Name exists already
     description:
       too_long: Description is too long
     file:

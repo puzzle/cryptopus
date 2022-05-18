@@ -17,13 +17,45 @@
 #  https://github.com/puzzle/cryptopus.
 
 team1:
+  type: Team::Shared
   name: team1
   description: public
   visible: true
   private: false
 
 team2:
+  type: Team::Shared
   name: team2
   description: public
   visible: true
   private: true
+
+personal_team_bob:
+  type: Team::Personal
+  name: bob
+  private: true
+  personal_owner: bob
+
+personal_team_alice:
+  type: Team::Personal
+  name: alice
+  private: true
+  personal_owner: alice
+
+personal_team_root:
+  type: Team::Personal
+  name: root
+  private: true
+  personal_owner: root
+
+personal_team_admin:
+  type: Team::Personal
+  name: admin
+  private: true
+  personal_owner: admin
+
+personal_team_conf_admin:
+  type: Team::Personal
+  name: conf_admin
+  private: true
+  personal_owner: conf_admin

@@ -1,14 +1,8 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
 require 'spec_helper'
 
-
-describe 'FileEntryModal', type: :system, js: true do
+describe 'Encryptable Files Modal', type: :system, js: true do
   include SystemHelpers
 
   let(:bob) { users(:bob) }
@@ -32,41 +26,43 @@ describe 'FileEntryModal', type: :system, js: true do
     file_desc = 'description'
     file_path = "#{Rails.root}/spec/fixtures/files/#{file_name}"
     expect do
-      create_new_file_entry(file_desc, file_path)
+      create_new_file(file_desc, file_path)
       expect(page).to have_text(credentials.name)
-    end.to change { FileEntry.count }.by(1)
+    end.to change { Encryptable::File.count }.by(1)
 
-    file_entry = FileEntry.find_by(filename: 'test_file.txt')
+    file = Encryptable::File.find_by(name: 'test_file.txt')
     file_content = fixture_file_upload(file_path, 'text/plain').read
-    file_entry.decrypt(plaintext_team_password)
-    expect(file_entry.cleartext_file).to eq file_content
+    file.decrypt(plaintext_team_password)
+    expect(file.cleartext_file).to eq file_content
 
     expect_encryptable_page_with(credentials)
 
     # Try to upload again
     expect do
-      create_new_file_entry(file_desc, file_path)
-    end.to change { FileEntry.count }.by(0)
+      create_new_file(file_desc, file_path)
+    end.to change { Encryptable::File.count }.by(0)
 
-    expect(page).to have_text('Filename is already taken')
+    expect(page).to have_text('File has already been taken.')
     click_button('Close')
 
     expect(page).to have_text("Encryptable: #{credentials.name}")
 
-    # Delete File Entry
-    del_button = all('img[alt="delete"]')[3]
-    expect(del_button).to be_present
+    within(find('table.table.table-striped')) do
+      # Delete File Entry
+      del_button = all('img.icon-button.d-inline[alt="delete"]')[1]
+      expect(del_button).to be_present
 
-    del_button.click
-    find('button', text: 'Delete').click
-    expect(all('tr').count).to eq(3)
+      del_button.click
+      find('button', text: 'Delete').click
+      expect(all('tr').count).to eq(2)
+    end
   end
 
   private
 
-  def create_new_file_entry(description, file_path)
-    new_file_entry_button = find('button.btn.btn-primary', text: 'Add Attachment', visible: false)
-    new_file_entry_button.click
+  def create_new_file(description, file_path)
+    new_file_button = find('button.btn.btn-primary', text: 'Add Attachment', visible: false)
+    new_file_button.click
 
     expect(page).to have_text('Add new attachment to encryptable')
 

@@ -17,12 +17,16 @@
         <div class="mb-5 d-flex flex-column teams-list">
           <div class="side-nav-bar-teams-list scroll-bar">
             {{#if this.navService.availableTeams}}
-              {{#each this.navService.sortedTeams as |team|}}
-                <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action team-list-item {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}} ">
-                  {{#if team.private}}
-                    <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "encrypted_small-white.svg" "encrypted_small-blue.svg"}}" alt="">
+              {{#each this.navService.availableTeams as |team|}}
+                <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action team-list-item {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
+                  {{#if team.isPersonalTeam}}
+                    <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "member-white.svg" "member.svg"}}" alt="">
                   {{else}}
-                    <img class="icon icon-button mr-2" src="/assets/images/members.svg" alt="">
+                    {{#if team.private}}
+                      <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "encrypted_small-white.svg" "encrypted_small.svg"}}" alt="">
+                    {{else}}
+                      <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "members-white.svg" "members.svg"}}" alt="">
+                    {{/if}}
                   {{/if}}
                   {{truncate team.name 18}}
                   {{#if (not team.folders)}}

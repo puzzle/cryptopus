@@ -4,7 +4,7 @@ class TeamFoldersEncryptablesSeeder
 
   def seed_team(name, members, admin = false)
     name = name.capitalize
-    team = Team.seed_once(:name) do |t|
+    team = Team::Shared.seed_once(:name) do |t|
       t.name = name
       t.description = Faker::Lorem.paragraph
       t.private = !admin
@@ -37,13 +37,11 @@ class TeamFoldersEncryptablesSeeder
   end
 
   def seed_encryptables(team)
-    member = team.teammembers.first.user
-    plaintext_private_key = member.decrypt_private_key('password')
-    plaintext_team_pw = team.decrypt_team_password(member, plaintext_private_key)
+    team_password = team_password(team)
     team.folders.each do |f|
       unless f.encryptables.present?
         (5..40).to_a.sample.times do
-          seed_encryptable(f, plaintext_team_pw)
+          seed_encryptable(f, team_password)
         end
       end
     end
@@ -58,6 +56,21 @@ class TeamFoldersEncryptablesSeeder
         team.add_user(user, decrypted_team_password) unless team.teammember?(user.id)
       end
     end
+  end
+
+  def seed_file(credentials_entry)
+    file_name = "#{Faker::Company.name} #{rand(999)}.txt"
+
+    encryptable_file = credentials_entry.encryptable_files.new(name: file_name,
+                                         credential_id: credentials_entry.id,
+                                         description: Faker::Lorem.paragraph,
+                                         type: "Encryptable::File")
+
+    encryptable_file.cleartext_file = Faker::Lorem.paragraph(sentence_count: rand(99) + 1)
+    encryptable_file.content_type = 'text/plain'
+    encryptable_file.encrypt(team_password(credentials_entry.folder.team))
+
+    encryptable_file.save!
   end
 
   private
@@ -81,14 +94,15 @@ class TeamFoldersEncryptablesSeeder
   end
 
   def seed_encryptable(folder, plaintext_team_pw)
-    username = Crypto::Symmetric::Aes256.encrypt("#{Faker::Lorem.word} #{rand(999)}", plaintext_team_pw)
-    password = Crypto::Symmetric::Aes256.encrypt(Faker::Internet.password, plaintext_team_pw)
-
     credential = folder.encryptables.new(name: "#{Faker::Company.name} #{rand(999)}",
                                   description: Faker::Lorem.paragraph,
                                       type: "Encryptable::Credentials")
-    credential.encrypted_data.[]=(:username, **{ data: username, iv: nil })
-    credential.encrypted_data.[]=(:password, **{ data: password, iv: nil })
+
+    credential.cleartext_username = "#{Faker::Lorem.word} #{rand(999)}"
+    credential.cleartext_password = Faker::Internet.password
+
+    credential.encrypt(plaintext_team_pw)
+
     credential.save!
   end
 
@@ -106,6 +120,12 @@ class TeamFoldersEncryptablesSeeder
       f.name = "#{Faker::Lorem.word.capitalize} #{rand(999)}"
       f.team_id = team.id
     end
+  end
+
+  def team_password(team)
+    member = team.teammembers.first.user
+    plaintext_private_key = member.decrypt_private_key('password')
+    team.decrypt_team_password(member, plaintext_private_key)
   end
 
   def ose_secret_yaml(name)

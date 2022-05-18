@@ -11,10 +11,14 @@
   <div>
     <div class="row py-2 d-flex team-card-header {{if this.collapsed "rounded" "rounded-top"}}">
       <div class="col-auto pr-0 my-auto" role="button" {{on "click" this.collapse}}>
-        {{#if this.args.team.private}}
-          <img class="icon icon-big-button py-auto" src="/assets/images/encrypted_small-white.svg" alt="">
+        {{#if @team.isPersonalTeam}}
+          <img class="icon icon-big-button py-auto" src="/assets/images/member-white.svg" alt="">
         {{else}}
-          <img class="icon icon-big-button py-auto" src="/assets/images/members-white.svg" alt="">
+          {{#if this.args.team.private}}
+            <img class="icon icon-big-button py-auto" src="/assets/images/encrypted_small-white.svg" alt="">
+          {{else}}
+            <img class="icon icon-big-button py-auto" src="/assets/images/members-white.svg" alt="">
+          {{/if}}
         {{/if}}
       </div>
       <div class="col overflow-hidden" role="button" {{on "click" this.collapse}}>
@@ -27,24 +31,26 @@
           <img class="icon-big-button" src="/assets/images/plus-white.svg" alt="new">
           <BsTooltip @title={{t "tooltips.add_folder"}} @delayShow="1000" />
         </span>
-        <span class="mx-1" role="button" {{on "click" this.toggleTeamEdit}}>
-          <img class="icon-big-button" src="/assets/images/edit-white.svg" alt="edit">
-          <BsTooltip @title={{t "teams.edit.title"}} @delayShow="1000" />
-        </span>
-        <span class="mx-1" id="config_team_button" role="button" {{on "click" this.toggleTeamConfigure}}>
-          <img class="icon-big-button" src="/assets/images/team-configure-white.svg" alt="configure">
-          <BsTooltip @title={{t "teams.configure.title"}} @delayShow="1000" />
-        </span>
-        {{#if @team.deletable }}
-          <DeleteWithConfirmation @class="mx-1" @record={{@team}} @didDelete={{this.transitionToIndex}}>
-            <img class="icon-big-button" src="/assets/images/delete-white.svg" alt="delete">
-            <BsTooltip @title={{t "teams.delete"}} @delayShow="1000"/>
-          </DeleteWithConfirmation>
-        {{/if}}
-        <span class="mx-3" role="button" {{on "click" this.toggleFavourised}}>
-          <img class="icon-big-button" src="/assets/images/star-white{{if @team.favourised "-filled"}}.svg" alt="star">
-          <BsTooltip @title={{if @team.favourised (t "teams.defavorise") (t "teams.favorise")}} @delayShow="1000" />
-        </span>
+        {{#unless @team.isPersonalTeam}}
+          <span class="mx-1" role="button" {{on "click" this.toggleTeamEdit}}>
+            <img class="icon-big-button" src="/assets/images/edit-white.svg" alt="edit">
+            <BsTooltip @title={{t "teams.edit.title"}} @delayShow="1000" />
+          </span>
+          <span class="mx-1" id="config_team_button" role="button" {{on "click" this.toggleTeamConfigure}}>
+            <img class="icon-big-button" src="/assets/images/team-configure-white.svg" alt="configure">
+            <BsTooltip @title={{t "teams.configure.title"}} @delayShow="1000" />
+          </span>
+          {{#if @team.deletable }}
+            <DeleteWithConfirmation @class="mx-1" @record={{@team}} @didDelete={{this.transitionToIndex}}>
+              <img class="icon-big-button" src="/assets/images/delete-white.svg" alt="delete">
+              <BsTooltip @title={{t "teams.delete"}} @delayShow="1000"/>
+            </DeleteWithConfirmation>
+          {{/if}}
+          <span class="mx-3" role="button" {{on "click" this.toggleFavourised}}>
+            <img class="icon-big-button" src="/assets/images/star-white{{if @team.favourised "-filled"}}.svg" alt="star">
+            <BsTooltip @title={{if @team.favourised (t "teams.defavorise") (t "teams.favorise")}} @delayShow="1000" />
+          </span>
+        {{/unless}}
       </div>
 
       <BsDropdown @class="d-sm-none mb-0 col-auto mobile-team-menu" as |dd|>
