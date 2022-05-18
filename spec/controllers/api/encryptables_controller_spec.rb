@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'pry'
 
 describe Api::EncryptablesController do
   include ControllerHelpers
@@ -110,7 +109,6 @@ describe Api::EncryptablesController do
 
       get :index, params: { 'credential_id': credentials1.id }, xhr: true
 
-      binding.pry
       files_json = data.first
       files_json_attributes = files_json['attributes']
 
@@ -150,10 +148,9 @@ describe Api::EncryptablesController do
 
         login_as(:alice)
 
+
         recent_credentials.each do |credential|
-          PaperTrail.request(whodunnit: alice.id) do
-            credential.touch
-          end
+          log_read_access(alice.id, credential)
         end
 
         get :index, params: { recent: true }, xhr: true
@@ -168,12 +165,11 @@ describe Api::EncryptablesController do
       it 'shows most recently used credential first in list' do
         login_as(:alice)
 
-        PaperTrail.request(whodunnit: alice.id) do
-          recent_credentials.each do |credential|
-            credential.touch
-          end
-          credentials1.touch
+
+        recent_credentials.each do |credential|
+          log_read_access(alice.id, credential)
         end
+        log_read_access(alice.id, credentials1)
 
         get :index, params: { recent: true }, xhr: true
 
@@ -188,10 +184,7 @@ describe Api::EncryptablesController do
         login_as(:bob)
 
         recent_credentials1 = recent_credentials.first
-
-        PaperTrail.request(whodunnit: alice.id) do
-          recent_credentials1.touch
-        end
+        log_read_access(alice.id, recent_credentials1)
 
         get :index, params: { recent: true }, xhr: true
 
@@ -203,12 +196,10 @@ describe Api::EncryptablesController do
         login_as(:alice)
 
         recent_credentials1 = recent_credentials.first
-
-        PaperTrail.request(whodunnit: alice.id) do
-          recent_credentials1.touch
-        end
+        log_read_access(alice.id, recent_credentials1)
 
         get :index, params: { recent: true }, xhr: true
+
 
 
         expect(data.size).to eq(1)
@@ -871,5 +862,13 @@ describe Api::EncryptablesController do
   def set_auth_headers
     request.headers['Authorization-User'] = bob.username
     request.headers['Authorization-Password'] = Base64.encode64('password')
+  end
+
+  def log_read_access (user_id, credential)
+    v = credential.paper_trail.save_with_version
+    v.whodunnit = user_id
+    v.event = :viewed
+    v.created_at = DateTime.now
+    v.save!
   end
 end
