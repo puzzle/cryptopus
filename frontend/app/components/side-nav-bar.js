@@ -8,6 +8,7 @@ export default class SideNavBar extends Component {
   @service store;
   @service router;
   @service navService;
+  @service userService;
 
   @tracked collapsed;
   @tracked showsFavourites = false;
