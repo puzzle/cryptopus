@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'pry'
 
 describe Api::EncryptablesController do
   include ControllerHelpers
@@ -101,9 +102,40 @@ describe Api::EncryptablesController do
       expect_json_object_includes_keys(credentials2_json_relationships, nested_models)
     end
 
+    it 'returns encryptable files for credentials entry' do
+      login_as(:alice)
+
+      credentials1 = encryptables(:credentials1)
+      file1 = encryptables(:file1)
+
+      get :index, params: { 'credential_id': credentials1.id }, xhr: true
+
+      binding.pry
+      files_json = data.first
+      files_json_attributes = files_json['attributes']
+
+      expect(data.count).to eq 1
+      expect(files_json['id']).to eq file1.id.to_s
+      expect(files_json_attributes['name']).to eq file1.name
+      expect(files_json_attributes['description']).to eq 'One-Time access codes'
+
+      file_attributes = %w[name description]
+      expect_json_object_includes_keys(files_json_attributes, file_attributes)
+    end
+
+    it 'does not return encryptable file without access' do
+      login_as(:alice)
+
+      file = create_file
+
+      get :show, params: { id: file.id }, xhr: true
+
+      expect(response.status).to eq(403)
+    end
+
     context 'recent Credentials' do
       let!(:recent_credentials) do
-        folder = teams(:team1).folder.first
+        folder = teams(:team1).folders.first
         private_key = decrypt_private_key(bob)
         team_password = folder.team.decrypt_team_password(bob, private_key)
         Fabricate.times(
@@ -191,36 +223,6 @@ describe Api::EncryptablesController do
         expect(response.status).to be(200)
         expect(data.size).to eq(0)
       end
-    end
-
-    it 'returns encryptable files for credentials entry' do
-      login_as(:alice)
-
-      credentials1 = encryptables(:credentials1)
-      file1 = encryptables(:file1)
-
-      get :index, params: { 'credential_id': credentials1.id }, xhr: true
-
-      files_json = data.first
-      files_json_attributes = files_json['attributes']
-
-      expect(data.count).to eq 1
-      expect(files_json['id']).to eq file1.id.to_s
-      expect(files_json_attributes['name']).to eq file1.name
-      expect(files_json_attributes['description']).to eq 'One-Time access codes'
-
-      file_attributes = %w[name description]
-      expect_json_object_includes_keys(files_json_attributes, file_attributes)
-    end
-
-    it 'does not return encryptable file without access' do
-      login_as(:alice)
-
-      file = create_file
-
-      get :show, params: { id: file.id }, xhr: true
-
-      expect(response.status).to eq(403)
     end
   end
 
