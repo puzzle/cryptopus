@@ -37,7 +37,7 @@ module ::Encryptables
 
     def filter_by_recent
       Version
-        .includes(:encryptable)
+        .includes(:encryptable, encryptable: [:folder])
         .where(whodunnit: @current_user)
         .order(created_at: :desc)
         .group(:item_id, :item_type)
