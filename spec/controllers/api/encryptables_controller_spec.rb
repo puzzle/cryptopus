@@ -103,7 +103,7 @@ describe Api::EncryptablesController do
 
     context 'recent Credentials' do
 
-      let!(:recent_Credentials) do
+      let!(:recent_credentials) do
         Fabricate.times(
           6,
           :credential,
@@ -116,7 +116,7 @@ describe Api::EncryptablesController do
 
         login_as(:alice)
 
-        recentCredentials.each do |credential|
+        recent_credentials.each do |credential|
           PaperTrail.request(whodunnit: alice.id) do
             credential.touch
           end
@@ -127,15 +127,15 @@ describe Api::EncryptablesController do
         expect(response.status).to be(200)
         expect(data.size).to eq(5)
         attributes = data.first['attributes']
-        expect(attributes['name']).to eq recentCredentials.last.name
-        expect(attributes['description']).to eq recentCredentials.last.description
+        expect(attributes['name']).to eq recent_credentials.last.name
+        expect(attributes['description']).to eq recent_credentials.last.description
       end
 
       it 'shows most recently used credential first in list' do
         login_as(:alice)
 
         PaperTrail.request(whodunnit: alice.id) do
-          recentCredentials.each do |credential|
+          recent_credentials.each do |credential|
             credential.touch
           end
           credentials1.touch
@@ -153,7 +153,7 @@ describe Api::EncryptablesController do
       it 'does not show credentials with no access' do
         login_as(:bob)
 
-        recent_credentials1 = recentCredentials.first
+        recent_credentials1 = recent_credentials.first
 
         PaperTrail.request(whodunnit: alice.id) do
           recent_credentials1.touch
@@ -168,7 +168,7 @@ describe Api::EncryptablesController do
       it 'does not show deleted credentials' do
         login_as(:alice)
 
-        recent_credentials1 = recentCredentials.first
+        recent_credentials1 = recent_credentials.first
 
         PaperTrail.request(whodunnit: alice.id) do
           recent_credentials1.touch
