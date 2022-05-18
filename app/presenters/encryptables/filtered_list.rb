@@ -23,10 +23,6 @@ module ::Encryptables
       true?(@params[:recent])
     end
 
-    def true?(value)
-      %w(1 yes true).include?(value.to_s.downcase)
-    end
-
     def encryptables
       @current_user.encryptables
     end
@@ -40,13 +36,14 @@ module ::Encryptables
     end
 
     def filter_by_recent
-      PaperTrail::Version
+      Version
+        .includes(:encryptable)
         .where(whodunnit: @current_user)
         .order(created_at: :desc)
         .group(:item_id, :item_type)
         .select(:item_id, :item_type)
         .limit(5)
-        .map(&:item)
+        .map(&:encryptable)
     end
   end
 end
