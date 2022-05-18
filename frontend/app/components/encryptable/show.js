@@ -73,7 +73,7 @@ export default class ShowComponent extends Component {
   @action
   getLogs() {
     this.store
-      .query("paper-trail-version", {
+      .query("version", {
         encryptableId: this.args.encryptable.id,
         load: this.loadAmount
       })
