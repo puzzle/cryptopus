@@ -73,11 +73,15 @@ class Api::EncryptablesController < ApiController
   # rubocop:enable Metrics/MethodLength
 
   def fetch_entries
-    encryptables = Encryptables::FilteredList.new(current_user, params).fetch_entries
-    if tag_param.present?
-      encryptables = encryptables.find_by(tag: tag_param)
+    if encryptable_file?
+      super
+    else
+      encryptables = Encryptables::FilteredList.new(current_user, params).fetch_entries
+      if tag_param.present?
+        encryptables = encryptables.find_by(tag: tag_param)
+      end
+      encryptables
     end
-    encryptables
   end
 
   def build_entry
