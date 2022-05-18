@@ -9,11 +9,11 @@ class LogsSerializer < ApplicationSerializer
     object.whodunnit
   end
 
-  def username
-    User.find(object.whodunnit).username
-  end
-
   def encryptable
     object.item
+  end
+
+  def username
+    object.user.username
   end
 end

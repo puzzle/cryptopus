@@ -1,6 +1,6 @@
 import Model, { attr, belongsTo } from "@ember-data/model";
 
-export default class PaperTrailVersion extends Model {
+export default class Version extends Model {
   @attr("string") event;
   @attr("number") userId;
   @attr("string") username;

@@ -12,27 +12,19 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_04_01_130939) do
   create_table "encryptables", force: :cascade do |t|
-    t.string "name", limit: 70, default: "", null: false
-    t.integer "folder_id", default: 0, null: false
+    t.string "name", limit: 255, default: "", null: false
+    t.integer "folder_id"
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "tag"
     t.string "type", default: "Account::Credentials", null: false
     t.text "encrypted_data", limit: 16777215
+    t.integer "credential_id"
+    t.text "content_type"
     t.index ["description"], name: "index_encryptables_on_description"
     t.index ["name"], name: "index_encryptables_on_name"
     t.index ["tag"], name: "index_encryptables_on_tag"
-  end
-
-  create_table "file_entries", force: :cascade do |t|
-    t.integer "account_id", default: 0, null: false
-    t.text "description"
-    t.binary "file"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.text "filename", null: false
-    t.text "content_type", null: false
   end
 
   create_table "folders", force: :cascade do |t|
@@ -65,6 +57,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_01_130939) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "visible", default: true, null: false
     t.boolean "private", default: false, null: false
+    t.string "type", null: false
+    t.integer "personal_owner_id"
     t.index ["name"], name: "index_teams_on_name"
   end
 

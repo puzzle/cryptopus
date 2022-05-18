@@ -15,11 +15,7 @@ export default class ShowComponent extends Component {
   constructor() {
     super(...arguments);
 
-    this.store.query("file-entry", {
-      encryptableId: this.args.encryptable.id
-    });
     this.getLogs();
-
     window.scrollTo(0, 0);
   }
 
@@ -27,7 +23,7 @@ export default class ShowComponent extends Component {
   isEncryptableEditing = false;
 
   @tracked
-  isFileEntryCreating = false;
+  isFileCreating = false;
 
   @tracked
   isPasswordVisible = false;
@@ -42,8 +38,8 @@ export default class ShowComponent extends Component {
   }
 
   @action
-  toggleFileEntryNew() {
-    this.isFileEntryCreating = !this.isFileEntryCreating;
+  toggleFileNew() {
+    this.isFileCreating = !this.isFileCreating;
   }
 
   @action
@@ -73,7 +69,7 @@ export default class ShowComponent extends Component {
   @action
   getLogs() {
     this.store
-      .query("paper-trail-version", {
+      .query("version", {
         encryptableId: this.args.encryptable.id,
         load: this.loadAmount
       })

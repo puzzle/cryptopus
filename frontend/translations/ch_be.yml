@@ -242,7 +242,7 @@ ch_be:
     tooltips:
       delete: Ordner lösche
       edit: Ordner bearbeite
-  file_entries:
+  encryptable_files:
     new:
       title: Ahang zum Encryptable hinzuefüege
       upload: Ufeladä
@@ -459,7 +459,7 @@ ch_be:
       created: Dr nöii Ordner isch erfougrich ersteut worde.
       updated: Dr Ordner isch erfougrich bearbeitet worde.
       deleted: Dr Ordner isch erfougrich glöscht worde.
-    file_entries:
+    encryptable_files:
       uploaded: D Datei isch erfougrich ufeglade worde.
       deleted: D Datei isch erfougrich glöscht worde.
       uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
@@ -506,7 +506,7 @@ ch_be:
         wrongPassword: Fautsches passwort
       encryptable:
         encryptable: Encryptable
-        account_name: Accountname
+        name: Accountname
         username: Benutzername
         password: Passwort
         description: Beschribig

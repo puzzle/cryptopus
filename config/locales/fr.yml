@@ -179,7 +179,7 @@ fr:
     tooltips:
       delete: Supprimer le dossier
       edit: Modifier le dossier
-  file_entries:
+  encryptable_files:
     new:
       title: Ajouter un attachement au compte
       upload: Télécharger
@@ -374,7 +374,7 @@ fr:
       created: Dossier créé avec succès.
       updated: Dossier modifiée avec succès
       deleted: Dossier a été supprimé.
-    file_entry:
+    encryptable_files:
       uploaded: Fichier téléchargé avec succès.
       deleted: Fichier a été supprimé.
       uploaded_size_to_high: Fichier est trop volumineux pour tèlècharger. (max. 10MB)
@@ -411,14 +411,14 @@ fr:
     label:
       user:
         username: Nom d'utilisateur
-        account_name: Nom du compte
+        name: Nom du compte
         password: Mot de passe
         admin: Admin
         givenname: Prénom
         surname: Nom de famille
       account:
         account: Compte
-        account_name: Nom du compte
+        name: Nom du compte
         username: Nom d'utilisateur
         password: Mot de passe
         description: Description

@@ -38,6 +38,8 @@ class User::Human < User
   has_many :api_users, class_name: 'User::Api', dependent: :destroy,
                        foreign_key: :human_user_id
 
+  has_one :personal_team, class_name: 'Team', dependent: :destroy, foreign_key: :personal_owner_id
+
   scope :locked, -> { where(locked: true) }
   scope :unlocked, -> { where(locked: false) }
   scope :admins, (-> { where(role: :admin) })
@@ -49,6 +51,7 @@ class User::Human < User
                               primary_key: :id, dependent: :destroy
 
   before_destroy :protect_if_last_teammember
+  after_create :create_personal_team!
 
   delegate :l, to: I18n
 
@@ -138,6 +141,12 @@ class User::Human < User
   def folders
     Folder.joins('INNER JOIN teammembers ON folders.team_id = teammembers.team_id').
       where(teammembers: { user_id: id })
+  end
+
+  def create_personal_team!
+    team = Team::Personal.create(self)
+    team.folders.create!(name: 'default')
+    save!
   end
 
   private

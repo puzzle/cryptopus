@@ -214,7 +214,7 @@ en:
     tooltips:
       delete: Delete the folder
       edit: Edit the folder
-  file_entries:
+  encryptable_files:
     new:
       title: Add new attachment to encryptable
       upload: Upload
@@ -439,7 +439,7 @@ en:
       created: Successfully created a new folder.
       updated: Folder was successfully updated.
       deleted: Folder was successfully deleted
-    file_entries:
+    encryptable_files:
       deleted: Attachment was successfully deleted
       uploaded: File was successfully uploaded.
       uploaded_size_to_high: The file is too big to upload. (max. 10MB)
@@ -533,7 +533,7 @@ en:
         newPassword2: "Confirm new password:"
         wrongPassword: Wrong password
       encryptable:
-        account_name: Accountname
+        name: Accountname
       team:
         name: Name
         description: Description

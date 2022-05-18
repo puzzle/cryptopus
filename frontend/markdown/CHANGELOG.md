@@ -1,7 +1,11 @@
+## Version 4.3
+- Introduce personal team for users
+
 ## Version 4.2
 - Introduce Encryptables data structure
 - Add scroll to folder feature
 - Ruby 3.0 and Rails 7.0 upgrade
+- Introduce personal team
 
 ## Version 4.1
 - Introduce Puzzle-Shell hero & dashboard

@@ -1,5 +1,6 @@
 import BaseRoute from "../base";
 import { inject as service } from "@ember/service";
+import { hash } from "rsvp";
 
 export default class EncryptableShowRoute extends BaseRoute {
   @service navService;
@@ -18,6 +19,15 @@ export default class EncryptableShowRoute extends BaseRoute {
   }
 
   model(params) {
-    return this.store.findRecord("encryptable-credential", params.id);
+    return hash({
+      encryptableCredential: this.store.findRecord(
+        "encryptable-credential",
+        params.id
+      ),
+      encryptableFiles: this.store.query("encryptable-file", {
+        credential_id: params.id,
+        reload: true
+      })
+    });
   }
 }

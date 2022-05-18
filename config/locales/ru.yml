@@ -66,7 +66,7 @@ ru:
       title: "Редактивание аккаунта"
       random_password: "Случайный пароль"
     show:
-      title: "Аккаунт: %{account_name}"
+      title: "Аккаунт: %{name}"
       last_change: "Последнее изменение %{time_ago} назад"
       attachments: "Вложения"
       file: "Файл"
@@ -137,7 +137,7 @@ ru:
     show:
       move: "Переместить аккаунт в другую группу"
       title: "Аккаунты в группе %{folder_name} для команды %{team_name}"
-  file_entries:
+  encryptable_files:
     new:
       title: "Добавить вложение к аккаунту"
       upload: "Файл для загрузки"
@@ -239,7 +239,7 @@ ru:
     folders:
       created: "Новая группа создана."
       updated: "Группа обновлена."
-    file_entries:
+    encryptable_files:
       uploaded: "Файл загружен."
       uploaded_size_to_high: "Файл слишком большой (макс. 10 МБ)"
       uploaded_filename_is_empty: "Файл должен иметь имя"
