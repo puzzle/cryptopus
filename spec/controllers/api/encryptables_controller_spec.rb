@@ -222,6 +222,7 @@ describe Api::EncryptablesController do
 
       expect(response.status).to eq(403)
     end
+  end
 
   context 'GET show' do
     it 'returns decrypted encryptable credentials' do
