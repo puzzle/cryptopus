@@ -11,6 +11,7 @@ export default class ShowComponent extends Component {
 
   @tracked logs = [];
   loadAmount = 10;
+  offset = 0;
 
   constructor() {
     super(...arguments);
@@ -71,17 +72,23 @@ export default class ShowComponent extends Component {
     this.store
       .query("version", {
         encryptableId: this.args.encryptable.id,
-        load: this.loadAmount
+        load: this.loadAmount,
+        offset: this.offset
       })
       .then((res) => {
-        this.logs = res;
+        this.logs = res
+          .toArray()
+          .filter((log) => {
+            return !this.logs.includes(log);
+          })
+          .concat(this.logs);
         this.toggleLoadMore();
       });
   }
 
   @action
   loadMore() {
-    this.loadAmount += 10;
+    this.offset += this.loadAmount;
     this.getLogs();
   }
 
