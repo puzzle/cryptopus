@@ -15,19 +15,11 @@ class Api::PersonalLogsController < ApiController
   def fetch_entries
     PaperTrail.serializer = JSON
     offset = params[:load] || 0
-    get_current_user_logs(offset)
-  end
-
-  def get_current_user_logs(offset)
     Version
       .where(whodunnit: @current_user)
       .order(created_at: :desc)
-      .select('versions.*, users.username as username, encryptables.name as encryptable_name,
-               folders.name as folder_name, teams.name as team_name')
-      .joins('INNER JOIN users ON versions.whodunnit = users.id
-              INNER JOIN encryptables ON encryptables.id = versions.item_id
-              INNER JOIN folders ON encryptables.folder_id = folders.id
-              INNER JOIN teams ON folders.team_id = teams.id')
-      .offset(offset).limit(25)
+      .includes(:user, :encryptable, encryptable: [:folder, folder: [:team]])
+      .offset(offset)
+      .limit(25)
   end
 end
