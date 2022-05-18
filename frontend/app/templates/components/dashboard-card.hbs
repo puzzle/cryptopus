@@ -6,6 +6,9 @@
               fill="white"/>
     </svg>
   </div>
-
-  <h1 class="header">{{this.team.name}}</h1>
+  {{#if this.team.isPersonalTeam }}
+    <h1 class="header">{{this.userService.username}}</h1>
+  {{else}}
+    <h1 class="header">{{this.team.name}}</h1>
+  {{/if}}
 </div>
