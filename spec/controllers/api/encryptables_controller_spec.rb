@@ -864,7 +864,7 @@ describe Api::EncryptablesController do
     request.headers['Authorization-Password'] = Base64.encode64('password')
   end
 
-  def log_read_access (user_id, credential)
+  def log_read_access(user_id, credential)
     v = credential.paper_trail.save_with_version
     v.whodunnit = user_id
     v.event = :viewed
