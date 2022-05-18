@@ -47,6 +47,8 @@ class Teammember < ApplicationRecord
   private
 
   def protect_if_last_teammember
+    return if team.personal_team?
+
     if team.teammembers.count == 1
       errors.add(:base, 'Cannot remove last teammember')
       throw :abort

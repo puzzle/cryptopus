@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     end
 
     resources :encryptables, except: [:new, :edit] do
-      resources :file_entries, only: [:create, :index, :destroy, :show]
       resources :logs, only: [:index]
     end
 

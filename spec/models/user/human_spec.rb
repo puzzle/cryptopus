@@ -27,6 +27,33 @@ describe User::Human do
       expect(user.errors.first.attribute).to eq(:username)
     end
 
+    context 'personal team' do
+      it 'creates personal team for human user' do
+        user = users(:alice).dup
+        user.username = 'Alice2'
+        user.save!
+        personal_team = user.personal_team
+        default_folder = personal_team.folders.first
+        expect(user.personal_team).to be_present
+        expect(default_folder).to be_present
+        expect(personal_team.teammember?(user)).to eq(true)
+        expect(personal_team.private?).to eq(true)
+        expect(personal_team.name).to eq(user.username)
+        expect(personal_team.is_a?(Team::Personal)).to eq(true)
+        expect(personal_team.personal_owner).to be_present
+      end
+
+      it 'deletes personal team when user is deleted' do
+        user = users(:alice).dup
+        user.username = 'Alice2'
+        user.save!
+        personal_team_id = user.personal_team.id
+        user.destroy!
+        expect(Team.exists?(personal_team_id)).to eq(false)
+      end
+
+    end
+
   end
 
   context 'update_password' do

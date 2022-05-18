@@ -38,15 +38,16 @@ describe Api::TeamsController do
 
       get :index, xhr: true
 
-      expect(data.size).to be(2)
-      expect(included.size).to be(4)
+      expect(data.size).to be(3)
+      expect(included.size).to be(5)
 
       data.each do |team|
         expect(team['type']).to eq('teams')
+        expect(team['attributes']['personal_team']).to eq(false) unless team.first
       end
 
       included_folders = included.select { |e| e['type'] == 'folders' }
-      expect(included_folders.size).to be(4)
+      expect(included_folders.size).to be(5)
     end
 
     it 'raises error if team_id doesnt exist' do
@@ -93,20 +94,21 @@ describe Api::TeamsController do
 
       expect(response.status).to be(200)
 
-      expect(data.size).to be(1)
+      expect(data.size).to be(2)
       attributes = data.first['attributes']
 
       included_types = json['included'].map { |e| e['type'] }
 
       expect(included_types).to include('folders')
       expect(included_types).to include('encryptable_credentials')
+      expect(included_types).not_to include('encryptable_file')
 
       expect(attributes['name']).to eq team1.name
       expect(attributes['description']).to eq team1.description
 
       folder_relationships_length = data.first['relationships']['folders']['data'].size
 
-      expect(included.size).to be(5)
+      expect(included.size).to be(6)
       expect(folder_relationships_length).to be(3)
 
     end
@@ -180,6 +182,7 @@ describe Api::TeamsController do
       team3_attributes = team3.attributes
       team3_attributes['favourised'] = false
       team3_attributes['deletable'] = false
+      team3_attributes['personal_team'] = false
       expect(team3_attributes).to include(attributes_team)
       folder_relationships_length = data.first['relationships']['folders']['data'].size
 
@@ -255,7 +258,7 @@ describe Api::TeamsController do
         it 'returns soloteam' do
           get :index, params: { only_teammember_user_id: only_teammember_user.id }
 
-          team_data = data[0]
+          team_data = data[1]
           team_attributes = team_data['attributes']
 
           expect(team_data['id'].to_i).to eq(soloteam.id)
@@ -272,7 +275,7 @@ describe Api::TeamsController do
         it 'returns soloteam' do
           get :index, params: { only_teammember_user_id: only_teammember_user.id }
 
-          team_data = data[0]
+          team_data = data[1]
           team_attributes = team_data['attributes']
 
           expect(team_data['id'].to_i).to eq(soloteam.id)
@@ -369,7 +372,7 @@ describe Api::TeamsController do
       set_auth_headers
 
       team_params = { name: 'foo', private: true }
-      new_team = Team.create(users(:bob), team_params)
+      new_team = Team::Shared.create(users(:bob), team_params)
 
       update_params = {
         data: {

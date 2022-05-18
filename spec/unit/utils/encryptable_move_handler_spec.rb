@@ -47,24 +47,24 @@ describe EncryptableMoveHandler do
     expect(credential.folder_id).to eq(team1_folder.id)
   end
 
-  it 'moves credential with file_entries to new team' do
-    credential = encryptables(:credentials1)
+  it 'moves credential with file entries from team1 to team2' do
+    credentials1 = encryptables(:credentials1)
+    team2_folder = folders(:folder2)
+    file1 = encryptables(:file1)
     private_key = decrypt_private_key(bob)
-    new_folder = folders(:folder2)
-    new_team_password = new_folder.team.decrypt_team_password(bob, private_key)
 
-    credential.folder = new_folder
-    EncryptableMoveHandler.new(credential, private_key, bob).move
-    credential.save!
+    credentials1.folder = team2_folder
+    EncryptableMoveHandler.new(credentials1, private_key, bob).move
+    credentials1.save!
+    file1.reload
 
-    expect(credential).to eq(file_entries(:file_entry2).encryptable)
-    expect(teams(:team2)).to eq(file_entries(:file_entry2).encryptable.folder.team)
+    expect(file1.encryptable_credential.reload.folder.team_id).to eq(teams(:team2).id)
 
-    decrypted_file_file_entry1 = file_entries(:file_entry1).decrypt(new_team_password)
-    decrypted_file_file_entry2 = file_entries(:file_entry2).decrypt(new_team_password)
+    file1.decrypt(team2_password)
 
-    expect(decrypted_file_file_entry1).to eq('Das ist ein test File')
-    expect(decrypted_file_file_entry2).to eq('Das ist ein test File')
+    expect(file1.cleartext_file).to eq('Dolorem odio id. Veniam sit eum. Earum et ' \
+                                       'nesciunt. Sed modi voluptatem. Maxime qui rerum. ' \
+                                       'A fugit eos. Magnam atque at. Velit quam dolores.')
   end
 
   it 'cannot move credential to a team user is not a member of' do
@@ -92,26 +92,5 @@ describe EncryptableMoveHandler do
     decrypted = credential.decrypt(new_folder.team.decrypt_team_password(bob, private_key))
     expect(decrypted).to eq('password')
     expect(credential.folder).to eq(new_folder)
-  end
-
-  it 'moves is rolled back if credential can not be moved' do
-    credential = encryptables(:credentials1)
-    team1 = teams(:team1)
-    bobs_private_key = decrypt_private_key(bob)
-    new_folder = folders(:folder2)
-    file_entry1 = file_entries(:file_entry1)
-    file_entry2 = file_entries(:file_entry2)
-
-    credential.folder = new_folder
-    begin
-      EncryptableMoveHandler.new(credential, bobs_private_key, bob).move
-    rescue StandardError
-      file_entry1.reload.decrypt(team1_password)
-      expect(file_entry1.cleartext_file).to eq('Das ist ein test File')
-      file_entry2.reload.decrypt(team1_password)
-      expect(file_entry2.cleartext_file).to eq('Das ist ein test File')
-
-      expect(credential.reload.folder.team).to eq(team1)
-    end
   end
 end

@@ -29,6 +29,6 @@ class EncryptablePolicy < TeamDependantPolicy
   protected
 
   def team
-    @record.folder.team
+    @record.team
   end
 end

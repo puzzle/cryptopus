@@ -39,3 +39,8 @@ team2_bob:
     team: team2
     user: bob
     password: <%= "!!binary \"#{FixturesHelper.read_team_password('bob', 'team2')}\"" %>
+
+bob_personal_team:
+  team: personal_team_bob
+  user: bob
+  password: <%= "!!binary \"#{FixturesHelper.read_team_password('bob', 'personal_team')}\"" %>

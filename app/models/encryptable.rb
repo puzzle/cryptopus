@@ -29,11 +29,8 @@ class Encryptable < ApplicationRecord
   validates :type, presence: true
 
   belongs_to :folder
-  has_many :file_entries, foreign_key: :account_id, primary_key: :id, dependent: :destroy
 
   validates :name, presence: true
-  validates :name, uniqueness: { scope: :folder }
-  validates :name, length: { maximum: 70 }
   validates :description, length: { maximum: 4000 }
 
   def encrypt(_team_password)
@@ -50,6 +47,10 @@ class Encryptable < ApplicationRecord
 
   def label
     name
+  end
+
+  def team
+    folder.team
   end
 
   private

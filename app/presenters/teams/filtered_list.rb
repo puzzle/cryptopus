@@ -63,7 +63,7 @@ module ::Teams
     end
 
     def filter_by_favourite
-      @current_user.favourite_teams
+      @current_user.favourite_teams + [@current_user.personal_team]
     end
 
     def filter_by_last_teammember

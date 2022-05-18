@@ -209,7 +209,7 @@ de:
       delete: Ordner löschen
       edit: Ordner bearbeiten
 
-  file_entries:
+  encryptable_files:
     new:
       title: Anhang zum Encryptable hinzufügen
       upload_file: Datei hochladen
@@ -430,7 +430,7 @@ de:
       created: Die neue Gruppe wurde erfolgreich erstellt.
       updated: Die Gruppe wurde erfolgreich bearbeitet.
       deleted: Die Gruppe wurde erfolgreich gelöscht.
-    file_entries:
+    encryptable_files:
       uploaded: Die Datei wurde erfolgreich hochgeladen.
       deleted: Die Datei wurde erfolgreich gelöscht.
       uploaded_size_to_high: Die Datei ist zu gross zum hochladen. (Max. 10MB)
@@ -478,7 +478,7 @@ de:
         wrongPassword: Falsches Passwort
       encryptable:
         encryptable: Encryptable
-        account_name: Accountname
+        name: Accountname
         username: Benutzername
         password: Passwort
         description: Beschreibung

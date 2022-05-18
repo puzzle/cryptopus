@@ -17,14 +17,16 @@
         <img class="icon-big-button " src="/assets/images/plus-blue.svg" alt="new">
         <BsTooltip @title={{t "tooltips.add_account"}} @delayShow="1000" />
       </a>
-      <a class="margin-for-buttons mx-1" role="button" {{on "click" this.toggleFolderEdit}}>
-        <img class="icon-big-button " src="/assets/images/edit-blue.svg" alt="edit folder">
-        <BsTooltip @title={{t "folders.tooltips.edit"}} @delayShow="1000" />
-      </a>
-      <DeleteWithConfirmation @class="mx-1" @record={{@folder}} @didDelete={{this.refreshRoute}}>
-        <img class="icon-big-button d-inline my-auto" src="/assets/images/delete-blue.svg" alt="delete folder">
-        <BsTooltip @title={{t "tooltips.delete_folder"}} @delayShow="1000" />
-      </DeleteWithConfirmation>
+      {{#unless @folder.team.personal_team}}
+        <a class="margin-for-buttons mx-1" role="button" {{on "click" this.toggleFolderEdit}}>
+          <img class="icon-big-button " src="/assets/images/edit-blue.svg" alt="edit folder">
+          <BsTooltip @title={{t "folders.tooltips.edit"}} @delayShow="1000" />
+        </a>
+        <DeleteWithConfirmation @class="mx-1" @record={{@folder}} @didDelete={{this.refreshRoute}}>
+          <img class="icon-big-button d-inline my-auto" src="/assets/images/delete-blue.svg" alt="delete folder">
+          <BsTooltip @title={{t "tooltips.delete_folder"}} @delayShow="1000" />
+        </DeleteWithConfirmation>
+      {{/unless}}
     </div>
     <div class="col-auto pl-0 justify-content-between d-flex align-items-center">
       <span role="button" name="folder-collapse" {{on "click" this.toggleExpanded }}>

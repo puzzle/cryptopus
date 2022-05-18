@@ -61,7 +61,7 @@ zh:
       title: "编辑帐户"
       random_password: "随机密码"
     show:
-      title: "帐户: %{account_name}"
+      title: "帐户: %{name}"
       last_change: "最后一次更新于 %{time_ago} 之前"
       attachments: "附件"
       file: "文件"
@@ -137,7 +137,7 @@ zh:
     show:
       move: "移动帐户到其他组"
       title: "%{team_name} 团队中 %{folder_name} 组的成员帐户"
-  file_entries:
+  encryptable_files:
     new:
       title: "添加附件到帐户"
       upload: "待上传文件"
@@ -240,7 +240,7 @@ zh:
     folders:
       created: "成功创建一个新的组。"
       updated: "成功更新一个新的组。"
-    file_entries:
+    encryptable_files:
       uploaded: "文件被成功上传。"
       uploaded_size_to_high: "文件太大不能上船。(最大为：10MB)"
       uploaded_filename_is_empty: "文件必须被命名"
