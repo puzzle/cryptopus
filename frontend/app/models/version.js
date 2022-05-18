@@ -8,5 +8,6 @@ export default class Version extends Model {
   @attr("string") encryptableName;
   @attr("string") folderName;
   @attr("string") teamName;
+  @attr("number") encryptableId;
   @belongsTo("encryptable") encryptable;
 }
