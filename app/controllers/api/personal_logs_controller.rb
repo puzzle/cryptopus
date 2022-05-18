@@ -28,7 +28,6 @@ class Api::PersonalLogsController < ApiController
               INNER JOIN encryptables ON encryptables.id = versions.item_id
               INNER JOIN folders ON encryptables.folder_id = folders.id
               INNER JOIN teams ON folders.team_id = teams.id')
-      .offset(offset)
-      .limit(25)
+      .offset(offset).limit(25)
   end
 end
