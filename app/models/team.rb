@@ -24,6 +24,12 @@ class Team < ApplicationRecord
   validates :name, length: { maximum: 40 }
   validates :description, length: { maximum: 300 }
 
+  enum recrypt_state: {
+    failed: 0,
+    done: 1,
+    in_progress: 2
+  }, _prefix: :recrypt
+
   def label
     name
   end
