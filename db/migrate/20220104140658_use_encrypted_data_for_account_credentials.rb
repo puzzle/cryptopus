@@ -10,7 +10,8 @@ class UseEncryptedDataForAccountCredentials < ActiveRecord::Migration[6.1]
 
     LegacyAccountCredentials.reset_column_information
 
-    LegacyAccountCredentials.find_each do |a|
+    # ose secrets are migrated during decrypt (encrypted_data)
+    # so only load credentials here
     LegacyAccountCredentials.where(type: 'Account::Credentials').find_each do |a|
       # some blob values were set to "" that's why we're using .presence here
       a.encrypted_data.[]=(:password, **{ iv: nil, data: a.password.presence })
