@@ -1,7 +1,7 @@
 <tr>
   <td>{{t (concat "encryptables.log." @paperTrailVersion.event)}}</td>
   <td>{{moment-format @paperTrailVersion.createdAt "DD.MM.YYYY hh:mm"}}</td>
-  <LinkTo @route="encryptables.show" @model={{@paperTrailVersion.id}}>
+  <LinkTo @route="encryptables.show" @model={{@paperTrailVersion.encryptableId}}>
     <td>
       {{@paperTrailVersion.teamName}}
       / {{@paperTrailVersion.folderName}}
