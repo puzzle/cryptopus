@@ -18,7 +18,7 @@ class Api::PersonalLogsController < ApiController
     Version
       .where(whodunnit: @current_user)
       .order(created_at: :desc)
-      .includes(:user, :encryptable, encryptable: [:folder, folder: [:team]])
+      .includes(:user, :encryptable, encryptable: [:folder, { folder: [:team] }])
       .offset(offset)
       .limit(25)
   end
