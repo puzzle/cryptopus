@@ -72,6 +72,10 @@ module Encryptables
     instance_variable_set(:"@#{ivar_name}", shared_encryptable)
   end
 
+  def is_shared_encryptable(entry)
+    entry.transfer_password != nil
+  end
+
   def receiver_id
       params[:receiver_id]
   end
