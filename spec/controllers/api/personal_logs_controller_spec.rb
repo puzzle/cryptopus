@@ -13,10 +13,8 @@ describe Api::PersonalLogsController do
   context 'GET index' do
     it 'returns right amount of logs' do
       login_as(:alice)
-      PaperTrail.request(whodunnit: alice.id) do
-        credentials1.touch
-        credentials1.touch
-      end
+      log_read_access(alice.id, credentials1)
+      log_read_access(alice.id, credentials1)
 
       get :index, params: {}
       expect(data.count).to eq 2
@@ -24,26 +22,21 @@ describe Api::PersonalLogsController do
     end
 
     it 'returns sorted results' do
-      login_as(:bob)
-      PaperTrail.request(whodunnit: bob.id) do
-        credentials1.touch
-        credentials1.touch
-      end
+      login_as(:alice)
+      log_read_access(alice.id, credentials1)
+      log_read_access(alice.id, credentials1)
+      
       get :index, params: {}
       expect(data.first['attributes']['created_at']).to be > data.second['attributes']['created_at']
     end
 
     it 'only returns your logs' do
       login_as(:alice)
-      PaperTrail.request(whodunnit: alice.id) do
-        credentials1.touch
-        credentials1.touch
-      end
+      log_read_access(alice.id, credentials1)
+      log_read_access(alice.id, credentials1)
 
       login_as(:bob)
-      PaperTrail.request(whodunnit: bob.id) do
-        credentials1.touch
-      end
+      log_read_access(bob.id, credentials1)
 
       get :index, params: {}
       expect(data.count).to eq 1
@@ -55,5 +48,13 @@ describe Api::PersonalLogsController do
       expect(data.first['attributes']['username']).to eq 'alice'
       expect(data.last['attributes']['username']).to eq 'alice'
     end
+  end
+
+  def log_read_access(user_id, credential)
+    v = credential.paper_trail.save_with_version
+    v.whodunnit = user_id
+    v.event = :viewed
+    v.created_at = DateTime.now
+    v.save!
   end
 end

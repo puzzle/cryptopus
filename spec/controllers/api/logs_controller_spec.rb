@@ -13,10 +13,8 @@ describe Api::LogsController do
   context 'GET index' do
     it 'returns right amount of logs' do
       login_as(:alice)
-      PaperTrail.request(whodunnit: alice.id) do
-        credentials1.touch
-        credentials1.touch
-      end
+      log_read_access(alice.id, credentials1)
+      log_read_access(alice.id, credentials1)
 
       get :index, params: { encryptable_id: credentials1.id }
       expect(data.count).to eq 2
@@ -24,11 +22,10 @@ describe Api::LogsController do
     end
 
     it 'returns sorted results' do
-      login_as(:bob)
-      PaperTrail.request(whodunnit: bob.id) do
-        credentials1.touch
-        credentials1.touch
-      end
+      login_as(:alice)
+      log_read_access(alice.id, credentials1)
+      log_read_access(alice.id, credentials1)
+
       get :index, params: { encryptable_id: credentials1.id }
       expect(data.first['attributes']['created_at']).to be > data.second['attributes']['created_at']
     end
@@ -42,5 +39,13 @@ describe Api::LogsController do
       get :index, params: { encryptable_id: encryptable.id }
       expect(response.status).to be 403
     end
+  end
+
+  def log_read_access(user_id, credential)
+    v = credential.paper_trail.save_with_version
+    v.whodunnit = user_id
+    v.event = :viewed
+    v.created_at = DateTime.now
+    v.save!
   end
 end
