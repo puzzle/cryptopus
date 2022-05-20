@@ -25,7 +25,7 @@ describe Api::PersonalLogsController do
       login_as(:alice)
       log_read_access(alice.id, credentials1)
       log_read_access(alice.id, credentials1)
-      
+
       get :index, params: {}
       expect(data.first['attributes']['created_at']).to be > data.second['attributes']['created_at']
     end
