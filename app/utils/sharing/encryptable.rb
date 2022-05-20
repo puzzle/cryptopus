@@ -38,24 +38,12 @@ class Encryptables::Sharing
     @current_user ||= (User::Human.find(session[:user_id]) if session[:user_id])
   end
 
-  def encryptable(encryptable_id)
-    @encryptable ||= Encryptable.find(encryptable_id)
-  end
-
   def team
-    @team ||= encryptable.folder.team
+    @team ||= @encryptable.folder.team
   end
 
-  def receiver_id
-    params[:data][:receiver_id]
-  end
-
-  def encryptable_id
-    params[:data][:encryptable_id]
-  end
-
-  def duplicate_decrypted_encryptable
-    @encryptable.decrypt(decrypted_team_password(team))
+  def duplicate_encryptable
+    @encryptable.decrypt(@options[:decrypted_team_password])
     @encryptable.dup
   end
 

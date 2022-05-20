@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency '../utils/sharing/encryptable'
+
 module Encryptables
   extend ActiveSupport::Concern
 
@@ -56,6 +58,24 @@ module Encryptables
     params[:credential_id]
   end
 
+  ### Sharing ###
+
+  def encryptable_sharing?
+    receiver_id.present?
+  end
+
+  def shared_encryptable
+    options = {
+      decrypted_team_password: decrypted_team_password(team)
+    }
+     shared_encryptable = Encryptable::Sharing.new(encryptable, receiver_id, options).prepare_encryptable
+    instance_variable_set(:"@#{ivar_name}", shared_encryptable)
+  end
+
+  def receiver_id
+      params[:receiver_id]
+  end
+
   ### Other ###
 
   def encrypt(encryptable)
@@ -71,7 +91,10 @@ module Encryptables
 
   def create_ose_secret?
     action_name == 'create' &&
-      params.dig('data', 'attributes', 'type') == 'ose_secret'
+    params.dig('data', 'attributes', 'type') == 'ose_secret'
   end
 
+  def encryptable
+    @encryptable ||= Encryptable.find(params[:id])
+  end
 end

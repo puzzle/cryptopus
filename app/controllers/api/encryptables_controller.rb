@@ -71,16 +71,13 @@ class Api::EncryptablesController < ApiController
 
   def build_entry
     return build_encryptable_file if encryptable_file?
+    return shared_encryptable if encryptable_sharing?
 
     super
   end
 
   def file_credential
     Encryptable::Credentials.find(credential_id)
-  end
-
-  def encryptable
-    @encryptable ||= Encryptable.find(params[:id])
   end
 
   def encryptable_file?
