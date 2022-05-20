@@ -144,7 +144,7 @@ describe Api::EncryptablesController do
         )
       end
 
-      it 'returns most recent cerdentials' do
+      it 'returns most recent credentials' do
 
         login_as(:alice)
 
@@ -199,8 +199,6 @@ describe Api::EncryptablesController do
         log_read_access(alice.id, recent_credentials1)
 
         get :index, params: { recent: true }, xhr: true
-
-
 
         expect(data.size).to eq(1)
         attributes = data.first['attributes']
