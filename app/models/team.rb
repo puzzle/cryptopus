@@ -38,6 +38,10 @@ class Team < ApplicationRecord
     teammembers.count == 1 && teammember?(user_id)
   end
 
+  def default_encryption_algorithm
+    ENCRYPTION_ALGORITHMS.last
+  end
+
   def teammember?(user_id)
     teammember(user_id).present?
   end
@@ -64,6 +68,14 @@ class Team < ApplicationRecord
 
   def self.policy_class
     TeamPolicy
+  end
+
+  def password_bytesize
+    encryption_algorithm_class.key_bytesize.to_s
+  end
+
+  def encryption_algorithm_class
+    ::Crypto::Symmetric.const_get(encryption_algorithm)
   end
 
   private

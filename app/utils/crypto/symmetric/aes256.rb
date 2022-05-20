@@ -19,18 +19,21 @@ class Crypto::Symmetric::Aes256 < Crypto::Symmetric
       # set encryption key
       cipher.key = key
 
-      # return encrypted data
-      cipher.update(data) + cipher.final
+      # encrypt given data
+      encrypted_value = cipher.update(data) + cipher.final
+
+      # return data and nil iv value
+      [encrypted_value, nil]
     end
 
-    def decrypt(data, key)
+    def decrypt(encrypted_data, iv: nil) # rubocop:disable Lint/UnusedMethodArgument
       cipher = cipher_decrypt_mode
 
       # set decryption key
-      cipher.key = key
+      cipher.key = encrypted_data[:key]
 
       # decrypt data
-      decrypted_data = cipher.update(data) + cipher.final
+      decrypted_data = cipher.update(encrypted_data[:data]) + cipher.final
       decrypted_data.force_encoding('UTF-8')
     end
 

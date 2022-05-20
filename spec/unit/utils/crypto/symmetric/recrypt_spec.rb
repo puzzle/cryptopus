@@ -11,4 +11,14 @@ describe Crypto::Symmetric::Recrypt do
   it 'recrypts given team' do
 
   end
+
+  it 'doesnt recrypt team if default algorithm already used' do
+    Crypto::Symmetric::Recrypt.update(team1)
+
+  end
+
+  it 'aborts in transaction if error suddenly appears' do
+
+  end
+
 end

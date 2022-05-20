@@ -35,6 +35,13 @@ class Encryptable < ApplicationRecord
     raise 'implement in subclass'
   end
 
+  def recrypt(team_password, new_team_password)
+    decrypt(team_password)
+    update_encryption_algorithm
+    encrypt(new_team_password)
+    save!
+  end
+
   def self.policy_class
     EncryptablePolicy
   end
@@ -69,6 +76,10 @@ class Encryptable < ApplicationRecord
                       end
 
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
+  end
+
+  def update_encryption_algorithm
+    self.encryption_algorithm = Crypto::EncryptionAlgorithm.default
   end
 
 end
