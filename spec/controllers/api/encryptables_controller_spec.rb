@@ -145,9 +145,7 @@ describe Api::EncryptablesController do
       end
 
       it 'returns most recent credentials' do
-
         login_as(:alice)
-
 
         recent_credentials.each do |credential|
           log_read_access(alice.id, credential)
