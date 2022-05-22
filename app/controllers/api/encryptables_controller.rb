@@ -75,13 +75,10 @@ class Api::EncryptablesController < ApiController
   def fetch_entries
     if encryptable_file?
       super
+    if tag_param.present?
+      encryptables = encryptables.find_by(tag: tag_param)
     else
       encryptables = Encryptables::FilteredList.new(current_user, params).fetch_entries
-      if tag_param.present?
-        encryptables = encryptables.find_by(tag: tag_param)
-      end
-      encryptables
-    end
   end
 
   def build_entry
