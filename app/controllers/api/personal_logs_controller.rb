@@ -13,7 +13,6 @@ class Api::PersonalLogsController < ApiController
   end
 
   def fetch_entries
-    PaperTrail.serializer = JSON
     offset = params[:load] || 0
     Version
       .where(whodunnit: @current_user)
