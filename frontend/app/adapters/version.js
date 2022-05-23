@@ -1,7 +1,6 @@
 import ApplicationAdapter from "./application";
 
 export default ApplicationAdapter.extend({
-  namespace: "api",
 
   pathForType() {
     return "personal_logs";
