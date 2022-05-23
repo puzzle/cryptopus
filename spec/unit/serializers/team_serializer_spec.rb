@@ -14,7 +14,6 @@ describe TeamSerializer do
     before(:each) do
       expect_any_instance_of(TeamSerializer)
         .to receive(:user)
-        .exactly(:twice)
         .and_return(users(:bob))
     end
 
@@ -30,7 +29,6 @@ describe TeamSerializer do
     before(:each) do
       expect_any_instance_of(TeamSerializer)
         .to receive(:user)
-        .exactly(:twice)
         .and_return(users(:admin))
     end
 
@@ -47,7 +45,6 @@ describe TeamSerializer do
     before(:each) do
       expect_any_instance_of(TeamSerializer)
         .to receive(:user)
-        .exactly(:twice)
         .and_return(users(:conf_admin))
     end
 
