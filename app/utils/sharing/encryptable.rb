@@ -17,7 +17,14 @@ class Encryptable::Sharing
     receiver_public_key = User.find(@receiver_id).public_key
     encrypted_transfer_password = Crypto::Rsa.encrypt(plaintext_transfer_password, receiver_public_key)
     duplicated_encryptable = update_duplicated_encryptable(duplicated_encryptable, encrypted_transfer_password)
+    begin
     duplicated_encryptable.save!
+    rescue => e
+      require 'pry'; binding.pry unless $pstop
+      flash[:error] = t('flashes.encryptables_sharing.duplicated_name.title')
+
+      return
+    end
 
     duplicated_encryptable
   end
