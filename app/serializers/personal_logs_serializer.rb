@@ -4,7 +4,7 @@ class PersonalLogsSerializer < ApplicationSerializer
   attributes :id, :event, :user_id, :username, :created_at,
              :encryptable_name, :folder_name, :team_name, :encryptable_id
 
-  belongs_to :encryptable
+  belongs_to :encryptable, serializer: EncryptableMinimalSerializer
 
   def user_id
     object.whodunnit
