@@ -61,4 +61,4 @@ After the successful initialisation, you can visit [localhost:4200/test](http://
 ## Fonts 
 
 ### Icons 
-We use Open Source icons from [iconscout](https://iconscout.com/unicons/explore/line) usually by [puzzle shell](https://api.rubyonrails.org/classes/ActiveRecord/Inheritance.html) library.
+We use Open Source icons from [iconscout](https://iconscout.com/unicons/explore/line) usually by [puzzle shell](https://github.com/puzzle/puzzle-shell) library.
