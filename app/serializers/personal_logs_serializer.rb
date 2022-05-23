@@ -10,10 +10,6 @@ class PersonalLogsSerializer < ApplicationSerializer
     object.whodunnit
   end
 
-  def encryptable
-    object.encryptable
-  end
-
   def username
     object.user.username
   end
