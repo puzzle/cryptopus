@@ -19,14 +19,13 @@ class Api::EncryptablesController < ApiController
   def show
     authorize entry
     if is_shared_encryptable(entry)
-      decrypt_shared_encryptable(entry)
+      decrypt_shared_encryptable(entry, session[:private_key])
     else
       entry.decrypt(decrypted_team_password(team))
     end
     render_entry
   end
 
-  # options param is needed for render_entry method
   # POST /api/encryptables
   def create
     build_entry
@@ -105,7 +104,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def encryptable_move_handler
-    EncryptableMoveHandler.new(encryptable, session[:private_key], current_user)
+    EncryptableMoveHandler.new(encryptable, users_private_key, current_user)
   end
 
   def ivar_name

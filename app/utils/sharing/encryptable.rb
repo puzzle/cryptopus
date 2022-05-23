@@ -28,10 +28,6 @@ class Encryptable::Sharing
     Crypto::Symmetric::Aes256.random_key
   end
 
-  def current_user
-    @current_user ||= (User::Human.find(session[:user_id]) if session[:user_id])
-  end
-
   def team
     @team ||= @encryptable.folder.team
   end
