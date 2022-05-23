@@ -19,6 +19,8 @@ describe Api::PersonalLogsController do
       get :index, params: {}
       expect(data.count).to eq 2
       expect(data.first['attributes']['username']).to eq 'alice'
+      expect(data.first['attributes']['description']).to eq nil
+      expect(data.first['attributes']['password']).to eq nil
     end
 
     it 'returns sorted results' do
