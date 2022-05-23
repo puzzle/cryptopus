@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 class Api::PersonalLogsController < ApiController
-  before_action :skip_authorization
-
-  self.permitted_attrs = :whodunnit
 
   def index(options = {})
+    authorize(@current_user, :index?, policy_class: PersonalLogPolicy)
     render({ json: fetch_entries,
              each_serializer: PersonalLogsSerializer }
              .merge(render_options)

@@ -48,7 +48,14 @@ describe Api::PersonalLogsController do
       expect(data.first['attributes']['username']).to eq 'alice'
       expect(data.last['attributes']['username']).to eq 'alice'
     end
+
+    it 'flashes error if user not logged in' do
+      get :index
+      expect(errors).to eq(['flashes.api.errors.user_not_logged_in'])
+      pp response
+    end
   end
+
 
   def log_read_access(user_id, credential)
     v = credential.paper_trail.save_with_version
