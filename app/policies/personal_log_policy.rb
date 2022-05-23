@@ -5,4 +5,3 @@ class PersonalLogPolicy < TeamPolicy
     current_user.is_a?(User::Human)
   end
 end
-
