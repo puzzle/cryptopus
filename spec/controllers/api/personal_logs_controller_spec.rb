@@ -12,32 +12,31 @@ describe Api::PersonalLogsController do
 
   context 'GET index' do
     it 'returns right amount of logs' do
-      login_as(:alice)
       log_read_access(alice.id, credentials1)
       log_read_access(alice.id, credentials1)
 
+      login_as(:alice)
       get :index, params: {}
       expect(data.count).to eq 2
       expect(data.first['attributes']['username']).to eq 'alice'
     end
 
     it 'returns sorted results' do
-      login_as(:alice)
       log_read_access(alice.id, credentials1)
       log_read_access(alice.id, credentials1)
 
+      login_as(:alice)
       get :index, params: {}
       expect(data.first['attributes']['created_at']).to be > data.second['attributes']['created_at']
     end
 
     it 'only returns your logs' do
-      login_as(:alice)
       log_read_access(alice.id, credentials1)
       log_read_access(alice.id, credentials1)
 
-      login_as(:bob)
       log_read_access(bob.id, credentials1)
 
+      login_as(:bob)
       get :index, params: {}
       expect(data.count).to eq 1
       expect(data.first['attributes']['username']).to eq 'bob'
@@ -47,6 +46,14 @@ describe Api::PersonalLogsController do
       expect(data.count).to eq 2
       expect(data.first['attributes']['username']).to eq 'alice'
       expect(data.last['attributes']['username']).to eq 'alice'
+    end
+
+    it 'returns nothing when not logged in' do
+      log_read_access(alice.id, credentials1)
+      log_read_access(alice.id, credentials1)
+
+      get :index, params: {}
+      expect(data).to eq nil
     end
   end
 
