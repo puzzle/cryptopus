@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'pry'
 
 describe 'personal log', type: :system, js: true do
   include SystemHelpers
