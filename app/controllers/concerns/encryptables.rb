@@ -73,11 +73,16 @@ module Encryptables
   end
 
   def is_shared_encryptable(entry)
-    entry.transfer_password != nil
+    entry.transfer_password != nil && entry.receiver_id != nil
   end
 
   def receiver_id
       params[:receiver_id]
+  end
+
+  def decrypt_shared_encryptable(entry)
+    plaintext_transfer_password = Crypto::Rsa.decrypt(entry.transfer_password, current_user.private_key)
+    # entry.decrypt(plaintext_transfer_password)
   end
 
   ### Other ###

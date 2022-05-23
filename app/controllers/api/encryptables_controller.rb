@@ -19,7 +19,7 @@ class Api::EncryptablesController < ApiController
   def show
     authorize entry
     if is_shared_encryptable(entry)
-      entry.decrypt_shared_encryptable
+      decrypt_shared_encryptable(entry)
     else
       entry.decrypt(decrypted_team_password(team))
     end

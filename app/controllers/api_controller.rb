@@ -46,11 +46,6 @@ class ApiController < CrudController
     team_password
   end
 
-  def decrypt_shared_encryptable
-    plaintext_transfer_password = Crypto::Rsa.decrypt(entry.transfer_password, current_user.private_key)
-    entry.decrypt(plaintext_transfer_password)
-  end
-
   def username
     request.headers['Authorization-User']
   end
