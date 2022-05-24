@@ -22,7 +22,11 @@
         {{/if}}
       </div>
       <div class="col overflow-hidden" role="button" {{on "click" this.collapse}}>
-        <h5 class="d-inline">{{@team.name}}</h5>
+        {{#if @team.isPersonalTeam}}
+          <h5 class="d-inline">{{this.userService.username}}</h5>
+        {{else}}
+          <h5 class="d-inline">{{@team.name}}</h5>
+        {{/if}}
       </div>
 
 

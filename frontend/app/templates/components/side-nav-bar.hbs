@@ -28,7 +28,11 @@
                       <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "members-white.svg" "members.svg"}}" alt="">
                     {{/if}}
                   {{/if}}
-                  {{truncate team.name 18}}
+                  {{#if team.isPersonalTeam}}
+                    {{truncate this.userService.username 18}}
+                  {{else}}
+                    {{truncate team.name 18}}
+                  {{/if}}
                   {{#if (not team.folders)}}
                   {{else if (and team.folders (or (not (eq team this.navService.selectedTeam)) this.collapsed))}}
                     <img class="icon icon-button-angle float-right" src="/assets/images/angle-left.svg" alt="<">

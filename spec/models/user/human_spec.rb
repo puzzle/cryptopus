@@ -38,7 +38,7 @@ describe User::Human do
         expect(default_folder).to be_present
         expect(personal_team.teammember?(user)).to eq(true)
         expect(personal_team.private?).to eq(true)
-        expect(personal_team.name).to eq(user.username)
+        expect(personal_team.name).to eq('personal-team')
         expect(personal_team.is_a?(Team::Personal)).to eq(true)
         expect(personal_team.personal_owner).to be_present
       end
