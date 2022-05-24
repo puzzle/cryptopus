@@ -704,15 +704,23 @@ describe Api::EncryptablesController do
   context 'papertrail', versioning: true do
     context 'delete' do
       it 'deletes log history if encryptable is deleted' do
+        encryptable2 = encryptables(:credentials2)
+
         1000.times do
           encryptable.touch
         end
 
+        500.times do
+          encryptable2.touch
+        end
+
         expect(encryptable.versions.size).to eq(1000)
+        expect(encryptable2.versions.size).to eq(500)
 
         encryptable.destroy
 
-        expect(PaperTrail::Version.all.size).to be(0)
+        expect(encryptable.versions.size).to be(0)
+        expect(encryptable2.versions.size).to eq(500)
       end
     end
 
