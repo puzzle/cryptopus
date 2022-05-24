@@ -13,8 +13,8 @@ describe Api::LogsController do
   context 'GET index' do
     it 'returns right amount of logs' do
       login_as(:alice)
-      log_read_access(alice.id, credentials1)
-      log_read_access(alice.id, credentials1)
+      log_read_access(alice.id, credentials1, "2022-05-24T14:12:26.246+02:00")
+      log_read_access(alice.id, credentials1, "2022-08-14T04:12:16.242+02:00")
 
       get :index, params: { encryptable_id: credentials1.id }
       expect(data.count).to eq 2
@@ -23,8 +23,8 @@ describe Api::LogsController do
 
     it 'returns sorted results' do
       login_as(:alice)
-      log_read_access(alice.id, credentials1)
-      log_read_access(alice.id, credentials1)
+      log_read_access(alice.id, credentials1, "2022-05-24T14:12:26.246+02:00")
+      log_read_access(alice.id, credentials1, "2022-08-14T04:12:16.242+02:00")
 
       get :index, params: { encryptable_id: credentials1.id }
       expect(data.first['attributes']['created_at']).to be > data.second['attributes']['created_at']
@@ -41,11 +41,11 @@ describe Api::LogsController do
     end
   end
 
-  def log_read_access(user_id, credential)
+  def log_read_access(user_id, credential, dateTime)
     v = credential.paper_trail.save_with_version
     v.whodunnit = user_id
     v.event = :viewed
-    v.created_at = DateTime.now
+    v.created_at = dateTime
     v.save!
   end
 end
