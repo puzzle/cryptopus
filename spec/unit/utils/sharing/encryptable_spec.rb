@@ -6,7 +6,12 @@ require_relative '../../../../app/utils/sharing/encryptable'
 
 describe Encryptable::Sharing do
 
-  it 'asfd' do
-    require 'pry'; binding.pry unless $pstop
+  let(:bob) { users(:bob) }
+  let(:alice) { users(:alice) }
+
+
+  it 'share encryptable with other user' do
+    login_as(:alice)
+
   end
 end

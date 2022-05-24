@@ -1,5 +1,6 @@
 import { action } from "@ember/object";
-import AccountValidations from "../../validations/encryptable";
+import EncryptableValidations from "../../validations/encryptable";
+import EncryptableSharingValidations from "../../validations/encryptable-sharing";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
@@ -20,17 +21,34 @@ export default class Form extends BaseFormComponent {
 
   @tracked hasErrors;
 
-  AccountValidations = AccountValidations;
+  EncryptableValidations = EncryptableValidations;
+  EncryptableSharingValidations = EncryptableSharingValidations;
 
   constructor() {
     super(...arguments);
 
+    if (this.args.sharing) {
+      this.setupEncryptableSharing();
+    } else {
+      this.setupEditEncryptableForm();
+    }
+  }
+
+  setupEncryptableSharing() {
+
+    this.changeset = this.encryptableSharingChangeset;
+
+
+    // this.loadCandidates();
+  }
+
+  setupEditEncryptableForm() {
     this.record =
       this.args.encryptable ||
       this.store.createRecord("encryptable-credential");
     this.isNewRecord = this.record.isNew;
 
-    this.changeset = this.accountChangeset;
+    this.changeset = this.encryptableChangeset;
 
     if (this.isNewRecord) {
       this.presetTeamAndFolder();
@@ -49,8 +67,8 @@ export default class Form extends BaseFormComponent {
     if (!this.record.isFullyLoaded)
       this.store.findRecord("encryptable-credential", this.record.id);
 
-    this.loadCandidates();
   }
+
 
   loadCandidates() {
     this.store
@@ -122,6 +140,38 @@ export default class Form extends BaseFormComponent {
     this.changeset.folder = folder;
   }
 
+  @action
+  submit(recordsToSave) {
+
+    console.log(this.changeset);
+    console.log(this.args);
+
+    this.beforeSubmit().then((continueSubmit) => {
+      console.log(continueSubmit);
+
+      if (!continueSubmit && continueSubmit !== undefined) {
+        return;
+      }
+      recordsToSave = Array.isArray(recordsToSave)
+        ? recordsToSave
+        : [recordsToSave];
+
+      let notPersistedRecords = recordsToSave.filter(
+        (record) => record.hasDirtyAttributes || record.isDirty
+      );
+      Promise.all(notPersistedRecords.map((record) => record.share()))
+        .then((savedRecords) => {
+          this.handleSubmitSuccess(savedRecords);
+          this.showSuccessMessage();
+          this.afterSubmit();
+        })
+        .catch((error) => {
+          this.handleSubmitError(error);
+          this.afterSubmit();
+        });
+    });
+  }
+
   async beforeSubmit() {
     await this.changeset.validate();
     return this.changeset.isValid;
@@ -167,11 +217,19 @@ export default class Form extends BaseFormComponent {
     }
   }
 
-  get accountChangeset() {
+  get encryptableChangeset() {
     return new Changeset(
       this.record,
-      lookupValidator(AccountValidations),
-      AccountValidations
+      lookupValidator(EncryptableValidations),
+      EncryptableValidations
+    );
+  }
+
+  get encryptableSharingChangeset() {
+    return new Changeset(
+      this.record,
+      lookupValidator(EncryptableSharingValidations),
+      EncryptableSharingValidations
     );
   }
 }
