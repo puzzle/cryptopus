@@ -7,7 +7,7 @@
 
 Fabricator(:credential, from: 'Encryptable::Credentials') do
   transient :team_password
-  name { Faker::Team.creature }
+  name { sequence(:name) { |i| Faker::Team.creature + " #{i}" } }
   cleartext_username { Faker::Internet.user_name }
   cleartext_password { Faker::Internet.password }
   before_save do |account, attrs|
