@@ -95,6 +95,10 @@
           <pzsh-icon name="setting"></pzsh-icon>
           {{ t "profile_title" }}
         </LinkTo>
+        <pzsh-menu-dropdown-item role="button" {{on "click" (fn this.copyCcliLogin @user)}}>
+          <img src="/assets/images/clipboard.svg" alt="clipboard" class="icon-button">
+          {{ t "copy_ccli_login" }}
+        </pzsh-menu-dropdown-item>
         <pzsh-menu-dropdown-item href="/session/destroy">
           <pzsh-icon name="sign-out-alt"></pzsh-icon>
           {{ t "logout" }}
