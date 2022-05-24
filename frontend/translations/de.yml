@@ -41,6 +41,7 @@ de:
   new: Neu
   back: Zurück
   save: Speichern
+  share: Teilen
   close: Schliessen
   hi_user: "Hi, "
   intro: Du suchst ein Passwort?
@@ -90,6 +91,10 @@ de:
       title: Neue Zugangsdaten
     share:
       title: Datei teilen
+
+  encryptable/sharing/file:
+    new:
+      title: "Datei teilen"
 
   admin:
     title: Admin

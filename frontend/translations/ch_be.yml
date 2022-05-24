@@ -39,7 +39,8 @@ ch_be:
   new: Nöi
   back: Zrügg
   save: Spichere
-  close: Schliesse
+  share: Teilä
+  close: Schliessä
   hi_user: "Hoi, "
   intro: Suechsch äuä es Passwort?
   role: Rollä
@@ -88,6 +89,10 @@ ch_be:
       title: Nöi Zuägangsdate
     share:
       title: Datei teilä
+
+  encryptable/sharing/file:
+    new:
+      title: "Datei teilä"
 
   admin:
     title: Admin

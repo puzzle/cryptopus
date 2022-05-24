@@ -41,6 +41,7 @@ fr:
   new: Nouveau
   back: Retour
   save: Sauvegarder
+  share: Partager
   close: fermer
   hi_user: "Salut, "
   intro: Vous cherchez un mot de passe?
@@ -90,6 +91,10 @@ fr:
       title: Nouveau compte
     share:
       title: Partage fichier
+
+  encryptable/sharing/file:
+    new:
+      title: "partager fichier"
 
   admin:
     title: Admin

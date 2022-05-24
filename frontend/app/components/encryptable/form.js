@@ -16,6 +16,8 @@ export default class Form extends BaseFormComponent {
   @tracked selectedTeam;
   @tracked assignableTeams;
 
+  @tracked candidates;
+
   @tracked hasErrors;
 
   AccountValidations = AccountValidations;
@@ -46,6 +48,28 @@ export default class Form extends BaseFormComponent {
 
     if (!this.record.isFullyLoaded)
       this.store.findRecord("encryptable-credential", this.record.id);
+
+    this.loadCandidates();
+  }
+
+  loadCandidates() {
+    this.store
+      .query("user-human", {
+        encryptableId: this.args.encryptableId,
+        candidates: true
+      })
+      .then((res) => (this.candidates = res));
+  }
+
+  nothing() {
+
+  }
+
+  @action
+  search(input) {
+    return this.candidates.filter(
+      (c) => c.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+    );
   }
 
   presetTeamAndFolder() {
