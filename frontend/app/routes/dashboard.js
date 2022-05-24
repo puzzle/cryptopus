@@ -12,22 +12,31 @@ export default class DashboardRoute extends BaseRoute {
   };
 
   async model(params) {
-    params["limit"] = 20;
     const favouriteTeams = await this.getFavouriteTeams(params);
-    const teams = this.getTeams(params);
+    const teams = await this.getTeams(params);
+    const recentCredentials = await this.getRecentCredentials(params);
+
     return RSVP.hash({
       favouriteTeams,
-      teams
+      teams,
+      recentCredentials
     });
   }
 
   async getFavouriteTeams(params) {
+    params["limit"] = 20;
     params["favourite"] = true;
     return await this.store.query("team", params);
   }
 
   async getTeams(params) {
+    params["limit"] = 20;
     params["favourite"] = false;
     return await this.store.query("team", params);
+  }
+
+  async getRecentCredentials(params) {
+    params["recent"] = true;
+    return await this.store.query("encryptable", params);
   }
 }

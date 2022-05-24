@@ -45,6 +45,7 @@ describe 'NavBar', type: :system, js: true do
 
     logout
   end
+
   it 'does show Log Button for bob' do
     login_as_user(:bob)
     expect(page).to have_css('pzsh-menu')
