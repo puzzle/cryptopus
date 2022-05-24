@@ -11,6 +11,7 @@ export function initialize(/* application */) {
         ENV.currentUserId = envSettings.current_user.id;
         ENV.currentUserRole = envSettings.current_user.role;
         ENV.currentUserGivenname = envSettings.current_user.givenname;
+        ENV.currentUserUsername = envSettings.current_user.username;
         ENV.currentUserLastLoginAt = envSettings.current_user.last_login_at;
         ENV.currentUserLastLoginFrom = envSettings.current_user.last_login_from;
         ENV.currentUserAuth = envSettings.current_user.auth;
