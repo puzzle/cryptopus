@@ -5,9 +5,7 @@ export default class Version extends Model {
   @attr("number") userId;
   @attr("string") username;
   @attr("string") createdAt;
-  @attr("string") encryptableName;
   @attr("string") folderName;
   @attr("string") teamName;
-  @attr("number") encryptableId;
   @belongsTo("encryptable") encryptable;
 }
