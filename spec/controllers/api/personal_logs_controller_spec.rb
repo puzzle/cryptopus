@@ -12,8 +12,8 @@ describe Api::PersonalLogsController do
 
   context 'GET index' do
     it 'returns right amount of logs' do
-      log_read_access(alice.id, credentials1, "2022-05-24T14:12:26.246+02:00")
-      log_read_access(alice.id, credentials1, "2122-07-21T14:12:16.546+02:00")
+      log_read_access(alice.id, credentials1, '2022-05-24T14:12:26.246+02:00')
+      log_read_access(alice.id, credentials1, '2122-07-21T14:12:16.546+02:00')
 
       login_as(:alice)
       get :index, params: {}
@@ -24,8 +24,8 @@ describe Api::PersonalLogsController do
     end
 
     it 'returns sorted results' do
-      log_read_access(alice.id, credentials1, "2022-05-24T14:12:26.246+02:00")
-      log_read_access(alice.id, credentials1, "2022-01-14T11:12:26.246+02:00")
+      log_read_access(alice.id, credentials1, '2022-05-24T14:12:26.246+02:00')
+      log_read_access(alice.id, credentials1, '2022-01-14T11:12:26.246+02:00')
 
       login_as(:alice)
       get :index, params: {}
@@ -33,10 +33,10 @@ describe Api::PersonalLogsController do
     end
 
     it 'only returns your logs' do
-      log_read_access(alice.id, credentials1, "2022-05-24T14:12:26.246+02:00")
-      log_read_access(alice.id, credentials1, "2022-01-14T11:12:26.246+02:00")
+      log_read_access(alice.id, credentials1, '2022-05-24T14:12:26.246+02:00')
+      log_read_access(alice.id, credentials1, '2022-01-14T11:12:26.246+02:00')
 
-      log_read_access(bob.id, credentials1, "2122-07-21T14:12:16.546+02:00")
+      log_read_access(bob.id, credentials1, '2122-07-21T14:12:16.546+02:00')
 
       login_as(:bob)
       get :index, params: {}
@@ -56,11 +56,11 @@ describe Api::PersonalLogsController do
     end
   end
 
-  def log_read_access(user_id, credential, dateTime)
+  def log_read_access(user_id, credential, date_time)
     v = credential.paper_trail.save_with_version
     v.whodunnit = user_id
     v.event = :viewed
-    v.created_at = dateTime
+    v.created_at = date_time
     v.save!
   end
 end
