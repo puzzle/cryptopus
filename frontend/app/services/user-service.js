@@ -6,6 +6,10 @@ export default class UserService extends Service {
     return ENV.currentUserRole;
   }
 
+  get username() {
+    return ENV.currentUserUsername;
+  }
+
   get isConfAdmin() {
     return this.role === "conf_admin";
   }

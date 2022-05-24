@@ -74,4 +74,22 @@ describe 'NavBar', type: :system, js: true do
 
     logout
   end
+
+  context 'Copy CCLI Login' do
+    it 'shows Copy CCLI Login button' do
+      login_as_user(:admin)
+      dropdown_menus = all('pzsh-menu-dropdown', text: users(:admin).givenname).to_a
+      dropdown_menus.second.click
+      expect(find('pzsh-menu-dropdown-item', text: 'Copy CCLI Login')).to be_present
+    end
+
+    it 'copies ccli login command to clipboard' do
+      login_as_user(:admin)
+      dropdown_menus = all('pzsh-menu-dropdown', text: users(:admin).givenname).to_a
+      dropdown_menus.second.click
+      find('pzsh-menu-dropdown-item', text: 'Copy CCLI Login').click
+      expect(find('span.message', text: 'CCLI Login command was copied!')).to be_present
+    end
+  end
+
 end

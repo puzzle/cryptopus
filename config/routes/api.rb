@@ -17,11 +17,12 @@ Rails.application.routes.draw do
       resources :logs, only: [:index]
     end
 
+    get 'api_users/ccli_token', to: 'api_users/ccli_token#show'
+
     resources :api_users, except: [:new, :edit] do
       member do
         get :token, to: 'api_users/token#show'
         delete :token, to: 'api_users/token#destroy'
-        get :ccli_token, to: 'api_users/ccli_token#show'
         post :lock, to: 'api_users/lock#create'
         delete :lock, to: 'api_users/lock#destroy'
       end

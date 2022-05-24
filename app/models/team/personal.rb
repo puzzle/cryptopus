@@ -18,7 +18,7 @@ class Team::Personal < Team
 
   class << self
     def create(owner)
-      team = super(name: owner.username, personal_owner: owner, private: true)
+      team = super(name: 'personal-team', personal_owner: owner, private: true)
       return team unless team.valid?
 
       plaintext_team_password = Crypto::Symmetric::Aes256.random_key

@@ -24,6 +24,7 @@ ch_be:
   help: Hiuf
   version: Version
   logout: Abmäudä
+  copy_ccli_login: CCLI-Login kopierä
   auto_logout: Outomatisch Abmäudä i
   contribute_on_github: Mitwürke uf GitHub
   settings: Istellige
