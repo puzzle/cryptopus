@@ -5,8 +5,6 @@ export default class LogRoute extends BaseRoute {
   @service navService;
 
   model() {
-    return this.store.query("version", {
-      load: 0
-    });
+    return this.store.findAll("version");
   }
 }

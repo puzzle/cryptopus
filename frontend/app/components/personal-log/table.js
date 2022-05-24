@@ -9,10 +9,12 @@ export default class TableComponent extends Component {
   @service intl;
   @service notify;
 
+  @tracked logs = [];
   loaded = 0;
 
   constructor() {
     super(...arguments);
+    this.getLogs();
   }
 
   @tracked
