@@ -68,9 +68,7 @@ en:
           renew: 'Renewed %{username}, new token: %{token}'
       members:
         removed: Member was successfully removed
-    encryptables_sharing:
-      duplicated_name:
-        title: You shared these credentials already with this person
+
     encryptable_files:
       uploaded: File was successfully uploaded
       uploaded_size_to_high: The file is too big to upload. (max. 10MB)
@@ -98,6 +96,10 @@ en:
           attributes:
             name:
               taken: File has already been taken
+        encryptable:
+          attributes:
+            name:
+              taken: You shared these credentials already with this person
 
   #Pundit
   pundit:

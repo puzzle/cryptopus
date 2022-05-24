@@ -68,9 +68,7 @@ de:
           renew: "%{username} wurde erneuert, neuer Token: %{token}"
       members:
         removed: Mitglied wurde erfolgreich entfernt
-    encryptables_sharing:
-      duplicated_name:
-        title: Du hast diese Zugangsdaten bereits mit dieser Person geteilt
+
     encryptable_files:
       uploaded: Die Datei wurde erfolgreich hochgeladen.
       uploaded_size_to_high: Die Datei ist zu gross zum hochladen. (Max. 10MB)
@@ -98,6 +96,10 @@ de:
           attributes:
             name:
               taken: Datei ist schon hochgeladen worden
+        encryptable:
+          attributes:
+            name:
+              taken: Du hast diese Zugangsdaten bereits mit dieser Person geteilt
 
   #Pundit
   pundit:

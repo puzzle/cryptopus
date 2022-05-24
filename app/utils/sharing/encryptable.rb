@@ -19,11 +19,8 @@ class Encryptable::Sharing
     duplicated_encryptable = update_duplicated_encryptable(duplicated_encryptable, encrypted_transfer_password)
     begin
     duplicated_encryptable.save!
-    rescue => e
-      require 'pry'; binding.pry unless $pstop
-      flash[:error] = t('flashes.encryptables_sharing.duplicated_name.title')
-
-      return
+    rescue
+      flash[:error] = duplicated_encryptable.errors.first.message
     end
 
     duplicated_encryptable

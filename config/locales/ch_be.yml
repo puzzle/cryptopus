@@ -68,9 +68,7 @@ ch_be:
           renew: '%{username} isch ernöieret worde, nöiä Token: %{token}'
       members:
         removed: Mitglied isch erfougrich entfernt worde
-    encryptables_sharing:
-      duplicated_name:
-        title: Du hesch die zuegangsdate scho mit derä person teilt
+
     encryptable_files:
       uploaded: D Datei isch erfougrich ufeglade worde
       uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
@@ -98,6 +96,10 @@ ch_be:
           attributes:
             name:
               taken: Datei isch schomau ufägladä wordä
+        encryptable:
+          attributes:
+            name:
+              taken: Du hesch die zuegangsdate scho mit derä person teilt
 
   #Pundit
   pundit:

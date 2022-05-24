@@ -68,9 +68,7 @@ fr:
           renew: '%{username} a été renouvelé, nouveau jeton: %{token}'
       members:
         removed: Membre de l'équipe a été ajouté avec succès
-    encryptables_sharing:
-      duplicated_name:
-        title: Vous avez déjà partagé ces informations d'identification avec cette personne
+
     encryptable_files:
       uploaded: Fichier téléchargé avec succès
       uploaded_size_to_high: Fichier est trop volumineux pour tèlècharger. (max. 10MB)
@@ -98,6 +96,10 @@ fr:
           attributes:
             name:
               taken: Le fichier a déjà été pris
+        encryptable:
+          attributes:
+            name:
+              taken: Tu as déjà partagé ces informations d'identification avec cette personne
 
  #Pundit
   pundit:
