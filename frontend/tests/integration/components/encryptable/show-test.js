@@ -122,7 +122,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
     assert.ok(isPresent(editButton));
   });
 
-  test("log and credentials tabs ase present", async function (assert) {
+  test("log and credentials tabs are present", async function (assert) {
     await render(
       hbs`<Encryptable::Show @encryptable={{this.encryptable}} @encryptableFiles={{this.encryptableFiles}}/>`
     );
