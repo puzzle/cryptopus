@@ -46,6 +46,10 @@ describe Api::TeamsController do
         expect(team['attributes']['personal_team']).to eq(false) unless team.first
       end
 
+      data.each do |team|
+        expect(team['attributes']['personal_team']).to eq(false) unless team.first
+      end
+
       included_folders = included.select { |e| e['type'] == 'folders' }
       expect(included_folders.size).to be(5)
     end

@@ -3,37 +3,38 @@
 class Api::EncryptablesController < ApiController
   include Encryptables
 
-  self.permitted_attrs = [:name, :description, :folder_id, :tag]
+  self.permitted_attrs = [:name, :description, :tag]
 
   helper_method :team
 
   # GET /api/encryptables
-  def index(options = {})
+  def index
     authorize Encryptable
     render({ json: fetch_entries,
              root: model_root_key.pluralize }
-           .merge(render_options)
-           .merge(options.fetch(:render_options, {})))
+           .merge(render_options))
   end
 
   # GET /api/encryptables/:id
   def show
     authorize entry
-    entry.decrypt(decrypted_team_password(team))
+    if is_shared_encryptable(entry)
+      decrypt_shared_encryptable(entry, session[:private_key])
+    else
+      entry.decrypt(decrypted_team_password(team))
+    end
     render_entry
   end
 
-  # options param is needed for render_entry method
   # POST /api/encryptables
-  def create(options = {})
+  def create
     build_entry
     authorize entry
 
     entry.encrypt(decrypted_team_password(team))
 
     if entry.save
-      render_entry({ status: :created }
-                     .merge(options[:render_options] || {}))
+      render_entry({ status: :created })
     else
       render_errors
     end
@@ -73,16 +74,13 @@ class Api::EncryptablesController < ApiController
 
   def build_entry
     return build_encryptable_file if encryptable_file?
+    return shared_encryptable if encryptable_sharing?
 
     super
   end
 
   def file_credential
     Encryptable::Credentials.find(credential_id)
-  end
-
-  def encryptable
-    @encryptable ||= Encryptable.find(params[:id])
   end
 
   def encryptable_file?
@@ -106,7 +104,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def encryptable_move_handler
-    EncryptableMoveHandler.new(encryptable, session[:private_key], current_user)
+    EncryptableMoveHandler.new(encryptable, users_private_key, current_user)
   end
 
   def ivar_name
@@ -121,13 +119,13 @@ class Api::EncryptablesController < ApiController
     permitted_attrs = self.class.permitted_attrs.deep_dup
 
     if model_class == Encryptable::OseSecret
-      permitted_attrs << :cleartext_ose_secret
+      permitted_attrs + [:cleartext_ose_secret, :folder_id]
     elsif model_class == Encryptable::File
       permitted_attrs + [:filename, :credentials_id, :file]
     elsif model_class == Encryptable::Credentials
-      permitted_attrs + [:cleartext_username, :cleartext_password]
+      permitted_attrs + [:cleartext_username, :cleartext_password, :folder_id]
     else
-      permitted_attrs
+      []
     end
   end
 end

@@ -4,22 +4,17 @@ class MoveFileEntriesToEncryptableFiles < ActiveRecord::Migration[6.1]
   def up
     add_column :encryptables, :credential_id, :integer
     add_column :encryptables, :content_type, :text
+    change_column :encryptables, :folder_id, :integer, null: true, default: nil
+    change_column :encryptables, :name, :string, limit: 255
 
     Encryptable.reset_column_information
 
     LegacyFileEntry.find_each do |file_entry|
-      parent_encryptable = Encryptable::Credentials.find(file_entry.account_id)
-      filename = build_encryptable_file_name(parent_encryptable, file_entry)
+      encryptable_file = build_encryptable_entry(file_entry.account_id, file_entry.description, file_entry.filename)
 
-      encryptable_file = build_encryptable_entry(parent_encryptable, file_entry.description, filename)
-
-      encryptable_file.encrypted_data[:file] = { iv: nil, data: file_entry.file }
+      encryptable_file.encrypted_data.[]=(:file, **{ data: file_entry.file, iv: nil })
       encryptable_file.content_type = file_entry.content_type
       encryptable_file.save!
-
-      if empty_encryptable?(parent_encryptable)
-        parent_encryptable.destroy
-      end
     end
 
     drop_table :file_entries
@@ -58,13 +53,9 @@ class MoveFileEntriesToEncryptableFiles < ActiveRecord::Migration[6.1]
     encryptable.encrypted_data.to_json == '{}'
   end
 
-  def build_encryptable_file_name(encryptable, file)
-    "#{encryptable.name} #{file.filename}"
-  end
-
-  def build_encryptable_entry(parent_encryptable, description, name)
-    Encryptable::File.new(folder_id: parent_encryptable.folder_id,
-                          credential_id: parent_encryptable.id,
+  def build_encryptable_entry(parent_id, description, name)
+    Encryptable::File.new(credential_id: parent_id,
+                          cleartext_file: 'dummy', # set this to skip validation
                           description: description,
                           name: name)
   end

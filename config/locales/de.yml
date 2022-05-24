@@ -96,6 +96,10 @@ de:
           attributes:
             name:
               taken: Datei ist schon hochgeladen worden
+        encryptable:
+          attributes:
+            name:
+              taken: Du hast diese Zugangsdaten bereits mit dieser Person geteilt
 
   #Pundit
   pundit:

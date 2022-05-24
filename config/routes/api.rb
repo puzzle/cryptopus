@@ -47,8 +47,6 @@ Rails.application.routes.draw do
       resources :candidates, only:[:index], module: 'teams'
     end
 
-    resources :shared_encryptables, only: [:create]
-
   end
 
 end

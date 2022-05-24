@@ -115,7 +115,7 @@ describe TeamPolicy do
       refute_permit alice, team2, :only_teammember?
     end
   end
-  context 'personal-team' do
+  context 'personal team' do
     it 'cannot edit personal_team' do
       expect(personal_team_bob.teammember?(bob)).to eq(true)
       refute_permit bob, personal_team_bob, :update?

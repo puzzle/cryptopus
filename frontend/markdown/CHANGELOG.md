@@ -1,3 +1,6 @@
+## Version 4.3
+- Introduce personal team for users
+
 ## Version 4.2
 - Introduce Encryptables data structure
 - Add scroll to folder feature

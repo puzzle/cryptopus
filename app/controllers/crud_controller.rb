@@ -16,7 +16,7 @@ class CrudController < ListController
     authorize entry
     if entry.save
       render_entry({ status: :created }
-                   .merge(options[:render_options] || {}))
+                     .merge(options[:render_options] || {}))
     else
       render_errors
     end
@@ -62,8 +62,8 @@ class CrudController < ListController
     render({ json: entry,
              serializer: model_serializer,
              root: model_root_key }
-           .merge(render_options)
-           .merge(options || {}))
+             .merge(render_options)
+             .merge(options || {}))
   end
 
   def render_errors
@@ -73,8 +73,8 @@ class CrudController < ListController
 
   def entry_url
     send("#{self.class.name.underscore
-         .gsub(/_controller$/, '')
-         .gsub(/\//, '_').singularize}_url", entry)
+                .gsub(/_controller$/, '')
+                .gsub(/\//, '_').singularize}_url", entry)
   end
 
   # Only allow a trusted parameter "white list" through.

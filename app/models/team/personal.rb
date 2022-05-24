@@ -27,8 +27,4 @@ class Team::Personal < Team
       team
     end
   end
-
-  def self.policy_class
-    TeamPolicy
-  end
 end
