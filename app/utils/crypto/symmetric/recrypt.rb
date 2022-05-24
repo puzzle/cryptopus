@@ -2,55 +2,72 @@
 
 class Crypto::Symmetric::Recrypt
 
-  def initialize(team)
-    update(team)
+  def initialize(current_user, team, private_key)
+    @current_user = current_user
+    @team = team
+    @private_key = private_key
+
+    perform
   end
 
   private
 
-  def update(team)
-    team_password = team.decrypt_team_password(current_user, session[:private_key])
-    ActiveRecord::Base.transaction do
-      entailed_encryptables(team).each do |encryptable|
-        encryptable.recrypt(team_password, new_team_password)
+  def perform
+    return if Crypto::EncryptionAlgorithm.latest_in_use?(@team)
+
+    @team.recrypt_in_progress!
+    team_password = @team.decrypt_team_password(@current_user, @private_key)
+
+    begin
+      ActiveRecord::Base.transaction do
+        recrypt(team_password, new_team_password)
       end
+    rescue => e
+      # TODO: Notify sentry
+      @team.recrypt_failed!
 
-      update_team(team, new_team_password)
-    end
-  rescue
-    team.recrypt_failed!
-  end
-
-  def update_team(team, new_team_password)
-    update_team_encryption_algorithm(team)
-    update_teammember_passwords(team, new_team_password)
-    team.recrypt_done!
-  end
-
-  def update_teammember_passwords(team, new_team_password)
-    team.teammembers.each do |member|
-      update_teammember(member, new_team_password)
+      raise "Recrypt failed: #{e.message}"
     end
   end
 
-  def update_teammmeber(member, new_team_password)
+  def recrypt(team_password, new_team_password)
+    entailed_encryptables.each do |encryptable|
+      encryptable.recrypt(team_password, new_team_password)
+    end
+
+    update_team(new_team_password)
+  end
+
+  def update_team(new_team_password)
+    update_team_encryption_algorithm
+    update_teammember_passwords(new_team_password)
+    @team.recrypt_done!
+  end
+
+  def update_teammember_passwords(new_team_password)
+    @team.teammembers.each do |member|
+      update_teammeber(member, new_team_password)
+    end
+  end
+
+  def update_teammeber(member, new_team_password)
     public_key = member.user.public_key
-    encrypted_team_password = Crypto::RSA.encrypt(new_team_password, public_key)
+    encrypted_team_password = Crypto::Rsa.encrypt(new_team_password, public_key)
     member.password = encrypted_team_password
     member.save!
   end
 
-  def update_team_encryption_algorithm(team)
-    team.update_encryption_algorithm
-    team.save!
+  def update_team_encryption_algorithm
+    @team.update_encryption_algorithm
+    @team.save!
   end
 
-  def encryptables_entailed_in(team)
-    team.folders.map(&:encryptables).flatten
+  def entailed_encryptables
+    @team.folders.map(&:encryptables).flatten
   end
 
   def new_team_password
-    Team.default_encryption.random_key
+    Crypto::EncryptionAlgorithm.get_class(@team.encryption_algorithm).random_key
   end
 
 end

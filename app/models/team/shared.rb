@@ -20,7 +20,7 @@ class Team::Shared < Team
       team = super(params)
       return team unless team.valid?
 
-      plaintext_team_password = Crypto::Symmetric::Aes256.random_key
+      plaintext_team_password = Crypto::EncryptionAlgorithm.get_class(team.encryption_algorithm).random_key
       team.add_user(creator, plaintext_team_password)
       unless team.private?
         User::Human.admins.each do |a|

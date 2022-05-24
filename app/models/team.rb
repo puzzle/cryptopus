@@ -71,11 +71,16 @@ class Team < ApplicationRecord
   end
 
   def password_bytesize
-    encryption_algorithm_class.key_bytesize.to_s
+    team.teammembers.pluck(:password).first.bytesize
   end
 
-  def encryption_algorithm_class
-    ::Crypto::Symmetric.const_get(encryption_algorithm)
+  def encryption_algorithm
+    # using read_attribute to avoid recursion
+    read_attribute(:encryption_algorithm) || Crypto::EncryptionAlgorithm.latest
+  end
+
+  def update_encryption_algorithm
+    self.encryption_algorithm = Crypto::EncryptionAlgorithm.latest
   end
 
   private

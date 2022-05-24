@@ -31,7 +31,6 @@ class EncryptedData
   end
 
   def encode(value)
-    require 'pry'; binding.pry unless $pstop
     Base64.strict_encode64(value) unless value.nil?
   end
 
