@@ -11,9 +11,9 @@ describe TeamSerializer do
 
   context 'normal user' do
 
-    before(:each) do
-      expect_any_instance_of(TeamSerializer)
-        .to receive(:user)
+    before do
+      allow_any_instance_of(TeamSerializer)
+        .to receive(:current_user)
         .and_return(users(:bob))
     end
 
@@ -26,9 +26,9 @@ describe TeamSerializer do
 
   context 'admin' do
 
-    before(:each) do
-      expect_any_instance_of(TeamSerializer)
-        .to receive(:user)
+    before do
+      allow_any_instance_of(TeamSerializer)
+        .to receive(:current_user)
         .and_return(users(:admin))
     end
 
@@ -42,9 +42,9 @@ describe TeamSerializer do
 
   context 'conf-admin' do
 
-    before(:each) do
-      expect_any_instance_of(TeamSerializer)
-        .to receive(:user)
+    before do
+      allow_any_instance_of(TeamSerializer)
+        .to receive(:current_user)
         .and_return(users(:conf_admin))
     end
 

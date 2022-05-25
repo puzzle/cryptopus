@@ -21,20 +21,14 @@ class TeamSerializer < ApplicationSerializer
   has_many :folders, serializer: FolderMinimalSerializer
 
   def favourised
-    object.personal_team? || current_user.user_favourite_teams.exists?(team_id: object.id)
+    object.personal_team? || current_user.favourite_team_ids.include?(object.id)
   end
 
   def deletable
-    TeamPolicy.new(user, object).destroy?
+    TeamPolicy.new(current_user, object).destroy?
   end
 
   def personal_team
     object.personal_team?
-  end
-
-  private
-
-  def user
-    current_user
   end
 end
