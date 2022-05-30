@@ -94,6 +94,8 @@ ch_be:
   encryptable/sharing/file:
     new:
       title: "Datei teilä"
+    receiver:
+      name: Wäu ä empfänger
 
   admin:
     title: Admin

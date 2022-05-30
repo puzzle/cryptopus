@@ -96,6 +96,8 @@ fr:
   encryptable/sharing/file:
     new:
       title: "partager fichier"
+    receiver:
+      name: Choisir le récepteur
 
   admin:
     title: Admin

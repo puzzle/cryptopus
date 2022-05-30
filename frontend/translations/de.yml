@@ -96,6 +96,8 @@ de:
   encryptable/sharing/file:
     new:
       title: "Datei teilen"
+    receiver:
+      name: Empfänger auswählen
 
   admin:
     title: Admin

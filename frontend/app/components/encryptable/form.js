@@ -1,6 +1,7 @@
 import { action } from "@ember/object";
 import EncryptableValidations from "../../validations/encryptable";
 import EncryptableSharingValidations from "../../validations/encryptable-sharing";
+import EncryptableFileValidations from "../../validations/encryptable-file";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
@@ -23,6 +24,7 @@ export default class Form extends BaseFormComponent {
 
   EncryptableValidations = EncryptableValidations;
   EncryptableSharingValidations = EncryptableSharingValidations;
+  EncryptableFileValidations = EncryptableFileValidations;
 
   constructor() {
     super(...arguments);
@@ -36,7 +38,16 @@ export default class Form extends BaseFormComponent {
 
   setupEncryptableSharing() {
 
-    this.changeset = this.encryptableSharingChangeset;
+    this.record =
+      this.args.encryptable ||
+      this.store.createRecord("encryptable-credential");
+    this.isNewRecord = this.record.isNew;
+
+    this.changeset = this.encryptableChangeset;
+
+
+    if (!this.record.isFullyLoaded)
+      this.store.findRecord("encryptable-credential", this.record.id);
 
 
     // this.loadCandidates();
@@ -143,18 +154,15 @@ export default class Form extends BaseFormComponent {
   @action
   submit(recordsToSave) {
 
-    console.log(this.changeset);
-    console.log(this.args);
 
     this.beforeSubmit().then((continueSubmit) => {
-      console.log(continueSubmit);
-
       if (!continueSubmit && continueSubmit !== undefined) {
         return;
       }
       recordsToSave = Array.isArray(recordsToSave)
         ? recordsToSave
         : [recordsToSave];
+
 
       let notPersistedRecords = recordsToSave.filter(
         (record) => record.hasDirtyAttributes || record.isDirty
@@ -173,8 +181,9 @@ export default class Form extends BaseFormComponent {
   }
 
   async beforeSubmit() {
-    await this.changeset.validate();
-    return this.changeset.isValid;
+    // await this.changeset.validate();
+    // return this.changeset.isValid;
+    return true;
   }
 
   handleSubmitSuccess(savedRecords) {
@@ -223,6 +232,11 @@ export default class Form extends BaseFormComponent {
       lookupValidator(EncryptableValidations),
       EncryptableValidations
     );
+  }
+
+  @action
+  uploadFile(file) {
+    this.changeset.file = file;
   }
 
   get encryptableSharingChangeset() {
