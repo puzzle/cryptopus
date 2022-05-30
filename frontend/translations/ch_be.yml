@@ -42,6 +42,7 @@ ch_be:
   back: Zrügg
   save: Spichere
   close: Schliesse
+  user: Benutzer
   hi_user: "Hoi, "
   intro: Suechsch äuä es Passwort?
   role: Rollä
