@@ -54,7 +54,7 @@ module("Integration | Component | admin/user/table", function (hooks) {
     assert.ok(text.includes("Name"));
     assert.ok(text.includes("Last login at"));
     assert.ok(text.includes("Last login from"));
-    assert.ok(text.includes("AUTH PROVIDER"));
+    assert.ok(text.includes("Auth PROVIDER"));
     assert.ok(text.includes("Role"));
     assert.ok(text.includes("Action"));
 
