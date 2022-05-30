@@ -12,6 +12,7 @@ class Crypto::Symmetric::Aes256 < Crypto::Symmetric
   ITERATION_COUNT ||= 1000
 
   class << self
+    password_bytesize = 32
 
     def encrypt(data, key)
       cipher = cipher_encrypt_mode
@@ -20,10 +21,10 @@ class Crypto::Symmetric::Aes256 < Crypto::Symmetric
       cipher.key = key
 
       # encrypt given data
-      encrypted_value = cipher.update(data) + cipher.final
+      encrypted_data = cipher.update(data) + cipher.final
 
       # return data and nil iv value
-      [encrypted_value, nil]
+      { data: encrypted_data, iv: nil }
     end
 
     def decrypt(encrypted_data, iv: nil) # rubocop:disable Lint/UnusedMethodArgument

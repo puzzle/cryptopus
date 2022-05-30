@@ -71,7 +71,7 @@ class Team < ApplicationRecord
   end
 
   def password_bytesize
-    team.teammembers.pluck(:password).first.bytesize
+    Crypto::EncryptionAlgorithm.get_class(self.encryption_algorithm).password_bytesize
   end
 
   def encryption_algorithm
@@ -79,8 +79,18 @@ class Team < ApplicationRecord
     read_attribute(:encryption_algorithm) || Crypto::EncryptionAlgorithm.latest
   end
 
+  def encryption_algorithm=(algorithm)
+    return if Crypto::EncryptionAlgorithm.all.exclude?(algorithm)
+
+    write_attribute(:encryption_algorithm, algorithm)
+  end
+
   def update_encryption_algorithm
     self.encryption_algorithm = Crypto::EncryptionAlgorithm.latest
+  end
+
+  def encryptables
+
   end
 
   private

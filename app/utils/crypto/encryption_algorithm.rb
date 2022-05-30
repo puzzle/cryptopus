@@ -3,23 +3,26 @@
 class Crypto::EncryptionAlgorithm
 
   # Add further algorithms at the bottom
-  SYMMETRIC_ENCRYPTION_ALGORITHMS = [
-    :AES256,
-    :AES256IV
-  ].freeze
+  SYMMETRIC_ENCRYPTION_ALGORITHMS = {
+    AES256: Crypto::Symmetric::Aes256,
+    AES256IV: Crypto::Symmetric::Aes256iv
+  }
 
   class << self
-    def latest
-      SYMMETRIC_ENCRYPTION_ALGORITHMS.last
+    def latest_algorithm
+      :AES256IV
     end
 
     def get_class(name)
-      class_name = name.capitalize.to_sym
-      ::Crypto::Symmetric.const_get(class_name)
+      SYMMETRIC_ENCRYPTION_ALGORITHMS[name.to_sym]
+    end
+
+    def all
+      SYMMETRIC_ENCRYPTION_ALGORITHMS.keys
     end
 
     def latest_in_use?(entry)
-      latest == entry.encryption_algorithm
+      latest_algorithm == entry.encryption_algorithm
     end
   end
 end

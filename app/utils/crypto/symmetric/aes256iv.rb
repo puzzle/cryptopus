@@ -19,7 +19,7 @@ class Crypto::Symmetric::Aes256iv < Crypto::Symmetric::Aes256
       # encrypt given data
       encrypted_data = cipher.update(data) + cipher.final
 
-      [encrypted_data, iv]
+      { data: encrypted_data, iv: iv }
     end
 
     def decrypt(data, key, iv)

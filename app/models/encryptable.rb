@@ -69,7 +69,7 @@ class Encryptable < ApplicationRecord
                         encryption_class.encrypt(cleartext_value, team_password)
                       end
 
-    encrypted_data.[]=(attr, **{ data: encrypted_value, iv: nil })
+    encrypted_data.[]=(attr, **{ data: encrypted_value[:data], iv: encrypted_value[:iv] })
   end
 
   def decrypt_attr(attr, team_password)
@@ -87,7 +87,7 @@ class Encryptable < ApplicationRecord
   end
 
   def update_encryption_algorithm
-    self.encryption_algorithm = Crypto::EncryptionAlgorithm.latest
+    self.encryption_algorithm = Crypto::EncryptionAlgorithm.latest_algorithm
   end
 
 end

@@ -6,14 +6,10 @@ class Crypto::Symmetric::Recrypt
     @current_user = current_user
     @team = team
     @private_key = private_key
-
-    perform
   end
 
-  private
-
   def perform
-    return if Crypto::EncryptionAlgorithm.latest_in_use?(@team)
+    return if latest_in_use? || recrypt_not_ready?
 
     @team.recrypt_in_progress!
     team_password = @team.decrypt_team_password(@current_user, @private_key)
@@ -25,17 +21,33 @@ class Crypto::Symmetric::Recrypt
     rescue => e
       # TODO: Notify sentry
       @team.recrypt_failed!
+      raise e
 
       raise "Recrypt failed: #{e.message}"
     end
   end
 
+  private
+
+  def latest_in_use?
+    Crypto::EncryptionAlgorithm.latest_in_use?(@team)
+  end
+
+  def recrypt_not_ready?
+    @team.recrypt_in_progress? || @team.recrypt_failed?
+  end
+
   def recrypt(team_password, new_team_password)
-    entailed_encryptables.each do |encryptable|
+    recrypt_entailed_encryptables(team_password, new_team_password)
+    update_team(new_team_password)
+  end
+
+  def recrypt_entailed_encryptables(team_password, new_team_password)
+    return if team_encryptables.empty?
+
+    team_encryptables.each do |encryptable|
       encryptable.recrypt(team_password, new_team_password)
     end
-
-    update_team(new_team_password)
   end
 
   def update_team(new_team_password)
@@ -62,7 +74,8 @@ class Crypto::Symmetric::Recrypt
     @team.save!
   end
 
-  def entailed_encryptables
+
+  def team_encryptables
     @team.folders.map(&:encryptables).flatten
   end
 
