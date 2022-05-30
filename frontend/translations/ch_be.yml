@@ -41,7 +41,8 @@ ch_be:
   save: Spichere
   share: Teilä
   close: Schliessä
-  hi_user: "Hoi, "
+  user: Benutzer
+  hi_user: "Sälü, "
   intro: Suechsch äuä es Passwort?
   role: Rollä
   empty: läär

@@ -43,7 +43,8 @@ de:
   save: Speichern
   share: Teilen
   close: Schliessen
-  hi_user: "Hi, "
+  user: Benutzer
+  hi_user: "Moin, "
   intro: Du suchst ein Passwort?
   role: Rolle
   empty: leer
