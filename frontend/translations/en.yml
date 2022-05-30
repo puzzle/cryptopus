@@ -25,7 +25,6 @@ en:
   "no": "No"
   help: Help
   version: Version
-  copy_ccli_login: Copy CCLI Login
   logout: Logout
   auto_logout: Automatic sign out in
   contribute_on_github: Contribute on GitHub

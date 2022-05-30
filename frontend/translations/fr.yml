@@ -25,7 +25,6 @@ fr:
   "no": Non
   help: Aide
   version: Version
-  copy_ccli_login: Copier le CCLI-Login
   logout: Déconnexion
   auto_logout: Déconnexion automatique en
   contribute_on_github: Contribuez sur GitHub
