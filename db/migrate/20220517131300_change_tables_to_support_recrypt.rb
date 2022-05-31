@@ -19,6 +19,6 @@ class ChangeTablesToSupportRecrypt < ActiveRecord::Migration[7.0]
   end
 
   def latest_algorithm
-    Crypto::Encryptable.latest_algorithm
+    Crypto::Encryptable.latest_algorithm.to_s
   end
 end

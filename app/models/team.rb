@@ -71,7 +71,7 @@ class Team < ApplicationRecord
   end
 
   def password_bytesize
-    Crypto::EncryptionAlgorithm.get_class(self.encryption_algorithm).password_bytesize
+    Crypto::Symmetric::EncryptionAlgorithm::ALGORITHMS[self.encryption_algorithm].password_bitsize
   end
 
   def encryption_algorithm
@@ -80,17 +80,20 @@ class Team < ApplicationRecord
   end
 
   def encryption_algorithm=(algorithm)
-    return if Crypto::EncryptionAlgorithm.all.exclude?(algorithm)
+    return if Crypto::Symmetric::EncryptionAlgorithm.all.exclude?(algorithm)
 
     write_attribute(:encryption_algorithm, algorithm)
   end
 
   def update_encryption_algorithm
-    self.encryption_algorithm = Crypto::EncryptionAlgorithm.latest
+    self.encryption_algorithm = Crypto::Symmetric::EncryptionAlgorithm.latest_algorithm
   end
 
   def encryptables
-
+    Encryptable.includes(:folder, folder: [:team]).where(
+      'teams.id = :team_id',
+      team_id: self.id
+    ).references(:folder, folder: [:team])
   end
 
   private

@@ -6,14 +6,16 @@ require 'digest/sha1'
 require_relative './aes256'
 
 class Crypto::Symmetric::Aes256 < Crypto::Symmetric
+  class_attribute :password_bitsize
+
   CIPHER ||= 'AES-256-CBC'
   MAGIC ||= 'Salted__'
   SALT_LENGTH ||= 8
   ITERATION_COUNT ||= 1000
 
-  class << self
-    password_bytesize = 32
+  self.password_bitsize = OpenSSL::Cipher.new(CIPHER).key_len * 8
 
+  class << self
     def encrypt(data, key)
       cipher = cipher_encrypt_mode
 

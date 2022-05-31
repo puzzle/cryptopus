@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class Crypto::EncryptionAlgorithm
+class Crypto::Symmetric::EncryptionAlgorithm
 
   # Add further algorithms at the bottom
-  SYMMETRIC_ENCRYPTION_ALGORITHMS = {
+  ALGORITHMS = {
     AES256: Crypto::Symmetric::Aes256,
     AES256IV: Crypto::Symmetric::Aes256iv
   }
@@ -13,12 +13,8 @@ class Crypto::EncryptionAlgorithm
       :AES256IV
     end
 
-    def get_class(name)
-      SYMMETRIC_ENCRYPTION_ALGORITHMS[name.to_sym]
-    end
-
     def all
-      SYMMETRIC_ENCRYPTION_ALGORITHMS.keys
+      ALGORITHMS.keys
     end
 
     def latest_in_use?(entry)

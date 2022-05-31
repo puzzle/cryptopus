@@ -9,14 +9,14 @@ class Crypto::Symmetric::Recrypt
   end
 
   def perform
-    return if latest_in_use? || recrypt_not_ready?
+    return if already_recrypted? || recrypt_not_ready?
 
     @team.recrypt_in_progress!
-    team_password = @team.decrypt_team_password(@current_user, @private_key)
+    @team_password = @team.decrypt_team_password(@current_user, @private_key)
 
     begin
       ActiveRecord::Base.transaction do
-        recrypt(team_password, new_team_password)
+        recrypt(new_team_password)
       end
     rescue => e
       # TODO: Notify sentry
@@ -29,24 +29,24 @@ class Crypto::Symmetric::Recrypt
 
   private
 
-  def latest_in_use?
-    Crypto::EncryptionAlgorithm.latest_in_use?(@team)
+  def already_recrypted?
+    Crypto::Symmetric::EncryptionAlgorithm.latest_in_use?(@team)
   end
 
   def recrypt_not_ready?
     @team.recrypt_in_progress? || @team.recrypt_failed?
   end
 
-  def recrypt(team_password, new_team_password)
-    recrypt_entailed_encryptables(team_password, new_team_password)
+  def recrypt(new_team_password)
+    recrypt_entailed_encryptables(new_team_password)
     update_team(new_team_password)
   end
 
-  def recrypt_entailed_encryptables(team_password, new_team_password)
-    return if team_encryptables.empty?
+  def recrypt_entailed_encryptables(new_team_password)
+    return if @team.encryptables.empty?
 
-    team_encryptables.each do |encryptable|
-      encryptable.recrypt(team_password, new_team_password)
+    @team.encryptables.each do |encryptable|
+      encryptable.recrypt(@team_password, new_team_password)
     end
   end
 
@@ -74,13 +74,8 @@ class Crypto::Symmetric::Recrypt
     @team.save!
   end
 
-
-  def team_encryptables
-    @team.folders.map(&:encryptables).flatten
-  end
-
   def new_team_password
-    Crypto::EncryptionAlgorithm.get_class(@team.encryption_algorithm).random_key
+    Crypto::Symmetric::EncryptionAlgorithm::ALGORITHMS[@team.encryption_algorithm.to_sym].random_key
   end
 
 end

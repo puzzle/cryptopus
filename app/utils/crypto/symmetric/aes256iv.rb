@@ -22,14 +22,14 @@ class Crypto::Symmetric::Aes256iv < Crypto::Symmetric::Aes256
       { data: encrypted_data, iv: iv }
     end
 
-    def decrypt(data, key, iv)
+    def decrypt(encrypted_data, iv)
       cipher = cipher_decrypt_mode
 
-      cipher.key = key
+      cipher.key = encrypted_data[:key]
       cipher.iv = iv
 
       # decrypt given data
-      decrypted_data = cipher.update(data) + cipher.final
+      decrypted_data = cipher.update(encrypted_data[:data]) + cipher.final
       decrypted_data.force_encoding('UTF-8')
     end
   end
