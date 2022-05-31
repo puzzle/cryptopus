@@ -89,6 +89,10 @@ class User < ApplicationRecord
     is_a?(User::Human)
   end
 
+  def favourite_team_ids
+    @favourite_team_ids ||= user_favourite_teams.pluck(:team_id)
+  end
+
   private
 
   def user_is_allowed?

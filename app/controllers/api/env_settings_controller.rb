@@ -13,6 +13,7 @@ class Api::EnvSettingsController < ApiController
                 current_user: { id: current_user.id,
                                 role: current_user.role,
                                 givenname: current_user.givenname,
+                                username: current_user.username,
                                 last_login_at: current_user.last_login_at,
                                 last_login_from: current_user.last_login_from,
                                 preferred_locale: current_user.preferred_locale,

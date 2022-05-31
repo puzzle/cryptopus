@@ -14,7 +14,7 @@
 #
 
 class Team < ApplicationRecord
-  attr_readonly :private
+  attr_readonly :private, :type
   has_many :folders, -> { order :name }, dependent: :destroy
   has_many :teammembers, dependent: :delete_all
   has_many :members, through: :teammembers, source: :user
@@ -24,33 +24,8 @@ class Team < ApplicationRecord
   validates :name, length: { maximum: 40 }
   validates :description, length: { maximum: 300 }
 
-  class << self
-    def create(creator, params)
-      team = super(params)
-      return team unless team.valid?
-
-      plaintext_team_password = Crypto::Symmetric::Aes256.random_key
-      team.add_user(creator, plaintext_team_password)
-      unless team.private?
-        User::Human.admins.each do |a|
-          team.add_user(a, plaintext_team_password) unless a == creator
-        end
-      end
-      team
-    end
-  end
-
   def label
     name
-  end
-
-  def member_candidates
-    excluded_user_ids = User::Human.
-                        unscoped.joins('LEFT JOIN teammembers ON users.id = teammembers.user_id').
-                        where('users.username = "root" OR teammembers.team_id = ?', id).
-                        distinct.
-                        pluck(:id)
-    User::Human.where('id NOT IN(?)', excluded_user_ids)
   end
 
   def last_teammember?(user_id)
@@ -65,19 +40,24 @@ class Team < ApplicationRecord
     teammembers.find_by(user_id: user_id)
   end
 
+  def decrypt_team_password(user, plaintext_private_key)
+    crypted_team_password = teammember(user.id).password
+    Crypto::Rsa.decrypt(crypted_team_password, plaintext_private_key)
+  end
+
+  def personal_team?
+    # self is required for this method to work, even tho RuboCop is complaining
+    self.is_a?(Team::Personal) # rubocop:disable Style/RedundantSelf
+  end
+
   def add_user(user, plaintext_team_password)
     raise 'user is already team member' if teammember?(user.id)
 
     create_teammember(user, plaintext_team_password)
   end
 
-  def remove_user(user)
-    teammember(user.id).destroy!
-  end
-
-  def decrypt_team_password(user, plaintext_private_key)
-    crypted_team_password = teammember(user.id).password
-    Crypto::Rsa.decrypt(crypted_team_password, plaintext_private_key)
+  def self.policy_class
+    TeamPolicy
   end
 
   private
@@ -86,5 +66,4 @@ class Team < ApplicationRecord
     encrypted_team_password = Crypto::Rsa.encrypt(plaintext_team_password, user.public_key)
     teammembers.create!(password: encrypted_team_password, user: user)
   end
-
 end

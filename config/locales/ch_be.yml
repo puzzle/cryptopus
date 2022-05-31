@@ -1,572 +1,105 @@
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 ch_be:
   fallback: 'ACHTUNG! Das isch d Cryptopus Fallback Umgebig. Schrib keni neue Date wöu si nid erhalte blibe!'
-  confirmation: Bisch sicher?
-  show: Ahzeigä
-  edit: Editiere
-  update: Aktualisiere
-  create: Ersteuä
-  delete: Löschä
-  add: Drzuätuä
-  description: Beschribig
   username: Benutzername
   password: Passwort
-  actions: Aktionä
-  download: Abäladä
-  yes: Ja
-  no: Nei
   help: Hiuf
   version: Version
-  logout: Abmäudä
-  auto_logout: outomatisch Abmäudä i
   settings: Istellige
-  recrypt_requests: Recrypt Afragä
-  users: Benutzer
-  profile_title: Profiu
-  change_password: Passwort wächslä
-  last_login_date_and_from: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}"
-  last_login_date_and_from_country: "Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from} (%{last_login_country})"
-  last_login_date: "Ds letschtä Login isch am %{last_login_at} gsi"
-  unencrypted_field_caption: nid verschlüsslet
-  folder: Ordner
-  team: Team
-  move: Bewegä
-  here: hiä
-  new: Nöi
-  save: Spichere
-  close: Schliesse
-  hi_user: "Hoi, "
-  intro: Suechsch äuä es Passwort?
-  user: Benutzer
-  select_team: Wähl bitte es team us oder benutz d suechi
-  role: Rollä
-  empty: läär
-
-  api-user:
-    none: Du hesch kei Api-Benutzer. Hol dr einä
-  time:
-    formats:
-      default: "%A, %d. %B %Y, %H:%M"
-      long: "%A, %d. %B %Y, %H:%M"
-      short: "%d. %B, %H:%M"
-  date:
-    month_names:
-    -
-    - Januar
-    - Februar
-    - März
-    - April
-    - Mai
-    - Juni
-    - Juli
-    - August
-    - Septämber
-    - Oktober
-    - Novämber
-    - Dezämber
-
-    day_names:
-    - Sunntig
-    - Mäntig
-    - Dsischtig
-    - Mittwuch
-    - Donnstig
-    - Fritig
-    - Samstig
-
-  i18n:
-    language:
-      name: 'Bärndütsch'
-
-  search:
-    title: Suechä
-    index:
-      hi_user: "Hallo %{username}! Suechsch es Passwort?"
-      no_results_found: äuä nüt gfunde
-      type_to_search: Tippe für z sueche...
-
-  encryptables:
-    title: 'Encryptables'
-    index_menu:
-      create: Account ersteuä
-      folder: Ordner
-    show_menu:
-      add_attachment: Anhang hinzufüegä
-    edit:
-      title: Account editiere
-      random_password: Zuefäuigs Passwort
-      edit_password_placeholder: Klickä oder fokusierä für Igab ...
-      team_placeholder: Wähl äs Team us
-      folder_placeholder: Wähl ä Ordner us
-      password_strength: Passwort Sterchi
-      password_strengths:
-        weak: Schwach
-        fair: Agmässe
-        good: Guet
-        strong: Starch
-
-    show:
-      account: Account
-      last_change: "Letschti Änderig vor %{time_ago}"
-      attachments: Ahäng
-      file: Datei
-      show_password: Passwort ahzeigä
-      show_username: Benutzername ahzeigä
-      copy_password: Passwort kopierä
-      copy_username: Benutzername kopierä
-      add_attachment: Anhang hinzufüegä
-    new:
-      title: Nöie Account
+  last_login_date_and_from: 'Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from}'
+  last_login_date_and_from_country: 'Ds letschtä Login isch am %{last_login_at} gsi vo %{last_login_from} (%{last_login_country})'
+  last_login_date: 'Ds letschtä Login isch am %{last_login_at} gsi'
 
   admin:
-    title: Admin
-    maintenance_tasks:
-      index:
-        title: Wartigsufgabe
-        unavailable: Äuä ke Wartigsufgabe verfüegbar
-        maintenance_task: Wartigsufgab
-        run: Usfüehre
-        prepare: Vorbereite
-        execute: Usführe
-        executed_at: Usgführt am
-        status: Status
-        output: Output
-        executor: Usführer
-    settings:
-      index:
-        title: Istellige bearbeite
-        save: Änderige spichere
-        ldap: Ldap Verbindung testen
-        whitelisted_countries: Länder Whitelist
-        whitelisted_ips: IP Whitelist
-        whitelist_placeholder_geo_ip_deactivated: Faus keini IP's ahgäh sind wärde aui IP's erloubt
-        no_ips_selected: Fauses nit witer spezifiziert isch sind nor privati u Whitelist IP-Adrässe autorisiert
-        specify_single_ip: Einzelni IP-Adrässe chöi wie fougt ihgäh wärde
-        range:
-          specify_range_of_ips: Zum ä Spannwiiti z definiere chane IP-Adrässe mit de Subnetzmaske ihgäh wärde
-          range_between: Ds entspricht dr Spannwiiti zwösche
-          and: u
-        IPv6_allowed: IPv6 isch erloubt u cha wie fougt ihgäh wärde
     recryptrequests:
       uncrypterror:
-        new_password: Nöis Passwort?!
-        ldap_password_changed: Dis LDAP Passwort het sech sit dim letschte Login gänderet.
-        ldap_enter_old_password: Bitte gibt dies aute LDAP Passwort i um di privat Schlüssu z entschlüssle.
-        ldap_old_password: Dis aute LDAP Passwort
-        ldap_new_password: Dis nöie LDAP Passwort
-        ldap_password: Dis LDAP Passwort
-        forgot_password_recrypt: |
-          Faus dis Passwort hesch vergässä, wärdä nur d Teams entschlüsslet wo nid privat si.
-          Entstö dür das privati Teams uf die niemer Zuegriff het, wärdä die glöscht.
-          Nachdäm z Formular isch abgsendet worde, muesch warte, bis ä Admin d Afrag abgarbeitet het.
-        recrypt: Recrypt
         send: Ahfrag sändä
     users:
-      index_menu:
-        create: Benutzer ersteuä
-      edit:
-        title: Benutzer bearbeite
-        reset_password: Passwort zrüggsetze
-        warning: Z Zrüggsetze vom Benutzer-Passwort füehrt zum Verlust vom Zuegriff uf aui private Teams u d Löschig vo aune Teams, i dene er z einzige Mitglied isch
       index:
-        title: Benutzer
-        username: Benutzernamä
-        name: Namä
-        provider_uid: PROVIDER UID
         last_login_at: Letschti Ameudig am
         last_login_from: Letschti Ameudig vo
-        admin: Admin
-        action: Aktion
-        locked: Gsperrte Benutzer
-        unlock: Entsperre
-      last_teammember_teams:
-        message: Folgendi Teams i dene dr zu löschend Benutzer ds letschte Mitglied isch müesse glöscht werde.
-        delete_user: Bisch sicher, dass du dä Benutzer wosch lösche?
-        destroy: Benutzer lösche
-      new:
-        title: Nöie Benutzer
-    teams:
-      index:
-        title: Teams
-        teamname: Teamname
-        num_folders: Ahzahl Ordner
-        num_encryptables: Ahzahl Encryptables
-        members: Mitglieder
-  folders:
-    title: Ordner
-    name: Ordner Name
-    index_menu:
-      create: Ordner ersteue
-    edit:
-      title: Ordner bearbeite
-    new:
-      title: Ordner ersteue
-    show:
-      move: Account zumnä angere Ordner verschiebe
-      title: "Encryptables vom Ordner %{folder_name} vom Team %{team_name}"
-    no_encryptables: Ke Encryptables
-    tooltips:
-      delete: Ordner lösche
-      edit: Ordner bearbeite
-  encryptable_files:
-    new:
-      title: Ahang zum Account hinzuefüege
-      upload: Ufeladä
-      upload_file: Datei zum ufeladä
-      choose_file: Suech e Datei us
-      reupload: Wähl e angeri Datei
-      selected_file: Usgwählti Datei
 
   session:
     user_password:
-      title: Amäudä
-      submit: Amäudä
+      submit: Ahmäudä
     local:
       new:
-        title: Amäudä
-        submit: Amäudä
-    sso:
-      inactive:
-        title: Amäudä
-        submit: Amäudä
-        inactive: Dini Cryptopus session isch inaktiv
+        submit: Ahmäudä
+    oidc:
+      sleep: I schlafe grad, so dass dini wärtvouä date vor session-diäbä gschützt si. Weck mi aber eifach uf
+      submit: Weck mi uf!
     destroy:
-      title: Abmäudä
-      message: Ufwiderluege
-      hint: Bitte lösch dr Cache vo dim Brauser.
-      expired: Du bisch automatisch abgemeldet worde.
-    newuser:
-      title: Willkomme bim Cryptopus
-      description: Mir hei für di es nöis Schlüssupaar ersteut. Viu Spass mitem Cryptopus.
+      expired: Du bisch automatisch abgemeldet worde
     show_update_password:
-      title: Passwort wechsle
-      old: Auts Passwort
-      new: Nöis Passwort
-      new_retype: Nöis Passwort (nomau)
       submit: Ändere
-  recrypt:
-    sso:
-      new:
-        notice: Bitte gib dis Cryptopus Passwort i für di Account zu Keycloak z migriere.
-        cryptopus_password: Dis Cryptopus Passwort
-        migrate: Migriere
-  teammembers:
-    new:
-      title: Es nöis Teammitglied hinzuefüege
-    confirm:
-      delete: "%{entry_label} vo dem Team entferne?"
-    show: Mitglider azeige
-    hide: Mitglider verstecke
 
-  teams:
-    title: Teams
-    none_available: Kener Teams verfüegbar
-    loading: Am lade ...
-    edit:
-      title: Team bearbeite
-    configure:
-      title: Teammitglider u Api Benützer apasse
-    form:
-      private: Privat
-      enabled: Aktiviert
-    index_menu:
-      create: Team ersteue
-    edit_button:
-      title: Bearbeite Eigeschafte vom Team
-    config_button:
-      title: Füeg hinzue u lösch Mitglieder u API Benutzer
-    index:
-      title: 'Du bisch es Mitglied vo de fougende Teams:'
-      team: Team
-      no_content: Ke Resultat
-      search: Suechresultat für
-    new:
-      title: Team ersteue
-    description:
-      private: Admins hei ke Zuegriff we si agwäut si
-    show:
-      title: "Ordner vom Team %{team_name}"
-      folder: Ordner
-      members: Mitglider
-      add_member: Mitglied hinzuefüege
-      admins: Admins
-    delete: Team löschä
-    favorise: Team favorisiärä
-    defavorise: Team entfavorisiärä
-    no_folders: Ke Ordner
+  recrypt:
+    oidc:
+      new:
+        notice: Bitte gib dis Cryptopus-Passwort ih, um dis Konto zu OpenID connect / Keycloak z migriere
+        cryptopus_password: Dis Cryptopus Passwort
+        migrate: Migriärä
+
   profile:
-    index:
-      title: "S Profil vom %{label}"
     info:
-      info: Info
       last_login_at: Letschts Login am
       last_login_from: Letschts Login vo
     api_users:
-      api_users: Api Benützer
-      no_api_users: Kei Api Benützer
-      username: Benutzernamä
-      description: Beschribig
-      enter_description: Gib e beschribig ii..
-      valid_until: Güutig bis
-      valid_for: Güutig für
       last_login_at: Letschts Login am
       last_login_from: Letschts Login vo
-      options:
-        one_min: Ei minutä
-        five_mins: Füf minutä
-        twelve_hours: Zwöuf Stung
-        infinite: Eewigs
 
   flashes:
-    something_went_wrong: Öppis isch fautsch gloffe
     api:
       admin:
         users:
           update:
-            user: "Aktualisierte Benutzer isch itz ä Benutzer"
-            conf_admin: "Aktualisierte Benutzer isch itz ä conf-admin"
-            admin: "Aktualisierte Benutzer isch itz ä admin"
-          toggle:
-            empowered: "%{username} het ab iz Admin-Rächt"
-            disempowered: "Am Benutzer %{username} si d Admin-Rächt entzoge worde"
-        settings:
-          test_ldap_connection:
-            successful: "Verbindig zum Ldap Server %{hostname} erfougrich"
-            failed: "Verbindig zum Ldap Server %{hostname} fäugschlage"
-            no_hostname_present: "S isch kein Hostname vorhange"
+            user: Aktualisierte Benutzer isch itz ä Benutzer
+            conf_admin: Aktualisierte Benutzer isch itz ä conf-admin
+            admin: Aktualisierte Benutzer isch itz ä admin
       api-users:
-        create: "%{username} isch ersteut worde"
         update:
-          description: "%{username}'s Beschribig isch aktualisiert worde"
-          valid_for: "Benutzer %{username} wird nachem nächste Erneuere %{valid_for} gültig si"
           time:
             one_min: für ei Minute
             five_mins: für füüf Minute
             twelve_hours: für zwöuf Stunde
-            infinite: bis ads Endi vor Zit
-        destroy: "%{username} isch entfernt worde"
-        lock: "%{username} isch gsperrt worde"
-        unlock: "%{username} isch entsperrt worde"
+            infinite: ohni limit
+        lock: '%{username} isch gsperrt worde'
+        unlock: '%{username} isch entsperrt worde'
         token:
-          renew: "%{username} isch ernöieret worde, nöis Token: %{token}"
-        ccli_login:
-          copied: CCLI Login Befäu isch kopiert worde
+          renew: '%{username} isch ernöieret worde, nöiä Token: %{token}'
       members:
-        added: Mitglied isch erfougrich hinzuegfüegt worde
         removed: Mitglied isch erfougrich entfernt worde
-      errors: 
-        auth_failed: Authentifizierig fäugschlage
-        user_not_logged_in: Benutzer isch nid igloggt
-        invalid_request: Invalidi Ahfrag
-        record_not_found: Ihtrag isch nid gfunde worde
-        delete_failed: Ihtrag het nid chenne g'löscht wärde
-      fill_password_fields: Bitte füu aui Fäuder us
-      paswords_do_not_match: D Passwörter stimme nid überi
-    admin:
-      admin:
-        no_access: Zuegriff verweigeret
-      settings:
-        example: Das si Bispiuistellige. Bitte schrib dini eigete Istellige härä.
-        successfully_updated: Dini Istellige si erfougrich apasst worde.
-      recryptrequests:
-        some: "Es paar Passwörter si erfougrich widerverschlüsslet worde für %{user_name}."
-        all: "Aui Passwörter si erfougrich widerverschlüsslet worde für %{user_name}."
-        resetpassword:
-          success: Ds Passwort isch erfougrich zrügg gsetzt worde
-          required: Ds Passwort darf nid läär si
-      users:
-        created: Dr nöi Benutzer isch erfougrich ersteut worde.
-        destroy:
-          own_user: Dr eiget Benutzer cha nid glösche werde
-          root: Dr Root cha nid glösche werde
-        update:
-          root: Dr Root cha nid aktualisiert werde
-          not_db: Nume Db User chöi aktualisiert werde
-      maintenance_tasks:
-        succeed: D Wartigsufgab isch erfougrich düregfüehrt worde
-        failed: D Wartigsufgab isch gschiteret. Lueg i de Logs für me Details nache.
 
-    encryptables:
-      created: Dr nöi Account isch erfougrich ersteut worde.
-      updated: Dr Account isch erfougrich aktualisiert worde.
-      deleted: Dr Account isch erfougrich glöscht worde.
-      moved: Der Account isch erfougrich verschobe worde.
-      username_copied: Dr Benutzernamä isch kopiert worde
-      password_copied: Ds Passwort isch kopiert worde
-    application:
-      wait: Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde.
-    folders:
-      created: Dr nöii Ordner isch erfougrich ersteut worde.
-      updated: Dr Ordner isch erfougrich bearbeitet worde.
-      deleted: Dr Ordner isch erfougrich glöscht worde.
     encryptable_files:
-      uploaded: D Datei isch erfougrich ufeglade worde.
-      deleted: D Datei isch erfougrich glöscht worde.
+      uploaded: D Datei isch erfougrich ufeglade worde
       uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
       uploaded_filename_is_empty: D Datei muess e Name ha
-      uploaded_file_blank: D Datei mues ä Inhaut ha
+      uploaded_file_inexistent: D Datei isch inexistänt
+      uploaded_file_blank: D datei daf nid läär si
+      uploaded_filename_already_exists: Dr Dateiname isch scho verhandä
     session:
-      welcome: Willkomme bim Cryptopus. Zerscht muesch e nöie Account ersteue. Bitte wäu es sicheres Passwort.
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
-      only_local: Nume lokali Benutzer dörfe ires Passwort ändere.
-      new_password_set: Ds nöie Passwort isch erfougrich gsetzt worde.
-      new_passwords_not_equal: Di nöie Passwörter si nid glich.
-      not_local: Du bisch ke lokale Benutzer!
-      locked: Dr Benutzer isch momentan gsperrt. Bitte probiers speter nomau oder kontaktier dr Administrator.
-      weak_password: Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle
-    recryptrequests:
-      recrypted: Dis Passwort isch erfougrich nöi verschlüsslet worde.
-      wait: Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde.
-      wrong_password: Ds Passwort isch fausch gsi.
+      weak_password: 'Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle'
     teams:
-      wrong_user_password: Gib e gültige Benutzername u es korrekts Passwort i oder überprüef dini LDAP Istellige.
-      created: Ds Team isch erfougrich ersteut worde.
-      updated: Ds Team isch erfougrich apasst worde.
-      deleted: Ds Team isch erfougrich glöscht worde.
-      cannot_delete: Nume Admins chöi z Team lösche.
-      no_member: Du bisch kes Mitglied vo dem Team
-    teammembers:
-      could_not_remove_last_teammember: Dr letscht Benutzer vomene Team cha nid entfernt werde
-      could_not_remove_admin_from_private_team: Admins chöi nid usemne private Team glöscht werde
-
-  helpers:
-    label:
-      user:
-        username: Benutzername
-        password: Passwort
-        admin: Admin
-        givenname: Vorname
-        surname: Nachname
-        submit: Ersteue
-      account:
-        account: Account
-        name: Accountname
-        username: Benutzername
-        password: Passwort
-        description: Beschribig
-      team:
-        name: Name
-        description: Beschribig
-      folder:
-        name: Name
-        description: Beschribig
-      ldapsetting:
-        portnumber: Port
-        bind_password: Bind Passwort
-        encryption: Verschlüsselig
+      not_existing: 'Es existiert kes Team mit dr Id %{id}'
 
   confirm:
-    delete: "%{entry_class} %{entry_label} lösche?"
-    change_admin: Admin-Rächt gä/entzie?
-    deleteWithTeams: "Lösch aui Teams i dene %{username} ds letschte Teammitglied isch"
+    delete: '%{entry_class} %{entry_label} lösche?'
 
-
-#Validation Errors
+  #Validation Errors
   activerecord:
-    attributes:
-      user:
-        username: 'Benutzername'
     errors:
-      template:
-        body: ''
-        header: ''
       models:
-        account:
-          attributes:
-            name:
-              blank: 'cha nid läär si'
-              taken: 'isch bereit vergä'
-        folder:
-          attributes:
-            name:
-              blank: 'cha nid läär si'
-              taken: 'isch bereits vergä'
         user:
-          new_password_invalid: Dis nöie Passwort isch fausch gsi
-          old_password_invalid: Dis aute Passwort isch fausch gsi
+          new_password_invalid: Dis NÖIÄ passwort isch fausch gsi
+          old_password_invalid: Dis AUTÄ passwort isch fausch gsi
+        encryptable/file:
           attributes:
-            username:
-              blank: 'cha nid läär si'
-              taken: 'isch bereits vergä'
-        file_entry:
-          attributes:
-            filename:
-              blank: 'Dr Dateinamä cha nid läär si'
-              taken: 'Dr Dateinamä isch scho vergä'
+            name:
+              taken: Datei isch schomau ufägladä wordä
 
-  datetime:
-    distance_in_words:
-      about_x_hours:
-        one: öpe ei Stund
-        other: "öpe %{count} Stunde"
-      about_x_months:
-        one: öpe ei Monet
-        other: "öpe %{count} Mönet"
-      about_x_years:
-        one: öpe eis Jahr
-        other: "öpe %{count} Jahr"
-      almost_x_years:
-        one: fasch eis Jahr
-        other: "fasch %{count} Jahr"
-      half_a_minute: ä haubi Minute
-      less_than_x_minutes:
-        one: weniger aus e Minute
-        other: "weniger aus %{count} Minute"
-      less_than_x_seconds:
-        one: weniger aus e Sekunde
-        other: "weniger aus %{count} Sekunde"
-      over_x_years:
-        one: me aus es Jahr
-        other: "me aus %{count} Jahr"
-      x_days:
-        one: ei Tag
-        other: "%{count} Täg"
-      x_minutes:
-        one: ei Minute
-        other: "%{count} Minute"
-      x_months:
-        one: ei Monet
-        other: "%{count} Mönet"
-      x_seconds:
-        one: eine Sekunde
-        other: "%{count} Sekunde"
-
-  password_strength:
-    weak: Ds Passwort isch unsicher
-    good: Ds Passwort gnüegt
-    strong: Ds Passwort isch starch!
-
-  tooltips:
-    all_teams: Aui Teams
-    favorites: Favoritä
-    settings_profile: Istellige & Profil
-    add_folder: Erstell en neue Ordner
-    add_account: Erstell en neue Account
-    account_details: Account Details ahzeige
-    delete_folder: Ordner lösche
-    delete_account: Account lösche
-    configure: Konfigurier d'Mitgliedr
-
-  validations:
-    name:
-      present: Dr Name muess vorhande si
-      too_long: Dr Name isch zläng
-      duplicate_name: Dä Account giz scho!
-    description:
-      too_long: D Beschribig isch zläng
-    file:
-      present: D Datei muess ume si
-    team:
-      present: Ds Team muess vorhande si
-    folder:
-      present: Dr Ordner muess ume si
-    cleartext username:
-      too_long: Dr Benutzername isch zläng
-    cleartext password:
-      too_long: Ds Passwort isch zläng
+  #Pundit
+  pundit:
+    default: Zuegriff verweigeret
+    team_policy:
+      update?: Du bisch kes Mitglied vo däm Team
+      destroy?: Numä Admin si berächtigt Teams z löschä

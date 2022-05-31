@@ -1,5 +1,5 @@
 {{#if this.isEncryptableEditing}}
-  <Encryptable::Form @encryptable={{@encryptable}} @title={{t "encryptables.edit.title"}} @onAbort={{this.toggleEncryptableEdit}}/>
+  <Encryptable::Form @encryptable={{@encryptable}} @title={{t "encryptable/credentials.edit.title"}} @onAbort={{this.toggleEncryptableEdit}}/>
 {{/if}}
 {{#if this.isFileCreating}}
   <EncryptableFile::Form @class="modal_file_entry" @encryptableCredential={{@encryptable}} @title={{t "encryptable_files.new.title"}} @onAbort={{this.toggleFileNew}}/>
@@ -26,12 +26,12 @@
   </div>
   <div class="row pb-3 justify-content-between">
     <div class="col-lg-9 accountname">
-      <h2 class="d-inline">{{t "encryptables.show.encryptable"}}: {{@encryptable.name}}</h2>
+      <h2 class="d-inline">{{t "encryptable/credentials.show.title"}}: {{@encryptable.name}}</h2>
     </div>
     <div class="col-lg-9 accountname text-muted">
-      <br><p class="d-inline">{{t "encryptables.show.created_at"}}: {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}</p>
+      <br><p class="d-inline">{{t "encryptable/credentials.show.created_at"}}: {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}</p>
        /
-      <p class="d-inline">{{t "encryptables.show.last_update"}}: {{moment-format @encryptable.updatedAt "DD.MM.YYYY hh:mm"}}</p>
+      <p class="d-inline">{{t "encryptable/credentials.show.last_update"}}: {{moment-format @encryptable.updatedAt "DD.MM.YYYY hh:mm"}}</p>
     </div>
   </div>
 
@@ -44,7 +44,7 @@
   {{/if}}
   <div>
     {{#if @encryptable.isOseSecret}}
-      <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptables.show.show_secret"}}</a>
+      <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptable/credentials.show.show_secret"}}</a>
       <div class="result-password">
         <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@encryptable.data.ose_secret}}/>
         <CopyButton class="btn btn-light" @clipboardText={{@encryptable.data.ose_secret}}>
@@ -58,7 +58,7 @@
           <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
         </CopyButton>
       </div>
-      <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptables.show.show_password"}}</a>
+      <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptable/credentials.show.show_password"}}</a>
       <div class="result-password">
         <Input id="cleartext_password" class="d-inline form-control {{if this.isPasswordVisible "" "visibility-hidden"}}" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
         <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextPassword}} @success={{fn this.onCopied "password"}}>
@@ -69,18 +69,18 @@
   </div>
   <div class="d-flex flex-row justify-content-between mb-2">
     <div>
-      <h3>{{t "encryptables.show.attachments"}}</h3>
+      <h3>{{t "encryptable/credentials.show.attachments"}}</h3>
     </div>
     <div>
       <BsButton @type="primary" {{on "click" this.toggleFileNew}}>
-        {{t "encryptables.show.add_attachment"}}
+        {{t "encryptable/credentials.show.add_attachment"}}
       </BsButton>
     </div>
   </div>
   <table class="table table-striped">
     <tbody>
       <tr>
-        <th>{{t "encryptables.show.file"}}</th>
+        <th>{{t "encryptable/credentials.show.file"}}</th>
         <th class="description">{{t "description"}}</th>
         <th>{{t "actions"}}</th>
       </tr>

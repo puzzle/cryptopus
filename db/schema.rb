@@ -57,6 +57,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_29_122335) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "visible", default: true, null: false
     t.boolean "private", default: false, null: false
+    t.string "type", default: "Team::Shared", null: false
+    t.integer "personal_owner_id"
     t.index ["name"], name: "index_teams_on_name"
   end
 

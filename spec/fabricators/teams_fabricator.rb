@@ -7,6 +7,7 @@ Fabricator(:non_private_team, from: :team) do |t|
   t.description { Faker::Hacker.say_something_smart }
   t.visible true
   t.private false
+  t.type Team::Shared
   after_save do |team|
     team_password = Crypto::Symmetric::Aes256.random_key
     team.add_user(Fabricate(:user), team_password)
@@ -23,6 +24,7 @@ Fabricator(:private_team, from: :team) do |t|
   t.description { Faker::Hacker.say_something_smart }
   t.visible true
   t.private true
+  t.type Team::Shared
   after_save do |team|
     team_password = Crypto::Symmetric::Aes256.random_key
     team.add_user(Fabricate(:user), team_password)

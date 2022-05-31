@@ -2,7 +2,7 @@
   <Folder::Form @folder={{@folder}} @onAbort={{this.toggleFolderEdit}} @title={{t "folders.edit.title"}}/>
 {{/if}}
 {{#if this.isNewEncryptable}}
-  <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "encryptables.new.title"}}/>
+  <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "encryptable/credentials.new.title"}}/>
 {{/if}}
 <div id="folder-header-{{@folder.id}}" class="pl-2 pr-2 folder-card-header {{if this.isExpanded "br-4"}}">
   <div class="d-flex row justify-content-between folder-show-header">
@@ -15,16 +15,18 @@
     <div class="col-auto justify-content-between d-flex align-items-center align-right-on-smartphone">
       <a class="margin-for-buttons mx-1" role="button" {{on "click" this.toggleEncryptableCreating}}>
         <img class="icon-big-button " src="/assets/images/plus-blue.svg" alt="new">
-        <BsTooltip @title={{t "tooltips.add_account"}} @delayShow="1000" />
+        <BsTooltip @title={{t "tooltips.add_encryptable"}} @delayShow="1000" />
       </a>
-      <a class="margin-for-buttons mx-1" role="button" {{on "click" this.toggleFolderEdit}}>
-        <img class="icon-big-button " src="/assets/images/edit-blue.svg" alt="edit folder">
-        <BsTooltip @title={{t "folders.tooltips.edit"}} @delayShow="1000" />
-      </a>
-      <DeleteWithConfirmation @class="mx-1" @record={{@folder}} @didDelete={{this.refreshRoute}}>
-        <img class="icon-big-button d-inline my-auto" src="/assets/images/delete-blue.svg" alt="delete folder">
-        <BsTooltip @title={{t "tooltips.delete_folder"}} @delayShow="1000" />
-      </DeleteWithConfirmation>
+      {{#unless @folder.team.personal_team}}
+        <a class="margin-for-buttons mx-1" role="button" {{on "click" this.toggleFolderEdit}}>
+          <img class="icon-big-button " src="/assets/images/edit-blue.svg" alt="edit folder">
+          <BsTooltip @title={{t "folders.tooltips.edit"}} @delayShow="1000" />
+        </a>
+        <DeleteWithConfirmation @class="mx-1" @record={{@folder}} @didDelete={{this.refreshRoute}}>
+          <img class="icon-big-button d-inline my-auto" src="/assets/images/delete-blue.svg" alt="delete folder">
+          <BsTooltip @title={{t "tooltips.delete_folder"}} @delayShow="1000" />
+        </DeleteWithConfirmation>
+      {{/unless}}
     </div>
     <div class="col-auto pl-0 justify-content-between d-flex align-items-center">
       <span role="button" name="folder-collapse" {{on "click" this.toggleExpanded }}>

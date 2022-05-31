@@ -13,31 +13,22 @@
 #  private     :boolean          default(FALSE), not null
 #
 
-# Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-# Cryptopus and licensed under the Affero General Public License version 3 or later.
-# See the COPYING file at the top-level directory or at
-# https://github.com/puzzle/cryptopus.
-
 class TeamSerializer < ApplicationSerializer
-  attributes :id, :name, :description, :private, :favourised, :deletable
+  # To hide STI name in Frontend
+  type Team.name.pluralize
+  attributes :id, :name, :description, :private, :favourised, :deletable, :type
 
   has_many :folders, serializer: FolderMinimalSerializer
 
   def favourised
-    users_favorised_current_team.include?(user.id)
+    object.personal_team? || current_user.favourite_team_ids.include?(object.id)
   end
 
   def deletable
-    TeamPolicy.new(user, object).destroy?
+    TeamPolicy.new(current_user, object).destroy?
   end
 
-  private
-
-  def user
-    current_user
-  end
-
-  def users_favorised_current_team
-    @users_favorised_current_team ||= object.user_favourite_teams.pluck(:team_id)
+  def personal_team
+    object.personal_team?
   end
 end

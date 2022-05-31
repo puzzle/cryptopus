@@ -33,7 +33,7 @@ describe 'Root login' do
 
     expect(request.fullpath).to eq(session_local_path)
     expect(response.body)
-      .to match(/Authentication failed! Enter a correct username and password./)
+      .to match(/Authentication failed! Enter a correct username and password/)
   end
 
   it 'lets root login with keycloak enabled' do

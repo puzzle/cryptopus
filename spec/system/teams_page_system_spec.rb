@@ -115,7 +115,6 @@ describe 'TeamsPage', type: :system, js: true do
   end
 
   def click_team_favourites_button
-    all('span[role="button"]')[3].click
     within(find('div.py-2.d-flex.team-card-header')) do
       expect(find('img[alt="star"]')['src']).to include '/assets/images/star-white-filled.svg'
     end
