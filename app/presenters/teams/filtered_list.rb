@@ -6,7 +6,6 @@ module ::Teams
     def fetch_entries
       filtered_teams = teams
 
-      filtered_teams = filter_by_favourite if true?(favourite)
       filtered_teams = filter_by_query(filtered_teams) if query_present?
       filtered_teams = filter_by_id if team_id.present?
       filtered_teams = filter_by_last_teammember if only_teammember_user.present?
@@ -33,9 +32,20 @@ module ::Teams
     end
 
     def teams
-      @current_user.teams
-                   .includes(:user_favourite_teams, :folders)
-                   .limit(limit)
+      if true?(favourite)
+        teams = @current_user.favourite_teams
+      else
+        teams = @current_user.teams
+      end
+      teams.includes(team_includes)
+    end
+
+    def team_includes
+      if team_id || query_present?
+        [:user_favourite_teams, folders: [:encryptables]]
+      else
+        [:user_favourite_teams, :folders]
+      end
     end
 
     def team_id
@@ -47,23 +57,23 @@ module ::Teams
     end
 
     def filter_by_query(teams)
-      teams.includes(:folders, folders: [:encryptables]).where(
+      teams.where(
         'lower(encryptables.description) LIKE :query
         OR lower(encryptables.name) LIKE :query
         OR lower(folders.name) LIKE :query
         OR lower(teams.name) LIKE :query',
         query: "%#{query}%"
       )
-           .references(:folders,
-                       folders: [:encryptables])
+        .references(:folders,
+                    folders: [:encryptables])
     end
 
     def filter_by_id
-      [Team.find(team_id)]
+      [Team.includes(folders: :encryptables).find(team_id)]
     end
 
     def filter_by_favourite
-      @current_user.favourite_teams + [@current_user.personal_team]
+      @current_user.favourite_teams
     end
 
     def filter_by_last_teammember

@@ -98,7 +98,7 @@ describe Api::TeamsController do
       expect(response.status).to be(200)
 
       expect(data.size).to be(2)
-      attributes = data.first['attributes']
+      attributes = data.second['attributes']
 
       included_types = json['included'].map { |e| e['type'] }
 
@@ -107,9 +107,9 @@ describe Api::TeamsController do
       expect(included_types).not_to include('encryptable_file')
 
       expect(attributes['name']).to eq team1.name
-      expect(attributes['description']).to eq team1.description
+      expect(attributes['description']).to be_nil
 
-      folder_relationships_length = data.first['relationships']['folders']['data'].size
+      folder_relationships_length = data.second['relationships']['folders']['data'].size
 
       expect(included.size).to be(4)
       expect(folder_relationships_length).to be(3)
@@ -266,7 +266,7 @@ describe Api::TeamsController do
 
           expect(team_data['id'].to_i).to eq(soloteam.id)
           expect(team_attributes['name']).to eq(soloteam.name)
-          expect(team_attributes['description']).to eq(soloteam.description)
+          expect(team_attributes['description']).to be_nil
 
           expect(response).to have_http_status(200)
         end
@@ -283,7 +283,7 @@ describe Api::TeamsController do
 
           expect(team_data['id'].to_i).to eq(soloteam.id)
           expect(team_attributes['name']).to eq(soloteam.name)
-          expect(team_attributes['description']).to eq(soloteam.description)
+          expect(team_attributes['description']).to be_nil
 
           expect(response).to have_http_status(200)
         end

@@ -18,7 +18,7 @@ class TeamSerializer < ApplicationSerializer
   type Team.name.pluralize
   attributes :id, :name, :description, :private, :favourised, :deletable, :type
 
-  has_many :folders, serializer: FolderMinimalSerializer
+  has_many :folders, serializer: FolderSerializer
 
   def favourised
     object.personal_team? || current_user.favourite_team_ids.include?(object.id)

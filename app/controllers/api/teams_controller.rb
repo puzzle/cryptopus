@@ -62,7 +62,15 @@ class Api::TeamsController < ApiController
   end
 
   def render_options
-    teams_list? ? { include: '*' } : { include: '**' }
+    { include: '**' }
+  end
+
+  def list_serializer
+    if teams_list?
+      TeamListSerializer
+    else
+      model_serializer
+    end
   end
 
   def teams_list?
