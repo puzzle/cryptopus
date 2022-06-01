@@ -32,17 +32,17 @@ module ::Teams
     end
 
     def teams
-      if true?(favourite)
-        teams = @current_user.favourite_teams
-      else
-        teams = @current_user.teams
-      end
+      teams = if true?(favourite)
+                @current_user.favourite_teams
+              else
+                @current_user.teams
+              end
       teams.includes(team_includes)
     end
 
     def team_includes
       if team_id || query_present?
-        [:user_favourite_teams, folders: [:encryptables]]
+        [:user_favourite_teams, { folders: [:encryptables] }]
       else
         [:user_favourite_teams, :folders]
       end
@@ -64,8 +64,8 @@ module ::Teams
         OR lower(teams.name) LIKE :query',
         query: "%#{query}%"
       )
-        .references(:folders,
-                    folders: [:encryptables])
+           .references(:folders,
+                       folders: [:encryptables])
     end
 
     def filter_by_id
