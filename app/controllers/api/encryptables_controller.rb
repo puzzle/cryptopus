@@ -3,7 +3,7 @@
 class Api::EncryptablesController < ApiController
   include Encryptables
 
-  self.permitted_attrs = [:name, :description, :tag]
+  self.permitted_attrs = [:name, :description, :tag, :receiver_id]
 
   helper_method :team
 
@@ -31,7 +31,11 @@ class Api::EncryptablesController < ApiController
     build_entry
     authorize entry
 
-    entry.encrypt(decrypted_team_password(team))
+    if encryptable_sharing?
+      entry.encrypt(transfer_password)
+    else
+      entry.encrypt(decrypted_team_password(team))
+    end
 
     if entry.save
       render_entry({ status: :created })

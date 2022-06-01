@@ -700,6 +700,27 @@ describe Api::EncryptablesController do
     end
   end
 
+  context 'share Encryptable' do
+    it 'build_entry returns shared_encryptable if shared_encrytable is true' do
+      login_as(:alice)
+
+
+      share_encryptable_params = {
+        data: {
+          attributes: {
+            receiver_id: bob.id
+          }
+        }
+      }
+
+      post :create, params: share_encryptable_params, xhr: true
+
+      # shared_encryptable_json_attributes = data['attributes']
+      #
+      # expect(shared_encryptable_json_attributes['reciver_id']).to eg(bob.id)
+    end
+  end
+
   private
 
   def create_ose_secret

@@ -65,12 +65,17 @@ module Encryptables
   end
 
   def shared_encryptable
-    options = {
-      current_user: current_user,
-      decrypted_team_password: decrypted_team_password(team)
-    }
+    if encryptable.present?
+      options = {
+        current_user: current_user,
+        decrypted_team_password: decrypted_team_password(team)
+      }
 
-    shared_encryptable = Encryptable::Sharing.new(encryptable, receiver_id, options).prepare_encryptable
+      shared_encryptable = Encryptable::Sharing.new(encryptable, receiver_id, options).prepare_encryptable
+    else
+      # shared_encryptable = Encryptable::Sharing.new(encryptable, receiver_id, options).prepare_file
+    end
+
     instance_variable_set(:"@#{ivar_name}", shared_encryptable)
   end
 
@@ -79,7 +84,7 @@ module Encryptables
   end
 
   def receiver_id
-      params[:receiver_id]
+    params.dig('data', 'attributes', 'receiver_id')
   end
 
   def decrypt_shared_encryptable(entry, private_key)
@@ -122,6 +127,6 @@ module Encryptables
   end
 
   def encryptable
-    @encryptable ||= Encryptable.find(params[:id])
+    @encryptable ||= Encryptable.find_by(params[:id])
   end
 end

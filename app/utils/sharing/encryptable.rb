@@ -2,7 +2,7 @@
 
 class Encryptable::Sharing
 
-  def initialize(encryptable, receiver_id, options={})
+  def initialize(encryptable, receiver_id, options = {})
     @encryptable = encryptable
     @receiver_id = receiver_id
     @options = options
@@ -15,10 +15,16 @@ class Encryptable::Sharing
     duplicated_encryptable.encrypt(plaintext_transfer_password)
 
     receiver_public_key = User.find(@receiver_id).public_key
-    encrypted_transfer_password = Crypto::Rsa.encrypt(plaintext_transfer_password, receiver_public_key)
-    duplicated_encryptable = update_duplicated_encryptable(duplicated_encryptable, encrypted_transfer_password)
+    encrypted_transfer_password = Crypto::Rsa.encrypt(
+      plaintext_transfer_password,
+      receiver_public_key
+    )
+    duplicated_encryptable = update_duplicated_encryptable(
+      duplicated_encryptable,
+      encrypted_transfer_password
+    )
     begin
-    duplicated_encryptable.save!
+      duplicated_encryptable.save!
     rescue
       flash[:error] = duplicated_encryptable.errors.first.message
     end
@@ -55,7 +61,7 @@ class Encryptable::Sharing
       end
     end
 
-    duplicated_encryptable.name  << ' ' + receiver_user.username
+    duplicated_encryptable.name << ' ' + receiver_user.username
     duplicated_encryptable
   end
 
