@@ -34,7 +34,6 @@ class User::Human < User
   has_many :teammembers, dependent: :destroy, foreign_key: :user_id
   has_many :teams, -> { order :name }, through: :teammembers
   has_many :user_favourite_teams, dependent: :destroy, foreign_key: :user_id
-  has_many :favourite_teams, -> { order :name }, through: :user_favourite_teams, source: :team
   has_many :api_users, class_name: 'User::Api', dependent: :destroy,
                        foreign_key: :human_user_id
 
@@ -84,6 +83,13 @@ class User::Human < User
   end
 
   # Instance Methods
+  #
+  def favourite_teams
+    favourite_team_ids = user_favourite_teams.pluck(:team_id)
+    personal_team_id = teams.where(personal_owner_id: id).pluck(:id)
+    favourite_team_ids += personal_team_id
+    teams.where(id: favourite_team_ids)
+  end
 
   def only_teammember_in_any_team?
     only_teammember_teams.any?

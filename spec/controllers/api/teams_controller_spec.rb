@@ -48,6 +48,9 @@ describe Api::TeamsController do
 
       included_folders = included.select { |e| e['type'] == 'folders' }
       expect(included_folders.size).to be(5)
+
+      included_types = json['included'].map { |e| e['type'] }
+      expect(included_types).not_to include('encryptable_credentials')
     end
 
     it 'raises error if team_id doesnt exist' do
@@ -95,20 +98,20 @@ describe Api::TeamsController do
       expect(response.status).to be(200)
 
       expect(data.size).to be(2)
-      attributes = data.first['attributes']
+      attributes = data.second['attributes']
 
       included_types = json['included'].map { |e| e['type'] }
 
       expect(included_types).to include('folders')
-      expect(included_types).to include('encryptable_credentials')
+      expect(included_types).not_to include('encryptable_credentials')
       expect(included_types).not_to include('encryptable_file')
 
       expect(attributes['name']).to eq team1.name
-      expect(attributes['description']).to eq team1.description
+      expect(attributes['description']).to be_nil
 
-      folder_relationships_length = data.first['relationships']['folders']['data'].size
+      folder_relationships_length = data.second['relationships']['folders']['data'].size
 
-      expect(included.size).to be(6)
+      expect(included.size).to be(4)
       expect(folder_relationships_length).to be(3)
 
     end
@@ -263,7 +266,7 @@ describe Api::TeamsController do
 
           expect(team_data['id'].to_i).to eq(soloteam.id)
           expect(team_attributes['name']).to eq(soloteam.name)
-          expect(team_attributes['description']).to eq(soloteam.description)
+          expect(team_attributes['description']).to be_nil
 
           expect(response).to have_http_status(200)
         end
@@ -280,7 +283,7 @@ describe Api::TeamsController do
 
           expect(team_data['id'].to_i).to eq(soloteam.id)
           expect(team_attributes['name']).to eq(soloteam.name)
-          expect(team_attributes['description']).to eq(soloteam.description)
+          expect(team_attributes['description']).to be_nil
 
           expect(response).to have_http_status(200)
         end
