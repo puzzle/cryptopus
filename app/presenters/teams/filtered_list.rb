@@ -6,7 +6,7 @@ module ::Teams
     def fetch_entries
       filtered_teams = teams
 
-      filtered_teams = filter_by_favourite if favourite.present? && true?(favourite)
+      filtered_teams = filter_by_favourite if true?(favourite)
       filtered_teams = filter_by_query(filtered_teams) if query_present?
       filtered_teams = filter_by_id if team_id.present?
       filtered_teams = filter_by_last_teammember if only_teammember_user.present?
@@ -34,7 +34,7 @@ module ::Teams
 
     def teams
       @current_user.teams
-                   .includes(:user_favourite_teams, :folders, folders: [:encryptables])
+                   .includes(:user_favourite_teams, :folders)
                    .limit(limit)
     end
 

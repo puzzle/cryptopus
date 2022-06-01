@@ -48,6 +48,9 @@ describe Api::TeamsController do
 
       included_folders = included.select { |e| e['type'] == 'folders' }
       expect(included_folders.size).to be(5)
+
+      included_types = json['included'].map { |e| e['type'] }
+      expect(included_types).not_to include('encryptable_credentials')
     end
 
     it 'raises error if team_id doesnt exist' do
@@ -100,7 +103,7 @@ describe Api::TeamsController do
       included_types = json['included'].map { |e| e['type'] }
 
       expect(included_types).to include('folders')
-      expect(included_types).to include('encryptable_credentials')
+      expect(included_types).not_to include('encryptable_credentials')
       expect(included_types).not_to include('encryptable_file')
 
       expect(attributes['name']).to eq team1.name
@@ -108,7 +111,7 @@ describe Api::TeamsController do
 
       folder_relationships_length = data.first['relationships']['folders']['data'].size
 
-      expect(included.size).to be(6)
+      expect(included.size).to be(4)
       expect(folder_relationships_length).to be(3)
 
     end
