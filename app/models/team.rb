@@ -71,7 +71,7 @@ class Team < ApplicationRecord
   end
 
   def password_bytesize
-    Crypto::Symmetric::EncryptionAlgorithm::ALGORITHMS[self.encryption_algorithm].password_bitsize
+    Crypto::Symmetric::EncryptionAlgorithm::ALGORITHMS[encryption_algorithm].password_bitsize
   end
 
   def encryption_algorithm
@@ -92,7 +92,7 @@ class Team < ApplicationRecord
   def encryptables
     Encryptable.includes(:folder, folder: [:team]).where(
       'teams.id = :team_id',
-      team_id: self.id
+      team_id: id
     ).references(:folder, folder: [:team])
   end
 

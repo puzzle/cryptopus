@@ -6,7 +6,7 @@ class Crypto::Symmetric::EncryptionAlgorithm
   ALGORITHMS = {
     AES256: Crypto::Symmetric::Aes256,
     AES256IV: Crypto::Symmetric::Aes256iv
-  }
+  }.freeze
 
   class << self
     def latest_algorithm

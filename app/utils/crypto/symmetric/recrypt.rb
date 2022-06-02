@@ -11,23 +11,24 @@ class Crypto::Symmetric::Recrypt
   def perform
     return if already_recrypted? || recrypt_not_ready?
 
-    @team.recrypt_in_progress!
-    @team_password = @team.decrypt_team_password(@current_user, @private_key)
-
+    prepare_recrypt
     begin
       ActiveRecord::Base.transaction do
         recrypt(new_team_password)
       end
-    rescue => e
+    rescue => e # rubocop:disable Style/RescueStandardError
       # TODO: Notify sentry
       @team.recrypt_failed!
-      raise e
-
       raise "Recrypt failed: #{e.message}"
     end
   end
 
   private
+
+  def prepare_recrypt
+    @team.recrypt_in_progress!
+    @team_password = @team.decrypt_team_password(@current_user, @private_key)
+  end
 
   def already_recrypted?
     Crypto::Symmetric::EncryptionAlgorithm.latest_in_use?(@team)

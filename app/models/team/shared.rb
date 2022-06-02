@@ -20,7 +20,7 @@ class Team::Shared < Team
       team = super(params)
       return team unless team.valid?
 
-      plaintext_team_password = Crypto::Symmetric::EncryptionAlgorithm::ALGORITHMS[team.encryption_algorithm.to_sym].random_key
+      plaintext_team_password = encryption_class.random_key
       team.add_user(creator, plaintext_team_password)
       unless team.private?
         User::Human.admins.each do |a|
@@ -28,6 +28,17 @@ class Team::Shared < Team
         end
       end
       team
+    end
+
+    def policy_class
+      TeamPolicy
+    end
+
+    private
+
+    def encryption_class
+      algorithm = team.encryption_algorithm.to_sym
+      Crypto::Symmetric::EncryptionAlgorithm::ALGORITHMS[algorithm]
     end
   end
 
@@ -45,7 +56,4 @@ class Team::Shared < Team
     teammember(user.id).destroy!
   end
 
-  def self.policy_class
-    TeamPolicy
-  end
 end

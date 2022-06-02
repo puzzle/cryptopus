@@ -22,11 +22,11 @@ class Crypto::Symmetric::Aes256iv < Crypto::Symmetric::Aes256
       { data: encrypted_data, iv: iv }
     end
 
-    def decrypt(encrypted_data, iv)
+    def decrypt(encrypted_data, key)
       cipher = cipher_decrypt_mode
 
-      cipher.key = encrypted_data[:key]
-      cipher.iv = iv
+      cipher.key = key
+      cipher.iv = encrypted_data[:iv]
 
       # decrypt given data
       decrypted_data = cipher.update(encrypted_data[:data]) + cipher.final

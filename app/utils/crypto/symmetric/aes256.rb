@@ -29,11 +29,11 @@ class Crypto::Symmetric::Aes256 < Crypto::Symmetric
       { data: encrypted_data, iv: nil }
     end
 
-    def decrypt(encrypted_data, iv: nil) # rubocop:disable Lint/UnusedMethodArgument
+    def decrypt(encrypted_data, key)
       cipher = cipher_decrypt_mode
 
       # set decryption key
-      cipher.key = encrypted_data[:key]
+      cipher.key = key
 
       # decrypt data
       decrypted_data = cipher.update(encrypted_data[:data]) + cipher.final
