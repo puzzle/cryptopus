@@ -149,7 +149,8 @@ describe MoveFileEntriesToEncryptableFiles do
     def decrypt(team_password)
       return if file.blank?
 
-      self.cleartext_file = ::Crypto::Symmetric::Aes256.decrypt(file, team_password)
+      encrypted_values = { data: file, iv: nil }
+      self.cleartext_file = ::Crypto::Symmetric::Aes256.decrypt(encrypted_values, team_password)
     end
   end
   # rubocop:enable Lint/ConstantDefinitionInBlock
