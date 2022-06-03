@@ -143,7 +143,7 @@ describe MoveFileEntriesToEncryptableFiles do
     def encrypt(team_password)
       return if cleartext_file.blank?
 
-      self.file = ::Crypto::Symmetric::Aes256.encrypt(cleartext_file, team_password)
+      self.file = ::Crypto::Symmetric::Aes256.encrypt(cleartext_file, team_password)[:data]
     end
 
     def decrypt(team_password)

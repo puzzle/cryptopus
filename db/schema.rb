@@ -60,7 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_17_131300) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "visible", default: true, null: false
     t.boolean "private", default: false, null: false
-    t.string "type", default: "Team::Shared", null: false
+    t.string "type", null: false
     t.integer "personal_owner_id"
     t.integer "recrypt_state", default: 1, null: false
     t.string "encryption_algorithm", default: "AES256", null: false

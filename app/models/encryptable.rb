@@ -73,8 +73,10 @@ class Encryptable < ApplicationRecord
   end
 
   def decrypt_attr(attr, team_password)
-    data = encrypted_data[attr].try(:[], :data)
-    iv = encrypted_data[attr].try(:[], :iv)
+    data_attr = encrypted_data[attr]
+
+    data = data_attr.try(:[], :data)
+    iv = data_attr.try(:[], :iv)
     encrypted_value = { data: data, iv: iv }
 
     cleartext_value = if data.present?
