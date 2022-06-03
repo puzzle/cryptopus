@@ -5,7 +5,7 @@ class Api::UserCandidatesController < ApiController
     if team_id_present?
       authorize team, :team_member?
       candidates = team.member_candidates
-      render_candidates(candidates)
+      render_json candidates
     else
       authorize :user_candidates, :index?
       candidates = sharing_candidates

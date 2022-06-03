@@ -64,7 +64,7 @@ class User < ApplicationRecord
   end
 
   def label
-    givenname.blank? ? username : "#{givenname} #{surname}"
+    givenname.blank? ? username : "#{givenname} #{surname} (#{username})"
   end
 
   def formatted_last_login_at
