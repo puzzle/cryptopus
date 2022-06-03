@@ -40,7 +40,7 @@
         <div class="col-sm-8 pr-0">
           <div class="password-wrapper">
             <Input class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
-            <div role="button" class="show-password-link show-password-link-sm {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "encryptables.show.show_password"}}</div>
+            <div role="button" class="show-password-link show-password-link-sm {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "encryptable/credentials.show.show_password"}}</div>
           </div>
 
         </div>
@@ -53,17 +53,17 @@
       </div>
     </div>
     <div class="card-footer d-flex justify-content-between">
-      <LinkTo @route="encryptables.show" @model={{@encryptable}}>
+      <LinkTo @route="encryptable/credentials.show" @model={{@encryptable}}>
         <img class="icon-button d-inline" src="/assets/images/eye.svg" alt="show">
-        <BsTooltip @title={{t "tooltips.account_details"}} @delayShow="1000" />
+        <BsTooltip @title={{t "tooltips.encryptable_details"}} @delayShow="1000" />
       </LinkTo>
       <a class="mx-auto" role="button" {{on "click" this.toggleEncryptableEdit}}>
         <img class="icon-button d-inline" src="/assets/images/edit.svg" alt="edit">
-        <BsTooltip @title={{t "encryptables.edit.title"}} @delayShow="1000" />
+        <BsTooltip @title={{t "encryptable/credentials.edit.title"}} @delayShow="1000" />
       </a>
       <DeleteWithConfirmation @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
         <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
-        <BsTooltip @title={{t "tooltips.delete_account"}} @delayShow="1000" />
+        <BsTooltip @title={{t "tooltips.delete_encryptables"}} @delayShow="1000" />
       </DeleteWithConfirmation>
     </div>
   </div>

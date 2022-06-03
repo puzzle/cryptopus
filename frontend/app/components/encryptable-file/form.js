@@ -28,9 +28,7 @@ export default class Form extends BaseFormComponent {
     );
 
     this.changeset.encryptable = this.args.encryptable;
-
-    var token = ENV.CSRFToken;
-    this.changeset.csrfToken = token;
+    this.changeset.csrfToken = ENV.CSRFToken;
   }
 
   @action
@@ -38,6 +36,7 @@ export default class Form extends BaseFormComponent {
     this.fileQueue.flush();
     if (this.args.onAbort) {
       this.args.onAbort();
+      this.args.onHidden();
       return;
     }
   }
@@ -53,8 +52,7 @@ export default class Form extends BaseFormComponent {
     this.notify.success(msg);
   }
 
-  handleSubmitSuccess(savedRecords) {
-    this.setRecordValues(savedRecords);
+  handleSubmitSuccess() {
     this.abort();
   }
 

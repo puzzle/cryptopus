@@ -18,13 +18,8 @@
 #  https://github.com/puzzle/cryptopus.
 
 class FolderSerializer < ActiveModel::Serializer
-  attributes :id, :name, :team_id, :team_name, :description
+  attributes :id, :name, :description
 
-  belongs_to :team
   has_many :encryptables, serializer: EncryptableMinimalSerializer
-
-  def team_name
-    object.team.name
-  end
 
 end

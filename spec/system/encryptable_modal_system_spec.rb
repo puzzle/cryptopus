@@ -31,10 +31,10 @@ describe 'encryptable modal', type: :system, js: true do
       all('a.dropdown-item').first.click
     end
 
-    expect(page).to have_text('New Encryptable')
+    expect(page).to have_text('New Credentials')
 
     expect(page).to have_selector('.modal-content')
-    expect(page).to have_text('New Encryptable')
+    expect(page).to have_text('New Credentials')
     expect(page).to have_content('Save')
 
     within('.modal-body.ember-view') do
@@ -67,10 +67,10 @@ describe 'encryptable modal', type: :system, js: true do
 
     find('#edit_account_button').click
 
-    expect(page).to have_text('Edit Encryptable')
+    expect(page).to have_text('Edit Credentials')
 
     expect(find('.modal.modal_account')).to be_present
-    expect(page).to have_text('Edit Encryptable')
+    expect(page).to have_text('Edit Credentials')
     expect(page).to have_button('Save', visible: false)
 
     fill_modal(updated_attrs)
@@ -113,7 +113,7 @@ describe 'encryptable modal', type: :system, js: true do
   end
 
   def expect_encryptable_page_with(acc_attrs)
-    expect(page).to have_text("Encryptable: #{acc_attrs[:name]}")
+    expect(page).to have_text("Credentials: #{acc_attrs[:name]}")
     expect(find('#cleartext_username', visible: false).value).to eq(acc_attrs[:username])
     expect(page).to have_text(acc_attrs[:description])
   end

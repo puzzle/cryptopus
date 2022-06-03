@@ -12,10 +12,9 @@ describe TeammemberSerializer do
 
   context 'teammember' do
 
-    before(:each) do
-      expect_any_instance_of(TeamSerializer)
-        .to receive(:user)
-        .exactly(:twice)
+    before do
+      allow_any_instance_of(TeamSerializer)
+        .to receive(:current_user)
         .and_return(users(:admin))
     end
 
@@ -45,10 +44,9 @@ describe TeammemberSerializer do
 
   context 'normal teammember' do
 
-    before(:each) do
-      expect_any_instance_of(TeamSerializer)
-        .to receive(:user)
-        .exactly(:twice)
+    before do
+      allow_any_instance_of(TeamSerializer)
+        .to receive(:current_user)
         .and_return(users(:bob))
     end
 
@@ -67,10 +65,9 @@ describe TeammemberSerializer do
 
   context 'admin teammember' do
 
-    before(:each) do
-      expect_any_instance_of(TeamSerializer)
-        .to receive(:user)
-        .exactly(:twice)
+    before do
+      allow_any_instance_of(TeamSerializer)
+        .to receive(:current_user)
         .and_return(users(:admin))
     end
 

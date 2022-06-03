@@ -18,27 +18,17 @@ class TeamSerializer < ApplicationSerializer
   type Team.name.pluralize
   attributes :id, :name, :description, :private, :favourised, :deletable, :type
 
-  has_many :folders, serializer: FolderMinimalSerializer
+  has_many :folders, serializer: FolderSerializer
 
   def favourised
-    users_favorised_current_team.include?(user.id)
+    object.personal_team? || current_user.favourite_team_ids.include?(object.id)
   end
 
   def deletable
-    TeamPolicy.new(user, object).destroy?
+    TeamPolicy.new(current_user, object).destroy?
   end
 
   def personal_team
     object.personal_team?
-  end
-
-  private
-
-  def user
-    current_user
-  end
-
-  def users_favorised_current_team
-    @users_favorised_current_team ||= object.user_favourite_teams.pluck(:team_id)
   end
 end
