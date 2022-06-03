@@ -5,11 +5,11 @@ class Api::UserCandidatesController < ApiController
     if team_id_present?
       authorize team, :team_member?
       candidates = team.member_candidates
-      render_json candidates
+      render_candidates(candidates)
     else
       authorize :user_candidates, :index?
       candidates = sharing_candidates
-      render_json candidates
+      render_candidates(candidates)
     end
   end
 
@@ -21,6 +21,10 @@ class Api::UserCandidatesController < ApiController
 
   def sharing_candidates
     User::Human.where.not(id: current_user.id)
+  end
+
+  def render_candidates(candidates)
+    render({ json: candidates, each_serializer: UserMinimalSerializer })
   end
 
 end
