@@ -59,7 +59,7 @@ ch_be:
         favourites: Tippe um in favorisierte Teams z sueche...
         all: Tippe um in aue Teams z sueche...
 
-  encryptable/credential:
+  encryptable/credentials:
     title: Zuägangsdate
     index_menu:
       create: Zuägangsdate ersteuä
@@ -345,7 +345,7 @@ ch_be:
         newPassword1: "Ds nöie Passwort:"
         newPassword2: "Ds nöie Passwort bestätige:"
         wrongPassword: Fautsches passwort
-      encryptable/credential:
+      encryptable/credentials:
         accountname: Accountname
       team:
         name: Name
