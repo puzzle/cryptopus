@@ -14,19 +14,7 @@ class FolderPolicy < TeamDependantPolicy
     team.teammember?(@user.id)
   end
 
-  def update?
-    !personal_team? && super
-  end
-
-  def destroy?
-    !personal_team? && super
-  end
-
   private
-
-  def personal_team?
-    folder.team.id == @user.personal_team.id
-  end
 
   def team
     folder.team

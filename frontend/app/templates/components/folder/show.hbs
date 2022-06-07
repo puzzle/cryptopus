@@ -2,7 +2,7 @@
   <Folder::Form @folder={{@folder}} @onAbort={{this.toggleFolderEdit}} @title={{t "folders.edit.title"}}/>
 {{/if}}
 {{#if this.isNewEncryptable}}
-  <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "encryptable/credential.new.title"}}/>
+  <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "encryptable/credentials.new.title"}}/>
 {{/if}}
 <div id="folder-header-{{@folder.id}}" class="pl-2 pr-2 folder-card-header {{if this.isExpanded "br-4"}}">
   <div class="d-flex row justify-content-between folder-show-header">

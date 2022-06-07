@@ -2,7 +2,7 @@
 
 class Encryptable::Sharing
 
-  def initialize(encryptable, receiver_id, options={})
+  def initialize(encryptable, receiver_id, options = {})
     @encryptable = encryptable
     @receiver_id = receiver_id
     @options = options
