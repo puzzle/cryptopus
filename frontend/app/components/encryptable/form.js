@@ -1,5 +1,7 @@
 import { action } from "@ember/object";
-import AccountValidations from "../../validations/encryptable";
+import EncryptableValidations from "../../validations/encryptable";
+import EncryptableSharingValidations from "../../validations/encryptable-sharing";
+import EncryptableFileValidations from "../../validations/encryptable-file";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
@@ -16,19 +18,48 @@ export default class Form extends BaseFormComponent {
   @tracked selectedTeam;
   @tracked assignableTeams;
 
+  @tracked candidates;
+
   @tracked hasErrors;
 
-  AccountValidations = AccountValidations;
+  EncryptableValidations = EncryptableValidations;
+  EncryptableSharingValidations = EncryptableSharingValidations;
+  EncryptableFileValidations = EncryptableFileValidations;
 
   constructor() {
     super(...arguments);
+
+    if (this.args.sharing) {
+      this.setupEncryptableSharing();
+    } else {
+      this.setupEditEncryptableForm();
+    }
+  }
+
+  setupEncryptableSharing() {
 
     this.record =
       this.args.encryptable ||
       this.store.createRecord("encryptable-credential");
     this.isNewRecord = this.record.isNew;
 
-    this.changeset = this.accountChangeset;
+    this.changeset = this.encryptableChangeset;
+
+
+    if (!this.record.isFullyLoaded)
+      this.store.findRecord("encryptable-credential", this.record.id);
+
+
+    // this.loadCandidates();
+  }
+
+  setupEditEncryptableForm() {
+    this.record =
+      this.args.encryptable ||
+      this.store.createRecord("encryptable-credential");
+    this.isNewRecord = this.record.isNew;
+
+    this.changeset = this.encryptableChangeset;
 
     if (this.isNewRecord) {
       this.presetTeamAndFolder();
@@ -46,6 +77,28 @@ export default class Form extends BaseFormComponent {
 
     if (!this.record.isFullyLoaded)
       this.store.findRecord("encryptable-credential", this.record.id);
+
+  }
+
+
+  loadCandidates() {
+    this.store
+      .query("user-human", {
+        encryptableId: this.args.encryptableId,
+        candidates: true
+      })
+      .then((res) => (this.candidates = res));
+  }
+
+  nothing() {
+
+  }
+
+  @action
+  search(input) {
+    return this.candidates.filter(
+      (c) => c.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
+    );
   }
 
   presetTeamAndFolder() {
@@ -98,9 +151,39 @@ export default class Form extends BaseFormComponent {
     this.changeset.folder = folder;
   }
 
+  @action
+  submit(recordsToSave) {
+
+
+    this.beforeSubmit().then((continueSubmit) => {
+      if (!continueSubmit && continueSubmit !== undefined) {
+        return;
+      }
+      recordsToSave = Array.isArray(recordsToSave)
+        ? recordsToSave
+        : [recordsToSave];
+
+
+      let notPersistedRecords = recordsToSave.filter(
+        (record) => record.hasDirtyAttributes || record.isDirty
+      );
+      Promise.all(notPersistedRecords.map((record) => record.share()))
+        .then((savedRecords) => {
+          this.handleSubmitSuccess(savedRecords);
+          this.showSuccessMessage();
+          this.afterSubmit();
+        })
+        .catch((error) => {
+          this.handleSubmitError(error);
+          this.afterSubmit();
+        });
+    });
+  }
+
   async beforeSubmit() {
-    await this.changeset.validate();
-    return this.changeset.isValid;
+    // await this.changeset.validate();
+    // return this.changeset.isValid;
+    return true;
   }
 
   handleSubmitSuccess(savedRecords) {
@@ -143,11 +226,24 @@ export default class Form extends BaseFormComponent {
     }
   }
 
-  get accountChangeset() {
+  get encryptableChangeset() {
     return new Changeset(
       this.record,
-      lookupValidator(AccountValidations),
-      AccountValidations
+      lookupValidator(EncryptableValidations),
+      EncryptableValidations
+    );
+  }
+
+  @action
+  uploadFile(file) {
+    this.changeset.file = file;
+  }
+
+  get encryptableSharingChangeset() {
+    return new Changeset(
+      this.record,
+      lookupValidator(EncryptableSharingValidations),
+      EncryptableSharingValidations
     );
   }
 }

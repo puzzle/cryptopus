@@ -19,6 +19,9 @@ export default class ShowComponent extends Component {
   isEncryptableEditing = false;
 
   @tracked
+  isEncryptableSharing = false;
+
+  @tracked
   isFileCreating = false;
 
   @tracked
@@ -27,6 +30,11 @@ export default class ShowComponent extends Component {
   @action
   toggleEncryptableEdit() {
     this.isEncryptableEditing = !this.isEncryptableEditing;
+  }
+
+  @action
+  toggleEncryptableShare() {
+    this.isEncryptableSharing = !this.isEncryptableSharing;
   }
 
   @action

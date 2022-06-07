@@ -41,6 +41,7 @@ en:
   new: New
   back: Back
   save: Save
+  share: Share
   close: Close
   user: User
   hi_user: "Hi,"
@@ -60,7 +61,7 @@ en:
         favourites: Type to search in favourite teams...
         all: Type to search in all teams...
 
-  encryptable/credentials:
+  encryptable/credential:
     title: Credentials
     index_menu:
       create: Create Credentials
@@ -89,6 +90,14 @@ en:
       add_attachment: Add Attachment
     new:
       title: New Credentials
+    share:
+      title: Share File
+
+  encryptable/sharing/file:
+    new:
+      title: "Share File"
+    receiver:
+      name: Choose receiver
 
   admin:
     title: Admin
@@ -338,7 +347,7 @@ en:
         newPassword1: "Enter new password:"
         newPassword2: "Confirm new password:"
         wrongPassword: Wrong password
-      encryptable/credentials:
+      encryptable/credential:
         accountname: Accountname
       team:
         name: Name

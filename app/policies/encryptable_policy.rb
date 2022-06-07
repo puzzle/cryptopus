@@ -15,6 +15,8 @@ class EncryptablePolicy < TeamDependantPolicy
   end
 
   def create?
+    return true if @record.receiver_id.present?
+
     team.teammember?(@user.id)
   end
 

@@ -7,6 +7,7 @@ export default class Team extends Model {
   @attr("boolean") private;
   @attr("boolean") favourised;
   @attr("boolean") deletable;
+  @attr("boolean") personal_team;
   @hasMany("folder") folders;
   @hasMany("teammember") teammembers;
 
