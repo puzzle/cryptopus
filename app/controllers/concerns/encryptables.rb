@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency '../utils/sharing/encryptable'
+
 module Encryptables
   extend ActiveSupport::Concern
 
@@ -56,6 +58,56 @@ module Encryptables
     params[:credential_id]
   end
 
+  ### Sharing ###
+
+  def encryptable_sharing?
+    receiver_id.present?
+  end
+
+  def shared_encryptable
+    if encryptable.present?
+      options = {
+        current_user: current_user,
+        decrypted_team_password: decrypted_team_password(team)
+      }
+
+      shared_encryptable = Encryptable::Sharing.new(encryptable, receiver_id, options).prepare_encryptable
+    else
+      # shared_encryptable = Encryptable::Sharing.new(encryptable, receiver_id, options).prepare_file
+    end
+
+    instance_variable_set(:"@#{ivar_name}", shared_encryptable)
+  end
+
+  def is_shared_encryptable(entry)
+    entry.transfer_password.present? && entry.receiver_id.present?
+  end
+
+  def receiver_id
+    params.dig('data', 'attributes', 'receiver_id')
+  end
+
+  def decrypt_shared_encryptable(entry, private_key)
+    plaintext_transfer_password = Crypto::Rsa.decrypt(entry.transfer_password, private_key)
+    entry.decrypt(plaintext_transfer_password)
+
+    recrypt_with_personal_team_password(entry)
+    remove_shared_attributes(entry)
+  end
+
+  def recrypt_with_personal_team_password(entry)
+    personal_team = Team::Personal.find_by(personal_owner_id: current_user.id)
+    entry.encrypt(decrypted_team_password(personal_team))
+
+    entry.decrypt(decrypted_team_password(personal_team))
+  end
+
+  def remove_shared_attributes(entry)
+    entry.transfer_password = nil
+    entry.receiver_id = nil
+    entry.save!
+  end
+
   ### Other ###
 
   def encrypt(encryptable)
@@ -71,7 +123,10 @@ module Encryptables
 
   def create_ose_secret?
     action_name == 'create' &&
-      params.dig('data', 'attributes', 'type') == 'ose_secret'
+    params.dig('data', 'attributes', 'type') == 'ose_secret'
   end
 
+  def encryptable
+    @encryptable ||= Encryptable.find(params[:id])
+  end
 end

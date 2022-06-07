@@ -13,10 +13,8 @@ ch_be:
   update: Aktualisiere
   create: Ersteuä
   delete: Löschä
-  cancel: Abbrächä
   add: Drzuätuä
   description: Beschribig
-  tag: Tag
   username: Benutzername
   password: Passwort
   actions: Aktionä
@@ -41,9 +39,10 @@ ch_be:
   new: Nöi
   back: Zrügg
   save: Spichere
-  close: Schliesse
+  share: Teilä
+  close: Schliessä
   user: Benutzer
-  hi_user: "Hoi, "
+  hi_user: "Sälü, "
   intro: Suechsch äuä es Passwort?
   role: Rollä
   empty: läär
@@ -60,7 +59,7 @@ ch_be:
         favourites: Tippe um in favorisierte Teams z sueche...
         all: Tippe um in aue Teams z sueche...
 
-  encryptable/credentials:
+  encryptable/credential:
     title: Zuägangsdate
     index_menu:
       create: Zuägangsdate ersteuä
@@ -89,6 +88,14 @@ ch_be:
       add_attachment: Anhang hinzufüegä
     new:
       title: Nöi Zuägangsdate
+    share:
+      title: Datei teilä
+
+  encryptable/sharing/file:
+    new:
+      title: "Datei teilä"
+    receiver:
+      name: Wäu ä empfänger
 
   admin:
     title: Admin
@@ -338,7 +345,7 @@ ch_be:
         newPassword1: "Ds nöie Passwort:"
         newPassword2: "Ds nöie Passwort bestätige:"
         wrongPassword: Fautsches passwort
-      encryptable/credentials:
+      encryptable/credential:
         accountname: Accountname
       team:
         name: Name

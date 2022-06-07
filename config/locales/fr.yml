@@ -96,6 +96,10 @@ fr:
           attributes:
             name:
               taken: Le fichier a déjà été pris
+        encryptable:
+          attributes:
+            name:
+              taken: Tu as déjà partagé ces informations d'identification avec cette personne
 
  #Pundit
   pundit:

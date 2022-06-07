@@ -41,9 +41,10 @@ de:
   new: Neu
   back: Zurück
   save: Speichern
+  share: Teilen
   close: Schliessen
   user: Benutzer
-  hi_user: "Hi, "
+  hi_user: "Moin, "
   intro: Du suchst ein Passwort?
   role: Rolle
   empty: leer
@@ -60,7 +61,7 @@ de:
         favourites: Tippen um in favorisierten Teams zu suchen...
         all: Tippen um in allen Teams zu suchen...
 
-  encryptable/credentials:
+  encryptable/credential:
     title: Zugangsdaten
     index_menu:
       create: Zugangsdaten erstellen
@@ -89,6 +90,14 @@ de:
       add_attachment: Anhang hinzufügen
     new:
       title: Neue Zugangsdaten
+    share:
+      title: Datei teilen
+
+  encryptable/sharing/file:
+    new:
+      title: "Datei teilen"
+    receiver:
+      name: Empfänger auswählen
 
   admin:
     title: Admin
@@ -338,7 +347,7 @@ de:
         newPassword1: "Neues Passwort:"
         newPassword2: "Neues Passwort bestätigen:"
         wrongPassword: Falsches Passwort
-      encryptable/credentials:
+      encryptable/credential:
         accountname: Accountname
       team:
         name: Name
