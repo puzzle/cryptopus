@@ -17,7 +17,7 @@
               {{/if}}
               <div class="col-md-6 order-2">
                 <form.group class="col-md-12">
-                  <form.element @property="name" @label={{t "helpers.label.encryptable/credential.accountname"}}
+                  <form.element @property="name" @label={{t "helpers.label.encryptable/credentials.accountname"}}
                                 class={{if this.changeset.error.name.validation
                                                                "invalid-input-name"}}
                                 id="name"
@@ -39,7 +39,7 @@
                   <form.element @label={{t "team"}} @controlType="power-select"
                                 @options={{this.assignableTeams}} @value={{this.selectedTeam}}
                                 @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>
-                    <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @placeholder={{t "encryptable/credential.edit.team_placeholder"}}
+                    <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @placeholder={{t "encryptable/credentials.edit.team_placeholder"}}
                                 @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
                       {{team.name}}
                     </el.control>
@@ -52,7 +52,7 @@
                                 @customError={{t (validation-error-key this.changeset.error.folder.validation)}} as |el|>
                     <el.control class={{if this.changeset.error.folder.validation "invalid-input-ps"}}
                                 @disabled={{this.isFolderDropdownDisabled}}
-                                @placeholder={{t "encryptable/credential.edit.folder_placeholder"}}
+                                @placeholder={{t "encryptable/credentials.edit.folder_placeholder"}}
                                 @renderInPlace={{true}} @onChange={{this.setFolder}} as |folder|>
                       {{folder.name}}
                     </el.control>
@@ -75,7 +75,7 @@
                 <div class="col-md-12">
                   <button class="btn btn-secondary btn-block col-lg-7 mb-md-4" {{on "click" this.setRandomPassword}}
                           tabindex="4">
-                    {{t "encryptable/credential.edit.random_password"}}
+                    {{t "encryptable/credentials.edit.random_password"}}
                   </button>
                 </div>
               </div>

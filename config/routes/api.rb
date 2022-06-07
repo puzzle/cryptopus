@@ -49,4 +49,5 @@ Rails.application.routes.draw do
     resources :user_candidates, only:[:index]
 
   end
+
 end

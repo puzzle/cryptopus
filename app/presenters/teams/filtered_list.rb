@@ -37,8 +37,7 @@ module ::Teams
               else
                 @current_user.teams
               end
-      teams.where.not(encryptables: {  })
-           .includes(team_includes)
+      teams.includes(team_includes)
     end
 
     def team_includes
