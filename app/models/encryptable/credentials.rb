@@ -2,7 +2,6 @@
 
 class Encryptable::Credentials < Encryptable
   attr_accessor :cleartext_password, :cleartext_username
-  has_many :encryptable_files, foreign_key: :credentials_id
 
   has_many :encryptable_files,
            class_name: 'Encryptable::File',
