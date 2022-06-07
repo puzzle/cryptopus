@@ -18,7 +18,7 @@ class Api::EncryptablesController < ApiController
   # GET /api/encryptables/:id
   def show
     authorize entry
-    if is_shared_encryptable(entry)
+    if shared_encryptable?(entry)
       decrypt_shared_encryptable(entry, session[:private_key])
     else
       entry.decrypt(decrypted_team_password(team))

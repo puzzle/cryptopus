@@ -61,7 +61,7 @@ de:
         favourites: Tippen um in favorisierten Teams zu suchen...
         all: Tippen um in allen Teams zu suchen...
 
-  encryptable/credential:
+  encryptable/credentials:
     title: Zugangsdaten
     index_menu:
       create: Zugangsdaten erstellen
@@ -347,7 +347,7 @@ de:
         newPassword1: "Neues Passwort:"
         newPassword2: "Neues Passwort bestätigen:"
         wrongPassword: Falsches Passwort
-      encryptable/credential:
+      encryptable/credentials:
         accountname: Accountname
       team:
         name: Name
