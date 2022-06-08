@@ -6,10 +6,10 @@ export default class UserHumanAdapter extends ApplicationAdapter {
   }
 
   urlForQuery(query, modelName) {
-    if (query.teamId && query.candidates) {
-      let url = `/${this.namespace}/teams/${query.teamId}/candidates`;
-      delete query.teamId;
+    if (query.candidates) {
+      let url = `/${this.namespace}/user_candidates?team_id=${query.teamId}`;
       delete query.candidates;
+      delete query.teamId;
       return url;
     }
     if (query.admin) {
