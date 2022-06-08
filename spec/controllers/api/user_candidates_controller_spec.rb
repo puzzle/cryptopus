@@ -5,10 +5,11 @@ require 'spec_helper'
 describe Api::UserCandidatesController do
   include ControllerHelpers
 
+  let!(:team) { Team::Shared.create(users(:admin), name: 'foo') }
+
   context 'GET candidates' do
     it 'returns team member candidates for team' do
       login_as(:admin)
-      team = Team::Shared.create(users(:admin), name: 'foo')
 
       get :index, params: { team_id: team }, xhr: true
 
@@ -23,21 +24,19 @@ describe Api::UserCandidatesController do
       expect(candidate_labels).not_to include('Admin test (admin)')
     end
 
-    it 'returns error when not team member' do
+    it 'denies access when not team member' do
       login_as(:alice)
-      team = Team::Shared.create(users(:admin), name: 'foo')
 
       get :index, params: { team_id: team }, xhr: true
 
       expect(response).to have_http_status(403)
+      expect(errors).to eq(['flashes.admin.admin.no_access'])
     end
 
     it 'returns all users without current_user' do
-
       login_as(:admin)
-      Team::Shared.create(users(:admin), name: 'foo')
 
-      get :index, params: {}, xhr: true
+      get :index, xhr: true
 
       candidates = json['data']
 
@@ -52,5 +51,13 @@ describe Api::UserCandidatesController do
       expect(candidate_labels).not_to include('Admin test (admin)')
 
     end
+
+    it 'denies access without login' do
+      get :index, xhr: true
+
+      expect(response).to have_http_status(401)
+      expect(errors).to eq(['flashes.api.errors.user_not_logged_in'])
+    end
+
   end
 end
