@@ -24,8 +24,9 @@ describe Api::Teams::MembersController do
       get :index, params: { team_id: team }, xhr: true
 
       expect(data.count).to eq 3
-      expect(data.any? { |c| c['attributes']['label'] == 'Alice test (alice)' }).to be true
-      expect(data.any? { |c| c['attributes']['label'] == 'Admin test (admin)' }).to be true
+      member_labels = data.collect { |c| c['attributes']['label'] }
+      expect(member_labels).to include('Alice test (alice)')
+      expect(member_labels).to include('Admin test (admin)')
       expect(data.none? { |c| c['attributes']['label'] == api_user.label }).to be true
     end
 
