@@ -3,10 +3,7 @@
 require 'openssl'
 require 'digest/sha1'
 
-require_relative './aes256'
-
-class Crypto::Symmetric::Aes256 < Crypto::Symmetric
-  class_attribute :password_bitsize
+class ::Crypto::Symmetric::Aes256 < ::Crypto::Symmetric
 
   CIPHER ||= 'AES-256-CBC'
   MAGIC ||= 'Salted__'

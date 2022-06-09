@@ -21,7 +21,7 @@ class Team::Personal < Team
       team = super(name: 'personal-team', personal_owner: owner, private: true)
       return team unless team.valid?
 
-      plaintext_team_password = Crypto::Symmetric::Aes256.random_key
+      plaintext_team_password = team.new_team_password
       team.add_user(owner, plaintext_team_password)
 
       team

@@ -2,18 +2,14 @@
 
 require 'spec_helper'
 
-require_relative '../../../../../app/utils/crypto/symmetric/aes256iv'
-
 describe Crypto::Symmetric::Recrypt do
   let(:alice) { users(:alice) }
 
   it 'recrypts given team' do
-    expect(Crypto::Symmetric::EncryptionAlgorithm).to receive(:latest_algorithm)
-      .and_return(:AES256).once
-    expect(Crypto::Symmetric::EncryptionAlgorithm).to receive(:latest_algorithm)
-      .and_return(:AES256IV)
-
     team = Team::Shared.create(alice, name: 'Team 1')
+
+    expect(Crypto::Symmetric).to receive(:latest_algorithm)
+      .and_return('AES256IV').twice
 
     expect(team.encryption_algorithm).to eq 'AES256'
 
@@ -25,6 +21,9 @@ describe Crypto::Symmetric::Recrypt do
   end
 
   it 'doesnt recrypt team if default algorithm is already in use' do
+    expect(Crypto::Symmetric).to receive(:latest_algorithm)
+      .and_return('AES256IV').twice
+
     team = Team::Shared.create(alice, name: 'Team 1')
 
     private_key = alice.decrypt_private_key('password')
@@ -34,9 +33,11 @@ describe Crypto::Symmetric::Recrypt do
     expect(team.recrypt_state).to eq 'done'
   end
 
-  it 'aborts in transaction if recrypt error suddenly appears' do
-    team = mocked_team
-
+  it 'aborts recrypt if error occurs' do
+    expect(Crypto::Symmetric).to receive(:latest_algorithm)
+      .and_return('AES256IV').twice
+    team = teams(:team1)
+    create_broken_encryptable(team)
     private_key = alice.decrypt_private_key('password')
 
     expect do
@@ -48,11 +49,8 @@ describe Crypto::Symmetric::Recrypt do
   end
 
   it 'recrypts team encryptables' do
-    expect(Crypto::Symmetric::EncryptionAlgorithm).to receive(:latest_algorithm)
-      .and_return(:AES256,
-                  :AES256IV,
-                  :AES256IV,
-                  :AES256IV)
+    expect(Crypto::Symmetric).to receive(:latest_algorithm)
+      .and_return('AES256IV').exactly(4).times
 
     team = teams(:team1)
 
@@ -77,11 +75,8 @@ describe Crypto::Symmetric::Recrypt do
   end
 
   it 'resets teampassword with a newly generated for each teammember' do
-    expect(Crypto::Symmetric::EncryptionAlgorithm).to receive(:latest_algorithm)
-      .and_return(:AES256,
-                  :AES256IV,
-                  :AES256IV,
-                  :AES256IV)
+    expect(Crypto::Symmetric).to receive(:latest_algorithm)
+      .and_return('AES256IV').exactly(4).times
 
     team = teams(:team1)
     old_team_passwords = team.teammembers.pluck(:password)
@@ -89,7 +84,7 @@ describe Crypto::Symmetric::Recrypt do
     private_key = alice.decrypt_private_key('password')
     described_class.new(alice, team, private_key).perform
 
-    expect(team.teammembers).should_not match(old_team_passwords)
+    expect(team.teammembers).not_to eq(old_team_passwords)
 
     expect(team.encryption_algorithm).to eq 'AES256IV'
     expect(team.recrypt_state).to eq 'done'
@@ -97,11 +92,10 @@ describe Crypto::Symmetric::Recrypt do
 
   private
 
-  def mocked_team
-    broken_encryptable = teams(:team1).folders.first.encryptables.first
+  def create_broken_encryptable(team)
+    broken_encryptable = team.folders.first.encryptables.first
     broken_encryptable.encrypted_data.[]=(:password, **{ iv: nil, data: 'broken' })
-    broken_encryptable.save
-    teams(:team1)
+    broken_encryptable.save!
   end
 
 end

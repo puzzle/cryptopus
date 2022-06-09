@@ -9,12 +9,13 @@ class Crypto::Symmetric::Recrypt
   end
 
   def perform
-    return if already_recrypted? || recrypt_not_ready?
+    return if already_recrypted? || recrypt_locked?
 
     prepare_recrypt
     begin
       ActiveRecord::Base.transaction do
-        recrypt(new_team_password)
+
+        recrypt(@team.new_team_password)
       end
     rescue => e # rubocop:disable Style/RescueStandardError
       # TODO: Notify sentry
@@ -31,22 +32,20 @@ class Crypto::Symmetric::Recrypt
   end
 
   def already_recrypted?
-    Crypto::Symmetric::EncryptionAlgorithm.latest_in_use?(@team)
+    Crypto::Symmetric.latest_algorithm?(@team)
   end
 
-  def recrypt_not_ready?
+  def recrypt_locked?
     @team.recrypt_in_progress? || @team.recrypt_failed?
   end
 
   def recrypt(new_team_password)
-    recrypt_entailed_encryptables(new_team_password)
+    recrypt_team_encryptables(new_team_password)
     update_team(new_team_password)
   end
 
-  def recrypt_entailed_encryptables(new_team_password)
-    return if @team.encryptables.empty?
-
-    @team.encryptables.each do |encryptable|
+  def recrypt_team_encryptables(new_team_password)
+    @team.encryptables.find_each do |encryptable|
       encryptable.recrypt(@team_password, new_team_password)
     end
   end
@@ -58,7 +57,7 @@ class Crypto::Symmetric::Recrypt
   end
 
   def update_teammember_passwords(new_team_password)
-    @team.teammembers.each do |member|
+    @team.teammembers.find_each do |member|
       update_teammeber(member, new_team_password)
     end
   end
@@ -66,17 +65,13 @@ class Crypto::Symmetric::Recrypt
   def update_teammeber(member, new_team_password)
     public_key = member.user.public_key
     encrypted_team_password = Crypto::Rsa.encrypt(new_team_password, public_key)
-    member.password = encrypted_team_password
+    member.encrypted_team_password = encrypted_team_password
     member.save!
   end
 
   def update_team_encryption_algorithm
     @team.update_encryption_algorithm
     @team.save!
-  end
-
-  def new_team_password
-    Crypto::Symmetric::EncryptionAlgorithm::ALGORITHMS[@team.encryption_algorithm.to_sym].random_key
   end
 
 end

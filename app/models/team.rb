@@ -51,8 +51,8 @@ class Team < ApplicationRecord
   end
 
   def decrypt_team_password(user, plaintext_private_key)
-    crypted_team_password = teammember(user.id).password
-    Crypto::Rsa.decrypt(crypted_team_password, plaintext_private_key)
+    encrypted_team_password = teammember(user.id).encrypted_team_password
+    Crypto::Rsa.decrypt(encrypted_team_password, plaintext_private_key)
   end
 
   def personal_team?
@@ -71,35 +71,38 @@ class Team < ApplicationRecord
   end
 
   def password_bytesize
-    Crypto::Symmetric::EncryptionAlgorithm::ALGORITHMS[encryption_algorithm].password_bitsize
+    Crypto::Symmetric::ALGORITHMS[encryption_algorithm].password_bitsize
   end
 
   def encryption_algorithm
     # using read_attribute to avoid recursion
-    read_attribute(:encryption_algorithm) || Crypto::EncryptionAlgorithm.latest
+    read_attribute(:encryption_algorithm) || Crypto::Symmetric.latest_algorithm
   end
 
   def encryption_algorithm=(algorithm)
-    return if Crypto::Symmetric::EncryptionAlgorithm.all.exclude?(algorithm)
+    return if Crypto::Symmetric.all.exclude?(algorithm)
 
     write_attribute(:encryption_algorithm, algorithm)
   end
 
+  def new_team_password
+    Crypto::Symmetric::ALGORITHMS[encryption_algorithm].random_key
+  end
+
   def update_encryption_algorithm
-    self.encryption_algorithm = Crypto::Symmetric::EncryptionAlgorithm.latest_algorithm
+    self.encryption_algorithm = Crypto::Symmetric.latest_algorithm
   end
 
   def encryptables
-    Encryptable.includes(:folder, folder: [:team]).where(
-      'teams.id = :team_id',
-      team_id: id
-    ).references(:folder, folder: [:team])
+    Encryptable.joins("LEFT JOIN folders ON encryptables.folder_id = folders.id
+                       INNER JOIN teams ON folders.team_id = teams.id")
+               .where('teams.id = ?', id)
   end
 
   private
 
   def create_teammember(user, plaintext_team_password)
     encrypted_team_password = Crypto::Rsa.encrypt(plaintext_team_password, user.public_key)
-    teammembers.create!(password: encrypted_team_password, user: user)
+    teammembers.create!(encrypted_team_password: encrypted_team_password, user: user)
   end
 end
