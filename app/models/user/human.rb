@@ -177,7 +177,7 @@ class User::Human < User
       next if t.teammember?(self)
 
       active_teammember = t.teammembers.find_by user_id: actor.id
-      team_password = Crypto::Rsa.decrypt(active_teammember.password, private_key)
+      team_password = Crypto::Rsa.decrypt(active_teammember.encrypted_team_password, private_key)
       t.add_user(self, team_password)
     end
   end
