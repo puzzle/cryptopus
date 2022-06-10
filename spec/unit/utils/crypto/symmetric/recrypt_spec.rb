@@ -8,8 +8,7 @@ describe Crypto::Symmetric::Recrypt do
   it 'recrypts given team' do
     team = Team::Shared.create(alice, name: 'Team 1')
 
-    expect(Crypto::Symmetric).to receive(:latest_algorithm)
-      .and_return('AES256IV').twice
+    stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
 
     expect(team.encryption_algorithm).to eq 'AES256'
 
@@ -21,8 +20,7 @@ describe Crypto::Symmetric::Recrypt do
   end
 
   it 'doesnt recrypt team if default algorithm is already in use' do
-    expect(Crypto::Symmetric).to receive(:latest_algorithm)
-      .and_return('AES256IV').twice
+    stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
 
     team = Team::Shared.create(alice, name: 'Team 1')
 
@@ -34,8 +32,8 @@ describe Crypto::Symmetric::Recrypt do
   end
 
   it 'aborts recrypt if error occurs' do
-    expect(Crypto::Symmetric).to receive(:latest_algorithm)
-      .and_return('AES256IV').twice
+    stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
+
     team = teams(:team1)
     create_broken_encryptable(team)
     private_key = alice.decrypt_private_key('password')
@@ -49,8 +47,7 @@ describe Crypto::Symmetric::Recrypt do
   end
 
   it 'recrypts team encryptables' do
-    expect(Crypto::Symmetric).to receive(:latest_algorithm)
-      .and_return('AES256IV').exactly(4).times
+    stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
 
     team = teams(:team1)
 
@@ -75,8 +72,22 @@ describe Crypto::Symmetric::Recrypt do
   end
 
   it 'resets teampassword with a newly generated for each teammember' do
-    expect(Crypto::Symmetric).to receive(:latest_algorithm)
-      .and_return('AES256IV').exactly(4).times
+    stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
+
+    team = teams(:team1)
+    old_team_passwords = team.teammembers.pluck(:password)
+
+    private_key = alice.decrypt_private_key('password')
+    described_class.new(alice, team, private_key).perform
+
+    expect(team.teammembers).not_to eq(old_team_passwords)
+
+    expect(team.encryption_algorithm).to eq 'AES256IV'
+    expect(team.recrypt_state).to eq 'done'
+  end
+
+  it 'recrypts nested encryptable files' do
+    stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
 
     team = teams(:team1)
     old_team_passwords = team.teammembers.pluck(:password)
@@ -93,7 +104,7 @@ describe Crypto::Symmetric::Recrypt do
   private
 
   def create_broken_encryptable(team)
-    broken_encryptable = team.folders.first.encryptables.first
+    broken_encryptable = team.encryptables.first
     broken_encryptable.encrypted_data.[]=(:password, **{ iv: nil, data: 'broken' })
     broken_encryptable.save!
   end

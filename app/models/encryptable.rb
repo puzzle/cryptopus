@@ -87,11 +87,7 @@ class Encryptable < ApplicationRecord
   end
 
   def encryption_class
-    Crypto::Symmetric::ALGORITHMS[encryption_algorithm]
-  end
-
-  def update_encryption_algorithm
-    self.encryption_algorithm = Crypto::Symmetric.latest_algorithm
+    Crypto::Symmetric::ALGORITHMS[team.encryption_algorithm]
   end
 
 end

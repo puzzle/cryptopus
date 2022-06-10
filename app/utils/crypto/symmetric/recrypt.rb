@@ -12,16 +12,17 @@ class Crypto::Symmetric::Recrypt
     return if already_recrypted? || recrypt_locked?
 
     prepare_recrypt
-    begin
+    # begin
       ActiveRecord::Base.transaction do
-
+        require 'pry';binding.pry
+        update_team_encryption_algorithm
         recrypt(@team.new_team_password)
       end
-    rescue => e # rubocop:disable Style/RescueStandardError
-      # TODO: Notify sentry
-      @team.recrypt_failed!
-      raise "Recrypt failed: #{e.message}"
-    end
+    # rescue => e # rubocop:disable Style/RescueStandardError
+    #   # TODO: Notify sentry
+    #   @team.recrypt_failed!
+    #   raise "Recrypt failed: #{e.message}"
+    # end
   end
 
   private
@@ -58,19 +59,12 @@ class Crypto::Symmetric::Recrypt
 
   def update_teammember_passwords(new_team_password)
     @team.teammembers.find_each do |member|
-      update_teammeber(member, new_team_password)
+      member.reset_team_password(new_team_password)
     end
   end
 
-  def update_teammeber(member, new_team_password)
-    public_key = member.user.public_key
-    encrypted_team_password = Crypto::Rsa.encrypt(new_team_password, public_key)
-    member.encrypted_team_password = encrypted_team_password
-    member.save!
-  end
-
   def update_team_encryption_algorithm
-    @team.update_encryption_algorithm
+    @team.encryption_algorithm = ::Crypto::Symmetric::LATEST_ALGORITHM
     @team.save!
   end
 

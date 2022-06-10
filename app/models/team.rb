@@ -23,6 +23,7 @@ class Team < ApplicationRecord
   validates :name, presence: true
   validates :name, length: { maximum: 40 }
   validates :description, length: { maximum: 300 }
+  validates :encryption_algorithm, inclusion: ::Crypto::Symmetric::ALGORITHMS.keys
 
   enum recrypt_state: {
     failed: 0,
@@ -70,33 +71,26 @@ class Team < ApplicationRecord
     TeamPolicy
   end
 
-  def password_bytesize
-    Crypto::Symmetric::ALGORITHMS[encryption_algorithm].password_bitsize
-  end
-
   def encryption_algorithm
     # using read_attribute to avoid recursion
-    read_attribute(:encryption_algorithm) || Crypto::Symmetric.latest_algorithm
+    read_attribute(:encryption_algorithm) || Crypto::Symmetric::LATEST_ALGORITHM
   end
 
-  def encryption_algorithm=(algorithm)
-    return if Crypto::Symmetric.all.exclude?(algorithm)
-
-    write_attribute(:encryption_algorithm, algorithm)
+  def password_bytesize
+    encryption_class.password_bitsize
   end
 
   def new_team_password
-    Crypto::Symmetric::ALGORITHMS[encryption_algorithm].random_key
+    encryption_class.random_key
   end
 
-  def update_encryption_algorithm
-    self.encryption_algorithm = Crypto::Symmetric.latest_algorithm
+  def encryption_class
+    Crypto::Symmetric::ALGORITHMS[encryption_algorithm]
   end
 
   def encryptables
-    Encryptable.joins("LEFT JOIN folders ON encryptables.folder_id = folders.id
-                       INNER JOIN teams ON folders.team_id = teams.id")
-               .where('teams.id = ?', id)
+    ids = Encryptable.joins(folder: :team).where('teams.id': id).pluck(:id)
+    Encryptable.where("id IN (?) OR credential_id IN (?)", ids, ids)
   end
 
   private

@@ -35,12 +35,10 @@ class Teammember < ApplicationRecord
   scope :in_private_teams, (-> { joins(:team).where('teams.private' => true) })
 
 
-  def recrypt_team_password(user, admin, private_key)
-    teammember_admin = admin.teammembers.find_by(team_id: team_id)
-    team_password = Crypto::Rsa.decrypt(teammember_admin.
-      password, private_key)
-
-    self.password = Crypto::Rsa.encrypt(team_password, user.public_key)
+  def reset_team_password(new_team_password)
+    public_key = human.public_key
+    encrypted_team_password = Crypto::Rsa.encrypt(new_team_password, public_key)
+    self.encrypted_team_password = encrypted_team_password
     save!
   end
 
