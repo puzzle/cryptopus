@@ -95,7 +95,7 @@ en:
 
   encryptable/sharing/file:
     new:
-      title: "Share File"
+      title: Send file to
     receiver:
       name: Choose receiver
 

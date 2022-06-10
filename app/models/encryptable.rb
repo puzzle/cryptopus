@@ -47,7 +47,18 @@ class Encryptable < ApplicationRecord
     folder.team
   end
 
+  def recrypt_transferred(private_key, team_password)
+    decrypt(decrypt_transfer_password(private_key))
+    self.encrypted_transfer_password = nil
+    encrypt(team_password)
+    save!
+  end
+
   private
+
+  def decrypt_transfer_password(private_key)
+    Crypto::Rsa.decrypt(encrypted_transfer_password, private_key)
+  end
 
   def encrypt_attr(attr, team_password)
     cleartext_value = send(:"cleartext_#{attr}")

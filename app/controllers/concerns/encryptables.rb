@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency '../utils/sharing/encryptable'
-
 module Encryptables
   extend ActiveSupport::Concern
 
@@ -60,26 +58,19 @@ module Encryptables
 
   ### Sharing ###
 
-  def encryptable_sharing?
+  def encryptable_transfering?
     receiver_id.present?
   end
 
-  def shared_encryptable
-    if encryptable.present?
-      options = {
-        current_user: current_user,
-        decrypted_team_password: decrypted_team_password(team)
-      }
+  def transfer_encryptable
+    sender_id = current_user.id
 
-      shared_encryptable = Encryptable::Sharing.new(encryptable, receiver_id, options).prepare_encryptable
-    else
-      # shared_encryptable = Encryptable::Sharing.new(encryptable, receiver_id, options).prepare_file
-    end
+    shared_encryptable = EncryptableTransfer.new.transfer(encryptable, receiver_id, sender_id)
 
     instance_variable_set(:"@#{ivar_name}", shared_encryptable)
   end
 
-  def shared_encryptable?(entry)
+  def transfered_encryptable?(entry)
     entry.transfer_password.present? && entry.receiver_id.present?
   end
 
