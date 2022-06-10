@@ -18,7 +18,7 @@ class Api::EncryptablesController < ApiController
   # GET /api/encryptables/:id
   def show
     authorize entry
-    if shared_encryptable?(entry)
+    if transfered_encryptable?(entry)
       decrypt_shared_encryptable(entry, session[:private_key])
     else
       entry.decrypt(decrypted_team_password(team))
@@ -31,9 +31,7 @@ class Api::EncryptablesController < ApiController
     build_entry
     authorize entry
 
-    if encryptable_sharing?
-      entry.encrypt(transfer_password)
-    else
+    unless encryptable_transfering?
       entry.encrypt(decrypted_team_password(team))
     end
 
@@ -78,7 +76,7 @@ class Api::EncryptablesController < ApiController
 
   def build_entry
     return build_encryptable_file if encryptable_file?
-    return shared_encryptable if encryptable_sharing?
+    return transfer_encryptable if encryptable_transfering?
 
     super
   end

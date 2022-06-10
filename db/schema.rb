@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_06_091924) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_10_111831) do
   create_table "encryptables", force: :cascade do |t|
     t.string "name", limit: 255, default: "", null: false
     t.integer "folder_id"
@@ -22,8 +22,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_06_091924) do
     t.text "encrypted_data", limit: 16777215
     t.integer "credential_id"
     t.text "content_type"
-    t.binary "transfer_password"
-    t.integer "receiver_id"
+    t.binary "encrypted_transfer_password"
+    t.integer "sender_id"
     t.index ["description"], name: "index_encryptables_on_description"
     t.index ["name"], name: "index_encryptables_on_name"
     t.index ["tag"], name: "index_encryptables_on_tag"
@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_06_091924) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "visible", default: true, null: false
     t.boolean "private", default: false, null: false
-    t.string "type", null: false
+    t.string "type", default: "Team::Shared", null: false
     t.integer "personal_owner_id"
     t.index ["name"], name: "index_teams_on_name"
   end
