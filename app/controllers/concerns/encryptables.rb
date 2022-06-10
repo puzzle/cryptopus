@@ -71,7 +71,7 @@ module Encryptables
   end
 
   def transfered_encryptable?(entry)
-    entry.transfer_password.present? && entry.receiver_id.present?
+    entry.encrypted_transfer_password.present? && entry.sender_id.present?
   end
 
   def receiver_id
