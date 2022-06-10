@@ -20,7 +20,7 @@ describe 'Teammember', type: :system, js: true do
     visit('/')
 
     expect(page).to have_css('p', visible: false, text: 'Looking for a password?')
-    team1_link = find('a.team-list-item')
+    team1_link = find('a.team-list-item', text: 'team1')
     team1_link.click
 
     find('img[alt="configure"]').click

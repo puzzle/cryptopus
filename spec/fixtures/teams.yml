@@ -32,30 +32,30 @@ team2:
 
 personal_team_bob:
   type: Team::Personal
-  name: bob
+  name: personal-team
   private: true
   personal_owner: bob
 
 personal_team_alice:
   type: Team::Personal
-  name: alice
+  name: personal-team
   private: true
   personal_owner: alice
 
 personal_team_root:
   type: Team::Personal
-  name: root
+  name: personal-team
   private: true
   personal_owner: root
 
 personal_team_admin:
   type: Team::Personal
-  name: admin
+  name: personal-team
   private: true
   personal_owner: admin
 
 personal_team_conf_admin:
   type: Team::Personal
-  name: conf_admin
+  name: personal-team
   private: true
   personal_owner: conf_admin

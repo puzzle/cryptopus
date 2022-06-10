@@ -36,7 +36,7 @@ describe 'FolderModal', type: :system, js: true do
 
       find('#team-power-select').find('.ember-power-select-trigger',
                                       visible: false).click # Open trigger
-      find_all('ul.ember-power-select-options > li', visible: false)[0].click
+      find_all('ul.ember-power-select-options > li', visible: false)[1].click
 
       click_button('Save', visible: false)
 
