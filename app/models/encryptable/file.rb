@@ -20,7 +20,7 @@ class Encryptable::File < Encryptable
   def encrypt(team_password, algorithm = team.encryption_algorithm)
     return if cleartext_file.blank?
 
-    encrypt_attr(:file, team_password, algorithm)
+    encrypt_attr(:file, team_password)
   end
 
   def team

@@ -40,7 +40,7 @@ describe Crypto::Symmetric::Recrypt do
 
     expect do
       described_class.new(alice, team, private_key).perform
-    end.to raise_error(RuntimeError)
+    end.to raise_error(RuntimeError, 'Recrypt failed: wrong final block length')
 
     expect(team.encryption_algorithm).to eq 'AES256'
     expect(team.recrypt_state).to eq 'failed'

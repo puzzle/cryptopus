@@ -59,13 +59,13 @@ class Encryptable < ApplicationRecord
 
   private
 
-  def encrypt_attr(attr, team_password, algorithm)
+  def encrypt_attr(attr, team_password)
     cleartext_value = send(:"cleartext_#{attr}")
 
     encrypted_value = if cleartext_value.blank?
                         { data: nil, iv: nil }
                       else
-                        encryption_class(algorithm).encrypt(cleartext_value, team_password)
+                        team.encryption_class.encrypt(cleartext_value, team_password)
                       end
 
     encrypted_data.[]=(attr, **{ data: encrypted_value[:data], iv: encrypted_value[:iv] })
@@ -79,15 +79,10 @@ class Encryptable < ApplicationRecord
     encrypted_value = { data: data, iv: iv }
 
     cleartext_value = if data.present?
-                        encryption_class(team.encryption_algorithm)
-                          .decrypt(encrypted_value, team_password)
+                        team.encryption_class.decrypt(encrypted_value, team_password)
                       end
 
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
-  end
-
-  def encryption_class(algorithm)
-    Crypto::Symmetric::ALGORITHMS[algorithm]
   end
 
 end
