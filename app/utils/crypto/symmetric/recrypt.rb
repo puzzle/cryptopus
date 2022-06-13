@@ -15,7 +15,6 @@ class Crypto::Symmetric::Recrypt
     begin
       recrypt(@team.new_team_password)
     rescue => e # rubocop:disable Style/RescueStandardError
-      # TODO: Notify sentry
       @team.recrypt_failed!
       raise "Recrypt failed: #{e.message}"
     end
@@ -50,20 +49,13 @@ class Crypto::Symmetric::Recrypt
   end
 
   def update_team(new_team_password)
-    update_team_encryption_algorithm
-    update_teammember_passwords(new_team_password)
-    @team.recrypt_done!
-  end
+    @team.encryption_algorithm = ::Crypto::Symmetric::LATEST_ALGORITHM
 
-  def update_teammember_passwords(new_team_password)
     @team.teammembers.find_each do |member|
       member.reset_team_password(new_team_password)
     end
-  end
 
-  def update_team_encryption_algorithm
-    @team.encryption_algorithm = ::Crypto::Symmetric::LATEST_ALGORITHM
-    @team.save!
+    @team.recrypt_done!
   end
 
 end

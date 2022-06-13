@@ -70,12 +70,14 @@ describe Crypto::Symmetric::Recrypt do
     stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
 
     team = teams(:team1)
-    old_team_passwords = team.teammembers.pluck(:password)
+    old_team_passwords = team.teammembers.pluck(:encrypted_team_password)
 
     private_key = alice.decrypt_private_key('password')
     described_class.new(alice, team, private_key).perform
 
-    expect(team.teammembers).not_to eq(old_team_passwords)
+    new_team_passwords = team.teammembers.pluck(:encrypted_team_password)
+
+    expect(new_team_passwords).not_to eq(old_team_passwords)
 
     expect(team.encryption_algorithm).to eq 'AES256IV'
     expect(team.recrypt_state).to eq 'done'
