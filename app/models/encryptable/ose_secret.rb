@@ -14,8 +14,8 @@ class Encryptable::OseSecret < Encryptable
     decrypt_attr(:ose_secret, team_password)
   end
 
-  def encrypt(team_password)
-    encrypt_attr(:ose_secret, team_password)
+  def encrypt(team_password, algorithm = team.encryption_algorithm)
+    encrypt_attr(:ose_secret, team_password, algorithm)
   end
 
   private

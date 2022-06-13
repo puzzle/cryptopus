@@ -22,7 +22,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_063817) do
     t.text "encrypted_data", limit: 16777215
     t.integer "credential_id"
     t.text "content_type"
-    t.integer "receiver_id"
     t.string "encryption_algorithm", default: "AES256", null: false
     t.index ["description"], name: "index_encryptables_on_description"
     t.index ["name"], name: "index_encryptables_on_name"

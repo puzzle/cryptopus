@@ -57,11 +57,6 @@ describe Crypto::Symmetric::Recrypt do
 
     described_class.new(alice, team, private_key).perform
 
-    encryptable_algorithms = team.encryptables.pluck(:encryption_algorithm).uniq
-
-    expect(encryptable_algorithms.length).to eq 1
-    expect(encryptable_algorithms.first).to eq 'AES256IV'
-
     expect(team.encryption_algorithm).to eq 'AES256IV'
     expect(team.recrypt_state).to eq 'done'
 
@@ -90,14 +85,18 @@ describe Crypto::Symmetric::Recrypt do
     stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
 
     team = teams(:team1)
-    old_team_passwords = team.teammembers.pluck(:password)
-
     private_key = alice.decrypt_private_key('password')
+
     described_class.new(alice, team, private_key).perform
 
-    expect(team.teammembers).not_to eq(old_team_passwords)
+    file = team.encryptables.where(type: 'Encryptable::File').first
+    file.decrypt(team.decrypt_team_password(alice, private_key))
 
-    expect(team.encryption_algorithm).to eq 'AES256IV'
+    expect(file.cleartext_file).to eq('Dolorem odio id. Veniam sit eum. '\
+                                      'Earum et nesciunt. Sed modi voluptatem. '\
+                                      'Maxime qui rerum. A fugit eos. '\
+                                      'Magnam atque at. Velit quam dolores.')
+
     expect(team.recrypt_state).to eq 'done'
   end
 
@@ -105,7 +104,7 @@ describe Crypto::Symmetric::Recrypt do
 
   def create_broken_encryptable(team)
     broken_encryptable = team.encryptables.first
-    broken_encryptable.encrypted_data.[]=(:password, **{ iv: nil, data: 'broken' })
+    broken_encryptable.encrypted_data.[]=(:ose_secret, **{ iv: nil, data: 'broken' })
     broken_encryptable.save!
   end
 

@@ -5,7 +5,7 @@
 # Table name: teams
 #
 #  id          :integer          not null, primary key
-#  name        :string(40)       default(""), not null
+#  name        :string(40)       default(''), not null
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -90,7 +90,7 @@ class Team < ApplicationRecord
 
   def encryptables
     ids = Encryptable.joins(folder: :team).where('teams.id': id).pluck(:id)
-    Encryptable.where("id IN (?) OR credential_id IN (?)", ids, ids)
+    Encryptable.where('id IN (?) OR credential_id IN (?)', ids, ids)
   end
 
   private
