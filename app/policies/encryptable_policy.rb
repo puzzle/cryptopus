@@ -39,19 +39,13 @@ class EncryptablePolicy < TeamDependantPolicy
   private
 
   def encryptable_transfer
-    require 'pry'; binding.pry unless $pstop
     @record.receiver_id.present? &&
       current_user.present? &&
-      user_human? &&
-      sender_himself?
+      user_human?
   end
 
   def user_human?
     User.find(@record.receiver_id).type == User::Human
-  end
-
-  def sender_himself?
-    @record.receiver_id != current_user.id
   end
 
 end

@@ -54,6 +54,10 @@ class Encryptable < ApplicationRecord
     save!
   end
 
+  def transfered?
+    encrypted_transfer_password.present? && sender_id.present?
+  end
+
   private
 
   def decrypt_transfer_password(private_key)

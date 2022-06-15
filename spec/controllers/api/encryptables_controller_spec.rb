@@ -700,8 +700,8 @@ describe Api::EncryptablesController do
     end
   end
 
-  context 'share Encryptable' do
-    it 'build_entry returns shared_encryptable if shared_encrytable is true' do
+  context 'encryptable transfer' do
+    it 'sends encryptable to recipient' do
       login_as(:alice)
 
 

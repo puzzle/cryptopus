@@ -7,6 +7,7 @@ describe EncryptableTransfer do
   let(:encryptable) { encryptables(:credentials1) }
   let(:alice) { users(:alice) }
   let(:bob) { users(:bob) }
+  let(:api_tux) { users(:api_tux) }
   let(:bobs_private_key) { bob.decrypt_private_key('password') }
   let(:team1) { teams(:team1) }
 
@@ -41,10 +42,20 @@ describe EncryptableTransfer do
     end
 
     it 'does not send encryptable file to non existent user' do
+      receiver = nil
+      sender_id = alice.id
 
+      expect { encryptable_share.transfer(encryptable_file, receiver, sender_id) }.to raise_error(StandardError, "Cant transfer to nonexistent user")
     end
 
     it 'does not send encryptable file to api user' do
+      receiver = api_tux
+      sender_id = alice.id
+
+      expect { encryptable_share.transfer(encryptable_file, receiver, sender_id) }.to raise_error(StandardError, "Cant transfer to API user")
+    end
+
+    it 'recrypts encryptable when received' do
 
     end
 
