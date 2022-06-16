@@ -27,7 +27,7 @@ class Encryptable < ApplicationRecord
   validates :name, presence: true
   validates :description, length: { maximum: 4000 }
 
-  def encrypt(_team_password, _algorithm = team.encryption_algorithm)
+  def encrypt(_team_password)
     raise 'implement in subclass'
   end
 
@@ -35,9 +35,11 @@ class Encryptable < ApplicationRecord
     raise 'implement in subclass'
   end
 
-  def recrypt(team_password, new_team_password)
+  def recrypt(team_password, new_team_password, latest_encryption_class)
+    @latest_encryption_class = latest_encryption_class
+
     decrypt(team_password)
-    encrypt(new_team_password, ::Crypto::Symmetric::LATEST_ALGORITHM)
+    encrypt(new_team_password)
     save!
   end
 
@@ -65,7 +67,7 @@ class Encryptable < ApplicationRecord
     encrypted_value = if cleartext_value.blank?
                         { data: nil, iv: nil }
                       else
-                        team.encryption_class.encrypt(cleartext_value, team_password)
+                        encryption_class.encrypt(cleartext_value, team_password)
                       end
 
     encrypted_data.[]=(attr, **{ data: encrypted_value[:data], iv: encrypted_value[:iv] })
@@ -83,6 +85,10 @@ class Encryptable < ApplicationRecord
                       end
 
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
+  end
+
+  def encryption_class
+    @latest_encryption_class || team.encryption_class
   end
 
 end

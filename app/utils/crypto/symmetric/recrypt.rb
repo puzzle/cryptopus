@@ -11,7 +11,9 @@ class Crypto::Symmetric::Recrypt
   def perform
     return if already_recrypted? || recrypt_locked?
 
-    prepare_recrypt
+    @team.recrypt_in_progress!
+    @team_password = @team.decrypt_team_password(@current_user, @private_key)
+
     begin
       recrypt(@team.new_team_password)
     rescue => e # rubocop:disable Style/RescueStandardError
@@ -21,11 +23,6 @@ class Crypto::Symmetric::Recrypt
   end
 
   private
-
-  def prepare_recrypt
-    @team.recrypt_in_progress!
-    @team_password = @team.decrypt_team_password(@current_user, @private_key)
-  end
 
   def already_recrypted?
     Crypto::Symmetric.latest_algorithm?(@team)
@@ -37,25 +34,26 @@ class Crypto::Symmetric::Recrypt
 
   def recrypt(new_team_password)
     ActiveRecord::Base.transaction do
-      recrypt_team_encryptables(new_team_password)
+      @team.encryptables.find_each do |encryptable|
+        encryptable.recrypt(@team_password, new_team_password, latest_encryption_class)
+      end
+
       update_team(new_team_password)
     end
   end
 
-  def recrypt_team_encryptables(new_team_password)
-    @team.encryptables.find_each do |encryptable|
-      encryptable.recrypt(@team_password, new_team_password)
-    end
-  end
-
   def update_team(new_team_password)
-    @team.encryption_algorithm = ::Crypto::Symmetric::LATEST_ALGORITHM
-
     @team.teammembers.find_each do |member|
       member.reset_team_password(new_team_password)
     end
 
+    @team.encryption_algorithm = ::Crypto::Symmetric::LATEST_ALGORITHM
     @team.recrypt_done!
+  end
+
+  def latest_encryption_class
+    encryption_algorithm = ::Crypto::Symmetric::LATEST_ALGORITHM
+    Crypto::Symmetric::ALGORITHMS[encryption_algorithm]
   end
 
 end

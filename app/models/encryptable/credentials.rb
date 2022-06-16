@@ -17,7 +17,7 @@ class Encryptable::Credentials < Encryptable
     decrypt_attr(:password, team_password)
   end
 
-  def encrypt(team_password, algorithm = team.encryption_algorithm)
+  def encrypt(team_password)
     encrypt_attr(:username, team_password)
     encrypt_attr(:password, team_password)
   end
