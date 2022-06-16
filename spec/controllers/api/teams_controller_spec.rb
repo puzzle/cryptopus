@@ -90,6 +90,36 @@ describe Api::TeamsController do
       expect(folder_relationships_length).to be(3)
     end
 
+    it 'triggers team recrypt if latest algorithm is not applied on team' do
+      login_as(:bob)
+
+      stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
+
+      get :index, params: { team_id: team1.id }, xhr: true
+
+      expect(team1.encryption_algorithm).to eq('AES256')
+
+      expect(response.status).to be(200)
+
+      team1.reload
+      expect(team1.encryption_algorithm).to eq('AES256IV')
+    end
+
+    it 'returns unchanged team if recrypt fails' do
+      login_as(:bob)
+
+      stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
+
+      get :index, params: { team_id: team1.id }, xhr: true
+
+      expect(team1.encryption_algorithm).to eq('AES256')
+
+      expect(response.status).to be(200)
+
+      team1.reload
+      expect(team1.encryption_algorithm).to eq('AES256IV')
+    end
+
     it 'returns bobs favourite teams' do
       login_as(:bob)
 
