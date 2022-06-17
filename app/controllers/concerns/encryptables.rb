@@ -56,49 +56,6 @@ module Encryptables
     params[:credential_id]
   end
 
-  ### Sharing ###
-
-  def encryptable_transfering?
-    receiver_id.present?
-  end
-
-  def transfer_encryptable
-    sender_id = current_user.id
-
-    shared_encryptable = EncryptableTransfer.new.transfer(encryptable, receiver_id, sender_id)
-
-    instance_variable_set(:"@#{ivar_name}", shared_encryptable)
-  end
-
-  def transfered_encryptable?(entry)
-    entry.encrypted_transfer_password.present? && entry.sender_id.present?
-  end
-
-  def receiver_id
-    params.dig('data', 'attributes', 'receiver_id')
-  end
-
-  def decrypt_shared_encryptable(entry, private_key)
-    plaintext_transfer_password = Crypto::Rsa.decrypt(entry.transfer_password, private_key)
-    entry.decrypt(plaintext_transfer_password)
-
-    recrypt_with_personal_team_password(entry)
-    remove_shared_attributes(entry)
-  end
-
-  def recrypt_with_personal_team_password(entry)
-    personal_team = Team::Personal.find_by(personal_owner_id: current_user.id)
-    entry.encrypt(decrypted_team_password(personal_team))
-
-    entry.decrypt(decrypted_team_password(personal_team))
-  end
-
-  def remove_shared_attributes(entry)
-    entry.transfer_password = nil
-    entry.receiver_id = nil
-    entry.save!
-  end
-
   ### Other ###
 
   def encrypt(encryptable)
@@ -118,6 +75,10 @@ module Encryptables
   end
 
   def encryptable
-    @encryptable ||= Encryptable.find(params[:id])
+    @encryptable ||= Encryptable.find(encryptable_id)
+  end
+
+  def encryptable_id
+    params[:id] || params.dig('data', 'attributes', 'id')
   end
 end

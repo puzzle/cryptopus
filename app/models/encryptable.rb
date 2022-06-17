@@ -16,8 +16,9 @@
 #
 
 class Encryptable < ApplicationRecord
-
   serialize :encrypted_data, ::EncryptedData
+
+  attr_accessor :receiver_id
 
   attr_readonly :type
   validates :type, presence: true
