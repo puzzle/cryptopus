@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Api::EncryptablesController < ApiController
+  before_action :show, decrypt_transfered_encryptable
   include Encryptables
 
   self.permitted_attrs = [:name, :description, :tag, :receiver_id]
@@ -16,13 +17,10 @@ class Api::EncryptablesController < ApiController
   end
 
   # GET /api/encryptables/:id
+
   def show
     authorize entry
-    if transfered_encryptable?(entry)
-      decrypt_shared_encryptable(entry, session[:private_key])
-    else
-      entry.decrypt(decrypted_team_password(team))
-    end
+    entry.decrypt(decrypted_team_password(team))
     render_entry
   end
 
@@ -79,6 +77,12 @@ class Api::EncryptablesController < ApiController
     return transfer_encryptable if encryptable_transfering?
 
     super
+  end
+
+  def decrypt_transfered_encryptable
+    if transfered_encryptable?(entry)
+      decrypt_shared_encryptable(entry, session[:private_key])
+    end
   end
 
   def file_credential
