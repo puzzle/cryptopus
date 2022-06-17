@@ -364,6 +364,7 @@ describe Api::EncryptablesController do
 
     it 'moves encryptable to other team' do
       login_as(:bob)
+      request.headers['Authorization-Password'] = Base64.encode64('password')
 
       credentials1 = encryptables(:credentials1)
       target_folder = folders(:folder2)
@@ -383,7 +384,6 @@ describe Api::EncryptablesController do
       patch :update, params: encryptable_params, xhr: true
 
       credentials1.reload
-
       credentials1.decrypt(team2_password)
 
       expect(credentials1.cleartext_username).to eq 'globi'
@@ -701,13 +701,13 @@ describe Api::EncryptablesController do
   end
 
   context 'encryptable transfer' do
-    it 'sends encryptable to recipient' do
+    it 'sends encryptable credentials to recipient' do
       login_as(:alice)
-
 
       share_encryptable_params = {
         data: {
           attributes: {
+            id: credentials1.id,
             receiver_id: bob.id
           }
         }

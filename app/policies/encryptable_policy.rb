@@ -40,7 +40,7 @@ class EncryptablePolicy < TeamDependantPolicy
 
   def encryptable_transfer
     @record.receiver_id.present? &&
-      current_user.present? &&
+      user.present? &&
       user_human?
   end
 

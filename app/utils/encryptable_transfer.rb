@@ -3,7 +3,6 @@
 class EncryptableTransfer
 
   def transfer(encryptable, receiver, sender_id)
-
     if receiver.nil?
       raise StandardError.new "Cant transfer to nonexistent user"
     elsif receiver.is_a?(User::Api)
@@ -15,8 +14,10 @@ class EncryptableTransfer
       encryptable.update!(
         folder: inbox_folder(receiver),
         sender_id: sender_id,
+        receiver_id: receiver.id,
         encrypted_transfer_password: encrypted_transfer_password(transfer_password, receiver)
       )
+      encryptable
     end
   end
 
