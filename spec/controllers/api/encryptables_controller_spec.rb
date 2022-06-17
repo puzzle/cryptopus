@@ -715,9 +715,14 @@ describe Api::EncryptablesController do
 
       post :create, params: share_encryptable_params, xhr: true
 
-      # shared_encryptable_json_attributes = data['attributes']
-      #
-      # expect(shared_encryptable_json_attributes['reciver_id']).to eg(bob.id)
+      personal_inbox_folder_bob = bob.personal_team.folders.find_by(name: 'inbox')
+      duplicated_encryptable = personal_inbox_folder_bob.encryptables.first
+
+      expect(duplicated_encryptable.name).to eq(credentials1.name)
+      expect(duplicated_encryptable.folder_id).not_to eq(credentials1.folder_id)
+      expect(duplicated_encryptable.encrypted_transfer_password).present?
+      expect(duplicated_encryptable.sender_id).present?
+      expect(duplicated_encryptable.sender_id).to eq(alice.id)
     end
   end
 
