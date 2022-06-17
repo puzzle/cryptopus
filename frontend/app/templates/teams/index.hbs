@@ -10,5 +10,14 @@
     {{else}}
       <h5>{{t "teams.index.no_content"}}</h5>
     {{/if}}
+    {{#while-loading}}
+      <div class="lds-roller">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    {{/while-loading}}
   </div>
 </div>

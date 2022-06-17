@@ -7,7 +7,7 @@
 {{#if this.isNewFolder}}
   <Folder::Form @onAbort={{this.toggleFolderCreating}} @title={{t "folders.new.title"}}/>
 {{/if}}
-<div class="mt-4 mb-4 border-radius-4">
+<div class="mt-4 mb-4 border-radius-4 show-component">
   <div>
     <div class="row py-2 d-flex team-card-header {{if this.collapsed "rounded" "rounded-top"}}">
       <div class="col-auto pr-0 my-auto" role="button" {{on "click" this.collapse}}>
