@@ -54,14 +54,18 @@ describe User::Human do
 
       it 'deletes personal team when user is deleted' do
         user = users(:alice).dup
-        personal_team = Team.find(user.personal_team_id)
+        user.username = "Alice2"
+        user.save!
+        personal_team = Team.find(user.personal_team.id)
         user.destroy
         expect(Team.exists?(personal_team.id)).to eq(false)
       end
 
       it 'deletes personal team when user is deleted' do
         user = users(:alice).dup
-        personal_team = Team.find(user.personal_team_id)
+        user.username = "Alice2"
+        user.save!
+        personal_team = Team.find(user.personal_team.id)
         user.destroy
         expect(Team.exists?(personal_team.id)).to eq(false)
       end
