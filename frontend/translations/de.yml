@@ -93,7 +93,7 @@ de:
     share:
       title: Datei teilen
 
-  encryptable/sharing/file:
+  encryptable/transfering/file:
     new:
       title: "Datei teilen"
     receiver:
@@ -298,6 +298,13 @@ de:
       uploaded_filename_is_empty: Die Datei muss benannt sein
       uploaded_file_inexistent: Datei ist inexistent
       uploaded_filename_already_exists: Dateiname existiert bereits
+    encryptable_transfer:
+      credentials:
+        transferred: Zugangsdaten erfolgreich dem Empfänger übermittelt
+        transfer_failed: Übermittlung der Zugangsdaten mit dem Empfänger fehlgeschlagen
+      file:
+        transferred: Datei erfolgreich dem Empfänger übermittelt
+        transfer_failed: Übermittlung der Datei mit dem Empfänger fehlgeschlagen
     session:
       auth_failed: Ungültiger Benutzername / Passwort.
       weak_password: Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen

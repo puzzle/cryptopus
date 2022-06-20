@@ -2,22 +2,20 @@
 
 class EncryptableTransfer
   def transfer(encryptable, receiver, sender_id)
-    if receiver.nil?
-      raise StandardError.new "Cant transfer to nonexistent user"
-    elsif receiver.is_a?(User::Api)
-      raise StandardError.new "Cant transfer to API user"
-    else
-      transfer_password = new_transfer_password
-      encryptable.encrypt(transfer_password)
+    raise StandardError.new "Receiver user not found" if receiver.nil?
+    raise StandardError.new "Cant transfer to API user" if receiver.is_a?(User::Api)
+    raise StandardError.new "Cant transfer to yourself" if receiver.id.eql?(sender_id)
 
-      encryptable.update!(
-        folder: inbox_folder(receiver),
-        sender_id: sender_id,
-        receiver_id: receiver.id,
-        encrypted_transfer_password: encrypted_transfer_password(transfer_password, receiver)
-      )
-      encryptable
-    end
+    transfer_password = new_transfer_password
+    encryptable.encrypt(transfer_password)
+
+    encryptable.update!(
+      folder: inbox_folder(receiver),
+      sender_id: sender_id,
+      receiver_id: receiver.id,
+      encrypted_transfer_password: encrypted_transfer_password(transfer_password, receiver)
+    )
+    encryptable
   end
 
   def receive(encryptable, private_key, personal_team_password)

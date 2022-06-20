@@ -13,6 +13,8 @@ describe Api::EncryptablesController do
   let(:attributes) { %w[name cleartext_password cleartext_username] }
   let!(:ose_secret) { create_ose_secret }
   let(:credentials1) { encryptables(:credentials1) }
+  let(:file1) { encryptables(:file1) }
+
 
   context 'GET index' do
     it 'returns encryptable with matching name' do
@@ -103,7 +105,6 @@ describe Api::EncryptablesController do
       login_as(:alice)
 
       credentials1 = encryptables(:credentials1)
-      file1 = encryptables(:file1)
 
       get :index, params: { 'credential_id': credentials1.id }, xhr: true
 
@@ -723,6 +724,143 @@ describe Api::EncryptablesController do
       expect(duplicated_encryptable.encrypted_transfer_password).present?
       expect(duplicated_encryptable.sender_id).present?
       expect(duplicated_encryptable.sender_id).to eq(alice.id)
+    end
+
+    it 'sends encryptable file to recipient' do
+      login_as(:bob)
+
+      share_encryptable_params = {
+        data: {
+          attributes: {
+            id: file1.id,
+            receiver_id: alice.id
+          }
+        }
+      }
+
+      post :create, params: share_encryptable_params, xhr: true
+
+      personal_inbox_folder_alice = alice.personal_team.folders.find_by(name: 'inbox')
+      duplicated_encryptable = personal_inbox_folder_alice.encryptables.first
+
+      expect(duplicated_encryptable.name).to eq(file1.name)
+      expect(duplicated_encryptable.folder_id).not_to eq(file1.folder_id)
+      expect(duplicated_encryptable.encrypted_transfer_password).present?
+      expect(duplicated_encryptable.sender_id).present?
+      expect(duplicated_encryptable.sender_id).to eq(bob.id)
+      expect(duplicated_encryptable.content_type).to eq("text/plain")
+    end
+
+    it 'does not send encryptable credentials to api user' do
+      login_as(:alice)
+
+      share_encryptable_params = {
+        data: {
+          attributes: {
+            id: credentials1.id,
+            receiver_id: api_user.id
+          }
+        }
+      }
+      expect { post :create, params: share_encryptable_params, xhr: true }.to raise_error(StandardError, "Cant transfer to API user")
+    end
+
+    it 'does not send encryptable file to api user' do
+      login_as(:bob)
+
+      share_encryptable_params = {
+        data: {
+          attributes: {
+            id: file1.id,
+            receiver_id: api_user.id
+          }
+        }
+      }
+      expect { post :create, params: share_encryptable_params, xhr: true }.to raise_error(StandardError, "Cant transfer to API user")
+    end
+
+    it 'does not send encryptable credentials to non existing user' do
+      login_as(:alice)
+
+      share_encryptable_params = {
+        data: {
+          attributes: {
+            id: credentials1.id,
+            receiver_id: 5647836758538
+          }
+        }
+      }
+      expect { post :create, params: share_encryptable_params, xhr: true }.to raise_error(StandardError, "Receiver user not found")
+    end
+
+    it 'does not send encryptable file to non existing user' do
+      login_as(:bob)
+
+      share_encryptable_params = {
+        data: {
+          attributes: {
+            id: file1.id,
+            receiver_id: 657656756567856
+          }
+        }
+      }
+      expect { post :create, params: share_encryptable_params, xhr: true }.to raise_error(StandardError, "Receiver user not found")
+    end
+
+    it 'does not send encryptable credentials to user himself' do
+      login_as(:alice)
+
+      share_encryptable_params = {
+        data: {
+          attributes: {
+            id: credentials1.id,
+            receiver_id: alice.id
+          }
+        }
+      }
+      expect { post :create, params: share_encryptable_params, xhr: true }.to raise_error(StandardError, "Cant transfer to yourself")
+    end
+
+    it 'does not send encryptable file to user himself' do
+      login_as(:bob)
+
+      share_encryptable_params = {
+        data: {
+          attributes: {
+            id: file1.id,
+            receiver_id: bob.id
+          }
+        }
+      }
+      expect { post :create, params: share_encryptable_params, xhr: true }.to raise_error(StandardError, "Cant transfer to yourself")
+    end
+
+    it 'does not send non existing encryptable credentials' do
+      login_as(:alice)
+
+      share_encryptable_params = {
+        data: {
+          attributes: {
+            id: 78657864756,
+            receiver_id: bob.id
+          }
+        }
+      }
+      expect { post :create, params: share_encryptable_params, xhr: true }.to raise_error(StandardError, "Target encryptable not found")
+    end
+
+    it 'does not send non existing encryptable file' do
+      login_as(:bob)
+
+      share_encryptable_params = {
+        data: {
+          attributes: {
+            id: 78657864756,
+            receiver_id: alice.id
+          }
+        }
+      }
+      expect { post :create, params: share_encryptable_params, xhr: true }.to raise_error(StandardError, "Target encryptable not found")
     end
 
     it 'recrypts encryptable when received' do
