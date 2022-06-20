@@ -3,110 +3,119 @@
 require 'spec_helper'
 
 describe Crypto::Symmetric::Recrypt do
-  let(:alice) { users(:alice) }
+  let(:admin) { users(:admin) }
+  let(:admin_pk) { admin.decrypt_private_key('password') }
+  let(:team) { Fabricate(:non_private_team) }
 
-  it 'recrypts given team' do
-    team = Team::Shared.create(alice, name: 'Team 1')
+  it 'recrypts encryptables for given team' do
+    stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256')
+
+    expect(team).to be_persisted
+    # make sure encryption algorithm is persisted
+    expect(team.read_attribute(:encryption_algorithm)).to eq 'AES256'
+    expect(team.encryption_algorithm).to eq 'AES256'
+    expect(team.recrypt_state).to eq 'done'
+
+    team_password = team.decrypt_team_password(admin, admin_pk)
+    encryptable = team.encryptables.first
+    encryptable.decrypt(team_password)
+    encryptable_username = encryptable.cleartext_username
+    encryptable_password = encryptable.cleartext_password
+    expect(encryptable_username).to be_present
+    expect(encryptable_password).to be_present
 
     stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
 
-    expect(team.encryption_algorithm).to eq 'AES256'
+    described_class.new(admin, team, admin_pk).perform
 
-    private_key = alice.decrypt_private_key('password')
-    described_class.new(alice, team, private_key).perform
-
+    team.reload
+    expect(team.read_attribute(:encryption_algorithm)).to eq 'AES256IV'
     expect(team.encryption_algorithm).to eq 'AES256IV'
     expect(team.recrypt_state).to eq 'done'
+
+    encryptable = Encryptable.find(encryptable.id)
+    new_team_password = team.decrypt_team_password(admin, admin_pk)
+    expect(new_team_password).not_to eq(team_password)
+    encryptable.decrypt(new_team_password)
+    expect(encryptable.cleartext_username).to eq(encryptable_username)
+    expect(encryptable.cleartext_password).to eq(encryptable_password)
+
+    encrypted_data = encryptable.encrypted_data
+    expect(encrypted_data[:username][:iv]).to be_present
+    expect(encrypted_data[:password][:iv]).to be_present
   end
 
-  it 'doesnt recrypt team if default algorithm is already in use' do
-    stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
+  it 'does not recrypt team encryptables if default algorithm is already in use' do
 
-    team = Team::Shared.create(alice, name: 'Team 1')
+    expect(team).to be_persisted
+    # make sure encryption algorithm is persisted
+    expect(team.read_attribute(:encryption_algorithm)).to eq 'AES256IV'
+    expect(team.encryption_algorithm).to eq 'AES256IV'
+    expect(team.recrypt_state).to eq 'done'
 
-    private_key = alice.decrypt_private_key('password')
-    described_class.new(alice, team, private_key).perform
+    described_class.new(admin, team, admin_pk).perform
 
     expect(team.encryption_algorithm).to eq 'AES256IV'
     expect(team.recrypt_state).to eq 'done'
   end
 
   it 'aborts recrypt if error occurs' do
+    stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256')
+
+    create_broken_encryptable(team)
+
     stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
 
-    team = teams(:team1)
-    create_broken_encryptable(team)
-    private_key = alice.decrypt_private_key('password')
-
     expect do
-      described_class.new(alice, team, private_key).perform
+      described_class.new(admin, team, admin_pk).perform
     end.to raise_error(RuntimeError, 'Recrypt failed: wrong final block length')
 
-    expect(team.encryption_algorithm).to eq 'AES256'
+    expect(team.reload.encryption_algorithm).to eq 'AES256'
     expect(team.recrypt_state).to eq 'failed'
   end
 
-  it 'recrypts team encryptables' do
-    stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
-
-    team = teams(:team1)
-
-    private_key = alice.decrypt_private_key('password')
-    encryptable = team.encryptables.find_by(type: 'Encryptable::Credentials')
-    encryptable.decrypt(team.decrypt_team_password(alice, private_key))
-
-    described_class.new(alice, team, private_key).perform
-
-    expect(team.encryption_algorithm).to eq 'AES256IV'
-    expect(team.recrypt_state).to eq 'done'
-
-    encryptable = team.encryptables.find_by(type: 'Encryptable::Credentials')
-    encryptable.decrypt(team.decrypt_team_password(alice, private_key))
-    expect(encryptable.cleartext_password).to eq 'password'
-    expect(encryptable.cleartext_username).to eq 'test'
-  end
-
   it 'resets teampassword with a newly generated for each teammember' do
-    stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
+    stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256')
 
-    team = teams(:team1)
     old_team_passwords = team.teammembers.pluck(:encrypted_team_password)
 
-    private_key = alice.decrypt_private_key('password')
-    described_class.new(alice, team, private_key).perform
+    stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
+
+    described_class.new(admin, team, admin_pk).perform
 
     new_team_passwords = team.teammembers.pluck(:encrypted_team_password)
 
     expect(new_team_passwords).not_to eq(old_team_passwords)
-
-    expect(team.encryption_algorithm).to eq 'AES256IV'
-    expect(team.recrypt_state).to eq 'done'
   end
 
   it 'recrypts nested encryptable files' do
+    stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256')
+
+    team_password = team.decrypt_team_password(admin, admin_pk)
+    encryptable = team.encryptables.first
+    file = Fabricate(:file, encryptable_credential: encryptable, team_password: team_password)
+
+    team_password = team.decrypt_team_password(admin, admin_pk)
+    file.decrypt(team_password)
+    cleartext_file = file.cleartext_file
+    expect(cleartext_file).to be_present
+
     stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
 
-    team = teams(:team1)
-    private_key = alice.decrypt_private_key('password')
+    described_class.new(admin, team, admin_pk).perform
 
-    described_class.new(alice, team, private_key).perform
+    file = Encryptable::File.find(file.id)
+    file.decrypt(team.decrypt_team_password(admin, admin_pk))
 
-    file = team.encryptables.where(type: 'Encryptable::File').first
-    file.decrypt(team.decrypt_team_password(alice, private_key))
-
-    expect(file.cleartext_file).to eq('Dolorem odio id. Veniam sit eum. '\
-                                      'Earum et nesciunt. Sed modi voluptatem. '\
-                                      'Maxime qui rerum. A fugit eos. '\
-                                      'Magnam atque at. Velit quam dolores.')
-
-    expect(team.recrypt_state).to eq 'done'
+    expect(file.cleartext_file).to eq(cleartext_file)
   end
 
   private
 
   def create_broken_encryptable(team)
     broken_encryptable = team.encryptables.first
-    broken_encryptable.encrypted_data.[]=(:ose_secret, **{ iv: nil, data: 'broken' })
+    broken_encryptable.encrypted_data.[]=(:username, **{ iv: nil, data: 'broken' })
+    broken_encryptable.encrypted_data.[]=(:password, **{ iv: nil, data: 'broken' })
     broken_encryptable.save!
   end
 

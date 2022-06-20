@@ -6,7 +6,7 @@ require 'digest/sha1'
 class ::Crypto::Symmetric
   class_attribute :password_bitsize
 
-  LATEST_ALGORITHM = 'AES256'
+  LATEST_ALGORITHM = 'AES256IV'
 
   # Add further algorithms at the bottom
   ALGORITHMS = {

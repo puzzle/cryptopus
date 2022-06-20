@@ -4,6 +4,7 @@
 #
 #  id          :integer          not null, primary key
 #  name        :string(40)       default(""), not null
+#  type        :string           not null
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -11,17 +12,13 @@
 #  private     :boolean          default(FALSE), not null
 #
 
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
-
 team1:
   type: Team::Shared
   name: team1
   description: public
   visible: true
   private: false
+  encryption_algorithm: 'AES256'
 
 team2:
   type: Team::Shared
@@ -29,33 +26,39 @@ team2:
   description: public
   visible: true
   private: true
+  encryption_algorithm: 'AES256'
 
 personal_team_bob:
   type: Team::Personal
   name: personal-team
   private: true
   personal_owner: bob
+  encryption_algorithm: 'AES256IV'
 
 personal_team_alice:
   type: Team::Personal
   name: personal-team
   private: true
   personal_owner: alice
+  encryption_algorithm: 'AES256IV'
 
 personal_team_root:
   type: Team::Personal
   name: personal-team
   private: true
   personal_owner: root
+  encryption_algorithm: 'AES256IV'
 
 personal_team_admin:
   type: Team::Personal
   name: personal-team
   private: true
   personal_owner: admin
+  encryption_algorithm: 'AES256IV'
 
 personal_team_conf_admin:
   type: Team::Personal
   name: personal-team
   private: true
   personal_owner: conf_admin
+  encryption_algorithm: 'AES256IV'

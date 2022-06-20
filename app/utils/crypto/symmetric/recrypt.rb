@@ -13,9 +13,10 @@ class Crypto::Symmetric::Recrypt
 
     @team.recrypt_in_progress!
     @team_password = @team.decrypt_team_password(@current_user, @private_key)
+    @new_team_password = @team.new_team_password
 
     begin
-      recrypt(@team.new_team_password)
+      recrypt
     rescue => e # rubocop:disable Style/RescueStandardError
       @team.recrypt_failed!
       raise "Recrypt failed: #{e.message}"
@@ -32,19 +33,19 @@ class Crypto::Symmetric::Recrypt
     @team.recrypt_in_progress? || @team.recrypt_failed?
   end
 
-  def recrypt(new_team_password)
+  def recrypt
     ActiveRecord::Base.transaction do
       @team.encryptables.find_each do |encryptable|
-        encryptable.recrypt(@team_password, new_team_password, latest_encryption_class)
+        encryptable.recrypt(@team_password, @new_team_password, latest_encryption_class)
       end
 
-      update_team(new_team_password)
+      update_team
     end
   end
 
-  def update_team(new_team_password)
+  def update_team
     @team.teammembers.find_each do |member|
-      member.reset_team_password(new_team_password)
+      member.reset_team_password(@new_team_password)
     end
 
     @team.encryption_algorithm = ::Crypto::Symmetric::LATEST_ALGORITHM

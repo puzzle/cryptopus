@@ -35,16 +35,12 @@ class Encryptable < ApplicationRecord
     raise 'implement in subclass'
   end
 
-  def recrypt(team_password, new_team_password, latest_encryption_class)
-    @latest_encryption_class = latest_encryption_class
-
+  def recrypt(team_password, new_team_password, new_encryption_class)
     decrypt(team_password)
+
+    @new_encryption_class = new_encryption_class
     encrypt(new_team_password)
     save!
-  end
-
-  def encryption_algorithm
-    self[:encryption_algorithm]
   end
 
   def self.policy_class
@@ -81,14 +77,14 @@ class Encryptable < ApplicationRecord
     encrypted_value = { data: data, iv: iv }
 
     cleartext_value = if data.present?
-                        team.encryption_class.decrypt(encrypted_value, team_password)
+                        encryption_class.decrypt(encrypted_value, team_password)
                       end
 
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
   end
 
   def encryption_class
-    @latest_encryption_class || team.encryption_class
+    @new_encryption_class || team.encryption_class
   end
 
 end
