@@ -91,7 +91,7 @@ ch_be:
     share:
       title: Datei teilä
 
-  encryptable/sharing/file:
+  encryptable/transfering/file:
     new:
       title: "Datei teilä"
     receiver:
@@ -296,6 +296,13 @@ ch_be:
       uploaded_filename_is_empty: D Datei muess e Name ha
       uploaded_file_inexistent: Die Datei existiert gar nid
       uploaded_filename_already_exists: D Dateiname existiert äuä scho
+    encryptable_transfer:
+      credentials:
+        transferred: Zuägangsdate erfougrich am Empfänger übermittlet
+        transfer_failed: Übermittlig vo de zuägangsdate mit em Empfänger fäugschlage
+      file:
+        transferred: Datei erfougrich am Empfänger übermittlet
+        transfer_failed: Übermittlig vo dr Datei mit em Empfänger fäugschlage
     session:
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
       weak_password: Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle

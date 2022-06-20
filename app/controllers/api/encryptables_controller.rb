@@ -62,9 +62,13 @@ class Api::EncryptablesController < ApiController
   def transfer_encryptable
     sender_id = current_user.id
 
+    receiver_and_encryptable_valid?
+
     shared_encryptable = EncryptableTransfer.new.transfer(encryptable, User.find(receiver_id), sender_id)
 
     instance_variable_set(:"@#{ivar_name}", shared_encryptable)
+    add_info('flashes.encryptable_transfer.credentials.transferred') if encryptable.type == Encryptable::Credentials
+    add_info('flashes.encryptable_transfer.file.transferred') if encryptable.type == Encryptable::File
   end
 
   def transfered_encryptable?(entry)
@@ -175,5 +179,10 @@ class Api::EncryptablesController < ApiController
     else
       []
     end
+  end
+
+  def receiver_and_encryptable_valid?
+    raise StandardError.new "Target encryptable not found" unless Encryptable.exists?(encryptable_id)
+    raise StandardError.new "Receiver user not found" unless User.exists?(receiver_id)
   end
 end

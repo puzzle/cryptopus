@@ -45,7 +45,7 @@ describe EncryptableTransfer do
       receiver = nil
       sender_id = alice.id
 
-      expect { encryptable_share.transfer(encryptable_file, receiver, sender_id) }.to raise_error(StandardError, "Cant transfer to nonexistent user")
+      expect { encryptable_share.transfer(encryptable_file, receiver, sender_id) }.to raise_error(StandardError, "Receiver user not found")
     end
 
     it 'does not send encryptable file to api user' do
