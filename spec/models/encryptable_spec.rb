@@ -73,13 +73,15 @@ describe Encryptable do
     it 'converts legacy ose secret during decrypt' do
       expect(legacy_ose_secret.send(:legacy_encrypted_data?)).to eq(true)
 
-      legacy_ose_secret.decrypt(team1_password)
+      # was created with former team 1 password (this was resetted for recrypt feature)
+      legacy_team1_password = Base64.strict_decode64('LPTDTUOnL201Fn24GYP8ZRpE79m9ucBY8cF/tcCKcCs=')
+      legacy_ose_secret.decrypt(legacy_team1_password)
 
       ose_secret = Encryptable::OseSecret.find(legacy_ose_secret.id)
 
       expect(ose_secret.send(:legacy_encrypted_data?)).to eq(false)
 
-      ose_secret.decrypt(team1_password)
+      ose_secret.decrypt(legacy_team1_password)
       expect(ose_secret.cleartext_ose_secret).to eq(cleartext_ose_secret)
     end
   end
