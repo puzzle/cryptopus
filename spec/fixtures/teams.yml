@@ -18,7 +18,7 @@ team1:
   description: public
   visible: true
   private: false
-  encryption_algorithm: 'AES256'
+  encryption_algorithm: 'AES256IV'
 
 team2:
   type: Team::Shared
@@ -26,7 +26,7 @@ team2:
   description: public
   visible: true
   private: true
-  encryption_algorithm: 'AES256'
+  encryption_algorithm: 'AES256IV'
 
 personal_team_bob:
   type: Team::Personal
