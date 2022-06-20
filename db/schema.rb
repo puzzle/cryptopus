@@ -22,9 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_063817) do
     t.text "encrypted_data", limit: 16777215
     t.integer "credential_id"
     t.text "content_type"
-    t.binary "transfer_password"
-    t.integer "receiver_id"
-    t.string "encryption_algorithm", default: "AES256", null: false
+    t.string "encryption_algorithm"
     t.index ["description"], name: "index_encryptables_on_description"
     t.index ["name"], name: "index_encryptables_on_name"
     t.index ["tag"], name: "index_encryptables_on_tag"
@@ -63,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_063817) do
     t.string "type", default: "Team::Shared", null: false
     t.integer "personal_owner_id"
     t.integer "recrypt_state", default: 1, null: false
-    t.string "encryption_algorithm", default: "AES256", null: false
+    t.string "encryption_algorithm"
     t.index ["name"], name: "index_teams_on_name"
   end
 
