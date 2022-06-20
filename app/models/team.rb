@@ -23,7 +23,8 @@ class Team < ApplicationRecord
   validates :name, presence: true
   validates :name, length: { maximum: 40 }
   validates :description, length: { maximum: 300 }
-  validates :encryption_algorithm, inclusion: { in: ::Crypto::Symmetric::ALGORITHMS.keys }, allow_nil: false
+  validates :encryption_algorithm,
+            inclusion: { in: ::Crypto::Symmetric::ALGORITHMS.keys }, allow_nil: false
 
   after_initialize :set_encryption_algorithm, if: :new_record?
 
