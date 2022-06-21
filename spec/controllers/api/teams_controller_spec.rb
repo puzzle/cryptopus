@@ -105,7 +105,7 @@ describe Api::TeamsController do
       expect(team1.encryption_algorithm).to eq('AES256IV')
     end
 
-    it 'returns unchanged team if recrypt fails' do
+    it 'does not recrypt if latest algorithm' do
       login_as(:bob)
 
       stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
