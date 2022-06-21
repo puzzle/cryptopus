@@ -16,8 +16,9 @@
 #
 
 class Encryptable < ApplicationRecord
-
   serialize :encrypted_data, ::EncryptedData
+
+  attr_accessor :receiver_id
 
   attr_readonly :type
   validates :type, presence: true
@@ -29,13 +30,17 @@ class Encryptable < ApplicationRecord
 
   validate :receiver_type_human?
 
-  validates :receiver_id, presence: { if: :encrypted_transfer_password_present? }
+  validates_presence_of :receiver_id, if: :encrypted_transfer_password_present?
 
   def encrypt(_team_password)
     raise 'implement in subclass'
   end
 
   def decrypt(_team_password)
+    raise 'implement in subclass'
+  end
+
+  def decrypt_transfered(_private_key)
     raise 'implement in subclass'
   end
 
@@ -63,7 +68,7 @@ class Encryptable < ApplicationRecord
   end
 
   def plaintext_transfer_password(private_key)
-    Crypto::Rsa.decrypt(encrypted_transfer_password, private_key)
+    Crypto::Rsa.decrypt(self.encrypted_transfer_password, private_key)
   end
 
   private
@@ -95,12 +100,12 @@ class Encryptable < ApplicationRecord
   end
 
   def receiver_type_human?
-    unless User.find(receiver_id).is_a?(User::Human)
-      errors.add(:receiver_id, 'Must be a human user')
+    unless User.find(self.receiver_id).is_a?(User::Human)
+      errors.add(:receiver_id, "Must be a human user")
     end
   end
 
   def encrypted_transfer_password_present?
-    encrypted_transfer_password.present?
+    self.encrypted_transfer_password.present?
   end
 end
