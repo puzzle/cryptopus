@@ -19,8 +19,6 @@ class Encryptable < ApplicationRecord
 
   serialize :encrypted_data, ::EncryptedData
 
-  attr_accessor :receiver_id
-
   attr_readonly :type
   validates :type, presence: true
 
@@ -38,10 +36,6 @@ class Encryptable < ApplicationRecord
   end
 
   def decrypt(_team_password)
-    raise 'implement in subclass'
-  end
-
-  def decrypt_transfered(_private_key)
     raise 'implement in subclass'
   end
 
@@ -69,7 +63,7 @@ class Encryptable < ApplicationRecord
   end
 
   def plaintext_transfer_password(private_key)
-    Crypto::Rsa.decrypt(encrypted_transfer_password, private_key)
+    Crypto::Rsa.decrypt(self.encrypted_transfer_password, private_key)
   end
 
   private
