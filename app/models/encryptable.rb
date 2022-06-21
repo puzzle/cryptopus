@@ -36,6 +36,10 @@ class Encryptable < ApplicationRecord
     raise 'implement in subclass'
   end
 
+  def decrypt_transfered(_private_key)
+    raise 'implement in subclass'
+  end
+
   def self.policy_class
     EncryptablePolicy
   end
@@ -57,6 +61,10 @@ class Encryptable < ApplicationRecord
 
   def transfered?
     encrypted_transfer_password.present? && sender_id.present?
+  end
+
+  def plaintext_transfer_password(private_key)
+    Crypto::Rsa.decrypt(self.encrypted_transfer_password, private_key)
   end
 
   private

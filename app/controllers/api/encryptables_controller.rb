@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Api::EncryptablesController < ApiController
-  before_action :decrypt_transfered_encryptable, only: [:show]
   include Encryptables
 
   self.permitted_attrs = [:name, :description, :tag, :receiver_id]
@@ -18,8 +17,16 @@ class Api::EncryptablesController < ApiController
 
   # GET /api/encryptables/:id
   def show
-    require 'pry'; binding.pry
-    entry.decrypt(decrypted_team_password(team))
+    authorize entry
+
+    if entry.transfered?
+      personal_team = Team::Personal.find_by(personal_owner_id: current_user.id)
+      personal_team_password = personal_team.decrypted_team_password(current_user)
+      EncryptableTransfer.new.receive(entry, session[:private_key], personal_team_password)
+    else
+      entry.decrypt(decrypted_team_password(team))
+    end
+
     render_entry
   end
 
@@ -68,34 +75,9 @@ class Api::EncryptablesController < ApiController
     instance_variable_set(:"@#{ivar_name}", shared_encryptable)
   end
 
-  def transfered_encryptable?(entry)
-    entry.encrypted_transfer_password.present? && entry.sender_id.present?
-  end
-
   def receiver_id
+    require 'pry'; binding.pry unless $pstop
     params.dig('data', 'attributes', 'receiver_id')
-  end
-
-  def decrypt_shared_encryptable(entry, private_key)
-    plaintext_transfer_password = Crypto::Rsa.decrypt(entry.encrypted_transfer_password, private_key)
-    entry.decrypt(plaintext_transfer_password)
-
-    remove_shared_attributes(entry)
-    recrypt_with_personal_team_password(entry)
-  end
-
-  def recrypt_with_personal_team_password(entry)
-    personal_team = Team::Personal.find_by(personal_owner_id: current_user.id)
-    require 'pry'; binding.pry
-
-    entry.encrypt(decrypted_team_password(personal_team))
-    entry.decrypt(decrypted_team_password(personal_team))
-  end
-
-  def remove_shared_attributes(entry)
-    entry.update!(encrypted_transfer_password: nil,
-                  receiver_id: nil,
-                  sender_id: nil)
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -122,10 +104,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def decrypt_transfered_encryptable
-    authorize entry
-    if transfered_encryptable?(entry)
-      decrypt_shared_encryptable(entry, session[:private_key])
-    end
+      recrypt_with_personal_team_password(entry)
   end
 
   def file_credential

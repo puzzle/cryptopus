@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class EncryptableTransfer
-
   def transfer(encryptable, receiver, sender_id)
     if receiver.nil?
       raise StandardError.new "Cant transfer to nonexistent user"
@@ -21,8 +20,17 @@ class EncryptableTransfer
     end
   end
 
-  def receive
+  def receive(encryptable, private_key, personal_team_password)
+    encryptable.decrypt_transfered(private_key)
 
+    encryptable.update!(encrypted_transfer_password: nil,
+                 receiver_id: nil,
+                 sender_id: nil)
+
+    encryptable.encrypt(personal_team_password)
+    encryptable.decrypt(personal_team_password)
+
+    encryptable
   end
 
   private
