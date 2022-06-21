@@ -23,14 +23,19 @@ jobs:
     services:
       postgres:
         image: postgres:13
+        ports:
+        - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
         env:
           POSTGRES_PASSWORD: password
     env:
       RAILS_DB_ADAPTER: 'postgresql'
-      RAILS_DB_HOST: 'postgres'
+      RAILS_DB_HOST: 'localhost'
       RAILS_DB_PORT: 5432
       RAILS_DB_USERNAME: postgres
       RAILS_DB_PASSWORD: password
+      RAILS_DB_NAME: cryptopus_test
+      RAILS_ENV: test
 
     steps:
       # Checks out a copy of your repository on the ubuntu-latest machine
@@ -76,6 +81,9 @@ jobs:
 
       - name: Install bundler
         run: gem install bundler:2.2.17
+
+      - name: Create database
+        run: bundle exec rails db:setup
 
       - name: Run yarn
         if: steps.node-modules-cache.outputs.cache-hit != 'true' || steps.global-node-modules-cache.outputs.cache-hit != 'true'
