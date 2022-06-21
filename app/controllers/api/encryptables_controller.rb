@@ -33,7 +33,6 @@ class Api::EncryptablesController < ApiController
   def create
     build_entry
     authorize entry
-    transfer_encryptable if entry.transfered?
 
     unless entry.transfered?
       entry.encrypt(decrypted_team_password(team))
@@ -61,23 +60,6 @@ class Api::EncryptablesController < ApiController
   end
 
   private
-
-  def transfer_encryptable
-    sender_id = current_user.id
-
-    receiver_and_encryptable_valid?
-
-    shared_encryptable = EncryptableTransfer.new.transfer(encryptable, User.find(receiver_id),
-                                                          sender_id)
-
-    instance_variable_set(:"@#{ivar_name}", shared_encryptable)
-    add_info('flashes.encryptable_transfer.credentials.transferred') if encryptable.is_a?(Encryptable::Credentials)
-    add_info('flashes.encryptable_transfer.file.transferred') if encryptable.is_a?(Encryptable::File)
-  end
-
-  def receiver_id
-    params.dig('data', 'attributes', 'receiver_id')
-  end
 
   # rubocop:disable Metrics/MethodLength
   def model_class
