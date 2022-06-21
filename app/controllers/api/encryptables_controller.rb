@@ -96,7 +96,6 @@ class Api::EncryptablesController < ApiController
 
   def build_entry
     return build_encryptable_file if encryptable_file?
-    return sender_encryptable if entry.transfered?
 
     super
   end
@@ -219,10 +218,5 @@ class Api::EncryptablesController < ApiController
     else
       encryptable.encrypt(decrypted_team_password(team))
     end
-  end
-
-  def receiver_and_encryptable_valid?
-    raise StandardError.new "Target encryptable not found" unless Encryptable.exists?(encryptable_id)
-    raise StandardError.new "Receiver user not found" unless User.exists?(receiver_id)
   end
 end
