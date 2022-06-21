@@ -16,7 +16,6 @@ class EncryptablePolicy < TeamDependantPolicy
 
   def create?
     return true if encryptable_transfer
-    require 'pry'; binding.pry
     team.teammember?(@user.id)
   end
 

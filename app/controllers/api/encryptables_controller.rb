@@ -80,7 +80,6 @@ class Api::EncryptablesController < ApiController
   end
 
   def receiver_id
-    require 'pry'; binding.pry unless $pstop
     params.dig('data', 'attributes', 'receiver_id')
   end
 
