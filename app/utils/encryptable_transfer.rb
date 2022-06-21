@@ -2,10 +2,6 @@
 
 class EncryptableTransfer
   def transfer(encryptable, receiver, sender_id)
-    raise StandardError.new "Receiver user not found" if receiver.nil?
-    raise StandardError.new "Cant transfer to API user" if receiver.is_a?(User::Api)
-    raise StandardError.new "Cant transfer to yourself" if receiver.id.eql?(sender_id)
-
     transfer_password = new_transfer_password
     encryptable.encrypt(transfer_password)
 
@@ -22,8 +18,8 @@ class EncryptableTransfer
     encryptable.decrypt_transfered(private_key)
 
     encryptable.update!(encrypted_transfer_password: nil,
-                 receiver_id: nil,
-                 sender_id: nil)
+                        receiver_id: nil,
+                        sender_id: nil)
 
     encryptable.encrypt(personal_team_password)
     encryptable.decrypt(personal_team_password)
@@ -40,9 +36,9 @@ class EncryptableTransfer
 
   def encrypted_transfer_password(password, receiver)
     Crypto::Rsa.encrypt(
-        password,
-        receiver.public_key
-      )
+      password,
+      receiver.public_key
+    )
   end
 
   def new_transfer_password
@@ -50,4 +46,3 @@ class EncryptableTransfer
   end
 
 end
-

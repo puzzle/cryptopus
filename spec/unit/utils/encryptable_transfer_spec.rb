@@ -35,7 +35,7 @@ describe EncryptableTransfer do
       expect(received_file.encrypted_transfer_password).to be_nil
       expect(received_file.cleartext_file).to eq(encryptable_file.cleartext_file)
       expect(received_file.name).to eq(encryptable_file.name)
-      expect(received_file.content_type).to eq("text/plain")
+      expect(received_file.content_type).to eq('text/plain')
       expect(received_file.sender_id).to eq(alice.id)
     end
 
@@ -43,14 +43,20 @@ describe EncryptableTransfer do
       receiver = nil
       sender_id = alice.id
 
-      expect { encryptable_transfer.transfer(encryptable_file, receiver, sender_id) }.to raise_error(StandardError, "Receiver user not found")
+      expect do
+        encryptable_transfer.transfer(encryptable_file, receiver,
+                                      sender_id)
+      end.to raise_error(StandardError, 'Receiver user not found')
     end
 
     it 'does not transfer encryptable file to api user' do
       receiver = api_tux
       sender_id = alice.id
 
-      expect { encryptable_transfer.transfer(encryptable_file, receiver, sender_id) }.to raise_error(StandardError, "Cant transfer to API user")
+      expect do
+        encryptable_transfer.transfer(encryptable_file, receiver,
+                                      sender_id)
+      end.to raise_error(StandardError, 'Cant transfer to API user')
     end
 
   end
@@ -63,11 +69,12 @@ describe EncryptableTransfer do
       private_key = alice.decrypt_private_key('password')
 
       personal_team_password = personal_team.decrypt_team_password(alice, private_key)
-      received_file = encryptable_transfer.receive(transfered_encryptable, private_key, personal_team_password)
+      received_file = encryptable_transfer.receive(transfered_encryptable, private_key,
+                                                   personal_team_password)
 
       expect(received_file.cleartext_file).to eq(encryptable_file.cleartext_file)
       expect(received_file.name).to eq(encryptable_file.name)
-      expect(received_file.content_type).to eq("text/plain")
+      expect(received_file.content_type).to eq('text/plain')
 
       expect(received_file.sender_id).to be_nil
       expect(received_file.encrypted_transfer_password).to be_nil
@@ -75,7 +82,8 @@ describe EncryptableTransfer do
     end
 
     it 'does not recrypt credentials with transfer attributes' do
-      transfered_encryptable = encryptable_transfer.transfer(encryptables(:credentials1), alice, bob.id)
+      transfered_encryptable = encryptable_transfer.transfer(encryptables(:credentials1), alice,
+                                                             bob.id)
 
       personal_team = alice.personal_team
       private_key = alice.decrypt_private_key('password')
@@ -84,7 +92,7 @@ describe EncryptableTransfer do
 
       expect do
         encryptable_transfer.receive(transfered_encryptable, private_key, personal_team_password)
-      end.to raise_error(RuntimeError, "implement in subclass")
+      end.to raise_error(RuntimeError, 'implement in subclass')
     end
   end
 end
