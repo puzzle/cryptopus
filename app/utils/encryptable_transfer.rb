@@ -21,6 +21,10 @@ class EncryptableTransfer
     end
   end
 
+  def receive
+
+  end
+
   private
 
   def inbox_folder(receiver)

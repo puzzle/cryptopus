@@ -17,8 +17,8 @@ class Api::EncryptablesController < ApiController
   end
 
   # GET /api/encryptables/:id
-
   def show
+    require 'pry'; binding.pry
     entry.decrypt(decrypted_team_password(team))
     render_entry
   end
@@ -27,6 +27,7 @@ class Api::EncryptablesController < ApiController
   def create
     build_entry
     authorize entry
+    transfer_encryptable if encryptable_transfering?
 
     unless encryptable_transfering?
       entry.encrypt(decrypted_team_password(team))
@@ -76,7 +77,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def decrypt_shared_encryptable(entry, private_key)
-    plaintext_transfer_password = Crypto::Rsa.decrypt(entry.transfer_password, private_key)
+    plaintext_transfer_password = Crypto::Rsa.decrypt(entry.encrypted_transfer_password, private_key)
     entry.decrypt(plaintext_transfer_password)
 
     remove_shared_attributes(entry)
@@ -85,9 +86,9 @@ class Api::EncryptablesController < ApiController
 
   def recrypt_with_personal_team_password(entry)
     personal_team = Team::Personal.find_by(personal_owner_id: current_user.id)
+    require 'pry'; binding.pry
 
     entry.encrypt(decrypted_team_password(personal_team))
-
     entry.decrypt(decrypted_team_password(personal_team))
   end
 
@@ -115,7 +116,7 @@ class Api::EncryptablesController < ApiController
 
   def build_entry
     return build_encryptable_file if encryptable_file?
-    return transfer_encryptable if encryptable_transfering?
+    return sender_encryptable if encryptable_transfering?
 
     super
   end

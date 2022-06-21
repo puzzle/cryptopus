@@ -96,10 +96,6 @@ en:
           attributes:
             name:
               taken: File has already been taken
-        encryptable:
-          attributes:
-            name:
-              taken: You shared these credentials already with this person
 
   #Pundit
   pundit:

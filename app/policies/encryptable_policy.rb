@@ -16,7 +16,7 @@ class EncryptablePolicy < TeamDependantPolicy
 
   def create?
     return true if encryptable_transfer
-
+    require 'pry'; binding.pry
     team.teammember?(@user.id)
   end
 
@@ -41,11 +41,12 @@ class EncryptablePolicy < TeamDependantPolicy
   def encryptable_transfer
     @record.receiver_id.present? &&
       user.present? &&
-      user_human?
+      user_human? &&
+    @record.is_a?(Encryptable::File)
   end
 
   def user_human?
-    User.find(@record.receiver_id).type == User::Human
+    User.find(@record.receiver_id).is_a?(User::Human)
   end
 
 end

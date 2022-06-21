@@ -44,6 +44,10 @@ module Encryptables
     instance_variable_set(:"@#{ivar_name}", file)
   end
 
+  def sender_encryptable
+    encryptable
+  end
+
   def new_file(parent_encryptable, description, name)
     Encryptable::File.new(encryptable_credential: parent_encryptable,
                           description: description,

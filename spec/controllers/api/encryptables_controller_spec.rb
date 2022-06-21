@@ -724,6 +724,68 @@ describe Api::EncryptablesController do
       expect(duplicated_encryptable.sender_id).present?
       expect(duplicated_encryptable.sender_id).to eq(alice.id)
     end
+
+    it 'recrypts encryptable when received' do
+      login_as(:bob)
+
+      share_encryptable_params = {
+        data: {
+          attributes: {
+            id: credentials1.id,
+            receiver_id: alice.id
+          }
+        }
+      }
+
+      post :create, params: share_encryptable_params, xhr: true
+
+      id = JSON.parse(response.body).dig("data", "id")
+      shared_credential = Encryptable.find(id)
+
+      expect(shared_credential.sender_id).to eq(bob.id)
+
+      login_as(:alice)
+
+      get :show, params: { id: shared_credential.id }, xhr: true
+
+      expect(credentials1.receiver_id).to eq(nil)
+      expect(credentials1.encrypted_transfer_password).to eq(nil)
+      expect(credentials1.sender_id).to eq(nil)
+
+      personal_team = alice.personal_team
+
+      teampassword = personal_team.decrypt_team_password(alice, alice.private_key)
+    end
+
+    it 'transfers new file from sender to recipient' do
+      login_as(:bob)
+
+      file_params = {
+        credential_id: credentials1.id,
+        content_type: 'text/plain',
+        file: file,
+        description: 'test'
+      }
+
+      post :create, params: share_encryptable_params, xhr: true
+
+      id = JSON.parse(response.body).dig("data", "id")
+      shared_credential = Encryptable.find(id)
+
+      expect(shared_credential.sender_id).to eq(bob.id)
+
+      login_as(:alice)
+
+      get :show, params: { id: shared_credential.id }, xhr: true
+
+      expect(credentials1.receiver_id).to eq(nil)
+      expect(credentials1.encrypted_transfer_password).to eq(nil)
+      expect(credentials1.sender_id).to eq(nil)
+
+      personal_team = alice.personal_team
+
+      teampassword = personal_team.decrypt_team_password(alice, alice.private_key)
+    end
   end
 
   private
