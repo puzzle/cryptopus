@@ -22,7 +22,7 @@ class Encryptable::File < Encryptable
   end
 
   def decrypt_transfered(private_key)
-    self.decrypt(plaintext_transfer_password(private_key))
+    decrypt(plaintext_transfer_password(private_key))
   end
 
   def team
