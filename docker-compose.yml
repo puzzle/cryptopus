@@ -7,7 +7,12 @@ services:
     tty: true
     stdin_open: true
     environment:
-      - DISPLAY=${DISPLAY}
+      RAILS_DB_ADAPTER: 'postgresql'
+      RAILS_DB_HOST: 'cryptopus-postgres'
+      RAILS_DB_NAME: 'cryptopus-postgres-db'
+      RAILS_DB_USERNAME: 'postgres'
+      RAILS_DB_PASSWORD: 'password'
+      RAILS_DB_PORT: 5432
     build:
       context: ./config/docker/development
       dockerfile: Rails.dockerfile
@@ -38,6 +43,17 @@ services:
       - "4200:4200"
       - "7020:7020"
       - "7357:7357"
+  cryptopus-postgres:
+    image: postgres:12.10
+    container_name: cryptopus-postgres
+    environment:
+      POSTGRES_PASSWORD: password
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - cryptopus-postgres:/var/lib/postgres
 volumes:
   bundler_cache:
   yarn_cache:
+  cryptopus-postgres:

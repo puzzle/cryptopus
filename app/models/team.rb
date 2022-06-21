@@ -19,10 +19,22 @@ class Team < ApplicationRecord
   has_many :teammembers, dependent: :delete_all
   has_many :members, through: :teammembers, source: :user
   has_many :user_favourite_teams, dependent: :destroy
+  has_many :encryptables, through: :folders
 
   validates :name, presence: true
   validates :name, length: { maximum: 40 }
   validates :description, length: { maximum: 300 }
+
+  include PgSearch::Model
+  pg_search_scope :search_with_pg,
+                  against: [:name, :description],
+                  associated_against: {
+                    folders: [:name, :description],
+                    encryptables: [:name, :description]
+                  },
+                  using: {
+                    tsearch: { prefix: true }
+                  }
 
   def label
     name
@@ -66,4 +78,5 @@ class Team < ApplicationRecord
     encrypted_team_password = Crypto::Rsa.encrypt(plaintext_team_password, user.public_key)
     teammembers.create!(password: encrypted_team_password, user: user)
   end
+
 end

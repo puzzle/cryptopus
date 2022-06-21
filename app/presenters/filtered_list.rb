@@ -15,4 +15,8 @@ class FilteredList
   def list_param(key)
     @params[key].to_a.map(&:to_i)
   end
+
+  def database_name
+    Rails.configuration.database_configuration[Rails.env]['database']
+  end
 end

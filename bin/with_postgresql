@@ -1,0 +1,22 @@
+#!/bin/bash
+# prepare the environment to use the local postgresql database, e.g.
+#  bin /with_postgresql rails s
+#
+# rake tasks may use the following subtask:
+#  rake postgresql test:requests
+
+# if [ -z "$RAILS_ENV" ]
+# then
+#   env="development"
+# else
+#   env=$RAILS_ENV
+# fi
+
+# export RAILS_DB_ADAPTER=postgresql
+# export RAILS_DB_NAME=cryptopus_$env
+# export RAILS_DB_USERNAME=cryptopus
+# export RAILS_DB_PASSWORD=cryptopus
+# export RAILS_DB_HOST=127.0.0.1
+# export RAILS_DB_PORT=3306
+
+# $@

@@ -57,7 +57,14 @@ module ::Teams
     end
 
     def filter_by_query(teams)
-      teams.where(
+      if database_name.include? 'cryptopus-postgres'
+        @query_search = Teams::QuerySearch.new(@current_user, @params)
+      end
+      @query_search.filter_by_query(teams, query) || sql_filter_by_query(teams)
+    end
+
+    def sql_filter_by_query(teams)
+      teams.includes(:folders, folders: [:encryptables]).where(
         'lower(encryptables.description) LIKE :query
         OR lower(encryptables.name) LIKE :query
         OR lower(folders.name) LIKE :query

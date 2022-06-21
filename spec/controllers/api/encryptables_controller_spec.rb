@@ -20,7 +20,7 @@ describe Api::EncryptablesController do
 
       get :index, params: { 'q': 'Personal' }, xhr: true
 
-      credentials1_json = data.second
+      credentials1_json = data.find { |hash| hash['attributes']['name'] == 'Personal Mailbox' }
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
@@ -41,7 +41,7 @@ describe Api::EncryptablesController do
 
       get :index, params: { 'q': '' }, xhr: true
 
-      credentials1_json = data.second
+      credentials1_json = data.find { |hash| hash['attributes']['name'] == 'Personal Mailbox' }
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
@@ -62,7 +62,7 @@ describe Api::EncryptablesController do
 
       get :index, xhr: true
 
-      credentials1_json = data.second
+      credentials1_json = data.find { |hash| hash['attributes']['name'] == 'Personal Mailbox' }
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 

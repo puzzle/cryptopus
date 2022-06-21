@@ -19,6 +19,7 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 
 # init apt
 RUN apt-get update && apt-get upgrade -y
+
 # Install dependencies
 RUN apt-get install -y yarn rsync
 

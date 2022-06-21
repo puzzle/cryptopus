@@ -28,6 +28,13 @@ class Folder < ApplicationRecord
   validates :name, length: { maximum: 70 }
   validates :description, length: { maximum: 300 }
 
+  include PgSearch::Model
+
+  pg_search_scope :search_starts_with,
+                  against: [:name, :description],
+                  using: {
+                    tsearch: { prefix: true }
+                  }
 
   def label
     name
