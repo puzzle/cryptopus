@@ -35,9 +35,9 @@ class EncryptableTransfer
 
   def encrypted_transfer_password(password, receiver)
     Crypto::Rsa.encrypt(
-      password,
-      receiver.public_key
-    )
+        password,
+        receiver.public_key
+      )
   end
 
   def new_transfer_password
@@ -45,3 +45,4 @@ class EncryptableTransfer
   end
 
 end
+
