@@ -68,11 +68,12 @@ class Api::EncryptablesController < ApiController
 
     receiver_and_encryptable_valid?
 
-    shared_encryptable = EncryptableTransfer.new.transfer(encryptable, User.find(receiver_id), sender_id)
+    shared_encryptable = EncryptableTransfer.new.transfer(encryptable, User.find(receiver_id),
+                                                          sender_id)
 
     instance_variable_set(:"@#{ivar_name}", shared_encryptable)
-    add_info('flashes.encryptable_transfer.credentials.transferred') if encryptable.type == Encryptable::Credentials
-    add_info('flashes.encryptable_transfer.file.transferred') if encryptable.type == Encryptable::File
+    add_info('flashes.encryptable_transfer.credentials.transferred') if encryptable.is_a?(Encryptable::Credentials)
+    add_info('flashes.encryptable_transfer.file.transferred') if encryptable.is_a?(Encryptable::File)
   end
 
   def receiver_id
@@ -102,7 +103,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def decrypt_transfered_encryptable
-      recrypt_with_personal_team_password(entry)
+    recrypt_with_personal_team_password(entry)
   end
 
   def file_credential
