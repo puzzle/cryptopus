@@ -51,7 +51,7 @@ module Encryptables
   end
 
   def credential_id
-    return encryptable.credential_id if params[:id].present?
+    return entry.credential_id if params[:id].present?
 
     params[:credential_id]
   end
@@ -74,7 +74,7 @@ module Encryptables
       params.dig('data', 'attributes', 'type') == 'ose_secret'
   end
 
-  def encryptable
+  def entry
     @encryptable ||= Encryptable.find(encryptable_id)
   end
 
