@@ -74,4 +74,11 @@ module Encryptables
       params.dig('data', 'attributes', 'type') == 'ose_secret'
   end
 
+  def encryptable
+    @encryptable ||= Encryptable.find(encryptable_id)
+  end
+
+  def encryptable_id
+    params[:id] || params.dig('data', 'attributes', 'id')
+  end
 end

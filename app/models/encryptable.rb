@@ -19,6 +19,8 @@ class Encryptable < ApplicationRecord
 
   serialize :encrypted_data, ::EncryptedData
 
+  attr_accessor :receiver_id
+
   attr_readonly :type
   validates :type, presence: true
 
@@ -35,6 +37,10 @@ class Encryptable < ApplicationRecord
     raise 'implement in subclass'
   end
 
+  def decrypt_transfered(_private_key)
+    raise 'implement in subclass'
+  end
+
   def self.policy_class
     EncryptablePolicy
   end
@@ -47,7 +53,26 @@ class Encryptable < ApplicationRecord
     folder.team
   end
 
+  def recrypt_transferred(private_key, team_password)
+    decrypt(decrypt_transfer_password(private_key))
+    self.encrypted_transfer_password = nil
+    encrypt(team_password)
+    save!
+  end
+
+  def transfered?
+    encrypted_transfer_password.present? && sender_id.present?
+  end
+
+  def plaintext_transfer_password(private_key)
+    Crypto::Rsa.decrypt(self.encrypted_transfer_password, private_key)
+  end
+
   private
+
+  def decrypt_transfer_password(private_key)
+    Crypto::Rsa.decrypt(encrypted_transfer_password, private_key)
+  end
 
   def encrypt_attr(attr, team_password)
     cleartext_value = send(:"cleartext_#{attr}")
