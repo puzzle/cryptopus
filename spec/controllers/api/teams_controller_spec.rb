@@ -93,7 +93,7 @@ describe Api::TeamsController do
     it 'triggers team recrypt if latest algorithm is not applied on team' do
       login_as(:bob)
 
-      stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
+      stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256')
 
       get :index, params: { team_id: team1.id }, xhr: true
 
