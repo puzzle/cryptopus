@@ -1,23 +1,26 @@
-<div class="container py-2">
+<div class="container py-2" style="display: flex">
   <div class="mt-4">
-    {{#if q}}
-      <SearchResultComponent @q={{q}}/>
-    {{/if}}
-    {{#if @model}}
-      {{#each this.model as |team|}}
-        <Team::Show @team={{team}} />
-      {{/each}}
+    {{#unless this.loading.isLoading}}
+      {{#if q}}
+        <SearchResultComponent @q={{q}}/>
+      {{/if}}
+      {{#if @model}}
+        {{#each this.model as |team|}}
+          <Team::Show @team={{team}} />
+        {{/each}}
+      {{else}}
+        <h5>{{t "teams.index.no_content"}}</h5>
+      {{/if}}
     {{else}}
-      <h5>{{t "teams.index.no_content"}}</h5>
-    {{/if}}
-    {{#while-loading}}
-      <div class="lds-roller">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+      <div class="w-100 text-center">
+        <div class="lds-roller">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
-    {{/while-loading}}
+    {{/unless}}
   </div>
 </div>

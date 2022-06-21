@@ -22,6 +22,11 @@ $font-family-sans-serif: var(--pzsh-font-family) !default;
 @import "dashboard";
 @import "dashboard-card";
 @import "spinner";
+//
+//#ember {
+//  display: flex;
+//  flex-direction: column;
+//}
 
 .w-250 {
   width: 250px;
