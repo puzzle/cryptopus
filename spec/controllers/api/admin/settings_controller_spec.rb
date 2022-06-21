@@ -14,9 +14,10 @@ describe Api::Admin::SettingsController do
 
       get :index, xhr: true
 
-      settings = data.collect {|s| s['attributes']}
-      expect(settings).to include({"key"=>"ip_whitelist", "value"=>["0.0.0.0", "192.168.10.0"]})
-      expect(settings).to include({"key"=>"country_source_whitelist", "value"=>["CH", "DE"]})
+      settings = data.collect { |s| s['attributes'] }
+      expect(settings).to include({ 'key' => 'ip_whitelist',
+                                    'value' => ['0.0.0.0', '192.168.10.0'] })
+      expect(settings).to include({ 'key' => 'country_source_whitelist', 'value' => %w[CH DE] })
 
       expect(data.size).to be(2)
       expect(included).to be(nil)
