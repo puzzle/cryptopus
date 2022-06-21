@@ -27,14 +27,14 @@ describe 'DeleteUser', type: :system, js: true do
     expect(page).to have_content('team2')
   end
 
-  it "can delete user if he isn't last teammember in any teams" do
+  it "can't delete user if he is last teammember in any teams" do
     login_as_user(:admin)
     visit('/admin/users')
 
     all('span img.icon-button[alt="delete"]')[0].click
 
-    expect(find('button.btn-danger', exact_text: 'Delete')[:disabled]).to eq('false')
+    expect(find('button.btn-danger', exact_text: 'Delete')[:disabled]).to eq('true')
 
-    expect(page).to_not have_selector('div.modal table')
+    expect(page).to have_selector('div.modal table')
   end
 end
