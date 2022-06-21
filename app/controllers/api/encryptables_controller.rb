@@ -34,9 +34,9 @@ class Api::EncryptablesController < ApiController
   def create
     build_entry
     authorize entry
-    transfer_encryptable if encryptable_transfering?
+    transfer_encryptable if entry.transfered?
 
-    unless encryptable_transfering?
+    unless entry.transfered?
       entry.encrypt(decrypted_team_password(team))
     end
 
@@ -62,10 +62,6 @@ class Api::EncryptablesController < ApiController
   end
 
   private
-
-  def encryptable_transfering?
-    receiver_id.present?
-  end
 
   def transfer_encryptable
     sender_id = current_user.id
@@ -101,7 +97,7 @@ class Api::EncryptablesController < ApiController
 
   def build_entry
     return build_encryptable_file if encryptable_file?
-    return sender_encryptable if encryptable_transfering?
+    return sender_encryptable if entry.transfered?
 
     super
   end

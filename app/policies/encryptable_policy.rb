@@ -38,14 +38,9 @@ class EncryptablePolicy < TeamDependantPolicy
   private
 
   def encryptable_transfer
-    @record.receiver_id.present? &&
+  @record.transfered? &&
       user.present? &&
-      user_human? &&
-    @record.is_a?(Encryptable::File)
-  end
-
-  def user_human?
-    User.find(@record.receiver_id).is_a?(User::Human)
+      @record.is_a?(Encryptable::File)
   end
 
 end

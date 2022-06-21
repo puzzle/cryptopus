@@ -770,7 +770,9 @@ describe Api::EncryptablesController do
           }
         }
       }
-      expect { post :create, params: share_encryptable_params, xhr: true }.to raise_error(StandardError, "Target encryptable not found")
+      expect do
+        post :create, params: share_encryptable_params, xhr: true
+      end.to raise_error(StandardError, "Target encryptable not found")
     end
 
     it 'recrypts encryptable when received' do

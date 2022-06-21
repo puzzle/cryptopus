@@ -96,10 +96,6 @@ ch_be:
           attributes:
             name:
               taken: Datei isch schomau ufägladä wordä
-        encryptable:
-          attributes:
-            name:
-              taken: Du hesch die zuegangsdate scho mit derä person teilt
 
   #Pundit
   pundit:

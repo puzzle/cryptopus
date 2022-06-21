@@ -34,10 +34,6 @@ describe FolderPolicy do
       assert_permit bob, folder2, :destroy?
     end
 
-    it 'cannot destroy folder when in personal-team' do
-      refute_permit bob, default_folder_bob, :destroy?
-    end
-
     it 'cannot update folder when in personal-team' do
       refute_permit bob, default_folder_bob, :update?
     end
