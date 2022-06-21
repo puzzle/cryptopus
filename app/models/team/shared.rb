@@ -29,10 +29,6 @@ class Team::Shared < Team
       end
       team
     end
-
-    def policy_class
-      TeamPolicy
-    end
   end
 
   def member_candidates
@@ -49,4 +45,7 @@ class Team::Shared < Team
     teammember(user.id).destroy!
   end
 
+  def self.policy_class
+    TeamPolicy
+  end
 end
