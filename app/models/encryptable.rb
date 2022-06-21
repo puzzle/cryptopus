@@ -28,10 +28,6 @@ class Encryptable < ApplicationRecord
   validates :name, presence: true
   validates :description, length: { maximum: 4000 }
 
-  validate :receiver_type_human?
-
-  validates :receiver_id, presence: { if: :encrypted_transfer_password_present? }
-
   def encrypt(_team_password)
     raise 'implement in subclass'
   end
@@ -99,13 +95,4 @@ class Encryptable < ApplicationRecord
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
   end
 
-  def receiver_type_human?
-    unless User.find(receiver_id).is_a?(User::Human)
-      errors.add(:receiver_id, 'Must be a human user')
-    end
-  end
-
-  def encrypted_transfer_password_present?
-    encrypted_transfer_password.present?
-  end
 end
