@@ -1,0 +1,22 @@
+base: &generic
+  adapter: <%= ENV['RAILS_DB_ADAPTER'] %>
+  pool: 5
+  timeout: 5000
+  encoding: utf8
+<% %w(host port username password).each do |option| %>
+  <% value = ENV["RAILS_DB_#{option.upcase}"] %>
+  <%= "#{option}: #{value}" if value.present? %>
+<% end %>
+
+
+development:
+  <<: *generic
+  database: <%= ENV['RAILS_DB_NAME'] || 'development' %>
+
+test:
+  <<: *generic
+  database: <%= ENV['RAILS_DB_NAME'] || 'test' %>
+
+production:
+  <<: *generic
+  database: <%= ENV['RAILS_DB_NAME'] || 'production' %>

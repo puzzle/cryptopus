@@ -44,3 +44,18 @@ bob_personal_team:
   team: personal_team_bob
   user: bob
   password: <%= "!!binary \"#{FixturesHelper.read_team_password('bob', 'personal_team')}\"" %>
+
+alice_personal_team:
+  team: personal_team_alice
+  user: alice
+  password: <%= "!!binary \"#{FixturesHelper.read_team_password('alice', 'personal_team')}\"" %>
+
+admin_personal_team:
+  team: personal_team_admin
+  user: admin
+  password: <%= "!!binary \"#{FixturesHelper.read_team_password('admin', 'personal_team')}\"" %>
+
+root_personal_team:
+  team: personal_team_root
+  user: root
+  password: <%= "!!binary \"#{FixturesHelper.read_team_password('root', 'personal_team')}\"" %>

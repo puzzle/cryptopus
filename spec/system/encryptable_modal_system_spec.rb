@@ -102,9 +102,9 @@ describe 'encryptable modal', type: :system, js: true do
       find("input[name='cleartextUsername']", visible: false).set acc_attrs[:username]
       find('textarea.form-control.ember-view', visible: false).set acc_attrs[:description]
 
-      find('#team-power-select', visible: false).find('div.ember-power-select-trigger',
-                                                      visible: false).click
-      first('ul.ember-power-select-options > li', visible: false).click
+      find('#team-power-select', visible: false).all('div.ember-power-select-trigger',
+                                                     visible: false).first.click
+      all('ul.ember-power-select-options > li', visible: false).last.click
 
       find('#folder-power-select', visible: false).find('div.ember-power-select-trigger',
                                                         visible: false).click

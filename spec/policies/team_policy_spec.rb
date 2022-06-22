@@ -78,6 +78,10 @@ describe TeamPolicy do
     it 'can list members of all teams' do
       assert_permit admin, private_team, :list_members?
     end
+
+    it 'can delete personal-team of any user' do
+      assert_permit admin, personal_team_bob, :destroy?
+    end
   end
 
   context 'conf admin' do

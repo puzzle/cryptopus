@@ -35,7 +35,7 @@ class Team::Shared < Team
     excluded_user_ids =
       User::Human.
       unscoped.joins('LEFT JOIN teammembers ON users.id = teammembers.user_id').
-      where('users.username = "root" OR teammembers.team_id = ?', id).
+      where('users.username = :root OR teammembers.team_id = :id', id: id, root: :root).
       distinct.
       pluck(:id)
     User::Human.where('id NOT IN(?)', excluded_user_ids)

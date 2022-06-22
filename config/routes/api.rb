@@ -44,7 +44,9 @@ Rails.application.routes.draw do
       resources :api_users, only: [:create, :destroy, :index], module: 'teams'
       resources :members, except: [:new, :edit], module: 'teams'
       resource :favourite, only: [:create, :destroy], module: 'teams', controller: 'favourite'
-      resources :candidates, only:[:index], module: 'teams'
     end
+
+    resources :user_candidates, only:[:index]
+
   end
 end

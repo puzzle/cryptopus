@@ -24,8 +24,9 @@ describe Api::Teams::MembersController do
       get :index, params: { team_id: team }, xhr: true
 
       expect(data.count).to eq 3
-      expect(data.any? { |c| c['attributes']['label'] == 'Alice test' }).to be true
-      expect(data.any? { |c| c['attributes']['label'] == 'Admin test' }).to be true
+      member_labels = data.collect { |c| c['attributes']['label'] }
+      expect(member_labels).to include('Alice test (alice)')
+      expect(member_labels).to include('Admin test (admin)')
       expect(data.none? { |c| c['attributes']['label'] == api_user.label }).to be true
     end
 
@@ -39,7 +40,7 @@ describe Api::Teams::MembersController do
       own_team_member = data.select { |member| member['attributes']['current_user'] }.first
 
       expect(own_team_member).not_to be_nil
-      expect(own_team_member['attributes']['label']).to eq('Alice test')
+      expect(own_team_member['attributes']['label']).to eq('Alice test (alice)')
     end
 
     it 'does not return team members for given team without team membership' do
