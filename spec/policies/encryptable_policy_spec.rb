@@ -5,6 +5,8 @@ describe EncryptablePolicy do
   include PolicyHelper
 
   let(:credentials2) { encryptables(:credentials2) }
+  let(:sharing_file) { encryptables(:sharing_file) }
+  let(:sharing_credential) { encryptables(:sharing_credential) }
   let(:folder2) { folders(:folder2) }
   let(:team1) { teams(:team1) }
   let(:team2) { teams(:team2) }
@@ -17,6 +19,10 @@ describe EncryptablePolicy do
     it 'can destroy credential' do
       assert_permit bob, credentials2, :destroy?
     end
+
+    it 'can transfer credential' do
+      assert_permit bob, sharing_credential, :create?
+    end
   end
 
   context 'as non teammember' do
@@ -26,6 +32,10 @@ describe EncryptablePolicy do
 
     it 'non teammember cannot destroy credential' do
       refute_permit alice, credentials2, :destroy?
+    end
+
+    it 'non teammember cant transfer credential' do
+      refute_permit alice, sharing_credential, :create?
     end
 
   end
@@ -39,11 +49,21 @@ describe EncryptablePolicy do
       refute_permit api_bob, credentials2, :destroy?
     end
 
+    it 'api user can transfer credential' do
+      assert_permit api_bob, sharing_credential, :create?
+    end
+
   end
 
   context 'not for team' do
     it 'enabled api user is not allowed to update credential' do
       refute_permit api_alice, credentials2, :update?
+    end
+  end
+
+  context 'file sharing' do
+    it 'users can share file' do
+      assert_permit bob, sharing_file, :update?
     end
   end
 

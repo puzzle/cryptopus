@@ -3,7 +3,7 @@
 class Api::EncryptablesController < ApiController
   include Encryptables
 
-  self.permitted_attrs = [:name, :description, :tag]
+  self.permitted_attrs = [:name, :description, :tag, :receiver_id]
 
   helper_method :team
 
@@ -18,17 +18,27 @@ class Api::EncryptablesController < ApiController
   # GET /api/encryptables/:id
   def show
     authorize entry
-    entry.decrypt(decrypted_team_password(team))
+
+    if entry.transfered?
+      personal_team = Team::Personal.find_by(personal_owner_id: current_user.id)
+      personal_team_password = personal_team.decrypted_team_password(current_user)
+      EncryptableTransfer.new.receive(entry, session[:private_key], personal_team_password)
+    else
+      entry.decrypt(decrypted_team_password(team))
+    end
+
     render_entry
   end
 
-  # options param is needed for render_entry method
   # POST /api/encryptables
   def create
     build_entry
     authorize entry
+    transfer_encryptable if entry.transfered?
 
-    entry.encrypt(decrypted_team_password(team))
+    unless entry.transfered?
+      entry.encrypt(decrypted_team_password(team))
+    end
 
     if entry.save
       render_entry({ status: :created })
@@ -53,6 +63,22 @@ class Api::EncryptablesController < ApiController
 
   private
 
+  def transfer_encryptable
+    sender_id = current_user.id
+
+    receiver_and_encryptable_valid?
+
+    shared_encryptable = EncryptableTransfer.new.transfer(encryptable, User.find(receiver_id), sender_id)
+
+    instance_variable_set(:"@#{ivar_name}", shared_encryptable)
+    add_info('flashes.encryptable_transfer.credentials.transferred') if encryptable.type == Encryptable::Credentials
+    add_info('flashes.encryptable_transfer.file.transferred') if encryptable.type == Encryptable::File
+  end
+
+  def receiver_id
+    params.dig('data', 'attributes', 'receiver_id')
+  end
+
   # rubocop:disable Metrics/MethodLength
   def model_class
     if create_ose_secret?
@@ -71,16 +97,17 @@ class Api::EncryptablesController < ApiController
 
   def build_entry
     return build_encryptable_file if encryptable_file?
+    return sender_encryptable if entry.transfered?
 
     super
   end
 
-  def file_credential
-    Encryptable::Credentials.find(credential_id)
+  def decrypt_transfered_encryptable
+      recrypt_with_personal_team_password(entry)
   end
 
-  def encryptable
-    @encryptable ||= Encryptable.find(params[:id])
+  def file_credential
+    Encryptable::Credentials.find(credential_id)
   end
 
   def encryptable_file?
@@ -104,7 +131,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def encryptable_move_handler
-    EncryptableMoveHandler.new(encryptable, session[:private_key], current_user)
+    EncryptableMoveHandler.new(encryptable, users_private_key, current_user)
   end
 
   def ivar_name
@@ -127,5 +154,10 @@ class Api::EncryptablesController < ApiController
     else
       []
     end
+  end
+
+  def receiver_and_encryptable_valid?
+    raise StandardError.new "Target encryptable not found" unless Encryptable.exists?(encryptable_id)
+    raise StandardError.new "Receiver user not found" unless User.exists?(receiver_id)
   end
 end

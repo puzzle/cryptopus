@@ -33,6 +33,16 @@ credentials2:
   tag: tag
   encrypted_data: '{"password":{"iv":null,"data":"X2i8woXXwIHew6zcnBws9Q=="},"username":{"iv":null,"data":"Kvkd66uUiNq4Gw4Yh7PvVg=="}}'
 
+sharing_credential:
+  type: Encryptable::Credentials
+  name: Twitter Account
+  description: My personal twitter account
+  folder: folder2
+  tag: tag
+  encrypted_data: '{"password":{"iv":null,"data":"X2i8woXXwIHew6zcnBws9Q=="},"username":{"iv":null,"data":"Kvkd66uUiNq4Gw4Yh7PvVg=="}}'
+  sender_id: bob.id
+  encrypted_transfer_password: <%= "!!binary \"#{FixturesHelper.read_team_password('bob', 'team1')}\"" %>
+
 file1:
   type: Encryptable::File
   name: Access codes
@@ -40,6 +50,16 @@ file1:
   encryptable_credential: credentials1
   content_type: 'text/plain'
   encrypted_data: '{"file":{"iv":null,"data":"FvJS9jooGEX1aXqB0iP7wB6h2YwO479OM+RpNmBlbORivbVPky0rR4u3lNLN+DGIL93gQAlVHDw1CZe9zDoTgSyxsQFflQwGk3DMDS9xhoQSJzTkBPBIb33j9H7WG37CQwdNNFnn/NExiBZb+9dbmHGqw8KWvRd3Xd/oSlTr6w/c0gz3UEYfhC5l6P3xnDc2"}}'
+
+sharing_file:
+  type: Encryptable::File
+  name: Codes
+  description: Dont show anyone else
+  encryptable_credential: credentials2
+  content_type: 'text/plain'
+  encrypted_data: '{"file":{"iv":null,"data":"FvJS9jooGEX1aXqB0iP7wB6h2YwO479OM+RpNmBlbORivbVPky0rR4u3lNLN+DGIL93gQAlVHDw1CZe9zDoTgSyxsQFflQwGk3DMDS9xhoQSJzTkBPBIb33j9H7WG37CQwdNNFnn/NExiBZb+9dbmHGqw8KWvRd3Xd/oSlTr6w/c0gz3UEYfhC5l6P3xnDc2"}}'
+  sender_id: bob.id
+  encrypted_transfer_password: <%= "!!binary \"#{FixturesHelper.read_team_password('bob', 'team1')}\"" %>
 
 osesecret1:
   type: Encryptable::OseSecret
