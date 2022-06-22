@@ -61,6 +61,22 @@ class Api::EncryptablesController < ApiController
 
   private
 
+  def transfer_encryptable
+    sender_id = current_user.id
+
+    receiver_and_encryptable_valid?
+
+    shared_encryptable = EncryptableTransfer.new.transfer(encryptable, User.find(receiver_id), sender_id)
+
+    instance_variable_set(:"@#{ivar_name}", shared_encryptable)
+    add_info('flashes.encryptable_transfer.credentials.transferred') if encryptable.type == Encryptable::Credentials
+    add_info('flashes.encryptable_transfer.file.transferred') if encryptable.type == Encryptable::File
+  end
+
+  def receiver_id
+    params.dig('data', 'attributes', 'receiver_id')
+  end
+
   # rubocop:disable Metrics/MethodLength
   def model_class
     if create_ose_secret?
@@ -84,7 +100,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def decrypt_transfered_encryptable
-    recrypt_with_personal_team_password(entry)
+      recrypt_with_personal_team_password(entry)
   end
 
   def file_credential
@@ -120,7 +136,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def encryptable_move_handler
-    EncryptableMoveHandler.new(entry, session[:private_key], current_user)
+    EncryptableMoveHandler.new(entry, users_private_key, current_user)
   end
 
   def ivar_name
