@@ -1,3 +1,6 @@
+## Version 4.4
+- Add support for postgresql
+
 ## Version 4.3
 - Introduce personal team for users
 
