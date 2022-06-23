@@ -9,7 +9,32 @@ import { isPresent } from "@ember/utils";
 const storeStub = Service.extend({
   query(modelName, params) {
     if (params) {
-      return [];
+      return Promise.all([
+        {
+          userId: 1,
+          username: "alice",
+          event: "viewed",
+          createdAt: "2021-06-14 09:23:02.750627",
+          encryptable: {
+            get() {
+              return 1;
+            },
+            id: 1
+          }
+        },
+        {
+          userId: 2,
+          username: "bob",
+          event: "update",
+          createdAt: "2021-06-15 09:23:02.750627",
+          encryptable: {
+            get() {
+              return 1;
+            },
+            id: 1
+          }
+        }
+      ]);
     }
   }
 });
@@ -21,9 +46,6 @@ module("Integration | Component | encryptable/show", function (hooks) {
     this.owner.unregister("service:store");
     this.owner.register("service:store", storeStub);
     setLocale("en");
-  });
-
-  test("it renders with data and shows edit buttons credentials encryptable entry", async function (assert) {
     this.set("encryptable", {
       id: 1,
       name: "Ninjas test encryptable",
@@ -49,9 +71,37 @@ module("Integration | Component | encryptable/show", function (hooks) {
             return 1;
           }
         }
+      ],
+      versions: [
+        {
+          userId: 1,
+          username: "alice",
+          event: "viewed",
+          createdAt: "2021-06-14 09:23:02.750627",
+          encryptable: {
+            get() {
+              return 1;
+            },
+            id: 1
+          }
+        },
+        {
+          userId: 2,
+          username: "bob",
+          event: "update",
+          createdAt: "2021-06-15 09:23:02.750627",
+          encryptable: {
+            get() {
+              return 1;
+            },
+            id: 1
+          }
+        }
       ]
     });
+  });
 
+  test("it renders with data and shows edit buttons credentials encryptable entry", async function (assert) {
     await render(
       hbs`<Encryptable::Show @encryptable={{this.encryptable}} @encryptableFiles={{this.encryptableFiles}}/>`
     );
@@ -70,5 +120,15 @@ module("Integration | Component | encryptable/show", function (hooks) {
     let editButton = this.element.querySelector('.icon-button[alt="edit"]');
     assert.ok(isPresent(deleteButton));
     assert.ok(isPresent(editButton));
+  });
+
+  test("log and credentials tabs ase present", async function (assert) {
+    await render(
+      hbs`<Encryptable::Show @encryptable={{this.encryptable}} @encryptableFiles={{this.encryptableFiles}}/>`
+    );
+    let credTab = document.getElementById("credentials-tab");
+    let logTab = document.getElementById("log-tab");
+    assert.ok(isPresent(credTab));
+    assert.ok(isPresent(logTab));
   });
 });

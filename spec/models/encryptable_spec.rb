@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-
 describe Encryptable do
-
   let(:bob) { users(:bob) }
   let(:bobs_private_key) { bob.decrypt_private_key('password') }
   let(:encryptable) { encryptables(:credentials1) }

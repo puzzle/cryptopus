@@ -20,7 +20,7 @@ module("Integration | Component | dashboard-card", function (hooks) {
 
     // Template block usage:
     await render(hbs`
-      <DashboardCard @team={{this.team}}>
+      <DashboardCard @content={{this.team}}>
       </DashboardCard>
     `);
 

@@ -195,6 +195,9 @@ GEM
       validate_email
       validate_url
       webfinger (>= 1.0.1)
+    paper_trail (12.3.0)
+      activerecord (>= 5.2)
+      request_store (~> 1.1)
     parallel (1.21.0)
     parser (3.1.1.0)
       ast (~> 2.4.1)
@@ -263,6 +266,8 @@ GEM
     rainbow (3.1.1)
     rake (13.0.6)
     regexp_parser (2.2.1)
+    request_store (1.5.1)
+      rack (>= 1.4)
     rexml (3.2.5)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
@@ -384,6 +389,7 @@ DEPENDENCIES
   mysql2
   net-ldap
   openid_connect
+  paper_trail (~> 12.3)
   password_strength
   pg
   pry

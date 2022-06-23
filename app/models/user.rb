@@ -31,6 +31,8 @@ class User < ApplicationRecord
   validates :username, uniqueness: :username
   validates :username, presence: true
 
+  has_many :versions, foreign_key: :whodunnit, dependent: :destroy, class_name: 'Version'
+
   def update_password(old, new)
     return unless auth_db?
 

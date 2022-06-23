@@ -9,9 +9,14 @@ export default class ShowComponent extends Component {
   @service intl;
   @service notify;
 
+  @tracked logs = [];
+  loadAmount = 10;
+  offset = 0;
+
   constructor() {
     super(...arguments);
 
+    this.getLogs();
     window.scrollTo(0, 0);
   }
 
@@ -24,9 +29,13 @@ export default class ShowComponent extends Component {
   @tracked
   isPasswordVisible = false;
 
+  @tracked
+  canLoadMore = true;
+
   @action
   toggleEncryptableEdit() {
     this.isEncryptableEditing = !this.isEncryptableEditing;
+    this.getLogs();
   }
 
   @action
@@ -56,5 +65,34 @@ export default class ShowComponent extends Component {
   @action
   onCopied(attribute) {
     this.notify.info(this.intl.t(`flashes.encryptables.${attribute}_copied`));
+  }
+
+  @action
+  getLogs() {
+    this.store
+      .query("version", {
+        encryptableId: this.args.encryptable.id,
+        load: this.loadAmount,
+        offset: this.offset
+      })
+      .then((res) => {
+        this.logs = res
+          .toArray()
+          .filter((log) => {
+            return !this.logs.includes(log);
+          })
+          .concat(this.logs);
+        this.toggleLoadMore();
+      });
+  }
+
+  @action
+  loadMore() {
+    this.offset += this.loadAmount;
+    this.getLogs();
+  }
+
+  toggleLoadMore() {
+    this.canLoadMore = this.loadAmount <= this.logs.length;
   }
 }

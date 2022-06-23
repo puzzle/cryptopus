@@ -87,8 +87,15 @@ fr:
       copy_password: Copier le mot de passe
       copy_username: Copier le nom d'utilisateur
       add_attachment: Ajouter un attachement
+      load_more: Charger plus
+      date_time: Date/Temps
+      action: Action
     new:
       title: Nouveau compte
+    log:
+      update: modifié
+      viewed: regardé
+
 
   admin:
     title: Admin

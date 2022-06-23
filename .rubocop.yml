@@ -83,6 +83,9 @@ Naming/FileName:
 Rails/EnumHash:
   Enabled: false
 
+Rails/SkipsModelValidations:
+  AllowedMethods: ["touch"]
+
 # Keep for now, easier with superclass definitions
 Style/ClassAndModuleChildren:
   Enabled: false

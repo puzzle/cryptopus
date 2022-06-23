@@ -5,6 +5,8 @@ class Api::EncryptablesController < ApiController
 
   self.permitted_attrs = [:name, :description, :tag]
 
+  before_action :set_paper_trail_whodunnit
+
   helper_method :team
 
   # GET /api/encryptables
@@ -19,6 +21,7 @@ class Api::EncryptablesController < ApiController
   def show
     authorize entry
     entry.decrypt(decrypted_team_password(team))
+    log_read_access
     render_entry
   end
 
@@ -68,6 +71,16 @@ class Api::EncryptablesController < ApiController
     end
   end
   # rubocop:enable Metrics/MethodLength
+
+  def fetch_entries
+    if encryptable_file?
+      super
+    elsif tag_param.present?
+      user_encryptables.find_by(tag: tag_param)
+    else
+      Encryptables::FilteredList.new(current_user, params).fetch_entries
+    end
+  end
 
   def build_entry
     return build_encryptable_file if encryptable_file?
@@ -127,5 +140,12 @@ class Api::EncryptablesController < ApiController
     else
       []
     end
+  end
+
+  def log_read_access
+    v = encryptable.paper_trail.save_with_version
+    v.event = :viewed
+    v.created_at = DateTime.now
+    v.save!
   end
 end

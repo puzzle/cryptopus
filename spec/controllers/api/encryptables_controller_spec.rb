@@ -13,6 +13,7 @@ describe Api::EncryptablesController do
   let(:attributes) { %w[name cleartext_password cleartext_username] }
   let!(:ose_secret) { create_ose_secret }
   let(:credentials1) { encryptables(:credentials1) }
+  let(:encryptable) { encryptables.first }
 
   context 'GET index' do
     it 'returns encryptable with matching name' do
@@ -36,7 +37,7 @@ describe Api::EncryptablesController do
       expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
     end
 
-    it 'returns all enncryptables if empty query param given' do
+    it 'returns all encryptables if empty query param given' do
       login_as(:alice)
 
       get :index, params: { 'q': '' }, xhr: true
@@ -127,6 +128,87 @@ describe Api::EncryptablesController do
       get :show, params: { id: file.id }, xhr: true
 
       expect(response.status).to eq(403)
+    end
+
+    context 'recent Credentials' do
+      let!(:recent_credentials) do
+        folder = teams(:team1).folders.first
+        private_key = decrypt_private_key(bob)
+        team_password = folder.team.decrypt_team_password(bob, private_key)
+        Fabricate.times(
+          6,
+          :credential,
+          folder: folder,
+          team_password: team_password
+        )
+      end
+
+      it 'returns most recent credentials' do
+        login_as(:alice)
+
+        recent_credentials.each do |credential|
+          log_read_access(alice.id, credential)
+        end
+
+        get :index, params: { recent: true }, xhr: true
+
+        expect(response.status).to be(200)
+        expect(data.size).to eq(5)
+        attributes = data.first['attributes']
+        expect(attributes['name']).to eq recent_credentials.last.name
+        expect(attributes['description']).to eq recent_credentials.last.description
+      end
+
+      it 'shows most recently used credential first in list' do
+        login_as(:alice)
+
+
+        recent_credentials.each do |credential|
+          log_read_access(alice.id, credential)
+        end
+        log_read_access(alice.id, credentials1)
+
+        get :index, params: { recent: true }, xhr: true
+
+        expect(response.status).to be(200)
+        expect(data.size).to eq(5)
+        attributes = data.first['attributes']
+        expect(attributes['name']).to eq credentials1.name
+        expect(attributes['description']).to eq credentials1.description
+
+      end
+      it 'does not show credentials with no access' do
+        login_as(:bob)
+
+        recent_credentials1 = recent_credentials.first
+        log_read_access(alice.id, recent_credentials1)
+
+        get :index, params: { recent: true }, xhr: true
+
+        expect(response.status).to be(200)
+        expect(data.size).to eq(0)
+      end
+
+      it 'does not show deleted credentials' do
+        login_as(:alice)
+
+        recent_credentials1 = recent_credentials.first
+        log_read_access(alice.id, recent_credentials1)
+
+        get :index, params: { recent: true }, xhr: true
+
+        expect(data.size).to eq(1)
+        attributes = data.first['attributes']
+        expect(attributes['name']).to eq recent_credentials1.name
+        expect(attributes['description']).to eq recent_credentials1.description
+
+        recent_credentials1.destroy!
+
+        get :index, params: { recent: true }, xhr: true
+
+        expect(response.status).to be(200)
+        expect(data.size).to eq(0)
+      end
     end
   end
 
@@ -700,6 +782,56 @@ describe Api::EncryptablesController do
     end
   end
 
+  context 'papertrail', versioning: true do
+    context 'delete' do
+      it 'deletes log history if encryptable is deleted' do
+        encryptable2 = encryptables(:credentials2)
+
+        1000.times do
+          encryptable.touch
+        end
+
+        500.times do
+          encryptable2.touch
+        end
+
+        expect(encryptable.versions.size).to eq(1000)
+        expect(encryptable2.versions.size).to eq(500)
+
+        encryptable.destroy
+
+        expect(encryptable.versions.size).to be(0)
+        expect(encryptable2.versions.size).to eq(500)
+      end
+    end
+
+    context 'touch' do
+      it 'creates a log entry' do
+        login_as(:bob)
+
+        encryptable.touch
+        expect(encryptable.versions.count).to eq(1)
+      end
+
+      it 'contains user in whodunnit' do
+        login_as(:bob)
+
+        encryptable.touch
+        expect(encryptable.versions.last.whodunnit).to eq(bob.id.to_s)
+      end
+    end
+
+    context 'show' do
+      it 'logs show access' do
+        login_as(:bob)
+
+        get :show, params: { id: encryptable.id }
+
+        expect(encryptable.versions.last.event).to eq('viewed')
+      end
+    end
+  end
+
   private
 
   def create_ose_secret
@@ -733,5 +865,13 @@ describe Api::EncryptablesController do
   def set_auth_headers
     request.headers['Authorization-User'] = bob.username
     request.headers['Authorization-Password'] = Base64.encode64('password')
+  end
+
+  def log_read_access(user_id, credential)
+    v = credential.paper_trail.save_with_version
+    v.whodunnit = user_id
+    v.event = :viewed
+    v.created_at = DateTime.now
+    v.save!
   end
 end

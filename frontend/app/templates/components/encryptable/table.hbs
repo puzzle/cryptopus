@@ -1,0 +1,14 @@
+<table class="table table-striped mt-20 mb-15">
+  <tbody>
+    <tr>
+      <th> {{t "encryptable/credentials.show.action"}} </th>
+      <th> {{t "user" }} </th>
+      <th> {{t "encryptable/credentials.show.date_time" }} </th>
+    </tr>
+  </tbody>
+  <tbody>
+    {{#each @logs as |paperTrailVersion|}}
+      <Encryptable::TableRow @paperTrailVersion={{paperTrailVersion}}/>
+    {{/each}}
+  </tbody>
+</table>

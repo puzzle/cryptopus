@@ -87,8 +87,14 @@ ch_be:
       copy_password: Passwort kopierä
       copy_username: Benutzername kopierä
       add_attachment: Anhang hinzufüegä
+      load_more: Meh aazeige
+      date_time: Datum/Zyt
+      action: Aktion
     new:
       title: Nöi Zuägangsdate
+    log:
+      update: Bearbeitet
+      viewed: Aagluegt
 
   admin:
     title: Admin
