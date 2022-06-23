@@ -21,8 +21,7 @@ describe Api::EncryptablesController do
 
       get :index, params: { 'q': 'Personal' }, xhr: true
 
-      expect(data.count).to eq 1
-      credentials1_json = data.first
+      credentials1_json = data.find { |e| e['id'] == credentials1.id.to_s }
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
@@ -43,7 +42,7 @@ describe Api::EncryptablesController do
 
       get :index, params: { 'q': '' }, xhr: true
 
-      credentials1_json = data.second
+      credentials1_json = data.find { |e| e['id'] == credentials1.id.to_s }
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
@@ -64,7 +63,7 @@ describe Api::EncryptablesController do
 
       get :index, xhr: true
 
-      credentials1_json = data.second
+      credentials1_json = data.find { |e| e['id'] == credentials1.id.to_s }
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 

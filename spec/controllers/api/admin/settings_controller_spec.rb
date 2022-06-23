@@ -14,11 +14,11 @@ describe Api::Admin::SettingsController do
 
       get :index, xhr: true
 
-      first_attributes = data.first['attributes']
-      expect(first_attributes['value']).to eq ['0.0.0.0', '192.168.10.0']
+      settings = data.collect { |s| s['attributes'] }
+      expect(settings).to include({ 'key' => 'ip_whitelist',
+                                    'value' => ['0.0.0.0', '192.168.10.0'] })
+      expect(settings).to include({ 'key' => 'country_source_whitelist', 'value' => %w[CH DE] })
 
-      second_attributes = data.second['attributes']
-      expect(second_attributes['value']).to eq %w[CH DE]
       expect(data.size).to be(2)
       expect(included).to be(nil)
     end

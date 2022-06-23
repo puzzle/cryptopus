@@ -10,9 +10,7 @@ describe 'Dashboard', type: :system, js: true do
 
 
   it 'renders dashboard grid' do
-    login_as_user(:alice)
-    visit("/encryptables/#{credentials.id}")
-    visit('/dashboard')
+    create_recent_credentials
 
     expect(page.current_path).to eq('/dashboard')
     expect(page).to have_selector('pzsh-hero', visible: true)
@@ -20,14 +18,14 @@ describe 'Dashboard', type: :system, js: true do
     expect(page).to have_text('Recent Credentials', count: 1)
     expect(page).to have_text('Favourites', count: 1)
     expect(page).to have_text('Teams', count: 1)
+
     expect(page).not_to have_selector 'div.content'
-    expect(page).to have_selector('div.primary-content', count: 3)
+
+    expect(page).to have_selector('div.dashboard-grid-card', count: 4)
   end
 
   it 'navigates to team on team card click' do
-    login_as_user(:alice)
-    visit("/encryptables/#{credentials.id}")
-    visit('/dashboard')
+    create_recent_credentials
 
 
     expect(page.current_path).to eq('/dashboard')
@@ -41,10 +39,7 @@ describe 'Dashboard', type: :system, js: true do
   end
 
   it 'lists recently accessed encryptable' do
-    login_as_user(:alice)
-    visit("/encryptables/#{credentials.id}")
-    visit('/dashboard')
-
+    create_recent_credentials
 
     expect(page.current_path).to eq('/dashboard')
 
@@ -56,4 +51,9 @@ describe 'Dashboard', type: :system, js: true do
     expect(page).to have_selector 'div.content'
   end
 
+  def create_recent_credentials
+    login_as_user(:alice)
+    visit("/encryptables/#{credentials.id}")
+    visit('/dashboard')
+  end
 end

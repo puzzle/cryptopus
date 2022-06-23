@@ -252,20 +252,21 @@ describe Api::TeamsController do
     end
 
     context 'with only_teammember_user_id param' do
-      let(:soloteam) { Fabricate(:private_team) }
-      let(:only_teammember_user) { soloteam.teammembers.first.user }
+      let(:team) { Fabricate(:non_private_team) }
+      let(:user) { team.teammembers.first.user }
+      let(:personal_team) { user.personal_team }
 
       context 'as admin' do
         before { login_as(:admin) }
 
-        it 'returns soloteam' do
-          get :index, params: { only_teammember_user_id: only_teammember_user.id }
+        it 'returns personal team' do
+          get :index, params: { only_teammember_user_id: user.id }
 
-          team_data = data[1]
+          team_data = data.first
           team_attributes = team_data['attributes']
 
-          expect(team_data['id'].to_i).to eq(soloteam.id)
-          expect(team_attributes['name']).to eq(soloteam.name)
+          expect(team_data['id'].to_i).to eq(personal_team.id)
+          expect(team_attributes['name']).to eq(personal_team.name)
           expect(team_attributes['description']).to be_nil
 
           expect(response).to have_http_status(200)
@@ -275,14 +276,14 @@ describe Api::TeamsController do
       context 'as conf_admin' do
         before { login_as(:tux) }
 
-        it 'returns soloteam' do
-          get :index, params: { only_teammember_user_id: only_teammember_user.id }
+        it 'returns personal team' do
+          get :index, params: { only_teammember_user_id: user.id }
 
-          team_data = data[1]
+          team_data = data.first
           team_attributes = team_data['attributes']
 
-          expect(team_data['id'].to_i).to eq(soloteam.id)
-          expect(team_attributes['name']).to eq(soloteam.name)
+          expect(team_data['id'].to_i).to eq(personal_team.id)
+          expect(team_attributes['name']).to eq(personal_team.name)
           expect(team_attributes['description']).to be_nil
 
           expect(response).to have_http_status(200)
@@ -293,7 +294,7 @@ describe Api::TeamsController do
         before { login_as(:bob) }
 
         it 'is not unauthorized' do
-          get :index, params: { only_teammember_user_id: only_teammember_user.id }
+          get :index, params: { only_teammember_user_id: user.id }
 
           expect(response).to have_http_status(403)
         end

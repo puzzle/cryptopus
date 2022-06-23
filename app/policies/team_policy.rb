@@ -25,7 +25,7 @@ class TeamPolicy < TeamDependantPolicy
   end
 
   def destroy?
-    return false if personal_team?
+    return false if personal_team? && !current_user.admin?
 
     current_user.is_a?(User::Human) &&
       (current_user.admin? || (current_user.conf_admin? && team.members.size == 1))

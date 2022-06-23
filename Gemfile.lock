@@ -203,6 +203,7 @@ GEM
       ast (~> 2.4.1)
     password_strength (1.1.4)
       activemodel
+    pg (1.4.0)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -390,6 +391,7 @@ DEPENDENCIES
   openid_connect
   paper_trail (~> 12.3)
   password_strength
+  pg
   pry
   pry-stack_explorer
   puma
