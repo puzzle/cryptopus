@@ -17,7 +17,7 @@ class Api::TeamsController < ApiController
   # GET /api/teams
   def index
     if params['team_id'].present?
-      team_response
+      fetch_team
     elsif params['only_teammember_user_id'].present?
       authorize ::Team, :only_teammember?
     else
@@ -28,12 +28,12 @@ class Api::TeamsController < ApiController
 
   private
 
-  def team_response
-    team = fetch_entries.first
-    authorize team, :team_member?
+  def fetch_team
+    @team = fetch_entries.first
+    authorize @team, :team_member?
 
-    unless already_recrypted?(team)
-      recrypt(team)
+    unless already_recrypted?(@team)
+      recrypt(@team)
     end
   end
 
