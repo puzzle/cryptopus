@@ -31,7 +31,7 @@
 
       <div>
         <img class="encryption-label" src="/assets/images/{{@team.encryptionAlgorithmImageName}}.svg" alt="Algorithm label">
-        <BsTooltip @title="{{t "tooltips.encryption_algorithm"}}{{@team.encryptionAlgorithm}}{{t "tooltips.key_size"}}{{@team.passwordBytesize}} bytes" @delayShow="1000" />
+        <BsTooltip @title="{{t "tooltips.encryption_algorithm"}}{{@team.encryptionAlgorithm}}{{t "tooltips.key_size"}}{{@team.passwordBitsize}} bits" @delayShow="1000" />
       </div>
 
       <div class="col-auto pr-0 justify-content-between d-none d-sm-flex align-items-center ">
