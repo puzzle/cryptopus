@@ -46,23 +46,42 @@ describe Crypto::Symmetric::Recrypt do
   end
 
   it 'does not recrypt team encryptables if default algorithm is already in use' do
-
     expect(team).to be_persisted
     # make sure encryption algorithm is persisted
     expect(team.read_attribute(:encryption_algorithm)).to eq 'AES256IV'
     expect(team.encryption_algorithm).to eq 'AES256IV'
     expect(team.recrypt_state).to eq 'done'
 
+    team_password = team.decrypt_team_password(admin, admin_pk)
+    encryptable = team.encryptables.first
+    encryptable.decrypt(team_password)
+
+    username = encryptable.cleartext_username
+    password = encryptable.cleartext_password
+
     described_class.new(admin, team, admin_pk).perform
 
     expect(team.encryption_algorithm).to eq 'AES256IV'
     expect(team.recrypt_state).to eq 'done'
+
+    encryptable = team.encryptables.first
+    encryptable.decrypt(team_password)
+
+    expect(encryptable.cleartext_username).to eq(username)
+    expect(encryptable.cleartext_password).to eq(password)
   end
 
   it 'aborts recrypt if error occurs' do
     stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256')
 
     create_broken_encryptable(team)
+
+    team_password = team.decrypt_team_password(admin, admin_pk)
+    encryptable = team.encryptables.where.not(name: 'broken encryptable').first
+
+    encryptable.decrypt(team_password)
+    username = encryptable.cleartext_username
+    password = encryptable.cleartext_password
 
     stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
 
@@ -72,6 +91,11 @@ describe Crypto::Symmetric::Recrypt do
 
     expect(team.reload.encryption_algorithm).to eq 'AES256'
     expect(team.recrypt_state).to eq 'failed'
+
+    encryptable.reload.decrypt(team_password)
+
+    expect(encryptable.cleartext_username).to eq(username)
+    expect(encryptable.cleartext_password).to eq(password)
   end
 
   it 'resets teampassword with a newly generated for each teammember' do
@@ -113,7 +137,9 @@ describe Crypto::Symmetric::Recrypt do
   private
 
   def create_broken_encryptable(team)
-    broken_encryptable = team.encryptables.first
+    broken_encryptable = Encryptable::Credentials.new
+    broken_encryptable.folder = team.folders.first
+    broken_encryptable.name = 'broken encryptable'
     broken_encryptable.encrypted_data.[]=(:username, **{ iv: nil, data: 'broken' })
     broken_encryptable.encrypted_data.[]=(:password, **{ iv: nil, data: 'broken' })
     broken_encryptable.save!

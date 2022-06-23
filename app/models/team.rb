@@ -74,7 +74,7 @@ class Team < ApplicationRecord
     Crypto::Symmetric::ALGORITHMS[encryption_algorithm]
   end
 
-  def password_bytesize
+  def password_bitsize
     encryption_class.password_bitsize
   end
 
