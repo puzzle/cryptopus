@@ -22,11 +22,11 @@ $font-family-sans-serif: var(--pzsh-font-family) !default;
 @import "dashboard";
 @import "dashboard-card";
 @import "spinner";
-//
-//#ember {
-//  display: flex;
-//  flex-direction: column;
-//}
+
+#ember {
+  display: flex;
+  flex-direction: column;
+}
 
 .w-250 {
   width: 250px;
@@ -455,6 +455,11 @@ h5, h6 {
 .account-link:hover {
   color: #000000;
   text-decoration: none !important;
+}
+
+.encryption-label {
+  height: 25px !important;
+  display: inline;
 }
 
 @media screen and (max-width: 799px){

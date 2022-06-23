@@ -1,5 +1,5 @@
-<div class="container py-2" style="display: flex">
-  <div class="mt-4">
+<div class="container d-flex flex-column flex-1 py-2">
+  <div class="mt-4 d-flex flex-column flex-1">
     {{#unless this.loading.isLoading}}
       {{#if q}}
         <SearchResultComponent @q={{q}}/>
@@ -12,8 +12,10 @@
         <h5>{{t "teams.index.no_content"}}</h5>
       {{/if}}
     {{else}}
-      <div class="w-100 text-center">
+      <div class="h-100 d-flex flex-column justify-content-center align-items-center">
         <div class="lds-roller">
+          <div></div>
+          <div></div>
           <div></div>
           <div></div>
           <div></div>

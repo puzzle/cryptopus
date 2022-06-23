@@ -52,7 +52,11 @@
 }
 
 .content {
-  //flex-grow: 1;
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1;
 }
 
 @media screen and (max-width: 991px) {
@@ -63,10 +67,6 @@
 
   .sidebar-wrapper {
     display: none !important;
-  }
-
-  .ml-270px {
-    margin-left: 0 !important;
   }
 
   .encryptable-container-smartphone {
@@ -101,10 +101,6 @@
   .content {
     width: 66.6%;
     margin: 0 auto;
-  }
-
-  .ml-270px {
-    margin-left: 270px !important;
   }
 
   .navbar-header {

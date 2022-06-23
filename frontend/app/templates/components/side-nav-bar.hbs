@@ -1,63 +1,59 @@
-<div class="sidebar" id="sidebar">
-  <nav class="nav-side-bar navbar navbar-dark navbar-inverse p-0">
-    <div class="navbar-collapse p-0" id="nav-side-bar-container" {{did-insert this.setupModal this}}>
-      <div class="list-group list-group-root">
-        <div class="d-flex justify-content-center list-group-top-button list-group-item-action border-0">
-          <BsButtonGroup class="button-group" @type="radio" @value={{this.showsFavourites}} @onChange={{this.toggleFavourites}} as |bg|>
-            <bg.button class="toggle-button" @value={{false}}>
-              <img class="icon icon-button" src="/assets/images/members{{unless this.showsFavourites "-filled"}}.svg" alt="">
-              <BsTooltip @title={{t "tooltips.all_teams"}} @delayShow="1000" />
-            </bg.button>
-            <bg.button class="toggle-button" @value={{true}}>
-              <img class="icon icon-button" src="/assets/images/star{{if this.showsFavourites "-filled"}}.svg" alt="star">
-              <BsTooltip @title={{t "tooltips.favorites"}} @delayShow="1000" />
-            </bg.button>
-          </BsButtonGroup>
-        </div>
-        <div class="mb-5 d-flex flex-column teams-list">
-          <div class="side-nav-bar-teams-list scroll-bar">
-            {{#if this.navService.availableTeams}}
-              {{#each this.navService.availableTeams as |team|}}
-                <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action team-list-item {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
-                  {{#if team.isPersonalTeam}}
-                    <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "member-white.svg" "member.svg"}}" alt="">
+<div id="sidebar">
+  <nav>
+    <div class="" id="nav-side-bar-container" {{did-insert this.setupModal this}}>
+      <div class="d-flex justify-content-center list-group-top-button list-group-item-action border-0">
+        <BsButtonGroup class="button-group" @type="radio" @value={{this.showsFavourites}} @onChange={{this.toggleFavourites}} as |bg|>
+          <bg.button class="toggle-button" @value={{false}}>
+            <img class="icon icon-button" src="/assets/images/members{{unless this.showsFavourites "-filled"}}.svg" alt="">
+            <BsTooltip @title={{t "tooltips.all_teams"}} @delayShow="1000" />
+          </bg.button>
+          <bg.button class="toggle-button" @value={{true}}>
+            <img class="icon icon-button" src="/assets/images/star{{if this.showsFavourites "-filled"}}.svg" alt="star">
+            <BsTooltip @title={{t "tooltips.favorites"}} @delayShow="1000" />
+          </bg.button>
+        </BsButtonGroup>
+      </div>
+      <div class="side-scrollbar pr-2">
+          {{#if this.navService.availableTeams}}
+            {{#each this.navService.availableTeams as |team|}}
+              <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action team-list-item {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
+                {{#if team.isPersonalTeam}}
+                  <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "member-white.svg" "member.svg"}}" alt="">
+                {{else}}
+                  {{#if team.private}}
+                    <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "encrypted_small-white.svg" "encrypted_small.svg"}}" alt="">
                   {{else}}
-                    {{#if team.private}}
-                      <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "encrypted_small-white.svg" "encrypted_small.svg"}}" alt="">
-                    {{else}}
-                      <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "members-white.svg" "members.svg"}}" alt="">
-                    {{/if}}
+                    <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "members-white.svg" "members.svg"}}" alt="">
                   {{/if}}
-                  {{#if team.isPersonalTeam}}
-                    {{truncate this.userService.username 18}}
-                  {{else}}
-                    {{truncate team.name 18}}
-                  {{/if}}
-                  {{#if (not team.folders)}}
-                  {{else if (and team.folders (or (not (eq team this.navService.selectedTeam)) this.collapsed))}}
-                    <img class="icon icon-button-angle float-right" src="/assets/images/angle-left.svg" alt="<">
-                  {{else}}
-                    <img class="icon icon-button-angle float-right" src="/assets/images/angle-down.svg" alt="v">
-                  {{/if}}
-                </a>
-                {{#if (or team.folders (eq team this.navService.selectedTeam))}}
-                  <BsCollapse class="list-group" id="nav-folders-{{team.id}}" @collapsed={{or (not (eq team this.navService.selectedTeam)) this.collapsed}}>
-                    {{#each team.folders as |folder|}}
-                      <a role="button"  class="list-group-item list-folder-item {{if (eq folder this.navService.selectedFolder) "bg-blue-three" "bg-blue-one"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
-                        <img class="icon icon-button mr-1" src="/assets/images/folder.svg" alt="">
-                        {{truncate folder.name 15}}
-                      </a>
-                    {{/each}}
-                  </BsCollapse>
                 {{/if}}
-              {{/each}}
-            {{else if this.navService.isLoadingTeams}}
-              <div class="list-group-item list-group-item-action bg-blue-one">{{t "teams.loading"}}</div>
-            {{else}}
-              <div class="list-group-item list-group-item-action bg-blue-one">{{t "teams.none_available"}}</div>
-            {{/if}}
-          </div>
-        </div>
+                {{#if team.isPersonalTeam}}
+                  {{truncate this.userService.username 18}}
+                {{else}}
+                  {{truncate team.name 18}}
+                {{/if}}
+                {{#if (not team.folders)}}
+                {{else if (and team.folders (or (not (eq team this.navService.selectedTeam)) this.collapsed))}}
+                  <img class="icon icon-button-angle float-right" src="/assets/images/angle-left.svg" alt="<">
+                {{else}}
+                  <img class="icon icon-button-angle float-right" src="/assets/images/angle-down.svg" alt="v">
+                {{/if}}
+              </a>
+              {{#if (or team.folders (eq team this.navService.selectedTeam))}}
+                <BsCollapse class="list-group" id="nav-folders-{{team.id}}" @collapsed={{or (not (eq team this.navService.selectedTeam)) this.collapsed}}>
+                  {{#each team.folders as |folder|}}
+                    <a role="button"  class="list-group-item list-folder-item {{if (eq folder this.navService.selectedFolder) "bg-blue-three" "bg-blue-one"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
+                      <img class="icon icon-button mr-1" src="/assets/images/folder.svg" alt="">
+                      {{truncate folder.name 15}}
+                    </a>
+                  {{/each}}
+                </BsCollapse>
+              {{/if}}
+            {{/each}}
+          {{else if this.navService.isLoadingTeams}}
+            <div class="list-group-item list-group-item-action bg-blue-one">{{t "teams.loading"}}</div>
+          {{else}}
+            <div class="list-group-item list-group-item-action bg-blue-one">{{t "teams.none_available"}}</div>
+          {{/if}}
       </div>
     </div>
   </nav>
