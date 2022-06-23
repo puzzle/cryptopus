@@ -1,0 +1,25 @@
+<div class="container py-2">
+  <div class="mt-4">
+    {{#unless this.loading.isLoading}}
+      {{#if q}}
+        <SearchResultComponent @q={{q}}/>
+      {{/if}}
+      {{#if @model}}
+        {{#each this.model as |team|}}
+          <Team::Show @team={{team}} />
+        {{/each}}
+      {{else}}
+        <h5>{{t "teams.index.no_content"}}</h5>
+      {{/if}}
+
+    {{else}}
+      <div class="lds-roller">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    {{/unless}}
+  </div>
+</div>
