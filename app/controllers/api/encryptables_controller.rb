@@ -58,8 +58,8 @@ class Api::EncryptablesController < ApiController
       Encryptable::OseSecret
     elsif action_name == 'destroy'
       Encryptable
-    elsif @encryptable.present?
-      encryptable.class
+    elsif entry.present?
+      entry.class
     elsif credential_id.present?
       Encryptable::File
     else
@@ -78,8 +78,12 @@ class Api::EncryptablesController < ApiController
     Encryptable::Credentials.find(credential_id)
   end
 
-  def encryptable
-    @encryptable ||= Encryptable.find(params[:id])
+  def entry
+    @encryptable ||= Encryptable.find(entry_id)
+  end
+
+  def entry_id
+    params[:id] || params.dig('data', 'attributes', 'id')
   end
 
   def encryptable_file?
