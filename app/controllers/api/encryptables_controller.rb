@@ -18,7 +18,7 @@ class Api::EncryptablesController < ApiController
   def show
     authorize entry
 
-    if entry.transfered?
+    if entry.transferred?
       personal_team = Team::Personal.find_by(personal_owner_id: current_user.id)
       personal_team_password = personal_team.decrypted_team_password(current_user)
       EncryptableTransfer.new.receive(entry, session[:private_key], personal_team_password)
@@ -33,8 +33,9 @@ class Api::EncryptablesController < ApiController
   def create
     build_entry
     authorize entry
+    transfer_encryptable if entry.transferred?
 
-    unless entry.transfered?
+    unless entry.transferred?
       entry.encrypt(decrypted_team_password(team))
     end
 
