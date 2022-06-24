@@ -25,6 +25,7 @@ module("Integration | Component | team/show", function (hooks) {
         }
       ],
       encryptionAlgorithm: "AES256",
+      encryptionAlgorithmImageName: "aes-256",
       userFavouriteTeams: [{ favourised: true }]
     });
 
