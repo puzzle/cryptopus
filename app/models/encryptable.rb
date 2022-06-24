@@ -18,6 +18,8 @@
 class Encryptable < ApplicationRecord
   serialize :encrypted_data, ::EncryptedData
 
+  attr_accessor :receiver_id
+
   attr_readonly :type
   validates :type, presence: true
 
@@ -26,9 +28,8 @@ class Encryptable < ApplicationRecord
   validates :name, presence: true
   validates :description, length: { maximum: 4000 }
 
-  validate :receiver_type_human?
-
-  validates :receiver_id, presence: { if: :encrypted_transfer_password_present? }
+  validate :assert_human_receiver?, if: :transferred?
+  validates :receiver_id, presence: true, if: :transferred?
 
   def encrypt(_team_password)
     raise 'implement in subclass'
@@ -93,13 +94,9 @@ class Encryptable < ApplicationRecord
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
   end
 
-  def receiver_type_human?
+  def assert_human_receiver?
     unless User.find(receiver_id).is_a?(User::Human)
       errors.add(:receiver_id, 'Must be a human user')
     end
-  end
-
-  def encrypted_transfer_password_present?
-    encrypted_transfer_password.present?
   end
 end
