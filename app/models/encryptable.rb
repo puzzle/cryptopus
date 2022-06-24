@@ -28,9 +28,8 @@ class Encryptable < ApplicationRecord
   validates :name, presence: true
   validates :description, length: { maximum: 4000 }
 
-  validate :receiver_type_human?
-
-  validates :receiver_id, presence: { if: :encrypted_transfer_password_present? }
+  validate :assert_human_receiver?, if: :transferred?
+  validates :receiver_id, presence: true, if: :transferred?
 
   def encrypt(_team_password)
     raise 'implement in subclass'
@@ -57,13 +56,13 @@ class Encryptable < ApplicationRecord
   end
 
   def recrypt_transferred(private_key, team_password)
-    decrypt(decrypt_transfer_password(private_key))
+    decrypt(plaintext_transfer_password(private_key))
     self.encrypted_transfer_password = nil
     encrypt(team_password)
     save!
   end
 
-  def transfered?
+  def transferred?
     encrypted_transfer_password.present? && sender_id.present?
   end
 
@@ -72,10 +71,6 @@ class Encryptable < ApplicationRecord
   end
 
   private
-
-  def decrypt_transfer_password(private_key)
-    Crypto::Rsa.decrypt(encrypted_transfer_password, private_key)
-  end
 
   def encrypt_attr(attr, team_password)
     cleartext_value = send(:"cleartext_#{attr}")
@@ -99,13 +94,9 @@ class Encryptable < ApplicationRecord
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
   end
 
-  def receiver_type_human?
+  def assert_human_receiver?
     unless User.find(receiver_id).is_a?(User::Human)
       errors.add(:receiver_id, 'Must be a human user')
     end
-  end
-
-  def encrypted_transfer_password_present?
-    encrypted_transfer_password.present?
   end
 end

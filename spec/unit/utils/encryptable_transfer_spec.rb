@@ -4,7 +4,6 @@ require 'spec_helper'
 
 describe EncryptableTransfer do
 
-  let(:encryptable) { encryptables(:credentials1) }
   let(:alice) { users(:alice) }
   let(:bob) { users(:bob) }
   let(:api_tux) { users(:api_tux) }
@@ -20,12 +19,11 @@ describe EncryptableTransfer do
   context '#transfer' do
     it 'transfers encryptable file to other user' do
       receiver = bob
-      sender_id = alice.id
+      sender = alice
 
-      encryptable_transfer.transfer(encryptable_file, receiver, sender_id)
+      encryptable_transfer.transfer(encryptable_file, receiver, sender)
 
       received_file = bob.personal_team.folders.find_by(name: 'inbox').encryptables.first
-
       expect(received_file.encrypted_transfer_password).to be_present
 
       personal_team_password = bob.personal_team.decrypt_team_password(bob, bobs_private_key)
@@ -41,29 +39,26 @@ describe EncryptableTransfer do
 
     it 'does not transfer encryptable file to non existent user' do
       receiver = nil
-      sender_id = alice.id
+      sender = alice
 
       expect do
         encryptable_transfer.transfer(encryptable_file, receiver,
-                                      sender_id)
-      end.to raise_error(StandardError, 'Receiver user not found')
+                                      sender)
+      end.to raise_error(StandardError, 'Receiver not set')
     end
 
     it 'does not transfer encryptable file to api user' do
       receiver = api_tux
-      sender_id = alice.id
+      sender = alice
 
       expect do
         encryptable_transfer.transfer(encryptable_file, receiver,
-                                      sender_id)
+                                      sender)
       end.to raise_error(StandardError, 'Cant transfer to API user')
     end
 
-  end
-
-  context '#receive' do
     it 'recrypts encryptable when received' do
-      transfered_encryptable = encryptable_transfer.transfer(encryptable_file, alice, bob.id)
+      transfered_encryptable = encryptable_transfer.transfer(encryptable_file, alice, bob)
 
       personal_team = alice.personal_team
       private_key = alice.decrypt_private_key('password')
@@ -79,20 +74,6 @@ describe EncryptableTransfer do
       expect(received_file.sender_id).to be_nil
       expect(received_file.encrypted_transfer_password).to be_nil
       expect(received_file.receiver_id).to be_nil
-    end
-
-    it 'does not recrypt credentials with transfer attributes' do
-      transfered_encryptable = encryptable_transfer.transfer(encryptables(:credentials1), alice,
-                                                             bob.id)
-
-      personal_team = alice.personal_team
-      private_key = alice.decrypt_private_key('password')
-
-      personal_team_password = personal_team.decrypt_team_password(alice, private_key)
-
-      expect do
-        encryptable_transfer.receive(transfered_encryptable, private_key, personal_team_password)
-      end.to raise_error(RuntimeError, 'implement in subclass')
     end
   end
 end

@@ -15,9 +15,7 @@ class EncryptablePolicy < TeamDependantPolicy
   end
 
   def create?
-    return true if encryptable_transfer
-
-    team.teammember?(@user.id)
+    team.teammember?(@user.id) || transferring_encryptable?
   end
 
   def update?
@@ -36,15 +34,19 @@ class EncryptablePolicy < TeamDependantPolicy
 
   private
 
-  def encryptable_transfer
+  def transferring_encryptable?
     @record.receiver_id.present? &&
-      user.present? &&
+      receiver_personal_team_owner? &&
       user_human? &&
-    @record.is_a?(Encryptable::File)
+      @record.is_a?(Encryptable::File)
   end
 
   def user_human?
     User.find(@record.receiver_id).is_a?(User::Human)
+  end
+
+  def receiver_personal_team_owner?
+    @record.folder.team.owner.id == @record.receiver_id
   end
 
 end
