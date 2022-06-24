@@ -41,9 +41,10 @@ ch_be:
   new: Nöi
   back: Zrügg
   save: Spichere
-  close: Schliesse
+  share: Teilä
+  close: Schliessä
   user: Benutzer
-  hi_user: "Hoi, "
+  hi_user: "Sälü, "
   intro: Suechsch äuä es Passwort?
   role: Rollä
   empty: läär
@@ -89,6 +90,14 @@ ch_be:
       add_attachment: Anhang hinzufüegä
     new:
       title: Nöi Zuägangsdate
+    share:
+      title: Datei teilä
+
+  encryptable/transfering/file:
+    new:
+      title: "Datei teilä"
+    receiver:
+      name: Wäu ä empfänger
 
   admin:
     title: Admin
@@ -289,6 +298,13 @@ ch_be:
       uploaded_filename_is_empty: D Datei muess e Name ha
       uploaded_file_inexistent: Die Datei existiert gar nid
       uploaded_filename_already_exists: D Dateiname existiert äuä scho
+    encryptable_transfer:
+      credentials:
+        transferred: Zuägangsdate erfougrich am Empfänger übermittlet
+        transfer_failed: Übermittlig vo de zuägangsdate mit em Empfänger fäugschlage
+      file:
+        transferred: Datei erfougrich am Empfänger übermittlet
+        transfer_failed: Übermittlig vo dr Datei mit em Empfänger fäugschlage
     session:
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
       weak_password: Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle
