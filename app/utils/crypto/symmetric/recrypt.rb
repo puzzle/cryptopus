@@ -9,7 +9,7 @@ class Crypto::Symmetric::Recrypt
   end
 
   def perform
-    return if recrypt_locked?
+    return if already_recrypted? || recrypt_locked?
 
     @team.recrypt_in_progress!
     @team_password = @team.decrypt_team_password(@current_user, @private_key)
@@ -24,6 +24,10 @@ class Crypto::Symmetric::Recrypt
   end
 
   private
+
+  def already_recrypted?
+    Crypto::Symmetric.latest_algorithm?(@team)
+  end
 
   def recrypt_locked?
     @team.recrypt_in_progress? || @team.recrypt_failed?
