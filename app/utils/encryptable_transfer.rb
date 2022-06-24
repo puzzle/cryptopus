@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class EncryptableTransfer
-  def transfer(encryptable, receiver, sender_id)
+  def transfer(encryptable, receiver, sender)
     transfer_password = new_transfer_password
     encryptable.encrypt(transfer_password)
 
     encryptable.update!(
       folder: inbox_folder(receiver),
-      sender_id: sender_id,
+      sender_id: sender.id,
       receiver_id: receiver.id,
       encrypted_transfer_password: encrypted_transfer_password(transfer_password, receiver)
     )
