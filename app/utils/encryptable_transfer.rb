@@ -30,6 +30,8 @@ class EncryptableTransfer
   private
 
   def inbox_folder(receiver)
+    raise StandardError.new "Receiver not set" if receiver.nil?
+
     personal_team = receiver.personal_team
     personal_team.folders.find_or_create_by(name: 'inbox')
   end
