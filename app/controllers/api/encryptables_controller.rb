@@ -33,7 +33,6 @@ class Api::EncryptablesController < ApiController
   def create
     build_entry
     authorize entry
-    transfer_encryptable if entry.transferred?
 
     unless entry.transferred?
       entry.encrypt(decrypted_team_password(team))
