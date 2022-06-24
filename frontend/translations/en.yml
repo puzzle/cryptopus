@@ -41,6 +41,7 @@ en:
   new: New
   back: Back
   save: Save
+  share: Share
   close: Close
   user: User
   hi_user: "Hi,"
@@ -90,6 +91,14 @@ en:
       blank: none
     new:
       title: New Credentials
+    share:
+      title: Share File
+
+  encryptable/transfering/file:
+    new:
+      title: Send file to
+    receiver:
+      name: Choose receiver
 
   admin:
     title: Admin
@@ -290,6 +299,13 @@ en:
       uploaded_filename_is_empty: The file has to be named
       uploaded_file_inexistent: File is inexistent
       uploaded_filename_already_exists: Filename already exists
+    encryptable_transfer:
+      credentials:
+        transferred: Successfully transferred credentials to recipient
+        transfer_failed: Failed to transfer credentials to recipient
+      file:
+        transferred: Successfully transferred file to recipient
+        transfer_failed: Failed to transfer file to recipient
     session:
       auth_failed: Authentication failed! Enter a correct username and password.
       weak_password: To improve security you should change your login password to a more complex one.

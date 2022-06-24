@@ -41,6 +41,7 @@ fr:
   new: Nouveau
   back: Retour
   save: Sauvegarder
+  share: Partager
   close: fermer
   user: Utilisateur
   hi_user: "Salut, "
@@ -90,6 +91,14 @@ fr:
       blank: Vide
     new:
       title: Nouveau compte
+    share:
+      title: Partage fichier
+
+  encryptable/transfering/file:
+    new:
+      title: "partager fichier"
+    receiver:
+      name: Choisir le récepteur
 
   admin:
     title: Admin
@@ -290,6 +299,13 @@ fr:
       uploaded_filename_is_empty: Le fichier n'a pas été nommé
       uploaded_file_inexistent: Fichier est inexistant
       uploaded_filename_already_exists: Le nom de fichier existe déjà
+    encryptable_transfer:
+      credentials:
+        transferred: Transfert réussi des informations d'identification au destinataire
+        transfer_failed: Échec du transfert des informations d'identification au destinataire
+      file:
+        transferred: Le fichier a été transféré avec succès au destinataire
+        transfer_failed: Échec du transfert du fichier au destinataire
     session:
       auth_failed: L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe.
       weak_password: Pour améliorer la sécurité vous devez déterminer un mot de passe utilisateur plus complexe.
