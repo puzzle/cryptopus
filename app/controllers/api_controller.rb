@@ -8,7 +8,6 @@
 class ApiController < CrudController
 
   skip_before_action :set_sentry_request_context
-  skip_before_action :message_if_fallback
   skip_before_action :redirect_if_no_private_key, except: :logout
   skip_before_action :set_locale
 
