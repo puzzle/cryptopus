@@ -4,6 +4,7 @@ class EncryptableTransfer
   def transfer(encryptable, receiver, sender)
     transfer_password = new_transfer_password
     encryptable.encrypt(transfer_password)
+    assert_human_receiver?(receiver)
 
     encryptable.update!(
       folder: inbox_folder(receiver),
@@ -30,8 +31,6 @@ class EncryptableTransfer
   private
 
   def inbox_folder(receiver)
-    raise StandardError.new "Receiver not set" if receiver.nil?
-
     personal_team = receiver.personal_team
     personal_team.folders.find_or_create_by(name: 'inbox')
   end
@@ -45,6 +44,12 @@ class EncryptableTransfer
 
   def new_transfer_password
     Crypto::Symmetric::Aes256.random_key
+  end
+
+  def assert_human_receiver?(receiver)
+    unless receiver.is_a?(User::Human)
+      raise StandardError.new 'Receiver must be a human user'
+    end
   end
 
 end
