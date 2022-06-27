@@ -28,7 +28,6 @@ class Encryptable < ApplicationRecord
   validates :name, presence: true
   validates :description, length: { maximum: 4000 }
 
-  validate :assert_human_receiver?, if: :transferred?
   validates :receiver_id, presence: true, if: :transferred?
 
   def encrypt(_team_password)
@@ -55,8 +54,8 @@ class Encryptable < ApplicationRecord
     folder.team
   end
 
-  def recrypt_transferred(private_key, team_password)
-    decrypt(plaintext_transfer_password(private_key))
+  def recrypt_transferred(receiver_private_key, team_password)
+    decrypt(plaintext_transfer_password(receiver_private_key))
     self.encrypted_transfer_password = nil
     encrypt(team_password)
     save!
@@ -94,9 +93,4 @@ class Encryptable < ApplicationRecord
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
   end
 
-  def assert_human_receiver?
-    unless User.find(receiver_id).is_a?(User::Human)
-      errors.add(:receiver_id, 'Must be a human user')
-    end
-  end
 end

@@ -38,13 +38,13 @@ describe EncryptableTransfer do
     end
 
     it 'does not transfer encryptable file to non existent user' do
-      receiver = nil
+      receiver = User::Human.new
       sender = alice
 
       expect do
         encryptable_transfer.transfer(encryptable_file, receiver,
                                       sender)
-      end.to raise_error(StandardError, 'Receiver not set')
+      end.to raise_error(NoMethodError)
     end
 
     it 'does not transfer encryptable file to api user' do
@@ -54,7 +54,8 @@ describe EncryptableTransfer do
       expect do
         encryptable_transfer.transfer(encryptable_file, receiver,
                                       sender)
-      end.to raise_error(StandardError, 'Cant transfer to API user')
+
+      end.to raise_error(StandardError, "Receiver must be a human user")
     end
 
     it 'recrypts encryptable when received' do
