@@ -7,7 +7,7 @@
 {{#if this.isNewFolder}}
   <Folder::Form @onAbort={{this.toggleFolderCreating}} @title={{t "folders.new.title"}}/>
 {{/if}}
-<div class="mt-4 mb-4 border-radius-4 show-component">
+<div class="mb-4 border-radius-4 show-component">
   <div>
     <div class="row py-2 d-flex team-card-header {{if this.collapsed "rounded" "rounded-top"}}">
       <div class="col-auto pr-0 my-auto" role="button" {{on "click" this.collapse}}>
@@ -27,11 +27,6 @@
         {{else}}
           <h5 class="d-inline">{{@team.name}}</h5>
         {{/if}}
-      </div>
-
-      <div>
-        <img class="encryption-label" src="/assets/images/{{@team.encryptionAlgorithmImageName}}.svg" alt="Algorithm label">
-        <BsTooltip @title="{{t "tooltips.encryption_algorithm"}}{{@team.encryptionAlgorithm}}{{t "tooltips.key_size"}}{{@team.passwordBitsize}} bits" @delayShow="1000" />
       </div>
 
       <div class="col-auto pr-0 justify-content-between d-none d-sm-flex align-items-center ">
@@ -103,10 +98,10 @@
 
     </div>
     <BsCollapse class="row team-border border-top-0 rounded-bottom" @collapsed={{this.collapsed}}>
-      <div class="col px-4 list-folder-header">
+      <div class="col px-4 py-3 list-folder-header">
         {{#if @team.description}}
           <div class="row">
-            <div class="col">
+            <div class="col pb-2">
               <p class="text-muted description mb-0">{{@team.description}}</p>
             </div>
           </div>
@@ -114,7 +109,7 @@
         {{#if @team.folders}}
           <div class="pt-2">
             {{#each @team.folders as |folder|}}
-              <div class="row bg-white border-radius-4 mb-5-folder">
+              <div class="row bg-white border-radius-4 mb-5-folder px-3">
                 <div class="col folder-no-p">
                   <Folder::Show @folder={{folder}}/>
                 </div>

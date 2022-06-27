@@ -53,6 +53,7 @@
 
 .content {
   display: flex;
+  max-height: 100%;
 }
 
 .flex-1 {
@@ -65,7 +66,7 @@
     margin: 0 auto;
   }
 
-  .sidebar-wrapper {
+  #sidebar {
     display: none !important;
   }
 
@@ -129,10 +130,6 @@
   .nav-dropdown-toggle {
     display: flex;
     margin-left: 0;
-  }
-
-  .content {
-    padding-bottom: 100px !important;
   }
 }
 

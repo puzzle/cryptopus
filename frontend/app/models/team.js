@@ -22,6 +22,6 @@ export default class Team extends Model {
   }
 
   get encryptionAlgorithmImageName() {
-    return encryptionAlgorithms[this.encryptionAlgorithm];
+    return encryptionAlgorithms[this.encryptionAlgorithm] || 'aes-256';
   }
 }

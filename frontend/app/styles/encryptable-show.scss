@@ -1,13 +1,3 @@
-.result-password {
-  top: -50px;
-  position: relative;
-}
-
-.result-username,
-.result-password {
-  position: relative;
-}
-
 .show-text,
 .password-show {
   display: block;
@@ -15,17 +5,24 @@
   border-radius: 3px;
   color: black;
   position: relative;
+  justify-content: center;
 }
 
 .show-text,
-.password-show,
-.result-username input,
-.result-password input {
-  padding: 6px 10px;
+.password-show {
   width: 205px;
   font-size: 14px;
   border: 1px solid #c9c9c9;
   display: block;
+}
+
+.result-username,
+.result-password {
+  width: 250px;
+}
+
+.sensitive-input {
+  width: 163px !important;
 }
 
 .show-text-sm {
@@ -41,9 +38,7 @@
   cursor: text;
 }
 
-.result-password,
-.show-text,
-.password-show {
+.show-text {
   margin-top: 1em;
 }
 
@@ -104,4 +99,17 @@
 
 .show-password-button {
   z-index: 5;
+  cursor: pointer;
+
+  width: 80%;
+  font-size: 14px;
+  border: 1px solid #cdd3d9;
+  display: flex;
+  background: #e8ebee;
+  border-radius: 3px 0 0 3px;
+  color: black;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  height: 38px;
 }

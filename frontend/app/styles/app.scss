@@ -23,6 +23,10 @@ $font-family-sans-serif: var(--pzsh-font-family) !default;
 @import "dashboard-card";
 @import "spinner";
 
+html, body, body > .ember-view {
+  height: 100%;
+}
+
 #ember {
   display: flex;
   flex-direction: column;
@@ -455,11 +459,6 @@ h5, h6 {
 .account-link:hover {
   color: #000000;
   text-decoration: none !important;
-}
-
-.encryption-label {
-  height: 25px !important;
-  display: inline;
 }
 
 @media screen and (max-width: 799px){

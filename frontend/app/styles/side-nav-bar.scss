@@ -1,17 +1,14 @@
-$sidebar-height: calc(90vh - 253px);
-
-#sidebar {
-  height: $sidebar-height;
-  max-height: $sidebar-height;
+#nav-side-bar-container {
+  border-width: 0 !important;
 }
 
 .side-scrollbar {
-  height: $sidebar-height;
+  max-height: calc(100% - 247px);
   overflow-y: scroll;
 }
 
-#nav-side-bar-container {
-  border-width: 0 !important;
+.sidebar > nav {
+  //height: calc(100% - 30px);
 }
 
 .toggle-button:hover {
@@ -51,8 +48,6 @@ $sidebar-height: calc(90vh - 253px);
 }
 
 .list-group-top-button {
-  margin-top: 30px;
-  margin-bottom: 15px;
   height: 47.5px;
 }
 

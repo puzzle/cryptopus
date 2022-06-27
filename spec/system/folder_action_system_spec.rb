@@ -24,9 +24,8 @@ describe 'FolderAction', type: :system, js: true do
     end
 
     find("#side-bar-team-#{team.id}").click
-
-    expect(find('.side-nav-bar-teams-list', text: folder.name)).to be_present
-    expect(find('.team-border', text: folder.name)).to be_present
+    expect(find("#nav-folders-#{team.id}")).to have_text(folder.name)
+    expect(find('div.pt-2', text: folder.name)).to be_present
 
     find('.list-folder-item', text: folder.name).click
 
@@ -40,10 +39,11 @@ describe 'FolderAction', type: :system, js: true do
 
     visit("/teams/#{team.id}")
 
-    expect(find('.side-nav-bar-teams-list', text: folder.name)).to be_present
-    expect(find('.team-border', text: folder.name)).to be_present
+    expect(find('a', text: folder.name)).to be_present
 
-    find('.folder-card-header', text: folder.name).click
+    find('a', text: folder.name).click
+
+    expect(find('.team-border', text: folder.name)).to be_present
 
     expect(find('.encryptable-entry', text: encryptable.name)).to be_present
 
