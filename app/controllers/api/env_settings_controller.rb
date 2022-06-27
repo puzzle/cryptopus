@@ -24,6 +24,7 @@ class Api::EnvSettingsController < ApiController
                 version: version_number,
                 csrf_token: form_authenticity_token,
                 auth_provider: AuthConfig.provider,
+                fallback_info: fallback_info,
                 base_url: base_url)
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
@@ -32,6 +33,10 @@ class Api::EnvSettingsController < ApiController
 
   def last_login_message
     Flash::LastLoginMessage.new(session).message
+  end
+
+  def fallback_info
+    FallbackInfo.first.try(:info)
   end
 
 end
