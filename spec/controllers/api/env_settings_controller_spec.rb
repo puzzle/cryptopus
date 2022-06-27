@@ -21,5 +21,15 @@ describe Api::EnvSettingsController do
       expect(json['sentry']).to eq('123456')
       expect(json['current_user']['id']).to eq(bob.id)
     end
+
+    it 'returns fallback info if present' do
+      FallbackInfo.create!(info: 'Fallback - dump import 15.07.2022 - read only!')
+
+      login_as(:bob)
+
+      get :index
+
+      expect(json['fallback_info']).to eq('Fallback - dump import 15.07.2022 - read only!')
+    end
   end
 end

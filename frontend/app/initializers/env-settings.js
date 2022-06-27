@@ -23,6 +23,7 @@ export function initialize(/* application */) {
         ENV.appVersion = envSettings.version;
         ENV.CSRFToken = envSettings.csrf_token;
         ENV.authProvider = envSettings.auth_provider;
+        ENV.fallbackInfo = envSettings.fallback_info;
       }
     });
     /* eslint-enable no-undef  */

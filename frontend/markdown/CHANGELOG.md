@@ -1,3 +1,6 @@
+## Version 4.5
+- Implement new fallback info
+
 ## Version 4.4
 - Add support for postgresql
 
