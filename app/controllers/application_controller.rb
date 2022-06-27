@@ -9,7 +9,6 @@
 class ApplicationController < ActionController::Base
   before_action :set_sentry_request_context
   before_action :set_sentry_params
-  before_action :message_if_fallback
   before_action :set_locale
 
   include PolicyCheck
