@@ -53,7 +53,7 @@ describe Crypto::Symmetric::Recrypt do
     expect(team.recrypt_state).to eq 'done'
 
     team_password = team.decrypt_team_password(admin, admin_pk)
-    encryptable = team.encryptables.first
+    encryptable = team.encryptables.where.not(name: 'broken encryptable').first
     encryptable.decrypt(team_password)
 
     username = encryptable.cleartext_username
@@ -64,8 +64,7 @@ describe Crypto::Symmetric::Recrypt do
     expect(team.encryption_algorithm).to eq 'AES256IV'
     expect(team.recrypt_state).to eq 'done'
 
-    encryptable = team.encryptables.first
-    encryptable.decrypt(team_password)
+    encryptable.reload.decrypt(team_password)
 
     expect(encryptable.cleartext_username).to eq(username)
     expect(encryptable.cleartext_password).to eq(password)

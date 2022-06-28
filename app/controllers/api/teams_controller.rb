@@ -17,7 +17,7 @@ class Api::TeamsController < ApiController
   # GET /api/teams
   def index
     if params['team_id'].present?
-      authorize fetch_entries.first, :team_member?
+      fetch_team
     elsif params['only_teammember_user_id'].present?
       authorize ::Team, :only_teammember?
     else
@@ -27,6 +27,24 @@ class Api::TeamsController < ApiController
   end
 
   private
+
+  def fetch_team
+    @team = fetch_entries.first
+    authorize @team, :team_member?
+
+    unless already_recrypted?(@team)
+      recrypt(@team)
+    end
+  end
+
+  def already_recrypted?(team)
+    Crypto::Symmetric.latest_algorithm?(team)
+  end
+
+  def recrypt(team)
+    private_key = session[:private_key]
+    Crypto::Symmetric::Recrypt.new(current_user, team, private_key).perform
+  end
 
   def build_entry
     instance_variable_set(:"@#{ivar_name}",
