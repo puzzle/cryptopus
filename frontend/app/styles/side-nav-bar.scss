@@ -1,14 +1,13 @@
 #nav-side-bar-container {
   border-width: 0 !important;
+  padding-bottom: 70px;
+  position: sticky;
+  top: 24px;
 }
 
 .side-scrollbar {
-  max-height: calc(100% - 247px);
+  max-height: 50vh;
   overflow-y: scroll;
-}
-
-.sidebar > nav {
-  //height: calc(100% - 30px);
 }
 
 .toggle-button:hover {

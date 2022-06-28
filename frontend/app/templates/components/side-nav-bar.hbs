@@ -1,5 +1,5 @@
 <div id="sidebar">
-  <div id="nav-side-bar-container" style="height: 500px; overflow-y: scroll" {{did-insert this.setupModal this}}>
+  <div id="nav-side-bar-container" {{did-insert this.setupModal this}}>
     <div class="d-flex justify-content-center list-group-top-button list-group-item-action border-0 mb-3">
       <BsButtonGroup class="button-group" @type="radio" @value={{this.showsFavourites}} @onChange={{this.toggleFavourites}} as |bg|>
         <bg.button class="toggle-button" @value={{false}}>
