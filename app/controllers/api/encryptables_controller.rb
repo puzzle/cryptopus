@@ -19,8 +19,8 @@ class Api::EncryptablesController < ApiController
     authorize entry
 
     if entry.transferred?
-      personal_team = Team::Personal.find_by(personal_owner_id: current_user.id)
-      personal_team_password = personal_team.decrypted_team_password(current_user)
+      personal_team = current_user.personal_team
+      personal_team_password = decrypted_team_password(personal_team)
       EncryptableTransfer.new.receive(entry, session[:private_key], personal_team_password)
     else
       entry.decrypt(decrypted_team_password(team))
@@ -31,6 +31,7 @@ class Api::EncryptablesController < ApiController
 
   # POST /api/encryptables
   def create
+    receiver_valid?
     build_entry
     authorize entry
 
@@ -61,16 +62,12 @@ class Api::EncryptablesController < ApiController
 
   private
 
-  def transfer_encryptable
-    sender_id = current_user.id
+  def transfer_file
+    shared_file = EncryptableTransfer.new.transfer(entry, User.find(receiver_id), current_user)
 
-    receiver_and_encryptable_valid?
-
-    shared_encryptable = EncryptableTransfer.new.transfer(encryptable, User.find(receiver_id), sender_id)
-
-    instance_variable_set(:"@#{ivar_name}", shared_encryptable)
-    add_info('flashes.encryptable_transfer.credentials.transferred') if encryptable.type == Encryptable::Credentials
-    add_info('flashes.encryptable_transfer.file.transferred') if encryptable.type == Encryptable::File
+    instance_variable_set(:"@#{ivar_name}", shared_file)
+    add_info('flashes.encryptable_transfer.credentials.transferred') if entry.type == Encryptable::Credentials
+    add_info('flashes.encryptable_transfer.file.transferred') if entry.type == Encryptable::File
   end
 
   def receiver_id
@@ -83,10 +80,10 @@ class Api::EncryptablesController < ApiController
       Encryptable::OseSecret
     elsif action_name == 'destroy'
       Encryptable
+    elsif receiver_id.present? || credential_id.present?
+      Encryptable::File
     elsif entry.present?
       entry.class
-    elsif credential_id.present?
-      Encryptable::File
     else
       Encryptable::Credentials
     end
@@ -94,7 +91,7 @@ class Api::EncryptablesController < ApiController
   # rubocop:enable Metrics/MethodLength
 
   def build_entry
-    return build_encryptable_file if encryptable_file?
+    return build_encryptable_file if receiver_id.present? || encryptable_file?
 
     super
   end
@@ -104,11 +101,15 @@ class Api::EncryptablesController < ApiController
   end
 
   def file_credential
-    Encryptable::Credentials.find(credential_id)
+    begin
+      Encryptable::Credentials.find(credential_id)
+    rescue ActiveRecord::RecordNotFound
+      nil
+    end
   end
 
-  def entry
-    @encryptable ||= Encryptable.find(entry_id)
+  def fetch_entry
+    model_scope.find(entry_id)
   end
 
   def entry_id
@@ -261,23 +262,35 @@ class Api::EncryptablesController < ApiController
 
   def build_encryptable_file
     filename = params[:file].original_filename
-    file = new_file(file_credential, params[:description], filename)
+
+    inbox_folder_receiver = receiver.inbox_folder if receiver_id.present?
+
+    file = new_file(file_credential, inbox_folder_receiver, params[:description], filename)
     file.content_type = params[:file].content_type
     file.cleartext_file = params[:file].read
 
     instance_variable_set(:"@#{ivar_name}", file)
+
+    transfer_file if receiver_id.present?
   end
 
-  def new_file(parent_encryptable, description, name)
+  def new_file(parent_encryptable, inbox_folder_receiver, description, name)
     Encryptable::File.new(encryptable_credential: parent_encryptable,
+                          folder: inbox_folder_receiver,
                           description: description,
                           name: name)
   end
 
   def credential_id
-    return entry.credential_id if params[:id].present?
+    return params[:id] if params[:id].present?
 
     params[:credential_id]
+  end
+
+  def receiver
+    return nil if receiver_id.nil?
+
+    User.find(receiver_id)
   end
 
   ### Other ###
