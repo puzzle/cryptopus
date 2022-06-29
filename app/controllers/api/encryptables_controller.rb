@@ -162,6 +162,11 @@ class Api::EncryptablesController < ApiController
     end
   end
 
+  def receiver_valid?
+    raise StandardError.new "Receiver user not found" unless User.exists?(receiver_id)
+    raise StandardError.new "Cant transfer to Api user" if User.find(receiver_id).is_a?(User::Api)
+  end
+
   ### Entries ###
 
   def fetch_entries
