@@ -703,138 +703,84 @@ describe Api::EncryptablesController do
 
   context 'encryptable transfer' do
 
-    it 'does not send encryptable credentials to api user' do
-      login_as(:alice)
-
-      share_encryptable_params = {
-        data: {
-          attributes: {
-            id: credentials1.id,
-            receiver_id: api_user.id
-          }
-        }
-      }
-      expect { post :create, params: share_encryptable_params, xhr: true }.to raise_error(StandardError, "Cant transfer to API user")
-    end
-
     it 'does not send encryptable file to api user' do
       login_as(:bob)
 
-      share_encryptable_params = {
+      file = fixture_file_upload('test_file.txt', 'text/plain')
+      file_params = {
+        content_type: 'text/plain',
+        file: file,
+        description: 'test',
         data: {
           attributes: {
-            id: file1.id,
             receiver_id: api_user.id
           }
         }
       }
-      expect { post :create, params: share_encryptable_params, xhr: true }.to raise_error(StandardError, "Cant transfer to API user")
+
+      expect { post :create, params: file_params, xhr: true }.to raise_error(StandardError, "Cant transfer to Api user")
     end
 
     it 'does not send encryptable file to non existing user' do
       login_as(:bob)
 
-      share_encryptable_params = {
+      file = fixture_file_upload('test_file.txt', 'text/plain')
+
+      file_params = {
+        content_type: 'text/plain',
+        file: file,
+        description: 'test',
         data: {
           attributes: {
-            id: file1.id,
-            receiver_id: 657656756567856
-          }
-        }
-      }
-      expect { post :create, params: share_encryptable_params, xhr: true }.to raise_error(StandardError, "Receiver user not found")
-    end
-
-    it 'does not send encryptable file to user himself' do
-      login_as(:bob)
-
-      share_encryptable_params = {
-        data: {
-          attributes: {
-            id: file1.id,
-            receiver_id: bob.id
-          }
-        }
-      }
-      expect { post :create, params: share_encryptable_params, xhr: true }.to raise_error(StandardError, "Cant transfer to yourself")
-    end
-
-    it 'does not send non existing encryptable file' do
-      login_as(:bob)
-
-      share_encryptable_params = {
-        data: {
-          attributes: {
-            id: 78657864756,
-            receiver_id: alice.id
-          }
-        }
-      }
-      expect do
-        post :create, params: share_encryptable_params, xhr: true
-      end.to raise_error(StandardError, "Target encryptable not found")
-    end
-
-    it 'recrypts encryptable when received' do
-      login_as(:bob)
-
-      share_encryptable_params = {
-        data: {
-          attributes: {
-            id: credentials1.id,
-            receiver_id: alice.id
+            receiver_id: nil
           }
         }
       }
 
-      post :create, params: share_encryptable_params, xhr: true
-
-      id = JSON.parse(response.body).dig("data", "id")
-      shared_credential = Encryptable.find(id)
-
-      expect(shared_credential.sender_id).to eq(bob.id)
-
-      login_as(:alice)
-
-      get :show, params: { id: shared_credential.id }, xhr: true
-
-      expect(credentials1.receiver_id).to eq(nil)
-      expect(credentials1.encrypted_transfer_password).to eq(nil)
-      expect(credentials1.sender_id).to eq(nil)
-
-      personal_team = alice.personal_team
-
-      teampassword = personal_team.decrypt_team_password(alice, alice.private_key)
+      expect { post :create, params: file_params, xhr: true }.to raise_error(StandardError, "Receiver user not found")
     end
 
     it 'transfers new file from sender to recipient' do
       login_as(:bob)
 
+      file = fixture_file_upload('test_file.txt', 'text/plain')
       file_params = {
-        credential_id: credentials1.id,
         content_type: 'text/plain',
         file: file,
-        description: 'test'
+        description: 'test',
+        data: {
+          attributes: {
+            receiver_id: alice.id
+          }
+        }
       }
 
-      post :create, params: share_encryptable_params, xhr: true
+      post :create, params: file_params, xhr: true
+
+      expect(response).to have_http_status(201)
 
       id = JSON.parse(response.body).dig("data", "id")
-      shared_credential = Encryptable.find(id)
+      shared_file = Encryptable.find(id)
 
-      expect(shared_credential.sender_id).to eq(bob.id)
+      expect(shared_file.sender_id).to eq(bob.id)
+      expect(shared_file.encrypted_transfer_password).present?
 
       login_as(:alice)
 
-      get :show, params: { id: shared_credential.id }, xhr: true
+      get :show, params: { id: shared_file.id }, xhr: true
 
-      expect(credentials1.receiver_id).to eq(nil)
-      expect(credentials1.encrypted_transfer_password).to eq(nil)
-      expect(credentials1.sender_id).to eq(nil)
+      expect(response).to have_http_status(200)
 
-      personal_team = alice.personal_team
+      received_file = Encryptable.find(shared_file.id)
+      file_content = fixture_file_upload('test_file.txt', 'text/plain').read
 
-      teampassword = personal_team.decrypt_team_password(alice, alice.private_key)
+      expect(received_file.encrypted_transfer_password).to eq(nil)
+      expect(received_file.sender_id).to eq(nil)
+      expect(received_file.name).to eq("test_file.txt")
+      expect(received_file.description).to eq("test")
+      expect(received_file.content_type).to eq("text/plain")
+      expect(received_file.folder_id).to eq(alice.inbox_folder.id)
+      expect(response.body).to eq file_content
     end
   end
 
