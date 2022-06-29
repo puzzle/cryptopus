@@ -80,10 +80,10 @@ class Api::EncryptablesController < ApiController
       Encryptable::OseSecret
     elsif action_name == 'destroy'
       Encryptable
+    elsif @entry.present?
+      entry.class
     elsif receiver_id.present? || credential_id.present?
       Encryptable::File
-    elsif entry.present?
-      entry.class
     else
       Encryptable::Credentials
     end
