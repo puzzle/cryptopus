@@ -41,6 +41,7 @@ group :development, :test do
   gem 'simplecov', require: false, group: :test
   gem 'webdrivers'
   gem 'webmock'
+  gem 'pry-byebug'
 end
 
 group :development do
