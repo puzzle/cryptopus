@@ -31,7 +31,7 @@ class Api::EncryptablesController < ApiController
 
   # POST /api/encryptables
   def create
-    receiver_valid?
+    receiver_valid? if receiver_id.present?
     build_entry
     authorize entry
 
