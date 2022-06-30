@@ -29,7 +29,15 @@
                         this.changeset.error.cleartextUsername.validation "invalid-input-name"}}
                               @property="cleartextUsername" @customError={{t
                         (validation-error-key this.changeset.error.cleartextUsername.validation)}} as |el|>
-                  <el.control @name="cleartextUsername" tabindex="2"></el.control>
+                    <div class="input-group has-validation">
+                      <div class="input-group-prepend">
+                          <div class="input-group-prepend has-validation">
+                             <BsTooltip @title="{{t "tooltips.encryption_algorithm"}} {{teamData.encryptionAlgorithm}} {{t "tooltips.key_size"}} {{teamData.passwordBitsize}} bits" @delayShow="1000" />
+                             <span class="input-group-text"><img class="icon-button encryptable-show-back" src="/assets/images/lock.svg" alt="lock"></span>
+                          </div>
+                      </div>
+                      <el.control autocomplete="off" @name="cleartextUsername" tabindex="2"></el.control>
+                   </div>
                 </form.element>
               </form.group>
             </div>
@@ -65,7 +73,15 @@
                         this.changeset.error.cleartextPassword.validation "invalid-input-name"}}
                               @property="cleartextPassword" @customError={{t
                         (validation-error-key this.changeset.error.cleartextPassword.validation)}} as |el|>
+                                            <div class="input-group has-validation">
+                                              <div class="input-group-prepend">
+                                                  <div class="input-group-prepend has-validation">
+                                                     <BsTooltip @title="{{t "tooltips.encryption_algorithm"}} {{teamData.encryptionAlgorithm}} {{t "tooltips.key_size"}} {{teamData.passwordBitsize}} bits" @delayShow="1000" />
+                                                     <span class="input-group-text"><img class="icon-button encryptable-show-back" src="/assets/images/lock.svg" alt="lock"></span>
+                                                  </div>
+                                              </div>
                   <el.control autocomplete="off" tabindex="3" @name="cleartextPassword" ></el.control>
+                                           </div>
                 </form.element>
                 <PasswordStrengthMeter class="col-12 col-lg-9 px-0 mb-2 mb-md-0" @password={{this.changeset.cleartextPassword}}/>
               </div>

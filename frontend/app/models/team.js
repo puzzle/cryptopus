@@ -1,10 +1,5 @@
 import Model, { attr, hasMany } from "@ember-data/model";
 
-const encryptionAlgorithms = {
-  AES256: "aes-256",
-  AES256IV: "aes-256-iv"
-};
-
 export default class Team extends Model {
   @attr("string") name;
   @attr("string") description;

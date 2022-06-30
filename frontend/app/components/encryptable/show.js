@@ -2,12 +2,16 @@ import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
+import RSVP from "rsvp";
+import { computed } from '@ember/object';
+
 
 export default class ShowComponent extends Component {
   @service store;
   @service router;
   @service intl;
   @service notify;
+  @service navService;
 
   constructor() {
     super(...arguments);
@@ -56,5 +60,15 @@ export default class ShowComponent extends Component {
   @action
   onCopied(attribute) {
     this.notify.info(this.intl.t(`flashes.encryptables.${attribute}_copied`));
+  }
+
+  get teamData() {
+    debugger
+    const folder = this.args.encryptable.belongsTo('folder').value();
+    const team = folder.belongsTo('team').value();
+    return {
+      encryptionAlgorithm: team.encryptionAlgorithm,
+      passwordBitsize: team.passwordBitsize,
+    }
   }
 }
