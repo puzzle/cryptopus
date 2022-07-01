@@ -15,8 +15,4 @@ export default class Team extends Model {
   get isPersonalTeam() {
     return this.type === "Team::Personal";
   }
-
-  get encryptionAlgorithmImageName() {
-    return encryptionAlgorithms[this.encryptionAlgorithm] || 'aes-256';
-  }
 }

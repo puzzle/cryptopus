@@ -1,9 +1,10 @@
 import Model, { attr, belongsTo } from "@ember-data/model";
 
-
 export default class Encryptable extends Model {
   @attr("string") name;
   @attr("string") description;
+  @attr("string") encryptionAlgorithm;
+  @attr("number") teamPasswordBitsize;
   @attr("string") createdAt;
   @attr("string") updatedAt;
   @belongsTo("folder") folder;
@@ -20,8 +21,7 @@ export default class Encryptable extends Model {
     return this.type === "encryptable-file";
   }
 
-  get type()  {
+  get type() {
     return this.constructor.modelName;
   }
-
 }

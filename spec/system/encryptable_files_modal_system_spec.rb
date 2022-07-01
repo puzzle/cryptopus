@@ -79,8 +79,8 @@ describe 'Encryptable Files Modal', type: :system, js: true do
 
   def expect_encryptable_page_with(credentials)
     expect(first('h2')).to have_text("Credentials: #{credentials.name}")
-    expect(find('#cleartext_username').value).to eq(credentials.cleartext_username)
-    expect(find('#cleartext_password', visible: false).value).to eq(credentials.cleartext_password)
+    expect(find('#cleartext-username').value).to eq(credentials.cleartext_username)
+    expect(find('#cleartext-password', visible: false).value).to eq(credentials.cleartext_password)
     expect(page).to have_text(credentials.description)
   end
 
