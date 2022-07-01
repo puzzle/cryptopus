@@ -697,7 +697,7 @@ describe Api::EncryptablesController do
 
       expect do
         delete :destroy, params: { id: encryptables(:credentials2).id }
-      end.to change { Encryptable.count }.by(-1)
+      end.to change { Encryptable::Credentials.count }.by(-1)
     end
   end
 

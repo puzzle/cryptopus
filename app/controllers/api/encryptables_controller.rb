@@ -31,7 +31,7 @@ class Api::EncryptablesController < ApiController
 
   # POST /api/encryptables
   def create
-    receiver_valid? if receiver_id.present?
+    validate_receiver unless receiver_id.nil?
     build_entry
     authorize entry
 
@@ -76,19 +76,28 @@ class Api::EncryptablesController < ApiController
 
   # rubocop:disable Metrics/MethodLength
   def model_class
-    if create_ose_secret?
+    case action_name
+    when 'create'
+      define_model_class
+    else
+      if fetch_entries.nil? || fetch_entries.empty?
+        Encryptable.find(params[:id]).class
+      else
+        Encryptable::Credentials
+      end
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
+
+  def define_model_class
+    if ose_secret?
       Encryptable::OseSecret
-    elsif action_name == 'destroy'
-      Encryptable
-    elsif @entry.present?
-      entry.class
     elsif receiver_id.present? || credential_id.present?
       Encryptable::File
     else
       Encryptable::Credentials
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def build_entry
     return build_encryptable_file if receiver_id.present? || encryptable_file?
@@ -162,7 +171,7 @@ class Api::EncryptablesController < ApiController
     end
   end
 
-  def receiver_valid?
+  def validate_receiver
     raise StandardError.new "Receiver user not found" unless User.exists?(receiver_id)
     raise StandardError.new "Cant transfer to Api user" if User.find(receiver_id).is_a?(User::Api)
   end
@@ -245,8 +254,7 @@ class Api::EncryptablesController < ApiController
     end
   end
 
-  def create_ose_secret?
-    action_name == 'create' &&
+  def ose_secret?
       params.dig('data', 'attributes', 'type') == 'ose_secret'
   end
 end
