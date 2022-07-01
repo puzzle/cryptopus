@@ -13,7 +13,7 @@ describe 'encryptable show', type: :system, js: true do
 
     find('a.show-password-button').click
 
-    expect(page).to have_selector('input#cleartext_password', visible: true)
+    expect(page).to have_selector('input#cleartext-password', visible: true)
   end
 
 end

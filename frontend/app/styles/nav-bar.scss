@@ -52,7 +52,11 @@
 }
 
 .content {
-  min-height: 100%;
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1;
 }
 
 @media screen and (max-width: 991px) {
@@ -61,12 +65,8 @@
     margin: 0 auto;
   }
 
-  .sidebar-wrapper {
+  #sidebar {
     display: none !important;
-  }
-
-  .ml-270px {
-    margin-left: 0 !important;
   }
 
   .encryptable-container-smartphone {
@@ -103,10 +103,6 @@
     margin: 0 auto;
   }
 
-  .ml-270px {
-    margin-left: 270px !important;
-  }
-
   .navbar-header {
     padding-left: 32px !important;
   }
@@ -133,10 +129,6 @@
   .nav-dropdown-toggle {
     display: flex;
     margin-left: 0;
-  }
-
-  .content {
-    padding-bottom: 100px !important;
   }
 }
 

@@ -1,15 +1,13 @@
-.sidebar {
-  top: 0;
-  left: 0;
-  z-index: 999;
-  color: #fff;
-  transition: all 0.3s;
-  float: left;
-  margin-bottom: -50px !important;
-}
-
 #nav-side-bar-container {
   border-width: 0 !important;
+  padding-bottom: 70px;
+  position: sticky;
+  top: 24px;
+}
+
+.side-scrollbar {
+  max-height: 50vh;
+  overflow-y: scroll;
 }
 
 .toggle-button:hover {
@@ -27,12 +25,6 @@
 
 .p-0 {
   padding: 0 !important;
-}
-
-.list-group.list-group-root {
-  width: 100%;
-  padding: 0;
-  overflow: hidden;
 }
 
 .button-group {
@@ -55,8 +47,6 @@
 }
 
 .list-group-top-button {
-  margin-top: 30px;
-  margin-bottom: 15px;
   height: 47.5px;
 }
 
@@ -77,7 +67,7 @@
   padding-top: 7px !important;
 }
 
-.list-group-item:last-child {
+.list-group-item:last-of-type {
   margin-bottom: 0;
 }
 
@@ -90,7 +80,6 @@
 
 .side-nav-bar-teams-list {
   overflow-y: auto;
-  height: auto;
 }
 
 .list-group-item[aria-expanded="true"] {
@@ -132,7 +121,6 @@
   }
 
   .teams-list {
-    max-height: calc(100vh - 300px);
     overflow-y: scroll;
     margin-top: 10px;
   }
@@ -203,8 +191,6 @@
   }
 
   .scroll-bar {
-    overflow-y: scroll;
-    max-height: calc(100vh - 163px);
     margin-top: 5px;
   }
 }

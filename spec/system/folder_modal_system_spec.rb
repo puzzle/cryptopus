@@ -39,8 +39,7 @@ describe 'FolderModal', type: :system, js: true do
       find_all('ul.ember-power-select-options > li', visible: false)[1].click
 
       click_button('Save', visible: false)
-
-      expect(page).to have_selector('div.list-group-root', visible: false)
+      expect(page).to have_selector('#nav-side-bar-container', visible: false)
     end.to change { Folder.count }.by(1)
 
     folder = Folder.find_by(name: folder_attrs[:foldername])
@@ -66,7 +65,6 @@ describe 'FolderModal', type: :system, js: true do
     expect_teams_page_with(updated_attrs, team)
 
     # Delete Folder
-
     visit("/teams?team_id=#{folder.team_id}&folder_id=#{folder.id}")
     expect(page).to have_text(team.name)
 

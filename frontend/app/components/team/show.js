@@ -21,13 +21,14 @@ export default class ShowComponent extends Component {
 
   @tracked
   collapsed =
-    this.navService.selectedTeam != this.args.team &&
+    this.navService.selectedTeam !== this.args.team &&
     this.navService.searchQuery === null;
 
   @action
   collapse() {
     this.collapsed = !this.collapsed;
   }
+
   @action
   toggleTeamEdit() {
     this.isTeamEditing = !this.isTeamEditing;

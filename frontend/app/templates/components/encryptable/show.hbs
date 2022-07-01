@@ -42,9 +42,9 @@
       </div>
     </div>
   {{/if}}
-  <div>
+  <div class="pb-3">
     {{#if @encryptable.isOseSecret}}
-      <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptable/credentials.show.show_secret"}}</a>
+      <a role="button" class="show-password-button {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptable/credentials.show.show_secret"}}</a>
       <div class="result-password">
         <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@encryptable.data.ose_secret}}/>
         <CopyButton class="btn btn-light" @clipboardText={{@encryptable.data.ose_secret}}>
@@ -52,15 +52,26 @@
         </CopyButton>
       </div>
     {{else}}
-      <div class="result-username">
-        <Input id="cleartext_username" class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextUsername}}/>
+      <div class="result-username input-group has-validation mb-3">
+        <div class="input-group-prepend has-validation">
+          <BsTooltip @title="{{t "tooltips.encryption_algorithm"}} {{@encryptable.encryptionAlgorithm}} {{t "tooltips.key_size"}} {{@encryptable.teamPasswordBitsize}} bits" @delayShow="1000" />
+          <span class="input-group-text"><img class="icon-button encryptable-show-back" src="/assets/images/lock.svg" alt="lock"></span>
+        </div>
+        <Input id="cleartext-username" class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextUsername}}/>
+        <i class="uil uil-airplay"></i>
         <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextUsername}} @success={{fn this.onCopied "username"}}>
           <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
         </CopyButton>
       </div>
-      <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptable/credentials.show.show_password"}}</a>
-      <div class="result-password">
-        <Input id="cleartext_password" class="d-inline form-control {{if this.isPasswordVisible "" "visibility-hidden"}}" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
+
+
+      <div class="result-password input-group has-validation">
+        <div class="input-group-prepend has-validation">
+          <BsTooltip @title="{{t "tooltips.encryption_algorithm"}} {{@encryptable.encryptionAlgorithm}} {{t "tooltips.key_size"}} {{@encryptable.teamPasswordBitsize}} bits" @delayShow="1000" />
+          <span class="input-group-text"><img class="icon-button encryptable-show-back" src="/assets/images/lock.svg" alt="lock"></span>
+        </div>
+        <a role="button" class="show-password-button {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptable/credentials.show.show_password"}}</a>
+        <Input id="cleartext-password" class="d-inline form-control {{if this.isPasswordVisible "" "visibility-hidden"}}" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
         <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextPassword}} @success={{fn this.onCopied "password"}}>
           <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
         </CopyButton>

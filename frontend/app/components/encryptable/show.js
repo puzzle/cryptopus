@@ -8,6 +8,7 @@ export default class ShowComponent extends Component {
   @service router;
   @service intl;
   @service notify;
+  @service navService;
 
   constructor() {
     super(...arguments);

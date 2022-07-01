@@ -24,6 +24,7 @@ module("Integration | Component | team/show", function (hooks) {
           encryptables: [{ name: "Ninjas encryptable" }]
         }
       ],
+      encryptionAlgorithm: "AES256",
       userFavouriteTeams: [{ favourised: true }]
     });
 

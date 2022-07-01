@@ -1,14 +1,28 @@
-<div class="container py-2">
-  <div class="mt-4">
-    {{#if q}}
-      <SearchResultComponent @q={{q}}/>
-    {{/if}}
-    {{#if @model}}
-      {{#each this.model as |team|}}
-        <Team::Show @team={{team}} />
-      {{/each}}
+<div class="container d-flex flex-column flex-1 py-2">
+  <div class="d-flex flex-column flex-1">
+    {{#if this.loading.isLoading}}
+      <div class="h-100 d-flex flex-column justify-content-center align-items-center">
+        <div class="lds-roller">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
     {{else}}
-      <h5>{{t "teams.index.no_content"}}</h5>
+      {{#if q}}
+        <SearchResultComponent @q={{q}}/>
+      {{/if}}
+      {{#if @model}}
+        {{#each this.model as |team|}}
+          <Team::Show @team={{team}} />
+        {{/each}}
+      {{else}}
+        <h5>{{t "teams.index.no_content"}}</h5>
+      {{/if}}
     {{/if}}
   </div>
 </div>

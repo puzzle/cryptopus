@@ -9,17 +9,15 @@
   </pzsh-hero>
   {{outlet}}
 {{else}}
-  <div class="content">
+  <div class="content pt-lg-4 pb-sm-4">
     {{#if this.navService.showSideNavBar}}
       {{#unless this.screenWidthService.isShownOnHamburgermenu}}
-        <div class="sidebar-wrapper">
-          <SideNavBar/>
-        </div>
+        <SideNavBar/>
       {{/unless}}
     {{/if}}
 
     {{#if this.navService.showSideNavBar}}
-      <div class="mb-5 ml-270px" role="main">
+      <div class="pl-lg-5 d-flex flex-column flex-1" role="main">
         {{outlet}}
       </div>
     {{else}}

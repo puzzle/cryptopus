@@ -1,3 +1,8 @@
+## Version 5.0
+- Introduce ability to dynamically add new Encryption Alogrithms
+- Recrypt teams to use new Encryption Alogrithms
+- UI improvements (Sticky sidebar, etc.)
+
 ## Version 4.4
 - Add support for postgresql
 

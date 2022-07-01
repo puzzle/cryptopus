@@ -114,7 +114,7 @@ describe 'encryptable modal', type: :system, js: true do
 
   def expect_encryptable_page_with(acc_attrs)
     expect(page).to have_text("Credentials: #{acc_attrs[:name]}")
-    expect(find('#cleartext_username', visible: false).value).to eq(acc_attrs[:username])
+    expect(find('#cleartext-username', visible: false).value).to eq(acc_attrs[:username])
     expect(page).to have_text(acc_attrs[:description])
   end
 

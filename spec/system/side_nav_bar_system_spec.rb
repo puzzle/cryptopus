@@ -15,7 +15,7 @@ describe 'SideNavBar', type: :system, js: true do
     login_as_user(:bob)
     visit('/')
 
-    sidebar = page.find('div.side-nav-bar-teams-list')
+    sidebar = page.find('#sidebar')
     expect(sidebar).to be_present
 
     expect(sidebar).to have_text('team1')
