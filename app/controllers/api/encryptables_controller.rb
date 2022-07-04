@@ -39,11 +39,7 @@ class Api::EncryptablesController < ApiController
       entry.encrypt(decrypted_team_password(team))
     end
 
-    if entry.save
-      render_entry({ status: :created })
-    else
-      render_errors
-    end
+    entry.save ? render_entry({ status: :created }) : render_errors
   end
 
   # PATCH /api/encryptables/:id?Query
@@ -81,8 +77,12 @@ class Api::EncryptablesController < ApiController
     else
       if params[:tag].present?
         fetch_entries.class
-      elsif fetch_entries.nil? || fetch_entries.empty?
-        Encryptable.find(params[:id]).class
+      elsif ose_secret?
+        Encryptable::OseSecret
+      elsif entry_id.present?
+        Encryptable.find(entry_id).class
+      elsif fetch_entries.empty?
+        Encryptable::File
       else
         Encryptable::Credentials
       end
@@ -106,16 +106,10 @@ class Api::EncryptablesController < ApiController
     super
   end
 
-  def decrypt_transfered_encryptable
-      recrypt_with_personal_team_password(entry)
-  end
-
   def file_credential
-    begin
-      Encryptable::Credentials.find(credential_id)
-    rescue ActiveRecord::RecordNotFound
-      nil
-    end
+    Encryptable::Credentials.find(credential_id)
+  rescue ActiveRecord::RecordNotFound
+    nil
   end
 
   def fetch_entry
@@ -173,8 +167,9 @@ class Api::EncryptablesController < ApiController
   end
 
   def validate_receiver
-    raise StandardError.new "Receiver user not found" unless User.exists?(receiver_id)
-    raise StandardError.new "Cant transfer to Api user" if User.find(receiver_id).is_a?(User::Api)
+    raise StandardError.new, 'Receiver user not found' unless User.exists?(receiver_id)
+    raise StandardError.new, 'Cant transfer to Api user' if User.find(receiver_id).is_a?(User::Api)
+
     add_info('flashes.encryptable_transfer.file.transfer_failed')
   end
 
@@ -257,6 +252,6 @@ class Api::EncryptablesController < ApiController
   end
 
   def ose_secret?
-      params.dig('data', 'attributes', 'type') == 'ose_secret'
+    params.dig('data', 'attributes', 'type') == 'ose_secret'
   end
 end

@@ -26,10 +26,10 @@ class Encryptable::File < Encryptable
   end
 
   def team
-    unless encryptable_credential.nil?
-      encryptable_credential.folder.team
-    else
+    if encryptable_credential.nil?
       folder.team
+    else
+      encryptable_credential.folder.team
     end
   end
 

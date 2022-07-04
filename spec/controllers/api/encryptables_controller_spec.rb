@@ -718,7 +718,8 @@ describe Api::EncryptablesController do
         }
       }
 
-      expect { post :create, params: file_params, xhr: true }.to raise_error(StandardError, "Cant transfer to Api user")
+      expect { post :create, params: file_params, xhr: true }.
+        to raise_error(StandardError, 'Cant transfer to Api user')
     end
 
     it 'does not send encryptable file to non existing user' do
@@ -737,7 +738,8 @@ describe Api::EncryptablesController do
         }
       }
 
-      expect { post :create, params: file_params, xhr: true }.to raise_error(StandardError, "Receiver user not found")
+      expect { post :create, params: file_params, xhr: true }.
+        to raise_error(StandardError, 'Receiver user not found')
     end
 
     it 'transfers new file from sender to recipient' do
@@ -759,7 +761,7 @@ describe Api::EncryptablesController do
 
       expect(response).to have_http_status(201)
 
-      id = JSON.parse(response.body).dig("data", "id")
+      id = JSON.parse(response.body).dig('data', 'id')
       shared_file = Encryptable.find(id)
 
       expect(shared_file.sender_id).to eq(bob.id)
@@ -776,9 +778,9 @@ describe Api::EncryptablesController do
 
       expect(received_file.encrypted_transfer_password).to eq(nil)
       expect(received_file.sender_id).to eq(nil)
-      expect(received_file.name).to eq("test_file.txt")
-      expect(received_file.description).to eq("test")
-      expect(received_file.content_type).to eq("text/plain")
+      expect(received_file.name).to eq('test_file.txt')
+      expect(received_file.description).to eq('test')
+      expect(received_file.content_type).to eq('text/plain')
       expect(received_file.folder_id).to eq(alice.inbox_folder.id)
       expect(response.body).to eq file_content
     end
