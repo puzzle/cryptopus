@@ -66,7 +66,6 @@ class Api::EncryptablesController < ApiController
     shared_file = EncryptableTransfer.new.transfer(entry, User.find(receiver_id), current_user)
 
     instance_variable_set(:"@#{ivar_name}", shared_file)
-    add_info('flashes.encryptable_transfer.credentials.transferred') if entry.type == Encryptable::Credentials
     add_info('flashes.encryptable_transfer.file.transferred') if entry.type == Encryptable::File
   end
 
@@ -80,7 +79,9 @@ class Api::EncryptablesController < ApiController
     when 'create'
       define_model_class
     else
-      if fetch_entries.nil? || fetch_entries.empty?
+      if params[:tag].present?
+        fetch_entries.class
+      elsif fetch_entries.nil? || fetch_entries.empty?
         Encryptable.find(params[:id]).class
       else
         Encryptable::Credentials
@@ -174,6 +175,7 @@ class Api::EncryptablesController < ApiController
   def validate_receiver
     raise StandardError.new "Receiver user not found" unless User.exists?(receiver_id)
     raise StandardError.new "Cant transfer to Api user" if User.find(receiver_id).is_a?(User::Api)
+    add_info('flashes.encryptable_transfer.file.transfer_failed')
   end
 
   ### Entries ###
