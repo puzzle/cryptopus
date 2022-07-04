@@ -31,6 +31,7 @@ group :development, :test do
   gem 'fabrication'
   gem 'launchy'
   gem 'mocha'
+  gem 'pry-byebug'
   gem 'rails-controller-testing'
   gem 'rails-erd'
   gem 'rspec-rails'
@@ -41,7 +42,6 @@ group :development, :test do
   gem 'simplecov', require: false, group: :test
   gem 'webdrivers'
   gem 'webmock'
-  gem 'pry-byebug'
 end
 
 group :development do
