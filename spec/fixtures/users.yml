@@ -86,7 +86,7 @@ conf_admin:
 
 api_tux:
   type: User::Api
-  username: tux
+  username: api_tux
   givenname: Tux
   surname: Miller
   role: 0
