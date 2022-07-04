@@ -37,26 +37,6 @@ describe EncryptableTransfer do
       expect(received_file.sender_id).to eq(alice.id)
     end
 
-    it 'does not transfer encryptable file to non existent user' do
-      receiver = nil
-      sender = alice
-
-      expect do
-        encryptable_transfer.transfer(encryptable_file, receiver,
-                                      sender)
-      end.to raise_error(StandardError, 'Receiver not set')
-    end
-
-    it 'does not transfer encryptable file to api user' do
-      receiver = api_tux
-      sender = alice
-
-      expect do
-        encryptable_transfer.transfer(encryptable_file, receiver,
-                                      sender)
-      end.to raise_error(StandardError, 'Cant transfer to API user')
-    end
-
     it 'recrypts encryptable when received' do
       transfered_encryptable = encryptable_transfer.transfer(encryptable_file, alice, bob)
 
