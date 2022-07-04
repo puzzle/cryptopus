@@ -1,6 +1,9 @@
 {{#if this.isNewEncryptable}}
   <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "encryptable/credentials.new.title"}}/>
 {{/if}}
+{{#if this.isFileSharing}}
+  <Encryptable::Form @onAbort={{this.toggleFileSharing}} @title={{t "encryptable/sharing/file.new.title"}} @sharing={{true}}/>
+{{/if}}
 {{#if this.isNewFolder}}
   <Folder::Form @onAbort={{this.toggleFolderCreating}} @title={{t "folders.new.title"}}/>
 {{/if}}
@@ -53,6 +56,12 @@
         </ddm.item>
       </dd.menu>
     </BsDropdown>
+    <div class="d-flex align-items-center text-share-file" href="https://github.com/puzzle/cryptopus/wiki/User-manual">
+    <a role="button" {{on "click" this.toggleFileSharing}}>
+      <img class="icon-share-file" src="/assets/images/share-blue.svg" alt="shareIcon">
+      <span>{{t "encryptable/credentials.share.title"}}</span>
+      </a>
+    </div>
   </div>
 </pzsh-banner>
 

@@ -1,4 +1,5 @@
 {{#if this.record.isFullyLoaded}}
+  {{#unless args.sharing}}
   <BsModal class="modal_account ignore-footer-smartphone" @onHide={{action this.abort}} @renderInPlace="true" @size="lg" as |Modal|>
     <Modal.header>
       <h3 class="modal-title">{{@title}}</h3>
@@ -104,4 +105,78 @@
       <BsButton @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
     </Modal.footer>
   </BsModal>
+
+   {{else}}
+
+    <BsModal class="modal_account ignore-footer-smartphone" @onHide={{action this.abort}} @renderInPlace="true" @size="lg" as |Modal|>
+      <Modal.header>
+        <h3 class="modal-title">{{@title}}</h3>
+      </Modal.header>
+      <Modal.body>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{this.nothing}} @placeholder={{t "encryptable/sharing/file.receiver.name"}} as |candidate|>
+                {{candidate.label}}
+              </PowerSelectTypeahead>
+            </div>
+            </div>
+          </div>
+
+          <BsForm @model={{this.changeset}} as |form|>
+             <div class="row2">
+               {{#if this.hasErrors}}
+                 <div class="col-12 order-1">
+                   <div class="alert alert-danger modal-alert">
+                     {{t "validations.name.duplicate_name"}}
+                   </div>
+                 </div>
+               {{/if}}
+              </div>
+
+              <div class="col-md-12  mt-3">
+
+              <label>{{t "encryptable_files.new.choose_file"}}</label>
+              <div class="dropzone-text">
+                {{#if this.changeset.file}}
+                  <div class="mb-2">
+                    {{t "encryptable_files.new.selected_file"}}: {{this.changeset.file.name}}
+                  </div>
+                {{/if}}
+                <div>
+                <FileUpload @name="file"
+                            @accept="*"
+                            @for="upload-file"
+                            @multiple={{false}}
+                            @onfileadd={{this.uploadFile}}
+                            @ondrop={{this.uploadFile}}
+                            class="btn btn-primary">
+                  <a id="upload-file" tabindex="0">{{t (if this.changeset.file "encryptable_files.new.reupload" "encryptable_files.new.upload_file")}}.</a>
+                </FileUpload>
+               </div>
+             </div>
+           </div>
+
+           <div class="row">
+             <div class="col-md-12">
+               <form.group class="col-md-12">
+                 <form.element @label={{t "description"}} @property="description" @controlType="textarea"
+                               id="description" class="{{if
+                         this.changeset.error.description.validation "invalid-input"}} vertical-resize mt-3"
+                               customError={{t
+                         (validation-error-key this.changeset.error.description.validation)}} as |el|>
+                   <el.control tabindex="7"></el.control>
+                 </form.element>
+               </form.group>
+             </div>
+           </div>
+         </BsForm>
+      </Modal.body>
+
+      <Modal.footer>
+        <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "share"}}</BsButton>
+      </Modal.footer>
+    </BsModal>
+
+  {{/unless}}
 {{/if}}
