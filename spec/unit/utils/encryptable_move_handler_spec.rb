@@ -26,7 +26,7 @@ describe EncryptableMoveHandler do
   end
 
   it 'moves credential from team2 folder to team1 folder' do
-    credential = encryptables(:credentials2)
+    credential = encryptables(:credentials3)
     private_key = decrypt_private_key(bob)
     team1_folder = folders(:folder1)
 
