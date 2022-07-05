@@ -36,11 +36,19 @@ export default class RowComponent extends Component {
     if (isNone(password)) {
       this.fetchAccount().then((a) => {
         this.clipboardService.copy(a.cleartextPassword);
-        this.onCopied("password");
+        if (!!this.args.encryptable.cleartextPassword) {
+          this.onCopied("password");
+        } else {
+          this.onCopied("empty");
+        }
       });
     } else {
       this.copyToClipboard(password);
-      this.onCopied("password");
+      if (!!this.args.encryptable.cleartextPassword) {
+        this.onCopied("password");
+      } else {
+        this.onCopied("empty");
+      }
     }
   }
 
@@ -50,11 +58,19 @@ export default class RowComponent extends Component {
     if (isNone(username)) {
       this.fetchAccount().then((a) => {
         this.clipboardService.copy(a.cleartextUsername);
-        this.onCopied("username");
+        if (!!this.args.encryptable.cleartextPassword) {
+          this.onCopied("password");
+        } else {
+          this.onCopied("empty");
+        }
       });
     } else {
       this.copyToClipboard(username);
-      this.onCopied("username");
+      if (!!this.args.encryptable.cleartextPassword) {
+        this.onCopied("password");
+      } else {
+        this.onCopied("empty");
+      }
     }
   }
 

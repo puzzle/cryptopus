@@ -270,6 +270,7 @@ ch_be:
       moved: D Zuägangsdate si erfougrich verschobe worde.
       username_copied: Dr Benutzernamä isch kopiert worde
       password_copied: Ds Passwort isch kopiert worde
+      empty_copied: Leere Wert kopiert
 
     encryptable-credentials:
       << : *encryptables_translations

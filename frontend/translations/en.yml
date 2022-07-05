@@ -270,6 +270,7 @@ en:
       moved: Credentials were successfully moved
       username_copied: Username was copied
       password_copied: Password was copied
+      empty_copied: Copied empty value
 
     encryptable-credentials:
       << : *encryptables_translations
