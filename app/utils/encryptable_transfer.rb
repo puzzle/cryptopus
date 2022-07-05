@@ -18,8 +18,7 @@ class EncryptableTransfer
     encryptable.decrypt_transfered(private_key)
 
     encryptable.update!(encrypted_transfer_password: nil,
-                        receiver_id: nil,
-                        sender_id: nil)
+                        receiver_id: nil)
 
     encryptable.encrypt(personal_team_password)
     encryptable.decrypt(personal_team_password)
