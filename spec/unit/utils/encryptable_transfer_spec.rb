@@ -50,7 +50,6 @@ describe EncryptableTransfer do
       expect(received_file.name).to eq(encryptable_file.name)
       expect(received_file.content_type).to eq('text/plain')
 
-      expect(received_file.sender_id).to be_nil
       expect(received_file.encrypted_transfer_password).to be_nil
       expect(received_file.receiver_id).to be_nil
     end
