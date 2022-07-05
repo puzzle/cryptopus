@@ -99,6 +99,8 @@ de:
       title: "Datei teilen"
     receiver:
       name: Empfänger auswählen
+    submit: Schicken
+    description: Deine ausgewählte Datei wird an den ausgewählten Empfänger in den Inbox Ordner geschickt.
 
   admin:
     title: Admin

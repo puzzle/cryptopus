@@ -21,6 +21,8 @@ export default class Form extends BaseFormComponent {
 
   @tracked hasErrors;
 
+  @tracked receiver;
+
   AccountValidations = AccountValidations;
 
   constructor() {
@@ -50,20 +52,22 @@ export default class Form extends BaseFormComponent {
     if (!this.record.isFullyLoaded)
       this.store.findRecord("encryptable-credential", this.record.id);
 
+    this.loadCandidates();
+
   }
 
 
   loadCandidates() {
     this.store
       .query("user-human", {
-        encryptableId: this.args.encryptableId,
         candidates: true
       })
       .then((res) => (this.candidates = res));
   }
 
-  nothing() {
-
+  @action
+  selectReceiver(receiver) {
+    this.receiver = receiver
   }
 
   @action

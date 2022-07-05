@@ -98,6 +98,8 @@ ch_be:
       title: "Datei teilä"
     receiver:
       name: Wäu ä empfänger
+    submit: Schickä
+    description: Dini usgwähtli Datei wird am usgwählte Empfänger i Inbox Ordner gschickt.
 
   admin:
     title: Admin

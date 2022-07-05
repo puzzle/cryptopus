@@ -116,7 +116,13 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{this.nothing}} @placeholder={{t "encryptable/sharing/file.receiver.name"}} as |candidate|>
+              <div>{{t "encryptable/sharing/file.description"}}</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{fn (mut this.receiver)}} @placeholder={{t "encryptable/sharing/file.receiver.name"}} as |candidate|>
                 {{candidate.label}}
               </PowerSelectTypeahead>
             </div>
@@ -174,7 +180,7 @@
       </Modal.body>
 
       <Modal.footer>
-        <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "share"}}</BsButton>
+        <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "encryptable/sharing/file.submit"}}</BsButton>
       </Modal.footer>
     </BsModal>
 

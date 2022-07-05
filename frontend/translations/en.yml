@@ -99,6 +99,8 @@ en:
       title: Send file to
     receiver:
       name: Choose receiver
+    submit: Send
+    description: Your file will be sent to the inobx folder from the selected receiver.
 
   admin:
     title: Admin
