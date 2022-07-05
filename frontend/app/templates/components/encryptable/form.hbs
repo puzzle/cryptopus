@@ -130,57 +130,55 @@
           </div>
 
           <BsForm @model={{this.changeset}} as |form|>
-             <div class="row2">
-               {{#if this.hasErrors}}
-                 <div class="col-12 order-1">
-                   <div class="alert alert-danger modal-alert">
-                     {{t "validations.name.duplicate_name"}}
-                   </div>
-                 </div>
-               {{/if}}
-              </div>
-
-              <div class="col-md-12  mt-3">
-
-              <label>{{t "encryptable_files.new.choose_file"}}</label>
-              <div class="dropzone-text">
-                {{#if this.changeset.file}}
-                  <div class="mb-2">
-                    {{t "encryptable_files.new.selected_file"}}: {{this.changeset.file.name}}
-                  </div>
-                {{/if}}
-                <div>
-                <FileUpload @name="file"
-                            @accept="*"
-                            @for="upload-file"
-                            @multiple={{false}}
-                            @onfileadd={{this.uploadFile}}
-                            @ondrop={{this.uploadFile}}
-                            class="btn btn-primary">
-                  <a id="upload-file" tabindex="0">{{t (if this.changeset.file "encryptable_files.new.reupload" "encryptable_files.new.upload_file")}}.</a>
-                </FileUpload>
+            <div class="row2">
+             {{#each this.errors as |error|}}
+               <div class="alert alert-danger modal-alert ">
+                 {{error.detail}}.
                </div>
-             </div>
-           </div>
+             {{/each}}
+            </div>
 
-           <div class="row">
-             <div class="col-md-12">
-               <form.group class="col-md-12">
-                 <form.element @label={{t "description"}} @property="description" @controlType="textarea"
-                               id="description" class="{{if
-                         this.changeset.error.description.validation "invalid-input"}} vertical-resize mt-3"
-                               customError={{t
-                         (validation-error-key this.changeset.error.description.validation)}} as |el|>
-                   <el.control tabindex="7"></el.control>
-                 </form.element>
-               </form.group>
-             </div>
-           </div>
+            <div class="row">
+              <div class="col-md-12">
+                <form.group class="col-md-12">
+                  {{#if this.changeset.file}}
+                    <div class="mb-2">
+                      {{t "encryptable_files.new.selected_file"}}: {{this.changeset.file.name}}
+                    </div>
+                  {{else}}
+                    <div class="mb-2">
+                      {{t "encryptable_files.new.choose_file"}}
+                    </div>
+                  {{/if}}
+                  <div>
+                    <FileUpload @name="file"
+                               @accept="*"
+                               @for="upload-file"
+                               @multiple={{false}}
+                               @onfileadd={{this.uploadFile}}
+                               @ondrop={{this.uploadFile}}
+                               class="btn btn-primary">
+                      <a id="upload-file" tabindex="0">{{t (if this.changeset.file "encryptable_files.new.reupload" "encryptable_files.new.upload_file")}}</a>
+                    </FileUpload>
+                 </div>
+                </form.group>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label name="description">{{t "description"}}</label>
+                <div>
+                  <Textarea class="form-control vertical-resize" @name="description" @value={{this.changeset.description}}/>
+                  <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
+                </div>
+              </div>
+            </div>
          </BsForm>
       </Modal.body>
 
       <Modal.footer>
-        <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "encryptable/sharing/file.submit"}}</BsButton>
+        <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "encryptable_files.new.upload"}}</BsButton>
       </Modal.footer>
     </BsModal>
 
