@@ -6,7 +6,6 @@ describe EncryptableTransfer do
 
   let(:alice) { users(:alice) }
   let(:bob) { users(:bob) }
-  let(:api_tux) { users(:api_tux) }
   let(:bobs_private_key) { bob.decrypt_private_key('password') }
   let(:team1) { teams(:team1) }
 
@@ -35,25 +34,6 @@ describe EncryptableTransfer do
       expect(received_file.name).to eq(encryptable_file.name)
       expect(received_file.content_type).to eq('text/plain')
       expect(received_file.sender_id).to eq(alice.id)
-    end
-
-    it 'does not transfer encryptable file to non existent user' do
-      receiver = User::Human.new
-      sender = alice
-
-      expect do
-        encryptable_transfer.transfer(encryptable_file, receiver,
-                                      sender)
-      end.to raise_error(NoMethodError)
-    end
-
-    it 'does not transfer encryptable file to api user' do
-      receiver = api_tux
-      sender = alice
-
-      expect do
-        encryptable_transfer.transfer(encryptable_file, receiver, sender)
-      end.to raise_error(StandardError, 'Receiver must be a human user')
     end
 
     it 'recrypts encryptable when received' do
