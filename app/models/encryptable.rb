@@ -12,7 +12,6 @@
 #  password    :binary
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  tag         :string
 #
 
 class Encryptable < ApplicationRecord

@@ -30,7 +30,6 @@ credentials2:
   name: Twitter Account
   description: My personal twitter account
   folder: folder2
-  tag: tag
   encrypted_data: '{"password":{"iv":null,"data":"X2i8woXXwIHew6zcnBws9Q=="},"username":{"iv":null,"data":"Kvkd66uUiNq4Gw4Yh7PvVg=="}}'
 
 credentials3:

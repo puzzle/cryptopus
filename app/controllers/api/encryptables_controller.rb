@@ -2,7 +2,7 @@
 
 class Api::EncryptablesController < ApiController
 
-  self.permitted_attrs = [:name, :description, :tag, :receiver_id]
+  self.permitted_attrs = [:name, :description, :receiver_id]
 
   helper_method :team
 
@@ -75,9 +75,7 @@ class Api::EncryptablesController < ApiController
     when 'create'
       define_model_class
     else
-      if params[:tag].present?
-        fetch_entries.class
-      elsif ose_secret?
+      if ose_secret?
         Encryptable::OseSecret
       elsif entry_id.present?
         Encryptable.find(entry_id).class
@@ -136,10 +134,6 @@ class Api::EncryptablesController < ApiController
     params[:q]
   end
 
-  def tag_param
-    params[:tag]
-  end
-
   def encryptable_move_handler
     EncryptableMoveHandler.new(entry, users_private_key, current_user)
   end
@@ -179,9 +173,7 @@ class Api::EncryptablesController < ApiController
     return fetch_encryptable_files if credential_id.present?
 
     encryptables = user_encryptables
-    if tag_param.present?
-      encryptables = encryptables.find_by(tag: tag_param)
-    end
+
     encryptables
   end
 
