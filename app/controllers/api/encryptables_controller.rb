@@ -172,9 +172,7 @@ class Api::EncryptablesController < ApiController
   def fetch_entries
     return fetch_encryptable_files if credential_id.present?
 
-    encryptables = user_encryptables
-
-    encryptables
+    user_encryptables
   end
 
   def render_entry(options = nil)
