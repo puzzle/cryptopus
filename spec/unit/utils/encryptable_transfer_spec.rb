@@ -52,10 +52,8 @@ describe EncryptableTransfer do
       sender = alice
 
       expect do
-        encryptable_transfer.transfer(encryptable_file, receiver,
-                                      sender)
-
-      end.to raise_error(StandardError, "Receiver must be a human user")
+        encryptable_transfer.transfer(encryptable_file, receiver, sender)
+      end.to raise_error(StandardError, 'Receiver must be a human user')
     end
 
     it 'recrypts encryptable when received' do
