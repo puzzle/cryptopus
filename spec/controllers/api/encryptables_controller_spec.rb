@@ -80,27 +80,6 @@ describe Api::EncryptablesController do
       expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
     end
 
-    it 'returns encryptable for matching tag without cleartext username / password' do
-      login_as(:bob)
-
-      get :index, params: { 'tag': 'tag' }, xhr: true
-
-      credentials2_json_attributes = data['attributes']
-      credentials2_json_relationships = data['relationships']
-
-      credentials2 = encryptables(:credentials2)
-
-      expect(credentials2_json_attributes['name']).to eq credentials2.name
-      expect(data['id']).to eq credentials2.id.to_s
-      expect(credentials2_json_attributes['cleartext_username']).to be_nil
-      expect(credentials2_json_attributes['cleartext_password']).to be_nil
-      expect(credentials2_json_relationships['folder']['data']['id'])
-        .to eq credentials2.folder_id.to_s
-
-      expect_json_object_includes_keys(credentials2_json_attributes, attributes)
-      expect_json_object_includes_keys(credentials2_json_relationships, nested_models)
-    end
-
     it 'returns encryptable files for credentials entry' do
       login_as(:alice)
 
@@ -313,7 +292,6 @@ describe Api::EncryptablesController do
           id: credentials1.id,
           attributes: {
             name: 'Bob Meyer',
-            tag: 'taggy',
             cleartext_username: 'globi',
             cleartext_password: 'petzi'
           },
@@ -375,7 +353,6 @@ describe Api::EncryptablesController do
           id: credentials1.id,
           attributes: {
             name: 'Bob Meyer',
-            tag: 'taggy',
             cleartext_username: 'globi',
             cleartext_password: 'petzi'
           },
@@ -408,7 +385,6 @@ describe Api::EncryptablesController do
           id: credentials1.id,
           attributes: {
             name: 'Bob Meyer',
-            tag: 'taggy',
             cleartext_username: 'globi',
             cleartext_password: 'petzi'
           },
@@ -467,8 +443,7 @@ describe Api::EncryptablesController do
         data: {
           id: credentials2.id,
           attributes: {
-            name: 'Bob Meyer',
-            tag: 'taggy'
+            name: 'Bob Meyer'
           }
         },
         id: credentials2.id
@@ -479,7 +454,6 @@ describe Api::EncryptablesController do
       credentials2.reload
 
       expect(credentials2.name).to eq 'Twitter Account'
-      expect(credentials2.tag).to eq 'tag'
       expect(response).to have_http_status(403)
     end
 
@@ -497,8 +471,7 @@ describe Api::EncryptablesController do
         data: {
           id: encryptable.id,
           attributes: {
-            name: 'updated secret',
-            tag: 'taggy'
+            name: 'updated secret'
           },
           relationships: { folder: { data: { id: encryptable.folder_id, type: 'folders' } } }
         }, id: encryptable.id
