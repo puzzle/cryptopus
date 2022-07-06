@@ -2,7 +2,7 @@
   <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "encryptable/credentials.new.title"}}/>
 {{/if}}
 {{#if this.isFileSharing}}
-  <Encryptable::Transfer @onAbort={{this.toggleFileSharing}} @title={{t "encryptable/sharing/file.new.title"}}/>
+  <FileTransfer @onAbort={{this.toggleFileSharing}} @title={{t "encryptable/transferring/file.new.title"}}/>
 {{/if}}
 {{#if this.isNewFolder}}
   <Folder::Form @onAbort={{this.toggleFolderCreating}} @title={{t "folders.new.title"}}/>

@@ -1,16 +1,16 @@
 import { action } from "@ember/object";
-import EncryptableFileValidations from "../../validations/encryptable-file";
+import EncryptableFileValidations from "../validations/encryptable-file";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
-import BaseFormComponent from "../base-form-component";
+import BaseFormComponent from "./base-form-component";
 import { isPresent } from "@ember/utils";
 import { isEmpty } from "@ember/utils";
 import ENV from "frontend/config/environment";
 
 
-export default class Form extends BaseFormComponent {
+export default class FileTransfer extends BaseFormComponent {
   @service store;
   @service router;
   @service navService;
@@ -29,10 +29,15 @@ export default class Form extends BaseFormComponent {
   constructor() {
     super(...arguments);
 
+    this.record = this.store.createRecord("file-transfer");
+
     this.changeset = new Changeset(
+      this.record,
       lookupValidator(EncryptableFileValidations),
       EncryptableFileValidations
     );
+
+    this.changeset.csrfToken = ENV.CSRFToken;
 
     this.loadCandidates();
 
@@ -58,7 +63,7 @@ export default class Form extends BaseFormComponent {
 
   @action
   selectReceiver(receiver) {
-    this.receiver = receiver
+    this.changeset.receiver = receiver
   }
 
   @action
@@ -82,14 +87,15 @@ export default class Form extends BaseFormComponent {
 
   @action
   submit() {
-    let transferredFile = this.store
-      .createRecord("file-transfer", {
-        file: this.changeset.file,
-        receiver: this.receiver,
-        description: this.changeset.description,
-        csrfToken: ENV.CSRFToken
-      });
-    transferredFile.save();
+    this.changeset.save();
+    // let transferredFile = this.store
+    //   .createRecord("file-transfer", {
+    //     file: this.changeset.file,
+    //     receiver: this.receiver,
+    //     description: this.changeset.description,
+    //     csrfToken: ENV.CSRFToken
+    //   });
+    // transferredFile.save();
   }
 
   showSuccessMessage() {

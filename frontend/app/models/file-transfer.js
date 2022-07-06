@@ -27,7 +27,7 @@ export default class FileTransfer extends EncryptableFile {
       .then((savedRecords) => {
         let data = JSON.parse(savedRecords.body).data;
         this.id = data.id;
-        this.filename = data.attributes.filename;
+        this.name = data.attributes.name;
       })
       .catch(() => {});
 
