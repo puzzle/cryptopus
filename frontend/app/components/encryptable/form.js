@@ -1,5 +1,5 @@
 import { action } from "@ember/object";
-import EncryptableFileValidations from "../../validations/encryptable-file";
+import AccountValidations from "../../validations/encryptable";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
@@ -17,16 +17,9 @@ export default class Form extends BaseFormComponent {
   @tracked selectedTeam;
   @tracked assignableTeams;
 
-  @tracked candidates;
-
   @tracked hasErrors;
 
-  @tracked receiver;
-
-  @tracked
-  isFileCreating = false;
-
-  EncryptableFileValidations = EncryptableFileValidations;
+  AccountValidations = AccountValidations;
 
   constructor() {
     super(...arguments);
@@ -36,11 +29,7 @@ export default class Form extends BaseFormComponent {
       this.store.createRecord("encryptable-credential");
     this.isNewRecord = this.record.isNew;
 
-    this.changeset = new Changeset(
-      this.record,
-      lookupValidator(EncryptableFileValidations),
-      EncryptableFileValidations
-    );
+    this.changeset = this.accountChangeset;
 
     if (this.isNewRecord) {
       this.presetTeamAndFolder();
@@ -58,40 +47,6 @@ export default class Form extends BaseFormComponent {
 
     if (!this.record.isFullyLoaded)
       this.store.findRecord("encryptable-credential", this.record.id);
-
-    this.loadCandidates();
-
-  }
-
-  loadCandidates() {
-    this.store
-      .query("user-human", {
-        candidates: true
-      })
-      .then((res) => (this.candidates = res));
-  }
-
-  @action
-  toggleFileNew() {
-    this.isFileCreating = !this.isFileCreating;
-  }
-
-  @action
-  uploadFile(file) {
-    this.changeset.file = file;
-    console.log(this.changeset.file.name);
-  }
-
-  @action
-  selectReceiver(receiver) {
-    this.receiver = receiver
-  }
-
-  @action
-  search(input) {
-    return this.candidates.filter(
-      (c) => c.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
-    );
   }
 
   presetTeamAndFolder() {
@@ -107,10 +62,10 @@ export default class Form extends BaseFormComponent {
   get availableFolders() {
     return isPresent(this.selectedTeam)
       ? this.store
-          .peekAll("folder")
-          .filter(
-            (folder) => folder.team.get("id") === this.selectedTeam.get("id")
-          )
+        .peekAll("folder")
+        .filter(
+          (folder) => folder.team.get("id") === this.selectedTeam.get("id")
+        )
       : [];
   }
 
@@ -145,36 +100,13 @@ export default class Form extends BaseFormComponent {
   }
 
   async beforeSubmit() {
-    console.log("before submit");
-
     await this.changeset.validate();
     return this.changeset.isValid;
   }
 
-  @action
-  submit() {
-    this.store
-      .query("file-transfer", {
-        receiver: this.receiver,
-        file: this.changeset.file,
-        description: this.changeset.description
-      });
-  }
-
-  showSuccessMessage() {
-    let msg = this.intl.t("flashes.encryptable_files.uploaded");
-    this.notify.success(msg);
-  }
-
-  handleSubmitSuccess() {
+  handleSubmitSuccess(savedRecords) {
     this.abort();
-  }
-
-  handleSubmitError(response) {
-    this.errors = JSON.parse(response.body).errors;
-    this.changeset.file = null;
-    this.record.encryptableCredential = null;
-    this.hasErrors = response.errors.length > 0;
+    this.saveEditedData(savedRecords);
   }
 
   saveEditedData(savedRecords) {
@@ -202,10 +134,21 @@ export default class Form extends BaseFormComponent {
     return this.router.currentRouteName === "encryptables.show";
   }
 
+  handleSubmitError(response) {
+    this.hasErrors = response.errors.length > 0;
+  }
+
   presetTeamIfFolderSelected() {
     if (isPresent(this.changeset.folder)) {
       this.selectedTeam = this.changeset.folder.get("team");
     }
   }
 
+  get accountChangeset() {
+    return new Changeset(
+      this.record,
+      lookupValidator(AccountValidations),
+      AccountValidations
+    );
+  }
 }
