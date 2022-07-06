@@ -94,13 +94,13 @@ en:
     share:
       title: Share File
 
-  encryptable/transfering/file:
+  encryptable/transferring/file:
     new:
       title: Send file to
     receiver:
-      name: Choose receiver
+      name: Choose a receiver
     submit: Send
-    description: Your file will be sent to the inobx folder from the selected receiver.
+    description: Your file will be sent encrypted to the inobx folder from the selected receiver.
 
   admin:
     title: Admin

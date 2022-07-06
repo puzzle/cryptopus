@@ -94,13 +94,13 @@ de:
     share:
       title: Datei teilen
 
-  encryptable/transfering/file:
+  encryptable/transferring/file:
     new:
       title: "Datei teilen"
     receiver:
-      name: Empfänger auswählen
+      name: Wähle einen Empfänger aus
     submit: Schicken
-    description: Deine ausgewählte Datei wird an den ausgewählten Empfänger in den Inbox Ordner geschickt.
+    description: Deine Datei wird verschlüsselt in den Inbox Ordner des Empfängers geschickt.
 
   admin:
     title: Admin

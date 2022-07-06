@@ -93,13 +93,13 @@ ch_be:
     share:
       title: Datei teilä
 
-  encryptable/transfering/file:
+  encryptable/transferring/file:
     new:
       title: "Datei teilä"
     receiver:
       name: Wäu ä empfänger
     submit: Schickä
-    description: Dini usgwähtli Datei wird am usgwählte Empfänger i Inbox Ordner gschickt.
+    description: Dini Datei wird verschlüsslet i Inbox Ordner vom Empfänger gschickt.
 
   admin:
     title: Admin
