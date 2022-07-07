@@ -30,15 +30,14 @@ describe EncryptableMoveHandler do
     private_key = decrypt_private_key(bob)
     team1_folder = folders(:folder1)
 
-    new_test_file = Encryptable::File.new(name: 'testFile',
-                                 cleartext_file: file_fixture('test_file.txt').read,
-                                 credential_id: credential.id,
-                                 content_type: 'text/plain')
+    new_encryptable_file = Encryptable::File.new(name: 'testFile',
+                                                 cleartext_file: file_fixture('test_file.txt').read,
+                                                 credential_id: credential.id,
+                                                 content_type: 'text/plain')
 
     team2_password = Base64.strict_decode64('Xyj5d0yF9D/XOCIi9Iz5bsgNs9KvvcKkJAtCsoENNj4=')
-    new_test_file.encrypt(team2_password)
-    new_test_file.save!
-    new_test_file
+    new_encryptable_file.encrypt(team2_password)
+    new_encryptable_file.save!
 
     expect(folders(:folder2).id).to eq(credential.folder_id)
 

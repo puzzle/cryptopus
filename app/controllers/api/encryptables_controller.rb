@@ -71,16 +71,14 @@ class Api::EncryptablesController < ApiController
   def model_class
     if action_name == 'create'
       define_model_class
+    elsif ose_secret?
+      Encryptable::OseSecret
+    elsif entry_id.present?
+      Encryptable.find(entry_id).class
+    elsif fetch_entries.empty?
+      Encryptable::File
     else
-      if ose_secret?
-        Encryptable::OseSecret
-      elsif entry_id.present?
-        Encryptable.find(entry_id).class
-      elsif fetch_entries.empty?
-        Encryptable::File
-      else
-        Encryptable::Credentials
-      end
+      Encryptable::Credentials
     end
   end
   # rubocop:enable Metrics/MethodLength
