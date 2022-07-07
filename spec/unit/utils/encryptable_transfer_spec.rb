@@ -29,7 +29,7 @@ describe EncryptableTransfer do
 
       personal_team_password = bob.personal_team.decrypt_team_password(bob, bobs_private_key)
 
-      received_file.recrypt_transferred(bobs_private_key, personal_team_password)
+      encryptable_transfer.receive(received_file, bobs_private_key, personal_team_password)
 
       expect(received_file.encrypted_transfer_password).to be_nil
       expect(received_file.cleartext_file).to eq(encryptable_file.cleartext_file)
@@ -58,7 +58,7 @@ describe EncryptableTransfer do
       expect(received_file.name).to eq(encryptable_file.name)
       expect(received_file.content_type).to eq('text/plain')
 
-      expect(received_file.sender_id).to be_nil
+      expect(received_file.sender_id).to eq(bob.id)
       expect(received_file.encrypted_transfer_password).to be_nil
       expect(received_file.receiver_id).to be_nil
     end

@@ -38,10 +38,6 @@ class Encryptable < ApplicationRecord
     raise 'implement in subclass'
   end
 
-  def decrypt_transfered(_private_key)
-    raise 'implement in subclass'
-  end
-
   def self.policy_class
     EncryptablePolicy
   end
