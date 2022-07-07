@@ -38,10 +38,6 @@ class Encryptable < ApplicationRecord
     raise 'implement in subclass'
   end
 
-  def decrypt_transfered(_private_key)
-    raise 'implement in subclass'
-  end
-
   def self.policy_class
     EncryptablePolicy
   end
@@ -52,13 +48,6 @@ class Encryptable < ApplicationRecord
 
   def team
     folder.team
-  end
-
-  def recrypt_transferred(private_key, team_password)
-    decrypt(plaintext_transfer_password(private_key))
-    self.encrypted_transfer_password = nil
-    encrypt(team_password)
-    save!
   end
 
   def transferred?

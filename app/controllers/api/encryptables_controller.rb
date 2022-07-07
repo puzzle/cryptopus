@@ -35,9 +35,7 @@ class Api::EncryptablesController < ApiController
     build_entry
     authorize entry
 
-    unless entry.transferred?
-      entry.encrypt(decrypted_team_password(team))
-    end
+    entry.encrypt(decrypted_team_password(team)) unless entry.transferred?
 
     entry.save ? render_entry({ status: :created }) : render_errors
   end
@@ -71,8 +69,7 @@ class Api::EncryptablesController < ApiController
 
   # rubocop:disable Metrics/MethodLength
   def model_class
-    case action_name
-    when 'create'
+    if action_name == 'create'
       define_model_class
     else
       if ose_secret?
@@ -191,7 +188,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def fetch_encryptable_files
-    Encryptable::File.where(credential_id: user_encryptables.pluck(:id))
+    Encryptable::File.where(credential_id: user_encryptables)
                      .where(credential_id: credential_id)
   end
 

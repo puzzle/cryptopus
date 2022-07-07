@@ -750,7 +750,7 @@ describe Api::EncryptablesController do
       file_content = fixture_file_upload('test_file.txt', 'text/plain').read
 
       expect(received_file.encrypted_transfer_password).to eq(nil)
-      expect(received_file.sender_id).to eq(nil)
+      expect(received_file.sender_id).to eq(bob.id)
       expect(received_file.name).to eq('test_file.txt')
       expect(received_file.description).to eq('test')
       expect(received_file.content_type).to eq('text/plain')
