@@ -11,21 +11,13 @@
       </div>
 
       <BsForm @model={{this.changeset}} as |form|>
-
         <div class="row">
           <div class="col-md-5">
-            {{#if this.changeset.receiver}}
-              <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{fn this.selectReceiver}}  @placeholder={{this.changeset.receiver.label}} as |candidate|>
-                {{candidate.label}}
-              </PowerSelectTypeahead>
-              {{else}}
-                 <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{fn this.selectReceiver}} @placeholder={{t "encryptable/transferring/file.receiver.name"}} as |candidate|>
-                   {{candidate.label}}
-                 </PowerSelectTypeahead>
-              {{/if}}
+             <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{fn this.selectReceiver}} @selected={{this.changeset.receiver.label}} @placeholder={{t "encryptable/transferring/file.receiver.name"}} as |candidate|>
+               {{candidate.label}}
+             </PowerSelectTypeahead>
           </div>
         </div>
-
 
         <div class="row2">
           {{#each this.errors as |error|}}

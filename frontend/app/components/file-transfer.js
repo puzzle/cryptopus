@@ -88,14 +88,6 @@ export default class FileTransfer extends BaseFormComponent {
   @action
   submit() {
     this.changeset.save();
-    // let transferredFile = this.store
-    //   .createRecord("file-transfer", {
-    //     file: this.changeset.file,
-    //     receiver: this.receiver,
-    //     description: this.changeset.description,
-    //     csrfToken: ENV.CSRFToken
-    //   });
-    // transferredFile.save();
   }
 
   showSuccessMessage() {

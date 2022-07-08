@@ -78,11 +78,11 @@ class Encryptable < ApplicationRecord
     encrypted_data.[]=(attr, **{ data: encrypted_value, iv: nil })
   end
 
-  def decrypt_attr(attr, team_password)
+  def decrypt_attr(attr, team_password, transferred = nil)
     encrypted_value = encrypted_data[attr].try(:[], :data)
 
     cleartext_value = if encrypted_value
-                        Crypto::Symmetric::Aes256.decrypt(encrypted_value, team_password)
+                        Crypto::Symmetric::Aes256.decrypt(encrypted_value, team_password, transferred)
                       end
 
     instance_variable_set("@cleartext_#{attr}", cleartext_value)

@@ -23,13 +23,14 @@ class Crypto::Symmetric::Aes256 < Crypto::Symmetric
       cipher.update(data) + cipher.final
     end
 
-    def decrypt(data, key)
+    def decrypt(data, key, transferred = nil)
       cipher = cipher_decrypt_mode
 
       # set decryption key
       cipher.key = key
 
       # decrypt data
+      cipher.padding = 0 if transferred
       decrypted_data = cipher.update(data) + cipher.final
       decrypted_data.force_encoding('UTF-8')
     end
