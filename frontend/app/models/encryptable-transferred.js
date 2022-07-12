@@ -1,9 +1,9 @@
-import EncryptableFile from "./encryptable-file";
-import { attr, belongsTo } from "@ember-data/model";
+import Encryptable from "./encryptable";
+import { attr } from "@ember-data/model";
 
-export default class FileTransfer extends EncryptableFile {
+export default class EncryptableTransferred extends Encryptable {
   @attr file;
-  @belongsTo("encryptable-transferred") encryptableTransferred;
+  @attr isTransferred;
 
   async save() {
     if (this.isDeleted) {

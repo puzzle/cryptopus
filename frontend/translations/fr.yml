@@ -101,6 +101,7 @@ fr:
       name: Choisir le récepteur
     submit: envoyer
     description: Ton fichier sera envoyé crypté au destinataire sélectionné dans le dossier de la boîte de réception.
+    download: Télécharge le fichier transféré
 
   admin:
     title: Admin

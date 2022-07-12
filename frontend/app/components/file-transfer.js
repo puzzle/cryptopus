@@ -29,7 +29,7 @@ export default class FileTransfer extends BaseFormComponent {
   constructor() {
     super(...arguments);
 
-    this.record = this.store.createRecord("file-transfer");
+    this.record = this.store.createRecord("encryptable-transferred");
 
     this.changeset = new Changeset(
       this.record,
@@ -88,6 +88,7 @@ export default class FileTransfer extends BaseFormComponent {
   @action
   submit() {
     this.changeset.save();
+    this.notify.info(this.intl.t('flashes.encryptable_transfer.file.transferred'));
   }
 
   showSuccessMessage() {

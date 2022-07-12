@@ -99,8 +99,9 @@ de:
       title: "Datei teilen"
     receiver:
       name: Wähle einen Empfänger aus
-    submit: Schicken
+    submit: Senden
     description: Deine Datei wird verschlüsselt in den Inbox Ordner des Empfängers geschickt.
+    download: Geteilte Datei herunterladen
 
   admin:
     title: Admin
