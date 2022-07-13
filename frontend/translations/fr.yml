@@ -100,8 +100,10 @@ fr:
     receiver:
       name: Choisir le récepteur
     submit: envoyer
-    description: Ton fichier sera envoyé crypté au destinataire sélectionné dans le dossier de la boîte de réception.
+    description_for_sender: Ton fichier sera envoyé crypté au destinataire sélectionné dans le dossier de la boîte de réception.
+    description_for_receiver: Description pour le destinataire
     download: Télécharge le fichier transféré
+    delete_transferred_encryptables: Supprimer le fichier partagé
 
   admin:
     title: Admin

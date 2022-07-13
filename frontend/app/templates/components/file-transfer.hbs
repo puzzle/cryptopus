@@ -5,8 +5,8 @@
   <Modal.body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12">
-          <div>{{t "encryptable/transferring/file.description"}}</div>
+        <div class="col-md-12 transfer-file-description">
+          <div>{{t "encryptable/transferring/file.description_for_sender"}}</div>
         </div>
       </div>
 
@@ -19,22 +19,14 @@
           </div>
         </div>
 
-        <div class="row2">
-          {{#each this.errors as |error|}}
-            <div class="alert alert-danger modal-alert ">
-              {{error.detail}}.
-            </div>
-          {{/each}}
-        </div>
-
         <div class="row">
           <form.group class="col-md-12">
             {{#if this.changeset.file}}
-              <div class="mb-2">
+              <div class="mb-2 transfer-file-upload">
                 {{t "encryptable_files.new.selected_file"}}: {{this.changeset.file.name}}
               </div>
             {{else}}
-              <div class="mb-2">
+              <div class="mb-2 transfer-file-upload">
                 {{t "encryptable_files.new.choose_file"}}
               </div>
             {{/if}}
@@ -52,9 +44,15 @@
           </form.group>
         </div>
 
+        {{#each this.errors as |error|}}
+          <div class="alert alert-danger modal-alert ">
+            {{error.detail}}.<br>
+          </div>
+        {{/each}}
+
         <div class="row">
           <div class="col-md-12">
-            <label name="description">{{t "description"}}</label>
+            <label name="description">{{t "encryptable/transferring/file.description_for_receiver"}}</label>
             <div>
               <Textarea class="form-control vertical-resize" @name="description" @value={{this.changeset.description}}/>
               <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>

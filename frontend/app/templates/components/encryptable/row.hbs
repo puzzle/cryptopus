@@ -10,6 +10,10 @@
         {{@encryptable.name}}
       </LinkTo>
 
+      <div class="col-6 d-none d-md-block">
+        sender name
+      </div>
+
       <div class="col-md-auto d-none d-md-block">
         <a class="mx-1" role="button" {{on "click" this.toggleEncryptableDownload}}>
           <img class="icon-medium-button d-inline" src="/assets/images/file_download.svg" alt="download file">
@@ -18,7 +22,7 @@
 
         <DeleteWithConfirmation @class="mx-1" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
           <img class="icon-medium-button d-inline" src="/assets/images/delete.svg" alt="delete">
-          <BsTooltip @title={{t "tooltips.delete_encryptables"}} @delayShow="1000" />
+          <BsTooltip @title={{t "encryptable/transferring/file.delete_transferred_encryptables"}} @delayShow="1000" />
         </DeleteWithConfirmation>
       </div>
     </div>

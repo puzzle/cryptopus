@@ -66,11 +66,4 @@ export default class Form extends BaseFormComponent {
   uploadFile(file) {
     this.changeset.file = file;
   }
-
-  setRecordValues(records) {
-    const data = JSON.parse(records[0].body).data;
-    this.record.file = this.changeset.file;
-    this.record.id = data.id;
-    this.record.name = data.attributes.name;
-  }
 }

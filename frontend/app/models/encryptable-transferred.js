@@ -3,7 +3,6 @@ import { attr } from "@ember-data/model";
 
 export default class EncryptableTransferred extends Encryptable {
   @attr file;
-  @attr isTransferred;
 
   async save() {
     if (this.isDeleted) {

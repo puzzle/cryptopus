@@ -99,8 +99,10 @@ ch_be:
     receiver:
       name: Wäu ä empfänger
     submit: Schickä
-    description: Dini Datei wird verschlüsslet i Inbox Ordner vom Empfänger gschickt.
+    description_for_sender: Dini Datei wird verschlüsslet i Inbox Ordner vom Empfänger gschickt.
+    description_for_receiver: Beschribig füre empfänger
     download: Teilti datei abäladä
+    delete_transferred_encryptables: Teilti datei löschä
 
   admin:
     title: Admin

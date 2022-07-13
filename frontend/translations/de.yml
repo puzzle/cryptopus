@@ -100,8 +100,10 @@ de:
     receiver:
       name: Wähle einen Empfänger aus
     submit: Senden
-    description: Deine Datei wird verschlüsselt in den Inbox Ordner des Empfängers geschickt.
+    description_for_sender: Deine Datei wird verschlüsselt in den Inbox Ordner des Empfängers geschickt.
+    description_for_receiver: Beschreibung für den Empfänger
     download: Geteilte Datei herunterladen
+    delete_transferred_encryptables: Geteilte Datei löschen
 
   admin:
     title: Admin

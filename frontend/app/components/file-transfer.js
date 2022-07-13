@@ -17,8 +17,6 @@ export default class FileTransfer extends BaseFormComponent {
 
   @tracked candidates;
 
-  @tracked hasErrors;
-
   @tracked receiver;
 
   @tracked
@@ -88,11 +86,11 @@ export default class FileTransfer extends BaseFormComponent {
   @action
   submit() {
     this.changeset.save();
-    this.notify.info(this.intl.t('flashes.encryptable_transfer.file.transferred'));
+    // this.notify.info(this.intl.t('flashes.encryptable_transfer.file.transferred'));
   }
 
   showSuccessMessage() {
-    let msg = this.intl.t("flashes.encryptable_files.uploaded");
+    let msg = this.intl.t("flashes.encryptable_transfer.file.transferred");
     this.notify.success(msg);
   }
 
@@ -104,7 +102,6 @@ export default class FileTransfer extends BaseFormComponent {
     this.errors = JSON.parse(response.body).errors;
     this.changeset.file = null;
     this.record.encryptableCredential = null;
-    this.hasErrors = response.errors.length > 0;
   }
 
 }
