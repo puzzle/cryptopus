@@ -6,7 +6,6 @@ describe EncryptablePolicy do
 
   let(:credentials2) { encryptables(:credentials2) }
   let(:sharing_file) { encryptables(:sharing_file) }
-  let(:sharing_credential) { encryptables(:sharing_credential) }
   let(:folder2) { folders(:folder2) }
   let(:team1) { teams(:team1) }
   let(:team2) { teams(:team2) }
@@ -20,8 +19,8 @@ describe EncryptablePolicy do
       assert_permit bob, credentials2, :destroy?
     end
 
-    it 'can transfer credential' do
-      assert_permit bob, sharing_credential, :create?
+    it 'can transfer file' do
+      assert_permit bob, sharing_file, :create?
     end
   end
 
@@ -35,7 +34,7 @@ describe EncryptablePolicy do
     end
 
     it 'non teammember cant transfer credential' do
-      refute_permit alice, sharing_credential, :create?
+      refute_permit alice, sharing_file, :create?
     end
 
   end
@@ -50,7 +49,7 @@ describe EncryptablePolicy do
     end
 
     it 'api user can transfer credential' do
-      assert_permit api_bob, sharing_credential, :create?
+      assert_permit api_bob, sharing_file, :create?
     end
 
   end

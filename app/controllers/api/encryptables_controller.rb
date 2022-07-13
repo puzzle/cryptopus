@@ -2,7 +2,7 @@
 
 class Api::EncryptablesController < ApiController
 
-  self.permitted_attrs = [:name, :description, :receiver_id]
+  self.permitted_attrs = [:name, :description, :receiver_id, :file]
 
   helper_method :team
 
@@ -31,7 +31,6 @@ class Api::EncryptablesController < ApiController
 
   # POST /api/encryptables
   def create
-    validate_receiver unless receiver_id.nil?
     build_entry
     authorize entry
 
@@ -57,14 +56,20 @@ class Api::EncryptablesController < ApiController
   private
 
   def transfer_file
-    shared_file = EncryptableTransfer.new.transfer(entry, User.find(receiver_id), current_user)
+    shared_file = EncryptableTransfer.new.transfer(entry, User::Human.find(receiver_id), current_user)
 
     instance_variable_set(:"@#{ivar_name}", shared_file)
-    add_info('flashes.encryptable_transfer.file.transferred') if entry.type == Encryptable::File
+
+    add_info('flashes.encryptable_transfer.file.transferred')
   end
 
   def receiver_id
-    params.dig('data', 'attributes', 'receiver_id')
+    params.dig('receiver_id')
+  end
+
+  def model_params
+    return super unless (params[:receiver_id].present? || params[:receiver_id].presence.nil?) && params[:file].present?
+    params.permit(permitted_attrs)
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -153,13 +158,6 @@ class Api::EncryptablesController < ApiController
     else
       []
     end
-  end
-
-  def validate_receiver
-    raise StandardError.new, 'Receiver user not found' unless User.exists?(receiver_id)
-    raise StandardError.new, 'Cant transfer to Api user' if User.find(receiver_id).is_a?(User::Api)
-
-    add_info('flashes.encryptable_transfer.file.transfer_failed')
   end
 
   ### Entries ###
@@ -286,7 +284,7 @@ class Api::EncryptablesController < ApiController
   def receiver
     return nil if receiver_id.nil?
 
-    User.find(receiver_id)
+    User::Human.find(receiver_id)
   end
 
   ### Other ###

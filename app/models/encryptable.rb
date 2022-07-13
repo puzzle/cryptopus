@@ -17,8 +17,6 @@
 class Encryptable < ApplicationRecord
   serialize :encrypted_data, ::EncryptedData
 
-  attr_accessor :receiver_id
-
   attr_readonly :type
   validates :type, presence: true
 
@@ -27,7 +25,6 @@ class Encryptable < ApplicationRecord
   validates :name, presence: true
   validates :description, length: { maximum: 4000 }
 
-  validate :assert_human_receiver?, if: :transferred?
   validates :receiver_id, presence: true, if: :transferred?
 
   def encrypt(_team_password)

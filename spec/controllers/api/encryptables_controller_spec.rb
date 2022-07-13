@@ -684,15 +684,12 @@ describe Api::EncryptablesController do
         content_type: 'text/plain',
         file: file,
         description: 'test',
-        data: {
-          attributes: {
-            receiver_id: api_user.id
-          }
-        }
+        receiver_id: api_user.id
       }
 
-      expect { post :create, params: file_params, xhr: true }.
-        to raise_error(StandardError, 'Cant transfer to Api user')
+      post :create, params: file_params, xhr: true
+      expect(response).to have_http_status(404)
+
     end
 
     it 'does not send encryptable file to non existing user' do
@@ -704,15 +701,12 @@ describe Api::EncryptablesController do
         content_type: 'text/plain',
         file: file,
         description: 'test',
-        data: {
-          attributes: {
-            receiver_id: nil
-          }
-        }
+        receiver_id: nil
       }
 
-      expect { post :create, params: file_params, xhr: true }.
-        to raise_error(StandardError, 'Receiver user not found')
+      post :create, params: file_params, xhr: true
+      expect(response).to have_http_status(404)
+
     end
 
     it 'transfers new file from sender to recipient' do
@@ -723,11 +717,7 @@ describe Api::EncryptablesController do
         content_type: 'text/plain',
         file: file,
         description: 'test',
-        data: {
-          attributes: {
-            receiver_id: alice.id
-          }
-        }
+        receiver_id: alice.id
       }
 
       post :create, params: file_params, xhr: true
