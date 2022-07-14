@@ -2,7 +2,7 @@ import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
-import { isNone, isPresent } from "@ember/utils";
+import { isPresent } from "@ember/utils";
 import { capitalize } from "@ember/string";
 
 export default class RowComponent extends Component {
@@ -43,12 +43,12 @@ export default class RowComponent extends Component {
 
   fetchAndCopyToClipboard(attr) {
     const encryptable = this.args.encryptable;
-    let value = eval(`encryptable.cleartext${capitalize(attr)}`);
     if (encryptable.isFullyLoaded) {
+      const value = encryptable[`cleartext${capitalize(attr)}`];
       this.copyToClipboard(attr, value);
     } else {
-      this.fetchAccount().then((a) => {
-        value = eval(`a.cleartext${capitalize(attr)}`);
+      this.fetchEncryptable().then((a) => {
+        const value = a[`cleartext${capitalize(attr)}`];
         this.copyToClipboard(attr, value);
       });
     }
@@ -67,9 +67,11 @@ export default class RowComponent extends Component {
     this.notify.info(this.intl.t(`flashes.encryptables.${attr}_copied`));
   }
 
-  fetchAccount() {
+  fetchEncryptable() {
     return this.store
-      .findRecord("encryptable-credential", this.args.encryptable.id)
+      .findRecord("encryptable-credential", this.args.encryptable.id, {
+        reload: true
+      })
       .catch((error) => {
         if (error.message.includes("401"))
           window.location.replace("/session/new");
@@ -88,7 +90,7 @@ export default class RowComponent extends Component {
 
   @action
   showPassword() {
-    this.fetchAccount();
+    this.fetchEncryptable();
     this.isPasswordVisible = true;
 
     this.passwordHideCountdownTime = new Date().getTime();
@@ -123,7 +125,7 @@ export default class RowComponent extends Component {
 
   @action
   showUsername() {
-    this.fetchAccount();
+    this.fetchEncryptable();
     this.isUsernameVisible = true;
   }
 
