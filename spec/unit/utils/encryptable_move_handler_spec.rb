@@ -26,18 +26,11 @@ describe EncryptableMoveHandler do
   end
 
   it 'moves credential from team2 folder to team1 folder' do
-    credential = Encryptable::Credentials.new(
-      name: 'Migros Account',
-      description: 'My personal Migros Account',
-      folder_id: folders(:folder2),
-      encrypted_data: '{"password":{"iv":null,"data":"X2i8woXXwIHew6zcnBws9Q=="},"username":{"iv":null,"data":"Kvkd66uUiNq4Gw4Yh7PvVg=="}}'
-    )
-    credential.save!
-
-    expect(folders(:folder2).id).to eq(credential.folder_id)
-
+    credential = encryptables(:credentials2)
     private_key = decrypt_private_key(bob)
     team1_folder = folders(:folder1)
+
+    expect(folders(:folder2).id).to eq(credential.folder_id)
 
     new_encryptable_file = Encryptable::File.new(name: 'testFile',
                                                  cleartext_file: file_fixture('test_file.txt').read,
