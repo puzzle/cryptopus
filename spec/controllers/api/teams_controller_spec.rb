@@ -168,7 +168,7 @@ describe Api::TeamsController do
       expect(encryptables).not_to include(credentials1.name)
       folder_relationships_length = data.first['relationships']['folders']['data'].size
 
-      expect(included.size).to be(3)
+      expect(included.size).to be(2)
       expect(folder_relationships_length).to be(1)
     end
 
