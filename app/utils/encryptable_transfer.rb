@@ -6,7 +6,7 @@ class EncryptableTransfer
     encryptable.encrypt(transfer_password)
 
     encryptable.update!(
-      folder: inbox_folder(receiver),
+      folder: receiver.inbox_folder,
       sender_id: sender.id,
       encrypted_transfer_password: encrypted_transfer_password(transfer_password, receiver)
     )
@@ -25,11 +25,6 @@ class EncryptableTransfer
   end
 
   private
-
-  def inbox_folder(receiver)
-    personal_team = receiver.personal_team
-    personal_team.folders.find_or_create_by(name: 'inbox')
-  end
 
   def encrypted_transfer_password(password, receiver)
     Crypto::Rsa.encrypt(

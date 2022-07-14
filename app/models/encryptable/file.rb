@@ -26,11 +26,7 @@ class Encryptable::File < Encryptable
   end
 
   def team
-    if encryptable_credential.nil?
-      folder.team
-    else
-      encryptable_credential.folder.team
-    end
+    folder&.team || encryptable_credential.folder.team
   end
 
   private
