@@ -32,13 +32,6 @@ credentials2:
   folder: folder2
   encrypted_data: '{"password":{"iv":null,"data":"X2i8woXXwIHew6zcnBws9Q=="},"username":{"iv":null,"data":"Kvkd66uUiNq4Gw4Yh7PvVg=="}}'
 
-credentials3:
-  type: Encryptable::Credentials
-  name: Migros Account
-  description: My personal migros account
-  folder: folder2
-  encrypted_data: '{"password":{"iv":null,"data":"X2i8woXXwIHew6zcnBws9Q=="},"username":{"iv":null,"data":"Kvkd66uUiNq4Gw4Yh7PvVg=="}}'
-
 sharing_credential:
   type: Encryptable::Credentials
   name: Twitter Account

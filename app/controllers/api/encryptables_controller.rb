@@ -56,9 +56,7 @@ class Api::EncryptablesController < ApiController
   private
 
   def transfer_file
-    shared_file = EncryptableTransfer.new.transfer(entry, User::Human.find(receiver_id), current_user)
-
-    instance_variable_set(:"@#{ivar_name}", shared_file)
+    @encryptable = EncryptableTransfer.new.transfer(entry, User::Human.find(receiver_id), current_user)
 
     add_info('flashes.encryptable_transfer.file.transferred')
   end
@@ -91,7 +89,7 @@ class Api::EncryptablesController < ApiController
   def define_model_class
     if ose_secret?
       Encryptable::OseSecret
-    elsif receiver_id.present? || credential_id.present?
+    elsif receiver_id.present? || params[:receiver_id] == "" || credential_id.present?
       Encryptable::File
     else
       Encryptable::Credentials
@@ -189,6 +187,8 @@ class Api::EncryptablesController < ApiController
   end
 
   def build_encryptable_file
+    return if params[:receiver_id] == ""
+
     filename = params[:file].original_filename
     file = new_file(file_credential, params[:description], filename)
     file.content_type = params[:file].content_type
