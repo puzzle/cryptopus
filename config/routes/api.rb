@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
     resources :encryptables, except: [:new, :edit]
 
+    post 'encryptables_transfer', to: 'encryptables_transfer#create'
+
     resources :api_users, except: [:new, :edit] do
       member do
         get :token, to: 'api_users/token#show'
