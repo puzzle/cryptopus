@@ -8,7 +8,6 @@ class EncryptableTransfer
     encryptable.update!(
       folder: inbox_folder(receiver),
       sender_id: sender.id,
-      receiver_id: receiver.id,
       encrypted_transfer_password: encrypted_transfer_password(transfer_password, receiver)
     )
     encryptable
@@ -17,8 +16,7 @@ class EncryptableTransfer
   def receive(encryptable, private_key, personal_team_password)
     encryptable.decrypt_transfered(private_key)
 
-    encryptable.update!(encrypted_transfer_password: nil,
-                        receiver_id: nil)
+    encryptable.update!(encrypted_transfer_password: nil)
 
     encryptable.encrypt(personal_team_password)
     encryptable.decrypt(personal_team_password)

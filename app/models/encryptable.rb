@@ -25,8 +25,6 @@ class Encryptable < ApplicationRecord
   validates :name, presence: true
   validates :description, length: { maximum: 4000 }
 
-  validates :receiver_id, presence: true, if: :transferred?
-
   def encrypt(_team_password)
     raise 'implement in subclass'
   end

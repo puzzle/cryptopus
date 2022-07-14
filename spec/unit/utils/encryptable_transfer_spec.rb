@@ -30,11 +30,12 @@ describe EncryptableTransfer do
 
       encryptable_transfer.receive(received_file, bobs_private_key, personal_team_password)
 
+      expect(received_file.transferred?).to eq(false)
       expect(received_file.encrypted_transfer_password).to be_nil
+      expect(received_file.sender_id).to eq(alice.id)
       expect(received_file.cleartext_file).to eq(encryptable_file.cleartext_file)
       expect(received_file.name).to eq(encryptable_file.name)
       expect(received_file.content_type).to eq('text/plain')
-      expect(received_file.sender_id).to eq(alice.id)
     end
 
     it 'recrypts encryptable when received' do
@@ -53,7 +54,6 @@ describe EncryptableTransfer do
 
       expect(received_file.sender_id).to eq(bob.id)
       expect(received_file.encrypted_transfer_password).to be_nil
-      expect(received_file.receiver_id).to be_nil
     end
   end
 end

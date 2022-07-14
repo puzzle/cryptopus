@@ -26,7 +26,16 @@ describe EncryptableMoveHandler do
   end
 
   it 'moves credential from team2 folder to team1 folder' do
-    credential = encryptables(:credentials3)
+    credential = Encryptable::Credentials.new(
+      name: 'Migros Account',
+      description: 'My personal Migros Account',
+      folder_id: folders(:folder2),
+      encrypted_data: '{"password":{"iv":null,"data":"X2i8woXXwIHew6zcnBws9Q=="},"username":{"iv":null,"data":"Kvkd66uUiNq4Gw4Yh7PvVg=="}}'
+    )
+    credential.save!
+
+    expect(folders(:folder2).id).to eq(credential.folder_id)
+
     private_key = decrypt_private_key(bob)
     team1_folder = folders(:folder1)
 
@@ -38,8 +47,6 @@ describe EncryptableMoveHandler do
     team2_password = Base64.strict_decode64('Xyj5d0yF9D/XOCIi9Iz5bsgNs9KvvcKkJAtCsoENNj4=')
     new_encryptable_file.encrypt(team2_password)
     new_encryptable_file.save!
-
-    expect(folders(:folder2).id).to eq(credential.folder_id)
 
     # current username, password values are set by api/encryptable#update
     credential.cleartext_username = 'username'
