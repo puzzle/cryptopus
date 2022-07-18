@@ -59,10 +59,10 @@ export default class ShowComponent extends Component {
   }
 
   get noCopyBlankPasswordTooltip() {
-    return this.intl.t("encryptable/credentials.show.password_blank");
+    return this.intl.t("encryptable/credentials.show.blank");
   }
 
   get noCopyBlankUsernameTooltip() {
-    return this.intl.t("encryptable/credentials.show.username_blank");
+    return this.intl.t("encryptable/credentials.show.blank");
   }
 }

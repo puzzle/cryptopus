@@ -87,8 +87,7 @@ de:
       copy_password: Passwort kopieren
       copy_username: Benutzername kopieren
       add_attachment: Anhang hinzufügen
-      password_blank: Leeres Passwort
-      username_blank: Leerer Benutzername
+      blank: Leer
     new:
       title: Neue Zugangsdaten
 

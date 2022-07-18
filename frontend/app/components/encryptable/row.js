@@ -89,6 +89,15 @@ export default class RowComponent extends Component {
     }
   }
 
+  formattedValue(encryptable, attr) {
+    let value = "";
+    if (encryptable.isPasswordBlank) {
+      value = this.intl.t(`encryptable/credential.${attr}_blank`);
+    }
+
+    return value;
+  }
+
   @action
   refreshRoute() {
     this.router.transitionTo();

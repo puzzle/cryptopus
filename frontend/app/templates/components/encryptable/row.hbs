@@ -21,8 +21,10 @@
     {{#unless @encryptable.isOseSecret}}
       <div class="col-2 pr-0 d-none d-md-block">
         <div class="hide-wrapper">
-          <Input class="d-inline form-control" id="input-password-{{@encryptable.id}}" @disabled="true" @value={{@encryptable.cleartextUsername}}/>
-          <a role="button" class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isUsernameVisible "visibility-hidden"}}"{{on "click" this.showUsername}}>{{t "encryptable/credentials.show.show_username"}}</a>
+          <Input class="d-inline form-control" id="input-password-{{@encryptable.id}}" @disabled="true" @value={{format-cleartext @encryptable "username"}}/>
+          <a role="button"
+             class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isUsernameVisible "visibility-hidden"}}"
+             {{on "click" this.showUsername}}>{{t "encryptable/credentials.show.show_username"}}</a>
         </div>
       </div>
       <div class="col px-0 d-none d-md-block">
@@ -37,7 +39,7 @@
 
       <div class="col-2 pr-0 d-none d-md-block">
         <div class="hide-wrapper">
-          <Input class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
+          <Input class="d-inline form-control" @disabled="true" @value={{format-cleartext @encryptable "password"}}/>
           <a role="button" class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isPasswordVisible "visibility-hidden"}}"{{on "click" this.showPassword}}>{{t "encryptable/credentials.show.show_password"}}</a>
         </div>
       </div>
