@@ -9,6 +9,7 @@ describe Api::TeamsController do
   let(:alice) { users(:alice) }
   let(:team1) { teams(:team1) }
   let(:team2) { teams(:team2) }
+  let(:personal_team_bob) { teams(:personal_team_bob) }
   let!(:team3) { Fabricate(:non_private_team) }
   let!(:team4) { Fabricate(:non_private_team) }
   let(:bobs_private_key) { bob.decrypt_private_key('password') }
@@ -170,6 +171,38 @@ describe Api::TeamsController do
 
       expect(included.size).to be(2)
       expect(folder_relationships_length).to be(1)
+    end
+
+    it 'returns sender_name if transferred encryptable' do
+      login_as(:alice)
+
+      filename = 'test_file.txt'
+      inbox_folder_receiver = bob.inbox_folder
+
+      file = Encryptable::File.new(folder: inbox_folder_receiver,
+                                   description: 'test',
+                                   name: filename,
+                                   content_type: 'text/plain',
+                                   cleartext_file: 'certificate')
+
+      EncryptableTransfer.new.transfer(file, bob, alice)
+
+      login_as(:bob)
+      get :index, params: { team_id: personal_team_bob.id }, xhr: true
+
+      expect(included.last['attributes']).to include('sender_name')
+      expect(included.last['attributes']['sender_name']).to eq(alice.label)
+      expect(included.last['attributes']['name']).to eq(file.name)
+      expect(included.last['attributes']['description']).to eq('test')
+    end
+
+    it 'does not return sender_name if not transferred encryptable' do
+      login_as(:bob)
+
+      get :index, params: { team_id: team1.id }, xhr: true
+
+      expect(response.status).to be(200)
+      expect(included.last['attributes']).not_to include('sender_name')
     end
 
     it 'filters by team name' do
