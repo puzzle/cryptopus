@@ -674,6 +674,39 @@ describe Api::EncryptablesController do
     end
   end
 
+  context "transfer" do
+    it 'alice receives file from bob' do
+      filename = 'test_file.txt'
+      inbox_folder_receiver = alice.inbox_folder
+
+      file = Encryptable::File.new(folder: inbox_folder_receiver,
+                            description: 'test',
+                            name: filename,
+                            content_type: 'text/plain',
+                            cleartext_file: "certificate")
+
+      EncryptableTransfer.new.transfer(file, alice, bob)
+
+      login_as(:alice)
+
+      shared_file = alice.inbox_folder.encryptables.first
+
+      get :show, params: { id: shared_file.id }, xhr: true
+
+      expect(response).to have_http_status(200)
+
+      received_file = Encryptable.find(shared_file.id)
+      file_content = fixture_file_upload('test_file.txt', 'text/plain').read
+
+      expect(received_file.encrypted_transfer_password).to eq(nil)
+      expect(received_file.sender_id).to eq(bob.id)
+      expect(received_file.name).to eq('test_file.txt')
+      expect(received_file.description).to eq('test')
+      expect(received_file.content_type).to eq('text/plain')
+      expect(received_file.folder_id).to eq(alice.inbox_folder.id)
+      expect(response.body).to eq file_content
+    end
+  end
 
   private
 

@@ -21,7 +21,7 @@ class Api::EncryptablesController < ApiController
     if entry.transferred?
       personal_team = current_user.personal_team
       personal_team_password = decrypted_team_password(personal_team)
-      encryptable_transfer.receive(entry, session[:private_key], personal_team_password)
+      EncryptableTransfer.new.receive(entry, session[:private_key], personal_team_password)
     else
       entry.decrypt(decrypted_team_password(team))
     end
@@ -55,10 +55,6 @@ class Api::EncryptablesController < ApiController
   end
 
   private
-
-  def encryptable_transfer
-    @encryptable_transfer ||= EncryptableTransfer.new
-  end
 
   # rubocop:disable Metrics/MethodLength
   def model_class
@@ -179,16 +175,15 @@ class Api::EncryptablesController < ApiController
   def build_encryptable_file
     filename = params[:file].original_filename
 
-    file = new_file(file_credential, nil, params[:description], filename)
+    file = new_file(file_credential, params[:description], filename)
     file.content_type = params[:file].content_type
     file.cleartext_file = params[:file].read
 
     instance_variable_set(:"@#{ivar_name}", file)
   end
 
-  def new_file(parent_encryptable, inbox_folder_receiver, description, name)
+  def new_file(parent_encryptable, description, name)
     Encryptable::File.new(encryptable_credential: parent_encryptable,
-                          folder: inbox_folder_receiver,
                           description: description,
                           name: name)
   end

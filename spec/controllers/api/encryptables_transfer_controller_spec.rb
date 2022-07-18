@@ -58,30 +58,9 @@ describe Api::EncryptablesTransferController do
 
       post :create, params: file_params, xhr: true
 
-      expect(response).to have_http_status(201)
-
-      id = JSON.parse(response.body).dig('data', 'id')
-      shared_file = Encryptable.find(id)
-
-      expect(shared_file.sender_id).to eq(bob.id)
-      expect(shared_file.encrypted_transfer_password).present?
-
-      login_as(:alice)
-
-      get :show, params: { id: shared_file.id }, xhr: true
-
       expect(response).to have_http_status(200)
+      expect(response.body).to include("info\":[\"flashes.encryptable_transfer.file.transferred\"")
 
-      received_file = Encryptable.find(shared_file.id)
-      file_content = fixture_file_upload('test_file.txt', 'text/plain').read
-
-      expect(received_file.encrypted_transfer_password).to eq(nil)
-      expect(received_file.sender_id).to eq(bob.id)
-      expect(received_file.name).to eq('test_file.txt')
-      expect(received_file.description).to eq('test')
-      expect(received_file.content_type).to eq('text/plain')
-      expect(received_file.folder_id).to eq(alice.inbox_folder.id)
-      expect(response.body).to eq file_content
     end
   end
 

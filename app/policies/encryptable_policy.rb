@@ -37,7 +37,7 @@ class EncryptablePolicy < TeamDependantPolicy
   private
 
   def transferring_encryptable?
-    @record.transferred?
+    @record.inbox_folder_present?
   end
 
 end
