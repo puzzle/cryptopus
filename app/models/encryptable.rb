@@ -50,7 +50,7 @@ class Encryptable < ApplicationRecord
   end
 
   def inbox_folder_present?
-    Folder.find(folder_id)&.name == "inbox" if folder_id
+    Folder.find(folder_id)&.name == 'inbox' if folder_id
   end
 
   def plaintext_transfer_password(private_key)
