@@ -674,16 +674,16 @@ describe Api::EncryptablesController do
     end
   end
 
-  context "transfer" do
+  context 'transfer' do
     it 'alice receives file from bob' do
       filename = 'test_file.txt'
       inbox_folder_receiver = alice.inbox_folder
 
       file = Encryptable::File.new(folder: inbox_folder_receiver,
-                            description: 'test',
-                            name: filename,
-                            content_type: 'text/plain',
-                            cleartext_file: "certificate")
+                                   description: 'test',
+                                   name: filename,
+                                   content_type: 'text/plain',
+                                   cleartext_file: 'certificate')
 
       EncryptableTransfer.new.transfer(file, alice, bob)
 

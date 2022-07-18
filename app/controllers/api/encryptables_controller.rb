@@ -37,7 +37,6 @@ class Api::EncryptablesController < ApiController
     entry.encrypt(decrypted_team_password(team))
 
     entry.save ? render_entry({ status: :created }) : render_errors
-
   end
 
   # PATCH /api/encryptables/:id?Query

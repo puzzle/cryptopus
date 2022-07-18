@@ -15,7 +15,9 @@ class Api::EncryptablesTransferController < ApiController
   private
 
   def transfer_file
-    @encryptable = EncryptableTransfer.new.transfer(entry, User::Human.find(receiver_id), current_user)
+    @encryptable = EncryptableTransfer.new.transfer(
+      entry, User::Human.find(receiver_id), current_user
+    )
 
     add_info('flashes.encryptable_transfer.file.transferred')
   end
@@ -48,7 +50,7 @@ class Api::EncryptablesTransferController < ApiController
   end
 
   def receiver_id
-    params.dig('receiver_id')
+    params['receiver_id']
   end
 
   def receiver
