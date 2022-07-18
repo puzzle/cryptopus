@@ -87,6 +87,8 @@ ch_be:
       copy_password: Passwort kopierä
       copy_username: Benutzername kopierä
       add_attachment: Anhang hinzufüegä
+      password_blank: Lärs Passwort
+      username_blank: Läre Benutzername
     new:
       title: Nöi Zuägangsdate
 
@@ -270,7 +272,7 @@ ch_be:
       moved: D Zuägangsdate si erfougrich verschobe worde.
       username_copied: Dr Benutzernamä isch kopiert worde
       password_copied: Ds Passwort isch kopiert worde
-      empty_copied: Leere Wert kopiert
+      empty_copied: Läre Wert nid kopiert
 
     encryptable-credentials:
       << : *encryptables_translations

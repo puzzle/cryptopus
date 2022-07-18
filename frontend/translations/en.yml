@@ -87,6 +87,8 @@ en:
       copy_password: Copy password
       copy_username: Copy username
       add_attachment: Add Attachment
+      password_blank: Blank password
+      username_blank: Blank username
     new:
       title: New Credentials
 
@@ -270,7 +272,7 @@ en:
       moved: Credentials were successfully moved
       username_copied: Username was copied
       password_copied: Password was copied
-      empty_copied: Copied empty value
+      empty_copied: Empty value not copied
 
     encryptable-credentials:
       << : *encryptables_translations

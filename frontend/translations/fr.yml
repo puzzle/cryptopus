@@ -87,6 +87,8 @@ fr:
       copy_password: Copier le mot de passe
       copy_username: Copier le nom d'utilisateur
       add_attachment: Ajouter un attachement
+      password_blank: Mot de passe vide
+      username_blank:  Afficher le nom vide
     new:
       title: Nouveau compte
 
@@ -270,7 +272,7 @@ fr:
       moved: Le team a été déplacé avec succès.
       username_copied: Le nom d'utilisateur a été copié
       password_copied: Le mot de passe a été copié
-      empty_copied: Valeur vide copiée
+      empty_copied: Valeur vide ne pas copiée
 
     encryptable-credentials:
       << : *encryptables_translations

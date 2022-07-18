@@ -23,4 +23,5 @@ export default class Encryptable extends Model {
   get isFullyLoaded() {
     return isPresent(this.createdAt);
   }
+  
 }
