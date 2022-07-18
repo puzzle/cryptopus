@@ -9,14 +9,13 @@ class Api::EncryptablesTransferController < ApiController
     authorize entry
     transfer_file
 
-    entry.encrypt(decrypted_team_password(team))
     render json: messages
   end
 
   private
 
   def transfer_file
-    @encryptable = encryptable_transfer.transfer(entry, User::Human.find(receiver_id), current_user)
+    @encryptable = EncryptableTransfer.new.transfer(entry, User::Human.find(receiver_id), current_user)
 
     add_info('flashes.encryptable_transfer.file.transferred')
   end
