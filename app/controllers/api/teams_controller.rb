@@ -16,8 +16,8 @@ class Api::TeamsController < ApiController
 
   # GET /api/teams
   def index
-    if params['team_id'].present?
-      authorize fetch_entries.first, :team_member?
+    if team_id.present?
+      authorize Team.find(team_id), :team_member?
     elsif params['only_teammember_user_id'].present?
       authorize ::Team, :only_teammember?
     else
@@ -50,7 +50,7 @@ class Api::TeamsController < ApiController
   end
 
   def fetch_entries
-    @entries ||= Teams::FilteredList.new(current_user, params).fetch_entries
+    @entries ||= Teams::FilteredList.new(current_user, params).fetch_entries.to_a
   end
 
   def user

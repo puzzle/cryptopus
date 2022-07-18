@@ -21,6 +21,7 @@ class Encryptable < ApplicationRecord
   validates :type, presence: true
 
   belongs_to :folder
+  belongs_to :sender, class_name: 'User::Human'
 
   validates :name, presence: true
   validates :description, length: { maximum: 4000 }

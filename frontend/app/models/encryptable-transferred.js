@@ -8,7 +8,7 @@ export default class EncryptableTransferred extends Encryptable {
     if (this.isDeleted) {
       return super.save();
     }
-    const url = `/api/encryptables`;
+    const url = `/api/encryptables_transfer`;
     const receiverId = await this.receiver.get("id");
 
     const opts = {

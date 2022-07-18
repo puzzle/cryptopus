@@ -86,7 +86,7 @@ export default class FileTransfer extends BaseFormComponent {
   @action
   submit() {
     this.changeset.save();
-    // this.notify.info(this.intl.t('flashes.encryptable_transfer.file.transferred'));
+    this.abort();
   }
 
   showSuccessMessage() {
