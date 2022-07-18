@@ -21,7 +21,6 @@ export default class Encryptable extends Model {
   }
 
   get isFullyLoaded() {
-    return isPresent(this.createdAt);
+    return !this.id || isPresent(this.createdAt);
   }
-  
 }

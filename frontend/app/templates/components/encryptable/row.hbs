@@ -26,9 +26,12 @@
         </div>
       </div>
       <div class="col px-0 d-none d-md-block">
-        <button class="btn btn-light copy-btn" {{on "click" this.copyUsername}}>
+        <button class="btn btn-light copy-btn" {{on "click" this.copyUsername}}
+          disabled={{@encryptable.isUsernameBlank}} >
           <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-          <BsTooltip @title={{t "encryptable/credentials.show.copy_username"}} @delayShow="500" />
+          {{#unless @encryptable.isUsernameBlank}}
+            <BsTooltip @title={{t "encryptable/credentials.show.copy_username"}} @delayShow="500" />
+          {{/unless}}
         </button>
       </div>
 
@@ -39,9 +42,12 @@
         </div>
       </div>
       <div class="col pl-0 d-none d-md-block">
-        <button class="btn btn-light copy-btn" {{on "click" this.copyPassword}}>
+        <button class="btn btn-light copy-btn" {{on "click" this.copyPassword}}
+          disabled={{@encryptable.isPasswordBlank}} >
           <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-          <BsTooltip @title={{t "encryptable/credentials.show.copy_password"}} @delayShow="500" />
+          {{#unless @encryptable.isPasswordBlank}}
+            <BsTooltip @title={{t "encryptable/credentials.show.copy_password"}} @delayShow="500" />
+          {{/unless}}
         </button>
       </div>
     {{/unless}}

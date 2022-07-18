@@ -7,19 +7,11 @@ export default class EncryptableCredential extends Encryptable {
   @attr("string") cleartextPassword;
   @hasMany("encryptable-file") encryptableFiles;
 
-  get isFullyLoaded() {
-    return (
-      !this.id ||
-      this.cleartextUsername !== undefined ||
-      this.cleartextPassword !== undefined
-    );
-  }
-
   get isPasswordBlank() {
-    return isNone(this.cleartextPassword);
+    return this.isFullyLoaded && isNone(this.cleartextPassword);
   }
 
   get isUsernameBlank() {
-    return isNone(this.cleartextUsername);
+    return this.isFullyLoaded && isNone(this.cleartextUsername);
   }
 }

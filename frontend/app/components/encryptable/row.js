@@ -58,8 +58,6 @@ export default class RowComponent extends Component {
     if (isPresent(value)) {
       this.clipboardService.copy(value);
       this.notifyCopied(attr);
-    } else {
-      this.notifyCopied("empty");
     }
   }
 
@@ -75,7 +73,20 @@ export default class RowComponent extends Component {
       .catch((error) => {
         if (error.message.includes("401"))
           window.location.replace("/session/new");
+      })
+      .then((a) => {
+        this.encryptableFullyLoaded(a);
+        return a;
       });
+  }
+
+  encryptableFullyLoaded(encryptable) {
+    if (encryptable.isPasswordBlank) {
+      this.isPasswordVisible = true;
+    }
+    if (encryptable.isUsernameBlank) {
+      this.isUsernameVisible = true;
+    }
   }
 
   @action
