@@ -1,18 +1,29 @@
 import Helper from "@ember/component/helper";
-import { capitalize } from "@ember/string";
 import { inject as service } from "@ember/service";
 
 export default Helper.extend({
   intl: service(),
 
   compute(params) {
-    let [encryptable, attr] = params; // eslint-disable-line
-    const attrName = capitalize(attr);
-    const isBlank = eval(`encryptable.is${attrName}Blank`);
+    let [encryptable, attr] = params;
+    let isBlank = false;
+
+    if (attr == "password") {
+      isBlank = encryptable.isPasswordBlank;
+    }
+    if (attr == "username") {
+      isBlank = encryptable.isUsernameBlank;
+    }
+
     if (isBlank) {
       return this.intl.t(`encryptable/credentials.show.blank`);
     } else {
-      return eval(`encryptable.cleartext${attrName}`);
+      if (attr == "password") {
+        return encryptable.cleartextPassword;
+      }
+      if (attr == "username") {
+        return encryptable.cleartextUsername;
+      }
     }
   }
 });
