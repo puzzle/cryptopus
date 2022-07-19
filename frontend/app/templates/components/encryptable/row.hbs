@@ -4,20 +4,27 @@
 <div id={{concat "loader-encryptable-" @encryptable.id}} {{did-insert this.setupInViewport}}>
 </div>
 {{#if this.isShown}}
-  {{#if this.isTransferredFile}}
+  {{#if this.isFile}}
     <div class="row d-flex align-items-center p-2 bg-grey-2 rounded encryptable-entry">
-      <LinkTo class="col-4 underline-hover break-words account-link" @route="encryptables.show" @model={{@encryptable.id}}>
+      <div class="mx-1">
+        <img class="icon-medium-button d-inline" src="/assets/images/file.svg" alt="file icon">
+      </div>
+
+      <LinkTo class="col-4 underline-hover break-words account-link" @route="encryptableTransferred.show" @model={{@encryptable.id}}>
         {{@encryptable.name}}
       </LinkTo>
 
+      <div class="mx-1">
+        <img class="icon-medium-button d-inline" src="/assets/images/member.svg" alt="file icon">
+      </div>
       <div class="col-6 d-none d-md-block">
-        sender name
+        {{@encryptable.sender_name}} / {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}
       </div>
 
       <div class="col-md-auto d-none d-md-block">
         <a class="mx-1" role="button" {{on "click" this.toggleEncryptableDownload}}>
           <img class="icon-medium-button d-inline" src="/assets/images/file_download.svg" alt="download file">
-          <BsTooltip @title={{t "encryptable/transferring/file.download"}} @delayShow="1000" />
+          <BsTooltip @title={{t "download_file"}} @delayShow="1000" />
         </a>
 
         <DeleteWithConfirmation @class="mx-1" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>

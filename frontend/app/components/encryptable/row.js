@@ -32,7 +32,7 @@ export default class RowComponent extends Component {
   isShown = false;
 
   @tracked
-  isTransferredFile = this.args.encryptable.isFile;
+  isFile = this.args.encryptable.isFile;
 
   constructor() {
     super(...arguments);

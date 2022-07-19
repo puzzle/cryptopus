@@ -22,13 +22,8 @@ export default class ShowComponent extends Component {
   isPasswordVisible = false;
 
   @action
-  toggleEncryptableEdit() {
-    this.isEncryptableEditing = !this.isEncryptableEditing;
-  }
-
-  @action
-  toggleFileNew() {
-    this.isFileCreating = !this.isFileCreating;
+  toggleFileDownload() {
+    // download @encryptable.file
   }
 
   @action

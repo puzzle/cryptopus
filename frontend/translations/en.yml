@@ -21,6 +21,7 @@ en:
   password: Password
   actions: Actions
   download: Download
+  download_file: Download file
   "yes": Yes
   "no": No
   help: Help
@@ -81,6 +82,7 @@ en:
       title: Credentials
       created_at: "Created at"
       last_update: "Last Update at"
+      transferred_at: "Transferred at"
       attachments: Attachments
       file: File
       show_password: Show password
@@ -99,10 +101,11 @@ en:
       title: Send file to
     receiver:
       name: Choose a receiver
+    show:
+      sender_name: Sender name
     submit: Send
     description_for_sender: Your file will be sent encrypted to the inobx folder from the selected receiver.
     description_for_receiver: Description for the receiver
-    download: Download transferred file
     delete_transferred_encryptables: Delete transferred file
 
   admin:

@@ -21,6 +21,7 @@ de:
   password: Passwort
   actions: Aktionen
   download: Herunterladen
+  download_file: Datei herunterladen
   "yes": Ja
   "no": Nein
   help: Hilfe
@@ -81,6 +82,7 @@ de:
       title: Zugangsdaten
       created_at: "Erstellt am"
       last_update: "Letzte Änderung am"
+      transferred_at: "Transferiert am"
       attachments: Anhänge
       file: Datei
       show_password: Passwort anzeigen
@@ -99,6 +101,8 @@ de:
       title: "Datei teilen"
     receiver:
       name: Wähle einen Empfänger aus
+    show:
+      sender_name: Sender Name
     submit: Senden
     description_for_sender: Deine Datei wird verschlüsselt in den Inbox Ordner des Empfängers geschickt.
     description_for_receiver: Beschreibung für den Empfänger

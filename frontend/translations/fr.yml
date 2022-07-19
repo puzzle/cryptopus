@@ -21,6 +21,7 @@ fr:
   password: Mot de passe
   actions: Actions
   download: Télécharger
+  download_file: Télécharger le fichier
   "yes": Oui
   "no": Non
   help: Aide
@@ -81,6 +82,7 @@ fr:
       title: Compte
       created_at: "Créé à"
       last_update: "Dernie changement à"
+      transferred_at: "Partager à"
       attachments: Attachements
       file: Fichier
       show_password: Afficher le mot de passe
@@ -99,6 +101,8 @@ fr:
       title: "partager fichier"
     receiver:
       name: Choisir le récepteur
+    show:
+      sender_name: Nom de l'émetteur
     submit: envoyer
     description_for_sender: Ton fichier sera envoyé crypté au destinataire sélectionné dans le dossier de la boîte de réception.
     description_for_receiver: Description pour le destinataire

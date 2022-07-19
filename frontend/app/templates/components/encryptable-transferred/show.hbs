@@ -7,15 +7,23 @@
         </span>
       </a>
     </div>
+
+    <div class="col-auto d-flex justify-content-between align-items-center">
+      <DeleteWithConfirmation @class="btn btn-light edit_button" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
+        <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
+      </DeleteWithConfirmation>
+    </div>
   </div>
+
   <div class="row pb-3 justify-content-between">
     <div class="col-lg-9 accountname">
-      <h2 class="d-inline">{{t "encryptable/credentials.show.title"}}: {{@encryptable.name}}</h2>
+      <h2 class="d-inline">{{t "encryptable/credentials.show.file"}}: {{@encryptable.name}}</h2>
     </div>
     <div class="col-lg-9 accountname text-muted">
-      <br><p class="d-inline">{{t "encryptable/credentials.show.created_at"}}: {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}</p>
-       /
-      <p class="d-inline">{{t "encryptable/credentials.show.last_update"}}: {{moment-format @encryptable.updatedAt "DD.MM.YYYY hh:mm"}}</p>
+      <br><p class="d-inline">{{t "encryptable/credentials.show.transferred_at"}}: {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}</p>
+    </div>
+    <div class="col-lg-9">
+      <br><p class="d-inline">{{t "encryptable/transferring/file.show.sender_name"}}: {{@encryptable.sender_name}}</p>
     </div>
   </div>
 
@@ -26,26 +34,12 @@
       </div>
     </div>
   {{/if}}
+
   <div class="d-flex flex-row justify-content-between mb-2">
     <div>
-      <h3>{{t "encryptable/credentials.show.attachments"}}</h3>
-    </div>
-    <div>
-      <BsButton @type="primary" {{on "click" this.toggleFileNew}}>
-        {{t "encryptable/credentials.show.add_attachment"}}
+      <BsButton @type="primary" {{on "click" this.toggleFileDownload}}>
+        {{t "download_file"}}
       </BsButton>
     </div>
   </div>
-  <table class="table table-striped">
-    <tbody>
-      <tr>
-        <th>{{t "encryptable/credentials.show.file"}}</th>
-        <th class="description">{{t "description"}}</th>
-        <th>{{t "actions"}}</th>
-      </tr>
-      {{#each @encryptable.encryptableFiles as |encryptableFile|}}
-        <EncryptableFile::Row @encryptableFile={{encryptableFile}}/>
-      {{/each}}
-    </tbody>
-  </table>
 </div>

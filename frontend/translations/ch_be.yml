@@ -20,6 +20,7 @@ ch_be:
   password: Passwort
   actions: Aktionä
   download: Abäladä
+  download_file: Datei abäladä
   yes: Ja
   no: Nei
   help: Hiuf
@@ -80,6 +81,7 @@ ch_be:
       title: Zuägangsdate
       created_at: "Ersteut am"
       last_update: "Letschti Änderig am"
+      transferred_at: "Transferiert am"
       attachments: Ahäng
       file: Datei
       show_password: Passwort ahzeigä
@@ -98,6 +100,8 @@ ch_be:
       title: "Datei teilä"
     receiver:
       name: Wäu ä empfänger
+    show:
+      sender_name: Name vom sänder
     submit: Schickä
     description_for_sender: Dini Datei wird verschlüsslet i Inbox Ordner vom Empfänger gschickt.
     description_for_receiver: Beschribig füre empfänger
