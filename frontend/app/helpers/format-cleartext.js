@@ -6,7 +6,7 @@ export default Helper.extend({
   intl: service(),
 
   compute(params) {
-    let [encryptable, attr] = params;
+    let [encryptable, attr] = params; // eslint-disable-line
     const attrName = capitalize(attr);
     const isBlank = eval(`encryptable.is${attrName}Blank`);
     if (isBlank) {
