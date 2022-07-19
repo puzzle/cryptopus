@@ -140,7 +140,7 @@ describe Api::TeamsController do
 
     end
 
-    it 'returns teams, folders and encryptables for query' do
+    it 'returns teams, folders and encryptables for query, in order from name' do
       login_as(:bob)
 
       folder1 = folders(:folder1)
@@ -148,6 +148,11 @@ describe Api::TeamsController do
 
       credentials1 = encryptables(:credentials1)
       credentials2 = encryptables(:credentials2)
+      credentials3 = Encryptable::Credentials.create(
+        name: 'All twitter',
+        description: 'My twitter account',
+        folder: folder2
+      )
 
       get :index, params: { q: 'twitter' }, xhr: true
 
@@ -165,12 +170,55 @@ describe Api::TeamsController do
       expect(folders.first['attributes']['name']).to eq(folder2.name)
       expect(folders).not_to include(folder1.name)
 
-      expect(encryptables.first['attributes']['name']).to eq(credentials2.name)
+      expect(encryptables.first['attributes']['name']).to eq(credentials3.name)
+      expect(encryptables.second['attributes']['name']).to eq(credentials2.name)
       expect(encryptables).not_to include(credentials1.name)
       folder_relationships_length = data.first['relationships']['folders']['data'].size
 
-      expect(included.size).to be(2)
+      expect(included.size).to be(3)
       expect(folder_relationships_length).to be(1)
+    end
+
+    it 'returns encryptable files for team_id, in order from created_at' do
+      inbox_folder_receiver = alice.inbox_folder
+      personal_team_alice = teams(:personal_team_alice)
+
+      filename1 = 'other_file.txt'
+      file = Encryptable::File.new(folder: inbox_folder_receiver,
+                                   description: 'Other file for alice',
+                                   name: filename1,
+                                   content_type: 'text/plain',
+                                   created_at: DateTime.now - 3.years,
+                                   cleartext_file: 'certificate1')
+      EncryptableTransfer.new.transfer(file, alice, bob)
+
+      filename2 = 'test_file.txt'
+      file = Encryptable::File.new(folder: inbox_folder_receiver,
+                                   description: 'Test file',
+                                   name: filename2,
+                                   content_type: 'text/plain',
+                                   created_at: DateTime.now,
+                                   cleartext_file: 'certificate2')
+      EncryptableTransfer.new.transfer(file, alice, bob)
+
+      login_as(:alice)
+
+      get :index, params: { team_id: personal_team_alice.id }, xhr: true
+
+      expect(data.count).to eq(1)
+
+      folders = included.select { |element| element['type'] == 'folders' }
+      encryptables = included.select { |element| element['type'] == 'encryptable_files' }
+
+      expect(folders.first['attributes']['name']).to eq('inbox')
+
+      expect(encryptables.first['attributes']['name']).to eq(filename2)
+      expect(encryptables.first['attributes']['name']).not_to eq(filename1)
+      expect(encryptables.second['attributes']['name']).to eq(filename1)
+      expect(encryptables.second['attributes']['name']).not_to eq(filename2)
+
+      expect(encryptables.count).to be(2)
+      expect(included.size).to be(3)
     end
 
     it 'returns sender_name if transferred encryptable' do

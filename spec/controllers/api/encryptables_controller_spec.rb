@@ -676,6 +676,8 @@ describe Api::EncryptablesController do
 
   context 'transfer' do
     it 'alice receives file from bob' do
+      login_as(:bob)
+
       filename = 'test_file.txt'
       inbox_folder_receiver = alice.inbox_folder
 
