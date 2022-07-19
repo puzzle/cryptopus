@@ -11,8 +11,8 @@ class Encryptable::File < Encryptable
 
   validate :file_size, on: [:create, :update]
 
-  def decrypt(team_password, transferred = nil)
-    decrypt_attr(:file, team_password, sender_id.present? || transferred)
+  def decrypt(team_password)
+    decrypt_attr(:file, team_password)
   end
 
   def encrypt(team_password)
@@ -22,7 +22,7 @@ class Encryptable::File < Encryptable
   end
 
   def decrypt_transfered(private_key)
-    decrypt(plaintext_transfer_password(private_key), true)
+    decrypt(plaintext_transfer_password(private_key))
   end
 
   def team
