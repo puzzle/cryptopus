@@ -87,6 +87,7 @@ en:
       copy_password: Copy password
       copy_username: Copy username
       add_attachment: Add Attachment
+      blank: none
     new:
       title: New Credentials
 

@@ -57,4 +57,12 @@ export default class ShowComponent extends Component {
   onCopied(attribute) {
     this.notify.info(this.intl.t(`flashes.encryptables.${attribute}_copied`));
   }
+
+  get noCopyBlankPasswordTooltip() {
+    return this.intl.t("encryptable/credentials.show.blank");
+  }
+
+  get noCopyBlankUsernameTooltip() {
+    return this.intl.t("encryptable/credentials.show.blank");
+  }
 }

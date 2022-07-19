@@ -2,7 +2,8 @@ import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
-import { isNone } from "@ember/utils";
+import { isPresent } from "@ember/utils";
+import { capitalize } from "@ember/string";
 
 export default class RowComponent extends Component {
   @service store;
@@ -32,48 +33,39 @@ export default class RowComponent extends Component {
 
   @action
   copyPassword() {
-    let password = this.args.encryptable.cleartextPassword;
-    if (isNone(password)) {
-      this.fetchAccount().then((a) => {
-        this.clipboardService.copy(a.cleartextPassword);
-        this.onCopied("password");
-      });
-    } else {
-      this.copyToClipboard(password);
-      this.onCopied("password");
-    }
+    this.fetchAndCopyToClipboard("password");
   }
 
   @action
   copyUsername() {
-    let username = this.args.encryptable.cleartextUsername;
-    if (isNone(username)) {
-      this.fetchAccount().then((a) => {
-        this.clipboardService.copy(a.cleartextUsername);
-        this.onCopied("username");
-      });
+    this.fetchAndCopyToClipboard("username");
+  }
+
+  fetchAndCopyToClipboard(attr) {
+    const encryptable = this.args.encryptable;
+    if (encryptable.isFullyLoaded) {
+      const value = encryptable[`cleartext${capitalize(attr)}`];
+      this.copyToClipboard(attr, value);
     } else {
-      this.copyToClipboard(username);
-      this.onCopied("username");
+      this.fetchEncryptable().then((a) => {
+        const value = a[`cleartext${capitalize(attr)}`];
+        this.copyToClipboard(attr, value);
+      });
     }
   }
 
-  copyToClipboard(text) {
-    // Copying to clipboard is not possible in another way. Even libraries do it with a fake element.
-    // We don't use the addon ember-cli-clipboard, as we need to wait for a async call to finish.
-    const fakeEl = document.createElement("textarea");
-    fakeEl.value = text;
-    fakeEl.setAttribute("readonly", "");
-    fakeEl.style.position = "absolute";
-    fakeEl.style.left = "-9999px";
-    document.body.appendChild(fakeEl);
-    fakeEl.select();
-    document.execCommand("copy");
-    document.body.removeChild(fakeEl);
+  copyToClipboard(attr, value) {
+    if (isPresent(value)) {
+      this.clipboardService.copy(value);
+      this.notifyCopied(attr);
+    }
   }
 
-  @action
-  fetchAccount() {
+  notifyCopied(attr) {
+    this.notify.info(this.intl.t(`flashes.encryptables.${attr}_copied`));
+  }
+
+  fetchEncryptable() {
     return this.store
       .findRecord("encryptable-credential", this.args.encryptable.id, {
         reload: true
@@ -81,7 +73,29 @@ export default class RowComponent extends Component {
       .catch((error) => {
         if (error.message.includes("401"))
           window.location.replace("/session/new");
+      })
+      .then((a) => {
+        this.encryptableFullyLoaded(a);
+        return a;
       });
+  }
+
+  encryptableFullyLoaded(encryptable) {
+    if (encryptable.isPasswordBlank) {
+      this.isPasswordVisible = true;
+    }
+    if (encryptable.isUsernameBlank) {
+      this.isUsernameVisible = true;
+    }
+  }
+
+  formattedValue(encryptable, attr) {
+    let value = "";
+    if (encryptable.isPasswordBlank) {
+      value = this.intl.t(`encryptable/credential.${attr}_blank`);
+    }
+
+    return value;
   }
 
   @action
@@ -96,7 +110,7 @@ export default class RowComponent extends Component {
 
   @action
   showPassword() {
-    this.fetchAccount();
+    this.fetchEncryptable();
     this.isPasswordVisible = true;
 
     this.passwordHideCountdownTime = new Date().getTime();
@@ -131,18 +145,13 @@ export default class RowComponent extends Component {
 
   @action
   showUsername() {
-    this.fetchAccount();
+    this.fetchEncryptable();
     this.isUsernameVisible = true;
   }
 
   @action
   transitionToAccount() {
     this.router.transitionTo("encryptables.show", this.args.encryptable.id);
-  }
-
-  @action
-  onCopied(attribute) {
-    this.notify.info(this.intl.t(`flashes.encryptables.${attribute}_copied`));
   }
 
   willDestroy() {

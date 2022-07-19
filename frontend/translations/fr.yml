@@ -87,6 +87,7 @@ fr:
       copy_password: Copier le mot de passe
       copy_username: Copier le nom d'utilisateur
       add_attachment: Ajouter un attachement
+      blank: Vide
     new:
       title: Nouveau compte
 
