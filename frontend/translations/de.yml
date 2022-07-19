@@ -271,7 +271,6 @@ de:
       moved: Die Zugangsdaten wurden erfolgreich veschoben
       username_copied: Benutzername wurde kopiert
       password_copied: Passwort wurde kopiert
-      empty_copied: Leerer Wert nicht kopiert
 
     encryptable-credentials:
       << : *encryptables_translations
