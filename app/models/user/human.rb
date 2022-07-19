@@ -156,7 +156,7 @@ class User::Human < User
   end
 
   def inbox_folder
-    personal_team.folders.find_or_create_by(name: 'inbox')
+    personal_team.folders.find_or_create_by(name: 'inbox', personal_inbox: true)
   end
 
   private

@@ -10,18 +10,12 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  team_id     :integer          default(0), not null
+#  personal_inbox :boolean       default(false)
 #
-
-#  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of
-#  Cryptopus and licensed under the Affero General Public License version 3 or later.
-#  See the COPYING file at the top-level directory or at
-#  https://github.com/puzzle/cryptopus.
 
 class Folder < ApplicationRecord
   belongs_to :team
-  has_many :encryptables, -> (object) {
-             order(object.personal_inbox? ? 'created_at DESC' : :name)
-           }, dependent: :destroy
+  has_many :encryptables, -> { order(:name) }, dependent: :destroy
 
   attr_readonly :team_id
 
@@ -30,12 +24,8 @@ class Folder < ApplicationRecord
   validates :name, length: { maximum: 70 }
   validates :description, length: { maximum: 300 }
 
-
   def label
     name
   end
 
-  def personal_inbox?
-    team.personal_team? && name == 'inbox'
-  end
 end

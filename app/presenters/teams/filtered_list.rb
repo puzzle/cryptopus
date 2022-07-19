@@ -67,8 +67,8 @@ module ::Teams
         OR lower(teams.name) LIKE :query',
         query: "%#{query}%"
       )
-           .references(:folders,
-                       folders: [:encryptables])
+        .references(:folders,
+                    folders: [:encryptables])
     end
 
     def filter_by_id(filtered_teams)

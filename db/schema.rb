@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_05_075657) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_19_120958) do
   create_table "encryptables", force: :cascade do |t|
     t.string "name", limit: 255, default: "", null: false
     t.integer "folder_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_075657) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "team_id", default: 0, null: false
+    t.boolean "personal_inbox", default: false, null: false
     t.index ["name"], name: "index_folders_on_name"
   end
 

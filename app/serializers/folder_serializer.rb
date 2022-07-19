@@ -20,6 +20,12 @@
 class FolderSerializer < ActiveModel::Serializer
   attributes :id, :name, :description
 
-  has_many :encryptables, serializer: EncryptableMinimalSerializer
+  has_many :encryptables, serializer: EncryptableMinimalSerializer do
+    if object.personal_inbox?
+      object.encryptables.order('created_at DESC')
+    else
+      object.encryptables
+    end
+  end
 
 end
