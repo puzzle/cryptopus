@@ -41,12 +41,6 @@ describe EncryptableTransfer do
 
     it 'recrypts encryptable when received' do
       transfered_encryptable = encryptable_transfer.transfer(encryptable_file, alice, bob)
-      expect(received_file.content_type).to eq("text/plain")
-      expect(received_file.sender_id).to eq(alice.id)
-    end
-
-    it 'recrypts encryptable when received' do
-      transfered_encryptable = encryptable_transfer.transfer(encryptable_file, alice, bob)
 
       personal_team = alice.personal_team
       private_key = alice.decrypt_private_key('password')
@@ -61,19 +55,6 @@ describe EncryptableTransfer do
 
       expect(received_file.sender_id).to eq(bob.id)
       expect(received_file.encrypted_transfer_password).to be_nil
-    end
-
-    it 'does not recrypt credentials with transfer attributes' do
-      transfered_encryptable = encryptable_transfer.transfer(encryptables(:credentials1), alice, bob)
-
-      personal_team = alice.personal_team
-      private_key = alice.decrypt_private_key('password')
-
-      personal_team_password = personal_team.decrypt_team_password(alice, private_key)
-
-      expect do
-        encryptable_transfer.receive(transfered_encryptable, private_key, personal_team_password)
-      end.to raise_error(RuntimeError, "implement in subclass")
     end
   end
 end

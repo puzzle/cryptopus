@@ -19,7 +19,9 @@
 
 class Folder < ApplicationRecord
   belongs_to :team
-  has_many :encryptables, -> { order :name }, dependent: :destroy
+  has_many :encryptables, -> (object) {
+             order(object.personal_inbox? ? 'created_at DESC' : :name)
+           }, dependent: :destroy
 
   attr_readonly :team_id
 
@@ -31,5 +33,9 @@ class Folder < ApplicationRecord
 
   def label
     name
+  end
+
+  def personal_inbox?
+    team.personal_team? && name == 'inbox'
   end
 end
