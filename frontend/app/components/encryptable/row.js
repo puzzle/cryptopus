@@ -116,8 +116,8 @@ export default class RowComponent extends Component {
   }
 
   @action
-  toggleEncryptableDownload() {
-    // download transferred encryptable file
+  encryptableFileDownload() {
+    // Download encryptable file
   }
 
   @action

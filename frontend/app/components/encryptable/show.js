@@ -38,8 +38,8 @@ export default class ShowComponent extends Component {
   }
 
   @action
-  toggleFileDownload() {
-    return `/api/encryptables/${this.args.encryptable.get("id")}`;
+  encryptableFileDownload() {
+    // Download encryptable file
   }
 
   @action
