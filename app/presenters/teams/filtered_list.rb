@@ -45,7 +45,7 @@ module ::Teams
 
     def team_includes
       if team_id || query_present?
-        [:user_favourite_teams, { folders: {encryptables: :sender} }]
+        [:user_favourite_teams, { folders: { encryptables: :sender } }]
       else
         [:user_favourite_teams, :folders]
       end
@@ -67,8 +67,8 @@ module ::Teams
         OR lower(teams.name) LIKE :query',
         query: "%#{query}%"
       )
-        .references(:folders,
-                    folders: [:encryptables])
+           .references(:folders,
+                       folders: [:encryptables])
     end
 
     def filter_by_id(filtered_teams)
