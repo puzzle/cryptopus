@@ -5,18 +5,13 @@ import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "./base-form-component";
-import { isPresent } from "@ember/utils";
-import { isEmpty } from "@ember/utils";
 import ENV from "frontend/config/environment";
-
 
 export default class FileTransfer extends BaseFormComponent {
   @service store;
   @service router;
   @service navService;
-
   @tracked candidates;
-
   @tracked receiver;
 
   @tracked
@@ -38,7 +33,6 @@ export default class FileTransfer extends BaseFormComponent {
     this.changeset.csrfToken = ENV.CSRFToken;
 
     this.loadCandidates();
-
   }
 
   loadCandidates() {
@@ -61,7 +55,7 @@ export default class FileTransfer extends BaseFormComponent {
 
   @action
   selectReceiver(receiver) {
-    this.changeset.receiver = receiver
+    this.changeset.receiver = receiver;
   }
 
   @action
@@ -103,5 +97,4 @@ export default class FileTransfer extends BaseFormComponent {
     this.changeset.file = null;
     this.record.encryptableCredential = null;
   }
-
 }

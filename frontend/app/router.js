@@ -20,10 +20,6 @@ Router.map(function () {
     );
   });
 
-  this.route("encryptableTransferred", function () {
-    this.route("show", { path: "/:id" });
-  });
-
   this.route("teams", function () {
     this.route("index", { path: "/" });
     this.route("new");
