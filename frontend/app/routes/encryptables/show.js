@@ -20,8 +20,8 @@ export default class EncryptableShowRoute extends BaseRoute {
 
   model(params) {
     return hash({
-      encryptableCredential: this.store.findRecord(
-        "encryptable-credential",
+      encryptable: this.store.findRecord(
+        "encryptable",
         params.id
       ),
       encryptableFiles: this.store.query("encryptable-file", {
