@@ -697,8 +697,11 @@ describe Api::EncryptablesController do
 
       expect(response).to have_http_status(200)
 
+      alice_private_key = alice.decrypt_private_key('password')
+      personal_team_password = alice.personal_team.decrypt_team_password(alice, alice_private_key)
+
       received_file = Encryptable.find(shared_file.id)
-      file_content = fixture_file_upload('test_file.txt', 'text/plain').read
+      received_file.decrypt(personal_team_password)
 
       expect(received_file.encrypted_transfer_password).to eq(nil)
       expect(received_file.sender_id).to eq(bob.id)
@@ -706,7 +709,7 @@ describe Api::EncryptablesController do
       expect(received_file.description).to eq('test')
       expect(received_file.content_type).to eq('text/plain')
       expect(received_file.folder_id).to eq(alice.inbox_folder.id)
-      expect(response.body).to eq file_content
+      expect(received_file.cleartext_file).to eq('certificate')
     end
   end
 

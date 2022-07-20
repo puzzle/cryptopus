@@ -152,12 +152,16 @@ class Api::EncryptablesController < ApiController
   end
 
   def render_entry(options = nil)
-    return send_file(options) if encryptable_file? && action_name == 'show'
+    return send_file(options) if encryptable_file? && action_name == 'show' && file_download?
 
     super(options)
   end
 
   ### Files ###
+
+  def file_download?
+    response.header['Content-Type'] != 'text/json'
+  end
 
   def send_file(options)
     send_data(entry.cleartext_file, { filename: entry.name,

@@ -16,10 +16,11 @@ class EncryptableTransfer
   def receive(encryptable, private_key, personal_team_password)
     encryptable.decrypt_transfered(private_key)
 
-    encryptable.update!(encrypted_transfer_password: nil)
-
     encryptable.encrypt(personal_team_password)
     encryptable.decrypt(personal_team_password)
+
+    encryptable.encrypted_transfer_password = nil
+    encryptable.save!
 
     encryptable
   end

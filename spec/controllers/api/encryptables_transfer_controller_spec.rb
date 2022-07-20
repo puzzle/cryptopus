@@ -61,6 +61,15 @@ describe Api::EncryptablesTransferController do
       expect(response).to have_http_status(200)
       expect(response.body).to include("info\":[\"flashes.encryptable_transfer.file.transferred\"")
 
+
+      transferred_encryptable = alice.personal_team.folders.last.encryptables.first
+      plaintext_team_password = alice.personal_team.decrypt_team_password(alice, alice.decrypt_private_key('password'))
+      EncryptableTransfer.new.receive(transferred_encryptable, alice.decrypt_private_key('password'), plaintext_team_password)
+
+      expect(transferred_encryptable.name).to eq('test_file.txt')
+      expect(transferred_encryptable.description).to eq('test')
+      expect(transferred_encryptable.sender_id).to eq(bob.id)
+      expect(transferred_encryptable.cleartext_file).to eq('certificate')
     end
   end
 
