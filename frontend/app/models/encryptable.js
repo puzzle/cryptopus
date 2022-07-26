@@ -1,4 +1,5 @@
 import Model, { attr, belongsTo } from "@ember-data/model";
+import { isPresent } from "@ember/utils";
 
 export default class Encryptable extends Model {
   @attr("string") name;
@@ -17,5 +18,9 @@ export default class Encryptable extends Model {
 
   get isFile() {
     return this.constructor.modelName === "encryptable-file";
+  }
+
+  get isFullyLoaded() {
+    return !this.id || isPresent(this.createdAt);
   }
 }

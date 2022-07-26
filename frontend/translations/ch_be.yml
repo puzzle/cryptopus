@@ -87,6 +87,7 @@ ch_be:
       copy_password: Passwort kopierä
       copy_username: Benutzername kopierä
       add_attachment: Anhang hinzufüegä
+      blank: Läär
     new:
       title: Nöi Zuägangsdate
 

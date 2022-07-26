@@ -1,3 +1,6 @@
+## Version 4.6
+- Improve copy username/password
+
 ## Version 4.5
 - Implement new fallback info
 
