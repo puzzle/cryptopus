@@ -4,7 +4,7 @@
       <SearchResultComponent @q={{q}}/>
     {{/if}}
     {{#if @model}}
-      {{#each this.model as |team|}}
+      {{#each @model as |team|}}
         <Team::Show @team={{team}} />
       {{/each}}
     {{else}}
