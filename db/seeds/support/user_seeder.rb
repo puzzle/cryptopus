@@ -15,7 +15,7 @@ class UserSeeder
       u.auth = 'db'
       u.role = :admin
       u.password = Crypto::Hashing.generate_salted(password)
-      create_keypair(u)
+      create_keypair(u, password)
     end
   end
 
@@ -42,15 +42,15 @@ class UserSeeder
       u.auth = 'db'
       u.password = Crypto::Hashing.generate_salted('password')
       u.role = role
-      create_keypair(u)
+      create_keypair(u, 'password')
     end
   end
 
-  def create_keypair(user)
+  def create_keypair(user, password)
     keypair = Crypto::Rsa.generate_new_keypair
     unencrypted_private_key = keypair.to_s
     user.public_key = keypair.public_key.to_s
-    user.private_key = Crypto::Symmetric::Aes256.encrypt_with_salt(unencrypted_private_key, 'password')
+    user.private_key = Crypto::Symmetric::Aes256.encrypt_with_salt(unencrypted_private_key, password)
   end
 
 end
