@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  cryptopus:
+    image: quay.io/puzzle/cryptopus:stable
+    env_file:
+      - postgres-prod.env
+    environment:
+      RAILS_DB_ADAPTER: 'postgresql'
+      RAILS_DB_HOST: 'postgres'
+      RAILS_DB_NAME: 'cryptopus_prod'
+      RAILS_DB_PORT: 5432
+      RAILS_DB_USERNAME: postgres
+      # RAILS_HOST_SSL: 'false' # uncomment for disabling ssl force
+    ports:
+      - 127.0.0.1:8080:3000
+  postgres:
+    image: postgres:14
+    env_file:
+      - postgres-prod.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgres
+volumes:
+  postgres:
