@@ -117,7 +117,11 @@ export default class RowComponent extends Component {
 
   @action
   encryptableFileDownload() {
-    // Download encryptable file
+    window.open(this.downloadLink(), "_blank");
+  }
+
+  downloadLink() {
+    return `/api/encryptables/${this.args.encryptable.get("id")}`;
   }
 
   @action
