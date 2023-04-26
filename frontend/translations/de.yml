@@ -306,6 +306,7 @@ de:
       uploaded: Die Datei wurde erfolgreich hochgeladen.
       uploaded_size_to_high: Die Datei ist zu gross zum hochladen. (Max. 10MB)
       uploaded_filename_is_empty: Die Datei muss benannt sein
+      uploaded_file_blank: Die Datei darf nicht leer sein
       uploaded_file_inexistent: Datei ist inexistent
       uploaded_filename_already_exists: Dateiname existiert bereits
     encryptable_transfer:

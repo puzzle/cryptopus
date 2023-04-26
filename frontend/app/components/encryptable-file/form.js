@@ -42,9 +42,20 @@ export default class Form extends BaseFormComponent {
   }
 
   async beforeSubmit() {
-    await this.changeset.validate();
-    this.record.encryptableCredential = this.args.encryptableCredential;
-    return this.changeset.isValid;
+    if (this.changeset.file.size > 1000000) {
+      let msg = this.intl.t("flashes.encryptable_files.uploaded_size_to_high");
+      this.notify.error(msg);
+    } else if (this.changeset.file.size === 0) {
+      let msg = this.intl.t("flashes.encryptable_files.uploaded_file_blank");
+      this.notify.error(msg);
+    } else if (this.changeset.file.name === "") {
+      let msg = this.intl.t("flashes.encryptable_files.uploaded_filename_is_empty");
+      this.notify.error(msg);
+    } else {
+      await this.changeset.validate();
+      this.record.encryptableCredential = this.args.encryptableCredential;
+      return this.changeset.isValid;
+    }
   }
 
   showSuccessMessage() {

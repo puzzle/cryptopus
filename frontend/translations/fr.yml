@@ -306,6 +306,7 @@ fr:
       uploaded: Fichier téléchargé avec succès.
       uploaded_size_to_high: Fichier est trop volumineux pour tèlècharger. (max. 10MB)
       uploaded_filename_is_empty: Le fichier n'a pas été nommé
+      uploaded_file_blank: Le fichier ne doit pas être vide
       uploaded_file_inexistent: Fichier est inexistant
       uploaded_filename_already_exists: Le nom de fichier existe déjà
     encryptable_transfer:
