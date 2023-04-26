@@ -29,3 +29,8 @@ folder4:
 default_folder_bob:
   name: default
   team: personal_team_bob
+
+inbox_folder_alice:
+  name: inbox
+  team: personal_team_alice
+  personal_inbox: true

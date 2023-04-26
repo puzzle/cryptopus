@@ -70,7 +70,7 @@ class Encryptable < ApplicationRecord
   def encrypt_attr(attr, team_password)
     cleartext_value = send(:"cleartext_#{attr}")
 
-    encrypted_value = if cleartext_value.nil? || cleartext_value.empty?
+    encrypted_value = if cleartext_value.nil? || cleartext_value.blank?
                         nil
                       else
                         Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)

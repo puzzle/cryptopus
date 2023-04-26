@@ -14,6 +14,7 @@ describe Api::EncryptablesController do
   let!(:ose_secret) { create_ose_secret }
   let(:credentials1) { encryptables(:credentials1) }
   let(:file1) { encryptables(:file1) }
+  let(:transferred_file1) { encryptables(:transferredFile1) }
 
 
   context 'GET index' do
@@ -277,6 +278,36 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['cleartext_username']).to eq 'test'
         expect(credentials1_json_attributes['cleartext_password']).to eq 'password'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
+      end
+    end
+
+    context 'File transfer' do
+      it 'download transferred encryptable' do
+        login_as(:bob)
+
+        encryptable_file = prepare_transferred_encryptable
+
+        login_as(:alice)
+
+        expect(controller).to receive(:send_file).exactly(:once)
+
+        get :show, params: { id: encryptable_file.id }, xhr: true
+      end
+
+      it 'displays transferred encryptable and dont download it' do
+        login_as(:bob)
+
+        encryptable_file = prepare_transferred_encryptable
+
+        login_as(:alice)
+
+        expect(controller).not_to receive(:send_file)
+        expect_any_instance_of(CrudController).to receive(:render_entry).exactly(:once)
+
+        get :show, params: { id: encryptable_file.id,
+                             encryptable: ActionController::Parameters.new({
+                                                                             test: 1
+                                                                           }).permit! }, xhr: true
       end
     end
   end
@@ -732,6 +763,27 @@ describe Api::EncryptablesController do
     file.encrypt(team2_password)
     file.save!
     file
+  end
+
+  def prepare_transferred_encryptable
+    encryptable_file = Encryptable::File.new(name: 'file',
+                                             cleartext_file: file_fixture('test_file.txt').read,
+                                             content_type: 'text/plain')
+
+    transfer_password = Crypto::Symmetric::Aes256.random_key
+
+    encryptable_file.encrypt(transfer_password)
+
+    encrypted_transfer_password = Crypto::Rsa.encrypt(
+      transfer_password,
+      alice.public_key
+    )
+    encryptable_file.encrypted_transfer_password = encrypted_transfer_password
+    encryptable_file.sender_id = bob.id
+    encryptable_file.folder = alice.inbox_folder
+    encryptable_file.save!
+
+    encryptable_file
   end
 
   def example_ose_secret_yaml
