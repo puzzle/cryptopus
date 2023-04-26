@@ -212,10 +212,10 @@ describe Api::TeamsController do
 
       expect(folders.first['attributes']['name']).to eq('inbox')
 
-      expect(encryptables.first['attributes']['name']).to eq(filename2)
-      expect(encryptables.first['attributes']['name']).not_to eq(filename1)
-      expect(encryptables.second['attributes']['name']).to eq(filename1)
-      expect(encryptables.second['attributes']['name']).not_to eq(filename2)
+      expect(encryptables.first['attributes']['name']).to eq(filename1)
+      expect(encryptables.first['attributes']['name']).not_to eq(filename2)
+      expect(encryptables.second['attributes']['name']).to eq(filename2)
+      expect(encryptables.second['attributes']['name']).not_to eq(filename1)
 
       expect(encryptables.count).to be(2)
       expect(included.size).to be(3)

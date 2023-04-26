@@ -16,7 +16,7 @@ class Encryptable::File < Encryptable
   end
 
   def encrypt(team_password)
-    return if cleartext_file.blank?
+    return if cleartext_file.empty?
 
     encrypt_attr(:file, team_password)
   end
