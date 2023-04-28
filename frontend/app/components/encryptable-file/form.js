@@ -49,7 +49,9 @@ export default class Form extends BaseFormComponent {
       let msg = this.intl.t("flashes.encryptable_files.uploaded_file_blank");
       this.notify.error(msg);
     } else if (this.changeset.file.name === "") {
-      let msg = this.intl.t("flashes.encryptable_files.uploaded_filename_is_empty");
+      let msg = this.intl.t(
+        "flashes.encryptable_files.uploaded_filename_is_empty"
+      );
       this.notify.error(msg);
     } else {
       await this.changeset.validate();

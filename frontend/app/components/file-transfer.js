@@ -90,10 +90,11 @@ export default class FileTransfer extends BaseFormComponent {
       let msg = this.intl.t("flashes.encryptable_files.uploaded_file_blank");
       this.notify.error(msg);
     } else if (this.changeset.file.name === "") {
-      let msg = this.intl.t("flashes.encryptable_files.uploaded_filename_is_empty");
+      let msg = this.intl.t(
+        "flashes.encryptable_files.uploaded_filename_is_empty"
+      );
       this.notify.error(msg);
-    }
-    else {
+    } else {
       this.changeset.save();
       this.abort();
       this.showSuccessMessage();
