@@ -209,6 +209,7 @@ li a {
   height: 18px !important;
   display: inline;
   margin-top: 4px;
+  margin-left: 120px;
 }
 
 .info-icon:hover {
@@ -464,4 +465,29 @@ h5, h6 {
   line-height: 50px;
   align-content: center;
   text-align: center;
+}
+
+.notification-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  margin-left: 30px;
+}
+
+.notification-badge-color {
+  background-color: red;
+  color: white;
+}
+
+.icon-button-angel-personal-team {
+  margin-left: 80px;
+}
+
+.team-row-container {
+  display: flex;
+  align-items: center;
 }

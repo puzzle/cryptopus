@@ -18,7 +18,7 @@
           <div class="side-nav-bar-teams-list scroll-bar">
             {{#if this.navService.availableTeams}}
               {{#each this.navService.availableTeams as |team|}}
-                <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action team-list-item {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
+                <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action team-list-item team-row-container {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
                   {{#if team.isPersonalTeam}}
                     <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "member-white.svg" "member.svg"}}" alt="">
                   {{else}}
@@ -30,14 +30,21 @@
                   {{/if}}
                   {{#if team.isPersonalTeam}}
                     {{truncate this.userService.username 18}}
+                    {{#unless (eq team.unreadTransferredFiles 0)}}
+                      {{#if (eq team this.navService.selectedTeam)}}
+                        <div class="notification-badge"></div>
+                      {{else}}
+                        <div class="notification-badge notification-badge-color">{{team.unreadTransferredFiles}}</div>
+                      {{/if}}
+                    {{/unless}}
                   {{else}}
                     {{truncate team.name 18}}
                   {{/if}}
                   {{#if (not team.folders)}}
                   {{else if (and team.folders (or (not (eq team this.navService.selectedTeam)) this.collapsed))}}
-                    <img class="icon icon-button-angle float-right" src="/assets/images/angle-left.svg" alt="<">
+                    <img class="icon icon-button-angle float-right {{if team.isPersonalTeam "icon-button-angel-personal-team"}}" src="/assets/images/{{if (eq team this.navService.selectedTeam) "angle-left-white.svg" "angle-left.svg"}}" alt="<">
                   {{else}}
-                    <img class="icon icon-button-angle float-right" src="/assets/images/angle-down.svg" alt="v">
+                    <img class="icon icon-button-angle float-right {{if team.isPersonalTeam "icon-button-angel-personal-team"}}" src="/assets/images/{{if (eq team this.navService.selectedTeam) "angle-down-white.svg" "angle-down.svg"}}" alt="v">
                   {{/if}}
                 </a>
                 {{#if (or team.folders (eq team this.navService.selectedTeam))}}
