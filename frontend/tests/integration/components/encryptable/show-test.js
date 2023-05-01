@@ -82,9 +82,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
       isFile: true
     });
 
-    await render(
-      hbs`<Encryptable::Show @encryptable={{this.encryptable}} @isFile={{true}}/>`
-    );
+    await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
 
     let text = this.element.textContent.trim();
     assert.ok(text.includes("File: Ninjas test encryptable"));

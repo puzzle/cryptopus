@@ -18,7 +18,14 @@ export default class Team extends Model {
   get unreadTransferredFilesInFolders() {
     if (!this.isPersonalTeam) return 0;
 
-    return this.folders.filter(folder => folder.name === "inbox")
-      .reduce((sum, folder) => sum + (folder.unreadTransferredFiles ?? this.unread_transferred_files_in_folder), 0);
+    return this.folders
+      .filter((folder) => folder.name === "inbox")
+      .reduce(
+        (sum, folder) =>
+          sum +
+          (folder.unreadTransferredFiles ??
+            this.unread_transferred_files_in_folder),
+        0
+      );
   }
 }

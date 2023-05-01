@@ -39,7 +39,10 @@ export default class ShowComponent extends Component {
   }
 
   expandSelectedFolder() {
-    if (this.args.folder.team.get("isPersonalTeam") && this.args.folder.name === "inbox") {
+    if (
+      this.args.folder.team.get("isPersonalTeam") &&
+      this.args.folder.name === "inbox"
+    ) {
       this.args.folder.unreadTransferredFiles = 0;
     }
     this.router.transitionTo(
