@@ -24,7 +24,7 @@ class FolderSerializer < ActiveModel::Serializer
     if object.personal_inbox?
       object.encryptables.order('created_at DESC')
     else
-      object.encryptables
+      object.encryptables.order(:name)
     end
   end
 
