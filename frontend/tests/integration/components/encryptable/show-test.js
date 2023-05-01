@@ -71,4 +71,29 @@ module("Integration | Component | encryptable/show", function (hooks) {
     assert.ok(isPresent(deleteButton));
     assert.ok(isPresent(editButton));
   });
+
+  test("it renders a transferred encryptable file", async function (assert) {
+    this.set("encryptable", {
+      id: 1,
+      type: "encryptable_files",
+      name: "Ninjas test encryptable",
+      description: "Encryptable for the ninjas",
+      sender_name: "Bob Beier",
+      isFile: true
+    });
+
+    await render(
+      hbs`<Encryptable::Show @encryptable={{this.encryptable}} @isFile={{true}}/>`
+    );
+
+    let text = this.element.textContent.trim();
+    assert.ok(text.includes("File: Ninjas test encryptable"));
+    assert.ok(text.includes("Transferred at"));
+    assert.ok(text.includes("Encryptable for the ninjas"));
+    assert.ok(text.includes("Download file"));
+    assert.ok(text.includes("Sender name: Bob Beier"));
+
+    let deleteButton = this.element.querySelector('.icon-button[alt="delete"]');
+    assert.ok(isPresent(deleteButton));
+  });
 });
