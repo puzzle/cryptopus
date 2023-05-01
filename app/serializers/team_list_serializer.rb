@@ -13,7 +13,7 @@ class TeamListSerializer < ApplicationSerializer
 
   def unread_transferred_files
     # rubocop:disable Metrics/LineLength
-    object.personal_team? ? Folder.find(object.folders.where(name: 'inbox').first.id).encryptables.all.where.not(encrypted_transfer_password: nil).count : 0
+    object.folders.where(name: 'inbox').first.encryptables.all.where.not(encrypted_transfer_password: nil).count
     # rubocop:enable Metrics/LineLength
   end
 end

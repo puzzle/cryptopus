@@ -60,7 +60,7 @@ describe Api::EncryptablesTransferController do
 
       expect(response).to have_http_status(200)
 
-      transferred_encryptable = alice.personal_team.folders.last.encryptables.first
+      transferred_encryptable = alice.personal_team.folders.last.encryptables.last
       plaintext_team_password =
         alice.personal_team.decrypt_team_password(alice, alice.decrypt_private_key('password'))
 

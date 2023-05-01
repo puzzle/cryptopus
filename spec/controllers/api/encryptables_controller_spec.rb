@@ -48,7 +48,7 @@ describe Api::EncryptablesController do
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
-      expect(data.count).to eq 3
+      expect(data.count).to eq 4
       expect(credentials1_json_attributes['name']).to eq credentials1.name
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil
@@ -69,7 +69,7 @@ describe Api::EncryptablesController do
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
-      expect(data.count).to eq 3
+      expect(data.count).to eq 4
       expect(credentials1_json_attributes['name']).to eq credentials1.name
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil
@@ -722,7 +722,7 @@ describe Api::EncryptablesController do
 
       login_as(:alice)
 
-      shared_file = alice.inbox_folder.encryptables.first
+      shared_file = alice.inbox_folder.encryptables.last
 
       get :show, params: { id: shared_file.id }, xhr: true
 
