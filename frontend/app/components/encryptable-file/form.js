@@ -42,7 +42,7 @@ export default class Form extends BaseFormComponent {
   }
 
   async beforeSubmit() {
-    if (this.changeset.file.size > 1000000) {
+    if (this.changeset.file.size > 10000000) {
       let msg = this.intl.t("flashes.encryptable_files.uploaded_size_to_high");
       this.notify.error(msg);
     } else if (this.changeset.file.size === 0) {
