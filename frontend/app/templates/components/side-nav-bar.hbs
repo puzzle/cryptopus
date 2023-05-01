@@ -30,12 +30,8 @@
                   {{/if}}
                   {{#if team.isPersonalTeam}}
                     {{truncate this.userService.username 18}}
-                    {{#unless (eq team.unreadTransferredFiles 0)}}
-                      {{#if (eq team this.navService.selectedTeam)}}
-                        <div class="notification-badge"></div>
-                      {{else}}
-                        <div class="notification-badge notification-badge-color">{{team.unreadTransferredFiles}}</div>
-                      {{/if}}
+                    {{#unless (eq team.unreadTransferredFilesInFolders 0)}}
+                      <div class="notification-badge notification-badge-color">{{team.unreadTransferredFilesInFolders}}</div>
                     {{/unless}}
                   {{else}}
                     {{truncate team.name 18}}
