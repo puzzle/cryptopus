@@ -70,11 +70,13 @@ class Encryptable < ApplicationRecord
   def encrypt_attr(attr, team_password)
     cleartext_value = send(:"cleartext_#{attr}")
 
-    encrypted_value = if cleartext_value&.blank?
+    # rubocop:disable all
+    encrypted_value = if cleartext_value.nil? || cleartext_value.empty?
                         nil
                       else
                         Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
                       end
+    # rubocop:enable all
 
     encrypted_data.[]=(attr, **{ data: encrypted_value, iv: nil })
   end
