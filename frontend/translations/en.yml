@@ -104,7 +104,7 @@ en:
     show:
       sender_name: Sender name
     submit: Send
-    description_for_sender: Your file will be sent encrypted to the inobx folder from the selected receiver.
+    description_for_sender: Your file will be sent encrypted to the inbox folder from the selected receiver.
     description_for_receiver: Description for the receiver
     delete_transferred_encryptables: Delete transferred file
 

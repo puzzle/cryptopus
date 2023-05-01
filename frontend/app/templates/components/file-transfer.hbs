@@ -1,6 +1,6 @@
 <BsModal class="modal_account ignore-footer-smartphone" @onHide={{action this.abort}} @renderInPlace="true" @size="lg" as |Modal|>
   <Modal.header>
-    <h3 class="modal-title">{{@title}}</h3>
+    <h3 class="modal-title">{{t "encryptable/transferring/file.new.title"}}</h3>
   </Modal.header>
   <Modal.body>
     <div class="container-fluid">
@@ -64,6 +64,6 @@
   </Modal.body>
 
   <Modal.footer>
-    <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "encryptable/transferring/file.submit"}}</BsButton>
+    <BsButton @onClick={{action this.submit this.changeset}} alt="save" @type="primary">{{t "encryptable/transferring/file.submit"}}</BsButton>
   </Modal.footer>
 </BsModal>
