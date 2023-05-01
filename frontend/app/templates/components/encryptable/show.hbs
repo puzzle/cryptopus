@@ -5,7 +5,6 @@
   <EncryptableFile::Form @class="modal_file_entry" @encryptableCredential={{@encryptable}} @title={{t "encryptable_files.new.title"}} @onAbort={{this.toggleFileNew}}/>
 {{/if}}
 {{#if this.isFile}}
-
   <div class="container px-5 pt-4 h-100 bg-white pl-none encryptable-container-smartphone mb-15">
     <div class="row mb-3">
       <div class="col">
@@ -51,16 +50,14 @@
       </div>
     </div>
   </div>
-
 {{else}}
-
   <div class="container px-5 pt-4 h-100 bg-white pl-none encryptable-container-smartphone mb-15">
     <div class="row mb-3">
       <div class="col">
         <a id="encryptable-show-back" role="button" {{on "click" this.transitionBack}}>
-          <span class="btn btn-secondary edit_button" role="button">
-            <img class="icon-button encryptable-show-back" src="/assets/images/arrow-left.svg" alt="back">
-          </span>
+        <span class="btn btn-secondary edit_button" role="button">
+          <img class="icon-button encryptable-show-back" src="/assets/images/arrow-left.svg" alt="back">
+        </span>
         </a>
       </div>
       {{#unless @encryptable.isOseSecret}}
