@@ -30,7 +30,7 @@ class FolderSerializer < ActiveModel::Serializer
 
   def unread_transferred_files
     # rubocop:disable Metrics/LineLength
-    object.personal_inbox? ? object.encryptables.all.where.not(encrypted_transfer_password: nil).count : 0
+    object.personal_inbox? ? object.encryptables.all.where.not(encrypted_transfer_password: nil).count : nil
     # rubocop:enable Metrics/LineLength
   end
 

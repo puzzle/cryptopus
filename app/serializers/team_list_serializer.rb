@@ -3,7 +3,7 @@
 class TeamListSerializer < ApplicationSerializer
   # To hide STI name in Frontend
   type Team.name.pluralize
-  attributes :id, :name, :type, :personal_team, :private, :unread_transferred_files
+  attributes :id, :name, :type, :personal_team, :private, :unread_count
 
   has_many :folders, serializer: FolderMinimalSerializer
 
@@ -11,9 +11,7 @@ class TeamListSerializer < ApplicationSerializer
     object.personal_team?
   end
 
-  def unread_transferred_files
-    # rubocop:disable Metrics/LineLength
-    object.folders.where(name: 'inbox').first.encryptables.all.where.not(encrypted_transfer_password: nil).count
-    # rubocop:enable Metrics/LineLength
+  def unread_count
+    object.is_a?(Team::Personal) ? object.unread_count_transferred_files : nil
   end
 end

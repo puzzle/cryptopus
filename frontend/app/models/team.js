@@ -7,7 +7,7 @@ export default class Team extends Model {
   @attr("boolean") private;
   @attr("boolean") favourised;
   @attr("boolean") deletable;
-  @attr("number") unread_transferred_files_in_folder;
+  @attr("number") unread_count;
   @hasMany("folder") folders;
   @hasMany("teammember") teammembers;
 
@@ -16,16 +16,13 @@ export default class Team extends Model {
   }
 
   get unreadTransferredFilesInFolders() {
-    if (!this.isPersonalTeam) return 0;
+    if (!this.isPersonalTeam) return undefined;
+    if (this.unread_count === null) return undefined;
 
-    return this.folders
-      .filter((folder) => folder.name === "inbox")
-      .reduce(
-        (sum, folder) =>
-          sum +
-          (folder.unreadTransferredFiles ??
-            this.unread_transferred_files_in_folder),
-        0
-      );
+
+    let folder = this.folders.filter((folder) => folder.name === "inbox")[0];
+    if (folder.unreadTransferredFiles === null || this.unread_count === 0) return undefined;
+    if (folder.unreadTransferredFiles === undefined) return this.unread_count;
+    return folder.unreadTransferredFiles;
   }
 }

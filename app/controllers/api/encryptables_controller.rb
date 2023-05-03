@@ -89,7 +89,6 @@ class Api::EncryptablesController < ApiController
 
   def file_credential
     Encryptable::Credentials.find(credential_id)
-  rescue ActiveRecord::RecordNotFound
     nil
   end
 
@@ -166,7 +165,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def fetch_encryptable_files
-    Encryptable::File.where(credential_id: user_encryptables)
+    user_encryptables.where(type: "Encryptable::File")
                      .where(credential_id: credential_id)
   end
 

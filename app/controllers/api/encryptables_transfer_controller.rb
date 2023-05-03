@@ -27,11 +27,11 @@ class Api::EncryptablesTransferController < ApiController
 
     inbox_folder_receiver = receiver.inbox_folder
 
-    file = new_file(nil, inbox_folder_receiver, params[:description], filename)
-    file.content_type = params[:file].content_type
-    file.cleartext_file = params[:file].read
+    @encryptable = new_file(nil, inbox_folder_receiver, params[:description], filename)
+    @encryptable.content_type = params[:file].content_type
+    @encryptable.cleartext_file = params[:file].read
 
-    instance_variable_set(:"@#{ivar_name}", file)
+    instance_variable_set(:"@#{ivar_name}", @encryptable)
   end
 
   def new_file(parent_encryptable, inbox_folder_receiver, description, name)
@@ -54,8 +54,6 @@ class Api::EncryptablesTransferController < ApiController
   end
 
   def receiver
-    return nil if receiver_id.nil?
-
-    User::Human.find(receiver_id)
+    receiver_id && User::Human.find(receiver_id)
   end
 end

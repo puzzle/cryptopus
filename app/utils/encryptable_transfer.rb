@@ -14,7 +14,7 @@ class EncryptableTransfer
   end
 
   def receive(encryptable, private_key, personal_team_password)
-    encryptable.decrypt_transfered(private_key)
+    encryptable.decrypt_transferred(private_key)
 
     encryptable.encrypt(personal_team_password)
     encryptable.decrypt(personal_team_password)

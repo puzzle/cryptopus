@@ -6,4 +6,8 @@ export default class Folder extends Model {
   @attr("number") unreadTransferredFiles;
   @hasMany("encryptable") encryptables;
   @belongsTo("team") team;
+
+  get isInboxFolder() {
+    return this.name === "inbox" && this.team.get("isPersonalTeam");
+  }
 }

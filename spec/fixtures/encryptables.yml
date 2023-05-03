@@ -40,7 +40,7 @@ file1:
   content_type: 'text/plain'
   encrypted_data: '{"file":{"iv":null,"data":"FvJS9jooGEX1aXqB0iP7wB6h2YwO479OM+RpNmBlbORivbVPky0rR4u3lNLN+DGIL93gQAlVHDw1CZe9zDoTgSyxsQFflQwGk3DMDS9xhoQSJzTkBPBIb33j9H7WG37CQwdNNFnn/NExiBZb+9dbmHGqw8KWvRd3Xd/oSlTr6w/c0gz3UEYfhC5l6P3xnDc2"}}'
 
-transferredFile1:
+transferred_file1:
   type: Encryptable::File
   name: message.txt
   description: Hello Alice here are xy

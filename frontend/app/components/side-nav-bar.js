@@ -42,8 +42,8 @@ export default class SideNavBar extends Component {
 
   @action
   setSelectedFolder(folder) {
-    if (folder.team.get("isPersonalTeam") && folder.name === "inbox") {
-      folder.unreadTransferredFiles = 0;
+    if (folder.isInboxFolder) {
+      folder.unreadTransferredFiles = null;
     }
 
     if (isPresent(this.args.navbar)) {

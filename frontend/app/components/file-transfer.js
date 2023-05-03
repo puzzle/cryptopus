@@ -6,6 +6,7 @@ import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "./base-form-component";
 import ENV from "frontend/config/environment";
+import { fileUploadValidation } from "../helpers/file-upload-validation";
 
 export default class FileTransfer extends BaseFormComponent {
   @service store;
@@ -83,18 +84,9 @@ export default class FileTransfer extends BaseFormComponent {
   }
 
   validateUploadedFile() {
-    if (this.changeset.file.size > 10000000) {
-      let msg = this.intl.t("flashes.encryptable_files.uploaded_size_to_high");
-      this.notify.error(msg);
-    } else if (this.changeset.file.size === 0) {
-      let msg = this.intl.t("flashes.encryptable_files.uploaded_file_blank");
-      this.notify.error(msg);
-    } else if (this.changeset.file.name === "") {
-      let msg = this.intl.t(
-        "flashes.encryptable_files.uploaded_filename_is_empty"
-      );
-      this.notify.error(msg);
-    } else {
+    let isFileValid = fileUploadValidation(this.changeset.file);
+
+    if (isFileValid) {
       this.changeset.save();
       this.abort();
       this.showSuccessMessage();
