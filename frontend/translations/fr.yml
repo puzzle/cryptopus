@@ -351,6 +351,7 @@ fr:
     delete_folder: Supprimer le dossier
     delete_encryptables: Supprimer le compte
     configure: Configurer les membres
+    sent_by: Envoyé par
 
   helpers:
     label:

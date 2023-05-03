@@ -350,6 +350,7 @@ en:
     delete_folder: Delete the Folder
     delete_encryptables: Delete the Credentials
     configure: Configure Members
+    sent_by: Sent by
 
   helpers:
     label:

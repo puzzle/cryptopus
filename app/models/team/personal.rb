@@ -29,10 +29,10 @@ class Team::Personal < Team
   end
 
   def unread_count_transferred_files
-    return nil if self.folders.where(name: 'inbox').empty?
+    return nil if folders.where(name: 'inbox').empty?
 
     # rubocop:disable Metrics/LineLength
-    self.folders.where(name: 'inbox').first.encryptables.all.where.not(encrypted_transfer_password: nil).count
+    folders.where(name: 'inbox').first.encryptables.all.where.not(encrypted_transfer_password: nil).count
     # rubocop:enable Metrics/LineLength
   end
 end

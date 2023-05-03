@@ -39,9 +39,7 @@ export default class ShowComponent extends Component {
   }
 
   expandSelectedFolder() {
-    if (
-      this.args.folder.isInboxFolder
-    ) {
+    if (this.args.folder.isInboxFolder) {
       this.args.folder.unreadTransferredFiles = null;
     }
     this.router.transitionTo(

@@ -350,6 +350,7 @@ ch_be:
     delete_folder: Ordner lösche
     delete_encryptables: Zuägangsdate lösche
     configure: Konfigurier d'Mitgliedr
+    sent_by: Gsändet vo
 
   helpers:
     label:

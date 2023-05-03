@@ -16,6 +16,7 @@
 
       <div class="mx-1">
         <img class="icon-medium-button d-inline" src="/assets/images/member.svg" alt="file icon">
+        <BsTooltip @title={{t "tooltips.sent_by"}} @delayShow="1000" />
       </div>
       <div class="col-6 d-none d-md-block">
         {{@encryptable.sender_name}} / {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}
