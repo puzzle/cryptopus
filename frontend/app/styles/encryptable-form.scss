@@ -1,0 +1,61 @@
+.encryptable-form-name {
+  border-bottom-color: rgb(222, 226, 230);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+.add-field {
+  display: inline-block;
+  border-radius: 5px;
+  padding: 7px;
+  width: 40px !important;
+  height: 40px !important;
+  background-color: limegreen;
+  background-image: url('/assets/images/delete-white.svg');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+
+.delete-field {
+  display: inline-block;
+  border-radius: 5px;
+  padding: 7px;
+  width: 35px !important;
+  height: 35px !important;
+  margin-top: 4.2vh;
+  background-color: red;
+  background-image: url('/assets/images/delete-white.svg');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+
+.encrypted-icon {
+  display: inline-block;
+  width: 25px !important;
+  height: 25px !important;
+}
+
+.encryptable-form-field {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+}
+
+#cleartext-password {
+  margin-bottom: 0;
+}
+
+.password-field {
+  margin-bottom: 0.5rem;
+}
+
+#add-field-dropdown {
+  background-color: lightgrey;
+  border-color: black;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  width: 15vw;
+  height: 35px;
+  margin-left: 1vw;
+}

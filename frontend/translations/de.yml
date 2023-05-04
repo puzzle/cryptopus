@@ -19,6 +19,11 @@ de:
   tag: Tag
   username: Benutzername
   password: Passwort
+  pin: Pin
+  token: Token
+  email: Email
+  labelCustomAttr: Individueller Attribut Name
+  valueCustomAttr: Individuelle Attribut Menge
   actions: Aktionen
   download: Herunterladen
   download_file: Datei herunterladen
@@ -87,8 +92,14 @@ de:
       file: Datei
       show_password: Passwort anzeigen
       show_username: Benutzname anzeigen
+      show_pin: Pin anzeigen
+      show_token: Token anzeigen
+      show_email: Email anzeigen
       copy_password: Passwort kopieren
       copy_username: Benutzername kopieren
+      copy_pin: Pin kopieren
+      copy_token: Token kopieren
+      copy_email: Email kopieren
       add_attachment: Anhang hinzufügen
       blank: Leer
     new:
@@ -289,6 +300,9 @@ de:
       moved: Die Zugangsdaten wurden erfolgreich veschoben
       username_copied: Benutzername wurde kopiert
       password_copied: Passwort wurde kopiert
+      pin_copied: Pin wurde kopiert
+      token_copied: Token wurde kopiert
+      email_copied: Email wurde kopiert
 
     encryptable-credentials:
       << : *encryptables_translations

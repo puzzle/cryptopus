@@ -19,6 +19,13 @@ en:
   tag: Tag
   username: Username
   password: Password
+  pin: Pin
+  token: Token
+  email: Email
+  customAttr: Custom Attribute
+  additionalField: Additional Field
+  labelCustomAttr: Custom Attribute Name
+  valueCustomAttr: Custom Attribute Value
   actions: Actions
   download: Download
   download_file: Download file
@@ -87,8 +94,16 @@ en:
       file: File
       show_password: Show password
       show_username: Show username
+      show_pin: Show pin
+      show_token: Show token
+      show_email: Show email
+      show: Show
       copy_password: Copy password
       copy_username: Copy username
+      copy_pin: Copy pin
+      copy_token: Copy token
+      copy_email: Copy email
+      copy: Copy
       add_attachment: Add Attachment
       blank: none
     new:
@@ -288,6 +303,10 @@ en:
       moved: Credentials were successfully moved
       username_copied: Username was copied
       password_copied: Password was copied
+      pin_copied: Pin was copied
+      token_copied: Token was copied
+      email_copied: Email was copied
+      custom-attr_copied: Custom Attribute was copied
 
     encryptable-credentials:
       << : *encryptables_translations

@@ -127,7 +127,7 @@ class Api::EncryptablesController < ApiController
     if model_class == Encryptable::File
       permitted_attrs + [:filename, :credentials_id, :file]
     elsif model_class == Encryptable::Credentials
-      permitted_attrs + [:cleartext_username, :cleartext_password, :folder_id]
+      permitted_attrs + [:cleartext_username, :cleartext_password, :cleartext_token, :cleartext_pin, :cleartext_email , :folder_id, cleartext_custom_attr: [:label, :value]]
     else
       []
     end

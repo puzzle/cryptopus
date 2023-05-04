@@ -18,6 +18,11 @@ ch_be:
   description: Beschribig
   username: Benutzername
   password: Passwort
+  pin: Pin
+  token: Token
+  email: Email
+  labelCustomAttr: Individuellä Attributname
+  valueCustomAttr: Individuiuelli Attribut Mengi
   actions: Aktionä
   download: Abäladä
   download_file: Datei abäladä
@@ -86,8 +91,14 @@ ch_be:
       file: Datei
       show_password: Passwort ahzeigä
       show_username: Benutzername ahzeigä
+      show_pin: Pin ahzeigä
+      show_token: Token ahzeigä
+      show_email: Email ahzeigä
       copy_password: Passwort kopierä
       copy_username: Benutzername kopierä
+      copy_pin: Pin kopierä
+      copy_token: Token kopierä
+      copy_email: Email kopierä
       add_attachment: Anhang hinzufüegä
       blank: Läär
     new:
@@ -288,6 +299,9 @@ ch_be:
       moved: D Zuägangsdate si erfougrich verschobe worde.
       username_copied: Dr Benutzernamä isch kopiert worde
       password_copied: Ds Passwort isch kopiert worde
+      pin_copied: Dr Pin isch kopiert worde
+      token_copied: Dr Token isch kopiert worde
+      email_copied: D Email isch kopiert worde
 
     encryptable-credentials:
       << : *encryptables_translations

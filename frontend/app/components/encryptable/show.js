@@ -25,6 +25,18 @@ export default class ShowComponent extends Component {
   isPasswordVisible = false;
 
   @tracked
+  isPinVisible = false;
+
+  @tracked
+  isTokenVisible = false;
+
+  @tracked
+  isEmailVisible = false;
+
+  @tracked
+  isCustomAttrVisible = false;
+
+  @tracked
   isFile = this.args.encryptable.isFile;
 
   @action
@@ -42,8 +54,18 @@ export default class ShowComponent extends Component {
   }
 
   @action
-  showPassword() {
-    this.isPasswordVisible = true;
+  showValue(value) {
+    if (value === "password") {
+      this.isPasswordVisible = true;
+    } else if (value === "pin") {
+      this.isPinVisible = true;
+    } else if (value === "token") {
+      this.isTokenVisible = true;
+    } else if (value === "email") {
+      this.isEmailVisible = true;
+    } else if (value === "customAttr") {
+      this.isCustomAttrVisible = true;
+    }
   }
 
   @action
@@ -65,11 +87,7 @@ export default class ShowComponent extends Component {
     this.notify.info(this.intl.t(`flashes.encryptables.${attribute}_copied`));
   }
 
-  get noCopyBlankPasswordTooltip() {
-    return this.intl.t("encryptable/credentials.show.blank");
-  }
-
-  get noCopyBlankUsernameTooltip() {
+  get noCopyBlankTooltip() {
     return this.intl.t("encryptable/credentials.show.blank");
   }
 }

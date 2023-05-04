@@ -7,6 +7,7 @@ import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "../base-form-component";
 import { isPresent } from "@ember/utils";
 import { isEmpty } from "@ember/utils";
+import { A } from '@ember/array';
 
 export default class Form extends BaseFormComponent {
   @service store;
@@ -20,6 +21,42 @@ export default class Form extends BaseFormComponent {
   @tracked hasErrors;
 
   AccountValidations = AccountValidations;
+
+  //set display field to true when attribute is set, for creating username is default
+  @tracked
+  isUsernameFieldActive = this.record.cleartextUsername || this.isNewRecord;
+
+  //set display field to true when attribute is set, for creating password is default
+  @tracked
+  isPasswordFieldActive = this.record.cleartextPassword || this.isNewRecord;
+
+  //set display field to true when attribute is set
+  @tracked
+  isPinFieldActive = this.record.cleartextPassword;
+
+  //set display field to true when attribute is set
+  @tracked
+  isTokenFieldActive = this.record.cleartextPassword;
+
+  //set display field to true when attribute is set
+  @tracked
+  isEmailFieldActive = this.record.cleartextPassword;
+
+  //set display field to true when attribute is set
+  @tracked
+  isCustomAttrFieldActive = this.record.cleartextPassword;
+
+  //create array proxy that ember checks the changes in each loop for dropdown, ember's rendering engine
+  // doesn't get notified by using a normal array
+  @tracked
+  items = A(["additionalField"]
+    .concat(this.record.cleartextUsername || this.isNewRecord ? [] : ["username"])
+    .concat(this.record.cleartextPassword || this.isNewRecord ? [] : ["password"])
+    .concat(this.record.cleartextToken ? [] : ["token"])
+    .concat(this.record.cleartextPin ? [] : ["pin"])
+    .concat(this.record.cleartextEmail ? [] : ["email"])
+    .concat(this.record.cleartextCustomAttr ? [] : ["customAttr"])
+  );
 
   constructor() {
     super(...arguments);
@@ -97,6 +134,47 @@ export default class Form extends BaseFormComponent {
   @action
   setFolder(folder) {
     this.changeset.folder = folder;
+  }
+
+  @action
+  hideField(value) {
+    if (value === "username") {
+      this.isUsernameFieldActive = false
+      this.items.addObject(value);
+    } else if (value === "password") {
+      this.isPasswordFieldActive = false;
+      this.items.addObject(value);
+    } else if (value === "pin") {
+      this.isPinFieldActive = false;
+      this.items.addObject(value);
+    } else if (value === "token") {
+      this.isTokenFieldActive = false;
+      this.items.addObject(value);
+    } else if (value === "email") {
+      this.isEmailFieldActive = false;
+      this.items.addObject(value);
+    } else if (value === "customAttr") {
+      this.isCustomAttrFieldActive = false;
+      this.items.addObject(value);
+    }
+  }
+
+  @action
+  addField() {
+    if (this.selectedItem === "username") {
+      this.isUsernameFieldActive = true
+    } else if (this.selectedItem === "password") {
+      this.isPasswordFieldActive = true;
+    } else if (this.selectedItem === "pin") {
+      this.isPinFieldActive = true;
+    } else if (this.selectedItem === "token") {
+      this.isTokenFieldActive = true;
+    } else if (this.selectedItem === "email") {
+      this.isEmailFieldActive = true;
+    } else if (this.selectedItem === "customAttr") {
+      this.isCustomAttrFieldActive = true;
+    }
+    this.items.removeObject(this.selectedItem);
   }
 
   async beforeSubmit() {

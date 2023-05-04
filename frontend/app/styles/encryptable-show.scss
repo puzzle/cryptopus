@@ -1,10 +1,5 @@
-.result-password {
+.result-hidden-attribute {
   top: -50px;
-  position: relative;
-}
-
-.result-username,
-.result-password {
   position: relative;
 }
 
@@ -20,7 +15,7 @@
 .show-text,
 .password-show,
 .result-username input,
-.result-password input {
+.result-hidden-attribute input {
   padding: 6px 10px;
   width: 205px;
   font-size: 14px;
@@ -37,11 +32,11 @@
 }
 
 .result-username input:hover,
-.result-password input:hover {
+.result-hidden-attribute input:hover {
   cursor: text;
 }
 
-.result-password,
+.result-hidden-attribute,
 .show-text,
 .password-show {
   margin-top: 1em;
@@ -102,7 +97,7 @@
   margin-bottom: -1px;
 }
 
-.show-password-button {
+.show-hidden-attribute-button {
   z-index: 5;
 }
 
