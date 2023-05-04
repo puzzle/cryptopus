@@ -21,9 +21,6 @@ ch_be:
   pin: Pin
   token: Token
   email: Email
-  customAttr: Individuells Attribut
-  additionalField: Zuesätzlechs Fäud
-  additionalFieldPlaceholder: Wäu äs zuesätzlechs Fäud
   labelCustomAttr: Individuellä Attributname
   valueCustomAttr: Individuiuelli Attribut Mengi
   actions: Aktionä
@@ -98,15 +95,11 @@ ch_be:
       show_pin: Pin ahzeigä
       show_token: Token ahzeigä
       show_email: Email ahzeigä
-      show_custom_attr: Individuells Attribut ahzeigä
-      show: Ahzeigä
       copy_password: Passwort kopierä
       copy_username: Benutzername kopierä
       copy_pin: Pin kopierä
       copy_token: Token kopierä
       copy_email: Email kopierä
-      copy_custom_attr: Individuells Attribut kopierä
-      copy: kopierä
       add_attachment: Anhang hinzufüegä
       blank: Läär
     new:
@@ -313,8 +306,6 @@ ch_be:
       pin_copied: Dr Pin isch kopiert worde
       token_copied: Dr Token isch kopiert worde
       email_copied: D Email isch kopiert worde
-      customAttr_copied: Z individuellä Attribut isch kopiert worde
-      selectAdditionalField: Du muäsch es Fäld uswähle
 
     encryptable-credentials:
       << : *encryptables_translations
