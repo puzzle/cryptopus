@@ -17,7 +17,13 @@ describe TeamListSerializer do
     it 'should return 0 unread transferred files' do
       as_json = JSON.parse(TeamListSerializer.new(teams(:personal_team_alice)).to_json)
 
-      expect(as_json['unread_transferred_files_in_folder']).to eq(0)
+      expect(as_json['unread_count']).to eq(0)
+    end
+
+    it 'should return nil unread transferred files when no personal team' do
+      as_json = JSON.parse(TeamListSerializer.new(teams(:team2)).to_json)
+
+      expect(as_json['unread_count']).to eq(nil)
     end
   end
 
@@ -43,7 +49,7 @@ describe TeamListSerializer do
 
       as_json = JSON.parse(TeamListSerializer.new(teams(:personal_team_alice)).to_json)
 
-      expect(as_json['unread_transferred_files_in_folder']).to eq(1)
+      expect(as_json['unread_count']).to eq(1)
     end
   end
 end

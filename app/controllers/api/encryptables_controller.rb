@@ -89,7 +89,6 @@ class Api::EncryptablesController < ApiController
 
   def file_credential
     Encryptable::Credentials.find(credential_id)
-    nil
   end
 
   def fetch_entry
@@ -165,8 +164,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def fetch_encryptable_files
-    user_encryptables.where(type: 'Encryptable::File')
-                     .where(credential_id: credential_id)
+    Encryptable::File.where(credential_id: user_encryptables)
   end
 
   def build_encryptable_file
