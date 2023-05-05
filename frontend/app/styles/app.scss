@@ -476,7 +476,7 @@ h5, h6 {
 }
 
 .notification-badge-color {
-  background-color: #f53b3b;
+  background-color: #69b978;
   color: white;
 }
 
@@ -484,4 +484,8 @@ h5, h6 {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+}
+
+.team-list-item {
+  margin-top: 4px;
 }
