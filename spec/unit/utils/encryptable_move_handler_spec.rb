@@ -37,8 +37,8 @@ describe EncryptableMoveHandler do
                                                  credential_id: credential.id,
                                                  content_type: 'text/plain')
 
-    team2_password = Base64.strict_decode64('Xyj5d0yF9D/XOCIi9Iz5bsgNs9KvvcKkJAtCsoENNj4=')
-    new_encryptable_file.encrypt(team2_password)
+    team_password = team2_password
+    new_encryptable_file.encrypt(team_password)
     new_encryptable_file.save!
 
     # current username, password values are set by api/encryptable#update
