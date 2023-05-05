@@ -778,7 +778,7 @@ describe Api::EncryptablesController do
       transfer_password,
       alice.public_key
     )
-    encryptable_file.encrypted_transfer_password = encrypted_transfer_password
+    encryptable_file.encrypted_transfer_password = Base64.encode64(encrypted_transfer_password)
     encryptable_file.sender_id = bob.id
     encryptable_file.folder = alice.inbox_folder
     encryptable_file.save!

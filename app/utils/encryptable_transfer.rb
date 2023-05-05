@@ -8,7 +8,7 @@ class EncryptableTransfer
     encryptable.update!(
       folder: receiver.inbox_folder,
       sender_id: sender.id,
-      encrypted_transfer_password: encrypted_transfer_password(transfer_password, receiver)
+      encrypted_transfer_password: Base64.encode64(encrypted_transfer_password(transfer_password, receiver))
     )
     encryptable
   end

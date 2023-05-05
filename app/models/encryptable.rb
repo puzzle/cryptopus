@@ -62,7 +62,7 @@ class Encryptable < ApplicationRecord
   end
 
   def plaintext_transfer_password(private_key)
-    Crypto::Rsa.decrypt(encrypted_transfer_password, private_key)
+    Crypto::Rsa.decrypt(Base64.decode64(encrypted_transfer_password), private_key)
   end
 
   private
