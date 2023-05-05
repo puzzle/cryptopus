@@ -1,5 +1,4 @@
 import { action } from "@ember/object";
-import EncryptableFileValidations from "../validations/encryptable-file";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
@@ -7,6 +6,7 @@ import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "./base-form-component";
 import ENV from "frontend/config/environment";
 import { fileUploadValidation } from "../helpers/file-upload-validation";
+import EncryptableTransferFile from "../validations/encryptable-transfer-file";
 
 export default class FileTransfer extends BaseFormComponent {
   @service store;
@@ -18,8 +18,6 @@ export default class FileTransfer extends BaseFormComponent {
   @tracked
   isFileCreating = false;
 
-  EncryptableFileValidations = EncryptableFileValidations;
-
   constructor() {
     super(...arguments);
 
@@ -27,11 +25,13 @@ export default class FileTransfer extends BaseFormComponent {
 
     this.changeset = new Changeset(
       this.record,
-      lookupValidator(EncryptableFileValidations),
-      EncryptableFileValidations
+      lookupValidator(EncryptableTransferFile),
+      EncryptableTransferFile
     );
 
     this.changeset.csrfToken = ENV.CSRFToken;
+
+    this.loadValidation();
 
     this.loadCandidates();
   }
@@ -52,11 +52,13 @@ export default class FileTransfer extends BaseFormComponent {
   @action
   uploadFile(file) {
     this.changeset.file = file;
+    this.loadValidation();
   }
 
   @action
   selectReceiver(receiver) {
     this.changeset.receiver = receiver;
+    this.loadValidation();
   }
 
   @action
@@ -81,6 +83,10 @@ export default class FileTransfer extends BaseFormComponent {
   @action
   submit() {
     this.validateUploadedFile();
+  }
+
+  async loadValidation() {
+    await this.changeset.validate();
   }
 
   validateUploadedFile() {
