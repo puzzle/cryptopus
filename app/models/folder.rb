@@ -23,9 +23,16 @@ class Folder < ApplicationRecord
   validates :name, uniqueness: { scope: :team }
   validates :name, length: { maximum: 70 }
   validates :description, length: { maximum: 300 }
+  validate :only_one_personal_inbox
 
   def label
     name
+  end
+
+  def only_one_personal_inbox
+    if personal_inbox && team.folders.where(personal_inbox: true).where.not(id: id).exists?
+      errors.add(:personal_inbox, I18n.t('flashes.folders.duplicated_inbox'))
+    end
   end
 
 end

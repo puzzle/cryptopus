@@ -81,6 +81,8 @@ fr:
       weak_password: "Pour améliorer la sécurité vous devez déterminer un mot de passe utilisateur plus complexe."
     teams:
       not_existing: 'Il n''y a pas d''équipe avec l''id %{id}'
+    folders:
+      duplicated_inbox: 'Il ne peut y avoir que un inbox folder dans le personal team'
 
   confirm:
     delete: 'Supprimez %{entry_class} %{entry_label} ?'
