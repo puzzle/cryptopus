@@ -39,47 +39,103 @@
       <LinkTo class="col-4 underline-hover break-words account-link" @route="encryptables.show" @model={{@encryptable.id}}>
         {{@encryptable.name}}
       </LinkTo>
-      <div class="col-2 pr-0 d-none d-md-block">
-        <div class="hide-wrapper">
-          <Input class="d-inline form-control" id="input-password-{{@encryptable.id}}" @disabled="true" @value={{format-cleartext @encryptable "username"}}/>
-          <a role="button"
-             class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isUsernameVisible "visibility-hidden"}}"
-             {{on "click" this.showUsername}}>
-            {{t "encryptable/credentials.show.show_username"}}
-          </a>
-        </div>
-      </div>
-      <div class="col px-0 d-none d-md-block">
-        <button class="btn btn-light copy-btn" {{on "click" this.copyUsername}}
-          disabled={{@encryptable.isUsernameBlank}} >
-          <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-          {{#unless @encryptable.isUsernameBlank}}
-            <BsTooltip @title={{t "encryptable/credentials.show.copy_username"}} @delayShow="500" />
-          {{/unless}}
-        </button>
-      </div>
+      {{#unless (gt getAttributesAmount 2)}}
+         {{#if @encryptable.usedAttrs.username}}
+            <div class="col-2 pr-0 d-none d-md-block">
+              <div class="hide-wrapper">
+                <Input class="d-inline form-control" id="input-password-{{@encryptable.id}}" @disabled="true" @value={{format-cleartext @encryptable "username"}}/>
+                <a role="button"
+                   class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isUsernameVisible "visibility-hidden"}}"
+                   {{on "click" (action this.showAttribute "username")}}>
+                  {{t "encryptable/credentials.show.show_username"}}
+                </a>
+              </div>
+            </div>
+            <div class="col px-0 d-none d-md-block">
+              <button class="btn btn-light copy-btn" {{on "click" (action this.copyAttribute "username")}}
+                disabled={{@encryptable.isUsernameBlank}} >
+                <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+                {{#unless @encryptable.isUsernameBlank}}
+                  <BsTooltip @title={{t "encryptable/credentials.show.copy_username"}} @delayShow="500" />
+                {{/unless}}
+              </button>
+            </div>
+         {{/if}}
+         {{#if @encryptable.usedAttrs.email}}
+           <div class="col-2 pr-0 d-none d-md-block">
+             <div class="hide-wrapper">
+               <Input class="d-inline form-control" id="input-password-{{@encryptable.id}}" @disabled="true" @value={{format-cleartext @encryptable "email"}}/>
+               <a role="button"
+                  class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isEmailVisible "visibility-hidden"}}"
+                  {{on "click" (action this.showAttribute "email")}}>
+                 {{t "encryptable/credentials.show.show_email"}}
+               </a>
+             </div>
+           </div>
+           <div class="col px-0 d-none d-md-block">
+             <button class="btn btn-light copy-btn" {{on "click" (action this.copyAttribute "email")}}
+               disabled={{@encryptable.isEmailBlank}} >
+               <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+               {{#unless @encryptable.isEmailBlank}}
+                 <BsTooltip @title={{t "encryptable/credentials.show.copy_email"}} @delayShow="500" />
+               {{/unless}}
+             </button>
+           </div>
+        {{/if}}
+         {{#if @encryptable.usedAttrs.password}}
+            <div class="col-2 pr-0 d-none d-md-block">
+              <div class="hide-wrapper">
+                <Input class="d-inline form-control" @disabled="true" @value={{format-cleartext @encryptable "password"}}/>
+                <a role="button" class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isPasswordVisible "visibility-hidden"}}"{{on "click" (action this.showAttribute "password")}}>{{t "encryptable/credentials.show.show_password"}}</a>
+              </div>
+            </div>
+            <div class="col pl-0 d-none d-md-block">
+              <button class="btn btn-light copy-btn" {{on "click" (action this.copyAttribute "password")}}
+                disabled={{@encryptable.isPasswordBlank}} >
+                <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+                {{#unless @encryptable.isPasswordBlank}}
+                  <BsTooltip @title={{t "encryptable/credentials.show.copy_password"}} @delayShow="500" />
+                {{/unless}}
+              </button>
+            </div>
+         {{/if}}
+         {{#if @encryptable.usedAttrs.token}}
+           <div class="col-2 pr-0 d-none d-md-block">
+             <div class="hide-wrapper">
+               <Input class="d-inline form-control" @disabled="true" @value={{format-cleartext @encryptable "token"}}/>
+               <a role="button" class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isTokenVisible "visibility-hidden"}}"{{on "click" (action this.showAttribute "token")}}>{{t "encryptable/credentials.show.show_token"}}</a>
+             </div>
+           </div>
+           <div class="col pl-0 d-none d-md-block">
+             <button class="btn btn-light copy-btn" {{on "click" (action this.copyAttribute "token")}}
+               disabled={{@encryptable.isTokenBlank}} >
+               <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+               {{#unless @encryptable.isTokenBlank}}
+                 <BsTooltip @title={{t "encryptable/credentials.show.copy_token"}} @delayShow="500" />
+               {{/unless}}
+             </button>
+           </div>
+         {{/if}}
+         {{#if @encryptable.usedAttrs.pin}}
+            <div class="col-2 pr-0 d-none d-md-block">
+              <div class="hide-wrapper">
+                <Input class="d-inline form-control" @disabled="true" @value={{format-cleartext @encryptable "pin"}}/>
+                <a role="button" class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isPinVisible "visibility-hidden"}}"{{on "click" (action this.showAttribute "pin")}}>{{t "encryptable/credentials.show.show_pin"}}</a>
+              </div>
+            </div>
+            <div class="col pl-0 d-none d-md-block">
+              <button class="btn btn-light copy-btn" {{on "click" (action this.copyAttribute "pin")}}
+                disabled={{@encryptable.isPinBlank}} >
+                <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+                {{#unless @encryptable.isPinBlank}}
+                  <BsTooltip @title={{t "encryptable/credentials.show.copy_pin"}} @delayShow="500" />
+                {{/unless}}
+              </button>
+            </div>
+          {{/if}}
+      {{/unless}}
 
-      <div class="col-2 pr-0 d-none d-md-block">
-        <div class="hide-wrapper">
-          <Input class="d-inline form-control" @disabled="true" @value={{format-cleartext @encryptable "password"}}/>
-          <a role="button" class="show-text show-text-sm bg-light-blue no-wrap overflow-hidden d-flex align-items-center text-muted {{if this.isPasswordVisible "visibility-hidden"}}"{{on "click" this.showPassword}}>{{t "encryptable/credentials.show.show_password"}}</a>
-        </div>
-      </div>
-      <div class="col pl-0 d-none d-md-block">
-        <button class="btn btn-light copy-btn" {{on "click" this.copyPassword}}
-          disabled={{@encryptable.isPasswordBlank}} >
-          <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-          {{#unless @encryptable.isPasswordBlank}}
-            <BsTooltip @title={{t "encryptable/credentials.show.copy_password"}} @delayShow="500" />
-          {{/unless}}
-        </button>
-      </div>
-
-      <div class="col-md-auto d-none d-md-block">
-        <a class="mx-1" role="button" {{on "click" this.toggleEncryptableEdit}}>
-          <img class="icon-medium-button d-inline" src="/assets/images/edit.svg" alt="edit">
-          <BsTooltip @title={{t "encryptable/credentials.edit.title"}} @delayShow="1000" />
-        </a>
+      <div class="col-md-auto d-none d-md-block encryptable-row-icons">
         <DeleteWithConfirmation @class="mx-1" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
           <img class="icon-medium-button d-inline" src="/assets/images/delete.svg" alt="delete">
           <BsTooltip @title={{t "tooltips.delete_encryptables"}} @delayShow="1000" />

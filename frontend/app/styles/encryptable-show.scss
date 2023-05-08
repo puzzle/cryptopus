@@ -1,8 +1,3 @@
-.result-hidden-attribute {
-  top: -50px;
-  position: relative;
-}
-
 .show-text,
 .password-show {
   display: block;
@@ -12,9 +7,16 @@
   position: relative;
 }
 
+.hidden-attribute-copy-button,
+.result-username,
+.result-email {
+  margin-bottom: 1rem;
+}
+
 .show-text,
 .password-show,
 .result-username input,
+.result-email input,
 .result-hidden-attribute input {
   padding: 6px 10px;
   width: 205px;
@@ -32,14 +34,9 @@
 }
 
 .result-username input:hover,
+.result-email input:hover,
 .result-hidden-attribute input:hover {
   cursor: text;
-}
-
-.result-hidden-attribute,
-.show-text,
-.password-show {
-  margin-top: 1em;
 }
 
 .clip_button {
@@ -107,4 +104,10 @@
 
 .transfer-file-description {
   margin-bottom: 0.5rem;
+}
+
+.hidden-attribute-copy-button {
+  width: 15vw;
+  display: grid;
+  grid-template-columns: 6fr 1fr;
 }

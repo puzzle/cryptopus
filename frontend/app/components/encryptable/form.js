@@ -32,19 +32,19 @@ export default class Form extends BaseFormComponent {
 
   //set display field to true when attribute is set
   @tracked
-  isPinFieldActive = this.record.cleartextPassword;
+  isPinFieldActive = this.record.cleartextPin;
 
   //set display field to true when attribute is set
   @tracked
-  isTokenFieldActive = this.record.cleartextPassword;
+  isTokenFieldActive = this.record.cleartextToken;
 
   //set display field to true when attribute is set
   @tracked
-  isEmailFieldActive = this.record.cleartextPassword;
+  isEmailFieldActive = this.record.cleartextEmail;
 
   //set display field to true when attribute is set
   @tracked
-  isCustomAttrFieldActive = this.record.cleartextPassword;
+  isCustomAttrFieldActive = this.record.cleartextCustomAttr;
 
   //create array proxy that ember checks the changes in each loop for dropdown, ember's rendering engine
   // doesn't get notified by using a normal array
@@ -141,21 +141,27 @@ export default class Form extends BaseFormComponent {
     if (value === "username") {
       this.isUsernameFieldActive = false
       this.items.addObject(value);
+      this.changeset.cleartextUsername = null;
     } else if (value === "password") {
       this.isPasswordFieldActive = false;
       this.items.addObject(value);
+      this.changeset.cleartextPassword = null;
     } else if (value === "pin") {
       this.isPinFieldActive = false;
       this.items.addObject(value);
+      this.changeset.cleartextPin = null;
     } else if (value === "token") {
       this.isTokenFieldActive = false;
       this.items.addObject(value);
+      this.changeset.cleartextToken = null;
     } else if (value === "email") {
       this.isEmailFieldActive = false;
       this.items.addObject(value);
+      this.changeset.cleartextEmail = null;
     } else if (value === "customAttr") {
       this.isCustomAttrFieldActive = false;
       this.items.addObject(value);
+      this.changeset.cleartextCustomAttr = null;
     }
   }
 

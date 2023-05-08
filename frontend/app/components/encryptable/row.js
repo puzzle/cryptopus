@@ -4,6 +4,7 @@ import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
 import { isPresent } from "@ember/utils";
 import { capitalize } from "@ember/string";
+import { computed } from '@ember/object';
 
 export default class RowComponent extends Component {
   @service store;
@@ -15,18 +16,30 @@ export default class RowComponent extends Component {
 
   HIDE_TIME = 5;
 
-  passwordHideCountdownTime;
+  hideCountdownTime;
 
-  passwordHideTimerInterval;
+  hideTimerInterval;
 
   @tracked
   isEncryptableEditing = false;
 
   @tracked
+  isUsernameVisible = false;
+
+  @tracked
   isPasswordVisible = false;
 
   @tracked
-  isUsernameVisible = false;
+  isTokenVisible = false;
+
+  @tracked
+  isPinVisible = false;
+
+  @tracked
+  isEmailVisible = false;
+
+  @tracked
+  isCustomAttrVisible = false;
 
   @tracked
   isShown = false;
@@ -38,14 +51,16 @@ export default class RowComponent extends Component {
     super(...arguments);
   }
 
-  @action
-  copyPassword() {
-    this.fetchAndCopyToClipboard("password");
+  //get amount of currently set attributes on encryptable, because all encryptables with more than two set attributes
+  // hide attributes in row
+  @computed('encryptable.usedAttrs.@each')
+  get getAttributesAmount() {
+    return Object.values(this.args.encryptable.usedAttrs).filter(Boolean).length;
   }
 
   @action
-  copyUsername() {
-    this.fetchAndCopyToClipboard("username");
+  copyAttribute(attribute) {
+    this.fetchAndCopyToClipboard(attribute);
   }
 
   fetchAndCopyToClipboard(attr) {
@@ -94,6 +109,18 @@ export default class RowComponent extends Component {
     if (encryptable.isUsernameBlank) {
       this.isUsernameVisible = true;
     }
+    if (encryptable.isTokenBlank) {
+      this.isUsernameVisible = true;
+    }
+    if (encryptable.isPinBlank) {
+      this.isUsernameVisible = true;
+    }
+    if (encryptable.isEmailBlank) {
+      this.isUsernameVisible = true;
+    }
+    if (encryptable.isCustomAttrBlank) {
+      this.isUsernameVisible = true;
+    }
   }
 
   formattedValue(encryptable, attr) {
@@ -120,22 +147,22 @@ export default class RowComponent extends Component {
   }
 
   @action
-  showPassword() {
+  showAttribute(attribute) {
     this.fetchEncryptable();
-    this.isPasswordVisible = true;
+    this[`is${attribute.charAt(0).toUpperCase()}${attribute.slice(1)}Visible`] = true;
 
-    this.passwordHideCountdownTime = new Date().getTime();
+    this.hideCountdownTime = new Date().getTime();
 
-    this.passwordHideTimerInterval = setInterval(() => {
+    this.hideTimerInterval = setInterval(() => {
       let now = new Date().getTime();
 
-      let passedTime = now - this.passwordHideCountdownTime;
+      let passedTime = now - this.hideCountdownTime;
 
       let passedTimeInSeconds = Math.floor(passedTime / 1000);
 
       if (passedTimeInSeconds >= this.HIDE_TIME) {
-        this.isPasswordVisible = false;
-        clearInterval(this.passwordHideTimerInterval);
+        this[`is${attribute.charAt(0).toUpperCase()}${attribute.slice(1)}Visible`] = false;
+        clearInterval(this.hideTimerInterval);
       }
     }, 1000);
   }
@@ -152,12 +179,6 @@ export default class RowComponent extends Component {
 
   didEnterViewport() {
     this.isShown = true;
-  }
-
-  @action
-  showUsername() {
-    this.fetchEncryptable();
-    this.isUsernameVisible = true;
   }
 
   @action

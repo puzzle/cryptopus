@@ -78,7 +78,10 @@ class Api::EncryptablesController < ApiController
   def build_entry
     return build_encryptable_file if encryptable_file?
 
-    super
+    @encryptable = Encryptable::Credentials.new(model_params.except(:cleartext_custom_attr))
+
+    @encryptable.cleartext_custom_attr_value = model_params[:cleartext_custom_attr][:value]
+    @encryptable.custom_attr_label = model_params[:cleartext_custom_attr][:label]
   end
 
   def file_credential

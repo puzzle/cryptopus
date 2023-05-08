@@ -23,7 +23,7 @@
   padding: 7px;
   width: 35px !important;
   height: 35px !important;
-  margin-top: 4.2vh;
+  margin-top: 2rem;
   background-color: red;
   background-image: url('/assets/images/delete-white.svg');
   background-repeat: no-repeat;
@@ -35,6 +35,12 @@
   display: inline-block;
   width: 25px !important;
   height: 25px !important;
+  position: absolute;
+  margin-top: 2.5rem;
+}
+
+.form-group label {
+  width: 13.5vw;
 }
 
 .encryptable-form-field {

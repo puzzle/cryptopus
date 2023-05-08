@@ -97,7 +97,11 @@ class Encryptable < ApplicationRecord
                         Crypto::Symmetric::Aes256.decrypt(encrypted_value, team_password)
                       end
 
-    instance_variable_set("@cleartext_#{attr}", cleartext_value)
+    if attr == :custom_attr
+      instance_variable_set("@cleartext_#{attr}", { label: encrypted_data[attr].try(:[], :label), value: cleartext_value })
+    else
+      instance_variable_set("@cleartext_#{attr}", cleartext_value)
+    end
   end
 
   def assert_human_receiver?
