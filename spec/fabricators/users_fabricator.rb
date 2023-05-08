@@ -7,11 +7,11 @@ Fabricator(:user, class_name: User::Human) do
   role :user
   auth 'db'
   password '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8'
-  before_save { |user| user.create_keypair('password') }
+  before_create { |user| user.create_keypair('password') }
 end
 
 Fabricator(:admin, from: :user) do
-  after_save do |user|
+  after_create do |user|
     actor = User.find_by(username: 'admin')
     private_key = actor.decrypt_private_key('password')
     user.update_role(actor, :admin, private_key)
@@ -19,7 +19,7 @@ Fabricator(:admin, from: :user) do
 end
 
 Fabricator(:conf_admin, from: :user) do
-  after_save do |user|
+  after_create do |user|
     actor = User.find_by(username: 'tux')
     private_key = actor.decrypt_private_key('password')
     user.update_role(actor, :conf_admin, private_key)

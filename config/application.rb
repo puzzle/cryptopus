@@ -67,6 +67,16 @@ module Cryptopus
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
+    config.after_initialize do
+      ActiveRecord.yaml_column_permitted_classes += [
+        User::Api::Options,
+        ActiveSupport::TimeWithZone,
+        Time,
+        Date,
+        ActiveSupport::TimeZone
+      ]
+    end
+
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :private_key, /password/, :cleartext_username]
 
