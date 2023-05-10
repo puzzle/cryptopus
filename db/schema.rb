@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_120958) do
     t.text "encrypted_data", limit: 16777215
     t.integer "credential_id"
     t.text "content_type"
-    t.binary "encrypted_transfer_password"
+    t.string "encrypted_transfer_password"
     t.integer "sender_id"
     t.index ["description"], name: "index_encryptables_on_description"
     t.index ["name"], name: "index_encryptables_on_name"

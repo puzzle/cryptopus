@@ -43,7 +43,11 @@ export default class Form extends BaseFormComponent {
   }
 
   async beforeSubmit() {
-    let isFileValid = fileUploadValidation(this.changeset.file);
+    let isFileValid = fileUploadValidation(
+      this.changeset.file,
+      this.intl,
+      this.notify
+    );
 
     if (isFileValid) {
       await this.changeset.validate();

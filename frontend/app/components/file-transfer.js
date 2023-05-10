@@ -90,7 +90,11 @@ export default class FileTransfer extends BaseFormComponent {
   }
 
   validateUploadedFile() {
-    let isFileValid = fileUploadValidation(this.changeset.file);
+    let isFileValid = fileUploadValidation(
+      this.changeset.file,
+      this.intl,
+      this.notify
+    );
 
     if (isFileValid) {
       this.changeset.save();
