@@ -27,8 +27,6 @@ namespace :ci do
 end
 
 namespace :nightly do
-  desc 'Runs prepare frontend'
-  task frontend_prepare: 'frontend:prepare'
   desc 'Runs E2E'
   task e2e: 'spec:system:lenient'
 end
