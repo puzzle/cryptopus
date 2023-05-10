@@ -18,9 +18,23 @@ const navServiceStub = Service.extend({
       get() {
         return 1;
       }
+    },
+    {
+      id: 2,
+      name: "personal-team",
+      type: "Team::Personal",
+      folder: [],
+      isPersonalTeam: true,
+      get() {
+        return 2;
+      }
     }
   ]
   /* eslint-enable ember/avoid-leaking-state-in-ember-objects */
+});
+
+const userServiceStub = Service.extend({
+  username: "bob"
 });
 
 const storeStub = Service.extend({
@@ -66,6 +80,15 @@ const storeStub = Service.extend({
           get() {
             return 1;
           }
+        },
+        {
+          id: 2,
+          name: "personal-team",
+          type: "Team::Personal",
+          isPersonalTeam: true,
+          get() {
+            return 2;
+          }
         }
       ]);
   }
@@ -79,6 +102,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
     this.owner.register("service:store", storeStub);
     this.owner.unregister("service:navService");
     this.owner.register("service:navService", navServiceStub);
+    this.owner.register("service:userService", userServiceStub);
     setLocale("en");
   });
 
@@ -105,6 +129,23 @@ module("Integration | Component | encryptable/form", function (hooks) {
     assert.ok(this.element.textContent.trim().includes("Description"));
     assert.ok(this.element.textContent.trim().includes("Save"));
     assert.ok(this.element.textContent.trim().includes("Close"));
+  });
+
+  test("it renames personal-team to users username in encryptable form", async function (assert) {
+    await render(hbs`<Encryptable::Form />`);
+
+    await selectChoose(
+      "#team-power-select .ember-power-select-trigger",
+      "bbteam"
+    );
+
+    assert.ok(this.element.textContent.trim().includes("Team"));
+    assert.ok(this.element.textContent.trim().includes("bbteam"));
+
+    await selectChoose("#team-power-select .ember-power-select-trigger", "bob");
+
+    assert.ok(this.element.textContent.trim().includes("Team"));
+    assert.ok(this.element.textContent.trim().includes("bob"));
   });
 
   test("it renders with input data with username and password", async function (assert) {
