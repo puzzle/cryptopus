@@ -4,7 +4,7 @@ import { tracked } from "@glimmer/tracking";
 export default class LogoutTimerService extends Service {
   @tracked timeToLogoff;
 
-  AUTOLOGOFF_TIME = 295;
+  AUTOLOGOFF_TIME = 5;
 
   countDownDate;
 
@@ -42,6 +42,7 @@ export default class LogoutTimerService extends Service {
   }
 
   resetSession() {
+    sessionStorage.setItem("previousPath", window.location.href);
     window.location.replace("/session/destroy?autologout=true");
   }
 

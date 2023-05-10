@@ -28,6 +28,4 @@ document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 
-window.addEventListener("focus", () => {
-  console.log("test")
-});
+
