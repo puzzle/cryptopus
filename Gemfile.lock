@@ -213,7 +213,7 @@ GEM
     pundit (2.3.0)
       activesupport (>= 3.0.0)
     racc (1.6.2)
-    rack (2.2.3.1)
+    rack (2.2.6.3)
     rack-oauth2 (1.21.3)
       activesupport
       attr_required
