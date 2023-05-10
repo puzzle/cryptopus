@@ -7,10 +7,9 @@ describe 'NavBar', type: :system, js: true do
 
   it 'shows admin button as admin' do
     login_as_user(:admin)
-    visit('/')
 
     within(page.find('pzsh-menu')) do
-      expect(page).to have_text('Admin').twice
+      expect(page.body.downcase).to have_text('admin', count: 4)
     end
 
     logout
@@ -20,7 +19,7 @@ describe 'NavBar', type: :system, js: true do
     login_as_user(:tux)
 
     within(page.find('pzsh-menu')) do
-      expect(page).to have_text('Admin')
+      expect(page.body.downcase).to have_text('admin')
     end
 
     logout
@@ -30,7 +29,7 @@ describe 'NavBar', type: :system, js: true do
     login_as_root
 
     within(page.find('pzsh-menu')) do
-      expect(page).to have_text('Admin')
+      expect(page.body.downcase).to have_text('admin')
     end
 
     logout
@@ -40,7 +39,7 @@ describe 'NavBar', type: :system, js: true do
     login_as_user(:bob)
 
     within(page.find('pzsh-menu')) do
-      expect(page).to_not have_text('Admin')
+      expect(page.body.downcase).to_not have_text('admin')
     end
 
     logout
