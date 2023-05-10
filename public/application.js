@@ -27,3 +27,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     usernameElement.addEventListener("click", selectUsername);
   }
 });
+
+window.addEventListener("focus", () => {
+  console.log("test")
+});
