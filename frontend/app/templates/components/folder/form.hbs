@@ -27,8 +27,13 @@
                               @options={{this.assignableTeams}} @value={{this.changeset.team}}
                               @tabindex="2"
                               @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>
-                  <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
-                    {{team.name}}
+                  <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}}
+                              @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
+                    {{#if team.isPersonalTeam }}
+                      {{this.userService.username}}
+                    {{else}}
+                      {{team.name}}
+                    {{/if}}
                   </el.control>
                 </form.element>
               </div>

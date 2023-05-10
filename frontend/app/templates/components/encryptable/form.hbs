@@ -40,7 +40,11 @@
                               @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>
                   <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @placeholder={{t "encryptable/credentials.edit.team_placeholder"}}
                               @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
-                    {{team.name}}
+                    {{#if team.isPersonalTeam }}
+                      {{this.userService.username}}
+                    {{else}}
+                      {{team.name}}
+                    {{/if}}
                   </el.control>
                 </form.element>
               </div>
