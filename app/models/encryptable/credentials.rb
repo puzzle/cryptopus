@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Encryptable::Credentials < Encryptable
-  attr_accessor :cleartext_password, :cleartext_username, :cleartext_token, :cleartext_pin, :cleartext_email, :cleartext_custom_attr
+  attr_accessor :cleartext_password, :cleartext_username, :cleartext_token, :cleartext_pin,
+                :cleartext_email, :cleartext_custom_attr
 
   has_many :encryptable_files,
            class_name: 'Encryptable::File',

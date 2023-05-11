@@ -7,6 +7,7 @@ class EncryptableMinimalSerializer < ApplicationSerializer
     object.sender&.label
   end
 
+  # rubocop:disable Metrics/AbcSize
   def used_attrs
     keys = [:password, :username, :token, :pin, :email, :custom_attr]
     data = object.encrypted_data.instance_variable_get(:@data)
@@ -15,4 +16,5 @@ class EncryptableMinimalSerializer < ApplicationSerializer
       !data[key].nil?
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end
