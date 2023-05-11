@@ -28,20 +28,29 @@ describe Encryptable do
     expect(credential).to be_valid
   end
 
-  it 'decrypts username and password' do
+  it 'decrypts all attributes' do
     team_password = team.decrypt_team_password(bob, bobs_private_key)
 
     encryptable.decrypt(team_password)
 
     expect(encryptable.cleartext_username).to eq('test')
     expect(encryptable.cleartext_password).to eq('password')
+    expect(encryptable.cleartext_token).to eq('testtoken')
+    expect(encryptable.cleartext_pin).to eq('testpin')
+    expect(encryptable.cleartext_email).to eq('testemail')
+    expect(encryptable.cleartext_custom_attr[:label]).to eq('testcustomattrlabel')
+    expect(encryptable.cleartext_custom_attr[:value]).to eq('testcustomattrvalue')
   end
 
-  it 'updates password and username' do
+  it 'updates all attributes' do
     team_password = team.decrypt_team_password(bob, bobs_private_key)
 
     encryptable.cleartext_username = 'new'
     encryptable.cleartext_password = 'foo'
+    encryptable.cleartext_token = 'boo'
+    encryptable.cleartext_pin = 'loo'
+    encryptable.cleartext_email = 'too'
+    encryptable.cleartext_custom_attr = {"label"=>"coo","value"=>"yoo"}
 
     encryptable.encrypt(team_password)
     encryptable.save!
@@ -50,6 +59,11 @@ describe Encryptable do
 
     expect(encryptable.cleartext_username).to eq('new')
     expect(encryptable.cleartext_password).to eq('foo')
+    expect(encryptable.cleartext_token).to eq('boo')
+    expect(encryptable.cleartext_pin).to eq('loo')
+    expect(encryptable.cleartext_email).to eq('too')
+    expect(encryptable.cleartext_custom_attr[:label]).to eq('coo')
+    expect(encryptable.cleartext_custom_attr[:value]).to eq('yoo')
   end
 
   it 'does not create credential if name is empty' do
@@ -62,6 +76,10 @@ describe Encryptable do
 
     credential.encrypted_data.[]=(:password, **{ data: 'foo', iv: nil })
     credential.encrypted_data.[]=(:username, **{ data: 'foo', iv: nil })
+    credential.encrypted_data.[]=(:pin, **{ data: 'foo', iv: nil })
+    credential.encrypted_data.[]=(:token, **{ data: 'foo', iv: nil })
+    credential.encrypted_data.[]=(:email, **{ data: 'foo', iv: nil })
+    credential.encrypted_data.[]=(:custom_attr, **{ label: 'foo', data: 'foo', iv: nil })
 
     expect(credential).to_not be_valid
     expect(credential.errors.full_messages.first).to match(/Name/)
