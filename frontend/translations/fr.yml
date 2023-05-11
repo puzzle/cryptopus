@@ -22,6 +22,8 @@ fr:
   pin: Pin
   token: Jeton
   email: E-mail
+  customAttr: Attribut personnalisé
+  additionalField: Champ supplémentaire
   labelCustomAttr: Nom d'attribut personnalisé
   valueCustomAttr: Valeur d'attribut personnalisé
   actions: Actions
@@ -95,11 +97,15 @@ fr:
       show_pin: Afficher l'épingle
       show_token: Afficher le jeton
       show_email: Afficher l'e-mail
+      show_custom_attr: Afficher l'attribut personnalisé
+      show: Afficher
       copy_password: Copier le mot de passe
       copy_username: Copier le nom d'utilisateur
       copy_pin: Copier la broche
       copy_token: Copier le jeton
       copy_email: Copier l'e-mail
+      copy_custom_attr: Copier un attribut personnalisé
+      copy: Copier
       add_attachment: Ajouter un attachement
       blank: Vide
     new:
@@ -303,6 +309,7 @@ fr:
       pin_copied: La broche a été copiée
       token_copied: Le jeton a été copié
       email_copied: L'e-mail a été copié
+      customAttr_copied: L'attribut personnalisé a été copié
 
     encryptable-credentials:
       << : *encryptables_translations

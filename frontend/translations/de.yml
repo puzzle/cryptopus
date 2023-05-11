@@ -22,6 +22,8 @@ de:
   pin: Pin
   token: Token
   email: Email
+  customAttr: Individuelles Attribut
+  additionalField: Zusätzliches Attribut
   labelCustomAttr: Individueller Attribut Name
   valueCustomAttr: Individuelle Attribut Menge
   actions: Aktionen
@@ -95,11 +97,14 @@ de:
       show_pin: Pin anzeigen
       show_token: Token anzeigen
       show_email: Email anzeigen
+      show_custom_attr: Individuelles Attribut anzeigen
+      show: Anzeigen
       copy_password: Passwort kopieren
       copy_username: Benutzername kopieren
       copy_pin: Pin kopieren
       copy_token: Token kopieren
       copy_email: Email kopieren
+      copy_custom_attr: Individuelles Attribut kopieren
       add_attachment: Anhang hinzufügen
       blank: Leer
     new:
@@ -303,6 +308,7 @@ de:
       pin_copied: Pin wurde kopiert
       token_copied: Token wurde kopiert
       email_copied: Email wurde kopiert
+      customAttr_copied: Individuelles Attribut wurde kopiert
 
     encryptable-credentials:
       << : *encryptables_translations
