@@ -6,6 +6,7 @@ class Encryptable::CredentialsSerializer < EncryptableSerializer
 
   def cleartext_custom_attr
     return nil unless object.encrypted_data[:custom_attr]
+    return nil if object.cleartext_custom_attr.nil?
 
     {
       label: object.cleartext_custom_attr[:label],

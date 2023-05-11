@@ -82,10 +82,10 @@ class Encryptable < ApplicationRecord
                         Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
                       end
     # rubocop:enable all
-    build_encrypted_data(cleartext_value, encrypted_value)
+    build_encrypted_data(attr, cleartext_value, encrypted_value)
   end
 
-  def build_encrypted_data(cleartext_value, encrypted_value)
+  def build_encrypted_data(attr, cleartext_value, encrypted_value)
     # rubocop:disable Style/ConditionalAssignment
     if attr == :custom_attr
       encrypted_data.[]=(attr, **{ label: cleartext_value&.[]('label'),
