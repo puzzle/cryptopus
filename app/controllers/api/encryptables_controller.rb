@@ -121,17 +121,21 @@ class Api::EncryptablesController < ApiController
     "#{model_class.name}Serializer".constantize
   end
 
+  # rubocop:disable Metrics/MethodLength
   def permitted_attrs
     permitted_attrs = self.class.permitted_attrs.deep_dup
 
     if model_class == Encryptable::File
       permitted_attrs + [:filename, :credentials_id, :file]
     elsif model_class == Encryptable::Credentials
-      permitted_attrs + [:cleartext_username, :cleartext_password, :cleartext_token, :cleartext_pin, :cleartext_email , :folder_id, cleartext_custom_attr: [:label, :value]]
+      permitted_attrs + [:cleartext_username, :cleartext_password, :cleartext_token,
+                         :cleartext_pin, :cleartext_email, :folder_id,
+                         { cleartext_custom_attr: [:label, :value] }]
     else
       []
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   ### Entries ###
 

@@ -7,6 +7,7 @@ class EncryptableMinimalSerializer < ApplicationSerializer
     object.sender&.label
   end
 
+  # rubocop:disable Metrics/AbcSize
   def used_attrs
     used_attrs = {}
     data = object.encrypted_data.instance_variable_get(:@data)
@@ -18,4 +19,5 @@ class EncryptableMinimalSerializer < ApplicationSerializer
     used_attrs[:custom_attr] = !data[:custom_attr].nil?
     used_attrs
   end
+  # rubocop:enable Metrics/AbcSize
 end
