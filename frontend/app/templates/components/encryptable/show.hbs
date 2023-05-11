@@ -175,7 +175,7 @@
           {{/unless}}
           <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextCustomAttr.value}}
             title={{if @encryptable.isCustomAttrBlank this.noCopyBlankTooltip ""}}
-            @success={{fn this.onCopied "custom-attr"}} disabled={{@encryptable.isCustomAttrBlank}} >
+            @success={{fn this.onCopied "customAttr"}} disabled={{@encryptable.isCustomAttrBlank}} >
             <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
           </CopyButton>
         </div>

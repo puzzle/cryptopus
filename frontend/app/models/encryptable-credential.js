@@ -8,9 +8,9 @@ export default class EncryptableCredential extends Encryptable {
   @attr("string") cleartextToken;
   @attr("string") cleartextPin;
   @attr("string") cleartextEmail;
+  @attr({defaultValue: undefined}) cleartextCustomAttr;
   @attr() usedAttrs;
   @hasMany("encryptable-file") encryptableFiles;
-  @attr({defaultValue: undefined}) cleartextCustomAttr;
 
   get value() {
     return this.cleartextCustomAttr?.value;

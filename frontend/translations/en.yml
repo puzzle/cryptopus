@@ -97,12 +97,14 @@ en:
       show_pin: Show pin
       show_token: Show token
       show_email: Show email
+      show_custom_attr: Show custom attribute
       show: Show
       copy_password: Copy password
       copy_username: Copy username
       copy_pin: Copy pin
       copy_token: Copy token
       copy_email: Copy email
+      copy_custom_attr: Copy custom attribute
       copy: Copy
       add_attachment: Add Attachment
       blank: none
@@ -306,7 +308,7 @@ en:
       pin_copied: Pin was copied
       token_copied: Token was copied
       email_copied: Email was copied
-      custom-attr_copied: Custom Attribute was copied
+      customAttr_copied: Custom Attribute was copied
 
     encryptable-credentials:
       << : *encryptables_translations

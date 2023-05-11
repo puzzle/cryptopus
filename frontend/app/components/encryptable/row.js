@@ -110,16 +110,16 @@ export default class RowComponent extends Component {
       this.isUsernameVisible = true;
     }
     if (encryptable.isTokenBlank) {
-      this.isUsernameVisible = true;
+      this.isTokenVisible = true;
     }
     if (encryptable.isPinBlank) {
-      this.isUsernameVisible = true;
+      this.isPinVisible = true;
     }
     if (encryptable.isEmailBlank) {
-      this.isUsernameVisible = true;
+      this.isEmailVisible = true;
     }
     if (encryptable.isCustomAttrBlank) {
-      this.isUsernameVisible = true;
+      this.isCustomAttrVisible = true;
     }
   }
 

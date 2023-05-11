@@ -194,8 +194,14 @@ li a {
 }
 
 .encryptable-row-icons {
-  position: absolute;
-  margin-left: 43vw;
+  margin-left: auto;
+}
+
+@media (max-width: 1062px) {
+  .encryptable-row-attribute,
+  .encryptable-row-copy-button {
+    display: none !important;
+  }
 }
 
 .icon-button {
