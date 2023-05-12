@@ -234,7 +234,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#password-field")
         .innerText.replace(/\s+/g, " "),
-      "Es ist kein Passwort gesetzt Zufälliges Passwort"
+      "Passwort Es ist kein Passwort gesetzt Zufälliges Passwort"
     );
     assert.equal(
       this.element.querySelector("#encryptable-form-save-button").innerText,
