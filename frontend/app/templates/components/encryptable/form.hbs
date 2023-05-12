@@ -17,10 +17,9 @@
               {{/if}}
               <div class="col-md-6 order-2">
                 <form.group class="col-md-12">
-                  <form.element @property="name" @label={{t "helpers.label.encryptable/credentials.accountname"}}
+                  <form.element id="encryptable-form-accountname" @property="name" @label={{t "helpers.label.encryptable/credentials.accountname"}}
                                 class={{if this.changeset.error.name.validation
                                                                "invalid-input-name"}}
-                                id="name"
                                 @customError={{t (validation-error-key this.changeset.error.name.validation)}} as |el|>
                     <el.control autocomplete="off" @name="name" tabindex="1"></el.control>
                   </form.element>
@@ -28,7 +27,7 @@
               </div>
               <div class="col-md-6 order-2">
                 <div class="form-group col-md-12" id="team-power-select">
-                  <form.element @label={{t "team"}} @controlType="power-select"
+                  <form.element id="encryptable-form-team" @label={{t "team"}} @controlType="power-select"
                                 @options={{this.assignableTeams}} @value={{this.selectedTeam}}
                                 @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>
                     <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @placeholder={{t "encryptable/credentials.edit.team_placeholder"}}
@@ -42,7 +41,7 @@
                   </form.element>
                 </div>
                 <div class="form-group col-md-12" id="folder-power-select">
-                  <form.element @options={{this.availableFolders}} @label={{t "folder"}} @controlType="power-select"
+                  <form.element id="encryptable-form-folder" if="encryptable-form-folder" @options={{this.availableFolders}} @label={{t "folder"}} @controlType="power-select"
                                 @value={{this.changeset.folder}}
                                 @searchEnabled={{true}} @allowClear={{true}} @searchField={{"name"}}
                                 @customError={{t (validation-error-key this.changeset.error.folder.validation)}} as |el|>
@@ -57,8 +56,8 @@
               </div>
             </div>
             <form.group class="col-md-12">
-              <form.element @label={{t "description"}} @property="description" @controlType="textarea"
-                            id="description" class="{{if
+              <form.element id="encryptable-form-description" @label={{t "description"}} @property="description" @controlType="textarea"
+                           class="{{if
                       this.changeset.error.description.validation "invalid-input"}} vertical-resize"
                             customError={{t
                       (validation-error-key this.changeset.error.description.validation)}} as |el|>
@@ -78,7 +77,7 @@
                       <el.control @name="cleartextUsername" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <img {{on "click" (action "hideField" "username")}} class="d-inline delete-field" src="/assets/images/delete-white.svg" alt="delete attribute field">
+                  <img id="remove-username-field-button" {{on "click" (action "hideField" "username")}} class="d-inline delete-field" src="/assets/images/delete-white.svg" alt="delete attribute field">
                 </div>
               {{/if}}
               {{#if this.isPasswordFieldActive}}
@@ -175,15 +174,15 @@
                   <option value={{item}}>{{t item}}</option>
                 {{/each}}
               </select>
-              <img {{on "click" (action "addField")}} class="d-inline add-field ml-2" src="/assets/images/plus-white.svg" alt="add attribute field">
+              <img id="add-field-button" {{on "click" (action "addField")}} class="d-inline add-field ml-2" src="/assets/images/plus-white.svg" alt="add attribute field">
             </div>
           {{/if}}
         </BsForm>
       </div>
     </Modal.body>
     <Modal.footer>
-      <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "save"}}</BsButton>
-      <BsButton @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
+      <BsButton id="encryptable-form-save-button" @onClick={{action this.submit this.changeset}} @type="primary">{{t "save"}}</BsButton>
+      <BsButton id="encryptable-form-close-button" @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
     </Modal.footer>
   </BsModal>
 {{/if}}
