@@ -107,7 +107,7 @@ en:
       copy_email: Copy email
       copy_custom_attr: Copy custom attribute
       copy: Copy
-      add_attachment: Add Attachment
+      add_attachment: Add attachment
       blank: none
     new:
       title: New Credentials
