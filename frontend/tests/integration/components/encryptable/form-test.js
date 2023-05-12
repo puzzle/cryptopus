@@ -163,7 +163,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#password-field")
         .innerText.replace(/\s+/g, " "),
-      "Password Password Strength : Weak Random password"
+      "Password There is no password defined Random password"
     );
     assert.equal(
       this.element.querySelector("#encryptable-form-save-button").innerText,
@@ -234,7 +234,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#password-field")
         .innerText.replace(/\s+/g, " "),
-      "Passwort Passwort Stärke : Schwach Zufälliges Passwort"
+      "Es ist kein Passwort gesetzt Zufälliges Passwort"
     );
     assert.equal(
       this.element.querySelector("#encryptable-form-save-button").innerText,
@@ -305,7 +305,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#password-field")
         .innerText.replace(/\s+/g, " "),
-      "Passwort Passwort Sterchi : Schwach Zuefäuigs Passwort"
+      "Passwort Es isch kes Passwort gsetzt Zuefäuigs Passwort"
     );
     assert.equal(
       this.element.querySelector("#encryptable-form-save-button").innerText,
@@ -376,7 +376,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#password-field")
         .innerText.replace(/\s+/g, " "),
-      "Mot de passe Fiabilité du mot de passe : Faible Mot de passe aléatoire"
+      "Mot de passe Il n'a pas un mot de passe Mot de passe aléatoire"
     );
     assert.equal(
       this.element.querySelector("#encryptable-form-save-button").innerText,
