@@ -109,6 +109,14 @@ de:
     download: Geteilte Datei herunterladen
     delete_transferred_encryptables: Geteilte Datei löschen
 
+  encryptable/transferring/credential:
+    new:
+      title: Teilen mit
+    receiver:
+      name: Wähle einen Empfänger aus
+    submit: Senden
+    description_for_sender: Deine Zugangsdaten werden verschlüsselt in den Inbox Ordner des Empfängers geschickt.
+
   admin:
     title: Admin
     settings:

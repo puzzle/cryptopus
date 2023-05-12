@@ -4,6 +4,9 @@
 {{#if this.isFileCreating}}
   <EncryptableFile::Form @class="modal_file_entry" @encryptableCredential={{@encryptable}} @title={{t "encryptable_files.new.title"}} @onAbort={{this.toggleFileNew}}/>
 {{/if}}
+{{#if this.isCredentialSharing}}
+  <CredentialTransfer @onAbort={{this.toggleCredentialSharing}} @title={{t "encryptable/transferring/credential.new.title"}}/>
+{{/if}}
 {{#if this.isFile}}
   <div class="container px-5 pt-4 h-100 bg-white pl-none encryptable-container-smartphone mb-15">
     <div class="row mb-3">
@@ -64,6 +67,9 @@
       </div>
       {{#unless @encryptable.isOseSecret}}
         <div class="col-auto d-flex justify-content-between align-items-center">
+          <a id="share_credential_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleCredentialSharing}}>
+            <img class="icon-button" src="/assets/images/share-blue.svg" alt="share">
+          </a>
           <DeleteWithConfirmation @class="btn btn-light edit_button" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
             <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
           </DeleteWithConfirmation>

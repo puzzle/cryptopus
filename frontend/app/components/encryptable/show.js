@@ -23,6 +23,8 @@ export default class ShowComponent extends Component {
 
   @tracked
   isPasswordVisible = false;
+  @tracked
+  isCredentialSharing = false;
 
   @tracked
   isFile = this.args.encryptable.isFile;
@@ -49,6 +51,11 @@ export default class ShowComponent extends Component {
   @action
   refreshRoute() {
     this.router.transitionTo("/teams");
+  }
+
+  @action
+  toggleCredentialSharing() {
+    this.isCredentialSharing = !this.isCredentialSharing;
   }
 
   @action

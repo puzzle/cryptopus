@@ -109,6 +109,14 @@ fr:
     download: Télécharge le fichier transféré
     delete_transferred_encryptables: Supprimer le fichier partagé
 
+  encryptable/transferring/credential:
+    new:
+      title: "partager fichier"
+    receiver:
+      name: Choisir le récepteur
+    submit: envoyer
+    description_for_sender: Tes données d'accès sont envoyées crypté au destinataire sélectionné dans le dossier de la boîte de réception.
+
   admin:
     title: Admin
     settings:
