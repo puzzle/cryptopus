@@ -1,6 +1,6 @@
 import { module, test } from "qunit";
 import { setupRenderingTest } from "ember-qunit";
-import { render, click } from "@ember/test-helpers";
+import { render } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 import Service from "@ember/service";
 import { setLocale } from "ember-intl/test-support";
@@ -37,11 +37,9 @@ module("Integration | Component | encryptable/row", function (hooks) {
       }
     });
 
-    await render(
-      hbs `<Encryptable::Row @encryptable={{this.encryptable}}/>`
-    );
+    await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
 
-    await new Promise(r => setTimeout(r, 1));
+    await new Promise((r) => setTimeout(r, 1));
 
     assert.equal(
       this.element.querySelector("#encryptable-row-title").innerText,
@@ -51,11 +49,11 @@ module("Integration | Component | encryptable/row", function (hooks) {
       this.element.querySelector("#username-field").innerText,
       "Show username"
     );
-    assert.dom(this.element.querySelector("#password-field")).doesNotExist()
-    assert.dom(this.element.querySelector("#pin-field")).doesNotExist()
-    assert.dom(this.element.querySelector("#email-field")).doesNotExist()
-    assert.dom(this.element.querySelector("#token-field")).doesNotExist()
-    assert.dom(this.element.querySelector("#custom-attr-field")).doesNotExist()
+    assert.dom(this.element.querySelector("#password-field")).doesNotExist();
+    assert.dom(this.element.querySelector("#pin-field")).doesNotExist();
+    assert.dom(this.element.querySelector("#email-field")).doesNotExist();
+    assert.dom(this.element.querySelector("#token-field")).doesNotExist();
+    assert.dom(this.element.querySelector("#custom-attr-field")).doesNotExist();
   });
 
   test("it renders with two set attribute", async function (assert) {
@@ -74,11 +72,9 @@ module("Integration | Component | encryptable/row", function (hooks) {
       }
     });
 
-    await render(
-      hbs `<Encryptable::Row @encryptable={{this.encryptable}}/>`
-    );
+    await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
 
-    await new Promise(r => setTimeout(r, 1));
+    await new Promise((r) => setTimeout(r, 1));
 
     assert.equal(
       this.element.querySelector("#encryptable-row-title").innerText,
@@ -92,10 +88,10 @@ module("Integration | Component | encryptable/row", function (hooks) {
       this.element.querySelector("#password-field").innerText,
       "Show password"
     );
-    assert.dom(this.element.querySelector("#pin-field")).doesNotExist()
-    assert.dom(this.element.querySelector("#email-field")).doesNotExist()
-    assert.dom(this.element.querySelector("#token-field")).doesNotExist()
-    assert.dom(this.element.querySelector("#custom-attr-field")).doesNotExist()
+    assert.dom(this.element.querySelector("#pin-field")).doesNotExist();
+    assert.dom(this.element.querySelector("#email-field")).doesNotExist();
+    assert.dom(this.element.querySelector("#token-field")).doesNotExist();
+    assert.dom(this.element.querySelector("#custom-attr-field")).doesNotExist();
   });
 
   test("it renders with three or more set attribute", async function (assert) {
@@ -115,21 +111,19 @@ module("Integration | Component | encryptable/row", function (hooks) {
       }
     });
 
-    await render(
-      hbs `<Encryptable::Row @encryptable={{this.encryptable}}/>`
-    );
+    await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
 
-    await new Promise(r => setTimeout(r, 1));
+    await new Promise((r) => setTimeout(r, 1));
 
     assert.equal(
       this.element.querySelector("#encryptable-row-title").innerText,
       "mate"
     );
-    assert.dom(this.element.querySelector("#username-field")).doesNotExist()
-    assert.dom(this.element.querySelector("#password-field")).doesNotExist()
-    assert.dom(this.element.querySelector("#pin-field")).doesNotExist()
-    assert.dom(this.element.querySelector("#email-field")).doesNotExist()
-    assert.dom(this.element.querySelector("#token-field")).doesNotExist()
-    assert.dom(this.element.querySelector("#custom-attr-field")).doesNotExist()
+    assert.dom(this.element.querySelector("#username-field")).doesNotExist();
+    assert.dom(this.element.querySelector("#password-field")).doesNotExist();
+    assert.dom(this.element.querySelector("#pin-field")).doesNotExist();
+    assert.dom(this.element.querySelector("#email-field")).doesNotExist();
+    assert.dom(this.element.querySelector("#token-field")).doesNotExist();
+    assert.dom(this.element.querySelector("#custom-attr-field")).doesNotExist();
   });
 });

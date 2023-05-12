@@ -20,15 +20,12 @@
 .delete-field {
   display: inline-block;
   border-radius: 5px;
-  padding: 7px;
+  padding: 5px;
   width: 35px !important;
   height: 35px !important;
   margin-top: 2rem;
   background-color: red;
-  background-image: url('/assets/images/delete-white.svg');
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: cover;
+  cursor: pointer;
 }
 
 .encrypted-icon {

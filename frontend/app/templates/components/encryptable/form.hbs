@@ -51,8 +51,8 @@
                                 @renderInPlace={{true}} @onChange={{this.setFolder}} as |folder|>
                       {{folder.name}}
                     </el.control>
-                 </form.element>
-               </div>
+                  </form.element>
+                </div>
               </div>
             </div>
             <form.group class="col-md-12">
@@ -77,7 +77,9 @@
                       <el.control @name="cleartextUsername" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <img id="remove-username-field-button" {{on "click" (action "hideField" "username")}} class="d-inline delete-field" src="/assets/images/delete-white.svg" alt="delete attribute field">
+                  <button class="btn delete-field" {{on "click" (action "hideField" "username")}}>
+                    <img id="remove-username-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
+                  </button>
                 </div>
               {{/if}}
               {{#if this.isPasswordFieldActive}}
@@ -91,7 +93,9 @@
                       <el.control type="password" autocomplete="off"  @name="cleartextPassword" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <img {{on "click" (action "hideField" "password")}} class="d-inline delete-field" src="/assets/images/delete-white.svg" alt="delete attribute field">
+                  <button class="btn delete-field" {{on "click" (action "hideField" "password")}}>
+                    <img id="remove-password-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
+                  </button>
                   <PasswordStrengthMeter class="col-12 col-lg-9 px-0 mb-2 mb-md-0 ml-3" @password={{this.changeset.cleartextPassword}}/>
                   <div></div>
                   <button class="btn btn-secondary btn-block col-lg-7 mb-md-4 ml-3 mt-2" {{on "click" this.setRandomPassword}}
@@ -111,7 +115,9 @@
                       <el.control @name="cleartextToken" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <img {{on "click" (action "hideField" "token")}} class="d-inline delete-field" src="/assets/images/delete-white.svg" alt="delete attribute field">
+                  <button class="btn delete-field" {{on "click" (action "hideField" "token")}}>
+                    <img id="remove-token-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
+                  </button>
                 </div>
               {{/if}}
               {{#if this.isPinFieldActive}}
@@ -125,7 +131,9 @@
                       <el.control @name="cleartextPin" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <img {{on "click" (action "hideField" "pin")}} class="d-inline delete-field" src="/assets/images/delete-white.svg" alt="delete attribute field">
+                  <button class="btn delete-field" {{on "click" (action "hideField" "pin")}}>
+                    <img id="remove-pin-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
+                  </button>
                 </div>
               {{/if}}
               {{#if this.isEmailFieldActive}}
@@ -139,7 +147,9 @@
                       <el.control @name="cleartextEmail" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <img {{on "click" (action "hideField" "email")}} class="d-inline delete-field" src="/assets/images/delete-white.svg" alt="delete attribute field">
+                  <button class="btn delete-field" {{on "click" (action "hideField" "email")}}>
+                    <img id="remove-email-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
+                  </button>
                 </div>
               {{/if}}
               {{#if this.isCustomAttrFieldActive}}
@@ -152,7 +162,9 @@
                       <el.control @name="label" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <img {{on "click" (action "hideField" "customAttr")}} class="d-inline delete-field" src="/assets/images/delete-white.svg" alt="delete attribute field">
+                  <button class="btn delete-field" {{on "click" (action "hideField" "customAttr")}}>
+                    <img id="remove-customAttr-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
+                  </button>
                   <form.group class="col-md-12">
                     <form.element @label={{t "valueCustomAttr"}} id="valueCustomAttr" class={{if
                             this.changeset.error.cleartextCustomAttr.validation "invalid-input-name"}}
@@ -174,7 +186,9 @@
                   <option value={{item}}>{{t item}}</option>
                 {{/each}}
               </select>
-              <img id="add-field-button" {{on "click" (action "addField")}} class="d-inline add-field ml-2" src="/assets/images/plus-white.svg" alt="add attribute field">
+              <button class="btn add-field ml-2" {{on "click" (action "addField")}} >
+                <img id="add-field-button" class="d-inline" src="/assets/images/plus-white.svg" alt="add attribute field">
+              </button>
             </div>
           {{/if}}
         </BsForm>

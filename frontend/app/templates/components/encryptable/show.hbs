@@ -115,13 +115,13 @@
       {{#if @encryptable.cleartextPassword}}
         <div id="encryptable-password-label">{{t "password"}}</div>
         <div class="hidden-attribute-copy-button">
-          {{#unless this.isPasswordVisible}}
-            <a id="show-password" role="button" class="correct-pixel-error-omg show-hidden-attribute-button show-text" {{on "click" (action "showValue" "password")}}>{{t "encryptable/credentials.show.show_password"}}</a>
-          {{else}}
+          {{#if this.isPasswordVisible}}
             <div class="result-hidden-attribute">
               <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
             </div>
-          {{/unless}}
+          {{else}}
+            <a id="show-password" role="button" class="correct-pixel-error-omg show-hidden-attribute-button show-text" {{on "click" (action "showValue" "password")}}>{{t "encryptable/credentials.show.show_password"}}</a>
+          {{/if}}
           <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextPassword}}
             title={{if @encryptable.isPasswordBlank this.noCopyBlankTooltip ""}}
             @success={{fn this.onCopied "password"}} disabled={{@encryptable.isPasswordBlank}} >
@@ -132,13 +132,13 @@
       {{#if @encryptable.cleartextPin}}
         <div id="encryptable-pin-label">{{t "pin"}}</div>
         <div class="hidden-attribute-copy-button">
-          {{#unless this.isPinVisible}}
-            <a id="show-pin" role="button" class="just-testing correct-pixel-error-omg show-hidden-attribute-button show-text" {{on "click" (action "showValue" "pin")}}>{{t "encryptable/credentials.show.show_pin"}}</a>
-          {{else}}
+          {{#if this.isPinVisible}}
             <div class="result-hidden-attribute">
               <Input id="cleartext_pin" class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextPin}}/>
             </div>
-          {{/unless}}
+          {{else}}
+            <a id="show-pin" role="button" class="just-testing correct-pixel-error-omg show-hidden-attribute-button show-text" {{on "click" (action "showValue" "pin")}}>{{t "encryptable/credentials.show.show_pin"}}</a>
+          {{/if}}
           <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextPin}}
             title={{if @encryptable.isPinBlank this.noCopyBlankTooltip ""}}
             @success={{fn this.onCopied "pin"}} disabled={{@encryptable.isPinBlank}} >
@@ -149,13 +149,13 @@
       {{#if @encryptable.cleartextToken}}
         <div id="encryptable-token-label">{{t "token"}}</div>
         <div class="hidden-attribute-copy-button">
-          {{#unless this.isTokenVisible}}
-            <a id="show-token" role="button" class="correct-pixel-error-omg show-hidden-attribute-button show-text" {{on "click" (action "showValue" "token")}}>{{t "encryptable/credentials.show.show_token"}}</a>
-          {{else}}
+          {{#if this.isTokenVisible}}
             <div class="result-hidden-attribute">
               <Input id="cleartext_token" class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextToken}}/>
             </div>
-          {{/unless}}
+          {{else}}
+            <a id="show-token" role="button" class="correct-pixel-error-omg show-hidden-attribute-button show-text" {{on "click" (action "showValue" "token")}}>{{t "encryptable/credentials.show.show_token"}}</a>
+          {{/if}}
           <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextToken}}
             title={{if @encryptable.isTokenBlank this.noCopyBlankTooltip ""}}
             @success={{fn this.onCopied "token"}} disabled={{@encryptable.isTokenBlank}} >
@@ -166,13 +166,13 @@
       {{#if @encryptable.cleartextCustomAttr}}
         <div id="encryptable-custom-attr-label">{{@encryptable.cleartextCustomAttr.label}}</div>
         <div class="hidden-attribute-copy-button">
-          {{#unless this.isCustomAttrVisible}}
-            <a id="show-custom-attr" role="button" class="correct-pixel-error-omg show-hidden-attribute-button show-text" {{on "click" (action "showValue" "customAttr")}}>{{t "encryptable/credentials.show.show"}} {{@encryptable.cleartextCustomAttr.label}}</a>
-          {{else}}
+          {{#if this.isCustomAttrVisible}}
             <div class="result-hidden-attribute">
               <Input id="cleartext_custom-attr" class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextCustomAttr.value}}/>
             </div>
-          {{/unless}}
+          {{else}}
+            <a id="show-custom-attr" role="button" class="correct-pixel-error-omg show-hidden-attribute-button show-text" {{on "click" (action "showValue" "customAttr")}}>{{t "encryptable/credentials.show.show"}} {{@encryptable.cleartextCustomAttr.label}}</a>
+          {{/if}}
           <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextCustomAttr.value}}
             title={{if @encryptable.isCustomAttrBlank this.noCopyBlankTooltip ""}}
             @success={{fn this.onCopied "customAttr"}} disabled={{@encryptable.isCustomAttrBlank}} >

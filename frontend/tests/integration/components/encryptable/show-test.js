@@ -53,9 +53,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
       ]
     });
 
-    await render(
-      hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`
-    );
+    await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
 
     assert
       .dom(this.element.querySelector("#cleartext_password"))
@@ -65,27 +63,15 @@ module("Integration | Component | encryptable/show", function (hooks) {
       this.element.querySelector("#cleartext_username").value,
       "mail"
     );
-    assert
-      .dom(this.element.querySelector("#cleartext_token"))
-      .doesNotExist();
-    assert
-      .dom(this.element.querySelector("#show-token"))
-      .doesNotExist();
-    assert
-      .dom(this.element.querySelector("#cleartext_pin"))
-      .doesNotExist();
-    assert
-      .dom(this.element.querySelector("#show-pin"))
-      .doesNotExist();
-    assert
-      .dom(this.element.querySelector("#cleartext_email"))
-      .doesNotExist();
+    assert.dom(this.element.querySelector("#cleartext_token")).doesNotExist();
+    assert.dom(this.element.querySelector("#show-token")).doesNotExist();
+    assert.dom(this.element.querySelector("#cleartext_pin")).doesNotExist();
+    assert.dom(this.element.querySelector("#show-pin")).doesNotExist();
+    assert.dom(this.element.querySelector("#cleartext_email")).doesNotExist();
     assert
       .dom(this.element.querySelector("#cleartext_custom_attr"))
       .doesNotExist();
-    assert
-      .dom(this.element.querySelector("#show-custom-attr"))
-      .doesNotExist();
+    assert.dom(this.element.querySelector("#show-custom-attr")).doesNotExist();
 
     await click("#show-password");
 
@@ -93,9 +79,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
       this.element.querySelector("#cleartext_password").value,
       "e2jd2rh4g5io7"
     );
-    assert
-      .dom(this.element.querySelector("#show_password"))
-      .doesNotExist();
+    assert.dom(this.element.querySelector("#show_password")).doesNotExist();
 
     let deleteButton = this.element.querySelector('.icon-button[alt="delete"]');
     let editButton = this.element.querySelector('.icon-button[alt="edit"]');
@@ -117,33 +101,22 @@ module("Integration | Component | encryptable/show", function (hooks) {
         value: "value"
       },
       createdAt: "2021-06-14 09:23:02.750627",
-      updatedAt: "2021-06-22 11:33:13.766879",
+      updatedAt: "2021-06-22 11:33:13.766879"
     });
 
-    await render(
-      hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`
-    );
+    await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
 
     //already exists, because it isnt a hidden field by default
-    assert.equal(
-      this.element.querySelector("#cleartext_email").value,
-      "email"
-    );
+    assert.equal(this.element.querySelector("#cleartext_email").value, "email");
     assert
       .dom(this.element.querySelector("#cleartext_username"))
       .doesNotExist();
     assert
       .dom(this.element.querySelector("#cleartext_password"))
       .doesNotExist();
-    assert
-      .dom(this.element.querySelector("#show_password"))
-      .doesNotExist();
-    assert
-      .dom(this.element.querySelector("#cleartext_token"))
-      .doesNotExist();
-    assert
-      .dom(this.element.querySelector("#cleartext_pin"))
-      .doesNotExist();
+    assert.dom(this.element.querySelector("#show_password")).doesNotExist();
+    assert.dom(this.element.querySelector("#cleartext_token")).doesNotExist();
+    assert.dom(this.element.querySelector("#cleartext_pin")).doesNotExist();
     assert
       .dom(this.element.querySelector("#cleartext_custom_attr"))
       .doesNotExist();
@@ -158,23 +131,13 @@ module("Integration | Component | encryptable/show", function (hooks) {
 
     await click("#show-token");
 
-    assert.equal(
-      this.element.querySelector("#cleartext_token").value,
-      "token"
-    );
-    assert
-      .dom(this.element.querySelector("#show_token"))
-      .doesNotExist();
+    assert.equal(this.element.querySelector("#cleartext_token").value, "token");
+    assert.dom(this.element.querySelector("#show_token")).doesNotExist();
 
     await click("#show-pin");
 
-    assert.equal(
-      this.element.querySelector("#cleartext_pin").value,
-      "pin"
-    );
-    assert
-      .dom(this.element.querySelector("#show_pin"))
-      .doesNotExist();
+    assert.equal(this.element.querySelector("#cleartext_pin").value, "pin");
+    assert.dom(this.element.querySelector("#show_pin")).doesNotExist();
 
     await click("#show-custom-attr");
 
@@ -182,10 +145,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
       this.element.querySelector("#cleartext_custom-attr").value,
       "value"
     );
-    assert
-      .dom(this.element.querySelector("#show-custom-attr"))
-      .doesNotExist();
-
+    assert.dom(this.element.querySelector("#show-custom-attr")).doesNotExist();
   });
 
   test("should render all english translations and encryptable values", async function (assert) {
@@ -204,12 +164,10 @@ module("Integration | Component | encryptable/show", function (hooks) {
         value: "value"
       },
       createdAt: "2021-06-14 09:23:02.750627",
-      updatedAt: "2021-06-22 11:33:13.766879",
+      updatedAt: "2021-06-22 11:33:13.766879"
     });
 
-    await render(
-      hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`
-    );
+    await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
     assert.equal(
       this.element.querySelector("#encryptable-title").innerText,
       "Credentials: Ninjas test encryptable"
@@ -242,10 +200,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
       this.element.querySelector("#encryptable-pin-label").innerText,
       "Pin"
     );
-    assert.equal(
-      this.element.querySelector("#show-pin").innerText,
-      "Show pin"
-    );
+    assert.equal(this.element.querySelector("#show-pin").innerText, "Show pin");
     assert.equal(
       this.element.querySelector("#encryptable-token-label").innerText,
       "Token"
@@ -256,7 +211,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
     );
     assert.ok(
       this.element.querySelector("#show-custom-attr").innerText.includes("Show")
-    )
+    );
     assert.equal(
       this.element.querySelector("#encryptable-attachments").innerText,
       "Attachments"
@@ -295,12 +250,10 @@ module("Integration | Component | encryptable/show", function (hooks) {
         value: "value"
       },
       createdAt: "2021-06-14 09:23:02.750627",
-      updatedAt: "2021-06-22 11:33:13.766879",
+      updatedAt: "2021-06-22 11:33:13.766879"
     });
 
-    await render(
-      hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`
-    );
+    await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
     assert.equal(
       this.element.querySelector("#encryptable-title").innerText,
       "Zugangsdaten: Ninjas test encryptable"
@@ -346,8 +299,10 @@ module("Integration | Component | encryptable/show", function (hooks) {
       "Token anzeigen"
     );
     assert.ok(
-      this.element.querySelector("#show-custom-attr").innerText.includes("Anzeigen")
-    )
+      this.element
+        .querySelector("#show-custom-attr")
+        .innerText.includes("Anzeigen")
+    );
     assert.equal(
       this.element.querySelector("#encryptable-attachments").innerText,
       "Anhänge"
@@ -386,12 +341,10 @@ module("Integration | Component | encryptable/show", function (hooks) {
         value: "value"
       },
       createdAt: "2021-06-14 09:23:02.750627",
-      updatedAt: "2021-06-22 11:33:13.766879",
+      updatedAt: "2021-06-22 11:33:13.766879"
     });
 
-    await render(
-      hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`
-    );
+    await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
     assert.equal(
       this.element.querySelector("#encryptable-title").innerText,
       "Zuägangsdate: Ninjas test encryptable"
@@ -437,8 +390,10 @@ module("Integration | Component | encryptable/show", function (hooks) {
       "Token ahzeigä"
     );
     assert.ok(
-      this.element.querySelector("#show-custom-attr").innerText.includes("Ahzeigä")
-    )
+      this.element
+        .querySelector("#show-custom-attr")
+        .innerText.includes("Ahzeigä")
+    );
     assert.equal(
       this.element.querySelector("#encryptable-attachments").innerText,
       "Ahäng"
@@ -477,12 +432,10 @@ module("Integration | Component | encryptable/show", function (hooks) {
         value: "value"
       },
       createdAt: "2021-06-14 09:23:02.750627",
-      updatedAt: "2021-06-22 11:33:13.766879",
+      updatedAt: "2021-06-22 11:33:13.766879"
     });
 
-    await render(
-      hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`
-    );
+    await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
     assert.equal(
       this.element.querySelector("#encryptable-title").innerText,
       "Compte: Ninjas test encryptable"
@@ -528,8 +481,10 @@ module("Integration | Component | encryptable/show", function (hooks) {
       "Afficher le jeton"
     );
     assert.ok(
-      this.element.querySelector("#show-custom-attr").innerText.includes("Afficher")
-    )
+      this.element
+        .querySelector("#show-custom-attr")
+        .innerText.includes("Afficher")
+    );
     assert.equal(
       this.element.querySelector("#encryptable-attachments").innerText,
       "Attachements"

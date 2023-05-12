@@ -110,32 +110,40 @@ module("Integration | Component | encryptable/form", function (hooks) {
     await render(hbs`<Encryptable::Form />`);
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-team").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-team")
+        .innerText.replace(/\s+/g, " "),
       "Team Select a Team"
     );
 
     await selectChoose(
       "#team-power-select .ember-power-select-trigger",
       "bbteam"
-    )
+    );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-team").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-team")
+        .innerText.replace(/\s+/g, " "),
       "Team bbteam"
     );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-folder").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-folder")
+        .innerText.replace(/\s+/g, " "),
       "Folder Select a Folder Folder must be present"
     );
 
     await selectChoose(
       "#folder-power-select .ember-power-select-trigger",
       "bbt"
-    )
+    );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-folder").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-folder")
+        .innerText.replace(/\s+/g, " "),
       "Folder bbt"
     );
 
@@ -152,7 +160,9 @@ module("Integration | Component | encryptable/form", function (hooks) {
       "Username"
     );
     assert.equal(
-      this.element.querySelector("#password-field").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#password-field")
+        .innerText.replace(/\s+/g, " "),
       "Password Password Strength : Weak Random password"
     );
     assert.equal(
@@ -171,32 +181,40 @@ module("Integration | Component | encryptable/form", function (hooks) {
     await render(hbs`<Encryptable::Form />`);
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-team").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-team")
+        .innerText.replace(/\s+/g, " "),
       "Team Wählen Sie ein Team aus"
     );
 
     await selectChoose(
       "#team-power-select .ember-power-select-trigger",
       "bbteam"
-    )
+    );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-team").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-team")
+        .innerText.replace(/\s+/g, " "),
       "Team bbteam"
     );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-folder").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-folder")
+        .innerText.replace(/\s+/g, " "),
       "Ordner Wählen Sie ein Ordner aus Der Ordner muss vorhanden sein"
     );
 
     await selectChoose(
       "#folder-power-select .ember-power-select-trigger",
       "bbt"
-    )
+    );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-folder").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-folder")
+        .innerText.replace(/\s+/g, " "),
       "Ordner bbt"
     );
 
@@ -213,7 +231,9 @@ module("Integration | Component | encryptable/form", function (hooks) {
       "Benutzername"
     );
     assert.equal(
-      this.element.querySelector("#password-field").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#password-field")
+        .innerText.replace(/\s+/g, " "),
       "Passwort Passwort Stärke : Schwach Zufälliges Passwort"
     );
     assert.equal(
@@ -232,32 +252,40 @@ module("Integration | Component | encryptable/form", function (hooks) {
     await render(hbs`<Encryptable::Form />`);
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-team").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-team")
+        .innerText.replace(/\s+/g, " "),
       "Team Wähl äs Team us"
     );
 
     await selectChoose(
       "#team-power-select .ember-power-select-trigger",
       "bbteam"
-    )
+    );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-team").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-team")
+        .innerText.replace(/\s+/g, " "),
       "Team bbteam"
     );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-folder").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-folder")
+        .innerText.replace(/\s+/g, " "),
       "Ordner Wähl ä Ordner us Dr Ordner muess ume si"
     );
 
     await selectChoose(
       "#folder-power-select .ember-power-select-trigger",
       "bbt"
-    )
+    );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-folder").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-folder")
+        .innerText.replace(/\s+/g, " "),
       "Ordner bbt"
     );
 
@@ -274,7 +302,9 @@ module("Integration | Component | encryptable/form", function (hooks) {
       "Benutzername"
     );
     assert.equal(
-      this.element.querySelector("#password-field").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#password-field")
+        .innerText.replace(/\s+/g, " "),
       "Passwort Passwort Sterchi : Schwach Zuefäuigs Passwort"
     );
     assert.equal(
@@ -293,32 +323,40 @@ module("Integration | Component | encryptable/form", function (hooks) {
     await render(hbs`<Encryptable::Form />`);
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-team").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-team")
+        .innerText.replace(/\s+/g, " "),
       "Équipe Choisissez une équipe"
     );
 
     await selectChoose(
       "#team-power-select .ember-power-select-trigger",
       "bbteam"
-    )
+    );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-team").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-team")
+        .innerText.replace(/\s+/g, " "),
       "Équipe bbteam"
     );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-folder").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-folder")
+        .innerText.replace(/\s+/g, " "),
       "Dossier Choisissez un dossier Le dossier doit être présent"
     );
 
     await selectChoose(
       "#folder-power-select .ember-power-select-trigger",
       "bbt"
-    )
+    );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-folder").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#encryptable-form-folder")
+        .innerText.replace(/\s+/g, " "),
       "Dossier bbt"
     );
 
@@ -335,7 +373,9 @@ module("Integration | Component | encryptable/form", function (hooks) {
       "Nom d'utilisateur"
     );
     assert.equal(
-      this.element.querySelector("#password-field").innerText.replace(/\s+/g, ' '),
+      this.element
+        .querySelector("#password-field")
+        .innerText.replace(/\s+/g, " "),
       "Mot de passe Fiabilité du mot de passe : Faible Mot de passe aléatoire"
     );
     assert.equal(
@@ -347,7 +387,6 @@ module("Integration | Component | encryptable/form", function (hooks) {
       "Fermer"
     );
   });
-
 
   test("it renders with input data and all attributes", async function (assert) {
     setLocale("en");
@@ -440,7 +479,9 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element.querySelector("input[name='cleartextUsername']").value,
       "ok"
     );
-    assert.dom(this.element.querySelector("input[name='cleartextPassword']")).doesNotExist();
+    assert
+      .dom(this.element.querySelector("input[name='cleartextPassword']"))
+      .doesNotExist();
     assert.equal(
       this.element.querySelector("input[name='cleartextPin']").value,
       "weird pin"
@@ -449,9 +490,15 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element.querySelector("input[name='cleartextToken']").value,
       "ilikematebutdonttellanyone"
     );
-    assert.dom(this.element.querySelector("input[name='cleartextEmail']")).doesNotExist();
-    assert.dom(this.element.querySelector("input[name='label']")).doesNotExist();
-    assert.dom(this.element.querySelector("input[name='value']")).doesNotExist();
+    assert
+      .dom(this.element.querySelector("input[name='cleartextEmail']"))
+      .doesNotExist();
+    assert
+      .dom(this.element.querySelector("input[name='label']"))
+      .doesNotExist();
+    assert
+      .dom(this.element.querySelector("input[name='value']"))
+      .doesNotExist();
   });
 
   test("it adds fields", async function (assert) {
@@ -464,15 +511,17 @@ module("Integration | Component | encryptable/form", function (hooks) {
       "additionalField"
     );
 
-    assert.dom(this.element.querySelector("input[name='cleartextPin']")).doesNotExist();
+    assert
+      .dom(this.element.querySelector("input[name='cleartextPin']"))
+      .doesNotExist();
 
     assert.ok(
       Array.from(this.element.querySelector("#add-field-dropdown").options)
-        .map(option => option.value)
+        .map((option) => option.value)
         .includes("pin")
     );
 
-    await select("#add-field-dropdown", "pin")
+    await select("#add-field-dropdown", "pin");
 
     assert.equal(
       this.element.querySelector("#add-field-dropdown").value,
@@ -480,12 +529,16 @@ module("Integration | Component | encryptable/form", function (hooks) {
     );
 
     //field still shouldnt exist, it gets added when clicking add field button
-    assert.dom(this.element.querySelector("input[name='cleartextPin']")).doesNotExist();
+    assert
+      .dom(this.element.querySelector("input[name='cleartextPin']"))
+      .doesNotExist();
 
     //click add field button
-    await click("#add-field-button")
+    await click("#add-field-button");
 
-    assert.dom(this.element.querySelector("input[name='cleartextPin']")).exists();
+    assert
+      .dom(this.element.querySelector("input[name='cleartextPin']"))
+      .exists();
 
     //dropdown has no field selected
     assert.equal(
@@ -496,7 +549,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
     //check that pin isnt in dropdown anymore
     assert.notOk(
       Array.from(this.element.querySelector("#add-field-dropdown").options)
-        .map(option => option.value)
+        .map((option) => option.value)
         .includes("pin")
     );
   });
@@ -506,23 +559,27 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     await render(hbs`<Encryptable::Form />`);
 
-    assert.dom(this.element.querySelector("input[name='cleartextUsername']")).exists();
+    assert
+      .dom(this.element.querySelector("input[name='cleartextUsername']"))
+      .exists();
 
     assert.notOk(
       Array.from(this.element.querySelector("#add-field-dropdown").options)
-        .map(option => option.value)
+        .map((option) => option.value)
         .includes("username")
     );
 
     //click remove field button
-    await click("#remove-username-field-button")
+    await click("#remove-username-field-button");
 
-    assert.dom(this.element.querySelector("input[name='cleartextUsername']")).doesNotExist();
+    assert
+      .dom(this.element.querySelector("input[name='cleartextUsername']"))
+      .doesNotExist();
 
     //check that username is in dropdown again
     assert.ok(
       Array.from(this.element.querySelector("#add-field-dropdown").options)
-        .map(option => option.value)
+        .map((option) => option.value)
         .includes("username")
     );
   });

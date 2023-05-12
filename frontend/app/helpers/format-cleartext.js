@@ -47,7 +47,11 @@ export default Helper.extend({
       }
       if (attr === "customAttr") {
         //make it null save because custom attr is nested
-        return (encryptable.cleartextCustomAttr == null ? "" : encryptable.cleartextCustomAttr).value;
+        return (
+          encryptable.cleartextCustomAttr == null
+            ? ""
+            : encryptable.cleartextCustomAttr
+        ).value;
       }
     }
   }

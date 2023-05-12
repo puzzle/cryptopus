@@ -7,7 +7,7 @@ import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "../base-form-component";
 import { isPresent } from "@ember/utils";
 import { isEmpty } from "@ember/utils";
-import { A } from '@ember/array';
+import { A } from "@ember/array";
 
 export default class Form extends BaseFormComponent {
   @service store;
@@ -49,13 +49,18 @@ export default class Form extends BaseFormComponent {
   //create array proxy that ember checks the changes in each loop for dropdown, ember's rendering engine
   // doesn't get notified by using a normal array
   @tracked
-  items = A(["additionalField"]
-    .concat(this.record.cleartextUsername || this.isNewRecord ? [] : ["username"])
-    .concat(this.record.cleartextPassword || this.isNewRecord ? [] : ["password"])
-    .concat(this.record.cleartextToken ? [] : ["token"])
-    .concat(this.record.cleartextPin ? [] : ["pin"])
-    .concat(this.record.cleartextEmail ? [] : ["email"])
-    .concat(this.record.cleartextCustomAttr ? [] : ["customAttr"])
+  items = A(
+    ["additionalField"]
+      .concat(
+        this.record.cleartextUsername || this.isNewRecord ? [] : ["username"]
+      )
+      .concat(
+        this.record.cleartextPassword || this.isNewRecord ? [] : ["password"]
+      )
+      .concat(this.record.cleartextToken ? [] : ["token"])
+      .concat(this.record.cleartextPin ? [] : ["pin"])
+      .concat(this.record.cleartextEmail ? [] : ["email"])
+      .concat(this.record.cleartextCustomAttr ? [] : ["customAttr"])
   );
 
   constructor() {
@@ -139,7 +144,7 @@ export default class Form extends BaseFormComponent {
   @action
   hideField(value) {
     if (value === "username") {
-      this.isUsernameFieldActive = false
+      this.isUsernameFieldActive = false;
       this.items.addObject(value);
       this.changeset.cleartextUsername = null;
     } else if (value === "password") {
@@ -168,7 +173,7 @@ export default class Form extends BaseFormComponent {
   @action
   addField() {
     if (this.selectedItem === "username") {
-      this.isUsernameFieldActive = true
+      this.isUsernameFieldActive = true;
     } else if (this.selectedItem === "password") {
       this.isPasswordFieldActive = true;
     } else if (this.selectedItem === "pin") {
