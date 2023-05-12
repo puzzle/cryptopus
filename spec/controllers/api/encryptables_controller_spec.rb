@@ -10,7 +10,9 @@ describe Api::EncryptablesController do
   let(:api_user) { bob.api_users.create }
   let(:private_key) { bob.decrypt_private_key('password') }
   let(:nested_models) { ['folder'] }
-  let(:attributes) { %w[name cleartext_password cleartext_username cleartext_pin cleartext_token cleartext_email cleartext_custom_attr] }
+  # rubocop:disable Metrics/LineLength
+  let(:attributes) { %w[name cleartext_password cleartext_usernamecleartext_pin cleartext_token cleartext_emailcleartext_custom_attr] }
+  # rubocop:enable Metrics/LineLength
   let(:credentials1) { encryptables(:credentials1) }
   let(:file1) { encryptables(:file1) }
   let(:transferred_file1) { encryptables(:transferredFile1) }
@@ -163,8 +165,12 @@ describe Api::EncryptablesController do
       expect(credentials1_json_attributes['cleartext_token']).to eq 'testtoken'
       expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
       expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
-      expect(credentials1_json_attributes['cleartext_custom_attr']['label']).to eq 'testcustomattrlabel'
-      expect(credentials1_json_attributes['cleartext_custom_attr']['value']).to eq 'testcustomattrvalue'
+      expect(
+        credentials1_json_attributes['cleartext_custom_attr']['label']
+      ).to eq 'testcustomattrlabel'
+      expect(
+        credentials1_json_attributes['cleartext_custom_attr']['value']
+      ).to eq 'testcustomattrvalue'
       expect(credentials1_json_attributes['created_at']).to match(rgx_date)
       expect(credentials1_json_attributes['updated_at']).to match(rgx_date)
       expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
@@ -196,8 +202,12 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['cleartext_token']).to eq 'testtoken'
         expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
         expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
-        expect(credentials1_json_attributes['cleartext_custom_attr']['label']).to eq 'testcustomattrlabel'
-        expect(credentials1_json_attributes['cleartext_custom_attr']['value']).to eq 'testcustomattrvalue'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']['label']
+        ).to eq 'testcustomattrlabel'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']['value']
+        ).to eq 'testcustomattrvalue'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
@@ -221,8 +231,12 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['cleartext_token']).to eq 'testtoken'
         expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
         expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
-        expect(credentials1_json_attributes['cleartext_custom_attr']['label']).to eq 'testcustomattrlabel'
-        expect(credentials1_json_attributes['cleartext_custom_attr']['value']).to eq 'testcustomattrvalue'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']['label']
+        ).to eq 'testcustomattrlabel'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']['value']
+        ).to eq 'testcustomattrvalue'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
@@ -246,8 +260,12 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['cleartext_token']).to eq 'testtoken'
         expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
         expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
-        expect(credentials1_json_attributes['cleartext_custom_attr']['label']).to eq 'testcustomattrlabel'
-        expect(credentials1_json_attributes['cleartext_custom_attr']['value']).to eq 'testcustomattrvalue'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']['label']
+        ).to eq 'testcustomattrlabel'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']['value']
+        ).to eq 'testcustomattrvalue'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
@@ -307,8 +325,12 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['cleartext_token']).to eq 'testtoken'
         expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
         expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
-        expect(credentials1_json_attributes['cleartext_custom_attr']['label']).to eq 'testcustomattrlabel'
-        expect(credentials1_json_attributes['cleartext_custom_attr']['value']).to eq 'testcustomattrvalue'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']['label']
+        ).to eq 'testcustomattrlabel'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']['value']
+        ).to eq 'testcustomattrvalue'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
@@ -327,8 +349,12 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['cleartext_token']).to eq 'testtoken'
         expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
         expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
-        expect(credentials1_json_attributes['cleartext_custom_attr']['label']).to eq 'testcustomattrlabel'
-        expect(credentials1_json_attributes['cleartext_custom_attr']['value']).to eq 'testcustomattrvalue'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']['label']
+        ).to eq 'testcustomattrlabel'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']['value']
+        ).to eq 'testcustomattrvalue'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
     end

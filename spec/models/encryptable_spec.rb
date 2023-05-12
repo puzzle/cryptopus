@@ -50,7 +50,7 @@ describe Encryptable do
     encryptable.cleartext_token = 'boo'
     encryptable.cleartext_pin = 'loo'
     encryptable.cleartext_email = 'too'
-    encryptable.cleartext_custom_attr = {"label"=>"coo","value"=>"yoo"}
+    encryptable.cleartext_custom_attr = { 'label' => 'coo', 'value' => 'yoo' }
 
     encryptable.encrypt(team_password)
     encryptable.save!
