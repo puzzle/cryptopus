@@ -102,7 +102,7 @@ de:
     receiver:
       name: Wähle einen Empfänger aus
     show:
-      sender_name: Sender Name
+      sender_name: Name vom Sender
     submit: Senden
     description_for_sender: Deine Datei wird verschlüsselt in den Inbox Ordner des Empfängers geschickt.
     description_for_receiver: Beschreibung für den Empfänger

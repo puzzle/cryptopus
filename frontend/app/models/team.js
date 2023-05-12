@@ -15,16 +15,16 @@ export default class Team extends Model {
     return this.type === "Team::Personal";
   }
 
-  get unreadTransferredFilesInFolders() {
+  get unreadTransfersInFolder() {
     if (!this.isPersonalTeam) return undefined;
     if (this.unread_count === null) return undefined;
 
     let folder = this.folders.filter((folder) => folder.name === "inbox")[0];
 
     if (folder === undefined) return undefined;
-    if (folder.unreadTransferredFiles === null || this.unread_count === 0)
+    if (folder.unreadTransferredCount === null || this.unread_count === 0)
       return undefined;
-    if (folder.unreadTransferredFiles === undefined) return this.unread_count;
-    return folder.unreadTransferredFiles;
+    if (folder.unreadTransferredCount === undefined) return this.unread_count;
+    return folder.unreadTransferredCount;
   }
 }

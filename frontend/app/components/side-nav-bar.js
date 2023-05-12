@@ -43,7 +43,7 @@ export default class SideNavBar extends Component {
   @action
   setSelectedFolder(folder) {
     if (folder.isInboxFolder) {
-      folder.unreadTransferredFiles = null;
+      folder.unreadTransferredCount = null;
     }
 
     if (isPresent(this.args.navbar)) {

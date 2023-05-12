@@ -30,8 +30,8 @@
                   {{/if}}
                   {{#if team.isPersonalTeam}}
                     <p class="team-list-item">{{truncate this.userService.username 18}}</p>
-                    {{#if (not (eq team.unreadTransferredFilesInFolders undefined))}}
-                      <div class="notification-badge notification-badge-color">{{team.unreadTransferredFilesInFolders}}</div>
+                    {{#if (not (eq team.unreadTransfersInFolder undefined))}}
+                      <div class="notification-badge notification-badge-color">{{team.unreadTransfersInFolder}}</div>
                     {{/if}}
                   {{else}}
                     <p class="team-list-item">{{truncate team.name 18}}</p>

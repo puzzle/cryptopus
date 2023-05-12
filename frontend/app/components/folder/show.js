@@ -40,7 +40,7 @@ export default class ShowComponent extends Component {
 
   expandSelectedFolder() {
     if (this.args.folder.isInboxFolder) {
-      this.args.folder.unreadTransferredFiles = null;
+      this.args.folder.unreadTransferredCount = null;
     }
     this.router.transitionTo(
       "teams.folders-show",

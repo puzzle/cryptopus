@@ -82,7 +82,7 @@ fr:
     teams:
       not_existing: 'Il n''y a pas d''équipe avec l''id %{id}'
     folders:
-      duplicated_inbox: 'Il ne peut y avoir que un inbox folder dans le personal team'
+      duplicated_inbox: "Il ne peut y avoir que un inbox folder dans l'équipe personnelle"
 
   confirm:
     delete: 'Supprimez %{entry_class} %{entry_label} ?'

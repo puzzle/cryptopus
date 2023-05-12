@@ -18,7 +18,7 @@
 #  https://github.com/puzzle/cryptopus.
 
 class FolderSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :unread_transferred_files
+  attributes :id, :name, :description, :unread_transferred_count
 
   has_many :encryptables, serializer: EncryptableMinimalSerializer do
     if object.personal_inbox?
@@ -28,7 +28,7 @@ class FolderSerializer < ActiveModel::Serializer
     end
   end
 
-  def unread_transferred_files
+  def unread_transferred_count
     # rubocop:disable Metrics/LineLength
     object.personal_inbox? ? object.encryptables.all.where.not(encrypted_transfer_password: nil).count : nil
     # rubocop:enable Metrics/LineLength

@@ -82,7 +82,7 @@ ch_be:
     teams:
       not_existing: 'Es existiert kes Team mit dr Id %{id}'
     folders:
-      duplicated_inbox: 'Es cha nume ei inbox ordner im personal team gä'
+      duplicated_inbox: 'Es cha nume ei inbox ordner im Persönleche Team gä'
 
   confirm:
     delete: '%{entry_class} %{entry_label} lösche?'

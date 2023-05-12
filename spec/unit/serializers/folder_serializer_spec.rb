@@ -17,7 +17,7 @@ describe FolderSerializer do
     it 'should return 0 unread transferred files' do
       as_json = JSON.parse(FolderSerializer.new(folders(:inbox_folder_alice)).to_json)
 
-      expect(as_json['unread_transferred_files']).to eq(0)
+      expect(as_json['unread_transferred_count']).to eq(0)
     end
   end
 
@@ -43,7 +43,7 @@ describe FolderSerializer do
 
       as_json = JSON.parse(FolderSerializer.new(folders(:inbox_folder_alice)).to_json)
 
-      expect(as_json['unread_transferred_files']).to eq(1)
+      expect(as_json['unread_transferred_count']).to eq(1)
     end
   end
 end
