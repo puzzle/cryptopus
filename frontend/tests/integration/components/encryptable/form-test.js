@@ -404,12 +404,8 @@ module("Integration | Component | encryptable/form", function (hooks) {
     });
     this.set("encryptable", {
       id: 1,
-      name: "My secret Credentials",
-      cleartextUsername: "myusernameisboring",
+      name: "mail",
       cleartextPassword: "lol",
-      cleartextToken: "loltoken",
-      cleartextPin: "thispinisbad",
-      cleartextEmail: "mail@ember.com",
       description: "The ember email",
       folder: this.folder,
       isFullyLoaded: true
