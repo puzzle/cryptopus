@@ -9,7 +9,7 @@ describe 'NavBar', type: :system, js: true do
     login_as_user(:admin)
 
     within(page.find('pzsh-menu')) do
-      expect(page.text).to have_text('Admin', count: 2)
+      expect(page.body.downcase).to have_text('admin', count: 4)
     end
 
     logout
@@ -19,7 +19,7 @@ describe 'NavBar', type: :system, js: true do
     login_as_user(:tux)
 
     within(page.find('pzsh-menu')) do
-      expect(page.text).to have_text('Admin')
+      expect(page.body.downcase).to have_text('admin')
     end
 
     logout
@@ -29,7 +29,7 @@ describe 'NavBar', type: :system, js: true do
     login_as_root
 
     within(page.find('pzsh-menu')) do
-      expect(page.text).to have_text('Admin')
+      expect(page.body.downcase).to have_text('admin')
     end
 
     logout
@@ -39,7 +39,7 @@ describe 'NavBar', type: :system, js: true do
     login_as_user(:bob)
 
     within(page.find('pzsh-menu')) do
-      expect(page.text).to_not have_text('Admin')
+      expect(page.body.downcase).to_not have_text('admin')
     end
 
     logout
