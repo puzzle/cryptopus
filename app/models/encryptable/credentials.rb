@@ -10,9 +10,13 @@ class Encryptable::Credentials < Encryptable
            dependent: :destroy
 
   def validate_at_least_one_attribute_set
-    attributes = [cleartext_password, cleartext_username, cleartext_token, cleartext_pin, cleartext_email, cleartext_custom_attr]
+    attributes = [
+      cleartext_password, cleartext_username,
+      cleartext_token, cleartext_pin,
+      cleartext_email, cleartext_custom_attr
+    ]
     unless attributes.any?(&:present?)
-      errors.add(:base, "At least one attribute must be set")
+      errors.add(:base, 'At least one attribute must be set')
     end
   end
 
