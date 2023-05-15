@@ -15,7 +15,7 @@ class Encryptable::Credentials < Encryptable
       cleartext_token, cleartext_pin,
       cleartext_email, cleartext_custom_attr
     ]
-    unless attributes.any?(&:present?)
+    unless attributes.any?
       errors.add(:base, 'At least one attribute must be set')
     end
   end

@@ -11,9 +11,9 @@
               {{#if this.Errors}}
                 <div class="col-12 order-1">
                   <div class="alert alert-danger modal-alert">
-                    {{#if (eq this.Errors "At least one attribute must be set")}}
+                    {{#if (eq this.errors "At least one attribute must be set")}}
                       {{t "validations.attributes.at_least_one_attribute"}}
-                    {{else if (eq this.Errors "has already been taken")}}
+                    {{else if (eq this.errors "has already been taken")}}
                       {{t "validations.name.duplicate_name"}}
                     {{else}}
                       {{t "error"}}

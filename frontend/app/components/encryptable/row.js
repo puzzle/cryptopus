@@ -50,8 +50,7 @@ export default class RowComponent extends Component {
     super(...arguments);
   }
 
-  //get amount of currently set attributes on encryptable, because all encryptables with more than two set attributes
-  // hide attributes in row
+  // get set attribute amount to hide attribute fields in encryptable row when encryptable has more than two attributes
   get getAttributesAmount() {
     return Object.values(this.args.encryptable.usedAttrs).filter(Boolean)
       .length;
@@ -148,10 +147,12 @@ export default class RowComponent extends Component {
   @action
   showAttribute(attribute) {
     this.fetchEncryptable();
-    this[
-      `is${attribute.charAt(0).toUpperCase()}${attribute.slice(1)}Visible`
-    ] = true;
+    this[`is${capitalize(attribute)}Visible`] = true;
 
+    this.startHideAttributeTimer(attribute)
+  }
+
+  startHideAttributeTimer(attribute) {
     this.hideCountdownTime = new Date().getTime();
 
     this.hideTimerInterval = setInterval(() => {
@@ -162,9 +163,7 @@ export default class RowComponent extends Component {
       let passedTimeInSeconds = Math.floor(passedTime / 1000);
 
       if (passedTimeInSeconds >= this.HIDE_TIME) {
-        this[
-          `is${attribute.charAt(0).toUpperCase()}${attribute.slice(1)}Visible`
-        ] = false;
+        this[`is${capitalize(attribute)}Visible`] = false;
         clearInterval(this.hideTimerInterval);
       }
     }, 1000);

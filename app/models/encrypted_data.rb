@@ -14,18 +14,14 @@ class EncryptedData
     iv = decode(value[:iv]) unless value[:iv].nil?
 
     if key == :custom_attr
-      data_hash_label(iv, value[:label], decode(value[:data]))
+      data_hash(iv, decode(value[:data]), value[:label])
     else
       data_hash(iv, decode(value[:data]))
     end
   end
 
   def []=(key, data:, iv:, label: nil)
-    @data[key] = if label&.present?
-                   data_hash_label(encode(iv), label, encode(data))
-                 else
-                   data_hash(encode(iv), encode(data))
-                 end
+    @data[key] = data_hash(encode(iv), encode(data), label)
   end
 
   def to_json(*_args)
@@ -34,13 +30,12 @@ class EncryptedData
 
   private
 
-  def data_hash(iv, data)
-    { iv: iv, data: data }
+  def data_hash(iv, data, label = nil)
+    hash = { iv: iv, data: data }
+    hash[:label] = label if label
+    hash
   end
 
-  def data_hash_label(iv, label, data)
-    { iv: iv, label: label, data: data }
-  end
 
   def encode(value)
     Base64.strict_encode64(value) unless value.nil?

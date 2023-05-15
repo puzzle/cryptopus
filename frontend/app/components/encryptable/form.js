@@ -7,6 +7,7 @@ import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "../base-form-component";
 import { isPresent } from "@ember/utils";
 import { isEmpty } from "@ember/utils";
+import { capitalize } from "@ember/string";
 import { A } from "@ember/array";
 
 export default class Form extends BaseFormComponent {
@@ -18,7 +19,7 @@ export default class Form extends BaseFormComponent {
   @tracked selectedTeam;
   @tracked assignableTeams;
 
-  @tracked Errors;
+  @tracked errors;
 
   AccountValidations = AccountValidations;
 
@@ -172,19 +173,7 @@ export default class Form extends BaseFormComponent {
 
   @action
   addField() {
-    if (this.selectedItem === "username") {
-      this.isUsernameFieldActive = true;
-    } else if (this.selectedItem === "password") {
-      this.isPasswordFieldActive = true;
-    } else if (this.selectedItem === "pin") {
-      this.isPinFieldActive = true;
-    } else if (this.selectedItem === "token") {
-      this.isTokenFieldActive = true;
-    } else if (this.selectedItem === "email") {
-      this.isEmailFieldActive = true;
-    } else if (this.selectedItem === "customAttr") {
-      this.isCustomAttrFieldActive = true;
-    }
+    this[`is${capitalize(this.selectedItem)}FieldActive`] = true;
     this.items.removeObject(this.selectedItem);
   }
 
