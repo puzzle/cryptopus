@@ -27,12 +27,12 @@ export default {
     validateLength({ max: 70 })
   ],
   label: [
-    validatePresence({presence: true, on: "value"}),
+    validatePresence({ presence: true, on: "value" }),
     validateExclusion({ list: [""] }),
     validateLength({ max: 70 })
   ],
   value: [
-    validatePresence({presence: true, on: "label"}),
+    validatePresence({ presence: true, on: "label" }),
     validateExclusion({ list: [""] }),
     validateLength({ max: 70 })
   ],
