@@ -20,11 +20,11 @@ class Encryptable::Credentials < Encryptable
     end
   end
 
-  validate :validate_at_least_one_attribute_set
-
   validates :name, length: { maximum: 70 }
   validates :name, uniqueness: { scope: :folder }
   validates :folder_id, presence: true
+
+  validate :validate_at_least_one_attribute_set
 
   def decrypt(team_password)
     decrypt_attr(:username, team_password)
