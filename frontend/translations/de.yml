@@ -404,8 +404,27 @@ de:
       present: Der Ordner muss vorhanden sein
     cleartext username:
       too_long: Der Benutzername ist zu lang
+      exclusion: Der Benutzername darf nicht leer sein
     cleartext password:
       too_long: Das Passwort ist zu lang
+      exclusion: Das Password darf nicht leer sein
+    cleartext token:
+      too_long: Der Token ist zu lang
+      exclusion: Der Token darf nicht leer sein
+    cleartext pin:
+      too_long: Der Pin ist zu lang
+      exclusion: Der Pin darf nicht leer sein
+    cleartext email:
+      too_long: Email ist zu lang
+      exclusion: Email darf nicht leer sein
+    value:
+      too_long: Individueller Attribut Wert ist zu lang
+      exclusion: Der Individuelle Attribut Wert darf nicht leer sein
+      present: Individueller Attribut Wert muss gesetzt sein
+    label:
+      too_long: Individuelles Attribut Label ist zu lang
+      exclusion: Das Individuelle Attribut Label darf nicht leer sein
+      present: Individuelles Attribut Label muss gesetzt sein
     username:
       present: Der Benutzername muss vorhanden sein
       too_long: Der Benutzername ist zu lang

@@ -405,8 +405,27 @@ fr:
       present: Le dossier doit être présent
     cleartext username:
       too_long: Le nom d'utilisateur est trop long
+      exclusion: Le nom d'utilisateur ne peut pas être vide
     cleartext password:
       too_long: Le mot de passe est trop long
+      exclusion: Le mot de passe ne peut pas être vide
+    cleartext token:
+      too_long: Le jeton est trop long
+      exclusion: Le jeton ne peut pas être vide
+    cleartext pin:
+      too_long: La broche est trop longue
+      exclusion: La broche ne peut pas être vide
+    cleartext email:
+      too_long: L'email est trop long
+      exclusion: L'e-mail ne peut pas être vide
+    value:
+      too_long: Attribut individuel La valeur est trop longue
+      exclusion: La valeur d'attribut personnalisé ne peut pas être vide
+      present: La valeur d'attribut personnalisé doit être présente
+    label:
+      too_long: L'attribut individuel Label est trop long
+      exclusion: Le libellé d'attribut personnalisé ne peut pas être vide
+      present: L'étiquette d'attribut personnalisé doit être présente
     username:
       present: Le nom d'utilisateur doit être présent
       too_long: Le nom d'utilisateur est trop long

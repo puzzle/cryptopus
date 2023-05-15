@@ -404,8 +404,27 @@ ch_be:
       present: Dr Ordner muess ume si
     cleartext username:
       too_long: Dr Benutzername isch zläng
+      exclusion: Dr Benutzernamä darf nid läär si
     cleartext password:
       too_long: Ds Passwort isch zläng
+      exclusion: Z Passwort darf nid läär si
+    cleartext token:
+      too_long: Dr Token isch zläng
+      exclusion: Dr Token darf nid läär si
+    cleartext pin:
+      too_long: Dr Pin isch zläng
+      exclusion: Dr Pin darf nid läär si
+    cleartext email:
+      too_long: D Email isch zläng
+      exclusion: D Email darf nid läär si
+    value:
+      too_long: Dr Individuell Attribut Wärt isch zläng
+      exclusion: Dr Individuell Attribut Wärt darf nid läär si
+      present: Dr Individuell Attribut Wärt muäss gsetzt si
+    label:
+      too_long: Z Individuellä Attribut Label isch zläng
+      exclusion: Z Individuellä Attribut Label darf nid läär si
+      present: Z Individuellä Attribut Label muäss gsetzt si
     username:
       present: Dr Benutzername muess vorhande si
       too_long: Dr Benutzername isch zläng

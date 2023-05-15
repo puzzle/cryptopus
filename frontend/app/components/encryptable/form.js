@@ -142,7 +142,7 @@ export default class Form extends BaseFormComponent {
   }
 
   @action
-  hideField(value) {
+  removeField(value) {
     if (value === "username") {
       this.isUsernameFieldActive = false;
       this.items.addObject(value);

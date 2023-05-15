@@ -39,7 +39,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
 
-    await new Promise((r) => setTimeout(r, 1));
+    await new Promise((r) => setTimeout(r, 10));
 
     assert.equal(
       this.element.querySelector("#encryptable-row-title").innerText,
@@ -74,7 +74,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
 
-    await new Promise((r) => setTimeout(r, 1));
+    await new Promise((r) => setTimeout(r, 10));
 
     assert.equal(
       this.element.querySelector("#encryptable-row-title").innerText,
@@ -113,7 +113,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
 
-    await new Promise((r) => setTimeout(r, 1));
+    await new Promise((r) => setTimeout(r, 10));
 
     assert.equal(
       this.element.querySelector("#encryptable-row-title").innerText,

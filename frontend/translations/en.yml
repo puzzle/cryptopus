@@ -404,8 +404,27 @@ en:
       present: Folder must be present
     cleartext username:
       too_long: Username is too long
+      exclusion: Username can't be blank
     cleartext password:
       too_long: Password is too long
+      exclusion: Password can't be blank
+    cleartext token:
+      too_long: Token is too long
+      exclusion: Token can't be blank
+    cleartext pin:
+      too_long: Pin is too long
+      exclusion: Pin can't be blank
+    cleartext email:
+      too_long: Email is too long
+      exclusion: Email can't be blank
+    value:
+      too_long: Custom Attribute Value is too long
+      exclusion: Custom Attribute Value can't be blank
+      present: Custom Attribute Value must be present
+    label:
+      too_long: Custom Attribute Label is too long
+      exclusion: Custom Attribute Label can't be blank
+      present: Custom Attribute Label must be present
     username:
       present: Username must be present
       too_long: Username is too long

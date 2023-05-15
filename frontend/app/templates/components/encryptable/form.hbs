@@ -77,7 +77,7 @@
                       <el.control @name="cleartextUsername" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <button class="btn delete-field" {{on "click" (action "hideField" "username")}}>
+                  <button class="btn delete-field" {{on "click" (action "removeField" "username")}}>
                     <img id="remove-username-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
                   </button>
                 </div>
@@ -93,7 +93,7 @@
                       <el.control type="password" autocomplete="off"  @name="cleartextPassword" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <button class="btn delete-field" {{on "click" (action "hideField" "password")}}>
+                  <button class="btn delete-field" {{on "click" (action "removeField" "password")}}>
                     <img id="remove-password-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
                   </button>
                   <PasswordStrengthMeter class="col-12 col-lg-9 px-0 mb-2 mb-md-0 ml-3" @password={{this.changeset.cleartextPassword}}/>
@@ -115,7 +115,7 @@
                       <el.control @name="cleartextToken" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <button class="btn delete-field" {{on "click" (action "hideField" "token")}}>
+                  <button class="btn delete-field" {{on "click" (action "removeField" "token")}}>
                     <img id="remove-token-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
                   </button>
                 </div>
@@ -131,7 +131,7 @@
                       <el.control @name="cleartextPin" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <button class="btn delete-field" {{on "click" (action "hideField" "pin")}}>
+                  <button class="btn delete-field" {{on "click" (action "removeField" "pin")}}>
                     <img id="remove-pin-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
                   </button>
                 </div>
@@ -147,7 +147,7 @@
                       <el.control @name="cleartextEmail" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <button class="btn delete-field" {{on "click" (action "hideField" "email")}}>
+                  <button class="btn delete-field" {{on "click" (action "removeField" "email")}}>
                     <img id="remove-email-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
                   </button>
                 </div>
@@ -158,18 +158,18 @@
                     <form.element @label={{t "labelCustomAttr"}} id="labelCustomAttr" class={{if
                             this.changeset.error.cleartextCustomAttr.validation "invalid-input-name"}}
                                   @property="label" @customError={{t
-                            (validation-error-key this.changeset.error.labelCustomAttr.validation)}} as |el|>
+                            (validation-error-key this.changeset.error.label.validation)}} as |el|>
                       <el.control @name="label" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <button class="btn delete-field" {{on "click" (action "hideField" "customAttr")}}>
+                  <button class="btn delete-field" {{on "click" (action "removeField" "customAttr")}}>
                     <img id="remove-customAttr-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
                   </button>
                   <form.group class="col-md-12">
                     <form.element @label={{t "valueCustomAttr"}} id="valueCustomAttr" class={{if
                             this.changeset.error.cleartextCustomAttr.validation "invalid-input-name"}}
                                   @property="value" @customError={{t
-                            (validation-error-key this.changeset.error.valueCustomAttr.validation)}} as |el|>
+                            (validation-error-key this.changeset.error.value.validation)}} as |el|>
                       <img class="d-inline encrypted-icon" src="/assets/images/encrypted_small.svg" alt="encrypted value">
                       <el.control @name="value" tabindex="2"></el.control>
                     </form.element>
