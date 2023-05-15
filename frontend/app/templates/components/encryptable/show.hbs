@@ -5,7 +5,7 @@
   <EncryptableFile::Form @class="modal_file_entry" @encryptableCredential={{@encryptable}} @title={{t "encryptable_files.new.title"}} @onAbort={{this.toggleFileNew}}/>
 {{/if}}
 {{#if this.isCredentialSharing}}
-  <CredentialTransfer @onAbort={{this.toggleCredentialSharing}} @title={{t "encryptable/transferring/credential.new.title"}}/>
+  <CredentialTransfer @onAbort={{this.toggleCredentialSharing}} @title={{t "encryptable/transferring/credential.new.title"}} @encryptableId={{@encryptable.id}}/>
 {{/if}}
 {{#if this.isFile}}
   <div class="container px-5 pt-4 h-100 bg-white pl-none encryptable-container-smartphone mb-15">
