@@ -34,6 +34,9 @@ export default class RowComponent extends Component {
   @tracked
   isFile = this.args.encryptable.isFile;
 
+  @tracked isTransferredCredentials =
+    this.args.encryptable.sender_name !== null;
+
   constructor() {
     super(...arguments);
   }

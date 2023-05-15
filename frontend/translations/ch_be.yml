@@ -111,9 +111,11 @@ ch_be:
   encryptable/transferring/credential:
     new:
       title: "Datei teilä"
+    show: Teilti Zuegangsdatä
     receiver:
       name: Wäu ä empfänger
     submit: Schickä
+    sent_at: Gschickt am
     description_for_sender: Dini Zuegangsdate wärdä verschlüsslet i Inbox Ordner vom Empfänger gschickt.
 
   admin:

@@ -111,9 +111,11 @@ en:
   encryptable/transferring/credential:
     new:
       title: Send file to
+    show: Transferred Credentials
     receiver:
       name: Choose a receiver
     submit: Send
+    sent_at: Sent on
     description_for_sender: Your credentials will be sent encrypted to the inbox folder from the selected receiver.
 
   admin:

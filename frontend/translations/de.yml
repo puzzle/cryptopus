@@ -112,9 +112,11 @@ de:
   encryptable/transferring/credential:
     new:
       title: Teilen mit
+    show: Geteilte Zugangsdaten
     receiver:
       name: Wähle einen Empfänger aus
     submit: Senden
+    sent_at: Gesendet am
     description_for_sender: Deine Zugangsdaten werden verschlüsselt in den Inbox Ordner des Empfängers geschickt.
 
   admin:

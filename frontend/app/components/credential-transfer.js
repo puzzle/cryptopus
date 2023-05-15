@@ -9,7 +9,7 @@ export default class CredentialTransfer extends BaseFormComponent {
   @service store;
   @service router;
   @service navService;
-  @tracked encryptableId
+  @tracked encryptableId;
   @tracked candidates;
   @tracked receiver;
 
@@ -57,7 +57,7 @@ export default class CredentialTransfer extends BaseFormComponent {
 
   showSuccessMessage() {
     let msg = this.intl.t(
-      "flashes.encryptable_transfer.encryptable.transferred"
+      "flashes.encryptable_transfer.credentials.transferred"
     );
     this.notify.success(msg);
   }

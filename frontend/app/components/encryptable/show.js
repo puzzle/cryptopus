@@ -29,6 +29,9 @@ export default class ShowComponent extends Component {
   @tracked
   isFile = this.args.encryptable.isFile;
 
+  @tracked isTransferredCredentials =
+    this.args.encryptable.sender_name !== null;
+
   @action
   toggleEncryptableEdit() {
     this.isEncryptableEditing = !this.isEncryptableEditing;

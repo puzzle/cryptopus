@@ -7,7 +7,6 @@ export default class EncryptableTransferred extends Encryptable {
   @service router;
   @service fetchService;
 
-
   async save() {
     if (this.isDeleted) {
       return super.save();
@@ -30,12 +29,7 @@ export default class EncryptableTransferred extends Encryptable {
       const urlSearchParams = new URLSearchParams(opts.data);
       const body = urlSearchParams.toString();
 
-      return this.fetchService
-        .send(targetUrl, {
-          method: "post",
-          body
-        })
-        .then(() => console.log("Finished"));
+      return this.fetchService.send(targetUrl, { method: "post", body });
     } else {
       opts = {
         data: {
@@ -48,7 +42,7 @@ export default class EncryptableTransferred extends Encryptable {
         }
       };
 
-      const promise = this.file.upload(targetUrl, opts);
+      let promise = this.file.upload(targetUrl, opts);
       promise
         .then((savedRecords) => {
           let data = JSON.parse(savedRecords.body).data;
@@ -56,8 +50,7 @@ export default class EncryptableTransferred extends Encryptable {
           this.name = data.attributes.name;
         })
         .catch(() => {});
+      return promise;
     }
-
-    return promise;
   }
 }

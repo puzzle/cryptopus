@@ -73,18 +73,20 @@
           <DeleteWithConfirmation @class="btn btn-light edit_button" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
             <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
           </DeleteWithConfirmation>
-          <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleEncryptableEdit}}>
-            <img class="icon-button" src="/assets/images/edit.svg" alt="edit">
-          </a>
+          {{#unless this.isTransferredCredentials}}
+            <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleEncryptableEdit}}>
+              <img class="icon-button" src="/assets/images/edit.svg" alt="edit">
+            </a>
+          {{/unless}}
         </div>
       {{/unless}}
     </div>
     <div class="row pb-3 justify-content-between">
       <div class="col-lg-9 accountname">
-        <h2 class="d-inline">{{t "encryptable/credentials.show.title"}}: {{@encryptable.name}}</h2>
+        <h2 class="d-inline">{{if this.isTransferredCredentials (t "encryptable/transferring/credential.show") (t "encryptable/credentials.show.title")}}: {{@encryptable.name}}</h2>
       </div>
       <div class="col-lg-9 accountname text-muted">
-        <br><p class="d-inline">{{t "encryptable/credentials.show.created_at"}}: {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}</p>
+        <br><p class="d-inline">{{if this.isTransferredCredentials (t "encryptable/transferring/credential.sent_at") (t "encryptable/credentials.show.created_at")}}: {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}</p>
          /
         <p class="d-inline">{{t "encryptable/credentials.show.last_update"}}: {{moment-format @encryptable.updatedAt "DD.MM.YYYY hh:mm"}}</p>
       </div>
@@ -126,27 +128,29 @@
         </div>
       {{/if}}
     </div>
-    <div class="d-flex flex-row justify-content-between mb-2">
-      <div>
-        <h3>{{t "encryptable/credentials.show.attachments"}}</h3>
+    {{#unless isTransferredCredentials}}
+      <div class="d-flex flex-row justify-content-between mb-2">
+        <div>
+          <h3>{{t "encryptable/credentials.show.attachments"}}</h3>
+        </div>
+        <div>
+          <BsButton @type="primary" {{on "click" this.toggleFileNew}}>
+            {{t "encryptable/credentials.show.add_attachment"}}
+          </BsButton>
+        </div>
       </div>
-      <div>
-        <BsButton @type="primary" {{on "click" this.toggleFileNew}}>
-          {{t "encryptable/credentials.show.add_attachment"}}
-        </BsButton>
-      </div>
-    </div>
-    <table class="table table-striped">
-      <tbody>
-        <tr>
-          <th>{{t "encryptable/credentials.show.file"}}</th>
-          <th class="description">{{t "description"}}</th>
-          <th>{{t "actions"}}</th>
-        </tr>
-        {{#each @encryptable.encryptableFiles as |encryptableFile|}}
-          <EncryptableFile::Row @encryptableFile={{encryptableFile}}/>
-        {{/each}}
-      </tbody>
-    </table>
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <th>{{t "encryptable/credentials.show.file"}}</th>
+            <th class="description">{{t "description"}}</th>
+            <th>{{t "actions"}}</th>
+          </tr>
+          {{#each @encryptable.encryptableFiles as |encryptableFile|}}
+            <EncryptableFile::Row @encryptableFile={{encryptableFile}}/>
+          {{/each}}
+        </tbody>
+      </table>
+    {{/unless}}
   </div>
 {{/if}}
