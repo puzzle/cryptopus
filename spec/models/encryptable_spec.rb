@@ -19,11 +19,22 @@ describe Encryptable do
     expect(credential.errors.first.attribute).to eq(:name)
   end
 
+  it 'does not create credential when no attribute set' do
+    params = {}
+    params[:name] = 'My biggest secret'
+    params[:folder_id] = folders(:folder2).id
+    params[:type] = 'Encryptable::Credentials'
+    credential = Encryptable::Credentials.new(params)
+    expect(credential).to_not be_valid
+    expect(credential.errors.first.type).to eq('At least one attribute must be set')
+  end
+
   it 'creates second entryptable with credentials' do
     params = {}
     params[:name] = 'Shopping Account'
     params[:folder_id] = folders(:folder2).id
     params[:type] = 'Encryptable::Credentials'
+    params[:cleartext_username] = 'username'
     credential = Encryptable::Credentials.new(params)
     expect(credential).to be_valid
   end

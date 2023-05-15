@@ -489,7 +489,7 @@ describe Api::EncryptablesController do
       end.to raise_error(OpenSSL::Cipher::CipherError, 'bad decrypt')
     end
 
-    it 'cannot set encryptable password and username attributes by params' do
+    it 'cannot set invalid attributes by params' do
       set_auth_headers
 
       credentials1 = encryptables(:credentials1)
@@ -498,7 +498,7 @@ describe Api::EncryptablesController do
         data: {
           id: credentials1.id,
           attributes: {
-            username: 'invalid username param',
+            cleartext_username: 'valid username param',
             password: 'invalid password param',
             token: 'invalid token param',
             pin: 'invalid pin param',
@@ -517,12 +517,32 @@ describe Api::EncryptablesController do
       credentials1_json_attributes = data['attributes']
 
       expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
-      expect(credentials1_json_attributes['cleartext_username']).to be_nil
+      expect(credentials1_json_attributes['cleartext_username']).to eq 'valid username param'
       expect(credentials1_json_attributes['cleartext_password']).to be_nil
       expect(credentials1_json_attributes['cleartext_token']).to be_nil
       expect(credentials1_json_attributes['cleartext_pin']).to be_nil
       expect(credentials1_json_attributes['cleartext_email']).to be_nil
       expect(credentials1_json_attributes['cleartext_custom_attr']).to be_nil
+    end
+
+    it 'it validates to have at least one param' do
+      set_auth_headers
+
+      credentials1 = encryptables(:credentials1)
+
+      encryptable_params = {
+        data: {
+          id: credentials1.id,
+          attributes: {
+            invalid: 'whatever'
+          },
+          relationships: { folder: { data: { id: credentials1.folder_id, type: 'folders' } } }
+        }, id: credentials1.id
+      }
+
+      patch :update, params: encryptable_params, xhr: true
+
+      expect(response).to have_http_status(422)
     end
 
     it 'does not update encryptable when user not in team' do
@@ -561,7 +581,8 @@ describe Api::EncryptablesController do
         data: {
           attributes: {
             type: 'credentials',
-            name: 'New Account'
+            name: 'New Account',
+            cleartext_username: 'username'
           },
           relationships: {
             folder: {
@@ -578,6 +599,34 @@ describe Api::EncryptablesController do
 
       expect(response).to have_http_status(201)
       expect(data['attributes']['name']).to eq 'New Account'
+    end
+
+    it 'it validates to have at least one attribute' do
+      set_auth_headers
+
+      login_as(:alice)
+      folder = folders(:folder1)
+
+      new_encryptable_params = {
+        data: {
+          attributes: {
+            type: 'credentials',
+            name: 'New Account'
+          },
+          relationships: {
+            folder: {
+              data: {
+                id: folder.id,
+                type: 'folders'
+              }
+            }
+          }
+        }
+      }
+
+      post :create, params: new_encryptable_params, xhr: true
+
+      expect(response).to have_http_status(422)
     end
 
     it 'cannot create a new encryptable if part of team' do
