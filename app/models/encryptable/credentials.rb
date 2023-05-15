@@ -9,6 +9,15 @@ class Encryptable::Credentials < Encryptable
            foreign_key: :credential_id,
            dependent: :destroy
 
+  def validate_at_least_one_attribute_set
+    attributes = [cleartext_password, cleartext_username, cleartext_token, cleartext_pin, cleartext_email, cleartext_custom_attr]
+    unless attributes.any?(&:present?)
+      errors.add(:base, "At least one attribute must be set")
+    end
+  end
+
+  validate :validate_at_least_one_attribute_set
+
   validates :name, length: { maximum: 70 }
   validates :name, uniqueness: { scope: :folder }
   validates :folder_id, presence: true

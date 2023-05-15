@@ -18,7 +18,7 @@ export default class Form extends BaseFormComponent {
   @tracked selectedTeam;
   @tracked assignableTeams;
 
-  @tracked hasErrors;
+  @tracked Errors;
 
   AccountValidations = AccountValidations;
 
@@ -224,7 +224,10 @@ export default class Form extends BaseFormComponent {
   }
 
   handleSubmitError(response) {
-    this.hasErrors = response.errors.length > 0;
+    if (response.errors.length > 0) {
+      //get error message to show correct error in form
+      this.Errors = response.errors[0].detail
+    }
   }
 
   presetTeamIfFolderSelected() {

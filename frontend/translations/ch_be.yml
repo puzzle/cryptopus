@@ -56,6 +56,7 @@ ch_be:
   role: Rollä
   empty: läär
   slogan: Dr Ort für Passwörter
+  error: Es het ä Fähler gäh
 
   i18n:
     language:
@@ -390,6 +391,8 @@ ch_be:
         description: Beschribig
 
   validations:
+    attributes:
+      at_least_one_attribute: Zmingst eis Attibut söu gsetzt si
     name:
       present: Dr Name muess vorhande si
       too_long: Dr Name isch zläng

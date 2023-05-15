@@ -8,10 +8,16 @@
         <BsForm @model={{this.changeset}} as |form|>
           <div class="encryptable-form-name">
             <div class="row">
-              {{#if this.hasErrors}}
+              {{#if this.Errors}}
                 <div class="col-12 order-1">
                   <div class="alert alert-danger modal-alert">
-                    {{t "validations.name.duplicate_name"}}
+                    {{#if (eq this.Errors "At least one attribute must be set")}}
+                      {{t "validations.attributes.at_least_one_attribute"}}
+                    {{else if (eq this.Errors "has already been taken")}}
+                      {{t "validations.name.duplicate_name"}}
+                    {{else}}
+                      {{t "error"}}
+                    {{/if}}
                   </div>
                 </div>
               {{/if}}

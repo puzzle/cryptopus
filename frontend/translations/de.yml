@@ -57,6 +57,7 @@ de:
   role: Rolle
   empty: leer
   slogan: Der Ort für Passwörter
+  error: Es ist ein Fehler aufgetreten
 
   i18n:
     language:
@@ -390,6 +391,8 @@ de:
         description: Beschreibung
 
   validations:
+    attributes:
+      at_least_one_attribute: Mindestens ein Attribut muss gesetzt sein
     name:
       present: Der Name muss vorhanden sein
       too_long: Der Name ist zu lang

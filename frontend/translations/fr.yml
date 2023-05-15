@@ -57,6 +57,7 @@ fr:
   role: Rôle
   empty: vide
   slogan: Le lieu pour les mots de passe
+  error: il y a eu une erreur
 
   i18n:
     language:
@@ -391,6 +392,8 @@ fr:
         description: Description
 
   validations:
+    attributes:
+      at_least_one_attribute: Au moins un attribut doit être défini
     name:
       present: Le nom doit être présent
       too_long: Le nom est trop long
