@@ -201,24 +201,24 @@ li a {
 }
 
 .file-upload-button {
-  width: 17% !important;
+  width: 17%;
 }
 
 .icon-button {
-  width: 18px !important;
-  height: 18px !important;
+  width: 18px;
+  height: 18px;
   display: inline;
 }
 
 .icon-folder {
-  width: 22px !important;
-  height: 22px !important;
+  width: 22px;
+  height: 22px;
   display: inline;
 }
 
 .icon-button-angle {
-  width: 18px !important;
-  height: 18px !important;
+  width: 18px;
+  height: 18px;
   display: inline;
   margin-top: 4px;
 }
@@ -230,8 +230,8 @@ li a {
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
-  background-color: #2988bc !important;
-  border-color: #2479a7 !important;
+  background-color: #2988bc;
+  border-color: #2479a7;
 }
 
 .vertical-center {
@@ -240,8 +240,8 @@ li a {
 }
 
 .modal-alert {
-  width: 100% !important;
-  margin-bottom: 15px !important;
+  width: 100%;
+  margin-bottom: 15px;
 }
 
 .border-darker {
@@ -250,12 +250,12 @@ li a {
 
 .team-card-header {
   background-color: #1e5a96;
-  color: white !important;
+  color: white;
   border: none;
 }
 
 .ember-notify-default.ember-notify-cn {
-  bottom: 5em !important;
+  bottom: 5em;
 }
 
 .ember-basic-dropdown .ember-basic-dropdown-trigger {
@@ -273,7 +273,7 @@ li a {
 }
 
 .p-15 {
-  padding: 15px 15px 15px 15px !important;
+  padding: 15px 15px 15px 15px;
 }
 
 .description {
@@ -282,8 +282,8 @@ li a {
 }
 
 .folder-no-p {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .border-radius-4 {
@@ -292,7 +292,7 @@ li a {
 
 #locale-dropdown > div {
   width: 120px;
-  border: none !important;
+  border: none;
   color: #727679;
   background-color: #f8f8f8;
 }
@@ -341,7 +341,7 @@ li a {
 }
 
 .mobile-team-menu .dropdown-item {
-  padding-left: 0.5rem !important;
+  padding-left: 0.5rem;
 }
 
 .lh-1 {
@@ -440,8 +440,8 @@ pzsh-banner {
 }
 
 h5, h6 {
-  font-family: var(--pzsh-font-family) !important;
-  font-weight: 400 !important;
+  font-family: var(--pzsh-font-family);
+  font-weight: 400;
 }
 
 .ember-notify-show,
@@ -449,9 +449,9 @@ h5, h6 {
 .alert-warning {
   background-color: var(--pzsh-color-brand-2);
   color: #ffffff;
-  display: flex !important;
+  display: flex;
   flex-direction: row-reverse;
-  width: auto !important;
+  width: auto;
 }
 
 .ember-notify-show > a.close {
@@ -465,7 +465,7 @@ h5, h6 {
 .account-link,
 .account-link:hover {
   color: #000000;
-  text-decoration: none !important;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 799px){
