@@ -83,7 +83,7 @@
                       <el.control @name="cleartextUsername" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <button class="btn delete-field" {{on "click" (action "removeField" "username")}}>
+                  <button class="btn btn-danger d-inline-block p-1 delete-field" {{on "click" (action "removeField" "username")}}>
                     <img id="remove-username-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
                   </button>
                 </div>
@@ -95,11 +95,11 @@
                       this.changeset.error.cleartextPassword.validation "invalid-input-name"}}
                         @property="cleartextPassword" @customError={{t
                           (validation-error-key this.changeset.error.cleartextPassword.validation)}} as |el|>
-                      <img class="d-inline encrypted-icon" src="/assets/images/encrypted_small.svg" alt="encrypted value">
+                      <img class="d-inline-block position-absolute encrypted-icon" src="/assets/images/encrypted_small.svg" alt="encrypted value">
                       <el.control type="password" autocomplete="off"  @name="cleartextPassword" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <button class="btn delete-field" {{on "click" (action "removeField" "password")}}>
+                  <button class="btn btn-danger d-inline-block p-1 delete-field" {{on "click" (action "removeField" "password")}}>
                     <img id="remove-password-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
                   </button>
                   <PasswordStrengthMeter class="col-12 col-lg-9 px-0 mb-2 mb-md-0 ml-3" @password={{this.changeset.cleartextPassword}}/>
@@ -117,11 +117,11 @@
                             this.changeset.error.cleartextToken.validation "invalid-input-name"}}
                                   @property="cleartextToken" @customError={{t
                             (validation-error-key this.changeset.error.cleartextToken.validation)}} as |el|>
-                      <img class="d-inline encrypted-icon" src="/assets/images/encrypted_small.svg" alt="encrypted value">
+                      <img class="d-inline-block position-absolute encrypted-icon" src="/assets/images/encrypted_small.svg" alt="encrypted value">
                       <el.control @name="cleartextToken" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <button class="btn delete-field" {{on "click" (action "removeField" "token")}}>
+                  <button class="btn btn-danger d-inline-block p-1 delete-field" {{on "click" (action "removeField" "token")}}>
                     <img id="remove-token-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
                   </button>
                 </div>
@@ -133,11 +133,11 @@
                             this.changeset.error.cleartextPin.validation "invalid-input-name"}}
                                   @property="cleartextPin" @customError={{t
                             (validation-error-key this.changeset.error.cleartextPin.validation)}} as |el|>
-                      <img class="d-inline encrypted-icon" src="/assets/images/encrypted_small.svg" alt="encrypted value">
+                      <img class="d-inline-block position-absolute encrypted-icon" src="/assets/images/encrypted_small.svg" alt="encrypted value">
                       <el.control @name="cleartextPin" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <button class="btn delete-field" {{on "click" (action "removeField" "pin")}}>
+                  <button class="btn btn-danger d-inline-block p-1 delete-field" {{on "click" (action "removeField" "pin")}}>
                     <img id="remove-pin-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
                   </button>
                 </div>
@@ -149,11 +149,11 @@
                             this.changeset.error.cleartextEmail.validation "invalid-input-name"}}
                                   @property="cleartextEmail" @customError={{t
                             (validation-error-key this.changeset.error.cleartextEmail.validation)}} as |el|>
-                      <img class="d-inline encrypted-icon" src="/assets/images/encrypted_small.svg" alt="encrypted value">
+                      <img class="d-inline-block position-absolute encrypted-icon" src="/assets/images/encrypted_small.svg" alt="encrypted value">
                       <el.control @name="cleartextEmail" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <button class="btn delete-field" {{on "click" (action "removeField" "email")}}>
+                  <button class="btn btn-danger d-inline-block p-1 delete-field" {{on "click" (action "removeField" "email")}}>
                     <img id="remove-email-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
                   </button>
                 </div>
@@ -168,7 +168,7 @@
                       <el.control @name="label" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
-                  <button class="btn delete-field" {{on "click" (action "removeField" "customAttr")}}>
+                  <button class="btn btn-danger d-inline-block p-1 delete-field" {{on "click" (action "removeField" "customAttr")}}>
                     <img id="remove-customAttr-field-button" class="d-inline" src="/assets/images/delete-white.svg" alt="delete attribute field">
                   </button>
                   <form.group class="col-md-12">
@@ -176,7 +176,7 @@
                             this.changeset.error.cleartextCustomAttr.validation "invalid-input-name"}}
                                   @property="value" @customError={{t
                             (validation-error-key this.changeset.error.value.validation)}} as |el|>
-                      <img class="d-inline encrypted-icon" src="/assets/images/encrypted_small.svg" alt="encrypted value">
+                      <img class="d-inline-block position-absolute encrypted-icon" src="/assets/images/encrypted_small.svg" alt="encrypted value">
                       <el.control @name="value" tabindex="2"></el.control>
                     </form.element>
                   </form.group>
@@ -187,12 +187,12 @@
           {{#if (gt this.items.length 1)}}
             <div>
               {{!-- Add property value and action to overwrite it because jquery can't access this.element from glimmer components --}}
-              <select id="add-field-dropdown" value={{this.selectedItem}} onchange={{action (mut this.selectedItem) value="target.value"}}>
+              <select class="border-radius-4 bg-white add-field-dropdown border-1" value={{this.selectedItem}} onchange={{action (mut this.selectedItem) value="target.value"}}>
                 {{#each this.items as |item|}}
                   <option value={{item}}>{{t item}}</option>
                 {{/each}}
               </select>
-              <button class="btn add-field ml-2" {{on "click" (action "addField")}} >
+              <button class="btn btn-success d-inline-block p-1 ml-2 add-field" {{on "click" (action "addField")}} >
                 <img id="add-field-button" class="d-inline" src="/assets/images/plus-white.svg" alt="add attribute field">
               </button>
             </div>

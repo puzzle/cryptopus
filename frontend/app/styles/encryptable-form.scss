@@ -5,30 +5,20 @@
 }
 
 .add-field {
-  display: inline-block;
-  border-radius: 5px;
-  padding: 7px;
   width: 40px;
   height: 40px;
-  background-color: limegreen;
 }
 
 .delete-field {
-  display: inline-block;
-  border-radius: 5px;
-  padding: 5px;
-  width: 35px !important;
-  height: 35px !important;
+  width: 35px;
+  height: 35px;
   margin-top: 2rem;
-  background-color: red;
   cursor: pointer;
 }
 
 .encrypted-icon {
-  display: inline-block;
-  width: 25px !important;
-  height: 25px !important;
-  position: absolute;
+  width: 25px;
+  height: 25px;
   margin-top: 2.5rem;
 }
 
@@ -49,11 +39,8 @@
   margin-bottom: 0.5rem;
 }
 
-#add-field-dropdown {
-  background-color: lightgrey;
-  border-color: black;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
+.add-field-dropdown {
+  border-color: #CCC;
   width: 15vw;
   height: 35px;
   margin-left: 1vw;
