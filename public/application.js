@@ -27,5 +27,3 @@ document.addEventListener("DOMContentLoaded", function (event) {
     usernameElement.addEventListener("click", selectUsername);
   }
 });
-
-
