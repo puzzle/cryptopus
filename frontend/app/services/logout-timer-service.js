@@ -4,7 +4,7 @@ import { tracked } from "@glimmer/tracking";
 export default class LogoutTimerService extends Service {
   @tracked timeToLogoff;
 
-  AUTOLOGOFF_TIME = 5;
+  AUTOLOGOFF_TIME = 295;
 
   countDownDate;
 
