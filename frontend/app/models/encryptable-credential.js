@@ -53,10 +53,7 @@ export default class EncryptableCredential extends Encryptable {
   get isCustomAttrBlank() {
     //make it null save because custom attr is nested
     return (
-      this.isFullyLoaded &&
-      isNone(
-        (this.cleartextCustomAttr == null ? "" : this.cleartextCustomAttr).value
-      )
+      this.isFullyLoaded && isNone(this.cleartextCustomAttr?.value)
     );
   }
 }
