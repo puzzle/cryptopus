@@ -3,7 +3,7 @@
 class TeamListSerializer < ApplicationSerializer
   # To hide STI name in Frontend
   type Team.name.pluralize
-  attributes :id, :name, :type, :personal_team, :private
+  attributes :id, :name, :type, :personal_team
 
   has_many :folders, serializer: FolderMinimalSerializer
 
