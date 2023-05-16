@@ -151,7 +151,7 @@
           </div>
         {{/if}}
       {{/if}}
-      <div class="col-md-auto d-none d-md-block encryptable-row-icons">
+      <div class="col-md-auto d-none d-md-block encryptable-row-icons ml-auto">
         <DeleteWithConfirmation @class="mx-1" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
           <img class="icon-medium-button d-inline" src="/assets/images/delete.svg" alt="delete">
           <BsTooltip @title={{t "tooltips.delete_encryptables"}} @delayShow="1000" />
