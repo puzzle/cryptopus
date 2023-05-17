@@ -44,9 +44,11 @@
 
     <div class="d-flex flex-row justify-content-between mb-2">
       <div>
-        <BsButton @type="primary" {{on "click" this.encryptableFileDownload}}>
-          {{t "download_file"}}
-        </BsButton>
+        <a href={{this.downloadLink}}>
+          <BsButton @type="primary">
+            {{t "download_file"}}
+          </BsButton>
+        </a>
       </div>
     </div>
   </div>

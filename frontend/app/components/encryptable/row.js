@@ -115,12 +115,7 @@ export default class RowComponent extends Component {
     this.isEncryptableEditing = !this.isEncryptableEditing;
   }
 
-  @action
-  encryptableFileDownload() {
-    window.open(this.downloadLink(), "_blank");
-  }
-
-  downloadLink() {
+  get downloadLink() {
     return `/api/encryptables/${this.args.encryptable.get("id")}`;
   }
 

@@ -37,12 +37,7 @@ export default class ShowComponent extends Component {
     this.isFileCreating = !this.isFileCreating;
   }
 
-  @action
-  encryptableFileDownload() {
-    window.open(this.downloadLink(), "_blank");
-  }
-
-  downloadLink() {
+  get downloadLink() {
     return `/api/encryptables/${this.args.encryptable.get("id")}`;
   }
 
