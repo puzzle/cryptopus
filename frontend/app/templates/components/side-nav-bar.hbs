@@ -20,19 +20,15 @@
               {{#each this.navService.availableTeams as |team|}}
                 <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-baseline {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
                   <div class="d-flex justify-content-between">
-                    <div class="d-flex justify-content-start">
-
-                    {{#if team.isPersonalTeam}}
-                      <img class="icon icon-button lh-1" src="/assets/images/{{if (eq team this.navService.selectedTeam) "member-white.svg" "member.svg"}}" alt="">
-
-                    {{else}}
-                      {{#if team.private}}
-                        <img class="icon icon-button mr-2 " src="/assets/images/{{if (eq team this.navService.selectedTeam) "encrypted_small-white.svg" "encrypted_small.svg"}}" alt="">
+                      {{#if team.isPersonalTeam}}
+                        <img class="icon icon-button lh-1" src="/assets/images/{{if (eq team this.navService.selectedTeam) "member-white.svg" "member.svg"}}" alt="">
                       {{else}}
-                        <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "members-white.svg" "members.svg"}}" alt="">
+                        {{#if team.private}}
+                          <img class="icon icon-button mr-2 " src="/assets/images/{{if (eq team this.navService.selectedTeam) "encrypted_small-white.svg" "encrypted_small.svg"}}" alt="">
+                        {{else}}
+                          <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "members-white.svg" "members.svg"}}" alt="">
+                        {{/if}}
                       {{/if}}
-                    {{/if}}
-                    </div>
 
                     {{#if team.isPersonalTeam}}
                       <p class="lh-1">{{truncate this.userService.username 18}}
