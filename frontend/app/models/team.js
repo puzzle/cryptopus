@@ -16,7 +16,6 @@ export default class Team extends Model {
   }
 
   get unreadTransfersInInbox() {
-    console.log("unread Count", this.unread_count)
     if (!this.isPersonalTeam) return undefined;
     if (!this?.unread_count) return undefined;
     const folder = this.folders.filter((folder) => folder.name === "inbox")[0];
