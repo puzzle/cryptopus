@@ -111,7 +111,7 @@ de:
 
   encryptable/transferring/credential:
     new:
-      title: Teilen mit
+      title: Zugangsdaten teilen mit
     show: Geteilte Zugangsdaten
     receiver:
       name: Wähle einen Empfänger aus

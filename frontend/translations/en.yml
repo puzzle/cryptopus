@@ -110,7 +110,7 @@ en:
 
   encryptable/transferring/credential:
     new:
-      title: Send file to
+      title: Send credentials to
     show: Transferred Credentials
     receiver:
       name: Choose a receiver

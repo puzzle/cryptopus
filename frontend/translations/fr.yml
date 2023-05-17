@@ -111,7 +111,7 @@ fr:
 
   encryptable/transferring/credential:
     new:
-      title: "partager fichier"
+      title: "Partager données d'accès"
     show: Données d'accès partagées
     receiver:
       name: Choisir le récepteur

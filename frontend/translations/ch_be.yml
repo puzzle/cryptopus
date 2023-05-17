@@ -110,7 +110,7 @@ ch_be:
 
   encryptable/transferring/credential:
     new:
-      title: "Datei teilä"
+      title: "Zuägangsdate teilä mit"
     show: Teilti Zuegangsdatä
     receiver:
       name: Wäu ä empfänger
