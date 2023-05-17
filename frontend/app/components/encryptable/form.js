@@ -12,6 +12,7 @@ export default class Form extends BaseFormComponent {
   @service store;
   @service router;
   @service navService;
+  @service userService;
 
   @tracked selectedTeam;
   @tracked assignableTeams;
