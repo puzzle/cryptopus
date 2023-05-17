@@ -103,10 +103,12 @@
       {{/unless}}
       <div class="col-md-auto d-none d-md-block">
         {{#unless @encryptable.isOseSecret}}
-          <a class="mx-1" role="button" {{on "click" this.toggleEncryptableEdit}}>
-            <img class="icon-medium-button d-inline" src="/assets/images/edit.svg" alt="edit">
-            <BsTooltip @title={{t "encryptable/credentials.edit.title"}} @delayShow="1000" />
-          </a>
+          {{#unless this.isTransferredCredentials }}
+            <a class="mx-1" role="button" {{on "click" this.toggleEncryptableEdit}}>
+              <img class="icon-medium-button d-inline" src="/assets/images/edit.svg" alt="edit">
+              <BsTooltip @title={{t "encryptable/credentials.edit.title"}} @delayShow="1000" />
+            </a>
+          {{/unless}}
         {{/unless}}
         <DeleteWithConfirmation @class="mx-1" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
           <img class="icon-medium-button d-inline" src="/assets/images/delete.svg" alt="delete">

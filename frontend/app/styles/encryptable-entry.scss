@@ -27,6 +27,10 @@
   cursor: text;
 }
 
+.encryptable-entry {
+  justify-content: space-between;
+}
+
 .encryptable-entry .show-password-link-sm {
   margin-top: 0 !important;
   position: absolute;
