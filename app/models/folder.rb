@@ -35,4 +35,7 @@ class Folder < ApplicationRecord
     end
   end
 
+  def unread_count_transferred_files
+    encryptables.all.where.not(encrypted_transfer_password: nil).count
+  end
 end
