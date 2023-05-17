@@ -20,8 +20,11 @@
               {{#each this.navService.availableTeams as |team|}}
                 <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-baseline {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
                   <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-start">
+
                     {{#if team.isPersonalTeam}}
-                      <img class="icon icon-button mr-2 lh-1" src="/assets/images/{{if (eq team this.navService.selectedTeam) "member-white.svg" "member.svg"}}" alt="">
+                      <img class="icon icon-button lh-1" src="/assets/images/{{if (eq team this.navService.selectedTeam) "member-white.svg" "member.svg"}}" alt="">
+
                     {{else}}
                       {{#if team.private}}
                         <img class="icon icon-button mr-2 " src="/assets/images/{{if (eq team this.navService.selectedTeam) "encrypted_small-white.svg" "encrypted_small.svg"}}" alt="">
@@ -29,11 +32,15 @@
                         <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "members-white.svg" "members.svg"}}" alt="">
                       {{/if}}
                     {{/if}}
+                    </div>
+
                     {{#if team.isPersonalTeam}}
-                      <p class="lh-1">{{truncate this.userService.username 18}}</p>
-                      {{#if (not (eq team.unreadTransfersInFolder undefined))}}
-                        <div class="notification-badge notification-badge-color">{{team.unreadTransfersInFolder}}</div>
-                      {{/if}}
+                      <p class="lh-1">{{truncate this.userService.username 18}}
+                        {{#if team.unreadTransfersInFolder}}
+                          <span class="badge badge-small bg-danger rounded-circle border border-light "> </span>
+
+                        {{/if}}
+                      </p>
                     {{else}}
                       <p class="lh-1">{{truncate team.name 18}}</p>
                     {{/if}}
@@ -51,6 +58,9 @@
                       <a role="button"  class="list-group-item list-folder-item {{if (eq folder this.navService.selectedFolder) "bg-blue-three" "bg-blue-one"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
                         <img class="icon icon-button mr-1" src="/assets/images/folder.svg" alt="">
                         {{truncate folder.name 15}}
+                        {{#if folder.unreadTransferredCount}}
+                          <span class="badge bg-danger rounded-circle text-white">{{folder.unreadTransferredCount}} </span>
+                        {{/if}}
                       </a>
                     {{/each}}
                   </BsCollapse>

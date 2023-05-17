@@ -470,17 +470,7 @@ h5, h6 {
   text-align: center;
 }
 
-.notification-badge {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.badge-small{
+  height: 0.8em;
+  width: 0.8em;
 }
-
-.notification-badge-color {
-  background-color: #69b978;
-  color: white;
-}
-
