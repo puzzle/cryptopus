@@ -10,7 +10,7 @@ import { isPresent } from "@ember/utils";
 const storeStub = Service.extend({
   createRecord() {
     return {
-      receiver_id: null,
+      receiver_id: null
     };
   },
   query(modelName) {
@@ -65,7 +65,7 @@ const users = [
   }
 ];
 
-module('Integration | Component | credential-transfer', function (hooks) {
+module("Integration | Component | credential-transfer", function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
@@ -104,5 +104,3 @@ module('Integration | Component | credential-transfer', function (hooks) {
     );
   });
 });
-
-
