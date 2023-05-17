@@ -11,8 +11,8 @@ class EncryptableMinimalSerializer < ApplicationSerializer
     keys = [:password, :username, :token, :pin, :email, :custom_attr]
     data = object.encrypted_data.instance_variable_get(:@data)
 
-    keys.each_with_object({}) do |key, used_attrs|
-      used_attrs[key] = !data[key].nil?
+    keys.index_with do |key|
+      !data[key].nil?
     end
   end
 end

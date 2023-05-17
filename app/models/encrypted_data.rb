@@ -36,7 +36,6 @@ class EncryptedData
     hash
   end
 
-
   def encode(value)
     Base64.strict_encode64(value) unless value.nil?
   end
