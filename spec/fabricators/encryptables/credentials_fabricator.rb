@@ -10,7 +10,7 @@ Fabricator(:credential, from: 'Encryptable::Credentials') do
   name { Faker::Team.creature }
   cleartext_username { Faker::Internet.user_name }
   cleartext_password { Faker::Internet.password }
-  before_save do |account, attrs|
+  before_create do |account, attrs|
     account.encrypt(attrs[:team_password])
   end
 end

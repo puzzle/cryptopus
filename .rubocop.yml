@@ -108,8 +108,7 @@ Style/FormatStringToken:
 
 
 Style/HashSyntax:
-  Exclude:
-    - lib/tasks/**/*.rake
+  Enabled: false
 
 Style/SymbolArray:
   EnforcedStyle: brackets

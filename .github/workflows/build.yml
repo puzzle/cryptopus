@@ -42,10 +42,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Ruby 3.0
+      - name: Set up Ruby 3.2
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0'
+          ruby-version: '3.2'
           bundler-cache: true
 
       # Setup Node
@@ -80,7 +80,7 @@ jobs:
             ${{ runner.os }}-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install bundler
-        run: gem install bundler:2.2.17
+        run: gem install bundler:2.3.13
 
       - name: Create database
         run: bundle exec rails db:setup
