@@ -5,6 +5,7 @@ import { hbs } from "ember-cli-htmlbars";
 import Service from "@ember/service";
 import { setLocale } from "ember-intl/test-support";
 import { isPresent } from "@ember/utils";
+import EmberObject from "@ember/object";
 
 const storeStub = Service.extend({
   query(modelName, params) {
@@ -73,14 +74,17 @@ module("Integration | Component | encryptable/show", function (hooks) {
   });
 
   test("it renders a transferred encryptable file", async function (assert) {
-    this.set("encryptable", {
-      id: 1,
-      type: "encryptable_files",
-      name: "Ninjas test encryptable",
-      description: "Encryptable for the ninjas",
-      sender_name: "Bob Beier",
-      isFile: true
-    });
+    this.set(
+      "encryptable",
+      EmberObject.create({
+        id: 1,
+        type: "encryptable_files",
+        name: "Ninjas test encryptable",
+        description: "Encryptable for the ninjas",
+        sender_name: "Bob Beier",
+        isFile: true
+      })
+    );
 
     await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
 
