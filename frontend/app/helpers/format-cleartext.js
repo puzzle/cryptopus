@@ -1,5 +1,6 @@
 import Helper from "@ember/component/helper";
 import { inject as service } from "@ember/service";
+import { capitalize } from "@ember/string";
 
 export default Helper.extend({
   intl: service(),
@@ -8,43 +9,11 @@ export default Helper.extend({
     let [encryptable, attr] = params;
     let isBlank = false;
 
-    if (attr === "password") {
-      isBlank = encryptable.isPasswordBlank;
-    }
-    if (attr === "username") {
-      isBlank = encryptable.isUsernameBlank;
-    }
-    if (attr === "pin") {
-      isBlank = encryptable.isPinBlank;
-    }
-    if (attr === "token") {
-      isBlank = encryptable.isTokenBlank;
-    }
-    if (attr === "email") {
-      isBlank = encryptable.isEmailBlank;
-    }
-    if (attr === "customAttr") {
-      isBlank = encryptable.isCustomAttrBlank;
-    }
+    isBlank = encryptable[`is${capitalize(attr)}Blank`];
 
     if (isBlank) {
       return this.intl.t(`encryptable/credentials.show.blank`);
     } else {
-      if (attr === "password") {
-        return encryptable.cleartextPassword;
-      }
-      if (attr === "username") {
-        return encryptable.cleartextUsername;
-      }
-      if (attr === "pin") {
-        return encryptable.cleartextPin;
-      }
-      if (attr === "token") {
-        return encryptable.cleartextToken;
-      }
-      if (attr === "email") {
-        return encryptable.cleartextEmail;
-      }
       if (attr === "customAttr") {
         //make it null save because custom attr is nested
         return (
@@ -53,6 +22,7 @@ export default Helper.extend({
             : encryptable.cleartextCustomAttr
         ).value;
       }
+      return encryptable[`cleartext${capitalize(attr)}`];
     }
   }
 });

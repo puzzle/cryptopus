@@ -15,11 +15,14 @@ export default class Form extends BaseFormComponent {
   @service router;
   @service navService;
   @service userService;
+  @service notify;
 
   @tracked selectedTeam;
   @tracked assignableTeams;
 
   @tracked errors;
+
+  @tracked selected = null;
 
   AccountValidations = AccountValidations;
 
@@ -51,7 +54,7 @@ export default class Form extends BaseFormComponent {
   // doesn't get notified by using a normal array
   @tracked
   items = A(
-    ["additionalField"]
+    []
       .concat(
         this.record.cleartextUsername || this.isNewRecord ? [] : ["username"]
       )
@@ -151,8 +154,15 @@ export default class Form extends BaseFormComponent {
 
   @action
   addField() {
-    this[`is${capitalize(this.selectedItem)}FieldActive`] = true;
-    this.items.removeObject(this.selectedItem);
+    if (this.selected == null) {
+      this.notify.info(
+        this.intl.t(`flashes.encryptables.selectAdditionalField`)
+      );
+    } else {
+      this[`is${capitalize(this.selected)}FieldActive`] = true;
+      this.items.removeObject(this.selected);
+      this.selected = null;
+    }
   }
 
   async beforeSubmit() {

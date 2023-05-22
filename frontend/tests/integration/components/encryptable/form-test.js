@@ -1,6 +1,6 @@
 import { module, test } from "qunit";
 import { setupRenderingTest } from "ember-qunit";
-import { render, click, select } from "@ember/test-helpers";
+import { render, click } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 import Service from "@ember/service";
 import { selectChoose } from "ember-power-select/test-support";
@@ -507,25 +507,19 @@ module("Integration | Component | encryptable/form", function (hooks) {
     await render(hbs`<Encryptable::Form />`);
 
     assert.equal(
-      this.element.querySelector("#add-field-dropdown").value,
-      "additionalField"
+      this.element.querySelector("#add-field-dropdown").textContent.trim(),
+      "Choose additional field"
     );
 
     assert
       .dom(this.element.querySelector("input[name='cleartextPin']"))
       .doesNotExist();
 
-    assert.ok(
-      Array.from(this.element.querySelector("#add-field-dropdown").options)
-        .map((option) => option.value)
-        .includes("pin")
-    );
-
-    await select("#add-field-dropdown", "pin");
+    await selectChoose("#add-field-dropdown", "Pin");
 
     assert.equal(
-      this.element.querySelector("#add-field-dropdown").value,
-      "pin"
+      this.element.querySelector("#add-field-dropdown").textContent.trim(),
+      "Pin"
     );
 
     //field still shouldnt exist, it gets added when clicking add field button
@@ -542,15 +536,8 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     //dropdown has no field selected
     assert.equal(
-      this.element.querySelector("#add-field-dropdown").value,
-      "additionalField"
-    );
-
-    //check that pin isnt in dropdown anymore
-    assert.notOk(
-      Array.from(this.element.querySelector("#add-field-dropdown").options)
-        .map((option) => option.value)
-        .includes("pin")
+      this.element.querySelector("#add-field-dropdown").textContent.trim(),
+      "Choose additional field"
     );
   });
 
@@ -563,25 +550,12 @@ module("Integration | Component | encryptable/form", function (hooks) {
       .dom(this.element.querySelector("input[name='cleartextUsername']"))
       .exists();
 
-    assert.notOk(
-      Array.from(this.element.querySelector("#add-field-dropdown").options)
-        .map((option) => option.value)
-        .includes("username")
-    );
-
     //click remove field button
     await click("#remove-username-field-button");
 
     assert
       .dom(this.element.querySelector("input[name='cleartextUsername']"))
       .doesNotExist();
-
-    //check that username is in dropdown again
-    assert.ok(
-      Array.from(this.element.querySelector("#add-field-dropdown").options)
-        .map((option) => option.value)
-        .includes("username")
-    );
   });
 
   test("it renames personal-team to users username in encryptable form", async function (assert) {

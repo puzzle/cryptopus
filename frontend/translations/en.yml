@@ -24,6 +24,7 @@ en:
   email: Email
   customAttr: Custom Attribute
   additionalField: Additional Field
+  additionalFieldPlaceholder: Choose additional field
   labelCustomAttr: Custom Attribute Name
   valueCustomAttr: Custom Attribute Value
   actions: Actions
@@ -111,6 +112,9 @@ en:
       blank: none
     new:
       title: New Credentials
+    form:
+      encryptedField: This field is encrypted
+      notEncryptedField: This field is not encrypted
     share:
       title: Share File
 
@@ -310,6 +314,7 @@ en:
       token_copied: Token was copied
       email_copied: Email was copied
       customAttr_copied: Custom Attribute was copied
+      selectAdditionalField: You have to choose a field
 
     encryptable-credentials:
       << : *encryptables_translations

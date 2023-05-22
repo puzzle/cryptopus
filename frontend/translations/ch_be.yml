@@ -23,6 +23,7 @@ ch_be:
   email: Email
   customAttr: Individuells Attribut
   additionalField: Zuesätzlechs Fäud
+  additionalFieldPlaceholder: Wäu äs zuesätzlechs Fäud
   labelCustomAttr: Individuellä Attributname
   valueCustomAttr: Individuiuelli Attribut Mengi
   actions: Aktionä
@@ -110,6 +111,9 @@ ch_be:
       blank: Läär
     new:
       title: Nöi Zuägangsdate
+    form:
+      encryptedField: Das Fäld wird verschlüsslät
+      notEncryptedField: Das Fäld wird nid verschlüsslät
     share:
       title: Datei teilä
 
@@ -310,6 +314,7 @@ ch_be:
       token_copied: Dr Token isch kopiert worde
       email_copied: D Email isch kopiert worde
       customAttr_copied: Z individuellä Attribut isch kopiert worde
+      selectAdditionalField: Du muäsch es Fäld uswähle
 
     encryptable-credentials:
       << : *encryptables_translations

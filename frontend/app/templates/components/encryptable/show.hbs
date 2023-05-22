@@ -101,17 +101,6 @@
           </CopyButton>
         </div>
       {{/if}}
-      {{#if @encryptable.cleartextEmail}}
-        <div class="result-email">
-          <div id="encryptable-email-label">{{t "email"}}</div>
-          <Input id="cleartext_email" class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextEmail}}/>
-          <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextEmail}}
-            title={{if @encryptable.isPasswordBlank this.noCopyBlankTooltip ""}}
-            @success={{fn this.onCopied "email"}} disabled={{@encryptable.isEmailBlank}} >
-            <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-          </CopyButton>
-        </div>
-      {{/if}}
       {{#if @encryptable.cleartextPassword}}
         <div id="encryptable-password-label">{{t "password"}}</div>
         <div class="hidden-attribute-copy-button">
@@ -123,8 +112,19 @@
             <a id="show-password" role="button" class="correct-pixel-error-omg show-hidden-attribute-button show-text" {{on "click" (action "showValue" "password")}}>{{t "encryptable/credentials.show.show_password"}}</a>
           {{/if}}
           <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextPassword}}
+                      title={{if @encryptable.isPasswordBlank this.noCopyBlankTooltip ""}}
+                      @success={{fn this.onCopied "password"}} disabled={{@encryptable.isPasswordBlank}} >
+            <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+          </CopyButton>
+        </div>
+      {{/if}}
+      {{#if @encryptable.cleartextEmail}}
+        <div class="result-email">
+          <div id="encryptable-email-label">{{t "email"}}</div>
+          <Input id="cleartext_email" class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextEmail}}/>
+          <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextEmail}}
             title={{if @encryptable.isPasswordBlank this.noCopyBlankTooltip ""}}
-            @success={{fn this.onCopied "password"}} disabled={{@encryptable.isPasswordBlank}} >
+            @success={{fn this.onCopied "email"}} disabled={{@encryptable.isEmailBlank}} >
             <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
           </CopyButton>
         </div>

@@ -93,32 +93,7 @@ export default class RowComponent extends Component {
       .catch((error) => {
         if (error.message.includes("401"))
           window.location.replace("/session/new");
-      })
-      .then((a) => {
-        this.encryptableFullyLoaded(a);
-        return a;
       });
-  }
-
-  encryptableFullyLoaded(encryptable) {
-    if (encryptable.isPasswordBlank) {
-      this.isPasswordVisible = true;
-    }
-    if (encryptable.isUsernameBlank) {
-      this.isUsernameVisible = true;
-    }
-    if (encryptable.isTokenBlank) {
-      this.isTokenVisible = true;
-    }
-    if (encryptable.isPinBlank) {
-      this.isPinVisible = true;
-    }
-    if (encryptable.isEmailBlank) {
-      this.isEmailVisible = true;
-    }
-    if (encryptable.isCustomAttrBlank) {
-      this.isCustomAttrVisible = true;
-    }
   }
 
   formattedValue(encryptable, attr) {

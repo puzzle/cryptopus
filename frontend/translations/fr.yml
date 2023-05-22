@@ -24,6 +24,7 @@ fr:
   email: E-mail
   customAttr: Attribut personnalisé
   additionalField: Champ supplémentaire
+  additionalFieldPlaceholder: Choisir un champ supplémentaire
   labelCustomAttr: Nom d'attribut personnalisé
   valueCustomAttr: Valeur d'attribut personnalisé
   actions: Actions
@@ -111,6 +112,9 @@ fr:
       blank: Vide
     new:
       title: Nouveau compte
+    form:
+      encryptedField: Ce champ est crypté
+      notEncryptedField: Ce champ n'est pas crypté
     share:
       title: Partage fichier
 
@@ -311,6 +315,7 @@ fr:
       token_copied: Le jeton a été copié
       email_copied: L'e-mail a été copié
       customAttr_copied: L'attribut personnalisé a été copié
+      selectAdditionalField: Tu dois sélectionner un champ
 
     encryptable-credentials:
       << : *encryptables_translations

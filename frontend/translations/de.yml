@@ -24,6 +24,7 @@ de:
   email: Email
   customAttr: Individuelles Attribut
   additionalField: Zusätzliches Attribut
+  additionalFieldPlaceholder: Wähle ein zusätzliches Feld
   labelCustomAttr: Individueller Attribut Name
   valueCustomAttr: Individuelle Attribut Menge
   actions: Aktionen
@@ -110,6 +111,9 @@ de:
       blank: Leer
     new:
       title: Neue Zugangsdaten
+    form:
+      encryptedField: Dieses Feld wird verschlüsselt
+      notEncryptedField: Dieses Feld wird nicht verschlüsselt
     share:
       title: Datei teilen
 
@@ -310,6 +314,7 @@ de:
       token_copied: Token wurde kopiert
       email_copied: Email wurde kopiert
       customAttr_copied: Individuelles Attribut wurde kopiert
+      selectAdditionalField: Du musst ein Feld auswählen
 
     encryptable-credentials:
       << : *encryptables_translations
