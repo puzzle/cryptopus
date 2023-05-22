@@ -144,31 +144,9 @@ export default class Form extends BaseFormComponent {
 
   @action
   removeField(value) {
-    if (value === "username") {
-      this.isUsernameFieldActive = false;
-      this.items.addObject(value);
-      this.changeset.cleartextUsername = null;
-    } else if (value === "password") {
-      this.isPasswordFieldActive = false;
-      this.items.addObject(value);
-      this.changeset.cleartextPassword = null;
-    } else if (value === "pin") {
-      this.isPinFieldActive = false;
-      this.items.addObject(value);
-      this.changeset.cleartextPin = null;
-    } else if (value === "token") {
-      this.isTokenFieldActive = false;
-      this.items.addObject(value);
-      this.changeset.cleartextToken = null;
-    } else if (value === "email") {
-      this.isEmailFieldActive = false;
-      this.items.addObject(value);
-      this.changeset.cleartextEmail = null;
-    } else if (value === "customAttr") {
-      this.isCustomAttrFieldActive = false;
-      this.items.addObject(value);
-      this.changeset.cleartextCustomAttr = null;
-    }
+    this[`is${capitalize(value)}FieldActive`] = false;
+    this.changeset[`cleartext${capitalize(value)}`] = null;
+    this.items.addObject(value);
   }
 
   @action

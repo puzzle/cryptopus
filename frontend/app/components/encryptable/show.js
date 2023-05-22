@@ -55,17 +55,7 @@ export default class ShowComponent extends Component {
 
   @action
   showValue(value) {
-    if (value === "password") {
-      this.isPasswordVisible = true;
-    } else if (value === "pin") {
-      this.isPinVisible = true;
-    } else if (value === "token") {
-      this.isTokenVisible = true;
-    } else if (value === "email") {
-      this.isEmailVisible = true;
-    } else if (value === "customAttr") {
-      this.isCustomAttrVisible = true;
-    }
+    this[`is${capitalize(value)}Visible`] = true;
   }
 
   @action
