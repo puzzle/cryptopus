@@ -191,7 +191,7 @@ export default class Form extends BaseFormComponent {
   }
 
   handleSubmitError(response) {
-    this.errors = response.errors
+    this.errors = response.errors;
   }
 
   presetTeamIfFolderSelected() {
