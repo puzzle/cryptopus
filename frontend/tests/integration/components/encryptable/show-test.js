@@ -115,7 +115,9 @@ module("Integration | Component | encryptable/show", function (hooks) {
     await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
 
     let text = this.element.textContent.trim();
-    assert.ok(text.includes("Transferred Credentials: Ninjas encryptable credentials"));
+    assert.ok(
+      text.includes("Transferred Credentials: Ninjas encryptable credentials")
+    );
     assert.ok(text.includes("Sent on: 14.06.2021 09:23"));
     assert.ok(text.includes("Last Update at: 22.06.2021 11:33"));
     assert.ok(text.includes("Sender name: Bob Kuchen (bob)"));

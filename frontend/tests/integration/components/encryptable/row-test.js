@@ -37,6 +37,8 @@ module("Integration | Component | encryptable/show", function (hooks) {
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
 
+    await new Promise((r) => setTimeout(r, 1));
+
     let text = this.element.textContent.trim();
     assert.ok(text.includes("Ninjas test encryptable"));
     assert.ok(text.includes("Show username"));
@@ -67,6 +69,8 @@ module("Integration | Component | encryptable/show", function (hooks) {
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
+
+    await new Promise((r) => setTimeout(r, 1));
 
     let text = this.element.textContent.trim();
     assert.ok(text.includes("Ninjas test encryptable"));
@@ -103,6 +107,8 @@ module("Integration | Component | encryptable/show", function (hooks) {
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
+
+    await new Promise((r) => setTimeout(r, 1));
 
     let text = this.element.textContent.trim();
     assert.ok(text.includes("Ninjas encryptable credentials"));

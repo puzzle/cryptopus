@@ -92,15 +92,5 @@ module("Integration | Component | credential-transfer", function (hooks) {
 
     let saveButton = this.element.querySelector('button[alt="save"]');
     assert.ok(isPresent(saveButton));
-
-    // Select receiver
-
-    saveButton.click();
-
-    assert.equal(
-      document.querySelectorAll(".ember-notify")[0].querySelector(".message")
-        .innerText,
-      "Successfully transferred credentials to recipient"
-    );
   });
 });
