@@ -119,7 +119,7 @@ export default class RowComponent extends Component {
   }
 
   get downloadLink() {
-    return `/api/encryptables/${this.args.encryptable.get("id")}`;
+    return `/api/encryptables/${this.args.encryptable.id}`;
   }
 
   @action
