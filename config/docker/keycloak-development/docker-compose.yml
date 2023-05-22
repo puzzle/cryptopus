@@ -12,6 +12,8 @@ services:
       - ${PWD}/dump-jboss-requests.cli:/opt/jboss/startup-scripts/my-script.cli
     depends_on:
       - postgres
+    networks:
+      - cryptopus_default
   postgres:
     container_name: postgres
     image: postgres
@@ -20,6 +22,10 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file: docker.env
+    networks:
+      - cryptopus_default
+
+
   # cryptopus:
   #   image: puzzle/cryptopus:latest
   #   container_name: cryptopus
@@ -39,3 +45,6 @@ services:
 volumes:
   postgres_data:
   # cryptopus-mysql:
+networks:
+  cryptopus_default:
+    external: true

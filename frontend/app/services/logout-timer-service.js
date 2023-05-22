@@ -42,6 +42,7 @@ export default class LogoutTimerService extends Service {
   }
 
   resetSession() {
+    sessionStorage.setItem("previousPath", window.location.pathname);
     window.location.replace("/session/destroy?autologout=true");
   }
 
