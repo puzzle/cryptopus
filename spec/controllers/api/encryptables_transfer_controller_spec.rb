@@ -10,6 +10,7 @@ describe Api::EncryptablesTransferController do
   let(:api_user) { bob.api_users.create }
   let(:credentials2) { encryptables(:credentials2) }
 
+
   context 'Encryptable File Transfer' do
 
     it 'does not send encryptable file to api user' do
