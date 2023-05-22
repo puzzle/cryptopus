@@ -187,7 +187,7 @@
           {{#if (gt this.items.length 1)}}
             <div>
               {{!-- Add property value and action to overwrite it because jquery can't access this.element from glimmer components --}}
-              <select class="border-radius-4 bg-white add-field-dropdown border-1" value={{this.selectedItem}} onchange={{action (mut this.selectedItem) value="target.value"}}>
+              <select id="add-field-dropdown" class="border-radius-4 bg-white border-1" value={{this.selectedItem}} onchange={{action (mut this.selectedItem) value="target.value"}}>
                 {{#each this.items as |item|}}
                   <option value={{item}}>{{t item}}</option>
                 {{/each}}

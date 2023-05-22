@@ -466,11 +466,11 @@ module("Integration | Component | encryptable/show", function (hooks) {
     );
     assert.equal(
       this.element.querySelector("#encryptable-pin-label").innerText,
-      "Épingle"
+      "Pin"
     );
     assert.equal(
       this.element.querySelector("#show-pin").innerText,
-      "Afficher l'épingle"
+      "Afficher Pin"
     );
     assert.equal(
       this.element.querySelector("#encryptable-token-label").innerText,

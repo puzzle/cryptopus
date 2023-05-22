@@ -149,7 +149,7 @@ export default class RowComponent extends Component {
     this.fetchEncryptable();
     this[`is${capitalize(attribute)}Visible`] = true;
 
-    this.startHideAttributeTimer(attribute)
+    this.startHideAttributeTimer(attribute);
   }
 
   startHideAttributeTimer(attribute) {

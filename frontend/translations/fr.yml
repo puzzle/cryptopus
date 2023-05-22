@@ -95,7 +95,7 @@ fr:
       file: Fichier
       show_password: Afficher le mot de passe
       show_username: Afficher le nom d'utilisateur
-      show_pin: Afficher l'épingle
+      show_pin: Afficher Pin
       show_token: Afficher le jeton
       show_email: Afficher l'e-mail
       show_custom_attr: Afficher l'attribut personnalisé
