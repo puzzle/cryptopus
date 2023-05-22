@@ -107,12 +107,14 @@ export default class Form extends BaseFormComponent {
   }
 
   @action
-  setRandomPassword() {
+  setRandomPassword(length, withDigits) {
     let pass = "";
+    const array = new Uint32Array(1);
     const PASSWORD_CHARS =
-      "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOP1234567890";
-    for (let i = 0; i < 14; i++) {
-      let r = Math.floor(Math.random() * PASSWORD_CHARS.length);
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP1234567890".concat(withDigits ? "!@#$%^&*()-+<>" : "");
+    for (let i = 0; i < length; i++) {
+      window.crypto.getRandomValues(array);
+      let r = array[0] % PASSWORD_CHARS.length;
       pass += PASSWORD_CHARS.charAt(r);
     }
     this.changeset.cleartextPassword = pass;
