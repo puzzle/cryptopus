@@ -1,3 +1,11 @@
+## Version 4.8
+- Auto-Relogin for SSO
+
+## Version 4.7
+- Ruby 3.2, Rails 7.0.4.3 upgrade
+- Security Upgrades (Ruby Gems)
+- Minor Bugfixing
+
 ## Version 4.6
 - Improve copy username/password
 

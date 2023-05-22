@@ -26,7 +26,7 @@ module SystemHelpers
       expect(page).to have_css('pzsh-menu-dropdown')
       all('pzsh-menu-dropdown').last.click
 
-      find('pzsh-menu-dropdown-item', text: 'Logout').click
+      all('pzsh-menu-dropdown-item').last.click
     end
   end
 

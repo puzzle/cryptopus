@@ -8,7 +8,7 @@ Fabricator(:non_private_team, from: :team) do |t|
   t.visible true
   t.private false
   t.type Team::Shared
-  after_save do |team|
+  after_create do |team|
     team_password = Crypto::Symmetric::Aes256.random_key
     team.add_user(Fabricate(:user), team_password)
     User::Human.admins.each do |a|
@@ -25,7 +25,7 @@ Fabricator(:private_team, from: :team) do |t|
   t.visible true
   t.private true
   t.type Team::Shared
-  after_save do |team|
+  after_create do |team|
     team_password = Crypto::Symmetric::Aes256.random_key
     team.add_user(Fabricate(:user), team_password)
     folder = Fabricate(:folder, team: team)

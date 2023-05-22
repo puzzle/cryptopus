@@ -1,4 +1,4 @@
-FROM ruby:3.0
+FROM ruby:3.2
 ENV RACK_ENV=production
 ENV RAILS_ENV=production
 
@@ -7,7 +7,7 @@ SHELL ["/bin/bash", "-c"]
 USER root
 
 ARG BUNDLE_WITHOUT='development:test'
-ARG BUNDLER_VERSION=2.2.32
+ARG BUNDLER_VERSION=2.3.13
 
 # install nodejs
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - 
