@@ -1,4 +1,7 @@
-provider: openid-connect
+provider: db
+
+# Keycloak example
+#provider: openid-connect
 
 #oidc:
 # client_id: cryptopus

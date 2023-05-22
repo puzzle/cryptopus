@@ -8,8 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function redirect() {
-    let path = sessionStorage.getItem("previousPath")
-    let href= window.location.origin + path;
+    const path = sessionStorage.getItem("previousPath")
+    sessionStorage.removeItem("previousPath")
+    const href= window.location.origin + path;
     window.location.replace(href);
 }
 
