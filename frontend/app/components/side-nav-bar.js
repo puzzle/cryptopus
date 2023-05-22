@@ -44,6 +44,7 @@ export default class SideNavBar extends Component {
   setSelectedFolder(folder) {
     if (folder.isInboxFolder) {
       folder.unreadTransferredCount = null;
+      folder.team.unread_count = undefined;
     }
 
     if (isPresent(this.args.navbar)) {
