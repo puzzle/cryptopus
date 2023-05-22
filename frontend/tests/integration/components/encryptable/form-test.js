@@ -597,10 +597,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
     assert.ok(this.element.textContent.trim().includes("Team"));
     assert.ok(this.element.textContent.trim().includes("bbteam"));
 
-    await selectChoose(
-      "#team-power-select .ember-power-select-trigger",
-      "bob"
-    );
+    await selectChoose("#team-power-select .ember-power-select-trigger", "bob");
 
     assert.ok(this.element.textContent.trim().includes("Team"));
     assert.ok(this.element.textContent.trim().includes("bob"));
