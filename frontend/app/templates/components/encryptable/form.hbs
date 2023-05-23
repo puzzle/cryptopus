@@ -231,30 +231,34 @@
                 </div>
               {{/if}}
             </div>
+            <div class="ml-2 mb-2 mt-3">{{t "additionalField"}}</div>
             {{#if (gt this.items.length 0)}}
-              <div class="ml-3 mb-3">{{t "additionalField"}}</div>
-              {{!-- Add property value and action to overwrite it because jquery can't access this.element from glimmer components --}}
-              <PowerSelect
-                id="add-field-dropdown"
-                @options={{this.items}}
-                @placeholder={{t "additionalFieldPlaceholder"}}
-                @renderInPlace={{true}}
-                @selected={{this.selected}}
-                @onChange={{fn (mut this.selected)}} as |item|>
-                {{t item}}
-              </PowerSelect>
-              <button class="btn btn-success d-inline-block p-1 ml-2 add-field" {{on "click" (action "addField")}} >
-                <img id="add-field-button" class="d-inline" src="/assets/images/plus-white.svg"
-                     alt="add attribute field">
-              </button>
+            {{!-- Add property value and action to overwrite it because jquery can't access this.element from glimmer components --}}
+              <div class="d-flex flex-row">
+                <PowerSelect
+                  id="add-field-dropdown"
+                  @options={{this.items}}
+                  @placeholder={{t "additionalFieldPlaceholder"}}
+                  @renderInPlace={{true}}
+                  @selected={{this.selected}}
+                  @onChange={{fn (mut this.selected)}} as |item|>
+                  {{t item}}
+                </PowerSelect>
+                <button class="btn btn-success d-inline-block p-1 ml-4 add-field" {{on "click" (action "addField")}} >
+                  <img id="add-field-button" class="d-inline" src="/assets/images/plus-white.svg"
+                       alt="add attribute field">
+                </button>
+              </div>
             {{/if}}
           </div>
         </BsForm>
       </div>
     </Modal.body>
     <Modal.footer>
-      <BsButton id="encryptable-form-save-button" @onClick={{action this.submit this.changeset}} @type="primary">{{t "save"}}</BsButton>
-      <BsButton id="encryptable-form-close-button" @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
+      <BsButton id="encryptable-form-save-button" @onClick={{action this.submit this.changeset}} @type="primary">{{t
+        "save"}}</BsButton>
+      <BsButton id="encryptable-form-close-button" @onClick={{action this.abort}} @type="secondary">{{t
+        "close"}}</BsButton>
     </Modal.footer>
   </BsModal>
 {{/if}}
