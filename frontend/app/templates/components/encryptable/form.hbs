@@ -79,21 +79,13 @@
                 </form.element>
                 <PasswordStrengthMeter class="col-12 px-0 mb-2 mb-md-0" @password={{this.changeset.cleartextPassword}}/>
                 <label>
-                  <p>Symbols</p>
+                  Symbols
                   <Input
                     @type="checkbox"
                     @checked={{withSymbols}}></Input>
                 </label>
               </div>
             </div>
-<!--            <div class="col-md-6 mb-3 mb-md-0 d-flex align-items-center order-4 order-md-5">-->
-<!--              <div class="col-md-12">-->
-<!--                <button class="btn btn-secondary btn-block col-lg-7 mb-md-4" {{on "click" this.setRandomPassword}}-->
-<!--                        tabindex="4">-->
-<!--                  {{t "encryptable/credentials.edit.random_password"}}-->
-<!--                </button>-->
-<!--              </div>-->
-<!--            </div>-->
           </div>
           <div class="row">
             <div class="col-md-12">
