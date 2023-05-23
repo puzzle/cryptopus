@@ -70,7 +70,6 @@
             </div>
             <div class="col-md-6 order-3 order-md-4">
               <div class="col-sm-12 secret">
-                {{withSymbols}}
                 <form.element @label={{t "password"}} id="cleartext-password" class={{if
                         this.changeset.error.cleartextPassword.validation "invalid-input-name mb-1"}}
                               @property="cleartextPassword" @customError={{t
@@ -78,17 +77,19 @@
                   <el.control autocomplete="off" tabindex="3" @name="cleartextPassword" {{on "input" this.inputChangeManually}}></el.control>
                 </form.element>
                 <PasswordStrengthMeter class="col-12 px-0 mb-2 mb-md-0" @password={{this.changeset.cleartextPassword}}/>
-                <label>
-                  Symbols
-                  <Input
-                    @type="checkbox"
-                    @checked={{withSymbols}} {{on "change" (fn setRandomPassword ) }}></Input>
-                </label>
-                <label for="formControlRange">
-                  {{passwordLength}}
-                  <Input @type="range" class="custom-range" id="formControlRange" @value={{passwordLength}} min=16 max="32" {{on "change" setRandomPassword}}>
-                  </Input>
-                </label>
+                <div class="d-flex flex-column">
+                  <label>
+                    Symbols
+                    <Input
+                      @type="checkbox"
+                      @checked={{withSymbols}} {{on "change" (fn setRandomPassword)}}></Input>
+                  </label>
+                  <label for="formControlRange">
+                    {{passwordLength}}
+                    <Input @type="range" class="custom-range" id="formControlRange" @value={{passwordLength}} min=16 max="32" {{on "input" setRandomPassword}}>
+                    </Input>
+                  </label>
+                </div>
               </div>
             </div>
           </div>

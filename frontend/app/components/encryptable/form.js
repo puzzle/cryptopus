@@ -1,14 +1,14 @@
-import {action} from "@ember/object";
+import { action } from "@ember/object";
 import AccountValidations from "../../validations/encryptable";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
-import {inject as service} from "@ember/service";
-import {tracked} from "@glimmer/tracking";
+import { inject as service } from "@ember/service";
+import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "../base-form-component";
 import {capitalize} from "@ember/string";
 import {A} from "@ember/array";
 import {addObserver} from "@ember/object/observers";
-import {isEmpty, isPresent} from "@ember/utils";
+import { isEmpty, isPresent } from "@ember/utils";
 
 export default class Form extends BaseFormComponent {
   @service store;
@@ -119,7 +119,9 @@ export default class Form extends BaseFormComponent {
     let pass = "";
     const array = new Uint32Array(1);
     const PASSWORD_CHARS =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP1234567890".concat(this.withSymbols ? "!@#$%^&*()-+<>" : "");
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP1234567890".concat(
+        this.withSymbols ? "!@#$%^&*()-+<>" : ""
+      );
     for (let i = 0; i < this.passwordLength; i++) {
       window.crypto.getRandomValues(array);
       let r = array[0] % PASSWORD_CHARS.length;
@@ -130,9 +132,8 @@ export default class Form extends BaseFormComponent {
 
   @action
   inputChangeManually($event) {
-    if (this.withSymbols)
-      this.withSymbols = false;
-    this.passwordLength = $event.target.value.length
+    this.withSymbols = false;
+    this.passwordLength = $event.target.value.length;
   }
 
   @action
