@@ -5,10 +5,10 @@ import Changeset from "ember-changeset";
 import {inject as service} from "@ember/service";
 import {tracked} from "@glimmer/tracking";
 import BaseFormComponent from "../base-form-component";
-import { isPresent } from "@ember/utils";
 import {capitalize} from "@ember/string";
 import {A} from "@ember/array";
 import {addObserver} from "@ember/object/observers";
+import {isEmpty, isPresent} from "@ember/utils";
 
 export default class Form extends BaseFormComponent {
   @service store;
@@ -93,8 +93,8 @@ export default class Form extends BaseFormComponent {
       this.store.findRecord("encryptable-credential", this.record.id);
 
     this.setRandomPassword();
-    addObserver(this, "withSymbols", this.setRandomPassword);
-    addObserver(this, "passwordLength", this.setRandomPassword);
+    // addObserver(this, "withSymbols", this.setRandomPassword);
+    // addObserver(this, "passwordLength", this.setRandomPassword);
   }
 
   get availableFolders() {
@@ -114,7 +114,7 @@ export default class Form extends BaseFormComponent {
     }
   }
 
-
+  @action
   setRandomPassword() {
     let pass = "";
     const array = new Uint32Array(1);
@@ -129,9 +129,10 @@ export default class Form extends BaseFormComponent {
   }
 
   @action
-  inputChangeManually() {
-    if(this.withSymbols )
+  inputChangeManually($event) {
+    if (this.withSymbols)
       this.withSymbols = false;
+    this.passwordLength = $event.target.value.length
   }
 
   @action

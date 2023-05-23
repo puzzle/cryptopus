@@ -82,7 +82,12 @@
                   Symbols
                   <Input
                     @type="checkbox"
-                    @checked={{withSymbols}}></Input>
+                    @checked={{withSymbols}} {{on "change" (fn setRandomPassword ) }}></Input>
+                </label>
+                <label for="formControlRange">
+                  {{passwordLength}}
+                  <Input @type="range" class="custom-range" id="formControlRange" @value={{passwordLength}} min=16 max="32" {{on "change" setRandomPassword}}>
+                  </Input>
                 </label>
               </div>
             </div>
@@ -98,6 +103,7 @@
                   <el.control tabindex="7"></el.control>
                 </form.element>
               </form.group>
+
             </div>
             {{#if (gt this.inactiveFields.length 0)}}
               <div class="ml-3 mb-2 mt-3">{{t "additionalField"}}</div>
