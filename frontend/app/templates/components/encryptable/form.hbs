@@ -6,7 +6,7 @@
     </Modal.header>
     <Modal.body>
       <div class="container-fluid">
-        <BsForm class="secret" @model={{this.changeset}} as |form|>
+        <BsForm @model={{this.changeset}} as |form|>
           <div class="encryptable-form-name">
             <div class="row">
               {{#if this.errors}}
@@ -115,7 +115,7 @@
                         <img class="d-inline-block position-absolute encrypted-icon"
                              src="/assets/images/encrypted_small.svg" alt="encrypted value">
                       </a>
-                      <el.control type="password" autocomplete="off" @name="cleartextPassword"
+                      <el.control autocomplete="off" @name="cleartextPassword"
                                   tabindex="2"></el.control>
                     </form.element>
                   </form.group>
@@ -254,10 +254,12 @@
       </div>
     </Modal.body>
     <Modal.footer>
-      <BsButton id="encryptable-form-save-button" @onClick={{action this.submit this.changeset}} @type="primary">{{t
-        "save"}}</BsButton>
-      <BsButton id="encryptable-form-close-button" @onClick={{action this.abort}} @type="secondary">{{t
-        "close"}}</BsButton>
+      <BsButton id="encryptable-form-save-button" @onClick={{action this.submit this.changeset}} @type="primary">
+        {{t "save"}}
+      </BsButton>
+      <BsButton id="encryptable-form-close-button" @onClick={{action this.abort}} @type="secondary">
+        {{t "close"}}
+      </BsButton>
     </Modal.footer>
   </BsModal>
 {{/if}}
