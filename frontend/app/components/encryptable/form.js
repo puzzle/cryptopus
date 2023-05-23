@@ -5,9 +5,10 @@ import Changeset from "ember-changeset";
 import {inject as service} from "@ember/service";
 import {tracked} from "@glimmer/tracking";
 import BaseFormComponent from "../base-form-component";
-import {isPresent} from "@ember/utils";
+import { isPresent } from "@ember/utils";
 import {capitalize} from "@ember/string";
 import {A} from "@ember/array";
+import {addObserver} from "@ember/object/observers";
 
 export default class Form extends BaseFormComponent {
   @service store;
@@ -23,6 +24,9 @@ export default class Form extends BaseFormComponent {
   @tracked assignableTeams;
 
   @tracked errors;
+
+  @tracked withSymbols = true;
+  @tracked passwordLength = 14;
 
   AccountValidations = AccountValidations;
 
@@ -87,6 +91,10 @@ export default class Form extends BaseFormComponent {
 
     if (!this.record.isFullyLoaded)
       this.store.findRecord("encryptable-credential", this.record.id);
+
+    this.setRandomPassword();
+    addObserver(this, "withSymbols", this.setRandomPassword);
+    addObserver(this, "passwordLength", this.setRandomPassword);
   }
 
   get availableFolders() {
@@ -106,18 +114,24 @@ export default class Form extends BaseFormComponent {
     }
   }
 
-  @action
-  setRandomPassword(length, withDigits) {
+
+  setRandomPassword() {
     let pass = "";
     const array = new Uint32Array(1);
     const PASSWORD_CHARS =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP1234567890".concat(withDigits ? "!@#$%^&*()-+<>" : "");
-    for (let i = 0; i < length; i++) {
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP1234567890".concat(this.withSymbols ? "!@#$%^&*()-+<>" : "");
+    for (let i = 0; i < this.passwordLength; i++) {
       window.crypto.getRandomValues(array);
       let r = array[0] % PASSWORD_CHARS.length;
       pass += PASSWORD_CHARS.charAt(r);
     }
     this.changeset.cleartextPassword = pass;
+  }
+
+  @action
+  inputChangeManually() {
+    if(this.withSymbols )
+      this.withSymbols = false;
   }
 
   @action
