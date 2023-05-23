@@ -82,7 +82,7 @@
           <div class="encryptable-form-attributes">
             <div class="row">
               {{#if this.isUsernameFieldActive}}
-                <div id="username-field" class="col-md-6 pt-2 encryptable-form-field border-1 border border-mute">
+                <div id="username-field" class="col-md-6 pt-2 encryptable-form-field">
                   <form.group class="col-md-12">
                     <form.element @label={{t "username"}} id="username" class={{if
                       this.changeset.error.cleartextUsername.validation "invalid-input-name"}}
@@ -104,7 +104,7 @@
                 </div>
               {{/if}}
               {{#if this.isPasswordFieldActive}}
-                <div id="password-field" class="col-md-6 pt-2 encryptable-form-field border-1 border border-mute">
+                <div id="password-field" class="col-md-6 pt-2 encryptable-form-field">
                   <form.group class="col-md-12 secret password-field">
                     <form.element @label={{t "password"}} id="cleartext-password" class={{if
                       this.changeset.error.cleartextPassword.validation "invalid-input-name"}}
@@ -135,7 +135,7 @@
                 </div>
               {{/if}}
               {{#if this.isTokenFieldActive}}
-                <div id="token-field" class="col-md-6 pt-2 encryptable-form-field border-1 border border-mute">
+                <div id="token-field" class="col-md-6 pt-2 encryptable-form-field">
                   <form.group class="col-md-12">
                     <form.element @label={{t "token"}} id="token" class={{if
                       this.changeset.error.cleartextToken.validation "invalid-input-name"}}
@@ -157,7 +157,7 @@
                 </div>
               {{/if}}
               {{#if this.isPinFieldActive}}
-                <div id="pin-field" class="col-md-6 pt-2 encryptable-form-field border-1 border border-mute">
+                <div id="pin-field" class="col-md-6 pt-2 encryptable-form-field">
                   <form.group class="col-md-12">
                     <form.element @label={{t "pin"}} id="pin" class={{if
                       this.changeset.error.cleartextPin.validation "invalid-input-name"}}
@@ -179,7 +179,7 @@
                 </div>
               {{/if}}
               {{#if this.isEmailFieldActive}}
-                <div id="email-field" class="col-md-6 pt-2 encryptable-form-field border-1 border border-mute">
+                <div id="email-field" class="col-md-6 pt-2 encryptable-form-field">
                   <form.group class="col-md-12">
                     <form.element @label={{t "email"}} id="email" class={{if
                       this.changeset.error.cleartextEmail.validation "invalid-input-name"}}
@@ -201,7 +201,7 @@
                 </div>
               {{/if}}
               {{#if this.isCustomAttrFieldActive}}
-                <div id="custom-attr-field" class="col-md-6 pt-2 encryptable-form-field border-1 border border-mute">
+                <div id="custom-attr-field" class="col-md-6 pt-2 encryptable-form-field border-1 border border-mute border-radius-4">
                   <form.group class="col-md-12">
                     <form.element @label={{t "labelCustomAttr"}} id="labelCustomAttr" class={{if
                       this.changeset.error.cleartextCustomAttr.validation "invalid-input-name"}}
@@ -233,7 +233,6 @@
             </div>
             <div class="ml-2 mb-2 mt-3">{{t "additionalField"}}</div>
             {{#if (gt this.items.length 0)}}
-            {{!-- Add property value and action to overwrite it because jquery can't access this.element from glimmer components --}}
               <div class="d-flex flex-row">
                 <PowerSelect
                   id="add-field-dropdown"
