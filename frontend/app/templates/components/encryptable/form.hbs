@@ -221,9 +221,9 @@
                                   @property="value" @customError={{t
                       (validation-error-key this.changeset.error.value.validation)}} as |el|>
                       <a>
-                        <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300"/>
+                        <BsTooltip @title={{t "encryptable/credentials.form.notEncryptedField"}} @delayShow="300"/>
                         <img class="d-inline-block position-absolute encrypted-icon"
-                             src="/assets/images/encrypted_small.svg" alt="encrypted value">
+                             src="/assets/images/not_encrypted_small.svg" alt="not encrypted value">
                       </a>
                       <el.control @name="value" tabindex="2"></el.control>
                     </form.element>
