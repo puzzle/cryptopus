@@ -23,7 +23,7 @@ class Folder < ApplicationRecord
   validates :name, uniqueness: { scope: :team }
   validates :name, length: { maximum: 70 }
   validates :description, length: { maximum: 300 }
-  validates_uniqueness_of :personal_inbox, scope: :team, conditions: -> { where(personal_inbox: true) }
+  validates :personal_inbox, uniqueness: { scope: :team, if: :personal_inbox? }
 
   def label
     name
