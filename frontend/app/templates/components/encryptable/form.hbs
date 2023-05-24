@@ -86,7 +86,7 @@
                   </label>
                   <label for="formControlRange">
                     {{passwordLength}}
-                    <Input @type="range" class="custom-range" id="formControlRange" @value={{passwordLength}} min=16 max="32" {{on "change" (fn setRandomPassword this.withSymbols passwordLength)}}>
+                    <Input @type="range" class="custom-range" id="formControlRange" @value={{passwordLength}} min="16" max="32" {{on "change" (fn setRandomPassword this.withSymbols passwordLength)}}>
                     </Input>
                   </label>
                 </div>
