@@ -396,8 +396,6 @@ ch_be:
         description: Beschribig
 
   validations:
-    attributes:
-      at_least_one_attribute: Zmingst eis Attibut söu gsetzt si
     name:
       present: Dr Name muess vorhande si
       too_long: Dr Name isch zläng

@@ -525,7 +525,7 @@ describe Api::EncryptablesController do
       expect(credentials1_json_attributes['cleartext_custom_attr']).to be_nil
     end
 
-    it 'it validates to have at least one param' do
+    it 'it is possible to have only accountname as param' do
       set_auth_headers
 
       credentials1 = encryptables(:credentials1)
@@ -542,7 +542,7 @@ describe Api::EncryptablesController do
 
       patch :update, params: encryptable_params, xhr: true
 
-      expect(response).to have_http_status(422)
+      expect(response).to have_http_status(200)
     end
 
     it 'does not update encryptable when user not in team' do
@@ -601,7 +601,7 @@ describe Api::EncryptablesController do
       expect(data['attributes']['name']).to eq 'New Account'
     end
 
-    it 'it validates to have at least one attribute' do
+    it 'it is possible to have only accountname as attribute' do
       set_auth_headers
 
       login_as(:alice)
@@ -626,7 +626,7 @@ describe Api::EncryptablesController do
 
       post :create, params: new_encryptable_params, xhr: true
 
-      expect(response).to have_http_status(422)
+      expect(response).to have_http_status(201)
     end
 
     it 'cannot create a new encryptable if part of team' do

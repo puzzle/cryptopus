@@ -394,8 +394,6 @@ en:
         description: Description
 
   validations:
-    attributes:
-      at_least_one_attribute: At least one attribute must be set
     name:
       present: Name must be present
       too_long: Name is too long
