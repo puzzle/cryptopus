@@ -27,6 +27,7 @@ export default class Form extends BaseFormComponent {
 
   @tracked withSymbols = true;
   @tracked passwordLength = 14;
+  @tracked changeset = this.accountChangeset;
 
   AccountValidations = AccountValidations;
 
@@ -92,9 +93,7 @@ export default class Form extends BaseFormComponent {
     if (!this.record.isFullyLoaded)
       this.store.findRecord("encryptable-credential", this.record.id);
 
-    this.setRandomPassword();
-    // addObserver(this, "withSymbols", this.setRandomPassword);
-    // addObserver(this, "passwordLength", this.setRandomPassword);
+    this.setRandomPassword(this.withSymbols, this.passwordLength);
   }
 
   get availableFolders() {
@@ -115,19 +114,19 @@ export default class Form extends BaseFormComponent {
   }
 
   @action
-  setRandomPassword() {
+  setRandomPassword(withSymbols, passwordLength) {
     let pass = "";
     const array = new Uint32Array(1);
     const PASSWORD_CHARS =
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP1234567890".concat(
-        this.withSymbols ? "!@#$%^&*()-+<>" : ""
+        withSymbols ? "!@#$%^&*()-+<>" : ""
       );
-    for (let i = 0; i < this.passwordLength; i++) {
+    for (let i = 0; i < passwordLength; i++) {
       window.crypto.getRandomValues(array);
       let r = array[0] % PASSWORD_CHARS.length;
       pass += PASSWORD_CHARS.charAt(r);
     }
-    this.changeset.cleartextPassword = pass;
+    this.changeset.set("cleartextPassword", pass);
   }
 
   @action

@@ -82,11 +82,11 @@
                     Symbols
                     <Input
                       @type="checkbox"
-                      @checked={{withSymbols}} {{on "change" (fn setRandomPassword)}}></Input>
+                      @checked={{this.withSymbols}} {{on "change" (fn this.setRandomPassword invertedWithSymbols passwordLength)}}></Input>
                   </label>
                   <label for="formControlRange">
                     {{passwordLength}}
-                    <Input @type="range" class="custom-range" id="formControlRange" @value={{passwordLength}} min=16 max="32" {{on "input" setRandomPassword}}>
+                    <Input @type="range" class="custom-range" id="formControlRange" @value={{passwordLength}} min=16 max="32" {{on "change" (fn setRandomPassword this.withSymbols passwordLength)}}>
                     </Input>
                   </label>
                 </div>
