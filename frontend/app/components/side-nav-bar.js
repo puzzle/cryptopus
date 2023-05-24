@@ -42,12 +42,6 @@ export default class SideNavBar extends Component {
 
   @action
   setSelectedFolder(folder) {
-    if (folder.isInboxFolder) {
-      console.log("hä");
-      folder.unreadTransferredCount = null;
-      folder.team.unread_count = undefined;
-    }
-
     if (isPresent(this.args.navbar)) {
       this.args.navbar.collapse();
     }
