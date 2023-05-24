@@ -34,7 +34,7 @@
                       <p class="lh-1">
                         {{truncate this.userService.username 18}}
                         {{#if team.unreadTransfersInInbox}}
-                          <span class="badge badge-small bg-danger rounded-circle border border-light "> </span>
+                          <span class="badge bg-info badge-small rounded-circle border border-light "> </span>
                         {{/if}}
                       </p>
                     {{else}}
@@ -55,7 +55,7 @@
                         <img class="icon icon-button mr-1" src="/assets/images/folder.svg" alt="">
                         {{truncate folder.name 15}}
                         {{#if folder.unreadTransferredCount}}
-                          <span class="badge bg-danger rounded-circle text-white">{{folder.unreadTransferredCount}} </span>
+                          <span class="badge bg-info rounded-circle text-light">{{folder.unreadTransferredCount}} </span>
                         {{/if}}
                       </a>
                     {{/each}}
