@@ -28,14 +28,13 @@ class Team::Personal < Team
     end
   end
 
-  def unread_count_transferred_files
-    return nil if inbox_folder.nil?
 
-    inbox_folder.unread_count_transferred_files
+  def unread_count_transferred_encryptables
+    inbox_folder&.unread_count_transferred_encryptables
   end
 
   def inbox_folder
-    folders.where(name: 'inbox').first
+    folders.find_by(personal_inbox: true)
   end
 
 end

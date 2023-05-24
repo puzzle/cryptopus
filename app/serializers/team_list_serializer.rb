@@ -12,6 +12,6 @@ class TeamListSerializer < ApplicationSerializer
   end
 
   def unread_count
-    object.is_a?(Team::Personal) ? object.unread_count_transferred_files : nil
+    object.is_a?(Team::Personal) ? object.unread_count_transferred_encryptables : nil
   end
 end

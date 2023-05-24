@@ -1,3 +1,6 @@
+## Version 5.0
+- Introduce Encryptable File Sharing
+
 ## Version 4.8
 - Auto-Relogin for SSO
 

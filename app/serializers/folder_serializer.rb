@@ -29,7 +29,7 @@ class FolderSerializer < ActiveModel::Serializer
   end
 
   def unread_transferred_count
-    object.personal_inbox? ? object.unread_count_transferred_files : nil
+    object.personal_inbox? ? object.unread_count_transferred_encryptables : nil
   end
 
 end
