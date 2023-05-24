@@ -81,6 +81,7 @@
                   <label>
                     Symbols
                     <Input
+                      id="withSymbols"
                       @type="checkbox"
                       @checked={{this.withSymbols}} {{on "change" (fn this.setRandomPassword invertedWithSymbols passwordLength)}}></Input>
                   </label>

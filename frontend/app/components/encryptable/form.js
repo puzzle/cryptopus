@@ -93,7 +93,7 @@ export default class Form extends BaseFormComponent {
     if (!this.record.isFullyLoaded)
       this.store.findRecord("encryptable-credential", this.record.id);
 
-    this.setRandomPassword(this.withSymbols, this.passwordLength);
+    this.setRandomPassword();
   }
 
   get availableFolders() {
@@ -114,7 +114,11 @@ export default class Form extends BaseFormComponent {
   }
 
   @action
-  setRandomPassword(withSymbols, passwordLength) {
+  setRandomPassword(
+    withSymbols = this.withSymbols,
+    passwordLength = this.passwordLength
+  ) {
+    console.log("tes");
     let pass = "";
     const array = new Uint32Array(1);
     const PASSWORD_CHARS =
