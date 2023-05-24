@@ -32,4 +32,19 @@ describe Folder do
     expect(folder).to_not be_valid
     expect(folder.errors.full_messages.first).to match(/Name/)
   end
+
+  it 'does throw error when multiple personal_inboxes' do
+    params1 = { name: 'inbox1', team_id: teams(:personal_team_bob).id, personal_inbox: true }
+    folder1 = Folder.new(params1)
+    folder1.save!
+
+    params2 = { name: 'inbox2', team_id: teams(:personal_team_bob).id, personal_inbox: true }
+    folder2 = Folder.new(params2)
+
+    expect(folder2).not_to be_valid
+
+    expect do
+      folder2.save!
+    end.to raise_error(ActiveRecord::RecordInvalid)
+  end
 end
