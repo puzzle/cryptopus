@@ -99,7 +99,6 @@ en:
       show_token: Show token
       show_email: Show email
       show_custom_attr: Show custom attribute
-      show: Show
       copy_password: Copy password
       copy_username: Copy username
       copy_pin: Copy pin

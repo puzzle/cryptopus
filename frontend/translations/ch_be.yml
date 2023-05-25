@@ -99,7 +99,6 @@ ch_be:
       show_token: Token ahzeigä
       show_email: Email ahzeigä
       show_custom_attr: Individuells Attribut ahzeigä
-      show: Ahzeigä
       copy_password: Passwort kopierä
       copy_username: Benutzername kopierä
       copy_pin: Pin kopierä

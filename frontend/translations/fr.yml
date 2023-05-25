@@ -100,7 +100,6 @@ fr:
       show_token: Afficher le jeton
       show_email: Afficher l'e-mail
       show_custom_attr: Afficher l'attribut personnalisé
-      show: Afficher
       copy_password: Copier le mot de passe
       copy_username: Copier le nom d'utilisateur
       copy_pin: Copier la broche
