@@ -83,11 +83,11 @@
                     <Input
                       id="withSymbols"
                       @type="checkbox"
-                      @checked={{this.withSymbols}} {{on "change" (fn this.setRandomPassword invertedWithSymbols passwordLength)}}></Input>
+                      @checked={{this.withSymbols}} {{on "change" (fn this.setRandomPassword this.invertedWithSymbols this.passwordLength)}}></Input>
                   </label>
                   <label for="formControlRange">
-                    {{passwordLength}}
-                    <Input @type="range" class="custom-range" id="formControlRange" @value={{passwordLength}} min="16" max="32" {{on "change" (fn setRandomPassword this.withSymbols passwordLength)}}>
+                    {{this.passwordLength}}
+                    <Input @type="range" class="custom-range" id="formControlRange" @value={{this.passwordLength}} min="14" max="32" {{on "change" (fn setRandomPassword this.withSymbols passwordLength)}}>
                     </Input>
                   </label>
                 </div>

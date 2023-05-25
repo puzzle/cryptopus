@@ -1,18 +1,10 @@
 import { module, test } from "qunit";
 import { setupRenderingTest } from "ember-qunit";
-import {
-  click,
-  render,
-  triggerKeyEvent,
-  pauseTest,
-  triggerEvent,
-  find
-} from "@ember/test-helpers";
+import { click, render, triggerEvent } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 import Service from "@ember/service";
 import { selectChoose } from "ember-power-select/test-support";
 import { setLocale } from "ember-intl/test-support";
-import { scrollTo } from "@ember/test-helpers";
 
 const navServiceStub = Service.extend({
   /* eslint-disable ember/avoid-leaking-state-in-ember-objects */
@@ -583,16 +575,12 @@ module("Integration | Component | encryptable/form", function (hooks) {
     );
   });
 
-  //Last test to fix
-  //The function in called correctly but the value passwordLength isnt updated
   test("Password with the right length should be generated", async function (assert) {
     await render(hbs`<Encryptable::Form />`);
     const slider = this.element.querySelector("input#formControlRange");
     slider.value = 17;
-    await triggerEvent(slider, "change");
     await triggerEvent(slider, "input");
-    await pauseTest();
-    console.log(slider.value);
+    await triggerEvent(slider, "change");
     assert.equal(
       this.element.querySelector("input[name='cleartextPassword']").value
         .length,

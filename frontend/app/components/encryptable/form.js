@@ -118,7 +118,6 @@ export default class Form extends BaseFormComponent {
     withSymbols = this.withSymbols,
     passwordLength = this.passwordLength
   ) {
-    console.log("tes");
     let pass = "";
     const array = new Uint32Array(1);
     const PASSWORD_CHARS =
