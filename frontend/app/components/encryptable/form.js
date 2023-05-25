@@ -69,6 +69,8 @@ export default class Form extends BaseFormComponent {
 
     this.isNewRecord = !this.args.encryptable;
     if (this.isNewRecord) {
+      this.presetTeamAndFolder();
+      this.setRandomPassword();
       this.record = this.store.createRecord("encryptable-credential");
       this.selectedTeam = this.navService.selectedTeam;
       this.selectedFolder = this.navService.selectedFolder;
@@ -92,8 +94,6 @@ export default class Form extends BaseFormComponent {
 
     if (!this.record.isFullyLoaded)
       this.store.findRecord("encryptable-credential", this.record.id);
-
-    this.setRandomPassword();
   }
 
   get availableFolders() {
@@ -130,12 +130,6 @@ export default class Form extends BaseFormComponent {
       pass += PASSWORD_CHARS.charAt(r);
     }
     this.changeset.set("cleartextPassword", pass);
-  }
-
-  @action
-  inputChangeManually($event) {
-    this.withSymbols = false;
-    this.passwordLength = $event.target.value.length;
   }
 
   @action

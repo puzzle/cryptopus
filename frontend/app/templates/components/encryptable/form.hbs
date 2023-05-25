@@ -74,7 +74,7 @@
                         this.changeset.error.cleartextPassword.validation "invalid-input-name mb-1"}}
                               @property="cleartextPassword" @customError={{t
                         (validation-error-key this.changeset.error.cleartextPassword.validation)}}  as |el|>
-                  <el.control autocomplete="off" tabindex="3" @name="cleartextPassword" {{on "input" this.inputChangeManually}}></el.control>
+                  <el.control autocomplete="off" tabindex="3" @name="cleartextPassword"></el.control>
                 </form.element>
                 <PasswordStrengthMeter class="col-12 px-0 mb-2 mb-md-0" @password={{this.changeset.cleartextPassword}}/>
                 <div class="d-flex flex-column">
