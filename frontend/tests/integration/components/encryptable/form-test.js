@@ -545,6 +545,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
   test("Password does not contain symbols after unchecking checkbox", async function (assert) {
     await render(hbs`<Encryptable::Form />`);
     await click("input#withSymbols");
+    await click("#password-generate-button");
     assert.equal(
       this.element.querySelector("input[name='cleartextPassword']").value
         .length,
