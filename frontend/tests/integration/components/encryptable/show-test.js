@@ -126,7 +126,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
     );
     assert.equal(
       this.element.querySelector("#show-custom-attr").innerHTML,
-      "Show label"
+      "Show custom attribute"
     );
 
     await click("#show-token");
@@ -209,8 +209,9 @@ module("Integration | Component | encryptable/show", function (hooks) {
       this.element.querySelector("#show-token").innerText,
       "Show token"
     );
-    assert.ok(
-      this.element.querySelector("#show-custom-attr").innerText.includes("Show")
+    assert.equal(
+      this.element.querySelector("#show-custom-attr").innerText,
+      "Show custom attribute"
     );
     assert.equal(
       this.element.querySelector("#encryptable-attachments").innerText,
@@ -298,10 +299,9 @@ module("Integration | Component | encryptable/show", function (hooks) {
       this.element.querySelector("#show-token").innerText,
       "Token anzeigen"
     );
-    assert.ok(
-      this.element
-        .querySelector("#show-custom-attr")
-        .innerText.includes("Anzeigen")
+    assert.equal(
+      this.element.querySelector("#show-custom-attr").innerText,
+      "Individuelles Attribut anzeigen"
     );
     assert.equal(
       this.element.querySelector("#encryptable-attachments").innerText,
@@ -389,10 +389,9 @@ module("Integration | Component | encryptable/show", function (hooks) {
       this.element.querySelector("#show-token").innerText,
       "Token ahzeigä"
     );
-    assert.ok(
-      this.element
-        .querySelector("#show-custom-attr")
-        .innerText.includes("Ahzeigä")
+    assert.equal(
+      this.element.querySelector("#show-custom-attr").innerText,
+      "Individuells Attribut ahzeigä"
     );
     assert.equal(
       this.element.querySelector("#encryptable-attachments").innerText,
@@ -480,10 +479,9 @@ module("Integration | Component | encryptable/show", function (hooks) {
       this.element.querySelector("#show-token").innerText,
       "Afficher le jeton"
     );
-    assert.ok(
-      this.element
-        .querySelector("#show-custom-attr")
-        .innerText.includes("Afficher")
+    assert.equal(
+      this.element.querySelector("#show-custom-attr").innerText,
+      "Afficher l'attribut personnalisé"
     );
     assert.equal(
       this.element.querySelector("#encryptable-attachments").innerText,
