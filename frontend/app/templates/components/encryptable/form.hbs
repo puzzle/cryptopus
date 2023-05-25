@@ -70,26 +70,30 @@
             </div>
             <div class="col-md-6 order-3 order-md-4">
               <div class="col-sm-12 secret">
-                <form.element @label={{t "password"}} id="cleartext-password" class={{if
-                        this.changeset.error.cleartextPassword.validation "invalid-input-name mb-1"}}
+                <form.element @label={{t "password"}} id="cleartext-password" class="{{if
+                        this.changeset.error.cleartextPassword.validation "invalid-input-name mb-1"}} mb-2"
                               @property="cleartextPassword" @customError={{t
                         (validation-error-key this.changeset.error.cleartextPassword.validation)}}  as |el|>
                   <el.control autocomplete="off" tabindex="3" @name="cleartextPassword"></el.control>
                 </form.element>
                 <PasswordStrengthMeter class="col-12 px-0 mb-2 mb-md-0" @password={{this.changeset.cleartextPassword}}/>
-                <div class="d-flex flex-column">
+                <div class="d-flex flex-column border border-mute border-radius-4 p-2">
                   <label>
                     Symbols
                     <Input
                       id="withSymbols"
                       @type="checkbox"
-                      @checked={{this.withSymbols}} {{on "change" (fn this.setRandomPassword this.invertedWithSymbols this.passwordLength)}}></Input>
+                      @checked={{this.withSymbols}}></Input>
                   </label>
                   <label for="formControlRange">
                     {{this.passwordLength}}
-                    <Input @type="range" class="custom-range" id="formControlRange" @value={{this.passwordLength}} min="14" max="32" {{on "change" (fn setRandomPassword this.withSymbols passwordLength)}}>
+                    <Input @type="range" class="custom-range" id="formControlRange" @value={{this.passwordLength}} min="14" max="32">
                     </Input>
                   </label>
+                  <button id="password-generate-button" class="btn btn-secondary btn-block col-lg-7 mb-md-4" {{on "click" this.setRandomPassword}}
+                          tabindex="4">
+                    {{t "encryptable/credentials.edit.random_password"}}
+                  </button>
                 </div>
               </div>
             </div>
@@ -105,7 +109,6 @@
                   <el.control tabindex="7"></el.control>
                 </form.element>
               </form.group>
-
             </div>
             {{#if (gt this.inactiveFields.length 0)}}
               <div class="ml-3 mb-2 mt-3">{{t "additionalField"}}</div>

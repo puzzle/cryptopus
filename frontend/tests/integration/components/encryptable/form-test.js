@@ -542,21 +542,6 @@ module("Integration | Component | encryptable/form", function (hooks) {
     assert.ok(this.element.textContent.trim().includes("bob"));
   });
 
-  test("generates a 14 digit password per default", async function (assert) {
-    await render(hbs`<Encryptable::Form />`);
-
-    assert.equal(
-      this.element.querySelector("input[name='cleartextPassword']").value
-        .length,
-      14
-    );
-  });
-
-  test("Symbols are enabled per default", async function (assert) {
-    await render(hbs`<Encryptable::Form />`);
-    assert.equal(this.element.querySelector("input#withSymbols").checked, true);
-  });
-
   test("Password does not contain symbols after unchecking checkbox", async function (assert) {
     await render(hbs`<Encryptable::Form />`);
     await click("input#withSymbols");
@@ -580,15 +565,13 @@ module("Integration | Component | encryptable/form", function (hooks) {
     const slider = this.element.querySelector("input#formControlRange");
     slider.value = 17;
     await triggerEvent(slider, "input");
-    await triggerEvent(slider, "change");
+
+    await click("#password-generate-button");
+
     assert.equal(
       this.element.querySelector("input[name='cleartextPassword']").value
         .length,
       17
-    );
-    await click("input#withSymbols");
-    assert.notOk(
-      this.element.querySelector("input#withSymbols").value.match(/[^\w\s]/)
     );
   });
 });

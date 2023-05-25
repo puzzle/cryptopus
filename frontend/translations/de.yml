@@ -77,7 +77,7 @@ de:
       create: Zugangsdaten erstellen
     edit:
       title: Zugangsdaten editieren
-      random_password: Zufälliges Passwort
+      random_password: Sicheres Passwort generieren
       team_placeholder: Wählen Sie ein Team aus
       folder_placeholder: Wählen Sie ein Ordner aus
       password_strength: Passwort Stärke

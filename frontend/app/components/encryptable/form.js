@@ -27,7 +27,6 @@ export default class Form extends BaseFormComponent {
 
   @tracked withSymbols = true;
   @tracked passwordLength = 14;
-  @tracked changeset = this.accountChangeset;
 
   AccountValidations = AccountValidations;
 
@@ -114,17 +113,14 @@ export default class Form extends BaseFormComponent {
   }
 
   @action
-  setRandomPassword(
-    withSymbols = this.withSymbols,
-    passwordLength = this.passwordLength
-  ) {
+  setRandomPassword() {
     let pass = "";
     const array = new Uint32Array(1);
     const PASSWORD_CHARS =
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP1234567890".concat(
-        withSymbols ? "!@#$%^&*()-+<>" : ""
+        this.withSymbols ? "!@#$%^&*()-+<>" : ""
       );
-    for (let i = 0; i < passwordLength; i++) {
+    for (let i = 0; i < this.passwordLength; i++) {
       window.crypto.getRandomValues(array);
       let r = array[0] % PASSWORD_CHARS.length;
       pass += PASSWORD_CHARS.charAt(r);

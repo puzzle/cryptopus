@@ -77,7 +77,7 @@ fr:
       create: Créer compte
     edit:
       title: Modifier le compte
-      random_password: Mot de passe aléatoire
+      random_password: Générer un mot de passe sécurisé
       team_placeholder: Choisissez une équipe
       folder_placeholder: Choisissez un dossier
       password_strength: Fiabilité du mot de passe
