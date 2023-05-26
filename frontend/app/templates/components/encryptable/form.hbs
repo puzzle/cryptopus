@@ -88,9 +88,10 @@
                       this.changeset.error.cleartextUsername.validation "invalid-input-name"}}
                                   @property="cleartextUsername" @customError={{t
                       (validation-error-key this.changeset.error.cleartextUsername.validation)}} as |el|>
-                      <a>
-                        <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300"/>
-                        <img class="d-inline-block position-absolute encrypted-icon"
+                      <a class="position-absolute encrypted-icon">
+                        <!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding-->
+                        <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300" @viewportSelector="modal"/>
+                        <img class="d-inline-block"
                              src="/assets/images/encrypted_small.svg" alt="encrypted value">
                       </a>
                       <el.control @name="cleartextUsername" tabindex="2"></el.control>
@@ -110,9 +111,10 @@
                       this.changeset.error.cleartextPassword.validation "invalid-input-name"}}
                                   @property="cleartextPassword" @customError={{t
                       (validation-error-key this.changeset.error.cleartextPassword.validation)}} as |el|>
-                      <a>
-                        <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300"/>
-                        <img class="d-inline-block position-absolute encrypted-icon"
+                      <a class="position-absolute encrypted-icon">
+                        <!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding-->
+                        <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300" @viewportSelector="modal"/>
+                        <img class="d-inline-block"
                              src="/assets/images/encrypted_small.svg" alt="encrypted value">
                       </a>
                       <el.control autocomplete="off" @name="cleartextPassword"
@@ -141,9 +143,10 @@
                       this.changeset.error.cleartextToken.validation "invalid-input-name"}}
                                   @property="cleartextToken" @customError={{t
                       (validation-error-key this.changeset.error.cleartextToken.validation)}} as |el|>
-                      <a>
-                        <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300"/>
-                        <img class="d-inline-block position-absolute encrypted-icon"
+                      <a class="position-absolute encrypted-icon">
+                        <!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding-->
+                        <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300" @viewportSelector="modal"/>
+                        <img class="d-inline-block"
                              src="/assets/images/encrypted_small.svg" alt="encrypted value">
                       </a>
                       <el.control @name="cleartextToken" tabindex="2"></el.control>
@@ -163,9 +166,10 @@
                       this.changeset.error.cleartextPin.validation "invalid-input-name"}}
                                   @property="cleartextPin" @customError={{t
                       (validation-error-key this.changeset.error.cleartextPin.validation)}} as |el|>
-                      <a>
-                        <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300"/>
-                        <img class="d-inline-block position-absolute encrypted-icon"
+                      <a class="position-absolute encrypted-icon">
+                        <!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding-->
+                        <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300" @viewportSelector="modal"/>
+                        <img class="d-inline-block"
                              src="/assets/images/encrypted_small.svg" alt="encrypted value">
                       </a>
                       <el.control @name="cleartextPin" tabindex="2"></el.control>
@@ -185,9 +189,10 @@
                       this.changeset.error.cleartextEmail.validation "invalid-input-name"}}
                                   @property="cleartextEmail" @customError={{t
                       (validation-error-key this.changeset.error.cleartextEmail.validation)}} as |el|>
-                      <a>
-                        <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300"/>
-                        <img class="d-inline-block position-absolute encrypted-icon"
+                      <a class="position-absolute encrypted-icon">
+                        <!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding-->
+                        <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300" @viewportSelector="modal"/>
+                        <img class="d-inline-block"
                              src="/assets/images/encrypted_small.svg" alt="encrypted value">
                       </a>
                       <el.control @name="cleartextEmail" tabindex="2"></el.control>
@@ -207,9 +212,10 @@
                       this.changeset.error.cleartextCustomAttr.validation "invalid-input-name"}}
                                   @property="label" @customError={{t
                       (validation-error-key this.changeset.error.label.validation)}} as |el|>
-                      <a>
-                        <BsTooltip @title={{t "encryptable/credentials.form.notEncryptedField"}} @delayShow="300"/>
-                        <img class="d-inline-block position-absolute encrypted-icon"
+                      <a class="position-absolute encrypted-icon">
+                        <!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding-->
+                        <BsTooltip @title={{t "encryptable/credentials.form.notEncryptedField"}} @delayShow="300" @viewportSelector="modal"/>
+                        <img class="d-inline-block"
                              src="/assets/images/not_encrypted_small.svg" alt="not encrypted value">
                       </a>
                       <el.control @name="label" tabindex="2"></el.control>
@@ -225,9 +231,10 @@
                       this.changeset.error.cleartextCustomAttr.validation "invalid-input-name"}}
                                   @property="value" @customError={{t
                       (validation-error-key this.changeset.error.value.validation)}} as |el|>
-                      <a>
-                        <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300"/>
-                        <img class="d-inline-block position-absolute encrypted-icon"
+                      <a class="position-absolute encrypted-icon">
+                        <!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding-->
+                        <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300" @viewportSelector="modal"/>
+                        <img class="d-inline-block"
                              src="/assets/images/encrypted_small.svg" alt="encrypted value">
                       </a>
                       <el.control @name="value" tabindex="2"></el.control>
