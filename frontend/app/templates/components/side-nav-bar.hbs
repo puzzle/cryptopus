@@ -34,7 +34,7 @@
                       <p class="lh-1">
                         {{truncate this.userService.username 18}}
                         {{#if team.unreadTransfersInInbox}}
-                          <span class="badge bg-info badge-small rounded-circle border border-light "> </span>
+                          <span class="badge bg-info rounded-circle text-light">{{team.unreadTransfersInInbox}} </span>
                         {{/if}}
                       </p>
                     {{else}}
