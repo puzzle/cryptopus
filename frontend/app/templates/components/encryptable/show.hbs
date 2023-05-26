@@ -90,9 +90,11 @@
          /
         <p class="d-inline">{{t "encryptable/credentials.show.last_update"}}: {{moment-format @encryptable.updatedAt "DD.MM.YYYY hh:mm"}}</p>
       </div>
-      <div class="col-lg-9">
-        <br><p class="d-inline">{{t "encryptable/transferring/file.show.sender_name"}}: {{@encryptable.sender_name}}</p>
-      </div>
+      {{#if this.isTransferredCredentials}}
+        <div class="col-lg-9">
+          <br><p class="d-inline">{{t "encryptable/transferring/file.show.sender_name"}}: {{@encryptable.sender_name}}</p>
+        </div>
+      {{/if}}
     </div>
 
     {{#if @encryptable.description}}
