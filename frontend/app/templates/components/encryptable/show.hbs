@@ -62,16 +62,14 @@
           </span>
         </a>
       </div>
-      {{#unless @encryptable.isOseSecret}}
-        <div class="col-auto d-flex justify-content-between align-items-center">
-          <DeleteWithConfirmation @class="btn btn-light edit_button" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
-            <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
-          </DeleteWithConfirmation>
-          <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleEncryptableEdit}}>
-            <img class="icon-button" src="/assets/images/edit.svg" alt="edit">
-          </a>
-        </div>
-      {{/unless}}
+      <div class="col-auto d-flex justify-content-between align-items-center">
+        <DeleteWithConfirmation @class="btn btn-light edit_button" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
+          <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
+        </DeleteWithConfirmation>
+        <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleEncryptableEdit}}>
+          <img class="icon-button" src="/assets/images/edit.svg" alt="edit">
+        </a>
+      </div>
     </div>
     <div class="row pb-3 justify-content-between">
       <div class="col-lg-9 accountname">
@@ -91,34 +89,22 @@
         </div>
       </div>
     {{/if}}
-    <div>
-      {{#if @encryptable.isOseSecret}}
-        <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptable/credentials.show.show_secret"}}</a>
-        <div class="result-password">
-          <Input id="cleartext_password" class="d-inline form-control" @disabled="true" @value={{@encryptable.data.ose_secret}}/>
-          <CopyButton class="btn btn-light" @clipboardText={{@encryptable.data.ose_secret}}>
-            <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-          </CopyButton>
-        </div>
-      {{else}}
-        <div class="result-username">
-          <Input id="cleartext_username" class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextUsername}}/>
-          <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextUsername}}
-            title={{if @encryptable.isPasswordBlank this.noCopyBlankUsernameTooltip ""}}
-            @success={{fn this.onCopied "username"}} disabled={{@encryptable.isUsernameBlank}} >
-            <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-          </CopyButton>
-        </div>
-        <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptable/credentials.show.show_password"}}</a>
-        <div class="result-password">
-          <Input id="cleartext_password" class="d-inline form-control {{if this.isPasswordVisible "" "visibility-hidden"}}" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
-          <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextPassword}}
-            title={{if @encryptable.isPasswordBlank this.noCopyBlankPasswordTooltip ""}}
-            @success={{fn this.onCopied "password"}} disabled={{@encryptable.isPasswordBlank}} >
-            <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-          </CopyButton>
-        </div>
-      {{/if}}
+    <div class="result-username">
+      <Input id="cleartext_username" class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextUsername}}/>
+      <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextUsername}}
+        title={{if @encryptable.isPasswordBlank this.noCopyBlankUsernameTooltip ""}}
+        @success={{fn this.onCopied "username"}} disabled={{@encryptable.isUsernameBlank}} >
+        <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+      </CopyButton>
+    </div>
+    <a role="button" class="correct-pixel-error-omg show-password-button show-text {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}}>{{t "encryptable/credentials.show.show_password"}}</a>
+    <div class="result-password">
+      <Input id="cleartext_password" class="d-inline form-control {{if this.isPasswordVisible "" "visibility-hidden"}}" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
+      <CopyButton class="btn btn-light copy-btn" @clipboardText={{@encryptable.cleartextPassword}}
+        title={{if @encryptable.isPasswordBlank this.noCopyBlankPasswordTooltip ""}}
+        @success={{fn this.onCopied "password"}} disabled={{@encryptable.isPasswordBlank}} >
+        <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+      </CopyButton>
     </div>
     <div class="d-flex flex-row justify-content-between mb-2">
       <div>

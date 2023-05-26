@@ -87,7 +87,7 @@ describe Api::TeamsController do
 
       folder_relationships_length = data.first['relationships']['folders']['data'].size
 
-      expect(included.size).to be(5)
+      expect(included.size).to be(4)
       expect(folder_relationships_length).to be(3)
     end
 
