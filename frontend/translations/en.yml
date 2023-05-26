@@ -24,6 +24,7 @@ en:
   email: Email
   customAttr: Custom Attribute
   additionalField: Additional Field
+  additionalFieldPlaceholder: Choose additional field
   labelCustomAttr: Custom Attribute Name
   valueCustomAttr: Custom Attribute Value
   actions: Actions
@@ -113,6 +114,8 @@ en:
     form:
       encryptedField: This field is encrypted
       notEncryptedField: This field is not encrypted
+    row:
+      clickToSeeAttrs: Click to see all attributes
     share:
       title: Share File
 
@@ -312,6 +315,7 @@ en:
       token_copied: Token was copied
       email_copied: Email was copied
       customAttr_copied: Custom Attribute was copied
+      selectAdditionalField: You have to choose a field
 
     encryptable-credentials:
       << : *encryptables_translations
@@ -393,6 +397,8 @@ en:
         description: Description
 
   validations:
+    attributes:
+      at_least_one_attribute: At least one attribute must be set
     name:
       present: Name must be present
       too_long: Name is too long
@@ -442,5 +448,5 @@ en:
     "new password1":
       present: Please enter new password
     "new password2":
-        present: Please confirm new password
-        confirmation: New passwords don't match
+      present: Please confirm new password
+      confirmation: New passwords don't match

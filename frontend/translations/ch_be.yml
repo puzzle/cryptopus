@@ -113,6 +113,8 @@ ch_be:
     form:
       encryptedField: Das Fäld wird verschlüsslät
       notEncryptedField: Das Fäld wird nid verschlüsslät
+    row:
+      clickToSeeAttrs: Klick wenn aui Attribut möchtisch gseh
     share:
       title: Datei teilä
 
@@ -395,6 +397,8 @@ ch_be:
         description: Beschribig
 
   validations:
+    attributes:
+      at_least_one_attribute: Zmingst eis Attibut söu gsetzt si
     name:
       present: Dr Name muess vorhande si
       too_long: Dr Name isch zläng
@@ -444,5 +448,5 @@ ch_be:
     "new password1":
       present: Ds nöie Passwort ihgäh
     "new password2":
-        present: Ds nöie Passwort bestätige
-        confirmation: Di nöie Passwörter stimme nid überiih
+      present: Ds nöie Passwort bestätige
+      confirmation: Di nöie Passwörter stimme nid überiih

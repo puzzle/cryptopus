@@ -114,6 +114,8 @@ fr:
     form:
       encryptedField: Ce champ est crypté
       notEncryptedField: Ce champ n'est pas crypté
+    row:
+      clickToSeeAttrs: Cliquez pour voir tous les attributs
     share:
       title: Partage fichier
 
@@ -284,10 +286,10 @@ fr:
         added: Membre de l'équipe a été enlevé avec succès
         removed: Membre de l'équipe a été ajouté avec succès
       errors:
-          auth_failed: Échec de l'authentification
-          user_not_logged_in: Utilisateur non connecté
-          record_not_found: Enregistrement non trouvé
-          delete_failed: Il n'était pas possible d'enlever l'enregistrement
+        auth_failed: Échec de l'authentification
+        user_not_logged_in: Utilisateur non connecté
+        record_not_found: Enregistrement non trouvé
+        delete_failed: Il n'était pas possible d'enlever l'enregistrement
     api_users:
       deleted: Utilisateurs d'Api supprimé avec succès
     admin:
@@ -396,6 +398,8 @@ fr:
         description: Description
 
   validations:
+    attributes:
+      at_least_one_attribute: Au moins un attribut doit être défini
     name:
       present: Le nom doit être présent
       too_long: Le nom est trop long
@@ -445,5 +449,5 @@ fr:
     "new password1":
       present: Entrer le nouveau mot de passe
     "new password2":
-        present: Confirmer le nouveau mot de passe
-        confirmation: Les mots de passe ne correspondent pas
+      present: Confirmer le nouveau mot de passe
+      confirmation: Les mots de passe ne correspondent pas
