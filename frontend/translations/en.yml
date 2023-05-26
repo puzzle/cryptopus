@@ -112,6 +112,7 @@ en:
     new:
       title: New Credentials
     form:
+      passwordLength: "Password Length: "
       notEncryptedField: This field is not encrypted
     row:
       clickToSeeAttrs: Click to see all attributes

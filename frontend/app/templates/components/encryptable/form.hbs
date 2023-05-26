@@ -78,22 +78,25 @@
                 </form.element>
                 <PasswordStrengthMeter class="col-12 px-0 mb-2 mb-md-0" @password={{this.changeset.cleartextPassword}}/>
                 <div class="d-flex flex-column border border-mute border-radius-4 p-2">
-                  <label>
-                    Symbols
-                    <Input
-                      id="withSymbols"
-                      @type="checkbox"
-                      @checked={{this.withSymbols}}></Input>
-                  </label>
+                  <div class="ml-2 mt-1">{{t "encryptable/credentials.form.passwordLength"}} </div>
                   <label for="formControlRange">
                     {{this.passwordLength}}
                     <Input @type="range" class="custom-range" id="formControlRange" @value={{this.passwordLength}} min="14" max="32">
                     </Input>
                   </label>
-                  <button id="password-generate-button" class="btn btn-secondary btn-block col-lg-7 mb-md-4" {{on "click" this.setRandomPassword}}
-                          tabindex="4">
-                    {{t "encryptable/credentials.edit.random_password"}}
-                  </button>
+                  <div class="d-flex flex-row justify-content-around">
+                    <label>
+                      Symbols
+                      <Input
+                        id="withSymbols"
+                        @type="checkbox"
+                        @checked={{this.withSymbols}}></Input>
+                    </label>
+                    <button id="password-generate-button" class="btn btn-secondary w-50 btn-sm col-lg-7 mb-md-4" {{on "click" this.setRandomPassword}}
+                            tabindex="4">
+                      {{t "encryptable/credentials.edit.random_password"}}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

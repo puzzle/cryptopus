@@ -111,6 +111,7 @@ de:
     new:
       title: Neue Zugangsdaten
     form:
+      passwordLength: "Passwortlänge: "
       notEncryptedField: Dieses Feld wird nicht verschlüsselt
     row:
       clickToSeeAttrs: Klicke um alle Attribute zu sehen
