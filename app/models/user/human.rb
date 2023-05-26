@@ -155,6 +155,10 @@ class User::Human < User
     save!
   end
 
+  def inbox_folder
+    personal_team.folders.find_or_create_by(name: 'inbox', personal_inbox: true)
+  end
+
   private
 
   def preform_private_key_recryption!(new_password, old_password)

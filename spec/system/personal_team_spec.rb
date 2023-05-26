@@ -11,7 +11,7 @@ describe 'Personal Team', type: :system, js: true do
 
     personal_team_header = find('div.row.py-2.d-flex.team-card-header.rounded-top')
 
-    expect(page).to have_selector('a.team-list-item', text: 'bob')
+    expect(page).to have_selector('a.list-group-item', text: 'bob')
 
     within(personal_team_header) do
       # expect add folder button only

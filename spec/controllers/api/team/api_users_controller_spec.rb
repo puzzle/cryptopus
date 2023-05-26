@@ -22,8 +22,9 @@ describe Api::Teams::ApiUsersController do
       get :index, params: { team_id: team }, xhr: true
 
       expect(data.count).to eq 2
-      expect(data.first['attributes']['username']).to eq api_user1.username
-      expect(data.second['attributes']['username']).to eq api_user2.username
+      usernames = data.collect { |c| c['attributes']['username'] }
+      expect(usernames).to include(api_user1.username)
+      expect(usernames).to include(api_user2.username)
     end
 
     it 'cannot list api users if not a teammember' do

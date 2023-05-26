@@ -16,11 +16,11 @@ ch_be:
   cancel: Abbrächä
   add: Drzuätuä
   description: Beschribig
-  tag: Tag
   username: Benutzername
   password: Passwort
   actions: Aktionä
   download: Abäladä
+  download_file: Datei abäladä
   yes: Ja
   no: Nei
   help: Hiuf
@@ -41,9 +41,10 @@ ch_be:
   new: Nöi
   back: Zrügg
   save: Spichere
-  close: Schliesse
+  share: Teilä
+  close: Schliessä
   user: Benutzer
-  hi_user: "Hoi, "
+  hi_user: "Sälü, "
   intro: Suechsch äuä es Passwort?
   role: Rollä
   empty: läär
@@ -80,6 +81,7 @@ ch_be:
       title: Zuägangsdate
       created_at: "Ersteut am"
       last_update: "Letschti Änderig am"
+      transferred_at: "Transferiert am"
       attachments: Ahäng
       file: Datei
       show_password: Passwort ahzeigä
@@ -90,6 +92,21 @@ ch_be:
       blank: Läär
     new:
       title: Nöi Zuägangsdate
+    share:
+      title: Datei teilä
+
+  encryptable/transferring/file:
+    new:
+      title: "Datei teilä"
+    receiver:
+      name: Wäu ä empfänger
+    show:
+      sender_name: Name vom sänder
+    submit: Schickä
+    description_for_sender: Dini Datei wird verschlüsslet i Inbox Ordner vom Empfänger gschickt.
+    description_for_receiver: Beschribig füre empfänger
+    download: Teilti datei abäladä
+    delete_transferred_encryptables: Teilti datei löschä
 
   admin:
     title: Admin
@@ -288,8 +305,16 @@ ch_be:
       uploaded: D Datei isch erfougrich ufeglade worde.
       uploaded_size_to_high: D Datei isch z gross für z ufelade. (Maximau 10MB)
       uploaded_filename_is_empty: D Datei muess e Name ha
+      uploaded_file_blank: D datei daf nid läär si
       uploaded_file_inexistent: Die Datei existiert gar nid
       uploaded_filename_already_exists: D Dateiname existiert äuä scho
+    encryptable_transfer:
+      credentials:
+        transferred: Zuägangsdate erfougrich am Empfänger übermittlet
+        transfer_failed: Übermittlig vo de zuägangsdate mit em Empfänger fäugschlage
+      file:
+        transferred: Datei erfougrich am Empfänger übermittlet
+        transfer_failed: Übermittlig vo dr Datei mit em Empfänger fäugschlage
     session:
       auth_failed: Irgendöppis vo dine Logindate isch fautsch
       weak_password: Um d Sicherheit z verbessere, söttisch es komplizierteres Passwort wähle
@@ -325,6 +350,7 @@ ch_be:
     delete_folder: Ordner lösche
     delete_encryptables: Zuägangsdate lösche
     configure: Konfigurier d'Mitgliedr
+    sent_by: Gsändet vo
 
   helpers:
     label:

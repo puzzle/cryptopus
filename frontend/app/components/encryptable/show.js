@@ -24,6 +24,9 @@ export default class ShowComponent extends Component {
   @tracked
   isPasswordVisible = false;
 
+  @tracked
+  isFile = this.args.encryptable.isFile;
+
   @action
   toggleEncryptableEdit() {
     this.isEncryptableEditing = !this.isEncryptableEditing;
@@ -32,6 +35,10 @@ export default class ShowComponent extends Component {
   @action
   toggleFileNew() {
     this.isFileCreating = !this.isFileCreating;
+  }
+
+  get downloadLink() {
+    return `/api/encryptables/${this.args.encryptable.get("id")}`;
   }
 
   @action

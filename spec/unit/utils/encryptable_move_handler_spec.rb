@@ -32,6 +32,15 @@ describe EncryptableMoveHandler do
 
     expect(folders(:folder2).id).to eq(credential.folder_id)
 
+    new_encryptable_file = Encryptable::File.new(name: 'testFile',
+                                                 cleartext_file: file_fixture('test_file.txt').read,
+                                                 credential_id: credential.id,
+                                                 content_type: 'text/plain')
+
+    team_password = team2_password
+    new_encryptable_file.encrypt(team_password)
+    new_encryptable_file.save!
+
     # current username, password values are set by api/encryptable#update
     credential.cleartext_username = 'username'
     credential.cleartext_password = 'password'

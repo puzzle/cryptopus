@@ -27,4 +27,14 @@ class Team::Personal < Team
       team
     end
   end
+
+
+  def unread_count_transferred_encryptables
+    inbox_folder&.unread_count_transferred_encryptables
+  end
+
+  def inbox_folder
+    folders.find_by(personal_inbox: true)
+  end
+
 end

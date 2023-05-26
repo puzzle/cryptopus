@@ -18,26 +18,34 @@
           <div class="side-nav-bar-teams-list scroll-bar">
             {{#if this.navService.availableTeams}}
               {{#each this.navService.availableTeams as |team|}}
-                <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action team-list-item {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
-                  {{#if team.isPersonalTeam}}
-                    <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "member-white.svg" "member.svg"}}" alt="">
-                  {{else}}
-                    {{#if team.private}}
-                      <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "encrypted_small-white.svg" "encrypted_small.svg"}}" alt="">
+                <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-baseline {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
+                  <div class="d-flex justify-content-between">
+                    {{#if team.isPersonalTeam}}
+                      <img class="icon icon-button lh-1" src="/assets/images/{{if (eq team this.navService.selectedTeam) "member-white.svg" "member.svg"}}" alt="">
                     {{else}}
-                      <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "members-white.svg" "members.svg"}}" alt="">
+                      {{#if team.private}}
+                        <img class="icon icon-button mr-2 " src="/assets/images/{{if (eq team this.navService.selectedTeam) "encrypted_small-white.svg" "encrypted_small.svg"}}" alt="">
+                      {{else}}
+                        <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "members-white.svg" "members.svg"}}" alt="">
+                      {{/if}}
                     {{/if}}
-                  {{/if}}
-                  {{#if team.isPersonalTeam}}
-                    {{truncate this.userService.username 18}}
-                  {{else}}
-                    {{truncate team.name 18}}
-                  {{/if}}
+
+                    {{#if team.isPersonalTeam}}
+                      <p class="lh-1">
+                        {{truncate this.userService.username 18}}
+                        {{#if team.unreadTransfersInInbox}}
+                          <span class="badge bg-info rounded-circle text-light">{{team.unreadTransfersInInbox}} </span>
+                        {{/if}}
+                      </p>
+                    {{else}}
+                      <p class="lh-1">{{truncate team.name 18}}</p>
+                    {{/if}}
+                  </div>
                   {{#if (not team.folders)}}
                   {{else if (and team.folders (or (not (eq team this.navService.selectedTeam)) this.collapsed))}}
-                    <img class="icon icon-button-angle float-right" src="/assets/images/angle-left.svg" alt="<">
+                    <img class="icon icon-button-angle float-right" src="/assets/images/{{if (eq team this.navService.selectedTeam) "angle-left-white.svg" "angle-left.svg"}}" alt="<">
                   {{else}}
-                    <img class="icon icon-button-angle float-right" src="/assets/images/angle-down.svg" alt="v">
+                    <img class="icon icon-button-angle float-right" src="/assets/images/{{if (eq team this.navService.selectedTeam) "angle-down-white.svg" "angle-down.svg"}}" alt="v">
                   {{/if}}
                 </a>
                 {{#if (or team.folders (eq team this.navService.selectedTeam))}}
@@ -46,6 +54,9 @@
                       <a role="button"  class="list-group-item list-folder-item {{if (eq folder this.navService.selectedFolder) "bg-blue-three" "bg-blue-one"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
                         <img class="icon icon-button mr-1" src="/assets/images/folder.svg" alt="">
                         {{truncate folder.name 15}}
+                        {{#if folder.unreadTransferredCount}}
+                          <span class="badge bg-info rounded-circle text-light">{{folder.unreadTransferredCount}} </span>
+                        {{/if}}
                       </a>
                     {{/each}}
                   </BsCollapse>

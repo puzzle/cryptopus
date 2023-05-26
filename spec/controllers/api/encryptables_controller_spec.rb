@@ -13,6 +13,9 @@ describe Api::EncryptablesController do
   let(:attributes) { %w[name cleartext_password cleartext_username] }
   let!(:ose_secret) { create_ose_secret }
   let(:credentials1) { encryptables(:credentials1) }
+  let(:file1) { encryptables(:file1) }
+  let(:transferred_file1) { encryptables(:transferredFile1) }
+
 
   context 'GET index' do
     it 'returns encryptable with matching name' do
@@ -45,7 +48,7 @@ describe Api::EncryptablesController do
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
-      expect(data.count).to eq 3
+      expect(data.count).to eq 4
       expect(credentials1_json_attributes['name']).to eq credentials1.name
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil
@@ -66,7 +69,7 @@ describe Api::EncryptablesController do
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
-      expect(data.count).to eq 3
+      expect(data.count).to eq 4
       expect(credentials1_json_attributes['name']).to eq credentials1.name
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil
@@ -78,32 +81,10 @@ describe Api::EncryptablesController do
       expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
     end
 
-    it 'returns encryptable for matching tag without cleartext username / password' do
-      login_as(:bob)
-
-      get :index, params: { 'tag': 'tag' }, xhr: true
-
-      credentials2_json_attributes = data['attributes']
-      credentials2_json_relationships = data['relationships']
-
-      credentials2 = encryptables(:credentials2)
-
-      expect(credentials2_json_attributes['name']).to eq credentials2.name
-      expect(data['id']).to eq credentials2.id.to_s
-      expect(credentials2_json_attributes['cleartext_username']).to be_nil
-      expect(credentials2_json_attributes['cleartext_password']).to be_nil
-      expect(credentials2_json_relationships['folder']['data']['id'])
-        .to eq credentials2.folder_id.to_s
-
-      expect_json_object_includes_keys(credentials2_json_attributes, attributes)
-      expect_json_object_includes_keys(credentials2_json_relationships, nested_models)
-    end
-
     it 'returns encryptable files for credentials entry' do
       login_as(:alice)
 
       credentials1 = encryptables(:credentials1)
-      file1 = encryptables(:file1)
 
       get :index, params: { 'credential_id': credentials1.id }, xhr: true
 
@@ -299,6 +280,36 @@ describe Api::EncryptablesController do
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
     end
+
+    context 'File transfer' do
+      it 'download transferred encryptable' do
+        login_as(:bob)
+
+        encryptable_file = prepare_transferred_encryptable
+
+        login_as(:alice)
+
+        expect(controller).to receive(:send_file).exactly(:once)
+
+        get :show, params: { id: encryptable_file.id }, xhr: true
+      end
+
+      it 'displays transferred encryptable and dont download it' do
+        login_as(:bob)
+
+        encryptable_file = prepare_transferred_encryptable
+
+        login_as(:alice)
+
+        expect(controller).not_to receive(:send_file)
+        expect_any_instance_of(CrudController).to receive(:render_entry).exactly(:once)
+
+        get :show, params: { id: encryptable_file.id,
+                             encryptable: ActionController::Parameters.new({
+                                                                             test: 1
+                                                                           }).permit! }, xhr: true
+      end
+    end
   end
 
   context 'PATCH update' do
@@ -312,7 +323,6 @@ describe Api::EncryptablesController do
           id: credentials1.id,
           attributes: {
             name: 'Bob Meyer',
-            tag: 'taggy',
             cleartext_username: 'globi',
             cleartext_password: 'petzi'
           },
@@ -364,6 +374,7 @@ describe Api::EncryptablesController do
 
     it 'moves encryptable to other team' do
       login_as(:bob)
+      request.headers['Authorization-Password'] = Base64.encode64('password')
 
       credentials1 = encryptables(:credentials1)
       target_folder = folders(:folder2)
@@ -373,7 +384,6 @@ describe Api::EncryptablesController do
           id: credentials1.id,
           attributes: {
             name: 'Bob Meyer',
-            tag: 'taggy',
             cleartext_username: 'globi',
             cleartext_password: 'petzi'
           },
@@ -383,7 +393,6 @@ describe Api::EncryptablesController do
       patch :update, params: encryptable_params, xhr: true
 
       credentials1.reload
-
       credentials1.decrypt(team2_password)
 
       expect(credentials1.cleartext_username).to eq 'globi'
@@ -407,7 +416,6 @@ describe Api::EncryptablesController do
           id: credentials1.id,
           attributes: {
             name: 'Bob Meyer',
-            tag: 'taggy',
             cleartext_username: 'globi',
             cleartext_password: 'petzi'
           },
@@ -466,8 +474,7 @@ describe Api::EncryptablesController do
         data: {
           id: credentials2.id,
           attributes: {
-            name: 'Bob Meyer',
-            tag: 'taggy'
+            name: 'Bob Meyer'
           }
         },
         id: credentials2.id
@@ -478,7 +485,6 @@ describe Api::EncryptablesController do
       credentials2.reload
 
       expect(credentials2.name).to eq 'Twitter Account'
-      expect(credentials2.tag).to eq 'tag'
       expect(response).to have_http_status(403)
     end
 
@@ -496,8 +502,7 @@ describe Api::EncryptablesController do
         data: {
           id: encryptable.id,
           attributes: {
-            name: 'updated secret',
-            tag: 'taggy'
+            name: 'updated secret'
           },
           relationships: { folder: { data: { id: encryptable.folder_id, type: 'folders' } } }
         }, id: encryptable.id
@@ -696,7 +701,46 @@ describe Api::EncryptablesController do
 
       expect do
         delete :destroy, params: { id: encryptables(:credentials2).id }
-      end.to change { Encryptable.count }.by(-1)
+      end.to change { Encryptable::Credentials.count }.by(-1)
+    end
+  end
+
+  context 'transfer' do
+    it 'alice receives file from bob' do
+      login_as(:bob)
+
+      filename = 'test_file.txt'
+      inbox_folder_receiver = alice.inbox_folder
+
+      file = Encryptable::File.new(folder: inbox_folder_receiver,
+                                   description: 'test',
+                                   name: filename,
+                                   content_type: 'text/plain',
+                                   cleartext_file: 'certificate')
+
+      EncryptableTransfer.new.transfer(file, alice, bob)
+
+      login_as(:alice)
+
+      shared_file = alice.inbox_folder.encryptables.last
+
+      get :show, params: { id: shared_file.id }, xhr: true
+
+      expect(response).to have_http_status(200)
+
+      alice_private_key = alice.decrypt_private_key('password')
+      personal_team_password = alice.personal_team.decrypt_team_password(alice, alice_private_key)
+
+      received_file = Encryptable.find(shared_file.id)
+      received_file.decrypt(personal_team_password)
+
+      expect(received_file.encrypted_transfer_password).to eq(nil)
+      expect(received_file.sender_id).to eq(bob.id)
+      expect(received_file.name).to eq('test_file.txt')
+      expect(received_file.description).to eq('test')
+      expect(received_file.content_type).to eq('text/plain')
+      expect(received_file.folder_id).to eq(alice.inbox_folder.id)
+      expect(received_file.cleartext_file).to eq('certificate')
     end
   end
 
@@ -719,6 +763,27 @@ describe Api::EncryptablesController do
     file.encrypt(team2_password)
     file.save!
     file
+  end
+
+  def prepare_transferred_encryptable
+    encryptable_file = Encryptable::File.new(name: 'file',
+                                             cleartext_file: file_fixture('test_file.txt').read,
+                                             content_type: 'text/plain')
+
+    transfer_password = Crypto::Symmetric::Aes256.random_key
+
+    encryptable_file.encrypt(transfer_password)
+
+    encrypted_transfer_password = Crypto::Rsa.encrypt(
+      transfer_password,
+      alice.public_key
+    )
+    encryptable_file.encrypted_transfer_password = Base64.encode64(encrypted_transfer_password)
+    encryptable_file.sender_id = bob.id
+    encryptable_file.folder = alice.inbox_folder
+    encryptable_file.save!
+
+    encryptable_file
   end
 
   def example_ose_secret_yaml

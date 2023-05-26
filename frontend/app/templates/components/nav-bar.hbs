@@ -1,6 +1,9 @@
 {{#if this.isNewEncryptable}}
   <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "encryptable/credentials.new.title"}}/>
 {{/if}}
+{{#if this.isFileSharing}}
+  <FileTransfer @onAbort={{this.toggleFileSharing}} @title={{t "encryptable/transferring/file.new.title"}}/>
+{{/if}}
 {{#if this.isNewFolder}}
   <Folder::Form @onAbort={{this.toggleFolderCreating}} @title={{t "folders.new.title"}}/>
 {{/if}}
@@ -53,6 +56,12 @@
         </ddm.item>
       </dd.menu>
     </BsDropdown>
+    <div class="d-flex align-items-center dropdown-toggle">
+      <a role="button" {{on "click" this.toggleFileSharing}}>
+        <img class="icon-share-file" src="/assets/images/share-blue.svg" alt="shareIcon">
+        <span>{{t "encryptable/credentials.share.title"}}</span>
+      </a>
+    </div>
   </div>
 </pzsh-banner>
 

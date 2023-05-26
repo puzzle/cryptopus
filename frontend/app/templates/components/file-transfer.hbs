@@ -1,0 +1,69 @@
+<BsModal class="modal_account ignore-footer-smartphone" @onHide={{action this.abort}} @renderInPlace="true" @size="lg" as |Modal|>
+  <Modal.header>
+    <h3 class="modal-title">{{t "encryptable/transferring/file.new.title"}}</h3>
+  </Modal.header>
+  <Modal.body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 transfer-file-description">
+          <div>{{t "encryptable/transferring/file.description_for_sender"}}</div>
+        </div>
+      </div>
+
+      <BsForm @model={{this.changeset}} as |form|>
+        <div class="row">
+          <div class="col-md-5">
+            <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{fn this.selectReceiver}} @selected={{this.changeset.receiver.label}} @placeholder={{t "encryptable/transferring/file.receiver.name"}} as |candidate|>
+              {{candidate.label}}
+            </PowerSelectTypeahead>
+          </div>
+        </div>
+
+        <div class="row">
+          <form.group class="col-md-12">
+            {{#if this.changeset.file}}
+              <div class="mb-2 transfer-file-upload">
+                {{t "encryptable_files.new.selected_file"}}: {{this.changeset.file.name}}
+              </div>
+            {{else}}
+              <div class="mb-2 transfer-file-upload">
+                {{t "encryptable_files.new.choose_file"}}
+              </div>
+            {{/if}}
+            <div>
+              <FileUpload @name="file"
+                         @accept="*"
+                         @for="upload-file"
+                         @multiple={{false}}
+                         @onfileadd={{this.uploadFile}}
+                         @ondrop={{this.uploadFile}}
+                         class="btn btn-primary">
+                <a id="upload-file" tabindex="0">{{t (if this.changeset.file "encryptable_files.new.reupload" "encryptable_files.new.upload_file")}}</a>
+              </FileUpload>
+            </div>
+          </form.group>
+        </div>
+
+        {{#each this.errors as |error|}}
+          <div class="alert alert-danger modal-alert ">
+            {{error.detail}}.<br>
+          </div>
+        {{/each}}
+
+        <div class="row">
+          <div class="col-md-12">
+            <label name="description">{{t "encryptable/transferring/file.description_for_receiver"}}</label>
+            <div>
+              <Textarea class="form-control vertical-resize" @name="description" @value={{this.changeset.description}}/>
+              <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
+            </div>
+          </div>
+        </div>
+      </BsForm>
+    </div>
+  </Modal.body>
+
+  <Modal.footer>
+    <BsButton @onClick={{action this.submit this.changeset}} @disabled={{not this.changeset.isValid}} alt="save" @type="primary">{{t "encryptable/transferring/file.submit"}}</BsButton>
+  </Modal.footer>
+</BsModal>

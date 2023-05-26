@@ -31,6 +31,13 @@ export default class RowComponent extends Component {
   @tracked
   isShown = false;
 
+  @tracked
+  isFile = this.args.encryptable.isFile;
+
+  constructor() {
+    super(...arguments);
+  }
+
   @action
   copyPassword() {
     this.fetchAndCopyToClipboard("password");
@@ -106,6 +113,10 @@ export default class RowComponent extends Component {
   @action
   toggleEncryptableEdit() {
     this.isEncryptableEditing = !this.isEncryptableEditing;
+  }
+
+  get downloadLink() {
+    return `/api/encryptables/${this.args.encryptable.get("id")}`;
   }
 
   @action

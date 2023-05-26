@@ -7,9 +7,7 @@ class Encryptable::File < Encryptable
              class_name: 'Encryptable::Credentials',
              foreign_key: :credential_id
 
-  validates :credential_id, presence: true
-  validates :name, uniqueness: { scope: :credential_id }
-  validates :folder_id, absence: true
+  validates :name, uniqueness: { scope: :credential_id }, if: :credential_id
 
   validate :file_size, on: [:create, :update]
 
@@ -18,13 +16,17 @@ class Encryptable::File < Encryptable
   end
 
   def encrypt(team_password)
-    return if cleartext_file.blank?
+    return if cleartext_file.empty?
 
     encrypt_attr(:file, team_password)
   end
 
+  def decrypt_transferred(private_key)
+    decrypt(plaintext_transfer_password(private_key))
+  end
+
   def team
-    encryptable_credential.folder.team
+    folder&.team || encryptable_credential.folder.team
   end
 
   private

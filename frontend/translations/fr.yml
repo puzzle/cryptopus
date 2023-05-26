@@ -21,6 +21,7 @@ fr:
   password: Mot de passe
   actions: Actions
   download: Télécharger
+  download_file: Télécharger le fichier
   "yes": Oui
   "no": Non
   help: Aide
@@ -41,6 +42,7 @@ fr:
   new: Nouveau
   back: Retour
   save: Sauvegarder
+  share: Partager
   close: fermer
   user: Utilisateur
   hi_user: "Salut, "
@@ -80,6 +82,7 @@ fr:
       title: Compte
       created_at: "Créé à"
       last_update: "Dernie changement à"
+      transferred_at: "Partager à"
       attachments: Attachements
       file: Fichier
       show_password: Afficher le mot de passe
@@ -90,6 +93,21 @@ fr:
       blank: Vide
     new:
       title: Nouveau compte
+    share:
+      title: Partage fichier
+
+  encryptable/transferring/file:
+    new:
+      title: "partager fichier"
+    receiver:
+      name: Choisir le récepteur
+    show:
+      sender_name: Nom de l'émetteur
+    submit: envoyer
+    description_for_sender: Ton fichier sera envoyé crypté au destinataire sélectionné dans le dossier de la boîte de réception.
+    description_for_receiver: Description pour le destinataire
+    download: Télécharge le fichier transféré
+    delete_transferred_encryptables: Supprimer le fichier partagé
 
   admin:
     title: Admin
@@ -288,8 +306,16 @@ fr:
       uploaded: Fichier téléchargé avec succès.
       uploaded_size_to_high: Fichier est trop volumineux pour tèlècharger. (max. 10MB)
       uploaded_filename_is_empty: Le fichier n'a pas été nommé
+      uploaded_file_blank: Le fichier ne doit pas être vide
       uploaded_file_inexistent: Fichier est inexistant
       uploaded_filename_already_exists: Le nom de fichier existe déjà
+    encryptable_transfer:
+      credentials:
+        transferred: Transfert réussi des informations d'identification au destinataire
+        transfer_failed: Échec du transfert des informations d'identification au destinataire
+      file:
+        transferred: Le fichier a été transféré avec succès au destinataire
+        transfer_failed: Échec du transfert du fichier au destinataire
     session:
       auth_failed: L'authentification a échoué! Saisissez un nom d'utilisateur et mot de passe.
       weak_password: Pour améliorer la sécurité vous devez déterminer un mot de passe utilisateur plus complexe.
@@ -325,6 +351,7 @@ fr:
     delete_folder: Supprimer le dossier
     delete_encryptables: Supprimer le compte
     configure: Configurer les membres
+    sent_by: Envoyé par
 
   helpers:
     label:

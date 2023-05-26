@@ -30,6 +30,7 @@ class Crypto::Symmetric::Aes256 < Crypto::Symmetric
       cipher.key = key
 
       # decrypt data
+
       decrypted_data = cipher.update(data) + cipher.final
       decrypted_data.force_encoding('UTF-8')
     end

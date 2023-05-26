@@ -6,6 +6,7 @@ import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 import ENV from "frontend/config/environment";
+import { fileUploadValidation } from "../../helpers/file-upload-validation";
 
 export default class Form extends BaseFormComponent {
   @service store;
@@ -42,9 +43,17 @@ export default class Form extends BaseFormComponent {
   }
 
   async beforeSubmit() {
-    await this.changeset.validate();
-    this.record.encryptableCredential = this.args.encryptableCredential;
-    return this.changeset.isValid;
+    let isFileValid = fileUploadValidation(
+      this.changeset.file,
+      this.intl,
+      this.notify
+    );
+
+    if (isFileValid) {
+      await this.changeset.validate();
+      this.record.encryptableCredential = this.args.encryptableCredential;
+      return this.changeset.isValid;
+    }
   }
 
   showSuccessMessage() {
@@ -65,12 +74,5 @@ export default class Form extends BaseFormComponent {
   @action
   uploadFile(file) {
     this.changeset.file = file;
-  }
-
-  setRecordValues(records) {
-    const data = JSON.parse(records[0].body).data;
-    this.record.file = this.changeset.file;
-    this.record.id = data.id;
-    this.record.name = data.attributes.name;
   }
 }

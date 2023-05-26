@@ -15,6 +15,8 @@ class EncryptablePolicy < TeamDependantPolicy
   end
 
   def create?
+    return true if transferring_encryptable?
+
     team.teammember?(@user.id)
   end
 
@@ -31,4 +33,11 @@ class EncryptablePolicy < TeamDependantPolicy
   def team
     @record.team
   end
+
+  private
+
+  def transferring_encryptable?
+    @record.inbox_folder_present?
+  end
+
 end
