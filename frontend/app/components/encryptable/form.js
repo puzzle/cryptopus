@@ -108,10 +108,10 @@ export default class Form extends BaseFormComponent {
   get availableFolders() {
     return isPresent(this.selectedTeam)
       ? this.store
-        .peekAll("folder")
-        .filter(
-          (folder) => folder.team.get("id") === this.selectedTeam.get("id")
-        )
+          .peekAll("folder")
+          .filter(
+            (folder) => folder.team.get("id") === this.selectedTeam.get("id")
+          )
       : [];
   }
 

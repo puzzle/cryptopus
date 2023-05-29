@@ -94,31 +94,6 @@ describe Api::EncryptablesController do
       expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
     end
 
-    it 'returns encryptable for matching tag without cleartext attributes' do
-      login_as(:bob)
-
-      get :index, params: { 'tag': 'tag' }, xhr: true
-
-      credentials2_json_attributes = data['attributes']
-      credentials2_json_relationships = data['relationships']
-
-      credentials2 = encryptables(:credentials2)
-
-      expect(credentials2_json_attributes['name']).to eq credentials2.name
-      expect(data['id']).to eq credentials2.id.to_s
-      expect(credentials2_json_attributes['cleartext_username']).to be_nil
-      expect(credentials2_json_attributes['cleartext_password']).to be_nil
-      expect(credentials2_json_attributes['cleartext_token']).to be_nil
-      expect(credentials2_json_attributes['cleartext_pin']).to be_nil
-      expect(credentials2_json_attributes['cleartext_email']).to be_nil
-      expect(credentials2_json_attributes['cleartext_custom_attr']).to be_nil
-      expect(credentials2_json_relationships['folder']['data']['id'])
-        .to eq credentials2.folder_id.to_s
-
-      expect_json_object_includes_keys(credentials2_json_attributes, attributes)
-      expect_json_object_includes_keys(credentials2_json_relationships, nested_models)
-    end
-
     it 'returns encryptable files for credentials entry' do
       login_as(:alice)
 

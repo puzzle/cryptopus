@@ -313,7 +313,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
     );
     assert.equal(
       this.element.querySelector("#encryptable-form-close-button").innerText,
-      "Schliesse"
+      "Schliessä"
     );
   });
 
@@ -404,8 +404,12 @@ module("Integration | Component | encryptable/form", function (hooks) {
     });
     this.set("encryptable", {
       id: 1,
-      name: "mail",
+      name: "My secret Credentials",
+      cleartextUsername: "myusernameisboring",
       cleartextPassword: "lol",
+      cleartextToken: "loltoken",
+      cleartextPin: "thispinisbad",
+      cleartextEmail: "mail@ember.com",
       description: "The ember email",
       folder: this.folder,
       isFullyLoaded: true

@@ -86,13 +86,13 @@ class Encryptable < ApplicationRecord
   end
 
   def build_encrypted_data(attr, cleartext_value, encrypted_value)
-    # rubocop:disable Style/ConditionalAssignment
     if attr == :custom_attr
-      encrypted_data.[]=(attr, **{ label: cleartext_value&.[]("label"), data: encrypted_value , iv: nil })
+      encrypted_data.[]=(
+        attr, **{ label: cleartext_value&.[]('label'), data: encrypted_value, iv: nil }
+      )
     else
       encrypted_data.[]=(attr, **{ data: encrypted_value, iv: nil })
     end
-    # rubocop:enable Style/ConditionalAssignment
   end
 
   def decrypt_attr(attr, team_password)

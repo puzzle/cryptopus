@@ -506,6 +506,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
   });
 
   test("it renders a transferred encryptable file", async function (assert) {
+    setLocale("en");
     this.set(
       "encryptable",
       EmberObject.create({
