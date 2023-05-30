@@ -112,7 +112,7 @@ de:
       title: Neue Zugangsdaten
     form:
       passwordLength: "Zeichen: "
-      symbols: Symbole
+      symbols: "Symbole: "
       notEncryptedField: Dieses Feld wird nicht verschlüsselt
     row:
       clickToSeeAttrs: Klicke um alle Attribute zu sehen

@@ -500,15 +500,20 @@ h5, h6 {
   background-color: #1b8dc6;
 }
 
+.x-toggle:not(:checked) + label > .x-toggle-material.x-toggle-btn::after {
+  border: lightslategray solid 1px;
+}
+
 .x-toggle-component.x-toggle-focused .x-toggle-btn:not(.x-toggle-disabled) {
   &::after, &::before {
     box-shadow: none;
   }
 }
 
+
 .password-range {
   &::-moz-range-progress{
-    background-color: #43e5f7;
+    background-color: #1e5a96;
   }
 }
 

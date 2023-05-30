@@ -112,7 +112,7 @@ ch_be:
       title: Nöi Zuägangsdate
     form:
       passwordLength: "Zeichä: "
-      symbols: Simbou
+      symbols: "Simbou:"
       notEncryptedField: Das Fäld wird nid verschlüsslät
     row:
       clickToSeeAttrs: Klick wenn aui Attribut möchtisch gseh
