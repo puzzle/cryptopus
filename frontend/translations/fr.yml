@@ -112,7 +112,8 @@ fr:
     new:
       title: Nouveau compte
     form:
-      passwordLength: "Longueur du mot de passe: "
+      passwordLength: "Caractères: "
+      symbols: Symboles
       notEncryptedField: Ce champ n'est pas crypté
     row:
       clickToSeeAttrs: Cliquez pour voir tous les attributs
