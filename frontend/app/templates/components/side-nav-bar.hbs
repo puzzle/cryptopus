@@ -24,9 +24,9 @@
                       <img class="icon icon-button lh-1 mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "member-white.svg" "member.svg"}}" alt="">
                     {{else}}
                       {{#if team.private}}
-                        <img class="icon icon-button mr-2 " src="/assets/images/{{if (eq team this.navService.selectedTeam) "encrypted_small-white.svg" "encrypted_small.svg"}}" alt="">
+                        <img class="icon icon-button me-2 " src="/assets/images/{{if (eq team this.navService.selectedTeam) "encrypted_small-white.svg" "encrypted_small.svg"}}" alt="">
                       {{else}}
-                        <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "members-white.svg" "members.svg"}}" alt="">
+                        <img class="icon icon-button me-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "members-white.svg" "members.svg"}}" alt="">
                       {{/if}}
                     {{/if}}
 
@@ -52,7 +52,7 @@
                   <BsCollapse class="list-group" id="nav-folders-{{team.id}}" @collapsed={{or (not (eq team this.navService.selectedTeam)) this.collapsed}}>
                     {{#each team.folders as |folder|}}
                       <a role="button"  class="list-group-item list-folder-item {{if (eq folder this.navService.selectedFolder) "bg-blue-three" "bg-blue-one"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
-                        <img class="icon icon-button mr-1" src="/assets/images/folder.svg" alt="">
+                        <img class="icon icon-button me-1" src="/assets/images/folder.svg" alt="">
                         {{truncate folder.name 15}}
                         {{#if folder.unreadTransferredCount}}
                           <span class="badge bg-info rounded-circle text-light">{{folder.unreadTransferredCount}} </span>

@@ -10,7 +10,7 @@
 <div class="mt-4 mb-4 border-radius-4">
   <div>
     <div class="row py-2 d-flex team-card-header {{if this.collapsed "rounded" "rounded-top"}}">
-      <div class="col-auto pr-0 my-auto" role="button" {{on "click" this.collapse}}>
+      <div class="col-auto pe-0 my-auto" role="button" {{on "click" this.collapse}}>
         {{#if @team.isPersonalTeam}}
           <img class="icon icon-big-button py-auto" src="/assets/images/member-white.svg" alt="">
         {{else}}
@@ -30,7 +30,7 @@
       </div>
 
 
-      <div class="col-auto pr-0 justify-content-between d-none d-sm-flex align-items-center ">
+      <div class="col-auto pe-0 justify-content-between d-none d-sm-flex align-items-center ">
         <span class="mx-1" role="button" {{on "click" this.toggleFolderCreating}}>
           <img class="icon-big-button" src="/assets/images/plus-white.svg" alt="new">
           <BsTooltip @title={{t "tooltips.add_folder"}} @delayShow="1000" />
@@ -86,7 +86,7 @@
         </dd.menu>
       </BsDropdown>
 
-      <div class="col-auto pl-0 d-flex justify-content-between align-items-center align-right-on-smartphone">
+      <div class="col-auto ps-0 d-flex justify-content-between align-items-center align-right-on-smartphone">
         <span role="button" name="team-collapse" {{on "click" this.collapse}}>
           {{#if this.collapsed}}
             <img class="icon-big-button float-end" src="/assets/images/angle-left-white.svg" alt="<">
