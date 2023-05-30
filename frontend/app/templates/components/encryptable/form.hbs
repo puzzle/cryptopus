@@ -77,27 +77,44 @@
                   <el.control autocomplete="off" tabindex="3" @name="cleartextPassword"></el.control>
                 </form.element>
                 <PasswordStrengthMeter class="col-12 px-0 mb-2 mb-md-0" @password={{this.changeset.cleartextPassword}}/>
-                <div class="d-flex flex-column align-items-center">
-                  <div class="d-flex flex-row align-items-center justify-content-between">
+                <BsAccordion @selected={{1}} as |acc|>
+                  <acc.item @value="2"  class="text-decoration-none" as |pwGen|>
+                    <pwGen.title class="text-decoration-none">
+                      <span class="text-decoration-none text-dark">
+                        Password generator
+                      </span>
+                    </pwGen.title>
+                    <pwGen.body>
+
+                      <div class="d-flex flex-column align-items-center">
+                        <div class="d-flex flex-row align-items-center justify-content-between">
                     <span class="d-flex">
                       {{t "encryptable/credentials.form.passwordLength"}}
-                      <Input @type="range" class="custom-range password-range mx-1" id="formControlRange" @value={{this.passwordLength}}
+
+                      <Input @type="range" class="custom-range password-range mx-1" id="formControlRange"
+                             @value={{this.passwordLength}}
                              min="14" max="32"></Input>
                     </span>
-                    <Input min="14" max="32" @type="number" @value={{this.passwordLength}} class="border border-mute border-radius-4 w-20 mx-3 password-length"> </Input>
-                  </div>
+                          <Input min="14" max="32" @type="number" @value={{this.passwordLength}}
+                                 class="border border-mute border-radius-4 w-20 mx-3 password-length"> </Input>
+                        </div>
 
-                  <div class="d-flex justify-content-between w-100">
-                    {{t "encryptable/credentials.form.symbols"}}
-                    <XToggle @value={{this.withSymbols}} id="withSymbols" @onToggle={{fn (mut this.withSymbols)}}  @theme="material"
-                             @size="small"/>
-                  </div>
-                  <button id="password-generate-button" class="btn btn-secondary btn-sm col-lg-7 mb-md-4" {{on
-                    "click" this.setRandomPassword}}
-                          tabindex="4">
-                    {{t "encryptable/credentials.edit.random_password"}}
-                  </button>
-                </div>
+                        <div class="d-flex justify-content-between w-100">
+                          {{t "encryptable/credentials.form.symbols"}}
+                          <XToggle @value={{this.withSymbols}} id="withSymbols" @onToggle={{fn (mut this.withSymbols)}}
+                                   @theme="material"
+                                   @size="small"/>
+                        </div>
+                        <button id="password-generate-button" class="btn btn-secondary btn-sm col-lg-7 mb-md-4" {{on
+                          "click" this.setRandomPassword}}
+                                tabindex="4">
+                          {{t "encryptable/credentials.edit.random_password"}}
+                        </button>
+                      </div>
+                    </pwGen.body>
+                  </acc.item>
+                </BsAccordion>
+
               </div>
             </div>
           </div>
@@ -106,9 +123,9 @@
               <form.group class="col-md-12">
                 <form.element @label={{t "description"}} @property="description" @controlType="textarea"
                               id="description" class="{{if
-                        this.changeset.error.description.validation "invalid-input"}} vertical-resize mt-3"
+                  this.changeset.error.description.validation "invalid-input"}} vertical-resize mt-3"
                               customError={{t
-                        (validation-error-key this.changeset.error.description.validation)}} as |el|>
+                  (validation-error-key this.changeset.error.description.validation)}} as |el|>
                   <el.control tabindex="7"></el.control>
                 </form.element>
               </form.group>
