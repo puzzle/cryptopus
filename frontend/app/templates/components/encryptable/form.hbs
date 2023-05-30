@@ -69,34 +69,34 @@
               </div>
             </div>
             <div class="col-md-6 order-3 order-md-4">
-              <div class="col-sm-12 secret">
+              <div class="col-sm-12 secret border border-mute border-radius-4">
                 <form.element @label={{t "password"}} id="cleartext-password" class="{{if
-                        this.changeset.error.cleartextPassword.validation "invalid-input-name mb-1"}} mb-2"
+                  this.changeset.error.cleartextPassword.validation "invalid-input-name mb-1"}} mb-2"
                               @property="cleartextPassword" @customError={{t
-                        (validation-error-key this.changeset.error.cleartextPassword.validation)}}  as |el|>
+                  (validation-error-key this.changeset.error.cleartextPassword.validation)}}  as |el|>
                   <el.control autocomplete="off" tabindex="3" @name="cleartextPassword"></el.control>
                 </form.element>
                 <PasswordStrengthMeter class="col-12 px-0 mb-2 mb-md-0" @password={{this.changeset.cleartextPassword}}/>
-                <div class="d-flex flex-column border border-mute border-radius-4 p-2">
-                  <div class="ml-2 mt-1">{{t "encryptable/credentials.form.passwordLength"}} </div>
-                  <label for="formControlRange">
-                    {{this.passwordLength}}
-                    <Input @type="range" class="custom-range" id="formControlRange" @value={{this.passwordLength}} min="14" max="32">
-                    </Input>
-                  </label>
-                  <div class="d-flex flex-row justify-content-around">
-                    <label>
-                      Symbols
-                      <Input
-                        id="withSymbols"
-                        @type="checkbox"
-                        @checked={{this.withSymbols}}></Input>
-                    </label>
-                    <button id="password-generate-button" class="btn btn-secondary w-50 btn-sm col-lg-7 mb-md-4" {{on "click" this.setRandomPassword}}
-                            tabindex="4">
-                      {{t "encryptable/credentials.edit.random_password"}}
-                    </button>
+                <div class="d-flex flex-column align-items-center">
+                  <div class="d-flex flex-row align-items-center justify-content-between">
+                    <span class="d-flex">
+                       {{t "encryptable/credentials.form.passwordLength"}}
+                      <Input @type="range" class="custom-range mx-1" id="formControlRange" @value={{this.passwordLength}}
+                             min="14" max="32"></Input>
+                    </span>
+                    <Input @type="text" @value="{{this.passwordLength}}" class="border border-mute border-radius-4 w-10 mx-3"> </Input>
                   </div>
+
+                  <div class="d-flex justify-content-between w-100">
+                    Symbols
+                    <XToggle @value={{this.withSymbols}} @onToggle={{fn (mut this.withSymbols)}}  @theme='ios'
+                             @size="small"/>
+                  </div>
+                  <button id="password-generate-button" class="btn btn-secondary btn-sm col-lg-7 mb-md-4" {{on
+                    "click" this.setRandomPassword}}
+                          tabindex="4">
+                    {{t "encryptable/credentials.edit.random_password"}}
+                  </button>
                 </div>
               </div>
             </div>
