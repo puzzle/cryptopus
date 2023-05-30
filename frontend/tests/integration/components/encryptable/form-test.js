@@ -544,21 +544,18 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
   test("Password does not contain symbols after unchecking checkbox", async function (assert) {
     await render(hbs`<Encryptable::Form />`);
-    await click("input#withSymbols");
+    const symbolSwitch = this.element.querySelector(
+      "#withSymbols > span > label > div"
+    );
+    const password = this.element.querySelector(
+      "input[name='cleartextPassword']"
+    );
+    await click(symbolSwitch);
     await click("#password-generate-button");
-    assert.equal(
-      this.element.querySelector("input[name='cleartextPassword']").value
-        .length,
-      14
-    );
+    assert.equal(password.value.length, 14);
 
-    assert.equal(
-      this.element.querySelector("input#withSymbols").checked,
-      false
-    );
-    assert.notOk(
-      this.element.querySelector("input#withSymbols").value.match(/[^\w\s]/)
-    );
+    assert.equal(symbolSwitch.hasAttribute("aria-checked"), false);
+    assert.notOk(password.value.match(/[^\w\s]/));
   });
 
   test("Password with the right length should be generated", async function (assert) {
