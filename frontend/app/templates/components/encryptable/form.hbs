@@ -80,7 +80,7 @@
                 <div class="d-flex flex-column align-items-center">
                   <div class="d-flex flex-row align-items-center justify-content-between">
                     <span class="d-flex">
-                       {{t "encryptable/credentials.form.passwordLength"}}
+                      {{t "encryptable/credentials.form.passwordLength"}}
                       <Input @type="range" class="custom-range password-range mx-1" id="formControlRange" @value={{this.passwordLength}}
                              min="14" max="32"></Input>
                     </span>
@@ -89,7 +89,7 @@
 
                   <div class="d-flex justify-content-between w-100">
                     {{t "encryptable/credentials.form.symbols"}}
-                    <XToggle @value={{this.withSymbols}} @onToggle={{fn (mut this.withSymbols)}}  @theme='material'
+                    <XToggle @value={{this.withSymbols}} @onToggle={{fn (mut this.withSymbols)}}  @theme="material"
                              @size="small"/>
                   </div>
                   <button id="password-generate-button" class="btn btn-secondary btn-sm col-lg-7 mb-md-4" {{on
