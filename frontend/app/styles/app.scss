@@ -495,3 +495,7 @@ h5, h6 {
   color: white !important;
 }
 
+
+.x-toggle:checked + label > .x-toggle-material.x-toggle-btn::after{
+  background-color: #1b8dc6;
+}
