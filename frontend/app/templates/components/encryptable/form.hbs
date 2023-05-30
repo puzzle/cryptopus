@@ -81,10 +81,10 @@
                   <div class="d-flex flex-row align-items-center justify-content-between">
                     <span class="d-flex">
                        {{t "encryptable/credentials.form.passwordLength"}}
-                      <Input @type="range" class="custom-range mx-1" id="formControlRange" @value={{this.passwordLength}}
+                      <Input @type="range" class="custom-range password-range mx-1" id="formControlRange" @value={{this.passwordLength}}
                              min="14" max="32"></Input>
                     </span>
-                    <Input @type="text" @value="{{this.passwordLength}}" class="border border-mute border-radius-4 w-10 mx-3"> </Input>
+                    <Input min="14" max="32" @type="number" @value={{this.passwordLength}} class="border border-mute border-radius-4 w-20 mx-3"> </Input>
                   </div>
 
                   <div class="d-flex justify-content-between w-100">
