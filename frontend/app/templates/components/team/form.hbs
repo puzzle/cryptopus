@@ -17,11 +17,11 @@
                 <div class="align-self-center">
                   <label for="checkbox-private" name="private">{{t "teams.form.private"}}</label>
                 </div>
-                  <div class="align-self-center mb-2 ml-2">
+                  <div class="align-self-center mb-2 ms-2">
                     <img src="/assets/images/info.svg" alt="info" class="info-icon icon-button">
                     <BsTooltip @title={{t "teams.description.private"}} />
                   </div>
-                <div class="align-self-center mb-2 ml-2 mt-1">
+                <div class="align-self-center mb-2 ms-2 mt-1">
                   <Input id="checkbox-private" class="" @type="checkbox" @checked={{this.changeset.private}}
                          name="private"
                          disabled={{not this.isNewRecord }} />

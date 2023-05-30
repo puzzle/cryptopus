@@ -8,7 +8,7 @@
         <div class="columns members">
           <div class="row mt-1">
             <div class="col-sm-12">
-              <div class="float-right">
+              <div class="float-end">
                 <PowerSelect
                   class="btn btn-primary powerSelect p-2"
                   @searchEnabled="true"
@@ -30,10 +30,10 @@
                   <li>
                     {{member.label}}
                     {{#if member.admin}}
-                      <img class="float-right" src="/assets/images/penguin.svg" alt="admin">
+                      <img class="float-end" src="/assets/images/penguin.svg" alt="admin">
                     {{else}}
                       {{#if member.deletable}}
-                        <a class="float-right" role="button" {{on "click" (fn this.deleteMember member)}}>
+                        <a class="float-end" role="button" {{on "click" (fn this.deleteMember member)}}>
                           <img src="/assets/images/remove.svg" alt="remove">
                         </a>
                       {{/if}}
