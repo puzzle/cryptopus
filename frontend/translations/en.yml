@@ -113,7 +113,7 @@ en:
       title: New Credentials
     form:
       passwordLength: "Characters: "
-      symbols: symbols
+      symbols: Symbols
       notEncryptedField: This field is not encrypted
     row:
       clickToSeeAttrs: Click to see all attributes
