@@ -4,6 +4,8 @@ import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "./base-form-component";
 import ENV from "frontend/config/environment";
+import lookupValidator from "ember-changeset-validations";
+import EncryptableTransferCredential from "../validations/encryptable-transfer-credential";
 
 export default class CredentialTransfer extends BaseFormComponent {
   @service store;
@@ -18,12 +20,18 @@ export default class CredentialTransfer extends BaseFormComponent {
 
     this.record = this.store.createRecord("encryptable-transferred");
 
-    this.changeset = new Changeset(this.record);
+    this.changeset = new Changeset(
+      this.record,
+      lookupValidator(EncryptableTransferCredential),
+      EncryptableTransferCredential
+    );
 
     this.changeset.csrfToken = ENV.CSRFToken;
 
     this.encryptableId = this.args.encryptableId;
     this.changeset.encryptableId = this.encryptableId;
+
+    this.loadValidation();
 
     this.loadCandidates();
   }
@@ -36,9 +44,14 @@ export default class CredentialTransfer extends BaseFormComponent {
       .then((res) => (this.candidates = res));
   }
 
+  async loadValidation() {
+    await this.changeset.validate();
+  }
+
   @action
   selectReceiver(receiver) {
     this.changeset.receiver = receiver;
+    this.loadValidation();
   }
 
   @action
