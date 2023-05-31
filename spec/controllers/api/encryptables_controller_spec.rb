@@ -11,7 +11,6 @@ describe Api::EncryptablesController do
   let(:private_key) { bob.decrypt_private_key('password') }
   let(:nested_models) { ['folder'] }
   let(:attributes) { %w[name cleartext_password cleartext_username] }
-  let!(:ose_secret) { create_ose_secret }
   let(:credentials1) { encryptables(:credentials1) }
   let(:file1) { encryptables(:file1) }
   let(:transferred_file1) { encryptables(:transferredFile1) }
@@ -48,7 +47,7 @@ describe Api::EncryptablesController do
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
-      expect(data.count).to eq 4
+      expect(data.count).to eq 2
       expect(credentials1_json_attributes['name']).to eq credentials1.name
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil
@@ -69,7 +68,7 @@ describe Api::EncryptablesController do
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
-      expect(data.count).to eq 4
+      expect(data.count).to eq 2
       expect(credentials1_json_attributes['name']).to eq credentials1.name
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil
@@ -127,20 +126,6 @@ describe Api::EncryptablesController do
       expect(credentials1_json_attributes['created_at']).to match(rgx_date)
       expect(credentials1_json_attributes['updated_at']).to match(rgx_date)
       expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
-    end
-
-    it 'returns decrypted ose secret' do
-      request.headers['Authorization-User'] = alice.username
-      request.headers['Authorization-Password'] = Base64.encode64('password')
-
-      get :show, params: { id: ose_secret.id }, xhr: true
-
-      ose_secret_json_attributes = data['attributes']
-      ose_secret_json_relationships = data['relationships']
-
-      expect(ose_secret_json_attributes['name']).to eq 'Rails Secret Key Base'
-      expect(ose_secret_json_attributes['cleartext_ose_secret']).to eq example_ose_secret_yaml
-      expect_json_object_includes_keys(ose_secret_json_relationships, nested_models)
     end
 
     it 'cannot authenticate and does not return decrypted encryptable if user not logged in' do
@@ -343,35 +328,6 @@ describe Api::EncryptablesController do
       expect(response).to have_http_status(200)
     end
 
-    it 'updates ose secret encryptable with valid params structure and adjust data property' do
-      set_auth_headers
-
-      encryptable = ose_secret
-      updated_ose_secret_data = {
-        name: 'example secret',
-        password: 'dvF2jc1JA'
-      }.to_yaml
-      encryptable_params = {
-        data: {
-          id: encryptable.id,
-          attributes: {
-            name: 'updated ose secret',
-            cleartext_ose_secret: updated_ose_secret_data
-          },
-          relationships: { folder: { data: { id: encryptable.folder_id, type: 'folders' } } }
-        }, id: encryptable.id
-      }
-      patch :update, params: encryptable_params, xhr: true
-
-      encryptable.reload
-      encryptable.decrypt(team1_password)
-
-      expect(encryptable.name).to eq 'updated ose secret'
-      expect(encryptable.cleartext_ose_secret).to eq updated_ose_secret_data
-
-      expect(response).to have_http_status(200)
-    end
-
     it 'moves encryptable to other team' do
       login_as(:bob)
       request.headers['Authorization-Password'] = Base64.encode64('password')
@@ -487,37 +443,6 @@ describe Api::EncryptablesController do
       expect(credentials2.name).to eq 'Twitter Account'
       expect(response).to have_http_status(403)
     end
-
-    it 'updates openshift secret as api user' do
-      api_user.update!(valid_until: Time.zone.now + 5.minutes)
-
-      teams(:team1).add_user(api_user, team1_password)
-
-      request.headers['Authorization-User'] = api_user.username
-      request.headers['Authorization-Password'] = token
-
-      encryptable = ose_secret
-
-      encryptable_params = {
-        data: {
-          id: encryptable.id,
-          attributes: {
-            name: 'updated secret'
-          },
-          relationships: { folder: { data: { id: encryptable.folder_id, type: 'folders' } } }
-        }, id: encryptable.id
-      }
-      patch :update, params: encryptable_params, xhr: true
-
-      encryptable.reload
-
-      encryptable_json_attributes = data['attributes']
-
-      encryptable.decrypt(team1_password)
-      expect(encryptable_json_attributes['name']).to eq 'updated secret'
-
-      expect(response).to have_http_status(200)
-    end
   end
 
   context 'POST create' do
@@ -575,40 +500,6 @@ describe Api::EncryptablesController do
       post :create, params: new_encryptable_params, xhr: true
 
       expect(response).to have_http_status(403)
-    end
-
-    it 'creates new openshift secret if api user' do
-      api_user.update!(valid_until: Time.zone.now + 5.minutes)
-
-      teams(:team1).add_user(api_user, team1_password)
-
-      request.headers['Authorization-User'] = api_user.username
-      request.headers['Authorization-Password'] = token
-
-      folder = folders(:folder1)
-
-      new_encryptable_params = {
-        data: {
-          attributes: {
-            name: 'New OSE Secret',
-            type: 'ose_secret'
-          },
-          relationships: {
-            folder: {
-              data: {
-                id: folder.id,
-                type: 'folders'
-              }
-            }
-          }
-        }
-      }
-
-      expect do
-        post :create, params: new_encryptable_params, xhr: true
-      end.to change { Encryptable::OseSecret.count }.by(1)
-
-      expect(response).to have_http_status(201)
     end
 
     it 'creates new encryptable file' do
@@ -746,15 +637,6 @@ describe Api::EncryptablesController do
 
   private
 
-  def create_ose_secret
-    secret = Encryptable::OseSecret.new(name: 'Rails Secret Key Base',
-                                        folder: folders(:folder1),
-                                        cleartext_ose_secret: example_ose_secret_yaml)
-    secret.encrypt(team1_password)
-    secret.save!
-    secret
-  end
-
   def create_file
     file = Encryptable::File.new(name: 'file',
                                  cleartext_file: file_fixture('test_file.txt').read,
@@ -784,10 +666,6 @@ describe Api::EncryptablesController do
     encryptable_file.save!
 
     encryptable_file
-  end
-
-  def example_ose_secret_yaml
-    Base64.strict_decode64(FixturesHelper.read_encryptable_file('example_secret.secret'))
   end
 
   def token

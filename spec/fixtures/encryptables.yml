@@ -49,9 +49,3 @@ transferred_file1:
   folder: inbox_folder_alice
   content_type: 'text/plain'
   encrypted_data: '{"file":{"iv":null,"data":"FvJS9jooGEX1aXqB0iP7wB6h2YwO479OM+RpNmBlbORivbVPky0rR4u3lNLN+DGIL93gQAlVHDw1CZe9zDoTgSyxsQFflQwGk3DMDS9xhoQSJzTkBPBIb33j9H7WG37CQwdNNFnn/NExiBZb+9dbmHGqw8KWvRd3Xd/oSlTr6w/c0gz3UEYfhC5l6P3xnDc2"}}'
-
-osesecret1:
-  type: Encryptable::OseSecret
-  name: postgresql-token
-  folder: folder1
-  encrypted_data: '{"ose_secret":{"iv":null, "data":"CGRwhrTh0tj+Aglr5ztEX+cRm+vjlmm5qMVyQMJs4GnbhAj41WgzNEgCmSsu/Id7coQ1F44+TYJRcCH4ypAQ5vIYQbRqf1Iyeo4a1/s6x7a8NAcGk3x1VC1YxBFeNxlJs0d1nxC39gY3BsYnk5DNfkVv1BswQRwE9Y7KWzusP2sKQleLgdfKIDOLloCiGyod"}}'

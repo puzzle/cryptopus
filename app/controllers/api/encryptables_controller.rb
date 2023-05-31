@@ -55,12 +55,9 @@ class Api::EncryptablesController < ApiController
 
   private
 
-  # rubocop:disable Metrics/MethodLength
   def model_class
     if action_name == 'create'
       define_model_class
-    elsif ose_secret?
-      Encryptable::OseSecret
     elsif entry_id.present?
       Encryptable.find(entry_id).class
     elsif fetch_entries.empty?
@@ -69,12 +66,9 @@ class Api::EncryptablesController < ApiController
       Encryptable::Credentials
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def define_model_class
-    if ose_secret?
-      Encryptable::OseSecret
-    elsif credential_id.present?
+    if credential_id.present?
       Encryptable::File
     else
       Encryptable::Credentials
@@ -130,9 +124,7 @@ class Api::EncryptablesController < ApiController
   def permitted_attrs
     permitted_attrs = self.class.permitted_attrs.deep_dup
 
-    if model_class == Encryptable::OseSecret
-      permitted_attrs + [:cleartext_ose_secret, :folder_id]
-    elsif model_class == Encryptable::File
+    if model_class == Encryptable::File
       permitted_attrs + [:filename, :credentials_id, :file]
     elsif model_class == Encryptable::Credentials
       permitted_attrs + [:cleartext_username, :cleartext_password, :folder_id]
@@ -198,9 +190,5 @@ class Api::EncryptablesController < ApiController
     else
       encryptable.encrypt(decrypted_team_password(team))
     end
-  end
-
-  def ose_secret?
-    params.dig('data', 'attributes', 'type') == 'ose_secret'
   end
 end

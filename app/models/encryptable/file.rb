@@ -21,6 +21,10 @@ class Encryptable::File < Encryptable
     encrypt_attr(:file, team_password)
   end
 
+  def decrypt_transferred(private_key)
+    decrypt(plaintext_transfer_password(private_key))
+  end
+
   def team
     folder&.team || encryptable_credential.folder.team
   end

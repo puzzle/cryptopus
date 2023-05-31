@@ -5,15 +5,6 @@ import { hash } from "rsvp";
 export default class EncryptableShowRoute extends BaseRoute {
   @service navService;
 
-  redirect(model) {
-    if (model.constructor.modelName === "encryptable-ose-secret") {
-      this.transitionTo("teams.folders-show", {
-        team_id: model.folder.get("team.id"),
-        folder_id: model.folder.get("id")
-      });
-    }
-  }
-
   afterModel() {
     this.navService.clear();
   }
