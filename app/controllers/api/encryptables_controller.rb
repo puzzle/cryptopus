@@ -66,7 +66,6 @@ class Api::EncryptablesController < ApiController
       Encryptable::Credentials
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def define_model_class
     if credential_id.present?
