@@ -106,7 +106,8 @@
                                    @size="small"/>
                         </div>
                         <button id="password-generate-button" class="btn btn-secondary btn-sm col-lg-7 mb-md-4" {{on
-                          "click" this.setRandomPassword}}
+                          "click" this.setRandomPassword }} {{on
+                        "click" (fn acc.change 1)}}
                                 tabindex="4">
                           {{t "encryptable/credentials.edit.random_password"}}
                         </button>
