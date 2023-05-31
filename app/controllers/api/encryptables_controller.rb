@@ -192,8 +192,4 @@ class Api::EncryptablesController < ApiController
       encryptable.encrypt(decrypted_team_password(team))
     end
   end
-
-  def ose_secret?
-    params.dig('data', 'attributes', 'type') == 'ose_secret'
-  end
 end
