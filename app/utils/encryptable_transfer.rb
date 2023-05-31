@@ -5,6 +5,8 @@ class EncryptableTransfer
     transfer_password = new_transfer_password
     encryptable.encrypt(transfer_password)
 
+    update_encryptable_name_if_not_unique(encryptable, receiver)
+
     encryptable.update!(
       folder: receiver.inbox_folder,
       sender_id: sender.id,
@@ -27,6 +29,20 @@ class EncryptableTransfer
   end
 
   private
+
+  def update_encryptable_name_if_not_unique(encryptable, receiver)
+    # rubocop:disable Metrics/LineLength
+    regex = /^(?:#{Regexp.escape(encryptable.name)}(?: \(\d+\))?|#{Regexp.escape(encryptable.name)})$/
+    # rubocop:enable Metrics/LineLength
+
+    counter = 0
+    receiver.inbox_folder.encryptables.each do |inbox_encryptable|
+      matching = regex.match(inbox_encryptable.name)
+      counter += 1 if matching
+    end
+
+    encryptable.name = "#{encryptable.name} (#{counter})" if counter.positive?
+  end
 
   def encrypted_transfer_password(password, receiver)
     Crypto::Rsa.encrypt(

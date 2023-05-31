@@ -11,7 +11,8 @@ describe EncryptableTransfer do
   let(:team1) { teams(:team1) }
 
   let(:encryptable_transfer) { described_class.new }
-
+  let(:encryptable_credentials1) { encryptables(:credentials1) }
+  let(:encryptable_credentials2) { encryptables(:credentials2) }
   let(:encryptable_file) do
     Encryptable::File.new(cleartext_file: 'fff', name: 'info.txt', content_type: 'text/plain')
   end
@@ -55,6 +56,44 @@ describe EncryptableTransfer do
 
       expect(received_file.sender_id).to eq(bob.id)
       expect(received_file.encrypted_transfer_password).to be_nil
+    end
+
+    it 'Adds (1) to the encryptable name if this name is already taken in inbox folder' do
+      receiver = bob
+      sender = alice
+
+      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
+
+      received_encryptable = bob.inbox_folder.encryptables.first
+
+      expect(received_encryptable.encrypted_transfer_password).to be_present
+
+      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
+
+      received_encryptable = bob.inbox_folder.encryptables.last
+
+      expect(received_encryptable.encrypted_transfer_password).to be_present
+      expect(received_encryptable.name).to eq('Personal Mailbox (1)')
+    end
+
+    it 'Adds (1) (1) to the encryptable name if this name is already taken in inbox folder' do
+      receiver = bob
+      sender = alice
+
+      encryptable_credentials1.name += ' (1)'
+
+      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
+
+      received_encryptable = bob.inbox_folder.encryptables.first
+
+      expect(received_encryptable.encrypted_transfer_password).to be_present
+      expect(received_encryptable.name).to eq(encryptable_credentials1.name)
+
+      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
+
+      received_encryptable = bob.inbox_folder.encryptables.last
+
+      expect(received_encryptable.name).to eq('Personal Mailbox (1) (1)')
     end
   end
 end
