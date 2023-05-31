@@ -5,21 +5,33 @@ class Api::EncryptablesTransferController < ApiController
   self.permitted_attrs = [:name, :description, :receiver_id, :file]
 
   def create
-    prepare_encryptable_file
+    params[:file].nil? ? prepare_encryptable_credential : prepare_encryptable_file
     authorize entry
-    transfer_file
+    transfer_encryptable
 
     render json: messages
   end
 
   private
 
-  def transfer_file
+  def transfer_encryptable
     @encryptable = EncryptableTransfer.new.transfer(
       entry, User::Human.find(receiver_id), current_user
     )
 
     add_info('flashes.encryptable_transfer.file.transferred')
+  end
+
+  def prepare_encryptable_credential
+    shared_encryptable = Encryptable::Credentials.find(params['encryptable_id'])
+
+    shared_encryptable.decrypt(decrypted_team_password(shared_encryptable.team))
+
+    @encryptable = shared_encryptable.dup
+
+    shared_encryptable.encrypt(decrypted_team_password(shared_encryptable.team))
+
+    instance_variable_set(:"@#{ivar_name}", @encryptable)
   end
 
   def prepare_encryptable_file

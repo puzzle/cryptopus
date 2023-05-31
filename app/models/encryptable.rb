@@ -61,6 +61,10 @@ class Encryptable < ApplicationRecord
     Folder.find(folder_id)&.name == 'inbox' if folder_id
   end
 
+  def decrypt_transferred(private_key)
+    decrypt(plaintext_transfer_password(private_key))
+  end
+
   def plaintext_transfer_password(private_key)
     Crypto::Rsa.decrypt(Base64.decode64(encrypted_transfer_password), private_key)
   end

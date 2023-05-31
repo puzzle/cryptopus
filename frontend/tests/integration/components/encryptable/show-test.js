@@ -33,6 +33,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
       cleartextPassword: "e2jd2rh4g5io7",
       createdAt: "2021-06-14 09:23:02.750627",
       updatedAt: "2021-06-22 11:33:13.766879",
+      sender_name: null,
       encryptableFiles: [
         {
           id: 1,
@@ -530,5 +531,39 @@ module("Integration | Component | encryptable/show", function (hooks) {
 
     let deleteButton = this.element.querySelector('.icon-button[alt="delete"]');
     assert.ok(isPresent(deleteButton));
+  });
+
+  test("it renders transferred credentials", async function (assert) {
+    this.set("encryptable", {
+      id: 1,
+      name: "Ninjas encryptable credentials",
+      description: "Encryptable for the ninjas",
+      cleartextUsername: "mail",
+      cleartextPassword: "e2jd2rh4g5io7",
+      createdAt: "2021-06-14 09:23:02.750627",
+      updatedAt: "2021-06-22 11:33:13.766879",
+      sender_name: "Bob Kuchen (bob)"
+    });
+
+    await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
+
+    let text = this.element.textContent.trim();
+    assert.ok(
+      text.includes("Transferred Credentials: Ninjas encryptable credentials")
+    );
+    assert.ok(text.includes("Sent on: 14.06.2021 09:23"));
+    assert.ok(text.includes("Last Update at: 22.06.2021 11:33"));
+    assert.ok(text.includes("Sender name: Bob Kuchen (bob)"));
+    assert.ok(text.includes("Encryptable for the ninjas"));
+    assert.ok(text.includes("Show password"));
+
+    let cleartextUsername = this.element.querySelector("#cleartext_username");
+    assert.equal(cleartextUsername.value, "mail");
+    let cleartextPassword = this.element.querySelector("#cleartext_password");
+    assert.equal(cleartextPassword.value, "e2jd2rh4g5io7");
+    let deleteButton = this.element.querySelector('.icon-button[alt="delete"]');
+    assert.ok(isPresent(deleteButton));
+    let shareButton = this.element.querySelector('.icon-button[alt="share"]');
+    assert.ok(isPresent(shareButton));
   });
 });

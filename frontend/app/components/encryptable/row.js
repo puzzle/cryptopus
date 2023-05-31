@@ -18,6 +18,9 @@ export default class RowComponent extends Component {
   @tracked
   isFile = this.args.encryptable.isFile;
 
+  @tracked isTransferredCredentials =
+    this.args.encryptable.sender_name !== null;
+
   constructor() {
     super(...arguments);
   }
@@ -60,7 +63,7 @@ export default class RowComponent extends Component {
   }
 
   get downloadLink() {
-    return `/api/encryptables/${this.args.encryptable.get("id")}`;
+    return `/api/encryptables/${this.args.encryptable.id}`;
   }
 
   @action
