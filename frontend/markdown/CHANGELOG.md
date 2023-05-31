@@ -1,3 +1,6 @@
+## Version 5.1
+- Global removal of OseSecret
+
 ## Version 5.0
 - Introduce Encryptable File Sharing
 
