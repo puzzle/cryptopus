@@ -293,9 +293,6 @@ de:
     encryptable-credentials:
       << : *encryptables_translations
 
-    encryptable-secrets:
-      << : *encryptables_translations
-
     application:
       wait: Bitte warten Sie, bis  Ihre Team Passwörter neu verschlüsselt wurden.
     folders:

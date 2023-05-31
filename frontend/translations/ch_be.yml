@@ -292,9 +292,6 @@ ch_be:
     encryptable-credentials:
       << : *encryptables_translations
 
-    encryptable-secrets:
-      << : *encryptables_translations
-
     application:
       wait: Wart bitte, bis dini Team Passwörter nöi verschlüsslet si worde.
     folders:
