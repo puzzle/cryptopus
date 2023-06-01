@@ -110,7 +110,7 @@ describe EncryptableMoveHandler do
 
 
     decrypted = credential.decrypt(new_folder.team.decrypt_team_password(bob, private_key))
-    expect(decrypted).to eq({ label: 'testcustomattrlabel', value: 'testcustomattrvalue' })
+    expect(decrypted).to eq('abc42-code-42')
     expect(credential.folder).to eq(new_folder)
   end
 end

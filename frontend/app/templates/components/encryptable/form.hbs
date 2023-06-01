@@ -210,8 +210,8 @@
                   <form.group class="col-md-12">
                     <form.element @label={{t "labelCustomAttr"}} id="labelCustomAttr" class={{if
                       this.changeset.error.cleartextCustomAttr.validation "invalid-input-name"}}
-                                  @property="label" @customError={{t
-                      (validation-error-key this.changeset.error.label.validation)}} as |el|>
+                                  @property="cleartextCustomAttrLabel" @customError={{t
+                      (validation-error-key this.changeset.error.cleartextCustomAttrLabel.validation)}} as |el|>
                       <a class="position-absolute encrypted-icon">
                         {{!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding--}}
                         <BsTooltip @title={{t "encryptable/credentials.form.notEncryptedField"}} @delayShow="300" @viewportSelector="modal"/>
@@ -229,8 +229,8 @@
                   <form.group class="col-md-12">
                     <form.element @label={{t "valueCustomAttr"}} id="valueCustomAttr" class={{if
                       this.changeset.error.cleartextCustomAttr.validation "invalid-input-name"}}
-                                  @property="value" @customError={{t
-                      (validation-error-key this.changeset.error.value.validation)}} as |el|>
+                                  @property="cleartextCustomAttr" @customError={{t
+                      (validation-error-key this.changeset.error.cleartextCustomAttr.validation)}} as |el|>
                       <a class="position-absolute encrypted-icon">
                         {{!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding--}}
                         <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300" @viewportSelector="modal"/>

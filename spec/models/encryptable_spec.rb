@@ -48,8 +48,8 @@ describe Encryptable do
     expect(encryptable.cleartext_token).to eq('testtoken')
     expect(encryptable.cleartext_pin).to eq('testpin')
     expect(encryptable.cleartext_email).to eq('testemail')
-    expect(encryptable.cleartext_custom_attr[:label]).to eq('testcustomattrlabel')
-    expect(encryptable.cleartext_custom_attr[:value]).to eq('testcustomattrvalue')
+    expect(encryptable.cleartext_custom_attr_label).to eq('Access Code')
+    expect(encryptable.cleartext_custom_attr).to eq('abc42-code-42')
   end
 
   it 'updates all attributes' do
@@ -60,7 +60,8 @@ describe Encryptable do
     encryptable.cleartext_token = 'boo'
     encryptable.cleartext_pin = 'loo'
     encryptable.cleartext_email = 'too'
-    encryptable.cleartext_custom_attr = { 'label' => 'coo', 'value' => 'yoo' }
+    encryptable.cleartext_custom_attr_label = 'coo'
+    encryptable.cleartext_custom_attr = 'yoo'
 
     encryptable.encrypt(team_password)
     encryptable.save!
@@ -72,8 +73,8 @@ describe Encryptable do
     expect(encryptable.cleartext_token).to eq('boo')
     expect(encryptable.cleartext_pin).to eq('loo')
     expect(encryptable.cleartext_email).to eq('too')
-    expect(encryptable.cleartext_custom_attr[:label]).to eq('coo')
-    expect(encryptable.cleartext_custom_attr[:value]).to eq('yoo')
+    expect(encryptable.cleartext_custom_attr_label).to eq('coo')
+    expect(encryptable.cleartext_custom_attr).to eq('yoo')
   end
 
   it 'does not create credential if name is empty' do

@@ -76,23 +76,17 @@ class Encryptable < ApplicationRecord
     # rubocop:disable all
     encrypted_value = if cleartext_value.nil? || cleartext_value.empty?
                         nil
-                      elsif attr == :custom_attr
-                        Crypto::Symmetric::Aes256.encrypt(cleartext_value["value"], team_password)
                       else
                         Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
                       end
     # rubocop:enable all
-    build_encrypted_data(attr, cleartext_value, encrypted_value)
+    build_encrypted_data(attr, encrypted_value)
   end
 
-  def build_encrypted_data(attr, cleartext_value, encrypted_value)
-    if attr == :custom_attr
-      encrypted_data.[]=(
-        attr, **{ label: cleartext_value&.[]('label'), data: encrypted_value, iv: nil }
-      )
-    else
-      encrypted_data.[]=(attr, **{ data: encrypted_value, iv: nil })
-    end
+  def build_encrypted_data(attr, encrypted_value)
+    encrypted_data.[]=(
+      attr, **{ label: attr == :custom_attr ? send(:cleartext_custom_attr_label) : nil, data: encrypted_value, iv: nil }
+    )
   end
 
   def decrypt_attr(attr, team_password)
@@ -102,12 +96,9 @@ class Encryptable < ApplicationRecord
                         Crypto::Symmetric::Aes256.decrypt(encrypted_value, team_password)
                       end
 
-    if attr == :custom_attr
-      instance_variable_set("@cleartext_#{attr}", { label: encrypted_data[attr].try(:[], :label),
-                                                    value: cleartext_value })
-    else
-      instance_variable_set("@cleartext_#{attr}", cleartext_value)
-    end
+    instance_variable_set("@cleartext_#{attr}_label", encrypted_data[attr].try(:[], :label)) if attr == :custom_attr
+
+    instance_variable_set("@cleartext_#{attr}", cleartext_value)
   end
 
   def assert_human_receiver?

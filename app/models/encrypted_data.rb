@@ -13,11 +13,7 @@ class EncryptedData
     value = @data[key]
     iv = decode(value[:iv]) unless value[:iv].nil?
 
-    if key == :custom_attr
-      data_hash(iv, decode(value[:data]), value[:label])
-    else
-      data_hash(iv, decode(value[:data]))
-    end
+    data_hash(iv, decode(value[:data]), value[:label])
   end
 
   def []=(key, data:, iv:, label: nil)

@@ -130,7 +130,7 @@ class Api::EncryptablesController < ApiController
     elsif model_class == Encryptable::Credentials
       permitted_attrs + [:cleartext_username, :cleartext_password, :cleartext_token,
                          :cleartext_pin, :cleartext_email, :folder_id,
-                         { cleartext_custom_attr: [:label, :value] }]
+                         :cleartext_custom_attr , :cleartext_custom_attr_label]
     else
       []
     end

@@ -141,11 +141,11 @@ describe Api::EncryptablesController do
       expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
       expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
       expect(
-        credentials1_json_attributes['cleartext_custom_attr']['label']
-      ).to eq 'testcustomattrlabel'
+        credentials1_json_attributes['cleartext_custom_attr_label']
+      ).to eq 'Access Code'
       expect(
-        credentials1_json_attributes['cleartext_custom_attr']['value']
-      ).to eq 'testcustomattrvalue'
+        credentials1_json_attributes['cleartext_custom_attr']
+      ).to eq 'abc42-code-42'
       expect(credentials1_json_attributes['created_at']).to match(rgx_date)
       expect(credentials1_json_attributes['updated_at']).to match(rgx_date)
       expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
@@ -178,11 +178,11 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
         expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
         expect(
-          credentials1_json_attributes['cleartext_custom_attr']['label']
-        ).to eq 'testcustomattrlabel'
+          credentials1_json_attributes['cleartext_custom_attr_label']
+        ).to eq 'Access Code'
         expect(
-          credentials1_json_attributes['cleartext_custom_attr']['value']
-        ).to eq 'testcustomattrvalue'
+          credentials1_json_attributes['cleartext_custom_attr']
+        ).to eq 'abc42-code-42'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
@@ -207,11 +207,11 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
         expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
         expect(
-          credentials1_json_attributes['cleartext_custom_attr']['label']
-        ).to eq 'testcustomattrlabel'
+          credentials1_json_attributes['cleartext_custom_attr_label']
+        ).to eq 'Access Code'
         expect(
-          credentials1_json_attributes['cleartext_custom_attr']['value']
-        ).to eq 'testcustomattrvalue'
+          credentials1_json_attributes['cleartext_custom_attr']
+        ).to eq 'abc42-code-42'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
@@ -236,11 +236,11 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
         expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
         expect(
-          credentials1_json_attributes['cleartext_custom_attr']['label']
-        ).to eq 'testcustomattrlabel'
+          credentials1_json_attributes['cleartext_custom_attr_label']
+        ).to eq 'Access Code'
         expect(
-          credentials1_json_attributes['cleartext_custom_attr']['value']
-        ).to eq 'testcustomattrvalue'
+          credentials1_json_attributes['cleartext_custom_attr']
+        ).to eq 'abc42-code-42'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
@@ -301,11 +301,11 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
         expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
         expect(
-          credentials1_json_attributes['cleartext_custom_attr']['label']
-        ).to eq 'testcustomattrlabel'
+          credentials1_json_attributes['cleartext_custom_attr_label']
+        ).to eq 'Access Code'
         expect(
-          credentials1_json_attributes['cleartext_custom_attr']['value']
-        ).to eq 'testcustomattrvalue'
+          credentials1_json_attributes['cleartext_custom_attr']
+        ).to eq 'abc42-code-42'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
@@ -325,11 +325,11 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
         expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
         expect(
-          credentials1_json_attributes['cleartext_custom_attr']['label']
-        ).to eq 'testcustomattrlabel'
+          credentials1_json_attributes['cleartext_custom_attr_label']
+        ).to eq 'Access Code'
         expect(
-          credentials1_json_attributes['cleartext_custom_attr']['value']
-        ).to eq 'testcustomattrvalue'
+          credentials1_json_attributes['cleartext_custom_attr']
+        ).to eq 'abc42-code-42'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
     end
@@ -351,10 +351,9 @@ describe Api::EncryptablesController do
             cleartext_token: 'snowli',
             cleartext_pin: 'kuchen',
             cleartext_email: 'findus',
-            cleartext_custom_attr: {
-              label: 'peterson',
-              value: 'salamibrot'
-            }
+            cleartext_custom_attr_label: 'peterson',
+            cleartext_custom_attr: 'salamibrot'
+
           },
           relationships: { folder: { data: { id: credentials1.folder_id, type: 'folders' } } }
         }, id: credentials1.id
@@ -372,8 +371,8 @@ describe Api::EncryptablesController do
       expect(credentials1_json_attributes['cleartext_token']).to eq 'snowli'
       expect(credentials1_json_attributes['cleartext_pin']).to eq 'kuchen'
       expect(credentials1_json_attributes['cleartext_email']).to eq 'findus'
-      expect(credentials1_json_attributes['cleartext_custom_attr']['label']).to eq 'peterson'
-      expect(credentials1_json_attributes['cleartext_custom_attr']['value']).to eq 'salamibrot'
+      expect(credentials1_json_attributes['cleartext_custom_attr_label']).to eq 'peterson'
+      expect(credentials1_json_attributes['cleartext_custom_attr']).to eq 'salamibrot'
 
       expect(response).to have_http_status(200)
     end
@@ -395,10 +394,8 @@ describe Api::EncryptablesController do
             cleartext_token: 'snowli',
             cleartext_pin: 'kuchen',
             cleartext_email: 'findus',
-            cleartext_custom_attr: {
-              label: 'peterson',
-              value: 'salamibrot'
-            }
+            cleartext_custom_attr_label: 'peterson',
+            cleartext_custom_attr: 'salamibrot'
           },
           relationships: { folder: { data: { id: target_folder.id, type: 'folders' } } }
         }, id: credentials1.id
@@ -413,8 +410,8 @@ describe Api::EncryptablesController do
       expect(credentials1.cleartext_token).to eq 'snowli'
       expect(credentials1.cleartext_pin).to eq 'kuchen'
       expect(credentials1.cleartext_email).to eq 'findus'
-      expect(credentials1.cleartext_custom_attr[:label]).to eq 'peterson'
-      expect(credentials1.cleartext_custom_attr[:value]).to eq 'salamibrot'
+      expect(credentials1.cleartext_custom_attr_label).to eq 'peterson'
+      expect(credentials1.cleartext_custom_attr).to eq 'salamibrot'
 
       file_entry = credentials1.encryptable_files.first
       file_entry.decrypt(team2_password)
@@ -439,10 +436,8 @@ describe Api::EncryptablesController do
             cleartext_token: 'snowli',
             cleartext_pin: 'kuchen',
             cleartext_email: 'findus',
-            cleartext_custom_attr: {
-              label: 'peterson',
-              value: 'salamibrot'
-            }
+            cleartext_custom_attr_label: 'peterson',
+            cleartext_custom_attr: 'salamibrot'
           },
           relationships: { folder: { data: { id: new_folder.id, type: 'folders' } } }
         }, id: credentials1.id
@@ -478,10 +473,8 @@ describe Api::EncryptablesController do
             token: 'invalid token param',
             pin: 'invalid pin param',
             email: 'invalid email param',
-            custom_attr: {
-              label: 'invalid label param',
-              value: 'invalid value param'
-            }
+            custom_attr_label: 'invalid custom attr label param',
+            custom_attr: 'invalid custom attr param'
           },
           relationships: { folder: { data: { id: credentials1.folder_id, type: 'folders' } } }
         }, id: credentials1.id

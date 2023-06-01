@@ -8,27 +8,10 @@ export default class EncryptableCredential extends Encryptable {
   @attr("string") cleartextToken;
   @attr("string") cleartextPin;
   @attr("string") cleartextEmail;
-  @attr({ defaultValue: undefined }) cleartextCustomAttr;
+  @attr("string") cleartextCustomAttr;
+  @attr("string") cleartextCustomAttrLabel;
   @attr() usedAttrs;
   @hasMany("encryptable-file") encryptableFiles;
-
-  get value() {
-    return this.cleartextCustomAttr?.value;
-  }
-
-  set value(value) {
-    this.cleartextCustomAttr = this.cleartextCustomAttr || {};
-    this.cleartextCustomAttr.value = value;
-  }
-
-  get label() {
-    return this.cleartextCustomAttr?.label;
-  }
-
-  set label(value) {
-    this.cleartextCustomAttr = this.cleartextCustomAttr || {};
-    this.cleartextCustomAttr.label = value;
-  }
 
   get isPasswordBlank() {
     return this.isFullyLoaded && isNone(this.cleartextPassword);
@@ -51,7 +34,6 @@ export default class EncryptableCredential extends Encryptable {
   }
 
   get isCustomAttrBlank() {
-    //make it null save because custom attr is nested
-    return this.isFullyLoaded && isNone(this.cleartextCustomAttr?.value);
+    return this.isFullyLoaded && isNone(this.cleartextCustomAttr);
   }
 }

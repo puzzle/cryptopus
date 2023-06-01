@@ -2,7 +2,7 @@
 
 class Encryptable::Credentials < Encryptable
   attr_accessor :cleartext_password, :cleartext_username, :cleartext_token, :cleartext_pin,
-                :cleartext_email, :cleartext_custom_attr
+                :cleartext_email, :cleartext_custom_attr_label, :cleartext_custom_attr
 
   has_many :encryptable_files,
            class_name: 'Encryptable::File',
@@ -12,6 +12,8 @@ class Encryptable::Credentials < Encryptable
   validates :name, length: { maximum: 70 }
   validates :name, uniqueness: { scope: :folder }
   validates :folder_id, presence: true
+  # validates :cleartext_custom_attr, presence: { if: :cleartext_custom_attr_label }
+  # validates :cleartext_custom_attr_label, presence: { if: :cleartext_custom_attr }
 
   def decrypt(team_password)
     decrypt_attr(:username, team_password)
