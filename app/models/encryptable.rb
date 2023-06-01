@@ -85,7 +85,9 @@ class Encryptable < ApplicationRecord
 
   def build_encrypted_data(attr, encrypted_value)
     encrypted_data.[]=(
-      attr, **{ label: attr == :custom_attr ? send(:cleartext_custom_attr_label) : nil, data: encrypted_value, iv: nil }
+      attr, **{ label:
+                  attr == :custom_attr ? send(:cleartext_custom_attr_label) : nil,
+                data: encrypted_value, iv: nil }
     )
   end
 
@@ -96,7 +98,9 @@ class Encryptable < ApplicationRecord
                         Crypto::Symmetric::Aes256.decrypt(encrypted_value, team_password)
                       end
 
-    instance_variable_set("@cleartext_#{attr}_label", encrypted_data[attr].try(:[], :label)) if attr == :custom_attr
+    if attr == :custom_attr
+      instance_variable_set("@cleartext_#{attr}_label", encrypted_data[attr].try(:[], :label))
+    end
 
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
   end
