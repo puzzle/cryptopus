@@ -29,9 +29,9 @@ describe 'ShareCredentials', type: :system, js: true do
     find('#share_credential_button').click
 
     expect(page).to have_content('Send credentials to')
-    # rubocop:disable Metrics/LineLength
-    expect(page).to have_content('Your credentials will be sent encrypted to the inbox folder from the selected receiver.')
-    # rubocop:enable Metrics/LineLength
+    expect(page).to have_content(
+      'Your credentials will be sent encrypted to the inbox folder from the selected receiver.'
+    )
 
     # Add Admin as receiver
 

@@ -23,13 +23,11 @@ class Api::EncryptablesTransferController < ApiController
   end
 
   def prepare_encryptable_credential
-    shared_encryptable = Encryptable::Credentials.find(params['encryptable_id'])
+    shared_encryptable = current_user.encryptables.find(params['encryptable_id'])
 
     shared_encryptable.decrypt(decrypted_team_password(shared_encryptable.team))
 
     @encryptable = shared_encryptable.dup
-
-    shared_encryptable.encrypt(decrypted_team_password(shared_encryptable.team))
 
     instance_variable_set(:"@#{ivar_name}", @encryptable)
   end

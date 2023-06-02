@@ -142,7 +142,7 @@ describe Api::EncryptablesTransferController do
 
   context 'Encryptable Credentials Transfer' do
 
-    it 'does not send encryptable credentials to non allowed user' do
+    it 'Does not send encryptable credentials to non existing user' do
       login_as(:alice)
 
       request_params = {
@@ -182,6 +182,22 @@ describe Api::EncryptablesTransferController do
       expect(transferred_encryptable.sender_id).to eq(bob.id)
       expect(transferred_encryptable.encrypted_transfer_password).to eq(nil)
     end
+  end
+
+  it 'Does not send encryptable credentials which the sender does not have access to' do
+    login_as(:alice)
+    api_controller = ApiController.new
+
+    request_params = {
+      receiver_id: bob.id,
+      encryptable_id: credentials2.id
+    }
+
+    # There is no error raised when user don't have access
+    # We only search for current_user.encryptables, so it's not possible to share no accessed encryptables
+    expect(api_controller).not_to receive(:decrypted_team_password)
+
+    post :create, params: request_params, xhr: true
   end
 
 end
