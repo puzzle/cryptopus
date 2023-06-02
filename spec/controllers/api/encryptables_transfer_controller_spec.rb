@@ -143,16 +143,16 @@ describe Api::EncryptablesTransferController do
   context 'Encryptable Credentials Transfer' do
 
     it 'Does not send encryptable credentials to non existing user' do
-      login_as(:alice)
+      login_as(:bob)
 
       request_params = {
-        receiver_id: 139081,
+        receiver_id: 139082421,
         encryptable_id: credentials2.id
       }
 
       expect do
         post :create, params: request_params, xhr: true
-      end.to raise_error('You have no access to this team')
+      end.to raise_error(ActiveRecord::RecordNotFound, "User with id 139082421 does not exist")
 
     end
 

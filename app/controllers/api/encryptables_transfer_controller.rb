@@ -15,8 +15,13 @@ class Api::EncryptablesTransferController < ApiController
   private
 
   def transfer_encryptable
+    begin
+      receiver = User::Human.find(receiver_id)
+    rescue ActiveRecord::RecordNotFound
+      raise "User with id #{receiver_id} does not exist"
+    end
     @encryptable = EncryptableTransfer.new.transfer(
-      entry, User::Human.find(receiver_id), current_user
+      entry, receiver, current_user
     )
 
     add_info('flashes.encryptable_transfer.file.transferred')
