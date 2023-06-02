@@ -46,7 +46,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
       "mate"
     );
     assert.equal(
-      this.element.querySelector("#username-field").innerText,
+      this.element.querySelector("#show-username").innerText,
       "Show username"
     );
     assert.dom(this.element.querySelector("#password-field")).doesNotExist();
@@ -81,17 +81,17 @@ module("Integration | Component | encryptable/row", function (hooks) {
       "mate"
     );
     assert.equal(
-      this.element.querySelector("#username-field").innerText,
+      this.element.querySelector("#show-username").innerText,
       "Show username"
     );
     assert.equal(
-      this.element.querySelector("#password-field").innerText,
+      this.element.querySelector("#show-password").innerText,
       "Show password"
     );
-    assert.dom(this.element.querySelector("#pin-field")).doesNotExist();
-    assert.dom(this.element.querySelector("#email-field")).doesNotExist();
-    assert.dom(this.element.querySelector("#token-field")).doesNotExist();
-    assert.dom(this.element.querySelector("#custom-attr-field")).doesNotExist();
+    assert.dom(this.element.querySelector("#show-pin")).doesNotExist();
+    assert.dom(this.element.querySelector("#show-email")).doesNotExist();
+    assert.dom(this.element.querySelector("#show-token")).doesNotExist();
+    assert.dom(this.element.querySelector("#show-customAttr")).doesNotExist();
   });
 
   test("it renders with three or more set attribute", async function (assert) {

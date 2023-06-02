@@ -1,10 +1,9 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
-import {tracked} from "@glimmer/tracking";
+import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
 
 export default class AttributeField extends Component {
-
   @service notify;
   @service intl;
   @service store;
@@ -32,7 +31,7 @@ export default class AttributeField extends Component {
     this.isAttributeVisible = true;
   }
 
-  startHideAttributeTimer(attribute) {
+  startHideAttributeTimer() {
     this.hideCountdownTime = new Date().getTime();
 
     this.hideTimerInterval = setInterval(() => {
@@ -69,4 +68,3 @@ export default class AttributeField extends Component {
     return this.intl.t("encryptable/credentials.show.blank");
   }
 }
-

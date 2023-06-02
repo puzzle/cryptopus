@@ -71,7 +71,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
     assert
       .dom(this.element.querySelector("#cleartext_custom_attr"))
       .doesNotExist();
-    assert.dom(this.element.querySelector("#show-custom-attr")).doesNotExist();
+    assert.dom(this.element.querySelector("#show-customAttr")).doesNotExist();
 
     await click("#show-password");
 
@@ -96,10 +96,8 @@ module("Integration | Component | encryptable/show", function (hooks) {
       cleartextToken: "token",
       cleartextPin: "pin",
       cleartextEmail: "email",
-      cleartextCustomAttr: {
-        label: "label",
-        value: "value"
-      },
+      cleartextCustomAttr: "value",
+      cleartextCustomAttrLabel: "label",
       createdAt: "2021-06-14 09:23:02.750627",
       updatedAt: "2021-06-22 11:33:13.766879"
     });
@@ -121,11 +119,13 @@ module("Integration | Component | encryptable/show", function (hooks) {
       .dom(this.element.querySelector("#cleartext_custom_attr"))
       .doesNotExist();
     assert.equal(
-      this.element.querySelector("#encryptable-custom-attr-label").innerHTML,
+      this.element
+        .querySelector("#encryptable-customAttr-label")
+        .innerHTML.trim(),
       "label"
     );
     assert.equal(
-      this.element.querySelector("#show-custom-attr").innerHTML,
+      this.element.querySelector("#show-customAttr").innerHTML,
       "Show custom attribute"
     );
 
@@ -139,13 +139,13 @@ module("Integration | Component | encryptable/show", function (hooks) {
     assert.equal(this.element.querySelector("#cleartext_pin").value, "pin");
     assert.dom(this.element.querySelector("#show_pin")).doesNotExist();
 
-    await click("#show-custom-attr");
+    await click("#show-customAttr");
 
     assert.equal(
-      this.element.querySelector("#cleartext_custom-attr").value,
+      this.element.querySelector("#cleartext_customAttr").value,
       "value"
     );
-    assert.dom(this.element.querySelector("#show-custom-attr")).doesNotExist();
+    assert.dom(this.element.querySelector("#show-customAttr")).doesNotExist();
   });
 
   test("should render all english translations and encryptable values", async function (assert) {
@@ -210,7 +210,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
       "Show token"
     );
     assert.equal(
-      this.element.querySelector("#show-custom-attr").innerText,
+      this.element.querySelector("#show-customAttr").innerText,
       "Show custom attribute"
     );
     assert.equal(
@@ -300,7 +300,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
       "Token anzeigen"
     );
     assert.equal(
-      this.element.querySelector("#show-custom-attr").innerText,
+      this.element.querySelector("#show-customAttr").innerText,
       "Individuelles Attribut anzeigen"
     );
     assert.equal(
@@ -390,7 +390,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
       "Token ahzeigä"
     );
     assert.equal(
-      this.element.querySelector("#show-custom-attr").innerText,
+      this.element.querySelector("#show-customAttr").innerText,
       "Individuells Attribut ahzeigä"
     );
     assert.equal(
@@ -480,7 +480,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
       "Afficher le jeton"
     );
     assert.equal(
-      this.element.querySelector("#show-custom-attr").innerText,
+      this.element.querySelector("#show-customAttr").innerText,
       "Afficher l'attribut personnalisé"
     );
     assert.equal(
