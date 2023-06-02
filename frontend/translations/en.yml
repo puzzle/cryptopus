@@ -99,13 +99,13 @@ en:
       show_pin: Show pin
       show_token: Show token
       show_email: Show email
-      show_custom_attr: Show custom attribute
+      show_customAttr: Show custom attribute
       copy_password: Copy password
       copy_username: Copy username
       copy_pin: Copy pin
       copy_token: Copy token
       copy_email: Copy email
-      copy_custom_attr: Copy custom attribute
+      copy_customAttr: Copy custom attribute
       copy: Copy
       add_attachment: Add attachment
       blank: none

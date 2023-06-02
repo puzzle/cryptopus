@@ -98,13 +98,13 @@ ch_be:
       show_pin: Pin ahzeigä
       show_token: Token ahzeigä
       show_email: Email ahzeigä
-      show_custom_attr: Individuells Attribut ahzeigä
+      show_customAttr: Individuells Attribut ahzeigä
       copy_password: Passwort kopierä
       copy_username: Benutzername kopierä
       copy_pin: Pin kopierä
       copy_token: Token kopierä
       copy_email: Email kopierä
-      copy_custom_attr: Individuells Attribut kopierä
+      copy_customAttr: Individuells Attribut kopierä
       copy: kopierä
       add_attachment: Anhang hinzufüegä
       blank: Läär

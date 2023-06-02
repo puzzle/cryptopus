@@ -99,13 +99,13 @@ de:
       show_pin: Pin anzeigen
       show_token: Token anzeigen
       show_email: Email anzeigen
-      show_custom_attr: Individuelles Attribut anzeigen
+      show_customAttr: Individuelles Attribut anzeigen
       copy_password: Passwort kopieren
       copy_username: Benutzername kopieren
       copy_pin: Pin kopieren
       copy_token: Token kopieren
       copy_email: Email kopieren
-      copy_custom_attr: Individuelles Attribut kopieren
+      copy_customAttr: Individuelles Attribut kopieren
       add_attachment: Anhang hinzufügen
       blank: Leer
     new:

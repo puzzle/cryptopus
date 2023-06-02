@@ -4,7 +4,7 @@ import {
   validateExclusion
 } from "ember-changeset-validations/validators";
 
-export const VALUE_LENGTH = 70;
+export const VALUE_LENGTH = 200;
 
 export default {
   name: [validatePresence(true), validateLength({ max: VALUE_LENGTH })],
@@ -28,15 +28,15 @@ export default {
     validateExclusion({ list: [""] }),
     validateLength({ max: VALUE_LENGTH })
   ],
-  label: [
-    validatePresence({ presence: true, on: "value" }),
-    validateExclusion({ list: [""] }),
-    validateLength({ max: 30 })
-  ],
-  value: [
-    validatePresence({ presence: true, on: "label" }),
+  cleartextCustomAttr: [
+    validatePresence({ presence: true, on: "cleartextCustomAttrLabel" }),
     validateExclusion({ list: [""] }),
     validateLength({ max: VALUE_LENGTH })
+  ],
+  cleartextCustomAttrLabel: [
+    validatePresence({ presence: true, on: "cleartextCustomAttr" }),
+    validateExclusion({ list: [""] }),
+    validateLength({ max: 30 })
   ],
   description: [validateLength({ max: 4000 })],
   folder: [validatePresence(true)]

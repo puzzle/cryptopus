@@ -11,10 +11,6 @@ export default Helper.extend({
 
     isBlank = encryptable[`is${capitalize(attr)}Blank`];
 
-    if (isBlank) {
-      return this.intl.t(`encryptable/credentials.show.blank`);
-    } else {
-      return encryptable[`cleartext${capitalize(attr)}`];
-    }
+    return isBlank;
   }
 });

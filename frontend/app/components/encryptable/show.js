@@ -1,14 +1,10 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
-import { capitalize } from "@ember/string";
 import { inject as service } from "@ember/service";
 
 export default class ShowComponent extends Component {
-  @service store;
   @service router;
-  @service intl;
-  @service notify;
 
   constructor() {
     super(...arguments);
@@ -21,21 +17,6 @@ export default class ShowComponent extends Component {
 
   @tracked
   isFileCreating = false;
-
-  @tracked
-  isPasswordVisible = false;
-
-  @tracked
-  isPinVisible = false;
-
-  @tracked
-  isTokenVisible = false;
-
-  @tracked
-  isEmailVisible = false;
-
-  @tracked
-  isCustomAttrVisible = false;
 
   @tracked
   isFile = this.args.encryptable.isFile;
@@ -55,11 +36,6 @@ export default class ShowComponent extends Component {
   }
 
   @action
-  showValue(value) {
-    this[`is${capitalize(value)}Visible`] = true;
-  }
-
-  @action
   refreshRoute() {
     this.router.transitionTo("/teams");
   }
@@ -71,14 +47,5 @@ export default class ShowComponent extends Component {
       this.args.encryptable.folder.get("team.id"),
       this.args.encryptable.folder.get("id")
     );
-  }
-
-  @action
-  onCopied(attribute) {
-    this.notify.info(this.intl.t(`flashes.encryptables.${attribute}_copied`));
-  }
-
-  get noCopyBlankTooltip() {
-    return this.intl.t("encryptable/credentials.show.blank");
   }
 }
