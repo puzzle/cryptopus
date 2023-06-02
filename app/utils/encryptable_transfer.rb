@@ -5,7 +5,7 @@ class EncryptableTransfer
     transfer_password = new_transfer_password
     encryptable.encrypt(transfer_password)
 
-    update_encryptable_name_if_not_unique(encryptable, receiver)
+    encryptable.name = encryptable_destination_name(encryptable.name, receiver)
 
     encryptable.update!(
       folder: receiver.inbox_folder,
@@ -30,18 +30,46 @@ class EncryptableTransfer
 
   private
 
-  def update_encryptable_name_if_not_unique(encryptable, receiver)
-    # rubocop:disable Metrics/LineLength
-    regex = /^(?:#{Regexp.escape(encryptable.name)}(?: \(\d+\))?|#{Regexp.escape(encryptable.name)})$/
-    # rubocop:enable Metrics/LineLength
-
+  def encryptable_destination_name(encryptable_name, receiver)
+    inbox_folder_names = receiver.inbox_folder.encryptables.pluck(:name)
     counter = 0
-    receiver.inbox_folder.encryptables.each do |inbox_encryptable|
-      matching = regex.match(inbox_encryptable.name)
-      counter += 1 if matching
+
+    loop do
+      matching_inbox_names = find_matching_inbox_names(encryptable_name, inbox_folder_names)
+      break if matching_inbox_names.empty?
+
+      # rubocop:disable Metrics/LineLength
+      new_encryptable_name = generate_new_encryptable_name(encryptable_name, counter, matching_inbox_names)
+      # rubocop:enable Metrics/LineLength
+
+      encryptable_name = new_encryptable_name
+      counter += 1
+    end
+    encryptable_name
+  end
+
+  def generate_new_encryptable_name(encryptable_name, counter, matching_inbox_names)
+    clip_regex = / \(\d+\)/
+
+
+    matching_inbox_names.each do |inbox_encryptable_name|
+      if clip_regex.match(inbox_encryptable_name) && clip_regex.match(encryptable_name)
+        encryptable_name = encryptable_name.slice(0..-4)
+        encryptable_name = "#{encryptable_name}(#{counter + 1})"
+      else
+        encryptable_name = "#{encryptable_name} (#{counter + 1})"
+      end
     end
 
-    encryptable.name = "#{encryptable.name} (#{counter})" if counter.positive?
+    encryptable_name
+  end
+
+  def find_matching_inbox_names(new_encryptable_name, inbox_folder_names)
+    encryptable_name_regex = Regexp.escape(new_encryptable_name)
+
+    inbox_folder_names.select do |name|
+      name.match?(/^(?:#{encryptable_name_regex}(?: \(\d+\))?|#{encryptable_name_regex})$/)
+    end
   end
 
   def encrypted_transfer_password(password, receiver)
