@@ -2,7 +2,7 @@ import Encryptable from "./encryptable";
 import { attr } from "@ember-data/model";
 import { inject as service } from "@ember/service";
 
-export default class EncryptableTransferred extends Encryptable {
+export default class EncryptableTransfer extends Encryptable {
   @attr file;
   @service router;
   @service fetchService;

@@ -18,7 +18,7 @@ export default class CredentialTransfer extends BaseFormComponent {
   constructor() {
     super(...arguments);
 
-    this.record = this.store.createRecord("encryptable-transferred");
+    this.record = this.store.createRecord("encryptable-transfer");
 
     this.changeset = new Changeset(
       this.record,
