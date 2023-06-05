@@ -73,11 +73,9 @@
         <DeleteWithConfirmation @class="btn btn-light edit_button" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
           <img class="icon-button d-inline" src="/assets/images/delete.svg" alt="delete">
         </DeleteWithConfirmation>
-        {{#unless this.isTransferredCredentials}}
-          <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleEncryptableEdit}}>
-            <img class="icon-button" src="/assets/images/edit.svg" alt="edit">
-          </a>
-        {{/unless}}
+        <a id="edit_account_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleEncryptableEdit}}>
+          <img class="icon-button" src="/assets/images/edit.svg" alt="edit">
+        </a>
       </div>
     </div>
     <div class="row pb-3 justify-content-between">
