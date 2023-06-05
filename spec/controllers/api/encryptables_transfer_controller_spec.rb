@@ -12,40 +12,6 @@ describe Api::EncryptablesTransferController do
 
 
   context 'Encryptable File Transfer' do
-
-    it 'does not send encryptable file to api user' do
-      login_as(:bob)
-
-      file = fixture_file_upload('test_file.txt', 'text/plain')
-      file_params = {
-        content_type: 'text/plain',
-        file: file,
-        description: 'test',
-        receiver_id: api_user.id
-      }
-
-      post :create, params: file_params, xhr: true
-      expect(response).to have_http_status(404)
-
-    end
-
-    it 'does not send encryptable file to non existing user' do
-      login_as(:bob)
-
-      file = fixture_file_upload('test_file.txt', 'text/plain')
-
-      file_params = {
-        content_type: 'text/plain',
-        file: file,
-        description: 'test',
-        receiver_id: nil
-      }
-
-      post :create, params: file_params, xhr: true
-      expect(response).to have_http_status(404)
-
-    end
-
     it 'Bob sends file to alice' do
       login_as(:bob)
 
@@ -73,6 +39,39 @@ describe Api::EncryptablesTransferController do
       expect(transferred_encryptable.description).to eq('test')
       expect(transferred_encryptable.sender_id).to eq(bob.id)
       expect(transferred_encryptable.cleartext_file).to eq('certificate')
+    end
+
+    it 'Does not send encryptable file to an api user' do
+      login_as(:bob)
+
+      file = fixture_file_upload('test_file.txt', 'text/plain')
+      file_params = {
+        content_type: 'text/plain',
+        file: file,
+        description: 'test',
+        receiver_id: api_user.id
+      }
+
+      post :create, params: file_params, xhr: true
+      expect(response).to have_http_status(404)
+
+    end
+
+    it 'Does not send encryptable file to non existing user' do
+      login_as(:bob)
+
+      file = fixture_file_upload('test_file.txt', 'text/plain')
+
+      file_params = {
+        content_type: 'text/plain',
+        file: file,
+        description: 'test',
+        receiver_id: nil
+      }
+
+      post :create, params: file_params, xhr: true
+      expect(response).to have_http_status(404)
+
     end
 
     it 'Alice transfers image file to Bob' do
@@ -141,21 +140,6 @@ describe Api::EncryptablesTransferController do
   end
 
   context 'Encryptable Credentials Transfer' do
-
-    it 'Does not send encryptable credentials to non existing user' do
-      login_as(:bob)
-
-      request_params = {
-        receiver_id: 139082421,
-        encryptable_id: credentials2.id
-      }
-
-      expect do
-        post :create, params: request_params, xhr: true
-      end.to raise_error(ActiveRecord::RecordNotFound, "User with id 139082421 does not exist")
-
-    end
-
     it 'Bob sends credentials to Alice' do
       login_as(:bob)
 
@@ -184,6 +168,20 @@ describe Api::EncryptablesTransferController do
     end
   end
 
+  it 'Does not send encryptable credentials to non existing user' do
+    login_as(:bob)
+
+    request_params = {
+      receiver_id: 139082421,
+      encryptable_id: credentials2.id
+    }
+
+    post :create, params: request_params, xhr: true
+
+    expect(response.body).to include('flashes.api.errors.record_not_found')
+    expect(response).to have_http_status(404)
+  end
+
   it 'Does not send encryptable credentials which the sender does not have access to' do
     login_as(:alice)
     api_controller = ApiController.new
@@ -193,11 +191,13 @@ describe Api::EncryptablesTransferController do
       encryptable_id: credentials2.id
     }
 
-    # There is no error raised when user don't have access
-    # We only search for current_user.encryptables, so it's not possible to share no accessed encryptables
     expect(api_controller).not_to receive(:decrypted_team_password)
 
+
     post :create, params: request_params, xhr: true
+
+    expect(response.body).to include('flashes.api.errors.record_not_found')
+    expect(response).to have_http_status(404)
   end
 
 end

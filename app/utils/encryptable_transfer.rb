@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class EncryptableTransfer
+
+  INCREMENT_REGEX = / \((\d+)\)/
+
   def transfer(encryptable, receiver, sender)
     transfer_password = new_transfer_password
     encryptable.encrypt(transfer_password)
@@ -32,39 +35,43 @@ class EncryptableTransfer
 
   def encryptable_destination_name(encryptable_name, receiver)
     inbox_folder_names = receiver.inbox_folder.encryptables.pluck(:name)
-    counter = 0
 
-    loop do
-      matching_inbox_names = find_matching_inbox_names(encryptable_name, inbox_folder_names)
-      break if matching_inbox_names.empty?
+    matching_inbox_names = find_existing_names(encryptable_name, inbox_folder_names)
 
-      # rubocop:disable Metrics/LineLength
-      new_encryptable_name = generate_new_encryptable_name(encryptable_name, counter, matching_inbox_names)
-      # rubocop:enable Metrics/LineLength
+    return encryptable_name if matching_inbox_names.empty?
 
-      encryptable_name = new_encryptable_name
-      counter += 1
-    end
-    encryptable_name
+    target_name(encryptable_name, matching_inbox_names)
   end
 
-  def generate_new_encryptable_name(encryptable_name, counter, matching_inbox_names)
-    clip_regex = / \(\d+\)/
+  def target_name(encryptable_name, existing_names)
+    last_matched_inbox_name = existing_names.last
 
-
-    matching_inbox_names.each do |inbox_encryptable_name|
-      if clip_regex.match(inbox_encryptable_name) && clip_regex.match(encryptable_name)
-        encryptable_name = encryptable_name.slice(0..-4)
-        encryptable_name = "#{encryptable_name}(#{counter + 1})"
-      else
-        encryptable_name = "#{encryptable_name} (#{counter + 1})"
+    if INCREMENT_REGEX.match(last_matched_inbox_name) && INCREMENT_REGEX.match(encryptable_name)
+      # Update number in climbs when there is already a number in the name
+      encryptable_name = encryptable_name.slice(0..-4)
+      encryptable_name = increase_encryptable_name(last_matched_inbox_name, encryptable_name)
+    elsif !INCREMENT_REGEX.match(encryptable_name)
+      # If encryptable name is already in inbox_folder, add a (1) to name
+      if existing_names.include?(encryptable_name)
+        encryptable_name = increase_encryptable_name(last_matched_inbox_name, encryptable_name)
       end
     end
 
     encryptable_name
   end
 
-  def find_matching_inbox_names(new_encryptable_name, inbox_folder_names)
+  def increase_encryptable_name(last_matched_inbox_name, encryptable_name)
+    increment_regex_match = INCREMENT_REGEX.match(last_matched_inbox_name)
+
+    if increment_regex_match
+      increasement = INCREMENT_REGEX.match(last_matched_inbox_name)[1].to_i
+      "#{encryptable_name} (#{increasement + 1})"
+    else
+      "#{encryptable_name} (1)"
+    end
+  end
+
+  def find_existing_names(new_encryptable_name, inbox_folder_names)
     encryptable_name_regex = Regexp.escape(new_encryptable_name)
 
     inbox_folder_names.select do |name|

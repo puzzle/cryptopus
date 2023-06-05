@@ -5,7 +5,11 @@ class Api::EncryptablesTransferController < ApiController
   self.permitted_attrs = [:name, :description, :receiver_id, :file]
 
   def create
-    params[:file].nil? ? prepare_encryptable_credential : prepare_encryptable_file
+    if params[:file].present?
+      prepare_encryptable_file
+    else
+      prepare_encryptable_credential
+    end
     authorize entry
     transfer_encryptable
 
@@ -15,13 +19,8 @@ class Api::EncryptablesTransferController < ApiController
   private
 
   def transfer_encryptable
-    begin
-      receiver = User::Human.find(receiver_id)
-    rescue ActiveRecord::RecordNotFound
-      raise "User with id #{receiver_id} does not exist"
-    end
     @encryptable = EncryptableTransfer.new.transfer(
-      entry, receiver, current_user
+      entry, User::Human.find(receiver_id), current_user
     )
 
     add_info('flashes.encryptable_transfer.file.transferred')
@@ -29,6 +28,8 @@ class Api::EncryptablesTransferController < ApiController
 
   def prepare_encryptable_credential
     shared_encryptable = current_user.encryptables.find(params['encryptable_id'])
+
+    raise ActiveRecord::RecordNotFound if shared_encryptable.nil?
 
     shared_encryptable.decrypt(decrypted_team_password(shared_encryptable.team))
 

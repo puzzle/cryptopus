@@ -24,7 +24,7 @@ describe EncryptableTransfer do
 
       encryptable_transfer.transfer(encryptable_file, receiver, sender)
 
-      received_file = bob.personal_team.folders.find_by(name: 'inbox').encryptables.first
+      received_file = bob.inbox_folder.encryptables.first
 
       expect(received_file.encrypted_transfer_password).to be_present
 
@@ -40,25 +40,35 @@ describe EncryptableTransfer do
       expect(received_file.content_type).to eq('text/plain')
     end
 
-    it 'recrypts encryptable when received' do
-      transfered_encryptable = encryptable_transfer.transfer(encryptable_file, alice, bob)
+    it 'Changes encryptable file name when it already exists in inbox folder of receiver' do
+      receiver = bob
+      sender = alice
 
-      personal_team = alice.personal_team
-      private_key = alice.decrypt_private_key('password')
+      encryptable_transfer.transfer(encryptable_file, receiver, sender)
 
-      personal_team_password = personal_team.decrypt_team_password(alice, private_key)
-      received_file = encryptable_transfer.receive(transfered_encryptable, private_key,
-                                                   personal_team_password)
+      received_file = bob.inbox_folder.encryptables.first
 
-      expect(received_file.cleartext_file).to eq(encryptable_file.cleartext_file)
-      expect(received_file.name).to eq(encryptable_file.name)
-      expect(received_file.content_type).to eq('text/plain')
+      expect(received_file.encrypted_transfer_password).to be_present
 
-      expect(received_file.sender_id).to eq(bob.id)
+      encryptable_transfer.transfer(encryptable_file, receiver, sender)
+
+      received_file = bob.inbox_folder.encryptables.last
+
+      expect(received_file.encrypted_transfer_password).to be_present
+
+      personal_team_password = bob.personal_team.decrypt_team_password(bob, bobs_private_key)
+
+      encryptable_transfer.receive(received_file, bobs_private_key, personal_team_password)
+
+      expect(received_file.transferred?).to eq(false)
       expect(received_file.encrypted_transfer_password).to be_nil
+      expect(received_file.sender_id).to eq(alice.id)
+      expect(received_file.cleartext_file).to eq(encryptable_file.cleartext_file)
+      expect(received_file.name).to eq('info.txt (1)')
+      expect(received_file.content_type).to eq('text/plain')
     end
 
-    it 'Adds (1) to the encryptable name if this name is already taken in inbox folder' do
+    it 'Adds (1) to the credentials name if this name is already taken in inbox folder' do
       receiver = bob
       sender = alice
 
@@ -76,7 +86,7 @@ describe EncryptableTransfer do
       expect(received_encryptable.name).to eq('Personal Mailbox (1)')
     end
 
-    it 'Adds (2) to the encryptable name if name (1) already is taken in inbox folder' do
+    it 'Adds (2) to the credentials name if name (1) is already taken in inbox folder' do
       receiver = bob
       sender = alice
 
@@ -99,7 +109,7 @@ describe EncryptableTransfer do
       expect(received_encryptable.name).to eq('Personal Mailbox (2)')
     end
 
-    it 'Does not add (1) when name is not exact' do
+    it 'Does not add (1) when credentials in inbox folder includes the name in text' do
       receiver = bob
       sender = alice
 
@@ -120,4 +130,25 @@ describe EncryptableTransfer do
       expect(received_encryptable.name).to eq('Personal Mailbox')
     end
   end
+
+  context '#receive' do
+    it 'Recrypts encryptable file when received' do
+      transfered_encryptable = encryptable_transfer.transfer(encryptable_file, alice, bob)
+
+      personal_team = alice.personal_team
+      private_key = alice.decrypt_private_key('password')
+
+      personal_team_password = personal_team.decrypt_team_password(alice, private_key)
+      received_file = encryptable_transfer.receive(transfered_encryptable, private_key,
+                                                   personal_team_password)
+
+      expect(received_file.cleartext_file).to eq(encryptable_file.cleartext_file)
+      expect(received_file.name).to eq(encryptable_file.name)
+      expect(received_file.content_type).to eq('text/plain')
+
+      expect(received_file.sender_id).to eq(bob.id)
+      expect(received_file.encrypted_transfer_password).to be_nil
+    end
+  end
+
 end
