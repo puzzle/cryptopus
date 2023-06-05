@@ -12,7 +12,7 @@ class EncryptableMinimalSerializer < ApplicationSerializer
     data = object.encrypted_data.instance_variable_get(:@data)
 
     keys.index_with do |key|
-      !data[key].blank?
+      data[key].present?
     end
   end
 end

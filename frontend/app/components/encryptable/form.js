@@ -26,34 +26,10 @@ export default class Form extends BaseFormComponent {
 
   AccountValidations = AccountValidations;
 
-  //set display field to true when attribute is set, for creating username is default
-  @tracked
-  isUsernameFieldActive = this.record.cleartextUsername || this.isNewRecord;
-
-  //set display field to true when attribute is set, for creating password is default
-  @tracked
-  isPasswordFieldActive = this.record.cleartextPassword || this.isNewRecord;
-
-  //set display field to true when attribute is set
-  @tracked
-  isPinFieldActive = this.record.cleartextPin;
-
-  //set display field to true when attribute is set
-  @tracked
-  isTokenFieldActive = this.record.cleartextToken;
-
-  //set display field to true when attribute is set
-  @tracked
-  isEmailFieldActive = this.record.cleartextEmail;
-
-  //set display field to true when attribute is set
-  @tracked
-  isCustomAttrFieldActive = this.record.cleartextCustomAttr;
-
   //create array proxy that ember checks the changes in each loop for dropdown, ember's rendering engine
   // doesn't get notified by using a normal array
   @tracked
-  items = A(
+  inactiveFields = A(
     []
       .concat(
         this.record.cleartextUsername || this.isNewRecord ? [] : ["username"]
@@ -65,6 +41,22 @@ export default class Form extends BaseFormComponent {
       .concat(this.record.cleartextPin ? [] : ["pin"])
       .concat(this.record.cleartextEmail ? [] : ["email"])
       .concat(this.record.cleartextCustomAttr ? [] : ["customAttr"])
+  );
+
+  //set display field to true when attribute is set, for creating username and password is default
+  @tracked
+  activeFields = A(
+    []
+      .concat(
+        this.record.cleartextUsername || this.isNewRecord ? ["username"] : []
+      )
+      .concat(
+        this.record.cleartextPassword || this.isNewRecord ? ["password"] : []
+      )
+      .concat(this.record.cleartextToken ? ["token"] : [])
+      .concat(this.record.cleartextPin ? ["pin"] : [])
+      .concat(this.record.cleartextEmail ? ["email"] : [])
+      .concat(this.record.cleartextCustomAttr ? ["customAttr"] : [])
   );
 
   constructor() {
@@ -147,9 +139,9 @@ export default class Form extends BaseFormComponent {
 
   @action
   removeField(value) {
-    this[`is${capitalize(value)}FieldActive`] = false;
     this.changeset[`cleartext${capitalize(value)}`] = null;
-    this.items.addObject(value);
+    this.inactiveFields.addObject(value);
+    this.activeFields.removeObject(value);
   }
 
   @action
@@ -159,8 +151,8 @@ export default class Form extends BaseFormComponent {
         this.intl.t(`flashes.encryptables.selectAdditionalField`)
       );
     } else {
-      this[`is${capitalize(this.selected)}FieldActive`] = true;
-      this.items.removeObject(this.selected);
+      this.inactiveFields.removeObject(this.selected);
+      this.activeFields.addObject(this.selected);
       this.selected = null;
     }
   }

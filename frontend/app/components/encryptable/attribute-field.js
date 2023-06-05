@@ -3,7 +3,6 @@ import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
 import { capitalize } from "@ember/string";
-import { isPresent } from '@ember/utils';
 
 export default class AttributeField extends Component {
   @service notify;
@@ -67,14 +66,18 @@ export default class AttributeField extends Component {
     if (this.args.row) {
       this.fetchAndCopyToClipboard();
     } else {
-      this.copyToClipboard(this.args.encryptable[`cleartext${capitalize(this.args.attribute)}`]);
+      this.copyToClipboard(
+        this.args.encryptable[`cleartext${capitalize(this.args.attribute)}`]
+      );
     }
   }
 
   fetchAndCopyToClipboard() {
     const encryptable = this.args.encryptable;
     if (encryptable[`cleartext${capitalize(this.args.attribute)}`]) {
-      this.copyToClipboard(encryptable[`cleartext${capitalize(this.args.attribute)}`]);
+      this.copyToClipboard(
+        encryptable[`cleartext${capitalize(this.args.attribute)}`]
+      );
     } else {
       this.fetchEncryptable().then((a) => {
         this.copyToClipboard(a[`cleartext${capitalize(this.args.attribute)}`]);
@@ -84,7 +87,9 @@ export default class AttributeField extends Component {
 
   copyToClipboard(value) {
     this.clipboardService.copy(value);
-    this.notify.info(this.intl.t(`flashes.encryptables.${this.args.attribute}_copied`));
+    this.notify.info(
+      this.intl.t(`flashes.encryptables.${this.args.attribute}_copied`)
+    );
   }
 
   get noCopyBlankTooltip() {

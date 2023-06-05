@@ -45,7 +45,7 @@ export default class RowComponent extends Component {
 
   @action
   toggleEncryptableEdit() {
-    this.fetchEncryptable().then((a) => {
+    this.fetchEncryptable().then(() => {
       this.isEncryptableEditing = !this.isEncryptableEditing;
     });
   }
