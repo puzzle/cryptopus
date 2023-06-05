@@ -48,7 +48,7 @@ class EncryptableTransfer
 
     if INCREMENT_REGEX.match(last_matched_inbox_name) && INCREMENT_REGEX.match(encryptable_name)
       # Update number in climbs when there is already a number in the name
-      encryptable_name = encryptable_name.slice(0..-4)
+      encryptable_name = encryptable_name.slice(0..-5)
       encryptable_name = increase_encryptable_name(last_matched_inbox_name, encryptable_name)
     elsif !INCREMENT_REGEX.match(encryptable_name)
       # If encryptable name is already in inbox_folder, add a (1) to name
