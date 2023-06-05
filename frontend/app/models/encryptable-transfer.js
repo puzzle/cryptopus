@@ -42,10 +42,10 @@ export default class EncryptableTransfer extends Encryptable {
         }
       };
 
-      let promise = this.file.upload(targetUrl, opts);
+      const promise = this.file.upload(targetUrl, opts);
       promise
         .then((savedRecords) => {
-          let data = JSON.parse(savedRecords.body).data;
+          const data = JSON.parse(savedRecords.body).data;
           this.id = data.id;
           this.name = data.attributes.name;
         })
