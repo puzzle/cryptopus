@@ -21,6 +21,10 @@ Rails.application.config.content_security_policy do |policy|
   policy.img_src     :self
   policy.connect_src :self, 'https://sentry.puzzle.ch'
 
+  policy.font_src :self
+  policy.font_src :self, 'https://raw.githubusercontent.com' if Rails.env.development?
+
+
   policy.script_src  :self
   policy.script_src  :self, :unsafe_eval, "http://localhost:4200" if Rails.env.development?
 
