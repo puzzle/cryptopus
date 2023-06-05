@@ -57,7 +57,7 @@ class Api::EncryptablesTransferController < ApiController
   end
 
   def model_class
-    Encryptable::File
+    params[:file].present? ? Encryptable::File : Encryptable::Credentials
   end
 
   def model_params
