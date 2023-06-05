@@ -32,8 +32,8 @@ services:
       - ./frontend:/myapp
       - ./tmp/bash_history:/root/.bash_history
       - yarn_cache:/myapp/node_modules
-    tmpfs:
-      - /myapp/tmp
+      - ./frontend/tmp:/tmp
+
     ports:
       - "4200:4200"
       - "7020:7020"
