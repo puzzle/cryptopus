@@ -34,13 +34,18 @@ class EncryptableTransfer
   private
 
   def encryptable_destination_name(encryptable_name, receiver)
-    inbox_folder_names = receiver.inbox_folder.encryptables.pluck(:name)
+    loop do
+      inbox_folder_names = receiver.inbox_folder.encryptables.pluck(:name)
 
-    matching_inbox_names = find_existing_names(encryptable_name, inbox_folder_names)
+      matching_inbox_names = find_existing_names(encryptable_name, inbox_folder_names)
 
-    return encryptable_name if matching_inbox_names.empty?
+      return encryptable_name if matching_inbox_names.empty?
 
-    target_name(encryptable_name, matching_inbox_names)
+      break unless matching_inbox_names.include?(encryptable_name)
+
+      encryptable_name = target_name(encryptable_name, matching_inbox_names)
+    end
+    encryptable_name
   end
 
   def target_name(encryptable_name, existing_names)
