@@ -10,14 +10,15 @@
 <div class="hidden-attribute-copy-button">
   {{#if this.isAttributeVisible}}
     <div class="result-hidden-attribute">
-      <Input id="cleartext_{{this.args.attribute}}" class="text-truncate d-inline form-control {{unless this.args.row "w-100" "mt-2"}}" @disabled="true" @value={{format-cleartext this.args.encryptable this.args.attribute}}/>
+      <Input id="cleartext_{{this.args.attribute}}" class="text-truncate d-inline form-control {{unless this.args.row "w-100" "mt-3"}}" @disabled="true" @value={{format-cleartext this.args.encryptable this.args.attribute}}/>
     </div>
   {{else}}
-    <a id="show-{{this.args.attribute}}" role="button" class="text-truncate correct-pixel-error-omg show-hidden-attribute-button show-text {{unless this.args.row "w-100" "mt-2"}}" {{on "click" (action "showValue")}}>{{t (concat "encryptable/credentials.show.show_" this.args.attribute)}}</a>
+    <a id="show-{{this.args.attribute}}" role="button" class="text-truncate correct-pixel-error-omg show-hidden-attribute-button show-text {{unless this.args.row "w-100" "mt-3"}}" {{on "click" (action "showValue")}}>{{t (concat "encryptable/credentials.show.show_" this.args.attribute)}}</a>
   {{/if}}
-  <CopyButton class="btn btn-light copy-btn {{if this.args.row "mt-2"}}" @clipboardText={{format-cleartext this.args.encryptable this.args.attribute}}
-              title={{if (blank-value this.args.encryptable this.args.attribute) this.noCopyBlankTooltip ""}}
-              @success={{fn this.onCopied this.args.attribute}} disabled={{blank-value this.args.encryptable this.args.attribute}} >
-    <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
-  </CopyButton>
+  <div class="col px-0 d-none d-md-block">
+    <button class="btn btn-light copy-btn {{if this.args.row "mt-3"}}" {{on "click" this.copyAttribute}}>
+      <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
+      <BsTooltip @title={{t (concat "encryptable/credentials.show.copy_" this.args.attribute)}} @delayShow="500" />
+    </button>
+  </div>
 </div>

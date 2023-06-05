@@ -45,7 +45,20 @@ export default class RowComponent extends Component {
 
   @action
   toggleEncryptableEdit() {
-    this.isEncryptableEditing = !this.isEncryptableEditing;
+    this.fetchEncryptable().then((a) => {
+      this.isEncryptableEditing = !this.isEncryptableEditing;
+    });
+  }
+
+  fetchEncryptable() {
+    return this.store
+      .findRecord("encryptable-credential", this.args.encryptable.id, {
+        reload: true
+      })
+      .catch((error) => {
+        if (error.message.includes("401"))
+          window.location.replace("/session/new");
+      });
   }
 
   get downloadLink() {
