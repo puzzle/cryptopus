@@ -15,7 +15,7 @@
   {{else}}
     <a id="show-{{this.args.attribute}}" role="button" class="text-truncate correct-pixel-error-omg show-hidden-attribute-button show-text {{unless this.args.row "w-100" "mt-2 mb-2"}}" {{on "click" (action "showValue")}}>{{t (concat "encryptable/credentials.show.show_" this.args.attribute)}}</a>
   {{/if}}
-  <div class="col px-0 d-none d-md-block">
+  <div class="col px-0 d-none d-md-none d-lg-none d-xl-block">
     <button class="btn btn-light copy-btn {{if this.args.row "mt-2 mb-2"}}" {{on "click" this.copyAttribute}}>
       <img class="icon-clippy img d-inline" src="/assets/images/clipboard.svg" alt="clip">
       <BsTooltip @title={{t (concat "encryptable/credentials.show.copy_" this.args.attribute)}} @delayShow="500" />
