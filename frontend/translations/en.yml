@@ -424,14 +424,14 @@ en:
     cleartext email:
       too_long: Email is too long
       exclusion: Email can't be blank
-    value:
-      too_long: Custom Attribute Value is too long
-      exclusion: Custom Attribute Value can't be blank
-      present: Custom Attribute Value must be present
-    label:
-      too_long: Custom Attribute Label is too long
-      exclusion: Custom Attribute Label can't be blank
-      present: Custom Attribute Label must be present
+    cleartext custom attr:
+      too_long: Custom attribute value is too long
+      exclusion: Custom attribute value can't be blank
+      present: Custom attribute value must be present
+    cleartext custom attr label:
+      too_long: Custom attribute label is too long
+      exclusion: Custom attribute label can't be blank
+      present: Custom attribute label must be present
     username:
       present: Username must be present
       too_long: Username is too long

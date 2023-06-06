@@ -98,11 +98,7 @@
                         <el.control @name="label" tabindex="2"></el.control>
                       </form.element>
                     </form.group>
-                    <button class="btn btn-danger d-inline-block p-1 delete-field" {{on "click"
-                                                                                        (action "removeField" "customAttr")}}>
-                      <img id="remove-customAttr-field-button" class="d-inline" src="/assets/images/delete-white.svg"
-                           alt="delete attribute field">
-                    </button>
+                  <br>
                   {{/if}}
                   <form.group class="col-md-12 {{if (eq attribute "password") "secret password-field"}}">
                     <form.element @label={{t attribute}} id={{attribute}} class={{if
