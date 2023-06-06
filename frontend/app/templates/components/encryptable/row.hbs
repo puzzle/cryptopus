@@ -5,7 +5,7 @@
 </div>
 {{#if this.isShown}}
   {{#if this.isFile}}
-    <div class="row d-flex align-items-center p-2 bg-grey-2 rounded encryptable-entry">
+    <div class="row d-flex align-items-center bg-grey-2 rounded encryptable-entry">
       <div class="mx-1">
         <img class="icon-medium-button d-inline" src="/assets/images/file.svg" alt="file icon">
       </div>
@@ -35,7 +35,7 @@
       </div>
     </div>
   {{else}}
-    <div class="row d-flex align-items-center p-2 bg-grey-2 rounded encryptable-entry">
+    <div class="row d-flex align-items-center bg-grey-2 rounded encryptable-entry">
       <LinkTo id="encryptable-row-title" class="col-3 underline-hover break-words account-link" @route="encryptables.show" @model={{@encryptable.id}}>
         {{@encryptable.name}}
       </LinkTo>
