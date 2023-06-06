@@ -100,12 +100,17 @@
   margin-bottom: 0.5rem;
 }
 
-.hidden-attribute-copy-button {
-  width: 20%;
-  display: grid;
-  grid-template-columns: 6fr 1fr;
+
+@media only screen and (min-width: 768px) {
+  .hidden-attribute-copy-button {
+    display: grid;
+    grid-template-columns: 6fr 1fr;
+  }
 }
 
-.encryptable-attributes > .hidden-attribute-copy-button {
-  width: 40%;
+@media only screen and (max-width: 768px) {
+  .hidden-attribute-copy-button {
+    display: flex;
+    justify-content: center;
+  }
 }

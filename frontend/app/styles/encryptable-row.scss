@@ -1,0 +1,15 @@
+#encryptable-row-title {
+  height: 51px;
+}
+
+@media only screen and (min-width: 768px) {
+  .encryptable-container {
+    width: 20%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .encryptable-container {
+    width: 33%;
+  }
+}
