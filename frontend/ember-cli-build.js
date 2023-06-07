@@ -5,21 +5,26 @@ const EmberApp = require("ember-cli/lib/broccoli/ember-app");
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
     storeConfigInMeta: false,
-
+    autoImport: {
+      // alias: {
+      //   "@sentry/ember/@sentry/browser$": "@sentry/browser"
+      // }
+      forbidEval: true
+    },
+    fingerprint: {
+      prepend: "/"
+    },
     minifyCSS: {
       options: { processImport: true }
     },
-
     "ember-cli-password-strength": {
       bundleZxcvbn: true
     },
-
     "ember-bootstrap": {
       bootstrapVersion: 4,
       importBootstrapCSS: true,
       importBootstrapFont: true
     },
-
     intl: {
       silent: true
     }
