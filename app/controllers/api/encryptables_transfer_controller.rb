@@ -29,13 +29,9 @@ class Api::EncryptablesTransferController < ApiController
   def prepare_encryptable_credential
     shared_encryptable = current_user.encryptables.find(params['encryptable_id'])
 
-    raise ActiveRecord::RecordNotFound if shared_encryptable.nil?
-
     shared_encryptable.decrypt(decrypted_team_password(shared_encryptable.team))
 
-    @encryptable = shared_encryptable.dup
-
-    instance_variable_set(:"@#{ivar_name}", @encryptable)
+    instance_variable_set(:"@#{ivar_name}", shared_encryptable.dup)
   end
 
   def prepare_encryptable_file

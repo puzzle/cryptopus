@@ -66,7 +66,7 @@ describe Api::EncryptablesTransferController do
         content_type: 'text/plain',
         file: file,
         description: 'test',
-        receiver_id: nil
+        receiver_id: 42424242424242
       }
 
       post :create, params: file_params, xhr: true
