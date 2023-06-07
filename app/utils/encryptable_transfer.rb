@@ -47,7 +47,6 @@ class EncryptableTransfer
         encryptable_name = increase_encryptable_name(encryptable_name, is_file, 1)
       end
     elsif matching_inbox_names.count > 1
-      require 'pry'; binding.pry unless $pstop
       last_matched_inbox_name = matching_inbox_names.last
       # Remove (NUMBER) from encryptable name if present
       if INCREMENT_REGEX.match(encryptable_name)
