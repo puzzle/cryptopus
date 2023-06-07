@@ -4,6 +4,9 @@ module.exports = function (environment) {
   let ENV = {
     modulePrefix: "frontend",
     environment,
+    contentSecurityPolicy: {
+      'font-src': "'self' http://localhost:4200"
+    },
     rootURL: "/",
     locationType: "history",
     sentryDsn: "",

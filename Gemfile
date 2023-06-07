@@ -34,6 +34,7 @@ group :development, :test do
   gem 'launchy'
   gem 'mocha'
   gem 'pry-byebug'
+  gem 'rack-cors'
   gem 'rails-controller-testing'
   gem 'rails-erd'
   gem 'rspec-rails'

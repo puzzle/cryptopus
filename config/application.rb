@@ -67,6 +67,15 @@ module Cryptopus
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'http://localhost:4200'
+        resource '/text-security-disc.woff2', headers: :any, methods: [:get, :post]
+        resource '/text-security-disc-compat.eot', headers: :any, methods: [:get, :post]
+        resource '/text-security-disc-compat.ttf', headers: :any, methods: [:get, :post]
+      end
+    end
+
     # https://stackoverflow.com/questions/72970170/upgrading-to-rails-6-1-6-1-causes-psychdisallowedclass-tried-to-load-unspecif
     # https://discuss.rubyonrails.org/t/cve-2022-32224-possible-rce-escalation-bug-with-serialized-columns-in-active-record/81017
     config.after_initialize do
