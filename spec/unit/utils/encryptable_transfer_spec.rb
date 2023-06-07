@@ -64,11 +64,41 @@ describe EncryptableTransfer do
       expect(received_file.encrypted_transfer_password).to be_nil
       expect(received_file.sender_id).to eq(alice.id)
       expect(received_file.cleartext_file).to eq(encryptable_file.cleartext_file)
-      expect(received_file.name).to eq('info.txt (1)')
+      expect(received_file.name).to eq('info(1).txt')
       expect(received_file.content_type).to eq('text/plain')
     end
 
-    it 'Adds (1) to the credentials name if this name is already taken in inbox folder' do
+    it 'Adds (2) to encryptable file name if name (1) already exists in inbox folder' do
+      receiver = bob
+      sender = alice
+
+      encryptable_file.name += ' (1)'
+
+      encryptable_transfer.transfer(encryptable_file, receiver, sender)
+
+      received_file = bob.inbox_folder.encryptables.first
+
+      expect(received_file.encrypted_transfer_password).to be_present
+
+      encryptable_transfer.transfer(encryptable_file, receiver, sender)
+
+      received_file = bob.inbox_folder.encryptables.last
+
+      expect(received_file.encrypted_transfer_password).to be_present
+
+      personal_team_password = bob.personal_team.decrypt_team_password(bob, bobs_private_key)
+
+      encryptable_transfer.receive(received_file, bobs_private_key, personal_team_password)
+
+      expect(received_file.transferred?).to eq(false)
+      expect(received_file.encrypted_transfer_password).to be_nil
+      expect(received_file.sender_id).to eq(alice.id)
+      expect(received_file.cleartext_file).to eq(encryptable_file.cleartext_file)
+      expect(received_file.name).to eq('info(2).txt')
+      expect(received_file.content_type).to eq('text/plain')
+    end
+
+    it 'Adds (1) to credentials name if name is already taken in inbox folder' do
       receiver = bob
       sender = alice
 
@@ -86,7 +116,7 @@ describe EncryptableTransfer do
       expect(received_encryptable.name).to eq('Personal Mailbox (1)')
     end
 
-    it 'Adds (2) to the credentials name if name (1) is already taken in inbox folder' do
+    it 'Adds (1) (1) to credentials name if name (1) is already taken in inbox folder' do
       receiver = bob
       sender = alice
 
@@ -106,7 +136,7 @@ describe EncryptableTransfer do
 
       received_encryptable = bob.inbox_folder.encryptables.last
 
-      expect(received_encryptable.name).to eq('Personal Mailbox (2)')
+      expect(received_encryptable.name).to eq('Personal Mailbox (1) (1)')
     end
 
     it 'Does not add (1) when credentials in inbox folder includes the name in text' do
