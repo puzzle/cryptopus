@@ -424,11 +424,11 @@ de:
     cleartext email:
       too_long: Email ist zu lang
       exclusion: Email darf nicht leer sein
-    value:
+    cleartext custom attr:
       too_long: Individueller Attribut Wert ist zu lang
       exclusion: Der Individuelle Attribut Wert darf nicht leer sein
       present: Individueller Attribut Wert muss gesetzt sein
-    label:
+    cleartext custom attr label:
       too_long: Individuelles Attribut Label ist zu lang
       exclusion: Das Individuelle Attribut Label darf nicht leer sein
       present: Individuelles Attribut Label muss gesetzt sein

@@ -424,11 +424,11 @@ ch_be:
     cleartext email:
       too_long: D Email isch zläng
       exclusion: D Email darf nid läär si
-    value:
+    cleartext custom attr:
       too_long: Dr Individuell Attribut Wärt isch zläng
       exclusion: Dr Individuell Attribut Wärt darf nid läär si
       present: Dr Individuell Attribut Wärt muäss gsetzt si
-    label:
+    cleartext custom attr label:
       too_long: Z Individuellä Attribut Label isch zläng
       exclusion: Z Individuellä Attribut Label darf nid läär si
       present: Z Individuellä Attribut Label muäss gsetzt si
