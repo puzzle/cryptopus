@@ -18,11 +18,11 @@ export default class Form extends BaseFormComponent {
   @service notify;
 
   @tracked selectedTeam;
+  @tracked selectedAttribute = null;
+
   @tracked assignableTeams;
 
   @tracked errors;
-
-  @tracked selected = null;
 
   AccountValidations = AccountValidations;
 
@@ -146,14 +146,14 @@ export default class Form extends BaseFormComponent {
 
   @action
   addField() {
-    if (this.selected == null) {
+    if (this.selectedAttribute == null) {
       this.notify.info(
         this.intl.t(`flashes.encryptables.selectAdditionalField`)
       );
     } else {
-      this.inactiveFields.removeObject(this.selected);
-      this.activeFields.addObject(this.selected);
-      this.selected = null;
+      this.inactiveFields.removeObject(this.selectedAttribute);
+      this.activeFields.addObject(this.selectedAttribute);
+      this.selectedAttribute = null;
     }
   }
 

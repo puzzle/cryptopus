@@ -140,8 +140,8 @@
                   @options={{this.inactiveFields}}
                   @placeholder={{t "additionalFieldPlaceholder"}}
                   @renderInPlace={{true}}
-                  @selected={{this.selected}}
-                  @onChange={{fn (mut this.selected)}} as |item|>
+                  @selected={{this.selectedAttribute}}
+                  @onChange={{fn (mut this.selectedAttribute)}} as |item|>
                   {{t item}}
                 </PowerSelect>
                 <button class="btn btn-success d-inline-block p-1 ml-4 add-field" {{on "click" (action "addField")}} >
