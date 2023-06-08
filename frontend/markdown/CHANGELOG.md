@@ -1,3 +1,6 @@
+## Version 5.2
+- Introduce new Attributes for Credentials
+
 ## Version 5.1
 - Global removal of OseSecret
 
