@@ -85,21 +85,20 @@
                 <div id="{{attribute}}-field" class="col-md-6 pt-2 encryptable-form-field {{if (eq attribute "customAttr")  "border-1 border border-mute border-radius-4"}}">
                   {{#if (eq attribute "customAttr")}}
                     <form.group class="col-md-12">
-
-                        <form.element @label={{t "labelCustomAttr"}} id="labelCustomAttr" class={{if
-                          this.changeset.error.cleartextCustomAttrLabel.validation "invalid-input-name"}}
-                                      @property="cleartextCustomAttrLabel" @customError={{t
-                          (validation-error-key this.changeset.error.cleartextCustomAttrLabel.validation)}} as |el|>
-                          <div class="input-group">
-                            <el.control @name="label" tabindex="2"></el.control>
-                            <span class="encrypted-icon-span">
-                              {{!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding--}}
-                              <BsTooltip @title={{t "encryptable/credentials.form.notEncryptedField"}} @delayShow="300" @viewportSelector="modal"/>
-                              <img class="d-inline-block encrypted-icon"
-                                   src="/assets/images/not_encrypted_small.svg" alt="not encrypted value">
-                            </span>
-                          </div>
-                        </form.element>
+                      <form.element @label={{t "labelCustomAttr"}} id="labelCustomAttr" class={{if
+                        this.changeset.error.cleartextCustomAttrLabel.validation "invalid-input-name"}}
+                                    @property="cleartextCustomAttrLabel" @customError={{t
+                        (validation-error-key this.changeset.error.cleartextCustomAttrLabel.validation)}} as |el|>
+                        <div class="input-group">
+                          <el.control @name="label" tabindex="2"></el.control>
+                          <span class="encrypted-icon-span">
+                            {{!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding--}}
+                            <BsTooltip @title={{t "encryptable/credentials.form.notEncryptedField"}} @delayShow="300" @viewportSelector="modal"/>
+                            <img class="d-inline-block encrypted-icon"
+                                 src="/assets/images/not_encrypted_small.svg" alt="not encrypted value">
+                          </span>
+                        </div>
+                      </form.element>
                     </form.group>
                     <br>
                   {{/if}}
