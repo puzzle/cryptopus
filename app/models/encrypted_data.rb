@@ -24,12 +24,8 @@ class EncryptedData
     @data.reject { |_, value| value[:data].blank? }.to_json
   end
 
-  def used_encrypted_data_attrs
-    keys = [:password, :username, :token, :pin, :email, :custom_attr]
-
-    keys.index_with do |key|
-      @data[key].present?
-    end
+  def used_attributes
+    @data.keys.map(&:to_s)
   end
 
   private

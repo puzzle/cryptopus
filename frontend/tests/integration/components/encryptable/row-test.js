@@ -27,14 +27,9 @@ module("Integration | Component | encryptable/row", function (hooks) {
       id: 1,
       name: "mate",
       cleartextUsername: "ok",
-      usedEncryptedDataAttrs: {
-        username: true,
-        password: false,
-        pin: false,
-        token: false,
-        email: false,
-        custom_attr: false
-      }
+      usedEncryptedDataAttrs: [
+        "username"
+      ]
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
@@ -62,14 +57,10 @@ module("Integration | Component | encryptable/row", function (hooks) {
       name: "mate",
       cleartextUsername: "ok",
       cleartextPassword: "ok2",
-      usedEncryptedDataAttrs: {
-        username: true,
-        password: true,
-        pin: false,
-        token: false,
-        email: false,
-        custom_attr: false
-      }
+      usedEncryptedDataAttrs: [
+        "username",
+        "password"
+      ]
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
@@ -101,14 +92,11 @@ module("Integration | Component | encryptable/row", function (hooks) {
       cleartextUsername: "ok",
       cleartextPassword: "ok2",
       cleartextPin: "ok3",
-      usedEncryptedDataAttrs: {
-        username: true,
-        password: true,
-        pin: true,
-        token: false,
-        email: false,
-        custom_attr: false
-      }
+      usedEncryptedDataAttrs: [
+        "username",
+        "password",
+        "pin"
+      ]
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);

@@ -24,9 +24,7 @@ export default class RowComponent extends Component {
 
   // get set attribute amount to hide attribute fields in encryptable row when encryptable has more than two attributes
   get getAttributesAmount() {
-    return Object.values(
-      this.args?.encryptable?.usedEncryptedDataAttrs ?? {}
-    ).filter(Boolean).length;
+    return this.args?.encryptable?.usedEncryptedDataAttrs?.length;
   }
 
   formattedValue(encryptable, attr) {

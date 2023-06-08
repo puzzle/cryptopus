@@ -44,37 +44,37 @@
         {{@encryptable.name}}
       </LinkTo>
       {{#if (and (lte getAttributesAmount 2) (gt getAttributesAmount 0))}}
-        {{#if @encryptable.usedEncryptedDataAttrs.username}}
+        {{#if (is-included @encryptable.usedEncryptedDataAttrs "username")}}
           <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
             <Encryptable::AttributeField @attribute="username" @row={{true}} @encryptable={{@encryptable}}
                                          @visibleByDefault={{false}}/>
           </div>
         {{/if}}
-        {{#if @encryptable.usedEncryptedDataAttrs.password}}
+        {{#if (is-included @encryptable.usedEncryptedDataAttrs "password")}}
           <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
             <Encryptable::AttributeField @attribute="password" @row={{true}} @encryptable={{@encryptable}}
                                          @visibleByDefault={{false}}/>
           </div>
         {{/if}}
-        {{#if @encryptable.usedEncryptedDataAttrs.email}}
+        {{#if (is-included @encryptable.usedEncryptedDataAttrs "email")}}
           <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
             <Encryptable::AttributeField @attribute="email" @row={{true}} @encryptable={{@encryptable}}
                                          @visibleByDefault={{false}}/>
           </div>
         {{/if}}
-        {{#if @encryptable.usedEncryptedDataAttrs.token}}
+        {{#if (is-included @encryptable.usedEncryptedDataAttrs "token")}}
           <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
             <Encryptable::AttributeField @attribute="token" @row={{true}} @encryptable={{@encryptable}}
                                          @visibleByDefault={{false}}/>
           </div>
         {{/if}}
-        {{#if @encryptable.usedEncryptedDataAttrs.pin}}
+        {{#if (is-included @encryptable.usedEncryptedDataAttrs "pin")}}
           <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
             <Encryptable::AttributeField @attribute="pin" @row={{true}} @encryptable={{@encryptable}}
                                          @visibleByDefault={{false}}/>
           </div>
         {{/if}}
-        {{#if @encryptable.usedEncryptedDataAttrs.custom_attr}}
+        {{#if (is-included @encryptable.usedEncryptedDataAttrs "custom_attr")}}
           <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
             <Encryptable::AttributeField @attribute="customAttr" @row={{true}} @encryptable={{@encryptable}}
                                          @visibleByDefault={{false}}/>

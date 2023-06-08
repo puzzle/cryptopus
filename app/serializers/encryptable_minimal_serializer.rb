@@ -6,8 +6,4 @@ class EncryptableMinimalSerializer < ApplicationSerializer
   def sender_name
     object.sender&.label
   end
-
-  def used_encrypted_data_attrs
-    object.encrypted_data.used_encrypted_data_attrs
-  end
 end

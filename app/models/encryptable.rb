@@ -65,6 +65,10 @@ class Encryptable < ApplicationRecord
     Crypto::Rsa.decrypt(Base64.decode64(encrypted_transfer_password), private_key)
   end
 
+  def used_encrypted_data_attrs
+    encrypted_data.used_attributes
+  end
+
   private
 
   def encrypt_attr(attr, team_password)
@@ -98,7 +102,7 @@ class Encryptable < ApplicationRecord
                       end
 
     if attr == :custom_attr
-      @cleartext_custom_attr_label = encrypted_data[:custom_attr][:label]
+      @cleartext_custom_attr_label = encrypted_data[attr].try(:[], :label)
     end
 
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
