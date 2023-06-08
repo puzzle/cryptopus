@@ -140,6 +140,9 @@ export default class Form extends BaseFormComponent {
   @action
   removeField(value) {
     this.changeset[`cleartext${capitalize(value)}`] = null;
+    if (value === "customAttr") {
+      this.changeset[`cleartext${capitalize(value)}Label`] = null;
+    }
     this.inactiveFields.addObject(value);
     this.activeFields.removeObject(value);
   }

@@ -10,7 +10,7 @@ export default class EncryptableCredential extends Encryptable {
   @attr("string") cleartextEmail;
   @attr("string") cleartextCustomAttr;
   @attr("string") cleartextCustomAttrLabel;
-  @attr() usedAttrs;
+  @attr() usedEncryptedDataAttrs;
   @hasMany("encryptable-file") encryptableFiles;
 
   get isPasswordBlank() {

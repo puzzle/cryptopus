@@ -10,9 +10,17 @@ describe Api::EncryptablesController do
   let(:api_user) { bob.api_users.create }
   let(:private_key) { bob.decrypt_private_key('password') }
   let(:nested_models) { ['folder'] }
-  # rubocop:disable Metrics/LineLength
-  let(:attributes) { %w[name cleartext_password cleartext_username cleartext_pin cleartext_token cleartext_email cleartext_custom_attr] }
-  # rubocop:enable Metrics/LineLength
+  let(:attributes) do
+    %w[
+      name
+      cleartext_password
+      cleartext_username
+      cleartext_pin
+      cleartext_token
+      cleartext_email
+      cleartext_custom_attr
+    ]
+  end
   let(:credentials1) { encryptables(:credentials1) }
   let(:file1) { encryptables(:file1) }
   let(:transferred_file1) { encryptables(:transferredFile1) }

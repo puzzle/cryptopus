@@ -145,8 +145,8 @@
                   @placeholder={{t "additionalFieldPlaceholder"}}
                   @renderInPlace={{true}}
                   @selected={{this.selectedAttribute}}
-                  @onChange={{fn (mut this.selectedAttribute)}} as |item|>
-                  {{t item}}
+                  @onChange={{fn (mut this.selectedAttribute)}} as |attribute|>
+                  {{t attribute}}
                 </PowerSelect>
                 <button class="btn btn-success d-inline-block p-1 ml-4 add-field" {{on "click" (action "addField")}} >
                   <img id="add-field-button" class="d-inline" src="/assets/images/plus-white.svg"

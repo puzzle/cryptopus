@@ -24,6 +24,14 @@ class EncryptedData
     @data.reject { |_, value| value[:data].blank? }.to_json
   end
 
+  def used_encrypted_data_attrs
+    keys = [:password, :username, :token, :pin, :email, :custom_attr]
+
+    keys.index_with do |key|
+      @data[key].present?
+    end
+  end
+
   private
 
   def data_hash(iv, data, label = nil)

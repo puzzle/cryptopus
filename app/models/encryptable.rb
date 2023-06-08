@@ -84,10 +84,9 @@ class Encryptable < ApplicationRecord
   end
 
   def build_encrypted_data(attr, encrypted_value)
+    attr_label = send(:cleartext_custom_attr_label) if attr == :custom_attr
     encrypted_data.[]=(
-      attr, **{ label:
-                  attr == :custom_attr ? send(:cleartext_custom_attr_label) : nil,
-                data: encrypted_value, iv: nil }
+      attr, **{ label: attr_label, data: encrypted_value, iv: nil }
     )
   end
 
@@ -99,7 +98,7 @@ class Encryptable < ApplicationRecord
                       end
 
     if attr == :custom_attr
-      instance_variable_set("@cleartext_#{attr}_label", encrypted_data[attr].try(:[], :label))
+      @cleartext_custom_attr_label = encrypted_data[:custom_attr][:label]
     end
 
     instance_variable_set("@cleartext_#{attr}", cleartext_value)

@@ -66,8 +66,8 @@
   max-width: 36%;
 }
 
-#encryptable-form-team .ember-basic-dropdown .ember-view,
-#encryptable-form-folder .ember-basic-dropdown .ember-view,
-#encryptable-form-additional-field .ember-basic-dropdown .ember-view {
+#encryptable-form-team .ember-basic-dropdown .ember-basic-dropdown-trigger,
+#encryptable-form-folder .ember-basic-dropdown .ember-basic-dropdown-trigger,
+#encryptable-form-additional-field .ember-basic-dropdown #add-field-dropdown {
   height: 38px !important;
 }

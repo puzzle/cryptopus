@@ -7,11 +7,11 @@
     {{/if}}
   </div>
 {{/unless}}
-<div class="input-group border-tertiary border-1 border border-radius-4 {{if this.args.row "w-100" "w-50 mb-1"}}">
+<div class="input-group border-tertiary border-2 border border-radius-4 {{if this.args.row "w-100" "w-50 mb-1"}}">
   {{#if this.isAttributeVisible}}
-    <Input id="cleartext_{{this.args.attribute}}" class="text-truncate d-inline form-control" @disabled="true" @value={{format-cleartext this.args.encryptable this.args.attribute}}/>
+    <Input id="cleartext_{{this.args.attribute}}" class="text-truncate d-inline form-control border-0" @disabled="true" @value={{format-cleartext this.args.encryptable this.args.attribute}}/>
   {{else}}
-    <span id="show-{{this.args.attribute}}" role="button" class="text-truncate correct-pixel-error-omg show-hidden-attribute-button show-text hidden-attribute-cover" {{on "click" (action "showValue")}}>{{t (concat "encryptable/credentials.show.show_" this.args.attribute)}}</span>
+    <span id="show-{{this.args.attribute}}" role="button" class="text-truncate correct-pixel-error-omg show-hidden-attribute-button show-text hidden-attribute-cover border-0" {{on "click" (action "showValue")}}>{{t (concat "encryptable/credentials.show.show_" this.args.attribute)}}</span>
   {{/if}}
   <button class="btn btn-light btn-outline-secondary rounded-corners-right" type="button" {{on "click" this.copyAttribute}}>
     <img class="icon-clippy img" src="/assets/images/clipboard.svg" alt="clip">

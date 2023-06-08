@@ -27,7 +27,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
       id: 1,
       name: "mate",
       cleartextUsername: "ok",
-      usedAttrs: {
+      usedEncryptedDataAttrs: {
         username: true,
         password: false,
         pin: false,
@@ -62,7 +62,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
       name: "mate",
       cleartextUsername: "ok",
       cleartextPassword: "ok2",
-      usedAttrs: {
+      usedEncryptedDataAttrs: {
         username: true,
         password: true,
         pin: false,
@@ -101,7 +101,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
       cleartextUsername: "ok",
       cleartextPassword: "ok2",
       cleartextPin: "ok3",
-      usedAttrs: {
+      usedEncryptedDataAttrs: {
         username: true,
         password: true,
         pin: true,
