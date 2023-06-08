@@ -2,7 +2,8 @@
 .password-show {
   display: block;
   background: #c9c9c9;
-  border-radius: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
   color: black;
   position: relative;
 }
@@ -13,7 +14,6 @@
 .result-email input,
 .result-hidden-attribute input {
   padding: 6px 10px;
-  width: 150px;
   font-size: 14px;
   border: 1px solid #c9c9c9;
   display: block;
@@ -98,6 +98,18 @@
 
 .transfer-file-description {
   margin-bottom: 0.5rem;
+}
+
+.hidden-attribute-cover {
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.rounded-corners-right {
+  border-radius: 0 3px 3px 0;
 }
 
 

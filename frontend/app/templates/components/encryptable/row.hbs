@@ -45,43 +45,43 @@
       </LinkTo>
       {{#if (and (lte getAttributesAmount 2) (gt getAttributesAmount 0))}}
         {{#if @encryptable.usedAttrs.username}}
-          <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-5">
+          <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
             <Encryptable::AttributeField @attribute="username" @row={{true}} @encryptable={{@encryptable}}
                                          @visibleByDefault={{false}}/>
           </div>
         {{/if}}
         {{#if @encryptable.usedAttrs.password}}
-          <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-5">
+          <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
             <Encryptable::AttributeField @attribute="password" @row={{true}} @encryptable={{@encryptable}}
                                          @visibleByDefault={{false}}/>
           </div>
         {{/if}}
         {{#if @encryptable.usedAttrs.email}}
-          <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-5">
+          <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
             <Encryptable::AttributeField @attribute="email" @row={{true}} @encryptable={{@encryptable}}
                                          @visibleByDefault={{false}}/>
           </div>
         {{/if}}
         {{#if @encryptable.usedAttrs.token}}
-          <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-5">
+          <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
             <Encryptable::AttributeField @attribute="token" @row={{true}} @encryptable={{@encryptable}}
                                          @visibleByDefault={{false}}/>
           </div>
         {{/if}}
         {{#if @encryptable.usedAttrs.pin}}
-          <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-5">
+          <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
             <Encryptable::AttributeField @attribute="pin" @row={{true}} @encryptable={{@encryptable}}
                                          @visibleByDefault={{false}}/>
           </div>
         {{/if}}
         {{#if @encryptable.usedAttrs.custom_attr}}
-          <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-5">
+          <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
             <Encryptable::AttributeField @attribute="customAttr" @row={{true}} @encryptable={{@encryptable}}
                                          @visibleByDefault={{false}}/>
           </div>
         {{/if}}
       {{else}}
-        <LinkTo class="col-6 underline-hover break-words account-link mt-3 mb-3 ml-5 p-0 d-none d-md-block d-lg-block d-xl-block" @route="encryptables.show"
+        <LinkTo class="col-6 underline-hover break-words account-link mt-2 mb-2 ml-2 p-0 d-none d-md-block d-lg-block d-xl-block" @route="encryptables.show"
                 @model={{@encryptable.id}}>
           {{t "encryptable/credentials.row.clickToSeeAttrs"}}
         </LinkTo>
