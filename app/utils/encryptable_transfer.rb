@@ -35,51 +35,66 @@ class EncryptableTransfer
 
   def encryptable_destination_name(encryptable, receiver)
     encryptable_name = encryptable.name
-    return encryptable_name if receiver.inbox_folder.encryptables.empty?
 
     inbox_folder_names = receiver.inbox_folder.encryptables.pluck(:name)
+    return encryptable_name if inbox_folder_names.empty?
+    require 'pry'; binding.pry unless $pstop
+
     matching_inbox_names = find_existing_names(encryptable_name, inbox_folder_names).sort
     is_file = encryptable.type == 'Encryptable::File'
 
-    if matching_inbox_names.count == 1
-      if matching_inbox_names[0] == encryptable_name
-        # If name is already in inbox add (1)
-        encryptable_name = increase_encryptable_name(encryptable_name, is_file, 1)
-      end
-    elsif matching_inbox_names.count > 1
-      last_matched_inbox_name = matching_inbox_names.last
-      # Remove (NUMBER) from encryptable name if present
-      if INCREMENT_REGEX.match(encryptable_name)
-        encryptable_name = encryptable_name.slice(0..-5)
-      end
-      # Get last encryptable number in climbs
-      increasement = INCREMENT_REGEX.match(last_matched_inbox_name)[1].to_i
+    return encryptable_name if matching_inbox_names.empty?
 
-      encryptable_name = increase_encryptable_name(encryptable_name, is_file, increasement + 1)
+    last_matched_inbox_name = matching_inbox_names.last
+    adjust_encryptable_name(last_matched_inbox_name, encryptable_name, is_file)
+  end
+
+  def adjust_encryptable_name(last_matched_inbox_name, encryptable_name, is_file)
+    unless is_file
+      encryptable_name_regex = Regexp.escape(encryptable_name)
+      return encryptable_name unless climbs_at_name_end(encryptable_name, encryptable_name_regex)
     end
 
-    encryptable_name
+    if INCREMENT_REGEX.match(last_matched_inbox_name)
+      number_to_increase = INCREMENT_REGEX.match(last_matched_inbox_name)[1].to_i
+      increase_encryptable_name(encryptable_name, is_file, number_to_increase + 1)
+    else
+      increase_encryptable_name(encryptable_name, is_file, 1)
+    end
   end
 
-  def increase_encryptable_name(encryptable_name, is_file, increasement)
+  def increase_encryptable_name(encryptable_name, is_file, number_to_increase)
     if is_file
-       file_destination_name(encryptable_name, increasement)
-     else
-       encryptable_name + " (#{increasement})"
-     end
+      file_destination_name(encryptable_name, number_to_increase)
+    else
+      if INCREMENT_REGEX.match(encryptable_name)
+        # Remove last (NUMBER) from encryptable name if present
+        encryptable_name = encryptable_name.sub(/\s\(\d+\)\z/, '')
+      end
+      encryptable_name + " (#{number_to_increase})"
+    end
   end
 
-  def file_destination_name(file_name, increasement)
-    parts = file_name.split('.')
-    "#{parts[0]}(#{increasement}).#{parts[1]}"
+  def file_destination_name(file_name, number_to_increase)
+    if file_name.match(INCREMENT_REGEX)
+      file_name.gsub(INCREMENT_REGEX) do
+        "(#{number_to_increase})"
+      end
+    else
+      file_name.sub(/(\.[^.]+)\z/, "(#{number_to_increase})\\1")
+    end
   end
 
   def find_existing_names(new_encryptable_name, inbox_folder_names)
     encryptable_name_regex = Regexp.escape(new_encryptable_name)
 
     inbox_folder_names.select do |name|
-      name.match?(/^(?:#{encryptable_name_regex}(?: \(\d+\))?|#{encryptable_name_regex})$/)
+      climbs_at_name_end(name, encryptable_name_regex)
     end
+  end
+
+  def climbs_at_name_end(name, encryptable_name_regex)
+    name.match?(/^(?:#{encryptable_name_regex}(?: \(\d+\))?|#{encryptable_name_regex})$/)
   end
 
   def encrypted_transfer_password(password, receiver)

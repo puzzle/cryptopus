@@ -40,7 +40,7 @@ describe EncryptableTransfer do
       expect(received_file.content_type).to eq('text/plain')
     end
 
-    it 'Changes encryptable file name when it already exists in inbox folder of receiver' do
+    it 'Adds (1) to file name when it already exists in inbox folder of receiver' do
       receiver = bob
       sender = alice
 
@@ -68,17 +68,14 @@ describe EncryptableTransfer do
       expect(received_file.content_type).to eq('text/plain')
     end
 
-    it 'Adds (2) to encryptable file name if name (1) already exists in inbox folder' do
+    it 'Adds (2) to file name when it already exists in inbox folder of receiver' do
       receiver = bob
       sender = alice
 
-      encryptable_file.name += ' (1)'
-
+      encryptable_file.name = 'info(1).txt'
       encryptable_transfer.transfer(encryptable_file, receiver, sender)
 
-      received_file = bob.inbox_folder.encryptables.first
-
-      expect(received_file.encrypted_transfer_password).to be_present
+      expect(receiver.inbox_folder.encryptables.count).to eq 1
 
       encryptable_transfer.transfer(encryptable_file, receiver, sender)
 
@@ -95,6 +92,35 @@ describe EncryptableTransfer do
       expect(received_file.sender_id).to eq(alice.id)
       expect(received_file.cleartext_file).to eq(encryptable_file.cleartext_file)
       expect(received_file.name).to eq('info(2).txt')
+      expect(received_file.content_type).to eq('text/plain')
+    end
+
+    it 'Saves file if name has (1) and in inbox is encryptable with name without (1)' do
+      receiver = bob
+      sender = alice
+
+      encryptable_transfer.transfer(encryptable_file, receiver, sender)
+
+      received_file = bob.inbox_folder.encryptables.first
+
+      expect(received_file.encrypted_transfer_password).to be_present
+
+      encryptable_file.name = 'info(1).txt'
+      encryptable_transfer.transfer(encryptable_file, receiver, sender)
+
+      received_file = bob.inbox_folder.encryptables.last
+
+      expect(received_file.encrypted_transfer_password).to be_present
+
+      personal_team_password = bob.personal_team.decrypt_team_password(bob, bobs_private_key)
+
+      encryptable_transfer.receive(received_file, bobs_private_key, personal_team_password)
+
+      expect(received_file.transferred?).to eq(false)
+      expect(received_file.encrypted_transfer_password).to be_nil
+      expect(received_file.sender_id).to eq(alice.id)
+      expect(received_file.cleartext_file).to eq(encryptable_file.cleartext_file)
+      expect(received_file.name).to eq('info(1).txt')
       expect(received_file.content_type).to eq('text/plain')
     end
 
@@ -116,7 +142,30 @@ describe EncryptableTransfer do
       expect(received_encryptable.name).to eq('Personal Mailbox (1)')
     end
 
-    it 'Adds (1) (1) to credentials name if name (1) is already taken in inbox folder' do
+    it 'Adds (2) to credentials name if name (1) is already taken in inbox folder' do
+      receiver = bob
+      sender = alice
+
+      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
+
+      received_encryptable = bob.inbox_folder.encryptables.first
+      expect(received_encryptable.encrypted_transfer_password).to be_present
+
+      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
+
+      received_encryptable = bob.inbox_folder.encryptables.first
+      expect(received_encryptable.encrypted_transfer_password).to be_present
+      expect(received_encryptable.name).to eq('Personal Mailbox (1)')
+
+      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
+
+      expect(received_encryptable.encrypted_transfer_password).to be_present
+      received_encryptable = bob.inbox_folder.encryptables.last
+
+      expect(received_encryptable.name).to eq('Personal Mailbox (2)')
+    end
+
+    it 'Adds (2) to credentials name if name (1) is already taken and name has (1)' do
       receiver = bob
       sender = alice
 
@@ -136,7 +185,45 @@ describe EncryptableTransfer do
 
       received_encryptable = bob.inbox_folder.encryptables.last
 
-      expect(received_encryptable.name).to eq('Personal Mailbox (1) (1)')
+      expect(received_encryptable.name).to eq('Personal Mailbox (2)')
+    end
+
+    it 'Replaces only the last (1) in credentials name if name has a second (1)' do
+      receiver = bob
+      sender = alice
+
+      encryptable_credentials1.name = 'Test (1) credentials (1)'
+      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
+
+      received_encryptable = bob.inbox_folder.encryptables.first
+      expect(received_encryptable.encrypted_transfer_password).to be_present
+
+      received_encryptable = bob.inbox_folder.encryptables.first
+      expect(received_encryptable.encrypted_transfer_password).to be_present
+      expect(received_encryptable.name).to eq('Test (1) credentials (1)')
+
+      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
+
+      expect(received_encryptable.encrypted_transfer_password).to be_present
+      received_encryptable = bob.inbox_folder.encryptables.last
+
+      expect(received_encryptable.name).to eq('Test (1) credentials (2)')
+    end
+
+    it 'Saves credentials if name has (1) and in inbox is encryptable with name without (1)' do
+      receiver = bob
+      sender = alice
+
+      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
+      expect(receiver.inbox_folder.encryptables.count).to eq 1
+
+      encryptable_credentials1.name += ' (1)'
+      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
+
+      received_encryptable = bob.inbox_folder.encryptables.last
+
+      expect(received_encryptable.encrypted_transfer_password).to be_present
+      expect(received_encryptable.name).to eq('Personal Mailbox (1)')
     end
 
     it 'Does not add (1) when credentials in inbox folder includes the name in text' do
