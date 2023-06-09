@@ -158,7 +158,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def fetch_encryptable_files
-    Encryptable::File.where(credential_id: user_encryptables)
+    Encryptable::File.where(credential_id: credential_id)
   end
 
   def build_encryptable_file

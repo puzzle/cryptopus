@@ -1,4 +1,4 @@
-import { helper } from '@ember/component/helper';
+import { helper } from "@ember/component/helper";
 
 export function isIncluded(params) {
   const [list, searchString] = params;
