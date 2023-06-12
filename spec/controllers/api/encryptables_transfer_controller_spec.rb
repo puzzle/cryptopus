@@ -73,6 +73,37 @@ describe Api::EncryptablesTransferController do
       expect(transferred_encryptable.sender_id).to eq(bob.id)
       expect(transferred_encryptable.cleartext_file).to eq('certificate')
     end
+
+    it 'Alice transfers image file to Bob' do
+      login_as(:alice)
+
+      file = fixture_file_upload('smallImage.png', 'image/png')
+      file_params = {
+        content_type: 'image/png',
+        file: file,
+        description: 'Draft for background color',
+        receiver_id: bob.id
+      }
+
+      post :create, params: file_params, xhr: true
+
+      expect(response).to have_http_status(200)
+
+      transferred_encryptable = bob.inbox_folder.encryptables.last
+      plaintext_team_password =
+        bob.personal_team.decrypt_team_password(bob, bob.decrypt_private_key('password'))
+
+      EncryptableTransfer.new.receive(transferred_encryptable,
+                                      bob.decrypt_private_key('password'),
+                                      plaintext_team_password)
+
+      expect(response).to have_http_status(200)
+      expect(response.body).to include("flashes.encryptable_transfer.file.transferred")
+
+      expect(transferred_encryptable.name).to eq('smallImage.png')
+      expect(transferred_encryptable.description).to eq('Draft for background color')
+      expect(transferred_encryptable.sender_id).to eq(alice.id)
+    end
   end
 
 end
