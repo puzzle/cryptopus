@@ -14,7 +14,6 @@ export default class EncryptableTransferred extends Encryptable {
     const opts = {
       data: {
         description: this.description || "",
-        file: this.file,
         receiver_id: receiverId
       },
       headers: {

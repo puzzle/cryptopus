@@ -27,16 +27,15 @@ class Api::EncryptablesTransferController < ApiController
 
     inbox_folder_receiver = receiver.inbox_folder
 
-    @encryptable = new_file(nil, inbox_folder_receiver, params[:description], filename)
-    @encryptable.content_type = params[:file].content_type
-    @encryptable.cleartext_file = params[:file].read
+    file = new_file(inbox_folder_receiver, params[:description], filename)
+    file.content_type = params[:file].content_type
+    file.cleartext_file = params[:file].read
 
-    instance_variable_set(:"@#{ivar_name}", @encryptable)
+    instance_variable_set(:"@#{ivar_name}", file)
   end
 
-  def new_file(parent_encryptable, inbox_folder_receiver, description, name)
-    Encryptable::File.new(encryptable_credential: parent_encryptable,
-                          folder: inbox_folder_receiver,
+  def new_file(inbox_folder_receiver, description, name)
+    Encryptable::File.new(folder: inbox_folder_receiver,
                           description: description,
                           name: name)
   end
