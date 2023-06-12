@@ -6,9 +6,7 @@ module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
     storeConfigInMeta: false,
     autoImport: {
-      alias: {
-        "ember-intl/fast-memoize": "fast-memoize"
-      },
+      alias: {},
       forbidEval: true
     },
     fingerprint: {
