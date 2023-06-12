@@ -1,18 +1,9 @@
-.result-password {
-  top: -50px;
-  position: relative;
-}
-
-.result-username,
-.result-password {
-  position: relative;
-}
-
 .show-text,
 .password-show {
   display: block;
   background: #c9c9c9;
-  border-radius: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
   color: black;
   position: relative;
 }
@@ -20,9 +11,9 @@
 .show-text,
 .password-show,
 .result-username input,
-.result-password input {
+.result-email input,
+.result-hidden-attribute input {
   padding: 6px 10px;
-  width: 205px;
   font-size: 14px;
   border: 1px solid #c9c9c9;
   display: block;
@@ -37,14 +28,9 @@
 }
 
 .result-username input:hover,
-.result-password input:hover {
+.result-email input:hover,
+.result-hidden-attribute input:hover {
   cursor: text;
-}
-
-.result-password,
-.show-text,
-.password-show {
-  margin-top: 1em;
 }
 
 .clip_button {
@@ -102,7 +88,7 @@
   margin-bottom: -1px;
 }
 
-.show-password-button {
+.show-hidden-attribute-button {
   z-index: 5;
 }
 
@@ -112,4 +98,31 @@
 
 .transfer-file-description {
   margin-bottom: 0.5rem;
+}
+
+.hidden-attribute-cover {
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.rounded-corners-right {
+  border-radius: 0 3px 3px 0;
+}
+
+
+@media only screen and (min-width: 768px) {
+  .hidden-attribute-copy-button {
+    display: grid;
+    grid-template-columns: 6fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .hidden-attribute-copy-button {
+    display: flex;
+    justify-content: center;
+  }
 }

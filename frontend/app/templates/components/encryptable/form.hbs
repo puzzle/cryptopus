@@ -1,107 +1,170 @@
 {{#if this.record.isFullyLoaded}}
-  <BsModal class="modal_account ignore-footer-smartphone" @onHide={{action this.abort}} @renderInPlace="true" @size="lg" as |Modal|>
+  <BsModal class="modal_account ignore-footer-smartphone" @onHide={{action this.abort}} @renderInPlace="true" @size="lg"
+           as |Modal|>
     <Modal.header>
       <h3 class="modal-title">{{@title}}</h3>
     </Modal.header>
     <Modal.body>
       <div class="container-fluid">
         <BsForm @model={{this.changeset}} as |form|>
-          <div class="row">
-            {{#if this.hasErrors}}
-              <div class="col-12 order-1">
-                <div class="alert alert-danger modal-alert">
-                  {{t "validations.name.duplicate_name"}}
+          <div class="encryptable-form-name">
+            <div class="row">
+              {{#if this.errors}}
+                <div class="col-12 order-1">
+                  {{#each this.errors as |error|}}
+                    <div class="alert alert-danger modal-alert">
+                      {{#if (eq error.detail "At least one attribute must be set")}}
+                        {{t "validations.attributes.at_least_one_attribute"}}
+                      {{else if (eq error.detail "has already been taken")}}
+                        {{t "validations.name.duplicate_name"}}
+                      {{else}}
+                        {{t "error"}}
+                      {{/if}}
+                    </div>
+                  {{/each}}
+                </div>
+              {{/if}}
+              <div class="col-md-6 order-2">
+                <form.group class="col-md-12">
+                  <form.element id="encryptable-form-accountname" @property="name" @label={{t
+                    "helpers.label.encryptable/credentials.accountname"}}
+                                class={{if this.changeset.error.name.validation
+                                           "invalid-input-name"}}
+                                @customError={{t (validation-error-key this.changeset.error.name.validation)}} as |el|>
+                    <el.control autocomplete="off" @name="name" tabindex="1"></el.control>
+                  </form.element>
+                </form.group>
+              </div>
+              <div class="col-md-6 order-2">
+                <div class="form-group col-md-12" id="team-power-select">
+                  <form.element id="encryptable-form-team" @label={{t "team"}} @controlType="power-select"
+                                @options={{this.assignableTeams}} @value={{this.selectedTeam}}
+                                @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>
+                    <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @placeholder={{t
+                      "encryptable/credentials.edit.team_placeholder"}}
+                                @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
+                      {{#if team.isPersonalTeam }}
+                        {{this.userService.username}}
+                      {{else}}
+                        {{team.name}}
+                      {{/if}}
+                    </el.control>
+                  </form.element>
+                </div>
+                <div class="form-group col-md-12" id="folder-power-select">
+                  <form.element id="encryptable-form-folder" if="encryptable-form-folder"
+                                @options={{this.availableFolders}} @label={{t "folder"}} @controlType="power-select"
+                                @value={{this.changeset.folder}}
+                                @searchEnabled={{true}} @allowClear={{true}} @searchField={{"name"}}
+                                @customError={{t (validation-error-key this.changeset.error.folder.validation)}} as
+                                |el|>
+                    <el.control class={{if this.changeset.error.folder.validation "invalid-input-ps"}}
+                                @disabled={{this.isFolderDropdownDisabled}}
+                                @placeholder={{t "encryptable/credentials.edit.folder_placeholder"}}
+                                @renderInPlace={{true}} @onChange={{this.setFolder}} as |folder|>
+                      {{folder.name}}
+                    </el.control>
+                  </form.element>
                 </div>
               </div>
-            {{/if}}
-            <div class="col-md-6 order-2">
-              <form.group class="col-md-12">
-                <form.element @property="name" @label={{t "helpers.label.encryptable/credentials.accountname"}}
-                              class={{if this.changeset.error.name.validation
-                                                             "invalid-input-name"}}
-                              id="name"
-                              @customError={{t (validation-error-key this.changeset.error.name.validation)}} as |el|>
-                  <el.control autocomplete="off" @name="name" tabindex="1"></el.control>
-                </form.element>
-              </form.group>
-              <form.group class="form-group col-md-12">
-                <form.element @label={{t "username"}} id="username" class={{if
-                        this.changeset.error.cleartextUsername.validation "invalid-input-name"}}
-                              @property="cleartextUsername" @customError={{t
-                        (validation-error-key this.changeset.error.cleartextUsername.validation)}} as |el|>
-                  <el.control @name="cleartextUsername" tabindex="2"></el.control>
-                </form.element>
-              </form.group>
             </div>
-            <div class="col-md-6 ml-auto order-5 order-md-3">
-              <div class="form-group col-md-12" id="team-power-select">
-                <form.element @label={{t "team"}} @controlType="power-select"
-                              @options={{this.assignableTeams}} @value={{this.selectedTeam}}
-                              @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>
-                  <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @placeholder={{t "encryptable/credentials.edit.team_placeholder"}}
-                              @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
-                    {{#if team.isPersonalTeam }}
-                      {{this.userService.username}}
-                    {{else}}
-                      {{team.name}}
-                    {{/if}}
-                  </el.control>
-                </form.element>
-              </div>
-              <div class="form-group col-md-12" id="folder-power-select">
-                <form.element @options={{this.availableFolders}} @label={{t "folder"}} @controlType="power-select"
-                              @value={{this.changeset.folder}}
-                              @searchEnabled={{true}} @allowClear={{true}} @searchField={{"name"}}
-                              @customError={{t (validation-error-key this.changeset.error.folder.validation)}} as |el|>
-                  <el.control class={{if this.changeset.error.folder.validation "invalid-input-ps"}}
-                              @disabled={{this.isFolderDropdownDisabled}}
-                              @placeholder={{t "encryptable/credentials.edit.folder_placeholder"}}
-                              @renderInPlace={{true}} @onChange={{this.setFolder}} as |folder|>
-                    {{folder.name}}
-                  </el.control>
-                </form.element>
-              </div>
+            <form.group class="col-md-12">
+              <form.element id="encryptable-form-description" @label={{t "description"}} @property="description"
+                            @controlType="textarea"
+                            class="{{if
+                              this.changeset.error.description.validation "invalid-input"}} vertical-resize"
+                            customError={{t
+                (validation-error-key this.changeset.error.description.validation)}} as |el|>
+                <el.control tabindex="7"></el.control>
+              </form.element>
+            </form.group>
+          </div>
+          <div class="encryptable-form-attributes">
+            <div class="row">
+              {{#each this.activeFields as |attribute|}}
+                <div id="{{attribute}}-field" class="col-md-6 pt-2 encryptable-form-field {{if (eq attribute "customAttr")  "border-1 border border-mute border-radius-4"}}">
+                  {{#if (eq attribute "customAttr")}}
+                    <form.group class="col-md-12">
+                      <form.element @label={{t "labelCustomAttr"}} id="labelCustomAttr" class={{if
+                        this.changeset.error.cleartextCustomAttrLabel.validation "invalid-input-name"}}
+                                    @property="cleartextCustomAttrLabel" @customError={{t
+                        (validation-error-key this.changeset.error.cleartextCustomAttrLabel.validation)}} as |el|>
+                        <div class="input-group">
+                          <el.control @name="label" tabindex="2"></el.control>
+                          <span class="encrypted-icon-span">
+                            {{!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding--}}
+                            <BsTooltip @title={{t "encryptable/credentials.form.notEncryptedField"}} @delayShow="300" @viewportSelector="modal"/>
+                            <img class="d-inline-block encrypted-icon"
+                                 src="/assets/images/not_encrypted_small.svg" alt="not encrypted value">
+                          </span>
+                        </div>
+                      </form.element>
+                    </form.group>
+                    <br>
+                  {{/if}}
+                  <form.group class="col-md-12 {{if (eq attribute "password") "secret password-field"}}">
+                    <form.element @label={{t attribute}} id={{attribute}} class={{if
+                      (get (get this.changeset.error (concat "cleartext" (capitalize attribute))) "validation") "invalid-input-name"}}
+                                  @property="cleartext{{capitalize attribute}}" @customError={{t
+                      (validation-error-key (get (get this.changeset.error (concat "cleartext" (capitalize attribute))) "validation"))}} as |el|>
+                      <div class="input-group">
+                        <el.control autocomplete="off" @name="cleartext{{capitalize attribute}}" tabindex="2"></el.control>
+                        <span class="encrypted-icon-span">
+                          {{!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding--}}
+                          <BsTooltip @title={{t "encryptable/credentials.form.encryptedField"}} @delayShow="300" @viewportSelector="modal"/>
+                          <img class="encrypted-icon d-inline-block"
+                               src="/assets/images/encrypted_small.svg" alt="encrypted value">
+                        </span>
+                      </div>
+                    </form.element>
+                  </form.group>
+                  <button class="btn btn-danger d-inline-block p-1 delete-field" {{on "click"
+                                                                                      (action "removeField" attribute)}}>
+                    <img id="remove-{{attribute}}-field-button" class="d-inline" src="/assets/images/delete-white.svg"
+                         alt="delete attribute field">
+                  </button>
+                  {{#if (eq attribute "password")}}
+                    <PasswordStrengthMeter class="col-12 col-lg-9 px-0 mb-2 mb-md-0 ml-3"
+                                           @password={{this.changeset.cleartextPassword}}/>
+                    <div></div>
+                    <button class="btn btn-secondary btn-block col-lg-7 mb-md-4 ml-3 mt-2" {{on "click"
+                                                                                                this.setRandomPassword}}
+                            tabindex="4">
+                      {{t "encryptable/credentials.edit.random_password"}}
+                    </button>
+                  {{/if}}
+                </div>
+              {{/each}}
             </div>
-
-            <div class="col-md-6 order-3 order-md-4">
-              <div class="col-sm-12 secret">
-                <form.element @label={{t "password"}} id="cleartext-password" class={{if
-                        this.changeset.error.cleartextPassword.validation "invalid-input-name"}}
-                              @property="cleartextPassword" @customError={{t
-                        (validation-error-key this.changeset.error.cleartextPassword.validation)}} as |el|>
-                  <el.control autocomplete="off" tabindex="3" @name="cleartextPassword" ></el.control>
-                </form.element>
-                <PasswordStrengthMeter class="col-12 col-lg-9 px-0 mb-2 mb-md-0" @password={{this.changeset.cleartextPassword}}/>
-              </div>
-            </div>
-            <div class="col-md-6 mb-3 mb-md-0 d-flex align-items-center order-4 order-md-5">
-              <div class="col-md-12">
-                <button class="btn btn-secondary btn-block col-lg-7 mb-md-4" {{on "click" this.setRandomPassword}}
-                        tabindex="4">
-                  {{t "encryptable/credentials.edit.random_password"}}
+            {{#if (gt this.inactiveFields.length 0)}}
+              <div class="ml-3 mb-2 mt-3">{{t "additionalField"}}</div>
+              <div id="encryptable-form-additional-field" class="d-flex flex-row">
+                <PowerSelect
+                  id="add-field-dropdown"
+                  @options={{this.inactiveFields}}
+                  @placeholder={{t "additionalFieldPlaceholder"}}
+                  @renderInPlace={{true}}
+                  @selected={{this.selectedAttribute}}
+                  @onChange={{fn (mut this.selectedAttribute)}} as |attribute|>
+                  {{t attribute}}
+                </PowerSelect>
+                <button class="btn btn-success d-inline-block p-1 ml-4 add-field" {{on "click" (action "addField")}} >
+                  <img id="add-field-button" class="d-inline" src="/assets/images/plus-white.svg"
+                       alt="add attribute field">
                 </button>
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <form.group class="col-md-12">
-                <form.element @label={{t "description"}} @property="description" @controlType="textarea"
-                              id="description" class="{{if
-                        this.changeset.error.description.validation "invalid-input"}} vertical-resize mt-3"
-                              customError={{t
-                        (validation-error-key this.changeset.error.description.validation)}} as |el|>
-                  <el.control tabindex="7"></el.control>
-                </form.element>
-              </form.group>
-            </div>
+            {{/if}}
           </div>
         </BsForm>
       </div>
     </Modal.body>
     <Modal.footer>
-      <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "save"}}</BsButton>
-      <BsButton @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
+      <BsButton id="encryptable-form-save-button" @onClick={{action this.submit this.changeset}} @type="primary">
+        {{t "save"}}
+      </BsButton>
+      <BsButton id="encryptable-form-close-button" @onClick={{action this.abort}} @type="secondary">
+        {{t "close"}}
+      </BsButton>
     </Modal.footer>
   </BsModal>
 {{/if}}

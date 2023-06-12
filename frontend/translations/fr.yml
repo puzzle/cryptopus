@@ -19,6 +19,14 @@ fr:
   tag: Tag
   username: Nom d'utilisateur
   password: Mot de passe
+  pin: Pin
+  token: Jeton
+  email: E-mail
+  customAttr: Attribut personnalisé
+  additionalField: Champ supplémentaire
+  additionalFieldPlaceholder: Choisir un champ supplémentaire
+  labelCustomAttr: Nom d'attribut personnalisé
+  valueCustomAttr: Valeur d'attribut personnalisé
   actions: Actions
   download: Télécharger
   download_file: Télécharger le fichier
@@ -43,13 +51,14 @@ fr:
   back: Retour
   save: Sauvegarder
   share: Partager
-  close: fermer
+  close: Fermer
   user: Utilisateur
   hi_user: "Salut, "
   intro: Vous cherchez un mot de passe?
   role: Rôle
   empty: vide
   slogan: Le lieu pour les mots de passe
+  error: il y a eu une erreur
 
   i18n:
     language:
@@ -87,12 +96,26 @@ fr:
       file: Fichier
       show_password: Afficher le mot de passe
       show_username: Afficher le nom d'utilisateur
+      show_pin: Afficher Pin
+      show_token: Afficher le jeton
+      show_email: Afficher l'e-mail
+      show_customAttr: Afficher l'attribut personnalisé
       copy_password: Copier le mot de passe
       copy_username: Copier le nom d'utilisateur
+      copy_pin: Copier la broche
+      copy_token: Copier le jeton
+      copy_email: Copier l'e-mail
+      copy_customAttr: Copier un attribut personnalisé
+      copy: Copier
       add_attachment: Ajouter un attachement
       blank: Vide
     new:
       title: Nouveau compte
+    form:
+      encryptedField: Ce champ est crypté
+      notEncryptedField: Ce champ n'est pas crypté
+    row:
+      clickToSeeAttrs: Cliquez pour voir tous les attributs
     share:
       title: Partage fichier
 
@@ -263,10 +286,10 @@ fr:
         added: Membre de l'équipe a été enlevé avec succès
         removed: Membre de l'équipe a été ajouté avec succès
       errors:
-          auth_failed: Échec de l'authentification
-          user_not_logged_in: Utilisateur non connecté
-          record_not_found: Enregistrement non trouvé
-          delete_failed: Il n'était pas possible d'enlever l'enregistrement
+        auth_failed: Échec de l'authentification
+        user_not_logged_in: Utilisateur non connecté
+        record_not_found: Enregistrement non trouvé
+        delete_failed: Il n'était pas possible d'enlever l'enregistrement
     api_users:
       deleted: Utilisateurs d'Api supprimé avec succès
     admin:
@@ -289,6 +312,11 @@ fr:
       moved: Le team a été déplacé avec succès.
       username_copied: Le nom d'utilisateur a été copié
       password_copied: Le mot de passe a été copié
+      pin_copied: La broche a été copiée
+      token_copied: Le jeton a été copié
+      email_copied: L'e-mail a été copié
+      customAttr_copied: L'attribut personnalisé a été copié
+      selectAdditionalField: Tu dois sélectionner un champ
 
     encryptable-credentials:
       << : *encryptables_translations
@@ -384,8 +412,27 @@ fr:
       present: Le dossier doit être présent
     cleartext username:
       too_long: Le nom d'utilisateur est trop long
+      exclusion: Le nom d'utilisateur ne peut pas être vide
     cleartext password:
       too_long: Le mot de passe est trop long
+      exclusion: Le mot de passe ne peut pas être vide
+    cleartext token:
+      too_long: Le jeton est trop long
+      exclusion: Le jeton ne peut pas être vide
+    cleartext pin:
+      too_long: La broche est trop longue
+      exclusion: La broche ne peut pas être vide
+    cleartext email:
+      too_long: L'email est trop long
+      exclusion: L'e-mail ne peut pas être vide
+    cleartext custom attr:
+      too_long: Attribut individuel La valeur est trop longue
+      exclusion: La valeur d'attribut personnalisé ne peut pas être vide
+      present: La valeur d'attribut personnalisé doit être présente
+    cleartext custom attr label:
+      too_long: L'attribut individuel Label est trop long
+      exclusion: Le libellé d'attribut personnalisé ne peut pas être vide
+      present: L'étiquette d'attribut personnalisé doit être présente
     username:
       present: Le nom d'utilisateur doit être présent
       too_long: Le nom d'utilisateur est trop long
@@ -400,5 +447,5 @@ fr:
     "new password1":
       present: Entrer le nouveau mot de passe
     "new password2":
-        present: Confirmer le nouveau mot de passe
-        confirmation: Les mots de passe ne correspondent pas
+      present: Confirmer le nouveau mot de passe
+      confirmation: Les mots de passe ne correspondent pas

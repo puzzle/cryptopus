@@ -20,6 +20,9 @@ describe EncryptableMoveHandler do
               team_password: team_password,
               name: 'credentials1')
 
+    # stub any attribute for validation to work, because we dont send a http request in this test
+    allow(credential).to receive(:cleartext_password).and_return('password')
+
     EncryptableMoveHandler.new(credential, private_key, bob).move
     credential.save!
     expect(credential.folder).to eq folders(:folder1)
@@ -63,6 +66,10 @@ describe EncryptableMoveHandler do
     private_key = decrypt_private_key(bob)
 
     credentials1.folder = team2_folder
+
+    # stub any attribute for validation to work, because we dont send a http request in this test
+    allow(credentials1).to receive(:cleartext_password).and_return('password')
+
     EncryptableMoveHandler.new(credentials1, private_key, bob).move
     credentials1.save!
     file1.reload
@@ -94,12 +101,16 @@ describe EncryptableMoveHandler do
     new_folder = Fabricate(:folder, name: 'folder5', team_id: teams(:team1).id)
 
     credential.folder = new_folder
+
+    # stub any attribute for validation to work, because we dont send a http request in this test
+    allow(credential).to receive(:cleartext_password).and_return('password')
+
     EncryptableMoveHandler.new(credential, private_key, bob).move
     credential.save!
 
 
     decrypted = credential.decrypt(new_folder.team.decrypt_team_password(bob, private_key))
-    expect(decrypted).to eq('password')
+    expect(decrypted).to eq('abc42-code-42')
     expect(credential.folder).to eq(new_folder)
   end
 end

@@ -18,6 +18,14 @@ ch_be:
   description: Beschribig
   username: Benutzername
   password: Passwort
+  pin: Pin
+  token: Token
+  email: Email
+  customAttr: Individuells Attribut
+  additionalField: Zuesätzlechs Fäud
+  additionalFieldPlaceholder: Wäu äs zuesätzlechs Fäud
+  labelCustomAttr: Individuellä Attributname
+  valueCustomAttr: Individuiuelli Attribut Mengi
   actions: Aktionä
   download: Abäladä
   download_file: Datei abäladä
@@ -49,6 +57,7 @@ ch_be:
   role: Rollä
   empty: läär
   slogan: Dr Ort für Passwörter
+  error: Es het ä Fähler gäh
 
   i18n:
     language:
@@ -86,12 +95,26 @@ ch_be:
       file: Datei
       show_password: Passwort ahzeigä
       show_username: Benutzername ahzeigä
+      show_pin: Pin ahzeigä
+      show_token: Token ahzeigä
+      show_email: Email ahzeigä
+      show_customAttr: Individuells Attribut ahzeigä
       copy_password: Passwort kopierä
       copy_username: Benutzername kopierä
+      copy_pin: Pin kopierä
+      copy_token: Token kopierä
+      copy_email: Email kopierä
+      copy_customAttr: Individuells Attribut kopierä
+      copy: kopierä
       add_attachment: Anhang hinzufüegä
       blank: Läär
     new:
       title: Nöi Zuägangsdate
+    form:
+      encryptedField: Das Fäld wird verschlüsslät
+      notEncryptedField: Das Fäld wird nid verschlüsslät
+    row:
+      clickToSeeAttrs: Klick wenn aui Attribut möchtisch gseh
     share:
       title: Datei teilä
 
@@ -288,6 +311,11 @@ ch_be:
       moved: D Zuägangsdate si erfougrich verschobe worde.
       username_copied: Dr Benutzernamä isch kopiert worde
       password_copied: Ds Passwort isch kopiert worde
+      pin_copied: Dr Pin isch kopiert worde
+      token_copied: Dr Token isch kopiert worde
+      email_copied: D Email isch kopiert worde
+      customAttr_copied: Z individuellä Attribut isch kopiert worde
+      selectAdditionalField: Du muäsch es Fäld uswähle
 
     encryptable-credentials:
       << : *encryptables_translations
@@ -383,8 +411,27 @@ ch_be:
       present: Dr Ordner muess ume si
     cleartext username:
       too_long: Dr Benutzername isch zläng
+      exclusion: Dr Benutzernamä darf nid läär si
     cleartext password:
       too_long: Ds Passwort isch zläng
+      exclusion: Z Passwort darf nid läär si
+    cleartext token:
+      too_long: Dr Token isch zläng
+      exclusion: Dr Token darf nid läär si
+    cleartext pin:
+      too_long: Dr Pin isch zläng
+      exclusion: Dr Pin darf nid läär si
+    cleartext email:
+      too_long: D Email isch zläng
+      exclusion: D Email darf nid läär si
+    cleartext custom attr:
+      too_long: Dr Individuell Attribut Wärt isch zläng
+      exclusion: Dr Individuell Attribut Wärt darf nid läär si
+      present: Dr Individuell Attribut Wärt muäss gsetzt si
+    cleartext custom attr label:
+      too_long: Z Individuellä Attribut Label isch zläng
+      exclusion: Z Individuellä Attribut Label darf nid läär si
+      present: Z Individuellä Attribut Label muäss gsetzt si
     username:
       present: Dr Benutzername muess vorhande si
       too_long: Dr Benutzername isch zläng
@@ -399,5 +446,5 @@ ch_be:
     "new password1":
       present: Ds nöie Passwort ihgäh
     "new password2":
-        present: Ds nöie Passwort bestätige
-        confirmation: Di nöie Passwörter stimme nid überiih
+      present: Ds nöie Passwort bestätige
+      confirmation: Di nöie Passwörter stimme nid überiih

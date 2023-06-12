@@ -10,7 +10,17 @@ describe Api::EncryptablesController do
   let(:api_user) { bob.api_users.create }
   let(:private_key) { bob.decrypt_private_key('password') }
   let(:nested_models) { ['folder'] }
-  let(:attributes) { %w[name cleartext_password cleartext_username] }
+  let(:attributes) do
+    %w[
+      name
+      cleartext_password
+      cleartext_username
+      cleartext_pin
+      cleartext_token
+      cleartext_email
+      cleartext_custom_attr
+    ]
+  end
   let(:credentials1) { encryptables(:credentials1) }
   let(:file1) { encryptables(:file1) }
   let(:transferred_file1) { encryptables(:transferredFile1) }
@@ -30,6 +40,10 @@ describe Api::EncryptablesController do
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil
       expect(credentials1_json_attributes['cleartext_password']).to be_nil
+      expect(credentials1_json_attributes['cleartext_token']).to be_nil
+      expect(credentials1_json_attributes['cleartext_pin']).to be_nil
+      expect(credentials1_json_attributes['cleartext_email']).to be_nil
+      expect(credentials1_json_attributes['cleartext_custom_attr']).to be_nil
 
       expect(credentials1_json_relationships['folder']['data']['id'])
         .to eq credentials1.folder_id.to_s
@@ -52,6 +66,10 @@ describe Api::EncryptablesController do
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil
       expect(credentials1_json_attributes['cleartext_password']).to be_nil
+      expect(credentials1_json_attributes['cleartext_token']).to be_nil
+      expect(credentials1_json_attributes['cleartext_pin']).to be_nil
+      expect(credentials1_json_attributes['cleartext_email']).to be_nil
+      expect(credentials1_json_attributes['cleartext_custom_attr']).to be_nil
       expect(credentials1_json_relationships['folder']['data']['id'])
         .to eq credentials1.folder_id.to_s
 
@@ -73,6 +91,10 @@ describe Api::EncryptablesController do
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil
       expect(credentials1_json_attributes['cleartext_password']).to be_nil
+      expect(credentials1_json_attributes['cleartext_token']).to be_nil
+      expect(credentials1_json_attributes['cleartext_pin']).to be_nil
+      expect(credentials1_json_attributes['cleartext_email']).to be_nil
+      expect(credentials1_json_attributes['cleartext_custom_attr']).to be_nil
       expect(credentials1_json_relationships['folder']['data']['id'])
         .to eq credentials1.folder_id.to_s
 
@@ -123,6 +145,15 @@ describe Api::EncryptablesController do
       expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
       expect(credentials1_json_attributes['cleartext_username']).to eq 'test'
       expect(credentials1_json_attributes['cleartext_password']).to eq 'password'
+      expect(credentials1_json_attributes['cleartext_token']).to eq 'testtoken'
+      expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
+      expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
+      expect(
+        credentials1_json_attributes['cleartext_custom_attr_label']
+      ).to eq 'Access Code'
+      expect(
+        credentials1_json_attributes['cleartext_custom_attr']
+      ).to eq 'abc42-code-42'
       expect(credentials1_json_attributes['created_at']).to match(rgx_date)
       expect(credentials1_json_attributes['updated_at']).to match(rgx_date)
       expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
@@ -151,6 +182,15 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
         expect(credentials1_json_attributes['cleartext_username']).to eq 'test'
         expect(credentials1_json_attributes['cleartext_password']).to eq 'password'
+        expect(credentials1_json_attributes['cleartext_token']).to eq 'testtoken'
+        expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
+        expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr_label']
+        ).to eq 'Access Code'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']
+        ).to eq 'abc42-code-42'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
@@ -171,6 +211,15 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
         expect(credentials1_json_attributes['cleartext_username']).to eq 'test'
         expect(credentials1_json_attributes['cleartext_password']).to eq 'password'
+        expect(credentials1_json_attributes['cleartext_token']).to eq 'testtoken'
+        expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
+        expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr_label']
+        ).to eq 'Access Code'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']
+        ).to eq 'abc42-code-42'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
@@ -191,6 +240,15 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
         expect(credentials1_json_attributes['cleartext_username']).to eq 'test'
         expect(credentials1_json_attributes['cleartext_password']).to eq 'password'
+        expect(credentials1_json_attributes['cleartext_token']).to eq 'testtoken'
+        expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
+        expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr_label']
+        ).to eq 'Access Code'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']
+        ).to eq 'abc42-code-42'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
@@ -247,6 +305,15 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
         expect(credentials1_json_attributes['cleartext_username']).to eq 'test'
         expect(credentials1_json_attributes['cleartext_password']).to eq 'password'
+        expect(credentials1_json_attributes['cleartext_token']).to eq 'testtoken'
+        expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
+        expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr_label']
+        ).to eq 'Access Code'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']
+        ).to eq 'abc42-code-42'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
       end
 
@@ -262,37 +329,16 @@ describe Api::EncryptablesController do
         expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
         expect(credentials1_json_attributes['cleartext_username']).to eq 'test'
         expect(credentials1_json_attributes['cleartext_password']).to eq 'password'
+        expect(credentials1_json_attributes['cleartext_token']).to eq 'testtoken'
+        expect(credentials1_json_attributes['cleartext_pin']).to eq 'testpin'
+        expect(credentials1_json_attributes['cleartext_email']).to eq 'testemail'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr_label']
+        ).to eq 'Access Code'
+        expect(
+          credentials1_json_attributes['cleartext_custom_attr']
+        ).to eq 'abc42-code-42'
         expect_json_object_includes_keys(credentials1_json_relationships, nested_models)
-      end
-    end
-
-    context 'File transfer' do
-      it 'download transferred encryptable' do
-        login_as(:bob)
-
-        encryptable_file = prepare_transferred_encryptable
-
-        login_as(:alice)
-
-        expect(controller).to receive(:send_file).exactly(:once)
-
-        get :show, params: { id: encryptable_file.id }, xhr: true
-      end
-
-      it 'displays transferred encryptable and dont download it' do
-        login_as(:bob)
-
-        encryptable_file = prepare_transferred_encryptable
-
-        login_as(:alice)
-
-        expect(controller).not_to receive(:send_file)
-        expect_any_instance_of(CrudController).to receive(:render_entry).exactly(:once)
-
-        get :show, params: { id: encryptable_file.id,
-                             encryptable: ActionController::Parameters.new({
-                                                                             test: 1
-                                                                           }).permit! }, xhr: true
       end
     end
   end
@@ -309,7 +355,13 @@ describe Api::EncryptablesController do
           attributes: {
             name: 'Bob Meyer',
             cleartext_username: 'globi',
-            cleartext_password: 'petzi'
+            cleartext_password: 'petzi',
+            cleartext_token: 'snowli',
+            cleartext_pin: 'kuchen',
+            cleartext_email: 'findus',
+            cleartext_custom_attr_label: 'peterson',
+            cleartext_custom_attr: 'salamibrot'
+
           },
           relationships: { folder: { data: { id: credentials1.folder_id, type: 'folders' } } }
         }, id: credentials1.id
@@ -324,6 +376,11 @@ describe Api::EncryptablesController do
       expect(credentials1_json_attributes['name']).to eq 'Bob Meyer'
       expect(credentials1_json_attributes['cleartext_username']).to eq 'globi'
       expect(credentials1_json_attributes['cleartext_password']).to eq 'petzi'
+      expect(credentials1_json_attributes['cleartext_token']).to eq 'snowli'
+      expect(credentials1_json_attributes['cleartext_pin']).to eq 'kuchen'
+      expect(credentials1_json_attributes['cleartext_email']).to eq 'findus'
+      expect(credentials1_json_attributes['cleartext_custom_attr_label']).to eq 'peterson'
+      expect(credentials1_json_attributes['cleartext_custom_attr']).to eq 'salamibrot'
 
       expect(response).to have_http_status(200)
     end
@@ -341,7 +398,12 @@ describe Api::EncryptablesController do
           attributes: {
             name: 'Bob Meyer',
             cleartext_username: 'globi',
-            cleartext_password: 'petzi'
+            cleartext_password: 'petzi',
+            cleartext_token: 'snowli',
+            cleartext_pin: 'kuchen',
+            cleartext_email: 'findus',
+            cleartext_custom_attr_label: 'peterson',
+            cleartext_custom_attr: 'salamibrot'
           },
           relationships: { folder: { data: { id: target_folder.id, type: 'folders' } } }
         }, id: credentials1.id
@@ -353,6 +415,11 @@ describe Api::EncryptablesController do
 
       expect(credentials1.cleartext_username).to eq 'globi'
       expect(credentials1.cleartext_password).to eq 'petzi'
+      expect(credentials1.cleartext_token).to eq 'snowli'
+      expect(credentials1.cleartext_pin).to eq 'kuchen'
+      expect(credentials1.cleartext_email).to eq 'findus'
+      expect(credentials1.cleartext_custom_attr_label).to eq 'peterson'
+      expect(credentials1.cleartext_custom_attr).to eq 'salamibrot'
 
       file_entry = credentials1.encryptable_files.first
       file_entry.decrypt(team2_password)
@@ -373,7 +440,12 @@ describe Api::EncryptablesController do
           attributes: {
             name: 'Bob Meyer',
             cleartext_username: 'globi',
-            cleartext_password: 'petzi'
+            cleartext_password: 'petzi',
+            cleartext_token: 'snowli',
+            cleartext_pin: 'kuchen',
+            cleartext_email: 'findus',
+            cleartext_custom_attr_label: 'peterson',
+            cleartext_custom_attr: 'salamibrot'
           },
           relationships: { folder: { data: { id: new_folder.id, type: 'folders' } } }
         }, id: credentials1.id
@@ -395,7 +467,7 @@ describe Api::EncryptablesController do
       end.to raise_error(OpenSSL::Cipher::CipherError, 'bad decrypt')
     end
 
-    it 'cannot set encryptable password and username attributes by params' do
+    it 'cannot set invalid attributes by params' do
       set_auth_headers
 
       credentials1 = encryptables(:credentials1)
@@ -404,8 +476,13 @@ describe Api::EncryptablesController do
         data: {
           id: credentials1.id,
           attributes: {
-            username: 'invalid username param',
-            password: 'invalid password param'
+            cleartext_username: 'valid username param',
+            password: 'invalid password param',
+            token: 'invalid token param',
+            pin: 'invalid pin param',
+            email: 'invalid email param',
+            custom_attr_label: 'invalid custom attr label param',
+            custom_attr: 'invalid custom attr param'
           },
           relationships: { folder: { data: { id: credentials1.folder_id, type: 'folders' } } }
         }, id: credentials1.id
@@ -416,8 +493,32 @@ describe Api::EncryptablesController do
       credentials1_json_attributes = data['attributes']
 
       expect(credentials1_json_attributes['name']).to eq 'Personal Mailbox'
-      expect(credentials1_json_attributes['cleartext_username']).to be_nil
+      expect(credentials1_json_attributes['cleartext_username']).to eq 'valid username param'
       expect(credentials1_json_attributes['cleartext_password']).to be_nil
+      expect(credentials1_json_attributes['cleartext_token']).to be_nil
+      expect(credentials1_json_attributes['cleartext_pin']).to be_nil
+      expect(credentials1_json_attributes['cleartext_email']).to be_nil
+      expect(credentials1_json_attributes['cleartext_custom_attr']).to be_nil
+    end
+
+    it 'it is possible to have only accountname as param' do
+      set_auth_headers
+
+      credentials1 = encryptables(:credentials1)
+
+      encryptable_params = {
+        data: {
+          id: credentials1.id,
+          attributes: {
+            invalid: 'whatever'
+          },
+          relationships: { folder: { data: { id: credentials1.folder_id, type: 'folders' } } }
+        }, id: credentials1.id
+      }
+
+      patch :update, params: encryptable_params, xhr: true
+
+      expect(response).to have_http_status(200)
     end
 
     it 'does not update encryptable when user not in team' do
@@ -456,7 +557,8 @@ describe Api::EncryptablesController do
         data: {
           attributes: {
             type: 'credentials',
-            name: 'New Account'
+            name: 'New Account',
+            cleartext_username: 'username'
           },
           relationships: {
             folder: {
@@ -473,6 +575,34 @@ describe Api::EncryptablesController do
 
       expect(response).to have_http_status(201)
       expect(data['attributes']['name']).to eq 'New Account'
+    end
+
+    it 'it is possible to have only accountname as attribute' do
+      set_auth_headers
+
+      login_as(:alice)
+      folder = folders(:folder1)
+
+      new_encryptable_params = {
+        data: {
+          attributes: {
+            type: 'credentials',
+            name: 'New Account'
+          },
+          relationships: {
+            folder: {
+              data: {
+                id: folder.id,
+                type: 'folders'
+              }
+            }
+          }
+        }
+      }
+
+      post :create, params: new_encryptable_params, xhr: true
+
+      expect(response).to have_http_status(201)
     end
 
     it 'cannot create a new encryptable if part of team' do
@@ -632,6 +762,34 @@ describe Api::EncryptablesController do
       expect(received_file.content_type).to eq('text/plain')
       expect(received_file.folder_id).to eq(alice.inbox_folder.id)
       expect(received_file.cleartext_file).to eq('certificate')
+    end
+
+    it 'download transferred encryptable' do
+      login_as(:bob)
+
+      encryptable_file = prepare_transferred_encryptable
+
+      login_as(:alice)
+
+      expect(controller).to receive(:send_file).exactly(:once)
+
+      get :show, params: { id: encryptable_file.id }, xhr: true
+    end
+
+    it 'displays transferred encryptable and dont download it' do
+      login_as(:bob)
+
+      encryptable_file = prepare_transferred_encryptable
+
+      login_as(:alice)
+
+      expect(controller).not_to receive(:send_file)
+      expect_any_instance_of(CrudController).to receive(:render_entry).exactly(:once)
+
+      get :show, params: { id: encryptable_file.id,
+                           encryptable: ActionController::Parameters.new({
+                                                                           test: 1
+                                                                         }).permit! }, xhr: true
     end
   end
 

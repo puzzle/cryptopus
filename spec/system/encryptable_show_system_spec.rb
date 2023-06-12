@@ -11,7 +11,7 @@ describe 'encryptable show', type: :system, js: true do
     visit("/encryptables/#{encryptables(:credentials1).id}")
     expect(page).to_not have_selector('input#cleartext_password', visible: true)
 
-    find('a.show-password-button').click
+    find('#show-password').click
 
     expect(page).to have_selector('input#cleartext_password', visible: true)
   end

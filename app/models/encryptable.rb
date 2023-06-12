@@ -65,6 +65,10 @@ class Encryptable < ApplicationRecord
     Crypto::Rsa.decrypt(Base64.decode64(encrypted_transfer_password), private_key)
   end
 
+  def used_encrypted_data_attrs
+    encrypted_data.used_attributes
+  end
+
   private
 
   def encrypt_attr(attr, team_password)
@@ -72,9 +76,16 @@ class Encryptable < ApplicationRecord
 
     encrypted_value =
       cleartext_value.presence &&
-      Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
+        Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
 
-    encrypted_data.[]=(attr, **{ data: encrypted_value, iv: nil })
+    build_encrypted_data(attr, encrypted_value)
+  end
+
+  def build_encrypted_data(attr, encrypted_value)
+    attr_label = cleartext_custom_attr_label if attr == :custom_attr
+    encrypted_data.[]=(
+      attr, **{ label: attr_label, data: encrypted_value, iv: nil }
+    )
   end
 
   def decrypt_attr(attr, team_password)
@@ -83,6 +94,10 @@ class Encryptable < ApplicationRecord
     cleartext_value = if encrypted_value
                         Crypto::Symmetric::Aes256.decrypt(encrypted_value, team_password)
                       end
+
+    if attr == :custom_attr
+      @cleartext_custom_attr_label = encrypted_data[attr].try(:[], :label)
+    end
 
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
   end

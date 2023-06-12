@@ -19,6 +19,14 @@ de:
   tag: Tag
   username: Benutzername
   password: Passwort
+  pin: Pin
+  token: Token
+  email: Email
+  customAttr: Individuelles Attribut
+  additionalField: Zusätzliches Attribut
+  additionalFieldPlaceholder: Wähle ein zusätzliches Feld
+  labelCustomAttr: Individueller Attribut Name
+  valueCustomAttr: Individuelle Attribut Menge
   actions: Aktionen
   download: Herunterladen
   download_file: Datei herunterladen
@@ -50,6 +58,7 @@ de:
   role: Rolle
   empty: leer
   slogan: Der Ort für Passwörter
+  error: Es ist ein Fehler aufgetreten
 
   i18n:
     language:
@@ -87,12 +96,25 @@ de:
       file: Datei
       show_password: Passwort anzeigen
       show_username: Benutzname anzeigen
+      show_pin: Pin anzeigen
+      show_token: Token anzeigen
+      show_email: Email anzeigen
+      show_customAttr: Individuelles Attribut anzeigen
       copy_password: Passwort kopieren
       copy_username: Benutzername kopieren
+      copy_pin: Pin kopieren
+      copy_token: Token kopieren
+      copy_email: Email kopieren
+      copy_customAttr: Individuelles Attribut kopieren
       add_attachment: Anhang hinzufügen
       blank: Leer
     new:
       title: Neue Zugangsdaten
+    form:
+      encryptedField: Dieses Feld wird verschlüsselt
+      notEncryptedField: Dieses Feld wird nicht verschlüsselt
+    row:
+      clickToSeeAttrs: Klicke um alle Attribute zu sehen
     share:
       title: Datei teilen
 
@@ -289,6 +311,11 @@ de:
       moved: Die Zugangsdaten wurden erfolgreich veschoben
       username_copied: Benutzername wurde kopiert
       password_copied: Passwort wurde kopiert
+      pin_copied: Pin wurde kopiert
+      token_copied: Token wurde kopiert
+      email_copied: Email wurde kopiert
+      customAttr_copied: Individuelles Attribut wurde kopiert
+      selectAdditionalField: Du musst ein Feld auswählen
 
     encryptable-credentials:
       << : *encryptables_translations
@@ -384,8 +411,27 @@ de:
       present: Der Ordner muss vorhanden sein
     cleartext username:
       too_long: Der Benutzername ist zu lang
+      exclusion: Der Benutzername darf nicht leer sein
     cleartext password:
       too_long: Das Passwort ist zu lang
+      exclusion: Das Password darf nicht leer sein
+    cleartext token:
+      too_long: Der Token ist zu lang
+      exclusion: Der Token darf nicht leer sein
+    cleartext pin:
+      too_long: Der Pin ist zu lang
+      exclusion: Der Pin darf nicht leer sein
+    cleartext email:
+      too_long: Email ist zu lang
+      exclusion: Email darf nicht leer sein
+    cleartext custom attr:
+      too_long: Individueller Attribut Wert ist zu lang
+      exclusion: Der Individuelle Attribut Wert darf nicht leer sein
+      present: Individueller Attribut Wert muss gesetzt sein
+    cleartext custom attr label:
+      too_long: Individuelles Attribut Label ist zu lang
+      exclusion: Das Individuelle Attribut Label darf nicht leer sein
+      present: Individuelles Attribut Label muss gesetzt sein
     username:
       present: Der Benutzername muss vorhanden sein
       too_long: Der Benutzername ist zu lang
@@ -400,5 +446,5 @@ de:
     "new password1":
       present: Neues Passwort eingeben
     "new password2":
-        present: Neues Passwort bestätigen
-        confirmation: Die Passwörter stimmen nicht überein
+      present: Neues Passwort bestätigen
+      confirmation: Die Passwörter stimmen nicht überein

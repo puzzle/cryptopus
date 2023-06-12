@@ -23,7 +23,8 @@ credentials1:
   name: Personal Mailbox
   description: Mailprovider One
   folder: folder1
-  encrypted_data: '{"password":{"iv":null,"data":"pulO7xz5jDwUVQzbOqJzIw=="},"username":{"iv":null,"data":"0CkUu2Bd9eNB4OCuXVC3TA=="}}'
+  encrypted_data: '{"password":{"iv":null,"data":"pulO7xz5jDwUVQzbOqJzIw=="},"username":{"iv":null,"data":"0CkUu2Bd9eNB4OCuXVC3TA=="},"token":{"iv":null,"data":"s7L8uN3B82rE0jfxbZTBLA=="}
+  ,"pin":{"iv":null,"data":"hxFbaVAiXsYU41KWAsguxw=="},"email":{"iv":null,"data":"iQAeALndU+eKpkGwGNDHgw=="},"custom_attr":{"iv":null, "label":"Access Code","data":"6qN+5x+eYPekkZB/mfpgBg=="}}'
 
 credentials2:
   type: Encryptable::Credentials
