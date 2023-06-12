@@ -70,16 +70,9 @@ class Encryptable < ApplicationRecord
   def encrypt_attr(attr, team_password)
     cleartext_value = send(:"cleartext_#{attr}")
 
-    # Rubocop suggests correctable from .nil? || .empty? to .blank?
-    # Rubocop is here disabled, because .blank? is not working on UTF-8 String which are not ASCII
-    # Rubocop correctable must be disabled with all
-    # rubocop:disable all
-    encrypted_value = if cleartext_value.nil? || cleartext_value.empty?
-                        nil
-                      else
-                        Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
-                      end
-    # rubocop:enable all
+    encrypted_value =
+      cleartext_value.presence &&
+      Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
 
     encrypted_data.[]=(attr, **{ data: encrypted_value, iv: nil })
   end
