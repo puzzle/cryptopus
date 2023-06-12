@@ -88,7 +88,7 @@ class Encryptable < ApplicationRecord
   end
 
   def build_encrypted_data(attr, encrypted_value)
-    attr_label = send(:cleartext_custom_attr_label) if attr == :custom_attr
+    attr_label = cleartext_custom_attr_label if attr == :custom_attr
     encrypted_data.[]=(
       attr, **{ label: attr_label, data: encrypted_value, iv: nil }
     )
