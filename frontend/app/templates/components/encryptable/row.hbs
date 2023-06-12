@@ -5,17 +5,18 @@
 </div>
 {{#if this.isShown}}
   {{#if this.isFile}}
-    <div class="row d-flex align-items-center bg-grey-2 rounded encryptable-entry">
-      <div class="mx-1">
+    <div class="row d-flex align-items-center bg-grey-2 rounded encryptable-entry pt-2 pb-2">
+      <div class="mx-1 mt-1 mb-1">
         <img class="icon-medium-button d-inline" src="/assets/images/file.svg" alt="file icon">
       </div>
 
-      <LinkTo class="col-4 underline-hover break-words account-link" @route="encryptables.show"
+      <LinkTo class="d-flex align-items-center text-left col-12 col-md-3 col-lg-3
+      col-xl-4 underline-hover break-words account-link" @route="encryptables.show"
               @model={{@encryptable.id}}>
         {{@encryptable.name}}
       </LinkTo>
 
-      <div class="mx-1">
+      <div>
         <img class="icon-medium-button d-inline" src="/assets/images/member.svg" alt="file icon">
         <BsTooltip @title={{t "tooltips.sent_by"}} @delayShow="1000" />
       </div>
@@ -23,8 +24,8 @@
         {{@encryptable.sender_name}} / {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}
       </div>
 
-      <div class="col-md-auto d-none d-md-block">
-        <a class="mx-1" role="button" href={{this.downloadLink}}>
+      <div class="ml-auto col-md-auto d-none d-md-block">
+        <a class="mx-1 text-decoration-none" role="button" href={{this.downloadLink}}>
           <img class="icon-medium-button d-inline" src="/assets/images/file_download.svg" alt="download file">
           <BsTooltip @title={{t "download_file"}} @delayShow="1000" />
         </a>
