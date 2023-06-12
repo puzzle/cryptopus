@@ -43,35 +43,6 @@ describe EncryptableTransfer do
     it 'Adds (hash) to file name when it already exists in inbox folder of receiver' do
       receiver = bob
       sender = alice
-      allow(SecureRandom).to receive(:hex).and_return('a4GNa0')
-
-      encryptable_transfer.transfer(encryptable_file, receiver, sender)
-
-      received_file = bob.inbox_folder.encryptables.first
-
-      expect(received_file.encrypted_transfer_password).to be_present
-
-      encryptable_transfer.transfer(encryptable_file, receiver, sender)
-
-      received_file = bob.inbox_folder.encryptables.last
-
-      expect(received_file.encrypted_transfer_password).to be_present
-
-      personal_team_password = bob.personal_team.decrypt_team_password(bob, bobs_private_key)
-
-      encryptable_transfer.receive(received_file, bobs_private_key, personal_team_password)
-
-      expect(received_file.transferred?).to eq(false)
-      expect(received_file.encrypted_transfer_password).to be_nil
-      expect(received_file.sender_id).to eq(alice.id)
-      expect(received_file.cleartext_file).to eq(encryptable_file.cleartext_file)
-      expect(received_file.name).to eq('info(a4GNa).txt')
-      expect(received_file.content_type).to eq('text/plain')
-    end
-
-    it 'Adds (hash) to file name when it already exists in inbox folder of receiver' do
-      receiver = bob
-      sender = alice
       allow(SecureRandom).to receive(:hex).and_return('f21b09')
 
       encryptable_file.name = 'info(1).txt'
@@ -190,7 +161,7 @@ describe EncryptableTransfer do
       expect(received_encryptable.name).to eq('Personal Mailbox (1) (1)')
     end
 
-    it 'Replaces only the last (1) in credentials name if name has a second (1)' do
+    it 'Adds only at last (1) a new (1) in credentials name if name has a second (1)' do
       receiver = bob
       sender = alice
 
@@ -212,7 +183,7 @@ describe EncryptableTransfer do
       expect(received_encryptable.name).to eq('Test (1) credentials (1) (1)')
     end
 
-    it 'Saves credentials if name has (1) and in inbox is encryptable with name without (1)' do
+    it 'Saves credentials if name includes (1) and in inbox is encryptable with name without (1)' do
       receiver = bob
       sender = alice
 
@@ -228,7 +199,7 @@ describe EncryptableTransfer do
       expect(received_encryptable.name).to eq('Personal Mailbox (1)')
     end
 
-    it 'Does not add (1) when credentials in inbox folder includes the name in text' do
+    it 'Does not add (1) when credentials in inbox folder includes the name in title' do
       receiver = bob
       sender = alice
 
