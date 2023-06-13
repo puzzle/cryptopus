@@ -21,13 +21,15 @@
     "test": "ember test"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/render-modifiers": "^1.0.2",
     "@ember/test-helpers": "^2.6.0",
     "@glimmer/component": "^1.0.3",
     "@glimmer/tracking": "^1.0.3",
+    "@popperjs/core": "^2.11.8",
     "babel-eslint": "^10.0.3",
-    "bootstrap": "^4.6.1",
+    "bootstrap": "^5.3.0",
     "ember-auto-import": "^1.10.1",
     "ember-autofocus-modifier": "^1.0.1",
     "ember-bootstrap": "^3.1.4",
