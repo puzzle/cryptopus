@@ -1,13 +1,17 @@
 import ENV from "../config/environment";
 
-export async function initialize(/* application */) {
+export function initialize(/* application */) {
   if (ENV.environment !== "test") {
-    const response = await fetch("/api/env_settings");
-    setEnvSettings(await response.json());
+    /* eslint-disable no-undef  */
+    const req = new XMLHttpRequest();
+    req.open("GET", "/api/env_settings", false);
+    req.addEventListener("load", reqListener);
+    req.send();
   }
 }
 
-function setEnvSettings(envSettings) {
+function reqListener() {
+  const envSettings = JSON.parse(this.responseText);
   ENV.sentryDsn = envSettings.sentry;
   ENV.currentUserId = envSettings.current_user.id;
   ENV.currentUserRole = envSettings.current_user.role;
@@ -26,6 +30,8 @@ function setEnvSettings(envSettings) {
   ENV.authProvider = envSettings.auth_provider;
   ENV.fallbackInfo = envSettings.fallback_info;
 }
+
+/* eslint-enable no-undef  */
 
 export default {
   initialize
