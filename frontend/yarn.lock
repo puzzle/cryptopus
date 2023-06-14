@@ -5774,7 +5774,7 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001312, caniuse-lite@^1.0.30001502:
 caniuse-lite@^1.0.30000844:
   version "1.0.30001503"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001503.tgz#88b6ff1b2cf735f1f3361dc1a15b59f0561aa398"
-  integrity sha512-Sf9NiF+wZxPfzv8Z3iS0rXM1Do+iOy2Lxvib38glFX+08TCYYYGR5fRJXk4d77C4AYwhUjgYgMsMudbh2TqCKw==
+  integrity "sha1-iLb/Gyz3NfHzNh3BoVtZ8FYao5g= sha512-Sf9NiF+wZxPfzv8Z3iS0rXM1Do+iOy2Lxvib38glFX+08TCYYYGR5fRJXk4d77C4AYwhUjgYgMsMudbh2TqCKw=="
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -8071,7 +8071,7 @@ ember-resolver@^8.0.3:
 ember-rfc176-data@^0.3.13:
   version "0.3.18"
   resolved "https://registry.yarnpkg.com/ember-rfc176-data/-/ember-rfc176-data-0.3.18.tgz#bb6fdcef49999981317ea81b6cc9210fb4108d65"
-  integrity sha512-JtuLoYGSjay1W3MQAxt3eINWXNYYQliK90tLwtb8aeCuQK8zKGCRbBodVIrkcTqshULMnRuTOS6t1P7oQk3g6Q==
+  integrity "sha1-u2/c70mZmYExfqgbbMkhD7QQjWU= sha512-JtuLoYGSjay1W3MQAxt3eINWXNYYQliK90tLwtb8aeCuQK8zKGCRbBodVIrkcTqshULMnRuTOS6t1P7oQk3g6Q=="
 
 ember-rfc176-data@^0.3.15, ember-rfc176-data@^0.3.17:
   version "0.3.17"
@@ -15300,7 +15300,7 @@ yocto-queue@^0.1.0:
 zero-md@^2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/zero-md/-/zero-md-2.4.1.tgz#cc2c6aa5f8e6ab1df66d13a17edd8327b25c8fd1"
-  integrity sha512-VQ5VSZ6wPfWPI4hz5Tu8WwbPTtDb2P7VSrR3wd+7Q1Rxakb6rVLGcgpTELYR2OttZh4r/MDAOex2DOUPdBIk4w==
+  integrity "sha1-zCxqpfjmqx32bROhft2DJ7Jcj9E= sha512-VQ5VSZ6wPfWPI4hz5Tu8WwbPTtDb2P7VSrR3wd+7Q1Rxakb6rVLGcgpTELYR2OttZh4r/MDAOex2DOUPdBIk4w=="
 
 zxcvbn@^4.4.2:
   version "4.4.2"
