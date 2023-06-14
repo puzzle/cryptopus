@@ -11172,6 +11172,11 @@ markdown-it@^13.0.1:
     mdurl "^1.0.1"
     uc.micro "^1.0.5"
 
+marked@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-5.1.0.tgz#cf51f03ba04dfb3469774029fd0106d258658767"
+  integrity sha512-z3/nBe7aTI8JDszlYLk7dDVNpngjw0o1ZJtrA9kIfkkHcIF+xH7mO23aISl4WxP83elU+MFROgahqdpd05lMEQ==
+
 matcher-collection@^1.0.0, matcher-collection@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/matcher-collection/-/matcher-collection-1.1.2.tgz#1076f506f10ca85897b53d14ef54f90a5c426838"
@@ -15084,11 +15089,6 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
-
-zero-md@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/zero-md/-/zero-md-2.4.1.tgz#cc2c6aa5f8e6ab1df66d13a17edd8327b25c8fd1"
-  integrity "sha1-zCxqpfjmqx32bROhft2DJ7Jcj9E= sha512-VQ5VSZ6wPfWPI4hz5Tu8WwbPTtDb2P7VSrR3wd+7Q1Rxakb6rVLGcgpTELYR2OttZh4r/MDAOex2DOUPdBIk4w=="
 
 zxcvbn@^4.4.2:
   version "4.4.2"
