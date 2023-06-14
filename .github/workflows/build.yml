@@ -82,9 +82,6 @@ jobs:
       - name: Install bundler
         run: gem install bundler:2.3.13
 
-      - name: Set node_options
-        run: export NODE_OPTIONS=--openssl-legacy-provider
-
       - name: Create database
         run: bundle exec rails db:setup
 
