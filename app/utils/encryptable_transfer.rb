@@ -38,54 +38,55 @@ class EncryptableTransfer
   def encryptable_destination_name(encryptable, receiver)
     encryptable_name = encryptable.name
 
-    inbox_folder_names = receiver.inbox_folder.encryptables.pluck(:name)
-    return encryptable_name if inbox_folder_names.empty?
+    existing_encryptable_names = receiver.inbox_folder.encryptables.pluck(:name)
+    return encryptable_name if existing_encryptable_names.empty?
 
-    matching_inbox_names = find_existing_names(encryptable_name, inbox_folder_names).sort
-    is_file = encryptable.type == 'Encryptable::File'
+    matching_inbox_names = find_existing_names(encryptable_name, existing_encryptable_names)
+    return encryptable_name if matching_inbox_names.blank?
 
-    return encryptable_name if matching_inbox_names.empty?
-
-    last_matched_inbox_name = matching_inbox_names.last
-    adjust_encryptable_name(encryptable_name, is_file, last_matched_inbox_name)
+    is_file = encryptable.is_a?(Encryptable::File)
+    latest_name = matching_inbox_names.last
+    adjust_encryptable_name(encryptable_name, is_file, latest_name)
   end
 
-  def adjust_encryptable_name(encryptable_name, is_file, last_matched_inbox_name)
-    unless is_file
-      encryptable_name_regex = Regexp.escape(encryptable_name)
-      return encryptable_name unless climbs_at_name_end(encryptable_name, encryptable_name_regex)
+  def adjust_encryptable_name(encryptable_name, is_file, latest_name)
+    if is_file
+      suffix = File.extname(encryptable_name)
+      encryptable_name = File.basename(encryptable_name, '.*')
     end
 
-    increase_encryptable_name(encryptable_name, is_file, last_matched_inbox_name)
+    increase_encryptable_name(encryptable_name, is_file, latest_name, suffix)
   end
 
-  def increase_encryptable_name(encryptable_name, is_file, last_matched_inbox_name)
-    return file_destination_name(encryptable_name) if is_file
+  def increase_encryptable_name(encryptable_name, is_file, latest_name, suffix)
+    if INCREMENT_REGEX.match(encryptable_name)
+      encryptable_name = encryptable_name.sub(/\(\d+\)\z/, '')
+    end
 
-    if INCREMENT_REGEX.match(last_matched_inbox_name)
-      "#{last_matched_inbox_name} (1)"
+    if INCREMENT_REGEX.match(latest_name)
+      number_to_increase = INCREMENT_REGEX.match(latest_name)[1].to_i
+      encryptable_name += "(#{number_to_increase + 1})"
     else
-      "#{encryptable_name} (1)"
+      encryptable_name += '(1)'
     end
+
+    encryptable_name += suffix if is_file
+
+    encryptable_name
   end
 
-  def file_destination_name(file_name)
-    random_hash = SecureRandom.hex(3) # Generate a random hex string with 3 bytes (6 characters)
-    random_hash = random_hash[0...5]  # Extract the first 5 characters
+  def find_existing_names(new_encryptable_name, existing_encryptable_names)
+    return unless existing_encryptable_names.include?(new_encryptable_name)
 
-    file_name.sub(/(\.[^.]+)\z/, "(#{random_hash})\\1")
-  end
+    encryptable_suffix = File.extname(new_encryptable_name)
+    encryptable_name = File.basename(new_encryptable_name, '.*')
 
-  def find_existing_names(new_encryptable_name, inbox_folder_names)
-    encryptable_name_regex = Regexp.escape(new_encryptable_name)
-
-    inbox_folder_names.select do |name|
-      climbs_at_name_end(name, encryptable_name_regex)
+    regex_pattern = /\A#{Regexp.escape(encryptable_name)}(?:\(\d+\))?\z/
+    existing_encryptable_names.select do |name|
+      current_suffix = File.extname(name)
+      current_encryptable_name = File.basename(name, '.*')
+      current_encryptable_name.match?(regex_pattern) && current_suffix == encryptable_suffix
     end
-  end
-
-  def climbs_at_name_end(name, encryptable_name_regex)
-    name.match?(/^(?:#{encryptable_name_regex}(?: \(\d+\))*|#{encryptable_name_regex})$/)
   end
 
   def encrypted_transfer_password(password, receiver)
