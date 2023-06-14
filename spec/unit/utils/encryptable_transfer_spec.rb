@@ -40,64 +40,7 @@ describe EncryptableTransfer do
       expect(received_file.content_type).to eq('text/plain')
     end
 
-    it 'Adds (hash) to file name when it already exists in inbox folder of receiver' do
-      receiver = bob
-      sender = alice
-      allow(SecureRandom).to receive(:hex).and_return('f21b09')
-
-      encryptable_file.name = 'info(1).txt'
-      encryptable_transfer.transfer(encryptable_file, receiver, sender)
-
-      expect(receiver.inbox_folder.encryptables.count).to eq 1
-
-      encryptable_transfer.transfer(encryptable_file, receiver, sender)
-
-      received_file = bob.inbox_folder.encryptables.last
-
-      expect(received_file.encrypted_transfer_password).to be_present
-
-      personal_team_password = bob.personal_team.decrypt_team_password(bob, bobs_private_key)
-
-      encryptable_transfer.receive(received_file, bobs_private_key, personal_team_password)
-
-      expect(received_file.transferred?).to eq(false)
-      expect(received_file.encrypted_transfer_password).to be_nil
-      expect(received_file.sender_id).to eq(alice.id)
-      expect(received_file.cleartext_file).to eq(encryptable_file.cleartext_file)
-      expect(received_file.name).to eq('info(1)(f21b0).txt')
-      expect(received_file.content_type).to eq('text/plain')
-    end
-
-    it 'Saves file if name has (1) and in inbox is encryptable with name without (1)' do
-      receiver = bob
-      sender = alice
-
-      encryptable_transfer.transfer(encryptable_file, receiver, sender)
-
-      received_file = bob.inbox_folder.encryptables.first
-
-      expect(received_file.encrypted_transfer_password).to be_present
-
-      encryptable_file.name = 'info(1).txt'
-      encryptable_transfer.transfer(encryptable_file, receiver, sender)
-
-      received_file = bob.inbox_folder.encryptables.last
-
-      expect(received_file.encrypted_transfer_password).to be_present
-
-      personal_team_password = bob.personal_team.decrypt_team_password(bob, bobs_private_key)
-
-      encryptable_transfer.receive(received_file, bobs_private_key, personal_team_password)
-
-      expect(received_file.transferred?).to eq(false)
-      expect(received_file.encrypted_transfer_password).to be_nil
-      expect(received_file.sender_id).to eq(alice.id)
-      expect(received_file.cleartext_file).to eq(encryptable_file.cleartext_file)
-      expect(received_file.name).to eq('info(1).txt')
-      expect(received_file.content_type).to eq('text/plain')
-    end
-
-    it 'Adds (1) to credentials name if name is already taken in inbox folder' do
+    it 'Transfers encryptable credentials to other user' do
       receiver = bob
       sender = alice
 
@@ -112,112 +55,9 @@ describe EncryptableTransfer do
       received_encryptable = bob.inbox_folder.encryptables.last
 
       expect(received_encryptable.encrypted_transfer_password).to be_present
-      expect(received_encryptable.name).to eq('Personal Mailbox (1)')
-    end
-
-    it 'Adds (1) (1) to credentials name if name (1) is already taken in inbox folder' do
-      receiver = bob
-      sender = alice
-
-      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
-
-      received_encryptable = bob.inbox_folder.encryptables.first
-      expect(received_encryptable.encrypted_transfer_password).to be_present
-
-      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
-
-      received_encryptable = bob.inbox_folder.encryptables.first
-      expect(received_encryptable.encrypted_transfer_password).to be_present
-      expect(received_encryptable.name).to eq('Personal Mailbox (1)')
-
-      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
-
-      expect(received_encryptable.encrypted_transfer_password).to be_present
-      received_encryptable = bob.inbox_folder.encryptables.last
-
-      expect(received_encryptable.name).to eq('Personal Mailbox (1) (1)')
-    end
-
-    it 'Adds (1) (1) to credentials name if name (1) is already taken and name has (1)' do
-      receiver = bob
-      sender = alice
-
-      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
-      expect(receiver.inbox_folder.encryptables.count).to eq 1
-
-      encryptable_credentials1.name += ' (1)'
-
-      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
-
-      received_encryptable = bob.inbox_folder.encryptables.first
-
-      expect(received_encryptable.encrypted_transfer_password).to be_present
-      expect(received_encryptable.name).to eq(encryptable_credentials1.name)
-
-      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
-
-      received_encryptable = bob.inbox_folder.encryptables.last
-
-      expect(received_encryptable.name).to eq('Personal Mailbox (1) (1)')
-    end
-
-    it 'Adds only at last (1) a new (1) in credentials name if name has a second (1)' do
-      receiver = bob
-      sender = alice
-
-      encryptable_credentials1.name = 'Test (1) credentials (1)'
-      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
-
-      received_encryptable = bob.inbox_folder.encryptables.first
-      expect(received_encryptable.encrypted_transfer_password).to be_present
-
-      received_encryptable = bob.inbox_folder.encryptables.first
-      expect(received_encryptable.encrypted_transfer_password).to be_present
-      expect(received_encryptable.name).to eq('Test (1) credentials (1)')
-
-      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
-
-      expect(received_encryptable.encrypted_transfer_password).to be_present
-      received_encryptable = bob.inbox_folder.encryptables.last
-
-      expect(received_encryptable.name).to eq('Test (1) credentials (1) (1)')
-    end
-
-    it 'Saves credentials if name includes (1) and in inbox is encryptable with name without (1)' do
-      receiver = bob
-      sender = alice
-
-      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
-      expect(receiver.inbox_folder.encryptables.count).to eq 1
-
-      encryptable_credentials1.name += ' (1)'
-      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
-
-      received_encryptable = bob.inbox_folder.encryptables.last
-
-      expect(received_encryptable.encrypted_transfer_password).to be_present
-      expect(received_encryptable.name).to eq('Personal Mailbox (1)')
-    end
-
-    it 'Does not add (1) when credentials in inbox folder includes the name in title' do
-      receiver = bob
-      sender = alice
-
-      encryptable_credentials1.name = 'Personal Mailbox text'
-
-      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
-
-      received_encryptable = bob.inbox_folder.encryptables.first
-
-      expect(received_encryptable.name).to eq(encryptable_credentials1.name)
-
-      encryptable_credentials1.name = 'Personal Mailbox'
-
-      encryptable_transfer.transfer(encryptable_credentials1, receiver, sender)
-
-      received_encryptable = bob.inbox_folder.encryptables.last
-
-      expect(received_encryptable.name).to eq('Personal Mailbox')
+      expect(received_encryptable.name).to eq('Personal Mailbox(1)')
+      expect(received_encryptable.sender_id).to eq(alice.id)
+      expect(received_encryptable.description).to eq(encryptable_credentials1.description)
     end
   end
 
@@ -238,6 +78,189 @@ describe EncryptableTransfer do
 
       expect(received_file.sender_id).to eq(bob.id)
       expect(received_file.encrypted_transfer_password).to be_nil
+    end
+  end
+
+  context '#encryptable_destination_name' do
+    let(:receiver) { bob }
+
+    context 'For File' do
+      it 'Keeps "invoice.pdf" if same name does not exist' do
+        encryptable = Encryptable::File.new(name: 'invoice.pdf')
+        @existing_names = []
+
+        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
+                                                 :pluck).and_return(@existing_names)
+        destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
+                                                     receiver)
+
+        expect(destination_name).to eq('invoice.pdf')
+      end
+
+      it 'Becomes "invoice(1).pdf" if "invoice.pdf" exists' do
+        encryptable = Encryptable::File.new(name: 'invoice.pdf')
+        @existing_names = ['invoice.pdf']
+
+        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
+                                                 :pluck).and_return(@existing_names)
+        destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
+                                                     receiver)
+
+        expect(destination_name).to eq('invoice(1).pdf')
+      end
+
+      it 'Becomes "invoice(2).pdf" if "invoice.pdf" and "invoice(1).pdf" exists' do
+        encryptable = Encryptable::File.new(name: 'invoice.pdf')
+        @existing_names = ['invoice.pdf', 'invoice(1).pdf']
+
+        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
+                                                 :pluck).and_return(@existing_names)
+        destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
+                                                     receiver)
+
+        expect(destination_name).to eq('invoice(2).pdf')
+      end
+
+      it 'Becomes "invoice(3).pdf" if "invoice.pdf", "invoice(1).pdf" and "invoice(2).pdf" exists' do # rubocop:disable Layout/LineLength
+        encryptable = Encryptable::File.new(name: 'invoice.pdf')
+        @existing_names = ['invoice.pdf', 'invoice(1).pdf', 'invoice(2).pdf']
+
+        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
+                                                 :pluck).and_return(@existing_names)
+        destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
+                                                     receiver)
+
+        expect(destination_name).to eq('invoice(3).pdf')
+      end
+
+      it 'Increase "invoice(1).pdf" to "invoice(2).pdf" if "invoice.pdf" and "invoice(1).pdf" exists' do # rubocop:disable Layout/LineLength
+        encryptable = Encryptable::File.new(name: 'invoice(1).pdf')
+        @existing_names = ['invoice.pdf', 'invoice(1).pdf']
+
+        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
+                                                 :pluck).and_return(@existing_names)
+        destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
+                                                     receiver)
+
+        expect(destination_name).to eq('invoice(2).pdf')
+      end
+
+      it 'Keeps "invoice.pdf" if "invoice(1).pdf" but no "invoice.pdf" exists' do
+        encryptable = Encryptable::File.new(name: 'invoice.pdf')
+        @existing_names = ['invoice(1).pdf']
+
+        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
+                                                 :pluck).and_return(@existing_names)
+        destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
+                                                     receiver)
+
+        expect(destination_name).to eq('invoice.pdf')
+      end
+
+      it 'Keeps "invoice.pdf" if "invoice other.pdf" exist' do
+        encryptable = Encryptable::File.new(name: 'invoice.pdf')
+        @existing_names = ['invoice other.pdf']
+
+        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
+                                                 :pluck).and_return(@existing_names)
+        destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
+                                                     receiver)
+
+        expect(destination_name).to eq('invoice.pdf')
+      end
+    end
+
+    context 'For credential' do
+
+      it 'Keeps "Mailbox" if same name does not exist' do
+        encryptable = Encryptable::Credentials.new(name: 'Mailbox')
+        @existing_names = []
+
+        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
+                                                 :pluck).and_return(@existing_names)
+        destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
+                                                     receiver)
+
+        expect(destination_name).to eq('Mailbox')
+      end
+
+      it 'Becomes "Mailbox(1)" if "Mailbox" exists' do
+        encryptable = Encryptable::Credentials.new(name: 'Mailbox')
+        @existing_names = ['Mailbox']
+
+        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
+                                                 :pluck).and_return(@existing_names)
+        destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
+                                                     receiver)
+
+        expect(destination_name).to eq('Mailbox(1)')
+      end
+
+      it 'Becomes "Mailbox(2)" if "Mailbox" and "Mailbox(1)" exists' do
+        encryptable = Encryptable::Credentials.new(name: 'Mailbox')
+        @existing_names = ['Mailbox', 'Mailbox(1)']
+
+        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
+                                                 :pluck).and_return(@existing_names)
+        destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
+                                                     receiver)
+
+        expect(destination_name).to eq('Mailbox(2)')
+      end
+
+      it 'Becomes "Mailbox(3)" if "Mailbox", "Mailbox(1)" and "Mailbox(2)" exists' do
+        encryptable = Encryptable::Credentials.new(name: 'Mailbox')
+        @existing_names = ['Mailbox', 'Mailbox(1)', 'Mailbox(2)']
+
+        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
+                                                 :pluck).and_return(@existing_names)
+        destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
+                                                     receiver)
+
+        expect(destination_name).to eq('Mailbox(3)')
+      end
+
+      it 'Increase "Mailbox(1)" to "Mailbox(2)" if "Mailbox(1)" exist' do
+        encryptable = Encryptable::Credentials.new(name: 'Mailbox(1)')
+        @existing_names = ['Mailbox', 'Mailbox(1)']
+
+        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
+                                                 :pluck).and_return(@existing_names)
+        destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
+                                                     receiver)
+
+        expect(destination_name).to eq('Mailbox(2)')
+      end
+
+      it 'Keeps "Mailbox" if "Mailbox(1)" but no "Mailbox" exists' do
+        encryptable = Encryptable::Credentials.new(name: 'Mailbox')
+        @existing_names = ['Mailbox(1)']
+
+        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
+                                                 :pluck).and_return(@existing_names)
+        destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
+                                                     receiver)
+
+        expect(destination_name).to eq('Mailbox')
+      end
+
+      it 'Keeps "Mailbox" if "Mailbox BOB" exist' do
+        encryptable = Encryptable::Credentials.new(name: 'Mailbox')
+        @existing_names = ['Mailbox BOB']
+
+        allow(receiver).to receive_message_chain(
+          :inbox_folder,
+          :encryptables,
+          :pluck
+        ).and_return(@existing_names)
+        destination_name = encryptable_transfer.send(
+          :encryptable_destination_name,
+          encryptable,
+          receiver
+        )
+
+        expect(destination_name).to eq('Mailbox')
+      end
     end
   end
 
