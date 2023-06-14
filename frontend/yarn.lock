@@ -15297,11 +15297,6 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zero-md@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/zero-md/-/zero-md-2.4.1.tgz#cc2c6aa5f8e6ab1df66d13a17edd8327b25c8fd1"
-  integrity "sha1-zCxqpfjmqx32bROhft2DJ7Jcj9E= sha512-VQ5VSZ6wPfWPI4hz5Tu8WwbPTtDb2P7VSrR3wd+7Q1Rxakb6rVLGcgpTELYR2OttZh4r/MDAOex2DOUPdBIk4w=="
-
 zxcvbn@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/zxcvbn/-/zxcvbn-4.4.2.tgz#28ec17cf09743edcab056ddd8b1b06262cc73c30"
