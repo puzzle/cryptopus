@@ -58,6 +58,7 @@
     "ember-intl": "^5.7.2",
     "ember-load-initializers": "^2.1.2",
     "ember-loading": "^2.0.0",
+    "zero-md": "^2.4.1",
     "ember-moment": "^9.0.1",
     "ember-notify": "^6.0.2",
     "ember-power-select": "^4.0.3",
