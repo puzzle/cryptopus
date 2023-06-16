@@ -3,6 +3,7 @@ import { setupRenderingTest } from "ember-qunit";
 import { render } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 import Service from "@ember/service";
+import { isPresent } from "@ember/utils";
 import { setLocale } from "ember-intl/test-support";
 
 const storeStub = Service.extend({
@@ -27,6 +28,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
       id: 1,
       name: "mate",
       cleartextUsername: "ok",
+      sender_name: null,
       usedEncryptedDataAttrs: ["username"]
     });
 
@@ -55,6 +57,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
       name: "mate",
       cleartextUsername: "ok",
       cleartextPassword: "ok2",
+      sender_name: null,
       usedEncryptedDataAttrs: ["username", "password"]
     });
 
@@ -87,6 +90,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
       cleartextUsername: "ok",
       cleartextPassword: "ok2",
       cleartextPin: "ok3",
+      sender_name: null,
       usedEncryptedDataAttrs: ["username", "password", "pin"]
     });
 

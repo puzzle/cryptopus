@@ -50,13 +50,13 @@
         {{@encryptable.name}}
       </LinkTo>
       {{#if this.isTransferredCredentials }}
-          <div class="mx-1">
-            <img class="icon-medium-button d-inline" src="/assets/images/member.svg" alt="person icon">
-            <BsTooltip @title={{t "tooltips.sent_by"}} @delayShow="1000" />
-          </div>
-          <div class="col-6 d-none d-md-block sent-by-row">
-            {{@encryptable.sender_name}} / {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}
-          </div>
+        <div class="mx-1">
+          <img class="icon-medium-button d-inline" src="/assets/images/member.svg" alt="person icon">
+          <BsTooltip @title={{t "tooltips.sent_by"}} @delayShow="1000" />
+        </div>
+        <div class="col-6 d-none d-md-block sent-by-row">
+          {{@encryptable.sender_name}} / {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}
+        </div>
       {{else}}
         {{#if (and (lte this.getAttributesAmount 2) (gt this.getAttributesAmount 0))}}
           {{#if (is-included @encryptable.usedEncryptedDataAttrs "username")}}

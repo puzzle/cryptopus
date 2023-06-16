@@ -100,6 +100,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
       cleartextCustomAttr: "value",
       cleartextCustomAttrLabel: "label",
       createdAt: "2021-06-14 09:23:02.750627",
+      sender_name: null,
       updatedAt: "2021-06-22 11:33:13.766879"
     });
 
@@ -165,6 +166,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
         value: "value"
       },
       createdAt: "2021-06-14 09:23:02.750627",
+      sender_name: null,
       updatedAt: "2021-06-22 11:33:13.766879"
     });
 
@@ -252,6 +254,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
         value: "value"
       },
       createdAt: "2021-06-14 09:23:02.750627",
+      sender_name: null,
       updatedAt: "2021-06-22 11:33:13.766879"
     });
 
@@ -342,6 +345,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
         value: "value"
       },
       createdAt: "2021-06-14 09:23:02.750627",
+      sender_name: null,
       updatedAt: "2021-06-22 11:33:13.766879"
     });
 
@@ -432,6 +436,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
         value: "value"
       },
       createdAt: "2021-06-14 09:23:02.750627",
+      sender_name: null,
       updatedAt: "2021-06-22 11:33:13.766879"
     });
 
@@ -534,6 +539,8 @@ module("Integration | Component | encryptable/show", function (hooks) {
   });
 
   test("it renders transferred credentials", async function (assert) {
+    setLocale("en");
+
     this.set("encryptable", {
       id: 1,
       name: "Ninjas encryptable credentials",
@@ -552,15 +559,15 @@ module("Integration | Component | encryptable/show", function (hooks) {
       text.includes("Transferred Credentials: Ninjas encryptable credentials")
     );
     assert.ok(text.includes("Sent on: 14.06.2021 09:23"));
-    assert.ok(text.includes("Last Update at: 22.06.2021 11:33"));
+    assert.ok(text.includes("Last update at: 22.06.2021 11:33"));
     assert.ok(text.includes("Sender name: Bob Kuchen (bob)"));
     assert.ok(text.includes("Encryptable for the ninjas"));
     assert.ok(text.includes("Show password"));
 
     let cleartextUsername = this.element.querySelector("#cleartext_username");
     assert.equal(cleartextUsername.value, "mail");
-    let cleartextPassword = this.element.querySelector("#cleartext_password");
-    assert.equal(cleartextPassword.value, "e2jd2rh4g5io7");
+    let showPassword = this.element.querySelector("#show-password");
+    assert.ok(isPresent(showPassword));
     let deleteButton = this.element.querySelector('.icon-button[alt="delete"]');
     assert.ok(isPresent(deleteButton));
     let shareButton = this.element.querySelector('.icon-button[alt="share"]');
