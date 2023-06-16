@@ -82,7 +82,7 @@ class Encryptable < ApplicationRecord
       cleartext_value.presence &&
         Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
 
-    build_encrypted_data(attr, encrypted_value)
+    build_encrypted_data(attr, encrypted_value) unless encrypted_value.nil?
   end
 
   def build_encrypted_data(attr, encrypted_value)
