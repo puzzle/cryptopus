@@ -15,7 +15,7 @@ export default class EncryptableTransfer extends Encryptable {
     const receiverId = await this.receiver.get("id");
     let opts;
 
-    if (this.description === undefined && this.file === undefined) {
+    if (this.transferringCredentials()) {
       opts = {
         data: {
           receiver_id: receiverId,
@@ -52,5 +52,10 @@ export default class EncryptableTransfer extends Encryptable {
         .catch(() => {});
       return promise;
     }
+  }
+
+  transferringCredentials() {
+    // this.file is only set, if transferring file
+    return this.file === undefined;
   }
 }
