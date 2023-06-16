@@ -8,6 +8,7 @@ describe Api::EncryptablesTransferController do
   let(:bob) { users(:bob) }
   let(:alice) { users(:alice) }
   let(:api_user) { bob.api_users.create }
+  let(:credentials1) { encryptables(:credentials1) }
   let(:credentials2) { encryptables(:credentials2) }
 
 
@@ -145,7 +146,7 @@ describe Api::EncryptablesTransferController do
 
       request_params = {
         receiver_id: alice.id,
-        encryptable_id: credentials2.id
+        encryptable_id: credentials1.id
       }
 
       post :create, params: request_params, xhr: true
@@ -160,9 +161,9 @@ describe Api::EncryptablesTransferController do
                                       alice.decrypt_private_key('password'),
                                       plaintext_team_password)
 
-      expect(transferred_encryptable.name).to eq('Twitter Account')
-      expect(transferred_encryptable.id).not_to eq(credentials2.id)
-      expect(transferred_encryptable.description).to eq('My personal twitter account')
+      expect(transferred_encryptable.name).to eq('Personal Mailbox')
+      expect(transferred_encryptable.id).not_to eq(credentials1.id)
+      expect(transferred_encryptable.description).to eq('Mailprovider One')
       expect(transferred_encryptable.sender_id).to eq(bob.id)
       expect(transferred_encryptable.encrypted_transfer_password).to eq(nil)
     end
