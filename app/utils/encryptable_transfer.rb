@@ -63,12 +63,11 @@ class EncryptableTransfer
       encryptable_name = encryptable_name.sub(/\(\d+\)\z/, '')
     end
 
-    if INCREMENT_REGEX.match(latest_name)
-      number_to_increase = INCREMENT_REGEX.match(latest_name)[1].to_i
-      encryptable_name += "(#{number_to_increase + 1})"
-    else
-      encryptable_name += '(1)'
-    end
+    encryptable_name += if INCREMENT_REGEX.match(latest_name)
+                          "(#{INCREMENT_REGEX.match(latest_name)[1].to_i + 1})"
+                        else
+                          '(1)'
+                        end
 
     encryptable_name += suffix if is_file
 
@@ -81,12 +80,24 @@ class EncryptableTransfer
     encryptable_suffix = File.extname(new_encryptable_name)
     encryptable_name = File.basename(new_encryptable_name, '.*')
 
-    regex_pattern = /\A#{Regexp.escape(encryptable_name)}(?:\(\d+\))?\z/
+    encryptable_name = remove_optional_climbs(encryptable_name)
+
+    regex_pattern = /\A#{Regexp.escape(encryptable_name)}(\(\d+\))?\z/
     existing_encryptable_names.select do |name|
       current_suffix = File.extname(name)
       current_encryptable_name = File.basename(name, '.*')
       current_encryptable_name.match?(regex_pattern) && current_suffix == encryptable_suffix
     end
+  end
+
+  def remove_optional_climbs(encryptable_name)
+    regex_pattern = /\A.*\(\d+\)\z/
+
+    if encryptable_name.match?(regex_pattern)
+      encryptable_name = encryptable_name.gsub(/\(\d+\)\z/, '')
+    end
+
+    encryptable_name
   end
 
   def encrypted_transfer_password(password, receiver)
