@@ -4,9 +4,7 @@
   </Modal.header>
   <Modal.body>
     <div class="container-fluid">
-      /* eslint-disable no-triple-curlies */
-      {{{text}}}
-      /* eslint-enable no-triple-curlies */
+      {{{html-safe (markdown-to-html content)}}}
     </div>
   </Modal.body>
   <Modal.footer>

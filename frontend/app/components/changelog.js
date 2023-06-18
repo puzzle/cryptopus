@@ -1,22 +1,16 @@
 import Component from "@glimmer/component";
-import { marked } from "marked";
+import { tracked } from "@glimmer/tracking";
 
 export default class Changelog extends Component {
-  text = marked.parse("## This is a test string");
+  @tracked content = '';
 
   constructor() {
     super(...arguments);
-    const req = new XMLHttpRequest();
-    req.open(
-      "GET",
-      "https://raw.githubusercontent.com/puzzle/cryptopus/master/frontend/markdown/CHANGELOG.md",
-      false
-    );
-    req.addEventListener("load", this.reqListener);
-    req.send();
+    this.loadMarkdown();
   }
 
-  reqListener() {
-    this.text = marked.parse(this.reponseText);
+  async loadMarkdown() {
+    const response = await fetch('./CHANGELOG.md');
+    this.content = await response.text();
   }
 }
