@@ -3,7 +3,7 @@ import ENV from "../config/environment";
 export async function initialize(/* application */) {
   if (ENV.environment !== "test") {
     const response = await fetch("/api/env_settings");
-    setEnvSettings(response.json());
+    setEnvSettings(await response.json());
   }
 }
 
