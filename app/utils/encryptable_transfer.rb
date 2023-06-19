@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'securerandom'
-
 class EncryptableTransfer
 
   INCREMENT_REGEX = /\((\d+)\)/
@@ -50,6 +48,7 @@ class EncryptableTransfer
   end
 
   def adjust_encryptable_name(encryptable_name, is_file, latest_name)
+    # Remove file datatype, so we can handle can increase name same as credentials
     if is_file
       suffix = File.extname(encryptable_name)
       encryptable_name = File.basename(encryptable_name, '.*')
@@ -59,10 +58,12 @@ class EncryptableTransfer
   end
 
   def increase_encryptable_name(encryptable_name, is_file, latest_name, suffix)
+    # Remove (NUMBER) if it already exists in name
     if INCREMENT_REGEX.match(encryptable_name)
       encryptable_name = encryptable_name.sub(/\(\d+\)\z/, '')
     end
 
+    # If last encryptable in inbox has (NUMBER) add (NUMBER + 1)
     encryptable_name += if INCREMENT_REGEX.match(latest_name)
                           "(#{INCREMENT_REGEX.match(latest_name)[1].to_i + 1})"
                         else
@@ -80,6 +81,7 @@ class EncryptableTransfer
     encryptable_suffix = File.extname(new_encryptable_name)
     encryptable_name = File.basename(new_encryptable_name, '.*')
 
+    # For the loop through inbox encryptables remove (NUMBER) from name
     encryptable_name = remove_optional_climbs(encryptable_name)
 
     regex_pattern = /\A#{Regexp.escape(encryptable_name)}(\(\d+\))?\z/
