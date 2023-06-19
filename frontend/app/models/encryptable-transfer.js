@@ -12,7 +12,7 @@ export default class EncryptableTransfer extends Encryptable {
       return super.save();
     }
     const targetUrl = `/api/encryptables_transfer`;
-    const receiverId = await this.receiver.get("id");
+    const receiverId = await this.receiver.id;
     let opts;
 
     if (this.transferringCredentials()) {

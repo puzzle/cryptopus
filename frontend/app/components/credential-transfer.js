@@ -12,6 +12,7 @@ export default class CredentialTransfer extends BaseFormComponent {
   @service router;
   @service navService;
   @tracked encryptableId;
+  @tracked encryptableName;
   @tracked candidates;
   @tracked receiver;
 
@@ -29,6 +30,7 @@ export default class CredentialTransfer extends BaseFormComponent {
     this.changeset.csrfToken = ENV.CSRFToken;
 
     this.encryptableId = this.args.encryptableId;
+    this.encryptableName = this.args.encryptableName;
     this.changeset.encryptableId = this.encryptableId;
 
     this.loadValidation();

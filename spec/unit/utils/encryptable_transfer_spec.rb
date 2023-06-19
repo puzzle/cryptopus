@@ -157,9 +157,9 @@ describe EncryptableTransfer do
         expect(destination_name).to eq('invoice.pdf')
       end
 
-      it 'Keeps "invoice.pdf" if "invoice other.pdf" exist' do
+      it 'Keeps "invoice.pdf" if "blabliblu invoice.pdf" exist' do
         encryptable = Encryptable::File.new(name: 'invoice.pdf')
-        @existing_names = ['invoice other.pdf']
+        @existing_names = ['blabliblu invoice.pdf']
 
         allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
                                                  :pluck).and_return(@existing_names)

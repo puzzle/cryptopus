@@ -78,16 +78,17 @@ module("Integration | Component | credential-transfer", function (hooks) {
 
   test("it renders pop up and chooses receiver", async function (assert) {
     this.set("user-human", users);
+    this.set("encryptableName", "Invoice");
 
-    await render(hbs`<CredentialTransfer />`);
+    await render(
+      hbs`<CredentialTransfer @encryptableName={{this.encryptableName}} />`
+    );
 
     let text = this.element.textContent.trim();
-    assert.ok(text.includes("Send credentials to"));
-    assert.ok(
-      text.includes(
-        "Your credentials will be sent encrypted to the inbox folder from the selected receiver."
-      )
-    );
+    assert.ok(text.includes("Share credentials with"));
+    assert.ok(text.includes("A copy of"));
+    assert.ok(text.includes("Invoice"));
+    assert.ok(text.includes("will be sent to the receiver's inbox"));
     assert.ok(text.includes("Send"));
 
     let saveButton = this.element.querySelector('button[alt="save"]');

@@ -25,7 +25,7 @@ export default class ShowComponent extends Component {
   isCredentialSharing = false;
 
   @tracked isTransferredCredentials =
-    this.args.encryptable.sender_name !== null;
+    this.args.encryptable.sender_name !== null && !this.isFile;
 
   @action
   toggleEncryptableEdit() {

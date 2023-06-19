@@ -24,12 +24,25 @@ module("Integration | Component | encryptable/row", function (hooks) {
   });
 
   test("it renders with one set attribute", async function (assert) {
+    const folder = {
+      id: 1,
+      name: "Inbox",
+      isInboxFolder: false,
+
+      get(key) {
+        if (key === "isInboxFolder") {
+          return false;
+        }
+      }
+    };
+
     this.set("encryptable", {
       id: 1,
       name: "mate",
       cleartextUsername: "ok",
       sender_name: null,
-      usedEncryptedDataAttrs: ["username"]
+      usedEncryptedDataAttrs: ["username"],
+      folder: folder
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
@@ -52,13 +65,26 @@ module("Integration | Component | encryptable/row", function (hooks) {
   });
 
   test("it renders with two set attribute", async function (assert) {
+    const folder = {
+      id: 1,
+      name: "Inbox",
+      isInboxFolder: false,
+
+      get(key) {
+        if (key === "isInboxFolder") {
+          return false;
+        }
+      }
+    };
+
     this.set("encryptable", {
       id: 1,
       name: "mate",
       cleartextUsername: "ok",
       cleartextPassword: "ok2",
       sender_name: null,
-      usedEncryptedDataAttrs: ["username", "password"]
+      usedEncryptedDataAttrs: ["username", "password"],
+      folder: folder
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
@@ -84,6 +110,18 @@ module("Integration | Component | encryptable/row", function (hooks) {
   });
 
   test("it renders with three or more set attribute", async function (assert) {
+    const folder = {
+      id: 1,
+      name: "Inbox",
+      isInboxFolder: false,
+
+      get(key) {
+        if (key === "isInboxFolder") {
+          return false;
+        }
+      }
+    };
+
     this.set("encryptable", {
       id: 1,
       name: "mate",
@@ -91,7 +129,8 @@ module("Integration | Component | encryptable/row", function (hooks) {
       cleartextPassword: "ok2",
       cleartextPin: "ok3",
       sender_name: null,
-      usedEncryptedDataAttrs: ["username", "password", "pin"]
+      usedEncryptedDataAttrs: ["username", "password", "pin"],
+      folder: folder
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
@@ -111,6 +150,18 @@ module("Integration | Component | encryptable/row", function (hooks) {
   });
 
   test("it renders encryptable row for transferred file", async function (assert) {
+    const folder = {
+      id: 1,
+      name: "Inbox",
+      isInboxFolder: false,
+
+      get(key) {
+        if (key === "isInboxFolder") {
+          return false;
+        }
+      }
+    };
+
     this.set("encryptable", {
       id: 1,
       type: "encryptable_files",
@@ -119,7 +170,8 @@ module("Integration | Component | encryptable/row", function (hooks) {
       createdAt: "2021-06-14 09:23:02.750627",
       updatedAt: "2021-06-22 11:33:13.766879",
       sender_name: "Bob Beier (bob)",
-      isFile: true
+      isFile: true,
+      folder: folder
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
@@ -149,6 +201,18 @@ module("Integration | Component | encryptable/row", function (hooks) {
   });
 
   test("it renders encryptable row for transferred credentials", async function (assert) {
+    const folder = {
+      id: 1,
+      name: "Inbox",
+      isInboxFolder: true,
+
+      get(key) {
+        if (key === "isInboxFolder") {
+          return true;
+        }
+      }
+    };
+
     this.set("encryptable", {
       id: 1,
       name: "Ninjas encryptable credentials",
@@ -157,7 +221,8 @@ module("Integration | Component | encryptable/row", function (hooks) {
       cleartextPassword: "e2jd2rh4g5io7",
       createdAt: "2021-06-14 09:23:02.750627",
       updatedAt: "2021-06-22 11:33:13.766879",
-      sender_name: "Bob Kuchen (bob)"
+      sender_name: "Bob Kuchen (bob)",
+      folder: folder
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);

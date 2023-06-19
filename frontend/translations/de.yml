@@ -139,7 +139,8 @@ de:
       name: Wähle einen Empfänger aus
     submit: Senden
     sent_at: Gesendet am
-    description_for_sender: Deine Zugangsdaten werden verschlüsselt in den Inbox Ordner des Empfängers geschickt.
+    description_for_sender_start: Eine Kopie von
+    description_for_sender_end: wird in die Inbox des Empfängers gesendet
 
   admin:
     title: Admin

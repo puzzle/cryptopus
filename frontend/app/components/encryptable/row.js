@@ -17,12 +17,16 @@ export default class RowComponent extends Component {
 
   @tracked
   isFile = this.args.encryptable.isFile;
+  @tracked
+  isInboxFolder;
 
   @tracked isTransferredCredentials =
     this.args.encryptable.sender_name !== null;
 
   constructor() {
     super(...arguments);
+
+    this.isInboxFolder = this.args.encryptable.folder.get("isInboxFolder");
   }
 
   // get set attribute amount to hide attribute fields in encryptable row when encryptable has more than two attributes

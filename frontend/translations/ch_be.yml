@@ -139,7 +139,8 @@ ch_be:
       name: Wäu ä empfänger
     submit: Schickä
     sent_at: Gschickt am
-    description_for_sender: Dini Zuegangsdate wärdä verschlüsslet i Inbox Ordner vom Empfänger gschickt.
+    description_for_sender_start: Ä kopie vo
+    description_for_sender_end: wird id Inbox vom Empfänger gsändet
 
   admin:
     title: Admin

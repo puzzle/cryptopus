@@ -39,16 +39,16 @@ class EncryptableTransfer
     existing_encryptable_names = receiver.inbox_folder.encryptables.pluck(:name)
     return encryptable_name if existing_encryptable_names.empty?
 
-    matching_inbox_names = find_existing_names(encryptable_name, existing_encryptable_names)
-    return encryptable_name if matching_inbox_names.blank?
+    existing_names = find_existing_names(encryptable_name, existing_encryptable_names)
+    return encryptable_name if existing_names.blank?
 
     is_file = encryptable.is_a?(Encryptable::File)
-    latest_name = matching_inbox_names.last
+    latest_name = existing_names.last
     adjust_encryptable_name(encryptable_name, is_file, latest_name)
   end
 
   def adjust_encryptable_name(encryptable_name, is_file, latest_name)
-    # Remove file datatype, so we can handle can increase name same as credentials
+    # Remove file-extension for checking name
     if is_file
       suffix = File.extname(encryptable_name)
       encryptable_name = File.basename(encryptable_name, '.*')
@@ -82,7 +82,7 @@ class EncryptableTransfer
     encryptable_name = File.basename(new_encryptable_name, '.*')
 
     # For the loop through inbox encryptables remove (NUMBER) from name
-    encryptable_name = remove_optional_climbs(encryptable_name)
+    encryptable_name = remove_climbs_in_name(encryptable_name)
 
     regex_pattern = /\A#{Regexp.escape(encryptable_name)}(\(\d+\))?\z/
     existing_encryptable_names.select do |name|
@@ -92,10 +92,10 @@ class EncryptableTransfer
     end
   end
 
-  def remove_optional_climbs(encryptable_name)
-    regex_pattern = /\A.*\(\d+\)\z/
+  def remove_climbs_in_name(encryptable_name)
+    climbs_with_number_regex = /\A.*\(\d+\)\z/
 
-    if encryptable_name.match?(regex_pattern)
+    if encryptable_name.match?(climbs_with_number_regex)
       encryptable_name = encryptable_name.gsub(/\(\d+\)\z/, '')
     end
 

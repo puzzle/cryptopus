@@ -549,7 +549,8 @@ module("Integration | Component | encryptable/show", function (hooks) {
       cleartextPassword: "e2jd2rh4g5io7",
       createdAt: "2021-06-14 09:23:02.750627",
       updatedAt: "2021-06-22 11:33:13.766879",
-      sender_name: "Bob Kuchen (bob)"
+      sender_name: "Bob Kuchen (bob)",
+      isFile: false
     });
 
     await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
@@ -558,9 +559,9 @@ module("Integration | Component | encryptable/show", function (hooks) {
     assert.ok(
       text.includes("Transferred Credentials: Ninjas encryptable credentials")
     );
-    assert.ok(text.includes("Sent on: 14.06.2021 09:23"));
-    assert.ok(text.includes("Last update at: 22.06.2021 11:33"));
-    assert.ok(text.includes("Sender name: Bob Kuchen (bob)"));
+    assert.ok(text.includes("Was sent by"));
+    assert.ok(text.includes("Bob Kuchen (bob)"));
+    assert.ok(text.includes("14.06.2021 09:23"));
     assert.ok(text.includes("Encryptable for the ninjas"));
     assert.ok(text.includes("Show password"));
 
