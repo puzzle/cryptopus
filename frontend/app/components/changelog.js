@@ -2,7 +2,7 @@ import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 
 export default class Changelog extends Component {
-  @tracked content = '';
+  @tracked content = "";
 
   constructor() {
     super(...arguments);
@@ -10,7 +10,7 @@ export default class Changelog extends Component {
   }
 
   async loadMarkdown() {
-    const response = await fetch('./CHANGELOG.md');
+    const response = await fetch("./CHANGELOG.md");
     this.content = await response.text();
   }
 }

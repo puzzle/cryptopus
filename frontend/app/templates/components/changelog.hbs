@@ -3,8 +3,8 @@
     <h3 class="modal-title">{{@title}}</h3>
   </Modal.header>
   <Modal.body>
-    <div class="container-fluid">
-      {{{html-safe (markdown-to-html content)}}}
+    <div class="container-fluid changelog-container">
+      {{html-safe (markdown-to-html content)}}
     </div>
   </Modal.body>
   <Modal.footer>

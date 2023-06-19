@@ -11,6 +11,13 @@ module("Integration | Component | changelog", function (hooks) {
 
     assert.ok(this.element.textContent.trim(), "non-empty content");
 
+    const fakeFetch = () =>
+      Promise.resolve({
+        text: () => Promise.resolve("Version 4.1")
+      });
+
+    window.fetch = fakeFetch;
+
     // Template block usage:
     await render(hbs`
       <Changelog>
