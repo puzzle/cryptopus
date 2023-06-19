@@ -117,7 +117,7 @@ de:
     share:
       title: Datei teilen
 
-  encryptable/transferring/file:
+  encryptable/file:
     new:
       title: "Datei teilen"
     receiver:

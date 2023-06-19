@@ -1,8 +1,11 @@
-{{#if this.isNewEncryptable}}
-  <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "encryptable/credentials.new.title"}}/>
+{{#if this.isNewEncryptableCredential}}
+  <Encryptable::Form @onAbort={{this.toggleEncryptableCredentialCreating}} @title={{t "encryptable/credentials.new.title"}} @file=false/>
+{{/if}}
+{{#if this.isNewEncryptableFile}}
+    <EncryptableFile::Form @class="modal_file_entry" @encryptableCredential={{@encryptable}} @title={{t "encryptable_files.new.title"}} @onAbort={{this.toggleEncryptableFileCreating}}/>
 {{/if}}
 {{#if this.isFileSharing}}
-  <FileTransfer @onAbort={{this.toggleFileSharing}} @title={{t "encryptable/transferring/file.new.title"}}/>
+  <FileTransfer @onAbort={{this.toggleFileSharing}} @title={{t "encryptable/file.transfer.new.title"}}/>
 {{/if}}
 {{#if this.isNewFolder}}
   <Folder::Form @onAbort={{this.toggleFolderCreating}} @title={{t "folders.new.title"}}/>
@@ -42,8 +45,13 @@
       </dd.toggle>
       <dd.menu @align="right" as |ddm|>
         <ddm.item>
-          <a role="button" class="dropdown-item" {{on "click" this.toggleEncryptableCreating}}>
+          <a role="button" class="dropdown-item" {{on "click" this.toggleEncryptableCredentialCreating}}>
             {{t "encryptable/credentials.new.title"}}
+          </a>
+        </ddm.item>
+        <ddm.item>
+          <a role="button" class="dropdown-item" {{on "click" this.toggleEncryptableFileCreating}}>
+            {{t "encryptable/file.new.title"}}
           </a>
         </ddm.item>
         <ddm.item>

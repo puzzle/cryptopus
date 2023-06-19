@@ -117,7 +117,7 @@ ch_be:
     share:
       title: Datei teilä
 
-  encryptable/transferring/file:
+  encryptable/file:
     new:
       title: "Datei teilä"
     receiver:

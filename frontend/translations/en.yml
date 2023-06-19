@@ -118,9 +118,13 @@ en:
     share:
       title: Share File
 
-  encryptable/transferring/file:
+  encryptable/file:
     new:
-      title: Send file to
+      title:
+        New File
+    transfer:
+      new:
+        title: Send file to
     receiver:
       name: Choose a receiver
     show:

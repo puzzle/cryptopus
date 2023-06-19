@@ -1,12 +1,12 @@
 <BsModal class="modal_account ignore-footer-smartphone" @onHide={{action this.abort}} @renderInPlace="true" @size="lg" as |Modal|>
   <Modal.header>
-    <h3 class="modal-title">{{t "encryptable/transferring/file.new.title"}}</h3>
+    <h3 class="modal-title">{{t "encryptable/file.transfer.new.title"}}</h3>
   </Modal.header>
   <Modal.body>
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12 transfer-file-description">
-          <div>{{t "encryptable/transferring/file.description_for_sender"}}</div>
+          <div>{{t "encryptable/file.description_for_sender"}}</div>
         </div>
       </div>
 
@@ -58,7 +58,7 @@
 
         <div class="row">
           <div class="col-md-12">
-            <label name="description">{{t "encryptable/transferring/file.description_for_receiver"}}</label>
+            <label name="description">{{t "encryptable/file.description_for_receiver"}}</label>
             <div>
               <Textarea class="form-control vertical-resize" name="description" @value={{this.changeset.description}} />
               <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>

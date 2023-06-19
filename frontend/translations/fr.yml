@@ -118,7 +118,7 @@ fr:
     share:
       title: Partage fichier
 
-  encryptable/transferring/file:
+  encryptable/file:
     new:
       title: "partager fichier"
     receiver:

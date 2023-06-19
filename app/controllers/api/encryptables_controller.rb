@@ -85,6 +85,10 @@ class Api::EncryptablesController < ApiController
     Encryptable::Credentials.find(credential_id)
   end
 
+  def file_folder
+    Folder.find(folder_id)
+  end
+
   def fetch_entry
     model_scope.find(entry_id)
   end
@@ -126,7 +130,7 @@ class Api::EncryptablesController < ApiController
     permitted_attrs = self.class.permitted_attrs.deep_dup
 
     if model_class == Encryptable::File
-      permitted_attrs + [:filename, :credentials_id, :file]
+      permitted_attrs + [:filename, :credentials_id, :folder_id, :file]
     elsif model_class == Encryptable::Credentials
       permitted_attrs + [:cleartext_username, :cleartext_password, :cleartext_token,
                          :cleartext_pin, :cleartext_email, :folder_id,
@@ -165,15 +169,25 @@ class Api::EncryptablesController < ApiController
   def build_encryptable_file
     filename = params[:file].original_filename
 
-    file = new_file(file_credential, params[:description], filename)
+    file = if credential_id.present?
+      new_credential_file(file_credential, params[:description], filename)
+    else
+      new_file(file_folder, params[:description], filename)
+    end
     file.content_type = params[:file].content_type
     file.cleartext_file = params[:file].read
 
     instance_variable_set(:"@#{ivar_name}", file)
   end
 
-  def new_file(parent_encryptable, description, name)
+  def new_credential_file(parent_encryptable, description, name)
     Encryptable::File.new(encryptable_credential: parent_encryptable,
+                          description: description,
+                          name: name)
+  end
+
+  def new_file(parent_folder, description, name)
+    Encryptable::File.new(folder: parent_folder,
                           description: description,
                           name: name)
   end
@@ -182,6 +196,10 @@ class Api::EncryptablesController < ApiController
     return params[:id] if params[:id].present?
 
     params[:credential_id]
+  end
+
+  def folder_id
+    params[:folder_id]
   end
 
   def encrypt(encryptable)

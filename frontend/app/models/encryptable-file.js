@@ -8,6 +8,7 @@ export default class EncryptableFile extends Encryptable {
     inverse: "encryptableFiles"
   })
   encryptableCredential;
+  @belongsTo("folder") folder;
 
   async save() {
     if (this.isDeleted) {
@@ -15,11 +16,13 @@ export default class EncryptableFile extends Encryptable {
     }
     const url = `/api/encryptables`;
     const credentialId = await this.encryptableCredential.get("id");
+    const folderId = await this.folder.get("id");
 
     const opts = {
       data: {
         description: this.description || "",
-        credential_id: credentialId
+        ...(credentialId !== undefined && { credential_id: credentialId }),
+        ...(folderId !== undefined && { folder_id: folderId }),
       },
       headers: {
         "X-CSRF-Token": this.csrfToken
