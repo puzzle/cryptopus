@@ -223,7 +223,7 @@ ch_be:
     edit:
       title: Team bearbeite
     description:
-      private: Admins hei ke Zuegriff we si agwäut si
+      private: Admins hei kei Zuägriff wenn das uswählsch
     show:
       members: Mitglider
     configure:
