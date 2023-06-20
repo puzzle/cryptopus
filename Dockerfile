@@ -43,10 +43,6 @@ RUN /app-src/bin/prepare-frontend.sh
 RUN apt-get remove -y --purge rsync yarn nodejs
 RUN apt-get autoremove -y
 
-# Set group permissions to app folder
-RUN chgrp -R 0 /app-src \
-    && chmod -R u+w,g=u /app-src
-
 RUN    bundle config set --local deployment 'true' \
     && bundle config set --local without ${BUNDLE_WITHOUT} \
     && bundle
