@@ -87,7 +87,6 @@
     "@sentry/integrations": "^6.17.6",
     "markdown-it": "^13.0.1",
     "i18n-iso-countries": "^7.6.0",
-    "markdown-it": "^13.0.1",
     "minimist": "^1.2.6",
     "text-security": "^3.2.1"
   },
