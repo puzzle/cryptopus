@@ -416,33 +416,27 @@ module("Integration | Component | encryptable/form", function (hooks) {
     });
 
     await render(hbs`<Encryptable::Form @encryptable={{this.encryptable}}/>`);
-
-    assert.equal(
-      this.element.querySelector("input[name='name']").value,
-      "My secret Credentials"
-    );
     assert.equal(
       this.element.querySelector("textarea").value,
       "The ember email"
     );
     assert.equal(
-      this.element.querySelector("input[name='cleartextUsername']").value,
+      this.element.querySelector("#username input").value,
       "myusernameisboring"
     );
     assert.equal(
-      this.element.querySelector("input[name='cleartextPassword']").value,
-      "lol"
+      this.element.querySelector("#encryptable-form-accountname input").value,
+      "My secret Credentials"
     );
+
+    assert.equal(this.element.querySelector("#password input").value, "lol");
     assert.equal(
-      this.element.querySelector("input[name='cleartextPin']").value,
+      this.element.querySelector("#pin-field input").value,
       "thispinisbad"
     );
+    assert.equal(this.element.querySelector("#token input").value, "loltoken");
     assert.equal(
-      this.element.querySelector("input[name='cleartextToken']").value,
-      "loltoken"
-    );
-    assert.equal(
-      this.element.querySelector("input[name='cleartextEmail']").value,
+      this.element.querySelector("#email input").value,
       "mail@ember.com"
     );
     assert.ok(this.element.textContent.trim().includes("supporting"));
@@ -475,24 +469,17 @@ module("Integration | Component | encryptable/form", function (hooks) {
     });
     await render(hbs`<Encryptable::Form @encryptable={{this.encryptable}}/>`);
 
+    assert.equal(this.element.querySelector("#username input").value, "ok");
+    assert.dom(this.element.querySelector("#password input")).doesNotExist();
     assert.equal(
-      this.element.querySelector("input[name='cleartextUsername']").value,
-      "ok"
-    );
-    assert
-      .dom(this.element.querySelector("input[name='cleartextPassword']"))
-      .doesNotExist();
-    assert.equal(
-      this.element.querySelector("input[name='cleartextPin']").value,
+      this.element.querySelector("#pin-field input").value,
       "weird pin"
     );
     assert.equal(
-      this.element.querySelector("input[name='cleartextToken']").value,
+      this.element.querySelector("#token input").value,
       "ilikematebutdonttellanyone"
     );
-    assert
-      .dom(this.element.querySelector("input[name='cleartextEmail']"))
-      .doesNotExist();
+    assert.dom(this.element.querySelector("#email input")).doesNotExist();
     assert
       .dom(this.element.querySelector("input[name='label']"))
       .doesNotExist();
@@ -526,13 +513,9 @@ module("Integration | Component | encryptable/form", function (hooks) {
     assert
       .dom(this.element.querySelector("input[name='cleartextPin']"))
       .doesNotExist();
-
     //click add field button
     await click("#add-field-button");
-
-    assert
-      .dom(this.element.querySelector("input[name='cleartextPin']"))
-      .exists();
+    assert.dom(this.element.querySelector("#pin-field input")).exists();
 
     //dropdown has no field selected
     assert.equal(
@@ -546,16 +529,12 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     await render(hbs`<Encryptable::Form />`);
 
-    assert
-      .dom(this.element.querySelector("input[name='cleartextUsername']"))
-      .exists();
+    assert.dom(this.element.querySelector("#username input")).exists();
 
     //click remove field button
     await click("#remove-username-field-button");
 
-    assert
-      .dom(this.element.querySelector("input[name='cleartextUsername']"))
-      .doesNotExist();
+    assert.dom(this.element.querySelector("#username input")).doesNotExist();
   });
 
   test("it renames personal-team to users username in encryptable form", async function (assert) {
