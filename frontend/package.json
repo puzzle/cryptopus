@@ -79,7 +79,7 @@
     "zxcvbn": "^4.4.2"
   },
   "engines": {
-    "node": ">= 18.*"
+    "node": ">= 16.*"
   },
   "dependencies": {
     "@puzzleitc/puzzle-shell": "^1.0.0",
