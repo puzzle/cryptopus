@@ -78,7 +78,7 @@ class Encryptable < ApplicationRecord
     # Rubocop is here disabled, because .blank? is not working on UTF-8 String which are not ASCII
     # Rubocop correctable must be disabled with all
     # rubocop:disable all
-    encrypted_value = if cleartext_value.presence
+    encrypted_value = if !cleartext_value.empty?
                         Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
                       else
                         nil
