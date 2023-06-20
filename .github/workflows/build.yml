@@ -52,7 +52,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '14.18.0'
+          node-version: '16.16.0'
 
       # Npm global packages caching
       - name: Cache global npm modules
@@ -81,6 +81,9 @@ jobs:
 
       - name: Install bundler
         run: gem install bundler:2.3.13
+
+      - name: Set node_options
+        run: export NODE_OPTIONS=--openssl-legacy-provider
 
       - name: Create database
         run: bundle exec rails db:setup

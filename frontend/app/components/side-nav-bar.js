@@ -22,8 +22,15 @@ export default class SideNavBar extends Component {
 
   setupModal(element) {
     /* eslint-disable no-undef  */
-    $(element).on("show.bs.collapse", ".collapse", function () {
-      $(element).find(".collapse.in").collapse("hide");
+    // Attach the event handler to the element
+    element.addEventListener("show.bs.collapse", function () {
+      // Find visible collapse elements within the parent container
+      const visibleCollapses = element.querySelectorAll(".collapse.in");
+
+      // Hide the visible collapse elements
+      visibleCollapses.forEach(function (collapse) {
+        collapse.classList.remove("in");
+      });
     });
     /* eslint-enable no-undef  */
   }

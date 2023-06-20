@@ -1,1 +1,1 @@
-[Changelog](frontend/markdown/CHANGELOG.md)
+public/CHANGELOG.md

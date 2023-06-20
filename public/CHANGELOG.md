@@ -1,10 +1,6 @@
-## Version 5.2
-- Introduce new Attributes for Credentials
-
-## Version 5.1
-- Global removal of OseSecret
-
 ## Version 5.0
+- Introduce new Attributes for Credentials
+- Global removal of OseSecret
 - Introduce Encryptable File Sharing
 
 ## Version 4.8
