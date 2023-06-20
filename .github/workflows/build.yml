@@ -74,7 +74,7 @@ jobs:
           cache-name: cache-node-modules
         with:
           # npm modules cache files are stored in `./node_modules`
-          path: ./node_modules'
+          path: ./node_modules
           key: ${{ runner.os }}-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
