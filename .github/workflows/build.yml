@@ -36,7 +36,6 @@ jobs:
       RAILS_DB_PASSWORD: password
       RAILS_DB_NAME: cryptopus_test
       RAILS_ENV: test
-      NODE_OPTIONS: "--openssl-legacy-provider"
 
     steps:
       # Checks out a copy of your repository on the ubuntu-latest machine
@@ -82,9 +81,6 @@ jobs:
 
       - name: Install bundler
         run: gem install bundler:2.3.13
-
-      - name: Set node_options
-        run: set NODE_OPTIONS=--openssl-legacy-provider
 
       - name: Create database
         run: bundle exec rails db:setup
