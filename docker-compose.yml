@@ -38,8 +38,6 @@ services:
       - "4200:4200"
       - "7020:7020"
       - "7357:7357"
-    environment:
-      - NODE_OPTIONS=--openssl-legacy-provider
 volumes:
   bundler_cache:
   yarn_cache:
