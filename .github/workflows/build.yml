@@ -36,6 +36,7 @@ jobs:
       RAILS_DB_PASSWORD: password
       RAILS_DB_NAME: cryptopus_test
       RAILS_ENV: test
+      NODE_OPTIONS: "--openssl-legacy-provider"
 
     steps:
       # Checks out a copy of your repository on the ubuntu-latest machine
@@ -50,8 +51,6 @@ jobs:
 
       # Setup Node
       - name: Use Node.js
-        env:
-          NODE_OPTIONS: --openssl-legacy-provider
         uses: actions/setup-node@v1
         with:
           node-version: '16.16.0'
@@ -76,7 +75,7 @@ jobs:
           cache-name: cache-node-modules
         with:
           # npm modules cache files are stored in `./node_modules`
-          path: ./node_modules
+          path: ./node_modules'
           key: ${{ runner.os }}-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
