@@ -50,6 +50,8 @@ jobs:
 
       # Setup Node
       - name: Use Node.js
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
         uses: actions/setup-node@v1
         with:
           node-version: '18.14.0'
