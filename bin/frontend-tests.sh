@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 export RAILS_PORT=3001
-export NODE_OPTIONS=--openssl-legacy-provider
 PID_FILE=tmp/pids/frontend-test-server.pid
 SERVER=false
 
