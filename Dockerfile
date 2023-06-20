@@ -10,7 +10,7 @@ ARG BUNDLE_WITHOUT='development:test'
 ARG BUNDLER_VERSION=2.3.13
 
 # install nodejs
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - 
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - 
 RUN apt-get install -y nodejs
 
 # yarn sources
