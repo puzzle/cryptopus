@@ -124,7 +124,7 @@ describe EncryptableTransfer do
 
       it 'Becomes "invoice(3).pdf" if "invoice.pdf", "invoice(1).pdf" and "invoice(2).pdf" exists' do # rubocop:disable Layout/LineLength
         encryptable = Encryptable::File.new(name: 'invoice.pdf')
-        @existing_names = ['invoice.pdf', 'invoice(1).pdf', 'invoice(2).pdf']
+        @existing_names = ['invoice(2).pdf', 'invoice.pdf', 'invoice(1).pdf']
 
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
@@ -134,7 +134,7 @@ describe EncryptableTransfer do
 
       it 'Increase "invoice(1).pdf" to "invoice(2).pdf" if "invoice.pdf" and "invoice(1).pdf" exists' do # rubocop:disable Layout/LineLength
         encryptable = Encryptable::File.new(name: 'invoice(1).pdf')
-        @existing_names = ['invoice.pdf', 'invoice(1).pdf']
+        @existing_names = ['invoice(1).pdf', 'invoice.pdf']
 
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
@@ -197,7 +197,8 @@ describe EncryptableTransfer do
 
       it 'Becomes "Mailbox(3)" if "Mailbox", "Mailbox(1)" and "Mailbox(2)" exists' do
         encryptable = Encryptable::Credentials.new(name: 'Mailbox')
-        @existing_names = ['Mailbox', 'another.pdf', 'Mailbox(1)', 'Mailbox other.pdf', 'Mailbox(2)']
+        @existing_names =
+          ['Mailbox', 'another.pdf', 'Mailbox(1)', 'Mailbox other.pdf', 'Mailbox(2)']
 
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
@@ -207,7 +208,7 @@ describe EncryptableTransfer do
 
       it 'Increase "Mailbox(1)" to "Mailbox(2)" if "Mailbox(1)" exist' do
         encryptable = Encryptable::Credentials.new(name: 'Mailbox(1)')
-        @existing_names = ['Mailbox', 'Mailbox(1)']
+        @existing_names = ['Mailbox(1)', 'Mailbox']
 
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)

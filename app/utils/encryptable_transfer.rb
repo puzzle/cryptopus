@@ -38,7 +38,6 @@ class EncryptableTransfer
     transfered_name(encryptable.name, existing_names, is_file).destination_name
   end
 
-
   def encrypted_transfer_password(password, receiver)
     Crypto::Rsa.encrypt(
       password,
