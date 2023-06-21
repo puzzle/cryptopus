@@ -28,10 +28,8 @@ describe 'ShareCredentials', type: :system, js: true do
 
     find('#share_credential_button').click
 
-    expect(page).to have_content('Send credentials to')
-    expect(page).to have_content(
-      'Your credentials will be sent encrypted to the inbox folder from the selected receiver.'
-    )
+    expect(page).to have_content('Share credentials with')
+    expect(page).to have_content("A copy of Personal Mailbox will be sent to the receiver's inbox")
 
     # Add Admin as receiver
 
@@ -50,6 +48,7 @@ describe 'ShareCredentials', type: :system, js: true do
   def expect_encryptable_page_with(credentials)
     expect(first('h2')).to have_text("Credentials: #{credentials.name}")
     expect(find('#cleartext_username').value).to eq(credentials.cleartext_username)
+    find('#show-password').click
     expect(find('#cleartext_password', visible: false).value).to eq(credentials.cleartext_password)
     expect(page).to have_text(credentials.description)
   end
