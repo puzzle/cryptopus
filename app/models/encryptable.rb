@@ -89,7 +89,7 @@ class Encryptable < ApplicationRecord
                       end
     # rubocop:enable all
 
-    build_encrypted_data(attr, encrypted_value) unless encrypted_value.blank?
+    build_encrypted_data(attr, encrypted_value) if encrypted_value.present?
   end
 
   def build_encrypted_data(attr, encrypted_value)
