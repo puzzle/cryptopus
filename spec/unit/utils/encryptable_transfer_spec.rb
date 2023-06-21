@@ -82,15 +82,20 @@ describe EncryptableTransfer do
   end
 
   context '#encryptable_destination_name' do
-    let(:receiver) { bob }
+    let(:receiver) do
+      receiver = bob
+      allow(receiver).
+        to receive_message_chain(:inbox_folder,
+                                 :encryptables,
+                                 :pluck).and_return(@existing_names)
+      receiver
+    end
 
     context 'For File' do
       it 'Keeps "invoice.pdf" if same name does not exist' do
         encryptable = Encryptable::File.new(name: 'invoice.pdf')
         @existing_names = []
 
-        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
-                                                 :pluck).and_return(@existing_names)
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
 
@@ -101,8 +106,6 @@ describe EncryptableTransfer do
         encryptable = Encryptable::File.new(name: 'invoice.pdf')
         @existing_names = ['invoice.pdf']
 
-        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
-                                                 :pluck).and_return(@existing_names)
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
 
@@ -113,8 +116,6 @@ describe EncryptableTransfer do
         encryptable = Encryptable::File.new(name: 'invoice.pdf')
         @existing_names = ['invoice.pdf', 'invoice(1).pdf']
 
-        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
-                                                 :pluck).and_return(@existing_names)
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
 
@@ -125,8 +126,6 @@ describe EncryptableTransfer do
         encryptable = Encryptable::File.new(name: 'invoice.pdf')
         @existing_names = ['invoice.pdf', 'invoice(1).pdf', 'invoice(2).pdf']
 
-        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
-                                                 :pluck).and_return(@existing_names)
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
 
@@ -137,8 +136,6 @@ describe EncryptableTransfer do
         encryptable = Encryptable::File.new(name: 'invoice(1).pdf')
         @existing_names = ['invoice.pdf', 'invoice(1).pdf']
 
-        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
-                                                 :pluck).and_return(@existing_names)
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
 
@@ -149,8 +146,6 @@ describe EncryptableTransfer do
         encryptable = Encryptable::File.new(name: 'invoice.pdf')
         @existing_names = ['invoice(1).pdf']
 
-        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
-                                                 :pluck).and_return(@existing_names)
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
 
@@ -161,8 +156,6 @@ describe EncryptableTransfer do
         encryptable = Encryptable::File.new(name: 'invoice.pdf')
         @existing_names = ['blabliblu invoice.pdf']
 
-        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
-                                                 :pluck).and_return(@existing_names)
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
 
@@ -176,8 +169,6 @@ describe EncryptableTransfer do
         encryptable = Encryptable::Credentials.new(name: 'Mailbox')
         @existing_names = []
 
-        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
-                                                 :pluck).and_return(@existing_names)
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
 
@@ -188,8 +179,6 @@ describe EncryptableTransfer do
         encryptable = Encryptable::Credentials.new(name: 'Mailbox')
         @existing_names = ['Mailbox']
 
-        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
-                                                 :pluck).and_return(@existing_names)
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
 
@@ -198,10 +187,8 @@ describe EncryptableTransfer do
 
       it 'Becomes "Mailbox(2)" if "Mailbox" and "Mailbox(1)" exists' do
         encryptable = Encryptable::Credentials.new(name: 'Mailbox')
-        @existing_names = ['Mailbox', 'Mailbox(1)']
+        @existing_names = ['Mailbox 42', 'Mailbox(1)', 'Mailbox']
 
-        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
-                                                 :pluck).and_return(@existing_names)
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
 
@@ -210,10 +197,8 @@ describe EncryptableTransfer do
 
       it 'Becomes "Mailbox(3)" if "Mailbox", "Mailbox(1)" and "Mailbox(2)" exists' do
         encryptable = Encryptable::Credentials.new(name: 'Mailbox')
-        @existing_names = ['Mailbox', 'Mailbox(1)', 'Mailbox(2)']
+        @existing_names = ['Mailbox', 'another.pdf', 'Mailbox(1)', 'Mailbox other.pdf', 'Mailbox(2)']
 
-        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
-                                                 :pluck).and_return(@existing_names)
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
 
@@ -224,8 +209,6 @@ describe EncryptableTransfer do
         encryptable = Encryptable::Credentials.new(name: 'Mailbox(1)')
         @existing_names = ['Mailbox', 'Mailbox(1)']
 
-        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
-                                                 :pluck).and_return(@existing_names)
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
 
@@ -236,8 +219,6 @@ describe EncryptableTransfer do
         encryptable = Encryptable::Credentials.new(name: 'Mailbox')
         @existing_names = ['Mailbox(1)']
 
-        allow(receiver).to receive_message_chain(:inbox_folder, :encryptables,
-                                                 :pluck).and_return(@existing_names)
         destination_name = encryptable_transfer.send(:encryptable_destination_name, encryptable,
                                                      receiver)
 
@@ -248,11 +229,6 @@ describe EncryptableTransfer do
         encryptable = Encryptable::Credentials.new(name: 'Mailbox')
         @existing_names = ['Mailbox BOB']
 
-        allow(receiver).to receive_message_chain(
-          :inbox_folder,
-          :encryptables,
-          :pluck
-        ).and_return(@existing_names)
         destination_name = encryptable_transfer.send(
           :encryptable_destination_name,
           encryptable,

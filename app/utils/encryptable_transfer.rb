@@ -2,8 +2,6 @@
 
 class EncryptableTransfer
 
-  INCREMENT_REGEX = /\((\d+)\)/
-
   def transfer(encryptable, receiver, sender)
     transfer_password = new_transfer_password
     encryptable.encrypt(transfer_password)
@@ -34,73 +32,12 @@ class EncryptableTransfer
   private
 
   def encryptable_destination_name(encryptable, receiver)
-    encryptable_name = encryptable.name
-
-    existing_encryptable_names = receiver.inbox_folder.encryptables.pluck(:name)
-    return encryptable_name if existing_encryptable_names.empty?
-
-    existing_names = find_existing_names(encryptable_name, existing_encryptable_names)
-    return encryptable_name if existing_names.blank?
-
+    existing_names = receiver.inbox_folder.encryptables.pluck(:name)
     is_file = encryptable.is_a?(Encryptable::File)
-    latest_name = existing_names.last
-    adjust_encryptable_name(encryptable_name, is_file, latest_name)
+
+    transfered_name(encryptable.name, existing_names, is_file).destination_name
   end
 
-  def adjust_encryptable_name(encryptable_name, is_file, latest_name)
-    # Remove file-extension for checking name
-    if is_file
-      suffix = File.extname(encryptable_name)
-      encryptable_name = File.basename(encryptable_name, '.*')
-    end
-
-    increase_encryptable_name(encryptable_name, is_file, latest_name, suffix)
-  end
-
-  def increase_encryptable_name(encryptable_name, is_file, latest_name, suffix)
-    # Remove (NUMBER) if it already exists in name
-    if INCREMENT_REGEX.match(encryptable_name)
-      encryptable_name = encryptable_name.sub(/\(\d+\)\z/, '')
-    end
-
-    # If last encryptable in inbox has (NUMBER) add (NUMBER + 1)
-    encryptable_name += if INCREMENT_REGEX.match(latest_name)
-                          "(#{INCREMENT_REGEX.match(latest_name)[1].to_i + 1})"
-                        else
-                          '(1)'
-                        end
-
-    encryptable_name += suffix if is_file
-
-    encryptable_name
-  end
-
-  def find_existing_names(new_encryptable_name, existing_encryptable_names)
-    return unless existing_encryptable_names.include?(new_encryptable_name)
-
-    encryptable_suffix = File.extname(new_encryptable_name)
-    encryptable_name = File.basename(new_encryptable_name, '.*')
-
-    # For the loop through inbox encryptables remove (NUMBER) from name
-    encryptable_name = remove_climbs_in_name(encryptable_name)
-
-    regex_pattern = /\A#{Regexp.escape(encryptable_name)}(\(\d+\))?\z/
-    existing_encryptable_names.select do |name|
-      current_suffix = File.extname(name)
-      current_encryptable_name = File.basename(name, '.*')
-      current_encryptable_name.match?(regex_pattern) && current_suffix == encryptable_suffix
-    end
-  end
-
-  def remove_climbs_in_name(encryptable_name)
-    climbs_with_number_regex = /\A.*\(\d+\)\z/
-
-    if encryptable_name.match?(climbs_with_number_regex)
-      encryptable_name = encryptable_name.gsub(/\(\d+\)\z/, '')
-    end
-
-    encryptable_name
-  end
 
   def encrypted_transfer_password(password, receiver)
     Crypto::Rsa.encrypt(
@@ -111,6 +48,10 @@ class EncryptableTransfer
 
   def new_transfer_password
     Crypto::Symmetric::Aes256.random_key
+  end
+
+  def transfered_name(name, existing_names, is_file)
+    EncryptableTransferedName.new(name, existing_names, is_file)
   end
 
 end
