@@ -1,0 +1,5 @@
+this is an ASCII content, not utf ...
+
+#!@$%^&*()$@
+
+	tabs

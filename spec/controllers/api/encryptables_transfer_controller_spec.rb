@@ -105,6 +105,38 @@ describe Api::EncryptablesTransferController do
       cleartext_file = transferred_encryptable.cleartext_file
       expect(Digest::MD5.hexdigest(cleartext_file)).to eq(image_md5)
     end
+
+    it 'Alice transfers ascii encoded file to Bob' do
+      login_as(:alice)
+
+      file = fixture_file_upload('ascii-text-windows.txt', 'text/plain')
+      file_md5 = 'bf7d309a5c388f67d7cab60aaef681ce'
+      file_params = {
+        content_type: 'text/plain',
+        file: file,
+        description: 'an ascii encoded file',
+        receiver_id: bob.id
+      }
+
+      post :create, params: file_params, xhr: true
+
+      expect(response).to have_http_status(200)
+      expect(response.body).to include('flashes.encryptable_transfer.file.transferred')
+
+      transferred_encryptable = bob.inbox_folder.encryptables.last
+      plaintext_team_password =
+        bob.personal_team.decrypt_team_password(bob, bob.decrypt_private_key('password'))
+
+      EncryptableTransfer.new.receive(transferred_encryptable,
+                                      bob.decrypt_private_key('password'),
+                                      plaintext_team_password)
+
+      expect(transferred_encryptable.name).to eq('ascii-text-windows.txt')
+      expect(transferred_encryptable.description).to eq('an ascii encoded file')
+      expect(transferred_encryptable.sender_id).to eq(alice.id)
+      cleartext_file = transferred_encryptable.cleartext_file
+      expect(Digest::MD5.hexdigest(cleartext_file)).to eq(file_md5)
+    end
   end
 
 end
