@@ -14,9 +14,9 @@ rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
 
 cd frontend
 if [[ $SERVER == true ]]; then
-  ember test --server
+  export NODE_OPTIONS=--openssl-legacy-provider && ember test --server
 else
-  yarn test
+  export NODE_OPTIONS=--openssl-legacy-provider yarn test
 fi
 rc=$?
 cd ..

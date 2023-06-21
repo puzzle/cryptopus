@@ -12,7 +12,7 @@ ARG BUNDLE_WITHOUT='development:test'
 ARG BUNDLER_VERSION=2.4.10
 
 # install nodejs
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - 
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt-get install -y nodejs
 
 # yarn sources
@@ -39,7 +39,7 @@ RUN    bundle config set --local deployment 'true' \
 RUN rm -rf vendor/cache/ .git
 
 # build frontend
-RUN yarn global add ember-cli@3.24.0
+RUN yarn global add ember-cli@4.8.0
 RUN /app-src/bin/prepare-frontend.sh
 RUN rm -rf /app-src/frontend
 

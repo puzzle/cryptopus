@@ -1,4 +1,4 @@
-FROM danlynn/ember-cli:4.5.0-node_16.16
+FROM danlynn/ember-cli:4.8.0-node_18.12
 
 RUN chown 1000:1000 /myapp
 
