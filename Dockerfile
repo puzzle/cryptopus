@@ -7,7 +7,7 @@ SHELL ["/bin/bash", "-c"]
 USER root
 
 ARG BUNDLE_WITHOUT='development:test'
-ARG BUNDLER_VERSION=2.3.13
+ARG BUNDLER_VERSION=2.4.10
 
 # install nodejs
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - 
@@ -37,15 +37,12 @@ RUN    bundle config set --local deployment 'true' \
 RUN rm -rf vendor/cache/ .git
 
 # build frontend
-RUN yarn global add ember-cli@4.2.0
+RUN yarn global add ember-cli@3.24.0
 RUN /app-src/bin/prepare-frontend.sh
+RUN rm -rf /app-src/frontend
 
 RUN apt-get remove -y --purge rsync yarn nodejs
 RUN apt-get autoremove -y
-
-RUN    bundle config set --local deployment 'true' \
-    && bundle config set --local without ${BUNDLE_WITHOUT} \
-    && bundle
 
 RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "" app
 
