@@ -30,9 +30,8 @@ class Crypto::Symmetric::Aes256 < Crypto::Symmetric
       cipher.key = key
 
       # decrypt data
-
       decrypted_data = cipher.update(data) + cipher.final
-      decrypted_data.force_encoding('ASCII-8BIT')
+      decrypted_data
     end
 
     def encrypt_with_salt(data, key)

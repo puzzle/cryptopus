@@ -78,6 +78,7 @@ describe Api::EncryptablesTransferController do
       login_as(:alice)
 
       file = fixture_file_upload('smallImage.png', 'image/png')
+      image_md5 = 'da18d72ee09ca9a6043a0b93712bf7a8'
       file_params = {
         content_type: 'image/png',
         file: file,
@@ -88,6 +89,7 @@ describe Api::EncryptablesTransferController do
       post :create, params: file_params, xhr: true
 
       expect(response).to have_http_status(200)
+      expect(response.body).to include('flashes.encryptable_transfer.file.transferred')
 
       transferred_encryptable = bob.inbox_folder.encryptables.last
       plaintext_team_password =
@@ -97,12 +99,11 @@ describe Api::EncryptablesTransferController do
                                       bob.decrypt_private_key('password'),
                                       plaintext_team_password)
 
-      expect(response).to have_http_status(200)
-      expect(response.body).to include('flashes.encryptable_transfer.file.transferred')
-
       expect(transferred_encryptable.name).to eq('smallImage.png')
       expect(transferred_encryptable.description).to eq('Draft for background color')
       expect(transferred_encryptable.sender_id).to eq(alice.id)
+      cleartext_file = transferred_encryptable.cleartext_file
+      expect(Digest::MD5.hexdigest(cleartext_file)).to eq(image_md5)
     end
   end
 
