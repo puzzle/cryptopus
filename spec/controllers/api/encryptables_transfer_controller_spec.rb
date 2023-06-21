@@ -98,7 +98,7 @@ describe Api::EncryptablesTransferController do
                                       plaintext_team_password)
 
       expect(response).to have_http_status(200)
-      expect(response.body).to include("flashes.encryptable_transfer.file.transferred")
+      expect(response.body).to include('flashes.encryptable_transfer.file.transferred')
 
       expect(transferred_encryptable.name).to eq('smallImage.png')
       expect(transferred_encryptable.description).to eq('Draft for background color')
