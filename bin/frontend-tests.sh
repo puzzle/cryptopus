@@ -16,7 +16,7 @@ cd frontend
 if [[ $SERVER == true ]]; then
   export NODE_OPTIONS=--openssl-legacy-provider && ember test --server
 else
-  export NODE_OPTIONS=--openssl-legacy-provider yarn test
+  export NODE_OPTIONS=--openssl-legacy-provider && yarn test
 fi
 rc=$?
 cd ..
