@@ -108,7 +108,7 @@ module("Integration | Component | folder/form", function (hooks) {
       name: "mail",
       description: "The ember email"
     });
-    await render(hbs`<Folder::Form \@folder\=\{{this.folder}}/>`);
+    await render(hbs`<Folder::Form @folder={{this.folder}} />`);
     assert.equal(this.element.querySelector("#foldername input").value, "mail");
 
     assert.equal(

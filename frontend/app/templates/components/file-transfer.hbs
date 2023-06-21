@@ -13,7 +13,7 @@
       <BsForm @model={{this.changeset}} as |form|>
         <div class="row">
           <div class="col-md-5">
-            <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{fn this.selectReceiver}} @selected={{this.changeset.receiver.label}} @placeholder={{t "encryptable/transferring/file.receiver.name"}} as |candidate|>
+            <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{this.selectReceiver}} @selected={{this.changeset.receiver.label}} @placeholder={{t "encryptable/transferring/file.receiver.name"}} as |candidate|>
               {{candidate.label}}
             </PowerSelectTypeahead>
           </div>
@@ -54,7 +54,7 @@
           <div class="col-md-12">
             <label name="description">{{t "encryptable/transferring/file.description_for_receiver"}}</label>
             <div>
-              <Textarea class="form-control vertical-resize" @name="description" @value={{this.changeset.description}}/>
+              <Textarea class="form-control vertical-resize" name="description" @value={{this.changeset.description}} />
               <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
             </div>
           </div>

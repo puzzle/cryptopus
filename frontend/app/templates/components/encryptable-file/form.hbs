@@ -39,7 +39,7 @@
         <div class="form-group col-md-12">
           <label name="description">{{t "description"}}</label>
           <div>
-            <Textarea class="form-control vertical-resize" @name="description" @value={{this.changeset.description}}/>
+            <Textarea class="form-control vertical-resize" name="description" @value={{this.changeset.description}} />
             <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
           </div>
         </div>

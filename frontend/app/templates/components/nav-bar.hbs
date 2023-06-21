@@ -21,11 +21,11 @@
   <img slot="tangram" width="95" height="100" src="/assets/images/tangram.svg" alt="tangram">
   <div slot="content" class="search">
     <div class="search-field">
-      <Input @class="search" @type="search"
+      <Input class="search" @type="search"
              @value={{ this.navService.searchQueryInput }}
              placeholder={{t (concat "search.index.type_to_search." (if this.navService.isShowingFavourites "favourites" "all"))}} @keyUp={{this.searchByQuery}}
-             @autofocus={{this.isStartpage}} maxlength="70"/>
-      <button>
+             autofocus={{this.isStartpage}} maxlength="70" />
+      <button type="button">
         <pzsh-icon name="search"></pzsh-icon>
       </button>
     </div>

@@ -118,7 +118,7 @@
                       </div>
                     </form.element>
                   </form.group>
-                  <button class="btn btn-danger d-inline-block p-1 delete-field" {{on "click"
+                  <button class="btn btn-danger d-inline-block p-1 delete-field" type="button" {{on "click"
                                                                                       (action "removeField" attribute)}}>
                     <img id="remove-{{attribute}}-field-button" class="d-inline" src="/assets/images/delete-white.svg"
                          alt="delete attribute field">
@@ -127,9 +127,8 @@
                     <PasswordStrengthMeter class="col-12 col-lg-9 px-0 mb-2 mb-md-0 ml-3"
                                            @password={{this.changeset.cleartextPassword}}/>
                     <div></div>
-                    <button class="btn btn-secondary btn-block col-lg-7 mb-md-4 ml-3 mt-2" {{on "click"
-                                                                                                this.setRandomPassword}}
-                            tabindex="4">
+                    <button class="btn btn-secondary btn-block col-lg-7 mb-md-4 ml-3 mt-2" tabindex="4" type="button" {{on "click"
+                                                                                                this.setRandomPassword}}>
                       {{t "encryptable/credentials.edit.random_password"}}
                     </button>
                   {{/if}}
@@ -148,7 +147,7 @@
                   @onChange={{fn (mut this.selectedAttribute)}} as |attribute|>
                   {{t attribute}}
                 </PowerSelect>
-                <button class="btn btn-success d-inline-block p-1 ml-4 add-field" {{on "click" (action "addField")}} >
+                <button class="btn btn-success d-inline-block p-1 ml-4 add-field" type="button" {{on "click" (action "addField")}} >
                   <img id="add-field-button" class="d-inline" src="/assets/images/plus-white.svg"
                        alt="add attribute field">
                 </button>
