@@ -29,8 +29,7 @@ class Crypto::Symmetric::Aes256iv < Crypto::Symmetric::Aes256
       cipher.iv = iv
 
       # decrypt data
-      decrypted_data = cipher.update(data) + cipher.final
-      decrypted_data
+      cipher.update(data) + cipher.final
     end
   end
 end
