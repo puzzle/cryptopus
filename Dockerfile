@@ -1,6 +1,8 @@
 FROM ruby:3.2
 ENV RACK_ENV=production
 ENV RAILS_ENV=production
+# limit ember build
+ENV JOBS=1
 
 SHELL ["/bin/bash", "-c"]
 
