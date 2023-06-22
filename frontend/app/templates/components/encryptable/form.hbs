@@ -6,7 +6,7 @@
     </Modal.header>
     <Modal.body>
       <div class="container-fluid">
-        <BsForm @model={{this.changeset}} as |form|>
+        <BsForm id="encryptable-form" @model={{this.changeset}} as |form|>
           <div class="encryptable-form-name">
             <div class="row">
               {{#if this.errors}}

@@ -37,8 +37,8 @@ describe 'encryptable modal', type: :system, js: true do
     expect(page).to have_text('New Credentials')
     expect(page).to have_content('Save')
 
-    within('.modal-body.ember-view') do
-      expect(page).to have_selector("input[name='cleartextPassword']", visible: false)
+    within('.modal-body') do
+      expect(page).to have_selector("#password input", visible: false)
     end
 
     check_password_meter('password', '25')
@@ -49,7 +49,7 @@ describe 'encryptable modal', type: :system, js: true do
     check_password_meter('', '0')
 
     # Prove that the Passwordfield has no autocomplete
-    expect(find("input[name='cleartextPassword']", visible: false)['autocomplete']).to eq 'off'
+    expect(find("#password input", visible: false)['autocomplete']).to eq 'off'
 
     fill_modal(encryptable_attrs)
 
@@ -96,11 +96,11 @@ describe 'encryptable modal', type: :system, js: true do
   private
 
   def fill_modal(acc_attrs)
-    within('form.ember-view[role="form"]', visible: false) do
-      find("input[name='cleartextPassword']", visible: false).set acc_attrs[:password]
-      find("input[name='name']", visible: false).set(acc_attrs[:name])
-      find("input[name='cleartextUsername']", visible: false).set acc_attrs[:username]
-      find('textarea.form-control.ember-view', visible: false).set acc_attrs[:description]
+    within('#encryptable-form', visible: false) do
+      find("#password input", visible: false).set acc_attrs[:password]
+      find("#encryptable-form-accountname input", visible: false).set(acc_attrs[:name])
+      find("#username input", visible: false).set acc_attrs[:username]
+      find('#encryptable-form-description textarea', visible: false).set acc_attrs[:description]
 
       find('#team-power-select', visible: false).all('div.ember-power-select-trigger',
                                                      visible: false).first.click
@@ -119,16 +119,16 @@ describe 'encryptable modal', type: :system, js: true do
   end
 
   def expect_filled_fields_in_modal_with(acc_attrs)
-    expect(find("input[name='name']",
+    expect(find("#encryptable-form-accountname input",
                 visible: false).value).to eq(acc_attrs[:name])
-    expect(find("input[name='cleartextUsername']",
+    expect(find("#username input",
                 visible: false).value).to eq(acc_attrs[:username])
-    expect(find('textarea.form-control.ember-view',
+    expect(find('#encryptable-form-description textarea',
                 visible: false).value).to eq(acc_attrs[:description])
   end
 
   def check_password_meter(password, expected_score)
-    find("input[name='cleartextPassword']", visible: false).set password
+    find("#password input", visible: false).set password
     expect(find("div[role='progressbar']", visible: false)['aria-valuenow']).to eq(expected_score)
   end
 

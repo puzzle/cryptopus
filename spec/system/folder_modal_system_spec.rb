@@ -89,7 +89,7 @@ describe 'FolderModal', type: :system, js: true do
 
   def fill_modal(folder_attrs)
     within('div.modal-content') do
-      find('input[name="foldername"]').set folder_attrs[:foldername]
+      find('#foldername input').set folder_attrs[:foldername]
       find('textarea', visible: false).set folder_attrs[:description]
     end
   end
