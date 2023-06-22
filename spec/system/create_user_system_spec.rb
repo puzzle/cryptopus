@@ -37,11 +37,11 @@ describe 'Create Human User', type: :system, js: true do
     expect(page).to have_content('Save')
 
     within('.modal-body') do
-      expect(page).to have_selector("#password input", visible: false)
+      expect(page).to have_selector('#password input', visible: false)
     end
 
     # Prove that the Passwordfield has no autocomplete
-    expect(find("#password input", visible: false)['autocomplete']).to eq 'off'
+    expect(find('#password input', visible: false)['autocomplete']).to eq 'off'
 
     fill_modal(user_attrs)
 
@@ -58,10 +58,10 @@ describe 'Create Human User', type: :system, js: true do
 
   def fill_modal(user_attrs)
     within('#admin-form', visible: false) do
-      find("#password input", visible: false).set user_attrs[:password]
-      find("#username input", visible: false).set(user_attrs[:username])
-      find("#surname input", visible: false).set user_attrs[:surname]
-      find("#givenname input", visible: false).set user_attrs[:givenname]
+      find('#password input', visible: false).set user_attrs[:password]
+      find('#username input', visible: false).set(user_attrs[:username])
+      find('#surname input', visible: false).set user_attrs[:surname]
+      find('#givenname input', visible: false).set user_attrs[:givenname]
     end
   end
 end
