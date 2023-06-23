@@ -3,9 +3,7 @@
 require 'openssl'
 require 'digest/sha1'
 
-require_relative './aes256'
-
-class Crypto::Symmetric::Aes256iv < Crypto::Symmetric::Aes256
+class ::Crypto::Symmetric::Aes256iv < ::Crypto::Symmetric::Aes256
 
   class << self
 
@@ -19,17 +17,18 @@ class Crypto::Symmetric::Aes256iv < Crypto::Symmetric::Aes256
       # encrypt given data
       encrypted_data = cipher.update(data) + cipher.final
 
-      [encrypted_data, iv]
+      { data: encrypted_data, iv: iv }
     end
 
-    def decrypt(data, key, iv)
+    def decrypt(encrypted_data, key)
       cipher = cipher_decrypt_mode
 
       cipher.key = key
-      cipher.iv = iv
+      cipher.iv = encrypted_data[:iv]
 
-      # decrypt data
-      cipher.update(data) + cipher.final
+      # decrypt given data
+      decrypted_data = cipher.update(encrypted_data[:data]) + cipher.final
+      decrypted_data.force_encoding('UTF-8')
     end
   end
 end

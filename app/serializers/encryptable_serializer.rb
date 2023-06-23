@@ -20,11 +20,19 @@
 #  https://github.com/puzzle/cryptopus.
 
 class EncryptableSerializer < ApplicationSerializer
-  attributes :id, :name, :description, :sender_name
+  attributes :id, :name, :description, :sender_name, :encryption_algorithm, :team_password_bitsize
 
   belongs_to :folder
 
   def sender_name
     object.sender&.label
+  end
+
+  def encryption_algorithm
+    object.folder.team.encryption_algorithm
+  end
+
+  def team_password_bitsize
+    object.folder.team.password_bitsize
   end
 end

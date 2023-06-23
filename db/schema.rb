@@ -49,7 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_120958) do
 
   create_table "teammembers", force: :cascade do |t|
     t.integer "team_id", default: 0, null: false
-    t.binary "password", null: false
+    t.binary "encrypted_team_password", null: false
     t.integer "user_id", default: 0, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -64,6 +64,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_120958) do
     t.boolean "private", default: false, null: false
     t.string "type", default: "Team::Shared", null: false
     t.integer "personal_owner_id"
+    t.integer "recrypt_state", default: 1, null: false
+    t.string "encryption_algorithm"
     t.index ["name"], name: "index_teams_on_name"
   end
 

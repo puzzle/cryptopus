@@ -1,5 +1,7 @@
 ## Version 5.1
 - Introduce Encryptable Credentials Sharing
+- Introduce ability to dynamically add new Encryption Alogrithms
+- Recrypt teams to use new Encryption Alogrithms
 
 ## Version 5.0
 - Introduce new Attributes for Credentials

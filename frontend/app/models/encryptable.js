@@ -4,6 +4,8 @@ import { isPresent } from "@ember/utils";
 export default class Encryptable extends Model {
   @attr("string") name;
   @attr("string") description;
+  @attr("string") encryptionAlgorithm;
+  @attr("number") teamPasswordBitsize;
   @attr("string") createdAt;
   @attr("string") updatedAt;
   @attr("string") sender_name;
