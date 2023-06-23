@@ -7,5 +7,5 @@ class Encryptable::FileSerializer < ApplicationSerializer
     object.sender&.label
   end
 
-  belongs_to :encryptable_credential
+  belongs_to :encryptable_credential, if: -> { object.encryptable_credential.present? }
 end

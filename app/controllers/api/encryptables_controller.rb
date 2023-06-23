@@ -68,7 +68,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def define_model_class
-    if credential_id.present?
+    if credential_id.present? || folder_id.present?
       Encryptable::File
     else
       Encryptable::Credentials

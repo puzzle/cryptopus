@@ -15,34 +15,36 @@
           <div>
             <label>{{t "encryptable_files.new.choose_file"}}</label>
             <div class="dropzone-text">
+              {{#unless this.args.attachment}}
+                <PowerSelect
+                    id="team-dropdown"
+                    @options={{this.assignableTeams}}
+                    @placeholder={{t "encryptable/credentials.edit.team_placeholder"}}
+                    @renderInPlace={{true}}
+                    @selected={{this.selectedTeam}}
+                    @searchField={{"name"}}
+                    @searchEnabled={{true}}
+                    @onChange={{fn (mut this.selectedTeam)}} as |team|>
+                    {{team.name}}
+                  </PowerSelect>
+                  <PowerSelect
+                    id="folder-dropdown"
+                    @options={{this.availableFolders}}
+                    @placeholder={{t "encryptable/credentials.edit.folder_placeholder"}}
+                    @renderInPlace={{true}}
+                    @selected={{this.changeset.folder}}
+                    @searchField={{"name"}}
+                    @searchEnabled={{true}}
+                    @onChange={{fn (mut this.changeset.folder)}} as |folder|>
+                    {{folder.name}}
+                  </PowerSelect>
+              {{/unless}}
               {{#if this.changeset.file}}
                 <div class="mb-2">
                   {{t "encryptable_files.new.selected_file"}}: {{this.changeset.file.name}}
                 </div>
               {{/if}}
               <div>
-                <PowerSelect
-                  id="team-dropdown"
-                  @options={{this.assignableTeams}}
-                  @placeholder={{t "encryptable/credentials.edit.team_placeholder"}}
-                  @renderInPlace={{true}}
-                  @selected={{this.selectedTeam}}
-                  @searchField={{"name"}}
-                  @searchEnabled={{true}}
-                  @onChange={{fn (mut this.selectedTeam)}} as |team|>
-                  {{team.name}}
-                </PowerSelect>
-                <PowerSelect
-                  id="folder-dropdown"
-                  @options={{this.availableFolders}}
-                  @placeholder={{t "encryptable/credentials.edit.folder_placeholder"}}
-                  @renderInPlace={{true}}
-                  @selected={{this.changeset.folder}}
-                  @searchField={{"name"}}
-                  @searchEnabled={{true}}
-                  @onChange={{fn (mut this.changeset.folder)}} as |folder|>
-                  {{folder.name}}
-                </PowerSelect>
                 <FileUpload @name="file"
                             @accept="*"
                             @for="upload-file"

@@ -82,8 +82,10 @@ export default class Form extends BaseFormComponent {
 
   @action
   abort() {
+    this.fileQueue.flush();
     if (this.args.onAbort) {
       this.args.onAbort();
+      return;
     }
   }
 
@@ -107,8 +109,17 @@ export default class Form extends BaseFormComponent {
     this.notify.success(msg);
   }
 
-  handleSubmitSuccess() {
+  handleSubmitSuccess(savedRecords) {
     this.abort();
+    if (this.args.attachment === false) {
+      this.saveEditedData(savedRecords);
+    }
+  }
+
+  saveEditedData(savedRecords) {
+    if (isPresent(savedRecords)) {
+      this.router.transitionTo("encryptables.show", JSON.parse(savedRecords[0].body).data.id);
+    }
   }
 
   handleSubmitError(response) {

@@ -16,13 +16,15 @@
         {{@encryptable.name}}
       </LinkTo>
 
-      <div>
-        <img class="icon-medium-button d-inline" src="/assets/images/member.svg" alt="person icon">
-        <BsTooltip @title={{t "tooltips.sent_by"}} @delayShow="1000" />
-      </div>
-      <div class="col-5 d-none d-md-block">
-        {{@encryptable.sender_name}} / {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}
-      </div>
+      {{#if @encryptable.sender_name}}
+        <div>
+          <img class="icon-medium-button d-inline" src="/assets/images/member.svg" alt="person icon">
+          <BsTooltip @title={{t "tooltips.sent_by"}} @delayShow="1000" />
+        </div>
+        <div class="col-5 d-none d-md-block">
+          {{@encryptable.sender_name}} / {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}
+        </div>
+      {{/if}}
 
       <div class="ms-auto col-md-auto d-none d-md-block">
         <a class="mx-1 text-decoration-none" role="button" href={{this.downloadLink}}>
