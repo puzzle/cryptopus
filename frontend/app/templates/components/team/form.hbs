@@ -9,9 +9,9 @@
           <div class="col-md-12">
             <form.group>
               <form.element @property="name" @label={{t "helpers.label.team.name"}}
-                            @name="teamname" class={{if this.changeset.error.name.validation
+                            name="teamname" class={{if this.changeset.error.name.validation
                                                            "invalid-input-name"}}
-                            id="teamname" @tabindex="1"
+                            id="teamname"
                             @customError={{t (validation-error-key this.changeset.error.name.validation)}} />
             </form.group>
             <div class="checkbox">
@@ -36,8 +36,7 @@
             <form.group>
               <form.element @label={{t "helpers.label.team.description"}} @property="description" @controlType="textarea"
                             id="description" class="{{if
-                      this.changeset.error.description.validation "invalid-input"}} vertical-resize"
-                            @tabindex="7" @customError={{t (validation-error-key this.changeset.error.description.validation)}}/>
+                      this.changeset.error.description.validation "invalid-input"}} vertical-resize" @customError={{t (validation-error-key this.changeset.error.description.validation)}}/>
             </form.group>
           </div>
         </div>

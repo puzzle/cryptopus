@@ -44,7 +44,7 @@
       col-xl-4 underline-hover break-words account-link" @route="encryptables.show" @model={{@encryptable.id}}>
         {{@encryptable.name}}
       </LinkTo>
-      {{#if (and (lte getAttributesAmount 2) (gt getAttributesAmount 0))}}
+      {{#if (and (lte this.getAttributesAmount 2) (gt this.getAttributesAmount 0))}}
         {{#if (is-included @encryptable.usedEncryptedDataAttrs "username")}}
           <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
             <Encryptable::AttributeField @attribute="username" @row={{true}} @encryptable={{@encryptable}}

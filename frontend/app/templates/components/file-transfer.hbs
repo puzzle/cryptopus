@@ -64,6 +64,6 @@
   </Modal.body>
 
   <Modal.footer>
-    <BsButton @onClick={{action this.submit this.changeset}} @disabled={{not this.changeset.isValid}} alt="save" @type="primary">{{t "encryptable/transferring/file.submit"}}</BsButton>
+    <BsButton @onClick={{action this.submit this.changeset}} disabled={{not this.changeset.isValid}} alt="save" @type="primary">{{t "encryptable/transferring/file.submit"}}</BsButton>
   </Modal.footer>
 </BsModal>
