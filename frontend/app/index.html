@@ -11,16 +11,13 @@
 
     <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css" />
     <link integrity="" rel="stylesheet" href="{{rootURL}}assets/frontend.css" />
-
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/frontend.js"></script>
     {{content-for "head-footer"}}
   </head>
   <body>
     {{content-for "body"}}
     <div id="ember"></div>
-
-    <script src="{{rootURL}}assets/vendor.js"></script>
-    <script src="{{rootURL}}assets/frontend.js"></script>
-
     {{content-for "body-footer"}}
   </body>
 </html>
