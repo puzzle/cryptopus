@@ -12,7 +12,7 @@ describe 'Encryptable Files without credentials', type: :system, js: true do
   it 'creates a file in folder' do
     login_as_user(:bob)
 
-    visit("/")
+    visit('/')
 
     # Create File Entry
     file_name = 'test_file.txt'
@@ -37,7 +37,7 @@ describe 'Encryptable Files without credentials', type: :system, js: true do
     expect(page).to have_text('File has already been taken.')
     click_button('Close')
 
-    expect(page).to have_text("File: test_file.txt")
+    expect(page).to have_text('File: test_file.txt')
   end
 
   private

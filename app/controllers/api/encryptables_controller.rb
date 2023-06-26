@@ -170,10 +170,10 @@ class Api::EncryptablesController < ApiController
     filename = params[:file].original_filename
 
     file = if credential_id.present?
-      new_credential_file(file_credential, params[:description], filename)
-    else
-      new_file(file_folder, params[:description], filename)
-    end
+             new_credential_file(file_credential, params[:description], filename)
+           else
+             new_file(file_folder, params[:description], filename)
+           end
     file.content_type = params[:file].content_type
     file.cleartext_file = params[:file].read
 
