@@ -18,7 +18,6 @@ export default class Form extends BaseFormComponent {
   @tracked selectedTeam;
   @tracked assignableTeams;
 
-
   @tracked errors;
 
   EncryptableFileValidations = EncryptableFileValidations;
@@ -51,10 +50,10 @@ export default class Form extends BaseFormComponent {
   get availableFolders() {
     return isPresent(this.selectedTeam)
       ? this.store
-        .peekAll("folder")
-        .filter(
-          (folder) => folder.team.get("id") === this.selectedTeam.get("id")
-        )
+          .peekAll("folder")
+          .filter(
+            (folder) => folder.team.get("id") === this.selectedTeam.get("id")
+          )
       : [];
   }
 
@@ -118,7 +117,10 @@ export default class Form extends BaseFormComponent {
 
   saveEditedData(savedRecords) {
     if (isPresent(savedRecords)) {
-      this.router.transitionTo("encryptables.show", JSON.parse(savedRecords[0].body).data.id);
+      this.router.transitionTo(
+        "encryptables.show",
+        JSON.parse(savedRecords[0].body).data.id
+      );
     }
   }
 

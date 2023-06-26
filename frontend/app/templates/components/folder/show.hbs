@@ -2,7 +2,7 @@
   <Folder::Form @folder={{@folder}} @onAbort={{this.toggleFolderEdit}} @title={{t "folders.edit.title"}}/>
 {{/if}}
 {{#if this.isNewEncryptableFile}}
-  <EncryptableFile::Form @class="modal_file_entry" @encryptableCredential={{@encryptable}} @title={{t "encryptable_files.new.title"}} @onAbort={{this.toggleEncryptableFileCreating}} @attachment={{false}}/>
+  <EncryptableFile::Form @class="modal_file_entry" @title={{t "encryptable_files.new.title"}} @onAbort={{this.toggleEncryptableFileCreating}} @attachment={{false}}/>
 {{/if}}
 {{#if this.isNewEncryptableCredential}}
   <Encryptable::Form @onAbort={{this.toggleEncryptableCredentialCreating}} @title={{t "encryptable/credentials.new.title"}}/>

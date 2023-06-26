@@ -22,7 +22,7 @@ export default class EncryptableFile extends Encryptable {
       data: {
         description: this.description || "",
         ...(credentialId !== undefined && { credential_id: credentialId }),
-        ...(folderId !== undefined && { folder_id: folderId }),
+        ...(folderId !== undefined && { folder_id: folderId })
       },
       headers: {
         "X-CSRF-Token": this.csrfToken
