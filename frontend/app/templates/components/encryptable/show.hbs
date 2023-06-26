@@ -110,13 +110,26 @@
     {{/if}}
     <div class="encryptable-attributes w-50 mb-3">
       {{#if @encryptable.cleartextUsername}}
-        <Encryptable::AttributeField @row={{false}} @attribute="username" @encryptable={{@encryptable}} @visibleByDefault={{true}}/>
+        <div class="result-username input-group has-validation mb-3">
+          <div class="input-group-prepend has-validation">
+            <BsTooltip @title="{{t "tooltips.encryption_algorithm"}} {{@encryptable.encryptionAlgorithm}} {{t "tooltips.key_size"}} {{@encryptable.teamPasswordBitsize}} bits" @delayShow="1000" />
+            <span class="input-group-text"><img class="icon-button encryptable-show-back" src="/assets/images/lock.svg" alt="lock"></span>
+          </div>
+          <Encryptable::AttributeField @row={{false}} @attribute="username" @encryptable={{@encryptable}} @visibleByDefault={{true}}/>
+          <i class="uil uil-airplay"></i>
+        </div>
+      {{/if}}
+      {{#if @encryptable.cleartextPassword}}
+        <div class="result-password input-group has-validation">
+          <div class="input-group-prepend has-validation">
+            <BsTooltip @title="{{t "tooltips.encryption_algorithm"}} {{@encryptable.encryptionAlgorithm}} {{t "tooltips.key_size"}} {{@encryptable.teamPasswordBitsize}} bits" @delayShow="1000" />
+            <span class="input-group-text"><img class="icon-button encryptable-show-back" src="/assets/images/lock.svg" alt="lock"></span>
+          </div>
+          <Encryptable::AttributeField @row={{false}} @attribute="password" @encryptable={{@encryptable}} @visibleByDefault={{false}}/>
+        </div>
       {{/if}}
       {{#if @encryptable.cleartextEmail}}
         <Encryptable::AttributeField @row={{false}} @attribute="email" @encryptable={{@encryptable}} @visibleByDefault={{true}}/>
-      {{/if}}
-      {{#if @encryptable.cleartextPassword}}
-        <Encryptable::AttributeField @row={{false}} @attribute="password" @encryptable={{@encryptable}} @visibleByDefault={{false}}/>
       {{/if}}
       {{#if @encryptable.cleartextPin}}
         <Encryptable::AttributeField @row={{false}} @attribute="pin" @encryptable={{@encryptable}} @visibleByDefault={{false}}/>

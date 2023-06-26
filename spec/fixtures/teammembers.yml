@@ -18,44 +18,44 @@
 team1_bob:
   team: team1
   user: bob
-  password: <%= "!!binary \"#{FixturesHelper.read_team_password('bob', 'team1')}\"" %>
+  encrypted_team_password: <%= "!!binary \"#{FixturesHelper.read_team_password('bob', 'team1')}\"" %>
 
 team1_root:
   team: team1
   user: root
-  password: <%= "!!binary \"#{FixturesHelper.read_team_password('root', 'team1')}\"" %>
+  encrypted_team_password: <%= "!!binary \"#{FixturesHelper.read_team_password('root', 'team1')}\"" %>
 
 team1_alice:
   team: team1
   user: alice
-  password: <%= "!!binary \"#{FixturesHelper.read_team_password('alice', 'team1')}\"" %>
+  encrypted_team_password: <%= "!!binary \"#{FixturesHelper.read_team_password('alice', 'team1')}\"" %>
 
 team1_admin:
-    team: team1
-    user: admin
-    password: <%= "!!binary \"#{FixturesHelper.read_team_password('admin', 'team1')}\"" %>
+  team: team1
+  user: admin
+  encrypted_team_password: <%= "!!binary \"#{FixturesHelper.read_team_password('admin', 'team1')}\"" %>
 
 team2_bob:
-    team: team2
-    user: bob
-    password: <%= "!!binary \"#{FixturesHelper.read_team_password('bob', 'team2')}\"" %>
+  team: team2
+  user: bob
+  encrypted_team_password: <%= "!!binary \"#{FixturesHelper.read_team_password('bob', 'team2')}\"" %>
 
 bob_personal_team:
   team: personal_team_bob
   user: bob
-  password: <%= "!!binary \"#{FixturesHelper.read_team_password('bob', 'personal_team')}\"" %>
+  encrypted_team_password: <%= "!!binary \"#{FixturesHelper.read_team_password('bob', 'personal_team')}\"" %>
 
 alice_personal_team:
   team: personal_team_alice
   user: alice
-  password: <%= "!!binary \"#{FixturesHelper.read_team_password('alice', 'personal_team')}\"" %>
+  encrypted_team_password: <%= "!!binary \"#{FixturesHelper.read_team_password('alice', 'personal_team')}\"" %>
 
 admin_personal_team:
   team: personal_team_admin
   user: admin
-  password: <%= "!!binary \"#{FixturesHelper.read_team_password('admin', 'personal_team')}\"" %>
+  encrypted_team_password: <%= "!!binary \"#{FixturesHelper.read_team_password('admin', 'personal_team')}\"" %>
 
 root_personal_team:
   team: personal_team_root
   user: root
-  password: <%= "!!binary \"#{FixturesHelper.read_team_password('root', 'personal_team')}\"" %>
+  encrypted_team_password: <%= "!!binary \"#{FixturesHelper.read_team_password('root', 'personal_team')}\"" %>

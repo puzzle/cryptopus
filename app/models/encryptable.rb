@@ -34,6 +34,14 @@ class Encryptable < ApplicationRecord
     raise 'implement in subclass'
   end
 
+  def recrypt(team_password, new_team_password, new_encryption_class)
+    decrypt(team_password)
+
+    @new_encryption_class = new_encryption_class
+    encrypt(new_team_password)
+    save!
+  end
+
   def self.policy_class
     EncryptablePolicy
   end
@@ -79,26 +87,26 @@ class Encryptable < ApplicationRecord
     cleartext_value = send(:"cleartext_#{attr}")
 
     encrypted_value = if cleartext_value.presence
-                        Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
+                        encryption_class.encrypt(cleartext_value, team_password)
+                      else
+                        { data: nil, iv: nil }
                       end
 
     return if transferred? && encrypted_value.blank?
 
-    build_encrypted_data(attr, encrypted_value)
-  end
-
-  def build_encrypted_data(attr, encrypted_value)
     attr_label = cleartext_custom_attr_label if attr == :custom_attr
-    encrypted_data.[]=(
-      attr, **{ label: attr_label, data: encrypted_value, iv: nil }
-    )
+    encrypted_data.[]=(attr, **{ label: attr_label, data: encrypted_value[:data], iv: encrypted_value[:iv] })
   end
 
   def decrypt_attr(attr, team_password)
-    encrypted_value = encrypted_data[attr].try(:[], :data)
+    data_attr = encrypted_data[attr]
 
-    cleartext_value = if encrypted_value
-                        Crypto::Symmetric::Aes256.decrypt(encrypted_value, team_password)
+    data = data_attr.try(:[], :data)
+    iv = data_attr.try(:[], :iv)
+    encrypted_value = { data: data, iv: iv }
+
+    cleartext_value = if data.present?
+                        encryption_class.decrypt(encrypted_value, team_password)
                       end
 
     if attr == :custom_attr
@@ -106,6 +114,10 @@ class Encryptable < ApplicationRecord
     end
 
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
+  end
+
+  def encryption_class
+    @new_encryption_class || team.encryption_class
   end
 
   def assert_human_receiver?

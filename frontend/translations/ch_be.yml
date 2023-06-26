@@ -387,6 +387,8 @@ ch_be:
     delete_encryptables: Zuägangsdate lösche
     configure: Konfigurier d'Mitgliedr
     sent_by: Gsändet vo
+    encryption_algorithm: "D date im nachfougende fäud wärde mit em Verschlüssligsaugorithmus "
+    key_size: " verschlüsslet. D lengi vom Schlüssu isch "
 
   helpers:
     label:

@@ -10,7 +10,16 @@ Fabricator(:credential, from: 'Encryptable::Credentials') do
   name { Faker::Team.creature }
   cleartext_username { Faker::Internet.user_name }
   cleartext_password { Faker::Internet.password }
-  before_create do |account, attrs|
-    account.encrypt(attrs[:team_password])
+  before_create do |encryptable, attrs|
+    encryptable.encrypt(attrs[:team_password])
+  end
+end
+
+Fabricator(:file, from: 'Encryptable::File') do
+  transient :team_password
+  name { Faker::File.file_name }
+  cleartext_file { Faker::Hacker.say_something_smart }
+  before_create do |encryptable, attrs|
+    encryptable.encrypt(attrs[:team_password])
   end
 end

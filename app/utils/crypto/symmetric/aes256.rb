@@ -33,7 +33,7 @@ class ::Crypto::Symmetric::Aes256 < ::Crypto::Symmetric
       cipher.key = key
 
       # decrypt data
-      decrypted_data = cipher.update(encrypted_data[:data]) + cipher.final
+      cipher.update(encrypted_data[:data]) + cipher.final
     end
 
     def encrypt_with_salt(data, key)
