@@ -7,6 +7,7 @@ describe Api::EncryptablesController do
 
   let(:bob) { users(:bob) }
   let(:alice) { users(:alice) }
+  let(:folder1) { folders(:folder1) }
   let(:api_user) { bob.api_users.create }
   let(:private_key) { bob.decrypt_private_key('password') }
   let(:nested_models) { ['folder'] }
@@ -815,6 +816,79 @@ describe Api::EncryptablesController do
 
         get :show, params: { id: encryptable_file.id }, xhr: true
       end
+    end
+  end
+
+  context 'file upload' do
+    it 'creates new encryptable file attached to folder' do
+      login_as(:bob)
+
+      file = fixture_file_upload('test_file.txt', 'text/plain')
+      file_params = {
+        folder_id: folder1.id,
+        content_type: 'text/plain',
+        file: file,
+        description: 'test'
+      }
+
+      expect do
+        post :create, params: file_params, xhr: true
+      end.to change { Encryptable::File.count }.by(1)
+
+      file = Encryptable::File.find_by(name: 'test_file.txt')
+
+      expect(response).to have_http_status(201)
+      expect(file.description).to eq file_params[:description]
+      file.decrypt(team1_password)
+      file_content = fixture_file_upload('test_file.txt', 'text/plain').read
+      expect(file.cleartext_file).to eq file_content
+      expect(file.folder_id).to eq folder1.id
+    end
+
+    it 'doesnt upload file with same name to folder' do
+      login_as(:bob)
+
+      file = fixture_file_upload('test_file.txt', 'text/plain')
+      file_params = {
+        folder_id: folder1.id,
+        content_type: 'text/plain',
+        file: file,
+        description: 'test'
+      }
+
+      expect do
+        post :create, params: file_params, xhr: true
+      end.to change { Encryptable::File.count }.by(1)
+
+      expect(response).to have_http_status(201)
+
+      expect do
+        post :create, params: file_params, xhr: true
+      end.to change { Encryptable::File.count }.by(0)
+
+      expect(response).to have_http_status(422)
+
+      expect(errors.first['detail']).to eq 'File has already been taken'
+    end
+
+    it 'does not upload empty file to folder' do
+      login_as(:bob)
+
+      file = fixture_file_upload('empty.txt', 'text/plain')
+      file_params = {
+        folder_id: folder1.id,
+        content_type: 'text/plain',
+        file: file,
+        description: 'test'
+      }
+
+      expect do
+        post :create, params: file_params, xhr: true
+      end.to change { Encryptable::File.count }.by(0)
+
+      expect(response).to have_http_status(422)
+
+      expect(errors.first['detail']).to eq 'File is not allowed to be blank'
     end
   end
 

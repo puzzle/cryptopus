@@ -10,6 +10,7 @@ class Encryptable::File < Encryptable
              foreign_key: :credential_id
 
   validates :name, uniqueness: { scope: :credential_id }, if: :credential_id
+  validates :name, uniqueness: { scope: :folder_id }, if: :folder_id
 
   validate :file_size, on: [:create, :update]
 
