@@ -1,7 +1,7 @@
 {{#if this.isUserNew}}
   <Admin::User::Form @onAbort={{this.toggleUserNew}} @onSuccess={{this.addUser}} @title={{t "admin.users.new.title"}} />
 {{/if}}
-
+{{@model}}
 <div class="pt-3">
   <div class="users-table-header">
     <h1>
@@ -16,17 +16,5 @@
     {{/if}}
   </div>
 
-  {{#if @lockedUsers}}
-    <BsTab as |tab|>
-      <tab.pane id="unlocked" @title={{t "admin.users.index.unlocked"}}>
-        <Admin::User::Table @users={{this.unlockedUsers}} />
-      </tab.pane>
-
-      <tab.pane id="locked" @title={{t "admin.users.index.locked"}}>
-        <Admin::User::Table @users={{@lockedUsers}} />
-      </tab.pane>
-    </BsTab>
-  {{else}}
-    <Admin::User::Table @users={{this.unlockedUsers}} />
-  {{/if}}
+  <Admin::User::Table @users={{@users}} />
 </div>

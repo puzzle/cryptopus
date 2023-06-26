@@ -41,7 +41,7 @@
     </tr>
   </thead>
   <tbody>
-    {{#each this.users as |user|}}
+    {{#each @users as |user|}}
       <Admin::User::TableRow @user={{user}} @onRemove={{this.removeUser}} />
     {{/each}}
   </tbody>

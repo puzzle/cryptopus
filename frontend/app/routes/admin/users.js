@@ -1,17 +1,13 @@
 import AdminRoute from "../admin";
-import RSVP from "rsvp";
 
 export default class AdminUsersRoute extends AdminRoute {
-  model() {
-    return RSVP.hash({
-      lockedUsers: this.store.query("user-human", {
-        admin: true,
-        locked: true
-      }),
-      unlockedUsers: this.store.query("user-human", {
-        admin: true,
-        locked: false
-      })
+  model(params) {
+    // const locked = Boolean(params["locked"]);
+    return this.store.query("user-human", {
+      admin: true,
+      locked: false
+    }).then((entries) => {
+      return entries.sortBy("username");
     });
   }
 }

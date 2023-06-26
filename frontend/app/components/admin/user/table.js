@@ -6,28 +6,10 @@ export default class AdminUsersTable extends Component {
   @tracked
   isUserNew = false;
 
-  @tracked
-  users = [];
-
   sortedBy = "username";
 
   constructor() {
     super(...arguments);
-
-    if (this.args.users) {
-      this.users = this.args.users
-        .toArray()
-        .filter((user) => {
-          return !user.isDeleted;
-        })
-        .sort((userA, userB) => {
-          return userA.username == userB.username
-            ? 0
-            : userA.username < userB.username
-            ? -1
-            : 1;
-        });
-    }
   }
 
   @action
