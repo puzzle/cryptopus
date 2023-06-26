@@ -65,6 +65,11 @@
   max-width: 36%;
 }
 
+#file-upload-dropdowns .ember-basic-dropdown {
+  width: 70%;
+  max-width: 70%;
+}
+
 #encryptable-form-team .ember-basic-dropdown .ember-basic-dropdown-trigger,
 #encryptable-form-folder .ember-basic-dropdown .ember-basic-dropdown-trigger,
 #encryptable-form-additional-field .ember-basic-dropdown #add-field-dropdown {

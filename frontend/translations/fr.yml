@@ -203,6 +203,8 @@ fr:
 
   encryptable_files:
     new:
+      title: Télécharger un nouveau fichier
+    attachment:
       title: Ajouter un attachement au compte
       upload: Télécharger
       upload_file: Fichier à télécharger

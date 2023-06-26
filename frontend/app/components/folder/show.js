@@ -12,7 +12,10 @@ export default class ShowComponent extends Component {
   isFolderEditing = false;
 
   @tracked
-  isNewEncryptable = false;
+  isNewEncryptableCredential = false;
+
+  @tracked
+  isNewEncryptableFile = false;
 
   get shouldRenderEncryptables() {
     return !isEmpty(this.args.folder.encryptables) && !this.isCollapsed;
@@ -33,9 +36,13 @@ export default class ShowComponent extends Component {
   }
 
   @action
-  toggleEncryptableCreating() {
-    this.navService.setSelectedFolderById(this.args.folder.id);
-    this.isNewEncryptable = !this.isNewEncryptable;
+  toggleEncryptableCredentialCreating() {
+    this.isNewEncryptableCredential = !this.isNewEncryptableCredential;
+  }
+
+  @action
+  toggleEncryptableFileCreating() {
+    this.isNewEncryptableFile = !this.isNewEncryptableFile;
   }
 
   expandSelectedFolder() {

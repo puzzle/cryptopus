@@ -202,6 +202,8 @@ ch_be:
 
   encryptable_files:
     new:
+      title: Nöii Datei ufäladä
+    attachment:
       title: Ahang zu dä Zuägangsdate hinzuefüege
       upload: Ufeladä
       upload_file: Datei zum ufeladä

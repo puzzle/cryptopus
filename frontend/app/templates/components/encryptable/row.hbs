@@ -6,7 +6,7 @@
 {{#if this.isShown}}
   {{#if this.isFile}}
     <div class="row d-flex align-items-center bg-grey-2 rounded encryptable-entry pt-2 pb-2">
-      <div class="mx-1 mt-1 mb-1">
+      <div class="mx-1 ml-3 mt-1 mb-1">
         <img class="icon-medium-button d-inline" src="/assets/images/file.svg" alt="file icon">
       </div>
 
@@ -42,11 +42,9 @@
   {{else}}
     <div class="row d-flex flex-row flex-md-row flex-lg-row flex-xl-row align-items-center bg-grey-2 rounded
     encryptable-entry">
-      {{#if this.isTransferredCredentials }}
-        <div class="mx-1">
-          <img class="icon-medium-button d-inline" src="/assets/images/key.svg" alt="key icon">
-        </div>
-      {{/if}}
+      <div class="mx-1">
+        <img class="icon-medium-button d-inline" src="/assets/images/key.svg" alt="key icon">
+      </div>
       <LinkTo id="encryptable-row-title" class="d-flex align-items-center text-left col-12 col-md-3 col-lg-3
       col-xl-4 underline-hover break-words account-link" @route="encryptables.show" @model={{@encryptable.id}}>
         {{@encryptable.name}}

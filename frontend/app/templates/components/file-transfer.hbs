@@ -31,13 +31,23 @@
           <div class="col-md-12">
             {{#if this.changeset.file}}
               <div class="mb-2 transfer-file-upload">
-                {{t "encryptable_files.new.selected_file"}}: {{this.changeset.file.name}}
+                {{t "encryptable_files.attachment.selected_file"}}: {{this.changeset.file.name}}
               </div>
             {{else}}
               <div class="mb-2 transfer-file-upload">
-                {{t "encryptable_files.new.choose_file"}}
+                {{t "encryptable_files.attachment.choose_file"}}
               </div>
             {{/if}}
+            <div>
+              <FileUpload @name="file"
+                         @accept="*"
+                         @for="upload-file"
+                         @multiple={{false}}
+                         @onfileadd={{this.uploadFile}}
+                         @ondrop={{this.uploadFile}}
+                         class="btn btn-primary">
+                <a id="upload-file" tabindex="0">{{t (if this.changeset.file "encryptable_files.new.reupload" "encryptable_files.attachment.upload_file")}}</a>
+              </FileUpload>
             <div class="mb-3">
               {{#let (file-queue name="files" onFileAdded=this.uploadFile) as |queue| }}
                 <input type="file" id="actual-btn" hidden {{queue.selectFile}}>
@@ -47,7 +57,8 @@
                 </label>
               {{/let}}
             </div>
-          </div>
+            </div>
+          </form.group>
         </div>
 
         {{#each this.errors as |error|}}
@@ -64,6 +75,7 @@
               <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
             </div>
           </div>
+        </div>
         </div>
       </BsForm>
     </div>

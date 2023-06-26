@@ -206,6 +206,8 @@ en:
 
   encryptable_files:
     new:
+      title: Upload new file
+    attachment:
       title: Add new attachment to credentials
       upload: Upload
       upload_file: File to upload

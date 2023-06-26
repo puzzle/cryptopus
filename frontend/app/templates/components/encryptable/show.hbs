@@ -2,12 +2,12 @@
   <Encryptable::Form @encryptable={{@encryptable}} @title={{t "encryptable/credentials.edit.title"}} @onAbort={{this.toggleEncryptableEdit}}/>
 {{/if}}
 {{#if this.isFileCreating}}
-  <EncryptableFile::Form @class="modal_file_entry" @encryptableCredential={{@encryptable}} @title={{t "encryptable_files.new.title"}} @onAbort={{this.toggleFileNew}} @attachment={{true}}/>
+  <EncryptableFile::Form @class="modal_file_entry" @encryptableCredential={{@encryptable}} @title={{t "encryptable_files.attachment.title"}} @onAbort={{this.toggleFileNew}} @attachment={{true}}/>
 {{/if}}
 {{#if this.isCredentialSharing}}
   <CredentialTransfer @onAbort={{this.toggleCredentialSharing}} @title={{t "encryptable/transferring/credential.new.title"}} @encryptableId={{@encryptable.id}} @encryptableName={{@encryptable.name}}/>
 {{/if}}
-{{#if this.isFile}}
+{{#if @encryptable.isFile}}
   <div class="container px-5 pt-4 h-100 bg-white ps-0 encryptable-container-smartphone mb-15">
     <div class="row mb-3">
       <div class="col">

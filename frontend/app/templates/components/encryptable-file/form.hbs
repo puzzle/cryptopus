@@ -7,16 +7,18 @@
       {{#each this.errors as |error|}}
         <div class="alert alert-danger modal-alert ">
           {{error.detail}}.<br>
-          {{t "encryptable_files.new.reupload"}}
+          {{t "encryptable_files.attachment.reupload"}}
         </div>
       {{/each}}
       <div class="row">
         <div class="form-group col-md-12">
           <div>
-            <label>{{t "encryptable_files.new.choose_file"}}</label>
-            <div class="dropzone-text">
-              {{#unless this.args.attachment}}
-                <PowerSelect
+            {{#unless @attachment}}
+              <div id="file-upload-dropdowns" class="d-flex mb-3">
+                <div class="w-100">
+                  <label>{{t "team"}}</label>
+                  <PowerSelect
+                    class="mb-2"
                     id="team-dropdown"
                     @options={{this.assignableTeams}}
                     @placeholder={{t "encryptable/credentials.edit.team_placeholder"}}
@@ -27,7 +29,11 @@
                     @onChange={{fn (mut this.selectedTeam)}} as |team|>
                     {{team.name}}
                   </PowerSelect>
+                </div>
+                <div class="w-100">
+                  <label>{{t "folder"}}</label>
                   <PowerSelect
+                    class="mb-2"
                     id="folder-dropdown"
                     @options={{this.availableFolders}}
                     @placeholder={{t "encryptable/credentials.edit.folder_placeholder"}}
@@ -38,10 +44,14 @@
                     @onChange={{fn (mut this.changeset.folder)}} as |folder|>
                     {{folder.name}}
                   </PowerSelect>
-              {{/unless}}
+                </div>
+              </div>
+            {{/unless}}
+            <label>{{t "encryptable_files.attachment.choose_file"}}</label>
+            <div class="dropzone-text">
               {{#if this.changeset.file}}
                 <div class="mb-2">
-                  {{t "encryptable_files.new.selected_file"}}: {{this.changeset.file.name}}
+                  {{t "encryptable_files.attachment.selected_file"}}: {{this.changeset.file.name}}
                 </div>
               {{/if}}
               <div>
@@ -51,8 +61,8 @@
                             @multiple={{false}}
                             @onfileadd={{this.uploadFile}}
                             @ondrop={{this.uploadFile}}
-                            class="btn btn-primary file-upload-button">
-                  <a id="upload-file">{{t (if this.changeset.file "encryptable_files.new.reupload" "encryptable_files.new.upload_file")}}</a>
+                            class="btn btn-primary w-100">
+                  <a id="upload-file">{{t (if this.changeset.file "encryptable_files.attachment.reupload" "encryptable_files.attachment.upload_file")}}</a>
                 </FileUpload>
                 {{#let (file-queue name="files" onFileAdded=this.uploadFile) as |queue| }}
                   <input type="file" id="actual-btn" hidden {{queue.selectFile}}>
@@ -65,8 +75,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
         <div class="form-group col-md-12">
           <label name="description">{{t "description"}}</label>
           <div>
@@ -78,7 +86,7 @@
     </div>
   </Modal.body>
   <Modal.footer>
-    <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "encryptable_files.new.upload"}}</BsButton>
+    <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "encryptable_files.attachment.upload"}}</BsButton>
     <BsButton @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
   </Modal.footer>
 </BsModal>
