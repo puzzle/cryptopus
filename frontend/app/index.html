@@ -16,9 +16,11 @@
   </head>
   <body>
     {{content-for "body"}}
+    <div id="ember"></div>
+
     <script src="{{rootURL}}assets/vendor.js" defer ></script>
     <script src="{{rootURL}}assets/frontend.js" defer></script>
-    <div id="ember"></div>
+
     {{content-for "body-footer"}}
   </body>
 </html>
