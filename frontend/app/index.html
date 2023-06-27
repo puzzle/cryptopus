@@ -16,8 +16,8 @@
   </head>
   <body>
     {{content-for "body"}}
-    <script src="{{rootURL}}assets/vendor.js"></script>
-    <script src="{{rootURL}}assets/frontend.js"></script>
+    <script src="{{rootURL}}assets/vendor.js" defer ></script>
+    <script src="{{rootURL}}assets/frontend.js" defer></script>
     <div id="ember"></div>
     {{content-for "body-footer"}}
   </body>
