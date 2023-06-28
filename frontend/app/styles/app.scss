@@ -25,15 +25,6 @@ $font-family-sans-serif: var(--pzsh-font-family) !default;
 @import "dashboard-card";
 @import "spinner";
 
-html, body, body > .ember-view {
-  height: 100%;
-}
-
-#ember {
-  display: flex;
-  flex-direction: column;
-}
-
 .w-250 {
   width: 250px;
 }

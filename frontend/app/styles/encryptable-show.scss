@@ -6,15 +6,22 @@
   border-bottom-left-radius: 3px;
   color: black;
   position: relative;
-  justify-content: center;
 }
 
 .show-text,
-.password-show {
-  width: 205px;
+.password-show,
+.result-username input,
+.result-email input,
+.result-hidden-attribute input {
+  padding: 6px 10px;
   font-size: 14px;
   border: 1px solid #c9c9c9;
   display: block;
+}
+
+.result-username,
+.result-password {
+  width: 250px;
 }
 
 .show-text-sm {
@@ -92,20 +99,6 @@
 
 .show-password-button {
   z-index: 5;
-  cursor: pointer;
-
-  width: 159px;
-  margin-left: 43px;
-  font-size: 14px;
-  border: 1px solid #cdd3d9;
-  display: flex;
-  background: #e8ebee;
-  border-radius: 0 3px 3px 0;
-  color: black;
-  position: absolute;
-  justify-content: center;
-  align-items: center;
-  height: 38px;
 }
 
 .transfer-file-upload {
