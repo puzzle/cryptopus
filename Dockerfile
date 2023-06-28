@@ -1,8 +1,6 @@
 FROM ruby:3.2
 ENV RACK_ENV=production
 ENV RAILS_ENV=production
-ENV NODE_OPTIONS='--max-old-space-size=2048'
-ENV JOBS=1
 
 SHELL ["/bin/bash", "-c"]
 
