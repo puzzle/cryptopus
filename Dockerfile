@@ -34,7 +34,7 @@ RUN    bundle config set --local deployment 'true' \
     && bundle install \
     && bundle clean
 
-RUN rm -rf vendor/cache/ .git
+RUN rm -rf vendor/cache/ .git tmp
 
 # build frontend
 RUN yarn global add ember-cli@4.8.0
@@ -45,6 +45,8 @@ RUN apt-get remove -y --purge rsync yarn nodejs
 RUN apt-get autoremove -y
 
 RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "" app
+
+RUN mkdir /app-src/tmp && chown -R 1001 /app-src/tmp && chmod 775 /app-src/tmp
 
 USER 1001
 
