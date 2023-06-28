@@ -8,7 +8,6 @@ export default class TeamsShowRoute extends BaseRoute {
   @service intl;
 
   templateName = "teams/index";
-  controllerName = "teams/index";
 
   afterModel(_resolvedModel, transition) {
     this.navService.setSelectedTeamById(transition.to.params.team_id);
