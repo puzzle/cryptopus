@@ -22,13 +22,13 @@ class Encryptable::Credentials < Encryptable
     decrypt_attr(:custom_attr, team_password)
   end
 
-  def encrypt(team_password)
-    encrypt_attr(:username, team_password)
-    encrypt_attr(:password, team_password)
-    encrypt_attr(:token, team_password)
-    encrypt_attr(:pin, team_password)
-    encrypt_attr(:email, team_password)
-    encrypt_attr(:custom_attr, team_password)
+  def encrypt(team_password, receiver_algorithm = nil)
+    encrypt_attr(:username, team_password, receiver_algorithm)
+    encrypt_attr(:password, team_password, receiver_algorithm)
+    encrypt_attr(:token, team_password, receiver_algorithm)
+    encrypt_attr(:pin, team_password, receiver_algorithm)
+    encrypt_attr(:email, team_password, receiver_algorithm)
+    encrypt_attr(:custom_attr, team_password, receiver_algorithm)
   end
 
 end

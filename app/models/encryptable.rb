@@ -83,11 +83,15 @@ class Encryptable < ApplicationRecord
 
   private
 
-  def encrypt_attr(attr, team_password)
+  def encrypt_attr(attr, team_password, receiver_algorithm = nil)
     cleartext_value = send(:"cleartext_#{attr}")
 
     encrypted_value = if cleartext_value.presence
-                        encryption_class.encrypt(cleartext_value, team_password)
+                        if receiver_algorithm
+                          receiver_algorithm.encrypt(cleartext_value, team_password)
+                        else
+                          encryption_class.encrypt(cleartext_value, team_password)
+                        end
                       else
                         { data: nil, iv: nil }
                       end

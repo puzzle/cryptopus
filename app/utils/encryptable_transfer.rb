@@ -3,8 +3,10 @@
 class EncryptableTransfer
 
   def transfer(encryptable, receiver, sender)
-    transfer_password = new_transfer_password
-    encryptable.encrypt(transfer_password)
+    encryption_algorithm = receiver_encryption_algorithm(receiver)
+
+    transfer_password = encryption_algorithm.random_key
+    encryptable.encrypt(transfer_password, encryption_algorithm)
 
     encryptable.name = encryptable_destination_name(encryptable, receiver)
 
@@ -45,8 +47,9 @@ class EncryptableTransfer
     )
   end
 
-  def new_transfer_password
-    Crypto::Symmetric::Aes256.random_key
+  def receiver_encryption_algorithm(receiver)
+    encryption_algorithm = receiver.personal_team.encryption_algorithm
+    Crypto::Symmetric::ALGORITHMS[encryption_algorithm]
   end
 
   def transfered_name(name, existing_names, is_file)

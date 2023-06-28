@@ -2,6 +2,8 @@
 
 require 'spec_helper'
 
+require_relative '../../../../../app/utils/crypto/symmetric'
+require_relative '../../../../../app/utils/crypto/symmetric/aes256'
 require_relative '../../../../../app/utils/crypto/symmetric/aes256iv'
 
 describe Crypto::Symmetric::Aes256iv do

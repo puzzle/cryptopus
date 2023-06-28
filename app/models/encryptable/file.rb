@@ -15,10 +15,10 @@ class Encryptable::File < Encryptable
     decrypt_attr(:file, team_password)
   end
 
-  def encrypt(team_password)
+  def encrypt(team_password, receiver_algorithm = nil)
     return if cleartext_file.empty?
 
-    encrypt_attr(:file, team_password)
+    encrypt_attr(:file, team_password, receiver_algorithm)
   end
 
   def team
