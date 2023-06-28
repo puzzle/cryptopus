@@ -4,7 +4,9 @@ require 'spec_helper'
 
 describe Crypto::Symmetric::Recrypt do
   let(:admin) { users(:admin) }
+  let(:bob) { users(:admin) }
   let(:admin_pk) { admin.decrypt_private_key('password') }
+  let(:bob_pk) { bob.decrypt_private_key('password') }
   let(:team) { Fabricate(:non_private_team) }
 
   it 'recrypts encryptables for given team' do
@@ -43,6 +45,18 @@ describe Crypto::Symmetric::Recrypt do
     encrypted_data = encryptable.encrypted_data
     expect(encrypted_data[:username][:iv]).to be_present
     expect(encrypted_data[:password][:iv]).to be_present
+  end
+
+  it 'does recrypt team encryptable if only pin is set as attribute' do
+
+  end
+
+  it 'does recrypt team encryptable if all attributes are set' do
+
+  end
+
+  it 'does recrypt team encryptable if no attribute is set' do
+
   end
 
   it 'does not recrypt team encryptables if default algorithm is already in use' do
