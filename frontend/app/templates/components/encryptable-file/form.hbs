@@ -28,7 +28,7 @@
                             @onfileadd={{this.uploadFile}}
                             @ondrop={{this.uploadFile}}
                             class="btn btn-primary file-upload-button">
-                  <a id="upload-file" tabindex="0">{{t (if this.changeset.file "encryptable_files.new.reupload" "encryptable_files.new.upload_file")}}</a>
+                  <a id="upload-file">{{t (if this.changeset.file "encryptable_files.new.reupload" "encryptable_files.new.upload_file")}}</a>
                 </FileUpload>
               </div>
             </div>
@@ -39,7 +39,7 @@
         <div class="form-group col-md-12">
           <label name="description">{{t "description"}}</label>
           <div>
-            <Textarea class="form-control vertical-resize" @name="description" @value={{this.changeset.description}}/>
+            <Textarea class="form-control vertical-resize" name="description" @value={{this.changeset.description}} />
             <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
           </div>
         </div>

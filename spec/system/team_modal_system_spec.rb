@@ -67,7 +67,7 @@ describe 'TeamModal', type: :system, js: true do
 
   def fill_modal(team_attrs)
     within('div.modal-content') do
-      find('input[name="teamname"]').set team_attrs[:name]
+      find('#teamname input').set team_attrs[:name]
       find('textarea', visible: false).set team_attrs[:description]
     end
   end
@@ -81,7 +81,7 @@ describe 'TeamModal', type: :system, js: true do
   end
 
   def expect_filled_fields_in_modal_with(team_attrs)
-    expect(find('input[name="teamname"]', visible: false).value).to eq(team_attrs[:name])
+    expect(find('#teamname input', visible: false).value).to eq(team_attrs[:name])
     expect(find('textarea', visible: false).value).to eq(team_attrs[:description])
   end
 

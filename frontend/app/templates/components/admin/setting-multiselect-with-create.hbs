@@ -3,10 +3,10 @@
     @options={{@options}}
     @placeholder={{@placeholder}}
     @selected={{this.selectedOptions}}
-    @onChange={{fn this.updateSetting}}
-    @onCreate={{fn this.addSetting}}
+    @onChange={{this.updateSetting}}
+    @onCreate={{this.addSetting}}
     @searchField="label"
-    @showCreateWhen={{fn this.hideCreateOptionOnInvalidIpOrSameName}}
+    @showCreateWhen={{this.hideCreateOptionOnInvalidIpOrSameName}}
     as |ip|>
   {{ip.label}}
 </PowerSelectMultipleWithCreate>

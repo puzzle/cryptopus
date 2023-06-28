@@ -28,7 +28,7 @@
     <div class="card-body">
       <div class="row mb-2">
         <div class="col-sm-8 pr-0">
-          <Input class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextUsername}}/>
+          <Input class="d-inline form-control" disabled="true" @value={{@encryptable.cleartextUsername}} />
         </div>
         <div class="col-sm-3">
           <CopyButton class="btn btn-light" @clipboardText={{@encryptable.cleartextUsername}} @success={{fn this.onCopied "username"}}>
@@ -39,7 +39,7 @@
       <div class="row">
         <div class="col-sm-8 pr-0">
           <div class="password-wrapper">
-            <Input class="d-inline form-control" @disabled="true" @value={{@encryptable.cleartextPassword}}/>
+            <Input class="d-inline form-control" disabled="true" @value={{@encryptable.cleartextPassword}} />
             <div role="button" class="show-password-link show-password-link-sm {{if this.isPasswordVisible "visibility-hidden"}}" {{on "click" this.showPassword}} href="#">{{t "encryptable/credentials.show.show_password"}}</div>
           </div>
 

@@ -1,7 +1,7 @@
 <tr class="api-user-row">
   <td> {{@apiUser.username}} </td>
   <td>
-    <Input @class={{"vw-8"}} @enter={{fn this.updateApiUser @apiUser}} @focus-out={{fn this.updateApiUser @apiUser}} @type={{"text"}} @value={{@apiUser.description}} @placeholder={{t "profile.api_users.enter_description"}} />
+    <Input class={{"vw-8"}} @enter={{fn this.updateApiUser @apiUser}} @type={{"text"}} @value={{@apiUser.description}} placeholder={{t "profile.api_users.enter_description"}} {{on "focusout" (fn this.updateApiUser @apiUser)}} />
   </td>
   <td>
     <div>

@@ -63,7 +63,7 @@ describe 'UpdatePasswordModal', type: :system, js: true do
     expect(page).to have_text("New passwords don't match")
 
     # Try with false current password
-    all('input[name="newPassword1"]').last.set password_attrs[:new_pwd2]
+    all('#oldPassword input').last.set password_attrs[:new_pwd2]
     click_button('Save', visible: false)
 
     expect(page).to have_text('Wrong password')

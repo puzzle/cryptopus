@@ -21,16 +21,18 @@
   <img slot="tangram" width="95" height="100" src="/assets/images/tangram.svg" alt="tangram">
   <div slot="content" class="search">
     <div class="search-field">
-      <Input @class="search" @type="search"
+      <Input class="search" @type="search"
              @value={{ this.navService.searchQueryInput }}
-             placeholder={{t (concat "search.index.type_to_search." (if this.navService.isShowingFavourites "favourites" "all"))}} @keyUp={{this.searchByQuery}}
-             @autofocus={{this.isStartpage}} maxlength="70"/>
-      <button>
+             placeholder={{t (concat "search.index.type_to_search." (if this.navService.isShowingFavourites "favourites" "all"))}}
+        {{on "input" this.searchByQuery}}
+             autofocus={{this.isStartpage}}
+             maxlength="70" />
+      <button type="button">
         <pzsh-icon name="search"></pzsh-icon>
       </button>
     </div>
 
-    <BsDropdown @class="d-flex align-items-center" as |dd|>
+    <BsDropdown class="d-flex align-items-center" as |dd|>
       <dd.toggle class="dropdown-toggle">
         <pzsh-icon name="plus-circle"></pzsh-icon>
         <div class="dropdown-toggle-text">
@@ -82,14 +84,14 @@
           Admin
         </div>
         <div slot="items">
-          <LinkTo role="button" @route="admin.users" @tagName="pzsh-menu-dropdown-item">
+          <pzsh-menu-dropdown-item href="/admin/users" role="button">
             <pzsh-icon name="user"></pzsh-icon>
             {{ t "users" }}
-          </LinkTo>
-          <LinkTo role="button" @route="admin.settings" @tagName="pzsh-menu-dropdown-item">
+          </pzsh-menu-dropdown-item>
+          <pzsh-menu-dropdown-item href="/admin/settings" role="button">
             <pzsh-icon name="setting"></pzsh-icon>
             {{ t "settings" }}
-          </LinkTo>
+          </pzsh-menu-dropdown-item>
         </div>
       </pzsh-menu-dropdown>
     {{/if}}
@@ -100,10 +102,10 @@
         {{ this.givenname }}
       </div>
       <div slot="items">
-        <LinkTo role="button" @route="profile" @tagName="pzsh-menu-dropdown-item">
-          <pzsh-icon name="setting"></pzsh-icon>
-          {{ t "profile_title" }}
-        </LinkTo>
+        <pzsh-menu-dropdown-item href="/profile" role="button">
+          <pzsh-icon name="user"></pzsh-icon>
+          {{ t "users" }}
+        </pzsh-menu-dropdown-item>
         <pzsh-menu-dropdown-item href="/session/destroy">
           <pzsh-icon name="sign-out-alt"></pzsh-icon>
           {{ t "logout" }}

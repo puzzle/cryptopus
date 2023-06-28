@@ -3,7 +3,7 @@
     <h3 class="modal-title">{{@title}}</h3>
   </Modal.header>
   <Modal.body>
-    <div class="container-fluid">
+    <div id="admin-form" class="container-fluid">
       <BsForm @model={{this.changeset}} as |form|>
         <div class="row">
           <div class="col-md-6 order-2">
@@ -13,7 +13,7 @@
                                                            "invalid-input-name"}}
                             id="username"
                             @customError={{t (validation-error-key this.changeset.error.username.validation)}} as |el|>
-                <el.control autocomplete="off" @name="username" tabindex="1" readonly={{if this.userService.isConfAdmin ""}}></el.control>
+                <el.control autocomplete="off" @name="username" readonly={{if this.userService.isConfAdmin ""}}></el.control>
               </form.element>
             </form.group>
             <form.group class="col-md-12">
@@ -22,7 +22,7 @@
                                                            "invalid-input-name"}}
                             id="givenname"
                             @customError={{t (validation-error-key this.changeset.error.givenname.validation)}} as |el|>
-                <el.control autocomplete="off" @name="givenname" tabindex="1"></el.control>
+                <el.control autocomplete="off" @name="givenname"></el.control>
               </form.element>
             </form.group>
           </div>
@@ -33,7 +33,7 @@
                                                            "invalid-input-name"}}
                             id="surname"
                             @customError={{t (validation-error-key this.changeset.error.surname.validation)}} as |el|>
-                <el.control autocomplete="off" @name="surname" tabindex="1"></el.control>
+                <el.control autocomplete="off" @name="surname"></el.control>
               </form.element>
             </form.group>
             {{#if this.isNewRecord}}
@@ -43,7 +43,7 @@
                                                              "invalid-input-name"}}
                               id="password"
                               @customError={{t (validation-error-key this.changeset.error.password.validation)}} as |el|>
-                  <el.control autocomplete="off" @name="password" tabindex="1"></el.control>
+                  <el.control autocomplete="off" @name="password"></el.control>
                 </form.element>
               </form.group>
             {{/if}}

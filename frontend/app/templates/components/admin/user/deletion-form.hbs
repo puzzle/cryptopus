@@ -26,7 +26,7 @@
                     {{team.name}}
                   </td>
                   <td>
-                    {{truncate team.description 20}} 
+                    {{truncate team.description 20}}
                   </td>
                   <td>
                     <span role="button" {{on "click" (fn this.deleteTeam team)}}>
@@ -41,7 +41,7 @@
       </Modal.body>
     {{/if}}
     <Modal.footer>
-      <BsButton @onClick={{action this.deleteUser}} @type="danger" @disabled={{this.isDeletionDisabled}}>{{t "delete"}}</BsButton>
+      <BsButton @onClick={{action this.deleteUser}} @type="danger" disabled={{this.isDeletionDisabled}}>{{t "delete"}}</BsButton>
       <BsButton @onClick={{action this.toggleDeletionForm}} @type="secondary">{{t "close"}}</BsButton>
     </Modal.footer>
   </BsModal>
