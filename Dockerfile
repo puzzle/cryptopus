@@ -46,6 +46,9 @@ RUN apt-get autoremove -y
 
 RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "" app
 
+RUN rm -r /app-src/tmp && mkdir /app-src/tmp
+RUN chown -R 1001 /app-src/tmp
+
 USER 1001
 
 # make sure unique secret key is set by operator
