@@ -387,8 +387,8 @@ en:
     delete_encryptables: Delete the Credentials
     configure: Configure Members
     sent_by: Sent by
-    encryption_algorithm: "The data in the following field will be encrypted with the encryption algorithm "
-    key_size: " The key length used is "
+    encryption_algorithm: "The data in this field will be encrypted with the encryption algorithm "
+    key_size: " The key length is "
 
   helpers:
     label:
