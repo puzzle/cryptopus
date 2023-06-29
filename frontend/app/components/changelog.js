@@ -10,7 +10,7 @@ export default class Changelog extends Component {
   }
 
   async loadMarkdown() {
-    const response = await fetch("./CHANGELOG.md");
+    const response = await fetch("/CHANGELOG.md");
     this.content = await response.text();
   }
 }
