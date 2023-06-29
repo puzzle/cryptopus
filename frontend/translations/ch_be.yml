@@ -186,7 +186,7 @@ ch_be:
       title: Ordner bearbeite
     new:
       title: Ordner ersteue
-    no_encryptables: Ke Zuägangsdate
+    no_encryptables: Ke Zuägangsdate oder Dateiä
     tooltips:
       edit: Ordner bearbeite
 

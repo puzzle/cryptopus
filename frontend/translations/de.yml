@@ -186,7 +186,7 @@ de:
       title: Ordner bearbeiten
     new:
       title: Ordner erstellen
-    no_encryptables: Keine Zugangsdaten
+    no_encryptables: Keine Zugangsdaten oder Dateien
     tooltips:
       edit: Ordner bearbeiten
 
