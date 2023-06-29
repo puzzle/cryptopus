@@ -93,11 +93,11 @@
       {{#if @encryptable.cleartextUsername}}
         <Encryptable::AttributeField @row={{false}} @attribute="username" @encryptable={{@encryptable}} @visibleByDefault={{true}}/>
       {{/if}}
-      {{#if @encryptable.cleartextPassword}}
-        <Encryptable::AttributeField @row={{false}} @attribute="password" @encryptable={{@encryptable}} @visibleByDefault={{false}}/>
-      {{/if}}
       {{#if @encryptable.cleartextEmail}}
         <Encryptable::AttributeField @row={{false}} @attribute="email" @encryptable={{@encryptable}} @visibleByDefault={{true}}/>
+      {{/if}}
+      {{#if @encryptable.cleartextPassword}}
+        <Encryptable::AttributeField @row={{false}} @attribute="password" @encryptable={{@encryptable}} @visibleByDefault={{false}}/>
       {{/if}}
       {{#if @encryptable.cleartextPin}}
         <Encryptable::AttributeField @row={{false}} @attribute="pin" @encryptable={{@encryptable}} @visibleByDefault={{false}}/>
