@@ -47,6 +47,7 @@ RUN apt-get autoremove -y
 RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "" app
 
 RUN mkdir /app-src/tmp && chown -R 1001 /app-src/tmp && chmod 775 /app-src/tmp
+RUN chmod 775 /app-src/db
 
 USER 1001
 
