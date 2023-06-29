@@ -84,13 +84,17 @@
           Admin
         </div>
         <div slot="items">
-          <pzsh-menu-dropdown-item href="/admin/users" role="button">
-            <pzsh-icon name="user"></pzsh-icon>
-            {{ t "users" }}
+          <pzsh-menu-dropdown-item role="button">
+            <LinkTo class="nav-bar-link" @route="admin.users">
+              <pzsh-icon class="nav-bar-link-icon" name="user"></pzsh-icon>
+              {{ t "users" }}
+            </LinkTo>
           </pzsh-menu-dropdown-item>
-          <pzsh-menu-dropdown-item href="/admin/settings" role="button">
-            <pzsh-icon name="setting"></pzsh-icon>
-            {{ t "settings" }}
+          <pzsh-menu-dropdown-item role="button">
+            <LinkTo class="nav-bar-link" @route="admin.settings">
+              <pzsh-icon class="nav-bar-link-icon" name="setting"></pzsh-icon>
+              {{ t "settings" }}
+            </LinkTo>
           </pzsh-menu-dropdown-item>
         </div>
       </pzsh-menu-dropdown>
@@ -102,9 +106,11 @@
         {{ this.givenname }}
       </div>
       <div slot="items">
-        <pzsh-menu-dropdown-item href="/profile" role="button">
-          <pzsh-icon name="user"></pzsh-icon>
-          {{ t "users" }}
+        <pzsh-menu-dropdown-item role="button">
+          <LinkTo class="nav-bar-link" @route="profile">
+            <pzsh-icon class="nav-bar-link-icon" name="user"></pzsh-icon>
+            {{ t "users" }}
+          </LinkTo>
         </pzsh-menu-dropdown-item>
         <pzsh-menu-dropdown-item href="/session/destroy">
           <pzsh-icon name="sign-out-alt"></pzsh-icon>
