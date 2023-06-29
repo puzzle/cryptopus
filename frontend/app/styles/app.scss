@@ -469,6 +469,10 @@ h5, h6 {
   text-decoration: none;
 }
 
+.encryptable-attributes .form-control {
+  height: calc(1.5em + 0.75rem);
+}
+
 @media screen and (max-width: 799px){
   .ember-notify-default.ember-notify-cn {
     bottom: 11em !important;
