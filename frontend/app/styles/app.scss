@@ -469,6 +469,20 @@ h5, h6 {
   text-decoration: none;
 }
 
+.encryptable-attributes .form-control {
+  height: calc(1.5em + 0.75rem);
+}
+
+.nav-bar-link,
+.nav-bar-link:hover {
+  color: #62676b;
+  text-decoration: none;
+}
+
+.nav-bar-link-icon {
+  margin-bottom: -5px;
+}
+
 @media screen and (max-width: 799px){
   .ember-notify-default.ember-notify-cn {
     bottom: 11em !important;
