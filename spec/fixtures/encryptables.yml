@@ -23,8 +23,8 @@ credentials1:
   name: Personal Mailbox
   description: Mailprovider One
   folder: folder1
-  encrypted_data: '{"password":{"iv":"O3N/lcLuIVvBQrGD/67avA==","data":"K+CO4AmSvrDRw44O+A6bdQ=="},"username":{"iv":"VkER82puhdp0gtfbsdp31w==","data":"jckIRjysJSrGy+bONpEIrQ=="},"token":{"iv":null,"data":"s7L8uN3B82rE0jfxbZTBLA=="}
-  ,"pin":{"iv":null,"data":"hxFbaVAiXsYU41KWAsguxw=="},"email":{"iv":null,"data":"iQAeALndU+eKpkGwGNDHgw=="},"custom_attr":{"iv":null, "label":"Access Code","data":"6qN+5x+eYPekkZB/mfpgBg=="}}'
+  encrypted_data: '{"password":{"iv":"H9hjp4QeXwag2Py5BbIUsw==","data":"vDItEQ+iQ1e55wcu9yPeSw=="},"username":{"iv":"ANa+aisVyKLEZs660fBa4w==","data":"Go6I8GJMejqRWS8QxfL+iA=="},"token":{"iv":"eVqNiT+wZXHy7FB8vl76kg==","data":"HQqUtWGazCQue+uTloDGyA=="}
+  ,"pin":{"iv":"80e9BgLcDlJzmitc+KydAQ==","data":"4uXc5coIBOQ2CYSLQOeu6A=="},"email":{"iv":"ybQu7D5HgofF2WKkfrmv9w==","data":"QNQRKGFpN49nLN0MImhp6A=="},"custom_attr":{"iv":"iC1hdqLGuzeGXHmXFP6qmQ==", "label":"Access Code","data":"Bz2mauB+jEbVinb6nPsoQQ=="}}'
   sender_id: null
   encrypted_transfer_password: null
 
