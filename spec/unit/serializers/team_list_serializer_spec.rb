@@ -26,6 +26,7 @@ describe TeamListSerializer do
 
     it 'should return 1 unread transferred file' do
       encryptable_file = Encryptable::File.new(name: 'file',
+                                               folder_id: alice.inbox_folder.id,
                                                cleartext_file: file_fixture('test_file.txt').read,
                                                content_type: 'text/plain')
 

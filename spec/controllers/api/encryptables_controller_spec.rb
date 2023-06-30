@@ -807,6 +807,7 @@ describe Api::EncryptablesController do
 
   def prepare_transferred_encryptable
     encryptable_file = Encryptable::File.new(name: 'file',
+                                             folder_id: alice.inbox_folder.id,
                                              cleartext_file: file_fixture('test_file.txt').read,
                                              content_type: 'text/plain')
 
