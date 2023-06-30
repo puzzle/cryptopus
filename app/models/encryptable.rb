@@ -86,20 +86,17 @@ class Encryptable < ApplicationRecord
   def encrypt_attr(attr, team_password, receiver_algorithm = nil)
     cleartext_value = send(:"cleartext_#{attr}")
 
-    encrypted_value = if cleartext_value.presence
-                        if receiver_algorithm
-                          receiver_algorithm.encrypt(cleartext_value, team_password)
-                        else
-                          encryption_class.encrypt(cleartext_value, team_password)
-                        end
-                      else
-                        { data: nil, iv: nil }
-                      end
+    encrypted_value =
+      encrypt_with_encryption_class(cleartext_value, team_password, receiver_algorithm)
 
     return if transferred? && encrypted_value.blank?
 
     attr_label = cleartext_custom_attr_label if attr == :custom_attr
-    encrypted_data.[]=(attr, **{ label: attr_label, data: encrypted_value[:data], iv: encrypted_value[:iv] })
+    encrypted_data.[]=(attr, **{
+                         label: attr_label,
+                         data: encrypted_value[:data],
+                         iv: encrypted_value[:iv]
+                       })
   end
 
   def decrypt_attr(attr, team_password)
@@ -118,6 +115,18 @@ class Encryptable < ApplicationRecord
     end
 
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
+  end
+
+  def encrypt_with_encryption_class(cleartext_value, team_password, receiver_algorithm)
+    if cleartext_value.presence
+      if receiver_algorithm
+        receiver_algorithm.encrypt(cleartext_value, team_password)
+      else
+        encryption_class.encrypt(cleartext_value, team_password)
+      end
+    else
+      { data: nil, iv: nil }
+    end
   end
 
   def encryption_class
