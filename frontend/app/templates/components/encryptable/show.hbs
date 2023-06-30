@@ -133,7 +133,7 @@
     {{#unless this.isTransferredCredentials}}
       <div class="d-flex flex-row justify-content-between mb-2">
         <div>
-          <h3 id="encryptable-attachments">{{t "encryptable/credentials.show.attachments"}}</h3>
+          <h4 id="encryptable-attachments">{{t "encryptable/credentials.show.attachments"}}</h4>
         </div>
         <div>
           <BsButton id="encryptable-add-attachment" @type="primary" {{on "click" this.toggleFileNew}}>
@@ -144,9 +144,9 @@
       <table class="table table-striped">
         <tbody>
           <tr>
-            <th id="encryptable-file-label">{{t "encryptable/credentials.show.file"}}</th>
-            <th id="encryptable-file-description" class="description">{{t "description"}}</th>
-            <th id="encryptable-file-actions">{{t "actions"}}</th>
+            <th class="font-weight-normal" id="encryptable-file-label">{{t "encryptable/credentials.show.file"}}</th>
+            <th class="font-weight-normal" id="encryptable-file-description">{{t "description"}}</th>
+            <th class="font-weight-normal" id="encryptable-file-actions">{{t "actions"}}</th>
           </tr>
           {{#each @encryptable.encryptableFiles as |encryptableFile|}}
             <EncryptableFile::Row @encryptableFile={{encryptableFile}}/>

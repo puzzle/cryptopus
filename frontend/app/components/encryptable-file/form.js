@@ -110,7 +110,7 @@ export default class Form extends BaseFormComponent {
 
   handleSubmitSuccess(savedRecords) {
     this.abort();
-    if (this.args.attachment === false) {
+    if (!this.args.attachment) {
       this.saveEditedData(savedRecords);
     }
   }

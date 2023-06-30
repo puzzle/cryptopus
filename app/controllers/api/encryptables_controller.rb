@@ -81,11 +81,11 @@ class Api::EncryptablesController < ApiController
     super
   end
 
-  def file_credential
+  def credential
     Encryptable::Credentials.find(credential_id)
   end
 
-  def file_folder
+  def folder
     Folder.find(folder_id)
   end
 
@@ -170,9 +170,9 @@ class Api::EncryptablesController < ApiController
     filename = params[:file].original_filename
 
     file = if credential_id.present?
-             new_credential_file(file_credential, params[:description], filename)
+             new_attachment(credential, params[:description], filename)
            else
-             new_file(file_folder, params[:description], filename)
+             new_file(folder, params[:description], filename)
            end
     file.content_type = params[:file].content_type
     file.cleartext_file = params[:file].read
@@ -180,7 +180,7 @@ class Api::EncryptablesController < ApiController
     instance_variable_set(:"@#{ivar_name}", file)
   end
 
-  def new_credential_file(parent_encryptable, description, name)
+  def new_attachment(parent_encryptable, description, name)
     Encryptable::File.new(encryptable_credential: parent_encryptable,
                           description: description,
                           name: name)
