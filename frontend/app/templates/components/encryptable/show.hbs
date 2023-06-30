@@ -36,6 +36,10 @@
         <div class="col-lg-9">
           <br><p class="d-inline">{{t "encryptable/file.show.sender_name"}}: {{@encryptable.sender_name}}</p>
         </div>
+      {{else}}
+        <div class="col-lg-9 accountname text-muted">
+          <br><p id="encryptable-created-at" class="d-inline">{{t "encryptable/credentials.show.created_at"}}: {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}</p>
+        </div>
       {{/if}}
     </div>
 
