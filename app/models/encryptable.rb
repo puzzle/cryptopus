@@ -100,13 +100,9 @@ class Encryptable < ApplicationRecord
   end
 
   def decrypt_attr(attr, team_password)
-    data_attr = encrypted_data[attr]
+    encrypted_value = encrypted_value_hash(attr)
 
-    data = data_attr.try(:[], :data)
-    iv = data_attr.try(:[], :iv)
-    encrypted_value = { data: data, iv: iv }
-
-    cleartext_value = if data.present?
+    cleartext_value = if encrypted_value[:data].present?
                         encryption_class.decrypt(encrypted_value, team_password)
                       end
 
@@ -115,6 +111,14 @@ class Encryptable < ApplicationRecord
     end
 
     instance_variable_set("@cleartext_#{attr}", cleartext_value)
+  end
+
+  def encrypted_value_hash(attr)
+    data_attr = encrypted_data[attr]
+
+    data = data_attr.try(:[], :data)
+    iv = data_attr.try(:[], :iv)
+    { data: data, iv: iv }
   end
 
   def encrypt_with_encryption_class(cleartext_value, team_password, receiver_algorithm)
