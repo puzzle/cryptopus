@@ -43,6 +43,8 @@ export default class Form extends BaseFormComponent {
 
     this.presetTeamIfFolderSelected();
 
+    this.loadValidation();
+
     this.changeset.encryptable = this.args.encryptable;
     this.changeset.csrfToken = ENV.CSRFToken;
   }
@@ -59,7 +61,7 @@ export default class Form extends BaseFormComponent {
 
   presetTeamAndFolder() {
     let selectedTeam = this.navService.selectedTeam;
-    let selectedFolder = this.navService.selectedFolder;
+    let selectedFolder = this.args.folder || this.navService.selectedFolder;
 
     this.selectedTeam = selectedTeam;
     if (!isEmpty(selectedFolder)) {
@@ -70,7 +72,14 @@ export default class Form extends BaseFormComponent {
   @action
   setSelectedTeam(selectedTeam) {
     this.selectedTeam = selectedTeam;
-    this.setFolder(null);
+    this.setSelectedFolder(null);
+    this.loadValidation();
+  }
+
+  @action
+  setSelectedFolder(selectedFolder) {
+    this.changeset.folder = selectedFolder;
+    this.loadValidation();
   }
 
   presetTeamIfFolderSelected() {
@@ -96,10 +105,18 @@ export default class Form extends BaseFormComponent {
     );
 
     if (isFileValid) {
-      await this.changeset.validate();
+      await this.loadValidation();
       this.record.encryptableCredential = this.args.encryptableCredential;
       this.record.folder = this.changeset.folder;
       return this.changeset.isValid;
+    }
+  }
+
+  async loadValidation() {
+    if (this.args.attachment) {
+      await this.changeset.validate("file", "description");
+    } else {
+      await this.changeset.validate();
     }
   }
 
@@ -135,5 +152,6 @@ export default class Form extends BaseFormComponent {
   @action
   uploadFile(file) {
     this.changeset.file = file;
+    this.loadValidation();
   }
 }

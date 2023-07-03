@@ -46,7 +46,7 @@
                          @onfileadd={{this.uploadFile}}
                          @ondrop={{this.uploadFile}}
                          class="btn btn-primary">
-                <a id="upload-file" tabindex="0">{{t (if this.changeset.file "encryptable_files.new.reupload" "encryptable_files.attachment.upload_file")}}</a>
+                <a id="upload-file" tabindex="0">{{t (if this.changeset.file "encryptable_files.reupload" "encryptable_files.attachment.upload_file")}}</a>
               </FileUpload>
             <div class="mb-3">
               {{#let (file-queue name="files" onFileAdded=this.uploadFile) as |queue| }}

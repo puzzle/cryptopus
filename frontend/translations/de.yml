@@ -119,7 +119,10 @@ de:
 
   encryptable/file:
     new:
-      title: "Datei teilen"
+      title: "Datei hochladen"
+    transfer:
+      new:
+        title: Datei teilen
     receiver:
       name: Wähle einen Empfänger aus
     show:
@@ -208,8 +211,8 @@ de:
       upload: Hochladen
       upload_file: Datei hochladen
       choose_file: Wählen Sie eine Datei
-      reupload: Wählen Sie eine andere Datei
       selected_file: Ausgewählte Datei
+    reupload: Wählen Sie eine andere Datei
 
   session:
     destroy:

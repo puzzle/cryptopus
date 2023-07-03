@@ -6,8 +6,8 @@
     <div class="container-fluid">
       {{#each this.errors as |error|}}
         <div class="alert alert-danger modal-alert ">
-          {{error.detail}}.<br>
-          {{t "encryptable_files.attachment.reupload"}}
+          {{error.detail}},
+          {{t "encryptable_files.reupload"}}
         </div>
       {{/each}}
       <div class="row">
@@ -26,7 +26,7 @@
                     @selected={{this.selectedTeam}}
                     @searchField={{"name"}}
                     @searchEnabled={{true}}
-                    @onChange={{fn (mut this.selectedTeam)}} as |team|>
+                    @onChange={{fn this.setSelectedTeam}} as |team|>
                     {{team.name}}
                   </PowerSelect>
                 </div>
@@ -35,13 +35,14 @@
                   <PowerSelect
                     class="mb-2"
                     id="folder-dropdown"
+                    @name="folder"
                     @options={{this.availableFolders}}
                     @placeholder={{t "encryptable/credentials.edit.folder_placeholder"}}
                     @renderInPlace={{true}}
                     @selected={{this.changeset.folder}}
                     @searchField={{"name"}}
                     @searchEnabled={{true}}
-                    @onChange={{fn (mut this.changeset.folder)}} as |folder|>
+                    @onChange={{fn this.setSelectedFolder}} as |folder|>
                     {{folder.name}}
                   </PowerSelect>
                 </div>
@@ -59,10 +60,10 @@
                             @accept="*"
                             @for="upload-file"
                             @multiple={{false}}
-                            @onfileadd={{this.uploadFile}}
+                            @onFileAdd={{this.uploadFile}}
                             @ondrop={{this.uploadFile}}
                             class="btn btn-primary w-100">
-                  <a id="upload-file">{{t (if this.changeset.file "encryptable_files.attachment.reupload" "encryptable_files.attachment.upload_file")}}</a>
+                  <a id="upload-file">{{t (if this.changeset.file "encryptable_files.reupload" "encryptable_files.attachment.upload_file")}}</a>
                 </FileUpload>
                 {{#let (file-queue name="files" onFileAdded=this.uploadFile) as |queue| }}
                   <input type="file" id="actual-btn" hidden {{queue.selectFile}}>
@@ -86,7 +87,7 @@
     </div>
   </Modal.body>
   <Modal.footer>
-    <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "encryptable_files.attachment.upload"}}</BsButton>
+    <BsButton @onClick={{action this.submit this.changeset}} disabled={{not this.changeset.isValid}} @type="primary">{{t "encryptable_files.attachment.upload"}}</BsButton>
     <BsButton @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
   </Modal.footer>
 </BsModal>

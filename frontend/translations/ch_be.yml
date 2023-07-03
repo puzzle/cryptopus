@@ -119,7 +119,10 @@ ch_be:
 
   encryptable/file:
     new:
-      title: "Datei teilä"
+      title: "Datei hinzuefüge"
+    transfer:
+      new:
+        title: Datei teilä
     receiver:
       name: Wäu ä empfänger
     show:
@@ -208,8 +211,8 @@ ch_be:
       upload: Ufeladä
       upload_file: Datei zum ufeladä
       choose_file: Suech e Datei us
-      reupload: Wähl e angeri Datei
       selected_file: Usgwählti Datei
+    reupload: Wähl e angeri Datei
 
   session:
     destroy:

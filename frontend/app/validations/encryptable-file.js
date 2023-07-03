@@ -4,6 +4,7 @@ import {
 } from "ember-changeset-validations/validators";
 
 export default {
+  folder: [validatePresence(true)],
   description: [validateLength({ max: 300 })],
   file: [validatePresence(true)]
 };

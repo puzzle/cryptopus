@@ -212,8 +212,8 @@ en:
       upload: Upload
       upload_file: File to upload
       choose_file: Choose a file
-      reupload: Select a different file
       selected_file: Selected file
+    reupload: Select a different file
 
   session:
     destroy:
