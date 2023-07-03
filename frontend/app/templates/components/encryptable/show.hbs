@@ -7,6 +7,9 @@
 {{#if this.isCredentialSharing}}
   <CredentialTransfer @onAbort={{this.toggleCredentialSharing}} @title={{t "encryptable/transferring/credential.new.title"}} @encryptableId={{@encryptable.id}} @encryptableName={{@encryptable.name}}/>
 {{/if}}
+{{#if this.isCcliOptionsOpen}}
+  <Encryptable::CcliOptions @encryptable={{@encryptable}} @onAbort={{this.toggleCcliOptions}}/>
+{{/if}}
 {{#if this.isFile}}
   <div class="container px-5 pt-4 h-100 bg-white pl-none encryptable-container-smartphone mb-15">
     <div class="row mb-3">
@@ -67,6 +70,9 @@
         </a>
       </div>
       <div class="col-auto d-flex justify-content-between align-items-center">
+        <a id="ccli-options-button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleCcliOptions}}>
+          <img class="icon-button" src="/assets/images/ccli.svg" alt="ccli">
+        </a>
         <a id="share_credential_button" class="btn btn-secondary edit_button" role="button" {{on "click" this.toggleCredentialSharing}}>
           <img class="icon-button" src="/assets/images/share-black.svg" alt="share">
         </a>

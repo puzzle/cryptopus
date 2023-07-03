@@ -117,6 +117,13 @@ fr:
       clickToSeeAttrs: Cliquez pour voir tous les attributs
     share:
       title: Partage fichier
+    ccli-options:
+      title: Copier les commandes CCLI
+      help: Avez-vous besoin de plus d'informations?
+      copy-ccli: Copier la commande CCLI
+      copy-ccli-username: Copier la commande CCLI pour le nom d'utilisateur
+      copy-ccli-password: Copier la commande CCLI pour le mot de passe
+      copy-ccli-yaml: Copier la commande CCLI Yaml
 
   encryptable/transferring/file:
     new:
@@ -326,6 +333,7 @@ fr:
       token_copied: Le jeton a été copié
       email_copied: L'e-mail a été copié
       customAttr_copied: L'attribut personnalisé a été copié
+      ccli_command_copied: La commande CCLI a été copiée
       selectAdditionalField: Tu dois sélectionner un champ
 
     encryptable-credentials:

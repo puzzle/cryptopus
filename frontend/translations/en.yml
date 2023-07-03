@@ -117,6 +117,13 @@ en:
       clickToSeeAttrs: Click to see all attributes
     share:
       title: Share File
+    ccli-options:
+      title: Copy CCLI Commands
+      help: You need more information?
+      copy-ccli: Copy CCLI Command
+      copy-ccli-username: Copy CCLI Command for username
+      copy-ccli-password: Copy CCLI Command for password
+      copy-ccli-yaml: Copy CCLI Yaml Command
 
   encryptable/transferring/file:
     new:
@@ -325,6 +332,7 @@ en:
       token_copied: Token was copied
       email_copied: Email was copied
       customAttr_copied: Custom Attribute was copied
+      ccli_command_copied: CCLI Command was copied
       selectAdditionalField: You have to choose a field
 
     encryptable-credentials:
