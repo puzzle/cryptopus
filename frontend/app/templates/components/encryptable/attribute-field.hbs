@@ -18,7 +18,7 @@
     <BsTooltip @title={{t (concat "encryptable/credentials.show.copy_" this.args.attribute)}} @delayShow="500" />
   </button>
   {{#unless this.args.row}}
-      <span class="input-group-text">
+      <span class="input-group-text encryption_algorithm">
         <img class="icon-button encryptable-show-back" src="/assets/images/lock.svg" alt="lock">
         <BsTooltip @title="{{t "tooltips.encryption_algorithm"}} {{@encryptable.encryptionAlgorithm}} {{t "tooltips.key_size"}} {{@encryptable.teamPasswordBitsize}} bits" @delayShow="1000" />
       </span>

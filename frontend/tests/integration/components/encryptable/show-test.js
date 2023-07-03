@@ -74,6 +74,11 @@ module("Integration | Component | encryptable/show", function (hooks) {
       .doesNotExist();
     assert.dom(this.element.querySelector("#show-customAttr")).doesNotExist();
 
+    let encryption_algorithm = this.element.querySelector(
+      ".encryption_algorithm"
+    );
+    assert.ok(isPresent(encryption_algorithm));
+
     await click("#show-password");
 
     assert.equal(
@@ -130,6 +135,11 @@ module("Integration | Component | encryptable/show", function (hooks) {
       this.element.querySelector("#show-customAttr").innerHTML,
       "Show custom attribute"
     );
+
+    let encryption_algorithm = this.element.querySelector(
+      ".encryption_algorithm"
+    );
+    assert.ok(isPresent(encryption_algorithm));
 
     await click("#show-token");
 
@@ -236,6 +246,11 @@ module("Integration | Component | encryptable/show", function (hooks) {
       this.element.querySelector("#encryptable-file-actions").innerText,
       "Actions"
     );
+
+    let encryption_algorithm = this.element.querySelector(
+      ".encryption_algorithm"
+    );
+    assert.ok(isPresent(encryption_algorithm));
   });
 
   test("should render all german translations and encryptable values", async function (assert) {
@@ -327,6 +342,11 @@ module("Integration | Component | encryptable/show", function (hooks) {
       this.element.querySelector("#encryptable-file-actions").innerText,
       "Aktionen"
     );
+
+    let encryption_algorithm = this.element.querySelector(
+      ".encryption_algorithm"
+    );
+    assert.ok(isPresent(encryption_algorithm));
   });
 
   test("should render all swiss german translations and encryptable values", async function (assert) {
@@ -418,6 +438,11 @@ module("Integration | Component | encryptable/show", function (hooks) {
       this.element.querySelector("#encryptable-file-actions").innerText,
       "Aktionä"
     );
+
+    let encryption_algorithm = this.element.querySelector(
+      ".encryption_algorithm"
+    );
+    assert.ok(isPresent(encryption_algorithm));
   });
 
   test("should render all french translations and encryptable values", async function (assert) {
@@ -509,6 +534,11 @@ module("Integration | Component | encryptable/show", function (hooks) {
       this.element.querySelector("#encryptable-file-actions").innerText,
       "Actions"
     );
+
+    let encryption_algorithm = this.element.querySelector(
+      ".encryption_algorithm"
+    );
+    assert.ok(isPresent(encryption_algorithm));
   });
 
   test("it renders a transferred encryptable file", async function (assert) {
@@ -533,6 +563,10 @@ module("Integration | Component | encryptable/show", function (hooks) {
     assert.ok(text.includes("Encryptable for the ninjas"));
     assert.ok(text.includes("Download file"));
     assert.ok(text.includes("Sender name: Bob Beier"));
+
+    assert
+      .dom(this.element.querySelector(".encryption_algorithm"))
+      .doesNotExist();
 
     let deleteButton = this.element.querySelector('.icon-button[alt="delete"]');
     assert.ok(isPresent(deleteButton));

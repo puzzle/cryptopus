@@ -62,6 +62,9 @@ module("Integration | Component | encryptable/row", function (hooks) {
     assert.dom(this.element.querySelector("#email-field")).doesNotExist();
     assert.dom(this.element.querySelector("#token-field")).doesNotExist();
     assert.dom(this.element.querySelector("#custom-attr-field")).doesNotExist();
+    assert
+      .dom(this.element.querySelector(".encryption_algorithm"))
+      .doesNotExist();
   });
 
   test("it renders with two set attribute", async function (assert) {
@@ -107,6 +110,9 @@ module("Integration | Component | encryptable/row", function (hooks) {
     assert.dom(this.element.querySelector("#show-email")).doesNotExist();
     assert.dom(this.element.querySelector("#show-token")).doesNotExist();
     assert.dom(this.element.querySelector("#show-customAttr")).doesNotExist();
+    assert
+      .dom(this.element.querySelector(".encryption_algorithm"))
+      .doesNotExist();
   });
 
   test("it renders with three or more set attribute", async function (assert) {
@@ -147,6 +153,9 @@ module("Integration | Component | encryptable/row", function (hooks) {
     assert.dom(this.element.querySelector("#email-field")).doesNotExist();
     assert.dom(this.element.querySelector("#token-field")).doesNotExist();
     assert.dom(this.element.querySelector("#custom-attr-field")).doesNotExist();
+    assert
+      .dom(this.element.querySelector(".encryption_algorithm"))
+      .doesNotExist();
   });
 
   test("it renders encryptable row for transferred file", async function (assert) {
