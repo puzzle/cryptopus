@@ -18,7 +18,9 @@
     <BsTooltip @title={{t (concat "encryptable/credentials.show.copy_" this.args.attribute)}} @delayShow="500" />
   </button>
   {{#unless this.args.row}}
-    <BsTooltip @title="{{t "tooltips.encryption_algorithm"}} {{@encryptable.encryptionAlgorithm}} {{t "tooltips.key_size"}} {{@encryptable.teamPasswordBitsize}} bits" @delayShow="1000" />
-    <span class="input-group-text"><img class="icon-button encryptable-show-back" src="/assets/images/lock.svg" alt="lock"></span>
+      <span class="input-group-text">
+        <img class="icon-button encryptable-show-back" src="/assets/images/lock.svg" alt="lock">
+        <BsTooltip @title="{{t "tooltips.encryption_algorithm"}} {{@encryptable.encryptionAlgorithm}} {{t "tooltips.key_size"}} {{@encryptable.teamPasswordBitsize}} bits" @delayShow="1000" />
+      </span>
   {{/unless}}
 </div>
