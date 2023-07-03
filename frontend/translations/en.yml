@@ -186,7 +186,7 @@ en:
       title: Editing Folder
     new:
       title: New Folder
-    no_encryptables: No Credentials
+    no_encryptables: No credentials or files
     tooltips:
       edit: Edit the folder
 

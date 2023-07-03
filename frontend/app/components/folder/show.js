@@ -15,7 +15,7 @@ export default class ShowComponent extends Component {
   isNewEncryptable = false;
 
   get shouldRenderEncryptables() {
-    return !isEmpty(this.args.folder) && !this.isCollapsed;
+    return !isEmpty(this.args.folder.encryptables) && !this.isCollapsed;
   }
 
   @action

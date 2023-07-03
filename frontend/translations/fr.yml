@@ -187,7 +187,7 @@ fr:
       title: Modifier le dossier
     new:
       title: Nouveau dossier
-    no_encryptables: Pas de comptes
+    no_encryptables: Aucun compte ni fichier
     tooltips:
       edit: Modifier le dossier
 
