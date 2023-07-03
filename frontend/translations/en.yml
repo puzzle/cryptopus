@@ -123,6 +123,10 @@ en:
       copy-ccli: Copy CCLI Command
       copy-ccli-username: Copy CCLI Command for username
       copy-ccli-password: Copy CCLI Command for password
+      copy-ccli-pin: Copy CCLI Command for pin
+      copy-ccli-token: Copy CCLI Command for token
+      copy-ccli-email: Copy CCLI Command for email
+      copy-ccli-custom-attr: Copy CCLI Command for custom attribute
       copy-ccli-yaml: Copy CCLI Yaml Command
 
   encryptable/transferring/file:

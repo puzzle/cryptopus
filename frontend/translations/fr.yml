@@ -123,6 +123,10 @@ fr:
       copy-ccli: Copier la commande CCLI
       copy-ccli-username: Copier la commande CCLI pour le nom d'utilisateur
       copy-ccli-password: Copier la commande CCLI pour le mot de passe
+      copy-ccli-pin: Copier la commande CCLI pour la broche
+      copy-ccli-token: Copier la commande CCLI pour le jeton
+      copy-ccli-email: Copier la commande CCLI pour le courrier électronique
+      copy-ccli-custom-attr: Copier la commande CCLI pour l'attribut personnalisé
       copy-ccli-yaml: Copier la commande CCLI Yaml
 
   encryptable/transferring/file:

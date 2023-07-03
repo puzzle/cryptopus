@@ -122,6 +122,10 @@ ch_be:
       copy-ccli: CCLI Command kopierä
       copy-ccli-username: CCLI Command füre Benutzername kopierä
       copy-ccli-password: CCLI Command fürs Passwort kopierä
+      copy-ccli-pin: CCLI Command füre Pin kopierä
+      copy-ccli-token: CCLI Command fürs Token kopierä
+      copy-ccli-email: CCLI Command für d Email kopierä
+      copy-ccli-custom-attr: CCLI Command fürs inidviduellä Attribut kopierä
       copy-ccli-yaml: CCLI Yaml Command kopierä
 
   encryptable/transferring/file:
