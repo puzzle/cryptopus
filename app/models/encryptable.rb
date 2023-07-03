@@ -28,6 +28,9 @@ class Encryptable < ApplicationRecord
   validates :name, presence: true
   validates :description, length: { maximum: 4000 }
 
+  include PgSearch::Model
+  multisearchable against: [:name]
+
   def encrypt(team_password, encryption_algorithm = nil)
     used_encrypted_attrs.each do |a|
       encrypt_attr(a, team_password, encryption_algorithm)
