@@ -124,6 +124,8 @@ module("Integration | Component | folder/form", function (hooks) {
     });
     await render(hbs`<Folder::Form @folder={{this.folder}} />`);
 
-    assert.ok(this.element.querySelector('#team-dopdown').getAttribute('aria-disabled'));
+    assert.ok(
+      this.element.querySelector("#team-dopdown").getAttribute("aria-disabled")
+    );
   });
 });
