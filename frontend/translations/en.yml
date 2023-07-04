@@ -121,7 +121,7 @@ en:
       title: Copy CCLI Commands
       help: You need more information?
       ccli: Get encryptable with CCLI
-      username: Get username with ccli
+      username: Get username with CCLI
       password: Get password with CCLI
       pin: Get pin with CCLI
       token: Get token with CCLI
