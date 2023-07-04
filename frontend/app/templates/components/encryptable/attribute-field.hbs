@@ -19,7 +19,7 @@
   </button>
   {{#unless this.args.row}}
     <span class="input-group-text encryption_algorithm">
-      <img class="icon-button encryptable-show-back" src="/assets/images/lock.svg" alt="lock">
+      <img class="icon-button encryptable-show-back" src="/assets/images/encrypted_small.svg" alt="lock">
       <BsTooltip @title="{{t "tooltips.encryption_algorithm"}} {{@encryptable.encryptionAlgorithm}} {{t "tooltips.key_size"}} {{@encryptable.teamPasswordBitsize}} bits" @delayShow="1000" />
     </span>
   {{/unless}}

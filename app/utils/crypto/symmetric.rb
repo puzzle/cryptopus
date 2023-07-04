@@ -28,10 +28,6 @@ class ::Crypto::Symmetric
       raise 'Implement in subclass'
     end
 
-    def all_algorithms
-      ALGORITHMS.keys
-    end
-
     def latest_algorithm?(entry)
       LATEST_ALGORITHM == entry.encryption_algorithm
     end
