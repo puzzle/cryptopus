@@ -120,6 +120,14 @@ en:
     ccli-options:
       title: Copy CCLI Commands
       help: You need more information?
+      ccli: Get encryptable with CCLI
+      username: Get username with ccli
+      password: Get password with CCLI
+      pin: Get pin with CCLI
+      token: Get token with CCLI
+      email: Get email with CCLI
+      custom-attr: Get custom attribute with CCLI
+      yaml: Get encryptable with CCLI as yaml
       copy-ccli: Copy CCLI Command
       copy-ccli-username: Copy CCLI Command for username
       copy-ccli-password: Copy CCLI Command for password

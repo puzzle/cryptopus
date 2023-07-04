@@ -120,6 +120,14 @@ fr:
     ccli-options:
       title: Copier les commandes CCLI
       help: Avez-vous besoin de plus d'informations?
+      ccli: Soyez cryptable avec CCLI
+      username: Obtenir le nom d'utilisateur avec ccli
+      password: Obtenir un mot de passe avec CCLI
+      pin: Obtenez l'épingle avec CCLI
+      token: Obtenez un jeton avec CCLI
+      email: Recevoir des e-mails avec CCLI
+      custom-attr: Obtenir un attribut personnalisé avec CCLI
+      yaml: Devenez cryptable avec CCLI en tant que yaml
       copy-ccli: Copier la commande CCLI
       copy-ccli-username: Copier la commande CCLI pour le nom d'utilisateur
       copy-ccli-password: Copier la commande CCLI pour le mot de passe

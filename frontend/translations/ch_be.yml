@@ -119,6 +119,14 @@ ch_be:
     ccli-options:
       title: CCLI Commands kopierä
       help: Bruchsch meh Informationä?
+      ccli: Encryptable ahzeigä mit CCLI
+      username: Benutzername ahzeigä mit CCLI
+      password: Passwort ahzeigä mit CCLI
+      pin: Pin ahzeigä mit CCLI
+      token: Token ahzeigä mit CCLI
+      email: Email ahzeigä mit CCLI
+      custom-attr: Individuells Attribut ahzeigä mit CCLI
+      yaml: Encryptable als yaml ahzeigä mit CCLI
       copy-ccli: CCLI Command kopierä
       copy-ccli-username: CCLI Command füre Benutzername kopierä
       copy-ccli-password: CCLI Command fürs Passwort kopierä

@@ -119,6 +119,14 @@ de:
     ccli-options:
       title: CCLI Commands kopieren
       help: Brauchst du mehr Informationen?
+      ccli: Encryptable anzeigen mit CCLI
+      username: Benutzername anzeigen mit CCLI
+      password: Passwort anzeigen mit CCLI
+      pin: Pin anzeigen mit CCLI
+      token: Token anzeigen mit CCLI
+      email: Email anzeigen mit CCLI
+      custom-attr: Individuelles Attribut anzeigen mit CCLI
+      yaml: Encryptable als yaml anzeigen mit CCLI
       copy-ccli: CCLI Command kopieren
       copy-ccli-username: CCLI Command für Benutzername kopieren
       copy-ccli-password: CCLI Command für Passwort kopieren
