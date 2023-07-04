@@ -41,6 +41,7 @@ Fabricator(:private_team, from: :team) do |t|
   t.description { Faker::Hacker.say_something_smart }
   t.visible true
   t.private true
+  t.encryption_algorithm 'AES256IV'
   t.type Team::Shared
   after_create do |team|
     team_password = team.new_team_password
