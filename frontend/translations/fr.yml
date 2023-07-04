@@ -112,7 +112,6 @@ fr:
     new:
       title: Nouveau compte
     form:
-      encryptedField: Ce champ est crypté
       notEncryptedField: Ce champ n'est pas crypté
     row:
       clickToSeeAttrs: Cliquez pour voir tous les attributs

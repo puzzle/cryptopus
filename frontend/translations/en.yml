@@ -112,7 +112,6 @@ en:
     new:
       title: New Credentials
     form:
-      encryptedField: This field is encrypted
       notEncryptedField: This field is not encrypted
     row:
       clickToSeeAttrs: Click to see all attributes
