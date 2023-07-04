@@ -23,7 +23,6 @@ describe Api::EncryptablesController do
   end
   let(:credentials1) { encryptables(:credentials1) }
   let(:file1) { encryptables(:file1) }
-  let(:transferred_file1) { encryptables(:transferredFile1) }
 
 
   context 'GET index' do
@@ -61,7 +60,7 @@ describe Api::EncryptablesController do
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
-      expect(data.count).to eq 2
+      expect(data.count).to eq 1
       expect(credentials1_json_attributes['name']).to eq credentials1.name
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil
@@ -86,7 +85,7 @@ describe Api::EncryptablesController do
       credentials1_json_attributes = credentials1_json['attributes']
       credentials1_json_relationships = credentials1_json['relationships']
 
-      expect(data.count).to eq 2
+      expect(data.count).to eq 1
       expect(credentials1_json_attributes['name']).to eq credentials1.name
       expect(credentials1_json['id']).to eq credentials1.id.to_s
       expect(credentials1_json_attributes['cleartext_username']).to be_nil

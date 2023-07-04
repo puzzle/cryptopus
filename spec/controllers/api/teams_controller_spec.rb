@@ -248,8 +248,8 @@ describe Api::TeamsController do
       expect(encryptables.last['attributes']['name']).to eq(filename1)
       expect(encryptables.last['attributes']['name']).not_to eq(filename2)
 
-      expect(encryptables.count).to be(3)
-      expect(included.size).to be(4)
+      expect(encryptables.count).to be(2)
+      expect(included.size).to be(3)
     end
 
     it 'returns sender_name if transferred encryptable' do
