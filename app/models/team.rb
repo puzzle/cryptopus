@@ -34,9 +34,6 @@ class Team < ApplicationRecord
     in_progress: 2
   }, _prefix: :recrypt
 
-  include PgSearch::Model
-  multisearchable against: [:name]
-
   def label
     name
   end
