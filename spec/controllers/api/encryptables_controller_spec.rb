@@ -679,7 +679,7 @@ describe Api::EncryptablesController do
 
       expect(response).to have_http_status(422)
 
-      expect(errors.first['detail']).to eq 'File has already been taken'
+      expect(errors.first['detail']).to eq 'File name has already been taken'
     end
 
     it 'does not upload empty file' do
@@ -868,7 +868,7 @@ describe Api::EncryptablesController do
 
       expect(response).to have_http_status(422)
 
-      expect(errors.first['detail']).to eq 'File has already been taken'
+      expect(errors.first['detail']).to eq 'File name has already been taken'
     end
 
     it 'does not upload empty file to folder' do
