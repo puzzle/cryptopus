@@ -34,7 +34,7 @@ describe 'Encryptable Files without credentials', type: :system, js: true do
       create_new_file(file_desc, file_path)
     end.to change { Encryptable::File.count }.by(0)
 
-    expect(page).to have_text('File name has already been taken.')
+    expect(page).to have_text('File name has already been taken')
     click_button('Close')
 
     expect(page).to have_text('File: test_file.txt')
@@ -52,7 +52,7 @@ describe 'Encryptable Files without credentials', type: :system, js: true do
     expect(page).to have_text('Upload new file')
 
     expect(find('.modal-content')).to be_present
-    expect(page).to have_button('Upload')
+    expect(page).to have_button('Upload', disabled: true)
 
     select_team_and_folder
 
