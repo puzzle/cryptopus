@@ -7,7 +7,6 @@
 
 require_relative 'boot'
 
-
 # See https://github.com/rails/rails/blob/v6.0.2.1/railties/lib/rails/all.rb for the list
 # and https://stackoverflow.com/questions/59593542/omit-action-mailbox-activestorage-and-conductor-routes-from-bin-rails-routes-i
 # of what is being included here
@@ -63,7 +62,6 @@ module Cryptopus
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
@@ -92,12 +90,16 @@ module Cryptopus
     # config.active_record.schema_format = :sql
 
     config.generators do |g|
-      g.test_framework      :minitest, fixture_replacement: :fabrication
+      g.test_framework :minitest, fixture_replacement: :fabrication
       g.fixture_replacement :fabrication, dir: "test/fabricators"
     end
 
     config.time_zone = ENV['TIME_ZONE'] || 'Bern'
 
     config.paths['config/routes.rb'].concat Dir[Rails.root.join('config/routes/*.rb')].sort
+
+    if Rails.configuration.database_configuration["development"]["database"].exclude?("postgres")
+      Dir.glob("#{Rails.root}/app/models/**[^postgres^]/*/").each {|dir| config.autoload_paths << dir }
+    end
   end
 end
