@@ -17,7 +17,6 @@ export default class Form extends BaseFormComponent {
   @service userService;
   @service notify;
 
-  @tracked selectedTeam;
   @tracked selectedAttribute = null;
 
   @tracked assignableTeams;
@@ -91,18 +90,20 @@ export default class Form extends BaseFormComponent {
     let selectedTeam = this.navService.selectedTeam;
     let selectedFolder = this.navService.selectedFolder;
 
-    this.selectedTeam = selectedTeam;
+    if (!isEmpty(selectedTeam)) {
+      this.changeset.team = selectedTeam;
+    }
     if (!isEmpty(selectedFolder)) {
       this.changeset.folder = selectedFolder;
     }
   }
 
   get availableFolders() {
-    return isPresent(this.selectedTeam)
+    return isPresent(this.changeset.team)
       ? this.store
           .peekAll("folder")
           .filter(
-            (folder) => folder.team.get("id") === this.selectedTeam.get("id")
+            (folder) => folder.team.get("id") === this.changeset.team.get("id")
           )
       : [];
   }
@@ -128,7 +129,7 @@ export default class Form extends BaseFormComponent {
 
   @action
   setSelectedTeam(selectedTeam) {
-    this.selectedTeam = selectedTeam;
+    this.changeset.team = selectedTeam;
     this.setFolder(null);
   }
 
@@ -201,7 +202,7 @@ export default class Form extends BaseFormComponent {
 
   presetTeamIfFolderSelected() {
     if (isPresent(this.changeset.folder)) {
-      this.selectedTeam = this.changeset.folder.get("team");
+      this.changeset.team = this.changeset.folder.get("team");
     }
   }
 
