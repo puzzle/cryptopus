@@ -763,10 +763,10 @@ describe Api::EncryptablesController do
       expect(received_file.cleartext_file).to eq('certificate')
     end
 
-    it 'download transferred encryptable' do
+    it 'download transferred encryptable old encryption algorithm' do
       login_as(:bob)
 
-      encryptable_file = prepare_transferred_encryptable
+      encryptable_file = prepare_transferred_encryptable(Crypto::Symmetric::Aes256)
 
       login_as(:alice)
 
@@ -775,10 +775,38 @@ describe Api::EncryptablesController do
       get :show, params: { id: encryptable_file.id }, xhr: true
     end
 
-    it 'displays transferred encryptable and dont download it' do
+    it 'download transferred encryptable new encryption algorithm' do
       login_as(:bob)
 
-      encryptable_file = prepare_transferred_encryptable
+      encryptable_file = prepare_transferred_encryptable(Crypto::Symmetric::Aes256iv)
+
+      login_as(:alice)
+
+      expect(controller).to receive(:send_file).exactly(:once)
+
+      get :show, params: { id: encryptable_file.id }, xhr: true
+    end
+
+    it 'displays transferred encryptable and dont download it old encryption algorithm' do
+      login_as(:bob)
+
+      encryptable_file = prepare_transferred_encryptable(Crypto::Symmetric::Aes256)
+
+      login_as(:alice)
+
+      expect(controller).not_to receive(:send_file)
+      expect_any_instance_of(CrudController).to receive(:render_entry).exactly(:once)
+
+      get :show, params: { id: encryptable_file.id,
+                           encryptable: ActionController::Parameters.new({
+                                                                           test: 1
+                                                                         }).permit! }, xhr: true
+    end
+
+    it 'displays transferred encryptable and dont download it new encryption algorithm' do
+      login_as(:bob)
+
+      encryptable_file = prepare_transferred_encryptable(Crypto::Symmetric::Aes256iv)
 
       login_as(:alice)
 
@@ -804,13 +832,13 @@ describe Api::EncryptablesController do
     file
   end
 
-  def prepare_transferred_encryptable
+  def prepare_transferred_encryptable(encryption_algorithm)
     encryptable_file = Encryptable::File.new(name: 'file',
                                              folder_id: alice.inbox_folder.id,
                                              cleartext_file: file_fixture('test_file.txt').read,
                                              content_type: 'text/plain')
 
-    transfer_password = Crypto::Symmetric::Aes256.random_key
+    transfer_password = encryption_algorithm.random_key
 
     encryptable_file.encrypt(transfer_password)
 
