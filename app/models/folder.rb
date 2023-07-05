@@ -25,6 +25,9 @@ class Folder < ApplicationRecord
   validates :description, length: { maximum: 300 }
   validates :personal_inbox, uniqueness: { scope: :team, if: :personal_inbox? }
 
+  include PgSearch::Model
+  multisearchable against: [:name]
+
   def label
     name
   end
