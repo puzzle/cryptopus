@@ -14,6 +14,7 @@ describe Api::TeamsController do
   let!(:team4) { Fabricate(:non_private_team) }
   let(:bobs_private_key) { bob.decrypt_private_key('password') }
   let!(:team3_user) { team3.teammembers.first.user }
+  let(:test_file) { FixturesHelper.read_file('test_file.txt') }
 
   context 'GET index' do
     it 'should get team for search term' do
@@ -413,6 +414,47 @@ describe Api::TeamsController do
         end
       end
     end
+
+    context 'Receive transferred encryptables' do
+      it 'Receive method gets called to encrypt transferred encryptable' do
+        login_as(:bob)
+
+        prepare_transferred_encryptable
+
+        expect_any_instance_of(EncryptableTransfer)
+          .to receive(:receive)
+          .exactly(1).times
+          .and_return(nil)
+
+        default_folder = Folder.new(name: 'default', team: personal_team_bob)
+
+        personal_team_bob.folders = [default_folder, bob.inbox_folder]
+
+        get :index, params: { team_id: personal_team_bob.id }, xhr: true
+      end
+
+      it 'Receive method gets not called if encryptables are not transferred' do
+        login_as(:bob)
+
+        params = {}
+        params[:name] = 'Shopping Account'
+        params[:folder_id] = bob.inbox_folder.id
+        params[:type] = 'Encryptable::Credentials'
+        params[:cleartext_username] = 'username'
+        Encryptable::Credentials.new(params)
+
+        expect_any_instance_of(EncryptableTransfer)
+          .not_to receive(:receive)
+          .exactly(1).times
+          .and_return(nil)
+
+        default_folder = Folder.new(name: 'default', team: personal_team_bob)
+
+        personal_team_bob.folders = [default_folder, bob.inbox_folder]
+
+        get :index, params: { team_id: personal_team_bob.id }, xhr: true
+      end
+    end
   end
 
   context 'PUT update' do
@@ -605,6 +647,28 @@ describe Api::TeamsController do
   end
 
   private
+
+  def prepare_transferred_encryptable
+    encryptable_file = Encryptable::File.new(name: 'file',
+                                             folder_id: bob.inbox_folder.id,
+                                             cleartext_file: test_file,
+                                             content_type: 'text/plain')
+
+    transfer_password = Crypto::Symmetric::Aes256iv.random_key
+
+    encryptable_file.encrypt(transfer_password)
+
+    encrypted_transfer_password = Crypto::Rsa.encrypt(
+      transfer_password,
+      bob.public_key
+    )
+    encryptable_file.encrypted_transfer_password = Base64.encode64(encrypted_transfer_password)
+    encryptable_file.sender_id = alice.id
+    encryptable_file.folder = bob.inbox_folder
+    encryptable_file.save!
+
+    encryptable_file
+  end
 
   def add_bob_to_team(team, user)
     decrypted_team_password = team.decrypt_team_password(user, user.decrypt_private_key('password'))
