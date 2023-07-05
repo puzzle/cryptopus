@@ -99,7 +99,7 @@ module Cryptopus
     config.paths['config/routes.rb'].concat Dir[Rails.root.join('config/routes/*.rb')].sort
 
     if Rails.configuration.database_configuration["development"]["database"].exclude?("postgres")
-      Dir.glob("#{Rails.root}/app/models/**[^postgres^]/*/").each {|dir| config.autoload_paths << dir }
+      Dir.glob("#{Rails.root}/app/models/**[^postgres.rb^]/*/").each {|dir| config.autoload_paths << dir }
     end
   end
 end
