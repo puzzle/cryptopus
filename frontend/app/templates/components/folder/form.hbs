@@ -23,11 +23,11 @@
             <div class="row">
               <div class="form-group col-md-12" id="team-power-select">
                 <form.element @label={{t "team"}} @controlType="power-select"
-                              @placeholder={{t "encryptable/credentials.edit.team_placeholder"}} @disabled={{not this.isNewRecord}}
+                              @placeholder={{t "encryptable/credentials.edit.team_placeholder"}}
                               @options={{this.assignableTeams}} @value={{this.changeset.team}}
                               @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>
-                  <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}}
-                              @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
+                  <el.control id="team-dopdown" class={{if this.changeset.error.team.validation "invalid-input-ps"}}
+                              @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} @disabled={{not this.isNewRecord}} as |team|>
                     {{#if team.isPersonalTeam }}
                       {{this.userService.username}}
                     {{else}}
