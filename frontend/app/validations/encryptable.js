@@ -39,5 +39,6 @@ export default {
     validateLength({ max: 30 })
   ],
   description: [validateLength({ max: 4000 })],
-  folder: [validatePresence(true)]
+  folder: [validatePresence(true)],
+  team: [validatePresence(true)]
 };
