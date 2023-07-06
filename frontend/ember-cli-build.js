@@ -8,10 +8,12 @@ module.exports = function (defaults) {
     "ember-cli-babel": {
       includePolyfill: true
     },
+    autoImport: {
+      forbidEval: true
+    },
     minifyCSS: {
       options: { processImport: true }
     },
-
     "ember-cli-password-strength": {
       bundleZxcvbn: true
     },
@@ -23,7 +25,7 @@ module.exports = function (defaults) {
     },
 
     intl: {
-      silent: true
+      // silent: true
     }
   });
 
