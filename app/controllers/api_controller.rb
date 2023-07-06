@@ -39,6 +39,7 @@ class ApiController < CrudController
   def decrypted_team_password(team)
     return plaintext_team_password(team) if active_session?
 
+    users_private_key = current_user.decrypt_private_key(password_header)
     team_password = team.decrypt_team_password(current_user, users_private_key)
     raise 'Failed to decrypt the team password' if team_password.blank?
 
@@ -104,9 +105,5 @@ class ApiController < CrudController
   def user_authenticator
     @user_authenticator ||=
       Authentication::UserAuthenticator.init(username: username, password: password_header)
-  end
-
-  def users_private_key
-    current_user.decrypt_private_key(password_header)
   end
 end
