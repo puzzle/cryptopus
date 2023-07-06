@@ -386,8 +386,7 @@ de:
     delete_encryptables: Zugangsdaten löschen
     configure: Konfiguriere Mitglieder
     sent_by: Gesendet von
-    encryption_algorithm: "Die Daten in diesem Feld werden mit dem Verschlüsselungslagorithmus "
-    key_size: " verschlüsselt. Die verwendete Schlüssellänge beträgt "
+    encryption_algorithm: "Verschlüsselt mit "
 
   helpers:
     label:

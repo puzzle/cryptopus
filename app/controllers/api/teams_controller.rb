@@ -32,19 +32,16 @@ class Api::TeamsController < ApiController
     @team = Team.find(team_id)
     authorize @team, :team_member?
 
-    receive_transferred_encryptables(@team) if team.personal_team?
-
     unless already_recrypted?(@team)
+      receive_transferred_encryptables(@team) if team.personal_team?
       recrypt(@team)
     end
   end
 
   def receive_transferred_encryptables(team)
-    team.encryptables.each do |encryptable|
-      if encryptable.transferred?
-        team_password = decrypted_team_password(team)
-        EncryptableTransfer.new.receive(encryptable, session[:private_key], team_password)
-      end
+    team.encryptables.select(&:transferred?).each do |encryptable|
+      team_password = decrypted_team_password(team)
+      EncryptableTransfer.new.receive(encryptable, session[:private_key], team_password)
     end
   end
 

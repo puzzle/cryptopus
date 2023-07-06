@@ -83,11 +83,11 @@ class Encryptable < ApplicationRecord
 
   private
 
-  def encrypt_attr(attr, team_password, receiver_algorithm = nil)
+  def encrypt_attr(attr, team_password, encryption_algorithm = nil)
     cleartext_value = send(:"cleartext_#{attr}")
 
     encrypted_value =
-      encrypt_with_encryption_class(cleartext_value, team_password, receiver_algorithm)
+      encrypt_with_encryption_class(cleartext_value, team_password, encryption_algorithm)
 
     return if transferred? && encrypted_value.blank?
 
@@ -121,10 +121,10 @@ class Encryptable < ApplicationRecord
     { data: data, iv: iv }
   end
 
-  def encrypt_with_encryption_class(cleartext_value, team_password, receiver_algorithm)
+  def encrypt_with_encryption_class(cleartext_value, team_password, encryption_algorithm)
     if cleartext_value.presence
-      if receiver_algorithm
-        receiver_algorithm.encrypt(cleartext_value, team_password)
+      if encryption_algorithm
+        encryption_algorithm.encrypt(cleartext_value, team_password)
       else
         encryption_class.encrypt(cleartext_value, team_password)
       end

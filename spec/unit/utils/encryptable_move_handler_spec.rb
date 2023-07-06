@@ -15,7 +15,8 @@ describe EncryptableMoveHandler do
     private_key = decrypt_private_key(bob)
     target_folder = folders(:folder2)
     team_password = target_folder.team.decrypt_team_password(bob, private_key)
-    Fabricate(:credential_all_attrs,
+    Fabricate(:credential,
+              set_all_attrs: true,
               folder: target_folder,
               team_password: team_password,
               name: 'credentials1')

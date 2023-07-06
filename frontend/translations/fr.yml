@@ -387,8 +387,7 @@ fr:
     delete_encryptables: Supprimer le compte
     configure: Configurer les membres
     sent_by: Envoyé par
-    encryption_algorithm: "Les données de ce champ seront cryptées avec l'algorithme de cryptage "
-    key_size: " La longueur de la clé utilisée est "
+    encryption_algorithm: "Crypté avec "
 
   helpers:
     label:

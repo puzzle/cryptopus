@@ -92,37 +92,6 @@ describe Api::TeamsController do
       expect(folder_relationships_length).to be(3)
     end
 
-    it 'triggers team recrypt if latest algorithm is not applied on team' do
-      login_as(:admin)
-
-      stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256')
-
-      team = Fabricate(:non_private_team)
-      expect(team.encryption_algorithm).to eq('AES256')
-
-      stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
-
-      get :index, params: { team_id: team.id }, xhr: true
-
-      expect(response.status).to be(200)
-
-      team.reload
-      expect(team.encryption_algorithm).to eq('AES256IV')
-    end
-
-    it 'does not recrypt if latest algorithm' do
-      login_as(:bob)
-
-      get :index, params: { team_id: team1.id }, xhr: true
-
-      expect(team1.encryption_algorithm).to eq('AES256IV')
-
-      expect(response.status).to be(200)
-
-      team1.reload
-      expect(team1.encryption_algorithm).to eq('AES256IV')
-    end
-
     it 'returns bobs favourite teams' do
       login_as(:bob)
 
@@ -415,11 +384,44 @@ describe Api::TeamsController do
       end
     end
 
+    context 'Recrypt' do
+      it 'triggers team recrypt if latest algorithm is not applied on team' do
+        login_as(:admin)
+
+        stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256')
+
+        team = Fabricate(:non_private_team)
+        expect(team.encryption_algorithm).to eq('AES256')
+
+        stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
+
+        get :index, params: { team_id: team.id }, xhr: true
+
+        expect(response.status).to be(200)
+
+        team.reload
+        expect(team.encryption_algorithm).to eq('AES256IV')
+      end
+
+      it 'does not recrypt if latest algorithm' do
+        login_as(:bob)
+
+        get :index, params: { team_id: team1.id }, xhr: true
+
+        expect(team1.encryption_algorithm).to eq('AES256IV')
+
+        expect(response.status).to be(200)
+
+        team1.reload
+        expect(team1.encryption_algorithm).to eq('AES256IV')
+      end
+    end
+
     context 'Receive transferred encryptables' do
       it 'Receive method gets called to encrypt transferred encryptable' do
         login_as(:bob)
 
-        prepare_transferred_encryptable
+        prepare_transferred_encryptable(bob, alice, Crypto::Symmetric::Aes256iv)
 
         expect_any_instance_of(EncryptableTransfer)
           .to receive(:receive)
@@ -430,10 +432,32 @@ describe Api::TeamsController do
 
         personal_team_bob.folders = [default_folder, bob.inbox_folder]
 
+        personal_team_bob.encryption_algorithm = 'AES256'
+        personal_team_bob.save!
+
+        expect do
+          get :index, params: { team_id: personal_team_bob.id }, xhr: true
+        end.to raise_error(RuntimeError)
+
+      end
+
+      it 'Receive method to encrypt transferred encryptable dont get called on recent algorithm' do
+        login_as(:bob)
+
+        prepare_transferred_encryptable(bob, alice, Crypto::Symmetric::Aes256iv)
+
+        expect_any_instance_of(EncryptableTransfer)
+          .not_to receive(:receive)
+          .and_return(nil)
+
+        default_folder = Folder.new(name: 'default', team: personal_team_bob)
+
+        personal_team_bob.folders = [default_folder, bob.inbox_folder]
+
         get :index, params: { team_id: personal_team_bob.id }, xhr: true
       end
 
-      it 'Receive method gets not called if encryptables are not transferred' do
+      it 'It does not receive encryptables in personal team if they are not transferred' do
         login_as(:bob)
 
         params = {}
@@ -647,28 +671,6 @@ describe Api::TeamsController do
   end
 
   private
-
-  def prepare_transferred_encryptable
-    encryptable_file = Encryptable::File.new(name: 'file',
-                                             folder_id: bob.inbox_folder.id,
-                                             cleartext_file: test_file,
-                                             content_type: 'text/plain')
-
-    transfer_password = Crypto::Symmetric::Aes256iv.random_key
-
-    encryptable_file.encrypt(transfer_password)
-
-    encrypted_transfer_password = Crypto::Rsa.encrypt(
-      transfer_password,
-      bob.public_key
-    )
-    encryptable_file.encrypted_transfer_password = Base64.encode64(encrypted_transfer_password)
-    encryptable_file.sender_id = alice.id
-    encryptable_file.folder = bob.inbox_folder
-    encryptable_file.save!
-
-    encryptable_file
-  end
 
   def add_bob_to_team(team, user)
     decrypted_team_password = team.decrypt_team_password(user, user.decrypt_private_key('password'))

@@ -42,7 +42,7 @@ describe FolderSerializer do
       expect(as_json['unread_transferred_count']).to eq(1)
     end
 
-    it 'should return 1 unread transferred file new encryption algorithm' do
+    it 'should return 1 unread transferred file with most recent algorithm' do
       encryptable_file = Encryptable::File.new(name: 'file',
                                                folder_id: alice.inbox_folder.id,
                                                cleartext_file: file_fixture('test_file.txt').read,
