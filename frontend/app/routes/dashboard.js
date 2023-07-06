@@ -4,6 +4,7 @@ import RSVP from "rsvp";
 
 export default class DashboardRoute extends BaseRoute {
   @service navService;
+  @service store;
 
   queryParams = {
     q: {

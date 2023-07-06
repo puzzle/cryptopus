@@ -5,7 +5,7 @@ module.exports = function (environment) {
     modulePrefix: "frontend",
     environment,
     rootURL: "/",
-    locationType: "auto",
+    locationType: "history",
     sentryDsn: "",
     appVersion: undefined,
     currentUserId: undefined,
