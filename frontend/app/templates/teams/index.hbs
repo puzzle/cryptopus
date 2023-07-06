@@ -1,17 +1,11 @@
 <div class="container py-2">
   <div class="mt-4">
     {{#if this.loading.isLoading}}
-        <div class="h-100 d-flex flex-column justify-content-center align-items-center">
-          <div class="lds-roller">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
         </div>
+      </div>
     {{else}}
       {{#if this.q}}
         <SearchResultComponent @q={{this.q}}/>
