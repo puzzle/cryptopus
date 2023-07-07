@@ -68,7 +68,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def define_model_class
-    if credential_id.present? || folder_id.present?
+    if credential_id.present? || params[:folder_id].present?
       Encryptable::File
     else
       Encryptable::Credentials
@@ -86,7 +86,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def folder
-    Folder.find(folder_id)
+    Folder.find(params[:folder_id])
   end
 
   def fetch_entry
@@ -196,10 +196,6 @@ class Api::EncryptablesController < ApiController
     return params[:id] if params[:id].present?
 
     params[:credential_id]
-  end
-
-  def folder_id
-    params[:folder_id]
   end
 
   def encrypt(encryptable)
