@@ -2,7 +2,7 @@ import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
 import Component from "@glimmer/component";
 
-export default class Form extends Component {
+export default class CcliOptions extends Component {
   @service notify;
   @service clipboardService;
   @service intl;
