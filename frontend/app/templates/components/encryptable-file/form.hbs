@@ -23,7 +23,7 @@
                     @options={{this.assignableTeams}}
                     @placeholder={{t "encryptable/credentials.edit.team_placeholder"}}
                     @renderInPlace={{true}}
-                    @selected={{this.selectedTeam}}
+                    @selected={{this.changeset.team}}
                     @searchField={{"name"}}
                     @searchEnabled={{true}}
                     @onChange={{fn this.setSelectedTeam}} as |team|>

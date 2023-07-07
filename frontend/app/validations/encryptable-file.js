@@ -5,6 +5,7 @@ import {
 
 export default {
   folder: [validatePresence(true)],
+  team: [validatePresence(true)],
   description: [validateLength({ max: 300 })],
   file: [validatePresence(true)]
 };

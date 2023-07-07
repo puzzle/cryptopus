@@ -15,7 +15,6 @@ export default class Form extends BaseFormComponent {
   @service fileQueue;
   @service navService;
 
-  @tracked selectedTeam;
   @tracked assignableTeams;
 
   @tracked errors;
@@ -50,11 +49,11 @@ export default class Form extends BaseFormComponent {
   }
 
   get availableFolders() {
-    return isPresent(this.selectedTeam)
+    return isPresent(this.changeset.team)
       ? this.store
           .peekAll("folder")
           .filter(
-            (folder) => folder.team.get("id") === this.selectedTeam.get("id")
+            (folder) => folder.team.get("id") === this.changeset.team.get("id")
           )
       : [];
   }
@@ -63,7 +62,9 @@ export default class Form extends BaseFormComponent {
     let selectedTeam = this.navService.selectedTeam;
     let selectedFolder = this.args.folder || this.navService.selectedFolder;
 
-    this.selectedTeam = selectedTeam;
+    if (!isEmpty(selectedTeam)) {
+      this.changeset.team = selectedTeam;
+    }
     if (!isEmpty(selectedFolder)) {
       this.changeset.folder = selectedFolder;
     }
@@ -71,7 +72,7 @@ export default class Form extends BaseFormComponent {
 
   @action
   setSelectedTeam(selectedTeam) {
-    this.selectedTeam = selectedTeam;
+    this.changeset.team = selectedTeam;
     this.setSelectedFolder(null);
     this.loadValidation();
   }
@@ -84,7 +85,7 @@ export default class Form extends BaseFormComponent {
 
   presetTeamIfFolderSelected() {
     if (isPresent(this.changeset.folder)) {
-      this.selectedTeam = this.changeset.folder.get("team");
+      this.changeset.team = this.changeset.folder.get("team");
     }
   }
 
