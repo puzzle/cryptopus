@@ -110,7 +110,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def encryptable_move_handler
-    EncryptableMoveHandler.new(entry, users_private_key, current_user)
+    EncryptableMoveHandler.new(entry, session[:private_key], current_user)
   end
 
   def ivar_name
