@@ -123,11 +123,8 @@ class Encryptable < ApplicationRecord
 
   def encrypt_with_encryption_class(cleartext_value, team_password, encryption_algorithm)
     if cleartext_value.presence
-      if encryption_algorithm
-        encryption_algorithm.encrypt(cleartext_value, team_password)
-      else
-        encryption_class.encrypt(cleartext_value, team_password)
-      end
+      @new_encryption_class = encryption_algorithm unless encryption_algorithm.nil?
+      encryption_class.encrypt(cleartext_value, team_password)
     else
       { data: nil, iv: nil }
     end
