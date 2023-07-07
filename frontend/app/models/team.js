@@ -10,8 +10,8 @@ export default class Team extends Model {
   @attr("boolean") favourised;
   @attr("boolean") deletable;
   @attr("number") unread_count;
-  @hasMany("folder") folders;
-  @hasMany("teammember") teammembers;
+  @hasMany("folder", { async: true, inverse: "team" }) folders;
+  @hasMany("teammember", { async: true, inverse: "team" }) teammembers;
 
   get isPersonalTeam() {
     return this.type === "Team::Personal";

@@ -11,7 +11,7 @@ export default class EncryptableCredential extends Encryptable {
   @attr("string") cleartextCustomAttr;
   @attr("string") cleartextCustomAttrLabel;
   @attr() usedEncryptedDataAttrs;
-  @hasMany("encryptable-file") encryptableFiles;
+  @hasMany("encryptable-file", { async: true , inverse: "encryptableCredential" }) encryptableFiles;
 
   get isPasswordBlank() {
     return this.isFullyLoaded && isNone(this.cleartextPassword);

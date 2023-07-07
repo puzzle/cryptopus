@@ -3,7 +3,7 @@ import { attr, belongsTo } from "@ember-data/model";
 
 export default class EncryptableFile extends Encryptable {
   @attr file;
-  @belongsTo("encryptable-credential") encryptableCredential;
+  @belongsTo("encryptable-credential", { async: true, inverse: "encryptableFiles" }) encryptableCredential;
 
   async save() {
     if (this.isDeleted) {
