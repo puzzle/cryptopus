@@ -22,7 +22,7 @@ Rails.application.config.content_security_policy do |policy|
   policy.connect_src :self, 'https://sentry.puzzle.ch'
 
   policy.script_src  :self
-  policy.script_src  :self, :unsafe_eval, 'http://localhost:4200' if Rails.env.development?
+  policy.script_src  :self, :unsafe_eval, "http://localhost:4200" if Rails.env.development?
 
   policy.style_src   :self, :unsafe_inline
   policy.style_src   :self, :unsafe_inline, "http://localhost:4200" if Rails.env.development?

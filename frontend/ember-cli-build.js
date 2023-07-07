@@ -41,7 +41,7 @@ module.exports = function (defaults) {
     },
 
     intl: {
-      // silent: true
+      silent: true
     }
   });
 

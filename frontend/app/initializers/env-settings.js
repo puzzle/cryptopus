@@ -1,7 +1,7 @@
 import ENV from "../config/environment";
 
 export function initialize(/* application */) {
-  if (ENV.environment !== "test" && location.port !== "4200") {
+  if (ENV.environment !== "test") {
     /* eslint-disable no-undef  */
     const req = new XMLHttpRequest();
     req.open("GET", "/api/env_settings", false);
