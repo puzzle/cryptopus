@@ -4,6 +4,7 @@ import { inject as service } from "@ember/service";
 
 export default class TeamsIndexRoute extends BaseRoute {
   @service navService;
+  @service router;
 
   queryParams = {
     q: {
@@ -16,7 +17,7 @@ export default class TeamsIndexRoute extends BaseRoute {
     let definedParamValues = Object.values(params).filter((value) => !!value);
     if (definedParamValues.length === 0) {
       transition.abort();
-      this.transitionTo("index");
+      this.router.transitionTo("index");
     } else if (isPresent(params["q"])) {
       this.navService.clearNavSelection();
       this.navService.searchQuery = params["q"];

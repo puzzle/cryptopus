@@ -4,10 +4,11 @@ import { inject as service } from "@ember/service";
 export default class AdminRoute extends BaseRoute {
   @service userService;
   @service navService;
+  @service router;
 
   beforeModel() {
     if (!this.userService.mayManageSettings) {
-      return this.transitionTo("index");
+      return this.router.transitionTo("index");
     }
   }
 

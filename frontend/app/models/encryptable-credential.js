@@ -12,7 +12,7 @@ export default class EncryptableCredential extends Encryptable {
   @attr("string") cleartextCustomAttrLabel;
   @attr() usedEncryptedDataAttrs;
   @hasMany("encryptable-file", {
-    async: true,
+    async: false,
     inverse: "encryptableCredential"
   })
   encryptableFiles;
