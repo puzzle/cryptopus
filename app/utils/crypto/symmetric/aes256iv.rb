@@ -28,9 +28,8 @@ class Crypto::Symmetric::Aes256iv < Crypto::Symmetric::Aes256
       cipher.key = key
       cipher.iv = iv
 
-      # decrypt given data
-      decrypted_data = cipher.update(data) + cipher.final
-      decrypted_data.force_encoding('UTF-8')
+      # decrypt data
+      cipher.update(data) + cipher.final
     end
   end
 end

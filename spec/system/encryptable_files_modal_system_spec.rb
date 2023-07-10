@@ -19,7 +19,7 @@ describe 'Encryptable Files Modal', type: :system, js: true do
     credentials.decrypt(team_password)
     visit("/encryptables/#{credentials.id}")
 
-    expect_encryptable_page_with(credentials)
+    expect_encryptable_page_with(credentials, true)
 
     # Create File Entry
     file_name = 'test_file.txt'
@@ -35,7 +35,7 @@ describe 'Encryptable Files Modal', type: :system, js: true do
     file.decrypt(plaintext_team_password)
     expect(file.cleartext_file).to eq file_content
 
-    expect_encryptable_page_with(credentials)
+    expect_encryptable_page_with(credentials, false)
 
     # Try to upload again
     expect do
@@ -61,7 +61,7 @@ describe 'Encryptable Files Modal', type: :system, js: true do
   private
 
   def create_new_file(description, file_path)
-    new_file_button = find('button.btn.btn-primary', text: 'Add Attachment', visible: false)
+    new_file_button = find('button.btn.btn-primary', text: 'Add attachment', visible: false)
     new_file_button.click
 
     expect(page).to have_text('Add new attachment to credentials')
@@ -77,10 +77,11 @@ describe 'Encryptable Files Modal', type: :system, js: true do
     click_button 'Upload'
   end
 
-  def expect_encryptable_page_with(credentials)
+  def expect_encryptable_page_with(credentials, first_run)
     expect(first('h2')).to have_text("Credentials: #{credentials.name}")
     expect(find('#cleartext_username').value).to eq(credentials.cleartext_username)
-    expect(find('#cleartext_password', visible: false).value).to eq(credentials.cleartext_password)
+    find('#show-password').click if first_run
+    expect(find('#cleartext_password').value).to eq(credentials.cleartext_password)
     expect(page).to have_text(credentials.description)
   end
 

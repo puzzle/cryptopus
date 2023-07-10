@@ -25,17 +25,6 @@ class TeamFoldersEncryptablesSeeder
     seed_encryptables(team)
   end
 
-  def seed_ose_secrets(team)
-    folder = team.folders.find_or_create_by!(name: 'openshift secrets')
-    member = team.teammembers.first.user
-    pk = member.decrypt_private_key('password')
-    team_password = team.decrypt_team_password(member, pk)
-
-    5.times do
-      seed_ose_secret(folder, team_password)
-    end
-  end
-
   def seed_encryptables(team)
     team_password = team_password(team)
     team.folders.each do |f|
@@ -106,15 +95,6 @@ class TeamFoldersEncryptablesSeeder
     credential.save!
   end
 
-  def seed_ose_secret(folder, team_password)
-    name = "#{Faker::Lorem.word.downcase}-#{rand(999)}"
-    ose_secret = folder.encryptables.new(name: name,
-                                      type: "Encryptable::OseSecret")
-    ose_secret.cleartext_ose_secret = ose_secret_yaml(name)
-    ose_secret.encrypt(team_password)
-    ose_secret.save!
-  end
-
   def seed_folder(team)
     Folder.seed do |f|
       f.name = "#{Faker::Lorem.word.capitalize} #{rand(999)}"
@@ -126,14 +106,5 @@ class TeamFoldersEncryptablesSeeder
     member = team.teammembers.first.user
     plaintext_private_key = member.decrypt_private_key('password')
     team.decrypt_team_password(member, plaintext_private_key)
-  end
-
-  def ose_secret_yaml(name)
-    {"apiVersion": "v1",
-     "data": { "key": "abcd1234secret" },
-     "kind": "Secret",
-     "metadata": { "name": name,
-                   "labels": { "cryptopus-sync": "true"}
-     }}.to_yaml
   end
 end

@@ -1,6 +1,9 @@
 {{#if this.isNewEncryptable}}
   <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "encryptable/credentials.new.title"}}/>
 {{/if}}
+{{#if this.isFileSharing}}
+  <FileTransfer @onAbort={{this.toggleFileSharing}} @title={{t "encryptable/transferring/file.new.title"}}/>
+{{/if}}
 {{#if this.isNewFolder}}
   <Folder::Form @onAbort={{this.toggleFolderCreating}} @title={{t "folders.new.title"}}/>
 {{/if}}
@@ -18,16 +21,18 @@
   <img slot="tangram" width="95" height="100" src="/assets/images/tangram.svg" alt="tangram">
   <div slot="content" class="search">
     <div class="search-field">
-      <Input @class="search" @type="search"
+      <Input class="search" @type="search"
              @value={{ this.navService.searchQueryInput }}
-             placeholder={{t (concat "search.index.type_to_search." (if this.navService.isShowingFavourites "favourites" "all"))}} @keyUp={{this.searchByQuery}}
-             @autofocus={{this.isStartpage}} maxlength="70"/>
-      <button>
+             placeholder={{t (concat "search.index.type_to_search." (if this.navService.isShowingFavourites "favourites" "all"))}}
+        {{on "input" this.searchByQuery}}
+             autofocus={{this.isStartpage}}
+             maxlength="70" />
+      <button type="button">
         <pzsh-icon name="search"></pzsh-icon>
       </button>
     </div>
 
-    <BsDropdown @class="d-flex align-items-center" as |dd|>
+    <BsDropdown class="d-flex align-items-center" as |dd|>
       <dd.toggle class="dropdown-toggle">
         <pzsh-icon name="plus-circle"></pzsh-icon>
         <div class="dropdown-toggle-text">
@@ -53,6 +58,12 @@
         </ddm.item>
       </dd.menu>
     </BsDropdown>
+    <div class="d-flex align-items-center dropdown-toggle">
+      <a role="button" {{on "click" this.toggleFileSharing}}>
+        <img class="icon-share-file" src="/assets/images/share-blue.svg" alt="shareIcon">
+        <span>{{t "encryptable/credentials.share.title"}}</span>
+      </a>
+    </div>
   </div>
 </pzsh-banner>
 
@@ -73,14 +84,18 @@
           Admin
         </div>
         <div slot="items">
-          <LinkTo role="button" @route="admin.users" @tagName="pzsh-menu-dropdown-item">
-            <pzsh-icon name="user"></pzsh-icon>
-            {{ t "users" }}
-          </LinkTo>
-          <LinkTo role="button" @route="admin.settings" @tagName="pzsh-menu-dropdown-item">
-            <pzsh-icon name="setting"></pzsh-icon>
-            {{ t "settings" }}
-          </LinkTo>
+          <pzsh-menu-dropdown-item role="button">
+            <LinkTo class="nav-bar-link" @route="admin.users">
+              <pzsh-icon class="nav-bar-link-icon" name="user"></pzsh-icon>
+              {{ t "users" }}
+            </LinkTo>
+          </pzsh-menu-dropdown-item>
+          <pzsh-menu-dropdown-item role="button">
+            <LinkTo class="nav-bar-link" @route="admin.settings">
+              <pzsh-icon class="nav-bar-link-icon" name="setting"></pzsh-icon>
+              {{ t "settings" }}
+            </LinkTo>
+          </pzsh-menu-dropdown-item>
         </div>
       </pzsh-menu-dropdown>
     {{/if}}
@@ -91,10 +106,12 @@
         {{ this.givenname }}
       </div>
       <div slot="items">
-        <LinkTo role="button" @route="profile" @tagName="pzsh-menu-dropdown-item">
-          <pzsh-icon name="setting"></pzsh-icon>
-          {{ t "profile_title" }}
-        </LinkTo>
+        <pzsh-menu-dropdown-item role="button">
+          <LinkTo class="nav-bar-link" @route="profile">
+            <pzsh-icon class="nav-bar-link-icon" name="user"></pzsh-icon>
+            {{ t "users" }}
+          </LinkTo>
+        </pzsh-menu-dropdown-item>
         <pzsh-menu-dropdown-item href="/session/destroy">
           <pzsh-icon name="sign-out-alt"></pzsh-icon>
           {{ t "logout" }}

@@ -19,8 +19,17 @@ en:
   tag: Tag
   username: Username
   password: Password
+  pin: Pin
+  token: Token
+  email: Email
+  customAttr: Custom Attribute
+  additionalField: Additional Field
+  additionalFieldPlaceholder: Choose additional field
+  labelCustomAttr: Custom Attribute Name
+  valueCustomAttr: Custom Attribute Value
   actions: Actions
   download: Download
+  download_file: Download file
   "yes": Yes
   "no": No
   help: Help
@@ -41,6 +50,7 @@ en:
   new: New
   back: Back
   save: Save
+  share: Share
   close: Close
   user: User
   hi_user: "Hi,"
@@ -48,6 +58,7 @@ en:
   role: Role
   empty: empty
   slogan: The place for passwords
+  error: An error occurred
 
   i18n:
     language:
@@ -79,17 +90,46 @@ en:
     show:
       title: Credentials
       created_at: "Created at"
-      last_update: "Last Update at"
+      transferred_at: "Transferred at"
+      last_update: "Last update at"
       attachments: Attachments
       file: File
       show_password: Show password
       show_username: Show username
+      show_pin: Show pin
+      show_token: Show token
+      show_email: Show email
+      show_customAttr: Show custom attribute
       copy_password: Copy password
       copy_username: Copy username
-      add_attachment: Add Attachment
+      copy_pin: Copy pin
+      copy_token: Copy token
+      copy_email: Copy email
+      copy_customAttr: Copy custom attribute
+      copy: Copy
+      add_attachment: Add attachment
       blank: none
     new:
       title: New Credentials
+    form:
+      encryptedField: This field is encrypted
+      notEncryptedField: This field is not encrypted
+    row:
+      clickToSeeAttrs: Click to see all attributes
+    share:
+      title: Share File
+
+  encryptable/transferring/file:
+    new:
+      title: Send file to
+    receiver:
+      name: Choose a receiver
+    show:
+      sender_name: Sender name
+    submit: Send
+    description_for_sender: Your file will be sent encrypted to the inbox folder from the selected receiver.
+    description_for_receiver: Description for the receiver
+    delete_transferred_encryptables: Delete transferred file
 
   admin:
     title: Admin
@@ -146,7 +186,7 @@ en:
       title: Editing Folder
     new:
       title: New Folder
-    no_encryptables: No Credentials
+    no_encryptables: No credentials or files
     tooltips:
       edit: Edit the folder
 
@@ -271,11 +311,13 @@ en:
       moved: Credentials were successfully moved
       username_copied: Username was copied
       password_copied: Password was copied
+      pin_copied: Pin was copied
+      token_copied: Token was copied
+      email_copied: Email was copied
+      customAttr_copied: Custom Attribute was copied
+      selectAdditionalField: You have to choose a field
 
     encryptable-credentials:
-      << : *encryptables_translations
-
-    encryptable-secrets:
       << : *encryptables_translations
 
     application:
@@ -288,8 +330,16 @@ en:
       uploaded: File was successfully uploaded.
       uploaded_size_to_high: The file is too big to upload. (max. 10MB)
       uploaded_filename_is_empty: The file has to be named
+      uploaded_file_blank: File is not allowed to be blank
       uploaded_file_inexistent: File is inexistent
       uploaded_filename_already_exists: Filename already exists
+    encryptable_transfer:
+      credentials:
+        transferred: Successfully transferred credentials to recipient
+        transfer_failed: Failed to transfer credentials to recipient
+      file:
+        transferred: Successfully transferred file to recipient
+        transfer_failed: Failed to transfer file to recipient
     session:
       auth_failed: Authentication failed! Enter a correct username and password.
       weak_password: To improve security you should change your login password to a more complex one.
@@ -325,6 +375,7 @@ en:
     delete_folder: Delete the Folder
     delete_encryptables: Delete the Credentials
     configure: Configure Members
+    sent_by: Sent by
 
   helpers:
     label:
@@ -360,8 +411,27 @@ en:
       present: Folder must be present
     cleartext username:
       too_long: Username is too long
+      exclusion: Username can't be blank
     cleartext password:
       too_long: Password is too long
+      exclusion: Password can't be blank
+    cleartext token:
+      too_long: Token is too long
+      exclusion: Token can't be blank
+    cleartext pin:
+      too_long: Pin is too long
+      exclusion: Pin can't be blank
+    cleartext email:
+      too_long: Email is too long
+      exclusion: Email can't be blank
+    cleartext custom attr:
+      too_long: Custom attribute value is too long
+      exclusion: Custom attribute value can't be blank
+      present: Custom attribute value must be present
+    cleartext custom attr label:
+      too_long: Custom attribute label is too long
+      exclusion: Custom attribute label can't be blank
+      present: Custom attribute label must be present
     username:
       present: Username must be present
       too_long: Username is too long
@@ -376,5 +446,5 @@ en:
     "new password1":
       present: Please enter new password
     "new password2":
-        present: Please confirm new password
-        confirmation: New passwords don't match
+      present: Please confirm new password
+      confirmation: New passwords don't match

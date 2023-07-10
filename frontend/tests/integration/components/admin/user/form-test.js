@@ -29,18 +29,8 @@ module("Integration | Component | admin/user/form", function (hooks) {
     });
 
     await render(hbs`<Admin::User::Form @user={{this.user}}/>`);
-
-    assert.equal(
-      this.element.querySelector("input[name='surname']").value,
-      "Muster"
-    );
-    assert.equal(
-      this.element.querySelector("input[name='givenname']").value,
-      "Bob"
-    );
-    assert.equal(
-      this.element.querySelector("input[name='username']").value,
-      "bob"
-    );
+    assert.equal(this.element.querySelector("#surname input").value, "Muster");
+    assert.equal(this.element.querySelector("#givenname input").value, "Bob");
+    assert.equal(this.element.querySelector("#username input").value, "bob");
   });
 });

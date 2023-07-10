@@ -6,11 +6,8 @@ export default class Encryptable extends Model {
   @attr("string") description;
   @attr("string") createdAt;
   @attr("string") updatedAt;
+  @attr("string") sender_name;
   @belongsTo("folder") folder;
-
-  get isOseSecret() {
-    return this.constructor.modelName === "encryptable-ose-secret";
-  }
 
   get isCredential() {
     return this.constructor.modelName === "encryptable-credential";

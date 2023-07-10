@@ -19,29 +19,49 @@ describe Encryptable do
     expect(credential.errors.first.attribute).to eq(:name)
   end
 
-  it 'creates second entryptable with credentials' do
+  it 'does create credential when no attribute set' do
     params = {}
-    params[:name] = 'Shopping Account'
+    params[:name] = 'My biggest secret'
     params[:folder_id] = folders(:folder2).id
     params[:type] = 'Encryptable::Credentials'
     credential = Encryptable::Credentials.new(params)
     expect(credential).to be_valid
   end
 
-  it 'decrypts username and password' do
+  it 'creates second entryptable with credentials' do
+    params = {}
+    params[:name] = 'Shopping Account'
+    params[:folder_id] = folders(:folder2).id
+    params[:type] = 'Encryptable::Credentials'
+    params[:cleartext_username] = 'username'
+    credential = Encryptable::Credentials.new(params)
+    expect(credential).to be_valid
+  end
+
+  it 'decrypts all attributes' do
     team_password = team.decrypt_team_password(bob, bobs_private_key)
 
     encryptable.decrypt(team_password)
 
     expect(encryptable.cleartext_username).to eq('test')
     expect(encryptable.cleartext_password).to eq('password')
+    expect(encryptable.cleartext_token).to eq('testtoken')
+    expect(encryptable.cleartext_pin).to eq('testpin')
+    expect(encryptable.cleartext_email).to eq('testemail')
+    expect(encryptable.cleartext_custom_attr_label).to eq('Access Code')
+    expect(encryptable.cleartext_custom_attr).to eq('abc42-code-42')
   end
 
-  it 'updates password and username' do
+  it 'updates all attributes' do
     team_password = team.decrypt_team_password(bob, bobs_private_key)
 
     encryptable.cleartext_username = 'new'
     encryptable.cleartext_password = 'foo'
+    encryptable.cleartext_token = 'boo'
+    encryptable.cleartext_pin = 'loo'
+    encryptable.cleartext_email = 'too'
+    encryptable.cleartext_custom_attr_label = 'coo'
+    encryptable.cleartext_custom_attr = 'yoo'
 
     encryptable.encrypt(team_password)
     encryptable.save!
@@ -50,6 +70,11 @@ describe Encryptable do
 
     expect(encryptable.cleartext_username).to eq('new')
     expect(encryptable.cleartext_password).to eq('foo')
+    expect(encryptable.cleartext_token).to eq('boo')
+    expect(encryptable.cleartext_pin).to eq('loo')
+    expect(encryptable.cleartext_email).to eq('too')
+    expect(encryptable.cleartext_custom_attr_label).to eq('coo')
+    expect(encryptable.cleartext_custom_attr).to eq('yoo')
   end
 
   it 'does not create credential if name is empty' do
@@ -62,46 +87,12 @@ describe Encryptable do
 
     credential.encrypted_data.[]=(:password, **{ data: 'foo', iv: nil })
     credential.encrypted_data.[]=(:username, **{ data: 'foo', iv: nil })
+    credential.encrypted_data.[]=(:pin, **{ data: 'foo', iv: nil })
+    credential.encrypted_data.[]=(:token, **{ data: 'foo', iv: nil })
+    credential.encrypted_data.[]=(:email, **{ data: 'foo', iv: nil })
+    credential.encrypted_data.[]=(:custom_attr, **{ label: 'foo', data: 'foo', iv: nil })
 
     expect(credential).to_not be_valid
     expect(credential.errors.full_messages.first).to match(/Name/)
-  end
-
-  context 'ose secret' do
-    let!(:legacy_ose_secret) { create_legacy_ose_secret }
-
-    it 'converts legacy ose secret during decrypt' do
-      expect(legacy_ose_secret.send(:legacy_encrypted_data?)).to eq(true)
-
-      legacy_ose_secret.decrypt(team1_password)
-
-      ose_secret = Encryptable::OseSecret.find(legacy_ose_secret.id)
-
-      expect(ose_secret.send(:legacy_encrypted_data?)).to eq(false)
-
-      ose_secret.decrypt(team1_password)
-      expect(ose_secret.cleartext_ose_secret).to eq(cleartext_ose_secret)
-    end
-  end
-
-  private
-
-  def create_legacy_ose_secret
-    secret = Encryptable::OseSecret.new(name: 'ose_secret',
-                                        folder: folders(:folder1))
-
-    secret.save!
-    secret.write_attribute(:encrypted_data, legacy_ose_secret_data)
-    secret
-  end
-
-  def legacy_ose_secret_data
-    encoded_value = FixturesHelper.read_encryptable_file('example_secret_b64.secret')
-    value = Base64.strict_decode64(encoded_value)
-    { iv: 'Z2eRDQLhiIoCLgNxuunyKw==', value: value }.to_json
-  end
-
-  def cleartext_ose_secret
-    Base64.strict_decode64(FixturesHelper.read_encryptable_file('example_secret.secret'))
   end
 end

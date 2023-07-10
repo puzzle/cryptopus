@@ -80,7 +80,9 @@ en:
       auth_failed: Authentication failed! Enter a correct username and password
       weak_password: "To improve security you should change your login password to a more complex one"
     teams:
-      not_existing: 'Es existiert kein Team mit der Id %{id}'
+      not_existing: 'No team is existing with id %{id}'
+    folders:
+      duplicated_inbox: 'There can only be one inbox folder in personal team'
 
   confirm:
     delete: 'Delete %{entry_class} %{entry_label} ?'

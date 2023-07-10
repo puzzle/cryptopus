@@ -183,5 +183,6 @@ RSpec.configure do |config|
 
   config.prepend_before(:each, type: :system) do
     driven_by Capybara.javascript_driver
+    WebMock.disable_net_connect!(allow_localhost: true)
   end
 end

@@ -7,10 +7,10 @@ SHELL ["/bin/bash", "-c"]
 USER root
 
 ARG BUNDLE_WITHOUT='development:test'
-ARG BUNDLER_VERSION=2.3.13
+ARG BUNDLER_VERSION=2.4.10
 
 # install nodejs
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - 
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt-get install -y nodejs
 
 # yarn sources
@@ -34,24 +34,20 @@ RUN    bundle config set --local deployment 'true' \
     && bundle install \
     && bundle clean
 
-RUN rm -rf vendor/cache/ .git
+RUN rm -rf vendor/cache/ .git tmp
 
 # build frontend
-RUN yarn global add ember-cli@4.2.0
+RUN yarn global add ember-cli@4.8.0
 RUN /app-src/bin/prepare-frontend.sh
+RUN rm -rf /app-src/frontend
 
 RUN apt-get remove -y --purge rsync yarn nodejs
 RUN apt-get autoremove -y
 
-# Set group permissions to app folder
-RUN chgrp -R 0 /app-src \
-    && chmod -R u+w,g=u /app-src
-
-RUN    bundle config set --local deployment 'true' \
-    && bundle config set --local without ${BUNDLE_WITHOUT} \
-    && bundle
-
 RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "" app
+
+RUN mkdir /app-src/tmp && chown -R 1001 /app-src/tmp && chmod 775 /app-src/tmp
+RUN chmod 775 /app-src/db
 
 USER 1001
 

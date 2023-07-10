@@ -12,7 +12,6 @@
 #  password    :binary
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  tag         :string
 #
 
 #  Copyright (c) 2008-2017, Puzzle ITC GmbH. This file is part of

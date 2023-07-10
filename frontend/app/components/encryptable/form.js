@@ -7,19 +7,56 @@ import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "../base-form-component";
 import { isPresent } from "@ember/utils";
 import { isEmpty } from "@ember/utils";
+import { capitalize } from "@ember/string";
+import { A } from "@ember/array";
 
 export default class Form extends BaseFormComponent {
   @service store;
   @service router;
   @service navService;
   @service userService;
+  @service notify;
 
-  @tracked selectedTeam;
+  @tracked selectedAttribute = null;
+
   @tracked assignableTeams;
 
-  @tracked hasErrors;
+  @tracked errors;
 
   AccountValidations = AccountValidations;
+
+  //create array proxy that ember checks the changes in each loop for dropdown, ember's rendering engine
+  // doesn't get notified by using a normal array
+  @tracked
+  inactiveFields = A(
+    []
+      .concat(
+        this.record.cleartextUsername || this.isNewRecord ? [] : ["username"]
+      )
+      .concat(
+        this.record.cleartextPassword || this.isNewRecord ? [] : ["password"]
+      )
+      .concat(this.record.cleartextToken ? [] : ["token"])
+      .concat(this.record.cleartextPin ? [] : ["pin"])
+      .concat(this.record.cleartextEmail ? [] : ["email"])
+      .concat(this.record.cleartextCustomAttr ? [] : ["customAttr"])
+  );
+
+  //set display field to true when attribute is set, for creating username and password is default
+  @tracked
+  activeFields = A(
+    []
+      .concat(
+        this.record.cleartextUsername || this.isNewRecord ? ["username"] : []
+      )
+      .concat(
+        this.record.cleartextPassword || this.isNewRecord ? ["password"] : []
+      )
+      .concat(this.record.cleartextToken ? ["token"] : [])
+      .concat(this.record.cleartextPin ? ["pin"] : [])
+      .concat(this.record.cleartextEmail ? ["email"] : [])
+      .concat(this.record.cleartextCustomAttr ? ["customAttr"] : [])
+  );
 
   constructor() {
     super(...arguments);
@@ -53,18 +90,20 @@ export default class Form extends BaseFormComponent {
     let selectedTeam = this.navService.selectedTeam;
     let selectedFolder = this.navService.selectedFolder;
 
-    this.selectedTeam = selectedTeam;
+    if (!isEmpty(selectedTeam)) {
+      this.changeset.team = selectedTeam;
+    }
     if (!isEmpty(selectedFolder)) {
       this.changeset.folder = selectedFolder;
     }
   }
 
   get availableFolders() {
-    return isPresent(this.selectedTeam)
+    return isPresent(this.changeset.team)
       ? this.store
           .peekAll("folder")
           .filter(
-            (folder) => folder.team.get("id") === this.selectedTeam.get("id")
+            (folder) => folder.team.get("id") === this.changeset.team.get("id")
           )
       : [];
   }
@@ -90,13 +129,36 @@ export default class Form extends BaseFormComponent {
 
   @action
   setSelectedTeam(selectedTeam) {
-    this.selectedTeam = selectedTeam;
+    this.changeset.team = selectedTeam;
     this.setFolder(null);
   }
 
   @action
   setFolder(folder) {
     this.changeset.folder = folder;
+  }
+
+  @action
+  removeField(value) {
+    this.changeset[`cleartext${capitalize(value)}`] = null;
+    if (value === "customAttr") {
+      this.changeset[`cleartext${capitalize(value)}Label`] = null;
+    }
+    this.inactiveFields.addObject(value);
+    this.activeFields.removeObject(value);
+  }
+
+  @action
+  addField() {
+    if (this.selectedAttribute == null) {
+      this.notify.info(
+        this.intl.t(`flashes.encryptables.selectAdditionalField`)
+      );
+    } else {
+      this.inactiveFields.removeObject(this.selectedAttribute);
+      this.activeFields.addObject(this.selectedAttribute);
+      this.selectedAttribute = null;
+    }
   }
 
   async beforeSubmit() {
@@ -135,12 +197,12 @@ export default class Form extends BaseFormComponent {
   }
 
   handleSubmitError(response) {
-    this.hasErrors = response.errors.length > 0;
+    this.errors = response.errors;
   }
 
   presetTeamIfFolderSelected() {
     if (isPresent(this.changeset.folder)) {
-      this.selectedTeam = this.changeset.folder.get("team");
+      this.changeset.team = this.changeset.folder.get("team");
     }
   }
 

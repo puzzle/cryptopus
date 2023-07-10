@@ -13,21 +13,27 @@ class EncryptedData
     value = @data[key]
     iv = decode(value[:iv]) unless value[:iv].nil?
 
-    data_hash(iv, decode(value[:data]))
+    data_hash(iv, decode(value[:data]), value[:label])
   end
 
-  def []=(key, data:, iv:)
-    @data[key] = data_hash(encode(iv), encode(data))
+  def []=(key, data:, iv:, label: nil)
+    @data[key] = data_hash(encode(iv), encode(data), label)
   end
 
   def to_json(*_args)
     @data.reject { |_, value| value[:data].blank? }.to_json
   end
 
+  def used_attributes
+    @data.keys.map(&:to_s)
+  end
+
   private
 
-  def data_hash(iv, data)
-    { iv: iv, data: data }
+  def data_hash(iv, data, label = nil)
+    hash = { iv: iv, data: data }
+    hash[:label] = label if label
+    hash
   end
 
   def encode(value)

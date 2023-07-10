@@ -15,7 +15,7 @@ export default class ShowComponent extends Component {
   isNewEncryptable = false;
 
   get shouldRenderEncryptables() {
-    return !isEmpty(this.args.folder) && !this.isCollapsed;
+    return !isEmpty(this.args.folder.encryptables) && !this.isCollapsed;
   }
 
   @action
@@ -39,6 +39,10 @@ export default class ShowComponent extends Component {
   }
 
   expandSelectedFolder() {
+    if (this.args.folder.isInboxFolder) {
+      this.args.folder.unreadTransferredCount = null;
+      this.args.folder.team.set("unread_count", undefined);
+    }
     this.router.transitionTo(
       "teams.folders-show",
       this.args.folder.team.get("id"),
@@ -54,16 +58,15 @@ export default class ShowComponent extends Component {
   scrollToFolder() {
     if (!this.isSelectedFolder) return;
 
-    const SPEED = 700;
     const FOLDER_ID = this.args.folder.id;
-    const OFFSET = $(`#folder-header-${FOLDER_ID}`).offset().top - 15;
+    const element = document.querySelector(`#folder-header-${FOLDER_ID}`);
+    const rect = element.getBoundingClientRect();
+    const OFFSET = rect.top + document.body.getBoundingClientRect().top - 15;
 
-    $("html, body").animate(
-      {
-        scrollTop: OFFSET
-      },
-      SPEED
-    );
+    window.scrollTo({
+      top: OFFSET,
+      behavior: "smooth" // Enable smooth scrolling behavior
+    });
   }
 
   get isExpanded() {

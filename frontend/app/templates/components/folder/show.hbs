@@ -58,7 +58,7 @@
             </div>
           {{/each}}
         {{else}}
-          <div class="col no-acc">
+          <div class={{if @folder.description "pt-2"}}>
             <em>{{t "folders.no_encryptables"}}</em>
           </div>
         {{/if}}

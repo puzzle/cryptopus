@@ -1,7 +1,7 @@
 <div class="container py-2">
   <div class="mt-4">
-    {{#if q}}
-      <SearchResultComponent @q={{q}}/>
+    {{#if this.q}}
+      <SearchResultComponent @q={{this.q}}/>
     {{/if}}
     {{#if @model}}
       {{#each this.model as |team|}}

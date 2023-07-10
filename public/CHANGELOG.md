@@ -1,3 +1,9 @@
+## Version 5.0
+- Introduce new Attributes for Credentials
+- Global removal of OseSecret
+- Introduce Encryptable File Sharing
+- Upgrade to Ember 3.28
+
 ## Version 4.8
 - Auto-Relogin for SSO
 

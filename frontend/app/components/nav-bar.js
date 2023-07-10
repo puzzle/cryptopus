@@ -21,6 +21,9 @@ export default class NavBarComponent extends Component {
   @tracked
   isNewTeam = false;
 
+  @tracked
+  isFileSharing = false;
+
   get isStartpage() {
     return this.router.currentRouteName === "index";
   }
@@ -47,6 +50,11 @@ export default class NavBarComponent extends Component {
   @action
   toggleTeamCreating() {
     this.isNewTeam = !this.isNewTeam;
+  }
+
+  @action
+  toggleFileSharing() {
+    this.isFileSharing = !this.isFileSharing;
   }
 
   @action

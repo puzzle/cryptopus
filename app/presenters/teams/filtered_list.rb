@@ -4,11 +4,14 @@ module ::Teams
   class FilteredList < ::FilteredList
 
     def fetch_entries
-      filtered_teams = teams
+      if only_teammember_user.present?
+        filtered_teams = filter_by_last_teammember
+      else
+        filtered_teams = teams
 
-      filtered_teams = filter_by_query(filtered_teams) if query_present?
-      filtered_teams = filter_by_id if team_id.present?
-      filtered_teams = filter_by_last_teammember if only_teammember_user.present?
+        filtered_teams = filter_by_query(filtered_teams) if query_present?
+        filtered_teams = filter_by_id(filtered_teams) if team_id.present?
+      end
 
       filtered_teams
     end
@@ -37,12 +40,12 @@ module ::Teams
               else
                 @current_user.teams
               end
-      teams.includes(team_includes)
+      teams.includes(*team_includes)
     end
 
     def team_includes
       if team_id || query_present?
-        [:user_favourite_teams, { folders: [:encryptables] }]
+        [:user_favourite_teams, { folders: { encryptables: :sender } }]
       else
         [:user_favourite_teams, :folders]
       end
@@ -68,8 +71,8 @@ module ::Teams
                        folders: [:encryptables])
     end
 
-    def filter_by_id
-      [Team.includes(folders: :encryptables).find(team_id)]
+    def filter_by_id(filtered_teams)
+      filtered_teams.where(id: team_id)
     end
 
     def filter_by_favourite

@@ -6,6 +6,6 @@
     @selected={{this.selectedOptions}}
     @searchField="label"
     @searchEnabled={{true}}
-    @onChange={{fn this.updateSetting}} as |option|>
+    @onChange={{this.updateSetting}} as |option|>
   {{option.label}}
 </PowerSelectMultiple>

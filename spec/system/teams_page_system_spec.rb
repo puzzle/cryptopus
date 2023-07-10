@@ -105,13 +105,13 @@ describe 'TeamsPage', type: :system, js: true do
   def open_and_close_team_edit
     all('span[role="button"]')[1].click
     expect(page).to have_text('Edit Team')
-    find('button.btn.btn-secondary.ember-view', text: 'Close', visible: false).click
+    find('#close-button', text: 'Close', visible: false).click
   end
 
   def open_and_close_team_members
     all('span[role="button"]')[2].click
     expect(page).to have_text('Edit Team Members and Api Users')
-    find('button.btn.btn-secondary.ember-view', text: 'Close', visible: false).click
+    find('#close_button', text: 'Close', visible: false).click
   end
 
   def click_team_favourites_button

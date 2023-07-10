@@ -10,21 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_27_115000) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_19_120958) do
   create_table "encryptables", force: :cascade do |t|
     t.string "name", limit: 255, default: "", null: false
     t.integer "folder_id"
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "tag"
     t.string "type", default: "Account::Credentials", null: false
     t.text "encrypted_data", limit: 16777215
     t.integer "credential_id"
     t.text "content_type"
+    t.string "encrypted_transfer_password"
+    t.integer "sender_id"
     t.index ["description"], name: "index_encryptables_on_description"
     t.index ["name"], name: "index_encryptables_on_name"
-    t.index ["tag"], name: "index_encryptables_on_tag"
   end
 
   create_table "fallback_info", force: :cascade do |t|
@@ -37,6 +37,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_115000) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "team_id", default: 0, null: false
+    t.boolean "personal_inbox", default: false, null: false
     t.index ["name"], name: "index_folders_on_name"
   end
 

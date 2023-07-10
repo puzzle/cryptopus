@@ -42,7 +42,7 @@ describe 'SideNavBar', type: :system, js: true do
 
       # Check if Team closes up again
       team1_link.click
-      team1_collapsed_in_sidebar?
+      team1_collapsed_in_sidebar?(true)
       assert_folder2(shown: false)
 
       # and reopen again
@@ -82,14 +82,18 @@ describe 'SideNavBar', type: :system, js: true do
   def team1_expanded_in_sidebar?
     expect(find('a', text: 'team1', visible: false)).to have_xpath("//img[@alt='v']")
     within(all('a[role="button"]')[1]) do
-      expect(find('img[alt="v"]')['src']).to include '/assets/images/angle-down.svg'
+      expect(find('img[alt="v"]')['src']).to include '/assets/images/angle-down-white.svg'
     end
   end
 
-  def team1_collapsed_in_sidebar?
+  def team1_collapsed_in_sidebar?(second = nil)
     expect(find('a', text: 'team1', visible: false)).to have_xpath("//img[@alt='<']")
     within(all('a[role="button"]')[1]) do
-      expect(find('img[alt="<"]')['src']).to include '/assets/images/angle-left.svg'
+      if second.nil?
+        expect(find('img[alt="<"]')['src']).to include '/assets/images/angle-left.svg'
+      else
+        expect(find('img[alt="<"]')['src']).to include '/assets/images/angle-left-white.svg'
+      end
     end
   end
 end

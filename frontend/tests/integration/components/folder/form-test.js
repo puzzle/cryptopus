@@ -108,16 +108,24 @@ module("Integration | Component | folder/form", function (hooks) {
       name: "mail",
       description: "The ember email"
     });
-    await render(hbs`<Folder::Form \@folder\=\{{this.folder}}/>`);
+    await render(hbs`<Folder::Form @folder={{this.folder}} />`);
+    assert.equal(this.element.querySelector("#foldername input").value, "mail");
 
     assert.equal(
-      this.element.querySelector("input[name='foldername']").value,
-      "mail"
-    );
-
-    assert.equal(
-      this.element.querySelector("textarea").value,
+      this.element.querySelector("#description textarea").value,
       "The ember email"
+    );
+  });
+
+  test("it disbales team dropdown when editing", async function (assert) {
+    this.set("folder", {
+      id: 1,
+      name: "mail"
+    });
+    await render(hbs`<Folder::Form @folder={{this.folder}} />`);
+
+    assert.ok(
+      this.element.querySelector("#team-dopdown").getAttribute("aria-disabled")
     );
   });
 });

@@ -4,10 +4,7 @@ import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
 
 export default class ShowComponent extends Component {
-  @service store;
   @service router;
-  @service intl;
-  @service notify;
 
   constructor() {
     super(...arguments);
@@ -22,7 +19,7 @@ export default class ShowComponent extends Component {
   isFileCreating = false;
 
   @tracked
-  isPasswordVisible = false;
+  isFile = this.args.encryptable.isFile;
 
   @action
   toggleEncryptableEdit() {
@@ -34,9 +31,8 @@ export default class ShowComponent extends Component {
     this.isFileCreating = !this.isFileCreating;
   }
 
-  @action
-  showPassword() {
-    this.isPasswordVisible = true;
+  get downloadLink() {
+    return `/api/encryptables/${this.args.encryptable.get("id")}`;
   }
 
   @action
@@ -51,18 +47,5 @@ export default class ShowComponent extends Component {
       this.args.encryptable.folder.get("team.id"),
       this.args.encryptable.folder.get("id")
     );
-  }
-
-  @action
-  onCopied(attribute) {
-    this.notify.info(this.intl.t(`flashes.encryptables.${attribute}_copied`));
-  }
-
-  get noCopyBlankPasswordTooltip() {
-    return this.intl.t("encryptable/credentials.show.blank");
-  }
-
-  get noCopyBlankUsernameTooltip() {
-    return this.intl.t("encryptable/credentials.show.blank");
   }
 }

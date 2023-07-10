@@ -30,8 +30,6 @@ describe 'QuickSearch', type: :system, js: true do
 
     find('input.search').set credentials1.name
     expect(page).to have_selector('.encryptable-entry')
-    within('div.encryptable-entry') do
-      expect(page).to have_content(credentials1.name)
-    end
+    expect(page).to have_content(credentials1.name)
   end
 end

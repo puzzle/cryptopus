@@ -8,8 +8,6 @@ echo "running bundle install"
 gem install bundler -v 2.3.13
 bundle install
 
-yarn install --check-files
-
 if [ -z "$SKIP_RAILS_MIGRATIONS" ]; then
   echo "⚙️  Performing migrations"
   bundle exec rails db:create db:migrate

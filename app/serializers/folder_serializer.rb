@@ -18,8 +18,18 @@
 #  https://github.com/puzzle/cryptopus.
 
 class FolderSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description
+  attributes :id, :name, :description, :unread_transferred_count
 
-  has_many :encryptables, serializer: EncryptableMinimalSerializer
+  has_many :encryptables, serializer: EncryptableMinimalSerializer do
+    if object.personal_inbox?
+      object.encryptables.order('created_at DESC')
+    else
+      object.encryptables.order(:name)
+    end
+  end
+
+  def unread_transferred_count
+    object.personal_inbox? ? object.unread_count_transferred_encryptables : nil
+  end
 
 end
