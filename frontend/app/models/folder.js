@@ -4,7 +4,7 @@ export default class Folder extends Model {
   @attr("string") name;
   @attr("string") description;
   @attr("number") unreadTransferredCount;
-  @hasMany("encryptable", { async: false, inverse: "folder" }) encryptables;
+  @hasMany("encryptable", { async: false, inverse: "folder", polymorphic: true, as: "encryptable" }) encryptables;
   @belongsTo("team", { async: false, inverse: "folders" }) team;
 
   get isInboxFolder() {
