@@ -63,7 +63,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
     assert.dom(this.element.querySelector("#token-field")).doesNotExist();
     assert.dom(this.element.querySelector("#custom-attr-field")).doesNotExist();
     assert
-      .dom(this.element.querySelector(".encryption_algorithm"))
+      .dom(this.element.querySelector(".encryptable-lock-icon"))
       .doesNotExist();
   });
 
@@ -111,7 +111,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
     assert.dom(this.element.querySelector("#show-token")).doesNotExist();
     assert.dom(this.element.querySelector("#show-customAttr")).doesNotExist();
     assert
-      .dom(this.element.querySelector(".encryption_algorithm"))
+      .dom(this.element.querySelector(".encryptable-lock-icon"))
       .doesNotExist();
   });
 
@@ -154,7 +154,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
     assert.dom(this.element.querySelector("#token-field")).doesNotExist();
     assert.dom(this.element.querySelector("#custom-attr-field")).doesNotExist();
     assert
-      .dom(this.element.querySelector(".encryption_algorithm"))
+      .dom(this.element.querySelector(".encryptable-lock-icon"))
       .doesNotExist();
   });
 

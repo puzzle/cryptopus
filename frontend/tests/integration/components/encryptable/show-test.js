@@ -75,7 +75,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
     assert.dom(this.element.querySelector("#show-customAttr")).doesNotExist();
 
     let encryption_algorithm = this.element.querySelector(
-      ".encryption_algorithm"
+      ".encryptable-lock-icon"
     );
     assert.ok(isPresent(encryption_algorithm));
 
@@ -137,7 +137,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
     );
 
     let encryption_algorithm = this.element.querySelector(
-      ".encryption_algorithm"
+      ".encryptable-lock-icon"
     );
     assert.ok(isPresent(encryption_algorithm));
 
@@ -248,7 +248,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
     );
 
     let encryption_algorithm = this.element.querySelector(
-      ".encryption_algorithm"
+      ".encryptable-lock-icon"
     );
     assert.ok(isPresent(encryption_algorithm));
   });
@@ -344,7 +344,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
     );
 
     let encryption_algorithm = this.element.querySelector(
-      ".encryption_algorithm"
+      ".encryptable-lock-icon"
     );
     assert.ok(isPresent(encryption_algorithm));
   });
@@ -440,7 +440,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
     );
 
     let encryption_algorithm = this.element.querySelector(
-      ".encryption_algorithm"
+      ".encryptable-lock-icon"
     );
     assert.ok(isPresent(encryption_algorithm));
   });
@@ -536,7 +536,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
     );
 
     let encryption_algorithm = this.element.querySelector(
-      ".encryption_algorithm"
+      ".encryptable-lock-icon"
     );
     assert.ok(isPresent(encryption_algorithm));
   });
@@ -565,7 +565,7 @@ module("Integration | Component | encryptable/show", function (hooks) {
     assert.ok(text.includes("Sender name: Bob Beier"));
 
     assert
-      .dom(this.element.querySelector(".encryption_algorithm"))
+      .dom(this.element.querySelector(".encryptable-lock-icon"))
       .doesNotExist();
 
     let deleteButton = this.element.querySelector('.icon-button[alt="delete"]');
