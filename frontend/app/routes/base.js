@@ -4,6 +4,7 @@ import { inject as service } from "@ember/service";
 
 export default class BaseRoute extends Route {
   @service logoutTimerService;
+  @service store;
 
   @action
   didTransition() {

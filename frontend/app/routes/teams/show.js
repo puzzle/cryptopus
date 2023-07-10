@@ -6,7 +6,6 @@ export default class TeamsShowRoute extends BaseRoute {
   @service navService;
   @service notify;
   @service intl;
-  @service store;
 
   templateName = "teams/index";
   controllerName = "teams/index";
