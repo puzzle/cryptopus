@@ -131,6 +131,17 @@ en:
     description_for_receiver: Description for the receiver
     delete_transferred_encryptables: Delete transferred file
 
+  encryptable/transferring/credential:
+    new:
+      title: Share credentials with
+    show: Transferred Credentials
+    receiver:
+      name: Choose a receiver
+    submit: Send
+    sent_at: Was sent by
+    description_for_sender_start: A copy of
+    description_for_sender_end: will be sent to the receiver's inbox
+
   admin:
     title: Admin
     settings:

@@ -5,21 +5,33 @@ class Api::EncryptablesTransferController < ApiController
   self.permitted_attrs = [:name, :description, :receiver_id, :file]
 
   def create
-    prepare_encryptable_file
+    if params[:file].present?
+      prepare_encryptable_file
+    else
+      prepare_encryptable_credential
+    end
     authorize entry
-    transfer_file
+    transfer_encryptable
 
     render json: messages
   end
 
   private
 
-  def transfer_file
+  def transfer_encryptable
     @encryptable = EncryptableTransfer.new.transfer(
       entry, User::Human.find(receiver_id), current_user
     )
 
     add_info('flashes.encryptable_transfer.file.transferred')
+  end
+
+  def prepare_encryptable_credential
+    shared_encryptable = current_user.encryptables.find(params['encryptable_id'])
+
+    shared_encryptable.decrypt(decrypted_team_password(shared_encryptable.team))
+
+    instance_variable_set(:"@#{ivar_name}", shared_encryptable.dup)
   end
 
   def prepare_encryptable_file
@@ -41,7 +53,7 @@ class Api::EncryptablesTransferController < ApiController
   end
 
   def model_class
-    Encryptable::File
+    params[:file].present? ? Encryptable::File : Encryptable::Credentials
   end
 
   def model_params
