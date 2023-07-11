@@ -763,7 +763,7 @@ describe Api::EncryptablesController do
       expect(received_file.cleartext_file).to eq('certificate')
     end
 
-    context 'Old encryption algorithm' do
+    context 'recrypt' do
       it 'download transferred encryptable old encryption algorithm' do
         login_as(:bob)
 

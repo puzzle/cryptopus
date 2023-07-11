@@ -17,6 +17,8 @@
 class Encryptable < ApplicationRecord
   serialize :encrypted_data, ::EncryptedData
 
+  class_attribute :used_encrypted_attrs
+
   attr_readonly :type
   validates :type, presence: true
 
@@ -26,12 +28,18 @@ class Encryptable < ApplicationRecord
   validates :name, presence: true
   validates :description, length: { maximum: 4000 }
 
-  def encrypt(_team_password)
-    raise 'implement in subclass'
+  def encrypt(team_password, encryption_algorithm = nil)
+    return if file? && cleartext_file.empty?
+
+    used_encrypted_attrs.each do |attribute|
+      encrypt_attr(attribute, team_password, encryption_algorithm)
+    end
   end
 
-  def decrypt(_team_password)
-    raise 'implement in subclass'
+  def decrypt(team_password)
+    used_encrypted_attrs.each do |attribute|
+      decrypt_attr(attribute, team_password)
+    end
   end
 
   def recrypt(team_password, new_team_password, new_encryption_class)
@@ -138,5 +146,9 @@ class Encryptable < ApplicationRecord
     unless User.find(receiver_id).is_a?(User::Human)
       errors.add(:receiver_id, 'Must be a human user')
     end
+  end
+
+  def file?
+    is_a?(Encryptable::File)
   end
 end
