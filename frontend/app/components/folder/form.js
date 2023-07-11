@@ -12,7 +12,7 @@ export default class Form extends BaseFormComponent {
   @service userService;
 
   @tracked assignableTeams;
-  @tracked dropdownTeam;
+  @tracked team;
 
   FolderValidations = FolderValidations;
 
@@ -22,9 +22,10 @@ export default class Form extends BaseFormComponent {
     this.isNewRecord = !this.args.folder;
     if(this.isNewRecord) {
       this.record = this.store.createRecord("folder");
-      this.dropdownTeam = this.navService.selectedTeam;
+      this.team = this.navService.selectedTeam;
     } else {
       this.record = this.args.folder;
+      this.team = this.args.folder.team;
     }
 
     this.changeset = new Changeset(
@@ -48,11 +49,11 @@ export default class Form extends BaseFormComponent {
 
   @action
   setSelectedTeam(selectedTeam) {
-    this.dropdownTeam = selectedTeam;
+    this.team = selectedTeam;
   }
 
   async beforeSubmit() {
-    this.changeset.team = this.dropdownTeam;
+    this.changeset.team = this.team;
     await this.changeset.validate();
     return this.changeset.isValid;
   }
