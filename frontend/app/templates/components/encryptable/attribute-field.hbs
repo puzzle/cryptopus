@@ -21,8 +21,8 @@
   </div>
   {{#unless this.args.row}}
     <span class="show-lock-icon">
-      <img class="icon-button encryptable-lock-icon" src="/assets/images/lock-tick.svg" alt="lock">
-      <BsTooltip @title="{{t "tooltips.encryption_algorithm"}} {{@encryptable.encryptionAlgorithm}}/{{@encryptable.teamPasswordBitsize}} bits" @delayShow="500" />
+      <img class="encrypted-icon d-inline-block" src="/assets/images/encrypted_small.svg" alt="encrypted value">
+      <BsTooltip @title="{{t "tooltips.encryption_algorithm"}} AES256iv/256 bits" @delayShow="300" />
     </span>
   {{/unless}}
 </div>
