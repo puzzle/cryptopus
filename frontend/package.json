@@ -38,7 +38,7 @@
     "ember-autofocus-modifier": "6.0.0",
     "ember-bootstrap": "5.1.1",
     "ember-bootstrap-power-select": "5.0.0",
-    "ember-changeset": "~4.1.2",
+    "ember-changeset": "^4.1.1",
     "ember-changeset-validations": "~4.1.1",
     "ember-cli": "~4.12.1",
     "ember-cli-app-version": "6.0.1",
