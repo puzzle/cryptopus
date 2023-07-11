@@ -13,28 +13,6 @@ def legacy_encrypt_private_key(private_key, password)
   encrypted_private_key
 end
 
-def prepare_transferred_encryptable(bob, alice, encryption_algorithm)
-  encryptable_file = Encryptable::File.new(name: 'file',
-                                           folder_id: bob.inbox_folder.id,
-                                           cleartext_file: file_fixture('test_file.txt').read,
-                                           content_type: 'text/plain')
-
-  transfer_password = encryption_algorithm.random_key
-
-  encryptable_file.encrypt(transfer_password)
-
-  encrypted_transfer_password = Crypto::Rsa.encrypt(
-    transfer_password,
-    bob.public_key
-  )
-  encryptable_file.encrypted_transfer_password = Base64.encode64(encrypted_transfer_password)
-  encryptable_file.sender_id = alice.id
-  encryptable_file.folder = bob.inbox_folder
-  encryptable_file.save!
-
-  encryptable_file
-end
-
 def enable_openid_connect
   allow_any_instance_of(AuthConfig)
     .to receive(:settings_file)

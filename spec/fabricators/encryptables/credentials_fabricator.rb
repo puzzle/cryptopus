@@ -45,3 +45,26 @@ Fabricator(:file, from: 'Encryptable::File') do
     encryptable.encrypt(attrs[:team_password])
   end
 end
+
+Fabricator(:transferred_file, from: 'Encryptable::File') do
+  transient :id_sender, :receiver_inbox_folder, :receiver_pk, :encryption_algorithm
+
+  name { Faker::File.file_name }
+  cleartext_file { Faker::Hacker.say_something_smart }
+  folder { |attrs| attrs[:receiver_inbox_folder] }
+  sender_id { |attrs| attrs[:id_sender] }
+  type { Encryptable::File }
+
+  before_create do |encryptable, attrs|
+    transfer_password = attrs[:encryption_algorithm].random_key
+
+    encrypted_transfer_password = Crypto::Rsa.encrypt(
+      transfer_password,
+      attrs[:receiver_pk]
+    )
+
+    encryptable.encrypted_transfer_password = Base64.encode64(encrypted_transfer_password)
+    encryptable.encrypt(transfer_password, Crypto::Symmetric::Aes256iv)
+
+  end
+end

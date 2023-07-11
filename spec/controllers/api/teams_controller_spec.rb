@@ -421,7 +421,13 @@ describe Api::TeamsController do
       it 'Receive method gets called to encrypt transferred encryptable' do
         login_as(:bob)
 
-        prepare_transferred_encryptable(bob, alice, Crypto::Symmetric::Aes256iv)
+        Fabricate(
+          :transferred_file,
+          id_sender: alice.id,
+          receiver_inbox_folder: bob.inbox_folder,
+          receiver_pk: bob.public_key,
+          encryption_algorithm: Crypto::Symmetric::Aes256
+        )
 
         expect_any_instance_of(EncryptableTransfer)
           .to receive(:receive)
@@ -444,7 +450,13 @@ describe Api::TeamsController do
       it 'Receive method to encrypt transferred encryptable dont get called on recent algorithm' do
         login_as(:bob)
 
-        prepare_transferred_encryptable(bob, alice, Crypto::Symmetric::Aes256iv)
+        Fabricate(
+          :transferred_file,
+          id_sender: alice.id,
+          receiver_inbox_folder: bob.inbox_folder,
+          receiver_pk: bob.public_key,
+          encryption_algorithm: Crypto::Symmetric::Aes256iv
+        )
 
         expect_any_instance_of(EncryptableTransfer)
           .not_to receive(:receive)
