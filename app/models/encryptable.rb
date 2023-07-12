@@ -31,15 +31,18 @@ class Encryptable < ApplicationRecord
   def encrypt(team_password, encryption_algorithm = nil)
     return if file? && cleartext_file.empty?
 
-    used_encrypted_attrs.each do |attribute|
-      encrypt_attr(attribute, team_password, encryption_algorithm)
-    end
+    attributes = transferred? ? available_attrs : used_encrypted_attrs
+    attributes.each { |attribute| encrypt_attr(attribute, team_password, encryption_algorithm) }
   end
 
   def decrypt(team_password)
-    used_encrypted_attrs.each do |attribute|
+    available_attrs.each do |attribute|
       decrypt_attr(attribute, team_password)
     end
+  end
+
+  def available_attrs
+    used_encrypted_attrs.select { |attribute| encrypted_data[attribute]&.dig(:data) }
   end
 
   def recrypt(team_password, new_team_password, new_encryption_class)

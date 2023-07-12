@@ -13,10 +13,6 @@ class Encryptable::File < Encryptable
 
   validate :file_size, on: [:create, :update]
 
-  def decrypt_transferred(private_key)
-    decrypt(plaintext_transfer_password(private_key))
-  end
-
   def team
     folder&.team || encryptable_credential.folder.team
   end

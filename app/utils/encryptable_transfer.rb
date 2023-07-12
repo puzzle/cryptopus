@@ -2,8 +2,11 @@
 
 class EncryptableTransfer
 
+  # rubocop:disable Metrics/MethodLength
   def transfer(encryptable, receiver, sender)
-    transfer_password = transfer_password(receiver)
+    encryption_algorithm = receiver_encryption_algorithm(receiver)
+
+    transfer_password = encryption_algorithm.random_key
     encryptable.encrypt(transfer_password, encryption_algorithm)
 
     encryptable.name = encryptable_destination_name(encryptable, receiver)
@@ -16,6 +19,7 @@ class EncryptableTransfer
     )
     encryptable
   end
+  # rubocop:enable Metrics/MethodLength
 
   def receive(encryptable, private_key, personal_team_password)
     encryptable.decrypt_transferred(private_key)
@@ -45,10 +49,9 @@ class EncryptableTransfer
     )
   end
 
-  def transfer_password(receiver)
+  def receiver_encryption_algorithm(receiver)
     encryption_algorithm = receiver.personal_team.encryption_algorithm
-    encryption_algorithm = Crypto::Symmetric::ALGORITHMS[encryption_algorithm]
-    encryption_algorithm.random_key
+    Crypto::Symmetric::ALGORITHMS[encryption_algorithm]
   end
 
   def transfered_name(name, existing_names, is_file)
