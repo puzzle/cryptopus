@@ -7,25 +7,24 @@
       <BsForm @model={{this.changeset}} as |form|>
         <div class="row">
           <div class="col-md-12">
-            <form.group>
-              <form.element @property="name" @label={{t "helpers.label.team.name"}}
-                            name="teamname" class={{if this.changeset.error.name.validation
-                                                           "invalid-input-name"}}
-                            id="teamname"
-                            @customError={{t (validation-error-key this.changeset.error.name.validation)}} />
-            </form.group>
-            <div class="checkbox">
+            <form.element @property="name" @label={{t "helpers.label.team.name"}}
+                          name="teamname" class={{if this.changeset.error.name.validation
+                                                     "invalid-input-name"}}
+                          id="teamname"
+                          @customError={{t (validation-error-key this.changeset.error.name.validation)}} />
+            <div class="checkbox mt-2 mb-1">
               <div class="d-flex justify-content-start">
                 <div class="align-self-center">
                   <label for="checkbox-private" name="private">{{t "teams.form.private"}}</label>
                 </div>
-                <div class="align-self-center mb-2 ml-2">
-                  <img src="/assets/images/info.svg" alt="info" class="info-icon icon-button">
-                  <BsTooltip @title={{t "teams.description.private"}} />
-                </div>
-                <div class="align-self-center mb-2 ml-2">
-                  <Input id="checkbox-private" class="" @type="checkbox" @checked={{this.changeset.private}} name="private"
-                     disabled={{not this.isNewRecord }} />
+                  <div class="align-self-center mb-2 ms-2 mt-2">
+                    <img src="/assets/images/info.svg" alt="info" class="info-icon icon-button">
+                    <BsTooltip @title={{t "teams.description.private"}} />
+                  </div>
+                <div class="align-self-center mb-2 ms-2 mt-2">
+                  <Input id="checkbox-private" class="" @type="checkbox" @checked={{this.changeset.private}}
+                         name="private"
+                         disabled={{not this.isNewRecord }} />
                 </div>
               </div>
             </div>
@@ -33,11 +32,10 @@
           <div class="col-md-12">
           </div>
           <div class="col-md-12">
-            <form.group>
-              <form.element @label={{t "helpers.label.team.description"}} @property="description" @controlType="textarea"
-                            id="description" class="{{if
-                      this.changeset.error.description.validation "invalid-input"}} vertical-resize" @customError={{t (validation-error-key this.changeset.error.description.validation)}}/>
-            </form.group>
+            <form.element @label={{t "helpers.label.team.description"}} @property="description" @controlType="textarea"
+                          id="description" class="{{if
+              this.changeset.error.description.validation "invalid-input"}} vertical-resize" @customError={{t
+              (validation-error-key this.changeset.error.description.validation)}}/>
           </div>
         </div>
       </BsForm>

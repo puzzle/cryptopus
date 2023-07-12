@@ -5,9 +5,11 @@ const EmberApp = require("ember-cli/lib/broccoli/ember-app");
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
     storeConfigInMeta: false,
+
     "ember-cli-babel": {
       includePolyfill: true
     },
+
     autoImport: {
       forbidEval: true,
 
@@ -27,21 +29,23 @@ module.exports = function (defaults) {
         chunkFilename: "ember-auto-import.[name].js"
       }
     },
+
     minifyCSS: {
       options: { processImport: true }
     },
+
     "ember-cli-password-strength": {
       bundleZxcvbn: true
     },
 
-    "ember-bootstrap": {
-      bootstrapVersion: 4,
-      importBootstrapCSS: true,
-      importBootstrapFont: false
-    },
-
     intl: {
       silent: true
+    },
+
+    'ember-bootstrap': {
+      bootstrapVersion: 5,
+      importBootstrapCSS: true,
+      importBootstrapFont: false,
     }
   });
 

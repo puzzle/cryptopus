@@ -15,8 +15,8 @@ export default class Form extends BaseFormComponent {
   constructor() {
     super(...arguments);
 
-    this.record = this.args.team || this.store.createRecord("team");
-    this.isNewRecord = this.record.isNew;
+    this.isNewRecord = !this.args.team;
+    this.record = this.isNewRecord ? this.store.createRecord("team") : this.args.team;
 
     this.changeset = new Changeset(
       this.record,
