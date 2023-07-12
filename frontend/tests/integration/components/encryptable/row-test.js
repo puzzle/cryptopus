@@ -258,6 +258,18 @@ module("Integration | Component | encryptable/row", function (hooks) {
   });
 
   test("it renders with file", async function (assert) {
+    const folder = {
+      id: 1,
+      name: "Inbox",
+      isInboxFolder: true,
+
+      get(key) {
+        if (key === "isInboxFolder") {
+          return true;
+        }
+      }
+    };
+
     this.set(
       "encryptable",
       EmberObject.create({
@@ -266,7 +278,8 @@ module("Integration | Component | encryptable/row", function (hooks) {
         name: "FolderFile",
         description:
           "This encryptable is attached to a folder, this is amazing. WOW!",
-        isFile: true
+        isFile: true,
+        folder: folder
       })
     );
 
