@@ -1,14 +1,13 @@
-import { action } from "@ember/object";
+import {action} from "@ember/object";
 import AccountValidations from "../../validations/encryptable";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
-import { inject as service } from "@ember/service";
-import { tracked } from "@glimmer/tracking";
+import {inject as service} from "@ember/service";
+import {tracked} from "@glimmer/tracking";
 import BaseFormComponent from "../base-form-component";
-import { isPresent } from "@ember/utils";
-import { isEmpty } from "@ember/utils";
-import { capitalize } from "@ember/string";
-import { A } from "@ember/array";
+import {isPresent} from "@ember/utils";
+import {capitalize} from "@ember/string";
+import {A} from "@ember/array";
 
 export default class Form extends BaseFormComponent {
   @service store;
@@ -64,7 +63,7 @@ export default class Form extends BaseFormComponent {
     super(...arguments);
 
     this.isNewRecord = !this.args.encryptable;
-    if(this.isNewRecord) {
+    if (this.isNewRecord) {
       this.record = this.store.createRecord("encryptable-credential");
       this.selectedTeam = this.navService.selectedTeam;
       this.selectedFolder = this.navService.selectedFolder;
@@ -93,10 +92,10 @@ export default class Form extends BaseFormComponent {
   get availableFolders() {
     return isPresent(this.selectedTeam)
       ? this.store
-          .peekAll("folder")
-          .filter(
-            (folder) => folder.team.get("id") === this.selectedTeam.get("id")
-          )
+        .peekAll("folder")
+        .filter(
+          (folder) => folder.team.get("id") === this.selectedTeam.get("id")
+        )
       : [];
   }
 
@@ -154,8 +153,8 @@ export default class Form extends BaseFormComponent {
   }
 
   async beforeSubmit() {
-    this.changeset.team = this.selectedTeam;
     this.changeset.folder = this.selectedFolder;
+    this.changeset.team = this.selectedTeam;
     await this.changeset.validate();
     return this.changeset.isValid;
   }

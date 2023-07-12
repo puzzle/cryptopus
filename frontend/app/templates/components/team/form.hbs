@@ -12,16 +12,16 @@
                                                      "invalid-input-name"}}
                           id="teamname"
                           @customError={{t (validation-error-key this.changeset.error.name.validation)}} />
-            <div class="checkbox mt-2 mb-1">
+            <div class="checkbox mt-1 mb-1">
               <div class="d-flex justify-content-start">
                 <div class="align-self-center">
                   <label for="checkbox-private" name="private">{{t "teams.form.private"}}</label>
                 </div>
-                  <div class="align-self-center mb-2 ms-2 mt-2">
+                  <div class="align-self-center mb-2 ml-2">
                     <img src="/assets/images/info.svg" alt="info" class="info-icon icon-button">
-                    <BsTooltip @title={{t "teams.description.private"}} />
+                    <BsTooltip @title={{t "teams.description.private"}} @placement="top" />
                   </div>
-                <div class="align-self-center mb-2 ms-2 mt-2">
+                <div class="align-self-center mb-2 ml-2 mt-1">
                   <Input id="checkbox-private" class="" @type="checkbox" @checked={{this.changeset.private}}
                          name="private"
                          disabled={{not this.isNewRecord }} />
