@@ -2,24 +2,14 @@
 
 class EncryptableTransfer
 
-  # rubocop:disable Metrics/MethodLength
   def transfer(encryptable, receiver, sender)
     encryption_algorithm = receiver_encryption_algorithm(receiver)
 
     transfer_password = encryption_algorithm.random_key
     encryptable.encrypt(transfer_password, encryption_algorithm)
 
-    encryptable.name = encryptable_destination_name(encryptable, receiver)
-
-    encryptable.update!(
-      folder: receiver.inbox_folder,
-      sender_id: sender.id,
-      encrypted_transfer_password:
-        Base64.encode64(encrypted_transfer_password(transfer_password, receiver))
-    )
-    encryptable
+    update_encryptable(encryptable, receiver, sender, transfer_password)
   end
-  # rubocop:enable Metrics/MethodLength
 
   def receive(encryptable, private_key, personal_team_password)
     encryptable.decrypt_transferred(private_key)
@@ -34,6 +24,18 @@ class EncryptableTransfer
   end
 
   private
+
+  def update_encryptable(encryptable, receiver, sender, transfer_password)
+    encryptable.name = encryptable_destination_name(encryptable, receiver)
+
+    encryptable.update!(
+      folder: receiver.inbox_folder,
+      sender_id: sender.id,
+      encrypted_transfer_password:
+        Base64.encode64(encrypted_transfer_password(transfer_password, receiver))
+    )
+    encryptable
+  end
 
   def encryptable_destination_name(encryptable, receiver)
     existing_names = receiver.inbox_folder.encryptables.pluck(:name)
