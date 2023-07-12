@@ -17,6 +17,8 @@ export default class Form extends BaseFormComponent {
   @service userService;
   @service notify;
 
+  @tracked selectedTeam;
+  @tracked selectedFolder;
   @tracked selectedAttribute = null;
 
   @tracked assignableTeams;
@@ -61,20 +63,22 @@ export default class Form extends BaseFormComponent {
   constructor() {
     super(...arguments);
 
-    this.record =
-      this.args.encryptable ||
-      this.store.createRecord("encryptable-credential");
-    this.isNewRecord = this.record.isNew;
-
-    this.changeset = this.accountChangeset;
-
-    if (this.isNewRecord) {
-      this.presetTeamAndFolder();
+    this.isNewRecord = !this.args.encryptable;
+    if(this.isNewRecord) {
+      this.record = this.store.createRecord("encryptable-credential");
+      this.selectedTeam = this.navService.selectedTeam;
+      this.selectedFolder = this.navService.selectedFolder;
+    } else {
+      this.record = this.args.encryptable;
+      this.selectedTeam = this.args.encryptable.folder.team;
+      this.selectedFolder = this.args.encryptable.folder;
     }
 
-    if (this.isNewRecord && isPresent(this.args.folder)) {
-      this.changeset.folder = this.args.folder;
-    }
+    this.changeset = new Changeset(
+      this.record,
+      lookupValidator(AccountValidations),
+      AccountValidations
+    );
 
     this.store.findAll("team").then((teams) => {
       this.assignableTeams = teams;
@@ -86,24 +90,12 @@ export default class Form extends BaseFormComponent {
       this.store.findRecord("encryptable-credential", this.record.id);
   }
 
-  presetTeamAndFolder() {
-    let selectedTeam = this.navService.selectedTeam;
-    let selectedFolder = this.navService.selectedFolder;
-
-    if (!isEmpty(selectedTeam)) {
-      this.changeset.team = selectedTeam;
-    }
-    if (!isEmpty(selectedFolder)) {
-      this.changeset.folder = selectedFolder;
-    }
-  }
-
   get availableFolders() {
-    return isPresent(this.changeset.team)
+    return isPresent(this.selectedTeam)
       ? this.store
           .peekAll("folder")
           .filter(
-            (folder) => folder.team.get("id") === this.changeset.team.get("id")
+            (folder) => folder.team.get("id") === this.selectedTeam.get("id")
           )
       : [];
   }
@@ -129,13 +121,13 @@ export default class Form extends BaseFormComponent {
 
   @action
   setSelectedTeam(selectedTeam) {
-    this.changeset.team = selectedTeam;
+    this.selectedTeam = selectedTeam;
     this.setFolder(null);
   }
 
   @action
   setFolder(folder) {
-    this.changeset.folder = folder;
+    this.selectedFolder = folder;
   }
 
   @action
@@ -162,6 +154,8 @@ export default class Form extends BaseFormComponent {
   }
 
   async beforeSubmit() {
+    this.changeset.team = this.selectedTeam;
+    this.changeset.folder = this.selectedFolder;
     await this.changeset.validate();
     return this.changeset.isValid;
   }
@@ -201,16 +195,8 @@ export default class Form extends BaseFormComponent {
   }
 
   presetTeamIfFolderSelected() {
-    if (isPresent(this.changeset.folder)) {
-      this.changeset.team = this.changeset.folder.get("team");
+    if (isPresent(this.selectedFolder)) {
+      this.selectedTeam = this.selectedFolder.get("team");
     }
-  }
-
-  get accountChangeset() {
-    return new Changeset(
-      this.record,
-      lookupValidator(AccountValidations),
-      AccountValidations
-    );
   }
 }
