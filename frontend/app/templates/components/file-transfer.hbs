@@ -13,14 +13,22 @@
       <BsForm @model={{this.changeset}} as |form|>
         <div class="row">
           <div class="col-md-5">
-            <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{this.selectReceiver}} @selected={{this.changeset.receiver.label}} @placeholder={{t "encryptable/transferring/file.receiver.name"}} as |candidate|>
+            <PowerSelect
+              @searchEnabled="true"
+              @searchField="label"
+              @search={{this.search}}
+              @renderInPlace="true"
+              @options={{this.candidates}}
+              @selected={{this.changeset.receiver}}
+              @placeholder={{t "encryptable/transferring/file.receiver.name"}}
+              @onChange={{this.selectReceiver}} as |candidate|>
               {{candidate.label}}
-            </PowerSelectTypeahead>
+            </PowerSelect>
           </div>
         </div>
 
         <div class="row">
-          <form.group class="col-md-12">
+          <div class="col-md-12">
             {{#if this.changeset.file}}
               <div class="mb-2 transfer-file-upload">
                 {{t "encryptable_files.new.selected_file"}}: {{this.changeset.file.name}}
@@ -30,18 +38,16 @@
                 {{t "encryptable_files.new.choose_file"}}
               </div>
             {{/if}}
-            <div>
-              <FileUpload @name="file"
-                         @accept="*"
-                         @for="upload-file"
-                         @multiple={{false}}
-                         @onfileadd={{this.uploadFile}}
-                         @ondrop={{this.uploadFile}}
-                         class="btn btn-primary">
-                <a id="upload-file" tabindex="0">{{t (if this.changeset.file "encryptable_files.new.reupload" "encryptable_files.new.upload_file")}}</a>
-              </FileUpload>
+            <div class="mb-3">
+              {{#let (file-queue name="files" onFileAdded=this.uploadFile) as |queue| }}
+                <input type="file" id="actual-btn" hidden {{queue.selectFile}}>
+                <label class="btn btn-primary w-100" for="actual-btn">
+                  {{t (if this.changeset.file "encryptable_files.new.reupload"
+                        "encryptable_files.new.upload_file")}}
+                </label>
+              {{/let}}
             </div>
-          </form.group>
+          </div>
         </div>
 
         {{#each this.errors as |error|}}
@@ -64,6 +70,6 @@
   </Modal.body>
 
   <Modal.footer>
-    <BsButton @onClick={{action this.submit this.changeset}} disabled={{not this.changeset.isValid}} alt="save" @type="primary">{{t "encryptable/transferring/file.submit"}}</BsButton>
+    <BsButton @onClick={{action this.submit this.changeset}} disabled={{this.submitIsDisabled}} alt="save" @type="primary">{{t "encryptable/transferring/file.submit"}}</BsButton>
   </Modal.footer>
 </BsModal>

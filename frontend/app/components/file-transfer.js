@@ -18,20 +18,20 @@ export default class FileTransfer extends BaseFormComponent {
   @tracked
   isFileCreating = false;
 
+  @tracked
+  submitIsDisabled = true;
+
   constructor() {
     super(...arguments);
 
     this.record = this.store.createRecord("encryptable-transfer");
+    this.record.csrfToken = ENV.CSRFToken;
 
     this.changeset = new Changeset(
       this.record,
       lookupValidator(EncryptableTransferFile),
       EncryptableTransferFile
     );
-
-    this.changeset.csrfToken = ENV.CSRFToken;
-
-    this.loadValidation();
 
     this.loadCandidates();
   }
@@ -87,6 +87,7 @@ export default class FileTransfer extends BaseFormComponent {
 
   async loadValidation() {
     await this.changeset.validate();
+    this.submitIsDisabled = !this.changeset.isValid;
   }
 
   validateUploadedFile() {
