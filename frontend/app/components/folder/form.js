@@ -42,6 +42,7 @@ export default class Form extends BaseFormComponent {
   @action
   abort() {
     if (this.args.onAbort) {
+      this.record.rollbackAttributes();
       this.args.onAbort();
       return;
     }
