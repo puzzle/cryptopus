@@ -16,7 +16,6 @@ export default class AdminUsersTable extends Component {
 
     if (this.args.users) {
       this.users = this.args.users
-        .toArray()
         .filter((user) => {
           return !user.isDeleted;
         })
