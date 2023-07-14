@@ -21,24 +21,20 @@ export default class Form extends BaseFormComponent {
     super(...arguments);
 
     this.record = this.store.createRecord("encryptable-file");
+    this.record.encryptable = this.args.encryptable;
+    this.record.csrfToken = ENV.CSRFToken;
 
     this.changeset = new Changeset(
       this.record,
       lookupValidator(EncryptableFileValidations),
       EncryptableFileValidations
     );
-
-    this.changeset.encryptable = this.args.encryptable;
-    this.changeset.csrfToken = ENV.CSRFToken;
   }
 
   @action
   abort() {
-    this.fileQueue.flush();
     if (this.args.onAbort) {
       this.args.onAbort();
-      this.args.onHidden();
-      return;
     }
   }
 
@@ -66,7 +62,9 @@ export default class Form extends BaseFormComponent {
   }
 
   handleSubmitError(response) {
-    this.errors = JSON.parse(response.body).errors;
+    response.json().then((data) => {
+      this.errors = data.errors;
+    });
     this.changeset.file = null;
     this.record.encryptableCredential = null;
   }
