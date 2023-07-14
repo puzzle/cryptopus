@@ -27,7 +27,7 @@
                               @options={{this.assignableTeams}} @value={{this.team}}
                               @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>
                   <el.control @disabled={{not this.isNewRecord}} class={{if this.changeset.error.team.validation "invalid-input-ps"}}
-                              @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
+                              @renderInPlace={{true}} id="team-dropdown" @onChange={{this.setSelectedTeam}} as |team|>
                     {{#if team.isPersonalTeam }}
                       {{this.userService.username}}
                     {{else}}

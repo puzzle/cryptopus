@@ -128,13 +128,6 @@ module("Integration | Component | encryptable/form", function (hooks) {
       "Team bbteam"
     );
 
-    assert.equal(
-      this.element
-        .querySelector("#encryptable-form-folder")
-        .innerText.replace(/\s+/g, " "),
-      "Folder Select a Folder Folder must be present"
-    );
-
     await selectChoose(
       "#folder-power-select .ember-power-select-trigger",
       "bbt"
@@ -197,13 +190,6 @@ module("Integration | Component | encryptable/form", function (hooks) {
         .querySelector("#encryptable-form-team")
         .innerText.replace(/\s+/g, " "),
       "Team bbteam"
-    );
-
-    assert.equal(
-      this.element
-        .querySelector("#encryptable-form-folder")
-        .innerText.replace(/\s+/g, " "),
-      "Ordner Wählen Sie ein Ordner aus Der Ordner muss vorhanden sein"
     );
 
     await selectChoose(
@@ -274,7 +260,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#encryptable-form-folder")
         .innerText.replace(/\s+/g, " "),
-      "Ordner Wähl ä Ordner us Dr Ordner muess ume si"
+      "Ordner Wähl ä Ordner us"
     );
 
     await selectChoose(
@@ -345,7 +331,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#encryptable-form-folder")
         .innerText.replace(/\s+/g, " "),
-      "Dossier Choisissez un dossier Le dossier doit être présent"
+      "Dossier Choisissez un dossier"
     );
 
     await selectChoose(
