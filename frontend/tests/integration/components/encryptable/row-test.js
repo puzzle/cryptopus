@@ -1,6 +1,6 @@
 import { module, test } from "qunit";
 import { setupRenderingTest } from "ember-qunit";
-import { render } from "@ember/test-helpers";
+import { render, waitFor, waitUntil } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 import Service from "@ember/service";
 import { isPresent } from "@ember/utils";
@@ -46,8 +46,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
-
-    await new Promise((r) => setTimeout(r, 10));
+    await waitFor("#encryptable-row-title", {timeout: 1000});
 
     assert.equal(
       this.element.querySelector("#encryptable-row-title").innerText,
@@ -91,8 +90,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
-
-    await new Promise((r) => setTimeout(r, 1000));
+    await waitFor("#encryptable-row-title", {timeout: 1000});
 
     assert.equal(
       this.element.querySelector("#encryptable-row-title").innerText,
@@ -140,8 +138,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
-
-    await new Promise((r) => setTimeout(r, 10));
+    await waitFor("#encryptable-row-title", {timeout: 1000});
 
     assert.equal(
       this.element.querySelector("#encryptable-row-title").innerText,
@@ -185,7 +182,9 @@ module("Integration | Component | encryptable/row", function (hooks) {
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
 
-    await new Promise((r) => setTimeout(r, 1));
+    await waitUntil(() => {
+      return this.element.textContent.trim().includes("Ninjas test encryptable");
+    }, {timeout: 2000});
 
     let text = this.element.textContent.trim();
     assert.ok(text.includes("Ninjas test encryptable"));
@@ -235,8 +234,9 @@ module("Integration | Component | encryptable/row", function (hooks) {
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
-
-    await new Promise((r) => setTimeout(r, 1));
+    await waitUntil(() => {
+      return this.element.textContent.trim().includes("Ninjas encryptable credentials");
+    }, {timeout: 2000});
 
     let text = this.element.textContent.trim();
     assert.ok(text.includes("Ninjas encryptable credentials"));

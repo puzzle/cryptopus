@@ -85,7 +85,7 @@
     "zxcvbn": "^4.4.2"
   },
   "engines": {
-    "node": ">= 16.*"
+    "node": ">= 18.*"
   },
   "dependencies": {
     "@babel/runtime": "^7.22.5",
