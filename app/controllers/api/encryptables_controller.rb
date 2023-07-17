@@ -110,6 +110,7 @@ class Api::EncryptablesController < ApiController
   end
 
   def encryptable_move_handler
+    entry.sender_id = nil
     EncryptableMoveHandler.new(entry, session[:private_key], current_user)
   end
 

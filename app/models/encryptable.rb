@@ -61,6 +61,10 @@ class Encryptable < ApplicationRecord
     Folder.find(folder_id)&.name == 'inbox' if folder_id
   end
 
+  def decrypt_transferred(private_key)
+    decrypt(plaintext_transfer_password(private_key))
+  end
+
   def plaintext_transfer_password(private_key)
     Crypto::Rsa.decrypt(Base64.decode64(encrypted_transfer_password), private_key)
   end
@@ -74,9 +78,11 @@ class Encryptable < ApplicationRecord
   def encrypt_attr(attr, team_password)
     cleartext_value = send(:"cleartext_#{attr}")
 
-    encrypted_value =
-      cleartext_value.presence &&
-        Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
+    encrypted_value = if cleartext_value.presence
+                        Crypto::Symmetric::Aes256.encrypt(cleartext_value, team_password)
+                      end
+
+    return if transferred? && encrypted_value.blank?
 
     build_encrypted_data(attr, encrypted_value)
   end

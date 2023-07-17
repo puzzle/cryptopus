@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 class EncryptableTransfer
+
   def transfer(encryptable, receiver, sender)
     transfer_password = new_transfer_password
     encryptable.encrypt(transfer_password)
+
+    encryptable.name = encryptable_destination_name(encryptable, receiver)
 
     encryptable.update!(
       folder: receiver.inbox_folder,
@@ -28,6 +31,13 @@ class EncryptableTransfer
 
   private
 
+  def encryptable_destination_name(encryptable, receiver)
+    existing_names = receiver.inbox_folder.encryptables.pluck(:name)
+    is_file = encryptable.is_a?(Encryptable::File)
+
+    transfered_name(encryptable.name, existing_names, is_file).destination_name
+  end
+
   def encrypted_transfer_password(password, receiver)
     Crypto::Rsa.encrypt(
       password,
@@ -37,6 +47,10 @@ class EncryptableTransfer
 
   def new_transfer_password
     Crypto::Symmetric::Aes256.random_key
+  end
+
+  def transfered_name(name, existing_names, is_file)
+    EncryptableTransferedName.new(name, existing_names, is_file)
   end
 
 end

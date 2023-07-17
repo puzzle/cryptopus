@@ -131,6 +131,17 @@ ch_be:
     download: Teilti datei abäladä
     delete_transferred_encryptables: Teilti datei löschä
 
+  encryptable/transferring/credential:
+    new:
+      title: "Zuägangsdate teilä mit"
+    show: Teilti Zuegangsdatä
+    receiver:
+      name: Wäu ä empfänger
+    submit: Schickä
+    sent_at: Gschickt am
+    description_for_sender_start: Ä kopie vo
+    description_for_sender_end: wird id Inbox vom Empfänger gsändet
+
   admin:
     title: Admin
     settings:

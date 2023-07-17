@@ -1,22 +1,20 @@
 import { action } from "@ember/object";
-import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "./base-form-component";
 import ENV from "frontend/config/environment";
-import { fileUploadValidation } from "../helpers/file-upload-validation";
-import EncryptableTransferFile from "../validations/encryptable-transfer-file";
+import lookupValidator from "ember-changeset-validations";
+import EncryptableTransferCredential from "../validations/encryptable-transfer-credential";
 
-export default class FileTransfer extends BaseFormComponent {
+export default class CredentialTransfer extends BaseFormComponent {
   @service store;
   @service router;
   @service navService;
+  @tracked encryptableId;
+  @tracked encryptableName;
   @tracked candidates;
   @tracked receiver;
-
-  @tracked
-  isFileCreating = false;
 
   constructor() {
     super(...arguments);
@@ -25,11 +23,15 @@ export default class FileTransfer extends BaseFormComponent {
 
     this.changeset = new Changeset(
       this.record,
-      lookupValidator(EncryptableTransferFile),
-      EncryptableTransferFile
+      lookupValidator(EncryptableTransferCredential),
+      EncryptableTransferCredential
     );
 
     this.changeset.csrfToken = ENV.CSRFToken;
+
+    this.encryptableId = this.args.encryptableId;
+    this.encryptableName = this.args.encryptableName;
+    this.changeset.encryptableId = this.encryptableId;
 
     this.loadValidation();
 
@@ -44,15 +46,8 @@ export default class FileTransfer extends BaseFormComponent {
       .then((res) => (this.candidates = res));
   }
 
-  @action
-  toggleFileNew() {
-    this.isFileCreating = !this.isFileCreating;
-  }
-
-  @action
-  uploadFile(file) {
-    this.changeset.file = file;
-    this.loadValidation();
+  async loadValidation() {
+    await this.changeset.validate();
   }
 
   @action
@@ -75,36 +70,10 @@ export default class FileTransfer extends BaseFormComponent {
     }
   }
 
-  async beforeSubmit() {
-    await this.changeset.validate();
-    return this.changeset.isValid;
-  }
-
-  @action
-  submit() {
-    this.validateUploadedFile();
-  }
-
-  async loadValidation() {
-    await this.changeset.validate();
-  }
-
-  validateUploadedFile() {
-    let isFileValid = fileUploadValidation(
-      this.changeset.file,
-      this.intl,
-      this.notify
-    );
-
-    if (isFileValid) {
-      this.changeset.save();
-      this.abort();
-      this.showSuccessMessage();
-    }
-  }
-
   showSuccessMessage() {
-    let msg = this.intl.t("flashes.encryptable_transfer.file.transferred");
+    let msg = this.intl.t(
+      "flashes.encryptable_transfer.credentials.transferred"
+    );
     this.notify.success(msg);
   }
 
@@ -114,7 +83,5 @@ export default class FileTransfer extends BaseFormComponent {
 
   handleSubmitError(response) {
     this.errors = JSON.parse(response.body).errors;
-    this.changeset.file = null;
-    this.record.encryptableCredential = null;
   }
 }
