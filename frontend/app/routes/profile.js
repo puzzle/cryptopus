@@ -1,9 +1,9 @@
-import BaseRoute from "./base";
 import ENV from "../config/environment";
 import RSVP from "rsvp";
 import { inject as service } from "@ember/service";
+import ApplicationRoute from "./application";
 
-export default class ProfileRoute extends BaseRoute {
+export default class ProfileRoute extends ApplicationRoute {
   @service navService;
 
   model() {

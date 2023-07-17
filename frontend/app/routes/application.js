@@ -6,6 +6,8 @@ import ENV from "../config/environment";
 export default class ApplicationRoute extends Route {
   @service notify;
   @service intl;
+  @service logoutTimerService;
+  @service store;
 
   async beforeModel() {
     if(ENV.environment !== "test") {
@@ -50,6 +52,12 @@ export default class ApplicationRoute extends Route {
     } else if (error.message.includes("401")) {
       window.location.replace("/session/new");
     }
+  }
+
+  @action
+  didTransition() {
+    this.logoutTimerService.start();
+    return true; // Bubble the didTransition event
   }
 
   getErrorMessage(error) {

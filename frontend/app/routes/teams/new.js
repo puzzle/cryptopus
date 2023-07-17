@@ -1,3 +1,2 @@
-import BaseRoute from "../base";
-
-export default BaseRoute.extend({});
+import ApplicationRoute from "../application";
+export default ApplicationRoute.extend({});
