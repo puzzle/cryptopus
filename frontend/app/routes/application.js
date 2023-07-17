@@ -3,7 +3,7 @@ import { inject as service } from "@ember/service";
 import { action } from "@ember/object";
 import ENV from "../config/environment";
 
-export default class IndexRoute extends Route {
+export default class ApplicationRoute extends Route {
   @service notify;
   @service intl;
 
