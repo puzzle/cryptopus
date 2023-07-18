@@ -22,6 +22,7 @@ team1:
   description: public
   visible: true
   private: false
+  encryption_algorithm: 'AES256IV'
 
 team2:
   type: Team::Shared
@@ -29,33 +30,39 @@ team2:
   description: public
   visible: true
   private: true
+  encryption_algorithm: 'AES256IV'
 
 personal_team_bob:
   type: Team::Personal
   name: personal-team
   private: true
   personal_owner: bob
+  encryption_algorithm: 'AES256IV'
 
 personal_team_alice:
   type: Team::Personal
   name: personal-team
   private: true
   personal_owner: alice
+  encryption_algorithm: 'AES256IV'
 
 personal_team_root:
   type: Team::Personal
   name: personal-team
   private: true
   personal_owner: root
+  encryption_algorithm: 'AES256IV'
 
 personal_team_admin:
   type: Team::Personal
   name: personal-team
   private: true
   personal_owner: admin
+  encryption_algorithm: 'AES256IV'
 
 personal_team_conf_admin:
   type: Team::Personal
   name: personal-team
   private: true
   personal_owner: conf_admin
+  encryption_algorithm: 'AES256IV'

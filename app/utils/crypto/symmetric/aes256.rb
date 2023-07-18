@@ -3,34 +3,37 @@
 require 'openssl'
 require 'digest/sha1'
 
-require_relative './aes256'
+class ::Crypto::Symmetric::Aes256 < ::Crypto::Symmetric
 
-class Crypto::Symmetric::Aes256 < Crypto::Symmetric
   CIPHER ||= 'AES-256-CBC'
   MAGIC ||= 'Salted__'
   SALT_LENGTH ||= 8
   ITERATION_COUNT ||= 1000
 
-  class << self
+  self.password_bitsize = OpenSSL::Cipher.new(CIPHER).key_len * 8
 
+  class << self
     def encrypt(data, key)
       cipher = cipher_encrypt_mode
 
       # set encryption key
       cipher.key = key
 
-      # return encrypted data
-      cipher.update(data) + cipher.final
+      # encrypt given data
+      encrypted_data = cipher.update(data) + cipher.final
+
+      # return data and nil iv value
+      { data: encrypted_data, iv: nil }
     end
 
-    def decrypt(data, key)
+    def decrypt(encrypted_data, key)
       cipher = cipher_decrypt_mode
 
       # set decryption key
       cipher.key = key
 
       # decrypt data
-      cipher.update(data) + cipher.final
+      cipher.update(encrypted_data[:data]) + cipher.final
     end
 
     def encrypt_with_salt(data, key)

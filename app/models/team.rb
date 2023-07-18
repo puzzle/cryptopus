@@ -23,6 +23,16 @@ class Team < ApplicationRecord
   validates :name, presence: true
   validates :name, length: { maximum: 40 }
   validates :description, length: { maximum: 300 }
+  validates :encryption_algorithm,
+            inclusion: { in: ::Crypto::Symmetric::ALGORITHMS.keys }, allow_nil: false
+
+  after_initialize :set_encryption_algorithm, if: :new_record?
+
+  enum recrypt_state: {
+    failed: 0,
+    done: 1,
+    in_progress: 2
+  }, _prefix: :recrypt
 
   def label
     name
@@ -41,8 +51,8 @@ class Team < ApplicationRecord
   end
 
   def decrypt_team_password(user, plaintext_private_key)
-    crypted_team_password = teammember(user.id).password
-    Crypto::Rsa.decrypt(crypted_team_password, plaintext_private_key)
+    encrypted_team_password = teammember(user.id).encrypted_team_password
+    Crypto::Rsa.decrypt(encrypted_team_password, plaintext_private_key)
   end
 
   def personal_team?
@@ -60,10 +70,31 @@ class Team < ApplicationRecord
     TeamPolicy
   end
 
+  def encryption_class
+    Crypto::Symmetric::ALGORITHMS[encryption_algorithm]
+  end
+
+  def password_bitsize
+    encryption_class.password_bitsize
+  end
+
+  def new_team_password
+    encryption_class.random_key
+  end
+
+  def encryptables
+    encryptable_ids = Encryptable.joins(folder: :team).where('teams.id': id).pluck(:id)
+    Encryptable.where(id: encryptable_ids).or(Encryptable.where(credential_id: encryptable_ids))
+  end
+
   private
 
   def create_teammember(user, plaintext_team_password)
     encrypted_team_password = Crypto::Rsa.encrypt(plaintext_team_password, user.public_key)
-    teammembers.create!(password: encrypted_team_password, user: user)
+    teammembers.create!(encrypted_team_password: encrypted_team_password, user: user)
+  end
+
+  def set_encryption_algorithm
+    self.encryption_algorithm = Crypto::Symmetric::LATEST_ALGORITHM
   end
 end

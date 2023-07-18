@@ -43,6 +43,7 @@ module("Integration | Component | team/show", function (hooks) {
       name: "BBT",
       description: "Berufsbildungsteam of Puzzle ITC",
       folders: [folder],
+      encryptionAlgorithm: "AES256",
       userFavouriteTeams: [{ favourised: true }]
     });
 

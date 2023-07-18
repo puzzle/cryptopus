@@ -7,23 +7,21 @@ describe FolderSerializer do
   let(:bob) { users(:bob) }
 
 
-  context 'No files transferred' do
+  context 'Transferred count' do
 
-    it 'should return 0 unread transferred files' do
+    it 'returns 0 if no transferred files in inbox folder' do
       as_json = JSON.parse(FolderSerializer.new(folders(:inbox_folder_alice)).to_json)
 
       expect(as_json['unread_transferred_count']).to eq(0)
     end
-  end
 
-  context 'Some files transferred' do
-
-    it 'should return 1 unread transferred file' do
+    it 'returns 1 if unread transferred file present in inbox folder' do
       encryptable_file = Encryptable::File.new(name: 'file',
+                                               folder_id: alice.inbox_folder.id,
                                                cleartext_file: file_fixture('test_file.txt').read,
                                                content_type: 'text/plain')
 
-      transfer_password = Crypto::Symmetric::Aes256.random_key
+      transfer_password = Crypto::Symmetric::Aes256iv.random_key
 
       encryptable_file.encrypt(transfer_password)
 
@@ -39,6 +37,12 @@ describe FolderSerializer do
       as_json = JSON.parse(FolderSerializer.new(folders(:inbox_folder_alice)).to_json)
 
       expect(as_json['unread_transferred_count']).to eq(1)
+    end
+
+    it 'does not return count for non inbox folder' do
+      as_json = JSON.parse(FolderSerializer.new(folders(:folder2)).to_json)
+
+      expect(as_json['unread_transferred_count']).to eq(nil)
     end
   end
 end

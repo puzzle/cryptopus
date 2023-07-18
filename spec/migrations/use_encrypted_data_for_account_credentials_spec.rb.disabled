@@ -172,7 +172,8 @@ class LegacyAccountCredentialsBefore < ApplicationRecord
     crypted_value = send(attr)
     return if crypted_value.blank?
 
-    Crypto::Symmetric::Aes256.decrypt(crypted_value, team_password)
+    encrypted_values = { data: crypted_value, iv: nil }
+    Crypto::Symmetric::Aes256.decrypt(encrypted_values, team_password)
   end
 end
 
@@ -193,10 +194,12 @@ class LegacyAccountCredentialsAfter < ApplicationRecord
   private
 
   def decrypt_attr(attr, team_password)
-    encrypted_value = encrypted_data[attr].try(:[], :data)
+    data = encrypted_data[attr].try(:[], :data)
+    iv = encrypted_data[attr].try(:[], :iv)
 
-    cleartext_value = if encrypted_value
-                        Crypto::Symmetric::Aes256.decrypt(encrypted_value, team_password)
+    encrypted_values = { data: data, iv: iv }
+    cleartext_value = if data.present?
+                        Crypto::Symmetric::Aes256.decrypt(encrypted_values, team_password)
                       end
 
     instance_variable_set("@cleartext_#{attr}", cleartext_value)

@@ -111,7 +111,6 @@ de:
     new:
       title: Neue Zugangsdaten
     form:
-      encryptedField: Dieses Feld wird verschlüsselt
       notEncryptedField: Dieses Feld wird nicht verschlüsselt
     row:
       clickToSeeAttrs: Klicke um alle Attribute zu sehen
@@ -387,6 +386,7 @@ de:
     delete_encryptables: Zugangsdaten löschen
     configure: Konfiguriere Mitglieder
     sent_by: Gesendet von
+    encryption_algorithm: "Verschlüsselt mit "
 
   helpers:
     label:
