@@ -73,7 +73,7 @@ describe 'UpdatePasswordModal', type: :system, js: true do
 
   def fill_modal(password_attrs)
     within('div.modal-body') do
-      expect(page).to have_css('input')
+      expect(page).to have_css('input', count: 3)
       password_inputs = all('input')
 
       old_password_input = password_inputs.first
