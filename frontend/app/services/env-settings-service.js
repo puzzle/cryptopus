@@ -3,15 +3,15 @@ import ENV from "../config/environment";
 
 export default class EnvSettingsService extends Service {
 
-  async handleEnvironmentSettings() {
+  async applyEnvSettings() {
     if(ENV.environment !== "test") {
       const response = await fetch("/api/env_settings");
       const envSettings = await response.json();
-      await this.setEnvironmentSettings(envSettings);
+      await this.setEnvSettings(envSettings);
     }
   }
 
-  async setEnvironmentSettings(envSettings) {
+  async setEnvSettings(envSettings) {
     ENV.sentryDsn = envSettings.sentry;
     ENV.currentUserId = envSettings.current_user.id;
     ENV.currentUserRole = envSettings.current_user.role;

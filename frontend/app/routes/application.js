@@ -11,7 +11,7 @@ export default class ApplicationRoute extends Route {
   @service envSettingsService;
 
   async beforeModel() {
-    await this.envSettingsService.handleEnvironmentSettings();
+    await this.envSettingsService.applyEnvSettings();
     let selectedLocale = this.intl.locales.includes(
       ENV.preferredLocale.replace("_", "-")
     )
