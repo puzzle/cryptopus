@@ -29,7 +29,7 @@ class Encryptable < ApplicationRecord
   validates :description, length: { maximum: 4000 }
 
   def encrypt(team_password, encryption_algorithm = nil)
-    present_cleartext_attrs.each do |a|
+    used_encrypted_attrs.each do |a|
       encrypt_attr(a, team_password, encryption_algorithm)
     end
   end
@@ -89,12 +89,6 @@ class Encryptable < ApplicationRecord
   end
 
   private
-
-  def present_cleartext_attrs
-    used_encrypted_attrs.select do |a|
-      send(:"cleartext_#{a}").present?
-    end
-  end
 
   def encrypt_attr(attr, team_password, encryption_algorithm = nil)
     cleartext_value = send(:"cleartext_#{attr}")
