@@ -152,8 +152,4 @@ class Encryptable < ApplicationRecord
       errors.add(:receiver_id, 'Must be a human user')
     end
   end
-
-  def file?
-    is_a?(Encryptable::File)
-  end
 end
