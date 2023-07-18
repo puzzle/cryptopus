@@ -36,7 +36,7 @@ class Teammember < ApplicationRecord
 
 
   def reset_team_password(new_team_password)
-    public_key = human.public_key
+    public_key = user.public_key
     encrypted_team_password = Crypto::Rsa.encrypt(new_team_password, public_key)
     self.encrypted_team_password = encrypted_team_password
     save!

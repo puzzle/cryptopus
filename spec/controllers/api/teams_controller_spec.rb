@@ -386,11 +386,19 @@ describe Api::TeamsController do
 
     context 'Recrypt' do
       it 'triggers team recrypt if latest algorithm is not applied on team' do
+        admin = users(:admin)
         login_as(:admin)
+        api_user = admin.api_users.create!
 
         stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256')
 
         team = Fabricate(:non_private_team)
+
+        # Add api user to team
+        admins_private_key = admin.decrypt_private_key('password')
+        plaintext_team_password = team.decrypt_team_password(admin, admins_private_key)
+        team.add_user(api_user, plaintext_team_password)
+
         expect(team.encryption_algorithm).to eq('AES256')
 
         stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
