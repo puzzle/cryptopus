@@ -23,26 +23,22 @@ class Encryptable < ApplicationRecord
   validates :type, presence: true
 
   belongs_to :folder
-  belongs_to :sender, class_name: 'User::Human'
+  belongs_to :sender, class_name: User::Human.sti_name
 
   validates :name, presence: true
   validates :description, length: { maximum: 4000 }
 
   def encrypt(team_password, encryption_algorithm = nil)
-    return if file? && cleartext_file.empty?
-
-    attributes = transferred? ? available_attrs : used_encrypted_attrs
-    attributes.each { |attribute| encrypt_attr(attribute, team_password, encryption_algorithm) }
-  end
-
-  def decrypt(team_password)
-    available_attrs.each do |attribute|
-      decrypt_attr(attribute, team_password)
+    present_cleartext_attrs.each do |a|
+      encrypt_attr(a, team_password, encryption_algorithm)
     end
   end
 
-  def available_attrs
-    used_encrypted_attrs.select { |attribute| encrypted_data[attribute]&.dig(:data) }
+  def decrypt(team_password)
+    encrypted_attrs = encrypted_data.used_attributes
+    encrypted_attrs.each do |a|
+      decrypt_attr(a, team_password)
+    end
   end
 
   def recrypt(team_password, new_team_password, new_encryption_class)
@@ -93,6 +89,12 @@ class Encryptable < ApplicationRecord
   end
 
   private
+
+  def present_cleartext_attrs
+    used_encrypted_attrs.select do |a|
+      send(:"cleartext_#{a}").present?
+    end
+  end
 
   def encrypt_attr(attr, team_password, encryption_algorithm = nil)
     cleartext_value = send(:"cleartext_#{attr}")
