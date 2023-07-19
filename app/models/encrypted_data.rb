@@ -21,14 +21,18 @@ class EncryptedData
   end
 
   def to_json(*_args)
-    @data.reject { |_, value| value[:data].blank? }.to_json
+    present_data.to_json
   end
 
   def used_attributes
-    @data.keys.map(&:to_s)
+    present_data.keys
   end
 
   private
+
+  def present_data
+    @data.reject { |_, value| value[:data].blank? }
+  end
 
   def data_hash(iv, data, label = nil)
     hash = { iv: iv, data: data }

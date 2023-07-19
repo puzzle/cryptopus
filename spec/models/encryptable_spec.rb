@@ -8,6 +8,7 @@ describe Encryptable do
   let(:bobs_private_key) { bob.decrypt_private_key('password') }
   let(:encryptable) { encryptables(:credentials1) }
   let(:team) { teams(:team1) }
+  let(:team_password) { team.decrypt_team_password(bob, bobs_private_key) }
 
   it 'does not create second credential in same folder' do
     params = {}
@@ -39,8 +40,6 @@ describe Encryptable do
   end
 
   it 'decrypts all attributes' do
-    team_password = team.decrypt_team_password(bob, bobs_private_key)
-
     encryptable.decrypt(team_password)
 
     expect(encryptable.cleartext_username).to eq('test')
@@ -53,8 +52,6 @@ describe Encryptable do
   end
 
   it 'updates all attributes' do
-    team_password = team.decrypt_team_password(bob, bobs_private_key)
-
     encryptable.cleartext_username = 'new'
     encryptable.cleartext_password = 'foo'
     encryptable.cleartext_token = 'boo'
@@ -75,6 +72,17 @@ describe Encryptable do
     expect(encryptable.cleartext_email).to eq('too')
     expect(encryptable.cleartext_custom_attr_label).to eq('coo')
     expect(encryptable.cleartext_custom_attr).to eq('yoo')
+  end
+
+  it 'removes attribute by saving nil value to database' do
+    encryptable.cleartext_username = nil
+    encryptable.encrypt(team_password)
+    encryptable.save!
+
+    encryptable.reload
+    encryptable.decrypt(team_password)
+
+    expect(encryptable.cleartext_username).to eq(nil)
   end
 
   it 'does not create credential if name is empty' do

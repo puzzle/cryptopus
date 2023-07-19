@@ -111,7 +111,6 @@ ch_be:
     new:
       title: Nöi Zuägangsdate
     form:
-      encryptedField: Das Fäld wird verschlüsslät
       notEncryptedField: Das Fäld wird nid verschlüsslät
     row:
       clickToSeeAttrs: Klick wenn aui Attribut möchtisch gseh
@@ -387,6 +386,7 @@ ch_be:
     delete_encryptables: Zuägangsdate lösche
     configure: Konfigurier d'Mitgliedr
     sent_by: Gsändet vo
+    encryption_algorithm: "Verschlüsslet mit "
 
   helpers:
     label:

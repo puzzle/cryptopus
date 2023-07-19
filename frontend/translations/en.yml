@@ -112,7 +112,6 @@ en:
     new:
       title: New Credentials
     form:
-      encryptedField: This field is encrypted
       notEncryptedField: This field is not encrypted
     row:
       clickToSeeAttrs: Click to see all attributes
@@ -387,6 +386,7 @@ en:
     delete_encryptables: Delete the Credentials
     configure: Configure Members
     sent_by: Sent by
+    encryption_algorithm: "Encrypted with "
 
   helpers:
     label:

@@ -14,7 +14,7 @@ class TeamFoldersEncryptablesSeeder
       seed_folder(team)
     end
 
-    plaintext_team_pw = Crypto::Symmetric::Aes256.random_key
+    plaintext_team_pw = Crypto::Symmetric::Aes256iv.random_key
 
     members.each do |m|
       u = user(m)

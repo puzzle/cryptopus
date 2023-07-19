@@ -112,7 +112,6 @@ fr:
     new:
       title: Nouveau compte
     form:
-      encryptedField: Ce champ est crypté
       notEncryptedField: Ce champ n'est pas crypté
     row:
       clickToSeeAttrs: Cliquez pour voir tous les attributs
@@ -388,6 +387,7 @@ fr:
     delete_encryptables: Supprimer le compte
     configure: Configurer les membres
     sent_by: Envoyé par
+    encryption_algorithm: "Crypté avec "
 
   helpers:
     label:

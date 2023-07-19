@@ -17,7 +17,7 @@ class Api::TeamsController < ApiController
   # GET /api/teams
   def index
     if team_id.present?
-      authorize Team.find(team_id), :team_member?
+      fetch_team
     elsif params['only_teammember_user_id'].present?
       authorize ::Team, :only_teammember?
     else
@@ -27,6 +27,32 @@ class Api::TeamsController < ApiController
   end
 
   private
+
+  def fetch_team
+    @team = Team.find(team_id)
+    authorize @team, :team_member?
+
+    unless already_recrypted?(@team)
+      receive_transferred_encryptables(@team) if team.personal_team?
+      recrypt(@team)
+    end
+  end
+
+  def receive_transferred_encryptables(team)
+    team.encryptables.select(&:transferred?).each do |encryptable|
+      team_password = decrypted_team_password(team)
+      EncryptableTransfer.new.receive(encryptable, session[:private_key], team_password)
+    end
+  end
+
+  def already_recrypted?(team)
+    Crypto::Symmetric.latest_algorithm?(team)
+  end
+
+  def recrypt(team)
+    private_key = session[:private_key]
+    Crypto::Symmetric::Recrypt.new(current_user, team, private_key).perform
+  end
 
   def build_entry
     instance_variable_set(:"@#{ivar_name}",

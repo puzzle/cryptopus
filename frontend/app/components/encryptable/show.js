@@ -5,6 +5,7 @@ import { inject as service } from "@ember/service";
 
 export default class ShowComponent extends Component {
   @service router;
+  @service navService;
 
   constructor() {
     super(...arguments);

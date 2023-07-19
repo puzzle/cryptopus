@@ -14,6 +14,7 @@ describe Api::TeamsController do
   let!(:team4) { Fabricate(:non_private_team) }
   let(:bobs_private_key) { bob.decrypt_private_key('password') }
   let!(:team3_user) { team3.teammembers.first.user }
+  let(:test_file) { FixturesHelper.read_file('test_file.txt') }
 
   context 'GET index' do
     it 'should get team for search term' do
@@ -217,8 +218,8 @@ describe Api::TeamsController do
       expect(encryptables.last['attributes']['name']).to eq(filename1)
       expect(encryptables.last['attributes']['name']).not_to eq(filename2)
 
-      expect(encryptables.count).to be(3)
-      expect(included.size).to be(4)
+      expect(encryptables.count).to be(2)
+      expect(included.size).to be(3)
     end
 
     it 'returns sender_name if transferred encryptable' do
@@ -267,6 +268,7 @@ describe Api::TeamsController do
       team3_attributes['favourised'] = false
       team3_attributes['deletable'] = false
       team3_attributes['personal_team'] = false
+      team3_attributes['password_bitsize'] = 256
       expect(team3_attributes).to include(attributes_team)
       folder_relationships_length = data.first['relationships']['folders']['data'].size
 
@@ -379,6 +381,122 @@ describe Api::TeamsController do
 
           expect(response).to have_http_status(403)
         end
+      end
+    end
+
+    context 'Recrypt' do
+      it 'triggers team recrypt if latest algorithm is not applied on team' do
+        admin = users(:admin)
+        login_as(:admin)
+        api_user = admin.api_users.create!
+
+        stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256')
+
+        team = Fabricate(:non_private_team)
+
+        # Add api user to team
+        admins_private_key = admin.decrypt_private_key('password')
+        plaintext_team_password = team.decrypt_team_password(admin, admins_private_key)
+        team.add_user(api_user, plaintext_team_password)
+
+        expect(team.encryption_algorithm).to eq('AES256')
+
+        stub_const('::Crypto::Symmetric::LATEST_ALGORITHM', 'AES256IV')
+
+        get :index, params: { team_id: team.id }, xhr: true
+
+        expect(response.status).to be(200)
+
+        team.reload
+        expect(team.encryption_algorithm).to eq('AES256IV')
+      end
+
+      it 'does not recrypt if latest algorithm' do
+        login_as(:bob)
+
+        get :index, params: { team_id: team1.id }, xhr: true
+
+        expect(team1.encryption_algorithm).to eq('AES256IV')
+
+        expect(response.status).to be(200)
+
+        team1.reload
+        expect(team1.encryption_algorithm).to eq('AES256IV')
+      end
+    end
+
+    context 'Receive transferred encryptables' do
+      it 'Receive method gets called to encrypt transferred encryptable' do
+        login_as(:bob)
+
+        Fabricate(
+          :transferred_file,
+          id_sender: alice.id,
+          receiver_inbox_folder: bob.inbox_folder,
+          receiver_pk: bob.public_key,
+          encryption_algorithm: Crypto::Symmetric::Aes256
+        )
+
+        expect_any_instance_of(EncryptableTransfer)
+          .to receive(:receive)
+          .exactly(1).times
+          .and_return(nil)
+
+        default_folder = Folder.new(name: 'default', team: personal_team_bob)
+
+        personal_team_bob.folders = [default_folder, bob.inbox_folder]
+
+        personal_team_bob.encryption_algorithm = 'AES256'
+        personal_team_bob.save!
+
+        expect do
+          get :index, params: { team_id: personal_team_bob.id }, xhr: true
+        end.to raise_error(RuntimeError)
+
+      end
+
+      it 'Receive method to encrypt transferred encryptable dont get called on recent algorithm' do
+        login_as(:bob)
+
+        Fabricate(
+          :transferred_file,
+          id_sender: alice.id,
+          receiver_inbox_folder: bob.inbox_folder,
+          receiver_pk: bob.public_key,
+          encryption_algorithm: Crypto::Symmetric::Aes256iv
+        )
+
+        expect_any_instance_of(EncryptableTransfer)
+          .not_to receive(:receive)
+          .and_return(nil)
+
+        default_folder = Folder.new(name: 'default', team: personal_team_bob)
+
+        personal_team_bob.folders = [default_folder, bob.inbox_folder]
+
+        get :index, params: { team_id: personal_team_bob.id }, xhr: true
+      end
+
+      it 'It does not receive encryptables in personal team if they are not transferred' do
+        login_as(:bob)
+
+        params = {}
+        params[:name] = 'Shopping Account'
+        params[:folder_id] = bob.inbox_folder.id
+        params[:type] = 'Encryptable::Credentials'
+        params[:cleartext_username] = 'username'
+        Encryptable::Credentials.new(params)
+
+        expect_any_instance_of(EncryptableTransfer)
+          .not_to receive(:receive)
+          .exactly(1).times
+          .and_return(nil)
+
+        default_folder = Folder.new(name: 'default', team: personal_team_bob)
+
+        personal_team_bob.folders = [default_folder, bob.inbox_folder]
+
+        get :index, params: { team_id: personal_team_bob.id }, xhr: true
       end
     end
   end

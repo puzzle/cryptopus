@@ -1,5 +1,9 @@
+## Version 5.2
+- Recrypt encrypted db data with AES256iv
+
 ## Version 5.1
 - Introduce Encryptable Credentials Sharing
+- Introduce ability to dynamically add new Encryption Alogrithms
 
 ## Version 5.0
 - Introduce new Attributes for Credentials

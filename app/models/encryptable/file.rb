@@ -3,6 +3,8 @@
 class Encryptable::File < Encryptable
   attr_accessor :cleartext_file
 
+  self.used_encrypted_attrs = [:file].freeze
+
   belongs_to :encryptable_credential,
              class_name: 'Encryptable::Credentials',
              foreign_key: :credential_id
@@ -10,16 +12,6 @@ class Encryptable::File < Encryptable
   validates :name, uniqueness: { scope: :credential_id }, if: :credential_id
 
   validate :file_size, on: [:create, :update]
-
-  def decrypt(team_password)
-    decrypt_attr(:file, team_password)
-  end
-
-  def encrypt(team_password)
-    return if cleartext_file.empty?
-
-    encrypt_attr(:file, team_password)
-  end
 
   def team
     folder&.team || encryptable_credential.folder.team
