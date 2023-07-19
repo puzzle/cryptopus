@@ -7,8 +7,6 @@ export default class Index extends Component {
   @service loading;
 
   @tracked model = this.args.model;
-  @tracked q = this.args.q;
-
   constructor() {
     super(...arguments);
   }
