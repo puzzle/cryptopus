@@ -7,8 +7,8 @@
         </div>
       </div>
     {{else}}
-      {{#if this.q}}
-        <SearchResultComponent @q={{this.q}}/>
+      {{#if this.navService.searchQuery}}
+        <SearchResultComponent @q={{this.navService.searchQuery}}/>
       {{/if}}
       {{#if @model}}
         {{#each this.model as |team|}}
