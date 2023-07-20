@@ -60,15 +60,20 @@ module ::Teams
     end
 
     def filter_by_query(teams)
-      teams.where(
-        'lower(encryptables.description) LIKE :query
+      if database_name.include? 'postgres'
+        binding.pry
+        PgSearch.multisearch(query)
+      else
+        teams.where(
+          'lower(encryptables.description) LIKE :query
         OR lower(encryptables.name) LIKE :query
         OR lower(folders.name) LIKE :query
         OR lower(teams.name) LIKE :query',
-        query: "%#{query}%"
-      )
-           .references(:folders,
-                       folders: [:encryptables])
+          query: "%#{query}%"
+        )
+             .references(:folders,
+                         folders: [:encryptables])
+      end
     end
 
     def filter_by_id(filtered_teams)
