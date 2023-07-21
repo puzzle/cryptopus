@@ -26,7 +26,11 @@ class Folder < ApplicationRecord
   validates :personal_inbox, uniqueness: { scope: :team, if: :personal_inbox? }
 
   include PgSearch::Model
-  multisearchable against: [:name]
+  pg_search_scope :search_by_name,
+                  against: [:name, :description],
+                  using: {
+                    tsearch: { prefix: true }
+                  }
 
   def label
     name

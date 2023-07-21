@@ -9,7 +9,7 @@ module ::Teams
       else
         filtered_teams = teams
 
-        filtered_teams = filter_by_query(filtered_teams) if query_present?
+        filtered_teams = SearchStrategy.new.search(query, filtered_teams) if query_present?
         filtered_teams = filter_by_id(filtered_teams) if team_id.present?
       end
 
@@ -57,23 +57,6 @@ module ::Teams
 
     def limit
       @params[:limit]
-    end
-
-    def filter_by_query(teams)
-      if database_name.include? 'postgres'
-        binding.pry
-        PgSearch.multisearch(query)
-      else
-        teams.where(
-          'lower(encryptables.description) LIKE :query
-        OR lower(encryptables.name) LIKE :query
-        OR lower(folders.name) LIKE :query
-        OR lower(teams.name) LIKE :query',
-          query: "%#{query}%"
-        )
-             .references(:folders,
-                         folders: [:encryptables])
-      end
     end
 
     def filter_by_id(filtered_teams)

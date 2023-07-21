@@ -35,7 +35,11 @@ class Team < ApplicationRecord
   }, _prefix: :recrypt
 
   include PgSearch::Model
-  multisearchable against: [:name]
+  pg_search_scope :search_by_name,
+                  against: [:name, :description],
+                  using: {
+                    tsearch: { prefix: true }
+                  }
 
   def label
     name
