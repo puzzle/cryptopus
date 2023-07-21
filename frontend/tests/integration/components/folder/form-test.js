@@ -117,7 +117,7 @@ module("Integration | Component | folder/form", function (hooks) {
     );
   });
 
-  test("it disbales team dropdown when editing", async function (assert) {
+  test("it disables team dropdown when editing", async function (assert) {
     this.set("folder", {
       id: 1,
       name: "mail"
@@ -125,7 +125,7 @@ module("Integration | Component | folder/form", function (hooks) {
     await render(hbs`<Folder::Form @folder={{this.folder}} />`);
 
     assert.ok(
-      this.element.querySelector("#team-dopdown").getAttribute("aria-disabled")
+      this.element.querySelector("#team-dropdown").getAttribute("aria-disabled")
     );
   });
 });

@@ -6,12 +6,13 @@ import en from "i18n-iso-countries/langs/en.json";
 
 export default class AdminSettingsRoute extends AdminRoute {
   ISOArray = [];
-  constructor() {
-    super(...arguments);
+
+  async beforeModel() {
     countries.registerLocale(en);
     let locale = ENV.preferredLocale !== "ch_be" ? ENV.preferredLocale : "de";
     this.ISOArray = Object.entries(countries.getNames(locale));
   }
+
   model() {
     const countries = this.ISOArray.map((countryArray) => {
       return { value: countryArray[0], label: countryArray[1] };

@@ -9,9 +9,17 @@
           <div class="row mt-1">
             <div class="col-sm-12">
               <div class="float-right">
-                <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{this.addMember}} @placeholder={{t "teammembers.new.title"}} as |candidate|>
+                <PowerSelect
+                  class="btn btn-primary powerSelect p-2"
+                  @searchEnabled="true"
+                  @searchField="label"
+                  @search={{this.search}}
+                  @renderInPlace="true"
+                  @options={{this.candidates}}
+                  @placeholder={{t "teammembers.new.title"}}
+                  @onChange={{this.addMember}} as |candidate|>
                   {{candidate.label}}
-                </PowerSelectTypeahead>
+                </PowerSelect>
               </div>
             </div>
           </div>

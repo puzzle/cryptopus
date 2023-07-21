@@ -1,13 +1,14 @@
-import BaseRoute from "./base";
 import { inject as service } from "@ember/service";
+import ApplicationRoute from "./application";
 
-export default class AdminRoute extends BaseRoute {
+export default class AdminRoute extends ApplicationRoute {
   @service userService;
   @service navService;
+  @service router;
 
   beforeModel() {
     if (!this.userService.mayManageSettings) {
-      return this.transitionTo("index");
+      return this.router.transitionTo("index");
     }
   }
 

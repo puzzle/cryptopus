@@ -7,7 +7,7 @@ export default class Encryptable extends Model {
   @attr("string") createdAt;
   @attr("string") updatedAt;
   @attr("string") sender_name;
-  @belongsTo("folder") folder;
+  @belongsTo("folder", {async: false, inverse: "encryptables", as: "encryptable"}) folder;
 
   get isCredential() {
     return this.constructor.modelName === "encryptable-credential";

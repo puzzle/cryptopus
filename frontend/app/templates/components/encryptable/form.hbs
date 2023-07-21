@@ -25,7 +25,7 @@
                 </div>
               {{/if}}
               <div class="col-md-6 order-2">
-                <form.group class="col-md-12">
+                <div class="col-md-12">
                   <form.element id="encryptable-form-accountname" @property="name" @label={{t
                     "helpers.label.encryptable/credentials.accountname"}}
                                 class={{if this.changeset.error.name.validation
@@ -33,12 +33,12 @@
                                 @customError={{t (validation-error-key this.changeset.error.name.validation)}} as |el|>
                     <el.control autocomplete="off" @name="name"></el.control>
                   </form.element>
-                </form.group>
+                </div>
               </div>
               <div class="col-md-6 order-2">
                 <div class="form-group col-md-12" id="team-power-select">
                   <form.element id="encryptable-form-team" @label={{t "team"}} @controlType="power-select"
-                                @options={{this.assignableTeams}} @value={{this.changeset.team}}
+                                @options={{this.assignableTeams}} @value={{this.selectedTeam}}
                                 @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>
                     <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @placeholder={{t
                       "encryptable/credentials.edit.team_placeholder"}}
@@ -54,7 +54,7 @@
                 <div class="form-group col-md-12" id="folder-power-select">
                   <form.element id="encryptable-form-folder" if="encryptable-form-folder"
                                 @options={{this.availableFolders}} @label={{t "folder"}} @controlType="power-select"
-                                @value={{this.changeset.folder}}
+                                @value={{this.selectedFolder}}
                                 @searchEnabled={{true}} @allowClear={{true}} @searchField={{"name"}}
                                 @customError={{t (validation-error-key this.changeset.error.folder.validation)}} as
                                 |el|>
@@ -68,7 +68,7 @@
                 </div>
               </div>
             </div>
-            <form.group class="col-md-12">
+            <div class="col-md-12">
               <form.element id="encryptable-form-description" @label={{t "description"}} @property="description"
                             @controlType="textarea"
                             class="{{if
@@ -77,32 +77,32 @@
                 (validation-error-key this.changeset.error.description.validation)}} as |el|>
                 <el.control></el.control>
               </form.element>
-            </form.group>
+            </div>
           </div>
           <div class="encryptable-form-attributes">
             <div class="row">
               {{#each this.activeFields as |attribute|}}
                 <div id="{{attribute}}-field" class="col-md-6 pt-2 encryptable-form-field {{if (eq attribute "customAttr")  "border-1 border border-mute border-radius-4"}}">
                   {{#if (eq attribute "customAttr")}}
-                    <form.group class="col-md-12">
-                      <form.element @label={{t "labelCustomAttr"}} id="labelCustomAttr" class={{if
-                        this.changeset.error.cleartextCustomAttrLabel.validation "invalid-input-name"}}
-                                    @property="cleartextCustomAttrLabel" @customError={{t
-                        (validation-error-key this.changeset.error.cleartextCustomAttrLabel.validation)}} as |el|>
-                        <div class="input-group">
-                          <el.control @name="label"></el.control>
-                          <span class="encrypted-icon-span">
+                      <div class="col-md-12">
+                        <form.element @label={{t "labelCustomAttr"}} id="labelCustomAttr" class={{if
+                          this.changeset.error.cleartextCustomAttrLabel.validation "invalid-input-name"}}
+                                      @property="cleartextCustomAttrLabel" @customError={{t
+                          (validation-error-key this.changeset.error.cleartextCustomAttrLabel.validation)}} as |el|>
+                          <div class="input-group">
+                            <el.control @name="label"></el.control>
+                            <span class="encrypted-icon-span">
                             {{!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding--}}
                             <BsTooltip @title={{t "encryptable/credentials.form.notEncryptedField"}} @delayShow="300" @viewportSelector="modal"/>
                             <img class="d-inline-block encrypted-icon"
                                  src="/assets/images/not_encrypted_small.svg" alt="not encrypted value">
                           </span>
-                        </div>
-                      </form.element>
-                    </form.group>
+                          </div>
+                        </form.element>
+                      </div>
                     <br>
                   {{/if}}
-                  <form.group class="col-md-12 {{if (eq attribute "password") "secret password-field"}}">
+                  <div class="col-md-12 {{if (eq attribute "password") "secret password-field"}}">
                     <form.element @label={{t attribute}} id={{attribute}} class={{if
                       (get (get this.changeset.error (concat "cleartext" (capitalize attribute))) "validation") "invalid-input-name"}}
                                   @property="cleartext{{capitalize attribute}}" @customError={{t
@@ -117,7 +117,7 @@
                         </span>
                       </div>
                     </form.element>
-                  </form.group>
+                  </div>
                   <button class="btn btn-danger d-inline-block p-1 delete-field" type="button" {{on "click"
                                                                                       (action "removeField" attribute)}}>
                     <img id="remove-{{attribute}}-field-button" class="d-inline" src="/assets/images/delete-white.svg"

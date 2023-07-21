@@ -46,7 +46,7 @@ export default class NavService extends Service {
   }
 
   _sortTeams(teams) {
-    return teams.toArray().sort((a, b) => {
+    return teams.slice().sort((a, b) => {
       if (a.isPersonalTeam) {
         return -1;
       }

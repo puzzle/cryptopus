@@ -128,7 +128,7 @@
         <Encryptable::AttributeField @row={{false}} @attribute="customAttr" @label={{@encryptable.cleartextCustomAttrLabel}} @encryptable={{@encryptable}} @visibleByDefault={{false}}/>
       {{/if}}
     </div>
-    {{#unless isTransferredCredentials}}
+    {{#unless this.isTransferredCredentials}}
       <div class="d-flex flex-row justify-content-between mb-2">
         <div>
           <h3 id="encryptable-attachments">{{t "encryptable/credentials.show.attachments"}}</h3>

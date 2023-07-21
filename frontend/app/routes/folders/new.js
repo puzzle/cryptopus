@@ -1,6 +1,6 @@
-import BaseRoute from "../base";
+import ApplicationRoute from "../application";
 
-export default BaseRoute.extend({
+export default ApplicationRoute.extend({
   queryParams: {
     team_id: {
       refreshModel: true

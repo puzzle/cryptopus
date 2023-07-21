@@ -13,6 +13,5 @@ export function initialize() {
 }
 
 export default {
-  after: ["env-settings"],
   initialize
 };

@@ -5,8 +5,6 @@ import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "../base-form-component";
-import { isPresent } from "@ember/utils";
-
 export default class Form extends BaseFormComponent {
   @service store;
   @service router;
@@ -14,28 +12,27 @@ export default class Form extends BaseFormComponent {
   @service userService;
 
   @tracked assignableTeams;
+  @tracked team;
 
   FolderValidations = FolderValidations;
 
   constructor() {
     super(...arguments);
 
-    this.record = this.args.folder || this.store.createRecord("folder");
-
-    this.isNewRecord = this.record.isNew;
+    this.isNewRecord = !this.args.folder;
+    if(this.isNewRecord) {
+      this.record = this.store.createRecord("folder");
+      this.team = this.navService.selectedTeam;
+    } else {
+      this.record = this.args.folder;
+      this.team = this.args.folder.team;
+    }
 
     this.changeset = new Changeset(
       this.record,
       lookupValidator(FolderValidations),
       FolderValidations
     );
-
-    if (this.isNewRecord && this.navService.selectedTeam)
-      this.changeset.team = this.navService.selectedTeam;
-
-    if (this.isNewRecord && isPresent(this.args.team)) {
-      this.changeset.team = this.args.team;
-    }
 
     this.store.findAll("team").then((teams) => {
       this.assignableTeams = teams;
@@ -45,6 +42,7 @@ export default class Form extends BaseFormComponent {
   @action
   abort() {
     if (this.args.onAbort) {
+      this.record.rollbackAttributes();
       this.args.onAbort();
       return;
     }
@@ -52,10 +50,11 @@ export default class Form extends BaseFormComponent {
 
   @action
   setSelectedTeam(selectedTeam) {
-    this.changeset.team = selectedTeam;
+    this.team = selectedTeam;
   }
 
   async beforeSubmit() {
+    this.changeset.team = this.team;
     await this.changeset.validate();
     return this.changeset.isValid;
   }

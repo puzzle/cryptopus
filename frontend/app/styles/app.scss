@@ -484,7 +484,7 @@ h5, h6 {
   margin-bottom: -5px;
 }
 
-@media screen and (max-width: 799px){
+@media screen and (max-width: 799px) {
   .ember-notify-default.ember-notify-cn {
     bottom: 11em !important;
   }
@@ -500,5 +500,20 @@ h5, h6 {
 
 .changelog-container h2 {
   font-size: 1.5rem;
+}
+
+.powerSelect {
+  background-color: #325c9e;
+  width: 100%;
+}
+
+.powerSelect {
+  span.ember-power-select-status-icon {
+    display: none !important;
+  }
+}
+
+.ember-power-select-placeholder {
+  color: white !important;
 }
 
