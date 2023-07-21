@@ -21,7 +21,7 @@
                 <a {{on "click" (fn this.setSelectedTeam team)}} role="button" id="side-bar-team-{{team.id}}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-baseline {{if (eq team this.navService.selectedTeam) "bg-blue-three" "bg-blue-one"}}">
                   <div class="d-flex justify-content-between">
                     {{#if team.isPersonalTeam}}
-                      <img class="icon icon-button lh-1" src="/assets/images/{{if (eq team this.navService.selectedTeam) "member-white.svg" "member.svg"}}" alt="">
+                      <img class="icon icon-button lh-1 mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "member-white.svg" "member.svg"}}" alt="">
                     {{else}}
                       {{#if team.private}}
                         <img class="icon icon-button mr-2 " src="/assets/images/{{if (eq team this.navService.selectedTeam) "encrypted_small-white.svg" "encrypted_small.svg"}}" alt="">
