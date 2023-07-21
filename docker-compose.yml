@@ -1,15 +1,6 @@
 version: '3.4'
 
 services:
-  postgresql:
-    image: postgres:14.1-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=app
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - '5432:5432'
-
   rails:
     image: cryptopus-dev/rails
     user: "${UID:-1000}"
@@ -51,5 +42,3 @@ services:
 volumes:
   bundler_cache:
   yarn_cache:
-  postgresql:
-    driver: local
