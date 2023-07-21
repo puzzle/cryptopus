@@ -43,9 +43,8 @@ Learn more about Cryptopus on our [wiki](https://github.com/puzzle/cryptopus/wik
 - New features and updates are going to be implemented and published in this repository, so
   stay in touch!
 
-# Getting started
+# Getting involved
 
-## System requirements 👩🏽‍💻
 Development instructions [here][setup]. 
 
 [setup]: https://github.com/puzzle/cryptopus/wiki/Development
