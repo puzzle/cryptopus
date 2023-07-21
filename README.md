@@ -74,19 +74,6 @@ or FITNESS FOR A PARTICULAR PURPOSE.
 
 See the License for more details.
 
-# License
-
-This program is free software: you can redistribute it and/or modify it
-under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or (at
-your option) any later version.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program. If not, see
-[licenses](http://www.gnu.org/licenses/).
-
-Copyright (c) 2008-2023, Puzzle ITC GmbH.
-
 # Contact Information
 
 Cryptopus was made by the guys at Puzzle ITC. Please go to
