@@ -2,6 +2,7 @@
 
 module ::Teams
   class PgSearching < SearchStrategy
+    # rubocop:disable Metrics/MethodLength
     def search(query, teams)
       # Get allowed entities which user is allowed to read
       allowed_folders = Folder.where(team_id: teams)
@@ -14,12 +15,14 @@ module ::Teams
                                             .search_by_name(query).pluck :id
 
       # Join allowed tables together and return matching ones
-      teams.where('encryptables.id IN (:encryptable_ids) OR teams.id IN (:team_ids) OR folders.id IN (:folder_ids)',
+      teams.where('encryptables.id IN (:encryptable_ids) OR teams.id IN (:team_ids) OR folders.id
+IN (:folder_ids)',
                   encryptable_ids: matching_encryptable_ids,
                   team_ids: matching_team_ids,
                   folder_ids: matching_folder_ids)
            .references(:folders,
                        folders: [:encryptables])
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end
