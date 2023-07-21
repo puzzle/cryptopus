@@ -11,6 +11,37 @@ A password manager is used to encrypt data and manage users and usergroups.
 Cryptopus combines symmetric and asymmetric encryption.
 
 Learn more about Cryptopus on our [wiki](https://github.com/puzzle/cryptopus/wiki) page.
+## UI Tutorial
+![Cryptogif](https://github.com/puzzle/cryptopus/assets/88040929/64d10f03-b2b4-4dc8-9153-ab01d38c0947)
+
+# Key Features
+### Credential management
+- Cryptopus lets you store your credentials with options for userame, email, password, pin, token or
+  a custom attribute.
+- To generate your password for a new account we provide you with a built-in password generator with
+  customizable option like length or use of special characters.
+- Since we want to increase the awarness to cyber security we ship our password generator with a
+  evaluation system which evaluates your password and tells you how secure it is.
+- Last but not least we enable standard copy actions for an efficient login.
+
+### Sharing
+- With our transfer algorithm we support sharing passwords with other users or teams.
+- Similar to our credential sharing service it is possible to share files with other members or
+  even add them to a credential if necessary.
+
+### OpenID Connect
+- With Version > 3.6 Cryptopus supports Single-Sign-On (SSO) with OpenID Connect / Keycloak for
+  simple logins => fast, easy, secure!
+
+### Translations
+- As one of the only cryptographic tools on the market, we now provide translations for Swissgerman
+  which follows the implementation of German, French and English
+
+### Support
+- With one of the most known and most prestigious projects we assure you that this
+  project will never run out of support.
+- New features and updates are going to be implemented and published in this repository, so
+  stay in touch!
 
 # Getting started
 ## How it works
