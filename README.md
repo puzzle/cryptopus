@@ -44,8 +44,6 @@ Learn more about Cryptopus on our [wiki](https://github.com/puzzle/cryptopus/wik
   stay in touch!
 
 # Getting started
-## How it works
-![Cryptogif](https://github.com/puzzle/cryptopus/assets/88040929/64d10f03-b2b4-4dc8-9153-ab01d38c0947)
 
 ## System requirements 👩🏽‍💻
 Development instructions [here][setup]. 
