@@ -2,7 +2,7 @@
 
 class Api::EncryptablesController < ApiController
 
-  self.permitted_attrs = [:name, :description, :file]
+  self.permitted_attrs = [:name, :description, :file, :folder_id]
 
   helper_method :team
 
@@ -130,10 +130,10 @@ class Api::EncryptablesController < ApiController
     permitted_attrs = self.class.permitted_attrs.deep_dup
 
     if model_class == Encryptable::File
-      permitted_attrs + [:filename, :credentials_id, :folder_id, :file]
+      permitted_attrs + [:filename, :credentials_id]
     elsif model_class == Encryptable::Credentials
       permitted_attrs + [:cleartext_username, :cleartext_password, :cleartext_token,
-                         :cleartext_pin, :cleartext_email, :folder_id,
+                         :cleartext_pin, :cleartext_email,
                          :cleartext_custom_attr, :cleartext_custom_attr_label]
     else
       []
@@ -169,27 +169,12 @@ class Api::EncryptablesController < ApiController
   def build_encryptable_file
     filename = params[:file].original_filename
 
-    file = if credential_id.present?
-             new_attachment(credential, params[:description], filename)
-           else
-             new_file(folder, params[:description], filename)
-           end
+    file = Encryptable::File.new(description: params[:description], name: filename)
+    file.encryptable_credential = credential if credential_id.present?
+    file.folder = folder if credential_id.blank?
     file.content_type = params[:file].content_type
     file.cleartext_file = params[:file].read
-
     instance_variable_set(:"@#{ivar_name}", file)
-  end
-
-  def new_attachment(parent_encryptable, description, name)
-    Encryptable::File.new(encryptable_credential: parent_encryptable,
-                          description: description,
-                          name: name)
-  end
-
-  def new_file(parent_folder, description, name)
-    Encryptable::File.new(folder: parent_folder,
-                          description: description,
-                          name: name)
   end
 
   def credential_id

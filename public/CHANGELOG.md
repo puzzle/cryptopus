@@ -1,6 +1,6 @@
 ## Version 5.3
 - Upgrade to Ember 4.12
-- Introduce uploading files without adding them to credentials
+- Introduce encryptable files for folders
 
 ## Version 5.2
 - Recrypt encrypted db data with AES256iv
