@@ -116,6 +116,25 @@ ch_be:
       clickToSeeAttrs: Klick wenn aui Attribut möchtisch gseh
     share:
       title: Datei teilä
+    ccli-options:
+      title: CCLI Commands kopierä
+      help: Bruchsch meh Informationä?
+      ccli: Encryptable ahzeigä mit CCLI
+      username: Benutzername ahzeigä mit CCLI
+      password: Passwort ahzeigä mit CCLI
+      pin: Pin ahzeigä mit CCLI
+      token: Token ahzeigä mit CCLI
+      email: Email ahzeigä mit CCLI
+      custom-attr: Individuells Attribut ahzeigä mit CCLI
+      yaml: Encryptable als yaml ahzeigä mit CCLI
+      copy-ccli: CCLI Command kopierä
+      copy-ccli-username: CCLI Command füre Benutzername kopierä
+      copy-ccli-password: CCLI Command fürs Passwort kopierä
+      copy-ccli-pin: CCLI Command füre Pin kopierä
+      copy-ccli-token: CCLI Command fürs Token kopierä
+      copy-ccli-email: CCLI Command für d Email kopierä
+      copy-ccli-custom-attr: CCLI Command fürs inidviduellä Attribut kopierä
+      copy-ccli-yaml: CCLI Yaml Command kopierä
 
   encryptable/transferring/file:
     new:
@@ -325,6 +344,7 @@ ch_be:
       token_copied: Dr Token isch kopiert worde
       email_copied: D Email isch kopiert worde
       customAttr_copied: Z individuellä Attribut isch kopiert worde
+      ccli_command_copied: CCLI Command isch kopiert worde
       selectAdditionalField: Du muäsch es Fäld uswähle
 
     encryptable-credentials:

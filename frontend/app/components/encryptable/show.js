@@ -20,6 +20,9 @@ export default class ShowComponent extends Component {
   isFileCreating = false;
 
   @tracked
+  isCcliOptionsOpen = false;
+
+  @tracked
   isFile = this.args.encryptable.isFile;
 
   @tracked
@@ -36,6 +39,11 @@ export default class ShowComponent extends Component {
   @action
   toggleFileNew() {
     this.isFileCreating = !this.isFileCreating;
+  }
+
+  @action
+  toggleCcliOptions() {
+    this.isCcliOptionsOpen = !this.isCcliOptionsOpen;
   }
 
   get downloadLink() {

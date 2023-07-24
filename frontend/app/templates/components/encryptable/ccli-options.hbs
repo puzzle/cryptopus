@@ -1,0 +1,108 @@
+<BsModal @onHide={{action this.abort}} @renderInPlace="true" @size="md"
+         as |Modal|>
+  <Modal.header>
+    <h3 class="modal-title">{{t "encryptable/credentials.ccli-options.title"}}</h3>
+  </Modal.header>
+  <Modal.body>
+    <div id="encryptable-ccli-label">
+      {{t "encryptable/credentials.ccli-options.ccli"}}
+    </div>
+    <div class="input-group border-tertiary border-2 border border-radius-4 mb-3">
+      <Input id="ccli-input" class="text-truncate d-inline form-control border-0" disabled="true" @value={{concat "cry encryptable " @encryptable.id}} />
+      <button class="btn btn-light btn-outline-secondary rounded-corners-right" type="button" {{action "copyCommand" (concat "cry encryptable " @encryptable.id)}}>
+        <img class="icon-clippy img" src="/assets/images/clipboard.svg" alt="clip">
+        <BsTooltip @title={{t "encryptable/credentials.ccli-options.copy-ccli"}} @delayShow="500" />
+      </button>
+    </div>
+    {{#if @encryptable.cleartextUsername}}
+      <div id="encryptable-ccli-username-label">
+        {{t "encryptable/credentials.ccli-options.username"}}
+      </div>
+      <div class="input-group border-tertiary border-2 border border-radius-4 mb-3">
+        <Input id="ccli-username-input" class="text-truncate d-inline form-control border-0" disabled="true" @value={{concat "cry encryptable " @encryptable.id " --username"}} />
+        <button class="btn btn-light btn-outline-secondary rounded-corners-right" type="button" {{action "copyCommand" (concat "cry encryptable " @encryptable.id " --username")}}>
+          <img class="icon-clippy img" src="/assets/images/clipboard.svg" alt="clip">
+          <BsTooltip @title={{t "encryptable/credentials.ccli-options.copy-ccli-username"}} @delayShow="500" />
+        </button>
+      </div>
+    {{/if}}
+    {{#if @encryptable.cleartextPassword}}
+      <div id="encryptable-ccli-password-label">
+        {{t "encryptable/credentials.ccli-options.password"}}
+      </div>
+      <div class="input-group border-tertiary border-2 border border-radius-4 mb-3">
+        <Input id="ccli-password-input" class="text-truncate d-inline form-control border-0" disabled="true" @value={{concat "cry encryptable " @encryptable.id " --password"}}/>
+        <button class="btn btn-light btn-outline-secondary rounded-corners-right" type="button" {{action "copyCommand" (concat "cry encryptable " @encryptable.id " --password")}}>
+          <img class="icon-clippy img" src="/assets/images/clipboard.svg" alt="clip">
+          <BsTooltip @title={{t "encryptable/credentials.ccli-options.copy-ccli-password"}} @delayShow="500" />
+        </button>
+      </div>
+    {{/if}}
+    {{#if @encryptable.cleartextPin}}
+      <div id="encryptable-ccli-pin-label">
+        {{t "encryptable/credentials.ccli-options.pin"}}
+      </div>
+      <div class="input-group border-tertiary border-2 border border-radius-4 mb-3">
+        <Input id="ccli-pin-input" class="text-truncate d-inline form-control border-0" disabled="true" @value={{concat "cry encryptable " @encryptable.id " --pin"}}/>
+        <button class="btn btn-light btn-outline-secondary rounded-corners-right" type="button" {{action "copyCommand" (concat "cry encryptable " @encryptable.id " --pin")}}>
+          <img class="icon-clippy img" src="/assets/images/clipboard.svg" alt="clip">
+          <BsTooltip @title={{t "encryptable/credentials.ccli-options.copy-ccli-pin"}} @delayShow="500" />
+        </button>
+      </div>
+    {{/if}}
+    {{#if @encryptable.cleartextToken}}
+      <div id="encryptable-ccli-token-label">
+        {{t "encryptable/credentials.ccli-options.token"}}
+      </div>
+      <div class="input-group border-tertiary border-2 border border-radius-4 mb-3">
+        <Input id="ccli-token-input" class="text-truncate d-inline form-control border-0" disabled="true" @value={{concat "cry encryptable " @encryptable.id " --token"}}/>
+        <button class="btn btn-light btn-outline-secondary rounded-corners-right" type="button" {{action "copyCommand" (concat "cry encryptable " @encryptable.id " --token")}}>
+          <img class="icon-clippy img" src="/assets/images/clipboard.svg" alt="clip">
+          <BsTooltip @title={{t "encryptable/credentials.ccli-options.copy-ccli-token"}} @delayShow="500" />
+        </button>
+      </div>
+    {{/if}}
+    {{#if @encryptable.cleartextEmail}}
+      <div id="encryptable-ccli-email-label">
+        {{t "encryptable/credentials.ccli-options.email"}}
+      </div>
+      <div class="input-group border-tertiary border-2 border border-radius-4 mb-3">
+        <Input id="ccli-email-input" class="text-truncate d-inline form-control border-0" disabled="true" @value={{concat "cry encryptable " @encryptable.id " --email"}}/>
+        <button class="btn btn-light btn-outline-secondary rounded-corners-right" type="button" {{action "copyCommand" (concat "cry encryptable " @encryptable.id " --email")}}>
+          <img class="icon-clippy img" src="/assets/images/clipboard.svg" alt="clip">
+          <BsTooltip @title={{t "encryptable/credentials.ccli-options.copy-ccli-email"}} @delayShow="500" />
+        </button>
+      </div>
+    {{/if}}
+    {{#if @encryptable.cleartextCustomAttr}}
+      <div id="encryptable-ccli-custom-attr-label">
+        {{t "encryptable/credentials.ccli-options.custom-attr"}}
+      </div>
+      <div class="input-group border-tertiary border-2 border border-radius-4 mb-3">
+        <Input id="ccli-custom-attr-input" class="text-truncate d-inline form-control border-0" disabled="true" @value={{concat "cry encryptable " @encryptable.id " --customAttribute"}}/>
+        <button class="btn btn-light btn-outline-secondary rounded-corners-right" type="button" {{action "copyCommand" (concat "cry encryptable " @encryptable.id " --customAttribute")}}>
+          <img class="icon-clippy img" src="/assets/images/clipboard.svg" alt="clip">
+          <BsTooltip @title={{t "encryptable/credentials.ccli-options.copy-ccli-custom-attr"}} @delayShow="500" />
+        </button>
+      </div>
+    {{/if}}
+    <div id="encryptable-ccli-yaml-label">
+      {{t "encryptable/credentials.ccli-options.yaml"}}
+    </div>
+    <div class="input-group border-tertiary border-2 border border-radius-4 mb-3">
+      <Input id="ccli-yaml-input" class="text-truncate d-inline form-control border-0" disabled="true" @value={{concat "cry encryptable " @encryptable.id " > encryptable.yaml"}} />
+      <button class="btn btn-light btn-outline-secondary rounded-corners-right" type="button" {{action "copyCommand" (concat "cry encryptable " @encryptable.id " > encryptable.yaml")}}>
+        <img class="icon-clippy img" src="/assets/images/clipboard.svg" alt="clip">
+        <BsTooltip @title={{t "encryptable/credentials.ccli-options.copy-ccli-yaml"}} @delayShow="500" />
+      </button>
+    </div>
+  </Modal.body>
+  <Modal.footer>
+    <a id="ccli-options-help" class="mr-auto" href="https://github.com/puzzle/ccli/blob/master/README.md" target="_blank">
+      {{t "encryptable/credentials.ccli-options.help"}}
+    </a>
+    <BsButton id="ccli-options-close-button" @onClick={{action this.abort}} @type="secondary">
+      {{t "close"}}
+    </BsButton>
+  </Modal.footer>
+</BsModal>
