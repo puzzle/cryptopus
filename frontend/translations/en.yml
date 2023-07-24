@@ -207,6 +207,10 @@ en:
   encryptable_files:
     new:
       title: Upload new file
+      upload_file: File to upload
+      choose_file: Choose a file
+      selected_file: Selected file
+      reupload: Select a different file
     attachment:
       title: Add new attachment to credentials
       upload: Upload

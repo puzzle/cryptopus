@@ -39,29 +39,22 @@
               </div>
             {{/if}}
             <div>
-              <FileUpload @name="file"
-                         @accept="*"
-                         @for="upload-file"
-                         @multiple={{false}}
-                         @onfileadd={{this.uploadFile}}
-                         @ondrop={{this.uploadFile}}
-                         class="btn btn-primary">
-                <a id="upload-file" tabindex="0">{{t (if this.changeset.file "encryptable_files.reupload" "encryptable_files.attachment.upload_file")}}</a>
-              </FileUpload>
-            <div class="mb-3">
-              {{#let (file-queue name="files" onFileAdded=this.uploadFile) as |queue| }}
+              <div class="mb-3">
+                {{#let (file-queue name="files" onFileAdded=this.uploadFile) as |queue| }}
                 <input type="file" id="actual-btn" hidden {{queue.selectFile}}>
                 <label class="btn btn-primary w-100" for="actual-btn">
                   {{t (if this.changeset.file "encryptable_files.new.reupload"
                         "encryptable_files.new.upload_file")}}
                 </label>
               {{/let}}
+              </div>
             </div>
-            </div>
-          </form.group>
+          </div>
         </div>
+      </BsForm>
+    </div>
 
-        {{#each this.errors as |error|}}
+    {{#each this.errors as |error|}}
           <div class="alert alert-danger modal-alert ">
             {{error.detail}}.<br>
           </div>
@@ -76,9 +69,6 @@
             </div>
           </div>
         </div>
-        </div>
-      </BsForm>
-    </div>
   </Modal.body>
 
   <Modal.footer>

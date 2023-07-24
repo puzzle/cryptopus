@@ -1,5 +1,8 @@
 import BaseFormComponent from "../base-form-component";
-import EncryptableFileValidations from "../../validations/encryptable-file";
+import {
+  credentialsAttachment,
+  encryptableFile
+} from "../../validations/encryptable-file";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
 import { action } from "@ember/object";
@@ -19,19 +22,19 @@ export default class Form extends BaseFormComponent {
 
   @tracked errors;
 
-  EncryptableFileValidations = EncryptableFileValidations;
-
   constructor() {
     super(...arguments);
-
+    const FileValidation = this.args.attachment
+      ? credentialsAttachment
+      : encryptableFile;
     this.record = this.store.createRecord("encryptable-file");
     this.record.encryptable = this.args.encryptable;
     this.record.csrfToken = ENV.CSRFToken;
 
     this.changeset = new Changeset(
       this.record,
-      lookupValidator(EncryptableFileValidations),
-      EncryptableFileValidations
+      lookupValidator(FileValidation),
+      FileValidation
     );
 
     this.presetTeamAndFolder();
@@ -39,13 +42,8 @@ export default class Form extends BaseFormComponent {
     this.store.findAll("team").then((teams) => {
       this.assignableTeams = teams;
     });
-
-    this.presetTeamIfFolderSelected();
-
-    this.loadValidation();
-
-    this.changeset.encryptable = this.args.encryptable;
     this.changeset.csrfToken = ENV.CSRFToken;
+    console.log(this.changeset);
   }
 
   get availableFolders() {
@@ -59,8 +57,9 @@ export default class Form extends BaseFormComponent {
   }
 
   presetTeamAndFolder() {
-    let selectedTeam = this.navService.selectedTeam;
     let selectedFolder = this.args.folder || this.navService.selectedFolder;
+    let selectedTeam =
+      selectedFolder?.get("team") || this.navService.selectedTeam;
 
     if (!isEmpty(selectedTeam)) {
       this.changeset.team = selectedTeam;
@@ -74,19 +73,11 @@ export default class Form extends BaseFormComponent {
   setSelectedTeam(selectedTeam) {
     this.changeset.team = selectedTeam;
     this.setSelectedFolder(null);
-    this.loadValidation();
   }
 
   @action
   setSelectedFolder(selectedFolder) {
     this.changeset.folder = selectedFolder;
-    this.loadValidation();
-  }
-
-  presetTeamIfFolderSelected() {
-    if (isPresent(this.changeset.folder)) {
-      this.changeset.team = this.changeset.folder.get("team");
-    }
   }
 
   @action
@@ -106,21 +97,11 @@ export default class Form extends BaseFormComponent {
     );
 
     if (isFileValid) {
-      await this.loadValidation();
       this.record.encryptableCredential = this.args.encryptableCredential;
       this.record.folder = this.changeset.folder;
       return this.changeset.isValid;
     }
   }
-
-  async loadValidation() {
-    if (this.args.attachment) {
-      await this.changeset.validate("file", "description");
-    } else {
-      await this.changeset.validate();
-    }
-  }
-
   showSuccessMessage() {
     let msg = this.intl.t("flashes.encryptable_files.uploaded");
     this.notify.success(msg);
@@ -153,6 +134,5 @@ export default class Form extends BaseFormComponent {
   @action
   uploadFile(file) {
     this.changeset.file = file;
-    this.loadValidation();
   }
 }

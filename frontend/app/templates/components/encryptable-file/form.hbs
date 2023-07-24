@@ -56,15 +56,6 @@
                 </div>
               {{/if}}
               <div>
-                <FileUpload @name="file"
-                            @accept="*"
-                            @for="upload-file"
-                            @multiple={{false}}
-                            @onFileAdd={{this.uploadFile}}
-                            @ondrop={{this.uploadFile}}
-                            class="btn btn-primary w-100">
-                  <a id="upload-file">{{t (if this.changeset.file "encryptable_files.reupload" "encryptable_files.attachment.upload_file")}}</a>
-                </FileUpload>
                 {{#let (file-queue name="files" onFileAdded=this.uploadFile) as |queue| }}
                   <input type="file" id="actual-btn" hidden {{queue.selectFile}}>
                   <label class="btn btn-primary w-100" for="actual-btn">
