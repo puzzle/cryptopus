@@ -16,14 +16,14 @@ Rails.application.config.content_security_policy do |policy|
   FRONTEND_URL = 'http://localhost:4200'
 
   policy.default_src :none unless Rails.env.development?
-  policy.font_src    :self, "http://localhost:4200/text-security-disc-compat.eot?#iefix",
-                            "http://localhost:4200/text-security-disc.woff2",
-                            "http://localhost:4200/text-security-disc-compat.ttf"
+
   policy.img_src     :self
   policy.connect_src :self, 'https://sentry.puzzle.ch'
 
   policy.font_src :self
-  policy.font_src :self, :https, FRONTEND_URL, :data if Rails.env.development?
+  policy.font_src :self, :https, "#{FRONTEND_URL}/text-security-disc-compat.eot?#iefix",
+                  "#{FRONTEND_URL}/text-security-disc.woff2",
+                  "#{FRONTEND_URL}/text-security-disc-compat.ttf" if Rails.env.development?
 
   policy.script_src  :self
   policy.script_src  :self, :unsafe_eval, FRONTEND_URL if Rails.env.development?
