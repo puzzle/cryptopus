@@ -119,10 +119,11 @@ export default class Form extends BaseFormComponent {
 
   saveEditedData(savedRecords) {
     if (isPresent(savedRecords)) {
-      this.router.transitionTo(
-        "encryptables.show",
-        JSON.parse(savedRecords[0].body).data.id
-      );
+      savedRecords[0]
+        .json()
+        .then((body) =>
+          this.router.transitionTo("encryptables.show", body.data.id)
+        );
     }
   }
 
