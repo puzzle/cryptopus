@@ -1,4 +1,4 @@
-<BsModal class="modal_file_entry" @onHide={{action "abort"}} @renderInPlace="true" @size="lg" as |Modal|>
+<BsModal class="modal_file_entry" @onHide={{action "abort"}} @renderInPlace="true" @size="lg" as |Modal| {{did-insert this.setDefaults this}}>
   <Modal.header>
     <h3 class="modal-title align-middle" id="accountFormModalLabel">{{@title}}</h3>
   </Modal.header>
@@ -76,6 +76,9 @@
         </div>
       </div>
     </div>
+
+    test
+    {{this.changeset.isValid}}
   </Modal.body>
   <Modal.footer>
     <BsButton @onClick={{action this.submit this.changeset}} disabled={{not this.changeset.isValid}} @type="primary">{{t "encryptable_files.attachment.upload"}}</BsButton>

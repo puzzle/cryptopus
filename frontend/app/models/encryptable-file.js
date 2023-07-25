@@ -3,10 +3,7 @@ import { attr, belongsTo } from "@ember-data/model";
 
 export default class EncryptableFile extends Encryptable {
   @attr file;
-  @belongsTo("encryptable-credential", {
-    async: false,
-    inverse: "encryptableFiles"
-  })
+  @belongsTo("encryptable-credential")
   encryptableCredential;
   @belongsTo("folder") folder;
 

@@ -37,13 +37,17 @@ export default class Form extends BaseFormComponent {
       FileValidation
     );
 
-    this.presetTeamAndFolder();
-
     this.store.findAll("team").then((teams) => {
       this.assignableTeams = teams;
     });
+
     this.changeset.csrfToken = ENV.CSRFToken;
-    console.log(this.changeset);
+  }
+
+  @action
+  setDefaults() {
+    this.presetTeamAndFolder();
+    this.changeset.validate();
   }
 
   get availableFolders() {
@@ -62,30 +66,29 @@ export default class Form extends BaseFormComponent {
       selectedFolder?.get("team") || this.navService.selectedTeam;
 
     if (!isEmpty(selectedTeam)) {
-      this.changeset.team = selectedTeam;
+      this.changeset.set("team", selectedTeam);
     }
     if (!isEmpty(selectedFolder)) {
-      this.changeset.folder = selectedFolder;
+      this.changeset.set("folder", selectedFolder);
     }
   }
 
   @action
   setSelectedTeam(selectedTeam) {
-    this.changeset.team = selectedTeam;
+    this.changeset.set("team", selectedTeam);
     this.setSelectedFolder(null);
   }
 
   @action
   setSelectedFolder(selectedFolder) {
     this.changeset.folder = selectedFolder;
+    this.changeset.set("folder", selectedFolder);
   }
 
   @action
   abort() {
-    this.fileQueue.flush();
     if (this.args.onAbort) {
       this.args.onAbort();
-      return;
     }
   }
 
