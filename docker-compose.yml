@@ -25,9 +25,6 @@ services:
     tty: true
     user: "${UID:-1000}"
     stdin_open: true
-    environment:
-      - AUTO_IMPORT_VERBOSE=true
-      - DEBUG=ember-auto-import:*
     build:
       context: ./config/docker/development
       dockerfile: Ember.dockerfile
