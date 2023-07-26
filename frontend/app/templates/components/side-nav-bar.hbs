@@ -3,16 +3,23 @@
     <div class="navbar-collapse p-0" id="nav-side-bar-container" {{did-insert this.setupModal this}}>
       <div class="list-group list-group-root">
         <div class="d-flex justify-content-center list-group-top-button list-group-item-action border-0">
-          <BsButtonGroup class="button-group" @type="radio" @value={{this.showsFavourites}} @onChange={{this.toggleFavourites}} as |bg|>
-            <bg.button class="toggle-button" @value={{false}}>
+
+          <div class="btn-group button-group" role="group" aria-label="Basic radio toggle button group">
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" {{on "click" (fn this.toggleFavourites false)}} >
+            <label class="btn btn-outline-primary toggle-button {{unless this.showsFavourites 'toggle-button-active'}}" for="btnradio1">
               <img class="icon icon-button" src="/assets/images/members{{unless this.showsFavourites "-filled"}}.svg" alt="">
               <BsTooltip @title={{t "tooltips.all_teams"}} @delayShow="1000" />
-            </bg.button>
-            <bg.button class="toggle-button" @value={{true}}>
+            </label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" {{on "click" (fn this.toggleFavourites true)}}>
+            <label class="btn btn-outline-primary toggle-button {{if this.showsFavourites 'toggle-button-active'}}" for="btnradio2">
               <img class="icon icon-button" src="/assets/images/star{{if this.showsFavourites "-filled"}}.svg" alt="star">
               <BsTooltip @title={{t "tooltips.favorites"}} @delayShow="1000" />
-            </bg.button>
-          </BsButtonGroup>
+            </label>
+
+
+          </div>
         </div>
         <div class="mb-5 d-flex flex-column teams-list">
           <div class="side-nav-bar-teams-list scroll-bar">
