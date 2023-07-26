@@ -130,11 +130,6 @@ export default class Form extends BaseFormComponent {
     this.isGenExpanded = !this.isGenExpanded;
   }
   @action
-  initForm() {
-    console.log("pass");
-    this.setRandomPassword();
-  }
-  @action
   setRandomPassword() {
     let pass = "";
     const array = new Uint32Array(1);

@@ -1,6 +1,6 @@
 {{#if this.record.isFullyLoaded}}
   <BsModal class="modal_account ignore-footer-smartphone" @onHide={{action this.abort}} @renderInPlace="true" @size="lg"
-           as |Modal| {{did-insert this.initForm this}}>
+           as |Modal|>
     <Modal.header>
       <h3 class="modal-title">{{@title}}</h3>
     </Modal.header>
