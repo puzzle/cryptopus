@@ -5,9 +5,9 @@ import Changeset from "ember-changeset";
 import { inject as service } from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "../base-form-component";
-import {capitalize} from "@ember/string";
-import {A} from "@ember/array";
-import {addObserver} from "@ember/object/observers";
+import { capitalize } from "@ember/string";
+import { A } from "@ember/array";
+import { addObserver } from "@ember/object/observers";
 import { isEmpty, isPresent } from "@ember/utils";
 
 export default class Form extends BaseFormComponent {
@@ -68,8 +68,6 @@ export default class Form extends BaseFormComponent {
 
     this.isNewRecord = !this.args.encryptable;
     if (this.isNewRecord) {
-      this.presetTeamAndFolder();
-      this.setRandomPassword();
       this.record = this.store.createRecord("encryptable-credential");
       this.selectedTeam = this.navService.selectedTeam;
       this.selectedFolder = this.navService.selectedFolder;
@@ -85,6 +83,8 @@ export default class Form extends BaseFormComponent {
       AccountValidations
     );
 
+    this.presetTeamAndFolder();
+
     this.store.findAll("team").then((teams) => {
       this.assignableTeams = teams;
     });
@@ -95,13 +95,25 @@ export default class Form extends BaseFormComponent {
       this.store.findRecord("encryptable-credential", this.record.id);
   }
 
+  presetTeamAndFolder() {
+    let selectedFolder = this.args.folder || this.navService.selectedFolder;
+    let selectedTeam =
+      selectedFolder?.get("team") || this.navService.selectedTeam;
+
+    if (!isEmpty(selectedTeam)) {
+      this.selectedTeam = selectedTeam;
+    }
+    if (!isEmpty(selectedFolder)) {
+      this.selectedFolder = selectedFolder;
+    }
+  }
   get availableFolders() {
     return isPresent(this.selectedTeam)
       ? this.store
-        .peekAll("folder")
-        .filter(
-          (folder) => folder.team.get("id") === this.selectedTeam.get("id")
-        )
+          .peekAll("folder")
+          .filter(
+            (folder) => folder.team.get("id") === this.selectedTeam.get("id")
+          )
       : [];
   }
 
@@ -112,6 +124,11 @@ export default class Form extends BaseFormComponent {
     }
   }
 
+  @action
+  initForm() {
+    console.log("pass");
+    this.setRandomPassword();
+  }
   @action
   setRandomPassword() {
     let pass = "";
