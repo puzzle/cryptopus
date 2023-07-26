@@ -69,7 +69,7 @@
               </div>
             </div>
             <div class="col-lg-6 col-md-12 order-3 order-md-4">
-              <div class="col-sm-12 col-md-12 secret border border-mute border-radius-4">
+              <div class="col-sm-12 col-md-12 secret border-mute border-radius-4">
                 <form.element @label={{t "password"}} id="cleartext-password" class="{{if
                   this.changeset.error.cleartextPassword.validation "invalid-input-name mb-1"}} mb-2"
                               @property="cleartextPassword" @customError={{t
@@ -78,11 +78,18 @@
                 </form.element>
                 <PasswordStrengthMeter class="col-12 px-0 mb-2 mb-md-0" @password={{this.changeset.cleartextPassword}}/>
                 <BsAccordion @selected={{1}} as |acc|>
-                  <acc.item @value="2"  class="text-decoration-none" as |pwGen|>
+                  <acc.item @value="1" class="text-decoration-none" {{on "click" this.togglePwGen}} as |pwGen|>
                     <pwGen.title class="text-decoration-none">
                       <span class="text-decoration-none text-dark">
                         Password generator
                       </span>
+                      <div class="d-flex flex-row-reverse w-100">
+                        {{#if this.isGenExpanded}}
+                          <img src="/assets/images/up-arrow-svgrepo-com.svg" width="20px" alt="">
+                        {{else}}
+                          <img src="/assets/images/arrow-down-3101.svg" alt="" width="20px">
+                        {{/if}}
+                      </div>
                     </pwGen.title>
                     <pwGen.body>
 
@@ -96,7 +103,7 @@
                              min="14" max="32"></Input>
                     </span>
                           <Input min="14" max="32" @type="number" @value={{this.passwordLength}}
-                                 class="border border-mute border-radius-4 w-20 mx-3 password-length"> </Input>
+                                 class="border border-mute border-radius-4 w-25 password-length"> </Input>
                         </div>
 
                         <div class="d-flex justify-content-between w-100">

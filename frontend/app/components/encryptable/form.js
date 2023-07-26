@@ -28,6 +28,8 @@ export default class Form extends BaseFormComponent {
   @tracked withSymbols = true;
   @tracked passwordLength = 14;
 
+  @tracked isGenExpanded = false;
+
   AccountValidations = AccountValidations;
 
   //create array proxy that ember checks the changes in each loop for dropdown, ember's rendering engine
@@ -123,7 +125,10 @@ export default class Form extends BaseFormComponent {
       this.args.onAbort();
     }
   }
-
+  @action
+  togglePwGen() {
+    this.isGenExpanded = !this.isGenExpanded;
+  }
   @action
   initForm() {
     console.log("pass");
