@@ -5,7 +5,7 @@
   <Modal.body>
     <div class="container-fluid">
       {{#each this.errors as |error|}}
-        <div class="alert alert-danger modal-alert ">
+        <div class="alert alert-danger modal-alert flex-row">
           {{error.detail}},
           {{t "encryptable_files.reupload"}}
         </div>
@@ -77,8 +77,6 @@
       </div>
     </div>
 
-    test
-    {{this.changeset.isValid}}
   </Modal.body>
   <Modal.footer>
     <BsButton @onClick={{action this.submit this.changeset}} disabled={{not this.changeset.isValid}} @type="primary">{{t "encryptable_files.attachment.upload"}}</BsButton>

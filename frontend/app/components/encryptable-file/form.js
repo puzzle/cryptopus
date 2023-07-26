@@ -104,6 +104,7 @@ export default class Form extends BaseFormComponent {
       this.record.folder = this.changeset.folder;
       return this.changeset.isValid;
     }
+    return false;
   }
   showSuccessMessage() {
     let msg = this.intl.t("flashes.encryptable_files.uploaded");
