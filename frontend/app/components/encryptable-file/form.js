@@ -86,9 +86,9 @@ export default class Form extends BaseFormComponent {
   }
 
   @action
-  abort() {
-    if (this.args.onAbort) {
-      this.args.onAbort();
+  abort(byButton) {
+    if (this.args.onAbort && byButton) {
+      this.args.onAbort(false);
     }
   }
 
