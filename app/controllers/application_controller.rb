@@ -24,6 +24,10 @@ class ApplicationController < ActionController::Base
 
   delegate :model_identifier, to: :class
 
+  def nil_param?(value)
+    value == 'null' ? nil: value
+  end
+
   def set_locale
     locale = I18n.default_locale
     if current_user

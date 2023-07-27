@@ -180,7 +180,7 @@ class Api::EncryptablesController < ApiController
   def credential_id
     return params[:id] if params[:id].present?
 
-    params[:credential_id] == 'null' ? nil : params[:credential_id]
+    nil_param?(params[:credential_id])
   end
 
   def encrypt(encryptable)

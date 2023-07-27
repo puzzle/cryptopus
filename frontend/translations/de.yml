@@ -206,6 +206,10 @@ de:
   encryptable_files:
     new:
       title: Neue Datei hochladen
+      upload_file: Hochzuladende Datei
+      choose_file: Wähle eine Datei
+      selected_file: Ausgewählte Datei
+      reupload: Wähle eine andere Datei aus
     attachment:
       title: Anhang zu den Zugangsdaten hinzufügen
       upload: Hochladen

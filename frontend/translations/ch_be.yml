@@ -206,6 +206,10 @@ ch_be:
   encryptable_files:
     new:
       title: Nöii Datei ufäladä
+      upload_file: Datei wod wosch ufälade
+      choose_file: Wäu ä Datei us
+      selected_file: Usgwäuti Dateo
+      reupload: Wäu ä anderi Datei us
     attachment:
       title: Ahang zu dä Zuägangsdate hinzuefüege
       upload: Ufeladä

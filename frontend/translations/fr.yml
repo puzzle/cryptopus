@@ -207,6 +207,10 @@ fr:
   encryptable_files:
     new:
       title: Télécharger un nouveau fichier
+      upload_file: Fichier à télécharger
+      choose_file: Choisis un fichier
+      selected_file: Fichier sélectionné
+      reupload: Choisir un autre fichier
     attachment:
       title: Ajouter un attachement au compte
       upload: Télécharger
