@@ -124,10 +124,10 @@
                          alt="delete attribute field">
                   </button>
                   {{#if (eq attribute "password")}}
-                    <PasswordStrengthMeter class="col-12 col-lg-9 px-0 mb-2 mb-md-0 ml-3"
+                    <PasswordStrengthMeter class="col-12 col-lg-9 px-0 mb-2 mb-md-0 ms-3"
                                            @password={{this.changeset.cleartextPassword}}/>
                     <div></div>
-                    <button class="btn btn-secondary btn-block col-lg-7 mb-md-4 ml-3 mt-2" type="button" {{on "click"
+                    <button class="btn btn-secondary btn-block col-lg-7 mb-md-4 ms-3 mt-2" type="button" {{on "click"
                                                                                                 this.setRandomPassword}}>
                       {{t "encryptable/credentials.edit.random_password"}}
                     </button>
@@ -136,7 +136,7 @@
               {{/each}}
             </div>
             {{#if (gt this.inactiveFields.length 0)}}
-              <div class="ml-3 mb-2 mt-3">{{t "additionalField"}}</div>
+              <div class="ms-3 mb-2 mt-3">{{t "additionalField"}}</div>
               <div id="encryptable-form-additional-field" class="d-flex flex-row">
                 <PowerSelect
                   id="add-field-dropdown"
@@ -147,7 +147,7 @@
                   @onChange={{fn (mut this.selectedAttribute)}} as |attribute|>
                   {{t attribute}}
                 </PowerSelect>
-                <button class="btn btn-success d-inline-block p-1 ml-4 add-field" type="button" {{on "click" (action "addField")}} >
+                <button class="btn btn-success d-inline-block p-1 ms-4 add-field" type="button" {{on "click" (action "addField")}} >
                   <img id="add-field-button" class="d-inline" src="/assets/images/plus-white.svg"
                        alt="add attribute field">
                 </button>

@@ -48,10 +48,6 @@ $font-family-sans-serif: var(--pzsh-font-family) !default;
   flex-direction: row;
 }
 
-.float-right {
-  float: right !important;
-}
-
 .pt-10 {
   padding-top: 10%;
 }
@@ -69,13 +65,6 @@ $font-family-sans-serif: var(--pzsh-font-family) !default;
 
 .mt-1 {
   margin-top: 1%;
-}
-
-.ml-2 {
-  margin-left: 2%;
-}
-.ml-5 {
-  margin-left: 5%;
 }
 
 .mb-2 {
@@ -122,24 +111,10 @@ li a {
   margin-bottom: 5px !important;
 }
 
-.ml-5 {
-  margin-left: 5%;
-}
-
 .mt-32 {
   margin-top: 32px;
 }
 
-.ml-15 {
-  margin-left: 15px;
-}
-
-.ml-254 {
-  margin-left: 254px !important;
-}
-.ml-238 {
-  margin-left: 238px !important;
-}
 .mt-60 {
   margin-top: 54px !important;
 }
@@ -296,10 +271,6 @@ li a {
   border: none;
   color: #727679;
   background-color: #f8f8f8;
-}
-
-.pl-none {
-  padding-left: 0 !important;
 }
 
 .search-badge {

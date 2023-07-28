@@ -24,7 +24,7 @@
         {{@encryptable.sender_name}} / {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}
       </div>
 
-      <div class="ml-auto col-md-auto d-none d-md-block">
+      <div class="ms-auto col-md-auto d-none d-md-block">
         <a class="mx-1 text-decoration-none" role="button" href={{this.downloadLink}}>
           <img class="icon-medium-button d-inline" src="/assets/images/file_download.svg" alt="download file">
           <BsTooltip @title={{t "download_file"}} @delayShow="1000" />
@@ -60,49 +60,49 @@
       {{else}}
         {{#if (and (lte this.getAttributesAmount 2) (gt this.getAttributesAmount 0))}}
           {{#if (is-included @encryptable.usedEncryptedDataAttrs "username")}}
-            <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
+            <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block ms-0 me-md-2 ms-md-5 me-lg-2 ms-lg-5 me-xl-2 ms-xl-2">
               <Encryptable::AttributeField @attribute="username" @row={{true}} @encryptable={{@encryptable}}
                                            @visibleByDefault={{false}}/>
             </div>
           {{/if}}
           {{#if (is-included @encryptable.usedEncryptedDataAttrs "password")}}
-            <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
+            <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block me-0 ms-0 me-md-2 ms-md-5 me-lg-2 ms-lg-5 me-xl-2 ms-xl-2">
               <Encryptable::AttributeField @attribute="password" @row={{true}} @encryptable={{@encryptable}}
                                            @visibleByDefault={{false}}/>
             </div>
           {{/if}}
           {{#if (is-included @encryptable.usedEncryptedDataAttrs "email")}}
-            <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
+            <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block me-0 ms-0 me-md-2 ms-md-5 me-lg-2 ms-lg-5 me-xl-2 ms-xl-2">
               <Encryptable::AttributeField @attribute="email" @row={{true}} @encryptable={{@encryptable}}
                                            @visibleByDefault={{false}}/>
             </div>
           {{/if}}
           {{#if (is-included @encryptable.usedEncryptedDataAttrs "token")}}
-            <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
+            <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block me-0 ms-0 me-md-2 ms-md-5 me-lg-2 ms-lg-5 me-xl-2 ms-xl-2">
               <Encryptable::AttributeField @attribute="token" @row={{true}} @encryptable={{@encryptable}}
                                            @visibleByDefault={{false}}/>
             </div>
           {{/if}}
           {{#if (is-included @encryptable.usedEncryptedDataAttrs "pin")}}
-            <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
+            <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block me-0 ms-0 me-md-2 me-md-5 me-lg-2 ms-lg-5 me-xl-2 ms-xl-2">
               <Encryptable::AttributeField @attribute="pin" @row={{true}} @encryptable={{@encryptable}}
                                            @visibleByDefault={{false}}/>
             </div>
           {{/if}}
           {{#if (is-included @encryptable.usedEncryptedDataAttrs "custom_attr")}}
-            <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block mr-0 ml-0 mr-md-2 ml-md-5 mr-lg-2 ml-lg-5 mr-xl-2 ml-xl-2">
+            <div class="encryptable-container d-none d-md-block d-lg-block d-xl-block me-0 ms-0 me-md-2 ms-md-5 me-lg-2 ms-lg-5 me-xl-2 ms-xl-2">
               <Encryptable::AttributeField @attribute="customAttr" @row={{true}} @encryptable={{@encryptable}}
                                            @visibleByDefault={{false}}/>
             </div>
           {{/if}}
         {{else}}
-          <LinkTo class="col-6 underline-hover break-words account-link mt-2 mb-2 ml-2 p-0 d-none d-md-block d-lg-block d-xl-block" @route="encryptables.show"
+          <LinkTo class="col-6 underline-hover break-words account-link mt-2 mb-2 ms-2 p-0 d-none d-md-block d-lg-block d-xl-block" @route="encryptables.show"
                   @model={{@encryptable.id}}>
             {{t "encryptable/credentials.row.clickToSeeAttrs"}}
           </LinkTo>
         {{/if}}
       {{/if}}
-      <div class="col-md-auto d-none d-md-none d-lg-none d-xl-block encryptable-row-icons ml-auto">
+      <div class="col-md-auto d-none d-md-none d-lg-none d-xl-block encryptable-row-icons ms-auto">
         {{#unless this.isTransferredCredentials }}
           <span class="mx-1" role="button" {{on "click" this.toggleEncryptableEdit}}>
             <img class="icon-medium-button d-inline" src="/assets/images/edit.svg" alt="edit">
