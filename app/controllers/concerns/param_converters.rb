@@ -7,4 +7,8 @@ module ParamConverters
   def true?(value)
     %w[1 yes true].include?(value.to_s.downcase)
   end
+
+  def nil_param?(value)
+    value == "null" ? nil : value
+  end
 end
