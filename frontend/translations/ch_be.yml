@@ -77,6 +77,7 @@ ch_be:
     edit:
       title: Zuägangsdate editiere
       random_password: Sichers Passwort generierä
+      password_generator: Passwort Generator
       team_placeholder: Wähl äs Team us
       folder_placeholder: Wähl ä Ordner us
       password_strength: Passwort Sterchi
@@ -328,6 +329,7 @@ ch_be:
       email_copied: D Email isch kopiert worde
       customAttr_copied: Z individuellä Attribut isch kopiert worde
       selectAdditionalField: Du muäsch es Fäld uswähle
+
 
     encryptable-credentials:
       << : *encryptables_translations

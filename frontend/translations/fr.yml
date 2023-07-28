@@ -78,6 +78,7 @@ fr:
     edit:
       title: Modifier le compte
       random_password: Générer un mot de passe sécurisé
+      password_generator: Générateur de mot de passe
       team_placeholder: Choisissez une équipe
       folder_placeholder: Choisissez un dossier
       password_strength: Fiabilité du mot de passe

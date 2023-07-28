@@ -5,6 +5,7 @@ import { hbs } from "ember-cli-htmlbars";
 import Service from "@ember/service";
 import { selectChoose } from "ember-power-select/test-support";
 import { setLocale } from "ember-intl/test-support";
+import { pauseTest } from "@ember/test-helpers";
 
 const navServiceStub = Service.extend({
   /* eslint-disable ember/avoid-leaking-state-in-ember-objects */
@@ -156,7 +157,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#password-field")
         .innerText.replace(/\s+/g, " "),
-      "Password There is no password defined Random password"
+      "Password There is no password defined Password generator"
     );
     assert.equal(
       this.element.querySelector("#encryptable-form-save-button").innerText,
@@ -220,7 +221,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#password-field")
         .innerText.replace(/\s+/g, " "),
-      "Passwort Es ist kein Passwort gesetzt Zufälliges Passwort"
+      "Passwort Es ist kein Passwort gesetzt Passwort Generator"
     );
     assert.equal(
       this.element.querySelector("#encryptable-form-save-button").innerText,
@@ -291,7 +292,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#password-field")
         .innerText.replace(/\s+/g, " "),
-      "Passwort Es isch kes Passwort gsetzt Zuefäuigs Passwort"
+      "Passwort Es isch kes Passwort gsetzt Passwort Generator"
     );
     assert.equal(
       this.element.querySelector("#encryptable-form-save-button").innerText,
@@ -362,7 +363,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#password-field")
         .innerText.replace(/\s+/g, " "),
-      "Mot de passe Il n'a pas un mot de passe Mot de passe aléatoire"
+      "Mot de passe Il n'a pas un mot de passe Générateur de mot de passe"
     );
     assert.equal(
       this.element.querySelector("#encryptable-form-save-button").innerText,
@@ -543,12 +544,15 @@ module("Integration | Component | encryptable/form", function (hooks) {
   });
 
   test("Password does not contain symbols after unchecking checkbox", async function (assert) {
+    setLocale("en");
     await render(hbs`<Encryptable::Form />`);
+    await click(".accordion-button");
+
     const symbolSwitch = this.element.querySelector(
       "#withSymbols > span > label > div"
     );
     const password = this.element.querySelector(
-      "input[name='cleartextPassword']"
+      "#password > .input-group > input"
     );
     await click(symbolSwitch);
     await click("#password-generate-button");
@@ -559,7 +563,10 @@ module("Integration | Component | encryptable/form", function (hooks) {
   });
 
   test("Password with the right length should be generated", async function (assert) {
+    setLocale("en");
     await render(hbs`<Encryptable::Form />`);
+    await click(".accordion-button");
+
     const slider = this.element.querySelector("input#formControlRange");
     slider.value = 17;
     await triggerEvent(slider, "input");
@@ -567,7 +574,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
     await click("#password-generate-button");
 
     assert.equal(
-      this.element.querySelector("input[name='cleartextPassword']").value
+      this.element.querySelector("#password > .input-group > input").value
         .length,
       17
     );

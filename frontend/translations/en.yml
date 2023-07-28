@@ -77,6 +77,7 @@ en:
       create: Create Credentials
     edit:
       title: Edit Credentials
+      password_generator: Password generator
       random_password: Generate secure password
       team_placeholder: Select a Team
       folder_placeholder: Select a Folder
@@ -328,6 +329,7 @@ en:
       email_copied: Email was copied
       customAttr_copied: Custom Attribute was copied
       selectAdditionalField: You have to choose a field
+
 
     encryptable-credentials:
       << : *encryptables_translations
