@@ -3,16 +3,23 @@
     <div class="navbar-collapse p-0" id="nav-side-bar-container" {{did-insert this.setupModal this}}>
       <div class="list-group list-group-root">
         <div class="d-flex justify-content-center list-group-top-button list-group-item-action border-0">
-          <BsButtonGroup class="button-group" @type="radio" @value={{this.showsFavourites}} @onChange={{this.toggleFavourites}} as |bg|>
-            <bg.button class="toggle-button" @value={{false}}>
+
+          <div class="btn-group button-group" role="group" aria-label="Basic radio toggle button group">
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" {{on "click" (fn this.toggleFavourites false)}} >
+            <label class="btn btn-outline-primary toggle-button {{unless this.showsFavourites 'toggle-button-active'}}" for="btnradio1">
               <img class="icon icon-button" src="/assets/images/members{{unless this.showsFavourites "-filled"}}.svg" alt="">
               <BsTooltip @title={{t "tooltips.all_teams"}} @delayShow="1000" />
-            </bg.button>
-            <bg.button class="toggle-button" @value={{true}}>
+            </label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" {{on "click" (fn this.toggleFavourites true)}}>
+            <label class="btn btn-outline-primary toggle-button {{if this.showsFavourites 'toggle-button-active'}}" for="btnradio2">
               <img class="icon icon-button" src="/assets/images/star{{if this.showsFavourites "-filled"}}.svg" alt="star">
               <BsTooltip @title={{t "tooltips.favorites"}} @delayShow="1000" />
-            </bg.button>
-          </BsButtonGroup>
+            </label>
+
+
+          </div>
         </div>
         <div class="mb-5 d-flex flex-column teams-list">
           <div class="side-nav-bar-teams-list scroll-bar">
@@ -24,9 +31,9 @@
                       <img class="icon icon-button lh-1 mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "member-white.svg" "member.svg"}}" alt="">
                     {{else}}
                       {{#if team.private}}
-                        <img class="icon icon-button mr-2 " src="/assets/images/{{if (eq team this.navService.selectedTeam) "encrypted_small-white.svg" "encrypted_small.svg"}}" alt="">
+                        <img class="icon icon-button me-2 " src="/assets/images/{{if (eq team this.navService.selectedTeam) "encrypted_small-white.svg" "encrypted_small.svg"}}" alt="">
                       {{else}}
-                        <img class="icon icon-button mr-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "members-white.svg" "members.svg"}}" alt="">
+                        <img class="icon icon-button me-2" src="/assets/images/{{if (eq team this.navService.selectedTeam) "members-white.svg" "members.svg"}}" alt="">
                       {{/if}}
                     {{/if}}
 
@@ -43,16 +50,16 @@
                   </div>
                   {{#if (not team.folders)}}
                   {{else if (and team.folders (or (not (eq team this.navService.selectedTeam)) this.collapsed))}}
-                    <img class="icon icon-button-angle float-right" src="/assets/images/{{if (eq team this.navService.selectedTeam) "angle-left-white.svg" "angle-left.svg"}}" alt="<">
+                    <img class="icon icon-button-angle float-end" src="/assets/images/{{if (eq team this.navService.selectedTeam) "angle-left-white.svg" "angle-left.svg"}}" alt="<">
                   {{else}}
-                    <img class="icon icon-button-angle float-right" src="/assets/images/{{if (eq team this.navService.selectedTeam) "angle-down-white.svg" "angle-down.svg"}}" alt="v">
+                    <img class="icon icon-button-angle float-end" src="/assets/images/{{if (eq team this.navService.selectedTeam) "angle-down-white.svg" "angle-down.svg"}}" alt="v">
                   {{/if}}
                 </a>
                 {{#if (or team.folders (eq team this.navService.selectedTeam))}}
                   <BsCollapse class="list-group" id="nav-folders-{{team.id}}" @collapsed={{or (not (eq team this.navService.selectedTeam)) this.collapsed}}>
                     {{#each team.folders as |folder|}}
                       <a role="button"  class="list-group-item list-folder-item {{if (eq folder this.navService.selectedFolder) "bg-blue-three" "bg-blue-one"}}" {{on "click" (fn this.setSelectedFolder folder)}}>
-                        <img class="icon icon-button mr-1" src="/assets/images/folder.svg" alt="">
+                        <img class="icon icon-button me-1" src="/assets/images/folder.svg" alt="">
                         {{truncate folder.name 15}}
                         {{#if folder.unreadTransferredCount}}
                           <span class="badge bg-info rounded-circle text-light">{{folder.unreadTransferredCount}} </span>

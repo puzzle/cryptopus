@@ -48,10 +48,6 @@ $font-family-sans-serif: var(--pzsh-font-family) !default;
   flex-direction: row;
 }
 
-.float-right {
-  float: right !important;
-}
-
 .pt-10 {
   padding-top: 10%;
 }
@@ -69,13 +65,6 @@ $font-family-sans-serif: var(--pzsh-font-family) !default;
 
 .mt-1 {
   margin-top: 1%;
-}
-
-.ml-2 {
-  margin-left: 2%;
-}
-.ml-5 {
-  margin-left: 5%;
 }
 
 .mb-2 {
@@ -122,24 +111,10 @@ li a {
   margin-bottom: 5px !important;
 }
 
-.ml-5 {
-  margin-left: 5%;
-}
-
 .mt-32 {
   margin-top: 32px;
 }
 
-.ml-15 {
-  margin-left: 15px;
-}
-
-.ml-254 {
-  margin-left: 254px !important;
-}
-.ml-238 {
-  margin-left: 238px !important;
-}
 .mt-60 {
   margin-top: 54px !important;
 }
@@ -296,10 +271,6 @@ li a {
   border: none;
   color: #727679;
   background-color: #f8f8f8;
-}
-
-.pl-none {
-  padding-left: 0 !important;
 }
 
 .search-badge {
@@ -498,6 +469,9 @@ h5, h6 {
   text-align: center;
 }
 
+#cleartext-password{
+  margin-bottom: 0.5em;
+}
 .changelog-container h2 {
   font-size: 1.5rem;
 }
@@ -517,3 +491,32 @@ h5, h6 {
   color: white !important;
 }
 
+
+.x-toggle:checked + label > .x-toggle-material.x-toggle-btn::after{
+  background-color: #1b8dc6;
+}
+
+.x-toggle:not(:checked) + label > .x-toggle-material.x-toggle-btn::after {
+  border: lightslategray solid 1px;
+}
+
+.x-toggle-component.x-toggle-focused .x-toggle-btn:not(.x-toggle-disabled) {
+  &::after, &::before {
+    box-shadow: none;
+  }
+}
+
+
+.password-range {
+  &::-moz-range-progress{
+    background-color: #1e5a96;
+  }
+}
+
+.password-length {
+  -moz-appearance: textfield;
+  &::-webkit-outer-spin-button, &::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}

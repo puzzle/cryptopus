@@ -76,7 +76,8 @@ ch_be:
       create: Zuägangsdate ersteuä
     edit:
       title: Zuägangsdate editiere
-      random_password: Zuefäuigs Passwort
+      random_password: Sichers Passwort generierä
+      password_generator: Passwort Generator
       team_placeholder: Wähl äs Team us
       folder_placeholder: Wähl ä Ordner us
       password_strength: Passwort Sterchi
@@ -111,6 +112,8 @@ ch_be:
     new:
       title: Nöi Zuägangsdate
     form:
+      passwordLength: "Zeichä: "
+      symbols: "Simbou:"
       notEncryptedField: Das Fäld wird nid verschlüsslät
     row:
       clickToSeeAttrs: Klick wenn aui Attribut möchtisch gseh
@@ -326,6 +329,7 @@ ch_be:
       email_copied: D Email isch kopiert worde
       customAttr_copied: Z individuellä Attribut isch kopiert worde
       selectAdditionalField: Du muäsch es Fäld uswähle
+
 
     encryptable-credentials:
       << : *encryptables_translations

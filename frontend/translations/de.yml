@@ -77,7 +77,8 @@ de:
       create: Zugangsdaten erstellen
     edit:
       title: Zugangsdaten editieren
-      random_password: Zufälliges Passwort
+      random_password: Sicheres Passwort generieren
+      password_generator: Passwort Generator
       team_placeholder: Wählen Sie ein Team aus
       folder_placeholder: Wählen Sie ein Ordner aus
       password_strength: Passwort Stärke
@@ -111,6 +112,8 @@ de:
     new:
       title: Neue Zugangsdaten
     form:
+      passwordLength: "Zeichen: "
+      symbols: "Symbole: "
       notEncryptedField: Dieses Feld wird nicht verschlüsselt
     row:
       clickToSeeAttrs: Klicke um alle Attribute zu sehen

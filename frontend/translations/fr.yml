@@ -77,7 +77,8 @@ fr:
       create: Créer compte
     edit:
       title: Modifier le compte
-      random_password: Mot de passe aléatoire
+      random_password: Générer un mot de passe sécurisé
+      password_generator: Générateur de mot de passe
       team_placeholder: Choisissez une équipe
       folder_placeholder: Choisissez un dossier
       password_strength: Fiabilité du mot de passe
@@ -112,6 +113,8 @@ fr:
     new:
       title: Nouveau compte
     form:
+      passwordLength: "Caractères: "
+      symbols: Symboles
       notEncryptedField: Ce champ n'est pas crypté
     row:
       clickToSeeAttrs: Cliquez pour voir tous les attributs

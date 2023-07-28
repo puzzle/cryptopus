@@ -77,7 +77,8 @@ en:
       create: Create Credentials
     edit:
       title: Edit Credentials
-      random_password: Random password
+      password_generator: Password generator
+      random_password: Generate secure password
       team_placeholder: Select a Team
       folder_placeholder: Select a Folder
       password_strength: Password Strength
@@ -112,6 +113,8 @@ en:
     new:
       title: New Credentials
     form:
+      passwordLength: "Characters: "
+      symbols: "Symbols: "
       notEncryptedField: This field is not encrypted
     row:
       clickToSeeAttrs: Click to see all attributes
@@ -326,6 +329,7 @@ en:
       email_copied: Email was copied
       customAttr_copied: Custom Attribute was copied
       selectAdditionalField: You have to choose a field
+
 
     encryptable-credentials:
       << : *encryptables_translations

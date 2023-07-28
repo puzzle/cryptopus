@@ -82,36 +82,41 @@
           <div class="encryptable-form-attributes">
             <div class="row">
               {{#each this.activeFields as |attribute|}}
-                <div id="{{attribute}}-field" class="col-md-6 pt-2 encryptable-form-field {{if (eq attribute "customAttr")  "border-1 border border-mute border-radius-4"}}">
+                <div id="{{attribute}}-field"
+                     class="col-md-6 pt-2 encryptable-form-field {{if (eq attribute "customAttr")
+                                                                      "border-1 border border-mute border-radius-4"}}">
                   {{#if (eq attribute "customAttr")}}
-                      <div class="col-md-12">
-                        <form.element @label={{t "labelCustomAttr"}} id="labelCustomAttr" class={{if
-                          this.changeset.error.cleartextCustomAttrLabel.validation "invalid-input-name"}}
-                                      @property="cleartextCustomAttrLabel" @customError={{t
-                          (validation-error-key this.changeset.error.cleartextCustomAttrLabel.validation)}} as |el|>
-                          <div class="input-group">
-                            <el.control @name="label"></el.control>
-                            <span class="encrypted-icon-span">
+                    <div class="col-md-12">
+                      <form.element @label={{t "labelCustomAttr"}} id="labelCustomAttr" class={{if
+                        this.changeset.error.cleartextCustomAttrLabel.validation "invalid-input-name"}}
+                                    @property="cleartextCustomAttrLabel" @customError={{t
+                        (validation-error-key this.changeset.error.cleartextCustomAttrLabel.validation)}} as |el|>
+                        <div class="input-group">
+                          <el.control @name="label"></el.control>
+                          <span class="encrypted-icon-span">
                             {{!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding--}}
-                            <BsTooltip @title={{t "encryptable/credentials.form.notEncryptedField"}} @delayShow="300" @viewportSelector="modal"/>
+                            <BsTooltip @title={{t "encryptable/credentials.form.notEncryptedField"}} @delayShow="300"
+                                       @viewportSelector="modal"/>
                             <img class="d-inline-block encrypted-icon"
                                  src="/assets/images/not_encrypted_small.svg" alt="not encrypted value">
                           </span>
-                          </div>
-                        </form.element>
+                        </div>
+                      </form.element>
                       </div>
                     <br>
                   {{/if}}
                   <div class="col-md-12 {{if (eq attribute "password") "secret password-field"}}">
                     <form.element @label={{t attribute}} id={{attribute}} class={{if
-                      (get (get this.changeset.error (concat "cleartext" (capitalize attribute))) "validation") "invalid-input-name"}}
+                      (get (get this.changeset.error (concat "cleartext" (capitalize attribute))) "validation")
+                      "invalid-input-name"}}
                                   @property="cleartext{{capitalize attribute}}" @customError={{t
-                      (validation-error-key (get (get this.changeset.error (concat "cleartext" (capitalize attribute))) "validation"))}} as |el|>
+                      (validation-error-key (get (get this.changeset.error (concat "cleartext" (capitalize attribute))) "validation"))}}
+                                  as |el|>
                       <div class="input-group">
                         <el.control autocomplete="off" @name="cleartext{{capitalize attribute}}"></el.control>
                         <span class="encrypted-icon-span">
                           {{!-- Bind Popper to modal with viewportSelector, more information: https://www.ember-bootstrap.com/api/classes/Components.Tooltip.html#property_viewportPadding--}}
-                          <BsTooltip @title="{{t "tooltips.encryption_algorithm"}} AES256iv" @delayShow="300" />
+                          <BsTooltip @title="{{t "tooltips.encryption_algorithm"}} AES256iv" @delayShow="300"/>
                           <img class="encrypted-icon d-inline-block"
                                src="/assets/images/encrypted_small.svg" alt="encrypted value">
                         </span>
@@ -119,18 +124,61 @@
                     </form.element>
                   </div>
                   <button class="btn btn-danger d-inline-block p-1 delete-field" type="button" {{on "click"
-                                                                                      (action "removeField" attribute)}}>
+                                                                                                    (action "removeField" attribute)}}>
                     <img id="remove-{{attribute}}-field-button" class="d-inline" src="/assets/images/delete-white.svg"
                          alt="delete attribute field">
                   </button>
                   {{#if (eq attribute "password")}}
+                    <div class="d-flex flex-column">
                     <PasswordStrengthMeter class="col-12 col-lg-9 px-0 mb-2 mb-md-0 ml-3"
                                            @password={{this.changeset.cleartextPassword}}/>
-                    <div></div>
-                    <button class="btn btn-secondary btn-block col-lg-7 mb-md-4 ml-3 mt-2" type="button" {{on "click"
-                                                                                                this.setRandomPassword}}>
-                      {{t "encryptable/credentials.edit.random_password"}}
-                    </button>
+                    <BsAccordion @selected={{1}} as |acc|>
+                      <acc.item @value="1" class="text-decoration-none" {{on "click" this.togglePwGen}} as |pwGen|>
+                        <pwGen.title class="text-decoration-none">
+                      <span class="text-decoration-none text-dark">
+                       {{t "encryptable/credentials.edit.password_generator"}}
+                      </span>
+                          <div class="d-flex flex-row-reverse w-100">
+                            {{#if this.isGenExpanded}}
+                              <img src="/assets/images/up-arrow-svgrepo-com.svg" width="20px" alt="">
+                            {{else}}
+                              <img src="/assets/images/arrow-down-3101.svg" alt="" width="20px">
+                            {{/if}}
+                          </div>
+                        </pwGen.title>
+                        <pwGen.body>
+
+                          <div class="d-flex flex-column align-items-center">
+                            <div class="d-flex flex-row align-items-center justify-content-between">
+                    <span class="d-flex">
+                      {{t "encryptable/credentials.form.passwordLength"}}
+
+                      <Input @type="range" class="custom-range password-range mx-1" id="formControlRange"
+                             @value={{this.passwordLength}}
+                             min="14" max="32"></Input>
+                    </span>
+                              <Input min="14" max="32" @type="number" @value={{this.passwordLength}}
+                                     class="border border-mute border-radius-4 w-25 password-length"> </Input>
+                            </div>
+
+                            <div class="d-flex justify-content-between w-100">
+                              {{t "encryptable/credentials.form.symbols"}}
+                              <XToggle @value={{this.withSymbols}} id="withSymbols" @onToggle={{fn
+                                (mut this.withSymbols)}}
+                                       @theme="material"
+                                       @size="small"/>
+                            </div>
+                            <button id="password-generate-button" class="btn btn-secondary btn-sm col-lg-7 mb-md-4" {{on
+                              "click" this.setRandomPassword }} {{on
+                              "click" (fn acc.change 1)}}
+                                    tabindex="4">
+                              {{t "encryptable/credentials.edit.random_password"}}
+                            </button>
+                          </div>
+                        </pwGen.body>
+                      </acc.item>
+                    </BsAccordion>
+                    </div>
                   {{/if}}
                 </div>
               {{/each}}
