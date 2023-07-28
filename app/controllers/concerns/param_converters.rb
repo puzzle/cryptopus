@@ -9,6 +9,6 @@ module ParamConverters
   end
 
   def nil_param?(value)
-    value == "null" ? nil : value
+    value == 'null' ? nil : value
   end
 end
