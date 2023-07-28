@@ -88,7 +88,7 @@ export default class Form extends BaseFormComponent {
   @action
   abort(byButton) {
     if (this.args.onAbort && byButton) {
-      this.args.onAbort(false);
+      this.args.onAbort();
     }
   }
 
@@ -112,7 +112,7 @@ export default class Form extends BaseFormComponent {
   }
 
   handleSubmitSuccess(savedRecords) {
-    this.abort();
+    this.abort(true);
     if (!this.args.attachment) {
       this.saveEditedData(savedRecords);
     }
