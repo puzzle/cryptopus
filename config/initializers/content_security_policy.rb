@@ -13,19 +13,23 @@ Rails.application.config.content_security_policy do |policy|
   #
   # :unsafe_eval, allows execution of eval statements
   # :unsafe_inline, allows inline resources usage
+  FRONTEND_URL = 'http://localhost:4200'
 
   policy.default_src :none unless Rails.env.development?
-  policy.font_src    :self, "http://localhost:4200/text-security-disc-compat.eot?#iefix",
-                            "http://localhost:4200/text-security-disc.woff2",
-                            "http://localhost:4200/text-security-disc-compat.ttf"
+
   policy.img_src     :self
   policy.connect_src :self, 'https://sentry.puzzle.ch'
 
+  policy.font_src :self
+  policy.font_src :self, :https, "#{FRONTEND_URL}/text-security-disc-compat.eot?#iefix",
+                  "#{FRONTEND_URL}/text-security-disc.woff2",
+                  "#{FRONTEND_URL}/text-security-disc-compat.ttf" if Rails.env.development?
+
   policy.script_src  :self
-  policy.script_src  :self, :unsafe_eval, "http://localhost:4200" if Rails.env.development?
+  policy.script_src  :self, :unsafe_eval, FRONTEND_URL if Rails.env.development?
 
   policy.style_src   :self, :unsafe_inline
-  policy.style_src   :self, :unsafe_inline, "http://localhost:4200" if Rails.env.development?
+  policy.style_src   :self, :unsafe_inline, FRONTEND_URL if Rails.env.development?
 
   # If you are using webpack-dev-server then specify webpack-dev-server host
   policy.connect_src :self, "http://localhost:3035", "ws://localhost:4200" if Rails.env.development?
