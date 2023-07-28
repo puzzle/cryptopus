@@ -2,12 +2,12 @@
   <Encryptable::Form @encryptable={{@encryptable}} @title={{t "encryptable/credentials.edit.title"}} @onAbort={{this.toggleEncryptableEdit}}/>
 {{/if}}
 {{#if this.isFileCreating}}
-  <EncryptableFile::Form @class="modal_file_entry" @encryptableCredential={{@encryptable}} @title={{t "encryptable_files.new.title"}} @onAbort={{this.toggleFileNew}}/>
+  <EncryptableFile::Form @class="modal_file_entry" @encryptableCredential={{@encryptable}} @title={{t "encryptable_files.attachment.title"}} @onAbort={{this.toggleFileNew}} @attachment={{true}}/>
 {{/if}}
 {{#if this.isCredentialSharing}}
   <CredentialTransfer @onAbort={{this.toggleCredentialSharing}} @title={{t "encryptable/transferring/credential.new.title"}} @encryptableId={{@encryptable.id}} @encryptableName={{@encryptable.name}}/>
 {{/if}}
-{{#if this.isFile}}
+{{#if @encryptable.isFile}}
   <div class="container px-5 pt-4 h-100 bg-white ps-0 encryptable-container-smartphone mb-15">
     <div class="row mb-3">
       <div class="col">
@@ -29,12 +29,18 @@
       <div class="col-lg-9 accountname">
         <h2 class="d-inline">{{t "encryptable/credentials.show.file"}}: {{@encryptable.name}}</h2>
       </div>
-      <div class="col-lg-9 accountname text-muted">
-        <br><p class="d-inline">{{t "encryptable/credentials.show.transferred_at"}}: {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}</p>
-      </div>
-      <div class="col-lg-9">
-        <br><p class="d-inline">{{t "encryptable/transferring/file.show.sender_name"}}: {{@encryptable.sender_name}}</p>
-      </div>
+      {{#if @encryptable.sender_name}}
+        <div class="col-lg-9 accountname text-muted">
+          <br><p class="d-inline">{{t "encryptable/credentials.show.transferred_at"}}: {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}</p>
+        </div>
+        <div class="col-lg-9">
+          <br><p class="d-inline">{{t "encryptable/file.show.sender_name"}}: {{@encryptable.sender_name}}</p>
+        </div>
+      {{else}}
+        <div class="col-lg-9 accountname text-muted">
+          <br><p id="encryptable-created-at" class="d-inline">{{t "encryptable/credentials.show.created_at"}}: {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}</p>
+        </div>
+      {{/if}}
     </div>
 
     {{#if @encryptable.description}}
@@ -131,7 +137,7 @@
     {{#unless this.isTransferredCredentials}}
       <div class="d-flex flex-row justify-content-between mb-2">
         <div>
-          <h3 id="encryptable-attachments">{{t "encryptable/credentials.show.attachments"}}</h3>
+          <h4 id="encryptable-attachments">{{t "encryptable/credentials.show.attachments"}}</h4>
         </div>
         <div>
           <BsButton id="encryptable-add-attachment" @type="primary" {{on "click" this.toggleFileNew}}>
@@ -142,9 +148,9 @@
       <table class="table table-striped">
         <tbody>
           <tr>
-            <th id="encryptable-file-label">{{t "encryptable/credentials.show.file"}}</th>
-            <th id="encryptable-file-description" class="description">{{t "description"}}</th>
-            <th id="encryptable-file-actions">{{t "actions"}}</th>
+            <th class="font-weight-normal" id="encryptable-file-label">{{t "encryptable/credentials.show.file"}}</th>
+            <th class="font-weight-normal" id="encryptable-file-description">{{t "description"}}</th>
+            <th class="font-weight-normal" id="encryptable-file-actions">{{t "actions"}}</th>
           </tr>
           {{#each @encryptable.encryptableFiles as |encryptableFile|}}
             <EncryptableFile::Row @encryptableFile={{encryptableFile}}/>

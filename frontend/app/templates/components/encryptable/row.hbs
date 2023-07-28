@@ -4,35 +4,37 @@
 <div id={{concat "loader-encryptable-" @encryptable.id}} {{did-insert this.setupInViewport}}>
 </div>
 {{#if this.isShown}}
-  {{#if this.isFile}}
+  {{#if @encryptable.isFile}}
     <div class="row d-flex align-items-center bg-grey-2 rounded encryptable-entry pt-2 pb-2">
-      <div class="mx-1 mt-1 mb-1">
+      <div class="mx-1 ml-3 mt-1 mb-1">
         <img class="icon-medium-button d-inline" src="/assets/images/file.svg" alt="file icon">
       </div>
 
-      <LinkTo class="d-flex align-items-center text-left col-12 col-md-3 col-lg-3
+      <LinkTo id="encryptable-row-title" class="d-flex align-items-center text-left col-12 col-md-3 col-lg-3
       col-xl-4 underline-hover break-words account-link" @route="encryptables.show"
               @model={{@encryptable.id}}>
         {{@encryptable.name}}
       </LinkTo>
 
-      <div>
-        <img class="icon-medium-button d-inline" src="/assets/images/member.svg" alt="person icon">
-        <BsTooltip @title={{t "tooltips.sent_by"}} @delayShow="1000" />
-      </div>
-      <div class="col-5 d-none d-md-block">
-        {{@encryptable.sender_name}} / {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}
-      </div>
+      {{#if @encryptable.sender_name}}
+        <div>
+          <img class="icon-medium-button d-inline" src="/assets/images/member.svg" alt="person icon">
+          <BsTooltip @title={{t "tooltips.sent_by"}} @delayShow="1000" />
+        </div>
+        <div class="col-5 d-none d-md-block">
+          {{@encryptable.sender_name}} / {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}
+        </div>
+      {{/if}}
 
       <div class="ms-auto col-md-auto d-none d-md-block">
         <a class="mx-1 text-decoration-none" role="button" href={{this.downloadLink}}>
-          <img class="icon-medium-button d-inline" src="/assets/images/file_download.svg" alt="download file">
+          <img id="download-button" class="icon-medium-button d-inline" src="/assets/images/file_download.svg" alt="download file">
           <BsTooltip @title={{t "download_file"}} @delayShow="1000" />
         </a>
 
         <DeleteWithConfirmation @class="mx-1" @record={{@encryptable}} @didDelete={{this.refreshRoute}}>
           <img class="icon-medium-button d-inline" src="/assets/images/delete.svg" alt="delete">
-          <BsTooltip @title={{t "encryptable/transferring/file.delete_transferred_encryptables"}}
+          <BsTooltip @title={{t "encryptable/file.delete_transferred_encryptables"}}
                      @delayShow="1000" />
         </DeleteWithConfirmation>
       </div>
@@ -40,11 +42,9 @@
   {{else}}
     <div class="row d-flex flex-row flex-md-row flex-lg-row flex-xl-row align-items-center bg-grey-2 rounded
     encryptable-entry">
-      {{#if this.isTransferredCredentials }}
-        <div class="mx-1">
-          <img class="icon-medium-button d-inline" src="/assets/images/key.svg" alt="key icon">
-        </div>
-      {{/if}}
+      <div class="mx-1">
+        <img class="icon-medium-button d-inline" src="/assets/images/key.svg" alt="key icon">
+      </div>
       <LinkTo id="encryptable-row-title" class="d-flex align-items-center text-left col-12 col-md-3 col-lg-3
       col-xl-4 underline-hover break-words account-link" @route="encryptables.show" @model={{@encryptable.id}}>
         {{@encryptable.name}}

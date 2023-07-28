@@ -13,7 +13,10 @@ export default class NavBarComponent extends Component {
   searchInterval;
 
   @tracked
-  isNewEncryptable = false;
+  isNewEncryptableCredential = false;
+
+  @tracked
+  isNewEncryptableFile = false;
 
   @tracked
   isNewFolder = false;
@@ -38,8 +41,13 @@ export default class NavBarComponent extends Component {
   }
 
   @action
-  toggleEncryptableCreating() {
-    this.isNewEncryptable = !this.isNewEncryptable;
+  toggleEncryptableCredentialCreating() {
+    this.isNewEncryptableCredential = !this.isNewEncryptableCredential;
+  }
+
+  @action
+  toggleEncryptableFileCreating() {
+    this.isNewEncryptableFile = !this.isNewEncryptableFile;
   }
 
   @action

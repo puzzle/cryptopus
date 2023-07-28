@@ -117,9 +117,12 @@ ch_be:
     share:
       title: Datei teilä
 
-  encryptable/transferring/file:
+  encryptable/file:
     new:
-      title: "Datei teilä"
+      title: "Datei hinzuefüge"
+    transfer:
+      new:
+        title: Datei teilä
     receiver:
       name: Wäu ä empfänger
     show:
@@ -202,12 +205,18 @@ ch_be:
 
   encryptable_files:
     new:
+      title: Nöii Datei ufäladä
+      upload_file: Datei wod wosch ufälade
+      choose_file: Wäu ä Datei us
+      selected_file: Usgwäuti Dateo
+      reupload: Wäu ä anderi Datei us
+    attachment:
       title: Ahang zu dä Zuägangsdate hinzuefüege
       upload: Ufeladä
       upload_file: Datei zum ufeladä
       choose_file: Suech e Datei us
-      reupload: Wähl e angeri Datei
       selected_file: Usgwählti Datei
+    reupload: Wähl e angeri Datei
 
   session:
     destroy:

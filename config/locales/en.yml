@@ -97,7 +97,7 @@ en:
         encryptable/file:
           attributes:
             name:
-              taken: File has already been taken
+              taken: File name has already been taken
 
   #Pundit
   pundit:

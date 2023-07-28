@@ -20,9 +20,6 @@ export default class ShowComponent extends Component {
   isFileCreating = false;
 
   @tracked
-  isFile = this.args.encryptable.isFile;
-
-  @tracked
   isCredentialSharing = false;
 
   @tracked isTransferredCredentials =

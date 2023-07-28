@@ -41,8 +41,7 @@ describe 'Encryptable Files Modal', type: :system, js: true do
     expect do
       create_new_file(file_desc, file_path)
     end.to change { Encryptable::File.count }.by(0)
-
-    expect(page).to have_text('File has already been taken.')
+    expect(page).to have_text('File name has already been taken')
     click_button('Close')
 
     expect(page).to have_text("Credentials: #{credentials.name}")
@@ -67,7 +66,7 @@ describe 'Encryptable Files Modal', type: :system, js: true do
     expect(page).to have_text('Add new attachment to credentials')
 
     expect(find('.modal-content')).to be_present
-    expect(page).to have_button('Upload')
+    expect(page).to have_button('Upload', disabled: true)
 
     within('div.modal-content') do
       fill_in 'description', with: description

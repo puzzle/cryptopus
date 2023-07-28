@@ -1,3 +1,4 @@
+
 ![logo](https://raw.githubusercontent.com/puzzle/cryptopus/57f8ad8de410e4a0ba16227620727787f22c7d1c/frontend/public/assets/images/cryptopussy.svg)
 
 [![Cryptopus CI build](https://github.com/puzzle/cryptopus/actions/workflows/build.yml/badge.svg)](https://github.com/puzzle/cryptopus/actions/workflows/build.yml)
