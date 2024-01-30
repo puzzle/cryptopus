@@ -6,11 +6,10 @@
 {{#if this.isShown}}
   {{#if @encryptable.isFile}}
     <div class="row d-flex align-items-center bg-grey-2 rounded encryptable-entry pt-2 pb-2">
-      <div class="mx-1 ml-3 mt-1 mb-1">
+      <div class="ml-3 mt-1 mb-1 w-auto d-flex aligin-items-center">
         <img class="icon-medium-button d-inline" src="/assets/images/file.svg" alt="file icon">
       </div>
-
-      <LinkTo id="encryptable-row-title" class="d-flex align-items-center text-left col-12 col-md-3 col-lg-3
+      <LinkTo id="encryptable-row-title" class="d-flex align-items-center text-left col-9 col-md-3 col-lg-3
       col-xl-4 underline-hover break-words account-link" @route="encryptables.show"
               @model={{@encryptable.id}}>
         {{@encryptable.name}}
@@ -42,7 +41,7 @@
   {{else}}
     <div class="row d-flex flex-row flex-md-row flex-lg-row flex-xl-row align-items-center bg-grey-2 rounded
     encryptable-entry">
-      <div class="w-auto">
+      <div class="w-auto d-flex align-items-center">
         <img class="icon-medium-button d-inline" src="/assets/images/key.svg" alt="key icon">
       </div>
       <LinkTo id="encryptable-row-title" class="d-flex align-items-center text-left col-9 col-md-3 col-lg-3
@@ -50,11 +49,11 @@
         {{@encryptable.name}}
       </LinkTo>
       {{#if this.isTransferredCredentials }}
-        <div class="mx-1">
+        <div class="w-auto d-none d-sm-flex align-items-center">
           <img class="icon-medium-button d-inline" src="/assets/images/member.svg" alt="person icon">
           <BsTooltip @title={{t "tooltips.sent_by"}} @delayShow="1000" />
         </div>
-        <div class="col-6 d-none d-md-block sent-by-row">
+        <div class="col-4 d-none d-md-block sent-by-row">
           {{@encryptable.sender_name}} / {{moment-format @encryptable.createdAt "DD.MM.YYYY hh:mm"}}
         </div>
       {{else}}
@@ -96,7 +95,7 @@
             </div>
           {{/if}}
         {{else}}
-          <LinkTo class="col-6 underline-hover break-words account-link mt-2 mb-2 ms-2 p-0 d-none d-md-block d-lg-block d-xl-block" @route="encryptables.show"
+          <LinkTo class="col-4 underline-hover break-words account-link mt-2 mb-2 ms-2 p-0 d-none d-md-block d-lg-block d-xl-block" @route="encryptables.show"
                   @model={{@encryptable.id}}>
             {{t "encryptable/credentials.row.clickToSeeAttrs"}}
           </LinkTo>
