@@ -17,9 +17,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-1">
-          </div>
-          <div class="col-md-5">
+          <div class="col-md-6">
             <div class="row">
               <div class="form-group col-md-12" id="team-power-select">
                 <form.element @label={{t "team"}} @controlType="power-select"
@@ -40,7 +38,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12 mt-5 mb-4">
+          <div class="col-md-12 mt-3 mb-4">
             <form.element @label={{t "description"}} @property="description" @controlType="textarea"
                           id="description" class="{{if
               this.changeset.error.description.validation "invalid-input"}} vertical-resize"
