@@ -61,6 +61,23 @@ describe 'TeamModal', type: :system, js: true do
     end
   end
 
+  it 'finds matching encryptable' do
+    login_as_user(:bob)
+    visit('/')
+
+    encryptable1 = encryptables(:credentials2)
+
+    expect(find('pzsh-banner input.search')['placeholder']).to eq('Type to search in all teams...')
+    find('pzsh-banner input.search').set encryptable1.name
+
+    within 'div[role="main"]' do
+      expect(page).to have_text(teams(:team2).name)
+      expect(page).to have_text(folders(:folder2).name)
+      expect(page).to have_text(encryptables(:credentials2).name)
+      expect(page).to have_selector('.encryptable-row', count: 1)
+    end
+  end
+
   it 'search starts after 2 chars' do
     login_as_user(:bob)
     visit('/')
