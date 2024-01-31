@@ -180,7 +180,7 @@ describe Api::TeamsController do
       expect(folder_relationships_length).to be(1)
     end
 
-    ## TODO: Re-enable after fixing encryptables ordering, see #760
+    ## TODO: Re-enable after fixing encryptables ordering, see https://github.com/puzzle/cryptopus/issues/760
     xit 'returns encryptable files for team_id, in order from created_at' do
       inbox_folder_receiver = alice.inbox_folder
       personal_team_alice = teams(:personal_team_alice)
