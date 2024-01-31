@@ -73,23 +73,22 @@ describe 'TeamModal', type: :system, js: true do
     Fabricate(:credential_all_attrs,
               folder: target_folder,
               team_password: team_password,
-              name: 'credentials3')
+              name: 'Rocket Access Codes')
     Fabricate(:credential_all_attrs,
               folder: target_folder,
               team_password: team_password,
-              name: 'credentials4')
+              name: 'Github Account')
 
-    encryptable1 = encryptables(:credentials2)
     expect(find('pzsh-banner input.search')['placeholder']).to eq('Type to search in all teams...')
-    find('pzsh-banner input.search').set encryptable1.name
+    find('pzsh-banner input.search').set 'Twitter'
 
     within 'div[role="main"]' do
       expect(page).to have_text(teams(:team2).name)
       expect(page).to have_text(folders(:folder2).name)
       expect(page).to have_text(encryptables(:credentials2).name)
       expect(page).to have_selector('.encryptable-row', count: 1)
-      expect(page).not_to have_text('credentials3')
-      expect(page).not_to have_text('credentials4')
+      expect(page).not_to have_text('Rocket Access Codes')
+      expect(page).not_to have_text('Github Account')
     end
   end
 
