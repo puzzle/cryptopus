@@ -11,11 +11,11 @@
         </div>
       {{/each}}
       <div class="row">
-        <div class="form-group col-md-12">
+        <div class="form-group col-md-12 mb-2">
           <div>
             {{#unless @attachment}}
-              <div id="file-upload-dropdowns" class="d-flex mb-3">
-                <div class="w-100">
+              <div id="file-upload-dropdowns" class="d-flex mb-2 justify-content-between">
+                <div class="col-5">
                   <label>{{t "team"}}</label>
                   <PowerSelect
                     class="mb-2"
@@ -30,7 +30,7 @@
                     {{team.name}}
                   </PowerSelect>
                 </div>
-                <div class="w-100">
+                <div class="col-5">
                   <label>{{t "folder"}}</label>
                   <PowerSelect
                     class="mb-2"

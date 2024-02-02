@@ -60,18 +60,20 @@
           </div>
         {{/each}}
 
-        <div class="row">
-          <div class="col-md-12">
-            <label name="description">{{t "encryptable/file.description_for_receiver"}}</label>
-            <div>
-              <Textarea class="form-control vertical-resize" name="description" @value={{this.changeset.description}} />
-              <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
-            </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <label name="description">{{t "encryptable/file.description_for_receiver"}}</label>
+          <div class="w-100">
+            <Textarea class="form-control vertical-resize" name="description" @value={{this.changeset.description}} />
+            <ValidationErrorsList @errors={{this.changeset.error.description.validation}}/>
           </div>
         </div>
+      </div>
+    </div>
   </Modal.body>
 
   <Modal.footer>
-    <BsButton @onClick={{action this.submit this.changeset}} disabled={{this.submitIsDisabled}} alt="save" @type="primary">{{t "encryptable/transferring/file.submit"}}</BsButton>
+    <BsButton @onClick={{action this.submit this.changeset}} disabled={{this.submitIsDisabled}} alt="save" @type="primary">{{t "encryptable/file.submit"}}</BsButton>
   </Modal.footer>
 </BsModal>
