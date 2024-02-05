@@ -32,7 +32,7 @@ class Api::EnvSettingsController < ApiController
   private
 
   def last_login_message
-    Flash::LastLoginMessage.new(session).message
+    # Flash::LastLoginMessage.new(session).message
   end
 
   def fallback_info

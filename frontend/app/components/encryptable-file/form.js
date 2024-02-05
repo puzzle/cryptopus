@@ -100,8 +100,12 @@ export default class Form extends BaseFormComponent {
     );
 
     if (isFileValid) {
-      this.record.encryptableCredential = this.args.encryptableCredential;
-      this.record.folder = this.changeset.folder;
+      const encryptableCredential = this.args.encryptableCredential;
+      if(encryptableCredential) {
+        this.changeset.encryptableCredential = encryptableCredential;
+      } else {
+        this.changeset.folder = this.args.folder;
+      }
       return this.changeset.isValid;
     }
     return false;
@@ -113,19 +117,6 @@ export default class Form extends BaseFormComponent {
 
   handleSubmitSuccess(savedRecords) {
     this.abort(true);
-    if (!this.args.attachment) {
-      this.saveEditedData(savedRecords);
-    }
-  }
-
-  saveEditedData(savedRecords) {
-    if (isPresent(savedRecords)) {
-      savedRecords[0]
-        .json()
-        .then((body) =>
-          this.router.transitionTo("encryptables.show", body.data.id)
-        );
-    }
   }
 
   handleSubmitError(response) {

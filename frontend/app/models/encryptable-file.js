@@ -5,7 +5,7 @@ export default class EncryptableFile extends Encryptable {
   @attr file;
   @belongsTo("encryptable-credential")
   encryptableCredential;
-  @belongsTo("folder") folder;
+  @belongsTo("folder", {async: false, inverse: "encryptables", as: "encryptable"}) folder;
 
   async save() {
     if (this.isDeleted) {
@@ -29,11 +29,12 @@ export default class EncryptableFile extends Encryptable {
     let promise = this.file.upload(url, opts);
     promise
       .then((savedRecords) => {
-        let data = JSON.parse(savedRecords.body).data;
-        this.id = data.id;
-        this.filename = data.attributes.filename;
-      })
-      .catch(() => {});
+        savedRecords.json().then((body) => {
+          this.id = body.data.id;
+          this.name = body.data.attributes.name;
+          this.filename = body.data.attributes.filename;
+        });
+      });
 
     return promise;
   }
