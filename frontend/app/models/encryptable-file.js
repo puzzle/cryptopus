@@ -1,5 +1,5 @@
 import Encryptable from "./encryptable";
-import { attr, belongsTo } from "@ember-data/model";
+import {attr, belongsTo} from "@ember-data/model";
 
 export default class EncryptableFile extends Encryptable {
   @attr file;
@@ -12,20 +12,7 @@ export default class EncryptableFile extends Encryptable {
       return super.save();
     }
     const url = `/api/encryptables`;
-    const credentialId = await this.encryptableCredential.get("id");
-    const folderId = await this.folder.get("id");
-
-    const opts = {
-      data: {
-        description: this.description || "",
-        ...(credentialId !== undefined && { credential_id: credentialId }),
-        ...(folderId !== undefined && { folder_id: folderId })
-      },
-      headers: {
-        "X-CSRF-Token": this.csrfToken
-      }
-    };
-
+    const opts = await this.getRequestConfig();
     let promise = this.file.upload(url, opts);
     promise
       .then((savedRecords) => {
@@ -35,7 +22,32 @@ export default class EncryptableFile extends Encryptable {
           this.filename = body.data.attributes.filename;
         });
       });
-
     return promise;
+  }
+
+  async getRequestConfig() {
+    const credentialId = await this.encryptableCredential.get("id");
+    if (this.folder != null) {
+      const folderId = await this.folder.get("id");
+      return {
+        data: {
+          description: this.description || "",
+          ...(credentialId !== undefined && {credential_id: credentialId}),
+          ...(folderId !== undefined && {folder_id: folderId})
+        },
+        headers: {
+          "X-CSRF-Token": this.csrfToken
+        }
+      };
+    }
+    return {
+      data: {
+        description: this.description || "",
+        ...(credentialId !== undefined && {credential_id: credentialId})
+      },
+      headers: {
+        "X-CSRF-Token": this.csrfToken
+      }
+    };
   }
 }
