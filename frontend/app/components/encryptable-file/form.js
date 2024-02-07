@@ -103,8 +103,6 @@ export default class Form extends BaseFormComponent {
       const encryptableCredential = this.args.encryptableCredential;
       if(encryptableCredential) {
         this.changeset.encryptableCredential = encryptableCredential;
-      } else {
-        this.changeset.folder = this.args.folder;
       }
       return this.changeset.isValid;
     }
