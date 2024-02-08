@@ -17,7 +17,7 @@ export default class UsersComponent extends Component {
     super(...arguments);
 
     if (this.args.unlockedUsers)
-      this.unlockedUsers = this.args.unlockedUsers.toArray();
+      this.unlockedUsers = this.args.unlockedUsers.slice();
   }
 
   @action

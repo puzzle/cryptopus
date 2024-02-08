@@ -15,25 +15,21 @@ export default class CredentialTransfer extends BaseFormComponent {
   @tracked encryptableName;
   @tracked candidates;
   @tracked receiver;
+  @tracked submitIsDisabled = true;
 
   constructor() {
     super(...arguments);
 
     this.record = this.store.createRecord("encryptable-transfer");
+    this.record.csrfToken = ENV.CSRFToken;
+    this.record.encryptableId = this.args.encryptableId;
+    this.encryptableName = this.args.encryptableName;
 
     this.changeset = new Changeset(
       this.record,
       lookupValidator(EncryptableTransferCredential),
       EncryptableTransferCredential
     );
-
-    this.changeset.csrfToken = ENV.CSRFToken;
-
-    this.encryptableId = this.args.encryptableId;
-    this.encryptableName = this.args.encryptableName;
-    this.changeset.encryptableId = this.encryptableId;
-
-    this.loadValidation();
 
     this.loadCandidates();
   }
@@ -48,6 +44,7 @@ export default class CredentialTransfer extends BaseFormComponent {
 
   async loadValidation() {
     await this.changeset.validate();
+    this.submitIsDisabled = !this.changeset.isValid;
   }
 
   @action

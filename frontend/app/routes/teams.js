@@ -1,3 +1,3 @@
-import BaseRoute from "./base";
+import ApplicationRoute from "./application";
 
-export default class TeamsRoute extends BaseRoute {}
+export default class TeamsRoute extends ApplicationRoute {}

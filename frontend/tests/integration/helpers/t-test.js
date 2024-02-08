@@ -1,7 +1,7 @@
 import { module, test } from "qunit";
 import { setupRenderingTest } from "ember-qunit";
 import { render } from "@ember/test-helpers";
-import hbs from "htmlbars-inline-precompile";
+import { hbs } from 'ember-cli-htmlbars';
 import { setLocale } from "ember-intl/test-support";
 
 module("Integration | Helper | t", function (hooks) {
@@ -16,11 +16,11 @@ module("Integration | Helper | t", function (hooks) {
 
     let intl = this.owner.lookup("service:intl");
 
-    await render(hbs`{{t inputValue}}`);
+    await render(hbs`{{t this.inputValue}}`);
     assert.equal(this.element.textContent.trim(), "Create");
 
     intl.setLocale("de");
-    await render(hbs`{{t inputValue}}`);
+    await render(hbs`{{t this.inputValue}}`);
     assert.equal(this.element.textContent.trim(), "Erstellen");
   });
 });

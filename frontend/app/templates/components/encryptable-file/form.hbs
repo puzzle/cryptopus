@@ -1,41 +1,72 @@
-<BsModal class="modal_file_entry" @onHide={{action "abort"}} @renderInPlace="true" @size="lg" as |Modal|>
+<BsModal class="modal_file_entry" @onHidden={{fn (mut this.modal3) false}} @onHide={{action "abort"}} @renderInPlace="true" @size="lg" as |Modal| {{did-insert this.setDefaults this}}>
   <Modal.header>
     <h3 class="modal-title align-middle" id="accountFormModalLabel">{{@title}}</h3>
   </Modal.header>
   <Modal.body>
     <div class="container-fluid">
       {{#each this.errors as |error|}}
-        <div class="alert alert-danger modal-alert ">
-          {{error.detail}}.<br>
-          {{t "encryptable_files.new.reupload"}}
+        <div class="alert alert-danger modal-alert flex-row">
+          {{error.detail}},
+          {{t "encryptable_files.reupload"}}
         </div>
       {{/each}}
       <div class="row">
-        <div class="form-group col-md-12">
+        <div class="form-group col-md-12 mb-2">
           <div>
-            <label>{{t "encryptable_files.new.choose_file"}}</label>
+            {{#unless @attachment}}
+              <div id="file-upload-dropdowns" class="d-flex mb-2 justify-content-between">
+                <div class="col-5">
+                  <label>{{t "team"}}</label>
+                  <PowerSelect
+                    class="mb-2"
+                    id="team-dropdown"
+                    @options={{this.assignableTeams}}
+                    @placeholder={{t "encryptable/credentials.edit.team_placeholder"}}
+                    @renderInPlace={{true}}
+                    @selected={{this.changeset.team}}
+                    @searchField={{"name"}}
+                    @searchEnabled={{true}}
+                    @onChange={{fn this.setSelectedTeam}} as |team|>
+                    {{team.name}}
+                  </PowerSelect>
+                </div>
+                <div class="col-5">
+                  <label>{{t "folder"}}</label>
+                  <PowerSelect
+                    class="mb-2"
+                    id="folder-dropdown"
+                    @name="folder"
+                    @options={{this.availableFolders}}
+                    @placeholder={{t "encryptable/credentials.edit.folder_placeholder"}}
+                    @renderInPlace={{true}}
+                    @selected={{this.changeset.folder}}
+                    @searchField={{"name"}}
+                    @searchEnabled={{true}}
+                    @onChange={{fn this.setSelectedFolder}} as |folder|>
+                    {{folder.name}}
+                  </PowerSelect>
+                </div>
+              </div>
+            {{/unless}}
+            <label>{{t "encryptable_files.attachment.choose_file"}}</label>
             <div class="dropzone-text">
               {{#if this.changeset.file}}
                 <div class="mb-2">
-                  {{t "encryptable_files.new.selected_file"}}: {{this.changeset.file.name}}
+                  {{t "encryptable_files.attachment.selected_file"}}: {{this.changeset.file.name}}
                 </div>
               {{/if}}
               <div>
-                <FileUpload @name="file"
-                            @accept="*"
-                            @for="upload-file"
-                            @multiple={{false}}
-                            @onfileadd={{this.uploadFile}}
-                            @ondrop={{this.uploadFile}}
-                            class="btn btn-primary file-upload-button">
-                  <a id="upload-file">{{t (if this.changeset.file "encryptable_files.new.reupload" "encryptable_files.new.upload_file")}}</a>
-                </FileUpload>
+                {{#let (file-queue name="files" onFileAdded=this.uploadFile) as |queue| }}
+                  <input type="file" id="actual-btn" hidden {{queue.selectFile}}>
+                  <label class="btn btn-primary w-100" for="actual-btn">
+                    {{t (if this.changeset.file "encryptable_files.new.reupload"
+                          "encryptable_files.new.upload_file")}}
+                  </label>
+                {{/let}}
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
         <div class="form-group col-md-12">
           <label name="description">{{t "description"}}</label>
           <div>
@@ -45,9 +76,10 @@
         </div>
       </div>
     </div>
+
   </Modal.body>
   <Modal.footer>
-    <BsButton @onClick={{action this.submit this.changeset}} @type="primary">{{t "encryptable_files.new.upload"}}</BsButton>
-    <BsButton @onClick={{action this.abort}} @type="secondary">{{t "close"}}</BsButton>
+    <BsButton @onClick={{action this.submit this.changeset}} disabled={{not this.changeset.isValid}} @type="primary">{{t "encryptable_files.attachment.upload"}}</BsButton>
+    <BsButton @onClick={{action this.abort true}} @type="secondary">{{t "close"}}</BsButton>
   </Modal.footer>
 </BsModal>

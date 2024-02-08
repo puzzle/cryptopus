@@ -16,7 +16,7 @@
   background-color: white;
 }
 
-.toggle-button.active {
+.toggle-button-active {
   background-color: white !important;
   border-color: #238BCA !important;
 }
@@ -142,7 +142,7 @@
     background-color: rgba(0, 0, 0, 0.12) !important;
   }
 
-  .toggle-button.active {
+  .toggle-button-active {
     background-color: rgba(0, 0, 0, 0.12) !important;
     border-color: #116289 !important;
   }
@@ -169,7 +169,6 @@
     border-bottom-right-radius: 0;
     border-color: rgba(167, 167, 167, 0.44) !important;
   }
-
 }
 
 @media screen and (min-width: 1501px) {
@@ -189,7 +188,6 @@
     border-bottom-right-radius: 0;
     border-color: rgba(167, 167, 167, 0.44) !important;
   }
-
 }
 
 @media screen and (min-width: 992px) {
@@ -197,7 +195,7 @@
     background-color: #ffffff;
   }
 
-  .toggle-button.active {
+  .toggle-button-active {
     background-color: #fff !important;
     border-color: #238BCA !important;
   }

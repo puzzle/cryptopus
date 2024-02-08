@@ -97,7 +97,7 @@ ch_be:
         encryptable/file:
           attributes:
             name:
-              taken: Datei isch schomau ufägladä wordä
+              taken: Dateiname isch schomau verwändet worde
 
   #Pundit
   pundit:

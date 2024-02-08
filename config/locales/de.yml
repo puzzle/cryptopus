@@ -97,7 +97,7 @@ de:
         encryptable/file:
           attributes:
             name:
-              taken: Datei ist schon hochgeladen worden
+              taken: Dateiname wurde bereits verwendet
 
   #Pundit
   pundit:

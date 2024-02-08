@@ -8,10 +8,18 @@
         <div class="columns members">
           <div class="row mt-1">
             <div class="col-sm-12">
-              <div class="float-right">
-                <PowerSelectTypeahead @renderInPlace="true" @options={{this.candidates}} @search={{this.search}} @onChange={{this.addMember}} @placeholder={{t "teammembers.new.title"}} as |candidate|>
+              <div class="float-end">
+                <PowerSelect
+                  class="btn btn-primary powerSelect p-2"
+                  @searchEnabled="true"
+                  @searchField="label"
+                  @search={{this.search}}
+                  @renderInPlace="true"
+                  @options={{this.candidates}}
+                  @placeholder={{t "teammembers.new.title"}}
+                  @onChange={{this.addMember}} as |candidate|>
                   {{candidate.label}}
-                </PowerSelectTypeahead>
+                </PowerSelect>
               </div>
             </div>
           </div>
@@ -22,10 +30,10 @@
                   <li>
                     {{member.label}}
                     {{#if member.admin}}
-                      <img class="float-right" src="/assets/images/penguin.svg" alt="admin">
+                      <img class="float-end" src="/assets/images/penguin.svg" alt="admin">
                     {{else}}
                       {{#if member.deletable}}
-                        <a class="float-right" role="button" {{on "click" (fn this.deleteMember member)}}>
+                        <a class="float-end" role="button" {{on "click" (fn this.deleteMember member)}}>
                           <img src="/assets/images/remove.svg" alt="remove">
                         </a>
                       {{/if}}

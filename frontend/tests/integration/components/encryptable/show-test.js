@@ -572,6 +572,35 @@ module("Integration | Component | encryptable/show", function (hooks) {
     assert.ok(isPresent(deleteButton));
   });
 
+  test("it renders encryptable file attached to folder", async function (assert) {
+    setLocale("en");
+    this.set(
+      "encryptable",
+      EmberObject.create({
+        id: 1,
+        type: "encryptable_files",
+        name: "FolderFile",
+        description:
+          "This encryptable is attached to a folder, this is amazing. WOW!",
+        isFile: true
+      })
+    );
+
+    await render(hbs`<Encryptable::Show @encryptable={{this.encryptable}}/>`);
+
+    let text = this.element.textContent.trim();
+    assert.ok(text.includes("File: FolderFile"));
+    assert.ok(
+      text.includes(
+        "This encryptable is attached to a folder, this is amazing. WOW!"
+      )
+    );
+    assert.ok(text.includes("Download file"));
+
+    let deleteButton = this.element.querySelector('.icon-button[alt="delete"]');
+    assert.ok(isPresent(deleteButton));
+  });
+
   test("it renders transferred credentials", async function (assert) {
     setLocale("en");
 

@@ -53,17 +53,14 @@
   margin-bottom: 0.5rem;
 }
 
-#add-field-dropdown {
-  border-color: #CCC;
-  width: 100%;
-  max-width: 100%;
-  height: 35px;
-  margin-left: 5%;
+.d-flex .ember-basic-dropdown {
+  width: 39%;
+  max-width: 39%;
 }
 
-.d-flex .ember-basic-dropdown {
-  width: 36%;
-  max-width: 36%;
+#file-upload-dropdowns .ember-basic-dropdown {
+  width: 100%;
+  max-width: 100%;
 }
 
 #encryptable-form-team .ember-basic-dropdown .ember-basic-dropdown-trigger,

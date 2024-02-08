@@ -118,9 +118,12 @@ fr:
     share:
       title: Partage fichier
 
-  encryptable/transferring/file:
+  encryptable/file:
     new:
-      title: "partager fichier"
+      title: "Téléverser un fichier"
+    transfer:
+      new:
+        title: "partager fichier"
     receiver:
       name: Choisir le récepteur
     show:
@@ -203,12 +206,18 @@ fr:
 
   encryptable_files:
     new:
+      title: Télécharger un nouveau fichier
+      upload_file: Fichier à télécharger
+      choose_file: Choisis un fichier
+      selected_file: Fichier sélectionné
+      reupload: Choisir un autre fichier
+    attachment:
       title: Ajouter un attachement au compte
       upload: Télécharger
       upload_file: Fichier à télécharger
       choose_file: Choisir un fichier
-      reupload: Choisir un autre fichier
       selected_file: Le fichier sélectionné
+    reupload: Choisir un autre fichier
 
   session:
     destroy:

@@ -1,36 +1,53 @@
 import Encryptable from "./encryptable";
-import { attr, belongsTo } from "@ember-data/model";
+import {attr, belongsTo} from "@ember-data/model";
 
 export default class EncryptableFile extends Encryptable {
   @attr file;
-  @belongsTo("encryptable-credential") encryptableCredential;
+  @belongsTo("encryptable-credential")
+  encryptableCredential;
+  @belongsTo("folder", {async: false, inverse: "encryptables", as: "encryptable"}) folder;
 
   async save() {
     if (this.isDeleted) {
       return super.save();
     }
     const url = `/api/encryptables`;
-    const credentialId = await this.encryptableCredential.get("id");
+    const opts = await this.getRequestConfig();
+    let promise = this.file.upload(url, opts);
+    promise
+      .then((savedRecords) => {
+        savedRecords.json().then((body) => {
+          this.id = body.data.id;
+          this.name = body.data.attributes.name;
+          this.filename = body.data.attributes.filename;
+        });
+      });
+    return promise;
+  }
 
-    const opts = {
+  async getRequestConfig() {
+    const credentialId = await this.encryptableCredential.get("id");
+    if (this.folder != null) {
+      const folderId = await this.folder.get("id");
+      return {
+        data: {
+          description: this.description || "",
+          ...(credentialId !== undefined && {credential_id: credentialId}),
+          ...(folderId !== undefined && {folder_id: folderId})
+        },
+        headers: {
+          "X-CSRF-Token": this.csrfToken
+        }
+      };
+    }
+    return {
       data: {
         description: this.description || "",
-        credential_id: credentialId
+        ...(credentialId !== undefined && {credential_id: credentialId})
       },
       headers: {
         "X-CSRF-Token": this.csrfToken
       }
     };
-
-    let promise = this.file.upload(url, opts);
-    promise
-      .then((savedRecords) => {
-        let data = JSON.parse(savedRecords.body).data;
-        this.id = data.id;
-        this.filename = data.attributes.filename;
-      })
-      .catch(() => {});
-
-    return promise;
   }
 }

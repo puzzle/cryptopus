@@ -1,8 +1,8 @@
-import BaseRoute from "../base";
+import ApplicationRoute from "../application";
 import { inject as service } from "@ember/service";
 import RSVP from "rsvp";
 
-export default class EncryptableShowRoute extends BaseRoute {
+export default class EncryptableShowRoute extends ApplicationRoute {
   @service navService;
 
   afterModel() {

@@ -1,22 +1,41 @@
 {{#if this.isFolderEditing}}
   <Folder::Form @folder={{@folder}} @onAbort={{this.toggleFolderEdit}} @title={{t "folders.edit.title"}}/>
 {{/if}}
-{{#if this.isNewEncryptable}}
-  <Encryptable::Form @onAbort={{this.toggleEncryptableCreating}} @title={{t "encryptable/credentials.new.title"}}/>
+{{#if this.isNewEncryptableFile}}
+  <EncryptableFile::Form @class="modal_file_entry" @title={{t "encryptable_files.new.title"}} @onAbort={{this.toggleEncryptableFileCreating}} @attachment={{false}} @folder={{@folder}}/>
 {{/if}}
-<div id="folder-header-{{@folder.id}}" class="pl-2 pr-2 folder-card-header {{if this.isExpanded "br-4"}}">
+{{#if this.isNewEncryptableCredential}}
+  <Encryptable::Form @onAbort={{this.toggleEncryptableCredentialCreating}} @title={{t "encryptable/credentials.new.title"}}/>
+{{/if}}
+<div id="folder-header-{{@folder.id}}" class="ps-2 pe-2 folder-card-header {{if this.isExpanded "br-4"}}">
   <div class="d-flex row justify-content-between folder-show-header">
-    <div class="col-auto pr-0 my-auto" role="button" {{on "click" this.toggleExpanded }}>
+    <div class="col-auto pe-0 my-auto" role="button" {{on "click" this.toggleExpanded }}>
       <img class="icon icon-folder py-auto" src="/assets/images/folder.svg" alt="">
     </div>
     <div class="col overflow-hidden my-auto break-on-smartphone" role="button" {{on "click" this.toggleExpanded }}>
       <h6 class="d-inline">{{@folder.name}}</h6>
     </div>
     <div class="col-auto justify-content-between d-flex align-items-center align-right-on-smartphone">
-      <a class="margin-for-buttons mx-1" role="button" {{on "click" this.toggleEncryptableCreating}}>
-        <img class="icon-big-button " src="/assets/images/plus-blue.svg" alt="new">
-        <BsTooltip @title={{t "tooltips.add_encryptable"}} @delayShow="1000" />
-      </a>
+      <BsDropdown class="d-flex align-items-center" as |dd|>
+        <dd.toggle class="dropdown-toggle">
+          <a class="margin-for-buttons mx-1" role="button">
+            <img class="icon-big-button " src="/assets/images/plus-blue.svg" alt="new">
+            <BsTooltip @title={{t "tooltips.add_encryptable"}} @delayShow="1000" />
+          </a>
+        </dd.toggle>
+        <dd.menu @align="right" as |ddm|>
+          <ddm.item>
+            <a role="button" class="dropdown-item" {{on "click" this.toggleEncryptableCredentialCreating}}>
+              {{t "encryptable/credentials.new.title"}}
+            </a>
+          </ddm.item>
+          <ddm.item>
+            <a role="button" class="dropdown-item" {{on "click" this.toggleEncryptableFileCreating}}>
+              {{t "encryptable/file.new.title"}}
+            </a>
+          </ddm.item>
+        </dd.menu>
+      </BsDropdown>
       {{#unless @folder.team.personal_team}}
         <a class="margin-for-buttons mx-1" role="button" {{on "click" this.toggleFolderEdit}}>
           <img class="icon-big-button " src="/assets/images/edit-blue.svg" alt="edit folder">
@@ -28,12 +47,12 @@
         </DeleteWithConfirmation>
       {{/unless}}
     </div>
-    <div class="col-auto pl-0 justify-content-between d-flex align-items-center">
+    <div class="col-auto ps-0 justify-content-between d-flex align-items-center">
       <span role="button" name="folder-collapse" {{on "click" this.toggleExpanded }}>
         {{#if this.isExpanded}}
-          <img class="icon-big-button float-right" src="/assets/images/angle-down.svg" alt="v">
+          <img class="icon-big-button float-end" src="/assets/images/angle-down.svg" alt="v">
         {{else}}
-          <img class="icon-big-button float-right" src="/assets/images/angle-left.svg" alt="<">
+          <img class="icon-big-button float-end" src="/assets/images/angle-left.svg" alt="<">
         {{/if}}
       </span>
     </div>

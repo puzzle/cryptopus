@@ -5,9 +5,31 @@ const EmberApp = require("ember-cli/lib/broccoli/ember-app");
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
     storeConfigInMeta: false,
+
     "ember-cli-babel": {
       includePolyfill: true
     },
+
+    autoImport: {
+      forbidEval: true,
+
+      // This is required to ensure that ember-auto-import produces a single chunk
+      // with a consistent name, so we can specify that file in out index-development.html
+      webpack: {
+        output: {
+          filename: "ember-auto-import.[name].js",
+          chunkFilename: "ember-auto-import.[name].js"
+        },
+        optimization: {
+          splitChunks: false
+        }
+      },
+      miniCssExtractPlugin: {
+        filename: "ember-auto-import.[name].js",
+        chunkFilename: "ember-auto-import.[name].js"
+      }
+    },
+
     minifyCSS: {
       options: { processImport: true }
     },
@@ -17,8 +39,8 @@ module.exports = function (defaults) {
     },
 
     "ember-bootstrap": {
-      bootstrapVersion: 4,
-      importBootstrapCSS: true,
+      bootstrapVersion: 5,
+      importBootstrapCSS: false,
       importBootstrapFont: false
     },
 

@@ -3,11 +3,15 @@ import { inject as service } from "@ember/service";
 import { action } from "@ember/object";
 import ENV from "../config/environment";
 
-export default class IndexRoute extends Route {
+export default class ApplicationRoute extends Route {
   @service notify;
   @service intl;
+  @service logoutTimerService;
+  @service store;
+  @service envSettingsService;
 
-  beforeModel() {
+  async beforeModel() {
+    await this.envSettingsService.applyEnvSettings();
     let selectedLocale = this.intl.locales.includes(
       ENV.preferredLocale.replace("_", "-")
     )
@@ -25,6 +29,12 @@ export default class IndexRoute extends Route {
     } else if (error.message.includes("401")) {
       window.location.replace("/session/new");
     }
+  }
+
+  @action
+  didTransition() {
+    this.logoutTimerService.start();
+    return true; // Bubble the didTransition event
   }
 
   getErrorMessage(error) {

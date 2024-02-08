@@ -1,3 +1,3 @@
-import BaseRoute from "./base";
+import ApplicationRoute from "./application";
 
-export default class EncryptablesRoute extends BaseRoute {}
+export default class EncryptablesRoute extends ApplicationRoute {}

@@ -33,8 +33,7 @@ describe 'ShareCredentials', type: :system, js: true do
 
     # Add Admin as receiver
 
-    fill_in class: 'ember-power-select-typeahead-input', visible: false, with: 'A'
-    find('.ember-power-select-typeahead-input', visible: false).click
+    first('.ember-basic-dropdown-trigger', visible: false).click
 
     within('.ember-power-select-options', visible: false) do
       find('li', match: :first).click

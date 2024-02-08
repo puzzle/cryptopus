@@ -1,9 +1,10 @@
-import BaseRoute from "./base";
 import { inject as service } from "@ember/service";
 import RSVP from "rsvp";
+import ApplicationRoute from "./application";
 
-export default class DashboardRoute extends BaseRoute {
+export default class DashboardRoute extends ApplicationRoute {
   @service navService;
+  @service store;
 
   queryParams = {
     q: {

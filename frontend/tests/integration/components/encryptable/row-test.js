@@ -1,10 +1,11 @@
 import { module, test } from "qunit";
 import { setupRenderingTest } from "ember-qunit";
-import { render } from "@ember/test-helpers";
+import { render, waitFor, waitUntil } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 import Service from "@ember/service";
 import { isPresent } from "@ember/utils";
 import { setLocale } from "ember-intl/test-support";
+import EmberObject from "@ember/object";
 
 const storeStub = Service.extend({
   query(modelName, params) {
@@ -46,8 +47,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
-
-    await new Promise((r) => setTimeout(r, 10));
+    await waitFor("#encryptable-row-title", {timeout: 1000});
 
     assert.equal(
       this.element.querySelector("#encryptable-row-title").innerText,
@@ -91,8 +91,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
-
-    await new Promise((r) => setTimeout(r, 10));
+    await waitFor("#encryptable-row-title", {timeout: 1000});
 
     assert.equal(
       this.element.querySelector("#encryptable-row-title").innerText,
@@ -140,8 +139,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
-
-    await new Promise((r) => setTimeout(r, 10));
+    await waitFor("#encryptable-row-title", {timeout: 1000});
 
     assert.equal(
       this.element.querySelector("#encryptable-row-title").innerText,
@@ -185,7 +183,9 @@ module("Integration | Component | encryptable/row", function (hooks) {
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
 
-    await new Promise((r) => setTimeout(r, 1));
+    await waitUntil(() => {
+      return this.element.textContent.trim().includes("Ninjas test encryptable");
+    }, {timeout: 2000});
 
     let text = this.element.textContent.trim();
     assert.ok(text.includes("Ninjas test encryptable"));
@@ -235,8 +235,9 @@ module("Integration | Component | encryptable/row", function (hooks) {
     });
 
     await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
-
-    await new Promise((r) => setTimeout(r, 1));
+    await waitUntil(() => {
+      return this.element.textContent.trim().includes("Ninjas encryptable credentials");
+    }, {timeout: 2000});
 
     let text = this.element.textContent.trim();
     assert.ok(text.includes("Ninjas encryptable credentials"));
@@ -254,5 +255,42 @@ module("Integration | Component | encryptable/row", function (hooks) {
     assert.ok(isPresent(keyIcon));
     assert.ok(isPresent(deleteButton));
     assert.ok(isPresent(personIcon));
+  });
+
+  test("it renders with file", async function (assert) {
+    const folder = {
+      id: 1,
+      name: "Inbox",
+      isInboxFolder: true,
+
+      get(key) {
+        if (key === "isInboxFolder") {
+          return true;
+        }
+      }
+    };
+
+    this.set(
+      "encryptable",
+      EmberObject.create({
+        id: 1,
+        type: "encryptable_files",
+        name: "FolderFile",
+        description:
+          "This encryptable is attached to a folder, this is amazing. WOW!",
+        isFile: true,
+        folder: folder
+      })
+    );
+
+    await render(hbs`<Encryptable::Row @encryptable={{this.encryptable}}/>`);
+
+    await new Promise((r) => setTimeout(r, 10));
+
+    assert.equal(
+      this.element.querySelector("#encryptable-row-title").innerText,
+      "FolderFile"
+    );
+    assert.dom(this.element.querySelector("#download-button")).exists();
   });
 });
