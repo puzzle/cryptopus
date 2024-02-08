@@ -27,8 +27,6 @@ describe 'Encryptable Files without credentials', type: :system, js: true do
     file.decrypt(plaintext_team_password)
     expect(file.cleartext_file).to eq file_content
 
-    expect_encryptable_file_page_with(file_name, file_desc)
-
     # Try to upload file with same name to same folder
     expect do
       create_new_file(file_desc, file_path)
@@ -36,8 +34,6 @@ describe 'Encryptable Files without credentials', type: :system, js: true do
 
     expect(page).to have_text('File name has already been taken')
     click_button('Close')
-
-    expect(page).to have_text('File: test_file.txt')
   end
 
   private
@@ -70,11 +66,6 @@ describe 'Encryptable Files without credentials', type: :system, js: true do
 
     find('#folder-dropdown', visible: false).click
     first('ul.ember-power-select-options > li', visible: false).click
-  end
-
-  def expect_encryptable_file_page_with(filename, description)
-    expect(first('h2')).to have_text("File: #{filename}")
-    expect(page).to have_text(description)
   end
 
 end

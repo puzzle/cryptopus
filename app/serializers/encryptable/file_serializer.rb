@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
-class Encryptable::FileSerializer < ApplicationSerializer
+class Encryptable::FileSerializer < EncryptableSerializer
   attributes :id, :name, :description, :sender_name, :created_at
-
-  def sender_name
-    object.sender&.label
-  end
 
   belongs_to :encryptable_credential, if: -> { object.encryptable_credential.present? }
 end
