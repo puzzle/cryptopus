@@ -25,6 +25,13 @@ class Folder < ApplicationRecord
   validates :description, length: { maximum: 300 }
   validates :personal_inbox, uniqueness: { scope: :team, if: :personal_inbox? }
 
+  include PgSearch::Model
+  pg_search_scope :search_by_name,
+                  against: [:name, :description],
+                  using: {
+                    tsearch: { prefix: true }
+                  }
+
   def label
     name
   end

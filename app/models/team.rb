@@ -34,6 +34,13 @@ class Team < ApplicationRecord
     in_progress: 2
   }, _prefix: :recrypt
 
+  include PgSearch::Model
+  pg_search_scope :search_by_name,
+                  against: [:name, :description],
+                  using: {
+                    tsearch: { prefix: true }
+                  }
+
   def label
     name
   end

@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_19_120958) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_03_095213) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "encryptables", force: :cascade do |t|
     t.string "name", limit: 255, default: "", null: false
     t.integer "folder_id"
@@ -18,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_120958) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "type", default: "Account::Credentials", null: false
-    t.text "encrypted_data", limit: 16777215
+    t.text "encrypted_data"
     t.integer "credential_id"
     t.text "content_type"
     t.string "encrypted_transfer_password"
@@ -41,7 +44,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_120958) do
     t.index ["name"], name: "index_folders_on_name"
   end
 
-  create_table "settings", force: :cascade do |t|
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text "content"
+    t.string "searchable_type"
+    t.bigint "searchable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
+  end
+
+  create_table "settings", id: :serial, force: :cascade do |t|
     t.string "key", null: false
     t.string "value"
     t.string "type", null: false
@@ -76,7 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_120958) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.text "public_key", null: false
     t.binary "private_key", null: false
     t.binary "password"
@@ -95,7 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_120958) do
     t.integer "human_user_id"
     t.text "options"
     t.integer "role", default: 0, null: false
-    t.integer "default_ccli_user_id"
+    t.bigint "default_ccli_user_id"
     t.index ["default_ccli_user_id"], name: "index_users_on_default_ccli_user_id"
   end
 
