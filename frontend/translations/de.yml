@@ -190,6 +190,7 @@ de:
       last_teammember_teams:
         message: Folgende Teams in denen der zu löschende User der letzte Member ist müssen gelöscht werden.
         destroy: Benutzer löschen
+        confirmation: Sind Sie sicher, dass Sie den Benutzer löschen möchten?
       new:
         title: Neuer Benutzer
 

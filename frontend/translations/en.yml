@@ -191,6 +191,7 @@ en:
       last_teammember_teams:
         message: Before you can delete this user you have to delete the following teams, because the user is the last member.
         destroy: Destroy User
+        confirmation: Are you sure you want to delete this user?
       new:
         title: New User
 
