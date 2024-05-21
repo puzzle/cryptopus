@@ -31,6 +31,7 @@ export default class AdminUserDeletionFormComponent extends Component {
 
   @action
   deleteTeam(team) {
+    this.onlyTeammemberTeams = this.onlyTeammemberTeams.filter(e=> e != team)
     team.destroyRecord();
   }
 
@@ -40,5 +41,6 @@ export default class AdminUserDeletionFormComponent extends Component {
 
     this.args.user.destroyRecord();
     this.toggleDeletionForm();
+    this.args.afterDelete();
   }
 }

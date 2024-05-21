@@ -1,3 +1,6 @@
+## Version 5.3.1
+- Fix a bug that prevents users from deleting other users.
+
 ## Version 5.3
 - Upgrade to Ember 4.12
 - Introduce encryptable files for folders
