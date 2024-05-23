@@ -1,6 +1,7 @@
 ## Version 5.3.2
 - Fix a bug that prevents users from editing a credential after a search.
 - Fix wrong translation in navbar
+- Prevent browser to redirect to cryptopus.puzzle.comnull after autologout
 
 ## Version 5.3.1
 - Fix a bug that prevents users from deleting other users.
