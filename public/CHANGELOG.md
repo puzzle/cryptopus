@@ -1,3 +1,6 @@
+## Version 5.3.2
+- Fix a bug that prevents users from editing a credential after a search.
+
 ## Version 5.3.1
 - Fix a bug that prevents users from deleting other users.
 
