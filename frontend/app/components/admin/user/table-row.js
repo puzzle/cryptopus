@@ -58,6 +58,11 @@ export default class AdminUserTableRowComponent extends Component {
   }
 
   @action
+  refresh() {
+    if (this.args.onRemove) this.args.onRemove(this.args.user);
+  }
+
+  @action
   unlockUser(user) {
     this.fetchService
       .send(`/api/admin/users/${user.id}/lock`, {

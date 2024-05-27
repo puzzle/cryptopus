@@ -1,13 +1,13 @@
-import {action} from "@ember/object";
+import { action } from "@ember/object";
 import AccountValidations from "../../validations/encryptable";
 import lookupValidator from "ember-changeset-validations";
 import Changeset from "ember-changeset";
-import {inject as service} from "@ember/service";
-import {tracked} from "@glimmer/tracking";
+import { inject as service } from "@ember/service";
+import { tracked } from "@glimmer/tracking";
 import BaseFormComponent from "../base-form-component";
-import {isPresent} from "@ember/utils";
-import {capitalize} from "@ember/string";
-import {A} from "@ember/array";
+import { isPresent } from "@ember/utils";
+import { capitalize } from "@ember/string";
+import { A } from "@ember/array";
 
 export default class Form extends BaseFormComponent {
   @service store;
@@ -90,13 +90,7 @@ export default class Form extends BaseFormComponent {
   }
 
   get availableFolders() {
-    return isPresent(this.selectedTeam)
-      ? this.store
-        .peekAll("folder")
-        .filter(
-          (folder) => folder.team.get("id") === this.selectedTeam.get("id")
-        )
-      : [];
+    return this.store.query("folder", { teamId: this.selectedTeam.get("id")})
   }
 
   @action

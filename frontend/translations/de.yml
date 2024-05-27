@@ -6,8 +6,8 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 de:
-  fallback: 'ACHTUNG! Dass ist die Cryptopus Fallback Umgebung. Schreiben sie keine neuen Daten da diese nicht erhalten bleiben!'
-  confirmation: Sind Sie sicher?
+  fallback: 'ACHTUNG! Dass ist die Cryptopus Fallback Umgebung. Schreibe keine neuen Daten da diese nicht erhalten bleiben!'
+  confirmation: Bist du sicher?
   show: Anzeigen
   edit: Editieren
   update: Updaten
@@ -78,8 +78,8 @@ de:
     edit:
       title: Zugangsdaten editieren
       random_password: Zufälliges Passwort
-      team_placeholder: Wählen Sie ein Team aus
-      folder_placeholder: Wählen Sie ein Ordner aus
+      team_placeholder: Wähle ein Team aus
+      folder_placeholder: Wähle ein Ordner aus
       password_strength: Passwort Stärke
       password_strengths:
         none: Es ist kein Passwort gesetzt
@@ -149,26 +149,26 @@ de:
     settings:
       index:
         whitelisted_countries: Länder Whitelist
-        whitelisted_countries_prompt: Wählen Sie einige Länder...
+        whitelisted_countries_prompt: Wähle einige Länder...
         whitelisted_ips: IP Whitelist
-        whitelist_ip_prompt: Geben Sie einige IP Adressen an...
+        whitelist_ip_prompt: Gib einige IP Adressen an...
         specify_single_ip: Einzelne IP-Adressen können wie folgt eingegeben werden
         range:
           specify_range_of_ips: Um eine Spannweite zu definieren kann eine IP-Adresse mit der Subnetzmaske eingegeben werden
           range_between: Dies entspricht der Spannweite zwischen
           and: und
         ipv6_allowed: IPv6 ist erlaubt und kann wie folgt eingegeben werden
-        geo_ip_disabled: Source IP Filter ist deaktiviert. Bitte installieren Sie GeoIP DB
+        geo_ip_disabled: Source IP Filter ist deaktiviert. Bitte installiere die GeoIP DB
     recryptrequests:
       uncrypterror:
-        ldap_password_changed: Ihr LDAP Passwort hat sich seit Ihrem letzten Login geändert.
-        ldap_enter_old_password: Bitte geben Sie Ihr altes LDAP Passwort ein um Ihren privaten Schlüssel zu entschlüsseln.
-        ldap_old_password: Ihr altes LDAP Passwort
-        ldap_new_password: Ihr neues LDAP Passwort
+        ldap_password_changed: Dein LDAP Passwort hat sich seit deinem letzten Login geändert.
+        ldap_enter_old_password: Bitte gib dein altes LDAP Passwort ein um deinen privaten Schlüssel zu entschlüsseln.
+        ldap_old_password: Dein altes LDAP Passwort
+        ldap_new_password: Dein neues LDAP Passwort
         forgot_password_recrypt: |
-          Falls Sie Ihr Passwort vergessen haben, werden nur Teams entschlüsselt welche nicht privat sind.
+          Falls du dein Passwort vergessen haben, werden nur Teams entschlüsselt welche nicht privat sind.
           Sollten dadurch private Teams entstehen, auf die niemand Zugriff hat, werden diese gelöscht.
-          Nachdem das Formular abgesendet wurde, müssen Sie warten, bis ein Admin die Anfrage abgearbeitet hat.
+          Nachdem das Formular abgesendet wurde, musst du warten, bis ein Admin die Anfrage abgearbeitet hat.
         send: Anfrage senden
     users:
       index_menu:
@@ -190,6 +190,7 @@ de:
       last_teammember_teams:
         message: Folgende Teams in denen der zu löschende User der letzte Member ist müssen gelöscht werden.
         destroy: Benutzer löschen
+        confirmation: Bist du sicher, dass du den Benutzer löschen möchten?
       new:
         title: Neuer Benutzer
 
@@ -214,9 +215,9 @@ de:
       title: Anhang zu den Zugangsdaten hinzufügen
       upload: Hochladen
       upload_file: Datei hochladen
-      choose_file: Wählen Sie eine Datei
+      choose_file: Wähle eine Datei
       selected_file: Ausgewählte Datei
-    reupload: Wählen Sie eine andere Datei
+    reupload: Wähle eine andere Datei
 
   session:
     destroy:
@@ -262,7 +263,7 @@ de:
     api_users:
       api_users: Api Benutzer
       no_api_users: keine Api Benutzer
-      enter_description: Geben Sie eine Beschreibung ein..
+      enter_description: Gib eine Beschreibung ein..
       valid_until: Gültig bis
       valid_for: Gültig für
       last_login: Letztes Login
@@ -340,7 +341,7 @@ de:
       << : *encryptables_translations
 
     application:
-      wait: Bitte warten Sie, bis  Ihre Team Passwörter neu verschlüsselt wurden.
+      wait: Bitte warte, bis deine Team Passwörter neu verschlüsselt wurden.
     folders:
       created: Ein neuer Ordner ist erfolgreich erstellt worden.
       updated: Der Ordner wurde erfolgreich aktualisiert.
@@ -361,7 +362,7 @@ de:
         transfer_failed: Übermittlung der Datei mit dem Empfänger fehlgeschlagen
     session:
       auth_failed: Ungültiger Benutzername / Passwort.
-      weak_password: Um die Sicherheit zu verbessern, sollten Sie ein komplexeres Passwort wählen
+      weak_password: Um die Sicherheit zu verbessern, solltest du ein komplexeres Passwort wählen
       wrong_root: Anmeldung als root nur von privater IP aus möglich
     teams:
       created: Erfolgreich ein neues Team erstellt.
@@ -382,8 +383,8 @@ de:
     errors:
       models:
         user:
-          new_password_invalid: Ihr neues Passwort war falsch
-          old_password_invalid: Ihr altes Passwort war falsch
+          new_password_invalid: Dein neues Passwort war falsch
+          old_password_invalid: Dein altes Passwort war falsch
 
   tooltips:
     all_teams: Alle Teams

@@ -117,4 +117,17 @@ describe 'TeamModal', type: :system, js: true do
     end
   end
 
+  it 'open credentials edit after search' do
+    login_as_user(:bob)
+    visit('/')
+
+    credentials1 = encryptables(:credentials1)
+
+    find('pzsh-banner input.search').set credentials1.name
+    find(".encryptable-row-icons [src$='edit.svg']").click
+    within '.modal-header' do
+      expect(page).to have_text('Edit Credentials')
+    end
+  end
+
 end

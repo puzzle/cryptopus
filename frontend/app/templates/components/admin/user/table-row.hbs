@@ -29,7 +29,7 @@
       </span>
     {{/if}}
     {{#if @user.deletable}}
-      <Admin::User::DeletionForm @user={{@user}}>
+      <Admin::User::DeletionForm @user={{@user}} @afterDelete={{fn this.refresh}}>
         <img src="/assets/images/delete.svg" alt="delete" class="icon-button">
       </Admin::User::DeletionForm>
     {{/if}}

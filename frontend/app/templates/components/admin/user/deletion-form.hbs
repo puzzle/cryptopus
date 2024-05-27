@@ -7,9 +7,10 @@
     <Modal.header>
       <h3 class="modal-title">{{t "admin.users.last_teammember_teams.destroy"}}</h3>
     </Modal.header>
-    {{#if this.isDeletionDisabled}}
+
       <Modal.body>
         <div class="container-fluid">
+           {{#if this.isDeletionDisabled}}
           <p>{{t "admin.users.last_teammember_teams.message"}}</p>
           <table class="table table-striped mt-20">
             <thead>
@@ -29,7 +30,7 @@
                     {{truncate team.description 20}}
                   </td>
                   <td>
-                    <span role="button" {{on "click" (fn this.deleteTeam team)}}>
+                    <span role="button" {{on "click" (fn this.deleteTeam team)}} data-test-id="delete">
                       <img src="/assets/images/delete.svg" alt="delete" class="icon-button">
                     </span>
                   </td>
@@ -37,9 +38,20 @@
               {{/each}}
             </tbody>
           </table>
+          {{else}}
+          <div class="d-flex flex-column" data-test-id="delete-user-text">
+            <span class="fw-bold">
+              {{t "admin.users.last_teammember_teams.confirmation"}}
+            </span>
+            <span>
+              {{@user.givenname}}
+              {{@user.surname}}
+            </span>
+          </div>
+          {{/if}}
         </div>
       </Modal.body>
-    {{/if}}
+
     <Modal.footer>
       <BsButton @onClick={{action this.deleteUser}} @type="danger" disabled={{this.isDeletionDisabled}}>{{t "delete"}}</BsButton>
       <BsButton @onClick={{action this.toggleDeletionForm}} @type="secondary">{{t "close"}}</BsButton>

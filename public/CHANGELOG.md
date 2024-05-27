@@ -1,3 +1,15 @@
+## Version 5.3.4
+- Fix a bug that prevents users from editing a credential after a search.
+
+## Version 5.3.3
+- Fix wrong translation in navbar
+
+## Version 5.3.2
+- Prevent browser to redirect to cryptopus.puzzle.comnull after autologout
+
+## Version 5.3.1
+- Fix a bug that prevents users from deleting other users.
+
 ## Version 5.3
 - Upgrade to Ember 4.12
 - Introduce encryptable files for folders
