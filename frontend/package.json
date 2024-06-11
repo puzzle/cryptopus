@@ -79,7 +79,6 @@
     "sass": "^1.63.6",
     "tracked-built-ins": "^3.1.1",
     "webpack": "^5.88.2",
-    "zero-md": "^2.5.2",
     "zxcvbn": "^4.4.2"
   },
   "engines": {
