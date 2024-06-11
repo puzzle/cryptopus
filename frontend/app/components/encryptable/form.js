@@ -90,7 +90,7 @@ export default class Form extends BaseFormComponent {
   }
 
   get availableFolders() {
-    return this.store.query("folder", { teamId: this.selectedTeam.get("id")})
+    return this.store.query("folder", { teamId: this.selectedTeam?.get("id")})
   }
 
   @action
