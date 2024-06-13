@@ -44,8 +44,8 @@ export default class Form extends BaseFormComponent {
     this.changeset.csrfToken = ENV.CSRFToken;
   }
 
-  @action
-  setDefaults() {
+
+  setDefaults(element) {
     this.presetTeamAndFolder();
     this.changeset.validate();
   }

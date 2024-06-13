@@ -1,4 +1,4 @@
-<BsModal class="modal_file_entry" @onHidden={{fn (mut this.modal3) false}} @onHide={{action "abort"}} @renderInPlace="true" @size="lg" as |Modal| {{did-insert this.setDefaults this}}>
+<BsModal class="modal_file_entry"  {{did-insert this.setDefaults this}} @onHidden={{fn (mut this.modal3) false}} @onHide={{action "abort"}} @renderInPlace="true" @size="lg" as |Modal| >
   <Modal.header>
     <h3 class="modal-title align-middle" id="accountFormModalLabel">{{@title}}</h3>
   </Modal.header>
