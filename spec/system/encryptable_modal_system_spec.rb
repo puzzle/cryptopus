@@ -52,7 +52,6 @@ describe 'encryptable modal', type: :system, js: true do
     expect(find('#password input', visible: false)['autocomplete']).to eq 'off'
 
     fill_modal(encryptable_attrs)
-
     expect do
       click_button('Save', visible: false)
       expect(page).to have_text(encryptable_attrs[:name])
