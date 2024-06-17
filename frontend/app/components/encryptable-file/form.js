@@ -44,9 +44,9 @@ export default class Form extends BaseFormComponent {
     this.changeset.csrfToken = ENV.CSRFToken;
   }
 
-  setDefaults(element, [ref]) {
-    ref.presetTeamAndFolder();
-    ref.changeset.validate();
+  setDefaults(element, [thisRef]) {
+    thisRef.presetTeamAndFolder(thisRef);
+    thisRef.changeset.validate();
   }
 
   get availableFolders() {
@@ -59,16 +59,16 @@ export default class Form extends BaseFormComponent {
       : [];
   }
 
-  presetTeamAndFolder() {
-    let selectedFolder = this.args.folder || this.navService.selectedFolder;
+  presetTeamAndFolder(thisRef) {
+    let selectedFolder = thisRef.args.folder || thisRef.navService.selectedFolder;
     let selectedTeam =
-      selectedFolder?.get("team") || this.navService.selectedTeam;
+      selectedFolder?.get("team") || thisRef.navService.selectedTeam;
 
     if (!isEmpty(selectedTeam)) {
-      this.changeset.set("team", selectedTeam);
+      thisRef.changeset.set("team", selectedTeam);
     }
     if (!isEmpty(selectedFolder)) {
-      this.changeset.set("folder", selectedFolder);
+      thisRef.changeset.set("folder", selectedFolder);
     }
   }
 
