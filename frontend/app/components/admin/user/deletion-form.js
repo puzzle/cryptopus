@@ -23,9 +23,11 @@ export default class AdminUserDeletionFormComponent extends Component {
     this.isDeletionFormShown = !this.isDeletionFormShown;
 
     if (this.isDeletionFormShown) {
-      this.onlyTeammemberTeams = this.store.query("team", {
+     this.store.query("team", {
         only_teammember_user_id: this.args.user.id
-      });
+      }).then((result) => {
+        this.onlyTeammemberTeams = result
+      })
     }
   }
 

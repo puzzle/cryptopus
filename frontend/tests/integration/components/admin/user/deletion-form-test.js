@@ -9,10 +9,14 @@ import { setLocale } from "ember-intl/test-support";
 
 const storeStub = Service.extend({
   query(modelName, params) {
-      return [
-        { name: "Team1", description: "description1", destroyRecord: () => {}},
-        { name: "Team2", description: "description2", destroyRecord: () => {}}
-      ];
+    return new Promise((resolve, reject) => {
+      resolve(
+        [
+          { name: "Team1", description: "description1", destroyRecord: () => { } },
+          { name: "Team2", description: "description2", destroyRecord: () => { } }
+        ]
+      );
+    })
   }
 });
 
