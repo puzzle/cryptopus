@@ -57,6 +57,7 @@ describe 'Encryptable Files without credentials', type: :system, js: true do
       fill_in 'description', with: description
       find(:xpath, "//input[@type='file']", visible: false).attach_file(file_path)
     end
+    require 'pry'; binding.pry # rubocop:disable Style/Semicolon,Lint/Debugger
     click_button 'Upload'
   end
 

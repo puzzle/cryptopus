@@ -107,6 +107,7 @@ export default class Form extends BaseFormComponent {
     }
     return false;
   }
+
   showSuccessMessage() {
     let msg = this.intl.t("flashes.encryptable_files.uploaded");
     this.notify.success(msg);
@@ -117,6 +118,7 @@ export default class Form extends BaseFormComponent {
   }
 
   handleSubmitError(response) {
+    this.errors = [{detail: response}];
     response.json().then((data) => {
       this.errors = data.errors;
     });
@@ -127,5 +129,6 @@ export default class Form extends BaseFormComponent {
   @action
   uploadFile(file) {
     this.changeset.file = file;
+    this.errors = [{detail: !!file}];
   }
 }

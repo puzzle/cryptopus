@@ -11,11 +11,12 @@
     "test": "tests"
   },
   "scripts": {
-
     "build": "ember build",
-    "build-dev": "ember build -dev -w",
-    "refresh-assets": "cd .. && ./bin/refresh-frontend.sh",
+    "build-dev": "ember build -dev",
+    "build-dev-w": "ember build -dev -w",
+    "watch-test-assets": "cd .. && ./bin/watch-assets.sh",
     "build-prod": "ember build --prod",
+    "build-test-assets": "npm run build-dev-w & npm run watch-test-assets",
     "lint:hbs": "ember-template-lint .",
     "lint:hbs:fix": "ember-template-lint . --fix",
     "lint:js": "eslint . --cache",
