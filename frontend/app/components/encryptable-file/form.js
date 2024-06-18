@@ -129,6 +129,5 @@ export default class Form extends BaseFormComponent {
   @action
   uploadFile(file) {
     this.changeset.file = file;
-    this.errors = [{detail: !!file}];
   }
 }
