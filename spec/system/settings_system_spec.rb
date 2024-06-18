@@ -13,10 +13,12 @@ describe 'Settings', type: :system, js: true do
 
     visit('/admin/settings')
 
-    find('#setting-countries-whitelist-dropdown', visible: false).find(
+    select = find('#setting-countries-whitelist-dropdown', visible: false).find(
       'input.ember-power-select-trigger-multiple-input', visible: false
-    ).click
+    )
+    select.click
     first('ul.ember-power-select-options > li', visible: false).click
+    select.click
 
     ip_whitelist_input = find(
       '#setting-ip-whitelist-dropdown .ember-power-select-trigger-multiple-input', visible: false
