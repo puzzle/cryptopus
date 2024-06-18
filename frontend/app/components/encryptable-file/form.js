@@ -118,7 +118,6 @@ export default class Form extends BaseFormComponent {
   }
 
   handleSubmitError(response) {
-    this.errors = [{detail: response}];
     response.json().then((data) => {
       this.errors = data.errors;
     });
