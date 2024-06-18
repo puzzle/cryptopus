@@ -67,7 +67,6 @@ export default class BaseFormComponent extends Component {
           this.afterSubmit();
         })
         .catch((error) => {
-          debugger;
           this.handleSubmitError(error);
           this.afterSubmit();
         });

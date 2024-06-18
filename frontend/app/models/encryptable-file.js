@@ -25,7 +25,7 @@ export default class EncryptableFile extends Encryptable {
   }
 
   async getRequestConfig() {
-    const credentialId = await this.encryptableCredential.get("id");
+    const credentialId = await this.encryptableCredential?.get("id");
     if (this.folder != null) {
       const folderId = await this.folder.get("id");
       return {
