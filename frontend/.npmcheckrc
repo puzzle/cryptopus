@@ -8,6 +8,8 @@
       "ember-power-select-with-create",
       "ember-cli-string-helpers",
       "ember-cli-sri",
+      "ember-cli-moment-shim",
+      "ember-cli-inject-live-reload",
 
       "@ember/application",
       "@ember/service",
