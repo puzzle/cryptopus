@@ -1,0 +1,25 @@
+{
+  "depcheck": {
+    "ignoreMatches": [
+      "frontend",
+      "@babel/runtime",
+      "@babel/core",
+      "ember-auto-import",
+      "ember-cli-babel",
+
+      "@ember/application",
+      "@ember/service",
+      "@ember/utils",
+      "@ember/routing",
+      "@ember/array",
+      "@ember/object",
+      "@ember/component",
+      "@ember/controller",
+
+      "@ember-data/serializer",
+      "@ember-data/model",
+      "@ember-data/adapter",
+      "ember-inflector"
+    ]
+  }
+}

@@ -96,6 +96,7 @@
     "ember-template-lint": "^5.10.3",
     "markdown-it": "^13.0.1",
     "minimist": "^1.2.6",
+    "rsvp": "^4.8.5",
     "text-security": "^3.2.1"
   },
   "resolutions": {
