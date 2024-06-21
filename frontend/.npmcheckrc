@@ -5,6 +5,7 @@
       "tracked-built-ins",
       "sass",
       "loader.js",
+      "ember-power-select-with-create",
 
       "@ember/application",
       "@ember/service",
@@ -15,6 +16,12 @@
       "@ember/component",
       "@ember/controller",
       "ember-toggle",
+      "ember-moment",
+      "ember-in-viewport",
+      "ember-file-upload",
+      "ember-fetch",
+      "ember-cli-terser",
+
 
       "@ember-data/serializer",
       "@ember-data/model",
