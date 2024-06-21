@@ -2,10 +2,6 @@
   "depcheck": {
     "ignoreMatches": [
       "frontend",
-      "@babel/runtime",
-      "@babel/core",
-      "ember-auto-import",
-      "ember-cli-babel",
 
       "@ember/application",
       "@ember/service",
