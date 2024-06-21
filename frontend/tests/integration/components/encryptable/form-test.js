@@ -143,15 +143,15 @@ module("Integration | Component | encryptable/form", function (hooks) {
     );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-accountname").innerText,
+      this.element.querySelector("#encryptable-form-accountname").innerText.trim(),
       "Accountname"
     );
     assert.equal(
-      this.element.querySelector("#encryptable-form-description").innerText,
+      this.element.querySelector("#encryptable-form-description").innerText.trim(),
       "Description"
     );
     assert.equal(
-      this.element.querySelector("#username-field").innerText,
+      this.element.querySelector("#username-field").innerText.trim(),
       "Username"
     );
     assert.equal(
@@ -161,11 +161,11 @@ module("Integration | Component | encryptable/form", function (hooks) {
       "Password There is no password defined Random password"
     );
     assert.equal(
-      this.element.querySelector("#encryptable-form-save-button").innerText,
+      this.element.querySelector("#encryptable-form-save-button").innerText.trim(),
       "Save"
     );
     assert.equal(
-      this.element.querySelector("#encryptable-form-close-button").innerText,
+      this.element.querySelector("#encryptable-form-close-button").innerText.trim(),
       "Close"
     );
   });
@@ -207,15 +207,15 @@ module("Integration | Component | encryptable/form", function (hooks) {
     );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-accountname").innerText,
+      this.element.querySelector("#encryptable-form-accountname").innerText.trim(),
       "Accountname"
     );
     assert.equal(
-      this.element.querySelector("#encryptable-form-description").innerText,
+      this.element.querySelector("#encryptable-form-description").innerText.trim(),
       "Beschreibung"
     );
     assert.equal(
-      this.element.querySelector("#username-field").innerText,
+      this.element.querySelector("#username-field").innerText.trim(),
       "Benutzername"
     );
     assert.equal(
@@ -278,15 +278,15 @@ module("Integration | Component | encryptable/form", function (hooks) {
     );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-accountname").innerText,
+      this.element.querySelector("#encryptable-form-accountname").innerText.trim(),
       "Accountname"
     );
     assert.equal(
-      this.element.querySelector("#encryptable-form-description").innerText,
+      this.element.querySelector("#encryptable-form-description").innerText.trim(),
       "Beschribig"
     );
     assert.equal(
-      this.element.querySelector("#username-field").innerText,
+      this.element.querySelector("#username-field").innerText.trim(),
       "Benutzername"
     );
     assert.equal(
@@ -349,15 +349,15 @@ module("Integration | Component | encryptable/form", function (hooks) {
     );
 
     assert.equal(
-      this.element.querySelector("#encryptable-form-accountname").innerText,
+      this.element.querySelector("#encryptable-form-accountname").innerText.trim(),
       "Nom du compte"
     );
     assert.equal(
-      this.element.querySelector("#encryptable-form-description").innerText,
+      this.element.querySelector("#encryptable-form-description").innerText.trim(),
       "Description"
     );
     assert.equal(
-      this.element.querySelector("#username-field").innerText,
+      this.element.querySelector("#username-field").innerText.trim(),
       "Nom d'utilisateur"
     );
     assert.equal(

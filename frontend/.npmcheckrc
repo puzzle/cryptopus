@@ -6,6 +6,8 @@
       "sass",
       "loader.js",
       "ember-power-select-with-create",
+      "ember-cli-string-helpers",
+      "ember-cli-sri",
 
       "@ember/application",
       "@ember/service",
