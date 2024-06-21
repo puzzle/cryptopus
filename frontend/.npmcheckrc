@@ -4,7 +4,7 @@
       "frontend",
       "tracked-built-ins",
       "sass",
-
+      "loader.js",
 
       "@ember/application",
       "@ember/service",
@@ -14,6 +14,7 @@
       "@ember/object",
       "@ember/component",
       "@ember/controller",
+      "ember-toggle",
 
       "@ember-data/serializer",
       "@ember-data/model",
