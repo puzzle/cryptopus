@@ -41,7 +41,8 @@ module.exports = function (defaults) {
     "ember-bootstrap": {
       bootstrapVersion: 5,
       importBootstrapCSS: false,
-      importBootstrapFont: false
+      importBootstrapFont: false,
+      insertEmberWormholeElementToDom: false
     },
 
     intl: {
