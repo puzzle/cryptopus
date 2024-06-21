@@ -2,6 +2,9 @@
   "depcheck": {
     "ignoreMatches": [
       "frontend",
+      "tracked-built-ins",
+      "sass",
+
 
       "@ember/application",
       "@ember/service",

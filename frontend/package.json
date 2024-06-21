@@ -80,7 +80,7 @@
     "prettier": "^3.3.2",
     "qunit": "^2.21.0",
     "qunit-dom": "^3.1.2",
-    "sass": "^1.77.5",
+    "sass": "1.77.6",
     "tracked-built-ins": "^3.3.0",
     "zxcvbn": "^4.4.2"
   },
@@ -96,7 +96,8 @@
     "markdown-it": "^13.0.1",
     "minimist": "^1.2.6",
     "rsvp": "^4.8.5",
-    "text-security": "^3.2.1"
+    "text-security": "^3.2.1",
+    "webpack": "^5.92.1"
   },
   "resolutions": {
     "hosted-git-info": ">=3.0.8",
