@@ -37,34 +37,39 @@
               </div>
               <div class="col-md-6 order-2">
                 <div class="form-group col-md-12" id="team-power-select">
-                  <form.element id="encryptable-form-team" @label={{t "team"}} @controlType="power-select"
-                                @options={{this.assignableTeams}} @value={{this.selectedTeam}}
-                                @customError={{t (validation-error-key this.changeset.error.team.validation)}} as |el|>
-                    <el.control class={{if this.changeset.error.team.validation "invalid-input-ps"}} @placeholder={{t
-                      "encryptable/credentials.edit.team_placeholder"}}
-                                @renderInPlace={{true}} @onChange={{this.setSelectedTeam}} as |team|>
-                      {{#if team.isPersonalTeam }}
+                  <label for="encryptable-form-team"> {{t "team"}}</label>
+                  <PowerSelect
+                    id="encryptable-form-team"
+                    @selected={{this.selectedTeam}}
+                    @renderInPlace="true"
+                    @options={{this.assignableTeams}}
+                    @placeholder={{t "encryptable/credentials.edit.team_placeholder"}}
+                    @onChange={{this.setSelectedTeam}}
+                    as |team|>
+                     {{#if team.isPersonalTeam }}
                         {{this.userService.username}}
                       {{else}}
                         {{team.name}}
                       {{/if}}
-                    </el.control>
-                  </form.element>
+                  </PowerSelect>
                 </div>
                 <div class="form-group col-md-12" id="folder-power-select">
-                  <form.element id="encryptable-form-folder" if="encryptable-form-folder"
-                                @options={{this.availableFolders}} @label={{t "folder"}} @controlType="power-select"
-                                @value={{this.selectedFolder}}
-                                @searchEnabled={{true}} @allowClear={{true}} @searchField={{"name"}}
-                                @customError={{t (validation-error-key this.changeset.error.folder.validation)}} as
-                                |el|>
-                    <el.control class={{if this.changeset.error.folder.validation "invalid-input-ps"}}
-                                @disabled={{this.isFolderDropdownDisabled}}
-                                @placeholder={{t "encryptable/credentials.edit.folder_placeholder"}}
-                                @renderInPlace={{true}} @onChange={{this.setFolder}} as |folder|>
-                      {{folder.name}}
-                    </el.control>
-                  </form.element>
+
+                  <label for="encryptable-form-folder"> {{t "folder"}}</label>
+                  <PowerSelect
+                    id="encryptable-form-folder"
+                    @searchEnabled="true"
+                    @searchField="name"
+                    @selected={{this.selectedFolder}}
+                    @options={{this.availableFolders}}
+                    @allowClear={{true}}
+                    @disabled={{this.isFolderDropdownDisabled}}
+                    @placeholder={{t "encryptable/credentials.edit.folder_placeholder"}}
+                    @renderInPlace={{true}}
+                    @onChange={{this.setFolder}}
+                    as |folder|>
+                    {{folder.name}}
+                  </PowerSelect>
                 </div>
               </div>
             </div>
