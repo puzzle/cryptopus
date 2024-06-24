@@ -98,8 +98,10 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
   hooks.beforeEach(function () {
     this.owner.unregister("service:store");
-    this.owner.register("service:store", storeStub);
     this.owner.unregister("service:navService");
+    this.owner.unregister("service:userService");
+
+    this.owner.register("service:store", storeStub);
     this.owner.register("service:navService", navServiceStub);
     this.owner.register("service:userService", userServiceStub);
   });
@@ -111,7 +113,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     assert.equal(
       this.element
-        .querySelector("#encryptable-form-team")
+        .querySelector("#team-power-select")
         .innerText.replace(/\s+/g, " "),
       "Team Select a Team"
     );
@@ -123,7 +125,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     assert.equal(
       this.element
-        .querySelector("#encryptable-form-team")
+        .querySelector("#team-power-select")
         .innerText.replace(/\s+/g, " "),
       "Team bbteam"
     );
@@ -135,9 +137,9 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     assert.equal(
       this.element
-        .querySelector("#encryptable-form-folder")
+        .querySelector("#folder-power-select")
         .innerText.replace(/\s+/g, " "),
-      "Folder bbt"
+      "Folder bbt ×"
     );
 
     assert.equal(
@@ -175,9 +177,9 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     assert.equal(
       this.element
-        .querySelector("#encryptable-form-team")
+        .querySelector("#team-power-select")
         .innerText.replace(/\s+/g, " "),
-      "Team Wählen Sie ein Team aus"
+      "Team Wähle ein Team aus"
     );
 
     await selectChoose(
@@ -187,7 +189,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     assert.equal(
       this.element
-        .querySelector("#encryptable-form-team")
+        .querySelector("#team-power-select")
         .innerText.replace(/\s+/g, " "),
       "Team bbteam"
     );
@@ -199,9 +201,9 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     assert.equal(
       this.element
-        .querySelector("#encryptable-form-folder")
+        .querySelector("#folder-power-select")
         .innerText.replace(/\s+/g, " "),
-      "Ordner bbt"
+      "Ordner bbt ×"
     );
 
     assert.equal(
@@ -239,7 +241,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     assert.equal(
       this.element
-        .querySelector("#encryptable-form-team")
+        .querySelector("#team-power-select")
         .innerText.replace(/\s+/g, " "),
       "Team Wähl äs Team us"
     );
@@ -251,14 +253,14 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     assert.equal(
       this.element
-        .querySelector("#encryptable-form-team")
+        .querySelector("#team-power-select")
         .innerText.replace(/\s+/g, " "),
       "Team bbteam"
     );
 
     assert.equal(
       this.element
-        .querySelector("#encryptable-form-folder")
+        .querySelector("#folder-power-select")
         .innerText.replace(/\s+/g, " "),
       "Ordner Wähl ä Ordner us"
     );
@@ -270,9 +272,9 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     assert.equal(
       this.element
-        .querySelector("#encryptable-form-folder")
+        .querySelector("#folder-power-select")
         .innerText.replace(/\s+/g, " "),
-      "Ordner bbt"
+      "Ordner bbt ×"
     );
 
     assert.equal(
@@ -310,7 +312,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     assert.equal(
       this.element
-        .querySelector("#encryptable-form-team")
+        .querySelector("#team-power-select")
         .innerText.replace(/\s+/g, " "),
       "Équipe Choisissez une équipe"
     );
@@ -322,14 +324,14 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     assert.equal(
       this.element
-        .querySelector("#encryptable-form-team")
+        .querySelector("#team-power-select")
         .innerText.replace(/\s+/g, " "),
       "Équipe bbteam"
     );
 
     assert.equal(
       this.element
-        .querySelector("#encryptable-form-folder")
+        .querySelector("#folder-power-select")
         .innerText.replace(/\s+/g, " "),
       "Dossier Choisissez un dossier"
     );
@@ -341,9 +343,9 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     assert.equal(
       this.element
-        .querySelector("#encryptable-form-folder")
+        .querySelector("#folder-power-select")
         .innerText.replace(/\s+/g, " "),
-      "Dossier bbt"
+      "Dossier bbt ×"
     );
 
     assert.equal(
