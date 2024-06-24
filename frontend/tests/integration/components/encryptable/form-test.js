@@ -28,8 +28,26 @@ const navServiceStub = Service.extend({
         return 2;
       }
     }
-  ]
+  ],
   /* eslint-enable ember/avoid-leaking-state-in-ember-objects */
+  selectedFolder: {
+    id: 1,
+    name: "bbt",
+    teamId: 1,
+    team: {
+      id: 1,
+      name: "bbteam",
+      get() {
+        return 1;
+      }
+    },
+    get(property) {
+      if (property === "team") {
+        return this.team;
+      }
+      return this[property];
+    }
+  }
 });
 
 const userServiceStub = Service.extend({
@@ -115,7 +133,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#team-power-select")
         .innerText.replace(/\s+/g, " "),
-      "Team Select a Team"
+      "Team bbteam"
     );
 
     await selectChoose(
@@ -179,7 +197,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#team-power-select")
         .innerText.replace(/\s+/g, " "),
-      "Team Wähle ein Team aus"
+      "Team bbteam"
     );
 
     await selectChoose(
@@ -243,7 +261,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#team-power-select")
         .innerText.replace(/\s+/g, " "),
-      "Team Wähl äs Team us"
+      "Team bbteam"
     );
 
     await selectChoose(
@@ -314,7 +332,7 @@ module("Integration | Component | encryptable/form", function (hooks) {
       this.element
         .querySelector("#team-power-select")
         .innerText.replace(/\s+/g, " "),
-      "Équipe Choisissez une équipe"
+      "Équipe bbteam"
     );
 
     await selectChoose(
@@ -541,5 +559,26 @@ module("Integration | Component | encryptable/form", function (hooks) {
 
     assert.ok(this.element.textContent.trim().includes("Team"));
     assert.ok(this.element.textContent.trim().includes("bob"));
+  });
+
+
+  test("Check prefill of team and folder", async function (assert) {
+    setLocale("en");
+
+    await render(hbs`<Encryptable::Form />`);
+
+    assert.equal(
+      this.element
+        .querySelector("#team-power-select .ember-power-select-selected-item")
+        .innerText.replace(/\s+/g, " "),
+      "bbteam"
+    );
+
+    assert.equal(
+      this.element
+        .querySelector("#folder-power-select .ember-power-select-selected-item")
+        .innerText.replace(/\s+/g, " "),
+      "bbt"
+    );
   });
 });
