@@ -4711,7 +4711,7 @@ broccoli-funnel-reducer@^1.0.0:
   resolved "https://registry.yarnpkg.com/broccoli-funnel-reducer/-/broccoli-funnel-reducer-1.0.0.tgz#11365b2a785aec9b17972a36df87eef24c5cc0ea"
   integrity sha512-SaOCEdh+wnt2jFUV2Qb32m7LXyElvFwW3NKNaEJyi5PGQNwxfqpkc0KI6AbQANKgdj/40U2UC0WuGThFwuEUaA==
 
-broccoli-funnel@^2.0.0, broccoli-funnel@^2.0.2:
+broccoli-funnel@^2.0.0, broccoli-funnel@^2.0.1, broccoli-funnel@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/broccoli-funnel/-/broccoli-funnel-2.0.2.tgz#0edf629569bc10bd02cc525f74b9a38e71366a75"
   integrity sha512-/vDTqtv7ipjEZQOVqO4vGDVAOZyuYzQ/EgGoyewfOgh1M7IQAToBKZI0oAQPgMBeFPPlIbfMuAngk+ohPBuaHQ==
@@ -4944,6 +4944,15 @@ broccoli-rollup@^2.1.1:
     rollup "^0.57.1"
     symlink-or-copy "^1.1.8"
     walk-sync "^0.3.1"
+
+broccoli-sass-source-maps@^4.0.0:
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/broccoli-sass-source-maps/-/broccoli-sass-source-maps-4.2.4.tgz#14bdb5f23c05a38bec33d4953aaabdf3e93eca93"
+  integrity sha512-MHwqLkgYW24T9k2OzprdYtERCAaO3wuSGqKna8QcAzCjDxYyoojisg2lfSWj9k2G72PlACUjUg8O39jttE84og==
+  dependencies:
+    broccoli-caching-writer "^3.0.3"
+    include-path-searcher "^0.1.0"
+    rsvp "^4.8.5"
 
 broccoli-slow-trees@^3.0.1, broccoli-slow-trees@^3.1.0:
   version "3.1.0"
@@ -6897,6 +6906,16 @@ ember-cli-preprocess-registry@^5.0.1:
     broccoli-funnel "^3.0.8"
     debug "^4.3.2"
 
+ember-cli-sass@^11.0.1:
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/ember-cli-sass/-/ember-cli-sass-11.0.1.tgz#dc565764213a76973a83c0db9583cb79ba187dc5"
+  integrity sha512-RMlFPMK4kaB+67seF/IIoY3EC4rRd+L58q+lyElrxB3FcQTgph/qmGwtqf9Up7m3SDbPiA7cccCOSmgReMgCXA==
+  dependencies:
+    broccoli-funnel "^2.0.1"
+    broccoli-merge-trees "^3.0.1"
+    broccoli-sass-source-maps "^4.0.0"
+    ember-cli-version-checker "^2.1.0"
+
 ember-cli-string-helpers@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/ember-cli-string-helpers/-/ember-cli-string-helpers-6.1.0.tgz#aeb96112bb91c540b869ed8b9c680f7fd5859cb6"
@@ -7008,7 +7027,7 @@ ember-cli-typescript@^5.0.0, ember-cli-typescript@^5.1.1, ember-cli-typescript@^
     stagehand "^1.0.0"
     walk-sync "^2.2.0"
 
-ember-cli-version-checker@^2.1.2:
+ember-cli-version-checker@^2.1.0, ember-cli-version-checker@^2.1.2:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/ember-cli-version-checker/-/ember-cli-version-checker-2.2.0.tgz#47771b731fe0962705e27c8199a9e3825709f3b3"
   integrity sha512-G+KtYIVlSOWGcNaTFHk76xR4GdzDLzAS4uxZUKdASuFX0KJE43C6DaqL+y3VTpUFLI2FIkAS6HZ4I1YBi+S3hg==
@@ -9624,6 +9643,11 @@ imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
   integrity sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==
+
+include-path-searcher@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/include-path-searcher/-/include-path-searcher-0.1.0.tgz#c0cf2ddfa164fb2eae07bc7ca43a7f191cb4d7bd"
+  integrity sha512-KlpXnsZOrBGo4PPKqPFi3Ft6dcRyh8fTaqgzqDRi8jKAsngJEWWOxeFIWC8EfZtXKaZqlsNf9XRwcQ49DVgl/g==
 
 indent-string@^4.0.0:
   version "4.0.0"
