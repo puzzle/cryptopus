@@ -37,6 +37,7 @@ export default class ShowComponent extends Component {
 
   @action
   toggleEncryptableCredentialCreating() {
+    this.navService.selectedFolder = this.args.folder;
     this.isNewEncryptableCredential = !this.isNewEncryptableCredential;
   }
 
