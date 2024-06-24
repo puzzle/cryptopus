@@ -1,5 +1,6 @@
 log/*.log
 db/*.sqlite3
+db/*.sqlite3*
 db/geo_ip.mmdb
 cryptopus_development
 cryptopus_test
