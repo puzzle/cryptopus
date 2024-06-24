@@ -1,4 +1,7 @@
 ## Version 5.3.4
+- Team and folder are now preset after user search.
+
+## Version 5.3.4
 - Fix a bug that prevents users from editing a credential after a search.
 
 ## Version 5.3.3
