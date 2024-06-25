@@ -42,6 +42,8 @@
       "ember-cli-string-helpers",
       "ember-cli-moment-shim",
       "ember-cli-inject-live-reload",
+      "ember-bootstrap-power-select",
+      "ember-cli-babel",
 
       "@ember-data/serializer",
       "@ember-data/model",
