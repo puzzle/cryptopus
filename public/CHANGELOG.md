@@ -1,3 +1,6 @@
+## Version 5.4
+- Update EmberJS to 5.9
+
 ## Version 5.3.4
 - Fix a bug that prevents users from editing a credential after a search.
 
