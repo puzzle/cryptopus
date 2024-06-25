@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",
+    "@babel/eslint-parser": "^7.24.7",
     "@ember/optional-features": "^2.1.0",
     "@ember/string": "^3.1.1",
     "@ember/test-helpers": "^3.2.0",
@@ -33,6 +34,7 @@
     "@glimmer/tracking": "^1.1.2",
     "bootstrap": "^5.3.3",
     "ember-auto-import": "2.7.4",
+    "ember-basic-dropdown": "^8.1.0",
     "ember-bootstrap": "^6.3.1",
     "ember-bootstrap-power-select": "^5.0.0",
     "ember-changeset": "^4.1.2",
@@ -45,6 +47,7 @@
     "ember-cli-moment-shim": "^3.8.0",
     "ember-cli-string-helpers": "^6.1.0",
     "ember-cli-terser": "^4.0.2",
+    "ember-concurrency": "^4.0.2",
     "ember-data": "5.3.3",
     "ember-fetch": "^8.1.2",
     "ember-file-upload": "8.1.0",
@@ -54,7 +57,7 @@
     "ember-modifier": "^4.1.0",
     "ember-moment": "^10.0.0",
     "ember-notify": "^6.0.4",
-    "ember-power-select": "^7.1.0",
+    "ember-power-select": "8.2.0",
     "ember-power-select-with-create": "^3.0.0",
     "ember-qunit": "^8.1.0",
     "ember-resolver": "^10.1.1",
@@ -78,7 +81,6 @@
     "node": ">= 18.*"
   },
   "dependencies": {
-    "@babel/eslint-parser": "^7.24.7",
     "@babel/runtime": "^7.24.7",
     "@puzzleitc/puzzle-shell": "^1.0.0",
     "@sentry/browser": "7.57.0",
