@@ -37,7 +37,6 @@
     "babel-eslint": "^10.0.3",
     "bootstrap": "^5.3.3",
     "ember-auto-import": "^2.7.3",
-    "ember-autofocus-modifier": "6.0.0",
     "ember-bootstrap": "^6.3.1",
     "ember-bootstrap-power-select": "^5.0.0",
     "ember-changeset": "^4.1.2",

@@ -5913,14 +5913,6 @@ ember-auto-import@^2.0.0, ember-auto-import@^2.2.3, ember-auto-import@^2.3.0, em
     typescript-memoize "^1.0.0-alpha.3"
     walk-sync "^3.0.0"
 
-ember-autofocus-modifier@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/ember-autofocus-modifier/-/ember-autofocus-modifier-6.0.0.tgz#fc78647103421f2190519fcd01f13048b74e02ba"
-  integrity sha512-SduP/peKItW7bmU79ErPVoLRLbrIH18omFMrb6sFMKrQ2Iv6hmS5gUqFYlwhTU2I7749GdEZRZcIR9lXwcGyVA==
-  dependencies:
-    "@embroider/addon-shim" "^1.0.0"
-    ember-modifier "^3.2.7 || ^4.0.0"
-
 ember-basic-dropdown@^7.3.0:
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/ember-basic-dropdown/-/ember-basic-dropdown-7.3.0.tgz#981e2be5d2c40e49d44bad33eafb89fab05fd7dc"
