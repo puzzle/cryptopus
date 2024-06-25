@@ -16,6 +16,7 @@
       "ember-auto-import",
       "@ember/optional-features",
       "webpack",
+      "ember-cli-babel",
 
       "@ember/application",
       "@ember/service",
