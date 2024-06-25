@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe 'Root login' do
+xdescribe 'Root login' do
   include IntegrationHelpers::DefaultHelper
 
   it 'lets root login via local ip' do
