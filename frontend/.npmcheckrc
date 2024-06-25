@@ -19,6 +19,7 @@
       "ember-cli-babel",
       "ember-bootstrap-power-select",
       "bootstrap",
+      "text-security",
 
       "@ember/application",
       "@ember/service",
