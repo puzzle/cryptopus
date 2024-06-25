@@ -82,7 +82,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.24.7",
-    "@puzzleitc/puzzle-shell": "^1.0.0",
+    "@puzzleitc/puzzle-shell": "4.2.1",
     "@sentry/browser": "8.11.0",
     "@sentry/integrations": "7.114.0",
     "ember-cli-sass": "^11.0.1",
