@@ -9,6 +9,13 @@
       "ember-cli-string-helpers",
       "ember-cli-moment-shim",
       "ember-cli-inject-live-reload",
+      "eslint-plugin-ember",
+      "eslint-plugin-prettier",
+      "eslint-plugin-ember",
+      "ember-cli-app-version",
+      "ember-auto-import",
+      "@ember/optional-features",
+      "webpack",
 
       "@ember/application",
       "@ember/service",
