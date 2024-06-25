@@ -18,7 +18,6 @@ describe 'Settings', type: :system, js: true do
     )
     select.click
     first('ul.ember-power-select-options > li', visible: false).click
-    select.click
 
     ip_whitelist_input = find(
       '#setting-ip-whitelist-dropdown .ember-power-select-trigger-multiple-input', visible: false
