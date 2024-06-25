@@ -32,7 +32,7 @@
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
     "bootstrap": "^5.3.3",
-    "ember-auto-import": "^2.7.3",
+    "ember-auto-import": "2.7.4",
     "ember-bootstrap": "^6.3.1",
     "ember-bootstrap-power-select": "^5.0.0",
     "ember-changeset": "^4.1.2",
