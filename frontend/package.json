@@ -60,7 +60,7 @@
     "ember-power-select": "8.2.0",
     "ember-power-select-with-create": "^3.0.0",
     "ember-qunit": "^8.1.0",
-    "ember-resolver": "^10.1.1",
+    "ember-resolver": "12.0.1",
     "ember-source": "^5.9.0",
     "ember-toggle": "^9.0.3",
     "eslint": "9.5.0",

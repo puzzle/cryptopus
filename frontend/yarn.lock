@@ -6771,10 +6771,10 @@ ember-render-helpers@^0.2.0:
     ember-cli-babel "^7.23.0"
     ember-cli-typescript "^4.0.0"
 
-ember-resolver@^10.1.1:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/ember-resolver/-/ember-resolver-10.1.1.tgz#1106a2386337b13a9ee509a9ad2a18b53a728ab3"
-  integrity sha512-y1zzn6C4YGJui+tJzcCKlsf1oSOSVAkRrvmg8OwqVIKnALKKb9ihx2qLCslHg8x0wJvJgMtDMXgrczvQrZW0Lw==
+ember-resolver@12.0.1:
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/ember-resolver/-/ember-resolver-12.0.1.tgz#33563e03d1e6d7aa3ab46aaba16eafd6288631d3"
+  integrity sha512-U+ZBdbEHMhmvcZly1xhZKwqeH5/igjT93p9bbD6x+mQVg7hm4jrsQA4jsxHu3BqgL5MmqOVx0gtAuYEWV1x2MQ==
   dependencies:
     ember-cli-babel "^7.26.11"
 
