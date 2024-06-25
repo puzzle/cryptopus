@@ -6548,10 +6548,10 @@ ember-fetch@^8.1.2:
     node-fetch "^2.6.1"
     whatwg-fetch "^3.6.2"
 
-ember-file-upload@8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/ember-file-upload/-/ember-file-upload-8.1.0.tgz#06a705f9468475c1c1c0ef5fe74b26ae070032e3"
-  integrity sha512-iNlWQEaFx+N2V3zb70ZWxiC4KWlhh2sHbeZVJWOTNykOJduzLjrXCA4A21SELhVNrVQX8WrlJp/yfZ2vc5etlg==
+ember-file-upload@9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/ember-file-upload/-/ember-file-upload-9.0.0.tgz#30e9405a6e4572486eb05b87fb59091a9d17678c"
+  integrity sha512-7WJTXOoeXqN34aDNpKBIgUf07pYDjtqZRcyqYe4U1GNJGfJdsL+y42y+bKYLfuHLhbOAlZ1ZyEop34LR+hOZSA==
   dependencies:
     "@ember/test-waiters" "^3.0.0"
     "@embroider/addon-shim" "^1.5.0"
