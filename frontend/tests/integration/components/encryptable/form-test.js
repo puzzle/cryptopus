@@ -1,6 +1,6 @@
 import { module, test } from "qunit";
 import { setupRenderingTest } from "ember-qunit";
-import { render, click } from "@ember/test-helpers";
+import { render, click} from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 import Service from "@ember/service";
 import { selectChoose } from "ember-power-select/test-support";
@@ -480,7 +480,6 @@ module("Integration | Component | encryptable/form", function (hooks) {
     setLocale("en");
 
     await render(hbs`<Encryptable::Form />`);
-
     assert.equal(
       this.element.querySelector("#add-field-dropdown").textContent.trim(),
       "Choose additional field"
