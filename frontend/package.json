@@ -86,7 +86,7 @@
     "@sentry/browser": "7.57.0",
     "@sentry/integrations": "7.57.0",
     "ember-cli-sass": "^11.0.1",
-    "ember-template-lint": "^5.10.3",
+    "ember-template-lint": "6.0.0",
     "markdown-it": "^13.0.1",
     "minimist": "^1.2.6",
     "rsvp": "^4.8.5",
