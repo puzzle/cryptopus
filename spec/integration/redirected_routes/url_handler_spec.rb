@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-xdescribe RedirectedRoutes::UrlHandler do
+describe RedirectedRoutes::UrlHandler do
   include IntegrationHelpers::DefaultHelper
 
   # /de/teams/1/folders/1 -> /teams/1/folders/1/
