@@ -17,6 +17,7 @@
       "@ember/optional-features",
       "webpack",
       "ember-cli-babel",
+      "ember-bootstrap-power-select",
 
       "@ember/application",
       "@ember/service",
