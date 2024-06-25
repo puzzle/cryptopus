@@ -20,6 +20,10 @@
       "ember-bootstrap-power-select",
       "bootstrap",
       "text-security",
+      "minimist",
+      "ember-cli-sass",
+      "@babel/runtime",
+
 
       "@ember/application",
       "@ember/service",
