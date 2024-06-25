@@ -119,7 +119,7 @@ module IntegrationHelpers
     end
 
     def expect_ember_frontend
-      expect(response.body).to match('<div id="ember-basic-dropdown-wormhole"></div>')
+      expect(response.body).to match('<div id="ember-bootstrap-wormhole"></div>')
     end
   end
 end
