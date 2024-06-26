@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema[7.1].define(version: 2022_07_19_120958) do
   create_table "encryptables", force: :cascade do |t|
-    t.string "name", limit: 255, default: "", null: false
+    t.string "name", limit: 255
     t.integer "folder_id"
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
