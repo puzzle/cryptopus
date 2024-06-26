@@ -15,7 +15,7 @@ export default class TeamsIndexRoute extends ApplicationRoute {
   beforeModel(transition) {
     let params = transition.to.queryParams;
     let definedParamValues = Object.values(params).filter((value) => !!value);
-    if (definedParamValues.length === 0) {
+    if (definedParamValues?.length === 0) {
       transition.abort();
       this.router.transitionTo("index");
     } else if (isPresent(params["q"])) {

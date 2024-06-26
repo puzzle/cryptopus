@@ -94,7 +94,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
     await waitFor("#encryptable-row-title", {timeout: 1000});
 
     assert.equal(
-      this.element.querySelector("#encryptable-row-title").innerText,
+      this.element.querySelector("#encryptable-row-title").innerText.trim(),
       "mate"
     );
     assert.equal(
@@ -142,7 +142,7 @@ module("Integration | Component | encryptable/row", function (hooks) {
     await waitFor("#encryptable-row-title", {timeout: 1000});
 
     assert.equal(
-      this.element.querySelector("#encryptable-row-title").innerText,
+      this.element.querySelector("#encryptable-row-title").innerText.trim(),
       "mate"
     );
     assert.dom(this.element.querySelector("#username-field")).doesNotExist();
