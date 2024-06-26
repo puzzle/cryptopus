@@ -1,0 +1,54 @@
+{
+  "depcheck": {
+    "ignoreMatches": [
+      "frontend",
+      "tracked-built-ins",
+      "sass",
+      "loader.js",
+
+      "eslint-plugin-ember",
+      "eslint-plugin-prettier",
+      "eslint-plugin-ember",
+
+      "@ember/optional-features",
+      "webpack",
+      "bootstrap",
+      "text-security",
+      "minimist",
+      "@babel/runtime",
+
+      "@ember/application",
+      "@ember/service",
+      "@ember/utils",
+      "@ember/routing",
+      "@ember/array",
+      "@ember/object",
+      "@ember/component",
+      "@ember/controller",
+
+      "ember-toggle",
+      "ember-moment",
+      "ember-in-viewport",
+      "ember-file-upload",
+      "ember-fetch",
+      "ember-cli-terser",
+      "ember-basic-dropdown",
+      "ember-cli-sass",
+      "ember-cli-app-version",
+      "ember-auto-import",
+      "ember-cli-app-version",
+      "ember-auto-import",
+      "ember-power-select-with-create",
+      "ember-cli-string-helpers",
+      "ember-cli-moment-shim",
+      "ember-cli-inject-live-reload",
+      "ember-bootstrap-power-select",
+      "ember-cli-babel",
+
+      "@ember-data/serializer",
+      "@ember-data/model",
+      "@ember-data/adapter",
+      "ember-inflector"
+    ]
+  }
+}

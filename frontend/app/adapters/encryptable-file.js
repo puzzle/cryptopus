@@ -1,7 +1,7 @@
 import ApplicationAdapter from "./application";
 
-export default ApplicationAdapter.extend({
+export default class EncryptableFileAdapter extends ApplicationAdapter{
   pathForType() {
     return "encryptables";
   }
-});
+};

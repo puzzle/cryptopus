@@ -20,7 +20,9 @@ describe 'Encryptable Files without credentials', type: :system, js: true do
     file_path = "#{Rails.root}/spec/fixtures/files/#{file_name}"
     expect do
       create_new_file(file_desc, file_path)
+      expect(page).to have_text('File was successfully uploaded.')
     end.to change { Encryptable::File.count }.by(1)
+
 
     file = Encryptable::File.find_by(name: 'test_file.txt')
     file_content = fixture_file_upload(file_path, 'text/plain').read
@@ -39,9 +41,8 @@ describe 'Encryptable Files without credentials', type: :system, js: true do
   private
 
   def create_new_file(description, file_path)
-    dropdown_toggle = find('.search .dropdown')
+    dropdown_toggle = find('.search .dropdown a', text: 'Add')
     dropdown_toggle.click
-
     new_file_button = find('.dropdown-item', text: 'New File')
     new_file_button.click
 
@@ -56,7 +57,6 @@ describe 'Encryptable Files without credentials', type: :system, js: true do
       fill_in 'description', with: description
       find(:xpath, "//input[@type='file']", visible: false).attach_file(file_path)
     end
-
     click_button 'Upload'
   end
 

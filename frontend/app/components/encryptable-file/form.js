@@ -44,10 +44,9 @@ export default class Form extends BaseFormComponent {
     this.changeset.csrfToken = ENV.CSRFToken;
   }
 
-  @action
-  setDefaults() {
-    this.presetTeamAndFolder();
-    this.changeset.validate();
+  setDefaults(element, [thisRef]) {
+    thisRef.presetTeamAndFolder(thisRef);
+    thisRef.changeset.validate();
   }
 
   get availableFolders() {
@@ -60,16 +59,16 @@ export default class Form extends BaseFormComponent {
       : [];
   }
 
-  presetTeamAndFolder() {
-    let selectedFolder = this.args.folder || this.navService.selectedFolder;
+  presetTeamAndFolder(thisRef) {
+    let selectedFolder = thisRef.args.folder || thisRef.navService.selectedFolder;
     let selectedTeam =
-      selectedFolder?.get("team") || this.navService.selectedTeam;
+      selectedFolder?.get("team") || thisRef.navService.selectedTeam;
 
     if (!isEmpty(selectedTeam)) {
-      this.changeset.set("team", selectedTeam);
+      thisRef.changeset.set("team", selectedTeam);
     }
     if (!isEmpty(selectedFolder)) {
-      this.changeset.set("folder", selectedFolder);
+      thisRef.changeset.set("folder", selectedFolder);
     }
   }
 
@@ -108,6 +107,7 @@ export default class Form extends BaseFormComponent {
     }
     return false;
   }
+
   showSuccessMessage() {
     let msg = this.intl.t("flashes.encryptable_files.uploaded");
     this.notify.success(msg);

@@ -1,7 +1,7 @@
 import ApplicationAdapter from "./application";
 
-export default ApplicationAdapter.extend({
-  namespace: "api/teams",
+export default class FolderAdapter extends ApplicationAdapter {
+  namespace = "api/teams";
 
   urlForQuery(query, modelName) {
     if (query.teamId) {
@@ -11,7 +11,7 @@ export default ApplicationAdapter.extend({
       return url;
     }
     return super.urlForQuery(query, modelName);
-  },
+  }
 
   urlForQueryRecord(query, modelName) {
     if (query.teamId) {
@@ -22,27 +22,27 @@ export default ApplicationAdapter.extend({
       return url;
     }
     return super.urlForQueryRecord(query, modelName);
-  },
+  }
 
   urlForCreateRecord(modelName, snapshot) {
     return `/${this.namespace}/${snapshot.belongsTo("team", {
       id: true
     })}/${this.pathForType()}`;
-  },
+  }
 
   urlForUpdateRecord(id, modelName, snapshot) {
     return `/${this.namespace}/${snapshot.belongsTo("team", {
       id: true
     })}/${this.pathForType()}/${id}`;
-  },
+  }
 
   urlForDeleteRecord(id, modelName, snapshot) {
     return `/${this.namespace}/${snapshot.belongsTo("team", {
       id: true
     })}/${this.pathForType()}/${id}`;
-  },
+  }
 
-  pathForType: function () {
+  pathForType() {
     return "folders";
   }
-});
+}

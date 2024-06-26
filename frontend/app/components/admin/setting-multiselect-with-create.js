@@ -18,7 +18,7 @@ export default class SettingMultiselectWithCreateComponent extends Component {
     if (!this.args.selectedOptions) {
       this.store.findAll(this.args.settingModel).then((settings) => {
         const setting = settings.firstObject;
-        if (this.args.options && this.args.options.length) {
+        if (this.args.options && this.args.options?.length) {
           this.selectedOptions = this.args.options.filter((option) => {
             return setting.value.includes(option.value);
           });

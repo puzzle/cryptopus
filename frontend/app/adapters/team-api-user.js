@@ -1,11 +1,11 @@
 import ApplicationAdapter from "./application";
 import { pluralize } from "ember-inflector";
 
-export default ApplicationAdapter.extend({
+export default class TeamApiUserAdapter extends ApplicationAdapter {
   pathForType(modelName) {
     let snakeCased = modelName.replace("-", "_");
     return pluralize(snakeCased);
-  },
+  }
 
   urlForQuery(query, modelName) {
     let teamId = query.teamId;
@@ -15,4 +15,4 @@ export default ApplicationAdapter.extend({
     }
     return super.urlForQuery(query, modelName);
   }
-});
+}

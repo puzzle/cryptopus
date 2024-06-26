@@ -14,11 +14,11 @@ class GroupAndTeamChanges < ActiveRecord::Migration[5.1]
     rename_column :teams, :groupname, :name
     add_column    :teams,  :visible,   :boolean, default: true, null: false
     add_column    :teams,  :private,   :boolean, default: false, null: false
-    Team.find_each do |team|
-      teammember = Teammember.first(conditions: ["user_id = ? and team_id = ?", team.user_id, team.id])
-      teammember.team_admin = true
-      teammember.save
-    end
+    #Team.find_each do |team|
+      #teammember = Teammember.first(conditions: ["user_id = ? and team_id = ?", team.user_id, team.id])
+      #teammember.team_admin = true
+      #teammember.save
+    #end
     remove_column :teams, :user_id
 
     # Add the new admin flag to the users table
@@ -33,19 +33,19 @@ class GroupAndTeamChanges < ActiveRecord::Migration[5.1]
     end
 
     # create a default group for every team with accounts
-    Team.find_each do |team|
-      group = Group.new()
-      group.name = "Default"
-      group.description = "Default group, created for migration"
-      group.team_id = team.id
-      group.save
+    #Team.find_each do |team|
+      #group = Group.new()
+      #group.name = "Default"
+      #group.description = "Default group, created for migration"
+      #group.team_id = team.id
+      #group.save
 
-      # Accounts are now linked to their groups and not directly to the team
-      Account.where("group_id = ?", team.id).find_each do |account|
-        account.group_id = group.id
-        account.save
-      end
-    end
+      ## Accounts are now linked to their groups and not directly to the team
+      #Account.where("group_id = ?", team.id).find_each do |account|
+        #account.group_id = group.id
+        #account.save
+      #end
+    #end
 
   end
 
