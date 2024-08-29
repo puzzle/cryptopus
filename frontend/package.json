@@ -91,7 +91,7 @@
     "minimist": "^1.2.6",
     "rsvp": "^4.8.5",
     "text-security": "^3.2.1",
-    "webpack": "^5.92.1"
+    "webpack": "^5.94.0"
   },
   "resolutions": {
     "hosted-git-info": ">=3.0.8",
