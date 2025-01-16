@@ -4,6 +4,16 @@
 [![Cryptopus CI build](https://github.com/puzzle/cryptopus/actions/workflows/build.yml/badge.svg)](https://github.com/puzzle/cryptopus/actions/workflows/build.yml)
 # Welcome to Cryptopus
 
+## Cryptopus is no longer actively maintained
+
+We have decided not to continue developing Cryptopus.
+
+Thanks for all the support throughout the years.
+
+We will leave this repository open for a while before archiving it, in case someone wants to maintain it.
+
+## About
+
 Cryptopus is a Ruby on Rails web application for storing and sharing
 passwords and other sensitive data.
 All data is stored encrypted in a database, safe from third party access.
